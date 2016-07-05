@@ -1,0 +1,18 @@
+/*
+ * This build file is part of the docToolchain
+ */
+
+plugins {
+  id "org.asciidoctor.convert" version "1.5.3"
+}
+
+/**
+asciidoctor {
+  sourceDir = file('src/docs')
+  sources {
+    include 'test.asciidoc'
+  }
+  outputDir = file('build/docs')
+  logDocuments = true
+}
+**/
