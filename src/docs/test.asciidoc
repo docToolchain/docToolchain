@@ -1,5 +1,18 @@
 Asciidoctor Demo
 ================
+
+## PlantUML Plugin
+
+[plantuml,"test",png]
+----
+class Animal
+class Cat 
+class Dog
+Animal <|-- Cat 
+Animal <|-- Dog
+----
+
+
 ////
 Big ol' comment
 
