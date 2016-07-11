@@ -1,18 +1,5 @@
 Asciidoctor Demo
 ================
-
-## PlantUML Plugin
-
-[plantuml,"test",png]
-----
-class Animal
-class Cat 
-class Dog
-Animal <|-- Cat 
-Animal <|-- Dog
-----
-
-
 ////
 Big ol' comment
 
@@ -37,6 +24,17 @@ endif::asciidoctor[]
 
 [role='lead']
 This is a demonstration of {library}. And this is the preamble of this document.
+
+## PlantUML Plugin
+
+[plantuml,"test",png]
+----
+class Animal
+class Cat 
+class Dog
+Animal <|-- Cat 
+Animal <|-- Dog
+----
 
 [[purpose]]
 .Purpose
