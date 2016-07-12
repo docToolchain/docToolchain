@@ -14,7 +14,7 @@
 		    <version>1.5.3</version> 
 		    <configuration>
 		    	<!-- (2) defaults to src/main/asciidoc -->
-		    	<sourceDirectory>src/docs/asciidoc</sourceDirectory>
+		    	<sourceDirectory>src/docs</sourceDirectory>
 		    	<!-- (3) defaults to docbook -->
 		    	<backend>html5</backend>
 		    	<!-- (4) defaults to target/generated-docs -->
