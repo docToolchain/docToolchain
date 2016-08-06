@@ -3,33 +3,32 @@
  */
 
 plugins {
-  id "org.asciidoctor.convert" version "1.5.3"
-  // we need this plugin to add ruby gems
-  id "com.github.jruby-gradle.base" version "1.3.0"
+    id "org.asciidoctor.convert" version "1.5.3"
+    // we need this plugin to add ruby gems
+    id "com.github.jruby-gradle.base" version "1.3.0"
 }
 
 dependencies {
     // this is the gem we need for diagrams
-    gems 'rubygems:asciidoctor-diagram:1.4.0'
+    gems 'rubygems:asciidoctor-diagram:1.5.1'
 }
 
 asciidoctor {
-  // configure source and output files and folders
-  sourceDir = file('src/docs')
-  sources {
-    include 'test.asciidoc'
-  }
-  outputDir = file('build/docs')
-  // good to see what the build is doing...
-  logDocuments = true
+    // configure source and output files and folders
+    sourceDir = file('src/docs')
+    sources {
+        include 'test.asciidoc'
+    }
+    outputDir = file('build/docs')
+    // good to see what the build is doing...
+    logDocuments = true
 
-  // the jrubyPrepare tasks takes care of loading the gems
-  dependsOn jrubyPrepare
+    // the jrubyPrepare tasks takes care of loading the gems
+    dependsOn jrubyPrepare
 
-  // the asciidoctor task depends on this gem
-  requires = ['asciidoctor-diagram']
-	gemPath = jrubyPrepare.outputDir
-
+    // the asciidoctor task depends on this gem
+    requires = ['asciidoctor-diagram']
+    gemPath = jrubyPrepare.outputDir
 }
 
 // let's set a defaultTask for convenience
