@@ -1,35 +1,53 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-  <groupId>com.mycompany.doc</groupId>
-  <artifactId>asciidocTest</artifactId>
-  <version>0.1</version>
-  	
-  <build>
-	  <!-- (1) makes it easier to run build -->	
-	  <defaultGoal>generate-resources</defaultGoal>
-		<plugins>
-		  <plugin>
-		    <groupId>org.asciidoctor</groupId>
-		    <artifactId>asciidoctor-maven-plugin</artifactId>
-		    <version>1.5.3</version> 
-		    <configuration>
-		    	<!-- (2) defaults to src/main/asciidoc -->
-		    	<sourceDirectory>src/docs</sourceDirectory>
-		    	<!-- (3) defaults to docbook -->
-		    	<backend>html5</backend>
-		    	<!-- (4) defaults to target/generated-docs -->
-		    	<outputDirectory>build/docs/html5</outputDirectory>
-		    </configuration>
+    <groupId>com.mycompany.doc</groupId>
+    <artifactId>asciidocTest</artifactId>
+    <version>0.1</version>
+	<name>docToolchain</name>
+	<description>an example project on how to create agile documentation</description>
+
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <asciidoctor.maven.plugin.version>1.5.3</asciidoctor.maven.plugin.version>
+        <asciidoctorj.diagram.version>1.5.0</asciidoctorj.diagram.version>
+    </properties>
+
+    <build>
+    	<!-- (1) makes it easier to run build -->
+	    <defaultGoal>generate-resources</defaultGoal>
+		    <plugins>
+		    <plugin>
+		        <groupId>org.asciidoctor</groupId>
+		        <artifactId>asciidoctor-maven-plugin</artifactId>
+		        <version>${asciidoctor.maven.plugin.version}</version>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.asciidoctor</groupId>
+                        <artifactId>asciidoctorj-diagram</artifactId>
+                        <version>${asciidoctorj.diagram.version}</version>
+                    </dependency>
+                </dependencies>
+		        <configuration>
+		    	    <!-- (2) defaults to src/main/asciidoc -->
+		    	    <sourceDirectory>src/docs</sourceDirectory>
+		    	    <!-- (3) defaults to docbook -->
+		    	    <backend>html5</backend>
+		    	    <!-- (4) defaults to target/generated-docs -->
+		    	    <outputDirectory>build/docs/html5</outputDirectory>
+                    <requires>
+                        <require>asciidoctor-diagram</require>
+                    </requires>
+                </configuration>
 				<executions>
-	    		<execution>
-	      	<id>output-html</id> 
-	      	<phase>generate-resources</phase> 
-	      	<goals>
-	        	<goal>process-asciidoc</goal> 
-	      	</goals>
-	    		</execution>
-	  		</executions>
-	  	</plugin>
+	    		    <execution>
+	      	            <id>output-html</id>
+	      	            <phase>generate-resources</phase>
+	      	            <goals>
+	        	            <goal>process-asciidoc</goal>
+	      	            </goals>
+	    		    </execution>
+	  		    </executions>
+	  	    </plugin>
 		</plugins>
 	</build>
 </project>
