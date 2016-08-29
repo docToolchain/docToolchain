@@ -11,13 +11,21 @@ plugins {
 dependencies {
     // this is the gem we need for diagrams
     gems 'rubygems:asciidoctor-diagram:1.5.1'
+    gems 'rubygems:asciidoctor-pdf:1.5.0.alpha.12'
 }
 
 asciidoctor {
+    attributes \
+        'source-highlighter': 'coderay',
+            'imagesdir': 'images',
+            'toc': 'left',
+            'icons': 'font'
+
     // configure source and output files and folders
     sourceDir = file('src/docs')
     sources {
-        include 'test.asciidoc'
+        include 'arc42-template-de.adoc'
+        include 'arc42-template-en.adoc'
     }
     outputDir = file('build/docs')
     // good to see what the build is doing...
@@ -29,6 +37,54 @@ asciidoctor {
     // the asciidoctor task depends on this gem
     requires = ['asciidoctor-diagram']
     gemPath = jrubyPrepare.outputDir
+}
+
+task streamingExecute(
+    dependsOn: [],
+    description: 'extends the String class with a better .executeCmd'
+) << {
+    //I need a streaming execute in order to export from EA
+    String.metaClass.executeCmd = {
+        //make sure that all paramters are interpreted through the cmd-shell
+        //TODO: make this also work with *nix
+        def p = "cmd /c ${delegate.value}".execute()
+        def result=[std:'',err:'']
+        def ready = false
+        Thread.start{
+            def reader = new BufferedReader(new InputStreamReader(p.in))
+            def line = ""
+            while ((line = reader.readLine()) != null) {
+                println ""+line
+                result.std+=line+"\n"
+            }
+            ready=true
+            reader.close()
+        }
+        p.waitForOrKill(30000)
+        def error = p.err.text
+        if (error.isEmpty()) {
+            return result
+        } else {
+            throw new RuntimeException("\n"+error)
+        }
+    }
+}
+task exportEA(
+    dependsOn: [streamingExecute],
+    description: 'exports all diagrams and some texts from EA files'
+) << {
+		new File('src/docs/ea/.').mkdirs()
+    //execute through cscript in order to make sure that we get WScript.echo right
+    "%SystemRoot%\\System32\\cscript.exe //nologo scripts/exportEAP.vbs".executeCmd()
+    //the VB Script is only capable of writing iso-8859-1-Files.
+    //we now have to convert them to UTF-8	
+    new File('src/docs/ea/.').eachFileRecurse { file ->
+    	if (file.isFile()) {
+	    	println "exported notes "+file.canonicalPath
+	    	file.write(file.getText('iso-8859-1'),'utf-8')
+	    	println "exported notes "+file.name
+    	}
+    }
 }
 
 // let's set a defaultTask for convenience

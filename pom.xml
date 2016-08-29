@@ -34,6 +34,11 @@
 		    	    <backend>html5</backend>
 		    	    <!-- (4) defaults to target/generated-docs -->
 		    	    <outputDirectory>build/docs/html5</outputDirectory>
+					<sourceHighlighter>coderay</sourceHighlighter>
+					<attributes>
+						<icons>font</icons>
+						<toc>left</toc>
+					</attributes>
                     <requires>
                         <require>asciidoctor-diagram</require>
                     </requires>
