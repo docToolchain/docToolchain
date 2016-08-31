@@ -74,12 +74,12 @@ task exportEA(
     description: 'exports all diagrams and some texts from EA files'
 ) << {
 		//make sure path for notes exists
-		new File('src/docs/ea/dummy').mkdirs()
 		//and remove old notes
-		new File('src/docs/ea/dummy').deleteDir()
+		new File('src/docs/ea').deleteDir()
+		new File('src/docs/ea').mkdirs()
 		//also remove old diagrams
-		new File('src/docs/images/ea/dummy').mkdirs()
-		new File('src/docs/images/ea/dummy').deleteDir()
+		new File('src/docs/images/ea').deleteDir()
+		new File('src/docs/images/ea').mkdirs()
 		//create a readme to clarify things
 		def readme="""This folder contains exported diagrams or notes from Enterprise Architect.
 		

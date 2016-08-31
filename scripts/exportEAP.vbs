@@ -6,7 +6,9 @@
     Dim FS 'As Scripting.FileSystemObject
 
     Dim projectInterface 'As EA.Project
-
+    
+    Const   ForAppending = 8
+    
     ' Helper
     ' http://windowsitpro.com/windows/jsi-tip-10441-how-can-vbscript-create-multiple-folders-path-mkdir-command
     Function MakeDir (strPath)
@@ -22,32 +24,44 @@
 
     End Function
 
+    Sub WriteNote(currentModel, currentElement, notes)
+        If (Left(notes, 6) = "{adoc:") Then
+            strFileName = Mid(notes,7,InStr(notes,"}")-7)
+            strNotes = Right(notes,Len(notes)-InStr(notes,"}"))
+            set objFSO = CreateObject("Scripting.FileSystemObject")
+            If (currentModel.Name="Model") Then
+              ' When we work with the default model, we don't need a sub directory
+              path = "./src/docs/ea/"
+            Else
+              path = "./src/docs/ea/"&currentModel.Name&"/"
+            End If
+            MakeDir(path)
+            ' WScript.echo path&strFileName
+            set objFile = objFSO.OpenTextFile(path&strFileName&".ad",ForAppending, True)
+            objFile.WriteLine(vbCRLF&vbCRLF&"."&currentElement.Name&vbCRLF&strNotes)
+            objFile.Close
+        End If
+    End Sub
     '
     ' Recursively saves all diagrams under the provided package and its children
     '
     Sub DumpDiagrams(thePackage,currentModel)
 
         Set currentPackage = thePackage
-        Const   ForAppending = 8
 
+        ' export element notes
         For Each currentElement In currentPackage.Elements
-            If (Left(currentElement.Notes, 6) = "{adoc:") Then
-                strFileName = Mid(currentElement.Notes,7,InStr(currentElement.Notes,"}")-7)
-                strNotes = Right(currentElement.Notes,Len(currentElement.Notes)-InStr(currentElement.Notes,"}"))
-                set objFSO = CreateObject("Scripting.FileSystemObject")
-		            If (currentModel.Name="Model") Then
-    	            ' When we work with the default model, we don't need a sub directory
-      	          path = "./src/docs/ea/"
-      	        Else
-      	          path = "./src/docs/ea/"&currentModel.Name&"/"
-      	      	End If
-                MakeDir(path)
-                ' WScript.echo path&strFileName
-                set objFile = objFSO.OpenTextFile(path&strFileName&".ad",ForAppending, True)
-                objFile.WriteLine(vbCRLF&vbCRLF&"."&currentElement.Name&vbCRLF&strNotes)
-                objFile.Close
-            End If
+            WriteNote currentModel, currentElement, currentElement.Notes
+            ' export connector notes
+            For Each currentConnector In currentElement.Connectors
+                WScript.echo currentConnector.ConnectorGUID
+                if (currentConnector.ClientID=currentElement.ElementID) Then
+                    WriteNote currentModel, currentConnector, currentConnector.Notes
+                End If
+            Next
         Next
+        
+        
         ' Iterate through all diagrams in the current package
         For Each currentDiagram In currentPackage.Diagrams
 
