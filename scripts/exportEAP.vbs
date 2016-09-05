@@ -42,6 +42,24 @@
             objFile.Close
         End If
     End Sub
+
+    Sub SaveDiagram(currentModel, currentDiagram)
+                ' Open the diagram
+            Repository.OpenDiagram(currentDiagram.DiagramID)
+
+            ' Save and close the diagram
+            If (currentModel.Name="Model") Then
+                ' When we work with the default model, we don't need a sub directory
+                path = "/src/docs/images/ea/"
+            Else
+                path = "/src/docs/images/ea/" & currentModel.Name & "/"
+            End If
+            filename = path & currentDiagram.Name & ".png"
+            MakeDir("." & path)
+            projectInterface.SaveDiagramImageToFile(fso.GetAbsolutePathName(".")&filename)
+            WScript.echo " extracted image to ." & filename
+            Repository.CloseDiagram(currentDiagram.DiagramID)
+    End Sub
     '
     ' Recursively saves all diagrams under the provided package and its children
     '
@@ -59,35 +77,30 @@
                     WriteNote currentModel, currentConnector, currentConnector.Notes
                 End If
             Next
+            if (Not currentElement.CompositeDiagram Is Nothing) Then
+                WScript.echo ">> "&currentElement.Name
+                WScript.echo ">>>>> "&currentElement.CompositeDiagram.Name
+                SaveDiagram currentModel, currentElement.CompositeDiagram
+            End If
+            if (Not currentElement.Elements Is Nothing) Then
+                WScript.echo "## "&currentElement.Name
+                DumpDiagrams currentElement,currentModel
+            End If
         Next
         
         
         ' Iterate through all diagrams in the current package
         For Each currentDiagram In currentPackage.Diagrams
-
-            ' Open the diagram
-            Repository.OpenDiagram(currentDiagram.DiagramID)
-
-            ' Save and close the diagram
-            If (currentModel.Name="Model") Then
-                ' When we work with the default model, we don't need a sub directory
-                path = "/src/docs/images/ea/"
-            Else
-                path = "/src/docs/images/ea/" & currentModel.Name & "/"
-            End If
-            filename = path & currentDiagram.Name & ".png"
-            MakeDir("." & path)
-            projectInterface.SaveDiagramImageToFile(fso.GetAbsolutePathName(".")&filename)
-            WScript.echo " extracted image to ." & filename
-            Repository.CloseDiagram(currentDiagram.DiagramID)
+            SaveDiagram currentModel, currentDiagram
         Next
 
         ' Process child packages
         Dim childPackage 'as EA.Package
-        For Each childPackage In currentPackage.Packages
-            call DumpDiagrams(childPackage, currentModel)
-        Next
-
+        if (currentPackage.ObjectType = otPackage) Then
+            For Each childPackage In currentPackage.Packages
+                call DumpDiagrams(childPackage, currentModel)
+            Next
+        End If
     End Sub
 
 		Function SearchEAProjects(path)
