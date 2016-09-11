@@ -78,12 +78,9 @@
                 End If
             Next
             if (Not currentElement.CompositeDiagram Is Nothing) Then
-                WScript.echo ">> "&currentElement.Name
-                WScript.echo ">>>>> "&currentElement.CompositeDiagram.Name
                 SaveDiagram currentModel, currentElement.CompositeDiagram
             End If
             if (Not currentElement.Elements Is Nothing) Then
-                WScript.echo "## "&currentElement.Name
                 DumpDiagrams currentElement,currentModel
             End If
         Next
@@ -96,7 +93,8 @@
 
         ' Process child packages
         Dim childPackage 'as EA.Package
-        if (currentPackage.ObjectType = otPackage) Then
+        ' otPackage = 5
+        if (currentPackage.ObjectType = 5) Then
             For Each childPackage In currentPackage.Packages
                 call DumpDiagrams(childPackage, currentModel)
             Next

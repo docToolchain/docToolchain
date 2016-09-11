@@ -15,7 +15,10 @@ dependencies {
 }
 
 asciidoctor {
+    backends 'html5', 'pdf'
     attributes \
+        'pdf-stylesdir': 'pdfTheme',
+        'pdf-style': 'custom',
         'source-highlighter': 'coderay',
             'imagesdir': 'images',
             'toc': 'left',
