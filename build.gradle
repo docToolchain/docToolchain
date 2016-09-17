@@ -47,7 +47,7 @@ task streamingExecute(
     description: 'extends the String class with a better .executeCmd'
 ) << {
     //I need a streaming execute in order to export from EA
-    String.metaClass.executeCmd = {
+    String.metaClass.executeCmd = { silent ->
         //make sure that all paramters are interpreted through the cmd-shell
         //TODO: make this also work with *nix
         def p = "cmd /c ${delegate.value}".execute()
@@ -57,7 +57,7 @@ task streamingExecute(
             def reader = new BufferedReader(new InputStreamReader(p.in))
             def line = ""
             while ((line = reader.readLine()) != null) {
-                println ""+line
+                if (silent!=false) {println ""+line}
                 result.std+=line+"\n"
             }
             ready=true
@@ -65,6 +65,13 @@ task streamingExecute(
         }
         p.waitForOrKill(30000)
         def error = p.err.text
+        println "1="*80
+        println p.outputStream.toString()
+        println "1="*80
+        println "2="*80
+        println result
+        println "2="*80
+
         if (error.isEmpty()) {
             return result
         } else {
@@ -110,6 +117,41 @@ use `gradle exportEA` to re-export files
     	}
     }
 }
+task exportChangeLog(
+        dependsOn: [streamingExecute],
+        description: 'exports the change log from a git subpath'
+) << {
+    def res = "git log ./src/docs/arc42".execute().text
+    def changes = []
+    def change = null
+    res.eachLine { line ->
+        switch (line) {
+            case ~/^commit.*/:
+                if (change!=null) {
+                    changes << change
+                }
+                change = [commit:line-'commit ',log:'']
+                break;
+            case ~/^Author:.*/:
+                change['author'] = line-'Author: '
+                break;
+            case ~/^Date:.*/:
+                change['date'] = line-'Date: '
+                break;
+            default:
+                change['log'] += (line ? line.trim()+ "\n" : '')
+        }
+    }
+    changes << change
+    def changelog = new File('./build/docs/changelog.adoc')
+    changelog.write("")
 
+    changes.each { c ->
+        changelog.append """| ${new Date(Date.parse(c.date)).format("dd.MM.yyyy")}
+| ${c.author.replaceAll('<[^>]*>','')}
+| ${c.log}
+"""
+    }
+}
 // let's set a defaultTask for convenience
 defaultTasks 'asciidoctor'
