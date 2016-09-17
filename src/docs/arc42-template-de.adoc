@@ -23,7 +23,7 @@ ifdef::basebackend-html[]
 endif::basebackend-html[]
 
 // configure DE settings for asciidoc
-include::config.adoc[]
+include::config-de.adoc[]
 
 
 include::arc42/DE/about-arc42.adoc[]
@@ -38,6 +38,16 @@ Sie dient der Einarbeitung in arc42 sowie dem Verständnis der Konzepte.
 Für die Dokumentation eigener System verwenden Sie besser die _plain_ Version.
 ====
 
+.Änderungen
+[options="header",cols="1,2,6"]
+|====
+| Date
+| Author
+| Comment
+
+include::../../build/docs/changelog.adoc[]
+
+|====
 
 
 // numbering from here on
