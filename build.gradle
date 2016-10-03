@@ -1,6 +1,12 @@
 /*
  * This build file is part of the docToolchain
  */
+buildscript {
+    dependencies {
+        //for the exportJiraIssues Task
+        classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.6'
+    }
+}
 
 plugins {
     id "org.asciidoctor.convert" version "1.5.3"
@@ -8,10 +14,13 @@ plugins {
     id "com.github.jruby-gradle.base" version "1.3.0"
 }
 
+apply plugin:'groovy'
+
 dependencies {
     // this is the gem we need for diagrams
     gems 'rubygems:asciidoctor-diagram:1.5.1'
-    gems 'rubygems:asciidoctor-pdf:1.5.0.alpha.12'
+    gems 'rubygems:asciidoctor-pdf:1.5.0.alpha.13'
+
 }
 
 asciidoctor {
@@ -23,12 +32,28 @@ asciidoctor {
             'imagesdir': 'images',
             'toc': 'left',
             'icons': 'font'
+    // Here we can add the code for extensions we write.
+    extensions {
+        inlinemacro (name: "jira") {
+            parent, target, attributes ->
+
+                options = [
+                        "type": ":link",
+                        "target": jiraRoot+"/browse/${target}".toString(),
+                        "id": "${target}"
+                ]
+
+                // Create the link to the issue.
+                createInline(parent, "anchor", target, attributes, options).render()
+        }
+    }
 
     // configure source and output files and folders
     sourceDir = file('src/docs')
     sources {
         include 'arc42-template-de.adoc'
         include 'arc42-template-en.adoc'
+        include 'test.adoc'
     }
     outputDir = file('build/docs')
     // good to see what the build is doing...
@@ -65,12 +90,6 @@ task streamingExecute(
         }
         p.waitForOrKill(30000)
         def error = p.err.text
-        println "1="*80
-        println p.outputStream.toString()
-        println "1="*80
-        println "2="*80
-        println result
-        println "2="*80
 
         if (error.isEmpty()) {
             return result
@@ -153,5 +172,39 @@ task exportChangeLog(
 """
     }
 }
+task exportJiraIssues(
+        description: 'exports all jira issues from a given search'
+) << {
+        def user = jiraUser
+        def pass = jiraPass
+        if (!pass) {
+            System.console().readPassword("Jira password for user '$user': ")
+        }
+
+        def stats = [:]
+        def jira = new groovyx.net.http.RESTClient( jiraRoot+'/rest/api/2/' )
+        jira.encoderRegistry = new groovyx.net.http.EncoderRegistry( charset: 'utf-8' )
+        def headers = [
+                'Authorization':"Basic " + "${user}:${pass}".bytes.encodeBase64().toString(),
+                'Content-Type':'application/json; charset=utf-8'
+        ]
+        def openIssues = new File('./build/docs/openissues.adoc')
+        openIssues.write("",'utf-8')
+        println jiraJql.replaceAll('%jiraProject%',jiraProject).replaceAll('%jiraLabel%',jiraLabel)
+        jira.get(path:'search',
+                query:['jql': jiraJql.replaceAll('%jiraProject%',jiraProject).replaceAll('%jiraLabel%',jiraLabel),
+                       'maxResults':1000,
+                       'fields':'created,resolutiondate,priority,summary,timeoriginalestimate, assignee'
+                ],
+                headers:headers
+        ).data.issues.each { issue ->
+            openIssues.append("| <<${issue.key}>> ",'utf-8')
+            openIssues.append("| ${issue.fields.priority.name} ",'utf-8')
+            openIssues.append("| ${Date.parse("yyyy-MM-dd'T'H:m:s.000z",issue.fields.created).format('dd.MM.yy')} ",'utf-8')
+            openIssues.append("| ${issue.fields.assignee?issue.fields.assignee.displayName:'not assigned'} ",'utf-8')
+            openIssues.append("| ${jiraRoot}/browse/${issue.key}[${issue.fields.summary}]\n",'utf-8')
+        }
+
+}
 // let's set a defaultTask for convenience
-defaultTasks 'asciidoctor'
+defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
