@@ -5,6 +5,9 @@ buildscript {
     dependencies {
         //for the exportJiraIssues Task
         classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.6'
+        //for the renderToConfluence Task
+        classpath 'org.apache.httpcomponents:httpmime:4.5.1'
+        classpath 'org.jsoup:jsoup:1.8.2'
     }
 }
 
@@ -100,7 +103,8 @@ task streamingExecute(
 }
 task exportEA(
     dependsOn: [streamingExecute],
-    description: 'exports all diagrams and some texts from EA files'
+    description: 'exports all diagrams and some texts from EA files',
+    group: 'docToolchain'
 ) << {
 		//make sure path for notes exists
 		//and remove old notes
@@ -138,7 +142,8 @@ use `gradle exportEA` to re-export files
 }
 task exportChangeLog(
         dependsOn: [streamingExecute],
-        description: 'exports the change log from a git subpath'
+        description: 'exports the change log from a git subpath',
+        group: 'docToolchain'
 ) << {
     def res = "git log ./src/docs/arc42".execute().text
     def changes = []
@@ -173,7 +178,8 @@ task exportChangeLog(
     }
 }
 task exportJiraIssues(
-        description: 'exports all jira issues from a given search'
+        description: 'exports all jira issues from a given search',
+        group: 'docToolchain'
 ) << {
         def user = jiraUser
         def pass = jiraPass
@@ -205,6 +211,12 @@ task exportJiraIssues(
             openIssues.append("| ${jiraRoot}/browse/${issue.key}[${issue.fields.summary}]\n",'utf-8')
         }
 
+}
+task publishToConfluence(
+        description: 'publishes the HTML rendered output to confluence',
+        group: 'docToolchain'
+) << {
+    evaluate(new File('scripts/asciidoc2confluence.groovy'))
 }
 // let's set a defaultTask for convenience
 defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'

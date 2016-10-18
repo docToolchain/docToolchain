@@ -28,3 +28,9 @@ buildNumber.properties
 .gradle/
 .idea/
 *.iml
+src/docs/.asciidoctor/
+src/docs/ea/
+src/docs/images/ea/
+src/docs/overview.asciidoc
+src/docs/overview.png
+src/docs/test.adoc

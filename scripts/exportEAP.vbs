@@ -38,7 +38,10 @@
             MakeDir(path)
             ' WScript.echo path&strFileName
             set objFile = objFSO.OpenTextFile(path&strFileName&".ad",ForAppending, True)
-            objFile.WriteLine(vbCRLF&vbCRLF&"."&currentElement.Name&vbCRLF&strNotes)
+            name = currentElement.Name
+            name = Replace(name,vbCr,"")
+            name = Replace(name,vbLf,"")
+            objFile.WriteLine(vbCRLF&vbCRLF&"."&name&vbCRLF&strNotes)
             objFile.Close
         End If
     End Sub
