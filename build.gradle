@@ -184,7 +184,7 @@ task exportJiraIssues(
         def user = jiraUser
         def pass = jiraPass
         if (!pass) {
-            System.console().readPassword("Jira password for user '$user': ")
+            pass = System.console().readPassword("Jira password for user '$user': ")
         }
 
         def stats = [:]
