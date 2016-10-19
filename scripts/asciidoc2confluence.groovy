@@ -198,12 +198,14 @@ def parseBody =  { body ->
     pageString = body.toString().trim()
             .replaceAll("<pre class=\".+\"><code( class=\".+\" data-lang=\".+\")?>", "<ac:structured-macro ac:name=\\\"code\\\"><ac:plain-text-body><![CDATA[")
             .replaceAll("</code></pre>", "]]></ac:plain-text-body></ac:structured-macro>")
-            .replaceAll('<dl>','<table><tr>')
-            .replaceAll('</dl>','</tr></table>')
-            .replaceAll('<dt[^>]*>','<th>')
+            .replaceAll('<dl>','<table>')
+            .replaceAll('</dl>','</table>')
+            .replaceAll('<dt[^>]*>','<tr><th>')
             .replaceAll('</dt>','</th>')
             .replaceAll('<dd>','<td>')
-            .replaceAll('</dd>','</td>')
+            .replaceAll('</dd>','</td></tr>')
+            .replaceAll('<br>','<br />')
+            .replaceAll('</br>','<br />')
             .replaceAll('<a([^>]*)></a>','')
 }
 
