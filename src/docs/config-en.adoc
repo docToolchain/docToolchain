@@ -6,3 +6,6 @@
 
 // where are images located?
 :imagesdir: ./images
+// inline images
+:data-uri:
+:icons: font
