@@ -167,7 +167,9 @@ task exportChangeLog(
         }
     }
     changes << change
-    def changelog = new File('./build/docs/changelog.adoc')
+    def path = './build/docs/'
+    new File(path).mkdirs()
+    def changelog = new File(path+'changelog.adoc')
     changelog.write("")
 
     changes.each { c ->
