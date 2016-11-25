@@ -46,6 +46,63 @@
         End If
     End Sub
 
+    Sub SyncJira(currentModel, currentDiagram)
+        notes = currentDiagram.notes
+        set currentPackage = Repository.GetPackageByID(currentDiagram.PackageID)
+        updated = 0
+        created = 0
+        If (Left(notes, 6) = "{jira:") Then
+            WScript.echo " >>>> Diagram jira tag found"
+            strSearch = Mid(notes,7,InStr(notes,"}")-7)
+            Set objShell = CreateObject("WScript.Shell")
+            'objShell.CurrentDirectory = fso.GetFolder("./scripts")
+            Set objExecObject = objShell.Exec ("cmd /K  groovy ./scripts/exportJira.groovy """ & strSearch &""" & exit")
+            strReturn = ""
+            x = 0
+            y = 0
+            Do While Not objExecObject.StdOut.AtEndOfStream
+                output = objExecObject.StdOut.ReadLine()
+                'WScript.echo output
+                jiraElement = Split(output,"|")
+                name = jiraElement(0)&":"&vbCR&vbLF&jiraElement(4)
+                On Error Resume Next
+                Set requirement = currentPackage.Elements.GetByName(name)
+                On Error Goto 0
+                if (requirement.name=name) then
+                    ' element already exists
+                    requirement.notes = ""
+                    requirement.notes = requirement.notes&"<a href='"&jiraElement(5)&"'>"&jiraElement(0)&"</a>"&vbCR&vbLF
+                    requirement.notes = requirement.notes&"Priority: "&jiraElement(1)&vbCR&vbLF
+                    requirement.notes = requirement.notes&"Created: "&jiraElement(2)&vbCR&vbLF
+                    requirement.notes = requirement.notes&"Assignee: "&jiraElement(3)&vbCR&vbLF
+                    requirement.Update()
+                    updated = updated + 1
+                else
+                    Set requirement = currentPackage.Elements.AddNew(name,"Requirement")
+                    requirement.notes = ""
+                    requirement.notes = requirement.notes&"<a href='"&jiraElement(5)&"'>"&jiraElement(0)&"</a>"&vbCR&vbLF
+                    requirement.notes = requirement.notes&"Priority: "&jiraElement(1)&vbCR&vbLF
+                    requirement.notes = requirement.notes&"Created: "&jiraElement(2)&vbCR&vbLF
+                    requirement.notes = requirement.notes&"Assignee: "&jiraElement(3)&vbCR&vbLF
+                    requirement.Update()
+                    currentPackage.Elements.Refresh()
+                    Set dia_obj = currentDiagram.DiagramObjects.AddNew("l="&(10+x*200)&";t="&(10+y*50)&";b="&(10+y*50+44)&";r="&(10+x*200+180),"")
+                    x = x + 1
+                    if (x>3) then
+                      x = 0
+                      y = y + 1
+                    end if
+                    dia_obj.ElementID = requirement.ElementID
+                    dia_obj.Update()
+                    created = created + 1
+                end if
+            Loop
+            Set objShell = Nothing
+            WScript.echo "created "&created&" requirements"
+            WScript.echo "updated "&updated&" requirements"
+        End If
+    End Sub
+
     Sub SaveDiagram(currentModel, currentDiagram)
                 ' Open the diagram
             Repository.OpenDiagram(currentDiagram.DiagramID)
@@ -75,12 +132,13 @@
             WriteNote currentModel, currentElement, currentElement.Notes
             ' export connector notes
             For Each currentConnector In currentElement.Connectors
-                WScript.echo currentConnector.ConnectorGUID
+                ' WScript.echo currentConnector.ConnectorGUID
                 if (currentConnector.ClientID=currentElement.ElementID) Then
                     WriteNote currentModel, currentConnector, currentConnector.Notes
                 End If
             Next
             if (Not currentElement.CompositeDiagram Is Nothing) Then
+                SyncJira currentModel, currentElement.CompositeDiagram
                 SaveDiagram currentModel, currentElement.CompositeDiagram
             End If
             if (Not currentElement.Elements Is Nothing) Then
@@ -91,6 +149,7 @@
         
         ' Iterate through all diagrams in the current package
         For Each currentDiagram In currentPackage.Diagrams
+            SyncJira currentModel, currentDiagram
             SaveDiagram currentModel, currentDiagram
         Next
 
