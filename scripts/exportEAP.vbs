@@ -62,13 +62,13 @@
             y = 0
             Do While Not objExecObject.StdOut.AtEndOfStream
                 output = objExecObject.StdOut.ReadLine()
-                WScript.echo output
+                'WScript.echo output
                 jiraElement = Split(output,"|")
                 name = jiraElement(0)&":"&vbCR&vbLF&jiraElement(4)
                 On Error Resume Next
                 Set requirement = currentPackage.Elements.GetByName(name)
                 On Error Goto 0
-                if (requirement.name=name) then
+                if (IsObject(requirement)) then
                     ' element already exists
                     requirement.notes = ""
                     requirement.notes = requirement.notes&"<a href='"&jiraElement(5)&"'>"&jiraElement(0)&"</a>"&vbCR&vbLF
