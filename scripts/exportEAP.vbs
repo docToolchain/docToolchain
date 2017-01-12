@@ -62,7 +62,7 @@
             y = 0
             Do While Not objExecObject.StdOut.AtEndOfStream
                 output = objExecObject.StdOut.ReadLine()
-                'WScript.echo output
+                WScript.echo output
                 jiraElement = Split(output,"|")
                 name = jiraElement(0)&":"&vbCR&vbLF&jiraElement(4)
                 On Error Resume Next
@@ -114,7 +114,8 @@
             Else
                 path = "/src/docs/images/ea/" & currentModel.Name & "/"
             End If
-            filename = path & currentDiagram.Name & ".png"
+            diagramName = Replace(currentDiagram.Name," ","_")
+            filename = path & diagramName & ".png"
             MakeDir("." & path)
             projectInterface.SaveDiagramImageToFile(fso.GetAbsolutePathName(".")&filename)
             WScript.echo " extracted image to ." & filename
