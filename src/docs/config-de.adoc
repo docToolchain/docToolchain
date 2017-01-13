@@ -19,6 +19,10 @@
 
 // where are images located?
 :imagesdir: ./images
+
 // inline images
-:data-uri:
-:icons: font
+// results in a single file html output
+// but does not work with publish2confluence
+// and htmlSanityChecker
+//:data-uri:
+//:icons: font
