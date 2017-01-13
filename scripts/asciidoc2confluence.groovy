@@ -61,7 +61,6 @@ try {
     //no scriptBasePath, works for some szenarios
     config = new ConfigSlurper().parse(new File('scripts/ConfluenceConfig.groovy').text)
 }
-println "Config: ${config}"
 
 // helper functions
 
@@ -172,7 +171,7 @@ def parseBody =  { body ->
         div.remove()
 
     }
-    body.select('div.title').wrap("<strong></strong>").unwrap()
+    body.select('div.title').wrap("<strong></strong>").before("<br />").wrap("<div></div>")
     body.select('div.listingblock').wrap("<p></p>").unwrap()
     // see if we can find referenced images and fetch them
     new File("tmp/images/.").mkdirs()
@@ -198,8 +197,8 @@ def parseBody =  { body ->
     pageString = body.toString().trim()
             .replaceAll("<pre class=\".+\"><code( class=\".+\" data-lang=\".+\")?>", "<ac:structured-macro ac:name=\\\"code\\\"><ac:plain-text-body><![CDATA[")
             .replaceAll("</code></pre>", "]]></ac:plain-text-body></ac:structured-macro>")
-            .replaceAll('<dl>','<table>')
-            .replaceAll('</dl>','</table>')
+            .replaceAll('<dl>','<table><tr>')
+            .replaceAll('</dl>','</tr></table>')
             .replaceAll('<dt[^>]*>','<tr><th>')
             .replaceAll('</dt>','</th>')
             .replaceAll('<dd>','<td>')
@@ -342,6 +341,10 @@ config.input.each { input ->
                         title: title,
                         body: body
                 ]
+                sect2.select('h4').tagName('h1').before('<br />')
+                sect2.select('h5').tagName('h2').before('<br />')
+                sect2.select('h6').tagName('h3').before('<br />')
+                sect2.select('h7').tagName('h4').before('<br />')
             }
             pageBody.select('div.sect2').remove()
         } else {
