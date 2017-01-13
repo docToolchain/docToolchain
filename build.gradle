@@ -15,9 +15,11 @@ plugins {
     id "org.asciidoctor.convert" version "1.5.3"
     // we need this plugin to add ruby gems
     id "com.github.jruby-gradle.base" version "1.3.0"
+    id "org.aim42.htmlSanityCheck" version "0.9.3"
 }
 
 apply plugin:'groovy'
+apply plugin: 'org.aim42.htmlSanityCheck'
 
 dependencies {
     // this is the gem we need for diagrams
@@ -39,7 +41,7 @@ asciidoctor {
     extensions {
         inlinemacro (name: "jira") {
             parent, target, attributes ->
-
+changes each
                 options = [
                         "type": ":link",
                         "target": jiraRoot+"/browse/${target}".toString(),
@@ -54,8 +56,8 @@ asciidoctor {
     // configure source and output files and folders
     sourceDir = file('src/docs')
     sources {
-        include 'arc42-template-de.adoc'
-        include 'arc42-template-en.adoc'
+        // include 'arc42-template-de.adoc'
+        // include 'arc42-template-en.adoc'
         include 'test.adoc'
     }
     outputDir = file('build/docs')
@@ -109,10 +111,8 @@ task exportEA(
 		//make sure path for notes exists
 		//and remove old notes
 		new File('src/docs/ea').deleteDir()
-		new File('src/docs/ea').mkdirs()
 		//also remove old diagrams
 		new File('src/docs/images/ea').deleteDir()
-		new File('src/docs/images/ea').mkdirs()
 		//create a readme to clarify things
 		def readme="""This folder contains exported diagrams or notes from Enterprise Architect.
 		
@@ -126,7 +126,9 @@ This is to make sure that they can be used from environments other than windows.
 
 use `gradle exportEA` to re-export files
 """
+        new File('src/docs/images/ea/.').mkdirs()
 		new File('src/docs/images/ea/readme.ad').write(readme)
+        new File('src/docs/ea/.').mkdirs()
 		new File('src/docs/ea/readme.ad').write(readme)
     //execute through cscript in order to make sure that we get WScript.echo right
     "%SystemRoot%\\System32\\cscript.exe //nologo scripts/exportEAP.vbs".executeCmd()
@@ -173,10 +175,12 @@ task exportChangeLog(
     changelog.write("")
 
     changes.each { c ->
-        changelog.append """| ${new Date(Date.parse(c.date)).format("dd.MM.yyyy")}
+        try {
+            changelog.append """| ${new Date(Date.parse(c.date)).format("dd.MM.yyyy")}
 | ${c.author.replaceAll('<[^>]*>','')}
 | ${c.log}
 """
+        } catch (Exception e) { println c }
     }
 }
 task exportJiraIssues(
@@ -220,5 +224,16 @@ task publishToConfluence(
 ) << {
     evaluate(new File('scripts/asciidoc2confluence.groovy'))
 }
+htmlSanityCheck {
+    sourceDir = new File( "$buildDir/docs/html5" )
+
+    // files to check - in Set-notation
+    //sourceDocuments = [ "one-file.html", "another-file.html", "index.html"]
+
+    // where to put results of sanityChecks...
+    checkingResultsDir = new File( "$buildDir/report/htmlchecks" )
+    checkExternalLinks = false
+}
 // let's set a defaultTask for convenience
-defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
+//defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
+defaultTasks 'asciidoctor'
