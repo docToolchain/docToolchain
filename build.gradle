@@ -41,7 +41,6 @@ asciidoctor {
     extensions {
         inlinemacro (name: "jira") {
             parent, target, attributes ->
-changes each
                 options = [
                         "type": ":link",
                         "target": jiraRoot+"/browse/${target}".toString(),
@@ -70,6 +69,7 @@ changes each
     // the asciidoctor task depends on this gem
     requires = ['asciidoctor-diagram']
     gemPath = jrubyPrepare.outputDir
+
 }
 
 task streamingExecute(
@@ -236,4 +236,4 @@ htmlSanityCheck {
 }
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
-defaultTasks 'asciidoctor'
+defaultTasks 'asciidoctor', 'htmlSanityCheck'
