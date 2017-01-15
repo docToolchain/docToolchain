@@ -165,12 +165,13 @@ def parseBody =  { body ->
         }
     }
     //special for the arc42-template
-    body.select('div.arc42help').each { div ->
-        def divBody = div.select('.content').html()
-        div.after('<ac:structured-macro ac:name="expand"><ac:rich-text-body><ac:structured-macro ac:name="info"><ac:parameter ac:name="title">arc42</ac:parameter><ac:rich-text-body><p>'+divBody+'</p></ac:rich-text-body></ac:structured-macro></ac:rich-text-body></ac:structured-macro>')
-        div.remove()
-
-    }
+    body.select('div.arc42help').select('.content')
+            .wrap('<ac:structured-macro ac:name="expand"></ac:structured-macro>')
+            .wrap('<ac:rich-text-body></ac:rich-text-body>')
+            .wrap('<ac:structured-macro ac:name="info"></ac:structured-macro>')
+            .before('<ac:parameter ac:name="title">arc42</ac:parameter>')
+            .wrap('<ac:rich-text-body><p></p></ac:rich-text-body>')
+    body.select('div.arc42help').unwrap()
     body.select('div.title').wrap("<strong></strong>").before("<br />").wrap("<div></div>")
     body.select('div.listingblock').wrap("<p></p>").unwrap()
     // see if we can find referenced images and fetch them
@@ -194,7 +195,7 @@ def parseBody =  { body ->
         img.remove()
     }
     //change some html elements through simple substitutions
-    pageString = body.toString().trim()
+    pageString = body.html().trim()
             .replaceAll("<pre class=\".+\"><code( class=\".+\" data-lang=\".+\")?>", "<ac:structured-macro ac:name=\\\"code\\\"><ac:plain-text-body><![CDATA[")
             .replaceAll("</code></pre>", "]]></ac:plain-text-body></ac:structured-macro>")
             .replaceAll('<dl>','<table><tr>')
