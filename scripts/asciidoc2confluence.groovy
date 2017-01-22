@@ -62,6 +62,10 @@ try {
     config = new ConfigSlurper().parse(new File('scripts/ConfluenceConfig.groovy').text)
 }
 
+def confluenceSpaceKey
+def confluenceCreateSubpages
+def confluencePagePrefix
+
 // helper functions
 
 def MD5(String s) {
@@ -229,9 +233,9 @@ def pushToConfluence = { pageTitle, pageBody, parentId ->
 
     def request = [
             type : 'page',
-            title: config.confluencePagePrefix + pageTitle,
+            title: confluencePagePrefix + pageTitle,
             space: [
-                    key: config.confluenceSpaceKey
+                    key: confluenceSpaceKey
             ],
             body : [
                     storage: [
@@ -248,8 +252,8 @@ def pushToConfluence = { pageTitle, pageBody, parentId ->
     trythis {
         page = api.get(path: 'content',
                 query: [
-                        'spaceKey': config.confluenceSpaceKey,
-                        'title'   : config.confluencePagePrefix + pageTitle,
+                        'spaceKey': confluenceSpaceKey,
+                        'title'   : confluencePagePrefix + pageTitle,
                         'expand'  : 'body.storage,version'
                 ], headers: headers).data.results[0]
     }
@@ -312,6 +316,10 @@ config.input.each { input ->
         input.file = input.file.replaceAll(/[.](ad|adoc|asciidoc)$/,'.html')
         println "to ${input.file}"
     }
+    confluenceSpaceKey = input.spaceKey?:config.confluenceSpaceKey
+    confluenceCreateSubpages = (input.createSubpages!= null)?input.createSubpages:config.confluenceCreateSubpages
+    confluencePagePrefix = input.pagePrefix?:config.confluencePagePrefix
+
     def html =input.file?new File(input.file).getText('utf-8'):new URL(input.url).getText()
     baseUrl  =input.file?new File(input.file):new URL(input.url)
     Document dom = Jsoup.parse(html, 'utf-8', Parser.xmlParser())
@@ -333,7 +341,7 @@ config.input.each { input ->
         Elements pageBody = sect1.select('div.sectionbody')
         def subPages = []
 
-        if (config.confluenceCreateSubpages) {
+        if (confluenceCreateSubpages) {
             pageBody.select('div.sect2').each { sect2 ->
                 def title = sect2.select('h3').text()
                 sect2.select('h3').remove()
