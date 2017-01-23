@@ -131,7 +131,7 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
         if (remoteHash!=localHash) {
             //hash is different -> attachment needs to be updated
             http = new HTTPBuilder(config.confluenceAPI + 'content/' + pageId + '/child/attachment/' + attachment.results[0].id + '/data')
-            println "updated attachment"
+            println "    updated attachment"
         }
     } else {
         http = new HTTPBuilder(config.confluenceAPI + 'content/' + pageId + '/child/attachment')
@@ -186,9 +186,10 @@ def parseBody =  { body ->
     // </ac:image>
     body.select('img').each { img ->
         img.attributes().each { attribute ->
-            println attribute.dump()
+            //println attribute.dump()
         }
         def src = img.attr('src')
+        println "    image: "+src
         def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')+src
         def fileName = (src.tokenize('/')[-1])
 
@@ -284,7 +285,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId ->
                         requestContentType : ContentType.JSON,
                         path: 'content/' + page.id, body: request, headers: headers)
             }
-            println "updated page"
+            println "> updated page"+page.id
             deferredUpload.each {
                 uploadAttachment(page.id, it[1], it[2], it[3])
             }
@@ -298,7 +299,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId ->
                     requestContentType: ContentType.JSON,
                     path: 'content', body: request, headers: headers)
         }
-        println "created page "+page?.data?.id
+        println "> created page "+page?.data?.id
         deferredUpload.each {
             uploadAttachment(page?.data?.id, it[1], it[2], it[3])
         }
@@ -330,10 +331,14 @@ config.input.each { input ->
 
     // if confluenceAncestorId is not set, create a new parent page
     if (!input.ancestorId) {
-        masterid = pushToConfluence "Main Page", Jsoup.parse("this shall be the main page under which all other pages are created").select('*'), null
-        println("New master page created with id ${masterid}")
+        input.ancestorId = null
     }
 
+    // let's try to select the "first page" and push it to confluence
+    dom.select('div#preamble div.sectionbody').each { pageBody ->
+        pageBody.select('div.sect2').unwrap()
+        masterid = pushToConfluence "arc42", pageBody, input.ancestorId
+    }
     // <div class="sect1"> are the main headings
     // let's extract these and push them to confluence
     dom.select('div.sect1').each { sect1 ->
