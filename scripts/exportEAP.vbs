@@ -134,6 +134,10 @@
                 Set currentElement = Repository.GetElementByID(diagramElement.ElementID)
                 WriteNote currentModel, currentElement, currentElement.Notes, diagramName&"_notes"
             Next
+            For Each diagramLink In currentDiagram.DiagramLinks
+                set currentConnector = Repository.GetConnectorByID(diagramLink.ConnectorID)
+                WriteNote currentModel, currentConnector, currentConnector.Notes, diagramName&"_links"
+            Next
     End Sub
     '
     ' Recursively saves all diagrams under the provided package and its children
