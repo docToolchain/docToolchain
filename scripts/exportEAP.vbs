@@ -24,7 +24,7 @@
 
     End Function
 
-    Sub WriteNote(currentModel, currentElement, notes)
+    Sub WriteNote(currentModel, currentElement, notes, prefix)
         If (Left(notes, 6) = "{adoc:") Then
             strFileName = Mid(notes,7,InStr(notes,"}")-7)
             strNotes = Right(notes,Len(notes)-InStr(notes,"}"))
@@ -37,12 +37,22 @@
             End If
             MakeDir(path)
             ' WScript.echo path&strFileName
-            set objFile = objFSO.OpenTextFile(path&strFileName&".ad",ForAppending, True)
+            post = ""
+            If (prefix<>"") Then
+                post = "_"
+            End If
+            set objFile = objFSO.OpenTextFile(path&prefix&post&strFileName&".ad",ForAppending, True)
             name = currentElement.Name
             name = Replace(name,vbCr,"")
             name = Replace(name,vbLf,"")
             objFile.WriteLine(vbCRLF&vbCRLF&"."&name&vbCRLF&strNotes)
             objFile.Close
+            if (prefix<>"") Then
+                ' write the same to a second file
+                set objFile = objFSO.OpenTextFile(path&prefix&".ad",ForAppending, True)
+                objFile.WriteLine(vbCRLF&vbCRLF&"."&name&vbCRLF&strNotes)
+                objFile.Close
+            End If
         End If
     End Sub
 
@@ -120,6 +130,10 @@
             projectInterface.SaveDiagramImageToFile(fso.GetAbsolutePathName(".")&filename)
             WScript.echo " extracted image to ." & filename
             Repository.CloseDiagram(currentDiagram.DiagramID)
+            For Each diagramElement In currentDiagram.DiagramObjects
+                Set currentElement = Repository.GetElementByID(diagramElement.ElementID)
+                WriteNote currentModel, currentElement, currentElement.Notes, diagramName&"_notes"
+            Next
     End Sub
     '
     ' Recursively saves all diagrams under the provided package and its children
@@ -130,12 +144,12 @@
 
         ' export element notes
         For Each currentElement In currentPackage.Elements
-            WriteNote currentModel, currentElement, currentElement.Notes
+            WriteNote currentModel, currentElement, currentElement.Notes, ""
             ' export connector notes
             For Each currentConnector In currentElement.Connectors
                 ' WScript.echo currentConnector.ConnectorGUID
                 if (currentConnector.ClientID=currentElement.ElementID) Then
-                    WriteNote currentModel, currentConnector, currentConnector.Notes
+                    WriteNote currentModel, currentConnector, currentConnector.Notes, ""
                 End If
             Next
             if (Not currentElement.CompositeDiagram Is Nothing) Then
