@@ -125,6 +125,8 @@
                 path = "/src/docs/images/ea/" & currentModel.Name & "/"
             End If
             diagramName = Replace(currentDiagram.Name," ","_")
+            diagramName = Replace(diagramName,vbCr,"")
+            diagramName = Replace(diagramName,vbLf,"")
             filename = path & diagramName & ".png"
             MakeDir("." & path)
             projectInterface.SaveDiagramImageToFile(fso.GetAbsolutePathName(".")&filename)
