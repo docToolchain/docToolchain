@@ -32,7 +32,7 @@ arc42 is available in many formats like MS Word, textile and Confluence and all 
 
 In order to follow the _docs-as-code_ approach, you need a build script which automates steps like exporting diagrams and rendering the used markdown (_asciidoc_ in case of _docToolchain_) to the target format.
 
-Unfortunatly, such a build script is not easy to create in the first place ('how do I create .docx?', 'why does lib x not work with lib y?') and it is also not too easy to maintain.
+Unfortunately, such a build script is not easy to create in the first place ('how do I create .docx?', 'why does lib x not work with lib y?') and it is also not too easy to maintain.
 
 _docToolchain_ is the result of my journey through the _docs-as-code_ land. 
 The goal is to have an easy to use build script which only has to be configured and not modified and which is maintained by a community as open source software.
@@ -43,4 +43,106 @@ This readme is intended to be
 
 == The Manual
 
-:-)
+Let's start with what you'll get when you use _docToolchain_...
+
+=== Benefits of the docs-as-code Approach
+
+You want to write technical docs for your software project.
+So it is very likely that you already have the tools and proccesses to work with source code in place.
+Why not also use it for your docs?
+
+==== Document Management System
+
+By using a version control system like https://git-scm.com/[Git], you get a perfect document management system for free.
+It let's you version your docs, branch them and gives you an audit trail.
+You are even able to check who wrote which part of the docs.
+Isn't that great?
+
+Since your docs are now just plain text, it is also easy to do a diff and see exactly what has changed.
+
+And when you store your docs in the same repository as your code, you always have both in sync!
+
+==== Collaboration and Review Process
+
+Git as a distributed version control system let's you even collaborate on your docs.
+People can fork the docs and send you pull requests for the changes they made.
+By reviewing the pull request, you have a perfect review process out of the box - by accepting the pull request, you show that you've reviewed and accepted the changes.
+Most git frontends like https://www.bitbucket.org[Bitbucket], https://gitlab.com[Gitlab] and of course https://github.com[Github] also allow you to reject pull requests with comments.
+
+==== Image References and Code Snippets
+
+Instead of pasting images to a binary document format, you now can reference images.
+This will ensure that those images are always up to date every time you rebuild your documents.
+
+In addition, you can reference code snippets directly from your source code.
+This way, these snippets are also always up to date!
+
+==== Compound and Stakeholder-Tailored Docs
+
+Since you can not only reference images and code snippets but also sub-documents, you can split your docs into several sub-documents and a master which brings all those docs together.
+But you are not restricted to one master - you can create master docs for several different stakeholder which only contain the chapters needed for them.
+
+==== many more Features...
+
+... if you can dream it, you can script it.
+
+* Want to include a list of open issues from Jira? ✓ Check.
+* Want to include a changelog from Git? ✓ Check.
+* Want to use inline, text based diagrams? ✓ Check.
+* and many more...
+
+=== Let's get started
+
+Assuming that you first create your solution architecture and then the code, you simply start by getting a copy of the current docToolchain repository.
+The easiest way is to clone the repository without history and remove the `.git` folder:
+
+.linux with git clone
+[source,bash]
+====
+git clone https://github.com/rdmueller/docToolchain.git <your project name>
+rm -rdI .git
+====
+
+Another way is to download the zipped git repository and rename it:
+
+.linux with download as zip
+[source, bash]
+====
+wget https://github.com/rdmueller/docToolchain/archive/master.zip
+unzip master.zip
+mv docToolchain-master <your project name>
+====
+
+If you work (like me) on a windows environment, just download and unzip the https://github.com/rdmueller/docToolchain/archive/master.zip[repository].
+
+//[source]
+//====
+//(New-Object Net.WebClient).DownloadFile('https://github.com/rdmueller/docToolchain/archive/master.zip','master.zip')
+//====
+
+This should already be enough to start a first build:
+
+
+.linux with gradle wrapper
+[source, bash]
+====
+./gradlew
+====
+
+.linux with maven wrapper
+[source, bash]
+====
+./mvnw
+====
+
+.windows with gradle wrapper
+[source, bash]
+====
+./gradlew
+====
+
+.windows with maven wrapper
+[source, bash]
+====
+./mvnw.bat
+====
