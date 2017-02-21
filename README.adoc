@@ -37,7 +37,7 @@ Unfortunately, such a build script is not easy to create in the first place ('ho
 _docToolchain_ is the result of my journey through the _docs-as-code_ land. 
 The goal is to have an easy to use build script which only has to be configured and not modified and which is maintained by a community as open source software.
 
-The technical steps of my journey are written down in my blog: https://rdmueller.github.io .
+The technical steps of my journey are written down in my blog: https://rdmueller.github.io.
 
 This readme is intended to be
 
@@ -98,51 +98,52 @@ The easiest way is to clone the repository without history and remove the `.git`
 
 .linux with git clone
 [source,bash]
-====
+----
 git clone https://github.com/rdmueller/docToolchain.git <your project name>
 rm -rdI .git
-====
+----
 
 Another way is to download the zipped git repository and rename it:
 
 .linux with download as zip
 [source, bash]
-====
+----
 wget https://github.com/rdmueller/docToolchain/archive/master.zip
 unzip master.zip
 mv docToolchain-master <your project name>
-====
+----
+
 
 If you work (like me) on a windows environment, just download and unzip the https://github.com/rdmueller/docToolchain/archive/master.zip[repository].
 
 //[source]
-//====
+//----
 //(New-Object Net.WebClient).DownloadFile('https://github.com/rdmueller/docToolchain/archive/master.zip','master.zip')
-//====
+//----
 
 This should already be enough to start a first build:
 
 
 .linux with gradle wrapper
 [source, bash]
-====
+----
 ./gradlew
-====
+----
 
 .linux with maven wrapper
 [source, bash]
-====
+----
 ./mvnw
-====
+----
 
 .windows with gradle wrapper
 [source, bash]
-====
+----
 ./gradlew
-====
+----
 
 .windows with maven wrapper
 [source, bash]
-====
+----
 ./mvnw.bat
-====
+----
