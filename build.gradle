@@ -7,15 +7,16 @@ buildscript {
         classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.6'
         //for the renderToConfluence Task
         classpath 'org.apache.httpcomponents:httpmime:4.5.1'
-        classpath 'org.jsoup:jsoup:1.8.2'
+        classpath 'org.jsoup:jsoup:1.9.1'
     }
 }
 
 plugins {
     id "org.asciidoctor.convert" version "1.5.3"
     // we need this plugin to add ruby gems
-    id "com.github.jruby-gradle.base" version "1.3.0"
+    id "com.github.jruby-gradle.base" version "1.4.0"
     id "org.aim42.htmlSanityCheck" version "0.9.6"
+    id "com.github.ben-manes.versions" version "0.14.0"
 }
 
 apply plugin:'groovy'
@@ -24,7 +25,7 @@ apply plugin: 'org.aim42.htmlSanityCheck'
 dependencies {
     // this is the gem we need for diagrams
     gems 'rubygems:asciidoctor-diagram:1.5.1'
-    gems 'rubygems:asciidoctor-pdf:1.5.0.alpha.13'
+    gems 'rubygems:asciidoctor-pdf:1.5.0.alpha.15'
 
 }
 
