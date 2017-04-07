@@ -8,26 +8,39 @@ buildscript {
         //for the renderToConfluence Task
         classpath 'org.apache.httpcomponents:httpmime:4.5.1'
         classpath 'org.jsoup:jsoup:1.9.1'
+
+// comment this out this if you want to use the ruby versions of the plugins
+        classpath 'org.asciidoctor:asciidoctorj-diagram:1.5.4'
+        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.14'
+        classpath 'org.asciidoctor:asciidoctorj-groovy-dsl:1.6.0-alpha.1'
+// /comment
     }
 }
 
 plugins {
     id "org.asciidoctor.convert" version "1.5.3"
+/**
+ uncomment this if you want to use the ruby versions of the plugins
     // we need this plugin to add ruby gems
     id "com.github.jruby-gradle.base" version "1.4.0"
+ /uncomment
+ **/
     id "org.aim42.htmlSanityCheck" version "0.9.6"
     id "com.github.ben-manes.versions" version "0.14.0"
 }
 
 apply plugin:'groovy'
-apply plugin: 'org.aim42.htmlSanityCheck'
 
+/**
+ uncomment this if you want to use the ruby versions of the plugins
 dependencies {
     // this is the gem we need for diagrams
     gems 'rubygems:asciidoctor-diagram:1.5.1'
     gems 'rubygems:asciidoctor-pdf:1.5.0.alpha.15'
 
 }
+ /uncomment
+**/
 
 asciidoctor {
     backends 'html5', 'pdf'
@@ -64,12 +77,15 @@ asciidoctor {
     // good to see what the build is doing...
     logDocuments = true
 
+/**
+ uncomment this if you want to use the ruby versions of the plugins
     // the jrubyPrepare tasks takes care of loading the gems
     dependsOn jrubyPrepare
-
     // the asciidoctor task depends on this gem
     requires = ['asciidoctor-diagram']
     gemPath = jrubyPrepare.outputDir
+ /uncomment
+ **/
 
 }
 
