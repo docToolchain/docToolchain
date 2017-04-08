@@ -101,26 +101,10 @@ include::arc42/DE/11_technical_risks.adoc[]
 // 12. Glossar
 include::arc42/DE/12_glossary.adoc[]
 
-
 // appendices:
 // =====================================
 
 <<<<
 // Appendix Open Issues
-include::arc42/DE/appendix-open_issues.adoc[]
+include::arc42/EN/appendix-open_issues.adoc[]
 
-<<<<
-// Verweise + Literatur
-include::arc42/DE/appendix-references.adoc[]
-
-<<<<
-// Beispiele
-include::arc42/DE/appendix-examples.adoc[]
-
-<<<<
-// Contributing and Contributors
-include::arc42/DE/appendix-contributing.adoc[]
-
-<<<<
-// Approved Practitioner for arc42
-include::arc42/DE/appendix-practitioner.adoc[]

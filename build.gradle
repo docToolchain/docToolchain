@@ -53,6 +53,7 @@ asciidoctor {
             'icons': 'font'
     // Here we can add the code for extensions we write.
     extensions {
+        /**
         inlinemacro (name: "jira") {
             parent, target, attributes ->
                 options = [
@@ -64,6 +65,7 @@ asciidoctor {
                 // Create the link to the issue.
                 createInline(parent, "anchor", target, attributes, options).render()
         }
+         **/
     }
 
     // configure source and output files and folders

@@ -1,211 +1,206 @@
 [[section-building-block-view]]
+
+
 == Building Block View
 
-
 [role="arc42help"]
 ****
-.Contents
-Static decomposition of the system into building blocks (modules, components, subsystems, subsidiary systems, classes, interfaces, packages, libraries, frameworks, layers, partitions, tiers, functions, macros, operations, data structures, …) and the relationships thereof.
+.Content
+The building block view shows the static decomposition of the system into building blocks (modules, components, subsystems, classes,
+interfaces, packages, libraries, frameworks, layers, partitions, tiers, functions, macros, operations,
+datas structures, ...) as well as their dependencies (relationships, associations, ...)
+
+This view is mandatory for every architecture documentation.
+In analogy to a house this is the _floor plan_.
 
 .Motivation
-This is the most important view, that must be part of each architecture documentation. In building construction this would be the floor plan.
+Maintain an overview of your source code by making its structure understandable through
+abstraction.
+
+This allows you to communicate with your stakeholder on an abstract level without disclosing implementation details.
 
 .Form
-The building block view is a hierarchical collection of black box and white box descriptions as shown in the following diagram:
+The building block view is a hierarchical collection of black boxes and white boxes
+(see figure below) and their descriptions.
 
-.Building Blocks overview
-image::05_building_blocks.png["Bulding blocks overview", align="center", scaledwidth="75%"]
+image:05_building_blocks-EN.png["Hierarchy of building blocks"]
 
-*Level 1* contains the white box description of the overall system (system
-under development/SUD) made up of black box descriptions of the
-system’s building blocks.
+*Level 1* is the white box description of the overall system together with black
+box descriptions of all contained building blocks.
 
-*Level 2* zooms into the building blocks of Level 1 and is thus made up of
-the white box descriptions of all building blocks of Level 1 together
-with the black box descriptions of the building blocks of Level 2.
+*Level 2* zooms into some building blocks of level 1.
+Thus it contains the white box description of selected building blocks of level 1, together with black box descriptions of their internal building blocks.
 
-*Level 3* zooms into the building blocks of Level 2, etc.
-
-The section is structured as follows:
-
-.White Box Template
-Contains multiple building blocks with corresponding black box descriptions.
-One or more black box templates:
-Each building block appearing in the white box template should be described as follows:
-
-* Purpose / Responsibility:
-* Interface(s):
-* Implemented requirements:
-* Variability:
-* Performance attributes:
-* Repository / Files:
-* Other administrative information: Author, Version, Date, Revision History
-* Open issues:
-
+*Level 3* zooms into selected building blocks of level 2, and so on.
 ****
 
-=== Level 1
+=== Whitebox Overall System
+
 [role="arc42help"]
 ****
-Here you describe the white box view of level 1 according to the white box template. The structure is given below.
+Here you describe the decomposition of the overall system using the following white box template. It contains
 
-The overview diagram describes the inner structure of the overall system in terms of building blocks 1 – n, as well as their relationships and interdependencies.
+ * an overview diagram
+ * a motivation for the decomposition
+ * black box descriptions of the contained building blocks. For these we offer you alternatives:
 
-It is also useful to list the most important reasons that led to this structure, esp. as relevant to the interdependencies / relationships among the building blocks at this level.
+   ** use _one_ table for a short and pragmatic overview of all contained building blocks and their interfaces
+   ** use a list of black box descriptions of the building blocks according to the black box template (see below).
+   Depending on your choice of tool this list could be sub-chapters (in text files), sub-pages (in a Wiki) or nested elements (in a modeling tool).
 
-You should also mention rejected alternatives incl. reasons for their rejection.
+
+ * (optional:) important interfaces, that are not explained in the black box templates of a building block, but are very important for understanding the white box.
+Since there are so many ways to specify interfaces why do not provide a specific template for them.
+ In the worst case you have to specify and describe syntax, semantics, protocols, error handling,
+ restrictions, versions, qualities, necessary compatibilities and many things more.
+In the best case you will get away with examples or simple signatures.
+
 ****
 
-The following diagram shows the main building blocks of the system and their interdependencies:
+_**<Overview Diagram>**_
 
-<insert overview diagram here>
+Motivation::
 
-Comments regarding structure and interdependencies at Level 1:
+_<text explanation>_
 
-==== Building Block Name 1 (Black Box Description)
+
+Contained Building Blocks::
+_<Description of contained building block (black boxes)>_
+
+Important Interfaces::
+_<Description of important interfaces>_
+
 [role="arc42help"]
 ****
-Structure according to black box template:
+Insert your explanations of black boxes from level 1:
 
-* Purpose / Responsibility:
-* Interface(s):
-* Implemented requirements:
-* Variability:
-* Performance attributes:
-* Repository / Files:
-* Other administrative information: Author, Version, Date, Revision History
-* Open issues:
+If you use tabular form you will only describe your black boxes with name and
+responsibility according to the following schema:
+
+[cols="1,2" options="header"]
+|===
+| **Name** | **Responsibility**
+| _<black box 1>_ | _<Text>_
+| _<black box 2>_ | _<Text>_
+|===
+
+
+
+If you use a list of black box descriptions then you fill in a separate black box template for every important building block .
+Its headline is the name of the black box.
+****
+
+
+==== <Name black box 1>
+
+[role="arc42help"]
+****
+Here you describe <black box 1>
+according the the following black box template:
+
+* Purpose/Responsibility
+* Interface(s), when they are not extracted as separate paragraphs. This interfaces may include qualities and performance characteristics.
+* (Optional) Quality-/Performance characteristics of the black box, e.g.availability, run time behavior, ....
+* (Optional) directory/file location
+* (Optional) Fulfilled requirements (if you need traceability to requirements).
+* (Optional) Open issues/problems/risks
 
 ****
 
-<insert the building block’s black box template here>
+_<Purpose/Responsibility>_
 
-==== Building Block Name 2 (Black Box Description)
+_<Interface(s)>_
 
-<insert the building block’s black box template here>
+_<(Optional) Quality/Performance Characteristics>_
 
-==== ...
+_<(Optional) Directory/File Location>_
 
-<insert the building block’s black box template here>
+_<(Optional) Fulfilled Requirements>_
 
-==== Building Block Name n (Black Box Description)
+_<(optional) Open Issues/Problems/Risks>_
 
-<insert the building block’s black box template here>
 
-==== Open Issues
+
+
+==== <Name black box 2>
+
+_<black box template>_
+
+==== <Name black box n>
+
+_<black box template>_
+
+
+==== <Name interface 1>
+
+...
+
+==== <Name interface m>
+
+
 
 === Level 2
 
 [role="arc42help"]
 ****
-Describe all building blocks comprising level 1 as a series of white box templates. The structure is given below for three building blocks and should be duplicated as needed.
+Here you can specify the inner structure of (some) building blocks from level 1 as white boxes.
+
+You have to decide which building blocks of your system are important enough to justify such a detailed description.
+Please prefer relevance over completeness. Specify important, surprising, risky, complex or volatile building blocks.
+Leave out normal, simple, boring or standardized parts of your system
 ****
 
-==== Building Block Name 1 (White Box Description)
+==== White Box _<building block 1>_
 
 [role="arc42help"]
 ****
-Shows the inner workings of the building block in form of a diagrams with local building blocks 1 – n, as well as their relationships and interdependencies.
-
-It is also useful to list the most important reasons that led to this structure, esp. as relevant to the interdependencies / relationships among the building blocks at this level.
-
-You should also mention rejected alternatives incl. reasons for their rejection.
-****
-<insert diagram of building block 1 here>
-
-===== Building Block Name 1.1 (Black Box Description)
-[role="arc42help"]
-****
-Structure according to black box template:
-
-* Purpose / Responsibility:
-* Interface(s):
-* Implemented requirements:
-* Variability:
-* Performance attributes:
-* Repository / Files:
-* Other administrative information: Author, Version, Date, Revision History
-* Open issues:
-
+...describes the internal structure of _building block 1_.
 ****
 
-===== Building Block Name 1.2 (Black Box Description)
+_<white box template>_
 
-Structure according to black box template
+==== White Box _<building block 2>_
 
-===== ...
 
-===== Building Block Name 1.n (Black Box Description)
-[role="arc42help"]
-****
-Structure according to black box template
-
-****
-
-===== Description of Relationships
-
-===== Open Issues
-
-==== Building Block Name 2 (White Box Description)
-
-…
-
-<insert diagram of building block 2 here>
-
-===== Building Block Name 2.1 (Black Box Description)
-
-Structure according to black box template
-
-===== Building Block Name 2.2 (Black Box Description)
-[role="arc42help"]
-****
-Structure according to black box template
-****
-
-===== ...
-
-===== Building Block Name 2.n (Black Box Description)
-[role="arc42help"]
-****
-Structure according to black box template
-****
-
-===== Description of Relationships
-
-===== Open Issues
-
-==== Building Block Name 3 (White Box Description)
+_<white box template>_
 
 ...
 
-<insert diagram of building block 3 here>
+==== White Box _<building block m>_
 
-===== Building Block Name 3.1 (Black Box Description)
-[role="arc42help"]
-****
-Structure according to black box template
-****
 
-===== Building Block Name 3.2 (Black Box Description)
-[role="arc42help"]
-****
-Structure according to black box template
-****
-===== ...
+_<white box template>_
 
-===== Building Block Name 3.n (Black Box Description)
-[role="arc42help"]
-****
-Structure according to black box template
-****
 
-===== Description of Relationships
-
-===== Open Issues
 
 === Level 3
+
 [role="arc42help"]
 ****
-Describe all building blocks comprising level 2 as a series of white box templates. The structure is identical to the structure of level 2. Duplicate the corresponding sub-sections as needed.
-Simply use this section structure for any additional levels you would like to describe.
+Here you can specify the inner structure of (some) building blocks from level 2 as white boxes.
+
+When you need more detailed levels of your architecture please copy this
+part of arc42 for additional levels.
 ****
+
+
+==== White Box <_building block x.1_>
+
+[role="arc42help"]
+****
+Specifies the internal structure of _building block x.1_.
+****
+
+
+_<white box template>_
+
+
+==== White Box <_building block x.2_>
+
+_<white box template>_
+
+
+
+==== White Box <_building block y.1_>
+
+_<white box template>_
