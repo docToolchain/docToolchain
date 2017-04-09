@@ -147,3 +147,25 @@ This should already be enough to start a first build:
 ----
 ./mvnw.bat
 ----
+
+As a result, you will see the progress of your build together with some warnings which you can just ignore for the moment.
+
+The first build generated some file within the `<project>/build` folder:
+
+[source]
+----
+<project>:
+    build:
+        docs:
+            html5:
+                images:
+                arc42-template-de.html
+                arc42-template-end.html
+            pdf:
+                arc42-template-de.pdf
+----
+
+*Congratulations!* if you see the same folder structure, you just managed to reander tha standard arc42 template as html and pdf!
+
+If you didn't get the right output, please raise an issue on https://github.com/rdmueller/docToolchain/issues[github]
+
