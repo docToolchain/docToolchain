@@ -11,7 +11,6 @@ buildscript {
 
 // comment this out this if you want to use the ruby versions of the plugins
         classpath 'org.asciidoctor:asciidoctorj-diagram:1.5.4'
-        classpath 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.11'
 // /comment
     }
 }
@@ -40,6 +39,13 @@ dependencies {
 }
  /uncomment
 **/
+dependencies {
+    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.14'
+}
+
+asciidoctorj {
+ version = '1.5.4'
+}
 
 asciidoctor {
     backends 'html5', 'pdf'
