@@ -9,9 +9,6 @@ buildscript {
         classpath 'org.apache.httpcomponents:httpmime:4.5.1'
         classpath 'org.jsoup:jsoup:1.9.1'
 
-// comment this out this if you want to use the ruby versions of the plugins
-        classpath 'org.asciidoctor:asciidoctorj-diagram:1.5.4'
-// /comment
     }
 }
 
@@ -40,7 +37,8 @@ dependencies {
  /uncomment
 **/
 dependencies {
-    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.14'
+    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15'
+    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.5.4'
 }
 
 asciidoctorj {
@@ -82,12 +80,13 @@ asciidoctor {
     // good to see what the build is doing...
     logDocuments = true
 
+    requires = ['asciidoctor-diagram']
+
 /**
  uncomment this if you want to use the ruby versions of the plugins
     // the jrubyPrepare tasks takes care of loading the gems
     dependsOn jrubyPrepare
     // the asciidoctor task depends on this gem
-    requires = ['asciidoctor-diagram']
     gemPath = jrubyPrepare.outputDir
  /uncomment
  **/
