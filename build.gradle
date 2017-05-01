@@ -1,6 +1,9 @@
 /*
  * This build file is part of the docToolchain
  */
+
+import org.asciidoctor.gradle.AsciidoctorTask
+
 buildscript {
     dependencies {
         //for the exportJiraIssues Task
@@ -23,6 +26,18 @@ plugins {
     id "org.aim42.htmlSanityCheck" version "0.9.6"
     id "com.github.ben-manes.versions" version "0.14.0"
 }
+println "compiling with Java ${System.getProperty("java.version")} at ${new Date().format("HH:mm:ss")}"
+
+ext {
+    srcDir  = "$projectDir/src/docs"
+    targetDir = "$buildDir"
+    javaVersion = System.getProperty("java.version")
+    currentDate = new Date().format("d. MMM yyyy")
+}
+
+// where HTMLSanityCheck checking results ares stored
+def checkingResultsPath = "$buildDir/report/htmlchecks"
+
 
 apply plugin:'groovy'
 
@@ -45,15 +60,23 @@ asciidoctorj {
  version = '1.5.4'
 }
 
-asciidoctor {
-    backends 'html5', 'pdf'
+// common settings for asciidoctor
+// this is needed for PDF generation with plantUML
+tasks.withType(AsciidoctorTask) { docTask ->
+    outputDir = file(targetDir)
+    sourceDir = file(srcDir)
+
     attributes \
         'pdf-stylesdir': 'pdfTheme',
-        'pdf-style': 'custom',
-        'source-highlighter': 'coderay',
+            'pdf-style': 'custom',
+            'source-highlighter': 'coderay',
             'imagesdir': 'images',
             'toc': 'left',
-            'icons': 'font'
+            'icons': 'font',
+            'javaVersion'         : "$javaVersion",
+            'currentDate'         : "$currentDate",
+            'allow-uri-read'      : true,
+            'plantUMLDir'         : file('build/docs/images/plantUML/').path
     // Here we can add the code for extensions we write.
     extensions {
         inlinemacro (name: "jira") {
@@ -91,6 +114,18 @@ asciidoctor {
  /uncomment
  **/
 
+}
+
+task generateHTML (
+        type: AsciidoctorTask,
+        description: 'use html5 as asciidoc backend') {
+    backends = ['html5']
+}
+
+task generatePDF (
+        type: AsciidoctorTask,
+        description: 'use html5 as asciidoc backend') {
+    backends = ['pdf']
 }
 
 task streamingExecute(
@@ -252,9 +287,9 @@ htmlSanityCheck {
     //sourceDocuments = [ "one-file.html", "another-file.html", "index.html"]
 
     // where to put results of sanityChecks...
-    checkingResultsDir = new File( "$buildDir/report/htmlchecks" )
+    checkingResultsDir = new File( checkingResultsPath )
     checkExternalLinks = false
 }
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
-defaultTasks 'asciidoctor', 'htmlSanityCheck'
+defaultTasks 'exportChangeLog', 'generateHTML', 'generatePDF', 'htmlSanityCheck'
