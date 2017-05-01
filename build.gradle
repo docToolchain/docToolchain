@@ -75,8 +75,7 @@ tasks.withType(AsciidoctorTask) { docTask ->
             'icons': 'font',
             'javaVersion'         : "$javaVersion",
             'currentDate'         : "$currentDate",
-            'allow-uri-read'      : true,
-            'plantUMLDir'         : file('build/docs/images/plantUML/').path
+            'allow-uri-read'      : true
     // Here we can add the code for extensions we write.
     extensions {
         inlinemacro (name: "jira") {
@@ -119,12 +118,20 @@ tasks.withType(AsciidoctorTask) { docTask ->
 task generateHTML (
         type: AsciidoctorTask,
         description: 'use html5 as asciidoc backend') {
+
+    attributes \
+        'plantUMLDir'         : ''
+
     backends = ['html5']
 }
 
 task generatePDF (
         type: AsciidoctorTask,
         description: 'use html5 as asciidoc backend') {
+
+    attributes \
+        'plantUMLDir'         : file('build/docs/images/plantUML/').path
+
     backends = ['pdf']
 }
 
