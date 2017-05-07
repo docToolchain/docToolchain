@@ -45,7 +45,15 @@
             name = currentElement.Name
             name = Replace(name,vbCr,"")
             name = Replace(name,vbLf,"")
-            objFile.WriteLine(vbCRLF&vbCRLF&"."&name&vbCRLF&strNotes)
+            WScript.echo "-"&Left(strNotes, 6)&"-"
+            if (Left(strNotes, 3) = vbCRLF&"|") Then
+                ' content should be rendered as table - so don't interfere with it
+                objFile.WriteLine(vbCRLF)
+            else
+                'let's add the name of the object
+                objFile.WriteLine(vbCRLF&vbCRLF&"."&name)
+            End If
+            objFile.WriteLine(vbCRLF&strNotes)
             objFile.Close
             if (prefix<>"") Then
                 ' write the same to a second file
