@@ -129,7 +129,7 @@ task generateHTML (
 task generatePDF (
         type: AsciidoctorTask,
         group: 'docToolchain',
-        description: 'use html5 as asciidoc backend') {
+        description: 'use pdf as asciidoc backend') {
 
     attributes \
         'plantUMLDir'         : file('build/docs/images/plantUML/').path
