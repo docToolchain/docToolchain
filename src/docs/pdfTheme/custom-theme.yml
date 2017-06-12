@@ -27,9 +27,11 @@ font:
       italic: mplus1p-regular-fallback.ttf
       bold_italic: mplus1p-regular-fallback.ttf
   fallbacks:
-    - Noto Serif
     - M+ 1mn
-    - M+ 1p Fallback
+conum:
+  font_family: Noto Serif
+code:
+  font_family: M+ 1mn
 base:
   font_family: Noto Serif
   font_color: #333333

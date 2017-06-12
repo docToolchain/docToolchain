@@ -67,7 +67,7 @@ tasks.withType(AsciidoctorTask) { docTask ->
     sourceDir = file(srcDir)
 
     attributes \
-        'pdf-stylesdir': 'pdfTheme',
+            'pdf-stylesdir': 'pdfTheme',
             'pdf-style': 'custom',
             'source-highlighter': 'coderay',
             'imagesdir': 'images',
