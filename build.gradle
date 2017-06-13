@@ -97,6 +97,7 @@ tasks.withType(AsciidoctorTask) { docTask ->
         include 'arc42-template-de.adoc'
         include 'arc42-template-en.adoc'
         include 'test.adoc'
+        include 'manual.adoc'
     }
     outputDir = file('build/docs')
     // good to see what the build is doing...
