@@ -1,7 +1,13 @@
-ifndef::imagesdir[:imagesdir: ../images/manual]
+ifndef::imagesdir[:imagesdir: ../images]
 = Further Reading
 
 This chapter lists some additional references to interesting resources.
+
+== Links
+
+* http://asciidoctor.org/docs/user-manual/[Asciidoctor User-Manual]
+* http://arc42.org/[arc42]
+* https://rdmueller.github.io/[the docToolchain Blog]
 
 == Past and upcoming Talks
 
@@ -20,7 +26,7 @@ Einige Teile dieser Doku können Sie sogar automatisiert testen.
 
 Zwischendurch bekommen Sie zahlreiche Tipps, wie und wo Sie systematisch den Aufwand für Dokumentation reduzieren können und trotzdem lesbare, verständliche und praxistaugliche Ergebnisse produzieren.
 
-image::speakerdeck1.png[link:https://speakerdeck.com/rdmueller/dokumentation-am-riesen-beispiel-arc42-asciidoc-und-co-in-aktion]
+image::manual/speakerdeck1.png[width=50%,align="center",link=https://speakerdeck.com/rdmueller/dokumentation-am-riesen-beispiel-arc42-asciidoc-und-co-in-aktion]
 
 === Gesunde Dokumentation mit Asciidoctor
 
@@ -34,4 +40,4 @@ Da Asciidoc wie Programmcode eingecheckt wird und Merge-Operationen einfach mög
 
 Der Vortrag gibt eine kurze Einführung in Asciidoc und die dazugehörigen Werkzeuge.
 
-image::speakerdeck2.png[link:https://speakerdeck.com/ahus1/gesunde-dokumentation-mit-asciidoctor]
+image::manual/speakerdeck2.png[width=50%,align="center",link=https://speakerdeck.com/ahus1/gesunde-dokumentation-mit-asciidoctor]

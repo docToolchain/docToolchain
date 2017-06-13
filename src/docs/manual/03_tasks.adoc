@@ -1,4 +1,4 @@
-ifndef::imagesdir[:imagesdir: ../images/manual]
+ifndef::imagesdir[:imagesdir: ../images]
 = Overview of available Tasks
 
 This chapter explains all docToolchain specific tasks.
@@ -6,7 +6,7 @@ This chapter explains all docToolchain specific tasks.
 The following picture gives an overview of the whole build system:
 
 .docToolchain
-image::../ea/overview.png[]
+image::ea/overview.png[]
 
 == Conventions
 

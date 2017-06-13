@@ -1,1 +1,3 @@
 = generateDocBook
+
+This is only a helper task - it generates the intermediate format for <<convertToDocx>> and <<convertToEpub>>.
