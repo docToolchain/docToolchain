@@ -5,9 +5,9 @@ This is the standard asciidoctor generator which is supported out of the box.
 The result is written to `build/docs/html5`.
 The HTML files need the images folder in the same directory to be displayed the right way.
 
-NOTE: if you would like to have a single-file HTML as result, you can configure asciidoctor to store the images inline as `data-uri` s. +
+NOTE: if you would like to have a single-file HTML as result, you can configure asciidoctor to store the images inline as `data-uri`. +
 Just set `:data-uri:` in the config of your AsciiDoc file. +
-But be warned - such a file can be easily very big and some browsers might get into trouble rendering them.
+But be warned - such a file can be easily very big and some browsers might get into trouble rendering them. +
 https://rdmueller.github.io/single-file-html/
 
 == Text based Diagrams

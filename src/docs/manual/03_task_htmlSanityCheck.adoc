@@ -9,6 +9,6 @@ In docToolchain, this task is used to ensure that the generated HTML contains no
 This task is the last default task and creates a report in `build/report/htmlchecks/index.html`
 
 .sample report
-image::manual/htmlSanityCheck.png[width=50%,align="center"]
+image::manual/htmlSanityCheck.png[align="center"]
 
 Further information can be found on github: https://github.com/aim42/htmlSanityCheck
