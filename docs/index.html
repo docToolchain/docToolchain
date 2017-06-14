@@ -532,17 +532,19 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_publishtoconfluence">3.5. publishToConfluence</a></li>
 <li><a href="#_converttodocx">3.6. convertToDocx</a></li>
 <li><a href="#_converttoepub">3.7. convertToEpub</a></li>
-<li><a href="#_exportchangelog">3.8. exportChangeLog</a></li>
-<li><a href="#_exportjiraissues">3.9. exportJiraIssues</a></li>
-<li><a href="#_exportppt">3.10. exportPPT</a></li>
-<li><a href="#_htmlsanitycheck">3.11. htmlSanityCheck</a></li>
-<li><a href="#_dependencyupdates">3.12. dependencyUpdates</a></li>
+<li><a href="#_exportea">3.8. exportEA</a></li>
+<li><a href="#_exportchangelog">3.9. exportChangeLog</a></li>
+<li><a href="#_exportjiraissues">3.10. exportJiraIssues</a></li>
+<li><a href="#_exportppt">3.11. exportPPT</a></li>
+<li><a href="#_htmlsanitycheck">3.12. htmlSanityCheck</a></li>
+<li><a href="#_dependencyupdates">3.13. dependencyUpdates</a></li>
 </ul>
 </li>
 <li><a href="#_further_reading">4. Further Reading</a>
 <ul class="sectlevel2">
 <li><a href="#_links">4.1. Links</a></li>
-<li><a href="#_past_and_upcoming_talks">4.2. Past and upcoming Talks</a></li>
+<li><a href="#_books">4.2. Books</a></li>
+<li><a href="#_past_and_upcoming_talks">4.3. Past and upcoming Talks</a></li>
 </ul>
 </li>
 </ul>
@@ -771,7 +773,7 @@ mv docToolchain-master &lt;your project name&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Congratulations!</strong> if you see the same folder structure, you just managed to reander tha standard arc42 template as html and pdf!</p>
+<p><strong>Congratulations!</strong> if you see the same folder structure, you just managed to render the standard arc42 template as html and pdf!</p>
 </div>
 <div class="paragraph">
 <p>If you didn&#8217;t get the right output, please raise an issue on <a href="https://github.com/rdmueller/docToolchain/issues">github</a></p>
@@ -791,7 +793,7 @@ mv docToolchain-master &lt;your project name&gt;</code></pre>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/ea/overview.png" alt="overview">
+<img src="images/ea/Manual/overview2.png" alt="overview2">
 </div>
 <div class="title">Figure 1. docToolchain</div>
 </div>
@@ -834,10 +836,16 @@ This results in a dependency on a <em>generateX</em> task and another external t
 This means that the result is likely to be visible immediately to others.</p>
 </div>
 <hr>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_generatehtml">3.2. generateHTML</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/ea/Manual/generateHTML.png" alt="generateHTML">
+</div>
+</div>
 <div class="paragraph">
 <p>This is the standard asciidoctor generator which is supported out of the box.</p>
 </div>
@@ -852,9 +860,9 @@ The HTML files need the images folder in the same directory to be displayed the 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-if you would like to have a single-file HTML as result, you can configure asciidoctor to store the images inline as <code>data-uri</code> s.<br>
+if you would like to have a single-file HTML as result, you can configure asciidoctor to store the images inline as <code>data-uri</code>.<br>
 Just set <code>:data-uri:</code> in the config of your AsciiDoc file.<br>
-But be warned - such a file can be easily very big and some browsers might get into trouble rendering them.
+But be warned - such a file can be easily very big and some browsers might get into trouble rendering them.<br>
 <a href="https://rdmueller.github.io/single-file-html/" class="bare">https://rdmueller.github.io/single-file-html/</a>
 </td>
 </tr>
@@ -874,7 +882,7 @@ But be warned - such a file can be easily very big and some browsers might get i
 <div class="literalblock">
 <div class="content">
 <pre>.example diagram
-[plantuml, diagram-classes, png] <i class="conum" data-value="1"></i><b>(1)</b>
+[plantuml, "{plantUMLDir}demoPlantUML", png] <i class="conum" data-value="1"></i><b>(1)</b>
 ----
 class BlockProcessor
 class DiagramBlock
@@ -896,6 +904,19 @@ The second element the name of the image to be created and the third the image t
 </tr>
 </table>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+the {plantUMLDir} ensures that plantUML also works for the <a href="#_generatepdf">generatePDF</a> task.
+Without it, <a href="#_generatehtml">generateHTML</a> works fine, but the PDF will not find the generated images.
+</td>
+</tr>
+</table>
+</div>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -914,7 +935,7 @@ Otherwise it will be overwritten and you&#8217;ll get all the same diagrams.
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/diagram-classes.png" alt="example diagram" width="233" height="238">
+<img src="images/demoPlantUML.png" alt="example diagram" width="233" height="238">
 </div>
 <div class="title">Figure 2. example diagram</div>
 </div>
@@ -935,10 +956,16 @@ It is still an experimental feature, but already works quite well!<br>
 </table>
 </div>
 <hr>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_generatepdf">3.3. generatePDF</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/ea/Manual/generatePDF.png" alt="generatePDF">
+</div>
+</div>
 <div class="paragraph">
 <p>This task makes use of the <a href="http://asciidoctor.org/docs/convert-asciidoc-to-pdf/">asciidoctor-pdf</a> plugin to render your documents as good looking PDF.</p>
 </div>
@@ -968,24 +995,48 @@ This can be done by changing the <code>src/docs/custom-theme.yml</code> file.
 Documentation on how to modify it can be found in the <a href="https://github.com/asciidoctor/asciidoctor-pdf/blob/master/docs/theming-guide.adoc">asciidoctor-pdf theming guide</a>.</p>
 </div>
 <hr>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
 <h3 id="_generatedocbook">3.4. generateDocBook</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/ea/Manual/generateDocBook.png" alt="generateDocBook">
+</div>
+</div>
 <div class="paragraph">
 <p>This is only a helper task - it generates the intermediate format for <a href="#_converttodocx">convertToDocx</a> and <a href="#_converttoepub">convertToEpub</a>.</p>
 </div>
 <hr>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
 <h3 id="_publishtoconfluence">3.5. publishToConfluence</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/ea/Manual/publishToConfluence.png" alt="publishToConfluence">
+</div>
+</div>
 <hr>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
 <h3 id="_converttodocx">3.6. convertToDocx</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/ea/Manual/convertToDocx.png" alt="convertToDocx">
+</div>
+</div>
 <hr>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
 <h3 id="_converttoepub">3.7. convertToEpub</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/ea/Manual/convertToEpub.png" alt="convertToEpub">
+</div>
+</div>
 <div class="paragraph">
 <p>Dependency: <a href="#_generatedocbook">generateDocBook</a></p>
 </div>
@@ -997,9 +1048,25 @@ This way, you can read your documentation in a convenient way on an eBook-reader
 <p>Result can be found in <code>build/docs/epub</code></p>
 </div>
 <hr>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
-<h3 id="_exportchangelog">3.8. exportChangeLog</h3>
+<h3 id="_exportea">3.8. exportEA</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/ea/Manual/exportEA.png" alt="exportEA">
+</div>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect2">
+<h3 id="_exportchangelog">3.9. exportChangeLog</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/ea/Manual/exportChangeLog.png" alt="exportChangeLog">
+</div>
+</div>
 <div class="paragraph">
 <p>As the name says, this task exports the changelog to be referenced from within your documentation - if needed.</p>
 </div>
@@ -1055,17 +1122,35 @@ But this isn&#8217;t implemented yet.
 </table>
 </div>
 <hr>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
-<h3 id="_exportjiraissues">3.9. exportJiraIssues</h3>
+<h3 id="_exportjiraissues">3.10. exportJiraIssues</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/ea/Manual/exportJiraIssues.png" alt="exportJiraIssues">
+</div>
+</div>
 <hr>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
-<h3 id="_exportppt">3.10. exportPPT</h3>
+<h3 id="_exportppt">3.11. exportPPT</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/ea/Manual/exportPPT.png" alt="exportPPT">
+</div>
+</div>
 <hr>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
-<h3 id="_htmlsanitycheck">3.11. htmlSanityCheck</h3>
+<h3 id="_htmlsanitycheck">3.12. htmlSanityCheck</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/ea/Manual/htmlSanityCheck.png" alt="htmlSanityCheck">
+</div>
+</div>
 <div class="paragraph">
 <p>This task invokes the <a href="https://github.com/aim42/htmlSanityCheck">htmlSanityCheck</a> gradle plugin.
 It is a Standalone (batch- and command-line) html sanity checker - detects missing images, dead links, duplicate bookmarks.</p>
@@ -1078,7 +1163,7 @@ It is a Standalone (batch- and command-line) html sanity checker - detects missi
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<img src="images/manual/htmlSanityCheck.png" alt="htmlSanityCheck" width="50%">
+<img src="images/manual/htmlSanityCheck.png" alt="htmlSanityCheck">
 </div>
 <div class="title">Figure 3. sample report</div>
 </div>
@@ -1086,14 +1171,16 @@ It is a Standalone (batch- and command-line) html sanity checker - detects missi
 <p>Further information can be found on github: <a href="https://github.com/aim42/htmlSanityCheck" class="bare">https://github.com/aim42/htmlSanityCheck</a></p>
 </div>
 <hr>
+<div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
-<h3 id="_dependencyupdates">3.12. dependencyUpdates</h3>
+<h3 id="_dependencyupdates">3.13. dependencyUpdates</h3>
 <div class="paragraph">
 <p>This task uses the <a href="https://github.com/ben-manes/gradle-versions-plugin">Gradle versions plugin</a> created by Ben Manes to check for outdated build dependencies.
 Quite helpful to keep all dependencies up-to-date.</p>
 </div>
 <hr>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
@@ -1108,10 +1195,33 @@ Quite helpful to keep all dependencies up-to-date.</p>
 <div class="ulist">
 <ul>
 <li>
+<p><strong>AsciiDoc</strong></p>
+<div class="ulist">
+<ul>
+<li>
 <p><a href="http://asciidoctor.org/docs/user-manual/">Asciidoctor User-Manual</a></p>
 </li>
 <li>
+<p><a href="http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/">AsciiDoc Syntax Quick Reference</a></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>arc42</strong></p>
+<div class="ulist">
+<ul>
+<li>
 <p><a href="http://arc42.org/">arc42</a></p>
+</li>
+<li>
+<p><a href="http://docs.arc42.org/home/">arc42 Tips &amp; Tricks</a></p>
+</li>
+<li>
+<p><a href="http://faq.arc42.org/home/">rc42 FAQ</a></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><a href="https://rdmueller.github.io/">the docToolchain Blog</a></p>
@@ -1120,9 +1230,59 @@ Quite helpful to keep all dependencies up-to-date.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_past_and_upcoming_talks">4.2. Past and upcoming Talks</h3>
+<h3 id="_books">4.2. Books</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+links to amazon are affiliate links
+</td>
+</tr>
+</table>
+</div>
 <div class="sect3">
-<h4 id="_dokumentation_am_riesen_beispiel_arc42_asciidoc_und_co_in_aktion">4.2.1. Dokumentation am (Riesen-)Beispiel – arc42, AsciiDoc und Co. in Aktion</h4>
+<h4 id="_english_books">4.2.1. English Books</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://amzn.to/2smRhxE">DOCS-LIKE-CODE</a> by Anne Gentle</p>
+</li>
+<li>
+<p><a href="http://amzn.to/2sn0kyx">Modern technical writing: An Introduction to Software Documentation</a> by Andrew Etter</p>
+</li>
+<li>
+<p><a href="https://leanpub.com/arc42byexample">arc42 by Example</a> by Gernot Starke, Stefan Zörner, Michael Simons</p>
+</li>
+<li>
+<p><a href="https://leanpub.com/arc42inpractice">Communicating Software Architectures with arc42</a> by Gernot Starke und Peter Hruschka</p>
+</li>
+<li>
+<p><a href="https://leanpub.com/visualising-software-architecture">Visualise, document and explore your software architecture</a> by Simon Brown</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_german_books">4.2.2. German Books</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://amzn.to/2smM5Kp">arc42 in Aktion: Praktische Tipps zur Architekturdokumentation</a> von Gernot Starke und Peter Hruschka</p>
+</li>
+<li>
+<p><a href="http://amzn.to/2ru9Yvr">Softwarearchitekturen dokumentieren und kommunizieren: Entwürfe, Entscheidungen und Lösungen nachvollziehbar und wirkungsvoll festhalten</a> von Stefan Zörner</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_past_and_upcoming_talks">4.3. Past and upcoming Talks</h3>
+<div class="sect3">
+<h4 id="_dokumentation_am_riesen_beispiel_arc42_asciidoc_und_co_in_aktion">4.3.1. Dokumentation am (Riesen-)Beispiel – arc42, AsciiDoc und Co. in Aktion</h4>
 <div class="paragraph">
 <p><a href="https://twitter.com/gernotstarke">Gernot Starke</a> and <a href="https://twitter.com/ralfdmueller">Ralf D. Müller</a></p>
 </div>
@@ -1143,12 +1303,12 @@ Einige Teile dieser Doku können Sie sogar automatisiert testen.</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<a class="image" href="https://speakerdeck.com/rdmueller/dokumentation-am-riesen-beispiel-arc42-asciidoc-und-co-in-aktion"><img src="images/manual/speakerdeck1.png" alt="speakerdeck1" width="50%"></a>
+<a class="image" href="https://speakerdeck.com/rdmueller/dokumentation-am-riesen-beispiel-arc42-asciidoc-und-co-in-aktion"><img src="images/manual/speakerdeck1.png" alt="speakerdeck1"></a>
 </div>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_gesunde_dokumentation_mit_asciidoctor">4.2.2. Gesunde Dokumentation mit Asciidoctor</h4>
+<h4 id="_gesunde_dokumentation_mit_asciidoctor">4.3.2. Gesunde Dokumentation mit Asciidoctor</h4>
 <div class="paragraph">
 <p><a href="https://twitter.com/ahus1de">Alexander Schwartz</a></p>
 </div>
@@ -1166,7 +1326,7 @@ Einige Teile dieser Doku können Sie sogar automatisiert testen.</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
-<a class="image" href="https://speakerdeck.com/ahus1/gesunde-dokumentation-mit-asciidoctor"><img src="images/manual/speakerdeck2.png" alt="speakerdeck2" width="50%"></a>
+<a class="image" href="https://speakerdeck.com/ahus1/gesunde-dokumentation-mit-asciidoctor"><img src="images/manual/speakerdeck2.png" alt="speakerdeck2"></a>
 </div>
 </div>
 </div>
@@ -1176,7 +1336,7 @@ Einige Teile dieser Doku können Sie sogar automatisiert testen.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-06-13 08:07:34 MESZ
+Last updated 2017-06-14 22:12:49 MESZ
 </div>
 </div>
 </body>
