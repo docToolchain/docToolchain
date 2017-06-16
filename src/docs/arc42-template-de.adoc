@@ -41,9 +41,9 @@ Für die Dokumentation eigener System verwenden Sie besser die _plain_ Version.
 .Änderungen
 [options="header",cols="1,2,6"]
 |====
-| Date
+| Datum
 | Author
-| Comment
+| Kommentar
 
 include::../../build/docs/changelog.adoc[]
 
