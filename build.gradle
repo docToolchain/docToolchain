@@ -63,6 +63,14 @@ asciidoctorj {
 // common settings for asciidoctor
 // this is needed for PDF generation with plantUML
 tasks.withType(AsciidoctorTask) { docTask ->
+    inputs.dir new File(srcDir, 'arc42')
+    inputs.dir new File(srcDir, 'images')
+    inputs.file new File(srcDir, 'arc42-template-de.adoc')
+    inputs.file new File(srcDir, 'config-de.adoc')
+    inputs.file new File(srcDir, 'arc42-template-en.adoc')
+    inputs.file new File(srcDir, 'config-en.adoc')
+    inputs.file new File(new File(targetDir, 'docs'), 'changelog.adoc')
+
     outputDir = file(targetDir)
     sourceDir = file(srcDir)
 
