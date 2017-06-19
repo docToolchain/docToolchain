@@ -11,7 +11,8 @@ buildscript {
         //for the renderToConfluence Task
         classpath 'org.apache.httpcomponents:httpmime:4.5.1'
         classpath 'org.jsoup:jsoup:1.9.1'
-
+        //for export Excel Task
+        classpath 'org.apache.poi:poi-ooxml:3.9'
     }
 }
 
@@ -321,6 +322,81 @@ task exportJiraIssues(
             openIssues.append("| ${jiraRoot}/browse/${issue.key}[${issue.fields.summary}]\n",'utf-8')
         }
 
+}
+task exportExcel(
+        description: 'exports all excelsheets to csv',
+        group: 'docToolchain'
+) << {
+        File sourceDir = file(srcDir)
+
+        def tree = fileTree(srcDir).include('**/*.xlsx').exclude('**/~*')
+
+        def exportFileDir = new File(sourceDir, 'excel')
+
+        //make sure path for notes exists
+        exportFileDir.deleteDir()
+        //create a readme to clarify things
+        def readme="""This folder contains exported diagrams or notes from Excel.
+
+Please note that these are generated files but reside in the `src`-folder in order to be versioned.
+
+This is to make sure that they can be used from environments other than windows.
+
+# Warning!
+
+**The contents of this folder will be overwritten with each re-export!**
+
+use `gradle exportExcel` to re-export files
+"""
+        exportFileDir.mkdirs()
+        new File(exportFileDir, '/readme.ad').write(readme)
+
+        def exportAsCSV = {sheet, evaluator, targetFile ->
+            def rowIterator = sheet.iterator();
+            StringBuilder data = new StringBuilder();
+            def df = new org.apache.poi.ss.usermodel.DataFormatter();
+            while (rowIterator.hasNext()) {
+                def row = rowIterator.next();
+                // For each row, iterate through each columns
+                def cellIterator = row.cellIterator();
+                while (cellIterator.hasNext()) {
+                    def cell = cellIterator.next();
+                    def cellValue = df.formatCellValue(cell, evaluator)
+                    if (cellValue.startsWith('*') && cellValue.endsWith('\u20AC')) {
+                        // Remove special characters at currency
+                        cellValue = cellValue.substring(1).trim();
+                    }
+                    data.append('"').append(cellValue).append('"').append(',')
+                }
+                data.deleteCharAt(data.length()-1)
+                data.append(System.getProperty("line.separator"));
+            }
+            // DEBUG println data;
+            targetFile.append(data, 'UTF-8');
+        }
+
+
+        tree.each { File excel ->
+            println excel
+            def excelDir = new File(exportFileDir, excel.getName())
+            excelDir.mkdirs()
+            InputStream inp
+            try {
+                inp = new FileInputStream(excel)
+                def wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(inp);
+                def evaluator = wb.getCreationHelper().createFormulaEvaluator();
+                for(int wbi=0; wbi < wb.getNumberOfSheets(); wbi++) {
+                    def sheetName = wb.getSheetAt(wbi).getSheetName()
+                    println sheetName
+                    def targetFile = new File(excelDir, sheetName + ".csv")
+                    exportAsCSV(wb.getSheetAt(wbi), evaluator, targetFile)
+                }
+            } catch (e) {
+                println e;
+            } finally {
+                inp.close();
+            }
+        }
 }
 task publishToConfluence(
         description: 'publishes the HTML rendered output to confluence',
