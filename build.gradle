@@ -12,8 +12,7 @@ buildscript {
         classpath 'org.apache.httpcomponents:httpmime:4.5.1'
         classpath 'org.jsoup:jsoup:1.9.1'
         //for export Excel Task
-        classpath 'org.apache.poi:poi-ooxml:3.16'
-        classpath 'org.apache.poi:ooxml-schemas:1.1'
+        classpath 'org.apache.poi:poi-ooxml:3.9'
     }
 }
 
@@ -354,14 +353,18 @@ use `gradle exportExcel` to re-export files
                 def cellIterator = row.cellIterator();
                 while (cellIterator.hasNext()) {
                     def cell = cellIterator.next();
-                    // Doesn't work for currency!
-                    data.append('"').append(df.formatCellValue(cell, evaluator)).append('"').append(',');
+                    def cellValue = df.formatCellValue(cell, evaluator)
+                    if (cellValue.startsWith('*') && cellValue.endsWith('\u20AC')) {
+                        // Remove special characters at currency
+                        cellValue = cellValue.substring(1).trim();
+                    }
+                    data.append('"').append(cellValue).append('"').append(',')
                 }
                 data.deleteCharAt(data.length()-1)
                 data.append(System.getProperty("line.separator"));
             }
             // DEBUG println data;
-            targetFile.append(data);
+            targetFile.append(data, 'UTF-8');
         }
 
 
