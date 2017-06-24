@@ -2067,7 +2067,68 @@ use `gradle exportPPT` to re-export files
 </div>
 </div>
 <div class="paragraph">
-<p>This task searches for <code>.xlsx</code> files and exports each contained workbook as <code>.csv</code> and as <code>.adoc</code>.</p>
+<p>Sometimes you have tabular data to be included in your documentation.
+Then it is likely that the data is available as excel sheet or you would like to use MS Excel to create and edit it.</p>
+</div>
+<div class="paragraph">
+<p>Either way, this task lets you export your excel sheet and include it directly in your docs.</p>
+</div>
+<div class="paragraph">
+<p>The task searches for <code>.xlsx</code> files and exports each contained worksheet as <code>.csv</code> and as <code>.adoc</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Formulars containes in your Workbook are evaluated and exported statically.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The generated files are written to <code>src/excel/[filename]/[worksheet].(adoc|cvs)</code> .
+The <code>src</code> and not <code>build</code> folder is chosen mainly to get a better history for all changes on the worksheets.</p>
+</div>
+<div class="paragraph">
+<p>The files can be included either as AsciiDoc</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>include::excel/Sample.xlsx/Numerisch.adoc[]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>or as CSV file</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[options="header",format="csv"]
+|===
+include::excel/Sample.xlsx/Numerisch.csv[]
+|===</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The AsciiDoc version gives you a bit more control:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>horizontal and vertical alignment is preserved</p>
+</li>
+<li>
+<p>line breaks are preserved</p>
+</li>
+<li>
+<p>column width&#8201;&#8212;&#8201;relative to other columns is preserved</p>
+</li>
+<li>
+<p>background colors are preserved.</p>
+</li>
+</ul>
 </div>
 <div class="sect3">
 <h4 id="_source_11">3.12.1. Source</h4>
