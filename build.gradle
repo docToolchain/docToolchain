@@ -61,6 +61,8 @@ asciidoctorj {
  version = '1.5.4'
 }
 
+//tag::AsciidoctorTask[]
+
 // common settings for asciidoctor
 // this is needed for PDF generation with plantUML
 tasks.withType(AsciidoctorTask) { docTask ->
@@ -124,7 +126,9 @@ tasks.withType(AsciidoctorTask) { docTask ->
  **/
 
 }
+//end::AsciidoctorTask[]
 
+//tag::generateHTML[]
 task generateHTML (
         type: AsciidoctorTask,
         group: 'docToolchain',
@@ -135,7 +139,9 @@ task generateHTML (
 
     backends = ['html5']
 }
+//end::generateHTML[]
 
+//tag::generatePDF[]
 task generatePDF (
         type: AsciidoctorTask,
         group: 'docToolchain',
@@ -146,7 +152,9 @@ task generatePDF (
 
     backends = ['pdf']
 }
+//end::generatePDF[]
 
+//tag::streamingExecute[]
 task streamingExecute(
     dependsOn: [],
     description: 'extends the String class with a better .executeCmd'
@@ -178,6 +186,9 @@ task streamingExecute(
         }
     }
 }
+//end::streamingExecute[]
+
+//tag::exportEA[]
 task exportEA(
     dependsOn: [streamingExecute],
     description: 'exports all diagrams and some texts from EA files',
@@ -217,6 +228,9 @@ use `gradle exportEA` to re-export files
     	}
     }
 }
+//end::exportEA[]
+
+//tag::exportPPT[]
 task exportPPT(
         dependsOn: [streamingExecute],
         description: 'exports all slides and some texts from PPT files',
@@ -247,6 +261,9 @@ use `gradle exportPPT` to re-export files
     //execute through cscript in order to make sure that we get WScript.echo right
     "%SystemRoot%\\System32\\cscript.exe //nologo scripts/exportPPT.vbs".executeCmd()
 }
+//end::exportPPT[]
+
+//tag::exportChangeLog[]
 task exportChangeLog(
         dependsOn: [streamingExecute],
         description: 'exports the change log from a git subpath',
@@ -288,6 +305,9 @@ task exportChangeLog(
         } catch (Exception e) { println c }
     }
 }
+//end::exportChangeLog[]
+
+//tag::exportJiraIssues[]
 task exportJiraIssues(
         description: 'exports all jira issues from a given search',
         group: 'docToolchain'
@@ -323,8 +343,11 @@ task exportJiraIssues(
         }
 
 }
+//end::exportJiraIssues[]
+
+//tag::exportExcel[]
 task exportExcel(
-        description: 'exports all excelsheets to csv',
+        description: 'exports all excelsheets to csv and AsciiDoc',
         group: 'docToolchain'
 ) << {
         File sourceDir = file(srcDir)
@@ -336,7 +359,7 @@ task exportExcel(
         //make sure path for notes exists
         exportFileDir.deleteDir()
         //create a readme to clarify things
-        def readme="""This folder contains exported diagrams or notes from Excel.
+        def readme="""This folder contains exported workbooks from Excel.
 
 Please note that these are generated files but reside in the `src`-folder in order to be versioned.
 
@@ -351,28 +374,78 @@ use `gradle exportExcel` to re-export files
         exportFileDir.mkdirs()
         new File(exportFileDir, '/readme.ad').write(readme)
 
-        def exportAsCSV = {sheet, evaluator, targetFile ->
-            def rowIterator = sheet.iterator();
-            StringBuilder data = new StringBuilder();
+        def nl = System.getProperty("line.separator")
+
+        def export = {sheet, evaluator, targetFileName ->
+            def targetFileCSV = new File(targetFileName+'.csv')
+            def targetFileAD = new File(targetFileName+'.adoc')
             def df = new org.apache.poi.ss.usermodel.DataFormatter();
-            while (rowIterator.hasNext()) {
-                def row = rowIterator.next();
+            sheet.eachWithIndex { row, rowNum ->
+                if (rowNum==0) {
+                    // create AsciiDoc table header
+                    def width = []
+                    row.eachWithIndex { cell, columnIndex ->
+                        width << sheet.getColumnWidth((int)columnIndex)
+                    }
+                    //lets make those numbers nicer:
+                    width = width.collect{Math.round(100*it/width.sum())}
+                    targetFileAD.append('[options="header",cols="'+width.join(',')+'"]'+nl)
+                    targetFileAD.append('|==='+nl)
+                }
+                def data = []
+                def style = []
+                def colors = []
+                def color = ''
+                def resetColor = false
                 // For each row, iterate through each columns
-                def cellIterator = row.cellIterator();
-                while (cellIterator.hasNext()) {
-                    def cell = cellIterator.next();
+                row.each { cell ->
                     def cellValue = df.formatCellValue(cell, evaluator)
                     if (cellValue.startsWith('*') && cellValue.endsWith('\u20AC')) {
                         // Remove special characters at currency
                         cellValue = cellValue.substring(1).trim();
                     }
-                    data.append('"').append(cellValue).append('"').append(',')
+                    def cellStyle = ''
+                    switch (cell.cellStyle.alignmentEnum.toString()) {
+                        case 'RIGHT':
+                            cellStyle += '>'
+                            break
+                        case 'CENTER':
+                            cellStyle += '^'
+                            break
+                    }
+                    switch (cell.cellStyle.verticalAlignmentEnum.toString()) {
+                        case 'BOTTOM':
+                            cellStyle += '.>'
+                            break
+                        case 'CENTER':
+                            cellStyle += '.^'
+                            break
+                    }
+                    color = cell.cellStyle.fillForegroundXSSFColor?.rgb?.encodeHex()
+                    color = color!=null?nl+"{set:cellbgcolor:#${color}}":''
+                    data << cellValue
+                    if (color=='' && resetColor) {
+                        colors << nl+"{set:cellbgcolor!}"
+                        resetColor = false
+                    } else {
+                        colors << color
+                    }
+                    if (color!='') {resetColor=true}
+                    style << cellStyle
                 }
-                data.deleteCharAt(data.length()-1)
-                data.append(System.getProperty("line.separator"));
+                targetFileCSV.append(data
+                                     .collect{
+                                                "\"${it.replaceAll('"','""')}\""
+                                             }
+                                     .join(',')+nl, 'UTF-8')
+                targetFileAD.append(data
+                                    .withIndex()
+                                    .collect{value, index ->
+                                                style[index]+"| ${value.replaceAll('[|]','{vbar}').replaceAll("\n",' +$0')+colors[index]}"
+                                            }
+                                    .join(nl)+nl*2, 'UTF-8')
             }
-            // DEBUG println data;
-            targetFile.append(data, 'UTF-8');
+            targetFileAD.append('|==='+nl)
         }
 
 
@@ -381,35 +454,39 @@ use `gradle exportExcel` to re-export files
             def excelDir = new File(exportFileDir, excel.getName())
             excelDir.mkdirs()
             InputStream inp
-            try {
-                inp = new FileInputStream(excel)
-                def wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(inp);
-                def evaluator = wb.getCreationHelper().createFormulaEvaluator();
-                for(int wbi=0; wbi < wb.getNumberOfSheets(); wbi++) {
-                    def sheetName = wb.getSheetAt(wbi).getSheetName()
-                    println sheetName
-                    def targetFile = new File(excelDir, sheetName + ".csv")
-                    exportAsCSV(wb.getSheetAt(wbi), evaluator, targetFile)
-                }
-            } catch (e) {
-                println e;
-            } finally {
-                inp.close();
+            inp = new FileInputStream(excel)
+            def wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(inp);
+            def evaluator = wb.getCreationHelper().createFormulaEvaluator();
+            for(int wbi=0; wbi < wb.getNumberOfSheets(); wbi++) {
+                def sheetName = wb.getSheetAt(wbi).getSheetName()
+                println sheetName
+                def targetFile = new File(excelDir, sheetName)
+                export(wb.getSheetAt(wbi), evaluator, targetFile.getAbsolutePath())
             }
+            inp.close();
         }
 }
+//end::exportExcel[]
+
+//tag::publishToConfluence[]
 task publishToConfluence(
         description: 'publishes the HTML rendered output to confluence',
         group: 'docToolchain'
 ) << {
     evaluate(new File('scripts/asciidoc2confluence.groovy'))
 }
+//end::publishToConfluence[]
+
+//tag::generateDocbook[]
 task generateDocbook (
         type: AsciidoctorTask,
         group: 'docToolchain',
         description: 'use docbook as asciidoc backend') {
         backends = ['docbook']
- }
+}
+//end::generateDocbook[]
+
+//tag::convertToDocx[]
 task convertToDocx (
         dependsOn: [generateDocbook ],
         group: 'docToolchain',
@@ -423,6 +500,9 @@ task convertToDocx (
             '-o','../docx/arc42-template-en.docx',
                  'arc42-template-en.xml']
 }
+//end::convertToDocx[]
+
+//tag::convertToEpub[]
 task convertToEpub (
         dependsOn: [generateDocbook ],
         group: 'docToolchain',
@@ -437,6 +517,9 @@ task convertToEpub (
             '-o','../epub/arc42-template-en.epub',
             'arc42-template-en.xml']
 }
+//end::convertToEpub[]
+
+//tag::htmlSanityCheck[]
 htmlSanityCheck {
     sourceDir = new File( "$buildDir/docs/html5" )
 
@@ -447,6 +530,8 @@ htmlSanityCheck {
     checkingResultsDir = new File( checkingResultsPath )
     checkExternalLinks = false
 }
+//end::htmlSanityCheck[]
+
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
 defaultTasks 'exportChangeLog', 'generateHTML', 'generatePDF', 'htmlSanityCheck'
