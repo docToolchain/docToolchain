@@ -2,3 +2,18 @@ ifndef::imagesdir[:imagesdir: ../images]
 = publishToConfluence
 
 image::ea/Manual/publishToConfluence.png[]
+
+== Source
+
+.build.gradle
+[source,groovy]
+----
+include::../../../build.gradle[tags=publishToConfluence]
+----
+
+.scripts/asciidoc2confluence.groovy
+[source,groovy]
+----
+include::../../../scripts/asciidoc2confluence.groovy[]
+----
+

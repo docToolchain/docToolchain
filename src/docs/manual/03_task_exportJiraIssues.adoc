@@ -2,3 +2,11 @@ ifndef::imagesdir[:imagesdir: ../images]
 = exportJiraIssues
 
 image::ea/Manual/exportJiraIssues.png[]
+
+== Source
+
+.build.gradle
+[source,groovy]
+----
+include::../../../build.gradle[tags=exportJiraIssues]
+----

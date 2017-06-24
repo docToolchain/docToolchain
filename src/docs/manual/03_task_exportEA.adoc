@@ -3,3 +3,16 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 image::ea/Manual/exportEA.png[]
 
+== Source
+
+.build.gradle
+[source,groovy]
+----
+include::../../../build.gradle[tags=exportEA]
+----
+
+.scripts/exportEAP.vbs
+[source]
+----
+include::../../../scripts/exportEAP.vbs[]
+----

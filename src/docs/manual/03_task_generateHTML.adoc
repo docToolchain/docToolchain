@@ -66,3 +66,11 @@ If you can't install it, you can use java based version of the dot library.
 Just add `!pragma graphviz_dot jdot` as first line of your diagram definition.
 It is still an experimental feature, but already works quite well! +
 https://rdmueller.github.io/plantuml-without-graphviz/
+
+== Source
+
+.build.gradle
+[source,groovy]
+----
+include::../../../build.gradle[tags=generateHTML]
+----

@@ -10,3 +10,10 @@ This way, you can read your documentation in a convenient way on an eBook-reader
 
 Result can be found in `build/docs/epub`
 
+== Source
+
+.build.gradle
+[source,groovy]
+----
+include::../../../build.gradle[tags=convertToEpub]
+----
