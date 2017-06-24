@@ -1,4 +1,7 @@
+ifndef::imagesdir[:imagesdir: ../images]
 = generatePDF
+
+image::ea/Manual/generatePDF.png[]
 
 This task makes use of the http://asciidoctor.org/docs/convert-asciidoc-to-pdf/[asciidoctor-pdf] plugin to render your documents as good looking PDF.
 

@@ -1,4 +1,7 @@
+ifndef::imagesdir[:imagesdir: ../images]
 = convertToEpub
+
+image::ea/Manual/convertToEpub.png[]
 
 Dependency: <<generateDocBook>>
 

@@ -1,1 +1,4 @@
+ifndef::imagesdir[:imagesdir: ../images]
 = exportJiraIssues
+
+image::ea/Manual/exportJiraIssues.png[]

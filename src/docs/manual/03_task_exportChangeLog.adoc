@@ -1,4 +1,7 @@
+ifndef::imagesdir[:imagesdir: ../images]
 = exportChangeLog
+
+image::ea/Manual/exportChangeLog.png[]
 
 As the name says, this task exports the changelog to be referenced from within your documentation - if needed.
 

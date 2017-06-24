@@ -1,4 +1,7 @@
+ifndef::imagesdir[:imagesdir: ../images]
 = generateHTML
+
+image::ea/Manual/generateHTML.png[]
 
 This is the standard asciidoctor generator which is supported out of the box.
 
@@ -20,7 +23,7 @@ To use it, just specify your plantUML code like this:
 
 ....
 .example diagram
-[plantuml, diagram-classes, png] # <1>
+[plantuml, "{plantUMLDir}demoPlantUML", png] # <1>
 ----
 class BlockProcessor
 class DiagramBlock
@@ -36,13 +39,16 @@ DiagramBlock <|-- PlantUmlBlock
 <1> The element of this list specifies the diagram tool `plantuml` to be used. +
 The second element the name of the image to be created and the third the image type.
 
+NOTE: the \{plantUMLDir} ensures that plantUML also works for the <<generatePDF>> task.
+Without it, <<generateHTML>> works fine, but the PDF will not find the generated images.
+
 IMPORTANT: make sure to specify a unique image name for each diagram.
 Otherwise it will be overwritten and you'll get all the same diagrams.
 
 The above example renders as
 
 .example diagram
-[plantuml, diagram-classes, png]
+[plantuml, "{plantUMLDir}demoPlantUML", png]
 ----
 !pragma graphviz_dot jdot
 class BlockProcessor
