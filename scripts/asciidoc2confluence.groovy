@@ -369,7 +369,7 @@ config.input.each { input ->
     // let's try to select the "first page" and push it to confluence
     dom.select('div#preamble div.sectionbody').each { pageBody ->
         pageBody.select('div.sect2').unwrap()
-        masterid = pushToConfluence "arc42", pageBody, input.ancestorId
+        masterid = pushToConfluence input.preambleTitle ?: "arc42", pageBody, input.ancestorId
     }
     // <div class="sect1"> are the main headings
     // let's extract these and push them to confluence

@@ -7,6 +7,8 @@
 // - 'url': absolute URL to an asciidoc generated html file to be exported
 // - 'ancestorId' (optional): the id of the parent page in Confluence; leave this empty
 // 							  if a new parent shall be created in the space
+// - 'preambleTitle' (optional): the title of the page containing the preamble (everything
+//                               before the first second level heading). Default is 'arc42'
 //
 // only 'file' or 'url' is allowed. If both are given, 'url' is ignored
 input = [
