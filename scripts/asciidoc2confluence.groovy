@@ -210,6 +210,8 @@ def parseBody =  { body ->
       def sanitizedBlock = currentBlock
                             .replaceAll('<span class="((?!span).)*">', '')
                             .replaceAll('</span>', '')
+                            .replaceAll('&gt;', '>')
+                            .replaceAll('&lt;', '<')
       pageString = pageString.replace(currentBlock, sanitizedBlock)
     }
 
