@@ -199,8 +199,22 @@ def parseBody =  { body ->
         img.after("<ac:image ac:align=\"center\" ac:width=\"500\"><ri:attachment ri:filename=\"${fileName}\"/></ac:image>")
         img.remove()
     }
-    //change some html elements through simple substitutions
+    //sanitize code inside code tags
     def pageString = body.html().trim()
+    def codeBlocksWithLanguageAttr = []
+    pageString.eachMatch("<pre class=\".+\"><code( .*)? data-lang=\".+\">((?!</code></pre>).|\\s)*</code></pre>", { match ->
+      codeBlocksWithLanguageAttr.add(match)
+    })
+    codeBlocksWithLanguageAttr.each {
+      def currentBlock = it[0].toString().trim()
+      def sanitizedBlock = currentBlock
+                            .replaceAll('<span class="((?!span).)*">', '')
+                            .replaceAll('</span>', '')
+      pageString = pageString.replace(currentBlock, sanitizedBlock)
+    }
+
+    //change some html elements through simple substitutions
+    pageString = pageString
             .replaceAll("<pre class=\".+\"><code( class=\"([^\"])*\")?>", "<ac:structured-macro ac:name=\\\"code\\\"><ac:plain-text-body><![CDATA[")
             .replaceAll("</code></pre>", "]]></ac:plain-text-body></ac:structured-macro>")
             .replaceAll('<dl>','<table><tr>')
@@ -215,11 +229,11 @@ def parseBody =  { body ->
 
     //replace code tags while preserving the language attribute
     //<ac:parameter ac:name="language">xml</ac:parameter>
-    def codeBlocksWithLanguageAttr = []
+    def codeTagsWithLanguageAttr = []
     pageString.eachMatch("<pre class=\".+\"><code( .*)? data-lang=\".+\">", { match ->
-      codeBlocksWithLanguageAttr.add(match)
+      codeTagsWithLanguageAttr.add(match)
     })
-    codeBlocksWithLanguageAttr.each {
+    codeTagsWithLanguageAttr.each {
       def currentTag = it[0].toString()
       def startIndex = currentTag.indexOf("data-lang=")
       startIndex += 11 //the attribute key is 11 chars long
