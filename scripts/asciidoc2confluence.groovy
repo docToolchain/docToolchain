@@ -200,8 +200,8 @@ def parseBody =  { body ->
         img.remove()
     }
     //change some html elements through simple substitutions
-    pageString = body.html().trim()
-            .replaceAll("<pre class=\".+\"><code(( class=\".+\" )? data-lang=\".+\")?>", "<ac:structured-macro ac:name=\\\"code\\\"><ac:plain-text-body><![CDATA[")
+    def pageString = body.html().trim()
+            .replaceAll("<pre class=\".+\"><code( class=\"([^\"])*\")?>", "<ac:structured-macro ac:name=\\\"code\\\"><ac:plain-text-body><![CDATA[")
             .replaceAll("</code></pre>", "]]></ac:plain-text-body></ac:structured-macro>")
             .replaceAll('<dl>','<table><tr>')
             .replaceAll('</dl>','</tr></table>')
@@ -212,6 +212,22 @@ def parseBody =  { body ->
             .replaceAll('<br>','<br />')
             .replaceAll('</br>','<br />')
             .replaceAll('<a([^>]*)></a>','')
+
+    //replace code tags while preserving the language attribute
+    //<ac:parameter ac:name="language">xml</ac:parameter>
+    def codeBlocksWithLanguageAttr = []
+    pageString.eachMatch("<pre class=\".+\"><code( .*)? data-lang=\".+\">", { match ->
+      codeBlocksWithLanguageAttr.add(match)
+    })
+    codeBlocksWithLanguageAttr.each {
+      def currentTag = it[0].toString()
+      def startIndex = currentTag.indexOf("data-lang=")
+      startIndex += 11 //the attribute key is 11 chars long
+      def endIndex = currentTag.indexOf("\"", startIndex) - 1
+      def language = currentTag[startIndex..endIndex]
+      pageString = pageString.replaceFirst(currentTag, "<ac:structured-macro ac:name=\\\"code\\\"><ac:parameter ac:name=\"language\">"+language+"</ac:parameter><ac:plain-text-body><![CDATA[")
+    }
+    return pageString
 }
 
 // the create-or-update functionality for confluence pages
