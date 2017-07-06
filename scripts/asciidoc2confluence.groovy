@@ -201,7 +201,7 @@ def parseBody =  { body ->
     }
     //change some html elements through simple substitutions
     pageString = body.html().trim()
-            .replaceAll("<pre class=\".+\"><code( class=\".+\" data-lang=\".+\")?>", "<ac:structured-macro ac:name=\\\"code\\\"><ac:plain-text-body><![CDATA[")
+            .replaceAll("<pre class=\".+\"><code(( class=\".+\" )? data-lang=\".+\")?>", "<ac:structured-macro ac:name=\\\"code\\\"><ac:plain-text-body><![CDATA[")
             .replaceAll("</code></pre>", "]]></ac:plain-text-body></ac:structured-macro>")
             .replaceAll('<dl>','<table><tr>')
             .replaceAll('</dl>','</tr></table>')
