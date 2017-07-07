@@ -151,11 +151,38 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
         }
     }
 }
+
+
+def rewriteInternalLinks = { body, anchors, pageAnchors ->
+    // find internal cross-references and replace them with link macros
+    body.select('a[href]').each { a ->
+        def href = a.attr('href')
+        if (href.startsWith('#')) {
+            def anchor = href.substring(1)
+            def pageTitle = anchors[anchor]
+            if (pageTitle) {
+                a.wrap("<ac:link ac:anchor=\"${anchor}\"></ac:link>")
+                   .before("<ri:page ri:content-title=\"${pageTitle}\"/>")
+                   .wrap('<ac:plain-text-link-body><cdata-placeholder></cdata-placeholder></ac:plain-text-link-body>')
+                   .unwrap()
+            } else {
+                pageTitle = pageAnchors[anchor]
+                if (pageTitle) {
+                    a.wrap("<ac:link></ac:link>")
+                        .before("<ri:page ri:content-title=\"${pageTitle}\"/>")
+                        .wrap('<ac:plain-text-link-body><cdata-placeholder></cdata-placeholder></ac:plain-text-link-body>')
+                        .unwrap()
+                }
+            }
+        }
+    }
+}
+
 //modify local page in order to match the internal confluence storage representation a bit better
 //definition lists are not displayed by confluence, so turn them into tables
 //body can be of type Element or Elements
 def deferredUpload = []
-def parseBody =  { body, anchors ->
+def parseBody =  { body, anchors, pageAnchors ->
     body.select('div.paragraph').unwrap()
     body.select('div.ulist').unwrap()
     body.select('div.sect3').unwrap()
@@ -199,20 +226,7 @@ def parseBody =  { body, anchors ->
         img.after("<ac:image ac:align=\"center\" ac:width=\"500\"><ri:attachment ri:filename=\"${fileName}\"/></ac:image>")
         img.remove()
     }
-    // find internal cross-references and replace them with link macros
-    body.select('a[href]').each { a ->
-        def href = a.attr('href')
-        if (href.startsWith('#')) {
-            def anchor = href.substring(1)
-            def pageTitle = anchors[anchor]
-            if (pageTitle) {
-                a.wrap("<ac:link ac:anchor=\"${anchor}\"></ac:link>")
-                   .before("<ri:page ri:content-title=\"${pageTitle}\"/>")
-                   .wrap('<ac:plain-text-link-body><cdata-placeholder></cdata-placeholder></ac:plain-text-link-body>')
-                   .unwrap()
-            }
-        }
-    }
+    rewriteInternalLinks body, anchors, pageAnchors
     //sanitize code inside code tags
     def pageString = body.html().trim()
     def codeBlocksWithLanguageAttr = []
@@ -263,7 +277,7 @@ def parseBody =  { body, anchors ->
 }
 
 // the create-or-update functionality for confluence pages
-def pushToConfluence = { pageTitle, pageBody, parentId, anchors ->
+def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
     def api = new RESTClient(config.confluenceAPI)
     def headers = [
             'Authorization': 'Basic ' + config.confluenceCredentials,
@@ -273,7 +287,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors ->
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
     //try to get an existing page
     def page
-    localPage = parseBody(pageBody, anchors)
+    localPage = parseBody(pageBody, anchors, pageAnchors)
 
     def localHash = MD5(localPage)
     def prefix = '<p><ac:structured-macro ac:name="toc"/></p>'+(config.extraPageContent?:'')
@@ -368,12 +382,12 @@ def parseAnchors = { page ->
 }
 
 def pushPages
-pushPages = { pages, anchors ->
+pushPages = { pages, anchors, pageAnchors ->
     pages.each { page ->
         println page.title
-        def id = pushToConfluence page.title, page.body, page.parent, anchors
+        def id = pushToConfluence page.title, page.body, page.parent, anchors, pageAnchors
         page.children*.parent = id
-        pushPages page.children, anchors
+        pushPages page.children, anchors, pageAnchors
     }
 }
 
@@ -401,6 +415,7 @@ config.input.each { input ->
     // if confluenceAncestorId is not set, create a new parent page
     def parentId = !input.ancestorId ? null : input.ancestorId
     def anchors = [:]
+    def pageAnchors = [:]
     def sections = pages = []
 
     // let's try to select the "first page" and push it to confluence
@@ -427,10 +442,16 @@ config.input.each { input ->
             children: [],
             parent: parentId
         ]
+        if (sect1.select('h2').attr('id')) {
+            pageAnchors[sect1.select('h2').attr('id')] = currentPage.title
+        }
 
         if (confluenceCreateSubpages) {
             pageBody.select('div.sect2').each { sect2 ->
                 def title = sect2.select('h3').text()
+                if (sect2.select('h3').attr('id')) {
+                    pageAnchors[sect2.select('h3').attr('id')] = title
+                }
                 sect2.select('h3').remove()
                 def body = sect2
                 def subPage = [
@@ -452,6 +473,6 @@ config.input.each { input ->
         anchors.putAll(parseAnchors(currentPage))
     }
 
-    pushPages pages, anchors
+    pushPages pages, anchors, pageAnchors
 }
 ""
