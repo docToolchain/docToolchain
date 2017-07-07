@@ -341,6 +341,18 @@ def pushToConfluence = { pageTitle, pageBody, parentId ->
     }
 }
 
+def pushPages
+pushPages = { pages ->
+    pages.each { page ->
+        println page.title
+        def id = pushToConfluence page.title, page.body, page.parent
+        page.children.each { subPage ->
+            subPage.parent = id
+        }
+        pushPages page.children
+    }
+}
+
 config.input.each { input ->
 
     println "${input.file}"
@@ -363,28 +375,39 @@ config.input.each { input ->
     def masterid = input.ancestorId
 
     // if confluenceAncestorId is not set, create a new parent page
-    if (!input.ancestorId) {
-        input.ancestorId = null
-    }
+    def parentId = !input.ancestorId ? null : input.ancestorId
+    def sections = pages = []
 
     // let's try to select the "first page" and push it to confluence
     dom.select('div#preamble div.sectionbody').each { pageBody ->
         pageBody.select('div.sect2').unwrap()
-        masterid = pushToConfluence input.preambleTitle ?: "arc42", pageBody, input.ancestorId
+        def preamble = [
+            title: input.preambleTitle ?: "arc42",
+            body: pageBody,
+            children: [],
+            parent: parentId
+        ]
+        pages << preamble
+        sections = preamble.children
+        parentId = null
     }
     // <div class="sect1"> are the main headings
-    // let's extract these and push them to confluence
+    // let's extract these
     dom.select('div.sect1').each { sect1 ->
-        def pageTitle = sect1.select('h2').text()
         Elements pageBody = sect1.select('div.sectionbody')
-        def subPages = []
+        def currentPage = [
+            title: sect1.select('h2').text(),
+            body: pageBody,
+            children: [],
+            parent: parentId
+        ]
 
         if (confluenceCreateSubpages) {
             pageBody.select('div.sect2').each { sect2 ->
                 def title = sect2.select('h3').text()
                 sect2.select('h3').remove()
                 def body = sect2
-                subPages << [
+                currentPage.children << [
                         title: title,
                         body: body
                 ]
@@ -397,12 +420,9 @@ config.input.each { input ->
         } else {
             pageBody.select('div.sect2').unwrap()
         }
-        println pageTitle
-        def thisSection = pushToConfluence pageTitle, pageBody, masterid
-        subPages.each { subPage ->
-            println "   "+subPage.title
-            pushToConfluence subPage.title, subPage.body, thisSection
-        }
+        sections << currentPage
     }
+
+    pushPages pages
 }
 ""
