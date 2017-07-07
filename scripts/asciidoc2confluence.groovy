@@ -359,18 +359,10 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors ->
 
 def parseAnchors = { page ->
     def anchors = [:]
-    page.body.select('a[name]').each { anchor ->
-        def name = anchor.attr('name')
-        anchors[name] = page.title
-        anchor.after("<ac:structured-macro ac:name=\"anchor\"><ac:parameter ac:name=\"\">${name}</ac:parameter></ac:structured-macro>")
-        anchor.remove()
-    }
     page.body.select('[id]').each { anchor ->
         def name = anchor.attr('id')
-        if (!name.startsWith('_')) {
-            anchors[name] = page.title
-            anchor.before("<ac:structured-macro ac:name=\"anchor\"><ac:parameter ac:name=\"\">${name}</ac:parameter></ac:structured-macro>")
-        }
+        anchors[name] = page.title
+        anchor.before("<ac:structured-macro ac:name=\"anchor\"><ac:parameter ac:name=\"\">${name}</ac:parameter></ac:structured-macro>")
     }
     anchors
 }
