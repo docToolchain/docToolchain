@@ -346,9 +346,7 @@ pushPages = { pages ->
     pages.each { page ->
         println page.title
         def id = pushToConfluence page.title, page.body, page.parent
-        page.children.each { subPage ->
-            subPage.parent = id
-        }
+        page.children*.parent = id
         pushPages page.children
     }
 }
