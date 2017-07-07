@@ -341,6 +341,24 @@ def pushToConfluence = { pageTitle, pageBody, parentId ->
     }
 }
 
+def parseAnchors = { page ->
+    def anchors = [:]
+    page.body.select('a[name]').each { anchor ->
+        def name = anchor.attr('name')
+        anchors[name] = page.title
+        anchor.after("<ac:structured-macro ac:name=\"anchor\"><ac:parameter ac:name=\"\">${name}</ac:parameter></ac:structured-macro>")
+        anchor.remove()
+    }
+    page.body.select('[id]').each { anchor ->
+        def name = anchor.attr('id')
+        if (!name.startsWith('_')) {
+            anchors[name] = page.title
+            anchor.before("<ac:structured-macro ac:name=\"anchor\"><ac:parameter ac:name=\"\">${name}</ac:parameter></ac:structured-macro>")
+        }
+    }
+    anchors
+}
+
 def pushPages
 pushPages = { pages ->
     pages.each { page ->
@@ -374,6 +392,7 @@ config.input.each { input ->
 
     // if confluenceAncestorId is not set, create a new parent page
     def parentId = !input.ancestorId ? null : input.ancestorId
+    def anchors = [:]
     def sections = pages = []
 
     // let's try to select the "first page" and push it to confluence
@@ -388,6 +407,7 @@ config.input.each { input ->
         pages << preamble
         sections = preamble.children
         parentId = null
+        anchors.putAll(parseAnchors(preamble))
     }
     // <div class="sect1"> are the main headings
     // let's extract these
@@ -405,20 +425,23 @@ config.input.each { input ->
                 def title = sect2.select('h3').text()
                 sect2.select('h3').remove()
                 def body = sect2
-                currentPage.children << [
-                        title: title,
-                        body: body
+                def subPage = [
+                    title: title,
+                    body: body
                 ]
+                currentPage.children << subPage
                 sect2.select('h4').tagName('h1').before('<br />')
                 sect2.select('h5').tagName('h2').before('<br />')
                 sect2.select('h6').tagName('h3').before('<br />')
                 sect2.select('h7').tagName('h4').before('<br />')
+                anchors.putAll(parseAnchors(subPage))
             }
             pageBody.select('div.sect2').remove()
         } else {
             pageBody.select('div.sect2').unwrap()
         }
         sections << currentPage
+        anchors.putAll(parseAnchors(currentPage))
     }
 
     pushPages pages
