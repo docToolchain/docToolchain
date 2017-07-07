@@ -155,7 +155,7 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
 //definition lists are not displayed by confluence, so turn them into tables
 //body can be of type Element or Elements
 def deferredUpload = []
-def parseBody =  { body ->
+def parseBody =  { body, anchors ->
     body.select('div.paragraph').unwrap()
     body.select('div.ulist').unwrap()
     body.select('div.sect3').unwrap()
@@ -199,6 +199,20 @@ def parseBody =  { body ->
         img.after("<ac:image ac:align=\"center\" ac:width=\"500\"><ri:attachment ri:filename=\"${fileName}\"/></ac:image>")
         img.remove()
     }
+    // find internal cross-references and replace them with link macros
+    body.select('a[href]').each { a ->
+        def href = a.attr('href')
+        if (href.startsWith('#')) {
+            def anchor = href.substring(1)
+            def pageTitle = anchors[anchor]
+            if (pageTitle) {
+                a.wrap("<ac:link ac:anchor=\"${anchor}\"></ac:link>")
+                   .before("<ri:page ri:content-title=\"${pageTitle}\"/>")
+                   .wrap('<ac:plain-text-link-body><cdata-placeholder></cdata-placeholder></ac:plain-text-link-body>')
+                   .unwrap()
+            }
+        }
+    }
     //sanitize code inside code tags
     def pageString = body.html().trim()
     def codeBlocksWithLanguageAttr = []
@@ -228,6 +242,8 @@ def parseBody =  { body ->
             .replaceAll('<br>','<br />')
             .replaceAll('</br>','<br />')
             .replaceAll('<a([^>]*)></a>','')
+            .replaceAll('<cdata-placeholder>','<![CDATA[')
+            .replaceAll('</cdata-placeholder>',']]>')
 
     //replace code tags while preserving the language attribute
     //<ac:parameter ac:name="language">xml</ac:parameter>
@@ -247,7 +263,7 @@ def parseBody =  { body ->
 }
 
 // the create-or-update functionality for confluence pages
-def pushToConfluence = { pageTitle, pageBody, parentId ->
+def pushToConfluence = { pageTitle, pageBody, parentId, anchors ->
     def api = new RESTClient(config.confluenceAPI)
     def headers = [
             'Authorization': 'Basic ' + config.confluenceCredentials,
@@ -257,7 +273,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId ->
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
     //try to get an existing page
     def page
-    localPage = parseBody(pageBody)
+    localPage = parseBody(pageBody, anchors)
 
     def localHash = MD5(localPage)
     def prefix = '<p><ac:structured-macro ac:name="toc"/></p>'+(config.extraPageContent?:'')
@@ -360,12 +376,12 @@ def parseAnchors = { page ->
 }
 
 def pushPages
-pushPages = { pages ->
+pushPages = { pages, anchors ->
     pages.each { page ->
         println page.title
-        def id = pushToConfluence page.title, page.body, page.parent
+        def id = pushToConfluence page.title, page.body, page.parent, anchors
         page.children*.parent = id
-        pushPages page.children
+        pushPages page.children, anchors
     }
 }
 
@@ -444,6 +460,6 @@ config.input.each { input ->
         anchors.putAll(parseAnchors(currentPage))
     }
 
-    pushPages pages
+    pushPages pages, anchors
 }
 ""
