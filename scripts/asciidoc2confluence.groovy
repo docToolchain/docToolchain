@@ -165,6 +165,10 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
             def anchor = href.substring(1)
             def pageTitle = anchors[anchor] ?: pageAnchors[anchor]
             if (pageTitle) {
+                // as Confluence insists on link texts to be contained
+                // inside CDATA, we have to strip all HTML and
+                // potentially loose styling that way.
+                a.html(a.text())
                 a.wrap("<ac:link${anchors.containsKey(anchor) ? ' ac:anchor="' + anchor + '"' : ''}></ac:link>")
                    .before("<ri:page ri:content-title=\"${realTitle pageTitle}\"/>")
                    .wrap('<ac:plain-text-link-body><cdata-placeholder></cdata-placeholder></ac:plain-text-link-body>')
