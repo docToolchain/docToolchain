@@ -38,3 +38,8 @@ confluencePagePrefix = ''
 // you might even want to prompt the user for the password like in this example
 //confluenceCredentials = "user:${System.console().readPassword('confluence password: ')}".bytes.encodeBase64().toString()
 confluenceCredentials = 'user:pass'.bytes.encodeBase64().toString()
+// HTML Content that will be included with every page published
+// directly after the TOC. If left empty no additional content will be
+// added
+// extraPageContent = '<ac:structured-macro ac:name="warning"><ac:parameter ac:name="title" /><ac:rich-text-body>This is a generated page, do not edit!</ac:rich-text-body></ac:structured-macro>
+extraPageContent = ''

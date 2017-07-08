@@ -260,7 +260,8 @@ def pushToConfluence = { pageTitle, pageBody, parentId ->
     localPage = parseBody(pageBody)
 
     def localHash = MD5(localPage)
-    localPage  = '<p><ac:structured-macro ac:name="toc"/></p>'+localPage
+    def prefix = '<p><ac:structured-macro ac:name="toc"/></p>'+(config.extraPageContent?:'')
+    localPage  = prefix+localPage
     localPage += '<p><ac:structured-macro ac:name="children"/></p>'
     localPage += '<p style="display:none">hash: #'+localHash+'#</p>'
 
