@@ -153,6 +153,10 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
 }
 
 
+def realTitle = { pageTitle ->
+    confluencePagePrefix + pageTitle
+}
+
 def rewriteInternalLinks = { body, anchors, pageAnchors ->
     // find internal cross-references and replace them with link macros
     body.select('a[href]').each { a ->
@@ -162,7 +166,7 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
             def pageTitle = anchors[anchor] ?: pageAnchors[anchor]
             if (pageTitle) {
                 a.wrap("<ac:link${anchors.containsKey(anchor) ? ' ac:anchor="' + anchor + '"' : ''}></ac:link>")
-                   .before("<ri:page ri:content-title=\"${pageTitle}\"/>")
+                   .before("<ri:page ri:content-title=\"${realTitle pageTitle}\"/>")
                    .wrap('<ac:plain-text-link-body><cdata-placeholder></cdata-placeholder></ac:plain-text-link-body>')
                    .unwrap()
             }
@@ -289,7 +293,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
 
     def request = [
             type : 'page',
-            title: confluencePagePrefix + pageTitle,
+            title: realTitle(pageTitle),
             space: [
                     key: confluenceSpaceKey
             ],
