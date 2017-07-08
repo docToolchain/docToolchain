@@ -159,20 +159,12 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
         def href = a.attr('href')
         if (href.startsWith('#')) {
             def anchor = href.substring(1)
-            def pageTitle = anchors[anchor]
+            def pageTitle = anchors[anchor] ?: pageAnchors[anchor]
             if (pageTitle) {
-                a.wrap("<ac:link ac:anchor=\"${anchor}\"></ac:link>")
+                a.wrap("<ac:link${anchors.containsKey(anchor) ? ' ac:anchor="' + anchor + '"' : ''}></ac:link>")
                    .before("<ri:page ri:content-title=\"${pageTitle}\"/>")
                    .wrap('<ac:plain-text-link-body><cdata-placeholder></cdata-placeholder></ac:plain-text-link-body>')
                    .unwrap()
-            } else {
-                pageTitle = pageAnchors[anchor]
-                if (pageTitle) {
-                    a.wrap("<ac:link></ac:link>")
-                        .before("<ri:page ri:content-title=\"${pageTitle}\"/>")
-                        .wrap('<ac:plain-text-link-body><cdata-placeholder></cdata-placeholder></ac:plain-text-link-body>')
-                        .unwrap()
-                }
             }
         }
     }
@@ -391,6 +383,14 @@ pushPages = { pages, anchors, pageAnchors ->
     }
 }
 
+def recordPageAnchor = { head ->
+    def a = [:]
+    if (head.attr('id')) {
+        a[head.attr('id')] = head.text()
+    }
+    a
+}
+
 config.input.each { input ->
 
     println "${input.file}"
@@ -442,16 +442,12 @@ config.input.each { input ->
             children: [],
             parent: parentId
         ]
-        if (sect1.select('h2').attr('id')) {
-            pageAnchors[sect1.select('h2').attr('id')] = currentPage.title
-        }
+        pageAnchors.putAll(recordPageAnchor(sect1.select('h2')))
 
         if (confluenceCreateSubpages) {
             pageBody.select('div.sect2').each { sect2 ->
                 def title = sect2.select('h3').text()
-                if (sect2.select('h3').attr('id')) {
-                    pageAnchors[sect2.select('h3').attr('id')] = title
-                }
+                pageAnchors.putAll(recordPageAnchor(sect2.select('h3')))
                 sect2.select('h3').remove()
                 def body = sect2
                 def subPage = [
