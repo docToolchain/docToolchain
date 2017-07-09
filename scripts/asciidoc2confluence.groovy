@@ -399,6 +399,12 @@ def recordPageAnchor = { head ->
     a
 }
 
+def promoteHeaders = { tree, start, offset ->
+    (start..7).each { i ->
+        tree.select("h${i}").tagName("h${i-offset}").before('<br />')
+    }
+}
+
 config.input.each { input ->
 
     println "${input.file}"
@@ -463,15 +469,13 @@ config.input.each { input ->
                     body: body
                 ]
                 currentPage.children << subPage
-                sect2.select('h4').tagName('h1').before('<br />')
-                sect2.select('h5').tagName('h2').before('<br />')
-                sect2.select('h6').tagName('h3').before('<br />')
-                sect2.select('h7').tagName('h4').before('<br />')
+                promoteHeaders sect2, 4, 3
                 anchors.putAll(parseAnchors(subPage))
             }
             pageBody.select('div.sect2').remove()
         } else {
             pageBody.select('div.sect2').unwrap()
+            promoteHeaders sect1, 3, 2
         }
         sections << currentPage
         anchors.putAll(parseAnchors(currentPage))
