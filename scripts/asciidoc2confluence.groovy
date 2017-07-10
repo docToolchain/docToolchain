@@ -178,6 +178,23 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
     }
 }
 
+def rewriteCodeblocks = { body ->
+    body.select('pre > code').each { code ->
+        if (code.attr('data-lang')) {
+            code.select('span[class]').each { span ->
+                span.unwrap()
+            }
+            code.before("<ac:parameter ac:name=\"language\">${code.attr('data-lang')}</ac:parameter>")
+                .text(code.text().replace('&lt;', '<').replace('&gt;', '>'))
+        }
+        code.parent() // pre now
+            .wrap('<ac:structured-macro ac:name="code"></ac:structured-macro>')
+            .unwrap()
+        code.wrap('<ac:plain-text-body><cdata-placeholder></cdata-placeholder></ac:plain-text-body>')
+            .unwrap()
+    }
+}
+
 //modify local page in order to match the internal confluence storage representation a bit better
 //definition lists are not displayed by confluence, so turn them into tables
 //body can be of type Element or Elements
@@ -228,25 +245,11 @@ def parseBody =  { body, anchors, pageAnchors ->
     }
     rewriteInternalLinks body, anchors, pageAnchors
     //sanitize code inside code tags
+    rewriteCodeblocks body
     def pageString = body.html().trim()
-    def codeBlocksWithLanguageAttr = []
-    pageString.eachMatch("<pre class=\".+\"><code( .*)? data-lang=\".+\">((?!</code></pre>).|\\s)*</code></pre>", { match ->
-      codeBlocksWithLanguageAttr.add(match)
-    })
-    codeBlocksWithLanguageAttr.each {
-      def currentBlock = it[0].toString().trim()
-      def sanitizedBlock = currentBlock
-                            .replaceAll('<span class="((?!span).)*">', '')
-                            .replaceAll('</span>', '')
-                            .replaceAll('&gt;', '>')
-                            .replaceAll('&lt;', '<')
-      pageString = pageString.replace(currentBlock, sanitizedBlock)
-    }
 
     //change some html elements through simple substitutions
     pageString = pageString
-            .replaceAll("<pre class=\".+\"><code( class=\"([^\"])*\")?>", "<ac:structured-macro ac:name=\\\"code\\\"><ac:plain-text-body><![CDATA[")
-            .replaceAll("</code></pre>", "]]></ac:plain-text-body></ac:structured-macro>")
             .replaceAll('<dl>','<table><tr>')
             .replaceAll('</dl>','</tr></table>')
             .replaceAll('<dt[^>]*>','<tr><th>')
@@ -259,20 +262,6 @@ def parseBody =  { body, anchors, pageAnchors ->
             .replaceAll('<cdata-placeholder>','<![CDATA[')
             .replaceAll('</cdata-placeholder>',']]>')
 
-    //replace code tags while preserving the language attribute
-    //<ac:parameter ac:name="language">xml</ac:parameter>
-    def codeTagsWithLanguageAttr = []
-    pageString.eachMatch("<pre class=\".+\"><code( .*)? data-lang=\".+\">", { match ->
-      codeTagsWithLanguageAttr.add(match)
-    })
-    codeTagsWithLanguageAttr.each {
-      def currentTag = it[0].toString()
-      def startIndex = currentTag.indexOf("data-lang=")
-      startIndex += 11 //the attribute key is 11 chars long
-      def endIndex = currentTag.indexOf("\"", startIndex) - 1
-      def language = currentTag[startIndex..endIndex]
-      pageString = pageString.replaceFirst(currentTag, "<ac:structured-macro ac:name=\\\"code\\\"><ac:parameter ac:name=\"language\">"+language+"</ac:parameter><ac:plain-text-body><![CDATA[")
-    }
     return pageString
 }
 
