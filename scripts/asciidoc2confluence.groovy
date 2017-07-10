@@ -50,6 +50,9 @@ import org.apache.http.entity.mime.content.InputStreamBody
 import org.apache.http.entity.mime.HttpMultipartMode
 import groovyx.net.http.Method
 
+def CDATA_PLACEHOLDER_START = '<cdata-placeholder>'
+def CDATA_PLACEHOLDER_END = '</cdata-placeholder>'
+
 def baseUrl
 
 // configuration
@@ -171,7 +174,7 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
                 a.html(a.text())
                 a.wrap("<ac:link${anchors.containsKey(anchor) ? ' ac:anchor="' + anchor + '"' : ''}></ac:link>")
                    .before("<ri:page ri:content-title=\"${realTitle pageTitle}\"/>")
-                   .wrap('<ac:plain-text-link-body><cdata-placeholder></cdata-placeholder></ac:plain-text-link-body>')
+                   .wrap("<ac:plain-text-link-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-link-body>")
                    .unwrap()
             }
         }
@@ -185,14 +188,29 @@ def rewriteCodeblocks = { body ->
                 span.unwrap()
             }
             code.before("<ac:parameter ac:name=\"language\">${code.attr('data-lang')}</ac:parameter>")
-                .text(code.text().replace('&lt;', '<').replace('&gt;', '>'))
         }
         code.parent() // pre now
             .wrap('<ac:structured-macro ac:name="code"></ac:structured-macro>')
             .unwrap()
-        code.wrap('<ac:plain-text-body><cdata-placeholder></cdata-placeholder></ac:plain-text-body>')
+        code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
             .unwrap()
     }
+}
+
+def unescapeCDATASections = { html ->
+    def start = html.indexOf(CDATA_PLACEHOLDER_START)
+    while (start > -1) {
+        def end = html.indexOf(CDATA_PLACEHOLDER_END, start)
+        if (end > -1) {
+            def prefix = html.substring(0, start) + CDATA_PLACEHOLDER_START
+            def suffix = html.substring(end)
+            def unescaped = html.substring(start + CDATA_PLACEHOLDER_START.length(), end)
+                    .replaceAll('&lt;', '<').replaceAll('&gt;', '>')
+            html = prefix + unescaped + suffix
+        }
+        start = html.indexOf(CDATA_PLACEHOLDER_START, start + 1)
+    }
+    html
 }
 
 //modify local page in order to match the internal confluence storage representation a bit better
@@ -246,7 +264,7 @@ def parseBody =  { body, anchors, pageAnchors ->
     rewriteInternalLinks body, anchors, pageAnchors
     //sanitize code inside code tags
     rewriteCodeblocks body
-    def pageString = body.html().trim()
+    def pageString = unescapeCDATASections body.html().trim()
 
     //change some html elements through simple substitutions
     pageString = pageString
@@ -259,8 +277,8 @@ def parseBody =  { body, anchors, pageAnchors ->
             .replaceAll('<br>','<br />')
             .replaceAll('</br>','<br />')
             .replaceAll('<a([^>]*)></a>','')
-            .replaceAll('<cdata-placeholder>','<![CDATA[')
-            .replaceAll('</cdata-placeholder>',']]>')
+            .replaceAll(CDATA_PLACEHOLDER_START,'<![CDATA[')
+            .replaceAll(CDATA_PLACEHOLDER_END,']]>')
 
     return pageString
 }
