@@ -324,7 +324,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
         page = api.get(path: 'content',
                 query: [
                         'spaceKey': confluenceSpaceKey,
-                        'title'   : confluencePagePrefix + pageTitle,
+                        'title'   : realTitle(pageTitle),
                         'expand'  : 'body.storage,version'
                 ], headers: headers).data.results[0]
     }
