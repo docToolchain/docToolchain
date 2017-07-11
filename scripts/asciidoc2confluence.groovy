@@ -50,6 +50,9 @@ import org.apache.http.entity.mime.content.InputStreamBody
 import org.apache.http.entity.mime.HttpMultipartMode
 import groovyx.net.http.Method
 
+def CDATA_PLACEHOLDER_START = '<cdata-placeholder>'
+def CDATA_PLACEHOLDER_END = '</cdata-placeholder>'
+
 def baseUrl
 
 // configuration
@@ -171,11 +174,43 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
                 a.html(a.text())
                 a.wrap("<ac:link${anchors.containsKey(anchor) ? ' ac:anchor="' + anchor + '"' : ''}></ac:link>")
                    .before("<ri:page ri:content-title=\"${realTitle pageTitle}\"/>")
-                   .wrap('<ac:plain-text-link-body><cdata-placeholder></cdata-placeholder></ac:plain-text-link-body>')
+                   .wrap("<ac:plain-text-link-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-link-body>")
                    .unwrap()
             }
         }
     }
+}
+
+def rewriteCodeblocks = { body ->
+    body.select('pre > code').each { code ->
+        if (code.attr('data-lang')) {
+            code.select('span[class]').each { span ->
+                span.unwrap()
+            }
+            code.before("<ac:parameter ac:name=\"language\">${code.attr('data-lang')}</ac:parameter>")
+        }
+        code.parent() // pre now
+            .wrap('<ac:structured-macro ac:name="code"></ac:structured-macro>')
+            .unwrap()
+        code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
+            .unwrap()
+    }
+}
+
+def unescapeCDATASections = { html ->
+    def start = html.indexOf(CDATA_PLACEHOLDER_START)
+    while (start > -1) {
+        def end = html.indexOf(CDATA_PLACEHOLDER_END, start)
+        if (end > -1) {
+            def prefix = html.substring(0, start) + CDATA_PLACEHOLDER_START
+            def suffix = html.substring(end)
+            def unescaped = html.substring(start + CDATA_PLACEHOLDER_START.length(), end)
+                    .replaceAll('&lt;', '<').replaceAll('&gt;', '>')
+            html = prefix + unescaped + suffix
+        }
+        start = html.indexOf(CDATA_PLACEHOLDER_START, start + 1)
+    }
+    html
 }
 
 //modify local page in order to match the internal confluence storage representation a bit better
@@ -228,25 +263,11 @@ def parseBody =  { body, anchors, pageAnchors ->
     }
     rewriteInternalLinks body, anchors, pageAnchors
     //sanitize code inside code tags
-    def pageString = body.html().trim()
-    def codeBlocksWithLanguageAttr = []
-    pageString.eachMatch("<pre class=\".+\"><code( .*)? data-lang=\".+\">((?!</code></pre>).|\\s)*</code></pre>", { match ->
-      codeBlocksWithLanguageAttr.add(match)
-    })
-    codeBlocksWithLanguageAttr.each {
-      def currentBlock = it[0].toString().trim()
-      def sanitizedBlock = currentBlock
-                            .replaceAll('<span class="((?!span).)*">', '')
-                            .replaceAll('</span>', '')
-                            .replaceAll('&gt;', '>')
-                            .replaceAll('&lt;', '<')
-      pageString = pageString.replace(currentBlock, sanitizedBlock)
-    }
+    rewriteCodeblocks body
+    def pageString = unescapeCDATASections body.html().trim()
 
     //change some html elements through simple substitutions
     pageString = pageString
-            .replaceAll("<pre class=\".+\"><code( class=\"([^\"])*\")?>", "<ac:structured-macro ac:name=\\\"code\\\"><ac:plain-text-body><![CDATA[")
-            .replaceAll("</code></pre>", "]]></ac:plain-text-body></ac:structured-macro>")
             .replaceAll('<dl>','<table><tr>')
             .replaceAll('</dl>','</tr></table>')
             .replaceAll('<dt[^>]*>','<tr><th>')
@@ -256,23 +277,9 @@ def parseBody =  { body, anchors, pageAnchors ->
             .replaceAll('<br>','<br />')
             .replaceAll('</br>','<br />')
             .replaceAll('<a([^>]*)></a>','')
-            .replaceAll('<cdata-placeholder>','<![CDATA[')
-            .replaceAll('</cdata-placeholder>',']]>')
+            .replaceAll(CDATA_PLACEHOLDER_START,'<![CDATA[')
+            .replaceAll(CDATA_PLACEHOLDER_END,']]>')
 
-    //replace code tags while preserving the language attribute
-    //<ac:parameter ac:name="language">xml</ac:parameter>
-    def codeTagsWithLanguageAttr = []
-    pageString.eachMatch("<pre class=\".+\"><code( .*)? data-lang=\".+\">", { match ->
-      codeTagsWithLanguageAttr.add(match)
-    })
-    codeTagsWithLanguageAttr.each {
-      def currentTag = it[0].toString()
-      def startIndex = currentTag.indexOf("data-lang=")
-      startIndex += 11 //the attribute key is 11 chars long
-      def endIndex = currentTag.indexOf("\"", startIndex) - 1
-      def language = currentTag[startIndex..endIndex]
-      pageString = pageString.replaceFirst(currentTag, "<ac:structured-macro ac:name=\\\"code\\\"><ac:parameter ac:name=\"language\">"+language+"</ac:parameter><ac:plain-text-body><![CDATA[")
-    }
     return pageString
 }
 
