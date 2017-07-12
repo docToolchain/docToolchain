@@ -307,7 +307,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
     def localHash = MD5(localPage)
     def prefix = '<p><ac:structured-macro ac:name="toc"/></p>'+(config.extraPageContent?:'')
     localPage  = prefix+localPage
-    localPage += '<p><ac:structured-macro ac:name="children"/></p>'
+    localPage += '<p><ac:structured-macro ac:name="children"><ac:parameter ac:name="sort">creation</ac:parameter></ac:structured-macro></p>'
     localPage += '<p style="display:none">hash: #'+localHash+'#</p>'
 
     def request = [
