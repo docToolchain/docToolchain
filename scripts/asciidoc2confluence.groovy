@@ -160,6 +160,57 @@ def realTitle = { pageTitle ->
     confluencePagePrefix + pageTitle
 }
 
+def rewriteDescriptionLists = { body ->
+    def TAGS = [ dt: 'th', dd: 'td' ]
+    body.select('dl').each { dl ->
+        // WHATWG allows wrapping dt/dd in divs, simply unwrap them
+        dl.select('div').each { it.unwrap() }
+
+        // group dts and dds that belong together, usually it will be a 1:1 relation
+        // but HTML allows for different constellations
+        def rows = []
+        def current = [dt: [], dd: []]
+        rows << current
+        dl.select('dt, dd').each { child ->
+            def tagName = child.tagName()
+            if (tagName == 'dt' && current.dd.size() > 0) {
+                // dt follows dd, start a new group
+                current = [dt: [], dd: []]
+                rows << current
+            }
+            current[tagName] << child.tagName(TAGS[tagName])
+            child.remove()
+        }
+
+        rows.each { row ->
+            def sizes = [dt: row.dt.size(), dd: row.dd.size()]
+            def rowspanIdx = [dt: -1, dd: sizes.dd - 1]
+            def rowspan = Math.abs(sizes.dt - sizes.dd) + 1
+            def max = sizes.dt
+            if (sizes.dt < sizes.dd) {
+                max = sizes.dd
+                rowspanIdx = [dt: sizes.dt - 1, dd: -1]
+            }
+            (0..<max).each { idx ->
+                def tr = dl.appendElement('tr')
+                ['dt', 'dd'].each { type ->
+                    if (sizes[type] > idx) {
+                        tr.appendChild(row[type][idx])
+                        if (idx == rowspanIdx[type] && rowspan > 1) {
+                            row[type][idx].attr('rowspan', "${rowspan}")
+                        }
+                    } else if (idx == 0) {
+                        tr.appendElement(TAGS[type]).attr('rowspan', "${rowspan}")
+                    }
+                }
+            }
+        }
+
+        dl.wrap('<table></table>')
+            .unwrap()
+    }
+}
+
 def rewriteInternalLinks = { body, anchors, pageAnchors ->
     // find internal cross-references and replace them with link macros
     body.select('a[href]').each { a ->
@@ -269,6 +320,7 @@ def parseBody =  { body, anchors, pageAnchors ->
         }
         img.remove()
     }
+    rewriteDescriptionLists body
     rewriteInternalLinks body, anchors, pageAnchors
     //sanitize code inside code tags
     rewriteCodeblocks body
@@ -276,12 +328,6 @@ def parseBody =  { body, anchors, pageAnchors ->
 
     //change some html elements through simple substitutions
     pageString = pageString
-            .replaceAll('<dl>','<table><tr>')
-            .replaceAll('</dl>','</tr></table>')
-            .replaceAll('<dt[^>]*>','<tr><th>')
-            .replaceAll('</dt>','</th>')
-            .replaceAll('<dd>','<td>')
-            .replaceAll('</dd>','</td></tr>')
             .replaceAll('<br>','<br />')
             .replaceAll('</br>','<br />')
             .replaceAll('<a([^>]*)></a>','')
