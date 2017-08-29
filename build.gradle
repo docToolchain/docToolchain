@@ -18,12 +18,6 @@ buildscript {
 
 plugins {
     id "org.asciidoctor.convert" version "1.5.3"
-/**
- uncomment this if you want to use the ruby versions of the plugins
-    // we need this plugin to add ruby gems
-    id "com.github.jruby-gradle.base" version "1.4.0"
- /uncomment
- **/
     id "org.aim42.htmlSanityCheck" version "0.9.7"
     id "com.github.ben-manes.versions" version "0.14.0"
 }
@@ -42,23 +36,13 @@ def checkingResultsPath = "$buildDir/report/htmlchecks"
 
 apply plugin:'groovy'
 
-/**
- uncomment this if you want to use the ruby versions of the plugins
-dependencies {
-    // this is the gem we need for diagrams
-    gems 'rubygems:asciidoctor-diagram:1.5.1'
-    gems 'rubygems:asciidoctor-pdf:1.5.0.alpha.15'
-
-}
- /uncomment
-**/
 dependencies {
     asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15'
-    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.5.4'
+    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.5.4.1'
 }
 
 asciidoctorj {
- version = '1.5.4'
+ version = '1.5.6'
 }
 
 //tag::AsciidoctorTask[]
@@ -115,15 +99,6 @@ tasks.withType(AsciidoctorTask) { docTask ->
     logDocuments = true
 
     requires = ['asciidoctor-diagram']
-
-/**
- uncomment this if you want to use the ruby versions of the plugins
-    // the jrubyPrepare tasks takes care of loading the gems
-    dependsOn jrubyPrepare
-    // the asciidoctor task depends on this gem
-    gemPath = jrubyPrepare.outputDir
- /uncomment
- **/
 
 }
 //end::AsciidoctorTask[]
@@ -380,6 +355,11 @@ use `gradle exportExcel` to re-export files
             def targetFileCSV = new File(targetFileName+'.csv')
             def targetFileAD = new File(targetFileName+'.adoc')
             def df = new org.apache.poi.ss.usermodel.DataFormatter();
+            def regions = []
+            sheet.numMergedRegions.times {
+                regions << sheet.getMergedRegion(it)
+            }
+            logger.info "sheet contains ${regions.size()} regions"
             sheet.eachWithIndex { row, rowNum ->
                 if (rowNum==0) {
                     // create AsciiDoc table header
@@ -405,33 +385,61 @@ use `gradle exportExcel` to re-export files
                         cellValue = cellValue.substring(1).trim();
                     }
                     def cellStyle = ''
-                    switch (cell.cellStyle.alignmentEnum.toString()) {
-                        case 'RIGHT':
-                            cellStyle += '>'
-                            break
-                        case 'CENTER':
-                            cellStyle += '^'
-                            break
+                    def region = regions.find {it.isInRange(cell.rowIndex, cell.columnIndex)}
+                    def skipCell = false
+                    if (region) {
+                        logger.info ""+region
+                        //check if we are in the upper left corner of the region
+                        if (region.firstRow == cell.rowIndex && region.firstColumn == cell.columnIndex) {
+                            logger.info "yeah!"
+                            def colspan = 1+region.lastRow - region.firstRow
+                            def rowspan = 1+region.lastColumn - region.firstColumn
+                            if (rowspan>1) {
+                                cellStyle += "${rowspan}"
+                            }
+                            if (colspan>1) {
+                                cellStyle += ".${colspan}"
+                            }
+                            cellStyle += "+"
+                        } else {
+                            skipCell = true
+                        }
                     }
-                    switch (cell.cellStyle.verticalAlignmentEnum.toString()) {
-                        case 'BOTTOM':
-                            cellStyle += '.>'
-                            break
-                        case 'CENTER':
-                            cellStyle += '.^'
-                            break
-                    }
-                    color = cell.cellStyle.fillForegroundXSSFColor?.rgb?.encodeHex()
-                    color = color!=null?nl+"{set:cellbgcolor:#${color}}":''
-                    data << cellValue
-                    if (color=='' && resetColor) {
-                        colors << nl+"{set:cellbgcolor!}"
-                        resetColor = false
+                    if (!skipCell) {
+                        switch (cell.cellStyle.alignmentEnum.toString()) {
+                            case 'RIGHT':
+                                cellStyle += '>'
+                                break
+                            case 'CENTER':
+                                cellStyle += '^'
+                                break
+                        }
+                        switch (cell.cellStyle.verticalAlignmentEnum.toString()) {
+                            case 'BOTTOM':
+                                cellStyle += '.>'
+                                break
+                            case 'CENTER':
+                                cellStyle += '.^'
+                                break
+                        }
+                        color = cell.cellStyle.fillForegroundXSSFColor?.rgb?.encodeHex()
+                        color = color != null ? nl + "{set:cellbgcolor:#${color}}" : ''
+                        data << cellValue
+                        if (color == '' && resetColor) {
+                            colors << nl + "{set:cellbgcolor!}"
+                            resetColor = false
+                        } else {
+                            colors << color
+                        }
+                        if (color != '') {
+                            resetColor = true
+                        }
+                        style << cellStyle
                     } else {
-                        colors << color
+                        data   << ""
+                        colors << ""
+                        style  << "skip"
                     }
-                    if (color!='') {resetColor=true}
-                    style << cellStyle
                 }
                 targetFileCSV.append(data
                                      .collect{
@@ -441,7 +449,11 @@ use `gradle exportExcel` to re-export files
                 targetFileAD.append(data
                                     .withIndex()
                                     .collect{value, index ->
-                                                style[index]+"| ${value.replaceAll('[|]','{vbar}').replaceAll("\n",' +$0')+colors[index]}"
+                                                if (style[index]=="skip") {
+                                                    ""
+                                                } else {
+                                                    style[index] + "| ${value.replaceAll('[|]', '{vbar}').replaceAll("\n", ' +$0') + colors[index]}"
+                                                }
                                             }
                                     .join(nl)+nl*2, 'UTF-8')
             }
