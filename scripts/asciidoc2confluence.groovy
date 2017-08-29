@@ -50,6 +50,9 @@ import org.apache.http.entity.mime.content.InputStreamBody
 import org.apache.http.entity.mime.HttpMultipartMode
 import groovyx.net.http.Method
 
+def CDATA_PLACEHOLDER_START = '<cdata-placeholder>'
+def CDATA_PLACEHOLDER_END = '</cdata-placeholder>'
+
 def baseUrl
 
 // configuration
@@ -151,11 +154,121 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
         }
     }
 }
+
+
+def realTitle = { pageTitle ->
+    confluencePagePrefix + pageTitle
+}
+
+def rewriteDescriptionLists = { body ->
+    def TAGS = [ dt: 'th', dd: 'td' ]
+    body.select('dl').each { dl ->
+        // WHATWG allows wrapping dt/dd in divs, simply unwrap them
+        dl.select('div').each { it.unwrap() }
+
+        // group dts and dds that belong together, usually it will be a 1:1 relation
+        // but HTML allows for different constellations
+        def rows = []
+        def current = [dt: [], dd: []]
+        rows << current
+        dl.select('dt, dd').each { child ->
+            def tagName = child.tagName()
+            if (tagName == 'dt' && current.dd.size() > 0) {
+                // dt follows dd, start a new group
+                current = [dt: [], dd: []]
+                rows << current
+            }
+            current[tagName] << child.tagName(TAGS[tagName])
+            child.remove()
+        }
+
+        rows.each { row ->
+            def sizes = [dt: row.dt.size(), dd: row.dd.size()]
+            def rowspanIdx = [dt: -1, dd: sizes.dd - 1]
+            def rowspan = Math.abs(sizes.dt - sizes.dd) + 1
+            def max = sizes.dt
+            if (sizes.dt < sizes.dd) {
+                max = sizes.dd
+                rowspanIdx = [dt: sizes.dt - 1, dd: -1]
+            }
+            (0..<max).each { idx ->
+                def tr = dl.appendElement('tr')
+                ['dt', 'dd'].each { type ->
+                    if (sizes[type] > idx) {
+                        tr.appendChild(row[type][idx])
+                        if (idx == rowspanIdx[type] && rowspan > 1) {
+                            row[type][idx].attr('rowspan', "${rowspan}")
+                        }
+                    } else if (idx == 0) {
+                        tr.appendElement(TAGS[type]).attr('rowspan', "${rowspan}")
+                    }
+                }
+            }
+        }
+
+        dl.wrap('<table></table>')
+            .unwrap()
+    }
+}
+
+def rewriteInternalLinks = { body, anchors, pageAnchors ->
+    // find internal cross-references and replace them with link macros
+    body.select('a[href]').each { a ->
+        def href = a.attr('href')
+        if (href.startsWith('#')) {
+            def anchor = href.substring(1)
+            def pageTitle = anchors[anchor] ?: pageAnchors[anchor]
+            if (pageTitle) {
+                // as Confluence insists on link texts to be contained
+                // inside CDATA, we have to strip all HTML and
+                // potentially loose styling that way.
+                a.html(a.text())
+                a.wrap("<ac:link${anchors.containsKey(anchor) ? ' ac:anchor="' + anchor + '"' : ''}></ac:link>")
+                   .before("<ri:page ri:content-title=\"${realTitle pageTitle}\"/>")
+                   .wrap("<ac:plain-text-link-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-link-body>")
+                   .unwrap()
+            }
+        }
+    }
+}
+
+def rewriteCodeblocks = { body ->
+    body.select('pre > code').each { code ->
+        if (code.attr('data-lang')) {
+            code.select('span[class]').each { span ->
+                span.unwrap()
+            }
+            code.before("<ac:parameter ac:name=\"language\">${code.attr('data-lang')}</ac:parameter>")
+        }
+        code.parent() // pre now
+            .wrap('<ac:structured-macro ac:name="code"></ac:structured-macro>')
+            .unwrap()
+        code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
+            .unwrap()
+    }
+}
+
+def unescapeCDATASections = { html ->
+    def start = html.indexOf(CDATA_PLACEHOLDER_START)
+    while (start > -1) {
+        def end = html.indexOf(CDATA_PLACEHOLDER_END, start)
+        if (end > -1) {
+            def prefix = html.substring(0, start) + CDATA_PLACEHOLDER_START
+            def suffix = html.substring(end)
+            def unescaped = html.substring(start + CDATA_PLACEHOLDER_START.length(), end)
+                    .replaceAll('&lt;', '<').replaceAll('&gt;', '>')
+            html = prefix + unescaped + suffix
+        }
+        start = html.indexOf(CDATA_PLACEHOLDER_START, start + 1)
+    }
+    html
+}
+
 //modify local page in order to match the internal confluence storage representation a bit better
 //definition lists are not displayed by confluence, so turn them into tables
 //body can be of type Element or Elements
 def deferredUpload = []
-def parseBody =  { body ->
+def parseBody =  { body, anchors, pageAnchors ->
     body.select('div.paragraph').unwrap()
     body.select('div.ulist').unwrap()
     body.select('div.sect3').unwrap()
@@ -189,33 +302,45 @@ def parseBody =  { body ->
             //println attribute.dump()
         }
         def src = img.attr('src')
+        def imgWidth = img.attr('width')?:500
+        def imgAlign = img.attr('align')?:"center"
         println "    image: "+src
-        def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')+src
-        def fileName = (src.tokenize('/')[-1])
 
-        trythis {
-            deferredUpload <<  [0,newUrl,fileName,"automatically uploaded"]
+        //it is not an online image, so upload it to confluence and use the ri:attachment tag
+        if(!src.startsWith("http")) {
+          def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')+src
+          def fileName = (src.tokenize('/')[-1])
+
+          trythis {
+              deferredUpload <<  [0,newUrl,fileName,"automatically uploaded"]
+          }
+          img.after("<ac:image ac:align=\"${imgAlign}\" ac:width=\"${imgWidth}\"><ri:attachment ri:filename=\"${fileName}\"/></ac:image>")
         }
-        img.after("<ac:image ac:align=\"center\" ac:width=\"500\"><ri:attachment ri:filename=\"${fileName}\"/></ac:image>")
+        // it is an online image, so we have to use the ri:url tag
+        else {
+          img.after("<ac:image ac:align=\"imgAlign\" ac:width=\"${imgWidth}\"><ri:url ri:value=\"${src}\"/></ac:image>")
+        }
         img.remove()
     }
+    rewriteDescriptionLists body
+    rewriteInternalLinks body, anchors, pageAnchors
+    //sanitize code inside code tags
+    rewriteCodeblocks body
+    def pageString = unescapeCDATASections body.html().trim()
+
     //change some html elements through simple substitutions
-    pageString = body.html().trim()
-            .replaceAll("<pre class=\".+\"><code( class=\".+\" data-lang=\".+\")?>", "<ac:structured-macro ac:name=\\\"code\\\"><ac:plain-text-body><![CDATA[")
-            .replaceAll("</code></pre>", "]]></ac:plain-text-body></ac:structured-macro>")
-            .replaceAll('<dl>','<table><tr>')
-            .replaceAll('</dl>','</tr></table>')
-            .replaceAll('<dt[^>]*>','<tr><th>')
-            .replaceAll('</dt>','</th>')
-            .replaceAll('<dd>','<td>')
-            .replaceAll('</dd>','</td></tr>')
+    pageString = pageString
             .replaceAll('<br>','<br />')
             .replaceAll('</br>','<br />')
             .replaceAll('<a([^>]*)></a>','')
+            .replaceAll(CDATA_PLACEHOLDER_START,'<![CDATA[')
+            .replaceAll(CDATA_PLACEHOLDER_END,']]>')
+
+    return pageString
 }
 
 // the create-or-update functionality for confluence pages
-def pushToConfluence = { pageTitle, pageBody, parentId ->
+def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
     def api = new RESTClient(config.confluenceAPI)
     def headers = [
             'Authorization': 'Basic ' + config.confluenceCredentials,
@@ -225,16 +350,17 @@ def pushToConfluence = { pageTitle, pageBody, parentId ->
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
     //try to get an existing page
     def page
-    localPage = parseBody(pageBody)
+    localPage = parseBody(pageBody, anchors, pageAnchors)
 
     def localHash = MD5(localPage)
-    localPage  = '<p><ac:structured-macro ac:name="toc"/></p>'+localPage
-    localPage += '<p><ac:structured-macro ac:name="children"/></p>'
+    def prefix = '<p><ac:structured-macro ac:name="toc"/></p>'+(config.extraPageContent?:'')
+    localPage  = prefix+localPage
+    localPage += '<p><ac:structured-macro ac:name="children"><ac:parameter ac:name="sort">creation</ac:parameter></ac:structured-macro></p>'
     localPage += '<p style="display:none">hash: #'+localHash+'#</p>'
 
     def request = [
             type : 'page',
-            title: confluencePagePrefix + pageTitle,
+            title: realTitle(pageTitle),
             space: [
                     key: confluenceSpaceKey
             ],
@@ -254,7 +380,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId ->
         page = api.get(path: 'content',
                 query: [
                         'spaceKey': confluenceSpaceKey,
-                        'title'   : confluencePagePrefix + pageTitle,
+                        'title'   : realTitle(pageTitle),
                         'expand'  : 'body.storage,version'
                 ], headers: headers).data.results[0]
     }
@@ -308,6 +434,40 @@ def pushToConfluence = { pageTitle, pageBody, parentId ->
     }
 }
 
+def parseAnchors = { page ->
+    def anchors = [:]
+    page.body.select('[id]').each { anchor ->
+        def name = anchor.attr('id')
+        anchors[name] = page.title
+        anchor.before("<ac:structured-macro ac:name=\"anchor\"><ac:parameter ac:name=\"\">${name}</ac:parameter></ac:structured-macro>")
+    }
+    anchors
+}
+
+def pushPages
+pushPages = { pages, anchors, pageAnchors ->
+    pages.each { page ->
+        println page.title
+        def id = pushToConfluence page.title, page.body, page.parent, anchors, pageAnchors
+        page.children*.parent = id
+        pushPages page.children, anchors, pageAnchors
+    }
+}
+
+def recordPageAnchor = { head ->
+    def a = [:]
+    if (head.attr('id')) {
+        a[head.attr('id')] = head.text()
+    }
+    a
+}
+
+def promoteHeaders = { tree, start, offset ->
+    (start..7).each { i ->
+        tree.select("h${i}").tagName("h${i-offset}").before('<br />')
+    }
+}
+
 config.input.each { input ->
 
     println "${input.file}"
@@ -330,46 +490,60 @@ config.input.each { input ->
     def masterid = input.ancestorId
 
     // if confluenceAncestorId is not set, create a new parent page
-    if (!input.ancestorId) {
-        input.ancestorId = null
-    }
+    def parentId = !input.ancestorId ? null : input.ancestorId
+    def anchors = [:]
+    def pageAnchors = [:]
+    def sections = pages = []
 
     // let's try to select the "first page" and push it to confluence
     dom.select('div#preamble div.sectionbody').each { pageBody ->
         pageBody.select('div.sect2').unwrap()
-        masterid = pushToConfluence "arc42", pageBody, input.ancestorId
+        def preamble = [
+            title: input.preambleTitle ?: "arc42",
+            body: pageBody,
+            children: [],
+            parent: parentId
+        ]
+        pages << preamble
+        sections = preamble.children
+        parentId = null
+        anchors.putAll(parseAnchors(preamble))
     }
     // <div class="sect1"> are the main headings
-    // let's extract these and push them to confluence
+    // let's extract these
     dom.select('div.sect1').each { sect1 ->
-        def pageTitle = sect1.select('h2').text()
         Elements pageBody = sect1.select('div.sectionbody')
-        def subPages = []
+        def currentPage = [
+            title: sect1.select('h2').text(),
+            body: pageBody,
+            children: [],
+            parent: parentId
+        ]
+        pageAnchors.putAll(recordPageAnchor(sect1.select('h2')))
 
         if (confluenceCreateSubpages) {
             pageBody.select('div.sect2').each { sect2 ->
                 def title = sect2.select('h3').text()
+                pageAnchors.putAll(recordPageAnchor(sect2.select('h3')))
                 sect2.select('h3').remove()
                 def body = sect2
-                subPages << [
-                        title: title,
-                        body: body
+                def subPage = [
+                    title: title,
+                    body: body
                 ]
-                sect2.select('h4').tagName('h1').before('<br />')
-                sect2.select('h5').tagName('h2').before('<br />')
-                sect2.select('h6').tagName('h3').before('<br />')
-                sect2.select('h7').tagName('h4').before('<br />')
+                currentPage.children << subPage
+                promoteHeaders sect2, 4, 3
+                anchors.putAll(parseAnchors(subPage))
             }
             pageBody.select('div.sect2').remove()
         } else {
             pageBody.select('div.sect2').unwrap()
+            promoteHeaders sect1, 3, 2
         }
-        println pageTitle
-        def thisSection = pushToConfluence pageTitle, pageBody, masterid
-        subPages.each { subPage ->
-            println "   "+subPage.title
-            pushToConfluence subPage.title, subPage.body, thisSection
-        }
+        sections << currentPage
+        anchors.putAll(parseAnchors(currentPage))
     }
+
+    pushPages pages, anchors, pageAnchors
 }
 ""
