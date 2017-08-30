@@ -80,7 +80,7 @@
             y = 0
             Do While Not objExecObject.StdOut.AtEndOfStream
                 output = objExecObject.StdOut.ReadLine()
-                'WScript.echo output
+                WScript.echo output
                 jiraElement = Split(output,"|")
                 name = jiraElement(0)&":"&vbCR&vbLF&jiraElement(4)
                 On Error Resume Next
@@ -138,6 +138,7 @@
             filename = path & diagramName & ".png"
             MakeDir("." & path)
             projectInterface.SaveDiagramImageToFile(fso.GetAbsolutePathName(".")&filename)
+            ' projectInterface.putDiagramImageToFile currentDiagram.DiagramID,fso.GetAbsolutePathName(".")&filename,1
             WScript.echo " extracted image to ." & filename
             Repository.CloseDiagram(currentDiagram.DiagramID)
             For Each diagramElement In currentDiagram.DiagramObjects

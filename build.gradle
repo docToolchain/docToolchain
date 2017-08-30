@@ -360,6 +360,8 @@ use `gradle exportExcel` to re-export files
                 regions << sheet.getMergedRegion(it)
             }
             logger.info "sheet contains ${regions.size()} regions"
+            def color = ''
+            def resetColor = false
             sheet.eachWithIndex { row, rowNum ->
                 if (rowNum==0) {
                     // create AsciiDoc table header
@@ -375,8 +377,6 @@ use `gradle exportExcel` to re-export files
                 def data = []
                 def style = []
                 def colors = []
-                def color = ''
-                def resetColor = false
                 // For each row, iterate through each columns
                 row.each { cell ->
                     def cellValue = df.formatCellValue(cell, evaluator)
