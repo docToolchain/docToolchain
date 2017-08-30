@@ -359,14 +359,19 @@ use `gradle exportExcel` to re-export files
             sheet.numMergedRegions.times {
                 regions << sheet.getMergedRegion(it)
             }
-            logger.info "sheet contains ${regions.size()} regions"
+            logger.debug "sheet contains ${regions.size()} regions"
             def color = ''
             def resetColor = false
-            sheet.eachWithIndex { row, rowNum ->
-                if (rowNum==0) {
+            def numRows = 0
+            def headerCreated = false
+            (sheet.lastRowNum+1).times { rowNum ->
+                def row = sheet.getRow(rowNum)
+                if (row && !headerCreated) {
+                    headerCreated = true
                     // create AsciiDoc table header
                     def width = []
-                    row.eachWithIndex { cell, columnIndex ->
+                    numRows = row.lastCellNum
+                    numRows.times { columnIndex ->
                         width << sheet.getColumnWidth((int)columnIndex)
                     }
                     //lets make those numbers nicer:
@@ -378,69 +383,85 @@ use `gradle exportExcel` to re-export files
                 def style = []
                 def colors = []
                 // For each row, iterate through each columns
-                row.each { cell ->
-                    def cellValue = df.formatCellValue(cell, evaluator)
-                    if (cellValue.startsWith('*') && cellValue.endsWith('\u20AC')) {
-                        // Remove special characters at currency
-                        cellValue = cellValue.substring(1).trim();
-                    }
-                    def cellStyle = ''
-                    def region = regions.find {it.isInRange(cell.rowIndex, cell.columnIndex)}
-                    def skipCell = false
-                    if (region) {
-                        logger.info ""+region
-                        //check if we are in the upper left corner of the region
-                        if (region.firstRow == cell.rowIndex && region.firstColumn == cell.columnIndex) {
-                            logger.info "yeah!"
-                            def colspan = 1+region.lastRow - region.firstRow
-                            def rowspan = 1+region.lastColumn - region.firstColumn
-                            if (rowspan>1) {
-                                cellStyle += "${rowspan}"
+if (row) {
+                numRows.times { columnIndex ->
+                    def cell = row.getCell(columnIndex)
+                    if (cell) {
+                        def cellValue = df.formatCellValue(cell, evaluator)
+                        if (cellValue.startsWith('*') && cellValue.endsWith('\u20AC')) {
+                            // Remove special characters at currency
+                            cellValue = cellValue.substring(1).trim();
+                        }
+                        def cellStyle = ''
+                        def region = regions.find { it.isInRange(cell.rowIndex, cell.columnIndex) }
+                        def skipCell = false
+                        if (region) {
+                            //check if we are in the upper left corner of the region
+                            if (region.firstRow == cell.rowIndex && region.firstColumn == cell.columnIndex) {
+                                def colspan = 1 + region.lastRow - region.firstRow
+                                def rowspan = 1 + region.lastColumn - region.firstColumn
+                                if (rowspan > 1) {
+                                    cellStyle += "${rowspan}"
+                                }
+                                if (colspan > 1) {
+                                    cellStyle += ".${colspan}"
+                                }
+                                cellStyle += "+"
+                            } else {
+                                skipCell = true
                             }
-                            if (colspan>1) {
-                                cellStyle += ".${colspan}"
+                        }
+                        if (!skipCell) {
+                            switch (cell.cellStyle.alignmentEnum.toString()) {
+                                case 'RIGHT':
+                                    cellStyle += '>'
+                                    break
+                                case 'CENTER':
+                                    cellStyle += '^'
+                                    break
                             }
-                            cellStyle += "+"
+                            switch (cell.cellStyle.verticalAlignmentEnum.toString()) {
+                                case 'BOTTOM':
+                                    cellStyle += '.>'
+                                    break
+                                case 'CENTER':
+                                    cellStyle += '.^'
+                                    break
+                            }
+                            color = cell.cellStyle.fillForegroundXSSFColor?.rgb?.encodeHex()
+                            color = color != null ? nl + "{set:cellbgcolor:#${color}}" : ''
+                            data << cellValue
+                            if (color == '' && resetColor) {
+                                colors << nl + "{set:cellbgcolor!}"
+                                resetColor = false
+                            } else {
+                                colors << color
+                            }
+                            if (color != '') {
+                                resetColor = true
+                            }
+                            style << cellStyle
                         } else {
-                            skipCell = true
+                            data << ""
+                            colors << ""
+                            style << "skip"
                         }
-                    }
-                    if (!skipCell) {
-                        switch (cell.cellStyle.alignmentEnum.toString()) {
-                            case 'RIGHT':
-                                cellStyle += '>'
-                                break
-                            case 'CENTER':
-                                cellStyle += '^'
-                                break
-                        }
-                        switch (cell.cellStyle.verticalAlignmentEnum.toString()) {
-                            case 'BOTTOM':
-                                cellStyle += '.>'
-                                break
-                            case 'CENTER':
-                                cellStyle += '.^'
-                                break
-                        }
-                        color = cell.cellStyle.fillForegroundXSSFColor?.rgb?.encodeHex()
-                        color = color != null ? nl + "{set:cellbgcolor:#${color}}" : ''
-                        data << cellValue
-                        if (color == '' && resetColor) {
-                            colors << nl + "{set:cellbgcolor!}"
-                            resetColor = false
-                        } else {
-                            colors << color
-                        }
-                        if (color != '') {
-                            resetColor = true
-                        }
-                        style << cellStyle
                     } else {
-                        data   << ""
+                        data << ""
                         colors << ""
-                        style  << "skip"
+                        style << ""
                     }
+
                 }
+} else {
+    //insert empty row
+    numRows.times {
+        data << ""
+        colors << ""
+        style << ""
+    }
+}
+
                 targetFileCSV.append(data
                                      .collect{
                                                 "\"${it.replaceAll('"','""')}\""
