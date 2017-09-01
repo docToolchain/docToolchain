@@ -8,7 +8,7 @@ image::ea/Manual/exportEA.png[]
 .build.gradle
 [source,groovy]
 ----
-include::../../../build.gradle[tags=exportEA]
+include::../../../scripts/exportEA.gradle[tags=exportEA]
 ----
 
 .scripts/exportEAP.vbs

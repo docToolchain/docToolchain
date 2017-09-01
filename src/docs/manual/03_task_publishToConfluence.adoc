@@ -8,7 +8,7 @@ image::ea/Manual/publishToConfluence.png[]
 .build.gradle
 [source,groovy]
 ----
-include::../../../build.gradle[tags=publishToConfluence]
+include::../../../scripts/publishToConfluence.gradle[tags=publishToConfluence]
 ----
 
 .scripts/asciidoc2confluence.groovy
