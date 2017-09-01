@@ -1,4 +1,4 @@
-//this doesn't work yet. Don't know why. see #
+//this doesn't work yet. Don't know why. see issue #64
 buildscript {
     repositories {
         maven {
