@@ -1,0 +1,8 @@
+//tag::publishToConfluence[]
+task publishToConfluence(
+        description: 'publishes the HTML rendered output to confluence',
+        group: 'docToolchain'
+) << {
+    evaluate(new File('scripts/asciidoc2confluence.groovy'))
+}
+//end::publishToConfluence[]

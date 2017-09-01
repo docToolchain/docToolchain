@@ -1,0 +1,43 @@
+//tag::exportChangeLog[]
+task exportChangeLog(
+        dependsOn: [streamingExecute],
+        description: 'exports the change log from a git subpath',
+        group: 'docToolchain'
+) << {
+    def res = "git log ./src/docs/arc42".execute().text
+    def changes = []
+    def change = null
+    res.eachLine { line ->
+        switch (line) {
+            case ~/^commit.*/:
+                if (change!=null) {
+                    changes << change
+                }
+                change = [commit:line-'commit ',log:'']
+                break;
+            case ~/^Author:.*/:
+                change['author'] = line-'Author: '
+                break;
+            case ~/^Date:.*/:
+                change['date'] = line-'Date: '
+                break;
+            default:
+                change['log'] += (line ? line.trim()+ "\n" : '')
+        }
+    }
+    changes << change
+    def path = './build/docs/'
+    new File(path).mkdirs()
+    def changelog = new File(path+'changelog.adoc')
+    changelog.write("")
+
+    changes.each { c ->
+        try {
+            changelog.append """| ${new Date(Date.parse(c.date)).format("dd.MM.yyyy")}
+| ${c.author.replaceAll('<[^>]*>','')}
+| ${c.log}
+"""
+        } catch (Exception e) { println c }
+    }
+}
+//end::exportChangeLog[]
