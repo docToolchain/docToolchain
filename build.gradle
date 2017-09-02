@@ -24,6 +24,13 @@ ext {
     targetDir = "$buildDir"
     javaVersion = System.getProperty("java.version")
     currentDate = new Date().format("d. MMM yyyy")
+    sourceFiles = [
+                    [file: 'arc42-template-de.adoc', formats: ['html','pdf','docbook']],
+                    [file: 'arc42-template-en.adoc', formats: ['html','pdf','docbook']],
+                    [file: 'test.adoc',              formats: ['html','pdf','docbook']],
+                    [file: 'manual.adoc',            formats: ['html']],
+                    [file: 'ppt/Demo.pptx.ad',       formats: ['revealjs']],
+                ]
 }
 
 // where HTMLSanityCheck checking results ares stored
@@ -116,12 +123,6 @@ tasks.withType(AsciidoctorTask) { docTask ->
 
     // configure source and output files and folders
     sourceDir = file('src/docs')
-    sources {
-        include 'arc42-template-de.adoc'
-        include 'arc42-template-en.adoc'
-        include 'test.adoc'
-        include 'manual.adoc'
-    }
     outputDir = file('build/docs')
     // good to see what the build is doing...
     logDocuments = true
@@ -140,6 +141,14 @@ task generateHTML (
     attributes \
         'plantUMLDir'         : ''
 
+    sources {
+        sourceFiles.findAll {
+            'html' in it.formats
+        }.each {
+            include it.file
+        }
+    }
+
     backends = ['html5']
 }
 //end::generateHTML[]
@@ -153,6 +162,14 @@ task generatePDF (
     attributes \
         'plantUMLDir'         : file('build/docs/images/plantUML/').path
 
+    sources {
+        sourceFiles.findAll {
+            'pdf' in it.formats
+        }.each {
+            include it.file
+        }
+    }
+
     backends = ['pdf']
 }
 //end::generatePDF[]
@@ -162,10 +179,20 @@ task generateDocbook (
         type: AsciidoctorTask,
         group: 'docToolchain',
         description: 'use docbook as asciidoc backend') {
-        backends = ['docbook']
+
+    sources {
+        sourceFiles.findAll {
+            'docbook' in it.formats
+        }.each {
+            include it.file
+        }
+    }
+
+    backends = ['docbook']
 }
 //end::generateDocbook[]
 
+//tag::generateDeck[]
 task generateDeck (
         type: AsciidoctorTask,
         group: 'docToolchain',
@@ -187,8 +214,13 @@ task generateDeck (
     options template_dirs : [new File('resources/asciidoctor-reveal.js','templates/slim').absolutePath ]
 
     sources {
-        include 'ppt/Demo.pptx.ad'
+        sourceFiles.findAll {
+            'revealjs' in it.formats
+        }.each {
+            include it.file
+        }
     }
+
     resources {
         from('resources') {
             include 'reveal.js/**'
@@ -199,8 +231,8 @@ task generateDeck (
         into("ppt")
         logger.error "${buildDir}/ppt/images"
     }
-    backends = ['html5']
 }
+//end::generateDeck[]
 
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
