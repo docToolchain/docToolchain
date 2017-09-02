@@ -55,6 +55,7 @@
                     If oSh.HasTextFrame Then
                         If oSh.TextFrame.HasText Then
                             strCurrentNotes = oSh.TextFrame.TextRange.Text
+                            strCurrentNotes = Replace(strCurrentNotes,vbVerticalTab, vbCrLf)
                             strCurrentNotes = Replace(strCurrentNotes,"{slide}","image::ppt/"&strFileName&"/"&strSlideName&".jpg[]")
                             ' remove speaker notes before marker "{adoc}"
                             strCurrentNotes = objRegEx.Replace(strCurrentNotes,"")
