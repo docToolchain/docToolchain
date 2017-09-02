@@ -44,7 +44,7 @@
         strNotesText = ""
         strImagePath = "/src/docs/images/ppt/" & strFileName & "/"
         MakeDir("." & strImagePath)
-        strNotesPath = "/src/docs/ppt/" & strFileName & "/"
+        strNotesPath = "/src/docs/ppt/"
         MakeDir("." & strNotesPath)
         For Each oSl In oSlides
            strSlideName = oSl.Name

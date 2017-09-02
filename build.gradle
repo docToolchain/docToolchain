@@ -34,12 +34,44 @@ apply plugin:'groovy'
 
 dependencies {
     asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15'
-    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.5.4.1'
+    // carefull!
+    // asciidoctor 1.5.6 needs diagram 1.5.4.1
+    // but then reveal.js is broken...
+    // https://github.com/asciidoctor/asciidoctor-diagram/issues/161
+    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.5.4'
 }
 
 asciidoctorj {
- version = '1.5.6'
+ version = '1.5.4'
 }
+
+
+apply from: 'scripts/exportEA.gradle'
+
+apply from: 'scripts/exportPPT.gradle'
+
+apply from: 'scripts/exportChangelog.gradle'
+
+apply from: 'scripts/exportJiraIssues.gradle'
+
+apply from: 'scripts/exportExcel.gradle'
+
+apply from: 'scripts/pandoc.gradle'
+
+apply from: 'scripts/publishToConfluence.gradle'
+
+//tag::htmlSanityCheck[]
+htmlSanityCheck {
+    sourceDir = new File( "$buildDir/docs/html5" )
+
+    // files to check - in Set-notation
+    //sourceDocuments = [ "one-file.html", "another-file.html", "index.html"]
+
+    // where to put results of sanityChecks...
+    checkingResultsDir = new File( checkingResultsPath )
+    checkExternalLinks = false
+}
+//end::htmlSanityCheck[]
 
 //tag::AsciidoctorTask[]
 
@@ -125,57 +157,6 @@ task generatePDF (
 }
 //end::generatePDF[]
 
-apply from: 'scripts/generateDeck.gradle'
-
-task generateDeck (
-        type: AsciidoctorTask,
-        group: 'docToolchain',
-        description: 'use revealJs as asciidoc backend to create a presentation') {
-
-    attributes \
-        'plantUMLDir'         : '',
-            'idprefix': 'slide-',
-            'idseparator': '-',
-            'docinfo1': '',
-            'revealjs_theme': 'black',
-            'revealjs_progress': 'true',
-            'revealjs_touch': 'true',
-            'revealjs_hideAddressBar': 'true',
-            'revealjs_transition': 'linear',
-            'revealjs_history': 'true',
-            'revealjs_slideNumber': 'true'
-
-    options template_dirs : [new File('asciidoctor-reveal.js','templates/slim').absolutePath ]
-    backends = ['html5']
-}
-
-apply from: 'scripts/exportEA.gradle'
-
-apply from: 'scripts/exportPPT.gradle'
-
-apply from: 'scripts/exportChangelog.gradle'
-
-apply from: 'scripts/exportJiraIssues.gradle'
-
-apply from: 'scripts/exportExcel.gradle'
-
-apply from: 'scripts/pandoc.gradle'
-
-apply from: 'scripts/publishToConfluence.gradle'
-
-//tag::htmlSanityCheck[]
-htmlSanityCheck {
-    sourceDir = new File( "$buildDir/docs/html5" )
-
-    // files to check - in Set-notation
-    //sourceDocuments = [ "one-file.html", "another-file.html", "index.html"]
-
-    // where to put results of sanityChecks...
-    checkingResultsDir = new File( checkingResultsPath )
-    checkExternalLinks = false
-}
-//end::htmlSanityCheck[]
-
 //tag::generateDocbook[]
 task generateDocbook (
         type: AsciidoctorTask,
@@ -185,6 +166,41 @@ task generateDocbook (
 }
 //end::generateDocbook[]
 
+task generateDeck (
+        type: AsciidoctorTask,
+        group: 'docToolchain',
+        description: 'use revealJs as asciidoc backend to create a presentation') {
+
+    attributes \
+        'plantUMLDir'         : '',
+        'idprefix': 'slide-',
+        'idseparator': '-',
+        'docinfo1': '',
+        'revealjs_theme': 'black',
+        'revealjs_progress': 'true',
+        'revealjs_touch': 'true',
+        'revealjs_hideAddressBar': 'true',
+        'revealjs_transition': 'linear',
+        'revealjs_history': 'true',
+        'revealjs_slideNumber': 'true'
+
+    options template_dirs : [new File('resources/asciidoctor-reveal.js','templates/slim').absolutePath ]
+
+    sources {
+        include 'ppt/Demo.pptx.ad'
+    }
+    resources {
+        from('resources') {
+            include 'reveal.js/**'
+        }
+        from(sourceDir) {
+            include 'images/**'
+        }
+        into("ppt")
+        logger.error "${buildDir}/ppt/images"
+    }
+    backends = ['html5']
+}
 
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'

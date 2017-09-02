@@ -1,0 +1,20 @@
+#!/usr/bin/env ruby
+
+if File.file?(asciidoctor_revealjs = (File.expand_path '../../lib/asciidoctor-revealjs.rb', __FILE__))
+  require asciidoctor_revealjs
+else
+  require 'asciidoctor-revealjs'
+end
+require 'asciidoctor/cli'
+
+options = Asciidoctor::Cli::Options.new backend: 'revealjs'
+
+# FIXME (from bespoke) This is a really bizarre API. Please make me simpler.
+if Integer === (result = options.parse! ARGV)
+  exit result
+else
+  invoker = Asciidoctor::Cli::Invoker.new options
+  GC.start
+  invoker.invoke!
+  exit invoker.code
+end
