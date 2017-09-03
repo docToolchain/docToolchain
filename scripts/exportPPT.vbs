@@ -35,7 +35,8 @@
         Set objRegEx = CreateObject("VBScript.RegExp")
         objRegEx.Global = True
         objRegEx.IgnoreCase = True
-        objRegEx.Pattern = ".*{adoc}"
+        objRegEx.MultiLine = True
+        objRegEx.Pattern = "[\s,\S]*{adoc}"
         ' http://www.pptfaq.com/FAQ00481_Export_the_notes_text_of_a_presentation.htm
         strFileName = fso.GetFIle(sFile).Name
         Set oPPT = CreateObject("PowerPoint.Application")
