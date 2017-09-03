@@ -29,7 +29,7 @@ ext {
                     [file: 'arc42-template-en.adoc', formats: ['html','pdf','docbook']],
                     [file: 'test.adoc',              formats: ['html','pdf','docbook']],
                     [file: 'manual.adoc',            formats: ['html']],
-                    [file: 'ppt/Demo.pptx.ad',       formats: ['revealjs']],
+                    [file: 'ppt/Demo.pptx.ad',       formats: ['html','revealjs']],
                 ]
 }
 
@@ -219,7 +219,10 @@ task generateDeck (
         }.each {
             include it.file
         }
+
     }
+
+    outputDir = file(targetDir+'/decks/')
 
     resources {
         from('resources') {
