@@ -20,5 +20,5 @@ Further information can be found on github: https://github.com/aim42/htmlSanityC
 .build.gradle
 [source,groovy]
 ----
-include::../../../build.gradle[tags=htmlSanityCheck]
+include::../../../scripts/htmlSanityCheck.gradle[tags=htmlSanityCheck]
 ----

@@ -10,7 +10,7 @@ buildscript {
     }
 }
 
-apply plugin: org.aim42.htmlSanityCheck
+apply plugin: 'org.aim42.htmlSanityCheck'
 
 //tag::htmlSanityCheck[]
 htmlSanityCheck {
