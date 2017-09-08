@@ -69,7 +69,6 @@ use `gradle exportEA` to re-export files
         if (file.isFile()) {
             println "exported notes "+file.canonicalPath
             file.write(file.getText('iso-8859-1'),'utf-8')
-            println "exported notes "+file.name
         }
     }
 }
