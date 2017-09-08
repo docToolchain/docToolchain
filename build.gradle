@@ -56,6 +56,8 @@ tasks.withType(AsciidoctorTask) { docTask ->
     inputs.file new File(srcDir, 'config-de.adoc')
     inputs.file new File(srcDir, 'arc42-template-en.adoc')
     inputs.file new File(srcDir, 'config-en.adoc')
+    inputs.file new File(srcDir, 'arc42-template-es.adoc')
+    inputs.file new File(srcDir, 'config-es.adoc')
     inputs.file new File(new File(targetDir, 'docs'), 'changelog.adoc')
 
     outputDir = file(targetDir)
@@ -91,6 +93,7 @@ tasks.withType(AsciidoctorTask) { docTask ->
     sources {
         include 'arc42-template-de.adoc'
         include 'arc42-template-en.adoc'
+	include 'arc42-template-es.adoc'
         include 'test.adoc'
         include 'manual.adoc'
     }
