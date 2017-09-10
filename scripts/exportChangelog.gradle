@@ -2,7 +2,7 @@
 task exportChangeLog(
         description: 'exports the change log from a git subpath',
         group: 'docToolchain'
-) << {
+) doLast {
     def res = "git log ./src/docs/arc42".execute().text
     def changes = []
     def change = null
@@ -23,20 +23,22 @@ task exportChangeLog(
             default:
                 change['log'] += (line ? line.trim()+ "\n" : '')
         }
-    }
-    changes << change
-    def path = './build/docs/'
-    new File(path).mkdirs()
-    def changelog = new File(path+'changelog.adoc')
-    changelog.write("")
+        changes << change
+        def path = './build/docs/'
+        new File(path).mkdirs()
+        def changelog = new File(path + 'changelog.adoc')
+        changelog.write("")
 
-    changes.each { c ->
-        try {
-            changelog.append """| ${new Date(Date.parse(c.date)).format("dd.MM.yyyy")}
-| ${c.author.replaceAll('<[^>]*>','')}
+        changes.each { c ->
+            try {
+                changelog.append """| ${new Date(Date.parse(c.date)).format("dd.MM.yyyy")}
+| ${c.author.replaceAll('<[^>]*>', '')}
 | ${c.log}
 """
-        } catch (Exception e) { println c }
+            } catch (Exception e) {
+                println c
+            }
+        }
     }
 }
 //end::exportChangeLog[]
