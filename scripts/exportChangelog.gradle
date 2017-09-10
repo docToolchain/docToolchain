@@ -1,6 +1,5 @@
 //tag::exportChangeLog[]
 task exportChangeLog(
-        dependsOn: [streamingExecute],
         description: 'exports the change log from a git subpath',
         group: 'docToolchain'
 ) << {
