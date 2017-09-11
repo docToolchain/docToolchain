@@ -506,6 +506,7 @@ task publishToConfluence(
         description: 'publishes the HTML rendered output to confluence',
         group: 'docToolchain'
 ) << {
+    binding.setProperty('confluenceConfigFile', confluenceConfigFile)
     evaluate(new File('scripts/asciidoc2confluence.groovy'))
 }
 //end::publishToConfluence[]

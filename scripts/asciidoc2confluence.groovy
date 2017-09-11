@@ -57,13 +57,8 @@ def baseUrl
 
 // configuration
 def config
-try {
-    println "scriptBasePath: ${scriptBasePath}"
-    config = new ConfigSlurper().parse(new File(scriptBasePath, 'ConfluenceConfig.groovy').text)
-} catch(groovy.lang.MissingPropertyException e) {
-    //no scriptBasePath, works for some szenarios
-    config = new ConfigSlurper().parse(new File('scripts/ConfluenceConfig.groovy').text)
-}
+println "confluenceConfigFile: ${confluenceConfigFile}"
+config = new ConfigSlurper().parse(new File(confluenceConfigFile).text)
 
 def confluenceSpaceKey
 def confluenceCreateSubpages
