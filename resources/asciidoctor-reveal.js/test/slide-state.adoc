@@ -1,0 +1,14 @@
+= Title
+:topic: state=title,background-color=white
+:customcss: slide-state.css
+
+== First slide
+
+Content
+
+[{topic}]
+== Topic slide
+
+== Second slide
+
+Content
