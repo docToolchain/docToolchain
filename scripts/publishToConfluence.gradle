@@ -17,6 +17,7 @@ task publishToConfluence(
         group: 'docToolchain'
 ) {
     doLast {
+        binding.setProperty('confluenceConfigFile', confluenceConfigFile)
         evaluate(new File('scripts/asciidoc2confluence.groovy'))
     }
 }
