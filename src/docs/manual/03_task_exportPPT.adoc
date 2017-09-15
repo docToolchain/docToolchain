@@ -8,5 +8,5 @@ image::ea/Manual/exportPPT.png[]
 .build.gradle
 [source,groovy]
 ----
-include::../../../build.gradle[tags=exportPPT]
+include::../../../scripts/exportPPT.gradle[tags=exportPPT]
 ----

@@ -15,5 +15,5 @@ Result can be found in `build/docs/epub`
 .build.gradle
 [source,groovy]
 ----
-include::../../../build.gradle[tags=convertToEpub]
+include::../../../scripts/pandoc.gradle[tags=convertToEpub]
 ----

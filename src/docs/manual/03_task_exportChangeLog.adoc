@@ -45,5 +45,5 @@ But this isn't implemented yet.
 .build.gradle
 [source,groovy]
 ----
-include::../../../build.gradle[tags=exportChangeLog]
+include::../../../scripts/exportChangelog.gradle[tags=exportChangeLog]
 ----

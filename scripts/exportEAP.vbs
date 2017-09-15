@@ -45,7 +45,7 @@
             name = currentElement.Name
             name = Replace(name,vbCr,"")
             name = Replace(name,vbLf,"")
-            WScript.echo "-"&Left(strNotes, 6)&"-"
+            ' WScript.echo "-"&Left(strNotes, 6)&"-"
             if (Left(strNotes, 3) = vbCRLF&"|") Then
                 ' content should be rendered as table - so don't interfere with it
                 objFile.WriteLine(vbCRLF)
@@ -80,7 +80,7 @@
             y = 0
             Do While Not objExecObject.StdOut.AtEndOfStream
                 output = objExecObject.StdOut.ReadLine()
-                WScript.echo output
+                ' WScript.echo output
                 jiraElement = Split(output,"|")
                 name = jiraElement(0)&":"&vbCR&vbLF&jiraElement(4)
                 On Error Resume Next

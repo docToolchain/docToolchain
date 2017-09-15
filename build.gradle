@@ -4,18 +4,6 @@
 
 import org.asciidoctor.gradle.AsciidoctorTask
 
-buildscript {
-    dependencies {
-        //for the exportJiraIssues Task
-        classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.6'
-        //for the renderToConfluence Task
-        classpath 'org.apache.httpcomponents:httpmime:4.5.1'
-        classpath 'org.jsoup:jsoup:1.9.1'
-        //for export Excel Task
-        classpath 'org.apache.poi:poi-ooxml:3.9'
-    }
-}
-
 plugins {
     id "org.asciidoctor.convert" version "1.5.3"
     id "org.aim42.htmlSanityCheck" version "0.9.7"
@@ -28,22 +16,49 @@ ext {
     targetDir = "$buildDir"
     javaVersion = System.getProperty("java.version")
     currentDate = new Date().format("d. MMM yyyy")
+    // where HTMLSanityCheck checking results ares stored
+    checkingResultsPath = "$buildDir/report/htmlchecks"
+    sourceFiles = [
+                    [file: 'arc42-template-de.adoc', formats: ['html','pdf','docbook']],
+                    [file: 'arc42-template-en.adoc', formats: ['html','pdf','docbook']],
+                    [file: 'test.adoc',              formats: ['html','pdf','docbook']],
+                    [file: 'manual.adoc',            formats: ['html']],
+                    [file: 'ppt/Demo.pptx.ad',       formats: ['html','revealjs']],
+                ]
 }
-
-// where HTMLSanityCheck checking results ares stored
-def checkingResultsPath = "$buildDir/report/htmlchecks"
 
 
 apply plugin:'groovy'
 
 dependencies {
     asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15'
-    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.5.4.1'
+    // carefull!
+    // asciidoctor 1.5.6 needs diagram 1.5.4.1
+    // but then reveal.js is broken...
+    // https://github.com/asciidoctor/asciidoctor-diagram/issues/161
+    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.5.4'
 }
 
 asciidoctorj {
- version = '1.5.6'
+ version = '1.5.4'
 }
+
+
+apply from: 'scripts/exportEA.gradle'
+
+apply from: 'scripts/exportPPT.gradle'
+
+apply from: 'scripts/exportChangelog.gradle'
+
+apply from: 'scripts/exportJiraIssues.gradle'
+
+apply from: 'scripts/exportExcel.gradle'
+
+apply from: 'scripts/pandoc.gradle'
+
+apply from: 'scripts/publishToConfluence.gradle'
+
+apply from: 'scripts/htmlSanityCheck.gradle'
 
 //tag::AsciidoctorTask[]
 
@@ -88,12 +103,6 @@ tasks.withType(AsciidoctorTask) { docTask ->
 
     // configure source and output files and folders
     sourceDir = file('src/docs')
-    sources {
-        include 'arc42-template-de.adoc'
-        include 'arc42-template-en.adoc'
-        include 'test.adoc'
-        include 'manual.adoc'
-    }
     outputDir = file('build/docs')
     // good to see what the build is doing...
     logDocuments = true
@@ -112,6 +121,14 @@ task generateHTML (
     attributes \
         'plantUMLDir'         : ''
 
+    sources {
+        sourceFiles.findAll {
+            'html' in it.formats
+        }.each {
+            include it.file
+        }
+    }
+
     backends = ['html5']
 }
 //end::generateHTML[]
@@ -125,445 +142,80 @@ task generatePDF (
     attributes \
         'plantUMLDir'         : file('build/docs/images/plantUML/').path
 
+    sources {
+        sourceFiles.findAll {
+            'pdf' in it.formats
+        }.each {
+            include it.file
+        }
+    }
+
     backends = ['pdf']
 }
 //end::generatePDF[]
-
-//tag::streamingExecute[]
-task streamingExecute(
-    dependsOn: [],
-    description: 'extends the String class with a better .executeCmd'
-) << {
-    //I need a streaming execute in order to export from EA
-    String.metaClass.executeCmd = { silent ->
-        //make sure that all paramters are interpreted through the cmd-shell
-        //TODO: make this also work with *nix
-        def p = "cmd /c ${delegate.value}".execute()
-        def result=[std:'',err:'']
-        def ready = false
-        Thread.start{
-            def reader = new BufferedReader(new InputStreamReader(p.in))
-            def line = ""
-            while ((line = reader.readLine()) != null) {
-                if (silent!=false) {println ""+line}
-                result.std+=line+"\n"
-            }
-            ready=true
-            reader.close()
-        }
-        p.waitForOrKill(30000)
-        def error = p.err.text
-
-        if (error.isEmpty()) {
-            return result
-        } else {
-            throw new RuntimeException("\n"+error)
-        }
-    }
-}
-//end::streamingExecute[]
-
-//tag::exportEA[]
-task exportEA(
-    dependsOn: [streamingExecute],
-    description: 'exports all diagrams and some texts from EA files',
-    group: 'docToolchain'
-) << {
-		//make sure path for notes exists
-		//and remove old notes
-		new File('src/docs/ea').deleteDir()
-		//also remove old diagrams
-		new File('src/docs/images/ea').deleteDir()
-		//create a readme to clarify things
-		def readme="""This folder contains exported diagrams or notes from Enterprise Architect.
-		
-Please note that these are generated files but reside in the `src`-folder in order to be versioned.
-
-This is to make sure that they can be used from environments other than windows.
-
-# Warning!
-
-**The contents of this folder	will be overwritten with each re-export!**
-
-use `gradle exportEA` to re-export files
-"""
-        new File('src/docs/images/ea/.').mkdirs()
-		new File('src/docs/images/ea/readme.ad').write(readme)
-        new File('src/docs/ea/.').mkdirs()
-		new File('src/docs/ea/readme.ad').write(readme)
-    //execute through cscript in order to make sure that we get WScript.echo right
-    "%SystemRoot%\\System32\\cscript.exe //nologo scripts/exportEAP.vbs".executeCmd()
-    //the VB Script is only capable of writing iso-8859-1-Files.
-    //we now have to convert them to UTF-8	
-    new File('src/docs/ea/.').eachFileRecurse { file ->
-    	if (file.isFile()) {
-	    	println "exported notes "+file.canonicalPath
-	    	file.write(file.getText('iso-8859-1'),'utf-8')
-	    	println "exported notes "+file.name
-    	}
-    }
-}
-//end::exportEA[]
-
-//tag::exportPPT[]
-task exportPPT(
-        dependsOn: [streamingExecute],
-        description: 'exports all slides and some texts from PPT files',
-        group: 'docToolchain'
-) << {
-    //make sure path for notes exists
-    //and remove old notes
-    new File('src/docs/ppt').deleteDir()
-    //also remove old diagrams
-    new File('src/docs/images/ppt').deleteDir()
-    //create a readme to clarify things
-    def readme="""This folder contains exported slides or notes from .ppt presentations.
-		
-Please note that these are generated files but reside in the `src`-folder in order to be versioned.
-
-This is to make sure that they can be used from environments other than windows.
-
-# Warning!
-
-**The contents of this folder	will be overwritten with each re-export!**
-
-use `gradle exportPPT` to re-export files
-"""
-    new File('src/docs/images/ppt/.').mkdirs()
-    new File('src/docs/images/ppt/readme.ad').write(readme)
-    new File('src/docs/ppt/.').mkdirs()
-    new File('src/docs/ppt/readme.ad').write(readme)
-    //execute through cscript in order to make sure that we get WScript.echo right
-    "%SystemRoot%\\System32\\cscript.exe //nologo scripts/exportPPT.vbs".executeCmd()
-}
-//end::exportPPT[]
-
-//tag::exportChangeLog[]
-task exportChangeLog(
-        dependsOn: [streamingExecute],
-        description: 'exports the change log from a git subpath',
-        group: 'docToolchain'
-) << {
-    def res = "git log ./src/docs/arc42".execute().text
-    def changes = []
-    def change = null
-    res.eachLine { line ->
-        switch (line) {
-            case ~/^commit.*/:
-                if (change!=null) {
-                    changes << change
-                }
-                change = [commit:line-'commit ',log:'']
-                break;
-            case ~/^Author:.*/:
-                change['author'] = line-'Author: '
-                break;
-            case ~/^Date:.*/:
-                change['date'] = line-'Date: '
-                break;
-            default:
-                change['log'] += (line ? line.trim()+ "\n" : '')
-        }
-    }
-    changes << change
-    def path = './build/docs/'
-    new File(path).mkdirs()
-    def changelog = new File(path+'changelog.adoc')
-    changelog.write("")
-
-    changes.each { c ->
-        try {
-            changelog.append """| ${new Date(Date.parse(c.date)).format("dd.MM.yyyy")}
-| ${c.author.replaceAll('<[^>]*>','')}
-| ${c.log}
-"""
-        } catch (Exception e) { println c }
-    }
-}
-//end::exportChangeLog[]
-
-//tag::exportJiraIssues[]
-task exportJiraIssues(
-        description: 'exports all jira issues from a given search',
-        group: 'docToolchain'
-) << {
-        def user = jiraUser
-        def pass = jiraPass
-        if (!pass) {
-            pass = System.console().readPassword("Jira password for user '$user': ")
-        }
-
-        def stats = [:]
-        def jira = new groovyx.net.http.RESTClient( jiraRoot+'/rest/api/2/' )
-        jira.encoderRegistry = new groovyx.net.http.EncoderRegistry( charset: 'utf-8' )
-        def headers = [
-                'Authorization':"Basic " + "${user}:${pass}".bytes.encodeBase64().toString(),
-                'Content-Type':'application/json; charset=utf-8'
-        ]
-        def openIssues = new File('./build/docs/openissues.adoc')
-        openIssues.write("",'utf-8')
-        println jiraJql.replaceAll('%jiraProject%',jiraProject).replaceAll('%jiraLabel%',jiraLabel)
-        jira.get(path:'search',
-                query:['jql': jiraJql.replaceAll('%jiraProject%',jiraProject).replaceAll('%jiraLabel%',jiraLabel),
-                       'maxResults':1000,
-                       'fields':'created,resolutiondate,priority,summary,timeoriginalestimate, assignee'
-                ],
-                headers:headers
-        ).data.issues.each { issue ->
-            openIssues.append("| <<${issue.key}>> ",'utf-8')
-            openIssues.append("| ${issue.fields.priority.name} ",'utf-8')
-            openIssues.append("| ${Date.parse("yyyy-MM-dd'T'H:m:s.000z",issue.fields.created).format('dd.MM.yy')} ",'utf-8')
-            openIssues.append("| ${issue.fields.assignee?issue.fields.assignee.displayName:'not assigned'} ",'utf-8')
-            openIssues.append("| ${jiraRoot}/browse/${issue.key}[${issue.fields.summary}]\n",'utf-8')
-        }
-
-}
-//end::exportJiraIssues[]
-
-//tag::exportExcel[]
-task exportExcel(
-        description: 'exports all excelsheets to csv and AsciiDoc',
-        group: 'docToolchain'
-) << {
-        File sourceDir = file(srcDir)
-
-        def tree = fileTree(srcDir).include('**/*.xlsx').exclude('**/~*')
-
-        def exportFileDir = new File(sourceDir, 'excel')
-
-        //make sure path for notes exists
-        exportFileDir.deleteDir()
-        //create a readme to clarify things
-        def readme="""This folder contains exported workbooks from Excel.
-
-Please note that these are generated files but reside in the `src`-folder in order to be versioned.
-
-This is to make sure that they can be used from environments other than windows.
-
-# Warning!
-
-**The contents of this folder will be overwritten with each re-export!**
-
-use `gradle exportExcel` to re-export files
-"""
-        exportFileDir.mkdirs()
-        new File(exportFileDir, '/readme.ad').write(readme)
-
-        def nl = System.getProperty("line.separator")
-
-        def export = {sheet, evaluator, targetFileName ->
-            def targetFileCSV = new File(targetFileName+'.csv')
-            def targetFileAD = new File(targetFileName+'.adoc')
-            def df = new org.apache.poi.ss.usermodel.DataFormatter();
-            def regions = []
-            sheet.numMergedRegions.times {
-                regions << sheet.getMergedRegion(it)
-            }
-            logger.debug "sheet contains ${regions.size()} regions"
-            def color = ''
-            def resetColor = false
-            def numRows = 0
-            def headerCreated = false
-            (sheet.lastRowNum+1).times { rowNum ->
-                def row = sheet.getRow(rowNum)
-                if (row && !headerCreated) {
-                    headerCreated = true
-                    // create AsciiDoc table header
-                    def width = []
-                    numRows = row.lastCellNum
-                    numRows.times { columnIndex ->
-                        width << sheet.getColumnWidth((int)columnIndex)
-                    }
-                    //lets make those numbers nicer:
-                    width = width.collect{Math.round(100*it/width.sum())}
-                    targetFileAD.append('[options="header",cols="'+width.join(',')+'"]'+nl)
-                    targetFileAD.append('|==='+nl)
-                }
-                def data = []
-                def style = []
-                def colors = []
-                // For each row, iterate through each columns
-if (row) {
-                numRows.times { columnIndex ->
-                    def cell = row.getCell(columnIndex)
-                    if (cell) {
-                        def cellValue = df.formatCellValue(cell, evaluator)
-                        if (cellValue.startsWith('*') && cellValue.endsWith('\u20AC')) {
-                            // Remove special characters at currency
-                            cellValue = cellValue.substring(1).trim();
-                        }
-                        def cellStyle = ''
-                        def region = regions.find { it.isInRange(cell.rowIndex, cell.columnIndex) }
-                        def skipCell = false
-                        if (region) {
-                            //check if we are in the upper left corner of the region
-                            if (region.firstRow == cell.rowIndex && region.firstColumn == cell.columnIndex) {
-                                def colspan = 1 + region.lastRow - region.firstRow
-                                def rowspan = 1 + region.lastColumn - region.firstColumn
-                                if (rowspan > 1) {
-                                    cellStyle += "${rowspan}"
-                                }
-                                if (colspan > 1) {
-                                    cellStyle += ".${colspan}"
-                                }
-                                cellStyle += "+"
-                            } else {
-                                skipCell = true
-                            }
-                        }
-                        if (!skipCell) {
-                            switch (cell.cellStyle.alignmentEnum.toString()) {
-                                case 'RIGHT':
-                                    cellStyle += '>'
-                                    break
-                                case 'CENTER':
-                                    cellStyle += '^'
-                                    break
-                            }
-                            switch (cell.cellStyle.verticalAlignmentEnum.toString()) {
-                                case 'BOTTOM':
-                                    cellStyle += '.>'
-                                    break
-                                case 'CENTER':
-                                    cellStyle += '.^'
-                                    break
-                            }
-                            color = cell.cellStyle.fillForegroundXSSFColor?.rgb?.encodeHex()
-                            color = color != null ? nl + "{set:cellbgcolor:#${color}}" : ''
-                            data << cellValue
-                            if (color == '' && resetColor) {
-                                colors << nl + "{set:cellbgcolor!}"
-                                resetColor = false
-                            } else {
-                                colors << color
-                            }
-                            if (color != '') {
-                                resetColor = true
-                            }
-                            style << cellStyle
-                        } else {
-                            data << ""
-                            colors << ""
-                            style << "skip"
-                        }
-                    } else {
-                        data << ""
-                        colors << ""
-                        style << ""
-                    }
-
-                }
-} else {
-    //insert empty row
-    numRows.times {
-        data << ""
-        colors << ""
-        style << ""
-    }
-}
-
-                targetFileCSV.append(data
-                                     .collect{
-                                                "\"${it.replaceAll('"','""')}\""
-                                             }
-                                     .join(',')+nl, 'UTF-8')
-                targetFileAD.append(data
-                                    .withIndex()
-                                    .collect{value, index ->
-                                                if (style[index]=="skip") {
-                                                    ""
-                                                } else {
-                                                    style[index] + "| ${value.replaceAll('[|]', '{vbar}').replaceAll("\n", ' +$0') + colors[index]}"
-                                                }
-                                            }
-                                    .join(nl)+nl*2, 'UTF-8')
-            }
-            targetFileAD.append('|==='+nl)
-        }
-
-
-        tree.each { File excel ->
-            println excel
-            def excelDir = new File(exportFileDir, excel.getName())
-            excelDir.mkdirs()
-            InputStream inp
-            inp = new FileInputStream(excel)
-            def wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(inp);
-            def evaluator = wb.getCreationHelper().createFormulaEvaluator();
-            for(int wbi=0; wbi < wb.getNumberOfSheets(); wbi++) {
-                def sheetName = wb.getSheetAt(wbi).getSheetName()
-                println sheetName
-                def targetFile = new File(excelDir, sheetName)
-                export(wb.getSheetAt(wbi), evaluator, targetFile.getAbsolutePath())
-            }
-            inp.close();
-        }
-}
-//end::exportExcel[]
-
-//tag::publishToConfluence[]
-task publishToConfluence(
-        description: 'publishes the HTML rendered output to confluence',
-        group: 'docToolchain'
-) << {
-    evaluate(new File('scripts/asciidoc2confluence.groovy'))
-}
-//end::publishToConfluence[]
 
 //tag::generateDocbook[]
 task generateDocbook (
         type: AsciidoctorTask,
         group: 'docToolchain',
         description: 'use docbook as asciidoc backend') {
-        backends = ['docbook']
+
+    sources {
+        sourceFiles.findAll {
+            'docbook' in it.formats
+        }.each {
+            include it.file
+        }
+    }
+
+    backends = ['docbook']
 }
 //end::generateDocbook[]
 
-//tag::convertToDocx[]
-task convertToDocx (
-        dependsOn: [generateDocbook ],
+//tag::generateDeck[]
+task generateDeck (
+        type: AsciidoctorTask,
         group: 'docToolchain',
-        type: Exec
-) {
-    workingDir 'build/docs/docbook'
-    executable = "pandoc"
-    new File('build/docs/docx/').mkdirs()
-    args = ['-r','docbook',
-            '-t','docx',
-            '-o','../docx/arc42-template-en.docx',
-                 'arc42-template-en.xml']
+        description: 'use revealJs as asciidoc backend to create a presentation') {
+
+    attributes \
+        'plantUMLDir'         : '',
+        'idprefix': 'slide-',
+        'idseparator': '-',
+        'docinfo1': '',
+        'revealjs_theme': 'black',
+        'revealjs_progress': 'true',
+        'revealjs_touch': 'true',
+        'revealjs_hideAddressBar': 'true',
+        'revealjs_transition': 'linear',
+        'revealjs_history': 'true',
+        'revealjs_slideNumber': 'true'
+
+    options template_dirs : [new File('resources/asciidoctor-reveal.js','templates/slim').absolutePath ]
+
+    sources {
+        sourceFiles.findAll {
+            'revealjs' in it.formats
+        }.each {
+            include it.file
+        }
+
+    }
+
+    outputDir = file(targetDir+'/decks/')
+
+    resources {
+        from('resources') {
+            include 'reveal.js/**'
+        }
+        from(sourceDir) {
+            include 'images/**'
+        }
+        into("ppt")
+        logger.error "${buildDir}/ppt/images"
+    }
 }
-//end::convertToDocx[]
-
-//tag::convertToEpub[]
-task convertToEpub (
-        dependsOn: [generateDocbook ],
-        group: 'docToolchain',
-        type: Exec
-) {
-    workingDir 'build/docs/docbook'
-    //commandLine "pandoc -r arc42-template.xml -o arc42-template.docx "
-    executable = "pandoc"
-    new File('build/docs/epub/').mkdirs()
-    args = ['-r','docbook',
-            '-t','epub',
-            '-o','../epub/arc42-template-en.epub',
-            'arc42-template-en.xml']
-}
-//end::convertToEpub[]
-
-//tag::htmlSanityCheck[]
-htmlSanityCheck {
-    sourceDir = new File( "$buildDir/docs/html5" )
-
-    // files to check - in Set-notation
-    //sourceDocuments = [ "one-file.html", "another-file.html", "index.html"]
-
-    // where to put results of sanityChecks...
-    checkingResultsDir = new File( checkingResultsPath )
-    checkExternalLinks = false
-}
-//end::htmlSanityCheck[]
+//end::generateDeck[]
 
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
