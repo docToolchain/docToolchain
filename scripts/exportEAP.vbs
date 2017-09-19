@@ -45,7 +45,15 @@
             name = currentElement.Name
             name = Replace(name,vbCr,"")
             name = Replace(name,vbLf,"")
-            objFile.WriteLine(vbCRLF&vbCRLF&"."&name&vbCRLF&strNotes)
+            ' WScript.echo "-"&Left(strNotes, 6)&"-"
+            if (Left(strNotes, 3) = vbCRLF&"|") Then
+                ' content should be rendered as table - so don't interfere with it
+                objFile.WriteLine(vbCRLF)
+            else
+                'let's add the name of the object
+                objFile.WriteLine(vbCRLF&vbCRLF&"."&name)
+            End If
+            objFile.WriteLine(vbCRLF&strNotes)
             objFile.Close
             if (prefix<>"") Then
                 ' write the same to a second file
@@ -72,7 +80,7 @@
             y = 0
             Do While Not objExecObject.StdOut.AtEndOfStream
                 output = objExecObject.StdOut.ReadLine()
-                'WScript.echo output
+                ' WScript.echo output
                 jiraElement = Split(output,"|")
                 name = jiraElement(0)&":"&vbCR&vbLF&jiraElement(4)
                 On Error Resume Next
@@ -130,6 +138,7 @@
             filename = path & diagramName & ".png"
             MakeDir("." & path)
             projectInterface.SaveDiagramImageToFile(fso.GetAbsolutePathName(".")&filename)
+            ' projectInterface.putDiagramImageToFile currentDiagram.DiagramID,fso.GetAbsolutePathName(".")&filename,1
             WScript.echo " extracted image to ." & filename
             Repository.CloseDiagram(currentDiagram.DiagramID)
             For Each diagramElement In currentDiagram.DiagramObjects

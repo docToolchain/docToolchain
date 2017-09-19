@@ -41,9 +41,9 @@ Für die Dokumentation eigener System verwenden Sie besser die _plain_ Version.
 .Änderungen
 [options="header",cols="1,2,6"]
 |====
-| Date
+| Datum
 | Author
-| Comment
+| Kommentar
 
 include::../../build/docs/changelog.adoc[]
 
@@ -101,7 +101,6 @@ include::arc42/DE/11_technical_risks.adoc[]
 // 12. Glossar
 include::arc42/DE/12_glossary.adoc[]
 
-
 // appendices:
 // =====================================
 
@@ -109,18 +108,3 @@ include::arc42/DE/12_glossary.adoc[]
 // Appendix Open Issues
 include::arc42/DE/appendix-open_issues.adoc[]
 
-<<<<
-// Verweise + Literatur
-include::arc42/DE/appendix-references.adoc[]
-
-<<<<
-// Beispiele
-include::arc42/DE/appendix-examples.adoc[]
-
-<<<<
-// Contributing and Contributors
-include::arc42/DE/appendix-contributing.adoc[]
-
-<<<<
-// Approved Practitioner for arc42
-include::arc42/DE/appendix-practitioner.adoc[]

@@ -1,86 +1,86 @@
 [[section-deployment-view]]
-== Deployment View
 
+
+== Deployment View
 
 [role="arc42help"]
 ****
-.Contents
-This view describes the environment within which the system is executed. It describes the geographic distribution of the system or the structure of the hardware components that execute the software. It documents workstations, processors, network topologies and channels, as well as other elements of the physical system environment. The deployment view shows the system from the operator’s point of view.
-Please explain how the systems’ building blocks are aggregated or packaged into deployment artifacts or deployment units.
+.Content
+The deployment view describes:
+
+ 1. the technical infrastructure used to execute your system, with infrastructure elements like geographical locations, environments, computers, processors, channels and net topologies as well as other infrastructure elements and
+
+2. the mapping of (software) building blocks to that infrastructure elements.
+
+Often systems are executed in different environments, e.g. development environment, test environment, production environment. In such cases you should document all relevant environments.
+
+Especially document the deployment view when your software is executed as distributed system with more then one computer, processor, server or container or when you design and construct your own hardware processors and chips.
+
+From a software perspective it is sufficient to capture those elements of the infrastructure that are needed to show the deployment of your building blocks. Hardware architects can go beyond that and describe the infrastructure to any level of detail they need to capture.
 
 .Motivation
-Software is not much use without hardware. The minimum that is needed by you as a software architect is sufficient detail of the underlying (hardware) deployment so that you can assign each software building block that is relevant for the system’s operations to some hardware element. (This also holds for any COTS that is a prerequisite for the operations of the overall system.) These models should enable the operator to properly install the software.
+Software does not run without hardware.
+This underlying infrastructure can and will influence your system and/or some
+cross-cutting concepts. Therefore, you need to know the infrastructure.
 
 .Form
-The UML provides deployment diagrams for describing this view. Use these – possibly in a nested manner if necessary. (The top level deployment diagram should already be part of your context view, showing your infrastructure as a single black box (cf. chapter 3.2). Here you are zooming into this black box with additional deployment diagrams.)
-Diagrams by your hardware-oriented colleagues who describe processors and channels are also usable. You should abstract these to aspects relevant for software deployment.
+
+Maybe the highest level deployment diagram is already contained in section 3.2. as
+technical context with your own infrastructure as ONE black box. In this section you will
+zoom into this black box using additional deployment diagrams:
+
+* UML offers deployment diagrams to express that view. Use it, probably with nested diagrams,
+when your infrastructure is more complex.
+* When your (hardware) stakeholders prefer other kinds of diagrams rather than the deployment diagram, let them use any kind that is able to show nodes and channels of the infrastructure.
 ****
 
 === Infrastructure Level 1
 
-==== Deployment Diagram Level 1
-
 [role="arc42help"]
 ****
-* Shows the deployment of the overall system to 1 – n processors or sites as well as the physical connections among these elements.
-* Lists the most important reasons that led to this deployment structure, i.e. the specific selection of nodes and channels.
-* Should also mention rejected alternatives incl. reasons for their rejection.
+Describe (usually in a combination of diagrams, tables, and text):
+
+*  the distribution of your system to multiple locations, environments, computers, processors, .. as well as the physical connections between them
+*  important justification or motivation for this deployment structure
+* Quality and/or performance features of the infrastructure
+*  the mapping of software artifacts to elements of the infrastructure
+
+For multiple environments or alternative deployments please copy that section of arc42 for all relevant environments.
 ****
 
-==== Processor 1
+_**<Overview Diagram>**_
 
-<insert node template here>
+Motivation::
 
-[role="arc42help"]
-****
-**Node Template:**
+_<explanation in text form>_
 
-* Description
-* Deployed software building blocks
-* Quality attributes (performance, constraints, ...)
-* Other administrative information
-* Open issues
-****
+Quality and/or Performance Features::
 
-==== Processor 2
+_<explanation in text form>_
 
-<insert node template here>
+Mapping of Building Blocks to Infrastructure::
+_<description of the mapping>_
 
-==== ...
-
-==== Processor n
-
-<insert node template here>
-
-==== Channel 1
-
-[role="arc42help"]
-****
-.Contents
-Specification of the channel’s attributes, as relevant for software architecture.
-
-.Motivation
-Specify at least those attributes of the communications channels that you need for proving fulfillment of non-functional requirements such as maximal throughput, probability for faults, etc.
-
-.Form
-Often you will refer to a standard (e.g. CAN-Bus, 10Mbit Ethernet, IEEE 1394, ...).
-
-If you need more information use a structure similar to the node template (especially to document quality aspects of channels like throughput, error rates, ...)
-****
-
-==== Channel 2
-
-==== ...
-
-==== Channel m
 
 === Infrastructure Level 2
 
 [role="arc42help"]
 ****
-.Contents
-Additional deployment diagrams with similar structure as above, refining each node of infrastructure level 1 that needs more details to map the software blocks.
+Here you can include the internal structure of (some) infrastructure elements from level 1.
 
-.Motivation
-To describe additional details of the infrastructure, as needed by software deployment.
+Please copy the structure from level 1 for each selected element.
 ****
+
+==== _<Infrastructure Element 1>_
+
+_<diagram + explanation>_
+
+==== _<Infrastructure Element 2>_
+
+_<diagram + explanation>_
+
+...
+
+==== _<Infrastructure Element n>_
+
+_<diagram + explanation>_

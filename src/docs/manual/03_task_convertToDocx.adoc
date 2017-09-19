@@ -1,0 +1,12 @@
+ifndef::imagesdir[:imagesdir: ../images]
+= convertToDocx
+
+image::ea/Manual/convertToDocx.png[]
+
+== Source
+
+.build.gradle
+[source,groovy]
+----
+include::../../../scripts/pandoc.gradle[tags=convertToDocx]
+----

@@ -1,100 +1,19 @@
 [[section-architecture-constraints]]
 == Randbedingungen
-(engl.: Architecture Constraints)
 
 [role="arc42help"]
 ****
 .Inhalt
-Fesseln, die Software-Architekten in ihren Freiheiten bezüglich des Entwurfs oder des Entwicklungsprozesses einschränken.
+Fesseln und Vorgaben, die ihre Freiheiten bezüglich Entwurf, Implementierung oder Ihres Entwicklungsprozesses einschränken.
+Diese Randbedingungen gelten manchmal organisations- oder firmenweit über die Grenzen einzelner Systeme hinweg.
 
 .Motivation
-Architekten sollten klar wissen, wo Ihre Freiheitsgrade bezüglich Entwurfsentscheidungen liegen und wo sie Randbedingungen beachten müssen.
-Randbedingungen können vielleicht noch verhandelt werden, zunächst sind sie aber da.
+Als Architekt sollten Sie explizit wissen, wo Ihre Freiheitsgrade bezüglich Entwurfsentscheidungen liegen und wo Sie Randbedingungen beachten müssen.
+Sie können Randbedingungen vielleicht noch verhandeln, zunächst sind sie aber da.
 
 .Form
-Informelle Listen, gegliedert nach den Unterpunkten dieses Kapitels.
-
-.Beispiele
-siehe Unterkapitel
-
-.Hintergründe
-Im Idealfall sind Randbedingungen durch die Anforderungen vorgegeben, spätestens die Architekten müssen sich dieser Randbedingungen bewusst sein.
-
-Den Einfluss von Randbedingungen auf Software- und Systemarchitekturen beschreibt  [Hofmeister+1999] (Software-Architecture, A Practical Guide, Addison-Wesley 1999) unter dem Stichwort „Global Analysis“.
-****
-
-=== Technische Randbedingungen
-
-[role="arc42help"]
-****
-.Inhalt
-Tragen Sie hier alle technischen Randbedingungen ein.
-Zu dieser Kategorie gehören Hard- und Software-Infrastruktur,
-eingesetzte Technologien (Betriebssysteme, Middleware, Datenbanken, Programmiersprachen, ...).
-****
-
-[cols="1,2"]
-.Technische Randbedingungen
-
-|===
-2+e| Hardware-Vorgaben
-
-||	_Randbedingung~1~_
-
-||	_Randbedingung~2~_
-
-2+| *Software-Vorgaben*
-
-||	_Randbedingung~i~_
-
-2+| *Vorgaben des Systembetriebs*
-
-||	_Randbedingung~j~_
-
-2+| *Programmiervorgaben*
-
-||	_Randbedingung~k~_
-|===
-
-
-
-=== Organisatorische Randbedingungen
-
-[role="arc42help"]
-****
-.Inhalt
-Tragen Sie hier alle organisatorischen, strukturellen und ressourcenbezogenen Randbedingungen ein. Zu dieser Kategorie gehören auch Standards, die Sie einhalten müssen und juristische Randbedingungen.
-****
-
-==== Organisation und Struktur
-_<hier Randbedingungen einfügen>_
-
-==== Ressourcen (Budget, Zeit, Personal)
-_<hier Randbedingungen einfügen>_
-
-==== Organisatorische Standards
-_<hier Randbedingungen einfügen>_
-
-==== Juristische Faktoren
-_<hier Randbedingungen einfügen>_
-
-
-
-
-=== Konventionen
-
-[role="arc42help"]
-****
-.Inhalt
-Fassen Sie unter dieser Überschrift alle Konventionen zusammen, die für die Entwicklung der Software-Architektur relevant sind.
-
-.Form
-Entweder die Konventionen als Kapitel hier direkt einhängen oder aber auf entsprechende Dokumente verweisen.
-
-.Beispiele
-*  Programmierrichtlinien
-*  Dokumentationsrichtlinien
-*  Richtlinien für Versions- und Konfigurationsmanagement
-*  Namenskonventionen
+Einfache Tabellen der Randbedingungen mit Erläuterungen.
+Bei Bedarf unterscheiden Sie technische, organisatorische und politische Randbedingungen oder
+übergreifende Konventionen (beispielsweise Programmier- oder Versionierungsrichtlinien, Dokumentation- oder Namenskonvention)
 
 ****

@@ -1,42 +1,91 @@
 /*
  * This build file is part of the docToolchain
  */
-buildscript {
-    dependencies {
-        //for the exportJiraIssues Task
-        classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.6'
-        //for the renderToConfluence Task
-        classpath 'org.apache.httpcomponents:httpmime:4.5.1'
-        classpath 'org.jsoup:jsoup:1.8.2'
-    }
-}
+
+import org.asciidoctor.gradle.AsciidoctorTask
 
 plugins {
     id "org.asciidoctor.convert" version "1.5.3"
-    // we need this plugin to add ruby gems
-    id "com.github.jruby-gradle.base" version "1.3.0"
-    id "org.aim42.htmlSanityCheck" version "0.9.6"
+    id "org.aim42.htmlSanityCheck" version "0.9.7"
+    id "com.github.ben-manes.versions" version "0.14.0"
 }
+println "compiling with Java ${System.getProperty("java.version")} at ${new Date().format("HH:mm:ss")}"
+
+ext {
+    srcDir  = "$projectDir/src/docs"
+    targetDir = "$buildDir"
+    javaVersion = System.getProperty("java.version")
+    currentDate = new Date().format("d. MMM yyyy")
+    // where HTMLSanityCheck checking results ares stored
+    checkingResultsPath = "$buildDir/report/htmlchecks"
+    sourceFiles = [
+                    [file: 'arc42-template-de.adoc', formats: ['html','pdf','docbook']],
+                    [file: 'arc42-template-en.adoc', formats: ['html','pdf','docbook']],
+                    [file: 'test.adoc',              formats: ['html','pdf','docbook']],
+                    [file: 'manual.adoc',            formats: ['html']],
+                    [file: 'ppt/Demo.pptx.ad',       formats: ['html','revealjs']],
+                ]
+}
+
 
 apply plugin:'groovy'
-apply plugin: 'org.aim42.htmlSanityCheck'
 
 dependencies {
-    // this is the gem we need for diagrams
-    gems 'rubygems:asciidoctor-diagram:1.5.1'
-    gems 'rubygems:asciidoctor-pdf:1.5.0.alpha.13'
-
+    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15'
+    // carefull!
+    // asciidoctor 1.5.6 needs diagram 1.5.4.1
+    // but then reveal.js is broken...
+    // https://github.com/asciidoctor/asciidoctor-diagram/issues/161
+    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.5.4'
 }
 
-asciidoctor {
-    backends 'html5', 'pdf'
+asciidoctorj {
+ version = '1.5.4'
+}
+
+
+apply from: 'scripts/exportEA.gradle'
+
+apply from: 'scripts/exportPPT.gradle'
+
+apply from: 'scripts/exportChangelog.gradle'
+
+apply from: 'scripts/exportJiraIssues.gradle'
+
+apply from: 'scripts/exportExcel.gradle'
+
+apply from: 'scripts/pandoc.gradle'
+
+apply from: 'scripts/publishToConfluence.gradle'
+
+apply from: 'scripts/htmlSanityCheck.gradle'
+
+//tag::AsciidoctorTask[]
+
+// common settings for asciidoctor
+// this is needed for PDF generation with plantUML
+tasks.withType(AsciidoctorTask) { docTask ->
+    inputs.dir new File(srcDir, 'arc42')
+    inputs.dir new File(srcDir, 'images')
+    inputs.file new File(srcDir, 'arc42-template-de.adoc')
+    inputs.file new File(srcDir, 'config-de.adoc')
+    inputs.file new File(srcDir, 'arc42-template-en.adoc')
+    inputs.file new File(srcDir, 'config-en.adoc')
+    inputs.file new File(new File(targetDir, 'docs'), 'changelog.adoc')
+
+    outputDir = file(targetDir)
+    sourceDir = file(srcDir)
+
     attributes \
-        'pdf-stylesdir': 'pdfTheme',
-        'pdf-style': 'custom',
-        'source-highlighter': 'coderay',
+            'pdf-stylesdir': 'pdfTheme',
+            'pdf-style': 'custom',
+            'source-highlighter': 'coderay',
             'imagesdir': 'images',
             'toc': 'left',
-            'icons': 'font'
+            'icons': 'font',
+            'javaVersion'         : "$javaVersion",
+            'currentDate'         : "$currentDate",
+            'allow-uri-read'      : true
     // Here we can add the code for extensions we write.
     extensions {
         inlinemacro (name: "jira") {
@@ -54,186 +103,120 @@ asciidoctor {
 
     // configure source and output files and folders
     sourceDir = file('src/docs')
-    sources {
-        include 'arc42-template-de.adoc'
-        include 'arc42-template-en.adoc'
-        include 'test.adoc'
-    }
     outputDir = file('build/docs')
     // good to see what the build is doing...
     logDocuments = true
 
-    // the jrubyPrepare tasks takes care of loading the gems
-    dependsOn jrubyPrepare
-
-    // the asciidoctor task depends on this gem
     requires = ['asciidoctor-diagram']
-    gemPath = jrubyPrepare.outputDir
 
 }
+//end::AsciidoctorTask[]
 
-task streamingExecute(
-    dependsOn: [],
-    description: 'extends the String class with a better .executeCmd'
-) << {
-    //I need a streaming execute in order to export from EA
-    String.metaClass.executeCmd = { silent ->
-        //make sure that all paramters are interpreted through the cmd-shell
-        //TODO: make this also work with *nix
-        def p = "cmd /c ${delegate.value}".execute()
-        def result=[std:'',err:'']
-        def ready = false
-        Thread.start{
-            def reader = new BufferedReader(new InputStreamReader(p.in))
-            def line = ""
-            while ((line = reader.readLine()) != null) {
-                if (silent!=false) {println ""+line}
-                result.std+=line+"\n"
-            }
-            ready=true
-            reader.close()
-        }
-        p.waitForOrKill(30000)
-        def error = p.err.text
+//tag::generateHTML[]
+task generateHTML (
+        type: AsciidoctorTask,
+        group: 'docToolchain',
+        description: 'use html5 as asciidoc backend') {
 
-        if (error.isEmpty()) {
-            return result
-        } else {
-            throw new RuntimeException("\n"+error)
+    attributes \
+        'plantUMLDir'         : ''
+
+    sources {
+        sourceFiles.findAll {
+            'html' in it.formats
+        }.each {
+            include it.file
         }
     }
+
+    backends = ['html5']
 }
-task exportEA(
-    dependsOn: [streamingExecute],
-    description: 'exports all diagrams and some texts from EA files',
-    group: 'docToolchain'
-) << {
-		//make sure path for notes exists
-		//and remove old notes
-		new File('src/docs/ea').deleteDir()
-		//also remove old diagrams
-		new File('src/docs/images/ea').deleteDir()
-		//create a readme to clarify things
-		def readme="""This folder contains exported diagrams or notes from Enterprise Architect.
-		
-Please note that these are generated files but reside in the `src`-folder in order to be versioned.
+//end::generateHTML[]
 
-This is to make sure that they can be used from environments other than windows.
+//tag::generatePDF[]
+task generatePDF (
+        type: AsciidoctorTask,
+        group: 'docToolchain',
+        description: 'use pdf as asciidoc backend') {
 
-# Warning!
+    attributes \
+        'plantUMLDir'         : file('build/docs/images/plantUML/').path
 
-**The contents of this folder	will be overwritten with each re-export!**
-
-use `gradle exportEA` to re-export files
-"""
-        new File('src/docs/images/ea/.').mkdirs()
-		new File('src/docs/images/ea/readme.ad').write(readme)
-        new File('src/docs/ea/.').mkdirs()
-		new File('src/docs/ea/readme.ad').write(readme)
-    //execute through cscript in order to make sure that we get WScript.echo right
-    "%SystemRoot%\\System32\\cscript.exe //nologo scripts/exportEAP.vbs".executeCmd()
-    //the VB Script is only capable of writing iso-8859-1-Files.
-    //we now have to convert them to UTF-8	
-    new File('src/docs/ea/.').eachFileRecurse { file ->
-    	if (file.isFile()) {
-	    	println "exported notes "+file.canonicalPath
-	    	file.write(file.getText('iso-8859-1'),'utf-8')
-	    	println "exported notes "+file.name
-    	}
-    }
-}
-task exportChangeLog(
-        dependsOn: [streamingExecute],
-        description: 'exports the change log from a git subpath',
-        group: 'docToolchain'
-) << {
-    def res = "git log ./src/docs/arc42".execute().text
-    def changes = []
-    def change = null
-    res.eachLine { line ->
-        switch (line) {
-            case ~/^commit.*/:
-                if (change!=null) {
-                    changes << change
-                }
-                change = [commit:line-'commit ',log:'']
-                break;
-            case ~/^Author:.*/:
-                change['author'] = line-'Author: '
-                break;
-            case ~/^Date:.*/:
-                change['date'] = line-'Date: '
-                break;
-            default:
-                change['log'] += (line ? line.trim()+ "\n" : '')
+    sources {
+        sourceFiles.findAll {
+            'pdf' in it.formats
+        }.each {
+            include it.file
         }
     }
-    changes << change
-    def path = './build/docs/'
-    new File(path).mkdirs()
-    def changelog = new File(path+'changelog.adoc')
-    changelog.write("")
 
-    changes.each { c ->
-        try {
-            changelog.append """| ${new Date(Date.parse(c.date)).format("dd.MM.yyyy")}
-| ${c.author.replaceAll('<[^>]*>','')}
-| ${c.log}
-"""
-        } catch (Exception e) { println c }
+    backends = ['pdf']
+}
+//end::generatePDF[]
+
+//tag::generateDocbook[]
+task generateDocbook (
+        type: AsciidoctorTask,
+        group: 'docToolchain',
+        description: 'use docbook as asciidoc backend') {
+
+    sources {
+        sourceFiles.findAll {
+            'docbook' in it.formats
+        }.each {
+            include it.file
+        }
+    }
+
+    backends = ['docbook']
+}
+//end::generateDocbook[]
+
+//tag::generateDeck[]
+task generateDeck (
+        type: AsciidoctorTask,
+        group: 'docToolchain',
+        description: 'use revealJs as asciidoc backend to create a presentation') {
+
+    attributes \
+        'plantUMLDir'         : '',
+        'idprefix': 'slide-',
+        'idseparator': '-',
+        'docinfo1': '',
+        'revealjs_theme': 'black',
+        'revealjs_progress': 'true',
+        'revealjs_touch': 'true',
+        'revealjs_hideAddressBar': 'true',
+        'revealjs_transition': 'linear',
+        'revealjs_history': 'true',
+        'revealjs_slideNumber': 'true'
+
+    options template_dirs : [new File('resources/asciidoctor-reveal.js','templates/slim').absolutePath ]
+
+    sources {
+        sourceFiles.findAll {
+            'revealjs' in it.formats
+        }.each {
+            include it.file
+        }
+
+    }
+
+    outputDir = file(targetDir+'/decks/')
+
+    resources {
+        from('resources') {
+            include 'reveal.js/**'
+        }
+        from(sourceDir) {
+            include 'images/**'
+        }
+        into("ppt")
+        logger.error "${buildDir}/ppt/images"
     }
 }
-task exportJiraIssues(
-        description: 'exports all jira issues from a given search',
-        group: 'docToolchain'
-) << {
-        def user = jiraUser
-        def pass = jiraPass
-        if (!pass) {
-            pass = System.console().readPassword("Jira password for user '$user': ")
-        }
+//end::generateDeck[]
 
-        def stats = [:]
-        def jira = new groovyx.net.http.RESTClient( jiraRoot+'/rest/api/2/' )
-        jira.encoderRegistry = new groovyx.net.http.EncoderRegistry( charset: 'utf-8' )
-        def headers = [
-                'Authorization':"Basic " + "${user}:${pass}".bytes.encodeBase64().toString(),
-                'Content-Type':'application/json; charset=utf-8'
-        ]
-        def openIssues = new File('./build/docs/openissues.adoc')
-        openIssues.write("",'utf-8')
-        println jiraJql.replaceAll('%jiraProject%',jiraProject).replaceAll('%jiraLabel%',jiraLabel)
-        jira.get(path:'search',
-                query:['jql': jiraJql.replaceAll('%jiraProject%',jiraProject).replaceAll('%jiraLabel%',jiraLabel),
-                       'maxResults':1000,
-                       'fields':'created,resolutiondate,priority,summary,timeoriginalestimate, assignee'
-                ],
-                headers:headers
-        ).data.issues.each { issue ->
-            openIssues.append("| <<${issue.key}>> ",'utf-8')
-            openIssues.append("| ${issue.fields.priority.name} ",'utf-8')
-            openIssues.append("| ${Date.parse("yyyy-MM-dd'T'H:m:s.000z",issue.fields.created).format('dd.MM.yy')} ",'utf-8')
-            openIssues.append("| ${issue.fields.assignee?issue.fields.assignee.displayName:'not assigned'} ",'utf-8')
-            openIssues.append("| ${jiraRoot}/browse/${issue.key}[${issue.fields.summary}]\n",'utf-8')
-        }
-
-}
-task publishToConfluence(
-        description: 'publishes the HTML rendered output to confluence',
-        group: 'docToolchain'
-) << {
-    evaluate(new File('scripts/asciidoc2confluence.groovy'))
-}
-htmlSanityCheck {
-    sourceDir = new File( "$buildDir/docs/html5" )
-
-    // files to check - in Set-notation
-    //sourceDocuments = [ "one-file.html", "another-file.html", "index.html"]
-
-    // where to put results of sanityChecks...
-    checkingResultsDir = new File( "$buildDir/report/htmlchecks" )
-    checkExternalLinks = false
-}
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
-defaultTasks 'asciidoctor', 'htmlSanityCheck'
+defaultTasks 'exportChangeLog', 'generateHTML', 'generatePDF', 'htmlSanityCheck'

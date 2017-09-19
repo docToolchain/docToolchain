@@ -1,0 +1,40 @@
+= Levels
+:backend: revealjs
+
+== First level
+
+First content
+
+== Vertical
+
+Vertical slides are using level 2 sections (`===`)
+
+Press down arrow.
+
+=== Level 3
+
+Level 3 (`====`), rendered as `<h3>` is now supported.
+
+==== Like this
+
+=== Deeper
+
+==== l3
+
+===== l4
+
+====== l5
+
+== Horizontal slide
+
+==== Also supports levels
+
+But they issue warnings during render
+
+== Horizontal sections
+
+==== l3
+
+===== l4
+
+====== l5

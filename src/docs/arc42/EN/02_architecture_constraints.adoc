@@ -5,101 +5,15 @@
 [role="arc42help"]
 ****
 .Contents
-Any requirement that constrains software architects in their freedom of design decisions or the development process.
+Any requirement that constrains software architects in their freedom of design and implementation decisions or decision about the development process. These constraints sometimes go beyond individual systems and are valid for whole organizations and companies.
 
 .Motivation
 Architects should know exactly where they are free in their design decisions and where they must adhere to constraints.
 Constraints must always be dealt with; they may be negotiable, though.
 
 .Form
-Informal lists, structured by the sub-sections of this section.
-
-.Examples
-see subsections
-
-.Background information
-In the optimal case constraints are defined by requirements. In any case, at least the architects must be aware of constraints.
-The influence of constraints is described by [Hofmeister et al] (Software Architecture, A Practical Guide, Addison Wesley 1999)  using the term “global analysis”.
+Simple tables of constraints with explanations.
+If needed you can subdivide them into
+technical constraints, organizational and political constraints and
+conventions (e.g. programming or versioning guidelines, documentation or naming conventions)
 ****
-
-=== Technical Constraints
-
-[role="arc42help"]
-****
-.Contents
-List all technical constraints in this section. This category covers hard- and software infrastructure, applied technologies (operating systems, middleware, databases, programming languages, …).
-****
-
-
-.List of Technical Constraints
-[options="header",cols="<.<1,<.<4"]
-|===
-2+^e|  Technical Constraints
-2+^e|  Hardware Constraints
-| C1                                | insert description here  
-| C2                                | insert description here 
-| C3                                | insert description here
-2+^e| Software Constraints
-| C4                       | insert description here 
-| C5                       | insert description here 
-| C6                       | insert description here 
-2+^e| Operating System Constraints
-| C7                               | insert description here 
-| C8                               | insert description here
-| C9                               | insert description here
-2+^e| Programming Constraints
-| C10                         | insert description here 
-| C11                         | insert description here 
-| C12                         | insert description here 
-|===
-
-
-
-=== Organizational Constraints
-
-[role="arc42help"]
-****
-.Contents
-Enter all organizational, structural, and resource-related constraints. This category also covers standards and legal constraints that you must comply with.
-****
-
-.List of Organizational Constraints
-[options="header",cols="<.<1,<.<4"]
-|===
-2+^e| Organizational Constraints
-2+^e| Organization and Structure
-|C1 |  insert description here
-|C2 |  insert description here
-2+^e| Resources (Budget, Time, Personnel)
-|C3| insert description here
-|C4| insert description here
-2+^e| Organizational Standards
-|C5| insert description here
-|C6| insert description here
-2+^e| Legal Factors
-|C7| insert description here
-|C8| insert description here
-|===
-
-
-
-
-=== Conventions
-
-[role="arc42help"]
-****
-.Contents
-List all conventions that are relevant for the development of your software architecture.
-
-.Form
-Either insert the conventions directly in this document or refer to other documents.
-
-.Examples
-
-* Coding guidelines
-* Documentation guidelines
-* Guidelines for version and configuration management
-* Naming conventions
-
-****
-
