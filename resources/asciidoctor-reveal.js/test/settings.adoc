@@ -1,0 +1,19 @@
+= Settings
+// demonstrates different boolean values
+:revealjs_history: true
+:revealjs_controls:
+:revealjs_progress: false
+:revealjs_keyboard: 1
+:revealjs_overview: 0
+
+== First slide
+
+Uno
+
+== Second slide
+
+Dos
+
+== Third slide
+
+Tres

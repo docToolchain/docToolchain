@@ -8,5 +8,5 @@ image::ea/Manual/convertToDocx.png[]
 .build.gradle
 [source,groovy]
 ----
-include::../../../build.gradle[tags=convertToDocx]
+include::../../../scripts/pandoc.gradle[tags=convertToDocx]
 ----

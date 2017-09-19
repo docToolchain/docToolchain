@@ -42,5 +42,5 @@ The AsciiDoc version gives you a bit more control:
 .build.gradle
 [source,groovy]
 ----
-include::../../../build.gradle[tags=exportExcel]
+include::../../../scripts/exportExcel.gradle[tags=exportExcel]
 ----

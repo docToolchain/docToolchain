@@ -529,16 +529,17 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_generatehtml">3.2. generateHTML</a></li>
 <li><a href="#_generatepdf">3.3. generatePDF</a></li>
 <li><a href="#_generatedocbook">3.4. generateDocbook</a></li>
-<li><a href="#_publishtoconfluence">3.5. publishToConfluence</a></li>
-<li><a href="#_converttodocx">3.6. convertToDocx</a></li>
-<li><a href="#_converttoepub">3.7. convertToEpub</a></li>
-<li><a href="#_exportea">3.8. exportEA</a></li>
-<li><a href="#_exportchangelog">3.9. exportChangeLog</a></li>
-<li><a href="#_exportjiraissues">3.10. exportJiraIssues</a></li>
-<li><a href="#_exportppt">3.11. exportPPT</a></li>
-<li><a href="#_exportexcel">3.12. exportExcel</a></li>
-<li><a href="#_htmlsanitycheck">3.13. htmlSanityCheck</a></li>
-<li><a href="#_dependencyupdates">3.14. dependencyUpdates</a></li>
+<li><a href="#_generatedeck">3.5. generateDeck</a></li>
+<li><a href="#_publishtoconfluence">3.6. publishToConfluence</a></li>
+<li><a href="#_converttodocx">3.7. convertToDocx</a></li>
+<li><a href="#_converttoepub">3.8. convertToEpub</a></li>
+<li><a href="#_exportea">3.9. exportEA</a></li>
+<li><a href="#_exportchangelog">3.10. exportChangeLog</a></li>
+<li><a href="#_exportjiraissues">3.11. exportJiraIssues</a></li>
+<li><a href="#_exportppt">3.12. exportPPT</a></li>
+<li><a href="#_exportexcel">3.13. exportExcel</a></li>
+<li><a href="#_htmlsanitycheck">3.14. htmlSanityCheck</a></li>
+<li><a href="#_dependencyupdates">3.15. dependencyUpdates</a></li>
 </ul>
 </li>
 <li><a href="#_further_reading">4. Further Reading</a>
@@ -971,6 +972,14 @@ It is still an experimental feature, but already works quite well!<br>
     attributes \
         <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
 
+    sources {
+        sourceFiles.findAll {
+            <span class="string"><span class="delimiter">'</span><span class="content">html</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
+        }.each {
+            include <span class="local-variable">it</span>.file
+        }
+    }
+
     backends = [<span class="string"><span class="delimiter">'</span><span class="content">html5</span><span class="delimiter">'</span></span>]
 }</code></pre>
 </div>
@@ -1027,6 +1036,14 @@ Documentation on how to modify it can be found in the <a href="https://github.co
     attributes \
         <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : file(<span class="string"><span class="delimiter">'</span><span class="content">build/docs/images/plantUML/</span><span class="delimiter">'</span></span>).path
 
+    sources {
+        sourceFiles.findAll {
+            <span class="string"><span class="delimiter">'</span><span class="content">pdf</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
+        }.each {
+            include <span class="local-variable">it</span>.file
+        }
+    }
+
     backends = [<span class="string"><span class="delimiter">'</span><span class="content">pdf</span><span class="delimiter">'</span></span>]
 }</code></pre>
 </div>
@@ -1054,7 +1071,16 @@ Documentation on how to modify it can be found in the <a href="https://github.co
         <span class="key">type</span>: AsciidoctorTask,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">use docbook as asciidoc backend</span><span class="delimiter">'</span></span>) {
-        backends = [<span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span>]
+
+    sources {
+        sourceFiles.findAll {
+            <span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
+        }.each {
+            include <span class="local-variable">it</span>.file
+        }
+    }
+
+    backends = [<span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span>]
 }</code></pre>
 </div>
 </div>
@@ -1063,14 +1089,81 @@ Documentation on how to modify it can be found in the <a href="https://github.co
 </div>
 </div>
 <div class="sect2">
-<h3 id="_publishtoconfluence">3.5. publishToConfluence</h3>
+<h3 id="_generatedeck">3.5. generateDeck</h3>
+<div class="imageblock">
+<div class="content">
+<img src="images/ea/Manual/generateDeck.png" alt="generateDeck">
+</div>
+</div>
+<div class="paragraph">
+<p>This task makes use of the <a href="https://github.com/asciidoctor/asciidoctor-reveal.js/">asciidoctor-reveal.js</a> backend to render your documents HTML based presentation.</p>
+</div>
+<div class="paragraph">
+<p>This task is best used together with the <a href="#_exportppt">exportPPT</a> task.
+Create a PowerPoint presentation and enrich it with reveal.js slide definitions in AsciiDoc within the speaker notes.</p>
+</div>
+<div class="sect3">
+<h4 id="_source_4">3.5.1. Source</h4>
+<div class="listingblock">
+<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">task generateDeck (
+        <span class="key">type</span>: AsciidoctorTask,
+        <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
+        <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">use revealJs as asciidoc backend to create a presentation</span><span class="delimiter">'</span></span>) {
+
+    attributes \
+        <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>,
+        <span class="string"><span class="delimiter">'</span><span class="content">idprefix</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">slide-</span><span class="delimiter">'</span></span>,
+        <span class="string"><span class="delimiter">'</span><span class="content">idseparator</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">-</span><span class="delimiter">'</span></span>,
+        <span class="string"><span class="delimiter">'</span><span class="content">docinfo1</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>,
+        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_theme</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">black</span><span class="delimiter">'</span></span>,
+        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_progress</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
+        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_touch</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
+        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_hideAddressBar</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
+        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_transition</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">linear</span><span class="delimiter">'</span></span>,
+        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_history</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
+        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_slideNumber</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>
+
+    options template_dirs : [<span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">resources/asciidoctor-reveal.js</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">templates/slim</span><span class="delimiter">'</span></span>).absolutePath ]
+
+    sources {
+        sourceFiles.findAll {
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
+        }.each {
+            include <span class="local-variable">it</span>.file
+        }
+
+    }
+
+    outputDir = file(targetDir+<span class="string"><span class="delimiter">'</span><span class="content">/decks/</span><span class="delimiter">'</span></span>)
+
+    resources {
+        from(<span class="string"><span class="delimiter">'</span><span class="content">resources</span><span class="delimiter">'</span></span>) {
+            include <span class="string"><span class="delimiter">'</span><span class="content">reveal.js/**</span><span class="delimiter">'</span></span>
+        }
+        from(sourceDir) {
+            include <span class="string"><span class="delimiter">'</span><span class="content">images/**</span><span class="delimiter">'</span></span>
+        }
+        into(<span class="string"><span class="delimiter">&quot;</span><span class="content">ppt</span><span class="delimiter">&quot;</span></span>)
+        logger.error <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>buildDir<span class="inline-delimiter">}</span></span><span class="content">/ppt/images</span><span class="delimiter">&quot;</span></span>
+    }
+}</code></pre>
+</div>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_publishtoconfluence">3.6. publishToConfluence</h3>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/publishToConfluence.png" alt="publishToConfluence">
 </div>
 </div>
 <div class="sect3">
-<h4 id="_source_4">3.5.1. Source</h4>
+<h4 id="_source_5">3.6.1. Source</h4>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
@@ -1136,6 +1229,9 @@ Documentation on how to modify it can be found in the <a href="https://github.co
 <span class="keyword">import</span> <span class="include">org.apache.http.entity.mime.content.InputStreamBody</span>
 <span class="keyword">import</span> <span class="include">org.apache.http.entity.mime.HttpMultipartMode</span>
 <span class="keyword">import</span> <span class="include">groovyx.net.http.Method</span>
+
+<span class="keyword">def</span> CDATA_PLACEHOLDER_START = <span class="string"><span class="delimiter">'</span><span class="content">&lt;cdata-placeholder&gt;</span><span class="delimiter">'</span></span>
+<span class="keyword">def</span> CDATA_PLACEHOLDER_END = <span class="string"><span class="delimiter">'</span><span class="content">&lt;/cdata-placeholder&gt;</span><span class="delimiter">'</span></span>
 
 <span class="keyword">def</span> baseUrl
 
@@ -1238,11 +1334,121 @@ Documentation on how to modify it can be found in the <a href="https://github.co
         }
     }
 }
+
+
+<span class="keyword">def</span> realTitle = { pageTitle -&gt;
+    confluencePagePrefix + pageTitle
+}
+
+<span class="keyword">def</span> rewriteDescriptionLists = { body -&gt;
+    <span class="keyword">def</span> TAGS = [ <span class="key">dt</span>: <span class="string"><span class="delimiter">'</span><span class="content">th</span><span class="delimiter">'</span></span>, <span class="key">dd</span>: <span class="string"><span class="delimiter">'</span><span class="content">td</span><span class="delimiter">'</span></span> ]
+    body.select(<span class="string"><span class="delimiter">'</span><span class="content">dl</span><span class="delimiter">'</span></span>).each { dl -&gt;
+        <span class="comment">// WHATWG allows wrapping dt/dd in divs, simply unwrap them</span>
+        dl.select(<span class="string"><span class="delimiter">'</span><span class="content">div</span><span class="delimiter">'</span></span>).each { <span class="local-variable">it</span>.unwrap() }
+
+        <span class="comment">// group dts and dds that belong together, usually it will be a 1:1 relation</span>
+        <span class="comment">// but HTML allows for different constellations</span>
+        <span class="keyword">def</span> rows = <span class="type">[]</span>
+        <span class="keyword">def</span> current = [<span class="key">dt</span>: <span class="type">[]</span>, <span class="key">dd</span>: <span class="type">[]</span>]
+        rows &lt;&lt; current
+        dl.select(<span class="string"><span class="delimiter">'</span><span class="content">dt, dd</span><span class="delimiter">'</span></span>).each { child -&gt;
+            <span class="keyword">def</span> tagName = child.tagName()
+            <span class="keyword">if</span> (tagName == <span class="string"><span class="delimiter">'</span><span class="content">dt</span><span class="delimiter">'</span></span> &amp;&amp; current.dd.size() &gt; <span class="integer">0</span>) {
+                <span class="comment">// dt follows dd, start a new group</span>
+                current = [<span class="key">dt</span>: <span class="type">[]</span>, <span class="key">dd</span>: <span class="type">[]</span>]
+                rows &lt;&lt; current
+            }
+            current[tagName] &lt;&lt; child.tagName(TAGS[tagName])
+            child.remove()
+        }
+
+        rows.each { row -&gt;
+            <span class="keyword">def</span> sizes = [<span class="key">dt</span>: row.dt.size(), <span class="key">dd</span>: row.dd.size()]
+            <span class="keyword">def</span> rowspanIdx = [<span class="key">dt</span>: -<span class="integer">1</span>, <span class="key">dd</span>: sizes.dd - <span class="integer">1</span>]
+            <span class="keyword">def</span> rowspan = <span class="predefined-type">Math</span>.abs(sizes.dt - sizes.dd) + <span class="integer">1</span>
+            <span class="keyword">def</span> max = sizes.dt
+            <span class="keyword">if</span> (sizes.dt &lt; sizes.dd) {
+                max = sizes.dd
+                rowspanIdx = [<span class="key">dt</span>: sizes.dt - <span class="integer">1</span>, <span class="key">dd</span>: -<span class="integer">1</span>]
+            }
+            (<span class="integer">0</span>..&lt;max).each { idx -&gt;
+                <span class="keyword">def</span> tr = dl.appendElement(<span class="string"><span class="delimiter">'</span><span class="content">tr</span><span class="delimiter">'</span></span>)
+                [<span class="string"><span class="delimiter">'</span><span class="content">dt</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">dd</span><span class="delimiter">'</span></span>].each { type -&gt;
+                    <span class="keyword">if</span> (sizes[type] &gt; idx) {
+                        tr.appendChild(row[type][idx])
+                        <span class="keyword">if</span> (idx == rowspanIdx[type] &amp;&amp; rowspan &gt; <span class="integer">1</span>) {
+                            row[type][idx].attr(<span class="string"><span class="delimiter">'</span><span class="content">rowspan</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>rowspan<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+                        }
+                    } <span class="keyword">else</span> <span class="keyword">if</span> (idx == <span class="integer">0</span>) {
+                        tr.appendElement(TAGS[type]).attr(<span class="string"><span class="delimiter">'</span><span class="content">rowspan</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>rowspan<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+                    }
+                }
+            }
+        }
+
+        dl.wrap(<span class="string"><span class="delimiter">'</span><span class="content">&lt;table&gt;&lt;/table&gt;</span><span class="delimiter">'</span></span>)
+            .unwrap()
+    }
+}
+
+<span class="keyword">def</span> rewriteInternalLinks = { body, anchors, pageAnchors -&gt;
+    <span class="comment">// find internal cross-references and replace them with link macros</span>
+    body.select(<span class="string"><span class="delimiter">'</span><span class="content">a[href]</span><span class="delimiter">'</span></span>).each { a -&gt;
+        <span class="keyword">def</span> href = a.attr(<span class="string"><span class="delimiter">'</span><span class="content">href</span><span class="delimiter">'</span></span>)
+        <span class="keyword">if</span> (href.startsWith(<span class="string"><span class="delimiter">'</span><span class="content">#</span><span class="delimiter">'</span></span>)) {
+            <span class="keyword">def</span> anchor = href.substring(<span class="integer">1</span>)
+            <span class="keyword">def</span> pageTitle = anchors[anchor] ?: pageAnchors[anchor]
+            <span class="keyword">if</span> (pageTitle) {
+                <span class="comment">// as Confluence insists on link texts to be contained</span>
+                <span class="comment">// inside CDATA, we have to strip all HTML and</span>
+                <span class="comment">// potentially loose styling that way.</span>
+                a.html(a.text())
+                a.wrap(<span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;ac:link</span><span class="inline"><span class="inline-delimiter">${</span>anchors.containsKey(anchor) ? <span class="string"><span class="delimiter">'</span><span class="content"> ac:anchor=&quot;</span><span class="delimiter">'</span></span> + anchor + <span class="string"><span class="delimiter">'</span><span class="content">&quot;</span><span class="delimiter">'</span></span> : <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span><span class="inline-delimiter">}</span></span><span class="content">&gt;&lt;/ac:link&gt;</span><span class="delimiter">&quot;</span></span>)
+                   .before(<span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;ri:page ri:content-title=</span><span class="char">\&quot;</span><span class="inline"><span class="inline-delimiter">${</span>realTitle pageTitle<span class="inline-delimiter">}</span></span><span class="char">\&quot;</span><span class="content">/&gt;</span><span class="delimiter">&quot;</span></span>)
+                   .wrap(<span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;ac:plain-text-link-body&gt;</span><span class="inline"><span class="inline-delimiter">${</span>CDATA_PLACEHOLDER_START<span class="inline-delimiter">}</span></span><span class="inline"><span class="inline-delimiter">${</span>CDATA_PLACEHOLDER_END<span class="inline-delimiter">}</span></span><span class="content">&lt;/ac:plain-text-link-body&gt;</span><span class="delimiter">&quot;</span></span>)
+                   .unwrap()
+            }
+        }
+    }
+}
+
+<span class="keyword">def</span> rewriteCodeblocks = { body -&gt;
+    body.select(<span class="string"><span class="delimiter">'</span><span class="content">pre &gt; code</span><span class="delimiter">'</span></span>).each { code -&gt;
+        <span class="keyword">if</span> (code.attr(<span class="string"><span class="delimiter">'</span><span class="content">data-lang</span><span class="delimiter">'</span></span>)) {
+            code.select(<span class="string"><span class="delimiter">'</span><span class="content">span[class]</span><span class="delimiter">'</span></span>).each { span -&gt;
+                span.unwrap()
+            }
+            code.before(<span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;ac:parameter ac:name=</span><span class="char">\&quot;</span><span class="content">language</span><span class="char">\&quot;</span><span class="content">&gt;</span><span class="inline"><span class="inline-delimiter">${</span>code.attr(<span class="string"><span class="delimiter">'</span><span class="content">data-lang</span><span class="delimiter">'</span></span>)<span class="inline-delimiter">}</span></span><span class="content">&lt;/ac:parameter&gt;</span><span class="delimiter">&quot;</span></span>)
+        }
+        code.parent() <span class="comment">// pre now</span>
+            .wrap(<span class="string"><span class="delimiter">'</span><span class="content">&lt;ac:structured-macro ac:name=&quot;code&quot;&gt;&lt;/ac:structured-macro&gt;</span><span class="delimiter">'</span></span>)
+            .unwrap()
+        code.wrap(<span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;ac:plain-text-body&gt;</span><span class="inline"><span class="inline-delimiter">${</span>CDATA_PLACEHOLDER_START<span class="inline-delimiter">}</span></span><span class="inline"><span class="inline-delimiter">${</span>CDATA_PLACEHOLDER_END<span class="inline-delimiter">}</span></span><span class="content">&lt;/ac:plain-text-body&gt;</span><span class="delimiter">&quot;</span></span>)
+            .unwrap()
+    }
+}
+
+<span class="keyword">def</span> unescapeCDATASections = { html -&gt;
+    <span class="keyword">def</span> start = html.indexOf(CDATA_PLACEHOLDER_START)
+    <span class="keyword">while</span> (start &gt; -<span class="integer">1</span>) {
+        <span class="keyword">def</span> end = html.indexOf(CDATA_PLACEHOLDER_END, start)
+        <span class="keyword">if</span> (end &gt; -<span class="integer">1</span>) {
+            <span class="keyword">def</span> prefix = html.substring(<span class="integer">0</span>, start) + CDATA_PLACEHOLDER_START
+            <span class="keyword">def</span> suffix = html.substring(end)
+            <span class="keyword">def</span> unescaped = html.substring(start + CDATA_PLACEHOLDER_START.length(), end)
+                    .replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&amp;lt;</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">&lt;</span><span class="delimiter">'</span></span>).replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&amp;gt;</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">&gt;</span><span class="delimiter">'</span></span>)
+            html = prefix + unescaped + suffix
+        }
+        start = html.indexOf(CDATA_PLACEHOLDER_START, start + <span class="integer">1</span>)
+    }
+    html
+}
+
 <span class="comment">//modify local page in order to match the internal confluence storage representation a bit better</span>
 <span class="comment">//definition lists are not displayed by confluence, so turn them into tables</span>
 <span class="comment">//body can be of type Element or Elements</span>
 <span class="keyword">def</span> deferredUpload = <span class="type">[]</span>
-<span class="keyword">def</span> parseBody =  { body -&gt;
+<span class="keyword">def</span> parseBody =  { body, anchors, pageAnchors -&gt;
     body.select(<span class="string"><span class="delimiter">'</span><span class="content">div.paragraph</span><span class="delimiter">'</span></span>).unwrap()
     body.select(<span class="string"><span class="delimiter">'</span><span class="content">div.ulist</span><span class="delimiter">'</span></span>).unwrap()
     body.select(<span class="string"><span class="delimiter">'</span><span class="content">div.sect3</span><span class="delimiter">'</span></span>).unwrap()
@@ -1276,33 +1482,45 @@ Documentation on how to modify it can be found in the <a href="https://github.co
             <span class="comment">//println attribute.dump()</span>
         }
         <span class="keyword">def</span> src = img.attr(<span class="string"><span class="delimiter">'</span><span class="content">src</span><span class="delimiter">'</span></span>)
+        <span class="keyword">def</span> imgWidth = img.attr(<span class="string"><span class="delimiter">'</span><span class="content">width</span><span class="delimiter">'</span></span>)?:<span class="integer">500</span>
+        <span class="keyword">def</span> imgAlign = img.attr(<span class="string"><span class="delimiter">'</span><span class="content">align</span><span class="delimiter">'</span></span>)?:<span class="string"><span class="delimiter">&quot;</span><span class="content">center</span><span class="delimiter">&quot;</span></span>
         println <span class="string"><span class="delimiter">&quot;</span><span class="content">    image: </span><span class="delimiter">&quot;</span></span>+src
-        <span class="keyword">def</span> newUrl = baseUrl.toString().replaceAll(<span class="string"><span class="delimiter">'</span><span class="char">\\</span><span class="char">\\</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">/</span><span class="delimiter">'</span></span>).replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">/[^/]*$</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">/</span><span class="delimiter">'</span></span>)+src
-        <span class="keyword">def</span> fileName = (src.tokenize(<span class="string"><span class="delimiter">'</span><span class="content">/</span><span class="delimiter">'</span></span>)[-<span class="integer">1</span>])
 
-        trythis {
-            deferredUpload &lt;&lt;  [<span class="integer">0</span>,newUrl,fileName,<span class="string"><span class="delimiter">&quot;</span><span class="content">automatically uploaded</span><span class="delimiter">&quot;</span></span>]
+        <span class="comment">//it is not an online image, so upload it to confluence and use the ri:attachment tag</span>
+        <span class="keyword">if</span>(!src.startsWith(<span class="string"><span class="delimiter">&quot;</span><span class="content">http</span><span class="delimiter">&quot;</span></span>)) {
+          <span class="keyword">def</span> newUrl = baseUrl.toString().replaceAll(<span class="string"><span class="delimiter">'</span><span class="char">\\</span><span class="char">\\</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">/</span><span class="delimiter">'</span></span>).replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">/[^/]*$</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">/</span><span class="delimiter">'</span></span>)+src
+          <span class="keyword">def</span> fileName = (src.tokenize(<span class="string"><span class="delimiter">'</span><span class="content">/</span><span class="delimiter">'</span></span>)[-<span class="integer">1</span>])
+
+          trythis {
+              deferredUpload &lt;&lt;  [<span class="integer">0</span>,newUrl,fileName,<span class="string"><span class="delimiter">&quot;</span><span class="content">automatically uploaded</span><span class="delimiter">&quot;</span></span>]
+          }
+          img.after(<span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;ac:image ac:align=</span><span class="char">\&quot;</span><span class="inline"><span class="inline-delimiter">${</span>imgAlign<span class="inline-delimiter">}</span></span><span class="char">\&quot;</span><span class="content"> ac:width=</span><span class="char">\&quot;</span><span class="inline"><span class="inline-delimiter">${</span>imgWidth<span class="inline-delimiter">}</span></span><span class="char">\&quot;</span><span class="content">&gt;&lt;ri:attachment ri:filename=</span><span class="char">\&quot;</span><span class="inline"><span class="inline-delimiter">${</span>fileName<span class="inline-delimiter">}</span></span><span class="char">\&quot;</span><span class="content">/&gt;&lt;/ac:image&gt;</span><span class="delimiter">&quot;</span></span>)
         }
-        img.after(<span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;ac:image ac:align=</span><span class="char">\&quot;</span><span class="content">center</span><span class="char">\&quot;</span><span class="content"> ac:width=</span><span class="char">\&quot;</span><span class="content">500</span><span class="char">\&quot;</span><span class="content">&gt;&lt;ri:attachment ri:filename=</span><span class="char">\&quot;</span><span class="inline"><span class="inline-delimiter">${</span>fileName<span class="inline-delimiter">}</span></span><span class="char">\&quot;</span><span class="content">/&gt;&lt;/ac:image&gt;</span><span class="delimiter">&quot;</span></span>)
+        <span class="comment">// it is an online image, so we have to use the ri:url tag</span>
+        <span class="keyword">else</span> {
+          img.after(<span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;ac:image ac:align=</span><span class="char">\&quot;</span><span class="content">imgAlign</span><span class="char">\&quot;</span><span class="content"> ac:width=</span><span class="char">\&quot;</span><span class="inline"><span class="inline-delimiter">${</span>imgWidth<span class="inline-delimiter">}</span></span><span class="char">\&quot;</span><span class="content">&gt;&lt;ri:url ri:value=</span><span class="char">\&quot;</span><span class="inline"><span class="inline-delimiter">${</span>src<span class="inline-delimiter">}</span></span><span class="char">\&quot;</span><span class="content">/&gt;&lt;/ac:image&gt;</span><span class="delimiter">&quot;</span></span>)
+        }
         img.remove()
     }
+    rewriteDescriptionLists body
+    rewriteInternalLinks body, anchors, pageAnchors
+    <span class="comment">//sanitize code inside code tags</span>
+    rewriteCodeblocks body
+    <span class="keyword">def</span> pageString = unescapeCDATASections body.html().trim()
+
     <span class="comment">//change some html elements through simple substitutions</span>
-    pageString = body.html().trim()
-            .replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;pre class=</span><span class="char">\&quot;</span><span class="content">.+</span><span class="char">\&quot;</span><span class="content">&gt;&lt;code( class=</span><span class="char">\&quot;</span><span class="content">.+</span><span class="char">\&quot;</span><span class="content"> data-lang=</span><span class="char">\&quot;</span><span class="content">.+</span><span class="char">\&quot;</span><span class="content">)?&gt;</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;ac:structured-macro ac:name=</span><span class="char">\\</span><span class="char">\&quot;</span><span class="content">code</span><span class="char">\\</span><span class="char">\&quot;</span><span class="content">&gt;&lt;ac:plain-text-body&gt;&lt;![CDATA[</span><span class="delimiter">&quot;</span></span>)
-            .replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;/code&gt;&lt;/pre&gt;</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">]]&gt;&lt;/ac:plain-text-body&gt;&lt;/ac:structured-macro&gt;</span><span class="delimiter">&quot;</span></span>)
-            .replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&lt;dl&gt;</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">&lt;table&gt;&lt;tr&gt;</span><span class="delimiter">'</span></span>)
-            .replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&lt;/dl&gt;</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">&lt;/tr&gt;&lt;/table&gt;</span><span class="delimiter">'</span></span>)
-            .replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&lt;dt[^&gt;]*&gt;</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">&lt;tr&gt;&lt;th&gt;</span><span class="delimiter">'</span></span>)
-            .replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&lt;/dt&gt;</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">&lt;/th&gt;</span><span class="delimiter">'</span></span>)
-            .replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&lt;dd&gt;</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">&lt;td&gt;</span><span class="delimiter">'</span></span>)
-            .replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&lt;/dd&gt;</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">&lt;/td&gt;&lt;/tr&gt;</span><span class="delimiter">'</span></span>)
+    pageString = pageString
             .replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&lt;br&gt;</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">&lt;br /&gt;</span><span class="delimiter">'</span></span>)
             .replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&lt;/br&gt;</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">&lt;br /&gt;</span><span class="delimiter">'</span></span>)
             .replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&lt;a([^&gt;]*)&gt;&lt;/a&gt;</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>)
+            .replaceAll(CDATA_PLACEHOLDER_START,<span class="string"><span class="delimiter">'</span><span class="content">&lt;![CDATA[</span><span class="delimiter">'</span></span>)
+            .replaceAll(CDATA_PLACEHOLDER_END,<span class="string"><span class="delimiter">'</span><span class="content">]]&gt;</span><span class="delimiter">'</span></span>)
+
+    <span class="keyword">return</span> pageString
 }
 
 <span class="comment">// the create-or-update functionality for confluence pages</span>
-<span class="keyword">def</span> pushToConfluence = { pageTitle, pageBody, parentId -&gt;
+<span class="keyword">def</span> pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors -&gt;
     <span class="keyword">def</span> api = <span class="keyword">new</span> RESTClient(config.confluenceAPI)
     <span class="keyword">def</span> headers = [
             <span class="string"><span class="delimiter">'</span><span class="content">Authorization</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">Basic </span><span class="delimiter">'</span></span> + config.confluenceCredentials,
@@ -1312,16 +1530,17 @@ Documentation on how to modify it can be found in the <a href="https://github.co
     api.encoderRegistry = <span class="keyword">new</span> EncoderRegistry( <span class="key">charset</span>: <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span> )
     <span class="comment">//try to get an existing page</span>
     <span class="keyword">def</span> page
-    localPage = parseBody(pageBody)
+    localPage = parseBody(pageBody, anchors, pageAnchors)
 
     <span class="keyword">def</span> localHash = MD5(localPage)
-    localPage  = <span class="string"><span class="delimiter">'</span><span class="content">&lt;p&gt;&lt;ac:structured-macro ac:name=&quot;toc&quot;/&gt;&lt;/p&gt;</span><span class="delimiter">'</span></span>+localPage
-    localPage += <span class="string"><span class="delimiter">'</span><span class="content">&lt;p&gt;&lt;ac:structured-macro ac:name=&quot;children&quot;/&gt;&lt;/p&gt;</span><span class="delimiter">'</span></span>
+    <span class="keyword">def</span> prefix = <span class="string"><span class="delimiter">'</span><span class="content">&lt;p&gt;&lt;ac:structured-macro ac:name=&quot;toc&quot;/&gt;&lt;/p&gt;</span><span class="delimiter">'</span></span>+(config.extraPageContent?:<span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>)
+    localPage  = prefix+localPage
+    localPage += <span class="string"><span class="delimiter">'</span><span class="content">&lt;p&gt;&lt;ac:structured-macro ac:name=&quot;children&quot;&gt;&lt;ac:parameter ac:name=&quot;sort&quot;&gt;creation&lt;/ac:parameter&gt;&lt;/ac:structured-macro&gt;&lt;/p&gt;</span><span class="delimiter">'</span></span>
     localPage += <span class="string"><span class="delimiter">'</span><span class="content">&lt;p style=&quot;display:none&quot;&gt;hash: #</span><span class="delimiter">'</span></span>+localHash+<span class="string"><span class="delimiter">'</span><span class="content">#&lt;/p&gt;</span><span class="delimiter">'</span></span>
 
     <span class="keyword">def</span> request = [
             type : <span class="string"><span class="delimiter">'</span><span class="content">page</span><span class="delimiter">'</span></span>,
-            <span class="key">title</span>: confluencePagePrefix + pageTitle,
+            <span class="key">title</span>: realTitle(pageTitle),
             <span class="key">space</span>: [
                     <span class="key">key</span>: confluenceSpaceKey
             ],
@@ -1341,7 +1560,7 @@ Documentation on how to modify it can be found in the <a href="https://github.co
         page = api.get(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">content</span><span class="delimiter">'</span></span>,
                 <span class="key">query</span>: [
                         <span class="string"><span class="delimiter">'</span><span class="content">spaceKey</span><span class="delimiter">'</span></span>: confluenceSpaceKey,
-                        <span class="string"><span class="delimiter">'</span><span class="content">title</span><span class="delimiter">'</span></span>   : confluencePagePrefix + pageTitle,
+                        <span class="string"><span class="delimiter">'</span><span class="content">title</span><span class="delimiter">'</span></span>   : realTitle(pageTitle),
                         <span class="string"><span class="delimiter">'</span><span class="content">expand</span><span class="delimiter">'</span></span>  : <span class="string"><span class="delimiter">'</span><span class="content">body.storage,version</span><span class="delimiter">'</span></span>
                 ], <span class="key">headers</span>: headers).data.results[<span class="integer">0</span>]
     }
@@ -1395,6 +1614,40 @@ Documentation on how to modify it can be found in the <a href="https://github.co
     }
 }
 
+<span class="keyword">def</span> parseAnchors = { page -&gt;
+    <span class="keyword">def</span> anchors = [:]
+    page.body.select(<span class="string"><span class="delimiter">'</span><span class="content">[id]</span><span class="delimiter">'</span></span>).each { anchor -&gt;
+        <span class="keyword">def</span> name = anchor.attr(<span class="string"><span class="delimiter">'</span><span class="content">id</span><span class="delimiter">'</span></span>)
+        anchors[name] = page.title
+        anchor.before(<span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;ac:structured-macro ac:name=</span><span class="char">\&quot;</span><span class="content">anchor</span><span class="char">\&quot;</span><span class="content">&gt;&lt;ac:parameter ac:name=</span><span class="char">\&quot;</span><span class="char">\&quot;</span><span class="content">&gt;</span><span class="inline"><span class="inline-delimiter">${</span>name<span class="inline-delimiter">}</span></span><span class="content">&lt;/ac:parameter&gt;&lt;/ac:structured-macro&gt;</span><span class="delimiter">&quot;</span></span>)
+    }
+    anchors
+}
+
+<span class="keyword">def</span> pushPages
+pushPages = { pages, anchors, pageAnchors -&gt;
+    pages.each { page -&gt;
+        println page.title
+        <span class="keyword">def</span> id = pushToConfluence page.title, page.body, page.parent, anchors, pageAnchors
+        page.children*.parent = id
+        pushPages page.children, anchors, pageAnchors
+    }
+}
+
+<span class="keyword">def</span> recordPageAnchor = { head -&gt;
+    <span class="keyword">def</span> a = [:]
+    <span class="keyword">if</span> (head.attr(<span class="string"><span class="delimiter">'</span><span class="content">id</span><span class="delimiter">'</span></span>)) {
+        a[head.attr(<span class="string"><span class="delimiter">'</span><span class="content">id</span><span class="delimiter">'</span></span>)] = head.text()
+    }
+    a
+}
+
+<span class="keyword">def</span> promoteHeaders = { tree, start, offset -&gt;
+    (start..<span class="integer">7</span>).each { i -&gt;
+        tree.select(<span class="string"><span class="delimiter">&quot;</span><span class="content">h</span><span class="inline"><span class="inline-delimiter">${</span>i<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>).tagName(<span class="string"><span class="delimiter">&quot;</span><span class="content">h</span><span class="inline"><span class="inline-delimiter">${</span>i-offset<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>).before(<span class="string"><span class="delimiter">'</span><span class="content">&lt;br /&gt;</span><span class="delimiter">'</span></span>)
+    }
+}
+
 config.input.each { input -&gt;
 
     println <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>input.file<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
@@ -1417,47 +1670,61 @@ config.input.each { input -&gt;
     <span class="keyword">def</span> masterid = input.ancestorId
 
     <span class="comment">// if confluenceAncestorId is not set, create a new parent page</span>
-    <span class="keyword">if</span> (!input.ancestorId) {
-        input.ancestorId = <span class="predefined-constant">null</span>
-    }
+    <span class="keyword">def</span> parentId = !input.ancestorId ? <span class="predefined-constant">null</span> : input.ancestorId
+    <span class="keyword">def</span> anchors = [:]
+    <span class="keyword">def</span> pageAnchors = [:]
+    <span class="keyword">def</span> sections = pages = <span class="type">[]</span>
 
     <span class="comment">// let's try to select the &quot;first page&quot; and push it to confluence</span>
     dom.select(<span class="string"><span class="delimiter">'</span><span class="content">div#preamble div.sectionbody</span><span class="delimiter">'</span></span>).each { pageBody -&gt;
         pageBody.select(<span class="string"><span class="delimiter">'</span><span class="content">div.sect2</span><span class="delimiter">'</span></span>).unwrap()
-        masterid = pushToConfluence <span class="string"><span class="delimiter">&quot;</span><span class="content">arc42</span><span class="delimiter">&quot;</span></span>, pageBody, input.ancestorId
+        <span class="keyword">def</span> preamble = [
+            <span class="key">title</span>: input.preambleTitle ?: <span class="string"><span class="delimiter">&quot;</span><span class="content">arc42</span><span class="delimiter">&quot;</span></span>,
+            <span class="key">body</span>: pageBody,
+            <span class="key">children</span>: <span class="type">[]</span>,
+            <span class="key">parent</span>: parentId
+        ]
+        pages &lt;&lt; preamble
+        sections = preamble.children
+        parentId = <span class="predefined-constant">null</span>
+        anchors.putAll(parseAnchors(preamble))
     }
     <span class="comment">// &lt;div class=&quot;sect1&quot;&gt; are the main headings</span>
-    <span class="comment">// let's extract these and push them to confluence</span>
+    <span class="comment">// let's extract these</span>
     dom.select(<span class="string"><span class="delimiter">'</span><span class="content">div.sect1</span><span class="delimiter">'</span></span>).each { sect1 -&gt;
-        <span class="keyword">def</span> pageTitle = sect1.select(<span class="string"><span class="delimiter">'</span><span class="content">h2</span><span class="delimiter">'</span></span>).text()
         Elements pageBody = sect1.select(<span class="string"><span class="delimiter">'</span><span class="content">div.sectionbody</span><span class="delimiter">'</span></span>)
-        <span class="keyword">def</span> subPages = <span class="type">[]</span>
+        <span class="keyword">def</span> currentPage = [
+            <span class="key">title</span>: sect1.select(<span class="string"><span class="delimiter">'</span><span class="content">h2</span><span class="delimiter">'</span></span>).text(),
+            <span class="key">body</span>: pageBody,
+            <span class="key">children</span>: <span class="type">[]</span>,
+            <span class="key">parent</span>: parentId
+        ]
+        pageAnchors.putAll(recordPageAnchor(sect1.select(<span class="string"><span class="delimiter">'</span><span class="content">h2</span><span class="delimiter">'</span></span>)))
 
         <span class="keyword">if</span> (confluenceCreateSubpages) {
             pageBody.select(<span class="string"><span class="delimiter">'</span><span class="content">div.sect2</span><span class="delimiter">'</span></span>).each { sect2 -&gt;
                 <span class="keyword">def</span> title = sect2.select(<span class="string"><span class="delimiter">'</span><span class="content">h3</span><span class="delimiter">'</span></span>).text()
+                pageAnchors.putAll(recordPageAnchor(sect2.select(<span class="string"><span class="delimiter">'</span><span class="content">h3</span><span class="delimiter">'</span></span>)))
                 sect2.select(<span class="string"><span class="delimiter">'</span><span class="content">h3</span><span class="delimiter">'</span></span>).remove()
                 <span class="keyword">def</span> body = sect2
-                subPages &lt;&lt; [
-                        <span class="key">title</span>: title,
-                        <span class="key">body</span>: body
+                <span class="keyword">def</span> subPage = [
+                    <span class="key">title</span>: title,
+                    <span class="key">body</span>: body
                 ]
-                sect2.select(<span class="string"><span class="delimiter">'</span><span class="content">h4</span><span class="delimiter">'</span></span>).tagName(<span class="string"><span class="delimiter">'</span><span class="content">h1</span><span class="delimiter">'</span></span>).before(<span class="string"><span class="delimiter">'</span><span class="content">&lt;br /&gt;</span><span class="delimiter">'</span></span>)
-                sect2.select(<span class="string"><span class="delimiter">'</span><span class="content">h5</span><span class="delimiter">'</span></span>).tagName(<span class="string"><span class="delimiter">'</span><span class="content">h2</span><span class="delimiter">'</span></span>).before(<span class="string"><span class="delimiter">'</span><span class="content">&lt;br /&gt;</span><span class="delimiter">'</span></span>)
-                sect2.select(<span class="string"><span class="delimiter">'</span><span class="content">h6</span><span class="delimiter">'</span></span>).tagName(<span class="string"><span class="delimiter">'</span><span class="content">h3</span><span class="delimiter">'</span></span>).before(<span class="string"><span class="delimiter">'</span><span class="content">&lt;br /&gt;</span><span class="delimiter">'</span></span>)
-                sect2.select(<span class="string"><span class="delimiter">'</span><span class="content">h7</span><span class="delimiter">'</span></span>).tagName(<span class="string"><span class="delimiter">'</span><span class="content">h4</span><span class="delimiter">'</span></span>).before(<span class="string"><span class="delimiter">'</span><span class="content">&lt;br /&gt;</span><span class="delimiter">'</span></span>)
+                currentPage.children &lt;&lt; subPage
+                promoteHeaders sect2, <span class="integer">4</span>, <span class="integer">3</span>
+                anchors.putAll(parseAnchors(subPage))
             }
             pageBody.select(<span class="string"><span class="delimiter">'</span><span class="content">div.sect2</span><span class="delimiter">'</span></span>).remove()
         } <span class="keyword">else</span> {
             pageBody.select(<span class="string"><span class="delimiter">'</span><span class="content">div.sect2</span><span class="delimiter">'</span></span>).unwrap()
+            promoteHeaders sect1, <span class="integer">3</span>, <span class="integer">2</span>
         }
-        println pageTitle
-        <span class="keyword">def</span> thisSection = pushToConfluence pageTitle, pageBody, masterid
-        subPages.each { subPage -&gt;
-            println <span class="string"><span class="delimiter">&quot;</span><span class="content">   </span><span class="delimiter">&quot;</span></span>+subPage.title
-            pushToConfluence subPage.title, subPage.body, thisSection
-        }
+        sections &lt;&lt; currentPage
+        anchors.putAll(parseAnchors(currentPage))
     }
+
+    pushPages pages, anchors, pageAnchors
 }
 <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span></code></pre>
 </div>
@@ -1467,19 +1734,18 @@ config.input.each { input -&gt;
 </div>
 </div>
 <div class="sect2">
-<h3 id="_converttodocx">3.6. convertToDocx</h3>
+<h3 id="_converttodocx">3.7. convertToDocx</h3>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/convertToDocx.png" alt="convertToDocx">
 </div>
 </div>
 <div class="sect3">
-<h4 id="_source_5">3.6.1. Source</h4>
+<h4 id="_source_6">3.7.1. Source</h4>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">task convertToDocx (
-        <span class="key">dependsOn</span>: [generateDocbook ],
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
         <span class="key">type</span>: Exec
 ) {
@@ -1489,7 +1755,7 @@ config.input.each { input -&gt;
     args = [<span class="string"><span class="delimiter">'</span><span class="content">-r</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span>,
             <span class="string"><span class="delimiter">'</span><span class="content">-t</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docx</span><span class="delimiter">'</span></span>,
             <span class="string"><span class="delimiter">'</span><span class="content">-o</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">../docx/arc42-template-en.docx</span><span class="delimiter">'</span></span>,
-                 <span class="string"><span class="delimiter">'</span><span class="content">arc42-template-en.xml</span><span class="delimiter">'</span></span>]
+            <span class="string"><span class="delimiter">'</span><span class="content">arc42-template-en.xml</span><span class="delimiter">'</span></span>]
 }</code></pre>
 </div>
 </div>
@@ -1498,7 +1764,7 @@ config.input.each { input -&gt;
 </div>
 </div>
 <div class="sect2">
-<h3 id="_converttoepub">3.7. convertToEpub</h3>
+<h3 id="_converttoepub">3.8. convertToEpub</h3>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/convertToEpub.png" alt="convertToEpub">
@@ -1515,12 +1781,11 @@ This way, you can read your documentation in a convenient way on an eBook-reader
 <p>Result can be found in <code>build/docs/epub</code></p>
 </div>
 <div class="sect3">
-<h4 id="_source_6">3.7.1. Source</h4>
+<h4 id="_source_7">3.8.1. Source</h4>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">task convertToEpub (
-        <span class="key">dependsOn</span>: [generateDocbook ],
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
         <span class="key">type</span>: Exec
 ) {
@@ -1540,29 +1805,29 @@ This way, you can read your documentation in a convenient way on an eBook-reader
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportea">3.8. exportEA</h3>
+<h3 id="_exportea">3.9. exportEA</h3>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/exportEA.png" alt="exportEA">
 </div>
 </div>
 <div class="sect3">
-<h4 id="_source_7">3.8.1. Source</h4>
+<h4 id="_source_8">3.9.1. Source</h4>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">task exportEA(
-    <span class="key">dependsOn</span>: [streamingExecute],
-    <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports all diagrams and some texts from EA files</span><span class="delimiter">'</span></span>,
-    <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>
+        <span class="key">dependsOn</span>: [streamingExecute],
+        <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports all diagrams and some texts from EA files</span><span class="delimiter">'</span></span>,
+        <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>
 ) &lt;&lt; {
-                <span class="comment">//make sure path for notes exists</span>
-                <span class="comment">//and remove old notes</span>
-                <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/ea</span><span class="delimiter">'</span></span>).deleteDir()
-                <span class="comment">//also remove old diagrams</span>
-                <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/images/ea</span><span class="delimiter">'</span></span>).deleteDir()
-                <span class="comment">//create a readme to clarify things</span>
-                <span class="keyword">def</span> readme=<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">This folder contains exported diagrams or notes from Enterprise Architect.
+    <span class="comment">//make sure path for notes exists</span>
+    <span class="comment">//and remove old notes</span>
+    <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/ea</span><span class="delimiter">'</span></span>).deleteDir()
+    <span class="comment">//also remove old diagrams</span>
+    <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/images/ea</span><span class="delimiter">'</span></span>).deleteDir()
+    <span class="comment">//create a readme to clarify things</span>
+    <span class="keyword">def</span> readme=<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">This folder contains exported diagrams or notes from Enterprise Architect.
 
 Please note that these are generated files but reside in the `src`-folder in order to be versioned.
 
@@ -1574,20 +1839,19 @@ This is to make sure that they can be used from environments other than windows.
 
 use `gradle exportEA` to re-export files
 </span><span class="delimiter">&quot;&quot;&quot;</span></span>
-        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/images/ea/.</span><span class="delimiter">'</span></span>).mkdirs()
-                <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/images/ea/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
-        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/ea/.</span><span class="delimiter">'</span></span>).mkdirs()
-                <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/ea/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
+    <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/images/ea/.</span><span class="delimiter">'</span></span>).mkdirs()
+    <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/images/ea/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
+    <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/ea/.</span><span class="delimiter">'</span></span>).mkdirs()
+    <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/ea/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
     <span class="comment">//execute through cscript in order to make sure that we get WScript.echo right</span>
     <span class="string"><span class="delimiter">&quot;</span><span class="content">%SystemRoot%</span><span class="char">\\</span><span class="content">System32</span><span class="char">\\</span><span class="content">cscript.exe //nologo scripts/exportEAP.vbs</span><span class="delimiter">&quot;</span></span>.executeCmd()
     <span class="comment">//the VB Script is only capable of writing iso-8859-1-Files.</span>
     <span class="comment">//we now have to convert them to UTF-8</span>
     <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/ea/.</span><span class="delimiter">'</span></span>).eachFileRecurse { file -&gt;
-            <span class="keyword">if</span> (file.isFile()) {
-                    println <span class="string"><span class="delimiter">&quot;</span><span class="content">exported notes </span><span class="delimiter">&quot;</span></span>+file.canonicalPath
-                    file.write(file.getText(<span class="string"><span class="delimiter">'</span><span class="content">iso-8859-1</span><span class="delimiter">'</span></span>),<span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
-                    println <span class="string"><span class="delimiter">&quot;</span><span class="content">exported notes </span><span class="delimiter">&quot;</span></span>+file.name
-            }
+        <span class="keyword">if</span> (file.isFile()) {
+            println <span class="string"><span class="delimiter">&quot;</span><span class="content">exported notes </span><span class="delimiter">&quot;</span></span>+file.canonicalPath
+            file.write(file.getText(<span class="string"><span class="delimiter">'</span><span class="content">iso-8859-1</span><span class="delimiter">'</span></span>),<span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+        }
     }
 }</code></pre>
 </div>
@@ -1642,7 +1906,7 @@ use `gradle exportEA` to re-export files
             name = currentElement.Name
             name = Replace(name,vbCr,"")
             name = Replace(name,vbLf,"")
-            WScript.echo "-"&amp;Left(strNotes, 6)&amp;"-"
+            ' WScript.echo "-"&amp;Left(strNotes, 6)&amp;"-"
             if (Left(strNotes, 3) = vbCRLF&amp;"|") Then
                 ' content should be rendered as table - so don't interfere with it
                 objFile.WriteLine(vbCRLF)
@@ -1677,7 +1941,7 @@ use `gradle exportEA` to re-export files
             y = 0
             Do While Not objExecObject.StdOut.AtEndOfStream
                 output = objExecObject.StdOut.ReadLine()
-                WScript.echo output
+                ' WScript.echo output
                 jiraElement = Split(output,"|")
                 name = jiraElement(0)&amp;":"&amp;vbCR&amp;vbLF&amp;jiraElement(4)
                 On Error Resume Next
@@ -1846,7 +2110,7 @@ use `gradle exportEA` to re-export files
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportchangelog">3.9. exportChangeLog</h3>
+<h3 id="_exportchangelog">3.10. exportChangeLog</h3>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/exportChangeLog.png" alt="exportChangeLog">
@@ -1907,7 +2171,7 @@ But this isn&#8217;t implemented yet.
 </table>
 </div>
 <div class="sect3">
-<h4 id="_source_8">3.9.1. Source</h4>
+<h4 id="_source_9">3.10.1. Source</h4>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
@@ -1959,14 +2223,14 @@ But this isn&#8217;t implemented yet.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportjiraissues">3.10. exportJiraIssues</h3>
+<h3 id="_exportjiraissues">3.11. exportJiraIssues</h3>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/exportJiraIssues.png" alt="exportJiraIssues">
 </div>
 </div>
 <div class="sect3">
-<h4 id="_source_9">3.10.1. Source</h4>
+<h4 id="_source_10">3.11.1. Source</h4>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
@@ -1974,35 +2238,35 @@ But this isn&#8217;t implemented yet.
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports all jira issues from a given search</span><span class="delimiter">'</span></span>,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>
 ) &lt;&lt; {
-        <span class="keyword">def</span> user = jiraUser
-        <span class="keyword">def</span> pass = jiraPass
-        <span class="keyword">if</span> (!pass) {
-            pass = <span class="predefined-type">System</span>.console().readPassword(<span class="string"><span class="delimiter">&quot;</span><span class="content">Jira password for user '</span><span class="inline"><span class="inline-delimiter">$</span>user</span><span class="content">': </span><span class="delimiter">&quot;</span></span>)
-        }
+    <span class="keyword">def</span> user = jiraUser
+    <span class="keyword">def</span> pass = jiraPass
+    <span class="keyword">if</span> (!pass) {
+        pass = <span class="predefined-type">System</span>.console().readPassword(<span class="string"><span class="delimiter">&quot;</span><span class="content">Jira password for user '</span><span class="inline"><span class="inline-delimiter">$</span>user</span><span class="content">': </span><span class="delimiter">&quot;</span></span>)
+    }
 
-        <span class="keyword">def</span> stats = [:]
-        <span class="keyword">def</span> jira = <span class="keyword">new</span> groovyx.net.http.RESTClient( jiraRoot+<span class="string"><span class="delimiter">'</span><span class="content">/rest/api/2/</span><span class="delimiter">'</span></span> )
-        jira.encoderRegistry = <span class="keyword">new</span> groovyx.net.http.EncoderRegistry( <span class="key">charset</span>: <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span> )
-        <span class="keyword">def</span> headers = [
-                <span class="string"><span class="delimiter">'</span><span class="content">Authorization</span><span class="delimiter">'</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">Basic </span><span class="delimiter">&quot;</span></span> + <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>user<span class="inline-delimiter">}</span></span><span class="content">:</span><span class="inline"><span class="inline-delimiter">${</span>pass<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>.bytes.encodeBase64().toString(),
-                <span class="string"><span class="delimiter">'</span><span class="content">Content-Type</span><span class="delimiter">'</span></span>:<span class="string"><span class="delimiter">'</span><span class="content">application/json; charset=utf-8</span><span class="delimiter">'</span></span>
-        ]
-        <span class="keyword">def</span> openIssues = <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">./build/docs/openissues.adoc</span><span class="delimiter">'</span></span>)
-        openIssues.write(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
-        println jiraJql.replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraProject%</span><span class="delimiter">'</span></span>,jiraProject).replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraLabel%</span><span class="delimiter">'</span></span>,jiraLabel)
-        jira.get(<span class="key">path</span>:<span class="string"><span class="delimiter">'</span><span class="content">search</span><span class="delimiter">'</span></span>,
-                <span class="key">query</span>:[<span class="string"><span class="delimiter">'</span><span class="content">jql</span><span class="delimiter">'</span></span>: jiraJql.replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraProject%</span><span class="delimiter">'</span></span>,jiraProject).replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraLabel%</span><span class="delimiter">'</span></span>,jiraLabel),
-                       <span class="string"><span class="delimiter">'</span><span class="content">maxResults</span><span class="delimiter">'</span></span>:<span class="integer">1000</span>,
-                       <span class="string"><span class="delimiter">'</span><span class="content">fields</span><span class="delimiter">'</span></span>:<span class="string"><span class="delimiter">'</span><span class="content">created,resolutiondate,priority,summary,timeoriginalestimate, assignee</span><span class="delimiter">'</span></span>
-                ],
-                <span class="key">headers</span>:headers
-        ).data.issues.each { issue -&gt;
-            openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| &lt;&lt;</span><span class="inline"><span class="inline-delimiter">${</span>issue.key<span class="inline-delimiter">}</span></span><span class="content">&gt;&gt; </span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
-            openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.priority.name<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
-            openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span><span class="predefined-type">Date</span>.parse(<span class="string"><span class="delimiter">&quot;</span><span class="content">yyyy-MM-dd'T'H:m:s.000z</span><span class="delimiter">&quot;</span></span>,issue.fields.created).format(<span class="string"><span class="delimiter">'</span><span class="content">dd.MM.yy</span><span class="delimiter">'</span></span>)<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
-            openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.assignee?issue.fields.assignee.displayName:<span class="string"><span class="delimiter">'</span><span class="content">not assigned</span><span class="delimiter">'</span></span><span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
-            openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>jiraRoot<span class="inline-delimiter">}</span></span><span class="content">/browse/</span><span class="inline"><span class="inline-delimiter">${</span>issue.key<span class="inline-delimiter">}</span></span><span class="content">[</span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.summary<span class="inline-delimiter">}</span></span><span class="content">]</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
-        }
+    <span class="keyword">def</span> stats = [:]
+    <span class="keyword">def</span> jira = <span class="keyword">new</span> groovyx.net.http.RESTClient( jiraRoot+<span class="string"><span class="delimiter">'</span><span class="content">/rest/api/2/</span><span class="delimiter">'</span></span> )
+    jira.encoderRegistry = <span class="keyword">new</span> groovyx.net.http.EncoderRegistry( <span class="key">charset</span>: <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span> )
+    <span class="keyword">def</span> headers = [
+            <span class="string"><span class="delimiter">'</span><span class="content">Authorization</span><span class="delimiter">'</span></span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">Basic </span><span class="delimiter">&quot;</span></span> + <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>user<span class="inline-delimiter">}</span></span><span class="content">:</span><span class="inline"><span class="inline-delimiter">${</span>pass<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>.bytes.encodeBase64().toString(),
+            <span class="string"><span class="delimiter">'</span><span class="content">Content-Type</span><span class="delimiter">'</span></span>:<span class="string"><span class="delimiter">'</span><span class="content">application/json; charset=utf-8</span><span class="delimiter">'</span></span>
+    ]
+    <span class="keyword">def</span> openIssues = <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">./build/docs/openissues.adoc</span><span class="delimiter">'</span></span>)
+    openIssues.write(<span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+    println jiraJql.replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraProject%</span><span class="delimiter">'</span></span>,jiraProject).replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraLabel%</span><span class="delimiter">'</span></span>,jiraLabel)
+    jira.get(<span class="key">path</span>:<span class="string"><span class="delimiter">'</span><span class="content">search</span><span class="delimiter">'</span></span>,
+            <span class="key">query</span>:[<span class="string"><span class="delimiter">'</span><span class="content">jql</span><span class="delimiter">'</span></span>: jiraJql.replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraProject%</span><span class="delimiter">'</span></span>,jiraProject).replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraLabel%</span><span class="delimiter">'</span></span>,jiraLabel),
+                   <span class="string"><span class="delimiter">'</span><span class="content">maxResults</span><span class="delimiter">'</span></span>:<span class="integer">1000</span>,
+                   <span class="string"><span class="delimiter">'</span><span class="content">fields</span><span class="delimiter">'</span></span>:<span class="string"><span class="delimiter">'</span><span class="content">created,resolutiondate,priority,summary,timeoriginalestimate, assignee</span><span class="delimiter">'</span></span>
+            ],
+            <span class="key">headers</span>:headers
+    ).data.issues.each { issue -&gt;
+        openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| &lt;&lt;</span><span class="inline"><span class="inline-delimiter">${</span>issue.key<span class="inline-delimiter">}</span></span><span class="content">&gt;&gt; </span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+        openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.priority.name<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+        openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span><span class="predefined-type">Date</span>.parse(<span class="string"><span class="delimiter">&quot;</span><span class="content">yyyy-MM-dd'T'H:m:s.000z</span><span class="delimiter">&quot;</span></span>,issue.fields.created).format(<span class="string"><span class="delimiter">'</span><span class="content">dd.MM.yy</span><span class="delimiter">'</span></span>)<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+        openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.assignee?issue.fields.assignee.displayName:<span class="string"><span class="delimiter">'</span><span class="content">not assigned</span><span class="delimiter">'</span></span><span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+        openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>jiraRoot<span class="inline-delimiter">}</span></span><span class="content">/browse/</span><span class="inline"><span class="inline-delimiter">${</span>issue.key<span class="inline-delimiter">}</span></span><span class="content">[</span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.summary<span class="inline-delimiter">}</span></span><span class="content">]</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+    }
 
 }</code></pre>
 </div>
@@ -2012,14 +2276,14 @@ But this isn&#8217;t implemented yet.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportppt">3.11. exportPPT</h3>
+<h3 id="_exportppt">3.12. exportPPT</h3>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/exportPPT.png" alt="exportPPT">
 </div>
 </div>
 <div class="sect3">
-<h4 id="_source_10">3.11.1. Source</h4>
+<h4 id="_source_11">3.12.1. Source</h4>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
@@ -2060,7 +2324,7 @@ use `gradle exportPPT` to re-export files
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportexcel">3.12. exportExcel</h3>
+<h3 id="_exportexcel">3.13. exportExcel</h3>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/exportExcel.png" alt="exportExcel">
@@ -2131,7 +2395,7 @@ include::excel/Sample.xlsx/Numerisch.csv[]
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_source_11">3.12.1. Source</h4>
+<h4 id="_source_12">3.13.1. Source</h4>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
@@ -2139,16 +2403,16 @@ include::excel/Sample.xlsx/Numerisch.csv[]
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports all excelsheets to csv and AsciiDoc</span><span class="delimiter">'</span></span>,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>
 ) &lt;&lt; {
-        <span class="predefined-type">File</span> sourceDir = file(srcDir)
+    <span class="predefined-type">File</span> sourceDir = file(srcDir)
 
-        <span class="keyword">def</span> tree = fileTree(srcDir).include(<span class="string"><span class="delimiter">'</span><span class="content">**/*.xlsx</span><span class="delimiter">'</span></span>).exclude(<span class="string"><span class="delimiter">'</span><span class="content">**/~*</span><span class="delimiter">'</span></span>)
+    <span class="keyword">def</span> tree = fileTree(srcDir).include(<span class="string"><span class="delimiter">'</span><span class="content">**/*.xlsx</span><span class="delimiter">'</span></span>).exclude(<span class="string"><span class="delimiter">'</span><span class="content">**/~*</span><span class="delimiter">'</span></span>)
 
-        <span class="keyword">def</span> exportFileDir = <span class="keyword">new</span> <span class="predefined-type">File</span>(sourceDir, <span class="string"><span class="delimiter">'</span><span class="content">excel</span><span class="delimiter">'</span></span>)
+    <span class="keyword">def</span> exportFileDir = <span class="keyword">new</span> <span class="predefined-type">File</span>(sourceDir, <span class="string"><span class="delimiter">'</span><span class="content">excel</span><span class="delimiter">'</span></span>)
 
-        <span class="comment">//make sure path for notes exists</span>
-        exportFileDir.deleteDir()
-        <span class="comment">//create a readme to clarify things</span>
-        <span class="keyword">def</span> readme=<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">This folder contains exported workbooks from Excel.
+    <span class="comment">//make sure path for notes exists</span>
+    exportFileDir.deleteDir()
+    <span class="comment">//create a readme to clarify things</span>
+    <span class="keyword">def</span> readme=<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">This folder contains exported workbooks from Excel.
 
 Please note that these are generated files but reside in the `src`-folder in order to be versioned.
 
@@ -2160,100 +2424,158 @@ This is to make sure that they can be used from environments other than windows.
 
 use `gradle exportExcel` to re-export files
 </span><span class="delimiter">&quot;&quot;&quot;</span></span>
-        exportFileDir.mkdirs()
-        <span class="keyword">new</span> <span class="predefined-type">File</span>(exportFileDir, <span class="string"><span class="delimiter">'</span><span class="content">/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
+    exportFileDir.mkdirs()
+    <span class="keyword">new</span> <span class="predefined-type">File</span>(exportFileDir, <span class="string"><span class="delimiter">'</span><span class="content">/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
 
-        <span class="keyword">def</span> nl = <span class="predefined-type">System</span>.getProperty(<span class="string"><span class="delimiter">&quot;</span><span class="content">line.separator</span><span class="delimiter">&quot;</span></span>)
+    <span class="keyword">def</span> nl = <span class="predefined-type">System</span>.getProperty(<span class="string"><span class="delimiter">&quot;</span><span class="content">line.separator</span><span class="delimiter">&quot;</span></span>)
 
-        <span class="keyword">def</span> <span class="keyword">export</span> = {sheet, evaluator, targetFileName -&gt;
-            <span class="keyword">def</span> targetFileCSV = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetFileName+<span class="string"><span class="delimiter">'</span><span class="content">.csv</span><span class="delimiter">'</span></span>)
-            <span class="keyword">def</span> targetFileAD = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetFileName+<span class="string"><span class="delimiter">'</span><span class="content">.adoc</span><span class="delimiter">'</span></span>)
-            <span class="keyword">def</span> df = <span class="keyword">new</span> org.apache.poi.ss.usermodel.DataFormatter();
-            sheet.eachWithIndex { row, rowNum -&gt;
-                <span class="keyword">if</span> (rowNum==<span class="integer">0</span>) {
-                    <span class="comment">// create AsciiDoc table header</span>
-                    <span class="keyword">def</span> width = <span class="type">[]</span>
-                    row.eachWithIndex { cell, columnIndex -&gt;
-                        width &lt;&lt; sheet.getColumnWidth((<span class="type">int</span>)columnIndex)
-                    }
-                    <span class="comment">//lets make those numbers nicer:</span>
-                    width = width.collect{<span class="predefined-type">Math</span>.round(<span class="integer">100</span>*<span class="local-variable">it</span>/width.sum())}
-                    targetFileAD.append(<span class="string"><span class="delimiter">'</span><span class="content">[options=&quot;header&quot;,cols=&quot;</span><span class="delimiter">'</span></span>+width.join(<span class="string"><span class="delimiter">'</span><span class="content">,</span><span class="delimiter">'</span></span>)+<span class="string"><span class="delimiter">'</span><span class="content">&quot;]</span><span class="delimiter">'</span></span>+nl)
-                    targetFileAD.append(<span class="string"><span class="delimiter">'</span><span class="content">|===</span><span class="delimiter">'</span></span>+nl)
+    <span class="keyword">def</span> <span class="keyword">export</span> = {sheet, evaluator, targetFileName -&gt;
+        <span class="keyword">def</span> targetFileCSV = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetFileName+<span class="string"><span class="delimiter">'</span><span class="content">.csv</span><span class="delimiter">'</span></span>)
+        <span class="keyword">def</span> targetFileAD = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetFileName+<span class="string"><span class="delimiter">'</span><span class="content">.adoc</span><span class="delimiter">'</span></span>)
+        <span class="keyword">def</span> df = <span class="keyword">new</span> org.apache.poi.ss.usermodel.DataFormatter();
+        <span class="keyword">def</span> regions = <span class="type">[]</span>
+        sheet.numMergedRegions.times {
+            regions &lt;&lt; sheet.getMergedRegion(<span class="local-variable">it</span>)
+        }
+        logger.debug <span class="string"><span class="delimiter">&quot;</span><span class="content">sheet contains </span><span class="inline"><span class="inline-delimiter">${</span>regions.size()<span class="inline-delimiter">}</span></span><span class="content"> regions</span><span class="delimiter">&quot;</span></span>
+        <span class="keyword">def</span> color = <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
+        <span class="keyword">def</span> resetColor = <span class="predefined-constant">false</span>
+        <span class="keyword">def</span> numRows = <span class="integer">0</span>
+        <span class="keyword">def</span> headerCreated = <span class="predefined-constant">false</span>
+        (sheet.lastRowNum+<span class="integer">1</span>).times { rowNum -&gt;
+            <span class="keyword">def</span> row = sheet.getRow(rowNum)
+            <span class="keyword">if</span> (row &amp;&amp; !headerCreated) {
+                headerCreated = <span class="predefined-constant">true</span>
+                <span class="comment">// create AsciiDoc table header</span>
+                <span class="keyword">def</span> width = <span class="type">[]</span>
+                numRows = row.lastCellNum
+                numRows.times { columnIndex -&gt;
+                    width &lt;&lt; sheet.getColumnWidth((<span class="type">int</span>)columnIndex)
                 }
-                <span class="keyword">def</span> data = <span class="type">[]</span>
-                <span class="keyword">def</span> style = <span class="type">[]</span>
-                <span class="keyword">def</span> colors = <span class="type">[]</span>
-                <span class="keyword">def</span> color = <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
-                <span class="keyword">def</span> resetColor = <span class="predefined-constant">false</span>
-                <span class="comment">// For each row, iterate through each columns</span>
-                row.each { cell -&gt;
-                    <span class="keyword">def</span> cellValue = df.formatCellValue(cell, evaluator)
-                    <span class="keyword">if</span> (cellValue.startsWith(<span class="string"><span class="delimiter">'</span><span class="content">*</span><span class="delimiter">'</span></span>) &amp;&amp; cellValue.endsWith(<span class="string"><span class="delimiter">'</span><span class="content">\u20AC</span><span class="delimiter">'</span></span>)) {
-                        <span class="comment">// Remove special characters at currency</span>
-                        cellValue = cellValue.substring(<span class="integer">1</span>).trim();
-                    }
-                    <span class="keyword">def</span> cellStyle = <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
-                    <span class="keyword">switch</span> (cell.cellStyle.alignmentEnum.toString()) {
-                        <span class="keyword">case</span> <span class="string"><span class="delimiter">'</span><span class="content">RIGHT</span><span class="delimiter">'</span></span>:
-                            cellStyle += <span class="string"><span class="delimiter">'</span><span class="content">&gt;</span><span class="delimiter">'</span></span>
-                            <span class="keyword">break</span>
-                        <span class="keyword">case</span> <span class="string"><span class="delimiter">'</span><span class="content">CENTER</span><span class="delimiter">'</span></span>:
-                            cellStyle += <span class="string"><span class="delimiter">'</span><span class="content">^</span><span class="delimiter">'</span></span>
-                            <span class="keyword">break</span>
-                    }
-                    <span class="keyword">switch</span> (cell.cellStyle.verticalAlignmentEnum.toString()) {
-                        <span class="keyword">case</span> <span class="string"><span class="delimiter">'</span><span class="content">BOTTOM</span><span class="delimiter">'</span></span>:
-                            cellStyle += <span class="string"><span class="delimiter">'</span><span class="content">.&gt;</span><span class="delimiter">'</span></span>
-                            <span class="keyword">break</span>
-                        <span class="keyword">case</span> <span class="string"><span class="delimiter">'</span><span class="content">CENTER</span><span class="delimiter">'</span></span>:
-                            cellStyle += <span class="string"><span class="delimiter">'</span><span class="content">.^</span><span class="delimiter">'</span></span>
-                            <span class="keyword">break</span>
-                    }
-                    color = cell.cellStyle.fillForegroundXSSFColor?.rgb?.encodeHex()
-                    color = color!=<span class="predefined-constant">null</span>?nl+<span class="string"><span class="delimiter">&quot;</span><span class="content">{set:cellbgcolor:#</span><span class="inline"><span class="inline-delimiter">${</span>color<span class="inline-delimiter">}</span></span><span class="content">}</span><span class="delimiter">&quot;</span></span>:<span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
-                    data &lt;&lt; cellValue
-                    <span class="keyword">if</span> (color==<span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span> &amp;&amp; resetColor) {
-                        colors &lt;&lt; nl+<span class="string"><span class="delimiter">&quot;</span><span class="content">{set:cellbgcolor!}</span><span class="delimiter">&quot;</span></span>
-                        resetColor = <span class="predefined-constant">false</span>
+                <span class="comment">//lets make those numbers nicer:</span>
+                width = width.collect{<span class="predefined-type">Math</span>.round(<span class="integer">100</span>*<span class="local-variable">it</span>/width.sum())}
+                targetFileAD.append(<span class="string"><span class="delimiter">'</span><span class="content">[options=&quot;header&quot;,cols=&quot;</span><span class="delimiter">'</span></span>+width.join(<span class="string"><span class="delimiter">'</span><span class="content">,</span><span class="delimiter">'</span></span>)+<span class="string"><span class="delimiter">'</span><span class="content">&quot;]</span><span class="delimiter">'</span></span>+nl)
+                targetFileAD.append(<span class="string"><span class="delimiter">'</span><span class="content">|===</span><span class="delimiter">'</span></span>+nl)
+            }
+            <span class="keyword">def</span> data = <span class="type">[]</span>
+            <span class="keyword">def</span> style = <span class="type">[]</span>
+            <span class="keyword">def</span> colors = <span class="type">[]</span>
+            <span class="comment">// For each row, iterate through each columns</span>
+            <span class="keyword">if</span> (row) {
+                numRows.times { columnIndex -&gt;
+                    <span class="keyword">def</span> cell = row.getCell(columnIndex)
+                    <span class="keyword">if</span> (cell) {
+                        <span class="keyword">def</span> cellValue = df.formatCellValue(cell, evaluator)
+                        <span class="keyword">if</span> (cellValue.startsWith(<span class="string"><span class="delimiter">'</span><span class="content">*</span><span class="delimiter">'</span></span>) &amp;&amp; cellValue.endsWith(<span class="string"><span class="delimiter">'</span><span class="content">\u20AC</span><span class="delimiter">'</span></span>)) {
+                            <span class="comment">// Remove special characters at currency</span>
+                            cellValue = cellValue.substring(<span class="integer">1</span>).trim();
+                        }
+                        <span class="keyword">def</span> cellStyle = <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
+                        <span class="keyword">def</span> region = regions.find { <span class="local-variable">it</span>.isInRange(cell.rowIndex, cell.columnIndex) }
+                        <span class="keyword">def</span> skipCell = <span class="predefined-constant">false</span>
+                        <span class="keyword">if</span> (region) {
+                            <span class="comment">//check if we are in the upper left corner of the region</span>
+                            <span class="keyword">if</span> (region.firstRow == cell.rowIndex &amp;&amp; region.firstColumn == cell.columnIndex) {
+                                <span class="keyword">def</span> colspan = <span class="integer">1</span> + region.lastRow - region.firstRow
+                                <span class="keyword">def</span> rowspan = <span class="integer">1</span> + region.lastColumn - region.firstColumn
+                                <span class="keyword">if</span> (rowspan &gt; <span class="integer">1</span>) {
+                                    cellStyle += <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>rowspan<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+                                }
+                                <span class="keyword">if</span> (colspan &gt; <span class="integer">1</span>) {
+                                    cellStyle += <span class="string"><span class="delimiter">&quot;</span><span class="content">.</span><span class="inline"><span class="inline-delimiter">${</span>colspan<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+                                }
+                                cellStyle += <span class="string"><span class="delimiter">&quot;</span><span class="content">+</span><span class="delimiter">&quot;</span></span>
+                            } <span class="keyword">else</span> {
+                                skipCell = <span class="predefined-constant">true</span>
+                            }
+                        }
+                        <span class="keyword">if</span> (!skipCell) {
+                            <span class="keyword">switch</span> (cell.cellStyle.alignmentEnum.toString()) {
+                                <span class="keyword">case</span> <span class="string"><span class="delimiter">'</span><span class="content">RIGHT</span><span class="delimiter">'</span></span>:
+                                    cellStyle += <span class="string"><span class="delimiter">'</span><span class="content">&gt;</span><span class="delimiter">'</span></span>
+                                    <span class="keyword">break</span>
+                                <span class="keyword">case</span> <span class="string"><span class="delimiter">'</span><span class="content">CENTER</span><span class="delimiter">'</span></span>:
+                                    cellStyle += <span class="string"><span class="delimiter">'</span><span class="content">^</span><span class="delimiter">'</span></span>
+                                    <span class="keyword">break</span>
+                            }
+                            <span class="keyword">switch</span> (cell.cellStyle.verticalAlignmentEnum.toString()) {
+                                <span class="keyword">case</span> <span class="string"><span class="delimiter">'</span><span class="content">BOTTOM</span><span class="delimiter">'</span></span>:
+                                    cellStyle += <span class="string"><span class="delimiter">'</span><span class="content">.&gt;</span><span class="delimiter">'</span></span>
+                                    <span class="keyword">break</span>
+                                <span class="keyword">case</span> <span class="string"><span class="delimiter">'</span><span class="content">CENTER</span><span class="delimiter">'</span></span>:
+                                    cellStyle += <span class="string"><span class="delimiter">'</span><span class="content">.^</span><span class="delimiter">'</span></span>
+                                    <span class="keyword">break</span>
+                            }
+                            color = cell.cellStyle.fillForegroundXSSFColor?.rgb?.encodeHex()
+                            color = color != <span class="predefined-constant">null</span> ? nl + <span class="string"><span class="delimiter">&quot;</span><span class="content">{set:cellbgcolor:#</span><span class="inline"><span class="inline-delimiter">${</span>color<span class="inline-delimiter">}</span></span><span class="content">}</span><span class="delimiter">&quot;</span></span> : <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
+                            data &lt;&lt; cellValue
+                            <span class="keyword">if</span> (color == <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span> &amp;&amp; resetColor) {
+                                colors &lt;&lt; nl + <span class="string"><span class="delimiter">&quot;</span><span class="content">{set:cellbgcolor!}</span><span class="delimiter">&quot;</span></span>
+                                resetColor = <span class="predefined-constant">false</span>
+                            } <span class="keyword">else</span> {
+                                colors &lt;&lt; color
+                            }
+                            <span class="keyword">if</span> (color != <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>) {
+                                resetColor = <span class="predefined-constant">true</span>
+                            }
+                            style &lt;&lt; cellStyle
+                        } <span class="keyword">else</span> {
+                            data &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>
+                            colors &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>
+                            style &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">skip</span><span class="delimiter">&quot;</span></span>
+                        }
                     } <span class="keyword">else</span> {
-                        colors &lt;&lt; color
+                        data &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>
+                        colors &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>
+                        style &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>
                     }
-                    <span class="keyword">if</span> (color!=<span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>) {resetColor=<span class="predefined-constant">true</span>}
-                    style &lt;&lt; cellStyle
+
                 }
-                targetFileCSV.append(data
-                                     .collect{
-                                                <span class="string"><span class="delimiter">&quot;</span><span class="char">\&quot;</span><span class="inline"><span class="inline-delimiter">${</span><span class="local-variable">it</span>.replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&quot;</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">&quot;&quot;</span><span class="delimiter">'</span></span>)<span class="inline-delimiter">}</span></span><span class="char">\&quot;</span><span class="delimiter">&quot;</span></span>
-                                             }
-                                     .join(<span class="string"><span class="delimiter">'</span><span class="content">,</span><span class="delimiter">'</span></span>)+nl, <span class="string"><span class="delimiter">'</span><span class="content">UTF-8</span><span class="delimiter">'</span></span>)
-                targetFileAD.append(data
-                                    .withIndex()
-                                    .collect{value, index -&gt;
-                                                style[index]+<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>value.replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">[|]</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">{vbar}</span><span class="delimiter">'</span></span>).replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">'</span><span class="content"> +$0</span><span class="delimiter">'</span></span>)+colors[index]<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
-                                            }
-                                    .join(nl)+nl*<span class="integer">2</span>, <span class="string"><span class="delimiter">'</span><span class="content">UTF-8</span><span class="delimiter">'</span></span>)
+            } <span class="keyword">else</span> {
+                <span class="comment">//insert empty row</span>
+                numRows.times {
+                    data &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>
+                    colors &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>
+                    style &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>
+                }
             }
-            targetFileAD.append(<span class="string"><span class="delimiter">'</span><span class="content">|===</span><span class="delimiter">'</span></span>+nl)
+
+            targetFileCSV.append(data
+                    .collect{
+                <span class="string"><span class="delimiter">&quot;</span><span class="char">\&quot;</span><span class="inline"><span class="inline-delimiter">${</span><span class="local-variable">it</span>.replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&quot;</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">&quot;&quot;</span><span class="delimiter">'</span></span>)<span class="inline-delimiter">}</span></span><span class="char">\&quot;</span><span class="delimiter">&quot;</span></span>
+            }
+            .join(<span class="string"><span class="delimiter">'</span><span class="content">,</span><span class="delimiter">'</span></span>)+nl, <span class="string"><span class="delimiter">'</span><span class="content">UTF-8</span><span class="delimiter">'</span></span>)
+            targetFileAD.append(data
+                    .withIndex()
+                    .collect{value, index -&gt;
+                <span class="keyword">if</span> (style[index]==<span class="string"><span class="delimiter">&quot;</span><span class="content">skip</span><span class="delimiter">&quot;</span></span>) {
+                    <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>
+                } <span class="keyword">else</span> {
+                    style[index] + <span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>value.replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">[|]</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">{vbar}</span><span class="delimiter">'</span></span>).replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content"> +$0</span><span class="delimiter">'</span></span>) + colors[index]<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+                }
+            }
+            .join(nl)+nl*<span class="integer">2</span>, <span class="string"><span class="delimiter">'</span><span class="content">UTF-8</span><span class="delimiter">'</span></span>)
         }
+        targetFileAD.append(<span class="string"><span class="delimiter">'</span><span class="content">|===</span><span class="delimiter">'</span></span>+nl)
+    }
 
 
-        tree.each { <span class="predefined-type">File</span> excel -&gt;
-            println excel
-            <span class="keyword">def</span> excelDir = <span class="keyword">new</span> <span class="predefined-type">File</span>(exportFileDir, excel.getName())
-            excelDir.mkdirs()
-            <span class="predefined-type">InputStream</span> inp
-            inp = <span class="keyword">new</span> <span class="predefined-type">FileInputStream</span>(excel)
-            <span class="keyword">def</span> wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(inp);
-            <span class="keyword">def</span> evaluator = wb.getCreationHelper().createFormulaEvaluator();
-            <span class="keyword">for</span>(<span class="type">int</span> wbi=<span class="integer">0</span>; wbi &lt; wb.getNumberOfSheets(); wbi++) {
-                <span class="keyword">def</span> sheetName = wb.getSheetAt(wbi).getSheetName()
-                println sheetName
-                <span class="keyword">def</span> targetFile = <span class="keyword">new</span> <span class="predefined-type">File</span>(excelDir, sheetName)
-                <span class="keyword">export</span>(wb.getSheetAt(wbi), evaluator, targetFile.getAbsolutePath())
-            }
-            inp.close();
+    tree.each { <span class="predefined-type">File</span> excel -&gt;
+        println excel
+        <span class="keyword">def</span> excelDir = <span class="keyword">new</span> <span class="predefined-type">File</span>(exportFileDir, excel.getName())
+        excelDir.mkdirs()
+        <span class="predefined-type">InputStream</span> inp
+        inp = <span class="keyword">new</span> <span class="predefined-type">FileInputStream</span>(excel)
+        <span class="keyword">def</span> wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(inp);
+        <span class="keyword">def</span> evaluator = wb.getCreationHelper().createFormulaEvaluator();
+        <span class="keyword">for</span>(<span class="type">int</span> wbi=<span class="integer">0</span>; wbi &lt; wb.getNumberOfSheets(); wbi++) {
+            <span class="keyword">def</span> sheetName = wb.getSheetAt(wbi).getSheetName()
+            println sheetName
+            <span class="keyword">def</span> targetFile = <span class="keyword">new</span> <span class="predefined-type">File</span>(excelDir, sheetName)
+            <span class="keyword">export</span>(wb.getSheetAt(wbi), evaluator, targetFile.getAbsolutePath())
         }
+        inp.close();
+    }
 }</code></pre>
 </div>
 </div>
@@ -2262,7 +2584,7 @@ use `gradle exportExcel` to re-export files
 </div>
 </div>
 <div class="sect2">
-<h3 id="_htmlsanitycheck">3.13. htmlSanityCheck</h3>
+<h3 id="_htmlsanitycheck">3.14. htmlSanityCheck</h3>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/htmlSanityCheck.png" alt="htmlSanityCheck">
@@ -2288,7 +2610,7 @@ It is a Standalone (batch- and command-line) html sanity checker - detects missi
 <p>Further information can be found on github: <a href="https://github.com/aim42/htmlSanityCheck" class="bare">https://github.com/aim42/htmlSanityCheck</a></p>
 </div>
 <div class="sect3">
-<h4 id="_source_12">3.13.1. Source</h4>
+<h4 id="_source_13">3.14.1. Source</h4>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
@@ -2309,7 +2631,7 @@ It is a Standalone (batch- and command-line) html sanity checker - detects missi
 </div>
 </div>
 <div class="sect2">
-<h3 id="_dependencyupdates">3.14. dependencyUpdates</h3>
+<h3 id="_dependencyupdates">3.15. dependencyUpdates</h3>
 <div class="paragraph">
 <p>This task uses the <a href="https://github.com/ben-manes/gradle-versions-plugin">Gradle versions plugin</a> created by Ben Manes to check for outdated build dependencies.
 Quite helpful to keep all dependencies up-to-date.</p>
@@ -2488,10 +2810,16 @@ This project depends and build on them.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/wschaef">wschaef</a></p>
+<p><a href="https://github.com/bodewig">Stefan Bodewig</a></p>
+</li>
+<li>
+<p><a href="https://github.com/MoePad">MoePad</a></p>
 </li>
 <li>
 <p><a href="https://github.com/opensource21">Niels</a></p>
+</li>
+<li>
+<p><a href="https://github.com/wschaef">wschaef</a></p>
 </li>
 <li>
 <p><a href="https://github.com/gernotstarke">Gernot Starke</a></p>
@@ -2512,7 +2840,7 @@ This project depends and build on them.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-06-24 23:21:22 MESZ
+Last updated 2017-09-02 17:27:53 MESZ
 </div>
 </div>
 </body>

@@ -8,5 +8,5 @@ image::ea/Manual/exportJiraIssues.png[]
 .build.gradle
 [source,groovy]
 ----
-include::../../../build.gradle[tags=exportJiraIssues]
+include::../../../scripts/exportJiraIssues.gradle[tags=exportJiraIssues]
 ----
