@@ -3,42 +3,11 @@ task exportChangeLog(
         description: 'exports the change log from a git subpath',
         group: 'docToolchain'
 ) doLast {
-    def res = "git log ./src/docs/arc42".execute().text
-    def changes = []
-    def change = null
-    res.eachLine { line ->
-        switch (line) {
-            case ~/^commit.*/:
-                if (change!=null) {
-                    changes << change
-                }
-                change = [commit:line-'commit ',log:'']
-                break;
-            case ~/^Author:.*/:
-                change['author'] = line-'Author: '
-                break;
-            case ~/^Date:.*/:
-                change['date'] = line-'Date: '
-                break;
-            default:
-                change['log'] += (line ? line.trim()+ "\n" : '')
-        }
-        changes << change
-        def path = './build/docs/'
-        new File(path).mkdirs()
-        def changelog = new File(path + 'changelog.adoc')
-        changelog.write("")
-
-        changes.each { c ->
-            try {
-                changelog.append """| ${new Date(Date.parse(c.date)).format("dd.MM.yyyy")}
-| ${c.author.replaceAll('<[^>]*>', '')}
-| ${c.log}
-"""
-            } catch (Exception e) {
-                println c
-            }
-        }
-    }
+    // https://git-scm.com/docs/pretty-formats
+    def changes = "git log --pretty=format:\"| %ad %n| %an %n| %s %n\" --date=short ./src/docs/arc42".execute().text
+    def path = './build/docs/'
+    new File(path).mkdirs()
+    def changelog = new File(path + 'changelog.adoc')
+    changelog.write(changes)
 }
 //end::exportChangeLog[]
