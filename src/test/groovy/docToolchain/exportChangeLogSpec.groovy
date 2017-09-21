@@ -32,7 +32,7 @@ class ExportChangeLogSpec extends Specification {
             new File('./build/docs/changelog.adoc').exists() == true
         and: 'its content ends with our sample file'
             new File('./build/docs/changelog.adoc')
-                    .text.trim()
+                    .text.trim().replaceAll("\r","")
                     .endsWith("""
 | 2017-09-08 
 | Isidoro 
@@ -53,7 +53,7 @@ class ExportChangeLogSpec extends Specification {
 | 2016-08-21 
 | Ralf D. Mueller 
 | added arc42 template as content 
-""".trim())
+""".trim().replaceAll("\r",""))
     }
 
 }
