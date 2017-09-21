@@ -13,13 +13,5 @@ cache:
     - $HOME/.gradle/wrapper/
 
 script:
-- ./gradlew test
+- ./gradlew test --info
 
-deploy:
-  provider: pages
-  skip_cleanup: true
-  local_dir: build/spock-reports
-  target_branch: travis-results
-  github_token: $GITHUB_TOKEN # Set in travis-ci.org dashboard
-  on:
-    branch: master
