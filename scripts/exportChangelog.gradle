@@ -8,6 +8,7 @@ task exportChangeLog(
     def path = './build/docs/'
     new File(path).mkdirs()
     def changelog = new File(path + 'changelog.adoc')
+    logger.info "> changelog exported"
     changelog.write(changes)
 }
 //end::exportChangeLog[]
