@@ -4,10 +4,9 @@ task exportChangeLog(
         group: 'docToolchain'
 ) doLast {
     // https://git-scm.com/docs/pretty-formats
-    def changes = "git log --pretty=format:\"| %ad %n| %an %n| %s %n\" --date=short ./src/docs/arc42".execute().text
-    def path = './build/docs/'
-    new File(path).mkdirs()
-    def changelog = new File(path + 'changelog.adoc')
+    def changes = "git log --pretty=format:\"| %ad %n| %an %n| %s %n\" --date=short ${srcDir}/arc42".execute().text
+    new File(targetDir).mkdirs()
+    def changelog = new File(targetDir, 'changelog.adoc')
     changelog.write(changes)
 }
 //end::exportChangeLog[]

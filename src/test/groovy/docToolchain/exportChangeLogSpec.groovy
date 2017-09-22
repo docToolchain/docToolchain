@@ -16,13 +16,13 @@ class ExportChangeLogSpec extends Specification {
         setup: 'clean the environment'
             "$gradleCommand clean".execute()
         expect: 'log file does not exist'
-            new File('./build/docs/changelog.adoc').exists() == false
+            new File(targetDir, 'changelog.adoc').exists() == false
         when: 'the gradle task is invoked'
             def output = "$gradleCommand exportChangeLog".execute().text
         then: 'the the log file has been created'
-            new File('./build/docs/changelog.adoc').exists() == true
+            new File(targetDir, 'changelog.adoc').exists() == true
         and: 'its content ends with our sample file'
-            new File('./build/docs/changelog.adoc')
+            new File(targetDir, 'changelog.adoc')
                     .text.trim()
                     .endsWith("""
 | 2017-09-08 

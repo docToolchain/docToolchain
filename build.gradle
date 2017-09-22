@@ -11,21 +11,22 @@ plugins {
 }
 println "compiling with Java ${System.getProperty("java.version")} at ${new Date().format("HH:mm:ss")}"
 
+// configuration
+def config
+println "mainConfigFile: ${mainConfigFile}"
+config = new ConfigSlurper().parse(new File(mainConfigFile).text)
+println "inputPath: ${config.inputPath}"
+println "inputFiles: ${config.inputFiles}"
+println "outputPath: ${config.outputPath}"
+
 ext {
-    srcDir  = "$projectDir/src/docs"
-    targetDir = "$buildDir"
+    srcDir  = config.inputPath
+    targetDir = config.outputPath
     javaVersion = System.getProperty("java.version")
     currentDate = new Date().format("d. MMM yyyy")
     // where HTMLSanityCheck checking results ares stored
-    checkingResultsPath = "$buildDir/report/htmlchecks"
-    sourceFiles = [
-                    [file: 'arc42-template-de.adoc', formats: ['html','pdf','docbook']],
-                    [file: 'arc42-template-en.adoc', formats: ['html','pdf','docbook']],
-                    [file: 'arc42-template-es.adoc', formats: ['html','pdf','docbook']],
-                    [file: 'test.adoc',              formats: ['html','pdf','docbook']],
-                    [file: 'manual.adoc',            formats: ['html']],
-                    [file: 'ppt/Demo.pptx.ad',       formats: ['html','revealjs']],
-                ]
+    checkingResultsPath = "${config.outputPath}/report/htmlchecks"
+    sourceFiles = config.inputFiles
 }
 
 
@@ -74,15 +75,13 @@ apply from: 'scripts/htmlSanityCheck.gradle'
 // common settings for asciidoctor
 // this is needed for PDF generation with plantUML
 tasks.withType(AsciidoctorTask) { docTask ->
-    inputs.dir new File(srcDir, 'arc42')
-    inputs.dir new File(srcDir, 'images')
-    inputs.file new File(srcDir, 'arc42-template-de.adoc')
-    inputs.file new File(srcDir, 'config-de.adoc')
-    inputs.file new File(srcDir, 'arc42-template-en.adoc')
-    inputs.file new File(srcDir, 'config-en.adoc')
-    inputs.file new File(srcDir, 'arc42-template-es.adoc')
-    inputs.file new File(srcDir, 'config-es.adoc')
-    inputs.file new File(new File(targetDir, 'docs'), 'changelog.adoc')
+  
+    config.taskInputsDirs.each {
+        inputs.dir new File(it)
+    }
+    config.taskInputsFiles.each {
+        inputs.file new File(it)
+    }
 
     outputDir = file(targetDir)
     sourceDir = file(srcDir)
@@ -113,8 +112,9 @@ tasks.withType(AsciidoctorTask) { docTask ->
     }
 
     // configure source and output files and folders
-    sourceDir = file('src/docs')
-    outputDir = file('build/docs')
+    sourceDir = file(config.inputPath)
+    outputDir = file(config.outputPath)
+
     // good to see what the build is doing...
     logDocuments = true
 
@@ -151,7 +151,7 @@ task generatePDF (
         description: 'use pdf as asciidoc backend') {
 
     attributes \
-        'plantUMLDir'         : file('build/docs/images/plantUML/').path
+  'plantUMLDir'         : file("${config.outputPath}/images/plantUML/").path
 
     sources {
         sourceFiles.findAll {
@@ -223,7 +223,7 @@ task generateDeck (
             include 'images/**'
         }
         into("ppt")
-        logger.error "${buildDir}/ppt/images"
+        logger.error "${config.outputPath}/ppt/images"
     }
 }
 //end::generateDeck[]

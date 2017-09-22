@@ -3,9 +3,9 @@ task convertToDocx (
         group: 'docToolchain',
         type: Exec
 ) {
-    workingDir 'build/docs/docbook'
+    workingDir "$targetDir/docbook"
     executable = "pandoc"
-    new File('build/docs/docx/').mkdirs()
+    new File("$targetDir/docx/").mkdirs()
     args = ['-r','docbook',
             '-t','docx',
             '-o','../docx/arc42-template-en.docx',
@@ -18,10 +18,10 @@ task convertToEpub (
         group: 'docToolchain',
         type: Exec
 ) {
-    workingDir 'build/docs/docbook'
+    workingDir "$targetDir/docbook"
     //commandLine "pandoc -r arc42-template.xml -o arc42-template.docx "
     executable = "pandoc"
-    new File('build/docs/epub/').mkdirs()
+    new File("$targetDir/epub/").mkdirs()
     args = ['-r','docbook',
             '-t','epub',
             '-o','../epub/arc42-template-en.epub',
