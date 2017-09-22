@@ -1,5 +1,7 @@
 package docToolchain
 import spock.lang.*
+import org.gradle.testkit.runner.GradleRunner
+import static org.gradle.testkit.runner.TaskOutcome.*
 
 class ExportChangeLogSpec extends Specification {
 
@@ -14,16 +16,23 @@ class ExportChangeLogSpec extends Specification {
     }
     void 'test creation of log file'() {
         setup: 'clean the environment'
-            "$gradleCommand clean".execute()
-        expect: 'log file does not exist'
+        when: 'remove old changelog file'
+            new File(targetDir, 'changelog.adoc').delete()
+        then: 'log file does not exist'
             new File(targetDir, 'changelog.adoc').exists() == false
         when: 'the gradle task is invoked'
-            def output = "$gradleCommand exportChangeLog".execute().text
-        then: 'the the log file has been created'
+            def result = GradleRunner.create()
+                    .withProjectDir(new File('.'))
+                    .withArguments(['exportChangeLog','--info'])
+                    .build()
+        then: 'the task has been successfully executed'
+            result.output.contains('changelog exported')
+            result.task(":exportChangeLog").outcome == SUCCESS
+        and: 'the the log file has been created'
             new File(targetDir, 'changelog.adoc').exists() == true
         and: 'its content ends with our sample file'
             new File(targetDir, 'changelog.adoc')
-                    .text.trim()
+                    .text.trim().replaceAll("\r","")
                     .endsWith("""
 | 2017-09-08 
 | Isidoro 
@@ -44,7 +53,7 @@ class ExportChangeLogSpec extends Specification {
 | 2016-08-21 
 | Ralf D. Mueller 
 | added arc42 template as content 
-""".trim())
+""".trim().replaceAll("\r",""))
     }
 
 }
