@@ -14,7 +14,7 @@ apply plugin: 'org.aim42.htmlSanityCheck'
 
 //tag::htmlSanityCheck[]
 htmlSanityCheck {
-    sourceDir = new File( "$buildDir/docs/html5" )
+    sourceDir = new File("$targetDir/html5")
 
     // files to check - in Set-notation
     //sourceDocuments = [ "one-file.html", "another-file.html", "index.html"]
