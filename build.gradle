@@ -156,7 +156,7 @@ task generatePDF (
         description: 'use pdf as asciidoc backend') {
 
     attributes \
-  'plantUMLDir'         : file("${config.outputPath}/images/plantUML/").path
+        'plantUMLDir'         : file("${config.outputPath}/images/plantUML/").path
 
     sources {
         sourceFiles.findAll {

@@ -17,9 +17,9 @@ class ExportChangeLogSpec extends Specification {
     void 'test creation of log file'() {
         setup: 'clean the environment'
         when: 'remove old changelog file'
-            new File(targetDir, 'changelog.adoc').delete()
+            new File('./build/docs/changelog.adoc').delete()
         then: 'log file does not exist'
-            new File(targetDir, 'changelog.adoc').exists() == false
+            new File('./build/docs/changelog.adoc').exists() == false
         when: 'the gradle task is invoked'
             def result = GradleRunner.create()
                     .withProjectDir(new File('.'))
@@ -29,9 +29,9 @@ class ExportChangeLogSpec extends Specification {
             result.output.contains('changelog exported')
             result.task(":exportChangeLog").outcome == SUCCESS
         and: 'the the log file has been created'
-            new File(targetDir, 'changelog.adoc').exists() == true
+            new File('./build/docs/changelog.adoc').exists() == true
         and: 'its content ends with our sample file'
-            new File(targetDir, 'changelog.adoc')
+            new File('./build/docs/changelog.adoc')
                     .text.trim().replaceAll("\r","")
                     .endsWith("""
 | 2017-09-08 
