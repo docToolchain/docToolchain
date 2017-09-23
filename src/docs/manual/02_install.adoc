@@ -1,5 +1,7 @@
 = How to install docToolchain
 
+== Default configuration
+
 Let's get started...
 
 Assuming that you first create your solution architecture and then the code, you simply start by getting a copy of the current docToolchain repository.
@@ -78,3 +80,15 @@ The first build generated some file within the `<project>/build` folder:
 
 If you didn't get the right output, please raise an issue on https://github.com/rdmueller/docToolchain/issues[github]
 
+== Custom configuration
+
+If you want to use the same docToolchain for multiple projects, you need to create a copy of Config.gradle and ConfluenceConfig.gradle for each project.
+The paths to those configuration files can be provided by giving -P option to gradlew, for example:
+
+[source, bash]
+----
+./gradlew -PconfluenceConfigFile=$HOME/projectA/ConfluenceConfig.gradle -PmainConfigFile=$HOME/projectA/Config.gradle
+./gradlew -PconfluenceConfigFile=$HOME/projectB/ConfluenceConfig.gradle -PmainConfigFile=$HOME/projectB/Config.gradle
+----
+
+Then inside each configuration file you need to specify input and output folders and files.

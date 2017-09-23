@@ -5,9 +5,8 @@ task exportChangeLog(
 ) doLast {
     // https://git-scm.com/docs/pretty-formats
     def changes = "git log --pretty=format:%x7c%x20%ad%x20%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n --date=short ./src/docs/arc42".execute().text
-    def path = './build/docs/'
-    new File(path).mkdirs()
-    def changelog = new File(path + 'changelog.adoc')
+    new File(targetDir).mkdirs()
+    def changelog = new File(targetDir, 'changelog.adoc')
     logger.info "> changelog exported"
     changelog.write(changes)
 }
