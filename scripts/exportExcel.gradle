@@ -51,16 +51,17 @@ use `gradle exportExcel` to re-export files
             logger.debug "sheet contains ${regions.size()} regions"
             def color = ''
             def resetColor = false
-            def numRows = 0
+            def numCols = 0
             def headerCreated = false
-            (sheet.lastRowNum + 1).times { rowNum ->
+            def emptyRows = 0
+            for (int rowNum=0; rowNum<=sheet.lastRowNum; rowNum++) {
                 def row = sheet.getRow(rowNum)
                 if (row && !headerCreated) {
                     headerCreated = true
                     // create AsciiDoc table header
                     def width = []
-                    numRows = row.lastCellNum
-                    numRows.times { columnIndex ->
+                    numCols = row.lastCellNum
+                    numCols.times { columnIndex ->
                         width << sheet.getColumnWidth((int) columnIndex)
                     }
                     //lets make those numbers nicer:
@@ -72,8 +73,8 @@ use `gradle exportExcel` to re-export files
                 def style = []
                 def colors = []
                 // For each row, iterate through each columns
-                if (row) {
-                    numRows.times { columnIndex ->
+                if (row && (row?.lastCellNum!=-1)) {
+                    numCols.times { columnIndex ->
                         def cell = row.getCell(columnIndex)
                         if (cell) {
                             def cellValue = df.formatCellValue(cell, evaluator)
@@ -142,12 +143,18 @@ use `gradle exportExcel` to re-export files
                         }
 
                     }
+                    emptyRows = 0
                 } else {
-                    //insert empty row
-                    numRows.times {
-                        data << ""
-                        colors << ""
-                        style << ""
+                    if (emptyRows<3) {
+                        //insert empty row
+                        numCols.times {
+                            data << ""
+                            colors << ""
+                            style << ""
+                        }
+                        emptyRows++
+                    } else {
+                        break
                     }
                 }
 
