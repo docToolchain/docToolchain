@@ -7,13 +7,6 @@ class ExportChangeLogSpec extends Specification {
 
     def gradleCommand
 
-    void setup() {
-        if (System.getProperty("os.name").toLowerCase().contains("windows")) {
-            gradleCommand = "./gradlew.bat"
-        } else {
-            gradleCommand = "./gradlew"
-        }
-    }
     void 'test creation of log file'() {
         setup: 'clean the environment'
         when: 'remove old changelog file'
@@ -26,9 +19,8 @@ class ExportChangeLogSpec extends Specification {
                     .withArguments(['exportChangeLog','--info'])
                     .build()
         then: 'the task has been successfully executed'
-            result.output.contains('changelog exported')
             result.task(":exportChangeLog").outcome == SUCCESS
-        and: 'the the log file has been created'
+        and: 'the log file has been created'
             new File('./build/docs/changelog.adoc').exists() == true
         and: 'its content ends with our sample file'
             new File('./build/docs/changelog.adoc')
