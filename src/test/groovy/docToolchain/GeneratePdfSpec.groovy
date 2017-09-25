@@ -26,6 +26,8 @@ class GeneratePdfSpec extends Specification {
         and: 'the output does not contain the warning "image to embed not found or not readable"'
             println result.output
             result.output.contains('image to embed not found or not readable') == false
+        and: 'it also does not contain any other error'
+            result.output.toLowerCase().contains('error') == false
     }
 
 }
