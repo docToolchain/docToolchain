@@ -82,13 +82,14 @@ If you didn't get the right output, please raise an issue on https://github.com/
 
 == Custom configuration
 
-If you want to use the same docToolchain for multiple projects, you need to create a copy of Config.gradle and ConfluenceConfig.gradle for each project.
+If you want to use the same docToolchain for multiple projects, you need to create a copy of Config.groovy and 
+ConfluenceConfig.groovy for each project. Inside each configuration file you need to specify the input and output
+folders and files.
+
 The paths to those configuration files can be provided by giving -P option to gradlew, for example:
 
 [source, bash]
 ----
-./gradlew -PconfluenceConfigFile=$HOME/projectA/ConfluenceConfig.gradle -PmainConfigFile=$HOME/projectA/Config.gradle
-./gradlew -PconfluenceConfigFile=$HOME/projectB/ConfluenceConfig.gradle -PmainConfigFile=$HOME/projectB/Config.gradle
+./gradlew -PconfluenceConfigFile=$HOME/projectA/ConfluenceConfig.groovy -PmainConfigFile=$HOME/projectA/Config.groovy
+./gradlew -PconfluenceConfigFile=$HOME/projectB/ConfluenceConfig.groovy -PmainConfigFile=$HOME/projectB/Config.groovy
 ----
-
-Then inside each configuration file you need to specify input and output folders and files.
