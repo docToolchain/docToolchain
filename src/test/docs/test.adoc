@@ -1,6 +1,6 @@
 include::config-de.adoc[]
 
-[plantuml,"${plantUMLDir}testPlant",png]
+[plantuml,"{plantUMLDir}testPlant",png]
 ----
 a --> b
 ----
