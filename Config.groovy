@@ -1,6 +1,9 @@
 
 // To use environment variables, you can use:
 // outputPath = "${System.getenv('HOME')}/docs"
+//
+// To specify paths relative to current directory, use PWD variable:
+// outputPath = "${System.getenv('PWD')}/docs"
 outputPath = 'build/docs'
 
 inputPath = 'src/docs'
