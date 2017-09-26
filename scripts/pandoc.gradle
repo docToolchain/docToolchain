@@ -3,13 +3,17 @@ task convertToDocx (
         group: 'docToolchain',
         type: Exec
 ) {
+    // For now it's only taking the first input file that has docbook format specified
+    def sourceFile = sourceFiles.find { 'docbook' in it.formats }.file.replace('.adoc', '.xml')
+    def targetFile = sourceFile.replace('.xml', '.docx')
+
     workingDir "$targetDir/docbook"
     executable = "pandoc"
     new File("$targetDir/docx/").mkdirs()
     args = ['-r','docbook',
             '-t','docx',
-            '-o','../docx/arc42-template-en.docx',
-            'arc42-template-en.xml']
+            '-o',"../docx/$targetFile",
+            sourceFile]
 }
 //end::convertToDocx[]
 
@@ -18,14 +22,17 @@ task convertToEpub (
         group: 'docToolchain',
         type: Exec
 ) {
+    // For now it's only taking the first input file that has docbook format specified
+    def sourceFile = sourceFiles.find { 'docbook' in it.formats }.file.replace('.adoc', '.xml')
+    def targetFile = sourceFile.replace('.xml', '.epub')
+
     workingDir "$targetDir/docbook"
-    //commandLine "pandoc -r arc42-template.xml -o arc42-template.docx "
     executable = "pandoc"
     new File("$targetDir/epub/").mkdirs()
     args = ['-r','docbook',
             '-t','epub',
-            '-o','../epub/arc42-template-en.epub',
-            'arc42-template-en.xml']
+            '-o',"../epub/$targetFile",
+            sourceFile]
 }
 //end::convertToEpub[]
 project.afterEvaluate {
