@@ -57,8 +57,9 @@ def baseUrl
 
 // configuration
 def config
+println "docDir: ${docDir}"
 println "confluenceConfigFile: ${confluenceConfigFile}"
-config = new ConfigSlurper().parse(new File(confluenceConfigFile).text)
+config = new ConfigSlurper().parse(new File(docDir, confluenceConfigFile).text)
 
 def confluenceSpaceKey
 def confluenceCreateSubpages
@@ -465,7 +466,8 @@ def promoteHeaders = { tree, start, offset ->
 
 config.input.each { input ->
 
-    println "${input.file}"
+    input.file = "${docDir}/${input.file}"
+
     if (input.file ==~ /.*[.](ad|adoc|asciidoc)$/) {
         println "convert ${input.file}"
         "groovy asciidoc2html.groovy ${input.file}".execute()

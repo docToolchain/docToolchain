@@ -18,19 +18,20 @@ println "compiling with Java ${System.getProperty("java.version")} at ${new Date
 
 // configuration
 def config
+println "docDir: ${docDir}"
 println "mainConfigFile: ${mainConfigFile}"
-config = new ConfigSlurper().parse(new File(mainConfigFile).text)
+config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text)
 println "inputPath: ${config.inputPath}"
 println "inputFiles: ${config.inputFiles}"
 println "outputPath: ${config.outputPath}"
 
 ext {
-    srcDir  = config.inputPath
-    targetDir = config.outputPath
+    srcDir  = "${docDir}/${config.inputPath}"
+    targetDir = "${docDir}/${config.outputPath}"
     javaVersion = System.getProperty("java.version")
     currentDate = new Date().format("d. MMM yyyy")
     // where HTMLSanityCheck checking results ares stored
-    checkingResultsPath = "${config.outputPath}/report/htmlchecks"
+    checkingResultsPath = "${docDir}/${config.outputPath}/report/htmlchecks"
     sourceFiles = config.inputFiles
 }
 
@@ -82,17 +83,18 @@ apply from: 'scripts/htmlSanityCheck.gradle'
 tasks.withType(AsciidoctorTask) { docTask ->
   
     config.taskInputsDirs.each {
-        inputs.dir new File(it)
+        inputs.dir new File(docDir, it)
     }
     config.taskInputsFiles.each {
-        inputs.file new File(it)
+        inputs.file new File(docDir, it)
     }
 
+    // configure source and output files and folders
     outputDir = file(targetDir)
     sourceDir = file(srcDir)
 
     attributes \
-            'pdf-stylesdir': 'pdfTheme',
+            'pdf-stylesdir': "${docDir}/pdfTheme",
             'pdf-style': 'custom',
             'source-highlighter': 'coderay',
             'imagesdir': 'images',
@@ -115,10 +117,6 @@ tasks.withType(AsciidoctorTask) { docTask ->
                 createInline(parent, "anchor", target, attributes, options).render()
         }
     }
-
-    // configure source and output files and folders
-    sourceDir = file(config.inputPath)
-    outputDir = file(config.outputPath)
 
     // good to see what the build is doing...
     logDocuments = true
@@ -156,7 +154,7 @@ task generatePDF (
         description: 'use pdf as asciidoc backend') {
 
     attributes \
-        'plantUMLDir'         : file("${config.outputPath}/images/plantUML/").path
+        'plantUMLDir'         : file("${docDir}/${config.outputPath}/images/plantUML/").path
 
     sources {
         sourceFiles.findAll {
@@ -228,7 +226,7 @@ task generateDeck (
             include 'images/**'
         }
         into("ppt")
-        logger.error "${config.outputPath}/ppt/images"
+        logger.error "${docDir}/${config.outputPath}/ppt/images"
     }
 }
 //end::generateDeck[]

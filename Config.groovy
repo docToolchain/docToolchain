@@ -1,12 +1,14 @@
 
-// To use environment variables, you can use:
-// outputPath = "${System.getenv('HOME')}/docs"
-//
-// To specify paths relative to current directory, use PWD variable:
-// outputPath = "${System.getenv('PWD')}/docs"
+// Path where the docToolchain will produce the output files.
+// This path is appended to the docDir property specified in gradle.properties
+// or in the command line, and therefore must be relative to it.
 outputPath = 'build/docs'
 
+// Path where the docToolchain will search for the input files.
+// This path is appended to the docDir property specified in gradle.properties
+// or in the command line, and therefore must be relative to it.
 inputPath = 'src/docs'
+
 inputFiles = [[file: 'arc42-template-de.adoc', formats: ['html','pdf','docbook']],
               [file: 'arc42-template-en.adoc', formats: ['html','pdf','docbook']],
               [file: 'arc42-template-es.adoc', formats: ['html','pdf','docbook']],

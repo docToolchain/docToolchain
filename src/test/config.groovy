@@ -1,6 +1,4 @@
 
-// To use environment variables, you can use:
-// outputPath = "${System.getenv('HOME')}/docs"
 outputPath = 'build/test/docs'
 
 inputPath = 'src/test/docs'
