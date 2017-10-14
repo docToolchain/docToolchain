@@ -1,6 +1,0 @@
-@import 'https://fonts.googleapis.com/css?family=Baloo+Bhai';
-
-section[data-state="title"] h2 {
-    font-family: 'Baloo Bhai', cursive;
-    font-size: 4em;
-}
