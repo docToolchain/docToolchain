@@ -10,9 +10,13 @@ The easiest way is to clone the repository without history and remove the `.git`
 .linux with git clone
 [source,bash]
 ----
-git clone https://github.com/rdmueller/docToolchain.git <your project name>
-rm -rdI .git
+git clone --recursive https://github.com/rdmueller/docToolchain.git <your project name>
+rm -rf .git
+rm -rf resources/asciidoctor-reveal.js/.git
+rm -rf resources/reveal.js/.git
 ----
+
+`--recursive` option is required because the repository contains 2 submodules - `resources/asciidoctor-reveal.js` and `resources/reveal.js`.
 
 Another way is to download the zipped git repository and rename it:
 
@@ -21,11 +25,30 @@ Another way is to download the zipped git repository and rename it:
 ----
 wget https://github.com/rdmueller/docToolchain/archive/master.zip
 unzip master.zip
+
+# fetching dependencies
+
+cd docToolchain-master/resources
+
+rm -d reveal.js
+wget https://github.com/hakimel/reveal.js/archive/tags/3.3.0.zip -O reveal.js.zip
+unzip reveal.js.zip
+mv reveal.js-tags-3.3.0 reveal.js
+
+rm -d asciidoctor-reveal.js
+wget https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip -O asciidoctor-reveal.js.zip
+unzip asciidoctor-reveal.js.zip
+mv asciidoctor-reveal.js-9667f5c5d926b3be48361d6d6413d3896954894c asciidoctor-reveal.js
+
 mv docToolchain-master <your project name>
 ----
 
 
-If you work (like me) on a windows environment, just download and unzip the https://github.com/rdmueller/docToolchain/archive/master.zip[repository].
+If you work (like me) on a windows environment, just download and unzip the https://github.com/rdmueller/docToolchain/archive/master.zip[repository] as well as its dependencies:
+https://github.com/hakimel/reveal.js/archive/tags/3.3.0.zip[reveal.js] and
+https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip[asciidoctor-reveal.js].
+
+After unzipping, put the dependencies in `resources` folder, so that the structure is the same as on https://github.com/docToolchain/docToolchain/tree/master/resources[GitHub].
 
 //[source]
 //----
@@ -82,7 +105,9 @@ If you didn't get the right output, please raise an issue on https://github.com/
 
 == Custom configuration
 
-If you want to use the same docToolchain for multiple projects, you need to create a copy of Config.groovy and 
+You can install docToolchain in a directory separate from your project. Then docToolchain is a standalone tool that can be
+upgraded independently from your code or used for multiple projects.
+If you want to install docToolchain separately, you need to create a copy of Config.groovy and
 ConfluenceConfig.groovy for each project. Inside each configuration file you need to specify the input and output
 folders and files.
 
