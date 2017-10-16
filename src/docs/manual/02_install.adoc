@@ -10,7 +10,7 @@ The easiest way is to clone the repository without history and remove the `.git`
 .linux with git clone
 [source,bash]
 ----
-git clone --recursive https://github.com/rdmueller/docToolchain.git <your project name>
+git clone --recursive https://github.com/docToolchain/docToolchain.git <your project name>
 rm -rf .git
 rm -rf resources/asciidoctor-reveal.js/.git
 rm -rf resources/reveal.js/.git
@@ -23,7 +23,7 @@ Another way is to download the zipped git repository and rename it:
 .linux with download as zip
 [source, bash]
 ----
-wget https://github.com/rdmueller/docToolchain/archive/master.zip
+wget https://github.com/docToolchain/docToolchain/archive/master.zip
 unzip master.zip
 
 # fetching dependencies
@@ -44,7 +44,7 @@ mv docToolchain-master <your project name>
 ----
 
 
-If you work (like me) on a windows environment, just download and unzip the https://github.com/rdmueller/docToolchain/archive/master.zip[repository] as well as its dependencies:
+If you work (like me) on a windows environment, just download and unzip the https://github.com/docToolchain/docToolchain/archive/master.zip[repository] as well as its dependencies:
 https://github.com/hakimel/reveal.js/archive/tags/3.3.0.zip[reveal.js] and
 https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip[asciidoctor-reveal.js].
 
@@ -52,7 +52,7 @@ After unzipping, put the dependencies in `resources` folder, so that the structu
 
 //[source]
 //----
-//(New-Object Net.WebClient).DownloadFile('https://github.com/rdmueller/docToolchain/archive/master.zip','master.zip')
+//(New-Object Net.WebClient).DownloadFile('https://github.com/docToolchain/docToolchain/archive/master.zip','master.zip')
 //----
 
 This should already be enough to start a first build:
@@ -101,7 +101,7 @@ The first build generated some file within the `<project>/build` folder:
 
 *Congratulations!* if you see the same folder structure, you just managed to render the standard arc42 template as html and pdf!
 
-If you didn't get the right output, please raise an issue on https://github.com/rdmueller/docToolchain/issues[github]
+If you didn't get the right output, please raise an issue on https://github.com/docToolchain/docToolchain/issues[github]
 
 == Custom configuration
 
