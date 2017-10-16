@@ -335,6 +335,25 @@ def parseBody =  { body, anchors, pageAnchors ->
     return pageString
 }
 
+def getPageByTitleIgnoreCase = { pages, realPageTitle ->
+    if (pages.size() >= 1) {
+        def page
+        pages.find { p ->
+            if (p.title.equalsIgnoreCase(realPageTitle)) {
+                // found matching page
+                page = p
+                return true
+            }
+            // found matching page
+            return false
+        }
+
+        return page
+    }
+
+    return null
+}
+
 // the create-or-update functionality for confluence pages
 def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
     def api = new RESTClient(config.confluenceAPI)
@@ -345,7 +364,6 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
     //this fixes the encoding
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
     //try to get an existing page
-    def page
     localPage = parseBody(pageBody, anchors, pageAnchors)
 
     def localHash = MD5(localPage)
@@ -372,14 +390,18 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
                 [ type: 'page', id: parentId]
         ]
     }
+
+    def pages
     trythis {
-        page = api.get(path: 'content',
-                query: [
-                        'spaceKey': confluenceSpaceKey,
-                        'title'   : realTitle(pageTitle),
-                        'expand'  : 'body.storage,version'
-                ], headers: headers).data.results[0]
+        def cql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
+        pages = api.get(path: 'content/search',
+                        query: ['cql' : cql,
+                                'expand'  : 'body.storage,version'
+                               ], headers: headers).data.results
     }
+
+    def page = getPageByTitleIgnoreCase(pages, realTitle(pageTitle))
+
     if (page) {
         //println "found existing page: " + page.id +" version "+page.version.number
 
