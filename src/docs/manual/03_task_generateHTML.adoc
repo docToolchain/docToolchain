@@ -6,7 +6,7 @@ image::ea/Manual/generateHTML.png[]
 This is the standard asciidoctor generator which is supported out of the box.
 
 The result is written to `build/docs/html5`.
-The HTML files need the images folder in the same directory to be displayed the right way.
+The HTML files need the images folder to be in the same directory to display correctly.
 
 NOTE: if you would like to have a single-file HTML as result, you can configure asciidoctor to store the images inline as `data-uri`. +
 Just set `:data-uri:` in the config of your AsciiDoc file. +
@@ -37,13 +37,12 @@ DiagramBlock <|-- PlantUmlBlock
 ....
 
 <1> The element of this list specifies the diagram tool `plantuml` to be used. +
-The second element the name of the image to be created and the third the image type.
+The second element is the name of the image to be created and the third specifies the image type.
 
 NOTE: the \{plantUMLDir} ensures that plantUML also works for the <<generatePDF>> task.
-Without it, <<generateHTML>> works fine, but the PDF will not find the generated images.
+Without it, <<generateHTML>> works fine, but the PDF will not contain the generated images.
 
-IMPORTANT: make sure to specify a unique image name for each diagram.
-Otherwise it will be overwritten and you'll get all the same diagrams.
+IMPORTANT: make sure to specify a unique image name for each diagram, otherwise they will overwrite each other.
 
 The above example renders as
 
@@ -62,9 +61,9 @@ DiagramBlock <|-- PlantUmlBlock
 ----
 
 NOTE: plantUML needs graphviz dot installed to work.
-If you can't install it, you can use java based version of the dot library.
-Just add `!pragma graphviz_dot jdot` as first line of your diagram definition.
-It is still an experimental feature, but already works quite well! +
+If you can't install it, you can use the Java based version of the dot library.
+Just add `!pragma graphviz_dot jdot` as the first line of your diagram definition.
+This is still an experimental feature, but already works quite well! +
 https://rdmueller.github.io/plantuml-without-graphviz/
 
 == Source

@@ -10,8 +10,8 @@ image::ea/Manual/Overview2.png[]
 
 == Conventions
 
-There are some simple naming conventions of the tasks.
-They might be confusing first and that's why they are explained here.
+There are some simple naming conventions for the tasks.
+They might be confusing at first and that's why they are explained here.
 
 === generateX
 
@@ -33,7 +33,7 @@ This results in a dependency on a _generateX_ task and another external tool (cu
 
 === publishToX
 
-These tasks not only convert your documents but also deploy/publish/move them to a remote system -- currently confluence.
+These tasks not only convert your documents but also deploy/publish/move them to a remote system -- currently Confluence.
 This means that the result is likely to be visible immediately to others.
 
 

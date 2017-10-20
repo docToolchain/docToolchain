@@ -7,7 +7,7 @@ Let's get started...
 Assuming that you first create your solution architecture and then the code, you simply start by getting a copy of the current docToolchain repository.
 The easiest way is to clone the repository without history and remove the `.git` folder:
 
-.linux with git clone
+.Linux with git clone
 [source,bash]
 ----
 git clone --recursive https://github.com/docToolchain/docToolchain.git <your project name>
@@ -20,7 +20,7 @@ rm -rf resources/reveal.js/.git
 
 Another way is to download the zipped git repository and rename it:
 
-.linux with download as zip
+.Linux with download as zip
 [source, bash]
 ----
 wget https://github.com/docToolchain/docToolchain/archive/master.zip
@@ -44,7 +44,7 @@ mv docToolchain-master <your project name>
 ----
 
 
-If you work (like me) on a windows environment, just download and unzip the https://github.com/docToolchain/docToolchain/archive/master.zip[repository] as well as its dependencies:
+If you work (like me) on a Windows environment, just download and unzip the https://github.com/docToolchain/docToolchain/archive/master.zip[repository] as well as its dependencies:
 https://github.com/hakimel/reveal.js/archive/tags/3.3.0.zip[reveal.js] and
 https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip[asciidoctor-reveal.js].
 
@@ -70,13 +70,13 @@ This should already be enough to start a first build:
 ./mvnw
 ----
 
-.windows with gradle wrapper
+.Windows with gradle wrapper
 [source, bash]
 ----
 ./gradlew
 ----
 
-.windows with maven wrapper
+.Windows with maven wrapper
 [source, bash]
 ----
 ./mvnw.bat
