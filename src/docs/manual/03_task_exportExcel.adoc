@@ -10,10 +10,10 @@ Either way, this task lets you export your excel sheet and include it directly i
 
 The task searches for `.xlsx` files and exports each contained worksheet as `.csv` and as `.adoc`.
 
-NOTE: Formulars containes in your Workbook are evaluated and exported statically.
+NOTE: Formulas contained in your worksheet are evaluated and exported statically.
 
 The generated files are written to `src/excel/[filename]/[worksheet].(adoc|cvs)` .
-The `src` and not `build` folder is chosen mainly to get a better history for all changes on the worksheets.
+The `src` folder is chosen over the `build` folder to get a better history for all changes on the worksheets.
 
 The files can be included either as AsciiDoc
 
@@ -34,7 +34,7 @@ The AsciiDoc version gives you a bit more control:
 
 - horizontal and vertical alignment is preserved
 - line breaks are preserved
-- column width -- relative to other columns is preserved
+- column width relative to other columns is preserved
 - background colors are preserved.
 
 == Source
