@@ -335,25 +335,6 @@ def parseBody =  { body, anchors, pageAnchors ->
     return pageString
 }
 
-def getPageByTitleIgnoreCase = { pages, realPageTitle ->
-    if (pages.size() >= 1) {
-        def page
-        pages.find { p ->
-            if (p.title.equalsIgnoreCase(realPageTitle)) {
-                // found matching page
-                page = p
-                return true
-            }
-            // found matching page
-            return false
-        }
-
-        return page
-    }
-
-    return null
-}
-
 // the create-or-update functionality for confluence pages
 def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
     def api = new RESTClient(config.confluenceAPI)
@@ -400,7 +381,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
                                ], headers: headers).data.results
     }
 
-    def page = getPageByTitleIgnoreCase(pages, realTitle(pageTitle))
+    def page = pages.find { p -> p.title.equalsIgnoreCase(realTitle(pageTitle)) }
 
     if (page) {
         //println "found existing page: " + page.id +" version "+page.version.number
