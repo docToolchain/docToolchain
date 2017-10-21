@@ -5,9 +5,9 @@
 import org.asciidoctor.gradle.AsciidoctorTask
 
 plugins {
-    id "org.asciidoctor.convert" version "1.5.3"
+    id "org.asciidoctor.convert" version "1.5.6"
     id "org.aim42.htmlSanityCheck" version "0.9.7"
-    id "com.github.ben-manes.versions" version "0.14.0"
+    id "com.github.ben-manes.versions" version "0.15.0"
 }
 configurations.all {
     resolutionStrategy {
@@ -39,16 +39,16 @@ ext {
 apply plugin:'groovy'
 
 dependencies {
-    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15'
+    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
     // carefull!
     // asciidoctor 1.5.6 needs diagram 1.5.4.1
     // but then reveal.js is broken...
     // https://github.com/asciidoctor/asciidoctor-diagram/issues/161
-    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.5.4'
+    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.5.4.1'
     testCompile(
             ('junit:junit:4.12'),
             ('org.spockframework:spock-core:1.1-groovy-2.4'),
-            ('com.athaydes:spock-reports:1.3.1'),
+            ('com.athaydes:spock-reports:1.3.2'),
             ('org.slf4j:slf4j-api:1.7.13'),
             ('org.slf4j:slf4j-simple:1.7.13'),
             gradleTestKit()
