@@ -4,6 +4,12 @@
 
 import org.asciidoctor.gradle.AsciidoctorTask
 
+buildscript {
+    dependencies {
+        //needed as workaround for https://github.com/asciidoctor/asciidoctorj/issues/471 :
+        classpath 'org.jruby:jruby:1.7.24'
+    }
+}
 plugins {
     id "org.asciidoctor.convert" version "1.5.6"
     id "org.aim42.htmlSanityCheck" version "0.9.7"
