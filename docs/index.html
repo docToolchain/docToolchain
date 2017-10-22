@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.5">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>docToolchain Manual</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -89,13 +89,12 @@ strong,b{font-weight:bold;line-height:inherit}
 small{font-size:60%;line-height:inherit}
 code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
 ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
-ul,ol,ul.no-bullet,ol.no-bullet{margin-left:1.5em}
+ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
 ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
 ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
-ul.no-bullet{list-style:none}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -131,7 +130,11 @@ strong strong{font-weight:400}
 kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
 .keyseq kbd:first-child{margin-left:0}
 .keyseq kbd:last-child{margin-right:0}
-.menuseq,.menu{color:rgba(0,0,0,.8)}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
 b.button:before,b.button:after{position:relative;top:-1px;font-weight:400}
 b.button:before{content:"[";padding:0 3px 0 2px}
 b.button:after{content:"]";padding:0 2px 0 3px}
@@ -198,7 +201,7 @@ table.tableblock>caption.title{white-space:nowrap;overflow:visible;max-width:0}
 table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inherit}
 .admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
 .admonitionblock>table td.icon{text-align:center;width:80px}
-.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon img{max-width:initial}
 .admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
@@ -254,13 +257,13 @@ table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
 table.tableblock{max-width:100%;border-collapse:separate}
 table.tableblock td>.paragraph:last-child p>p:last-child,table.tableblock th>p:last-child,table.tableblock td>p:last-child{margin-bottom:0}
 table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
-table.grid-all th.tableblock,table.grid-all td.tableblock{border-width:0 1px 1px 0}
-table.grid-all tfoot>tr>th.tableblock,table.grid-all tfoot>tr>td.tableblock{border-width:1px 1px 0 0}
-table.grid-cols th.tableblock,table.grid-cols td.tableblock{border-width:0 1px 0 0}
-table.grid-all *>tr>.tableblock:last-child,table.grid-cols *>tr>.tableblock:last-child{border-right-width:0}
-table.grid-rows th.tableblock,table.grid-rows td.tableblock{border-width:0 0 1px 0}
-table.grid-all tbody>tr:last-child>th.tableblock,table.grid-all tbody>tr:last-child>td.tableblock,table.grid-all thead:last-child>tr>th.tableblock,table.grid-rows tbody>tr:last-child>th.tableblock,table.grid-rows tbody>tr:last-child>td.tableblock,table.grid-rows thead:last-child>tr>th.tableblock{border-bottom-width:0}
-table.grid-rows tfoot>tr>th.tableblock,table.grid-rows tfoot>tr>td.tableblock{border-width:1px 0 0 0}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px 0}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
 table.frame-all{border-width:1px}
 table.frame-sides{border-width:0 1px}
 table.frame-topbot{border-width:1px 0}
@@ -281,10 +284,12 @@ ul li ol{margin-left:1.5em}
 dl dd{margin-left:1.125em}
 dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
 ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
-ul.unstyled,ol.unnumbered,ul.checklist,ul.none{list-style-type:none}
-ul.unstyled,ol.unnumbered,ul.checklist{margin-left:.625em}
-ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1em;font-size:.85em}
-ul.checklist li>p:first-child>input[type="checkbox"]:first-child{width:1em;position:relative;top:1px}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
 ul.inline{margin:0 auto .625em auto;margin-left:-1.375em;margin-right:0;padding:0;list-style:none;overflow:hidden}
 ul.inline>li{list-style:none;float:left;margin-left:1.375em;display:block}
 ul.inline>li>*{display:block}
@@ -301,7 +306,8 @@ ol.lowergreek{list-style-type:lower-greek}
 td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
 td.hdlist1{font-weight:bold;padding-bottom:1.25em}
 .literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
-.colist>table tr>td:first-of-type{padding:0 .75em;line-height:1}
+.colist>table tr>td:first-of-type{padding:.4em .75em 0 .75em;line-height:1;vertical-align:top}
+.colist>table tr>td:first-of-type img{max-width:initial}
 .colist>table tr>td:last-of-type{padding:.25em 0}
 .thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
 .imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
@@ -364,6 +370,7 @@ div.unbreakable{page-break-inside:avoid}
 .yellow{color:#bfbf00}
 .yellow-background{background-color:#fafa00}
 span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
 .admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
 .admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
 .admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
@@ -547,14 +554,20 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_dependencyupdates">3.15. dependencyUpdates</a></li>
 </ul>
 </li>
-<li><a href="#_further_reading">4. Further Reading</a>
+<li><a href="#_faq_frequently_asked_questions">4. FAQ: Frequently asked Questions</a>
 <ul class="sectlevel2">
-<li><a href="#_links">4.1. Links</a></li>
-<li><a href="#_books">4.2. Books</a></li>
-<li><a href="#_past_and_upcoming_talks">4.3. Past and upcoming Talks</a></li>
+<li><a href="#_images">4.1. Images</a></li>
+<li><a href="#_plantuml">4.2. PlantUML</a></li>
 </ul>
 </li>
-<li><a href="#_acknowledgements_and_contributors">5. Acknowledgements and Contributors</a></li>
+<li><a href="#_further_reading">5. Further Reading</a>
+<ul class="sectlevel2">
+<li><a href="#_links">5.1. Links</a></li>
+<li><a href="#_books">5.2. Books</a></li>
+<li><a href="#_past_and_upcoming_talks">5.3. Past and upcoming Talks</a></li>
+</ul>
+</li>
+<li><a href="#_acknowledgements_and_contributors">6. Acknowledgements and Contributors</a></li>
 </ul>
 </div>
 </div>
@@ -716,7 +729,7 @@ But you are not restricted to one master - you can create master docs for severa
 The easiest way is to clone the repository without history and remove the <code>.git</code> folder:</p>
 </div>
 <div class="listingblock">
-<div class="title">linux with git clone</div>
+<div class="title">Linux with git clone</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">git clone --recursive https://github.com/docToolchain/docToolchain.git &lt;your project name&gt;
 rm -rf .git
@@ -731,7 +744,7 @@ rm -rf resources/reveal.js/.git</code></pre>
 <p>Another way is to download the zipped git repository and rename it:</p>
 </div>
 <div class="listingblock">
-<div class="title">linux with download as zip</div>
+<div class="title">Linux with download as zip</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">wget https://github.com/docToolchain/docToolchain/archive/master.zip
 unzip master.zip
@@ -754,7 +767,7 @@ mv docToolchain-master &lt;your project name&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If you work (like me) on a windows environment, just download and unzip the <a href="https://github.com/docToolchain/docToolchain/archive/master.zip">repository</a> as well as its dependencies:
+<p>If you work (like me) on a Windows environment, just download and unzip the <a href="https://github.com/docToolchain/docToolchain/archive/master.zip">repository</a> as well as its dependencies:
 <a href="https://github.com/hakimel/reveal.js/archive/tags/3.3.0.zip">reveal.js</a> and
 <a href="https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip">asciidoctor-reveal.js</a>.</p>
 </div>
@@ -777,13 +790,13 @@ mv docToolchain-master &lt;your project name&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">windows with gradle wrapper</div>
+<div class="title">Windows with gradle wrapper</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">./gradlew</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">windows with maven wrapper</div>
+<div class="title">Windows with maven wrapper</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">./mvnw.bat</code></pre>
 </div>
@@ -855,8 +868,8 @@ folders and files.</p>
 <div class="sect2">
 <h3 id="_conventions">3.1. Conventions</h3>
 <div class="paragraph">
-<p>There are some simple naming conventions of the tasks.
-They might be confusing first and that&#8217;s why they are explained here.</p>
+<p>There are some simple naming conventions for the tasks.
+They might be confusing at first and that&#8217;s why they are explained here.</p>
 </div>
 <div class="sect3">
 <h4 id="_generatex">3.1.1. generateX</h4>
@@ -887,7 +900,7 @@ This results in a dependency on a <em>generateX</em> task and another external t
 <div class="sect3">
 <h4 id="_publishtox">3.1.4. publishToX</h4>
 <div class="paragraph">
-<p>These tasks not only convert your documents but also deploy/publish/move them to a remote system&#8201;&#8212;&#8201;currently confluence.
+<p>These tasks not only convert your documents but also deploy/publish/move them to a remote system&#8201;&#8212;&#8201;currently Confluence.
 This means that the result is likely to be visible immediately to others.</p>
 </div>
 <hr>
@@ -906,7 +919,7 @@ This means that the result is likely to be visible immediately to others.</p>
 </div>
 <div class="paragraph">
 <p>The result is written to <code>build/docs/html5</code>.
-The HTML files need the images folder in the same directory to be displayed the right way.</p>
+The HTML files need the images folder to be in the same directory to display correctly.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -955,7 +968,7 @@ DiagramBlock &lt;|-- PlantUmlBlock
 <tr>
 <td><i class="conum" data-value="1"></i><b>1</b></td>
 <td>The element of this list specifies the diagram tool <code>plantuml</code> to be used.<br>
-The second element the name of the image to be created and the third the image type.</td>
+The second element is the name of the image to be created and the third specifies the image type.</td>
 </tr>
 </table>
 </div>
@@ -967,7 +980,7 @@ The second element the name of the image to be created and the third the image t
 </td>
 <td class="content">
 the {plantUMLDir} ensures that plantUML also works for the <a href="#_generatepdf">generatePDF</a> task.
-Without it, <a href="#_generatehtml">generateHTML</a> works fine, but the PDF will not find the generated images.
+Without it, <a href="#_generatehtml">generateHTML</a> works fine, but the PDF will not contain the generated images.
 </td>
 </tr>
 </table>
@@ -979,8 +992,7 @@ Without it, <a href="#_generatehtml">generateHTML</a> works fine, but the PDF wi
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-make sure to specify a unique image name for each diagram.
-Otherwise it will be overwritten and you&#8217;ll get all the same diagrams.
+make sure to specify a unique image name for each diagram, otherwise they will overwrite each other.
 </td>
 </tr>
 </table>
@@ -988,11 +1000,19 @@ Otherwise it will be overwritten and you&#8217;ll get all the same diagrams.
 <div class="paragraph">
 <p>The above example renders as</p>
 </div>
-<div class="imageblock">
+<div class="listingblock">
+<div class="title">example diagram</div>
 <div class="content">
-<img src="images/demoPlantUML.png" alt="example diagram" width="233" height="238">
+<pre>!pragma graphviz_dot jdot
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor &lt;|-- DiagramBlock
+DiagramBlock &lt;|-- DitaaBlock
+DiagramBlock &lt;|-- PlantUmlBlock</pre>
 </div>
-<div class="title">Figure 2. example diagram</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1002,9 +1022,9 @@ Otherwise it will be overwritten and you&#8217;ll get all the same diagrams.
 </td>
 <td class="content">
 plantUML needs graphviz dot installed to work.
-If you can&#8217;t install it, you can use java based version of the dot library.
-Just add <code>!pragma graphviz_dot jdot</code> as first line of your diagram definition.
-It is still an experimental feature, but already works quite well!<br>
+If you can&#8217;t install it, you can use the Java based version of the dot library.
+Just add <code>!pragma graphviz_dot jdot</code> as the first line of your diagram definition.
+This is still an experimental feature, but already works quite well!<br>
 <a href="https://rdmueller.github.io/plantuml-without-graphviz/" class="bare">https://rdmueller.github.io/plantuml-without-graphviz/</a>
 </td>
 </tr>
@@ -1048,7 +1068,7 @@ It is still an experimental feature, but already works quite well!<br>
 </div>
 </div>
 <div class="paragraph">
-<p>This task makes use of the <a href="http://asciidoctor.org/docs/convert-asciidoc-to-pdf/">asciidoctor-pdf</a> plugin to render your documents as good looking PDF.</p>
+<p>This task makes use of the <a href="http://asciidoctor.org/docs/convert-asciidoc-to-pdf/">asciidoctor-pdf</a> plugin to render your documents as a pretty PDF file.</p>
 </div>
 <div class="paragraph">
 <p>The file will be written to <code>src/docs/pdf</code>.</p>
@@ -1061,7 +1081,7 @@ It is still an experimental feature, but already works quite well!<br>
 </td>
 <td class="content">
 the used plugin is still in alpha status, but the results are already quite good.
-If you want to use another way to create a PDF, use for instance <a href="http://phantomjs.org/">phantomJS</a> and script it!
+If you want to use another way to create a PDF, use <a href="http://phantomjs.org/">phantomJS</a> for instance and script it.
 </td>
 </tr>
 </table>
@@ -1148,7 +1168,7 @@ Documentation on how to modify it can be found in the <a href="https://github.co
 </div>
 </div>
 <div class="paragraph">
-<p>This task makes use of the <a href="https://github.com/asciidoctor/asciidoctor-reveal.js/">asciidoctor-reveal.js</a> backend to render your documents HTML based presentation.</p>
+<p>This task makes use of the <a href="https://github.com/asciidoctor/asciidoctor-reveal.js/">asciidoctor-reveal.js</a> backend to render your documents into a HTML based presentation.</p>
 </div>
 <div class="paragraph">
 <p>This task is best used together with the <a href="#_exportppt">exportPPT</a> task.
@@ -1581,7 +1601,6 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
     <span class="comment">//this fixes the encoding</span>
     api.encoderRegistry = <span class="keyword">new</span> EncoderRegistry( <span class="key">charset</span>: <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span> )
     <span class="comment">//try to get an existing page</span>
-    <span class="keyword">def</span> page
     localPage = parseBody(pageBody, anchors, pageAnchors)
 
     <span class="keyword">def</span> localHash = MD5(localPage)
@@ -1608,14 +1627,18 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
                 [ <span class="key">type</span>: <span class="string"><span class="delimiter">'</span><span class="content">page</span><span class="delimiter">'</span></span>, <span class="key">id</span>: parentId]
         ]
     }
+
+    <span class="keyword">def</span> pages
     trythis {
-        page = api.get(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">content</span><span class="delimiter">'</span></span>,
-                <span class="key">query</span>: [
-                        <span class="string"><span class="delimiter">'</span><span class="content">spaceKey</span><span class="delimiter">'</span></span>: confluenceSpaceKey,
-                        <span class="string"><span class="delimiter">'</span><span class="content">title</span><span class="delimiter">'</span></span>   : realTitle(pageTitle),
-                        <span class="string"><span class="delimiter">'</span><span class="content">expand</span><span class="delimiter">'</span></span>  : <span class="string"><span class="delimiter">'</span><span class="content">body.storage,version</span><span class="delimiter">'</span></span>
-                ], <span class="key">headers</span>: headers).data.results[<span class="integer">0</span>]
+        <span class="keyword">def</span> cql = <span class="string"><span class="delimiter">&quot;</span><span class="content">space='</span><span class="inline"><span class="inline-delimiter">${</span>confluenceSpaceKey<span class="inline-delimiter">}</span></span><span class="content">' AND type=page AND title~'</span><span class="delimiter">&quot;</span></span> + realTitle(pageTitle) + <span class="string"><span class="delimiter">&quot;</span><span class="content">'</span><span class="delimiter">&quot;</span></span>
+        pages = api.get(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">content/search</span><span class="delimiter">'</span></span>,
+                        <span class="key">query</span>: [<span class="string"><span class="delimiter">'</span><span class="content">cql</span><span class="delimiter">'</span></span> : cql,
+                                <span class="string"><span class="delimiter">'</span><span class="content">expand</span><span class="delimiter">'</span></span>  : <span class="string"><span class="delimiter">'</span><span class="content">body.storage,version</span><span class="delimiter">'</span></span>
+                               ], <span class="key">headers</span>: headers).data.results
     }
+
+    <span class="keyword">def</span> page = pages.find { p -&gt; p.title.equalsIgnoreCase(realTitle(pageTitle)) }
+
     <span class="keyword">if</span> (page) {
         <span class="comment">//println &quot;found existing page: &quot; + page.id +&quot; version &quot;+page.version.number</span>
 
@@ -2382,14 +2405,14 @@ Then it is likely that the data is available as excel sheet or you would like to
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Formulars containes in your Workbook are evaluated and exported statically.
+Formulas contained in your worksheet are evaluated and exported statically.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
 <p>The generated files are written to <code>src/excel/[filename]/[worksheet].(adoc|cvs)</code> .
-The <code>src</code> and not <code>build</code> folder is chosen mainly to get a better history for all changes on the worksheets.</p>
+The <code>src</code> folder is chosen over the <code>build</code> folder to get a better history for all changes on the worksheets.</p>
 </div>
 <div class="paragraph">
 <p>The files can be included either as AsciiDoc</p>
@@ -2422,7 +2445,7 @@ include::excel/Sample.xlsx/Numerisch.csv[]
 <p>line breaks are preserved</p>
 </li>
 <li>
-<p>column width&#8201;&#8212;&#8201;relative to other columns is preserved</p>
+<p>column width relative to other columns is preserved</p>
 </li>
 <li>
 <p>background colors are preserved.</p>
@@ -2636,7 +2659,7 @@ use `gradle exportExcel` to re-export files
 </div>
 <div class="paragraph">
 <p>This task invokes the <a href="https://github.com/aim42/htmlSanityCheck">htmlSanityCheck</a> gradle plugin.
-It is a Standalone (batch- and command-line) html sanity checker - detects missing images, dead links, duplicate bookmarks.</p>
+It is a standalone (batch- and command-line) html sanity checker - it detects missing images, dead links, and duplicate bookmarks.</p>
 </div>
 <div class="paragraph">
 <p>In docToolchain, this task is used to ensure that the generated HTML contains no missing links or other problems.</p>
@@ -2648,7 +2671,7 @@ It is a Standalone (batch- and command-line) html sanity checker - detects missi
 <div class="content">
 <img src="images/manual/htmlSanityCheck.png" alt="htmlSanityCheck">
 </div>
-<div class="title">Figure 3. sample report</div>
+<div class="title">Figure 2. sample report</div>
 </div>
 <div class="paragraph">
 <p>Further information can be found on github: <a href="https://github.com/aim42/htmlSanityCheck" class="bare">https://github.com/aim42/htmlSanityCheck</a></p>
@@ -2686,13 +2709,125 @@ Quite helpful to keep all dependencies up-to-date.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_further_reading">4. Further Reading</h2>
+<h2 id="_faq_frequently_asked_questions">4. FAQ: Frequently asked Questions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section tries to answer the most common and frequently asked questions about how to work with docToolchain.
+It will also contain questions relevant to the tools used to build docToolchain, but the main focus is docToolchain itself.</p>
+</div>
+<div class="paragraph">
+<p>If you are stuck, make sure that you also check other sources like <a href="https://stackoverflow.com/questions/tagged/asciidoctor">stackoverflow</a>.</p>
+</div>
+<div class="paragraph">
+<p>There is also a great FAQ for all your arc42 questions: <a href="http://faq.arc42.org/home/" class="bare">http://faq.arc42.org/home/</a></p>
+</div>
+<div class="paragraph">
+<p>If you have a question or problem for which you can&#8217;t find a solution, you can</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>for this repo, add your question and create a pull request</p>
+</li>
+<li>
+<p>raise the issue through the <a href="https://github.com/docToolchain/docToolchain/issues">github issue tracker</a></p>
+</li>
+<li>
+<p>ask your question on <a href="https://stackoverflow.com/questions/tagged/doctoolchain?sort=active&amp;pageSize=50">stackoverflow</a></p>
+</li>
+<li>
+<p>discuss the problem on <a href="https://t.co/lnqrUc1YMM">slack</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_images">4.1. Images</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://asciidoctor.org/docs/user-manual/#images">Asciidoctor User Manual on images</a></p>
+</li>
+<li>
+<p><a href="http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#images">Asciidoctor Quick Reference on images</a></p>
+</li>
+<li>
+<p><a href="http://asciidoctor.org/docs/asciidoc-writers-guide/#images">Asciidoctor Writer Guide on images</a></p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_q_why_are_images_not_shown_in_the_preview_of_my_editor">4.1.1. Q: Why are images not shown in the preview of my editor?</h4>
+<div class="paragraph">
+<p>A: this is most likely because your editor doesn&#8217;t know where they are stored.
+If you follow the default settings, you probably store your images in a subfolder <code>images</code>.
+The build script knows about it, because the attribute <code>imagesdir</code> has been set to <code>./images</code>, but your editor doesn&#8217;t care about the build script - it only checks the currently opened AsciiDoc file.</p>
+</div>
+<div class="paragraph">
+<p>The solution is to add a line to each file which checks if the <code>imagesdir</code> is set and if not, sets it to a valid value:</p>
+</div>
+<div class="paragraph">
+<p><code>ifndef::imagesdir[:imagesdir: ../images]</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_q_which_image_format_should_i_use">4.1.2. Q: Which image format should I use?</h4>
+<div class="paragraph">
+<p>A: AsciiDoc and asciidoctor support several formats like GIF, PNG, JPG and SVG.
+However, if you want to use most features, some formats are better to use than others:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">GIF</dt>
+<dd>
+<p>is not supported by the PDF renderer. Use JPG or PNG instead.</p>
+</dd>
+<dt class="hdlist1">JPG</dt>
+<dd>
+<p>is great for photos but not for digrams (you might get compression artefacts).
+So, if you want to use photos from your flipcharts - JPG might work for you.</p>
+</dd>
+<dt class="hdlist1">SVG</dt>
+<dd>
+<p>great for high resolution diagrams, but not good supported by DOCX as output format.
+OpenOffice Writer might display the image a bit stretched, MS Word didn&#8217;t display it at all in some experiments.</p>
+</dd>
+<dt class="hdlist1">PNG</dt>
+<dd>
+<p>this is the preferred format for images used with docToolchain.
+All output formats support it and if diagrams are rendered with a resolution high enough to display all details, it will also be scaled ok with all output formats.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_q_why_are_my_images_rotated_in_the_output">4.1.3. Q: Why are my images rotated in the output?</h4>
+<div class="paragraph">
+<p>A: This most likely happens when you&#8217;ve taken photos with a mobile device and include them in you docs.
+A mobile device does not rotate the image itself, it only stores the orientation of the device in the meta data of the photo.
+Your operating system will show you the image as expected, but the rendered AsciiDoc will not.
+This can be „fixed“ with Imagemagick, use convert -auto-orient or mogrify -auto-orient (thanx to <a href="https://twitter.com/RalfDMueller/status/920888868345384960">@rotnroll666</a> for this tip).
+YOu can also try to just open the image in your favourite editor and re-save it.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_plantuml">4.2. PlantUML</h3>
+<div class="paragraph">
+<p>TODO</p>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_further_reading">5. Further Reading</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This chapter lists some additional references to interesting resources.</p>
 </div>
 <div class="sect2">
-<h3 id="_links">4.1. Links</h3>
+<h3 id="_links">5.1. Links</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2731,7 +2866,7 @@ Quite helpful to keep all dependencies up-to-date.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_books">4.2. Books</h3>
+<h3 id="_books">5.2. Books</h3>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -2739,13 +2874,13 @@ Quite helpful to keep all dependencies up-to-date.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-links to amazon are affiliate links
+links to Amazon are affiliate links
 </td>
 </tr>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_english_books">4.2.1. English Books</h4>
+<h4 id="_english_books">5.2.1. English Books</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2767,7 +2902,7 @@ links to amazon are affiliate links
 </div>
 </div>
 <div class="sect3">
-<h4 id="_german_books">4.2.2. German Books</h4>
+<h4 id="_german_books">5.2.2. German Books</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2781,9 +2916,9 @@ links to amazon are affiliate links
 </div>
 </div>
 <div class="sect2">
-<h3 id="_past_and_upcoming_talks">4.3. Past and upcoming Talks</h3>
+<h3 id="_past_and_upcoming_talks">5.3. Past and upcoming Talks</h3>
 <div class="sect3">
-<h4 id="_dokumentation_am_riesen_beispiel_arc42_asciidoc_und_co_in_aktion">4.3.1. Dokumentation am (Riesen-)Beispiel – arc42, AsciiDoc und Co. in Aktion</h4>
+<h4 id="_dokumentation_am_riesen_beispiel_arc42_asciidoc_und_co_in_aktion">5.3.1. Dokumentation am (Riesen-)Beispiel – arc42, AsciiDoc und Co. in Aktion</h4>
 <div class="paragraph">
 <p><a href="https://twitter.com/gernotstarke">Gernot Starke</a> and <a href="https://twitter.com/ralfdmueller">Ralf D. Müller</a></p>
 </div>
@@ -2809,7 +2944,7 @@ Einige Teile dieser Doku können Sie sogar automatisiert testen.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_gesunde_dokumentation_mit_asciidoctor">4.3.2. Gesunde Dokumentation mit Asciidoctor</h4>
+<h4 id="_gesunde_dokumentation_mit_asciidoctor">5.3.2. Gesunde Dokumentation mit Asciidoctor</h4>
 <div class="paragraph">
 <p><a href="https://twitter.com/ahus1de">Alexander Schwartz</a></p>
 </div>
@@ -2836,14 +2971,14 @@ Einige Teile dieser Doku können Sie sogar automatisiert testen.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_acknowledgements_and_contributors">5. Acknowledgements and Contributors</h2>
+<h2 id="_acknowledgements_and_contributors">6. Acknowledgements and Contributors</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This project is an open source project which is based on community efforts.</p>
 </div>
 <div class="paragraph">
 <p>Many people are involved in the underlying technologies like AsciiDoc, Asciidoctor, Gradle, arc42 etc.
-This project depends and build on them.</p>
+This project depends and builds on them.</p>
 </div>
 <div class="paragraph">
 <p>But it even more depends on the direct contributions made through giving feedback, creating issues, answering questions or sending pull requests.</p>
@@ -2877,14 +3012,26 @@ This project depends and build on them.</p>
 <li>
 <p><a href="https://github.com/mojavelinux">Dan Allen</a></p>
 </li>
+<li>
+<p><a href="https://github.com/dl1ely">Stefan Pfeiffer</a></p>
+</li>
+<li>
+<p><a href="https://github.com/isidorotrevino">isidorotrevino</a></p>
+</li>
+<li>
+<p><a href="https://github.com/jakubjab">jakubjab</a></p>
+</li>
 </ul>
+</div>
+<div class="paragraph">
+<p>(please update your entry to match your preferences! :-)</p>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-09-25 21:54:12 CEST
+Last updated 2017-10-22 15:04:55 MESZ
 </div>
 </div>
 </body>
