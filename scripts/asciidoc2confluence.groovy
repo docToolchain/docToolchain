@@ -373,15 +373,22 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
     }
 
     def pages
+    def foreignPages
     trythis {
-        def cql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
+        def cql = "space='${confluenceSpaceKey}' AND type=page AND parent=${parentId} AND title~'" + realTitle(pageTitle) + "'"
         pages = api.get(path: 'content/search',
                         query: ['cql' : cql,
                                 'expand'  : 'body.storage,version'
                                ], headers: headers).data.results
+
+        def foreignCql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
+        foreignPages = api.get(path: 'content/search',
+                               query: ['cql' : foreignCql],
+                               headers: headers).data.results
     }
 
     def page = pages.find { p -> p.title.equalsIgnoreCase(realTitle(pageTitle)) }
+    def foreignPage = foreignPages.find { p -> p.title.equalsIgnoreCase(realTitle(pageTitle)) }
 
     if (page) {
         //println "found existing page: " + page.id +" version "+page.version.number
@@ -407,8 +414,8 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
                 request.id      = page.id
                 request.version = [number: (page.version.number as Integer) + 1]
                 def res = api.put(contentType: ContentType.JSON,
-                        requestContentType : ContentType.JSON,
-                        path: 'content/' + page.id, body: request, headers: headers)
+                                  requestContentType : ContentType.JSON,
+                                  path: 'content/' + page.id, body: request, headers: headers)
             }
             println "> updated page"+page.id
             deferredUpload.each {
@@ -418,11 +425,17 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
             return page.id
         }
     } else {
+        if (foreignPage) {
+            throw new IllegalArgumentException("Cannot create page, page with the same "
+                + "title=${foreignPage.title} "
+                + "and id=${foreignPage.id} already exists in the space")
+        }
+
         //create a page
         trythis {
             page = api.post(contentType: ContentType.JSON,
-                    requestContentType: ContentType.JSON,
-                    path: 'content', body: request, headers: headers)
+                            requestContentType: ContentType.JSON,
+                            path: 'content', body: request, headers: headers)
         }
         println "> created page "+page?.data?.id
         deferredUpload.each {
