@@ -374,7 +374,10 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
 
     def pages
     trythis {
-        def cql = "space='${confluenceSpaceKey}' AND type=page AND parent=${parentId} AND title~'" + realTitle(pageTitle) + "'"
+        def cql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
+        if (parentId) {
+            cql += " AND parent=${parentId}"
+        }
         pages = api.get(path: 'content/search',
                         query: ['cql' : cql,
                                 'expand'  : 'body.storage,version'
@@ -418,20 +421,22 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
             return page.id
         }
     } else {
-        def foreignPages
-        trythis {
-            def foreignCql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
-            foreignPages = api.get(path: 'content/search',
-                                   query: ['cql' : foreignCql],
-                                   headers: headers).data.results
-        }
+        if (parentId) {
+            def foreignPages
+            trythis {
+                def foreignCql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
+                foreignPages = api.get(path: 'content/search',
+                                      query: ['cql' : foreignCql],
+                                    headers: headers).data.results
+            }
 
-        def foreignPage = foreignPages.find { p -> p.title.equalsIgnoreCase(realTitle(pageTitle)) }
+            def foreignPage = foreignPages.find { p -> p.title.equalsIgnoreCase(realTitle(pageTitle)) }
 
-        if (foreignPage) {
-            throw new IllegalArgumentException("Cannot create page, page with the same "
-                + "title=${foreignPage.title} "
-                + "and id=${foreignPage.id} already exists in the space")
+            if (foreignPage) {
+                throw new IllegalArgumentException("Cannot create page, page with the same "
+                    + "title=${foreignPage.title} "
+                    + "and id=${foreignPage.id} already exists in the space")
+            }
         }
 
         //create a page
