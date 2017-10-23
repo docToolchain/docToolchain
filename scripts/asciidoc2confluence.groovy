@@ -373,22 +373,15 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
     }
 
     def pages
-    def foreignPages
     trythis {
         def cql = "space='${confluenceSpaceKey}' AND type=page AND parent=${parentId} AND title~'" + realTitle(pageTitle) + "'"
         pages = api.get(path: 'content/search',
                         query: ['cql' : cql,
                                 'expand'  : 'body.storage,version'
                                ], headers: headers).data.results
-
-        def foreignCql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
-        foreignPages = api.get(path: 'content/search',
-                               query: ['cql' : foreignCql],
-                               headers: headers).data.results
     }
 
     def page = pages.find { p -> p.title.equalsIgnoreCase(realTitle(pageTitle)) }
-    def foreignPage = foreignPages.find { p -> p.title.equalsIgnoreCase(realTitle(pageTitle)) }
 
     if (page) {
         //println "found existing page: " + page.id +" version "+page.version.number
@@ -425,6 +418,16 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
             return page.id
         }
     } else {
+        def foreignPages
+        trythis {
+            def foreignCql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
+            foreignPages = api.get(path: 'content/search',
+                                   query: ['cql' : foreignCql],
+                                   headers: headers).data.results
+        }
+
+        def foreignPage = foreignPages.find { p -> p.title.equalsIgnoreCase(realTitle(pageTitle)) }
+
         if (foreignPage) {
             throw new IllegalArgumentException("Cannot create page, page with the same "
                 + "title=${foreignPage.title} "
