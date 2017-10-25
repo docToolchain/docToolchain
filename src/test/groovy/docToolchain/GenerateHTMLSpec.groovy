@@ -26,6 +26,8 @@ class GenerateHTMLSpec extends Specification {
         and: 'the output does not contain the warning "image to embed not found or not readable"'
             println result.output
             result.output.contains('image to embed not found or not readable') == false
+        and: 'the output does not contain the warning "invalid style for listing block: plantuml'
+            result.output.contains('invalid style for listing block: plantuml') == false
     }
 
 }
