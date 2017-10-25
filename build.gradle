@@ -4,14 +4,8 @@
 
 import org.asciidoctor.gradle.AsciidoctorTask
 
-buildscript {
-    dependencies {
-        //needed as workaround for https://github.com/asciidoctor/asciidoctorj/issues/471 :
-        classpath 'org.jruby:jruby:1.7.24'
-    }
-}
 plugins {
-    id "org.asciidoctor.convert" version "1.5.6"
+    id "org.asciidoctor.convert" version "1.5.3"
     id "org.aim42.htmlSanityCheck" version "0.9.7"
     id "com.github.ben-manes.versions" version "0.15.0"
 }
@@ -45,7 +39,7 @@ ext {
 apply plugin:'groovy'
 
 dependencies {
-    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.16'
+    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15'
     // carefull!
     // asciidoctor 1.5.6 needs diagram 1.5.4.1
     // but then reveal.js is broken...
