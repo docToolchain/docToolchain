@@ -1,0 +1,21 @@
+ifndef::imagesdir[:imagesdir: ../images]
+= exportVisio
+
+image::ea/Manual/exportVisio.png[]
+
+This tasks searches for visio files in the `/src/docs` folder.
+It then exports all diagrams and element notes.
+
+== Source
+
+.build.gradle
+[source,groovy]
+----
+include::../../../scripts/exportVisio.gradle[tags=exportViso]
+----
+
+.scripts/VsioPageToPngConverter.p1
+[spource.vba]
+----
+include::../../../scripts/VsioPageToPngConverter.p1[]
+----
