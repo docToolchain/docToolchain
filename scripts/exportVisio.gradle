@@ -29,8 +29,6 @@ use `gradle exportVisio` to re-export files
         new File('src/docs/visio/readme.ad').write(readme)
         def sourcePath = new File('src/docs/.').canonicalPath
         def scriptPath = new File('scripts/VisioPageToPngConverter.ps1').canonicalPath
-        println "powershell ${scriptPath} -SourcePath ${sourcePath}"
-        logger.error "powershell ${scriptPath} -SourcePath ${sourcePath}"
         "powershell ${scriptPath} -SourcePath ${sourcePath}".executeCmd()
     }
 }

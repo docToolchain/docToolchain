@@ -65,7 +65,8 @@ Foreach($File in $VisioFiles)
             $PngFileName = "$FileBaseName-$PngFileName.png"
             $AdocFileName = $PngFileName.Replace(".png", ".adoc")
 
-            $Page.Export("$FileDirectory\$PngFileName") 
+            #TODO: this needs better logic
+            $Page.Export("$FileDirectory\images\visio\$PngFileName")
             
             $AllPageComments = ""
             ForEach($PageComment in $Page.Comments)
@@ -80,14 +81,15 @@ Foreach($File in $VisioFiles)
                 }
                 else
                 {
-                    $AllPageComments += $PageComment.Text
+                    $AllPageComments += $PageComment.Text+"`n"
                 }
             }
             If ($AllPageComments)
             {
 
                 $AdocFileName = $AdocFileName -replace '[:/\\*?|<>]','-'
-                $stream = [System.IO.StreamWriter] "$FileDirectory\$AdocFileName"
+                #TODO: this needs better logic
+                $stream = [System.IO.StreamWriter] "$FileDirectory\visio\$AdocFileName"
                 $stream.WriteLine($AllPageComments)
                 $stream.close()
             }                    

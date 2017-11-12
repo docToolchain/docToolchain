@@ -56,6 +56,25 @@ Your operating system will show you the image as expected, but the rendered Asci
 This can be „fixed“ with Imagemagick, use convert -auto-orient or mogrify -auto-orient (thanx to https://twitter.com/RalfDMueller/status/920888868345384960[@rotnroll666] for this tip).
 YOu can also try to just open the image in your favourite editor and re-save it.
 
+== exportVisio
+
+=== Q: I get an error message saying that a library is not registered when I try to run the `exportVisio`-task.
+
+----
+Ausnahme beim Festlegen von "Visible": "Das COM-Objekt des Typs "Microsoft.Office.Interop.Visio.ApplicationClass" kann nicht in den Schnittstellentyp
+"Microsoft.Office.Interop.Visio.IVApplication" umgewandelt werden. Dieser Vorgang konnte nicht durchgeführt werden, da der QueryInterface-Aufruf an die
+COM-Komponente für die Schnittstelle mit der IID "{000D0700-0000-0000-C000-000000000046}" aufgrund des folgenden Fehlers nicht durchgeführt werden konnte:
+Bibliothek nicht registriert. (Ausnahme von HRESULT: 0x8002801D (TYPE_E_LIBNOTREGISTERED))."
+In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
++ $VisioApp.Visible = $false
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], SetValueInvocationException
+    + FullyQualifiedErrorId : ExceptionWhenSetting
+----
+
+A: When Visio is installed, it registers itself as com library. It seems that this registration can break.
+You can fix this by visiting the windows system settings -> install or uninstall a program, select `visio`, select `change` and then `repair`.
+
 == PlantUML
 
 TODO
