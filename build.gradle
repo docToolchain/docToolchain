@@ -64,6 +64,8 @@ apply from: 'scripts/exportEA.gradle'
 
 apply from: 'scripts/exportPPT.gradle'
 
+apply from: 'scripts/exportVisio.gradle'
+
 apply from: 'scripts/exportChangelog.gradle'
 
 apply from: 'scripts/exportJiraIssues.gradle'

@@ -1,0 +1,32 @@
+ifndef::imagesdir[:imagesdir: ../images]
+= exportVisio
+
+image::ea/Manual/exportVisio.png[]
+
+This tasks searches for visio files in the `/src/docs` folder.
+It then exports all diagrams and element notes to `/src/docs/images/visio` and `/src/docs/visio`.
+
+* Images are stored as `/images/visio/[filename]-[pagename].png`
+* Notes are stored as `/visio/[filename]-[pagename].adoc`
+
+You can specify a file name to which the notes of a diagram are exported by starting any comment with {adoc:[filename].adoc}`. It will then be written to `/viso/[filename].adoc`.
+
+WARNING: currently, only visio files stored directly in `/src/docs` are supported. For all others, the exported files will be in the wrong location.
+
+NOTE: please close any running visio instance before starting this task.
+
+NOTE: Todos: https://github.com/docToolchain/docToolchain/issues/112[issue #112]
+
+== Source
+
+.build.gradle
+[source,groovy]
+----
+include::../../../scripts/exportVisio.gradle[tags=exportViso]
+----
+
+.scripts/VsioPageToPngConverter.p1
+[spource.vba]
+----
+include::../../../scripts/VsioPageToPngConverter.p1[]
+----
