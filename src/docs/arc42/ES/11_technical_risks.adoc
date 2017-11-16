@@ -2,6 +2,7 @@
 == Riesgos y deuda técnica
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contenido
@@ -18,3 +19,5 @@ de producto) como parte de la planeación y medición de riesgos en general.
 Lista de riesgos y/o deuda técnica, que podría incluir una medidas sugeridas para minimizar, mitigar o evitar riesgos
 o reducir la deuda técnica.
 ****
+endif::[]
+

@@ -2,6 +2,7 @@
 == Querschnittliche Konzepte
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Inhalt
@@ -54,6 +55,8 @@ nicht immer eindeutig ist):
 image:08-Crosscutting-Concepts-Structure-DE.png["Possible topics for crosscutting concepts"]
 
 ****
+endif::[]
+
 
 
 === _<Konzept 1>_

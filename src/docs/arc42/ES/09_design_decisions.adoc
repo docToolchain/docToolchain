@@ -2,6 +2,7 @@
 == Decisiones de Diseño
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contenido
@@ -12,7 +13,7 @@ Se debe usar el juicio para decidir si una decisión arquitectónica debe ser do
 central o si sería preferible documentarla localmente (Por ejemplo, dentro de una plantilla de caja blanca
 de un bloque de construcción).
 
-Evite la redundancia. Tomar de referencia la sección 4, donde ya se capturaron las decisiones más importantes 
+Evite la redundancia. Tomar de referencia la sección 4, donde ya se capturaron las decisiones más importantes
 para la arquitectura.
 
 .Motivación
@@ -25,3 +26,5 @@ Varias opciones:
 * Mayor detalle en secciones separadas por cada sección.
 * Registro de Decisiones de Arquitectura (ADR por sus siglas en inglés) para cada decisión importante.
 ****
+endif::[]
+

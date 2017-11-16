@@ -2,6 +2,7 @@
 == Requerimientos de Calidad
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 
@@ -16,14 +17,17 @@ no sean cubiertos con totalidad.
 Dado que los requerimientos de calidad tendrán mucha influencia en las decisiones arquitectónicas deben tomarse
 en cuenta los elementos importantes para las partes relacionadas que sean concretas y medibles.
 ****
+endif::[]
+
 
 === Árbol de Calidad
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contenido
-El árbol de calidad (Definido en ATAM - Método de análisis de compensación de arquitectura por sus silas en inglés) con 
-escenarios de calidad/evaluación como hojas. 
+El árbol de calidad (Definido en ATAM - Método de análisis de compensación de arquitectura por sus silas en inglés) con
+escenarios de calidad/evaluación como hojas.
 
 .Motivación
 La estructura de árbol con prioridades provee un vistazo general para un gran número de requerimientos de calidad.
@@ -36,9 +40,12 @@ El árbol de calidad es un vistazo a alto nivel de las metas de calidad y requer
 
 En cualquier caso incluya ligas a los escenarios de las siguientes secciones.
 ****
+endif::[]
+
 
 === Escenarios de calidad
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contenido
@@ -46,7 +53,7 @@ Concretización de requerimientos de calidad (que pueden ser vagos o implícitos
 
 Estos escenarios describen lo que debería pasar cuando un estímulo llega al sistema.
 
-Para los arquitectos, son importantes dos tipos de escenarios: 
+Para los arquitectos, son importantes dos tipos de escenarios:
 
 * Escenarios de uso (también llamados escenarios de aplicación o escenarios de caso de uso), que describen la reacción
 en tiempo de ejecución de un sistema a un determinado estímulo. Esto incluye también escenarios que describen la eficiencia
@@ -64,3 +71,5 @@ Cuando se requiere evaluar la arquitectura utilizando métodos como ATAM se nece
 .Forma
 Texto en forma libre o tabular.
 ****
+endif::[]
+

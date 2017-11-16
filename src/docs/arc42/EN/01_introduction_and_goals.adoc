@@ -1,6 +1,7 @@
 [[section-introduction-and-goals]]
 == Introduction and Goals
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 Describes the relevant requirements and the driving forces that software architects and development team must consider. These include
@@ -9,9 +10,12 @@ Describes the relevant requirements and the driving forces that software archite
 * quality goals for the architecture
 * relevant stakeholders and their expectations
 ****
+endif::[]
+
 
 === Requirements Overview
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contents
@@ -29,9 +33,12 @@ If requirements documents exist this overview should refer to these documents.
 
 Keep these excerpts as short as possible. Balance readability of this document with potential redundancy w.r.t to requirements documents.
 ****
+endif::[]
+
 
 === Quality Goals
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contents
@@ -44,9 +51,12 @@ If you as an architect do not know how the quality of your work will be judged â
 .Form
 A table with quality goals and concrete scenarios, ordered by priorities
 ****
+endif::[]
+
 
 === Stakeholders
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contents
@@ -66,6 +76,8 @@ These stakeholders determine the extent and the level of detail of your work and
 .Form
 Table with role names, person names, and their expectations with respect to the architecture and its documentation.
 ****
+endif::[]
+
 
 [options="header",cols="1,2,2"]
 |===

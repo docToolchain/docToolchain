@@ -105,6 +105,7 @@ tasks.withType(AsciidoctorTask) { docTask ->
             'javaVersion'         : "$javaVersion",
             'currentDate'         : "$currentDate",
             'allow-uri-read'      : true
+    
     // Here we can add the code for extensions we write.
     extensions {
         inlinemacro (name: "jira") {

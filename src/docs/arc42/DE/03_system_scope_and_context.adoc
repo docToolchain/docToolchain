@@ -3,6 +3,7 @@
 == Kontextabgrenzung
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Inhalt
@@ -26,10 +27,13 @@ Verschiedene Optionen:
 * Listen von Kommunikationspartnern mit deren Schnittstellen
 
 ****
+endif::[]
+
 
 
 === Fachlicher Kontext
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Inhalt
@@ -49,6 +53,8 @@ darstellen und die fachlichen Schnittstellen zu den Nachbarn beschreiben.
 Alternativ oder ergänzend können Sie eine Tabelle verwenden.
 Der Titel gibt den Namen Ihres Systems wieder; die drei Spalten sind: Kommunikationspartner, Eingabe, Ausgabe.
 ****
+endif::[]
+
 
 **<Diagramm und/oder Tabelle>**
 
@@ -57,6 +63,7 @@ Der Titel gibt den Namen Ihres Systems wieder; die drei Spalten sind: Kommunikat
 
 === Technischer Kontext
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Inhalt
@@ -77,6 +84,8 @@ Beispielsweise UML Deployment-Diagramme mit den Kanälen zu Nachbarsystemen,
 begleitet von einer Tabelle, die Kanäle auf Ein-/Ausgaben abbildet.
 
 ****
+endif::[]
+
 
 **<Diagramm oder Tabelle>**
 

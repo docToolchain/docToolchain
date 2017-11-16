@@ -2,6 +2,7 @@
 == Design Decisions
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contents
@@ -24,3 +25,5 @@ Various options:
 * more detailed in form of separate sections per decision
 * ADR (architecture decision record) for every important decision
 ****
+endif::[]
+

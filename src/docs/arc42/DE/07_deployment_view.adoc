@@ -3,6 +3,7 @@
 
 == Verteilungssicht
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Inhalt
@@ -49,10 +50,13 @@ Verteilungsstruktur es verlangt.
 die Prozessoren und Kanäle zeigen, sind die hier ebenfalls einsetzbar.
 
 ****
+endif::[]
+
 
 === Infrastruktur Ebene 1
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 An dieser Stelle beschreiben Sie (als Kombination von Diagrammen mit
@@ -69,6 +73,8 @@ Für mehrere Umgebungen oder alternatives Deployment
 kopieren Sie diesen Teil von arc42 für alle wichtigen Umgebungen.
 
 ****
+endif::[]
+
 
 _**<Übersichtsdiagramm>**_
 
@@ -86,6 +92,7 @@ _<Beschreibung der Zuordnung>_
 
 === Infrastruktur Ebene 2
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 An dieser Stelle können Sie den inneren Aufbau
@@ -94,6 +101,8 @@ An dieser Stelle können Sie den inneren Aufbau
 Für jedes Infrastrukturelement kopieren Sie die Struktur aus Ebene 1.
 
 ****
+endif::[]
+
 
 ==== _<Infrastrukturelement 1>_
 
