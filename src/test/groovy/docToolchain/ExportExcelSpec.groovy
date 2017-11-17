@@ -1,51 +1,53 @@
 package docToolchain
-import spock.lang.*
-import org.gradle.testkit.runner.GradleRunner
-import static org.gradle.testkit.runner.TaskOutcome.*
 
-class ExportChangeLogSpec extends Specification {
+import org.gradle.testkit.runner.GradleRunner
+import spock.lang.Shared
+import spock.lang.Specification
+import spock.lang.Stepwise
+import spock.lang.Unroll
+
+import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
+
+@Stepwise
+class ExportExcelSpec extends Specification {
 
     def gradleCommand
 
-    void 'test creation of log file'() {
-        setup: 'clean the environment'
-        when: 'remove old changelog file'
-            new File('./build/docs/changelog.adoc').delete()
-        then: 'log file does not exist'
-            new File('./build/docs/changelog.adoc').exists() == false
+    @Shared
+    def filenameList = []
+    @Shared
+    def filecontentList = []
+
+    void setupSpec() {
+        // 'get all files from the testdata folder'
+        new File('./src/test/testData/excel/Sample.xlsx/.').eachFile { file ->
+            filenameList << file.name
+            filecontentList << file.text.trim().replaceAll("\r","")
+        }
+        println filenameList
+    }
+
+    void 'test export of Excel file'() {
         when: 'the gradle task is invoked'
-            def result = GradleRunner.create()
-                    .withProjectDir(new File('.'))
-                    .withArguments(['exportChangeLog','--info'])
-                    .build()
+        def result = GradleRunner.create()
+                .withProjectDir(new File('.'))
+                .withArguments(['exportExcel', '--info'])
+                .build()
         then: 'the task has been successfully executed'
-            result.task(":exportChangeLog").outcome == SUCCESS
-        and: 'the log file has been created'
-            new File('./build/docs/changelog.adoc').exists() == true
+        result.task(":exportExcel").outcome == SUCCESS
+    }
+    @Unroll
+    void 'test exported files: #filename'() {
+        when: 'the test before exported the excel file'
+        then: 'the export file have been created'
+            new File('./src/docs/excel/Sample.xlsx/'+filename).exists() == true
         and: 'its content ends with our sample file'
-            new File('./build/docs/changelog.adoc')
+            new File('./src/docs/excel/Sample.xlsx/'+filename)
                     .text.trim().replaceAll("\r","")
-                    .endsWith("""
-| 2017-09-08 
-| Isidoro 
-| Added spanish translation for Arc42 Template 
-
-| 2017-04-09 
-| Ralf D. Mueller 
-| fix #24 template updated to V7.0 
-
-| 2017-04-08 
-| Ralf D. Mueller 
-| fixed typo 
-
-| 2016-10-03 
-| Ralf D. Mueller 
-| added jira based open issues list 
-
-| 2016-08-21 
-| Ralf D. Mueller 
-| added arc42 template as content 
-""".trim().replaceAll("\r",""))
+                    .endsWith(filecontent)
+        where: 'iterate the expected files'
+            filename << filenameList
+            filecontent << filecontentList
     }
 
 }

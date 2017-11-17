@@ -1,0 +1,11 @@
+This folder contains exported workbooks from Excel.
+
+Please note that these are generated files but reside in the `src`-folder in order to be versioned.
+
+This is to make sure that they can be used from environments other than windows.
+
+# Warning!
+
+**The contents of this folder will be overwritten with each re-export!**
+
+use `gradle exportExcel` to re-export files
