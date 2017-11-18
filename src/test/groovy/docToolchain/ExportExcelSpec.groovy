@@ -26,7 +26,7 @@ class ExportExcelSpec extends Specification {
                                     .trim()
                                     .replaceAll("\r","")
                                     // the output depends on the locale!
-                                    .replaceAll("[0-9][,][0-9]",".")
+                                    .replaceAll("([0-9])[,]([0-9])",'$1.$2')
         }
         println filenameList
     }
@@ -50,7 +50,7 @@ class ExportExcelSpec extends Specification {
                     .text.trim()
                         .replaceAll("\r","")
                         // the output depends on the locale!
-                        .replaceAll("[0-9][,][0-9]",".")
+                        .replaceAll("([0-9])[,]([0-9])",'$1.$2')
                     .endsWith(filecontent)
         where: 'iterate the expected files'
             filename << filenameList
