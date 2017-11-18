@@ -22,7 +22,11 @@ class ExportExcelSpec extends Specification {
         // 'get all files from the testdata folder'
         new File('./src/test/testData/excel/Sample.xlsx/.').eachFile { file ->
             filenameList << file.name
-            filecontentList << file.text.trim().replaceAll("\r","")
+            filecontentList << file.text
+                                    .trim()
+                                    .replaceAll("\r","")
+                                    // the output depends on the locale!
+                                    .replaceAll("[0-9][,][0-9]",".")
         }
         println filenameList
     }
@@ -43,7 +47,10 @@ class ExportExcelSpec extends Specification {
             new File('./src/docs/excel/Sample.xlsx/'+filename).exists() == true
         and: 'its content ends with our sample file'
             new File('./src/docs/excel/Sample.xlsx/'+filename)
-                    .text.trim().replaceAll("\r","")
+                    .text.trim()
+                        .replaceAll("\r","")
+                        // the output depends on the locale!
+                        .replaceAll("[0-9][,][0-9]",".")
                     .endsWith(filecontent)
         where: 'iterate the expected files'
             filename << filenameList
