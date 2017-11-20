@@ -2,6 +2,7 @@
 == Cross-cutting Concepts
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Content
@@ -48,6 +49,8 @@ on this list.
 
 image:08-Crosscutting-Concepts-Structure-EN.png["Possible topics for crosscutting concepts"]
 ****
+endif::[]
+
 
 
 === _<Concept 1>_

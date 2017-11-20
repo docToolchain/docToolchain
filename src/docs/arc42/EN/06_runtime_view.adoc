@@ -2,6 +2,7 @@
 == Runtime View
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contents
@@ -29,6 +30,8 @@ There are many notations for describing scenarios, e.g.
 * ...
 
 ****
+endif::[]
+
 
 === <Runtime Scenario 1>
 

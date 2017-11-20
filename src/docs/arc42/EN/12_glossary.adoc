@@ -3,6 +3,7 @@
 
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contents
@@ -22,6 +23,8 @@ A table with columns <Term> and <Definition>.
 Potentially more columns in case you need translations.
 
 ****
+endif::[]
+
 
 [options="header"]
 |===

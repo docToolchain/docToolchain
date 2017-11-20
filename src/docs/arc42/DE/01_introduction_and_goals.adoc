@@ -2,6 +2,7 @@
 ==	Einführung und Ziele
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 Beschreibt die wesentliche Anforderungen und
@@ -12,9 +13,12 @@ berücksichtigen müssen. Dazu gehören die
 * Qualitätsziele für die Architektur
 * relevante Stakeholder und deren Erwartungshaltung
 ****
+endif::[]
+
 
 === Aufgabenstellung
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Inhalt
@@ -31,9 +35,12 @@ Sofern vorhanden sollte die Aufgabenstellung Verweise auf die entsprechenden Anf
 
 Halten Sie diese Auszüge so knapp wie möglich und wägen Sie Lesbarkeit und Redundanzfreiheit gegeneinander ab.
 ****
+endif::[]
+
 
 === Qualitätsziele
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Inhalt
@@ -52,9 +59,12 @@ Wenn Sie als Architekt nicht wissen, woran Ihre Arbeit gemessen wird, ....
 .Form
 Tabellarische Darstellung der Qualitätsziele mit möglichst konkreten Szenarien, geordnet nach Prioritäten.
 ****
+endif::[]
+
 
 === Stakeholder
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Inhalt
@@ -72,6 +82,8 @@ Sie sollten die Projektbeteiligten und -betroffenen kennen, sonst erleben Sie sp
 .Form
 Tabelle mit Rollen- oder Personennamen, sowie deren Erwartungshaltung bezüglich der Architektur und deren Dokumentation.
 ****
+endif::[]
+
 
 
 

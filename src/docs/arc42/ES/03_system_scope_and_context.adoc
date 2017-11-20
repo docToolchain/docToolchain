@@ -2,11 +2,12 @@
 == Alcance y Contexto del Sistema
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contenido
 El alcance y contexto del sistema - como lo sugiere el nombre - delimita al sistema (es decir, el alcance) de todos sus
-socios de comunicación (Usuarios y sistemas vecinos, es decir, el contexto del sistema). 
+socios de comunicación (Usuarios y sistemas vecinos, es decir, el contexto del sistema).
 System scope and context - as the name suggests - delimits your system (i.e. your scope) from all its communication partners
 (neighboring systems and users, i.e. the context of your system). Con ello se especifican las interfaces externas.
 
@@ -23,10 +24,13 @@ Varias opciones:
 * Diagramas de contexto
 * Listas de socios de comunicación y sus interfases.
 ****
+endif::[]
+
 
 
 === Contexto de Negocio
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contenido
@@ -45,6 +49,8 @@ De manera alternativa (o adicional) se puede utilizar una tabla.
 El título de la tabla es el nombre del sistema, las tres columnas contienen el nombre del socio de comunicación, las
 entradas y las salidas
 ****
+endif::[]
+
 
 **<Diagrama o Tabla>**
 
@@ -52,6 +58,7 @@ entradas y las salidas
 
 === Contexto Técnico
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contenido
@@ -60,13 +67,15 @@ el mapeo de las entradas/salidas específicas del dominio a los canales, es deci
 utiliza cual canal.
 
 .Motivación
-Muchas partes relacionadas realizan decisiones arquitectónicas basadas en las interfases técnicas entre el sistema y 
+Muchas partes relacionadas realizan decisiones arquitectónicas basadas en las interfases técnicas entre el sistema y
 su contexto. Especialmente los diseñadores de infraestructura o hardware deciden estas interfases técnicas.
 
 .Forma
-Por ejemplo, diagramas UML de despligue describiendo los canales a sistemas vecinos, junto con una tabla de 
+Por ejemplo, diagramas UML de despligue describiendo los canales a sistemas vecinos, junto con una tabla de
 mapeo mostrando las relaciones entre los canales y las entradas/salidas.
 ****
+endif::[]
+
 
 **<Diagrama o Tabla>**
 

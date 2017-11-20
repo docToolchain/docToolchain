@@ -2,12 +2,19 @@
 task exportChangeLog(
         description: 'exports the change log from a git subpath',
         group: 'docToolchain'
-) doLast {
-    // https://git-scm.com/docs/pretty-formats
-    def changes = "git log --pretty=format:%x7c%x20%ad%x20%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n --date=short ./src/docs/arc42".execute().text
-    new File(targetDir).mkdirs()
-    def changelog = new File(targetDir, 'changelog.adoc')
-    logger.info "> changelog exported"
-    changelog.write(changes)
+) {
+    doFirst {
+        logger.error ">>>>>> do First"
+        new File(targetDir).mkdirs()
+    }
+    doLast {
+        logger.error ">>>>>>>>> do now"
+        // https://git-scm.com/docs/pretty-formats
+        def changes = "git log --pretty=format:%x7c%x20%ad%x20%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n --date=short ./src/docs/arc42".execute().text
+        def changelog = new File(targetDir, 'changelog.adoc')
+        logger.error changelog.canonicalPath
+        logger.info "> changelog exported"
+        changelog.write(changes)
+    }
 }
 //end::exportChangeLog[]

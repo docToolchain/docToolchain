@@ -2,10 +2,11 @@
 == Conceptos Transversales (Cross-cutting)
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contenido
-Esta sección describe de manera general, las principales ideas de solución y regulación que 
+Esta sección describe de manera general, las principales ideas de solución y regulación que
 son relevantes en multiples partes (-> cross-cutting/transversales) del sistema.
 Dichos conceptos están relacionados usualmente a múltiples bloques de construcción.
 Pueden incluir diversos temas, tales como:
@@ -39,7 +40,7 @@ La estructura potencial (pero no obligatoria) para esta sección podría ser:
 * Conceptos de experiencia de usuario (UX)
 * Conceptos de seguridad
 * Patrones de diseño y arquitectura
-* 
+*
 A potential (but not mandatory) structure for this section could be:
 
 * Domain concepts
@@ -54,6 +55,8 @@ Nota: Puede ser difícil asignar conceptos individuales a un tema específico de
 
 image:08-Crosscutting-Concepts-Structure-EN.png["Posibles temas para conceptos transversales"]
 ****
+endif::[]
+
 
 
 === _<Concepto 1>_

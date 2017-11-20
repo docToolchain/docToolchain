@@ -2,6 +2,7 @@
 == Estrategia de solución
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contenido
@@ -19,9 +20,11 @@ o de arquitectura.
 Estas decisiones son las piedras angulares de la arquitectura. Son la base de muchas otras decisiones detalladas o reglas de implementación.
 
 .Forma
-Realice la explicación de las deciciones clave de manera breve. 
+Realice la explicación de las deciciones clave de manera breve.
 
 Justifique las decisiones y porque se realizaron de esa manera, basado en el planteamiento del problema,
 las metas de calidad y restricciones clave.
 Refierase a los detalles en las secciones posteriores.
 ****
+endif::[]
+

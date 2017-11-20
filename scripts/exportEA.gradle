@@ -43,7 +43,7 @@ task exportEA(
         description: 'exports all diagrams and some texts from EA files',
         group: 'docToolchain'
 ) {
-    doLast {
+    doFirst {
         //make sure path for notes exists
         //and remove old notes
         new File('src/docs/ea').deleteDir()
@@ -66,6 +66,8 @@ use `gradle exportEA` to re-export files
         new File('src/docs/images/ea/readme.ad').write(readme)
         new File('src/docs/ea/.').mkdirs()
         new File('src/docs/ea/readme.ad').write(readme)
+    }
+    doLast {
         //execute through cscript in order to make sure that we get WScript.echo right
         "%SystemRoot%\\System32\\cscript.exe //nologo scripts/exportEAP.vbs".executeCmd()
         //the VB Script is only capable of writing iso-8859-1-Files.

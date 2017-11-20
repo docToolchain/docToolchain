@@ -1,0 +1,48 @@
+[options="header",cols="25,25,25,25"]
+|===
+2+.>| ColSpan
+{set:cellbgcolor:#595959}
+
+.>| a
+{set:cellbgcolor!}
+.>| j
+
+.>| 1
+3+.>| 2
+{set:cellbgcolor:#ffc000}
+
+
+
+.>| 3
+{set:cellbgcolor!}
+.>| 4
+.>| f
+.>| 7
+
+.>| 5
+2+.>| 6
+{set:cellbgcolor:#00b0f0}
+
+.>| 8
+{set:cellbgcolor!}
+
+.>| a
+.2+^.^| b
+{set:cellbgcolor:#ffff00}
+.>| c
+{set:cellbgcolor!}
+.>| d
+
+.>| e
+
+2.2+^.^| g
+{set:cellbgcolor:#92d050}
+
+
+.>| i
+{set:cellbgcolor!}
+.>| j
+
+
+
+|===
