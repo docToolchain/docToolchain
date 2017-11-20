@@ -2,6 +2,7 @@
 == Laufzeitsicht
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Inhalt
@@ -41,6 +42,8 @@ Nutzen Sie beispielsweise:
 * ...
 
 ****
+endif::[]
+
 
 === _<Bezeichnung Laufzeitszenario 1>_
 

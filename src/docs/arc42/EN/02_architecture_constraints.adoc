@@ -2,6 +2,7 @@
 == Architecture Constraints
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contents
@@ -17,3 +18,5 @@ If needed you can subdivide them into
 technical constraints, organizational and political constraints and
 conventions (e.g. programming or versioning guidelines, documentation or naming conventions)
 ****
+endif::[]
+

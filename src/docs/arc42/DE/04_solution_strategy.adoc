@@ -2,6 +2,7 @@
 == Lösungsstrategie
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Inhalt
@@ -22,3 +23,5 @@ Motivieren Sie ausgehend von Aufgabenstellung, Qualitätszielen und Randbedingun
 was Sie entschieden haben und warum Sie so entschieden haben.
 Verweisen Sie eher auf weitere Ausführungen in Folgeabschnitten.
 ****
+endif::[]
+

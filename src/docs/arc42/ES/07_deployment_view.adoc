@@ -3,6 +3,7 @@
 
 == Vista de Despliegue
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Contenido
@@ -27,17 +28,20 @@ El hardware subyacente puede influenciar el sistema o algunos conceptos entrecru
 la infraestructura.
 
 .Forma
-Quizá el más alto nivel de diagrama de despliegue esté contenido en la sección 3.2. como contexto técnico con la 
-propia infraestructura como UNA caja negra. En esta sección se deberá realizar un acercamiento a ésta caja negra 
+Quizá el más alto nivel de diagrama de despliegue esté contenido en la sección 3.2. como contexto técnico con la
+propia infraestructura como UNA caja negra. En esta sección se deberá realizar un acercamiento a ésta caja negra
 utilizando diagramas de despliegue adicionales:
 
 * UML provee diagramas de despliegue para expresar la vista. Uselos, probablemente con diagramas anidados.
 * Cuando las partes relacionadas de Hardware prefieran otro tipo de diagramas además de los diagramas de despliegue,
 permítales usar cualquier tipo que permita mostrar los nodos y canales de la infraestructura.
 ****
+endif::[]
+
 
 === Nivel de infraestructura 1
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 Describa (Usualmente en una combinación de diagramas, tablas y texto):
@@ -50,6 +54,8 @@ conexiones físicas entre ellos
 
 Para múltiples ambientes o despliegues alternativos copie esta sección para todos los ambientes relevantes.
 ****
+endif::[]
+
 
 _**<Diagrama General>**_
 
@@ -67,12 +73,15 @@ _<Descripción del mapeo>_
 
 === Nivel de Infraestructura 2
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 Aquí puede incluir la estructura interna de (algunos) elementos de infraestructura del nivel 1.
 
 Copie la estructura del nivel 1 para cada elemento elegido.
 ****
+endif::[]
+
 
 ==== _<Elemento de Infraestructura 1>_
 

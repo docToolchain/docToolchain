@@ -1,6 +1,7 @@
 [[section-architecture-constraints]]
 == Randbedingungen
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Inhalt
@@ -17,3 +18,5 @@ Bei Bedarf unterscheiden Sie technische, organisatorische und politische Randbed
 übergreifende Konventionen (beispielsweise Programmier- oder Versionierungsrichtlinien, Dokumentation- oder Namenskonvention)
 
 ****
+endif::[]
+

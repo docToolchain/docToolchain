@@ -3,6 +3,7 @@
 
 == Bausteinsicht
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Inhalt
@@ -35,9 +36,12 @@ der Ebene 1, jeweils zusammen mit Blackbox-Beschreibungen darin enthaltener Baus
 *Ebene 3* zoomt in einige Bausteine der Ebene 2 hinein, usw.
 
 ****
+endif::[]
+
 
 === Whitebox Gesamtsystem
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 An dieser Stelle beschreiben Sie die Zerlegung des Gesamtsystems anhand
@@ -62,6 +66,8 @@ verschiedene Optionen:
   Beispielen oder einfachen Signaturen zurecht.
 
 ****
+endif::[]
+
 
 _**<Übersichtsdiagramm>**_
 
@@ -76,6 +82,7 @@ _<Beschreibung der enhaltenen Bausteine (Blackboxen)>_
 Wichtige Schnittstellen::
 _<Beschreibung wichtiger Schnittstellen>_
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 Hier folgen jetzt Erläuterungen zu Blackboxen der Ebene 1.
@@ -98,10 +105,13 @@ Dessen Überschrift ist jeweils der Namen dieser Blackbox.
 
 
 ****
+endif::[]
+
 
 
 ==== <Name Blackbox 1>
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 An dieser Stelle beschreiben Sie die <Blackbox 1>
@@ -116,6 +126,8 @@ Hierzu gehören eventuell auch Qualitäts- und Leistungsmerkmale dieser Schnitts
 * (Optional) Offene Punkte/Probleme/Risiken
 
 ****
+endif::[]
+
 
 _<Zweck/Verantwortung>_
 
@@ -151,6 +163,7 @@ _<Blackbox-Template>_
 
 === Ebene 2
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 An dieser Stelle können Sie den inneren Aufbau
@@ -162,13 +175,18 @@ Skizzieren Sie wichtige, überraschende, riskante, komplexe oder besonders
 volatile Bausteine. Normale, einfache oder standardisierte Teile sollten
 Sie weglassen.
 ****
+endif::[]
+
 
 ==== Whitebox _<Baustein 1>_
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 ...zeigt das Innenleben von _Baustein 1_.
 ****
+endif::[]
+
 
 _<Whitebox-Template>_
 
@@ -188,6 +206,7 @@ _<Whitebox-Template>_
 
 === Ebene 3
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 An dieser Stelle können Sie den inneren Aufbau
@@ -197,14 +216,19 @@ Bei tieferen Gliederungen der Architektur kopieren Sie diesen Teil
 von arc42 für die weiteren Ebenen.
 
 ****
+endif::[]
+
 
 
 ==== Whitebox <_Baustein x.1_>
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 ...zeigt das Innenleben von _Baustein x.1_.
 ****
+endif::[]
+
 
 
 _<Whitebox-Template>_

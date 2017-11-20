@@ -3,6 +3,7 @@
 == Entwurfsentscheidungen
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Inhalt
@@ -32,3 +33,5 @@ Verschiedene Möglichkeiten:
 für jede wichtige Entscheidung
 
 ****
+endif::[]
+

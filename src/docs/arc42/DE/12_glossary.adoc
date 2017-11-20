@@ -2,6 +2,7 @@
 == Glossar
 
 
+ifeval::[{arc42help} != false]
 [role="arc42help"]
 ****
 .Inhalt
@@ -23,6 +24,8 @@ so dass alle Beteiligten
 * Zweispaltige Tabelle mit <Begriff> und <Definition>
 * Eventuell weitere Spalten mit Übersetzungen, falls notwendig.
 ****
+endif::[]
+
 
 [cols="1,2" options="header"]
 |===
