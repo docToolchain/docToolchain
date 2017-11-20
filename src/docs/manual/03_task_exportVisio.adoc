@@ -22,11 +22,11 @@ NOTE: Todos: https://github.com/docToolchain/docToolchain/issues/112[issue #112]
 .build.gradle
 [source,groovy]
 ----
-include::../../../scripts/exportVisio.gradle[tags=exportViso]
+include::../../../scripts/exportVisio.gradle[tags=exportVisio]
 ----
 
-.scripts/VsioPageToPngConverter.p1
-[spource.vba]
+.scripts/VisioPageToPngConverter.ps1
+[source]
 ----
-include::../../../scripts/VsioPageToPngConverter.p1[]
+include::../../../scripts/VisioPageToPngConverter.ps1[]
 ----
