@@ -531,8 +531,10 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#_how_to_install_doctoolchain">2. How to install docToolchain</a>
 <ul class="sectlevel2">
-<li><a href="#_default_configuration">2.1. Default configuration</a></li>
-<li><a href="#_custom_configuration">2.2. Custom configuration</a></li>
+<li><a href="#_get_the_tool">2.1. Get the tool</a></li>
+<li><a href="#_initialize_directory_for_documents">2.2. Initialize directory for documents</a></li>
+<li><a href="#_build">2.3. Build</a></li>
+<li><a href="#_publish_on_confluence">2.4. Publish on Confluence</a></li>
 </ul>
 </li>
 <li><a href="#_overview_of_available_tasks">3. Overview of available Tasks</a>
@@ -722,18 +724,15 @@ But you are not restricted to one master - you can create master docs for severa
 <h2 id="_how_to_install_doctoolchain">2. How to install docToolchain</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_default_configuration">2.1. Default configuration</h3>
+<h3 id="_get_the_tool">2.1. Get the tool</h3>
 <div class="paragraph">
-<p>Let&#8217;s get started&#8230;&#8203;</p>
-</div>
-<div class="paragraph">
-<p>Assuming that you first create your solution architecture and then the code, you simply start by getting a copy of the current docToolchain repository.
+<p>To start with docToolchain you need to get a copy of the current docToolchain repository.
 The easiest way is to clone the repository without history and remove the <code>.git</code> folder:</p>
 </div>
 <div class="listingblock">
 <div class="title">Linux with git clone</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">git clone --recursive https://github.com/docToolchain/docToolchain.git &lt;your project name&gt;
+<pre class="CodeRay highlight"><code data-lang="bash">git clone --recursive https://github.com/docToolchain/docToolchain.git &lt;docToolchain home&gt;
 rm -rf .git
 rm -rf resources/asciidoctor-reveal.js/.git
 rm -rf resources/reveal.js/.git</code></pre>
@@ -765,7 +764,7 @@ wget https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip -O
 unzip asciidoctor-reveal.js.zip
 mv asciidoctor-reveal.js-9667f5c5d926b3be48361d6d6413d3896954894c asciidoctor-reveal.js
 
-mv docToolchain-master &lt;your project name&gt;</code></pre>
+mv docToolchain-master &lt;docToolchain home&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -776,50 +775,104 @@ mv docToolchain-master &lt;your project name&gt;</code></pre>
 <div class="paragraph">
 <p>After unzipping, put the dependencies in <code>resources</code> folder, so that the structure is the same as on <a href="https://github.com/docToolchain/docToolchain/tree/master/resources">GitHub</a>.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_initialize_directory_for_documents">2.2. Initialize directory for documents</h3>
 <div class="paragraph">
-<p>This should already be enough to start a first build:</p>
+<p>The next step after getting docToolchain is to initialize a directory where your documents live. In docToolchain this
+directory is named "docDir".</p>
+</div>
+<div class="sect3">
+<h4 id="_existing_documents">2.2.1. Existing documents</h4>
+<div class="paragraph">
+<p>If you already have some existing documents in asciidoc format in your project, you need to put the configuration
+file there to inform docToolchain what and how to process. You can do that manually by copying the contents of
+template_config directory. You can also do that by running <code>initExisting</code> task.</p>
 </div>
 <div class="listingblock">
-<div class="title">linux with gradle wrapper</div>
+<div class="title">Linux initExisting example</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./gradlew</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">cd &lt;docToolchain home&gt;
+./gradlew -b init.gradle initExisting -PdocDir=&lt;your directory&gt;</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>You need to open Config.groovy file and configure names of your files properly.
+You may also change the PDF schema file to your taste.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_arc42_from_scratch">2.2.2. Arc42 from scratch</h4>
+<div class="paragraph">
+<p>If you don&#8217;t have existing documents yet, or if you need a fresh start, you can get the Arc42 template in asciidoc
+format. You can do that by manually downloading from <a href="http://arc42.org/download" class="bare">http://arc42.org/download</a>. You can also to that by running
+<code>initArc42&lt;language&gt;</code> task. Currently supported languages are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>DE - German.</p>
+</li>
+<li>
+<p>EN - English.</p>
+</li>
+<li>
+<p>ES - Spanish.</p>
+</li>
+</ul>
 </div>
 <div class="listingblock">
-<div class="title">linux with maven wrapper</div>
+<div class="title">Linux initArc42EN example</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./mvnw</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">cd &lt;docToolchain home&gt;
+./gradlew -b init.gradle initArc42EN -PdocDir=&lt;your directory&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Config.groovy file is then preconfigured to use the downloaded template.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_build">2.3. Build</h3>
+<div class="paragraph">
+<p>This should already be enough to start a first build. Due to some limitations in gradle, you need to run the build from
+the docToolchain home directory, and point docDir property to an absolute directory where your documents live.
+Alternatively you could use helper script <code>docs.sh</code> that is alongside <code>Config.groovy</code>.</p>
+</div>
+<div class="listingblock">
+<div class="title">Linux with gradle wrapper</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">./gradlew -PdocDir=&lt;your absolute directory&gt;</code></pre>
 </div>
 </div>
 <div class="listingblock">
 <div class="title">Windows with gradle wrapper</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./gradlew</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Windows with maven wrapper</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./mvnw.bat</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">gradlew -PdocDir=&lt;your absolute directory&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>As a result, you will see the progress of your build together with some warnings which you can just ignore for the moment.</p>
 </div>
 <div class="paragraph">
-<p>The first build generated some file within the <code>&lt;project&gt;/build</code> folder:</p>
+<p>The first build generated some files within the <code>&lt;your absolute directory&gt;/build</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>&lt;project&gt;:
-    build:
-        docs:
-            html5:
-                images:
-                arc42-template-de.html
-                arc42-template-end.html
-            pdf:
-                arc42-template-de.pdf</code></pre>
+<pre class="CodeRay highlight"><code>build
+|-- html5
+|   |-- arc42-template.html
+|   `-- images
+|       |-- 05_building_blocks-EN.png
+|       |-- 08-Crosscutting-Concepts-Structure-EN.png
+|       `-- arc42-logo.png
+`-- pdf
+    |-- arc42-template.pdf
+    `-- images
+        |-- 05_building_blocks-EN.png
+        |-- 08-Crosscutting-Concepts-Structure-EN.png
+        `-- arc42-logo.png</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -830,21 +883,20 @@ mv docToolchain-master &lt;your project name&gt;</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_custom_configuration">2.2. Custom configuration</h3>
+<h3 id="_publish_on_confluence">2.4. Publish on Confluence</h3>
 <div class="paragraph">
-<p>You can install docToolchain in a directory separate from your project. Then docToolchain is a standalone tool that can be
-upgraded independently from your code or used for multiple projects.
-If you want to install docToolchain separately, you need to create a copy of Config.groovy and
-ConfluenceConfig.groovy for each project. Inside each configuration file you need to specify the input and output
-folders and files.</p>
+<p>In addition to <code>Config.groovy</code> there is also a <code>scripts/ConfluenceConfig.groovy</code> file. If you are not using Confluence
+you can remove it. If you use Confluence, then you need to open this file and adapt to your environment.
+You can also create multiple copies of that file. For example you can have <code>ConfluenceConfig.groovy</code> for publishing
+official pages, and <code>MyConfluenceConfig.groovy</code> with a different Confluence space for reviews.</p>
 </div>
 <div class="paragraph">
 <p>The paths to those configuration files can be provided by giving -P option to gradlew, for example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./gradlew -PconfluenceConfigFile=$HOME/projectA/ConfluenceConfig.groovy -PmainConfigFile=$HOME/projectA/Config.groovy
-./gradlew -PconfluenceConfigFile=$HOME/projectB/ConfluenceConfig.groovy -PmainConfigFile=$HOME/projectB/Config.groovy</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">./gradlew -PdocDir=&lt;your absolute directory&gt; # uses scripts/ConfluenceConfig.groovy by default
+./gradlew -PdocDir=&lt;your absolute directory&gt; -PconfluenceConfigFile=scripts/MyConfluenceConfig.groovy</code></pre>
 </div>
 </div>
 <hr>

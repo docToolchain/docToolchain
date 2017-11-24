@@ -26,25 +26,13 @@ class ExportChangeLogSpec extends Specification {
             new File('./build/docs/changelog.adoc')
                     .text.trim().replaceAll("\r","")
                     .endsWith("""
-| 2017-09-08 
-| Isidoro 
-| Added spanish translation for Arc42 Template 
+| 2017-10-14 
+| Jakub J Jablonski 
+| Replace reveal.js with submodule. 
 
-| 2017-04-09 
+| 2017-09-02 
 | Ralf D. Mueller 
-| fix #24 template updated to V7.0 
-
-| 2017-04-08 
-| Ralf D. Mueller 
-| fixed typo 
-
-| 2016-10-03 
-| Ralf D. Mueller 
-| added jira based open issues list 
-
-| 2016-08-21 
-| Ralf D. Mueller 
-| added arc42 template as content 
+| first reveal.js demo 
 """.trim().replaceAll("\r",""))
     }
 

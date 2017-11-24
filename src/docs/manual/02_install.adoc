@@ -1,16 +1,14 @@
 = How to install docToolchain
 
-== Default configuration
+== Get the tool
 
-Let's get started...
-
-Assuming that you first create your solution architecture and then the code, you simply start by getting a copy of the current docToolchain repository.
+To start with docToolchain you need to get a copy of the current docToolchain repository.
 The easiest way is to clone the repository without history and remove the `.git` folder:
 
 .Linux with git clone
 [source,bash]
 ----
-git clone --recursive https://github.com/docToolchain/docToolchain.git <your project name>
+git clone --recursive https://github.com/docToolchain/docToolchain.git <docToolchain home>
 rm -rf .git
 rm -rf resources/asciidoctor-reveal.js/.git
 rm -rf resources/reveal.js/.git
@@ -40,7 +38,7 @@ wget https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip -O
 unzip asciidoctor-reveal.js.zip
 mv asciidoctor-reveal.js-9667f5c5d926b3be48361d6d6413d3896954894c asciidoctor-reveal.js
 
-mv docToolchain-master <your project name>
+mv docToolchain-master <docToolchain home>
 ----
 
 
@@ -55,66 +53,100 @@ After unzipping, put the dependencies in `resources` folder, so that the structu
 //(New-Object Net.WebClient).DownloadFile('https://github.com/docToolchain/docToolchain/archive/master.zip','master.zip')
 //----
 
-This should already be enough to start a first build:
+== Initialize directory for documents
 
+The next step after getting docToolchain is to initialize a directory where your documents live. In docToolchain this
+directory is named "docDir".
 
-.linux with gradle wrapper
+=== Existing documents
+
+If you already have some existing documents in asciidoc format in your project, you need to put the configuration
+file there to inform docToolchain what and how to process. You can do that manually by copying the contents of 
+template_config directory. You can also do that by running `initExisting` task.
+
+.Linux initExisting example
 [source, bash]
 ----
-./gradlew
+cd <docToolchain home>
+./gradlew -b init.gradle initExisting -PdocDir=<your directory>
 ----
 
-.linux with maven wrapper
+You need to open Config.groovy file and configure names of your files properly.
+You may also change the PDF schema file to your taste.
+
+=== Arc42 from scratch
+
+If you don't have existing documents yet, or if you need a fresh start, you can get the Arc42 template in asciidoc
+format. You can do that by manually downloading from http://arc42.org/download. You can also to that by running
+`initArc42<language>` task. Currently supported languages are:
+
+- DE - German.
+- EN - English.
+- ES - Spanish.
+
+.Linux initArc42EN example
 [source, bash]
 ----
-./mvnw
+cd <docToolchain home>
+./gradlew -b init.gradle initArc42EN -PdocDir=<your directory>
+----
+
+The Config.groovy file is then preconfigured to use the downloaded template.
+
+== Build
+
+This should already be enough to start a first build. Due to some limitations in gradle, you need to run the build from
+the docToolchain home directory, and point docDir property to an absolute directory where your documents live.
+Alternatively you could use helper script `docs.sh` that is alongside `Config.groovy`.
+
+.Linux with gradle wrapper
+[source, bash]
+----
+./gradlew -PdocDir=<your absolute directory>
 ----
 
 .Windows with gradle wrapper
 [source, bash]
 ----
-./gradlew
-----
-
-.Windows with maven wrapper
-[source, bash]
-----
-./mvnw.bat
+gradlew -PdocDir=<your absolute directory>
 ----
 
 As a result, you will see the progress of your build together with some warnings which you can just ignore for the moment.
 
-The first build generated some file within the `<project>/build` folder:
+The first build generated some files within the `<your absolute directory>/build`:
 
 [source]
 ----
-<project>:
-    build:
-        docs:
-            html5:
-                images:
-                arc42-template-de.html
-                arc42-template-end.html
-            pdf:
-                arc42-template-de.pdf
+build
+|-- html5
+|   |-- arc42-template.html
+|   `-- images
+|       |-- 05_building_blocks-EN.png
+|       |-- 08-Crosscutting-Concepts-Structure-EN.png
+|       `-- arc42-logo.png
+`-- pdf
+    |-- arc42-template.pdf
+    `-- images
+        |-- 05_building_blocks-EN.png
+        |-- 08-Crosscutting-Concepts-Structure-EN.png
+        `-- arc42-logo.png
 ----
 
 *Congratulations!* if you see the same folder structure, you just managed to render the standard arc42 template as html and pdf!
 
 If you didn't get the right output, please raise an issue on https://github.com/docToolchain/docToolchain/issues[github]
 
-== Custom configuration
+== Publish on Confluence
 
-You can install docToolchain in a directory separate from your project. Then docToolchain is a standalone tool that can be
-upgraded independently from your code or used for multiple projects.
-If you want to install docToolchain separately, you need to create a copy of Config.groovy and
-ConfluenceConfig.groovy for each project. Inside each configuration file you need to specify the input and output
-folders and files.
+In addition to `Config.groovy` there is also a `scripts/ConfluenceConfig.groovy` file. If you are not using Confluence
+you can remove it. If you use Confluence, then you need to open this file and adapt to your environment.
+You can also create multiple copies of that file. For example you can have `ConfluenceConfig.groovy` for publishing
+official pages, and `MyConfluenceConfig.groovy` with a different Confluence space for reviews.
 
 The paths to those configuration files can be provided by giving -P option to gradlew, for example:
 
 [source, bash]
 ----
-./gradlew -PconfluenceConfigFile=$HOME/projectA/ConfluenceConfig.groovy -PmainConfigFile=$HOME/projectA/Config.groovy
-./gradlew -PconfluenceConfigFile=$HOME/projectB/ConfluenceConfig.groovy -PmainConfigFile=$HOME/projectB/Config.groovy
+./gradlew -PdocDir=<your absolute directory> # uses scripts/ConfluenceConfig.groovy by default
+./gradlew -PdocDir=<your absolute directory> -PconfluenceConfigFile=scripts/MyConfluenceConfig.groovy
 ----
