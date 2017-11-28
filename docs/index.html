@@ -775,6 +775,9 @@ mv docToolchain-master &lt;docToolchain home&gt;</code></pre>
 <div class="paragraph">
 <p>After unzipping, put the dependencies in <code>resources</code> folder, so that the structure is the same as on <a href="https://github.com/docToolchain/docToolchain/tree/master/resources">GitHub</a>.</p>
 </div>
+<div class="paragraph">
+<p>You can add &lt;docToolchain home&gt;/bin to your PATH or you can run doctoolchain with full path if you prefer.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_initialize_directory_for_documents">2.2. Initialize directory for documents</h3>
@@ -825,7 +828,7 @@ format. You can do that by manually downloading from <a href="http://arc42.org/d
 <div class="title">Linux initArc42EN example</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">cd &lt;docToolchain home&gt;
-./gradlew -b init.gradle initArc42EN -PdocDir=&lt;your directory&gt;</code></pre>
+./gradlew -b init.gradle initArc42EN -PdocDir=&lt;docDir&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -836,27 +839,30 @@ format. You can do that by manually downloading from <a href="http://arc42.org/d
 <div class="sect2">
 <h3 id="_build">2.3. Build</h3>
 <div class="paragraph">
-<p>This should already be enough to start a first build. Due to some limitations in gradle, you need to run the build from
-the docToolchain home directory, and point docDir property to an absolute directory where your documents live.
-Alternatively you could use helper script <code>docs.sh</code> that is alongside <code>Config.groovy</code>.</p>
+<p>This should already be enough to start a first build.</p>
 </div>
 <div class="listingblock">
-<div class="title">Linux with gradle wrapper</div>
+<div class="title">Linux</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./gradlew -PdocDir=&lt;your absolute directory&gt;</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">doctoolchain &lt;docDir&gt; generateHTML
+doctoolchain &lt;docDir&gt; generatePDF</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Windows with gradle wrapper</div>
+<div class="title">Windows</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">gradlew -PdocDir=&lt;your absolute directory&gt;</code></pre>
+<pre class="CodeRay highlight"><code>doctoolchain.bat &lt;docDir&gt; generateHTML
+doctoolchain.bat &lt;docDir&gt; generatePDF</code></pre>
 </div>
+</div>
+<div class="paragraph">
+<p>&lt;docDir&gt; may be relative, e.g. ".", or absolute.</p>
 </div>
 <div class="paragraph">
 <p>As a result, you will see the progress of your build together with some warnings which you can just ignore for the moment.</p>
 </div>
 <div class="paragraph">
-<p>The first build generated some files within the <code>&lt;your absolute directory&gt;/build</code>:</p>
+<p>The first build generated some files within the <code>&lt;docDir&gt;/build</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -891,12 +897,15 @@ You can also create multiple copies of that file. For example you can have <code
 official pages, and <code>MyConfluenceConfig.groovy</code> with a different Confluence space for reviews.</p>
 </div>
 <div class="paragraph">
-<p>The paths to those configuration files can be provided by giving -P option to gradlew, for example:</p>
+<p>The paths to those configuration files can be provided by giving -P option to doctoolchain, for example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./gradlew -PdocDir=&lt;your absolute directory&gt; # uses scripts/ConfluenceConfig.groovy by default
-./gradlew -PdocDir=&lt;your absolute directory&gt; -PconfluenceConfigFile=scripts/MyConfluenceConfig.groovy</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"># Uses scripts/ConfluenceConfig.groovy by default
+doctoolchain &lt;docDir&gt; publishToConfluence --no-daemon -q
+
+# Uses scripts/MyConfluenceConfig.groovy
+doctoolchain &lt;docDir&gt; publishToConfluence -PconfluenceConfigFile=scripts/MyConfluenceConfig.groovy --no-daemon -q</code></pre>
 </div>
 </div>
 <hr>
@@ -2550,7 +2559,7 @@ But this isn&#8217;t implemented yet.
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>
 ) doLast {
     <span class="comment">// https://git-scm.com/docs/pretty-formats</span>
-    <span class="keyword">def</span> changes = <span class="string"><span class="delimiter">&quot;</span><span class="content">git log --pretty=format:%x7c%x20%ad%x20%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n --date=short ./src/docs/arc42</span><span class="delimiter">&quot;</span></span>.execute().text
+    <span class="keyword">def</span> changes = <span class="string"><span class="delimiter">&quot;</span><span class="content">git log --pretty=format:%x7c%x20%ad%x20%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n --date=short ./src/docs</span><span class="delimiter">&quot;</span></span>.execute().text
     <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir).mkdirs()
     <span class="keyword">def</span> changelog = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir, <span class="string"><span class="delimiter">'</span><span class="content">changelog.adoc</span><span class="delimiter">'</span></span>)
     logger.info <span class="string"><span class="delimiter">&quot;</span><span class="content">&gt; changelog exported</span><span class="delimiter">&quot;</span></span>

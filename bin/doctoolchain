@@ -1,0 +1,38 @@
+#!/bin/bash
+
+set -u
+set -e
+set -o pipefail
+
+if [[ $# -lt 2 ]]; then
+    echo '
+Usage: doctoolchain docDir [option...] [task...]
+
+docDir - Absolute directory with the documentation.
+
+You can use the same options and tasks as in underlying gradle.
+Use "doctoolchain . --help" to see available options.
+Use "doctoolchain . tasks" to see available tasks.
+
+Examples:
+
+  Generate PDF:
+    doctoolchain . generatePDF
+    
+  Generate HTML:
+    doctoolchain . generateHTML
+
+  Publish HTML to Confluence:
+    doctoolchain . publishToConfluence -PconfluenceConfigFile=ConfluenceConfig.groovy --no-daemon -q
+'
+
+    exit 1
+fi
+
+doctoolchain="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+docDir="$(unset CDPATH && cd "$1" && pwd)"
+shift
+
+cd $doctoolchain/..
+
+./gradlew --project-cache-dir $docDir/.gradle -PdocDir=$docDir "$@"
