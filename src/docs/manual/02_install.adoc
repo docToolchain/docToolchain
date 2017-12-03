@@ -53,6 +53,8 @@ After unzipping, put the dependencies in `resources` folder, so that the structu
 //(New-Object Net.WebClient).DownloadFile('https://github.com/docToolchain/docToolchain/archive/master.zip','master.zip')
 //----
 
+You can add <docToolchain home>/bin to your PATH or you can run doctoolchain with full path if you prefer.
+
 == Initialize directory for documents
 
 The next step after getting docToolchain is to initialize a directory where your documents live. In docToolchain this
@@ -88,32 +90,34 @@ format. You can do that by manually downloading from http://arc42.org/download. 
 [source, bash]
 ----
 cd <docToolchain home>
-./gradlew -b init.gradle initArc42EN -PdocDir=<your directory>
+./gradlew -b init.gradle initArc42EN -PdocDir=<docDir>
 ----
 
 The Config.groovy file is then preconfigured to use the downloaded template.
 
 == Build
 
-This should already be enough to start a first build. Due to some limitations in gradle, you need to run the build from
-the docToolchain home directory, and point docDir property to an absolute directory where your documents live.
-Alternatively you could use helper script `docs.sh` that is alongside `Config.groovy`.
+This should already be enough to start a first build.
 
-.Linux with gradle wrapper
+.Linux
 [source, bash]
 ----
-./gradlew -PdocDir=<your absolute directory>
+doctoolchain <docDir> generateHTML
+doctoolchain <docDir> generatePDF
 ----
 
-.Windows with gradle wrapper
-[source, bash]
+.Windows
+[source]
 ----
-gradlew -PdocDir=<your absolute directory>
+doctoolchain.bat <docDir> generateHTML
+doctoolchain.bat <docDir> generatePDF
 ----
+
+<docDir> may be relative, e.g. ".", or absolute.
 
 As a result, you will see the progress of your build together with some warnings which you can just ignore for the moment.
 
-The first build generated some files within the `<your absolute directory>/build`:
+The first build generated some files within the `<docDir>/build`:
 
 [source]
 ----
@@ -143,10 +147,13 @@ you can remove it. If you use Confluence, then you need to open this file and ad
 You can also create multiple copies of that file. For example you can have `ConfluenceConfig.groovy` for publishing
 official pages, and `MyConfluenceConfig.groovy` with a different Confluence space for reviews.
 
-The paths to those configuration files can be provided by giving -P option to gradlew, for example:
+The paths to those configuration files can be provided by giving -P option to doctoolchain, for example:
 
 [source, bash]
 ----
-./gradlew -PdocDir=<your absolute directory> # uses scripts/ConfluenceConfig.groovy by default
-./gradlew -PdocDir=<your absolute directory> -PconfluenceConfigFile=scripts/MyConfluenceConfig.groovy
+# Uses scripts/ConfluenceConfig.groovy by default
+doctoolchain <docDir> publishToConfluence --no-daemon -q
+
+# Uses scripts/MyConfluenceConfig.groovy
+doctoolchain <docDir> publishToConfluence -PconfluenceConfigFile=scripts/MyConfluenceConfig.groovy --no-daemon -q
 ----
