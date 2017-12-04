@@ -9,4 +9,6 @@ changelogDir = 'src/docs'
 // This command will be executed in the directory specified by changelogDir it the environment inherited from the parent process.
 // This command should produce asciidoc text directly. The exportChangelog task does not do any post-processing
 // of the output of that command.
+//
+// See also https://git-scm.com/docs/pretty-formats
 changelogCmd = 'git log --pretty=format:%x7c%x20%ad%x20%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n --date=short'

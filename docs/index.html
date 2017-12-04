@@ -2496,14 +2496,19 @@ $VisioApp.Quit()</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>As the name says, this task exports the changelog to be referenced from within your documentation - if needed.</p>
+<p>As the name says, this task exports the changelog to be referenced from within your documentation - if needed.
+The changelog is written to <code>build/docs/changelog.adoc</code>.</p>
 </div>
 <div class="paragraph">
-<p>The source is the git changelog for the path <code>src/docs</code> - it only contains the commit messages for changes on the documentation.
-All changes on the build or other sources from the repository will not show up.</p>
+<p>This task can be configured to use different source control system or different directory.
+To configure the task, copy <code>template_config/scripts/ChangelogConfig.groovy</code> to your directory and modify to your needs.
+Then give the path to your configuration file to the task using -PchangelogConfigFile=&lt;your config file&gt;.
+See the description inside the template for more details.</p>
 </div>
 <div class="paragraph">
-<p>The changelog is written to <code>build/docs/changelog.adoc</code> and contains the changes with <em>date</em>, <em>author</em> and <em>commit message</em> already formatted as AsciiDoc table content:</p>
+<p>By default the source is the Git changelog for the path <code>src/docs</code> - it only contains the commit messages for changes on the documentation.
+All changes on the build or other sources from the repository will not show up.
+By default the changelog contains the changes with <em>date</em>, <em>author</em> and <em>commit message</em> already formatted as AsciiDoc table content:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2558,8 +2563,12 @@ But this isn&#8217;t implemented yet.
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports the change log from a git subpath</span><span class="delimiter">'</span></span>,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>
 ) doLast {
-    <span class="comment">// https://git-scm.com/docs/pretty-formats</span>
-    <span class="keyword">def</span> changes = <span class="string"><span class="delimiter">&quot;</span><span class="content">git log --pretty=format:%x7c%x20%ad%x20%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n --date=short ./src/docs</span><span class="delimiter">&quot;</span></span>.execute().text
+    println <span class="string"><span class="delimiter">&quot;</span><span class="content">changelogConfigFile: </span><span class="inline"><span class="inline-delimiter">${</span>changelogConfigFile<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+    <span class="keyword">def</span> config
+    config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, changelogConfigFile).text)
+
+    <span class="keyword">def</span> cmd = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>config.changelogCmd<span class="inline-delimiter">}</span></span><span class="content"> .</span><span class="delimiter">&quot;</span></span>
+    <span class="keyword">def</span> changes = cmd.execute(<span class="predefined-constant">null</span>, <span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, config.changelogDir)).text
     <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir).mkdirs()
     <span class="keyword">def</span> changelog = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir, <span class="string"><span class="delimiter">'</span><span class="content">changelog.adoc</span><span class="delimiter">'</span></span>)
     logger.info <span class="string"><span class="delimiter">&quot;</span><span class="content">&gt; changelog exported</span><span class="delimiter">&quot;</span></span>
