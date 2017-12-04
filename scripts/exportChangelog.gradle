@@ -10,7 +10,10 @@ task exportChangeLog(
     println "changelogDir: ${config.changelogDir}"
     
     // https://git-scm.com/docs/pretty-formats
-    def changes = "${config.changelogCmd} ${config.changelogDir}".execute().text
+    def cmd = "${config.changelogCmd} ."
+    println "cmd: ${cmd}"
+    def changes = cmd.execute(null, new File(docDir, config.changelogDir)).text
+    println "changes: ${changes}"
     new File(targetDir).mkdirs()
     def changelog = new File(targetDir, 'changelog.adoc')
     logger.info "> changelog exported"

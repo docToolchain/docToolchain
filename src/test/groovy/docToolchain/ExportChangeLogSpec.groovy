@@ -16,7 +16,7 @@ class ExportChangeLogSpec extends Specification {
         when: 'the gradle task is invoked'
             def result = GradleRunner.create()
                     .withProjectDir(new File('.'))
-                    .withArguments(['exportChangeLog','--info'])
+                    .withArguments(['exportChangeLog','--info','-PchangelogConfigFile=src/test/changelogConfig.groovy'])
                     .build()
         then: 'the task has been successfully executed'
             result.task(":exportChangeLog").outcome == SUCCESS
@@ -26,21 +26,17 @@ class ExportChangeLogSpec extends Specification {
             new File('./build/docs/changelog.adoc')
                     .text.trim().replaceAll("\r","")
                     .endsWith("""
-| 2016-08-21 
+| 2017-10-25 
 | Ralf D. Mueller 
-| added arc42 template as content 
+| refined tests 
 
-| 2016-07-11 
-| Ralf D. Mueller 
-| fixed formatting 
+| 2017-09-25 
+| Jakub J Jablonski 
+| Fix failing test for PDF generation with PlantUML 
 
-| 2016-07-10 
+| 2017-09-24 
 | Ralf D. Mueller 
-| added plantUML to gradle build 
-
-| 2016-07-05 
-| Ralf D. Mueller 
-| simple asciidoc build with gradle 
+| added tests for plantUml 
 """.trim().replaceAll("\r",""))
     }
 
