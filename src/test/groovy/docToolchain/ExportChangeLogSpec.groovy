@@ -26,13 +26,21 @@ class ExportChangeLogSpec extends Specification {
             new File('./build/docs/changelog.adoc')
                     .text.trim().replaceAll("\r","")
                     .endsWith("""
-| 2017-10-14 
-| Jakub J Jablonski 
-| Replace reveal.js with submodule. 
-
-| 2017-09-02 
+| 2016-08-21 
 | Ralf D. Mueller 
-| first reveal.js demo 
+| added arc42 template as content 
+
+| 2016-07-11 
+| Ralf D. Mueller 
+| fixed formatting 
+
+| 2016-07-10 
+| Ralf D. Mueller 
+| added plantUML to gradle build 
+
+| 2016-07-05 
+| Ralf D. Mueller 
+| simple asciidoc build with gradle 
 """.trim().replaceAll("\r",""))
     }
 
