@@ -15,9 +15,6 @@ set BASEDIR=%SCRIPTDIR%..\
 set GRADLECMD=%BASEDIR%gradlew.bat
 set WORKINGDIR=%cd%\
 
-echo %WORKINGDIR%
-echo %GRADLECMD% -PdocDir=%WORKINGDIR%%1 %2 %3 %4 %5 %6 %7 %8 %9
-
 @rem Execute docToolchain
 
 %GRADLECMD% --project-cache-dir %BASEDIR%.gradle -p %BASEDIR% -PdocDir=%WORKINGDIR%%1 %2 %3 %4 %5 %6 %7 %8 %9
