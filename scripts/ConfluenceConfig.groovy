@@ -20,10 +20,10 @@ input = [
 
 // endpoint of the confluenceAPI (REST) to be used
 confluenceAPI = 'https://[yourServer]/[context]/rest/api/'
-confluenceAPI = 'http://localhost:8098/rest/api/'
+
 // the key of the confluence space to write to
 confluenceSpaceKey = 'asciidoc'
-confluenceSpaceKey = 'ARC42'
+
 // variable to determine whether ".sect2" sections shall be split from the current page into subpages
 confluenceCreateSubpages = false
 
@@ -31,13 +31,12 @@ confluenceCreateSubpages = false
 // use this if you only have access to one confluence space but need to store several
 // pages with the same title - a different pagePrefix will make them unique
 confluencePagePrefix = ''
-confluencePagePrefix = 'test6: '
+
 // username:password of an account which has the right permissions to create and edit
 // confluence pages in the given space.
 // if you want to store it securely, fetch it from some external storage.
 // you might even want to prompt the user for the password like in this example
 //confluenceCredentials = "user:${System.console().readPassword('confluence password: ')}".bytes.encodeBase64().toString()
-confluenceCredentials = 'robot:CapriSonne72'.bytes.encodeBase64().toString()
 
 // HTML Content that will be included with every page published
 // directly after the TOC. If left empty no additional content will be
