@@ -783,7 +783,7 @@ mv docToolchain-master &lt;docToolchain home&gt;</code></pre>
 <h3 id="_initialize_directory_for_documents">2.2. Initialize directory for documents</h3>
 <div class="paragraph">
 <p>The next step after getting docToolchain is to initialize a directory where your documents live. In docToolchain this
-directory is named "docDir".</p>
+directory is named "newDocDir" during initialization, or just "docDir" later on.</p>
 </div>
 <div class="sect3">
 <h4 id="_existing_documents">2.2.1. Existing documents</h4>
@@ -796,7 +796,7 @@ template_config directory. You can also do that by running <code>initExisting</c
 <div class="title">Linux initExisting example</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">cd &lt;docToolchain home&gt;
-./gradlew -b init.gradle initExisting -PdocDir=&lt;your directory&gt;</code></pre>
+./gradlew -b init.gradle initExisting -PnewDocDir=&lt;your directory&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -828,7 +828,7 @@ format. You can do that by manually downloading from <a href="http://arc42.org/d
 <div class="title">Linux initArc42EN example</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="bash">cd &lt;docToolchain home&gt;
-./gradlew -b init.gradle initArc42EN -PdocDir=&lt;docDir&gt;</code></pre>
+./gradlew -b init.gradle initArc42EN -PnewDocDir=&lt;newDocDir&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -3360,7 +3360,7 @@ This project depends and builds on them.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-18 20:07:32 CET
+Last updated 2018-01-24 21:01:10 CET
 </div>
 </div>
 </body>
