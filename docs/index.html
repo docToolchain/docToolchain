@@ -531,8 +531,10 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#_how_to_install_doctoolchain">2. How to install docToolchain</a>
 <ul class="sectlevel2">
-<li><a href="#_default_configuration">2.1. Default configuration</a></li>
-<li><a href="#_custom_configuration">2.2. Custom configuration</a></li>
+<li><a href="#_get_the_tool">2.1. Get the tool</a></li>
+<li><a href="#_initialize_directory_for_documents">2.2. Initialize directory for documents</a></li>
+<li><a href="#_build">2.3. Build</a></li>
+<li><a href="#_publish_on_confluence">2.4. Publish on Confluence</a></li>
 </ul>
 </li>
 <li><a href="#_overview_of_available_tasks">3. Overview of available Tasks</a>
@@ -722,18 +724,15 @@ But you are not restricted to one master - you can create master docs for severa
 <h2 id="_how_to_install_doctoolchain">2. How to install docToolchain</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_default_configuration">2.1. Default configuration</h3>
+<h3 id="_get_the_tool">2.1. Get the tool</h3>
 <div class="paragraph">
-<p>Let&#8217;s get started&#8230;&#8203;</p>
-</div>
-<div class="paragraph">
-<p>Assuming that you first create your solution architecture and then the code, you simply start by getting a copy of the current docToolchain repository.
+<p>To start with docToolchain you need to get a copy of the current docToolchain repository.
 The easiest way is to clone the repository without history and remove the <code>.git</code> folder:</p>
 </div>
 <div class="listingblock">
 <div class="title">Linux with git clone</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">git clone --recursive https://github.com/docToolchain/docToolchain.git &lt;your project name&gt;
+<pre class="CodeRay highlight"><code data-lang="bash">git clone --recursive https://github.com/docToolchain/docToolchain.git &lt;docToolchain home&gt;
 rm -rf .git
 rm -rf resources/asciidoctor-reveal.js/.git
 rm -rf resources/reveal.js/.git</code></pre>
@@ -765,7 +764,7 @@ wget https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip -O
 unzip asciidoctor-reveal.js.zip
 mv asciidoctor-reveal.js-9667f5c5d926b3be48361d6d6413d3896954894c asciidoctor-reveal.js
 
-mv docToolchain-master &lt;your project name&gt;</code></pre>
+mv docToolchain-master &lt;docToolchain home&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -777,49 +776,109 @@ mv docToolchain-master &lt;your project name&gt;</code></pre>
 <p>After unzipping, put the dependencies in <code>resources</code> folder, so that the structure is the same as on <a href="https://github.com/docToolchain/docToolchain/tree/master/resources">GitHub</a>.</p>
 </div>
 <div class="paragraph">
-<p>This should already be enough to start a first build:</p>
+<p>You can add &lt;docToolchain home&gt;/bin to your PATH or you can run doctoolchain with full path if you prefer.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_initialize_directory_for_documents">2.2. Initialize directory for documents</h3>
+<div class="paragraph">
+<p>The next step after getting docToolchain is to initialize a directory where your documents live. In docToolchain this
+directory is named "docDir".</p>
+</div>
+<div class="sect3">
+<h4 id="_existing_documents">2.2.1. Existing documents</h4>
+<div class="paragraph">
+<p>If you already have some existing documents in asciidoc format in your project, you need to put the configuration
+file there to inform docToolchain what and how to process. You can do that manually by copying the contents of
+template_config directory. You can also do that by running <code>initExisting</code> task.</p>
 </div>
 <div class="listingblock">
-<div class="title">linux with gradle wrapper</div>
+<div class="title">Linux initExisting example</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./gradlew</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">cd &lt;docToolchain home&gt;
+./gradlew -b init.gradle initExisting -PdocDir=&lt;your directory&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You need to open Config.groovy file and configure names of your files properly.
+You may also change the PDF schema file to your taste.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_arc42_from_scratch">2.2.2. Arc42 from scratch</h4>
+<div class="paragraph">
+<p>If you don&#8217;t have existing documents yet, or if you need a fresh start, you can get the Arc42 template in asciidoc
+format. You can do that by manually downloading from <a href="http://arc42.org/download" class="bare">http://arc42.org/download</a>. You can also to that by running
+<code>initArc42&lt;language&gt;</code> task. Currently supported languages are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>DE - German.</p>
+</li>
+<li>
+<p>EN - English.</p>
+</li>
+<li>
+<p>ES - Spanish.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Linux initArc42EN example</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">cd &lt;docToolchain home&gt;
+./gradlew -b init.gradle initArc42EN -PdocDir=&lt;docDir&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Config.groovy file is then preconfigured to use the downloaded template.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_build">2.3. Build</h3>
+<div class="paragraph">
+<p>This should already be enough to start a first build.</p>
+</div>
+<div class="listingblock">
+<div class="title">Linux</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">doctoolchain &lt;docDir&gt; generateHTML
+doctoolchain &lt;docDir&gt; generatePDF</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">linux with maven wrapper</div>
+<div class="title">Windows</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./mvnw</code></pre>
+<pre class="CodeRay highlight"><code>doctoolchain.bat &lt;docDir&gt; generateHTML
+doctoolchain.bat &lt;docDir&gt; generatePDF</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">Windows with gradle wrapper</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./gradlew</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Windows with maven wrapper</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./mvnw.bat</code></pre>
-</div>
+<div class="paragraph">
+<p>&lt;docDir&gt; may be relative, e.g. ".", or absolute.</p>
 </div>
 <div class="paragraph">
 <p>As a result, you will see the progress of your build together with some warnings which you can just ignore for the moment.</p>
 </div>
 <div class="paragraph">
-<p>The first build generated some file within the <code>&lt;project&gt;/build</code> folder:</p>
+<p>The first build generated some files within the <code>&lt;docDir&gt;/build</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>&lt;project&gt;:
-    build:
-        docs:
-            html5:
-                images:
-                arc42-template-de.html
-                arc42-template-end.html
-            pdf:
-                arc42-template-de.pdf</code></pre>
+<pre class="CodeRay highlight"><code>build
+|-- html5
+|   |-- arc42-template.html
+|   `-- images
+|       |-- 05_building_blocks-EN.png
+|       |-- 08-Crosscutting-Concepts-Structure-EN.png
+|       `-- arc42-logo.png
+`-- pdf
+    |-- arc42-template.pdf
+    `-- images
+        |-- 05_building_blocks-EN.png
+        |-- 08-Crosscutting-Concepts-Structure-EN.png
+        `-- arc42-logo.png</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -830,21 +889,23 @@ mv docToolchain-master &lt;your project name&gt;</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_custom_configuration">2.2. Custom configuration</h3>
+<h3 id="_publish_on_confluence">2.4. Publish on Confluence</h3>
 <div class="paragraph">
-<p>You can install docToolchain in a directory separate from your project. Then docToolchain is a standalone tool that can be
-upgraded independently from your code or used for multiple projects.
-If you want to install docToolchain separately, you need to create a copy of Config.groovy and
-ConfluenceConfig.groovy for each project. Inside each configuration file you need to specify the input and output
-folders and files.</p>
+<p>In addition to <code>Config.groovy</code> there is also a <code>scripts/ConfluenceConfig.groovy</code> file. If you are not using Confluence
+you can remove it. If you use Confluence, then you need to open this file and adapt to your environment.
+You can also create multiple copies of that file. For example you can have <code>ConfluenceConfig.groovy</code> for publishing
+official pages, and <code>MyConfluenceConfig.groovy</code> with a different Confluence space for reviews.</p>
 </div>
 <div class="paragraph">
-<p>The paths to those configuration files can be provided by giving -P option to gradlew, for example:</p>
+<p>The paths to those configuration files can be provided by giving -P option to doctoolchain, for example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./gradlew -PconfluenceConfigFile=$HOME/projectA/ConfluenceConfig.groovy -PmainConfigFile=$HOME/projectA/Config.groovy
-./gradlew -PconfluenceConfigFile=$HOME/projectB/ConfluenceConfig.groovy -PmainConfigFile=$HOME/projectB/Config.groovy</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"># Uses scripts/ConfluenceConfig.groovy by default
+doctoolchain &lt;docDir&gt; publishToConfluence --no-daemon -q
+
+# Uses scripts/MyConfluenceConfig.groovy
+doctoolchain &lt;docDir&gt; publishToConfluence -PconfluenceConfigFile=scripts/MyConfluenceConfig.groovy --no-daemon -q</code></pre>
 </div>
 </div>
 <hr>
@@ -2274,13 +2335,153 @@ Todos: <a href="https://github.com/docToolchain/docToolchain/issues/112">issue #
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy"></code></pre>
+<pre class="CodeRay highlight"><code data-lang="groovy">task exportVisio(
+        <span class="key">dependsOn</span>: [streamingExecute],
+        <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports all diagrams and notes from visio files</span><span class="delimiter">'</span></span>,
+        <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>
+) {
+    doLast {
+        <span class="comment">//make sure path for notes exists</span>
+        <span class="comment">//and remove old notes</span>
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/visio</span><span class="delimiter">'</span></span>).deleteDir()
+        <span class="comment">//also remove old diagrams</span>
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/images/visio</span><span class="delimiter">'</span></span>).deleteDir()
+        <span class="comment">//create a readme to clarify things</span>
+        <span class="keyword">def</span> readme = <span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">This folder contains exported diagrams and notes from visio files.
+
+Please note that these are generated files but reside in the `src`-folder in order to be versioned.
+
+This is to make sure that they can be used from environments other than windows.
+
+# Warning!
+
+**The contents of this folder        will be overwritten with each re-export!**
+
+use `gradle exportVisio` to re-export files
+</span><span class="delimiter">&quot;&quot;&quot;</span></span>
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/images/visio/.</span><span class="delimiter">'</span></span>).mkdirs()
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/images/visio/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/visio/.</span><span class="delimiter">'</span></span>).mkdirs()
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/visio/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
+        <span class="keyword">def</span> sourcePath = <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/.</span><span class="delimiter">'</span></span>).canonicalPath
+        <span class="keyword">def</span> scriptPath = <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">scripts/VisioPageToPngConverter.ps1</span><span class="delimiter">'</span></span>).canonicalPath
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">powershell </span><span class="inline"><span class="inline-delimiter">${</span>scriptPath<span class="inline-delimiter">}</span></span><span class="content"> -SourcePath </span><span class="inline"><span class="inline-delimiter">${</span>sourcePath<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>.executeCmd()
+    }
+}</code></pre>
 </div>
 </div>
-<div class="listingblock vba">
-<div class="title">scripts/VsioPageToPngConverter.p1</div>
+<div class="listingblock">
+<div class="title">scripts/VisioPageToPngConverter.ps1</div>
 <div class="content">
-<pre>Unresolved directive in manual/03_task_exportVisio.adoc - include::../../../scripts/VsioPageToPngConverter.p1[]</pre>
+<pre class="CodeRay highlight"><code># Convert all pages in all visio files in the given directory to png files.
+# A Visio windows might flash shortly.
+# The converted png files are stored in the same directory
+# The name of the png file is concatenated from the Visio file name and the page name.
+# In addtion all the comments are stored in adoc files.
+# If the Viso file is named "MyVisio.vsdx" and the page is called "FirstPage"
+# the name of the png file will be "MyVisio-FirstPage.png" and the comment will
+# be stored in "MyVisio-FirstPage.adoc".
+# But for the name of the adoc files there is an alternative. It can be given in the first
+# line of the comment. If it is given in the comment it has to be given in curly brackes
+# with the prefix "adoc:", e.g. {adoc:MyCommentFile.adoc}
+# Prerequisites: Viso and PowerShell has to be installed on the computer.
+# Parameter: SourcePath where visio files can be found
+# Example powershell VisoPageToPngConverter.ps1 -SourcePath c:\convertertest\
+
+Param
+(
+    [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=0)]
+    [Alias('p')][String]$SourcePath
+)
+
+
+If (!(Test-Path -Path $SourcePath))
+{
+    Write-Warning "The path ""$SourcePath"" does not exist or is not accessible, please input the correct path."
+    Exit
+}
+
+# Extend the source path to get only Visio files of the given directory and not in subdircetories
+If ($SourcePath.EndsWith("\"))
+{
+    $SourcePath  = "$SourcePath*"
+}
+Else
+{
+    $SourcePath  = "$SourcePath\*"
+}
+
+$VisioFiles = Get-ChildItem -Path $SourcePath -Include *.vsdx,*.vssx,*.vstx,*.vxdm,*.vssm,*.vstm,*.vsd,*.vdw,*.vss,*.vst
+
+If(!($VisioFiles))
+{
+    Write-Warning "There are no Visio files in the path ""$SourcePath""."
+    Exit
+}
+
+$VisioApp = New-Object -ComObject Visio.Application
+$VisioApp.Visible = $false
+
+# Extract the png from all the files in the folder
+Foreach($File in $VisioFiles)
+{
+    $FilePath = $File.FullName
+               $FileDirectory = $File.DirectoryName   # Get the folder containing the Visio file. Will be used to store the png and adoc files
+    $FileBaseName = $File.BaseName    # Get the filename to be used as part of the name of the png and adoc files
+
+    Try
+    {
+        $Document = $VisioApp.Documents.Open($FilePath)
+        $Pages = $VisioApp.ActiveDocument.Pages
+        Foreach($Page in $Pages)
+        {
+            # Create valid filenames for the png and adoc files
+            $PngFileName = $Page.Name -replace '[:/\\*?|&lt;&gt;]','-'
+            $PngFileName = "$FileBaseName-$PngFileName.png"
+            $AdocFileName = $PngFileName.Replace(".png", ".adoc")
+
+            #TODO: this needs better logic
+            $Page.Export("$FileDirectory\images\visio\$PngFileName")
+
+            $AllPageComments = ""
+            ForEach($PageComment in $Page.Comments)
+            {
+                # Extract adoc filename from comment text if the syntax is valid
+                # Remove the filename from the text and save the comment in a file with a valid name
+                $EofStringIndex = $PageComment.Text.IndexOf(".adoc}")
+                if ($PageComment.Text.StartsWith("{adoc") -And ($EofStringIndex -gt 6))
+                {
+                    $AdocFileName = $PageComment.Text.Substring(6, $EofStringIndex -1)
+                    $AllPageComments += $PageComment.Text.Substring($EofStringIndex + 6)
+                }
+                else
+                {
+                    $AllPageComments += $PageComment.Text+"`n"
+                }
+            }
+            If ($AllPageComments)
+            {
+
+                $AdocFileName = $AdocFileName -replace '[:/\\*?|&lt;&gt;]','-'
+                #TODO: this needs better logic
+                $stream = [System.IO.StreamWriter] "$FileDirectory\visio\$AdocFileName"
+                $stream.WriteLine($AllPageComments)
+                $stream.close()
+            }
+        }
+        $Document.Close()
+    }
+    Catch
+    {
+        if ($Document)
+        {
+            $Document.Close()
+        }
+        Write-Warning "One or more visio page(s) in file ""$FilePath"" have been lost in this converting."
+        Write-Warning "Error was: $_"
+    }
+}
+$VisioApp.Quit()</code></pre>
 </div>
 </div>
 <hr>
@@ -2295,14 +2496,19 @@ Todos: <a href="https://github.com/docToolchain/docToolchain/issues/112">issue #
 </div>
 </div>
 <div class="paragraph">
-<p>As the name says, this task exports the changelog to be referenced from within your documentation - if needed.</p>
+<p>As the name says, this task exports the changelog to be referenced from within your documentation - if needed.
+The changelog is written to <code>build/docs/changelog.adoc</code>.</p>
 </div>
 <div class="paragraph">
-<p>The source is the git changelog for the path <code>src/docs</code> - it only contains the commit messages for changes on the documentation.
-All changes on the build or other sources from the repository will not show up.</p>
+<p>This task can be configured to use different source control system or different directory.
+To configure the task, copy <code>template_config/scripts/ChangelogConfig.groovy</code> to your directory and modify to your needs.
+Then give the path to your configuration file to the task using -PchangelogConfigFile=&lt;your config file&gt;.
+See the description inside the template for more details.</p>
 </div>
 <div class="paragraph">
-<p>The changelog is written to <code>build/docs/changelog.adoc</code> and contains the changes with <em>date</em>, <em>author</em> and <em>commit message</em> already formatted as AsciiDoc table content:</p>
+<p>By default the source is the Git changelog for the path <code>src/docs</code> - it only contains the commit messages for changes on the documentation.
+All changes on the build or other sources from the repository will not show up.
+By default the changelog contains the changes with <em>date</em>, <em>author</em> and <em>commit message</em> already formatted as AsciiDoc table content:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2357,8 +2563,12 @@ But this isn&#8217;t implemented yet.
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports the change log from a git subpath</span><span class="delimiter">'</span></span>,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>
 ) doLast {
-    <span class="comment">// https://git-scm.com/docs/pretty-formats</span>
-    <span class="keyword">def</span> changes = <span class="string"><span class="delimiter">&quot;</span><span class="content">git log --pretty=format:%x7c%x20%ad%x20%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n --date=short ./src/docs/arc42</span><span class="delimiter">&quot;</span></span>.execute().text
+    println <span class="string"><span class="delimiter">&quot;</span><span class="content">changelogConfigFile: </span><span class="inline"><span class="inline-delimiter">${</span>changelogConfigFile<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+    <span class="keyword">def</span> config
+    config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, changelogConfigFile).text)
+
+    <span class="keyword">def</span> cmd = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>config.changelogCmd<span class="inline-delimiter">}</span></span><span class="content"> .</span><span class="delimiter">&quot;</span></span>
+    <span class="keyword">def</span> changes = cmd.execute(<span class="predefined-constant">null</span>, <span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, config.changelogDir)).text
     <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir).mkdirs()
     <span class="keyword">def</span> changelog = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir, <span class="string"><span class="delimiter">'</span><span class="content">changelog.adoc</span><span class="delimiter">'</span></span>)
     logger.info <span class="string"><span class="delimiter">&quot;</span><span class="content">&gt; changelog exported</span><span class="delimiter">&quot;</span></span>
@@ -3150,7 +3360,7 @@ This project depends and builds on them.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2017-11-12 18:30:32 MEZ
+Last updated 2017-11-18 20:07:32 CET
 </div>
 </div>
 </body>

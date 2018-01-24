@@ -3,8 +3,12 @@ task exportChangeLog(
         description: 'exports the change log from a git subpath',
         group: 'docToolchain'
 ) doLast {
-    // https://git-scm.com/docs/pretty-formats
-    def changes = "git log --pretty=format:%x7c%x20%ad%x20%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n --date=short ./src/docs/arc42".execute().text
+    println "changelogConfigFile: ${changelogConfigFile}"
+    def config
+    config = new ConfigSlurper().parse(new File(docDir, changelogConfigFile).text)
+    
+    def cmd = "${config.changelogCmd} ."
+    def changes = cmd.execute(null, new File(docDir, config.changelogDir)).text
     new File(targetDir).mkdirs()
     def changelog = new File(targetDir, 'changelog.adoc')
     logger.info "> changelog exported"

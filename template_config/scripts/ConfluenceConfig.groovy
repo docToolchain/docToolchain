@@ -20,10 +20,8 @@ input = [
 
 // endpoint of the confluenceAPI (REST) to be used
 confluenceAPI = 'https://[yourServer]/[context]/rest/api/'
-
 // the key of the confluence space to write to
 confluenceSpaceKey = 'asciidoc'
-
 // variable to determine whether ".sect2" sections shall be split from the current page into subpages
 confluenceCreateSubpages = false
 
@@ -31,7 +29,6 @@ confluenceCreateSubpages = false
 // use this if you only have access to one confluence space but need to store several
 // pages with the same title - a different pagePrefix will make them unique
 confluencePagePrefix = ''
-
 // username:password of an account which has the right permissions to create and edit
 // confluence pages in the given space.
 // if you want to store it securely, fetch it from some external storage.

@@ -11,7 +11,7 @@ plugins {
 }
 configurations.all {
     resolutionStrategy {
-        force 'org.codehaus.groovy:groovy-all:2.4.11'
+        force 'org.codehaus.groovy:groovy-all:2.4.12'
     }
 }
 println "compiling with Java ${System.getProperty("java.version")} at ${new Date().format("HH:mm:ss")}"
