@@ -83,7 +83,7 @@ apply from: 'scripts/htmlSanityCheck.gradle'
 // common settings for asciidoctor
 // this is needed for PDF generation with plantUML
 tasks.withType(AsciidoctorTask) { docTask ->
-  
+
     config.taskInputsDirs.each {
         inputs.dir new File(docDir, it)
     }
@@ -137,6 +137,12 @@ task generateHTML (
     attributes \
         'plantUMLDir'         : ''
 
+    onlyIf {
+        !sourceFiles.findAll {
+            'html' in it.formats
+        }.empty
+    }
+
     sources {
         sourceFiles.findAll {
             'html' in it.formats
@@ -157,6 +163,12 @@ task generatePDF (
 
     attributes \
         'plantUMLDir'         : file("${docDir}/${config.outputPath}/images/plantUML/").path
+
+    onlyIf {
+        !sourceFiles.findAll {
+            'pdf' in it.formats
+        }.empty
+    }
 
     sources {
         sourceFiles.findAll {
@@ -209,13 +221,18 @@ task generateDeck (
 
     options template_dirs : [new File('resources/asciidoctor-reveal.js','templates/slim').absolutePath ]
 
+    onlyIf {
+        !sourceFiles.findAll {
+            'revealjs' in it.formats
+        }.empty
+    }
+
     sources {
         sourceFiles.findAll {
             'revealjs' in it.formats
         }.each {
             include it.file
         }
-
     }
 
     outputDir = file(targetDir+'/decks/')
