@@ -1,5 +1,9 @@
 = dependencyUpdates
 
+image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}03_task_dependencyUpdates.adoc, float=right]
+
 This task uses the https://github.com/ben-manes/gradle-versions-plugin[Gradle versions plugin] created by Ben Manes to check for outdated build dependencies.
 Quite helpful to keep all dependencies up-to-date.
+
+WARNING: if you discover newer version, this does not mean that they will play nicely together. If you want to make sure that everything works, reply on the versions which the docToolchain contributors have selected.
 

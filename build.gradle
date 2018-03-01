@@ -104,7 +104,8 @@ tasks.withType(AsciidoctorTask) { docTask ->
             'icons': 'font',
             'javaVersion'         : "$javaVersion",
             'currentDate'         : "$currentDate",
-            'allow-uri-read'      : true
+            'allow-uri-read'      : true,
+            'manualdir'           : "https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/"
     // Here we can add the code for extensions we write.
     extensions {
         inlinemacro (name: "jira") {

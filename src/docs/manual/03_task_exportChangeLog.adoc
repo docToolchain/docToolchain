@@ -1,6 +1,8 @@
 ifndef::imagesdir[:imagesdir: ../images]
 = exportChangeLog
 
+image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}03_task_exportChangeLog.adoc, float=right]
+
 image::ea/Manual/exportChangeLog.png[]
 
 As the name says, this task exports the changelog to be referenced from within your documentation - if needed.

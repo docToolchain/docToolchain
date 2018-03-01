@@ -1,6 +1,8 @@
 ifndef::imagesdir[:imagesdir: ../images]
 = publishToConfluence
 
+image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}03_task_publishToConfluence.adoc, float=right]
+
 image::ea/Manual/publishToConfluence.png[]
 
 == Source

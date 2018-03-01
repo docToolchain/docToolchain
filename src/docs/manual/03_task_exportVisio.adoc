@@ -1,6 +1,8 @@
 ifndef::imagesdir[:imagesdir: ../images]
 = exportVisio
 
+image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}03_task_exportVisio.adoc, float=right]
+
 image::ea/Manual/exportVisio.png[]
 
 This tasks searches for visio files in the `/src/docs` folder.

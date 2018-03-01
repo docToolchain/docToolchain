@@ -1,7 +1,5 @@
 ifndef::imagesdir[:imagesdir: ../images]
-= Acknowledgements and Contributors
-
-image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}05_contributors.adoc, float=right]
+= Tutorial
 
 This project is an open source project which is based on community efforts.
 
@@ -26,5 +24,3 @@ Here is an incomplete and unordered list of contributors:
 - https://github.com/FrankPohl[Frank Pohl]
 
 (please update your entry to match your preferences! :-)
-
-image::https://img.shields.io/github/contributors/doctoolchain/doctoolchain.svg[link=https://github.com/docToolchain/docToolchain/graphs/contributors]
