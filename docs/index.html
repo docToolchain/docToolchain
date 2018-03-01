@@ -700,6 +700,186 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 <hr>
 <div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_to_install_doctoolchain">2. How to install docToolchain</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_get_the_tool">2.1. Get the tool</h3>
+<div class="paragraph">
+<p>To start with docToolchain you need to get a copy of the current docToolchain repository.
+The easiest way is to clone the repository without history and remove the <code>.git</code> folder:</p>
+</div>
+<div class="listingblock">
+<div class="title">Linux with git clone</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">git clone --recursive https://github.com/docToolchain/docToolchain.git &lt;docToolchain home&gt;
+rm -rf .git
+rm -rf resources/asciidoctor-reveal.js/.git
+rm -rf resources/reveal.js/.git</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>--recursive</code> option is required because the repository contains 2 submodules - <code>resources/asciidoctor-reveal.js</code> and <code>resources/reveal.js</code>.</p>
+</div>
+<div class="paragraph">
+<p>Another way is to download the zipped git repository and rename it:</p>
+</div>
+<div class="listingblock">
+<div class="title">Linux with download as zip</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">wget https://github.com/docToolchain/docToolchain/archive/master.zip
+unzip master.zip
+
+# fetching dependencies
+
+cd docToolchain-master/resources
+
+rm -d reveal.js
+wget https://github.com/hakimel/reveal.js/archive/tags/3.3.0.zip -O reveal.js.zip
+unzip reveal.js.zip
+mv reveal.js-tags-3.3.0 reveal.js
+
+rm -d asciidoctor-reveal.js
+wget https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip -O asciidoctor-reveal.js.zip
+unzip asciidoctor-reveal.js.zip
+mv asciidoctor-reveal.js-9667f5c5d926b3be48361d6d6413d3896954894c asciidoctor-reveal.js
+
+mv docToolchain-master &lt;docToolchain home&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you work (like me) on a Windows environment, just download and unzip the <a href="https://github.com/docToolchain/docToolchain/archive/master.zip">repository</a> as well as its dependencies:
+<a href="https://github.com/hakimel/reveal.js/archive/tags/3.3.0.zip">reveal.js</a> and
+<a href="https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip">asciidoctor-reveal.js</a>.</p>
+</div>
+<div class="paragraph">
+<p>After unzipping, put the dependencies in <code>resources</code> folder, so that the structure is the same as on <a href="https://github.com/docToolchain/docToolchain/tree/master/resources">GitHub</a>.</p>
+</div>
+<div class="paragraph">
+<p>You can add &lt;docToolchain home&gt;/bin to your PATH or you can run doctoolchain with full path if you prefer.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_initialize_directory_for_documents">2.2. Initialize directory for documents</h3>
+<div class="paragraph">
+<p>The next step after getting docToolchain is to initialize a directory where your documents live. In docToolchain this
+directory is named "newDocDir" during initialization, or just "docDir" later on.</p>
+</div>
+<div class="sect3">
+<h4 id="_existing_documents">2.2.1. Existing documents</h4>
+<div class="paragraph">
+<p>If you already have some existing documents in asciidoc format in your project, you need to put the configuration
+file there to inform docToolchain what and how to process. You can do that manually by copying the contents of
+template_config directory. You can also do that by running <code>initExisting</code> task.</p>
+</div>
+<div class="listingblock">
+<div class="title">Linux initExisting example</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">cd &lt;docToolchain home&gt;
+./gradlew -b init.gradle initExisting -PnewDocDir=&lt;your directory&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You need to open Config.groovy file and configure names of your files properly.
+You may also change the PDF schema file to your taste.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_arc42_from_scratch">2.2.2. Arc42 from scratch</h4>
+<div class="paragraph">
+<p>If you don&#8217;t have existing documents yet, or if you need a fresh start, you can get the Arc42 template in asciidoc
+format. You can do that by manually downloading from <a href="http://arc42.org/download" class="bare">http://arc42.org/download</a>. You can also to that by running
+<code>initArc42&lt;language&gt;</code> task. Currently supported languages are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>DE - German.</p>
+</li>
+<li>
+<p>EN - English.</p>
+</li>
+<li>
+<p>ES - Spanish.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Linux initArc42EN example</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">cd &lt;docToolchain home&gt;
+./gradlew -b init.gradle initArc42EN -PnewDocDir=&lt;newDocDir&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Config.groovy file is then preconfigured to use the downloaded template.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_build">2.3. Build</h3>
+<div class="paragraph">
+<p>This should already be enough to start a first build.</p>
+</div>
+<div class="listingblock">
+<div class="title">Linux</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">doctoolchain &lt;docDir&gt; generateHTML
+doctoolchain &lt;docDir&gt; generatePDF</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">Windows</div>
+<div class="content">
+<pre class="CodeRay highlight"><code>doctoolchain.bat &lt;docDir&gt; generateHTML
+doctoolchain.bat &lt;docDir&gt; generatePDF</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&lt;docDir&gt; may be relative, e.g. ".", or absolute.</p>
+</div>
+<div class="paragraph">
+<p>As a result, you will see the progress of your build together with some warnings which you can just ignore for the moment.</p>
+</div>
+<div class="paragraph">
+<p>The first build generated some files within the <code>&lt;docDir&gt;/build</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code>build
+|-- html5
+|   |-- arc42-template.html
+|   `-- images
+|       |-- 05_building_blocks-EN.png
+|       |-- 08-Crosscutting-Concepts-Structure-EN.png
+|       `-- arc42-logo.png
+`-- pdf
+    |-- arc42-template.pdf
+    `-- images
+        |-- 05_building_blocks-EN.png
+        |-- 08-Crosscutting-Concepts-Structure-EN.png
+        `-- arc42-logo.png</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Congratulations!</strong> if you see the same folder structure, you just managed to render the standard arc42 template as html and pdf!</p>
+</div>
+<div class="paragraph">
+<p>If you didn&#8217;t get the right output, please raise an issue on <a href="https://github.com/docToolchain/docToolchain/issues">github</a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_publish_on_confluence">2.4. Publish on Confluence</h3>
+<div class="paragraph">
+<p>In addition to <code>Config.groovy</code> there is also a <code>scripts/ConfluenceConfig.groovy</code> file. If you are not using Confluence
+you can remove it. If you use Confluence, then you need to open this file and adapt to your environment.
+You can also create multiple copies of that file. For example you can have <code>ConfluenceConfig.groovy</code> for publishing
+official pages, and <code>MyConfluenceConfig.groovy</code> with a different Confluence space for reviews.</p>
+</div>
 <div class="paragraph">
 <p>Unresolved directive in manual.adoc - include::manual/02_0_install.adoc[leveloffset=+1]</p>
 </div>

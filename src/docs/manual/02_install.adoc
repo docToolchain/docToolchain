@@ -60,19 +60,19 @@ You can add <docToolchain home>/bin to your PATH or you can run doctoolchain wit
 == Initialize directory for documents
 
 The next step after getting docToolchain is to initialize a directory where your documents live. In docToolchain this
-directory is named "docDir".
+directory is named "newDocDir" during initialization, or just "docDir" later on.
 
 === Existing documents
 
 If you already have some existing documents in asciidoc format in your project, you need to put the configuration
-file there to inform docToolchain what and how to process. You can do that manually by copying the contents of 
+file there to inform docToolchain what and how to process. You can do that manually by copying the contents of
 template_config directory. You can also do that by running `initExisting` task.
 
 .Linux initExisting example
 [source, bash]
 ----
 cd <docToolchain home>
-./gradlew -b init.gradle initExisting -PdocDir=<your directory>
+./gradlew -b init.gradle initExisting -PnewDocDir=<your directory>
 ----
 
 You need to open Config.groovy file and configure names of your files properly.
@@ -92,7 +92,7 @@ format. You can do that by manually downloading from http://arc42.org/download. 
 [source, bash]
 ----
 cd <docToolchain home>
-./gradlew -b init.gradle initArc42EN -PdocDir=<docDir>
+./gradlew -b init.gradle initArc42EN -PnewDocDir=<newDocDir>
 ----
 
 The Config.groovy file is then preconfigured to use the downloaded template.
