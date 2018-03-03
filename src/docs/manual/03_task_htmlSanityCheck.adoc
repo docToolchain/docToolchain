@@ -19,7 +19,7 @@ Further information can be found on github: https://github.com/aim42/htmlSanityC
 
 == Source
 
-.build.gradle
+.htmlSanityCheck.gradle
 [source,groovy]
 ----
 include::../../../scripts/htmlSanityCheck.gradle[tags=htmlSanityCheck]

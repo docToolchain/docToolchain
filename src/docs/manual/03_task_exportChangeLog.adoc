@@ -49,7 +49,7 @@ But this isn't implemented yet.
 
 == Source
 
-.build.gradle
+.exportChangelog.gradle
 [source,groovy]
 ----
 include::../../../scripts/exportChangelog.gradle[tags=exportChangeLog]

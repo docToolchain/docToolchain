@@ -10,7 +10,7 @@ outputPath = 'build/docs'
 inputPath = 'src/docs'
 
 inputFiles = [[file: 'test.adoc',              formats: ['html','pdf','docbook']],
-              [file: 'manual.adoc',            formats: ['html']],
+              [file: 'manual.adoc',            formats: ['html','pdf']],
               [file: 'ppt/Demo.pptx.ad',       formats: ['html','revealjs']],
              ]
 

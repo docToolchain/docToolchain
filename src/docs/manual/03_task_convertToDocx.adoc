@@ -7,7 +7,7 @@ image::ea/Manual/convertToDocx.png[]
 
 == Source
 
-.build.gradle
+.pandoc.gradle
 [source,groovy]
 ----
 include::../../../scripts/pandoc.gradle[tags=convertToDocx]

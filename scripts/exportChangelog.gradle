@@ -11,7 +11,7 @@ task exportChangeLog(
     def changes = cmd.execute(null, new File(docDir, config.changelogDir)).text
     new File(targetDir).mkdirs()
     def changelog = new File(targetDir, 'changelog.adoc')
-    logger.info "> changelog exported"
+    logger.info "> changelog exported ${changelog.canonicalPath}"
     changelog.write(changes)
 }
 //end::exportChangeLog[]

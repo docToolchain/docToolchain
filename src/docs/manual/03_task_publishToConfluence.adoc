@@ -7,7 +7,7 @@ image::ea/Manual/publishToConfluence.png[]
 
 == Source
 
-.build.gradle
+.publishToConfluence.gradle
 [source,groovy]
 ----
 include::../../../scripts/publishToConfluence.gradle[tags=publishToConfluence]

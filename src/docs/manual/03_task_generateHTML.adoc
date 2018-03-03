@@ -70,8 +70,8 @@ https://rdmueller.github.io/plantuml-without-graphviz/
 
 == Source
 
-.build.gradle
+.AsciiDocBasics.gradle
 [source,groovy]
 ----
-include::../../../build.gradle[tags=generateHTML]
+include::../../../scripts/AsciiDocBasics.gradle[tags=generateHTML]
 ----
