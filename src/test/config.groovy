@@ -4,7 +4,7 @@ outputPath = 'build/test/docs'
 inputPath = 'src/test/docs'
 
 inputFiles = [
-        [file: 'test.adoc',              formats: ['html','revealjs','pdf','docbook']],
+        [file: 'test.adoc',              formats: ['html','pdf','docbook']],
              ]
 
 taskInputsDirs = [
