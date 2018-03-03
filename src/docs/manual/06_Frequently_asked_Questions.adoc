@@ -79,9 +79,9 @@ You can fix this by visiting the windows system settings -> install or uninstall
 
 == Sparx Enterprise Architect
 
-=== Q: Sparx Enterprise Architect is a windows tool, isn't it?
+=== Q: Sparx Enterprise Architect is a Windows tool, isn't it?
 
-Yes, it is, but it is written to support Crossover inorder to run on linux based systems. Wine, the open source branch of Crossover seems to work as well.
+Yes, it is, but it is written to support CrossOver in order to run on Linux based systems. Wine, the open source branch of CrossOver seems to work as well.
 
 Take a look at this page to see how to install it on a linux based system: http://www.sparxsystems.com/support/faq/ea_on_linux.html
 
