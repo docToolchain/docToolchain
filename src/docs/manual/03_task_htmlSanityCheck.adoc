@@ -1,6 +1,8 @@
 ifndef::imagesdir[:imagesdir: ../images]
 = htmlSanityCheck
 
+image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}03_task_htmlSanityCheck.adoc, float=right]
+
 image::ea/Manual/htmlSanityCheck.png[]
 
 This task invokes the https://github.com/aim42/htmlSanityCheck[htmlSanityCheck] gradle plugin.

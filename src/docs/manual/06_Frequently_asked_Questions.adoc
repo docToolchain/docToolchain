@@ -2,6 +2,8 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 = FAQ: Frequently asked Questions
 
+image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}06_Frequently_asked_Questions.adoc, float=right]
+
 This section tries to answer the most common and frequently asked questions about how to work with docToolchain.
 It will also contain questions relevant to the tools used to build docToolchain, but the main focus is docToolchain itself.
 
@@ -75,6 +77,14 @@ In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
 A: When Visio is installed, it registers itself as com library. It seems that this registration can break.
 You can fix this by visiting the windows system settings -> install or uninstall a program, select `visio`, select `change` and then `repair`.
 
-== PlantUML
+== Sparx Enterprise Architect
 
-TODO
+=== Q: Sparx Enterprise Architect is a Windows tool, isn't it?
+
+Yes, it is, but it is written to support CrossOver in order to run on Linux based systems. Wine, the open source branch of CrossOver seems to work as well.
+
+Take a look at this page to see how to install it on a linux based system: http://www.sparxsystems.com/support/faq/ea_on_linux.html
+
+I (Ralf) once gave it a try and even managed to get remote control over EA via VBS and COM up and running (which is the pre-requisite for docToolchain).
+
+
