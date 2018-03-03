@@ -529,41 +529,49 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_benefits_of_the_docs_as_code_approach">1.2. Benefits of the docs-as-code Approach</a></li>
 </ul>
 </li>
-<li><a href="#_overview_of_available_tasks">2. Overview of available Tasks</a>
+<li><a href="#_how_to_install_doctoolchain">2. How to install docToolchain</a>
 <ul class="sectlevel2">
-<li><a href="#_conventions">2.1. Conventions</a></li>
-<li><a href="#_generatehtml">2.2. generateHTML</a></li>
-<li><a href="#_generatepdf">2.3. generatePDF</a></li>
-<li><a href="#_generatedocbook">2.4. generateDocbook</a></li>
-<li><a href="#_generatedeck">2.5. generateDeck</a></li>
-<li><a href="#_publishtoconfluence">2.6. publishToConfluence</a></li>
-<li><a href="#_converttodocx">2.7. convertToDocx</a></li>
-<li><a href="#_converttoepub">2.8. convertToEpub</a></li>
-<li><a href="#_exportea">2.9. exportEA</a></li>
-<li><a href="#_exportvisio">2.10. exportVisio</a></li>
-<li><a href="#_exportchangelog">2.11. exportChangeLog</a></li>
-<li><a href="#_exportjiraissues">2.12. exportJiraIssues</a></li>
-<li><a href="#_exportppt">2.13. exportPPT</a></li>
-<li><a href="#_exportexcel">2.14. exportExcel</a></li>
-<li><a href="#_htmlsanitycheck">2.15. htmlSanityCheck</a></li>
-<li><a href="#_dependencyupdates">2.16. dependencyUpdates</a></li>
+<li><a href="#_get_the_tool">2.1. Get the tool</a></li>
+<li><a href="#_initialize_directory_for_documents">2.2. Initialize directory for documents</a></li>
+<li><a href="#_build">2.3. Build</a></li>
+<li><a href="#_publish_on_confluence">2.4. Publish on Confluence</a></li>
 </ul>
 </li>
-<li><a href="#_faq_frequently_asked_questions">3. FAQ: Frequently asked Questions</a>
+<li><a href="#_overview_of_available_tasks">3. Overview of available Tasks</a>
 <ul class="sectlevel2">
-<li><a href="#_images">3.1. Images</a></li>
-<li><a href="#_exportvisio_2">3.2. exportVisio</a></li>
-<li><a href="#_sparx_enterprise_architect">3.3. Sparx Enterprise Architect</a></li>
+<li><a href="#_conventions">3.1. Conventions</a></li>
+<li><a href="#_generatehtml">3.2. generateHTML</a></li>
+<li><a href="#_generatepdf">3.3. generatePDF</a></li>
+<li><a href="#_generatedocbook">3.4. generateDocbook</a></li>
+<li><a href="#_generatedeck">3.5. generateDeck</a></li>
+<li><a href="#_publishtoconfluence">3.6. publishToConfluence</a></li>
+<li><a href="#_converttodocx">3.7. convertToDocx</a></li>
+<li><a href="#_converttoepub">3.8. convertToEpub</a></li>
+<li><a href="#_exportea">3.9. exportEA</a></li>
+<li><a href="#_exportvisio">3.10. exportVisio</a></li>
+<li><a href="#_exportchangelog">3.11. exportChangeLog</a></li>
+<li><a href="#_exportjiraissues">3.12. exportJiraIssues</a></li>
+<li><a href="#_exportppt">3.13. exportPPT</a></li>
+<li><a href="#_exportexcel">3.14. exportExcel</a></li>
+<li><a href="#_htmlsanitycheck">3.15. htmlSanityCheck</a></li>
+<li><a href="#_dependencyupdates">3.16. dependencyUpdates</a></li>
 </ul>
 </li>
-<li><a href="#_further_reading">4. Further Reading</a>
+<li><a href="#_faq_frequently_asked_questions">4. FAQ: Frequently asked Questions</a>
 <ul class="sectlevel2">
-<li><a href="#_links">4.1. Links</a></li>
-<li><a href="#_books">4.2. Books</a></li>
-<li><a href="#_past_and_upcoming_talks">4.3. Past and upcoming Talks</a></li>
+<li><a href="#_images">4.1. Images</a></li>
+<li><a href="#_exportvisio_2">4.2. exportVisio</a></li>
+<li><a href="#_sparx_enterprise_architect">4.3. Sparx Enterprise Architect</a></li>
 </ul>
 </li>
-<li><a href="#_acknowledgements_and_contributors">5. Acknowledgements and Contributors</a></li>
+<li><a href="#_further_reading">5. Further Reading</a>
+<ul class="sectlevel2">
+<li><a href="#_links">5.1. Links</a></li>
+<li><a href="#_books">5.2. Books</a></li>
+<li><a href="#_past_and_upcoming_talks">5.3. Past and upcoming Talks</a></li>
+</ul>
+</li>
+<li><a href="#_acknowledgements_and_contributors">6. Acknowledgements and Contributors</a></li>
 </ul>
 </div>
 </div>
@@ -707,20 +715,23 @@ table.CodeRay td.code>pre{padding:0}
 <div class="sect1">
 <h2 id="_how_to_install_doctoolchain">2. How to install docToolchain</h2>
 <div class="sectionbody">
+<div class="imageblock" style="float: right">
+<div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/02_install.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
+</div>
 <div class="sect2">
 <h3 id="_get_the_tool">2.1. Get the tool</h3>
 <div class="paragraph">
-<p>To start with docToolchain you need to get a copy of the current docToolchain repository.
-The easiest way is to clone the repository without history and remove the <code>.git</code> folder:</p>
+<p>To start with docToolchain you need to get a copy of the current docToolchain repository. The easiest way is to clone the repository without history and remove the <code>.git</code> folder:</p>
 </div>
 <div class="listingblock">
 <div class="title">Linux with git clone</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">git clone --recursive https://github.com/docToolchain/docToolchain.git &lt;docToolchain home&gt;
+<pre class="CodeRay highlight">
+<code data-lang="bash">git clone --recursive https://github.com/docToolchain/docToolchain.git &lt;docToolchain home&gt;
 rm -rf .git
 rm -rf resources/asciidoctor-reveal.js/.git
-rm -rf resources/reveal.js/.git</code></pre>
-</div>
+rm -rf resources/reveal.js/.git</code>
+</pre></div>
 </div>
 <div class="paragraph">
 <p><code>--recursive</code> option is required because the repository contains 2 submodules - <code>resources/asciidoctor-reveal.js</code> and <code>resources/reveal.js</code>.</p>
@@ -731,7 +742,8 @@ rm -rf resources/reveal.js/.git</code></pre>
 <div class="listingblock">
 <div class="title">Linux with download as zip</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">wget https://github.com/docToolchain/docToolchain/archive/master.zip
+<pre class="CodeRay highlight">
+<code data-lang="bash">wget https://github.com/docToolchain/docToolchain/archive/master.zip
 unzip master.zip
 
 # fetching dependencies
@@ -748,13 +760,11 @@ wget https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip -O
 unzip asciidoctor-reveal.js.zip
 mv asciidoctor-reveal.js-9667f5c5d926b3be48361d6d6413d3896954894c asciidoctor-reveal.js
 
-mv docToolchain-master &lt;docToolchain home&gt;</code></pre>
-</div>
+mv docToolchain-master &lt;docToolchain home&gt;</code>
+</pre></div>
 </div>
 <div class="paragraph">
-<p>If you work (like me) on a Windows environment, just download and unzip the <a href="https://github.com/docToolchain/docToolchain/archive/master.zip">repository</a> as well as its dependencies:
-<a href="https://github.com/hakimel/reveal.js/archive/tags/3.3.0.zip">reveal.js</a> and
-<a href="https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip">asciidoctor-reveal.js</a>.</p>
+<p>If you work (like me) on a Windows environment, just download and unzip the <a href="https://github.com/docToolchain/docToolchain/archive/master.zip">repository</a> as well as its dependencies: <a href="https://github.com/hakimel/reveal.js/archive/tags/3.3.0.zip">reveal.js</a> and <a href="https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip">asciidoctor-reveal.js</a>.</p>
 </div>
 <div class="paragraph">
 <p>After unzipping, put the dependencies in <code>resources</code> folder, so that the structure is the same as on <a href="https://github.com/docToolchain/docToolchain/tree/master/resources">GitHub</a>.</p>
@@ -766,34 +776,29 @@ mv docToolchain-master &lt;docToolchain home&gt;</code></pre>
 <div class="sect2">
 <h3 id="_initialize_directory_for_documents">2.2. Initialize directory for documents</h3>
 <div class="paragraph">
-<p>The next step after getting docToolchain is to initialize a directory where your documents live. In docToolchain this
-directory is named "newDocDir" during initialization, or just "docDir" later on.</p>
+<p>The next step after getting docToolchain is to initialize a directory where your documents live. In docToolchain this directory is named "newDocDir" during initialization, or just "docDir" later on.</p>
 </div>
 <div class="sect3">
 <h4 id="_existing_documents">2.2.1. Existing documents</h4>
 <div class="paragraph">
-<p>If you already have some existing documents in asciidoc format in your project, you need to put the configuration
-file there to inform docToolchain what and how to process. You can do that manually by copying the contents of
-template_config directory. You can also do that by running <code>initExisting</code> task.</p>
+<p>If you already have some existing documents in asciidoc format in your project, you need to put the configuration file there to inform docToolchain what and how to process. You can do that manually by copying the contents of template_config directory. You can also do that by running <code>initExisting</code> task.</p>
 </div>
 <div class="listingblock">
 <div class="title">Linux initExisting example</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">cd &lt;docToolchain home&gt;
-./gradlew -b init.gradle initExisting -PnewDocDir=&lt;your directory&gt;</code></pre>
-</div>
+<pre class="CodeRay highlight">
+<code data-lang="bash">cd &lt;docToolchain home&gt;
+./gradlew -b init.gradle initExisting -PnewDocDir=&lt;your directory&gt;</code>
+</pre></div>
 </div>
 <div class="paragraph">
-<p>You need to open Config.groovy file and configure names of your files properly.
-You may also change the PDF schema file to your taste.</p>
+<p>You need to open Config.groovy file and configure names of your files properly. You may also change the PDF schema file to your taste.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_arc42_from_scratch">2.2.2. Arc42 from scratch</h4>
 <div class="paragraph">
-<p>If you don&#8217;t have existing documents yet, or if you need a fresh start, you can get the Arc42 template in asciidoc
-format. You can do that by manually downloading from <a href="http://arc42.org/download" class="bare">http://arc42.org/download</a>. You can also to that by running
-<code>initArc42&lt;language&gt;</code> task. Currently supported languages are:</p>
+<p>If you don&#8217;t have existing documents yet, or if you need a fresh start, you can get the Arc42 template in asciidoc format. You can do that by manually downloading from <a href="http://arc42.org/download" class="bare">http://arc42.org/download</a>. You can also to that by running <code>initArc42&lt;language&gt;</code> task. Currently supported languages are:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -811,9 +816,10 @@ format. You can do that by manually downloading from <a href="http://arc42.org/d
 <div class="listingblock">
 <div class="title">Linux initArc42EN example</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">cd &lt;docToolchain home&gt;
-./gradlew -b init.gradle initArc42EN -PnewDocDir=&lt;newDocDir&gt;</code></pre>
-</div>
+<pre class="CodeRay highlight">
+<code data-lang="bash">cd &lt;docToolchain home&gt;
+./gradlew -b init.gradle initArc42EN -PnewDocDir=&lt;newDocDir&gt;</code>
+</pre></div>
 </div>
 <div class="paragraph">
 <p>The Config.groovy file is then preconfigured to use the downloaded template.</p>
@@ -828,16 +834,18 @@ format. You can do that by manually downloading from <a href="http://arc42.org/d
 <div class="listingblock">
 <div class="title">Linux</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">doctoolchain &lt;docDir&gt; generateHTML
-doctoolchain &lt;docDir&gt; generatePDF</code></pre>
-</div>
+<pre class="CodeRay highlight">
+<code data-lang="bash">doctoolchain &lt;docDir&gt; generateHTML
+doctoolchain &lt;docDir&gt; generatePDF</code>
+</pre></div>
 </div>
 <div class="listingblock">
 <div class="title">Windows</div>
 <div class="content">
-<pre class="CodeRay highlight"><code>doctoolchain.bat &lt;docDir&gt; generateHTML
-doctoolchain.bat &lt;docDir&gt; generatePDF</code></pre>
-</div>
+<pre class="CodeRay highlight">
+<code>doctoolchain.bat &lt;docDir&gt; generateHTML
+doctoolchain.bat &lt;docDir&gt; generatePDF</code>
+</pre></div>
 </div>
 <div class="paragraph">
 <p>&lt;docDir&gt; may be relative, e.g. ".", or absolute.</p>
@@ -850,7 +858,8 @@ doctoolchain.bat &lt;docDir&gt; generatePDF</code></pre>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>build
+<pre class="CodeRay highlight">
+<code>build
 |-- html5
 |   |-- arc42-template.html
 |   `-- images
@@ -862,8 +871,8 @@ doctoolchain.bat &lt;docDir&gt; generatePDF</code></pre>
     `-- images
         |-- 05_building_blocks-EN.png
         |-- 08-Crosscutting-Concepts-Structure-EN.png
-        `-- arc42-logo.png</code></pre>
-</div>
+        `-- arc42-logo.png</code>
+</pre></div>
 </div>
 <div class="paragraph">
 <p><strong>Congratulations!</strong> if you see the same folder structure, you just managed to render the standard arc42 template as html and pdf!</p>
@@ -875,22 +884,28 @@ doctoolchain.bat &lt;docDir&gt; generatePDF</code></pre>
 <div class="sect2">
 <h3 id="_publish_on_confluence">2.4. Publish on Confluence</h3>
 <div class="paragraph">
-<p>In addition to <code>Config.groovy</code> there is also a <code>scripts/ConfluenceConfig.groovy</code> file. If you are not using Confluence
-you can remove it. If you use Confluence, then you need to open this file and adapt to your environment.
-You can also create multiple copies of that file. For example you can have <code>ConfluenceConfig.groovy</code> for publishing
-official pages, and <code>MyConfluenceConfig.groovy</code> with a different Confluence space for reviews.</p>
+<p>In addition to <code>Config.groovy</code> there is also a <code>scripts/ConfluenceConfig.groovy</code> file. If you are not using Confluence you can remove it. If you use Confluence, then you need to open this file and adapt to your environment. You can also create multiple copies of that file. For example you can have <code>ConfluenceConfig.groovy</code> for publishing official pages, and <code>MyConfluenceConfig.groovy</code> with a different Confluence space for reviews.</p>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual.adoc - include::manual/02_0_install.adoc[leveloffset=+1]</p>
+<p>The paths to those configuration files can be provided by giving -P option to doctoolchain, for example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight">
+<code data-lang="bash"># Uses scripts/ConfluenceConfig.groovy by default
+doctoolchain &lt;docDir&gt; publishToConfluence --no-daemon -q
+
+# Uses scripts/MyConfluenceConfig.groovy
+doctoolchain &lt;docDir&gt; publishToConfluence -PconfluenceConfigFile=scripts/MyConfluenceConfig.groovy --no-daemon -q</code>
+</pre></div>
 </div>
 <hr>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
 </div>
-</div>
 <div class="sect1">
-<h2 id="_overview_of_available_tasks">2. Overview of available Tasks</h2>
+<h2 id="_overview_of_available_tasks">3. Overview of available Tasks</h2>
 <div class="sectionbody">
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_tasks.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
@@ -906,18 +921,18 @@ official pages, and <code>MyConfluenceConfig.groovy</code> with a different Conf
 <div class="title">Figure 1. docToolchain</div>
 </div>
 <div class="sect2">
-<h3 id="_conventions">2.1. Conventions</h3>
+<h3 id="_conventions">3.1. Conventions</h3>
 <div class="paragraph">
 <p>There are some simple naming conventions for the tasks. They might be confusing at first and that&#8217;s why they are explained here.</p>
 </div>
 <div class="sect3">
-<h4 id="_generatex">2.1.1. generateX</h4>
+<h4 id="_generatex">3.1.1. generateX</h4>
 <div class="paragraph">
 <p><em>render</em> would have been another good prefix, since these tasks use the plain asciidoctor functionality to render the source to a given format.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_exportx">2.1.2. exportX</h4>
+<h4 id="_exportx">3.1.2. exportX</h4>
 <div class="paragraph">
 <p>These tasks export images and AsciiDoc snippets from other systems or file formats. The resulting artefacts can then be included from your main sources.</p>
 </div>
@@ -929,13 +944,13 @@ official pages, and <code>MyConfluenceConfig.groovy</code> with a different Conf
 </div>
 </div>
 <div class="sect3">
-<h4 id="_converttox">2.1.3. convertToX</h4>
+<h4 id="_converttox">3.1.3. convertToX</h4>
 <div class="paragraph">
 <p>These tasks take the output from asciidoctor and convert it (through other tools) to the target format. This results in a dependency on a <em>generateX</em> task and another external tool (currently <a href="http://pandoc.org">pandoc</a>).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_publishtox">2.1.4. publishToX</h4>
+<h4 id="_publishtox">3.1.4. publishToX</h4>
 <div class="paragraph">
 <p>These tasks not only convert your documents but also deploy/publish/move them to a remote system&#8201;&#8212;&#8201;currently Confluence. This means that the result is likely to be visible immediately to others.</p>
 </div>
@@ -944,7 +959,7 @@ official pages, and <code>MyConfluenceConfig.groovy</code> with a different Conf
 </div>
 </div>
 <div class="sect2">
-<h3 id="_generatehtml">2.2. generateHTML</h3>
+<h3 id="_generatehtml">3.2. generateHTML</h3>
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_generateHTML.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
 </div>
@@ -969,7 +984,7 @@ But be warned - such a file can be easily very big and some browsers might get i
 </table>
 </div>
 <div class="sect3">
-<h4 id="_text_based_diagrams">2.2.1. Text based Diagrams</h4>
+<h4 id="_text_based_diagrams">3.2.1. Text based Diagrams</h4>
 <div class="paragraph">
 <p>For docToolchain, it is configured to use the <a href="http://asciidoctor.org/docs/asciidoctor-diagram/">asciidoctor-diagram</a> plugin which is used to create plantUML diagrams.</p>
 </div>
@@ -1039,9 +1054,9 @@ The second element is the name of the image to be created and the third specifie
 </div>
 </div>
 <div class="sect3">
-<h4 id="_source">2.2.2. Source</h4>
+<h4 id="_source">3.2.2. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">AsciiDocBasics.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight">
 <code data-lang="groovy">task generateHTML (
@@ -1069,7 +1084,7 @@ The second element is the name of the image to be created and the third specifie
 </div>
 </div>
 <div class="sect2">
-<h3 id="_generatepdf">2.3. generatePDF</h3>
+<h3 id="_generatepdf">3.3. generatePDF</h3>
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_generatePDF.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
 </div>
@@ -1097,9 +1112,9 @@ The second element is the name of the image to be created and the third specifie
 <p>It is very likely that you need to "theme" you PDF - change colors, fonts, page header and footer. This can be done by changing the <code>src/docs/custom-theme.yml</code> file. Documentation on how to modify it can be found in the <a href="https://github.com/asciidoctor/asciidoctor-pdf/blob/master/docs/theming-guide.adoc">asciidoctor-pdf theming guide</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="_source_2">2.3.1. Source</h4>
+<h4 id="_source_2">3.3.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">AsciiDocBasics.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight">
 <code data-lang="groovy">task generatePDF (
@@ -1127,7 +1142,7 @@ The second element is the name of the image to be created and the third specifie
 </div>
 </div>
 <div class="sect2">
-<h3 id="_generatedocbook">2.4. generateDocbook</h3>
+<h3 id="_generatedocbook">3.4. generateDocbook</h3>
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_generateDocBook.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
 </div>
@@ -1138,9 +1153,9 @@ The second element is the name of the image to be created and the third specifie
 <p>This is only a helper task - it generates the intermediate format for <a href="#_converttodocx">convertToDocx</a> and <a href="#_converttoepub">convertToEpub</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="_source_3">2.4.1. Source</h4>
+<h4 id="_source_3">3.4.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">AsciiDocBasics.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight">
 <code data-lang="groovy">task generateDocbook (
@@ -1165,7 +1180,7 @@ The second element is the name of the image to be created and the third specifie
 </div>
 </div>
 <div class="sect2">
-<h3 id="_generatedeck">2.5. generateDeck</h3>
+<h3 id="_generatedeck">3.5. generateDeck</h3>
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_generateDeck.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
 </div>
@@ -1179,9 +1194,9 @@ The second element is the name of the image to be created and the third specifie
 <p>This task is best used together with the <a href="#_exportppt">exportPPT</a> task. Create a PowerPoint presentation and enrich it with reveal.js slide definitions in AsciiDoc within the speaker notes.</p>
 </div>
 <div class="sect3">
-<h4 id="_source_4">2.5.1. Source</h4>
+<h4 id="_source_4">3.5.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">AsciiDocBasics.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight">
 <code data-lang="groovy">task generateDeck (
@@ -1191,16 +1206,16 @@ The second element is the name of the image to be created and the third specifie
 
     attributes \
         <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">idprefix</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">slide-</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">idseparator</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">-</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">docinfo1</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_theme</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">black</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_progress</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_touch</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_hideAddressBar</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_transition</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">linear</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_history</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_slideNumber</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>
+            <span class="string"><span class="delimiter">'</span><span class="content">idprefix</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">slide-</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">idseparator</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">-</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">docinfo1</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs_theme</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">black</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs_progress</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs_touch</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs_hideAddressBar</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs_transition</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">linear</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs_history</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs_slideNumber</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>
 
     options template_dirs : [<span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">resources/asciidoctor-reveal.js</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">templates/slim</span><span class="delimiter">'</span></span>).absolutePath ]
 
@@ -1233,7 +1248,7 @@ The second element is the name of the image to be created and the third specifie
 </div>
 </div>
 <div class="sect2">
-<h3 id="_publishtoconfluence">2.6. publishToConfluence</h3>
+<h3 id="_publishtoconfluence">3.6. publishToConfluence</h3>
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_publishToConfluence.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
 </div>
@@ -1241,9 +1256,9 @@ The second element is the name of the image to be created and the third specifie
 <div class="content"><img src="images/ea/Manual/publishToConfluence.png" alt="publishToConfluence"></div>
 </div>
 <div class="sect3">
-<h4 id="_source_5">2.6.1. Source</h4>
+<h4 id="_source_5">3.6.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">publishToConfluence.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight">
 <code data-lang="groovy">task publishToConfluence(
@@ -1839,7 +1854,7 @@ config.input.each { input -&gt;
 </div>
 </div>
 <div class="sect2">
-<h3 id="_converttodocx">2.7. convertToDocx</h3>
+<h3 id="_converttodocx">3.7. convertToDocx</h3>
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_convertToDocx.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
 </div>
@@ -1847,9 +1862,9 @@ config.input.each { input -&gt;
 <div class="content"><img src="images/ea/Manual/convertToDocx.png" alt="convertToDocx"></div>
 </div>
 <div class="sect3">
-<h4 id="_source_6">2.7.1. Source</h4>
+<h4 id="_source_6">3.7.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">pandoc.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight">
 <code data-lang="groovy">task convertToDocx (
@@ -1875,7 +1890,7 @@ config.input.each { input -&gt;
 </div>
 </div>
 <div class="sect2">
-<h3 id="_converttoepub">2.8. convertToEpub</h3>
+<h3 id="_converttoepub">3.8. convertToEpub</h3>
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_convertToEpub.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
 </div>
@@ -1892,9 +1907,9 @@ config.input.each { input -&gt;
 <p>Result can be found in <code>build/docs/epub</code></p>
 </div>
 <div class="sect3">
-<h4 id="_source_7">2.8.1. Source</h4>
+<h4 id="_source_7">3.8.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">pandoc.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight">
 <code data-lang="groovy">task convertToEpub (
@@ -1920,7 +1935,7 @@ config.input.each { input -&gt;
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportea">2.9. exportEA</h3>
+<h3 id="_exportea">3.9. exportEA</h3>
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_exportEA.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
 </div>
@@ -1928,7 +1943,7 @@ config.input.each { input -&gt;
 <div class="content"><img src="images/ea/Manual/exportEA.png" alt="exportEA"></div>
 </div>
 <div class="sect3">
-<h4 id="_source_8">2.9.1. Source</h4>
+<h4 id="_source_8">3.9.1. Source</h4>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
@@ -2230,7 +2245,7 @@ use `gradle exportEA` to re-export files
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportvisio">2.10. exportVisio</h3>
+<h3 id="_exportvisio">3.10. exportVisio</h3>
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_exportVisio.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
 </div>
@@ -2278,9 +2293,9 @@ use `gradle exportEA` to re-export files
 </table>
 </div>
 <div class="sect3">
-<h4 id="_source_9">2.10.1. Source</h4>
+<h4 id="_source_9">3.10.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">exportVisio.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight">
 <code data-lang="groovy">task exportVisio(
@@ -2438,7 +2453,7 @@ $VisioApp.Quit()</code>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportchangelog">2.11. exportChangeLog</h3>
+<h3 id="_exportchangelog">3.11. exportChangeLog</h3>
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_exportChangeLog.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
 </div>
@@ -2496,9 +2511,9 @@ include::../../build/docs/changelog.adoc[]
 </table>
 </div>
 <div class="sect3">
-<h4 id="_source_10">2.11.1. Source</h4>
+<h4 id="_source_10">3.11.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">exportChangelog.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight">
 <code data-lang="groovy">task exportChangeLog(
@@ -2523,7 +2538,7 @@ include::../../build/docs/changelog.adoc[]
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportjiraissues">2.12. exportJiraIssues</h3>
+<h3 id="_exportjiraissues">3.12. exportJiraIssues</h3>
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_exportJiraIssues.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
 </div>
@@ -2531,9 +2546,9 @@ include::../../build/docs/changelog.adoc[]
 <div class="content"><img src="images/ea/Manual/exportJiraIssues.png" alt="exportJiraIssues"></div>
 </div>
 <div class="sect3">
-<h4 id="_source_11">2.12.1. Source</h4>
+<h4 id="_source_11">3.12.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">exportJiraIssues.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight">
 <code data-lang="groovy">task exportJiraIssues(
@@ -2579,7 +2594,7 @@ include::../../build/docs/changelog.adoc[]
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportppt">2.13. exportPPT</h3>
+<h3 id="_exportppt">3.13. exportPPT</h3>
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_exportPPT.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
 </div>
@@ -2587,9 +2602,9 @@ include::../../build/docs/changelog.adoc[]
 <div class="content"><img src="images/ea/Manual/exportPPT.png" alt="exportPPT"></div>
 </div>
 <div class="sect3">
-<h4 id="_source_12">2.13.1. Source</h4>
+<h4 id="_source_12">3.13.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">exportPPT.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight">
 <code data-lang="groovy">task exportPPT(
@@ -2631,7 +2646,7 @@ use `gradle exportPPT` to re-export files
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportexcel">2.14. exportExcel</h3>
+<h3 id="_exportexcel">3.14. exportExcel</h3>
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_exportExcel.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
 </div>
@@ -2699,7 +2714,7 @@ include::excel/Sample.xlsx/Numerisch.csv[]
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_source_13">2.14.1. Source</h4>
+<h4 id="_source_13">3.14.1. Source</h4>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
@@ -2898,7 +2913,7 @@ use `gradle exportExcel` to re-export files
 </div>
 </div>
 <div class="sect2">
-<h3 id="_htmlsanitycheck">2.15. htmlSanityCheck</h3>
+<h3 id="_htmlsanitycheck">3.15. htmlSanityCheck</h3>
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_htmlSanityCheck.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
 </div>
@@ -2922,9 +2937,9 @@ use `gradle exportExcel` to re-export files
 <p>Further information can be found on github: <a href="https://github.com/aim42/htmlSanityCheck" class="bare">https://github.com/aim42/htmlSanityCheck</a></p>
 </div>
 <div class="sect3">
-<h4 id="_source_14">2.15.1. Source</h4>
+<h4 id="_source_14">3.15.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">htmlSanityCheck.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight">
 <code data-lang="groovy">htmlSanityCheck {
@@ -2944,7 +2959,7 @@ use `gradle exportExcel` to re-export files
 </div>
 </div>
 <div class="sect2">
-<h3 id="_dependencyupdates">2.16. dependencyUpdates</h3>
+<h3 id="_dependencyupdates">3.16. dependencyUpdates</h3>
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_dependencyUpdates.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
 </div>
@@ -2965,7 +2980,7 @@ use `gradle exportExcel` to re-export files
 </div>
 </div>
 <div class="sect1">
-<h2 id="_faq_frequently_asked_questions">3. FAQ: Frequently asked Questions</h2>
+<h2 id="_faq_frequently_asked_questions">4. FAQ: Frequently asked Questions</h2>
 <div class="sectionbody">
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/06_Frequently_asked_Questions.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
@@ -2999,7 +3014,7 @@ use `gradle exportExcel` to re-export files
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_images">3.1. Images</h3>
+<h3 id="_images">4.1. Images</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -3014,7 +3029,7 @@ use `gradle exportExcel` to re-export files
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_q_why_are_images_not_shown_in_the_preview_of_my_editor">3.1.1. Q: Why are images not shown in the preview of my editor?</h4>
+<h4 id="_q_why_are_images_not_shown_in_the_preview_of_my_editor">4.1.1. Q: Why are images not shown in the preview of my editor?</h4>
 <div class="paragraph">
 <p>A: this is most likely because your editor doesn&#8217;t know where they are stored. If you follow the default settings, you probably store your images in a subfolder <code>images</code>. The build script knows about it, because the attribute <code>imagesdir</code> has been set to <code>./images</code>, but your editor doesn&#8217;t care about the build script - it only checks the currently opened AsciiDoc file.</p>
 </div>
@@ -3026,7 +3041,7 @@ use `gradle exportExcel` to re-export files
 </div>
 </div>
 <div class="sect3">
-<h4 id="_q_which_image_format_should_i_use">3.1.2. Q: Which image format should I use?</h4>
+<h4 id="_q_which_image_format_should_i_use">4.1.2. Q: Which image format should I use?</h4>
 <div class="paragraph">
 <p>A: AsciiDoc and asciidoctor support several formats like GIF, PNG, JPG and SVG. However, if you want to use most features, some formats are better to use than others:</p>
 </div>
@@ -3052,16 +3067,16 @@ use `gradle exportExcel` to re-export files
 </div>
 </div>
 <div class="sect3">
-<h4 id="_q_why_are_my_images_rotated_in_the_output">3.1.3. Q: Why are my images rotated in the output?</h4>
+<h4 id="_q_why_are_my_images_rotated_in_the_output">4.1.3. Q: Why are my images rotated in the output?</h4>
 <div class="paragraph">
 <p>A: This most likely happens when you&#8217;ve taken photos with a mobile device and include them in you docs. A mobile device does not rotate the image itself, it only stores the orientation of the device in the meta data of the photo. Your operating system will show you the image as expected, but the rendered AsciiDoc will not. This can be &#226;&#8364;&#382;fixed&#226;&#8364;&#339; with Imagemagick, use convert -auto-orient or mogrify -auto-orient (thanx to <a href="https://twitter.com/RalfDMueller/status/920888868345384960">@rotnroll666</a> for this tip). YOu can also try to just open the image in your favourite editor and re-save it.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportvisio_2">3.2. exportVisio</h3>
+<h3 id="_exportvisio_2">4.2. exportVisio</h3>
 <div class="sect3">
-<h4 id="_q_i_get_an_error_message_saying_that_a_library_is_not_registered_when_i_try_to_run_the_code_exportvisio_code_task">3.2.1. Q: I get an error message saying that a library is not registered when I try to run the <code>exportVisio</code>-task.</h4>
+<h4 id="_q_i_get_an_error_message_saying_that_a_library_is_not_registered_when_i_try_to_run_the_code_exportvisio_code_task">4.2.1. Q: I get an error message saying that a library is not registered when I try to run the <code>exportVisio</code>-task.</h4>
 <div class="listingblock">
 <div class="content">
 <pre>
@@ -3082,9 +3097,9 @@ In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
 </div>
 </div>
 <div class="sect2">
-<h3 id="_sparx_enterprise_architect">3.3. Sparx Enterprise Architect</h3>
+<h3 id="_sparx_enterprise_architect">4.3. Sparx Enterprise Architect</h3>
 <div class="sect3">
-<h4 id="_q_sparx_enterprise_architect_is_a_windows_tool_isn_t_it">3.3.1. Q: Sparx Enterprise Architect is a windows tool, isn&#8217;t it?</h4>
+<h4 id="_q_sparx_enterprise_architect_is_a_windows_tool_isn_t_it">4.3.1. Q: Sparx Enterprise Architect is a windows tool, isn&#8217;t it?</h4>
 <div class="paragraph">
 <p>Yes, it is, but it is written to support Crossover inorder to run on linux based systems. Wine, the open source branch of Crossover seems to work as well.</p>
 </div>
@@ -3101,7 +3116,7 @@ In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
 </div>
 </div>
 <div class="sect1">
-<h2 id="_further_reading">4. Further Reading</h2>
+<h2 id="_further_reading">5. Further Reading</h2>
 <div class="sectionbody">
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/04_further_reading.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
@@ -3110,7 +3125,7 @@ In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
 <p>This chapter lists some additional references to interesting resources.</p>
 </div>
 <div class="sect2">
-<h3 id="_links">4.1. Links</h3>
+<h3 id="_links">5.1. Links</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -3149,7 +3164,7 @@ In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
 </div>
 </div>
 <div class="sect2">
-<h3 id="_books">4.2. Books</h3>
+<h3 id="_books">5.2. Books</h3>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -3159,7 +3174,7 @@ In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
 </table>
 </div>
 <div class="sect3">
-<h4 id="_english_books">4.2.1. English Books</h4>
+<h4 id="_english_books">5.2.1. English Books</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3181,7 +3196,7 @@ In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
 </div>
 </div>
 <div class="sect3">
-<h4 id="_german_books">4.2.2. German Books</h4>
+<h4 id="_german_books">5.2.2. German Books</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -3195,9 +3210,9 @@ In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
 </div>
 </div>
 <div class="sect2">
-<h3 id="_past_and_upcoming_talks">4.3. Past and upcoming Talks</h3>
+<h3 id="_past_and_upcoming_talks">5.3. Past and upcoming Talks</h3>
 <div class="sect3">
-<h4 id="_dokumentation_am_riesen_beispiel_arc42_asciidoc_und_co_in_aktion">4.3.1. Dokumentation am (Riesen-)Beispiel &#226;&#8364;&#8220; arc42, AsciiDoc und Co. in Aktion</h4>
+<h4 id="_dokumentation_am_riesen_beispiel_arc42_asciidoc_und_co_in_aktion">5.3.1. Dokumentation am (Riesen-)Beispiel &#226;&#8364;&#8220; arc42, AsciiDoc und Co. in Aktion</h4>
 <div class="paragraph">
 <p><a href="https://twitter.com/gernotstarke">Gernot Starke</a> and <a href="https://twitter.com/ralfdmueller">Ralf D. M&#195;&#188;ller</a></p>
 </div>
@@ -3218,7 +3233,7 @@ In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
 </div>
 </div>
 <div class="sect3">
-<h4 id="_gesunde_dokumentation_mit_asciidoctor">4.3.2. Gesunde Dokumentation mit Asciidoctor</h4>
+<h4 id="_gesunde_dokumentation_mit_asciidoctor">5.3.2. Gesunde Dokumentation mit Asciidoctor</h4>
 <div class="paragraph">
 <p><a href="https://twitter.com/ahus1de">Alexander Schwartz</a></p>
 </div>
@@ -3243,7 +3258,7 @@ In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
 </div>
 </div>
 <div class="sect1">
-<h2 id="_acknowledgements_and_contributors">5. Acknowledgements and Contributors</h2>
+<h2 id="_acknowledgements_and_contributors">6. Acknowledgements and Contributors</h2>
 <div class="sectionbody">
 <div class="imageblock" style="float: right">
 <div class="content"><a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/05_contributors.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a></div>
@@ -3310,7 +3325,7 @@ In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
 </div>
 </div>
 <div id="footer">
-<div id="footer-text">Last updated 2018-03-01 19:15:43 MEZ</div>
+<div id="footer-text">Last updated 2018-03-03 20:49:38 MEZ</div>
 </div>
 </body>
 </html>
