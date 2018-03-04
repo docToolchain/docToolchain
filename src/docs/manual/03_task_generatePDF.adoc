@@ -21,8 +21,8 @@ Documentation on how to modify it can be found in the https://github.com/asciido
 
 == Source
 
-.build.gradle
+.AsciiDocBasics.gradle
 [source,groovy]
 ----
-include::../../../build.gradle[tags=generatePDF]
+include::../../../scripts/AsciiDocBasics.gradle[tags=generatePDF]
 ----

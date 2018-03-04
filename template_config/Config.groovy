@@ -9,7 +9,11 @@ outputPath = 'build'
 // or in the command line, and therefore must be relative to it.
 inputPath = '.'
 
-inputFiles = [[file: 'arc42-template.adoc', formats: ['html','pdf','docbook']]]
+//
+inputFiles = [
+        [file: 'arc42-template.adoc', formats: ['html','pdf','docbook']],
+        [file: 'ppt/Demo.pptx.ad', formats: ['revealjs']]
+             ]
 
 taskInputsDirs = ["${inputPath}/src",
                   "${inputPath}/images",

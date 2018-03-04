@@ -7,7 +7,7 @@ image::ea/Manual/exportPPT.png[]
 
 == Source
 
-.build.gradle
+.exportPPT.gradle
 [source,groovy]
 ----
 include::../../../scripts/exportPPT.gradle[tags=exportPPT]

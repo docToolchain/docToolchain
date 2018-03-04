@@ -2,49 +2,15 @@
  * This build file is part of the docToolchain
  */
 
-import org.asciidoctor.gradle.AsciidoctorTask
-
 plugins {
     id "org.asciidoctor.convert" version "1.5.3"
     id "org.aim42.htmlSanityCheck" version "0.9.7"
     id "com.github.ben-manes.versions" version "0.15.0"
 }
-configurations.all {
-    resolutionStrategy {
-        force 'org.codehaus.groovy:groovy-all:2.4.12'
-    }
-}
-println "compiling with Java ${System.getProperty("java.version")} at ${new Date().format("HH:mm:ss")}"
-
-// configuration
-def config
-println "docDir: ${docDir}"
-println "mainConfigFile: ${mainConfigFile}"
-config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text)
-println "inputPath: ${config.inputPath}"
-println "inputFiles: ${config.inputFiles}"
-println "outputPath: ${config.outputPath}"
-
-ext {
-    srcDir  = "${docDir}/${config.inputPath}"
-    targetDir = "${docDir}/${config.outputPath}"
-    javaVersion = System.getProperty("java.version")
-    currentDate = new Date().format("d. MMM yyyy")
-    // where HTMLSanityCheck checking results ares stored
-    checkingResultsPath = "${docDir}/${config.outputPath}/report/htmlchecks"
-    sourceFiles = config.inputFiles
-}
-
 
 apply plugin:'groovy'
 
 dependencies {
-    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15'
-    // carefull!
-    // asciidoctor 1.5.6 needs diagram 1.5.4.1
-    // but then reveal.js is broken...
-    // https://github.com/asciidoctor/asciidoctor-diagram/issues/161
-    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.5.4.1'
     testCompile(
             ('junit:junit:4.12'),
             ('org.spockframework:spock-core:1.1-groovy-2.4'),
@@ -55,201 +21,20 @@ dependencies {
     )
 }
 
-asciidoctorj {
- version = '1.5.4'
-}
 
-
+//all available docToolchain modules
+//the first is mandatory
+apply from: 'scripts/AsciiDocBasics.gradle'
+//the following are optional
 apply from: 'scripts/exportEA.gradle'
-
 apply from: 'scripts/exportPPT.gradle'
-
 apply from: 'scripts/exportVisio.gradle'
-
 apply from: 'scripts/exportChangelog.gradle'
-
 apply from: 'scripts/exportJiraIssues.gradle'
-
 apply from: 'scripts/exportExcel.gradle'
-
 apply from: 'scripts/pandoc.gradle'
-
 apply from: 'scripts/publishToConfluence.gradle'
-
 apply from: 'scripts/htmlSanityCheck.gradle'
-
-//tag::AsciidoctorTask[]
-
-// common settings for asciidoctor
-// this is needed for PDF generation with plantUML
-tasks.withType(AsciidoctorTask) { docTask ->
-
-    config.taskInputsDirs.each {
-        inputs.dir new File(docDir, it)
-    }
-    config.taskInputsFiles.each {
-        inputs.file new File(docDir, it)
-    }
-
-    // configure source and output files and folders
-    outputDir = file(targetDir)
-    sourceDir = file(srcDir)
-
-    attributes \
-            'pdf-stylesdir': "${docDir}/pdfTheme",
-            'pdf-style': 'custom',
-            'source-highlighter': 'coderay',
-            'imagesdir': 'images',
-            'toc': 'left',
-            'icons': 'font',
-            'javaVersion'         : "$javaVersion",
-            'currentDate'         : "$currentDate",
-            'allow-uri-read'      : true,
-            'manualdir'           : "https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/"
-    // Here we can add the code for extensions we write.
-    extensions {
-        inlinemacro (name: "jira") {
-            parent, target, attributes ->
-                options = [
-                        "type": ":link",
-                        "target": jiraRoot+"/browse/${target}".toString(),
-                        "id": "${target}"
-                ]
-
-                // Create the link to the issue.
-                createInline(parent, "anchor", target, attributes, options).render()
-        }
-    }
-
-    // good to see what the build is doing...
-    logDocuments = true
-
-    requires = ['asciidoctor-diagram']
-
-}
-//end::AsciidoctorTask[]
-
-//tag::generateHTML[]
-task generateHTML (
-        type: AsciidoctorTask,
-        group: 'docToolchain',
-        description: 'use html5 as asciidoc backend') {
-
-    attributes \
-        'plantUMLDir'         : ''
-
-    onlyIf {
-        !sourceFiles.findAll {
-            'html' in it.formats
-        }.empty
-    }
-
-    sources {
-        sourceFiles.findAll {
-            'html' in it.formats
-        }.each {
-            include it.file
-        }
-    }
-
-    backends = ['html5']
-}
-//end::generateHTML[]
-
-//tag::generatePDF[]
-task generatePDF (
-        type: AsciidoctorTask,
-        group: 'docToolchain',
-        description: 'use pdf as asciidoc backend') {
-
-    attributes \
-        'plantUMLDir'         : file("${docDir}/${config.outputPath}/images/plantUML/").path
-
-    onlyIf {
-        !sourceFiles.findAll {
-            'pdf' in it.formats
-        }.empty
-    }
-
-    sources {
-        sourceFiles.findAll {
-            'pdf' in it.formats
-        }.each {
-            include it.file
-        }
-    }
-
-    backends = ['pdf']
-}
-//end::generatePDF[]
-
-//tag::generateDocbook[]
-task generateDocbook (
-        type: AsciidoctorTask,
-        group: 'docToolchain',
-        description: 'use docbook as asciidoc backend') {
-
-    sources {
-        sourceFiles.findAll {
-            'docbook' in it.formats
-        }.each {
-            include it.file
-        }
-    }
-
-    backends = ['docbook']
-}
-//end::generateDocbook[]
-
-//tag::generateDeck[]
-task generateDeck (
-        type: AsciidoctorTask,
-        group: 'docToolchain',
-        description: 'use revealJs as asciidoc backend to create a presentation') {
-
-    attributes \
-        'plantUMLDir'         : '',
-        'idprefix': 'slide-',
-        'idseparator': '-',
-        'docinfo1': '',
-        'revealjs_theme': 'black',
-        'revealjs_progress': 'true',
-        'revealjs_touch': 'true',
-        'revealjs_hideAddressBar': 'true',
-        'revealjs_transition': 'linear',
-        'revealjs_history': 'true',
-        'revealjs_slideNumber': 'true'
-
-    options template_dirs : [new File('resources/asciidoctor-reveal.js','templates/slim').absolutePath ]
-
-    onlyIf {
-        !sourceFiles.findAll {
-            'revealjs' in it.formats
-        }.empty
-    }
-
-    sources {
-        sourceFiles.findAll {
-            'revealjs' in it.formats
-        }.each {
-            include it.file
-        }
-    }
-
-    outputDir = file(targetDir+'/decks/')
-
-    resources {
-        from('resources') {
-            include 'reveal.js/**'
-        }
-        from(sourceDir) {
-            include 'images/**'
-        }
-        into("ppt")
-        logger.error "${docDir}/${config.outputPath}/ppt/images"
-    }
-}
-//end::generateDeck[]
 
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'

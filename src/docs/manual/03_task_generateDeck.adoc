@@ -12,8 +12,8 @@ Create a PowerPoint presentation and enrich it with reveal.js slide definitions 
 
 == Source
 
-.build.gradle
+.AsciiDocBasics.gradle
 [source,groovy]
 ----
-include::../../../build.gradle[tags=generateDeck]
+include::../../../scripts/AsciiDocBasics.gradle[tags=generateDeck]
 ----

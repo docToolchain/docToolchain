@@ -10,8 +10,8 @@ This is only a helper task - it generates the intermediate format for <<convertT
 
 == Source
 
-.build.gradle
+.AsciiDocBasics.gradle
 [source,groovy]
 ----
-include::../../../build.gradle[tags=generateDocbook]
+include::../../../scripts/AsciiDocBasics.gradle[tags=generateDocbook]
 ----
