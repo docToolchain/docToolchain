@@ -1067,6 +1067,12 @@ The second element is the name of the image to be created and the third specifie
     attributes \
         <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
 
+    onlyIf {
+        !sourceFiles.findAll {
+            <span class="string"><span class="delimiter">'</span><span class="content">html</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
+        }.empty
+    }
+
     sources {
         sourceFiles.findAll {
             <span class="string"><span class="delimiter">'</span><span class="content">html</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
@@ -1124,6 +1130,12 @@ The second element is the name of the image to be created and the third specifie
 
     attributes \
         <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : file(<span class="string"><span class="delimiter">"</span><span class="inline"><span class="inline-delimiter">${</span>docDir<span class="inline-delimiter">}</span></span><span class="content">/</span><span class="inline"><span class="inline-delimiter">${</span>config.outputPath<span class="inline-delimiter">}</span></span><span class="content">/images/plantUML/</span><span class="delimiter">"</span></span>).path
+
+    onlyIf {
+        !sourceFiles.findAll {
+            <span class="string"><span class="delimiter">'</span><span class="content">pdf</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
+        }.empty
+    }
 
     sources {
         sourceFiles.findAll {
@@ -1218,6 +1230,12 @@ The second element is the name of the image to be created and the third specifie
             <span class="string"><span class="delimiter">'</span><span class="content">revealjs_slideNumber</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>
 
     options template_dirs : [<span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">resources/asciidoctor-reveal.js</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">templates/slim</span><span class="delimiter">'</span></span>).absolutePath ]
+
+    onlyIf {
+        !sourceFiles.findAll {
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
+        }.empty
+    }
 
     sources {
         sourceFiles.findAll {
@@ -2970,7 +2988,7 @@ use `gradle exportExcel` to re-export files
 <table>
 <tr>
 <td class="icon"></td>
-<td class="content">if you discover newer version, this does not mean that they will play nicely together. If you want to make sure that everything works, reply on the versions which the docToolchain contributors have selected.</td>
+<td class="content">if you discover newer version, this does not mean that they will play nicely together. If you want to make sure that everything works, rely on the versions which the docToolchain contributors have selected.</td>
 </tr>
 </table>
 </div>
@@ -3099,9 +3117,9 @@ In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
 <div class="sect2">
 <h3 id="_sparx_enterprise_architect">4.3. Sparx Enterprise Architect</h3>
 <div class="sect3">
-<h4 id="_q_sparx_enterprise_architect_is_a_windows_tool_isn_t_it">4.3.1. Q: Sparx Enterprise Architect is a windows tool, isn&#8217;t it?</h4>
+<h4 id="_q_sparx_enterprise_architect_is_a_windows_tool_isn_t_it">4.3.1. Q: Sparx Enterprise Architect is a Windows tool, isn&#8217;t it?</h4>
 <div class="paragraph">
-<p>Yes, it is, but it is written to support Crossover inorder to run on linux based systems. Wine, the open source branch of Crossover seems to work as well.</p>
+<p>Yes, it is, but it is written to support CrossOver in order to run on Linux based systems. Wine, the open source branch of CrossOver seems to work as well.</p>
 </div>
 <div class="paragraph">
 <p>Take a look at this page to see how to install it on a linux based system: <a href="http://www.sparxsystems.com/support/faq/ea_on_linux.html" class="bare">http://www.sparxsystems.com/support/faq/ea_on_linux.html</a></p>
