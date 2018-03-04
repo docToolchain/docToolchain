@@ -114,6 +114,12 @@ task generateHTML (
     attributes \
         'plantUMLDir'         : ''
 
+    onlyIf {
+        !sourceFiles.findAll {
+            'html' in it.formats
+        }.empty
+    }
+
     sources {
         sourceFiles.findAll {
             'html' in it.formats
@@ -134,6 +140,12 @@ task generatePDF (
 
     attributes \
         'plantUMLDir'         : file("${docDir}/${config.outputPath}/images/plantUML/").path
+
+    onlyIf {
+        !sourceFiles.findAll {
+            'pdf' in it.formats
+        }.empty
+    }
 
     sources {
         sourceFiles.findAll {
@@ -185,6 +197,12 @@ task generateDeck (
             'revealjs_slideNumber': 'true'
 
     options template_dirs : [new File('resources/asciidoctor-reveal.js','templates/slim').absolutePath ]
+
+    onlyIf {
+        !sourceFiles.findAll {
+            'revealjs' in it.formats
+        }.empty
+    }
 
     sources {
         sourceFiles.findAll {
