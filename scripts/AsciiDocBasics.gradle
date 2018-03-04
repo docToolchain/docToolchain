@@ -165,6 +165,12 @@ task generateDocbook (
         group: 'docToolchain',
         description: 'use docbook as asciidoc backend') {
 
+    onlyIf {
+        !sourceFiles.findAll {
+            'docbook' in it.formats
+        }.empty
+    }
+
     sources {
         sourceFiles.findAll {
             'docbook' in it.formats
