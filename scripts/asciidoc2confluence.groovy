@@ -253,6 +253,7 @@ def unescapeCDATASections = { html ->
             def suffix = html.substring(end)
             def unescaped = html.substring(start + CDATA_PLACEHOLDER_START.length(), end)
                     .replaceAll('&lt;', '<').replaceAll('&gt;', '>')
+                    .replaceAll('&amp;', '&')
             html = prefix + unescaped + suffix
         }
         start = html.indexOf(CDATA_PLACEHOLDER_START, start + 1)
