@@ -5,10 +5,18 @@ image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdi
 
 image::ea/Manual/exportPPT.png[]
 
+TIP: Blog-Post: https://rdmueller.github.io/PPT-as-asciidoc-editor/[Do more with Slides]
+
 == Source
 
 .exportPPT.gradle
 [source,groovy]
 ----
 include::../../../scripts/exportPPT.gradle[tags=exportPPT]
+----
+
+.exportPPT.vbs
+[source,vbs]
+----
+include::../../../scripts/exportPPT.vbs[]
 ----

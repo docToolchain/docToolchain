@@ -19,6 +19,8 @@ It is very likely that you need to "theme" you PDF - change colors, fonts, page 
 This can be done by changing the `src/docs/custom-theme.yml` file.
 Documentation on how to modify it can be found in the https://github.com/asciidoctor/asciidoctor-pdf/blob/master/docs/theming-guide.adoc[asciidoctor-pdf theming guide].
 
+TIP: Blog-Post: https://rdmueller.github.io/pdf-output/[Beyond HTML]
+
 == Source
 
 .AsciiDocBasics.gradle

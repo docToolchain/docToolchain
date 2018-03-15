@@ -47,6 +47,8 @@ By excluding the table definition, you can easily translate the table headings t
 NOTE: it might make sense to only include certain commit messages from the change log or exclude others (starting with `#` or `//`?).
 But this isn't implemented yet.
 
+TIP: Blog-Post: https://rdmueller.github.io/changelog/[The only constant in life is change]
+
 == Source
 
 .exportChangelog.gradle

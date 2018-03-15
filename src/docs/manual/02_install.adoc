@@ -97,6 +97,8 @@ cd <docToolchain home>
 
 The Config.groovy file is then preconfigured to use the downloaded template.
 
+TIP: Blog-Post: https://rdmueller.github.io/arc42/[Let's add Content!]
+
 == Build
 
 This should already be enough to start a first build.
@@ -142,7 +144,9 @@ build
 
 If you didn't get the right output, please raise an issue on https://github.com/docToolchain/docToolchain/issues[github]
 
-== Publish on Confluence
+TIP: Blog-Posts: https://rdmueller.github.io/enterprise-edition/[Behind the great Firewall], https://rdmueller.github.io/enterprise-edition2/[Enterprise AsciiDoctor]
+
+== Publish to Confluence
 
 In addition to `Config.groovy` there is also a `scripts/ConfluenceConfig.groovy` file. If you are not using Confluence
 you can remove it. If you use Confluence, then you need to open this file and adapt to your environment.
