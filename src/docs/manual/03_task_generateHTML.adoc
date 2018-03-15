@@ -68,6 +68,8 @@ Just add `!pragma graphviz_dot jdot` as the first line of your diagram definitio
 This is still an experimental feature, but already works quite well! +
 https://rdmueller.github.io/plantuml-without-graphviz/
 
+TIP: Blog-Posts: https://rdmueller.github.io/plantuml-gradle/[PlantUML with Gradle], https://rdmueller.github.io/plantUML-and-pdf/[plantUML with Asciidoctor-pdf], https://rdmueller.github.io/plantUML-revisited/[plantUML revisited], https://rdmueller.github.io/plantuml-without-graphviz/[How to use PlantUML without Graphviz]
+
 == Source
 
 .AsciiDocBasics.gradle

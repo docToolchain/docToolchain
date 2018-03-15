@@ -12,6 +12,8 @@ This way, you can read your documentation in a convenient way on an eBook-reader
 
 Result can be found in `build/docs/epub`
 
+TIP: Blog-Post: https://rdmueller.github.io/create-epub/[Turn your Document into an Audio-Book]
+
 == Source
 
 .pandoc.gradle

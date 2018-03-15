@@ -7,3 +7,5 @@ Quite helpful to keep all dependencies up-to-date.
 
 WARNING: if you discover newer version, this does not mean that they will play nicely together. If you want to make sure that everything works, rely on the versions which the docToolchain contributors have selected.
 
+TIP: Blog-Post: https://rdmueller.github.io/dependency-update/[Handle Dependency Updates the easy Way]
+
