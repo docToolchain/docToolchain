@@ -1,6 +1,7 @@
 //tag::convertToDocx[]
 task convertToDocx (
         group: 'docToolchain',
+        description: 'converts file to .docx via pandoc. Needs pandoc installed.',
         type: Exec
 ) {
     // For now it's only taking the first input file that has docbook format specified
@@ -20,6 +21,7 @@ task convertToDocx (
 //tag::convertToEpub[]
 task convertToEpub (
         group: 'docToolchain',
+        description: 'converts file to .epub via pandoc. Needs pandoc installed.',
         type: Exec
 ) {
     // For now it's only taking the first input file that has docbook format specified
