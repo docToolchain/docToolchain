@@ -1121,9 +1121,9 @@ make sure to specify a unique image name for each diagram, otherwise they will o
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/demoPlantUML.png" alt="example diagram" width="233" height="238">
+<img src="images/demoPlantUML.png" alt="demoPlantUML" width="232" height="236">
 </div>
-<div class="title">example diagram</div>
+<div class="title">Figure 2. example diagram</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1688,6 +1688,7 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
             <span class="keyword">def</span> suffix = html.substring(end)
             <span class="keyword">def</span> unescaped = html.substring(start + CDATA_PLACEHOLDER_START.length(), end)
                     .replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&amp;lt;</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">&lt;</span><span class="delimiter">'</span></span>).replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&amp;gt;</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">&gt;</span><span class="delimiter">'</span></span>)
+                    .replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&amp;amp;</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">&amp;</span><span class="delimiter">'</span></span>)
             html = prefix + unescaped + suffix
         }
         start = html.indexOf(CDATA_PLACEHOLDER_START, start + <span class="integer">1</span>)
@@ -3307,7 +3308,7 @@ It is a standalone (batch- and command-line) html sanity checker - it detects mi
 <div class="content">
 <img src="images/manual/htmlSanityCheck.png" alt="htmlSanityCheck">
 </div>
-<div class="title">Figure 2. sample report</div>
+<div class="title">Figure 3. sample report</div>
 </div>
 <div class="paragraph">
 <p>Further information can be found on github: <a href="https://github.com/aim42/htmlSanityCheck" class="bare">https://github.com/aim42/htmlSanityCheck</a></p>
@@ -3748,6 +3749,21 @@ This project depends and builds on them.</p>
 <li>
 <p><a href="https://github.com/FrankPohl">Frank Pohl</a></p>
 </li>
+<li>
+<p><a href="https://twitter.com/ixchelruiz">Ixchel Ruiz</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/ysb33r">Schalk Cronjé</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/marioggar">Mario García</a></p>
+</li>
+<li>
+<p><a href="https://github.com/joex2">Joe</a></p>
+</li>
+<li>
+<p><a href="https://github.com/davidmc24">David M. Carr</a></p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -3763,7 +3779,7 @@ This project depends and builds on them.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-03-15 11:18:33 MEZ
+Last updated 2018-06-25 10:55:45 EDT
 </div>
 </div>
 </body>
