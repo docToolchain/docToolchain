@@ -62,6 +62,47 @@ DiagramBlock <|-- DitaaBlock
 DiagramBlock <|-- PlantUmlBlock
 ----
 
+If you want to control the size of the generated diagram in the output, you can configure the "width" attribute (in pixels) or "scale" attribute (floating point ratio) passed to http://asciidoctor.org/docs/asciidoctor-diagram/[asciidoctor-diagram].
+For example, if you take the example diagram above and change the declaration to one of the below versions
+
+....
+[plantuml, target="{plantUMLDir}demoPlantUMLWidth", format=png, width=250]
+# rest of the diagram definition
+
+[plantuml, target="{plantUMLDir}demoPlantUMLScale", format=png, scale=0.75]
+# rest of the diagram definition
+....
+
+it will render like this:
+
+.example diagram (with specified width)
+[plantuml, target="{plantUMLDir}demoPlantUMLWidth", format=png, width=250]
+----
+!pragma graphviz_dot jdot
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor <|-- DiagramBlock
+DiagramBlock <|-- DitaaBlock
+DiagramBlock <|-- PlantUmlBlock
+----
+
+.example diagram (with specified scale)
+[plantuml, target="{plantUMLDir}demoPlantUMLScale", format=png, scale=0.75]
+----
+!pragma graphviz_dot jdot
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor <|-- DiagramBlock
+DiagramBlock <|-- DitaaBlock
+DiagramBlock <|-- PlantUmlBlock
+----
+
 NOTE: plantUML needs graphviz dot installed to work.
 If you can't install it, you can use the Java based version of the dot library.
 Just add `!pragma graphviz_dot jdot` as the first line of your diagram definition.

@@ -1125,6 +1125,34 @@ make sure to specify a unique image name for each diagram, otherwise they will o
 </div>
 <div class="title">Figure 2. example diagram</div>
 </div>
+<div class="paragraph">
+<p>If you want to control the size of the generated diagram in the output, you can configure the "width" attribute (in pixels) or "scale" attribute (floating point ratio) passed to <a href="http://asciidoctor.org/docs/asciidoctor-diagram/">asciidoctor-diagram</a>.
+For example, if you take the example diagram above and change the declaration to one of the below versions</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[plantuml, target="{plantUMLDir}demoPlantUMLWidth", format=png, width=250]
+# rest of the diagram definition
+
+[plantuml, target="{plantUMLDir}demoPlantUMLScale", format=png, scale=0.75]
+# rest of the diagram definition</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>it will render like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/demoPlantUMLWidth.png" alt="demoPlantUMLWidth" width="250" height="236">
+</div>
+<div class="title">Figure 3. example diagram (with specified width)</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/demoPlantUMLScale.png" alt="demoPlantUMLScale" width="174" height="177">
+</div>
+<div class="title">Figure 4. example diagram (with specified scale)</div>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -3308,7 +3336,7 @@ It is a standalone (batch- and command-line) html sanity checker - it detects mi
 <div class="content">
 <img src="images/manual/htmlSanityCheck.png" alt="htmlSanityCheck">
 </div>
-<div class="title">Figure 3. sample report</div>
+<div class="title">Figure 5. sample report</div>
 </div>
 <div class="paragraph">
 <p>Further information can be found on github: <a href="https://github.com/aim42/htmlSanityCheck" class="bare">https://github.com/aim42/htmlSanityCheck</a></p>
