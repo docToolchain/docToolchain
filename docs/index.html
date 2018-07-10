@@ -1442,7 +1442,79 @@ Create a PowerPoint presentation and enrich it with reveal.js slide definitions 
 </div>
 </div>
 <div class="sect3">
-<h4 id="_source_5">3.6.1. Source</h4>
+<h4 id="_css_styling">3.6.1. CSS Styling</h4>
+<div class="paragraph">
+<p>Some asciidoctor features depend on particular CSS style definitions.
+Unless these styles are defined, some formatting that is present in the HTML version will not be represented when published to Confluence.</p>
+</div>
+<div class="olist arabic">
+<div class="title">To configure Confluence to include additional style definitions:</div>
+<ol class="arabic">
+<li>
+<p>Log in to Confluence as a space admin</p>
+</li>
+<li>
+<p>Go to the desired space</p>
+</li>
+<li>
+<p>Select "Space tools", "Look and Feel", "Stylesheet"</p>
+</li>
+<li>
+<p>Click "Edit", enter the desired style definitions, and click "Save"</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The default style definitions can be found in the asciidoc project as <a href="https://raw.githubusercontent.com/asciidoctor/asciidoctor/master/data/stylesheets/asciidoctor-default.css">asciidoctor-default.css</a>.
+Note that you likely do <strong>NOT</strong> want to include the whole thing, as some of the definitions are likely to disrupt Confluence&#8217;s layout.</p>
+</div>
+<div class="paragraph">
+<p>The following style definitions are believed to be Confluence-compatible, and enable use of the built-in roles (<code>big</code>/<code>small</code>, <code>underline</code>/<code>overline</code>/<code>line-through</code>, <code><em>COLOR</em></code>/<code><em>COLOR</em>-background</code> for the <a href="http://en.wikipedia.org/wiki/Web_colors#HTML_color_names">sixteen HTML color names</a>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="css"><span class="class">.big</span>{<span class="key">font-size</span>:<span class="value">larger</span>}
+<span class="class">.small</span>{<span class="key">font-size</span>:<span class="value">smaller</span>}
+<span class="class">.underline</span>{<span class="key">text-decoration</span>:<span class="value">underline</span>}
+<span class="class">.overline</span>{<span class="key">text-decoration</span>:<span class="value">overline</span>}
+<span class="class">.line-through</span>{<span class="key">text-decoration</span>:<span class="value">line-through</span>}
+<span class="class">.aqua</span>{<span class="key">color</span>:<span class="color">#00bfbf</span>}
+<span class="class">.aqua-background</span>{<span class="key">background-color</span>:<span class="color">#00fafa</span>}
+<span class="class">.black</span>{<span class="key">color</span>:<span class="color">#000</span>}
+<span class="class">.black-background</span>{<span class="key">background-color</span>:<span class="color">#000</span>}
+<span class="class">.blue</span>{<span class="key">color</span>:<span class="color">#0000bf</span>}
+<span class="class">.blue-background</span>{<span class="key">background-color</span>:<span class="color">#0000fa</span>}
+<span class="class">.fuchsia</span>{<span class="key">color</span>:<span class="color">#bf00bf</span>}
+<span class="class">.fuchsia-background</span>{<span class="key">background-color</span>:<span class="color">#fa00fa</span>}
+<span class="class">.gray</span>{<span class="key">color</span>:<span class="color">#606060</span>}
+<span class="class">.gray-background</span>{<span class="key">background-color</span>:<span class="color">#7d7d7d</span>}
+<span class="class">.green</span>{<span class="key">color</span>:<span class="color">#006000</span>}
+<span class="class">.green-background</span>{<span class="key">background-color</span>:<span class="color">#007d00</span>}
+<span class="class">.lime</span>{<span class="key">color</span>:<span class="color">#00bf00</span>}
+<span class="class">.lime-background</span>{<span class="key">background-color</span>:<span class="color">#00fa00</span>}
+<span class="class">.maroon</span>{<span class="key">color</span>:<span class="color">#600000</span>}
+<span class="class">.maroon-background</span>{<span class="key">background-color</span>:<span class="color">#7d0000</span>}
+<span class="class">.navy</span>{<span class="key">color</span>:<span class="color">#000060</span>}
+<span class="class">.navy-background</span>{<span class="key">background-color</span>:<span class="color">#00007d</span>}
+<span class="class">.olive</span>{<span class="key">color</span>:<span class="color">#606000</span>}
+<span class="class">.olive-background</span>{<span class="key">background-color</span>:<span class="color">#7d7d00</span>}
+<span class="class">.purple</span>{<span class="key">color</span>:<span class="color">#600060</span>}
+<span class="class">.purple-background</span>{<span class="key">background-color</span>:<span class="color">#7d007d</span>}
+<span class="class">.red</span>{<span class="key">color</span>:<span class="color">#bf0000</span>}
+<span class="class">.red-background</span>{<span class="key">background-color</span>:<span class="color">#fa0000</span>}
+<span class="class">.silver</span>{<span class="key">color</span>:<span class="color">#909090</span>}
+<span class="class">.silver-background</span>{<span class="key">background-color</span>:<span class="color">#bcbcbc</span>}
+<span class="class">.teal</span>{<span class="key">color</span>:<span class="color">#006060</span>}
+<span class="class">.teal-background</span>{<span class="key">background-color</span>:<span class="color">#007d7d</span>}
+<span class="class">.white</span>{<span class="key">color</span>:<span class="color">#bfbfbf</span>}
+<span class="class">.white-background</span>{<span class="key">background-color</span>:<span class="color">#fafafa</span>}
+<span class="class">.yellow</span>{<span class="key">color</span>:<span class="color">#bfbf00</span>}
+<span class="class">.yellow-background</span>{<span class="key">background-color</span>:<span class="color">#fafa00</span>}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_source_5">3.6.2. Source</h4>
 <div class="listingblock">
 <div class="title">publishToConfluence.gradle</div>
 <div class="content">
@@ -1619,6 +1691,11 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
     confluencePagePrefix + pageTitle
 }
 
+<span class="keyword">def</span> rewriteMarks = { body -&gt;
+    <span class="comment">// Confluence strips out mark elements.  Replace them with default formatting.</span>
+    body.select(<span class="string"><span class="delimiter">'</span><span class="content">mark</span><span class="delimiter">'</span></span>).wrap(<span class="string"><span class="delimiter">'</span><span class="content">&lt;span style=&quot;background:#ff0;color:#000&quot;&gt;&lt;/style&gt;</span><span class="delimiter">'</span></span>).unwrap()
+}
+
 <span class="keyword">def</span> rewriteDescriptionLists = { body -&gt;
     <span class="keyword">def</span> TAGS = [ <span class="key">dt</span>: <span class="string"><span class="delimiter">'</span><span class="content">th</span><span class="delimiter">'</span></span>, <span class="key">dd</span>: <span class="string"><span class="delimiter">'</span><span class="content">td</span><span class="delimiter">'</span></span> ]
     body.select(<span class="string"><span class="delimiter">'</span><span class="content">dl</span><span class="delimiter">'</span></span>).each { dl -&gt;
@@ -1782,6 +1859,7 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
         }
         img.remove()
     }
+    rewriteMarks body
     rewriteDescriptionLists body
     rewriteInternalLinks body, anchors, pageAnchors
     <span class="comment">//sanitize code inside code tags</span>

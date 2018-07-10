@@ -156,6 +156,11 @@ def realTitle = { pageTitle ->
     confluencePagePrefix + pageTitle
 }
 
+def rewriteMarks = { body ->
+    // Confluence strips out mark elements.  Replace them with default formatting.
+    body.select('mark').wrap('<span style="background:#ff0;color:#000"></style>').unwrap()
+}
+
 def rewriteDescriptionLists = { body ->
     def TAGS = [ dt: 'th', dd: 'td' ]
     body.select('dl').each { dl ->
@@ -319,6 +324,7 @@ def parseBody =  { body, anchors, pageAnchors ->
         }
         img.remove()
     }
+    rewriteMarks body
     rewriteDescriptionLists body
     rewriteInternalLinks body, anchors, pageAnchors
     //sanitize code inside code tags
