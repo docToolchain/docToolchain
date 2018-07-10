@@ -5,6 +5,62 @@ image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdi
 
 image::ea/Manual/publishToConfluence.png[]
 
+== CSS Styling
+Some asciidoctor features depend on particular CSS style definitions.
+Unless these styles are defined, some formatting that is present in the HTML version will not be represented when published to Confluence.
+
+.To configure Confluence to include additional style definitions:
+. Log in to Confluence as a space admin
+. Go to the desired space
+. Select "Space tools", "Look and Feel", "Stylesheet"
+. Click "Edit", enter the desired style definitions, and click "Save"
+
+The default style definitions can be found in the asciidoc project as https://raw.githubusercontent.com/asciidoctor/asciidoctor/master/data/stylesheets/asciidoctor-default.css[asciidoctor-default.css].
+Note that you likely do *NOT* want to include the whole thing, as some of the definitions are likely to disrupt Confluence's layout.
+
+The following style definitions are believed to be Confluence-compatible, and enable use of the built-in roles (`big`/`small`, `underline`/`overline`/`line-through`, `_COLOR_`/`_COLOR_-background` for the http://en.wikipedia.org/wiki/Web_colors#HTML_color_names[sixteen HTML color names]):
+
+[source,css]
+----
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background-color:#00fafa}
+.black{color:#000}
+.black-background{background-color:#000}
+.blue{color:#0000bf}
+.blue-background{background-color:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background-color:#fa00fa}
+.gray{color:#606060}
+.gray-background{background-color:#7d7d7d}
+.green{color:#006000}
+.green-background{background-color:#007d00}
+.lime{color:#00bf00}
+.lime-background{background-color:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background-color:#7d0000}
+.navy{color:#000060}
+.navy-background{background-color:#00007d}
+.olive{color:#606000}
+.olive-background{background-color:#7d7d00}
+.purple{color:#600060}
+.purple-background{background-color:#7d007d}
+.red{color:#bf0000}
+.red-background{background-color:#fa0000}
+.silver{color:#909090}
+.silver-background{background-color:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background-color:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background-color:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background-color:#fafa00}
+----
+
 == Source
 
 .publishToConfluence.gradle
