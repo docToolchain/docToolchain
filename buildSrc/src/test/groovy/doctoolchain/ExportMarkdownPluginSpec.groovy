@@ -35,9 +35,9 @@ class ExportMarkdownPluginSpec extends Specification {
                 id 'doctoolchain.exportMarkdown' //Empty PLugin needed for automatic classpath injection
             }
             
-            task("exportMarkdown", type: doctoolchain.ExportMarkdownTask){
-                srcDir = file('${inputFolder.getRoot()}')
-                destinationDir = file('${outputFolder.getRoot()}')
+            task("exportMarkdown", type: doctoolchain.ExportMarkdownTask) {
+                from '${inputFolder.getRoot()}'
+                into '${outputFolder.getRoot()}'
             }
            
         """.stripIndent()
