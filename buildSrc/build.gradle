@@ -1,0 +1,28 @@
+plugins {
+    id 'java-gradle-plugin' //necessary for defining a plugin id and injecting the plugin into the tests
+}
+
+repositories {
+    jcenter()
+}
+
+dependencies {
+    compile 'nl.jworks.markdown_to_asciidoc:markdown_to_asciidoc:1.0'
+
+    testCompile 'org.spockframework:spock-core:1.1-groovy-2.4'
+}
+
+gradlePlugin { //necessary for defining a plugin id and injecting the plugin into the tests
+    plugins {
+        exportMarkdown {
+            id = 'doctoolchain.exportMarkdown'
+            implementationClass = 'doctoolchain.ExportMarkdownPlugin'
+        }
+    }
+}
+
+configurations.all {
+    resolutionStrategy {
+        force 'org.codehaus.groovy:groovy-all:2.4.12'
+    }
+}
