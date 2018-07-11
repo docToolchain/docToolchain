@@ -20,6 +20,8 @@ class ExportMarkdownTask extends Copy {
         rename(/(.+)$MARKDOWN_EXTENSION/, "\$1$ADOC_EXTENSION")
         // 3) to convert the file content from Markdown to AsciiDoc
         filter(Markdown2AdocFilter)
+        // 4) Do not copy empty folders
+        includeEmptyDirs = false
     }
 
     static class Markdown2AdocFilter extends FilterReader {

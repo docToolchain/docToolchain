@@ -1,0 +1,9 @@
+//tag::exportMarkdown[]
+task exportMarkdown(
+        description: 'exports all markdown files to AsciiDoc',
+        group: 'docToolchain',
+        type: doctoolchain.ExportMarkdownTask) {
+    from srcDir
+    into targetDir
+}
+//end::exportMarkdown[]
