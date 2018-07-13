@@ -32,10 +32,11 @@ apply from: 'scripts/exportVisio.gradle'
 apply from: 'scripts/exportChangelog.gradle'
 apply from: 'scripts/exportJiraIssues.gradle'
 apply from: 'scripts/exportExcel.gradle'
+apply from: 'scripts/exportMarkdown.gradle'
 apply from: 'scripts/pandoc.gradle'
 apply from: 'scripts/publishToConfluence.gradle'
 apply from: 'scripts/htmlSanityCheck.gradle'
 
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
-defaultTasks 'exportChangeLog', 'generateHTML', 'generatePDF', 'htmlSanityCheck'
+defaultTasks 'exportChangeLog', 'exportMarkdown', 'generateHTML', 'generatePDF', 'htmlSanityCheck'

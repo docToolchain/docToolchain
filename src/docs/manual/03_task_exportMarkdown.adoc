@@ -1,0 +1,11 @@
+ifndef::imagesdir[:imagesdir: ../images]
+
+include::../../../build/docs/exportMarkdownDocs.adoc[]
+
+== Source
+
+.exportMarkdown.gradle
+[source,groovy]
+----
+include::../../../scripts/exportMarkdown.gradle[tags=exportMarkdown]
+----
