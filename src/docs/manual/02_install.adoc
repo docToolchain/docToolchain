@@ -64,7 +64,7 @@ directory is named "newDocDir" during initialization, or just "docDir" later on.
 
 === Existing documents
 
-If you already have some existing documents in asciidoc format in your project, you need to put the configuration
+If you already have some existing documents in AsciiDoc format in your project, you need to put the configuration
 file there to inform docToolchain what and how to process. You can do that manually by copying the contents of
 template_config directory. You can also do that by running `initExisting` task.
 
@@ -80,7 +80,7 @@ You may also change the PDF schema file to your taste.
 
 === Arc42 from scratch
 
-If you don't have existing documents yet, or if you need a fresh start, you can get the Arc42 template in asciidoc
+If you don't have existing documents yet, or if you need a fresh start, you can get the Arc42 template in AsciiDoc
 format. You can do that by manually downloading from http://arc42.org/download. You can also to that by running
 `initArc42<language>` task. Currently supported languages are:
 

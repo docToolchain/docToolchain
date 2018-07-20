@@ -17,7 +17,7 @@ They might be confusing at first and that's why they are explained here.
 
 === generateX
 
-_render_ would have been another good prefix, since these tasks use the plain asciidoctor functionality to render the source to a given format.
+_render_ would have been another good prefix, since these tasks use the plain AsciiDoctor functionality to render the source to a given format.
 
 === exportX
 
@@ -30,7 +30,7 @@ It is also likely that you have to put the resulting artefacts under version con
 
 === convertToX
 
-These tasks take the output from asciidoctor and convert it (through other tools) to the target format.
+These tasks take the output from AsciiDoctor and convert it (through other tools) to the target format.
 This results in a dependency on a _generateX_ task and another external tool (currently http://pandoc.org[pandoc]).
 
 === publishToX

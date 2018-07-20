@@ -52,16 +52,16 @@ Zwischendurch bekommen Sie zahlreiche Tipps, wie und wo Sie systematisch den Auf
 
 image::manual/speakerdeck1.png[align="center",link=https://speakerdeck.com/rdmueller/dokumentation-am-riesen-beispiel-arc42-asciidoc-und-co-in-aktion]
 
-=== Gesunde Dokumentation mit Asciidoctor
+=== Gesunde Dokumentation mit AsciiDoctor
 
 https://twitter.com/ahus1de[Alexander Schwartz]
 
 Autoren möchten Inhalte effizient dokumentieren und vorhandene Inhalte wiederverwenden. Ein Leser möchte das Dokument in einem ansprechenden Layout präsentiert bekommen.
 
-Das textbasierte Asciidoc-Format bietet für einen Entwickler oder technischen Redakteur alle notwendigen Auszeichungselemente, um auch anspruchsvolle Dokumente zu schreiben. So werden unter anderem Tabellen, Fußnoten und annotierte Quellcodes unterstützt. Gleichzeitig ist es ähnlich leichtgewichtig wie z.B. das Markdown Format. Für die Leser wird HTML, PDF oder EPUB generiert.
+Das textbasierte AsciiDoc-Format bietet für einen Entwickler oder technischen Redakteur alle notwendigen Auszeichungselemente, um auch anspruchsvolle Dokumente zu schreiben. So werden unter anderem Tabellen, Fußnoten und annotierte Quellcodes unterstützt. Gleichzeitig ist es ähnlich leichtgewichtig wie z.B. das Markdown Format. Für die Leser wird HTML, PDF oder EPUB generiert.
 
-Da Asciidoc wie Programmcode eingecheckt wird und Merge-Operationen einfach möglich sind, können Programmcode und Dokumentation zusammen versioniert und auf einem einheitlichen Stand gehalten werden.
+Da AsciiDoc wie Programmcode eingecheckt wird und Merge-Operationen einfach möglich sind, können Programmcode und Dokumentation zusammen versioniert und auf einem einheitlichen Stand gehalten werden.
 
-Der Vortrag gibt eine kurze Einführung in Asciidoc und die dazugehörigen Werkzeuge.
+Der Vortrag gibt eine kurze Einführung in AsciiDoc und die dazugehörigen Werkzeuge.
 
 image::manual/speakerdeck2.png[align="center",link=https://speakerdeck.com/ahus1/gesunde-dokumentation-mit-asciidoctor]

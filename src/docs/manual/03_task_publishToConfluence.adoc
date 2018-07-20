@@ -6,7 +6,7 @@ image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdi
 image::ea/Manual/publishToConfluence.png[]
 
 == CSS Styling
-Some asciidoctor features depend on particular CSS style definitions.
+Some AsciiDoctor features depend on particular CSS style definitions.
 Unless these styles are defined, some formatting that is present in the HTML version will not be represented when published to Confluence.
 
 .To configure Confluence to include additional style definitions:
@@ -15,7 +15,7 @@ Unless these styles are defined, some formatting that is present in the HTML ver
 . Select "Space tools", "Look and Feel", "Stylesheet"
 . Click "Edit", enter the desired style definitions, and click "Save"
 
-The default style definitions can be found in the asciidoc project as https://raw.githubusercontent.com/asciidoctor/asciidoctor/master/data/stylesheets/asciidoctor-default.css[asciidoctor-default.css].
+The default style definitions can be found in the AsciiDoc project as https://raw.githubusercontent.com/asciidoctor/asciidoctor/master/data/stylesheets/asciidoctor-default.css[asciidoctor-default.css].
 Note that you likely do *NOT* want to include the whole thing, as some of the definitions are likely to disrupt Confluence's layout.
 
 The following style definitions are believed to be Confluence-compatible, and enable use of the built-in roles (`big`/`small`, `underline`/`overline`/`line-through`, `_COLOR_`/`_COLOR_-background` for the http://en.wikipedia.org/wiki/Web_colors#HTML_color_names[sixteen HTML color names]):
