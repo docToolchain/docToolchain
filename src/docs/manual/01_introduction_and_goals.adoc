@@ -35,7 +35,7 @@ arc42 is available in many formats like MS Word, textile and Confluence and all 
 
 === docToolchain
 
-In order to follow the _docs-as-code_ approach, you need a build script which automates steps like exporting diagrams and rendering the used markdown (_asciidoc_ in case of _docToolchain_) to the target format.
+In order to follow the _docs-as-code_ approach, you need a build script which automates steps like exporting diagrams and rendering the used markdown (_AsciiDoc_ in case of _docToolchain_) to the target format.
 
 Unfortunately, such a build script is not easy to create in the first place ('how do I create .docx?', 'why does lib x not work with lib y?') and it is also not too easy to maintain.
 
