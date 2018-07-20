@@ -643,7 +643,7 @@ These explanations are part of every chapter of the template and give you guidan
 <div class="sect3">
 <h4 id="_doctoolchain">1.1.3. docToolchain</h4>
 <div class="paragraph">
-<p>In order to follow the <em>docs-as-code</em> approach, you need a build script which automates steps like exporting diagrams and rendering the used markdown (<em>asciidoc</em> in case of <em>docToolchain</em>) to the target format.</p>
+<p>In order to follow the <em>docs-as-code</em> approach, you need a build script which automates steps like exporting diagrams and rendering the used markdown (<em>AsciiDoc</em> in case of <em>docToolchain</em>) to the target format.</p>
 </div>
 <div class="paragraph">
 <p>Unfortunately, such a build script is not easy to create in the first place ('how do I create .docx?', 'why does lib x not work with lib y?') and it is also not too easy to maintain.</p>
@@ -810,7 +810,7 @@ directory is named "newDocDir" during initialization, or just "docDir" later on.
 <div class="sect3">
 <h4 id="_existing_documents">2.2.1. Existing documents</h4>
 <div class="paragraph">
-<p>If you already have some existing documents in asciidoc format in your project, you need to put the configuration
+<p>If you already have some existing documents in AsciiDoc format in your project, you need to put the configuration
 file there to inform docToolchain what and how to process. You can do that manually by copying the contents of
 template_config directory. You can also do that by running <code>initExisting</code> task.</p>
 </div>
@@ -829,7 +829,7 @@ You may also change the PDF schema file to your taste.</p>
 <div class="sect3">
 <h4 id="_arc42_from_scratch">2.2.2. Arc42 from scratch</h4>
 <div class="paragraph">
-<p>If you don&#8217;t have existing documents yet, or if you need a fresh start, you can get the Arc42 template in asciidoc
+<p>If you don&#8217;t have existing documents yet, or if you need a fresh start, you can get the Arc42 template in AsciiDoc
 format. You can do that by manually downloading from <a href="http://arc42.org/download" class="bare">http://arc42.org/download</a>. You can also to that by running
 <code>initArc42&lt;language&gt;</code> task. Currently supported languages are:</p>
 </div>
@@ -988,7 +988,7 @@ They might be confusing at first and that&#8217;s why they are explained here.</
 <div class="sect3">
 <h4 id="_generatex">3.1.1. generateX</h4>
 <div class="paragraph">
-<p><em>render</em> would have been another good prefix, since these tasks use the plain asciidoctor functionality to render the source to a given format.</p>
+<p><em>render</em> would have been another good prefix, since these tasks use the plain AsciiDoctor functionality to render the source to a given format.</p>
 </div>
 </div>
 <div class="sect3">
@@ -1007,7 +1007,7 @@ The resulting artefacts can then be included from your main sources.</p>
 <div class="sect3">
 <h4 id="_converttox">3.1.3. convertToX</h4>
 <div class="paragraph">
-<p>These tasks take the output from asciidoctor and convert it (through other tools) to the target format.
+<p>These tasks take the output from AsciiDoctor and convert it (through other tools) to the target format.
 This results in a dependency on a <em>generateX</em> task and another external tool (currently <a href="http://pandoc.org">pandoc</a>).</p>
 </div>
 </div>
@@ -1034,10 +1034,10 @@ This means that the result is likely to be visible immediately to others.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>This is the standard asciidoctor generator which is supported out of the box.</p>
+<p>This is the standard AsciiDoctor generator which is supported out of the box.</p>
 </div>
 <div class="paragraph">
-<p>The result is written to <code>build/docs/html5</code>.
+<p>The result is written to <code>build/html5</code>.
 The HTML files need the images folder to be in the same directory to display correctly.</p>
 </div>
 <div class="admonitionblock note">
@@ -1047,9 +1047,9 @@ The HTML files need the images folder to be in the same directory to display cor
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-if you would like to have a single-file HTML as result, you can configure asciidoctor to store the images inline as <code>data-uri</code>.<br>
+If you would like to have a single-file HTML as result, you can configure AsciiDoctor to store the images inline as <code>data-uri</code>.<br>
 Just set <code>:data-uri:</code> in the config of your AsciiDoc file.<br>
-But be warned - such a file can be easily very big and some browsers might get into trouble rendering them.<br>
+But be warned - such a file can be easily very big, and some browsers might get into trouble rendering them.<br>
 <a href="https://rdmueller.github.io/single-file-html/" class="bare">https://rdmueller.github.io/single-file-html/</a>
 </td>
 </tr>
@@ -1058,13 +1058,13 @@ But be warned - such a file can be easily very big and some browsers might get i
 <div class="sect3">
 <h4 id="_text_based_diagrams">3.2.1. Text based Diagrams</h4>
 <div class="paragraph">
-<p>For docToolchain, it is configured to use the <a href="http://asciidoctor.org/docs/asciidoctor-diagram/">asciidoctor-diagram</a> plugin which is used to create plantUML diagrams.</p>
+<p>For docToolchain, it is configured to use the <a href="http://asciidoctor.org/docs/asciidoctor-diagram/">asciidoctor-diagram</a> plugin which is used to create PlantUML diagrams.</p>
 </div>
 <div class="paragraph">
-<p>The plugin also supports a bunch of other text based diagrams, but <a href="http://plantuml.com/">plantUML</a> is the most used.</p>
+<p>The plugin also supports a bunch of other text based diagrams, but <a href="http://plantuml.com/">PlantUML</a> is the most used.</p>
 </div>
 <div class="paragraph">
-<p>To use it, just specify your plantUML code like this:</p>
+<p>To use it, just specify your PlantUML code like this:</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -1098,7 +1098,7 @@ The second element is the name of the image to be created and the third specifie
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-the {plantUMLDir} ensures that plantUML also works for the <a href="#_generatepdf">generatePDF</a> task.
+The <code>{plantUMLDir}</code> ensures that PlantUML also works for the <a href="#_generatepdf">generatePDF</a> task.
 Without it, <a href="#_generatehtml">generateHTML</a> works fine, but the PDF will not contain the generated images.
 </td>
 </tr>
@@ -1111,7 +1111,7 @@ Without it, <a href="#_generatehtml">generateHTML</a> works fine, but the PDF wi
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-make sure to specify a unique image name for each diagram, otherwise they will overwrite each other.
+Make sure to specify a unique image name for each diagram, otherwise they will overwrite each other.
 </td>
 </tr>
 </table>
@@ -1160,7 +1160,7 @@ For example, if you take the example diagram above and change the declaration to
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-plantUML needs graphviz dot installed to work.
+PlantUML needs Graphviz dot installed to work.
 If you can&#8217;t install it, you can use the Java based version of the dot library.
 Just add <code>!pragma graphviz_dot jdot</code> as the first line of your diagram definition.
 This is still an experimental feature, but already works quite well!<br>
@@ -1233,7 +1233,7 @@ Blog-Posts: <a href="https://rdmueller.github.io/plantuml-gradle/">PlantUML with
 <p>This task makes use of the <a href="http://asciidoctor.org/docs/convert-asciidoc-to-pdf/">asciidoctor-pdf</a> plugin to render your documents as a pretty PDF file.</p>
 </div>
 <div class="paragraph">
-<p>The file will be written to <code>src/docs/pdf</code>.</p>
+<p>The file will be written to <code>build/pdf</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1243,7 +1243,7 @@ Blog-Posts: <a href="https://rdmueller.github.io/plantuml-gradle/">PlantUML with
 </td>
 <td class="content">
 the used plugin is still in alpha status, but the results are already quite good.
-If you want to use another way to create a PDF, use <a href="http://phantomjs.org/">phantomJS</a> for instance and script it.
+If you want to use another way to create a PDF, use <a href="http://phantomjs.org/">PhantomJS</a> for instance and script it.
 </td>
 </tr>
 </table>
@@ -1254,7 +1254,7 @@ The result looks more like a nicely rendered book than a print-to-pdf HTML page.
 </div>
 <div class="paragraph">
 <p>It is very likely that you need to "theme" you PDF - change colors, fonts, page header and footer.
-This can be done by changing the <code>src/docs/custom-theme.yml</code> file.
+This can be done by changing the <code>pdfTheme/custom-theme.yml</code> file.
 Documentation on how to modify it can be found in the <a href="https://github.com/asciidoctor/asciidoctor-pdf/blob/master/docs/theming-guide.adoc">asciidoctor-pdf theming guide</a>.</p>
 </div>
 <div class="admonitionblock tip">
@@ -1444,7 +1444,7 @@ Create a PowerPoint presentation and enrich it with reveal.js slide definitions 
 <div class="sect3">
 <h4 id="_css_styling">3.6.1. CSS Styling</h4>
 <div class="paragraph">
-<p>Some asciidoctor features depend on particular CSS style definitions.
+<p>Some AsciiDoctor features depend on particular CSS style definitions.
 Unless these styles are defined, some formatting that is present in the HTML version will not be represented when published to Confluence.</p>
 </div>
 <div class="olist arabic">
@@ -1465,7 +1465,7 @@ Unless these styles are defined, some formatting that is present in the HTML ver
 </ol>
 </div>
 <div class="paragraph">
-<p>The default style definitions can be found in the asciidoc project as <a href="https://raw.githubusercontent.com/asciidoctor/asciidoctor/master/data/stylesheets/asciidoctor-default.css">asciidoctor-default.css</a>.
+<p>The default style definitions can be found in the AsciiDoc project as <a href="https://raw.githubusercontent.com/asciidoctor/asciidoctor/master/data/stylesheets/asciidoctor-default.css">asciidoctor-default.css</a>.
 Note that you likely do <strong>NOT</strong> want to include the whole thing, as some of the definitions are likely to disrupt Confluence&#8217;s layout.</p>
 </div>
 <div class="paragraph">
@@ -2135,7 +2135,7 @@ config.input.each { input -&gt;
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Blog-Post: <a href="https://rdmueller.github.io/create-docx/">Render Asciidoc to docx (MS Word)</a>
+Blog-Post: <a href="https://rdmueller.github.io/create-docx/">Render AsciiDoc to docx (MS Word)</a>
 </td>
 </tr>
 </table>
@@ -2187,7 +2187,7 @@ Blog-Post: <a href="https://rdmueller.github.io/create-docx/">Render Asciidoc to
 This way, you can read your documentation in a convenient way on an eBook-reader.</p>
 </div>
 <div class="paragraph">
-<p>Result can be found in <code>build/docs/epub</code></p>
+<p>Result can be found in <code>build/epub</code></p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -2247,7 +2247,7 @@ Blog-Post: <a href="https://rdmueller.github.io/create-epub/">Turn your Document
 <i class="fa icon-tip" title="Tip"></i>
 </td>
 <td class="content">
-Blog-Posts: <a href="https://rdmueller.github.io/jria2eac/">Jira to Sparx EA</a>, <a href="https://rdmueller.github.io/sparx-ea/">Did you ever wish you had better Diagrams?</a>
+Blog-Posts: <a href="https://rdmueller.github.io/jria2eac/">JIRA to Sparx EA</a>, <a href="https://rdmueller.github.io/sparx-ea/">Did you ever wish you had better Diagrams?</a>
 </td>
 </tr>
 </table>
@@ -2565,7 +2565,7 @@ use `gradle exportEA` to re-export files
 </div>
 </div>
 <div class="paragraph">
-<p>This tasks searches for visio files in the <code>/src/docs</code> folder.
+<p>This tasks searches for Visio files in the <code>/src/docs</code> folder.
 It then exports all diagrams and element notes to <code>/src/docs/images/visio</code> and <code>/src/docs/visio</code>.</p>
 </div>
 <div class="ulist">
@@ -2588,7 +2588,7 @@ It then exports all diagrams and element notes to <code>/src/docs/images/visio</
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-currently, only visio files stored directly in <code>/src/docs</code> are supported. For all others, the exported files will be in the wrong location.
+Currently, only Visio files stored directly in <code>/src/docs</code> are supported. For all others, the exported files will be in the wrong location.
 </td>
 </tr>
 </table>
@@ -2600,7 +2600,7 @@ currently, only visio files stored directly in <code>/src/docs</code> are suppor
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-please close any running visio instance before starting this task.
+Please close any running Visio instance before starting this task.
 </td>
 </tr>
 </table>
@@ -2798,9 +2798,9 @@ Then give the path to your configuration file to the task using -PchangelogConfi
 See the description inside the template for more details.</p>
 </div>
 <div class="paragraph">
-<p>By default the source is the Git changelog for the path <code>src/docs</code> - it only contains the commit messages for changes on the documentation.
+<p>By default, the source is the Git changelog for the path <code>src/docs</code> - it only contains the commit messages for changes on the documentation.
 All changes on the build or other sources from the repository will not show up.
-By default the changelog contains the changes with <em>date</em>, <em>author</em> and <em>commit message</em> already formatted as AsciiDoc table content:</p>
+By default, the changelog contains the changes with <em>date</em>, <em>author</em> and <em>commit message</em> already formatted as AsciiDoc table content:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3386,6 +3386,39 @@ use `gradle exportExcel` to re-export files
 </div>
 <hr>
 <div style="page-break-after: always;"></div>
+<div class="paragraph">
+<p>Unresolved directive in manual/03_task_exportMarkdown.adoc - include::../../../build/docs/exportMarkdownDocs.adoc[]</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_source_14">3.14.2. Source</h4>
+<div class="listingblock">
+<div class="title">exportMarkdown.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">task exportMarkdown(
+        <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports all markdown files to AsciiDoc</span><span class="delimiter">'</span></span>,
+        <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
+        <span class="key">type</span>: Copy
+) {
+    from srcDir
+
+    include(<span class="string"><span class="delimiter">&quot;</span><span class="content">**/*.md</span><span class="delimiter">&quot;</span></span>) <span class="comment">//include only markdown files</span>
+    includeEmptyDirs = <span class="predefined-constant">false</span>
+    rename(<span class="regexp"><span class="delimiter">/</span><span class="content">(.+).md</span><span class="delimiter">/</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">$1.adoc</span><span class="delimiter">'</span></span>) <span class="comment">//rename all files from *.md to *.adoc</span>
+    filter(Markdown2AdocFilter) <span class="comment">// convert the content of the files</span>
+
+    into targetDir
+}
+
+<span class="type">class</span> <span class="class">Markdown2AdocFilter</span> <span class="directive">extends</span> <span class="predefined-type">FilterReader</span> {
+    Markdown2AdocFilter(<span class="predefined-type">Reader</span> input) {
+        <span class="local-variable">super</span>(<span class="keyword">new</span> <span class="predefined-type">StringReader</span>(nl.jworks.markdown_to_asciidoc.Converter.convertMarkdownToAsciiDoc(input.text)))
+    }
+}</code></pre>
+</div>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
 </div>
 </div>
 <div class="sect2">
@@ -3432,7 +3465,7 @@ Blog-Post: <a href="https://rdmueller.github.io/htmlSanityCheck/">Automated Qual
 </table>
 </div>
 <div class="sect3">
-<h4 id="_source_14">3.15.1. Source</h4>
+<h4 id="_source_15">3.15.1. Source</h4>
 <div class="listingblock">
 <div class="title">htmlSanityCheck.gradle</div>
 <div class="content">
@@ -3540,7 +3573,7 @@ It will also contain questions relevant to the tools used to build docToolchain,
 <p><a href="http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#images">Asciidoctor Quick Reference on images</a></p>
 </li>
 <li>
-<p><a href="http://asciidoctor.org/docs/asciidoc-writers-guide/#images">Asciidoctor Writer Guide on images</a></p>
+<p><a href="http://asciidoctor.org/docs/asciidoc-writers-guide/#images">AsciiDoctor Writer Guide on images</a></p>
 </li>
 </ul>
 </div>
@@ -3561,7 +3594,7 @@ The build script knows about it, because the attribute <code>imagesdir</code> ha
 <div class="sect3">
 <h4 id="_q_which_image_format_should_i_use">4.1.2. Q: Which image format should I use?</h4>
 <div class="paragraph">
-<p>A: AsciiDoc and asciidoctor support several formats like GIF, PNG, JPG and SVG.
+<p>A: AsciiDoc and AsciiDoctor support several formats like GIF, PNG, JPG and SVG.
 However, if you want to use most features, some formats are better to use than others:</p>
 </div>
 <div class="dlist">
@@ -3572,7 +3605,7 @@ However, if you want to use most features, some formats are better to use than o
 </dd>
 <dt class="hdlist1">JPG</dt>
 <dd>
-<p>is great for photos but not for digrams (you might get compression artefacts).
+<p>is great for photos but not for diagrams (you might get compression artefacts).
 So, if you want to use photos from your flipcharts - JPG might work for you.</p>
 </dd>
 <dt class="hdlist1">SVG</dt>
@@ -3595,7 +3628,7 @@ All output formats support it and if diagrams are rendered with a resolution hig
 A mobile device does not rotate the image itself, it only stores the orientation of the device in the meta data of the photo.
 Your operating system will show you the image as expected, but the rendered AsciiDoc will not.
 This can be „fixed“ with Imagemagick, use convert -auto-orient or mogrify -auto-orient (thanx to <a href="https://twitter.com/RalfDMueller/status/920888868345384960">@rotnroll666</a> for this tip).
-YOu can also try to just open the image in your favourite editor and re-save it.</p>
+You can also try to just open the image in your favourite editor and re-save it.</p>
 </div>
 </div>
 </div>
@@ -3770,7 +3803,7 @@ Einige Teile dieser Doku können Sie sogar automatisiert testen.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_gesunde_dokumentation_mit_asciidoctor">5.3.2. Gesunde Dokumentation mit Asciidoctor</h4>
+<h4 id="_gesunde_dokumentation_mit_asciidoctor">5.3.2. Gesunde Dokumentation mit AsciiDoctor</h4>
 <div class="paragraph">
 <p><a href="https://twitter.com/ahus1de">Alexander Schwartz</a></p>
 </div>
@@ -3778,13 +3811,13 @@ Einige Teile dieser Doku können Sie sogar automatisiert testen.</p>
 <p>Autoren möchten Inhalte effizient dokumentieren und vorhandene Inhalte wiederverwenden. Ein Leser möchte das Dokument in einem ansprechenden Layout präsentiert bekommen.</p>
 </div>
 <div class="paragraph">
-<p>Das textbasierte Asciidoc-Format bietet für einen Entwickler oder technischen Redakteur alle notwendigen Auszeichungselemente, um auch anspruchsvolle Dokumente zu schreiben. So werden unter anderem Tabellen, Fußnoten und annotierte Quellcodes unterstützt. Gleichzeitig ist es ähnlich leichtgewichtig wie z.B. das Markdown Format. Für die Leser wird HTML, PDF oder EPUB generiert.</p>
+<p>Das textbasierte AsciiDoc-Format bietet für einen Entwickler oder technischen Redakteur alle notwendigen Auszeichungselemente, um auch anspruchsvolle Dokumente zu schreiben. So werden unter anderem Tabellen, Fußnoten und annotierte Quellcodes unterstützt. Gleichzeitig ist es ähnlich leichtgewichtig wie z.B. das Markdown Format. Für die Leser wird HTML, PDF oder EPUB generiert.</p>
 </div>
 <div class="paragraph">
-<p>Da Asciidoc wie Programmcode eingecheckt wird und Merge-Operationen einfach möglich sind, können Programmcode und Dokumentation zusammen versioniert und auf einem einheitlichen Stand gehalten werden.</p>
+<p>Da AsciiDoc wie Programmcode eingecheckt wird und Merge-Operationen einfach möglich sind, können Programmcode und Dokumentation zusammen versioniert und auf einem einheitlichen Stand gehalten werden.</p>
 </div>
 <div class="paragraph">
-<p>Der Vortrag gibt eine kurze Einführung in Asciidoc und die dazugehörigen Werkzeuge.</p>
+<p>Der Vortrag gibt eine kurze Einführung in AsciiDoc und die dazugehörigen Werkzeuge.</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
@@ -3808,7 +3841,7 @@ Einige Teile dieser Doku können Sie sogar automatisiert testen.</p>
 <p>This project is an open source project which is based on community efforts.</p>
 </div>
 <div class="paragraph">
-<p>Many people are involved in the underlying technologies like AsciiDoc, Asciidoctor, Gradle, arc42 etc.
+<p>Many people are involved in the underlying technologies like AsciiDoc, AsciiDoctor, Gradle, arc42 etc.
 This project depends and builds on them.</p>
 </div>
 <div class="paragraph">
@@ -3870,6 +3903,9 @@ This project depends and builds on them.</p>
 <li>
 <p><a href="https://github.com/davidmc24">David M. Carr</a></p>
 </li>
+<li>
+<p><a href="https://github.com/fnonnenmacher">Fabian Nonnenmacher</a></p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -3885,7 +3921,7 @@ This project depends and builds on them.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-06-25 10:55:45 EDT
+Last updated 2018-07-19 22:39:26 CEST
 </div>
 </div>
 </body>
