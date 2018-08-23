@@ -3,17 +3,20 @@ task convertToDocx (
         group: 'docToolchain',
         type: Exec
 ) {
-    // For now it's only taking the first input file that has docbook format specified
-    def sourceFile = sourceFiles.find { 'docbook' in it.formats }.file.replace('.adoc', '.xml')
-    def targetFile = sourceFile.replace('.xml', '.docx')
+    // All files with option `docx` in config.groovy is converted to docbook and then to docx.
+    def sourceFilesDocx = sourceFiles.findAll { 'docx' in it.formats }
+    sourceFilesDocx.each {
+        def sourceFile = it.file.replace('.adoc', '.xml')
+        def targetFile = sourceFile.replace('.xml', '.docx')
 
-    workingDir "$targetDir/docbook"
-    executable = "pandoc"
-    new File("$targetDir/docx/").mkdirs()
-    args = ['-r','docbook',
-            '-t','docx',
-            '-o',"../docx/$targetFile",
-            sourceFile]
+        workingDir "$targetDir/docbook"
+        executable = "pandoc"
+        new File("$targetDir/docx/").mkdirs()
+        args = ['-r','docbook',
+                '-t','docx',
+                '-o',"../docx/$targetFile",
+                sourceFile]
+        }
 }
 //end::convertToDocx[]
 
@@ -22,17 +25,21 @@ task convertToEpub (
         group: 'docToolchain',
         type: Exec
 ) {
-    // For now it's only taking the first input file that has docbook format specified
-    def sourceFile = sourceFiles.find { 'docbook' in it.formats }.file.replace('.adoc', '.xml')
-    def targetFile = sourceFile.replace('.xml', '.epub')
+    // All files with option `epub` in config.groovy is converted to docbook and then to epub.
+    def sourceFilesEpub = sourceFiles.findAll { 'epub' in it.formats }
+    sourceFilesEpub.each {
+        def sourceFile = it.file.replace('.adoc', '.xml')
+        def targetFile = sourceFile.replace('.xml', '.epub')
 
-    workingDir "$targetDir/docbook"
-    executable = "pandoc"
-    new File("$targetDir/epub/").mkdirs()
-    args = ['-r','docbook',
-            '-t','epub',
-            '-o',"../epub/$targetFile",
-            sourceFile]
+        workingDir "$targetDir/docbook"
+        executable = "pandoc"
+        new File("$targetDir/epub/").mkdirs()
+        args = ['-r','docbook',
+                '-t','epub',
+                '-o',"../epub/$targetFile",
+                sourceFile]
+
+    }
 }
 //end::convertToEpub[]
 project.afterEvaluate {
