@@ -13,7 +13,7 @@ task exportExcel(
         description: 'exports all excelsheets to csv and AsciiDoc',
         group: 'docToolchain'
 ) {
-    doLast {
+    doFirst {
         File sourceDir = file(srcDir)
 
         def tree = fileTree(srcDir).include('**/*.xlsx').exclude('**/~*')
@@ -37,6 +37,11 @@ use `gradle exportExcel` to re-export files
 """
         exportFileDir.mkdirs()
         new File(exportFileDir, '/readme.ad').write(readme)
+    }
+    doLast {
+        File sourceDir = file(srcDir)
+        def exportFileDir = new File(sourceDir, 'excel')
+        def tree = fileTree(srcDir).include('**/*.xlsx').exclude('**/~*')
 
         def nl = System.getProperty("line.separator")
 
