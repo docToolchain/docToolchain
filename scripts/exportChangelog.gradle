@@ -2,16 +2,18 @@
 task exportChangeLog(
         description: 'exports the change log from a git subpath',
         group: 'docToolchain'
-) doLast {
-    println "changelogConfigFile: ${changelogConfigFile}"
-    def config
-    config = new ConfigSlurper().parse(new File(docDir, changelogConfigFile).text)
-    
-    def cmd = "${config.changelogCmd} ."
-    def changes = cmd.execute(null, new File(docDir, config.changelogDir)).text
-    new File(targetDir).mkdirs()
-    def changelog = new File(targetDir, 'changelog.adoc')
-    logger.info "> changelog exported ${changelog.canonicalPath}"
-    changelog.write(changes)
+) {
+    doLast {
+        println "changelogConfigFile: ${changelogConfigFile}"
+        def config
+        config = new ConfigSlurper().parse(new File(docDir, changelogConfigFile).text)
+
+        def cmd = "${config.changelogCmd} ."
+        def changes = cmd.execute(null, new File(docDir, config.changelogDir)).text
+        new File(targetDir).mkdirs()
+        def changelog = new File(targetDir, 'changelog.adoc')
+        logger.info "> changelog exported ${changelog.canonicalPath}"
+        changelog.write(changes)
+    }
 }
 //end::exportChangeLog[]
