@@ -4,18 +4,18 @@ task exportChangeLog(
         group: 'docToolchain'
 ) {
     doFirst {
-        new File(targetDir).mkDirs()
+        new File(targetDir).mkdirs()
     }
     doLast {
-      println "changelogConfigFile: ${changelogConfigFile}"
-      def config
-      config = new ConfigSlurper().parse(new File(docDir, changelogConfigFile).text)
+        println "changelogConfigFile: ${changelogConfigFile}"
+        def config
+        config = new ConfigSlurper().parse(new File(docDir, changelogConfigFile).text)
 
-      def cmd = "${config.changelogCmd} ."
-      def changes = cmd.execute(null, new File(docDir, config.changelogDir)).text
-      def changelog = new File(targetDir, 'changelog.adoc')
-      logger.info "> changelog exported ${changelog.canonicalPath}"
-      changelog.write(changes)
+        def cmd = "${config.changelogCmd} ."
+        def changes = cmd.execute(null, new File(docDir, config.changelogDir)).text
+        def changelog = new File(targetDir, 'changelog.adoc')
+        logger.info "> changelog exported ${changelog.canonicalPath}"
+        changelog.write(changes)
     }
 }
 //end::exportChangeLog[]
