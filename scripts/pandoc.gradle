@@ -1,6 +1,7 @@
 //tag::convertToDocx[]
 task convertToDocx (
         group: 'docToolchain',
+        description: 'converts file to .docx via pandoc. Needs pandoc installed.',
         type: Exec
 ) {
     // All files with option `docx` in config.groovy is converted to docbook and then to docx.
@@ -23,6 +24,7 @@ task convertToDocx (
 //tag::convertToEpub[]
 task convertToEpub (
         group: 'docToolchain',
+        description: 'converts file to .epub via pandoc. Needs pandoc installed.',
         type: Exec
 ) {
     // All files with option `epub` in config.groovy is converted to docbook and then to epub.

@@ -20,12 +20,15 @@ configurations.all {
 
 // configuration
 def config
-println "docDir: ${docDir}"
-println "mainConfigFile: ${mainConfigFile}"
+if (docDir.startsWith('.')) {
+    docDir = new File(projectDir, docDir).canonicalPath
+}
+logger.info "docToolchain> docDir: ${docDir}"
+logger.info "docToolchain> mainConfigFile: ${mainConfigFile}"
 config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text)
-println "inputPath: ${config.inputPath}"
-println "inputFiles: ${config.inputFiles}"
-println "outputPath: ${config.outputPath}"
+logger.info "docToolchain> inputPath: ${config.inputPath}"
+logger.info "docToolchain> inputFiles: ${config.inputFiles}"
+logger.info "docToolchain> outputPath: ${config.outputPath}"
 
 ext {
     srcDir  = "${docDir}/${config.inputPath}"
