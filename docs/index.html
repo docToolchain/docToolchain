@@ -2148,19 +2148,23 @@ Blog-Post: <a href="https://rdmueller.github.io/create-docx/">Render AsciiDoc to
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">task convertToDocx (
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
+        <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">converts file to .docx via pandoc. Needs pandoc installed.</span><span class="delimiter">'</span></span>,
         <span class="key">type</span>: Exec
 ) {
-    <span class="comment">// For now it's only taking the first input file that has docbook format specified</span>
-    <span class="keyword">def</span> sourceFile = sourceFiles.find { <span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats }.file.replace(<span class="string"><span class="delimiter">'</span><span class="content">.adoc</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">.xml</span><span class="delimiter">'</span></span>)
-    <span class="keyword">def</span> targetFile = sourceFile.replace(<span class="string"><span class="delimiter">'</span><span class="content">.xml</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">.docx</span><span class="delimiter">'</span></span>)
+    <span class="comment">// All files with option `docx` in config.groovy is converted to docbook and then to docx.</span>
+    <span class="keyword">def</span> sourceFilesDocx = sourceFiles.findAll { <span class="string"><span class="delimiter">'</span><span class="content">docx</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats }
+    sourceFilesDocx.each {
+        <span class="keyword">def</span> sourceFile = <span class="local-variable">it</span>.file.replace(<span class="string"><span class="delimiter">'</span><span class="content">.adoc</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">.xml</span><span class="delimiter">'</span></span>)
+        <span class="keyword">def</span> targetFile = sourceFile.replace(<span class="string"><span class="delimiter">'</span><span class="content">.xml</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">.docx</span><span class="delimiter">'</span></span>)
 
-    workingDir <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/docbook</span><span class="delimiter">&quot;</span></span>
-    executable = <span class="string"><span class="delimiter">&quot;</span><span class="content">pandoc</span><span class="delimiter">&quot;</span></span>
-    <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/docx/</span><span class="delimiter">&quot;</span></span>).mkdirs()
-    args = [<span class="string"><span class="delimiter">'</span><span class="content">-r</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span>,
-            <span class="string"><span class="delimiter">'</span><span class="content">-t</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docx</span><span class="delimiter">'</span></span>,
-            <span class="string"><span class="delimiter">'</span><span class="content">-o</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">../docx/</span><span class="inline"><span class="inline-delimiter">$</span>targetFile</span><span class="delimiter">&quot;</span></span>,
-            sourceFile]
+        workingDir <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/docbook</span><span class="delimiter">&quot;</span></span>
+        executable = <span class="string"><span class="delimiter">&quot;</span><span class="content">pandoc</span><span class="delimiter">&quot;</span></span>
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/docx/</span><span class="delimiter">&quot;</span></span>).mkdirs()
+        args = [<span class="string"><span class="delimiter">'</span><span class="content">-r</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span>,
+                <span class="string"><span class="delimiter">'</span><span class="content">-t</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docx</span><span class="delimiter">'</span></span>,
+                <span class="string"><span class="delimiter">'</span><span class="content">-o</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">../docx/</span><span class="inline"><span class="inline-delimiter">$</span>targetFile</span><span class="delimiter">&quot;</span></span>,
+                sourceFile]
+        }
 }</code></pre>
 </div>
 </div>
@@ -2209,19 +2213,24 @@ Blog-Post: <a href="https://rdmueller.github.io/create-epub/">Turn your Document
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">task convertToEpub (
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
+        <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">converts file to .epub via pandoc. Needs pandoc installed.</span><span class="delimiter">'</span></span>,
         <span class="key">type</span>: Exec
 ) {
-    <span class="comment">// For now it's only taking the first input file that has docbook format specified</span>
-    <span class="keyword">def</span> sourceFile = sourceFiles.find { <span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats }.file.replace(<span class="string"><span class="delimiter">'</span><span class="content">.adoc</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">.xml</span><span class="delimiter">'</span></span>)
-    <span class="keyword">def</span> targetFile = sourceFile.replace(<span class="string"><span class="delimiter">'</span><span class="content">.xml</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">.epub</span><span class="delimiter">'</span></span>)
+    <span class="comment">// All files with option `epub` in config.groovy is converted to docbook and then to epub.</span>
+    <span class="keyword">def</span> sourceFilesEpub = sourceFiles.findAll { <span class="string"><span class="delimiter">'</span><span class="content">epub</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats }
+    sourceFilesEpub.each {
+        <span class="keyword">def</span> sourceFile = <span class="local-variable">it</span>.file.replace(<span class="string"><span class="delimiter">'</span><span class="content">.adoc</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">.xml</span><span class="delimiter">'</span></span>)
+        <span class="keyword">def</span> targetFile = sourceFile.replace(<span class="string"><span class="delimiter">'</span><span class="content">.xml</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">.epub</span><span class="delimiter">'</span></span>)
 
-    workingDir <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/docbook</span><span class="delimiter">&quot;</span></span>
-    executable = <span class="string"><span class="delimiter">&quot;</span><span class="content">pandoc</span><span class="delimiter">&quot;</span></span>
-    <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/epub/</span><span class="delimiter">&quot;</span></span>).mkdirs()
-    args = [<span class="string"><span class="delimiter">'</span><span class="content">-r</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span>,
-            <span class="string"><span class="delimiter">'</span><span class="content">-t</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">epub</span><span class="delimiter">'</span></span>,
-            <span class="string"><span class="delimiter">'</span><span class="content">-o</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">../epub/</span><span class="inline"><span class="inline-delimiter">$</span>targetFile</span><span class="delimiter">&quot;</span></span>,
-            sourceFile]
+        workingDir <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/docbook</span><span class="delimiter">&quot;</span></span>
+        executable = <span class="string"><span class="delimiter">&quot;</span><span class="content">pandoc</span><span class="delimiter">&quot;</span></span>
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/epub/</span><span class="delimiter">&quot;</span></span>).mkdirs()
+        args = [<span class="string"><span class="delimiter">'</span><span class="content">-r</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span>,
+                <span class="string"><span class="delimiter">'</span><span class="content">-t</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">epub</span><span class="delimiter">'</span></span>,
+                <span class="string"><span class="delimiter">'</span><span class="content">-o</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">../epub/</span><span class="inline"><span class="inline-delimiter">$</span>targetFile</span><span class="delimiter">&quot;</span></span>,
+                sourceFile]
+
+    }
 }</code></pre>
 </div>
 </div>
@@ -2263,7 +2272,7 @@ Blog-Posts: <a href="https://rdmueller.github.io/jria2eac/">JIRA to Sparx EA</a>
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports all diagrams and some texts from EA files</span><span class="delimiter">'</span></span>,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>
 ) {
-    doLast {
+    doFirst {
         <span class="comment">//make sure path for notes exists</span>
         <span class="comment">//and remove old notes</span>
         <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/ea</span><span class="delimiter">'</span></span>).deleteDir()
@@ -2286,6 +2295,8 @@ use `gradle exportEA` to re-export files
         <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/images/ea/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
         <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/ea/.</span><span class="delimiter">'</span></span>).mkdirs()
         <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/ea/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
+    }
+    doLast {
         <span class="comment">//execute through cscript in order to make sure that we get WScript.echo right</span>
         <span class="string"><span class="delimiter">&quot;</span><span class="content">%SystemRoot%</span><span class="char">\\</span><span class="content">System32</span><span class="char">\\</span><span class="content">cscript.exe //nologo scripts/exportEAP.vbs</span><span class="delimiter">&quot;</span></span>.executeCmd()
         <span class="comment">//the VB Script is only capable of writing iso-8859-1-Files.</span>
@@ -2867,17 +2878,21 @@ Blog-Post: <a href="https://rdmueller.github.io/changelog/">The only constant in
 <pre class="CodeRay highlight"><code data-lang="groovy">task exportChangeLog(
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports the change log from a git subpath</span><span class="delimiter">'</span></span>,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>
-) doLast {
-    println <span class="string"><span class="delimiter">&quot;</span><span class="content">changelogConfigFile: </span><span class="inline"><span class="inline-delimiter">${</span>changelogConfigFile<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
-    <span class="keyword">def</span> config
-    config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, changelogConfigFile).text)
+) {
+    doFirst {
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir).mkdirs()
+    }
+    doLast {
+        println <span class="string"><span class="delimiter">&quot;</span><span class="content">changelogConfigFile: </span><span class="inline"><span class="inline-delimiter">${</span>changelogConfigFile<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+        <span class="keyword">def</span> config
+        config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, changelogConfigFile).text)
 
-    <span class="keyword">def</span> cmd = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>config.changelogCmd<span class="inline-delimiter">}</span></span><span class="content"> .</span><span class="delimiter">&quot;</span></span>
-    <span class="keyword">def</span> changes = cmd.execute(<span class="predefined-constant">null</span>, <span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, config.changelogDir)).text
-    <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir).mkdirs()
-    <span class="keyword">def</span> changelog = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir, <span class="string"><span class="delimiter">'</span><span class="content">changelog.adoc</span><span class="delimiter">'</span></span>)
-    logger.info <span class="string"><span class="delimiter">&quot;</span><span class="content">&gt; changelog exported </span><span class="inline"><span class="inline-delimiter">${</span>changelog.canonicalPath<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
-    changelog.write(changes)
+        <span class="keyword">def</span> cmd = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>config.changelogCmd<span class="inline-delimiter">}</span></span><span class="content"> .</span><span class="delimiter">&quot;</span></span>
+        <span class="keyword">def</span> changes = cmd.execute(<span class="predefined-constant">null</span>, <span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, config.changelogDir)).text
+        <span class="keyword">def</span> changelog = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir, <span class="string"><span class="delimiter">'</span><span class="content">changelog.adoc</span><span class="delimiter">'</span></span>)
+        logger.info <span class="string"><span class="delimiter">&quot;</span><span class="content">&gt; changelog exported </span><span class="inline"><span class="inline-delimiter">${</span>changelog.canonicalPath<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+        changelog.write(changes)
+    }
 }</code></pre>
 </div>
 </div>
@@ -3200,7 +3215,7 @@ include::excel/Sample.xlsx/Numerisch.csv[]
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports all excelsheets to csv and AsciiDoc</span><span class="delimiter">'</span></span>,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>
 ) {
-    doLast {
+    doFirst {
         <span class="predefined-type">File</span> sourceDir = file(srcDir)
 
         <span class="keyword">def</span> tree = fileTree(srcDir).include(<span class="string"><span class="delimiter">'</span><span class="content">**/*.xlsx</span><span class="delimiter">'</span></span>).exclude(<span class="string"><span class="delimiter">'</span><span class="content">**/~*</span><span class="delimiter">'</span></span>)
@@ -3224,6 +3239,11 @@ use `gradle exportExcel` to re-export files
 </span><span class="delimiter">&quot;&quot;&quot;</span></span>
         exportFileDir.mkdirs()
         <span class="keyword">new</span> <span class="predefined-type">File</span>(exportFileDir, <span class="string"><span class="delimiter">'</span><span class="content">/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
+    }
+    doLast {
+        <span class="predefined-type">File</span> sourceDir = file(srcDir)
+        <span class="keyword">def</span> exportFileDir = <span class="keyword">new</span> <span class="predefined-type">File</span>(sourceDir, <span class="string"><span class="delimiter">'</span><span class="content">excel</span><span class="delimiter">'</span></span>)
+        <span class="keyword">def</span> tree = fileTree(srcDir).include(<span class="string"><span class="delimiter">'</span><span class="content">**/*.xlsx</span><span class="delimiter">'</span></span>).exclude(<span class="string"><span class="delimiter">'</span><span class="content">**/~*</span><span class="delimiter">'</span></span>)
 
         <span class="keyword">def</span> nl = <span class="predefined-type">System</span>.getProperty(<span class="string"><span class="delimiter">&quot;</span><span class="content">line.separator</span><span class="delimiter">&quot;</span></span>)
 
@@ -3913,6 +3933,9 @@ This project depends and builds on them.</p>
 <li>
 <p><a href="https://github.com/fnonnenmacher">Fabian Nonnenmacher</a></p>
 </li>
+<li>
+<p><a href="https://twitter.com/stoeps">Christoph Stoettner</a></p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -3928,7 +3951,7 @@ This project depends and builds on them.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-07-21 22:53:07 MESZ
+Last updated 2018-09-23 19:25:42 MESZ
 </div>
 </div>
 </body>

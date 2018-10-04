@@ -23,8 +23,12 @@ def config
 if (docDir.startsWith('.')) {
     docDir = new File(projectDir, docDir).canonicalPath
 }
+if (pdfThemeDir.startsWith('.')) {
+    pdfThemeDir = new File(projectDir, pdfThemeDir).canonicalPath
+}
 logger.info "docToolchain> docDir: ${docDir}"
 logger.info "docToolchain> mainConfigFile: ${mainConfigFile}"
+logger.info "docToolchain> pdfThemeDir: ${pdfThemeDir}"
 config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text)
 logger.info "docToolchain> inputPath: ${config.inputPath}"
 logger.info "docToolchain> inputFiles: ${config.inputFiles}"
@@ -73,7 +77,7 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
     sourceDir = file(srcDir)
 
     attributes \
-            'pdf-stylesdir': "${docDir}/pdfTheme",
+            'pdf-stylesdir': "${pdfThemeDir}",
             'pdf-style': 'custom',
             'source-highlighter': 'coderay',
             'imagesdir': 'images',
