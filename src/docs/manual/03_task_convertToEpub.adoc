@@ -8,7 +8,7 @@ Dependency: <<generateDocBook>>
 This task uses http://pandoc.org[pandoc] to convert the DocBook output from AsciiDoctor to ePub.
 This way, you can read your documentation in a convenient way on an eBook-reader.
 
-Result can be found in `build/docs/epub`
+The resulting file can be found in `build/docs/epub`
 
 == Source
 

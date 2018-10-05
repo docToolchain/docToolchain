@@ -58,25 +58,25 @@ After unzipping, put the dependencies in `resources` folder, so that the structu
 This should already be enough to start a first build:
 
 
-.linux with gradle wrapper
+.Linux with Gradle wrapper
 [source, bash]
 ----
 ./gradlew
 ----
 
-.linux with maven wrapper
+.Linux with Maven wrapper
 [source, bash]
 ----
 ./mvnw
 ----
 
-.Windows with gradle wrapper
+.Windows with Gradle wrapper
 [source, bash]
 ----
 ./gradlew
 ----
 
-.Windows with maven wrapper
+.Windows with Maven wrapper
 [source, bash]
 ----
 ./mvnw.bat

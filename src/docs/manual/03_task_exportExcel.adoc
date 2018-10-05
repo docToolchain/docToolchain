@@ -4,9 +4,9 @@ ifndef::imagesdir[:imagesdir: ../images]
 image::ea/Manual/exportExcel.png[]
 
 Sometimes you have tabular data to be included in your documentation.
-Then it is likely that the data is available as excel sheet or you would like to use MS Excel to create and edit it.
+Then it is likely that the data is available as Excel sheet or you would like to use MS Excel to create and edit it.
 
-Either way, this task lets you export your excel sheet and include it directly in your docs.
+Either way, this task lets you export your Excel sheet and include it directly in your docs.
 
 The task searches for `.xlsx` files and exports each contained worksheet as `.csv` and as `.adoc`.
 
@@ -21,7 +21,7 @@ The files can be included either as AsciiDoc
 \include::excel/Sample.xlsx/Numerisch.adoc[]
 ----
 
-or as CSV file
+or as a CSV file
 
 ----
 [options="header",format="csv"]
