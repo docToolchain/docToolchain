@@ -1,6 +1,8 @@
 ifndef::imagesdir[:imagesdir: ../images]
 = convertToEpub
 
+image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}03_task_convertToEpub.adoc, float=right]
+
 image::ea/Manual/convertToEpub.png[]
 
 Dependency: <<generateDocBook>>
@@ -10,9 +12,11 @@ This way, you can read your documentation in a convenient way on an eBook-reader
 
 The resulting file can be found in `build/docs/epub`
 
+TIP: Blog-Post: https://rdmueller.github.io/create-epub/[Turn your Document into an Audio-Book]
+
 == Source
 
-.build.gradle
+.pandoc.gradle
 [source,groovy]
 ----
 include::../../../scripts/pandoc.gradle[tags=convertToEpub]

@@ -2,14 +2,16 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 = generateDocbook
 
+image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}03_task_generateDocBook.adoc, float=right]
+
 image::ea/Manual/generateDocBook.png[]
 
 This is only a helper task - it generates the intermediate format for <<convertToDocx>> and <<convertToEpub>>.
 
 == Source
 
-.build.gradle
+.AsciiDocBasics.gradle
 [source,groovy]
 ----
-include::../../../build.gradle[tags=generateDocbook]
+include::../../../scripts/AsciiDocBasics.gradle[tags=generateDocbook]
 ----

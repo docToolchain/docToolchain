@@ -1,0 +1,90 @@
+ifndef::imagesdir[:imagesdir: ../images]
+
+= FAQ: Frequently asked Questions
+
+image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}06_Frequently_asked_Questions.adoc, float=right]
+
+This section tries to answer the most common and frequently asked questions about how to work with docToolchain.
+It will also contain questions relevant to the tools used to build docToolchain, but the main focus is docToolchain itself.
+
+If you are stuck, make sure that you also check other sources like https://stackoverflow.com/questions/tagged/asciidoctor[stackoverflow].
+
+There is also a great FAQ for all your arc42 questions: http://faq.arc42.org/home/
+
+If you have a question or problem for which you can't find a solution, you can
+
+* for this repo, add your question and create a pull request
+* raise the issue through the https://github.com/docToolchain/docToolchain/issues[github issue tracker]
+* ask your question on https://stackoverflow.com/questions/tagged/doctoolchain?sort=active&pageSize=50[stackoverflow]
+* discuss the problem on https://t.co/lnqrUc1YMM[slack]
+
+== Images
+
+* http://asciidoctor.org/docs/user-manual/#images[Asciidoctor User Manual on images]
+* http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#images[Asciidoctor Quick Reference on images]
+* http://asciidoctor.org/docs/asciidoc-writers-guide/#images[AsciiDoctor Writer Guide on images]
+
+=== Q: Why are images not shown in the preview of my editor?
+
+A: this is most likely because your editor doesn't know where they are stored.
+If you follow the default settings, you probably store your images in a subfolder `images`.
+The build script knows about it, because the attribute `imagesdir` has been set to `./images`, but your editor doesn't care about the build script - it only checks the currently opened AsciiDoc file.
+
+The solution is to add a line to each file which checks if the `imagesdir` is set and if not, sets it to a valid value:
+
+`ifndef::imagesdir[:imagesdir: ../images]`
+
+=== Q: Which image format should I use?
+
+A: AsciiDoc and AsciiDoctor support several formats like GIF, PNG, JPG and SVG.
+However, if you want to use most features, some formats are better to use than others:
+
+GIF:: is not supported by the PDF renderer. Use JPG or PNG instead.
+
+JPG:: is great for photos but not for diagrams (you might get compression artefacts).
+So, if you want to use photos from your flipcharts - JPG might work for you.
+
+SVG:: great for high resolution diagrams, but not good supported by DOCX as output format.
+OpenOffice Writer might display the image a bit stretched, MS Word didn't display it at all in some experiments.
+
+PNG:: this is the preferred format for images used with docToolchain.
+All output formats support it and if diagrams are rendered with a resolution high enough to display all details, it will also be scaled ok with all output formats.
+
+=== Q: Why are my images rotated in the output?
+
+A: This most likely happens when you've taken photos with a mobile device and include them in you docs.
+A mobile device does not rotate the image itself, it only stores the orientation of the device in the meta data of the photo.
+Your operating system will show you the image as expected, but the rendered AsciiDoc will not.
+This can be „fixed“ with Imagemagick, use convert -auto-orient or mogrify -auto-orient (thanx to https://twitter.com/RalfDMueller/status/920888868345384960[@rotnroll666] for this tip).
+You can also try to just open the image in your favourite editor and re-save it.
+
+== exportVisio
+
+=== Q: I get an error message saying that a library is not registered when I try to run the `exportVisio`-task.
+
+----
+Ausnahme beim Festlegen von "Visible": "Das COM-Objekt des Typs "Microsoft.Office.Interop.Visio.ApplicationClass" kann nicht in den Schnittstellentyp
+"Microsoft.Office.Interop.Visio.IVApplication" umgewandelt werden. Dieser Vorgang konnte nicht durchgeführt werden, da der QueryInterface-Aufruf an die
+COM-Komponente für die Schnittstelle mit der IID "{000D0700-0000-0000-C000-000000000046}" aufgrund des folgenden Fehlers nicht durchgeführt werden konnte:
+Bibliothek nicht registriert. (Ausnahme von HRESULT: 0x8002801D (TYPE_E_LIBNOTREGISTERED))."
+In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
++ $VisioApp.Visible = $false
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], SetValueInvocationException
+    + FullyQualifiedErrorId : ExceptionWhenSetting
+----
+
+A: When Visio is installed, it registers itself as com library. It seems that this registration can break.
+You can fix this by visiting the windows system settings -> install or uninstall a program, select `visio`, select `change` and then `repair`.
+
+== Sparx Enterprise Architect
+
+=== Q: Sparx Enterprise Architect is a Windows tool, isn't it?
+
+Yes, it is, but it is written to support CrossOver in order to run on Linux based systems. Wine, the open source branch of CrossOver seems to work as well.
+
+Take a look at this page to see how to install it on a linux based system: http://www.sparxsystems.com/support/faq/ea_on_linux.html
+
+I (Ralf) once gave it a try and even managed to get remote control over EA via VBS and COM up and running (which is the pre-requisite for docToolchain).
+
+

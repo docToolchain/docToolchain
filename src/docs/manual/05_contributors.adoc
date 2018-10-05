@@ -1,9 +1,11 @@
 ifndef::imagesdir[:imagesdir: ../images]
 = Acknowledgements and Contributors
 
+image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}05_contributors.adoc, float=right]
+
 This project is an open source project which is based on community efforts.
 
-Many people are involved in the underlying technologies like AsciiDoc, Asciidoctor, Gradle, arc42 etc.
+Many people are involved in the underlying technologies like AsciiDoc, AsciiDoctor, Gradle, arc42 etc.
 This project depends and builds on them.
 
 But it even more depends on the direct contributions made through giving feedback, creating issues, answering questions, or sending pull requests.
@@ -18,3 +20,18 @@ Here is an incomplete and unordered list of contributors:
 - https://github.com/ahus1[Alexander Schwartz]
 - https://github.com/aheusingfeld[Alexander Heusingfeld]
 - https://github.com/mojavelinux[Dan Allen]
+- https://github.com/dl1ely[Stefan Pfeiffer]
+- https://github.com/isidorotrevino[isidorotrevino]
+- https://github.com/jakubjab[Jakub Jablonski]
+- https://github.com/FrankPohl[Frank Pohl]
+- https://twitter.com/ixchelruiz[Ixchel Ruiz]
+- https://twitter.com/ysb33r[Schalk Cronjé]
+- https://twitter.com/marioggar[Mario García]
+- https://github.com/joex2[Joe]
+- https://github.com/davidmc24[David M. Carr]
+- https://github.com/fnonnenmacher[Fabian Nonnenmacher]
+- https://twitter.com/stoeps[Christoph Stoettner]
+
+(please update your entry to match your preferences! :-)
+
+image::https://img.shields.io/github/contributors/doctoolchain/doctoolchain.svg[link=https://github.com/docToolchain/docToolchain/graphs/contributors]

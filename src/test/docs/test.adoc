@@ -1,8 +1,29 @@
 include::config-de.adoc[]
 
+.sequence diagram (without graphviz)
 [plantuml,"{plantUMLDir}testPlant",png]
 ----
 a --> b
+----
+
+.component diagram (needs graphviz)
+[plantuml,"{plantUMLDir}testPlant2",png]
+----
+[c]->[d]
+----
+
+.component diagram with jdot
+[plantuml, "{plantUMLDir}demoPlantUML", png]
+----
+'!pragma graphviz_dot jdot
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor <|-- DiagramBlock
+DiagramBlock <|-- DitaaBlock
+DiagramBlock <|-- PlantUmlBlock
 ----
 
 image::ea/Use_Cases.png[width=25%]

@@ -68,6 +68,12 @@ include::manual/03_task_exportEA.adoc[leveloffset=+2]
 
 <<<<
 
+include::manual/03_task_exportVisio.adoc[leveloffset=+2]
+
+---
+
+<<<<
+
 include::manual/03_task_exportChangeLog.adoc[leveloffset=+2]
 
 ---
@@ -92,6 +98,12 @@ include::manual/03_task_exportExcel.adoc[leveloffset=+2]
 
 <<<<
 
+include::manual/03_task_exportMarkdown.adoc[leveloffset=+2]
+
+---
+
+<<<<
+
 include::manual/03_task_htmlSanityCheck.adoc[leveloffset=+2]
 
 ---
@@ -104,10 +116,17 @@ include::manual/03_task_dependencyUpdates.adoc[leveloffset=+2]
 
 <<<<
 
+include::manual/06_Frequently_asked_Questions.adoc[leveloffset=+1]
+
+---
+
+<<<<
+
 include::manual/04_further_reading.adoc[leveloffset=+1]
 
 <<<<
 
 include::manual/05_contributors.adoc[leveloffset=+1]
+
 
 

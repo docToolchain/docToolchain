@@ -1,0 +1,12 @@
+
+
+.docToolchain
+
+
+is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files.
+
+
+.create stunning docs
+
+
+invoked by `gradle` or `maven` command

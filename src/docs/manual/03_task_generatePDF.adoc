@@ -1,11 +1,13 @@
 ifndef::imagesdir[:imagesdir: ../images]
 = generatePDF
 
+image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}03_task_generatePDF.adoc, float=right]
+
 image::ea/Manual/generatePDF.png[]
 
 This task makes use of the http://asciidoctor.org/docs/convert-asciidoc-to-pdf/[asciidoctor-pdf] plugin to render your documents as a pretty PDF file.
 
-The file will be written to `src/docs/pdf`.
+The file will be written to `build/pdf`.
 
 NOTE: The used plugin is still in alpha status, but the results are already quite good.
 If you want to use another way to create a PDF, use http://phantomjs.org/[phantomJS] for instance and script it.
@@ -17,10 +19,12 @@ It is very likely that you need to "theme" you PDF - change colors, fonts, page 
 This can be done by changing the `src/docs/custom-theme.yml` file.
 Documentation on how to modify a theme can be found in the https://github.com/asciidoctor/asciidoctor-pdf/blob/master/docs/theming-guide.adoc[asciidoctor-pdf theming guide].
 
+TIP: Blog-Post: https://rdmueller.github.io/pdf-output/[Beyond HTML]
+
 == Source
 
-.build.gradle
+.AsciiDocBasics.gradle
 [source,groovy]
 ----
-include::../../../build.gradle[tags=generatePDF]
+include::../../../scripts/AsciiDocBasics.gradle[tags=generatePDF]
 ----

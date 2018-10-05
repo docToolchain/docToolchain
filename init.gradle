@@ -1,0 +1,93 @@
+
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'de.undercouch:gradle-download-task:3.3.0'
+    }
+}
+
+println "compiling with Java ${System.getProperty("java.version")} at ${new Date().format("HH:mm:ss")}"
+
+apply plugin: 'de.undercouch.download'
+
+apply plugin:'groovy'
+
+//tag::initExisting[]
+task initExisting(
+        description: 'Install template configuration file and helper scripts in newDocDir',
+        group: 'docToolchain'
+) doLast {
+    copy {
+        from "${projectDir}/template_config"
+        into newDocDir
+    }
+}
+//end::initExisting[]
+
+//tag::initArc42DE[]
+task initArc42DE(
+        description: 'Download German arc42 template from GitHub into newDocDir',
+        group: 'docToolchain',
+        dependsOn: 'initExisting'
+) doLast {
+    download {
+        src 'https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-DE-withhelp-asciidoc.zip'
+        dest new File(newDocDir, 'arc42-template-DE-withhelp-asciidoc.zip')
+    }
+    copy {
+        from zipTree(new File(newDocDir, 'arc42-template-DE-withhelp-asciidoc.zip'))
+        into newDocDir
+    }
+    delete {
+        delete new File(newDocDir, 'arc42-template-DE-withhelp-asciidoc.zip')
+    }
+
+    logger.info "arc42 template unpacked into ${newDocDir}"
+}
+//end::initArc42DE[]
+
+//tag::initArc42EN[]
+task initArc42EN(
+        description: 'Download English arc42 template from GitHub into newDocDir',
+        group: 'docToolchain',
+        dependsOn: 'initExisting'
+) doLast {
+    download {
+        src 'https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-EN-withhelp-asciidoc.zip'
+        dest new File(newDocDir, 'arc42-template-EN-withhelp-asciidoc.zip')
+    }
+    copy {
+        from zipTree(new File(newDocDir, 'arc42-template-EN-withhelp-asciidoc.zip'))
+        into newDocDir
+    }
+    delete {
+        delete new File(newDocDir, 'arc42-template-EN-withhelp-asciidoc.zip')
+    }
+
+    logger.info "arc42 template unpacked into ${newDocDir}"
+}
+//end::initArc42EN[]
+
+//tag::initArc42ES[]
+task initArc42ES(
+        description: 'Download Spanish arc42 template from GitHub into newDocDir',
+        group: 'docToolchain',
+        dependsOn: 'initExisting'
+) doLast {
+    download {
+        src 'https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-ES-withhelp-asciidoc.zip'
+        dest new File(newDocDir, 'arc42-template-ES-withhelp-asciidoc.zip')
+    }
+    copy {
+        from zipTree(new File(newDocDir, 'arc42-template-ES-withhelp-asciidoc.zip'))
+        into newDocDir
+    }
+    delete {
+        delete new File(newDocDir, 'arc42-template-ES-withhelp-asciidoc.zip')
+    }
+
+    logger.info "arc42 template unpacked into ${newDocDir}"
+}
+//end::initArc42ES[]

@@ -1,5 +1,9 @@
 = Introduction and Goals
 
+image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}01_introduction_and_goals.adoc, float=right]
+
+NOTE: Jump directly to the https://github.com/docToolchain/docToolchain[github repository]
+
 == Create awesome docs!
 
 _docToolchain_ is an implementation of the http://www.writethedocs.org/guide/docs-as-code/[_docs-as-code_] approach for software architecture plus some additional automation.
@@ -31,7 +35,7 @@ arc42 is available in many formats like MS Word, textile, and Confluence. All th
 
 === docToolchain
 
-In order to follow the _docs-as-code_ approach, you need a build script which automates steps like exporting diagrams and rendering the used markdown (_asciidoc_ in case of _docToolchain_) to the target format.
+In order to follow the _docs-as-code_ approach, you need a build script which automates steps like exporting diagrams and rendering the used markdown (_AsciiDoc_ in case of _docToolchain_) to the target format.
 
 Unfortunately, such a build script is not easy to create in the first place ('how do I create .docx?', 'why does lib x not work with lib y?') and it is also not too easy to maintain.
 

@@ -1,6 +1,8 @@
 ifndef::imagesdir[:imagesdir: ../images]
 = Overview of available Tasks
 
+image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}03_tasks.adoc, float=right]
+
 This chapter explains all docToolchain specific tasks.
 
 The following picture gives an overview of the whole build system:
@@ -15,7 +17,7 @@ They might be confusing at first and that's why they are explained here.
 
 === generateX
 
-_render_ would have been another good prefix, since these tasks use the plain asciidoctor functionality to render the source to a given format.
+_render_ would have been another good prefix, since these tasks use the plain AsciiDoctor functionality to render the source to a given format.
 
 === exportX
 
@@ -28,7 +30,7 @@ It is also likely that you have to put the resulting artifacts under version con
 
 === convertToX
 
-These tasks take the output from asciidoctor and convert it (through other tools) to the target format.
+These tasks take the output from AsciiDoctor and convert it (through other tools) to the target format.
 This results in a dependency on a _generateX_ task and another external tool (currently http://pandoc.org[pandoc]).
 
 === publishToX

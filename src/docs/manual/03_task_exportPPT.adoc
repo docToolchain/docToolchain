@@ -1,12 +1,22 @@
 ifndef::imagesdir[:imagesdir: ../images]
 = exportPPT
 
+image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}03_task_exportPPT.adoc, float=right]
+
 image::ea/Manual/exportPPT.png[]
+
+TIP: Blog-Post: https://rdmueller.github.io/PPT-as-asciidoc-editor/[Do more with Slides]
 
 == Source
 
-.build.gradle
+.exportPPT.gradle
 [source,groovy]
 ----
 include::../../../scripts/exportPPT.gradle[tags=exportPPT]
+----
+
+.exportPPT.vbs
+[source,vbs]
+----
+include::../../../scripts/exportPPT.vbs[]
 ----

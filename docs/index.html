@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <!--[if IE]><meta http-equiv="X-UA-Compatible" content="IE=edge"><![endif]-->
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="generator" content="Asciidoctor 1.5.5">
+<meta name="generator" content="Asciidoctor 1.5.6.1">
 <title>docToolchain Manual</title>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:300,300italic,400,400italic,600,600italic%7CNoto+Serif:400,400italic,700,700italic%7CDroid+Sans+Mono:400,700">
 <style>
@@ -89,13 +89,12 @@ strong,b{font-weight:bold;line-height:inherit}
 small{font-size:60%;line-height:inherit}
 code{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;font-weight:400;color:rgba(0,0,0,.9)}
 ul,ol,dl{font-size:1em;line-height:1.6;margin-bottom:1.25em;list-style-position:outside;font-family:inherit}
-ul,ol,ul.no-bullet,ol.no-bullet{margin-left:1.5em}
+ul,ol{margin-left:1.5em}
 ul li ul,ul li ol{margin-left:1.25em;margin-bottom:0;font-size:1em}
 ul.square li ul,ul.circle li ul,ul.disc li ul{list-style:inherit}
 ul.square{list-style-type:square}
 ul.circle{list-style-type:circle}
 ul.disc{list-style-type:disc}
-ul.no-bullet{list-style:none}
 ol li ul,ol li ol{margin-left:1.25em;margin-bottom:0}
 dl dt{margin-bottom:.3125em;font-weight:bold}
 dl dd{margin-bottom:1.25em}
@@ -131,7 +130,11 @@ strong strong{font-weight:400}
 kbd{font-family:"Droid Sans Mono","DejaVu Sans Mono",monospace;display:inline-block;color:rgba(0,0,0,.8);font-size:.65em;line-height:1.45;background-color:#f7f7f7;border:1px solid #ccc;-webkit-border-radius:3px;border-radius:3px;-webkit-box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em white inset;box-shadow:0 1px 0 rgba(0,0,0,.2),0 0 0 .1em #fff inset;margin:0 .15em;padding:.2em .5em;vertical-align:middle;position:relative;top:-.1em;white-space:nowrap}
 .keyseq kbd:first-child{margin-left:0}
 .keyseq kbd:last-child{margin-right:0}
-.menuseq,.menu{color:rgba(0,0,0,.8)}
+.menuseq,.menuref{color:#000}
+.menuseq b:not(.caret),.menuref{font-weight:inherit}
+.menuseq{word-spacing:-.02em}
+.menuseq b.caret{font-size:1.25em;line-height:.8}
+.menuseq i.caret{font-weight:bold;text-align:center;width:.45em}
 b.button:before,b.button:after{position:relative;top:-1px;font-weight:400}
 b.button:before{content:"[";padding:0 3px 0 2px}
 b.button:after{content:"]";padding:0 2px 0 3px}
@@ -198,7 +201,7 @@ table.tableblock>caption.title{white-space:nowrap;overflow:visible;max-width:0}
 table.tableblock #preamble>.sectionbody>.paragraph:first-of-type p{font-size:inherit}
 .admonitionblock>table{border-collapse:separate;border:0;background:none;width:100%}
 .admonitionblock>table td.icon{text-align:center;width:80px}
-.admonitionblock>table td.icon img{max-width:none}
+.admonitionblock>table td.icon img{max-width:initial}
 .admonitionblock>table td.icon .title{font-weight:bold;font-family:"Open Sans","DejaVu Sans",sans-serif;text-transform:uppercase}
 .admonitionblock>table td.content{padding-left:1.125em;padding-right:1.25em;border-left:1px solid #ddddd8;color:rgba(0,0,0,.6)}
 .admonitionblock>table td.content>:last-child>:last-child{margin-bottom:0}
@@ -254,13 +257,13 @@ table.pyhltable .linenodiv{background:none!important;padding-right:0!important}
 table.tableblock{max-width:100%;border-collapse:separate}
 table.tableblock td>.paragraph:last-child p>p:last-child,table.tableblock th>p:last-child,table.tableblock td>p:last-child{margin-bottom:0}
 table.tableblock,th.tableblock,td.tableblock{border:0 solid #dedede}
-table.grid-all th.tableblock,table.grid-all td.tableblock{border-width:0 1px 1px 0}
-table.grid-all tfoot>tr>th.tableblock,table.grid-all tfoot>tr>td.tableblock{border-width:1px 1px 0 0}
-table.grid-cols th.tableblock,table.grid-cols td.tableblock{border-width:0 1px 0 0}
-table.grid-all *>tr>.tableblock:last-child,table.grid-cols *>tr>.tableblock:last-child{border-right-width:0}
-table.grid-rows th.tableblock,table.grid-rows td.tableblock{border-width:0 0 1px 0}
-table.grid-all tbody>tr:last-child>th.tableblock,table.grid-all tbody>tr:last-child>td.tableblock,table.grid-all thead:last-child>tr>th.tableblock,table.grid-rows tbody>tr:last-child>th.tableblock,table.grid-rows tbody>tr:last-child>td.tableblock,table.grid-rows thead:last-child>tr>th.tableblock{border-bottom-width:0}
-table.grid-rows tfoot>tr>th.tableblock,table.grid-rows tfoot>tr>td.tableblock{border-width:1px 0 0 0}
+table.grid-all>thead>tr>.tableblock,table.grid-all>tbody>tr>.tableblock{border-width:0 1px 1px 0}
+table.grid-all>tfoot>tr>.tableblock{border-width:1px 1px 0 0}
+table.grid-cols>*>tr>.tableblock{border-width:0 1px 0 0}
+table.grid-rows>thead>tr>.tableblock,table.grid-rows>tbody>tr>.tableblock{border-width:0 0 1px 0}
+table.grid-rows>tfoot>tr>.tableblock{border-width:1px 0 0 0}
+table.grid-all>*>tr>.tableblock:last-child,table.grid-cols>*>tr>.tableblock:last-child{border-right-width:0}
+table.grid-all>tbody>tr:last-child>.tableblock,table.grid-all>thead:last-child>tr>.tableblock,table.grid-rows>tbody>tr:last-child>.tableblock,table.grid-rows>thead:last-child>tr>.tableblock{border-bottom-width:0}
 table.frame-all{border-width:1px}
 table.frame-sides{border-width:0 1px}
 table.frame-topbot{border-width:1px 0}
@@ -281,10 +284,12 @@ ul li ol{margin-left:1.5em}
 dl dd{margin-left:1.125em}
 dl dd:last-child,dl dd:last-child>:last-child{margin-bottom:0}
 ol>li p,ul>li p,ul dd,ol dd,.olist .olist,.ulist .ulist,.ulist .olist,.olist .ulist{margin-bottom:.625em}
-ul.unstyled,ol.unnumbered,ul.checklist,ul.none{list-style-type:none}
-ul.unstyled,ol.unnumbered,ul.checklist{margin-left:.625em}
-ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1em;font-size:.85em}
-ul.checklist li>p:first-child>input[type="checkbox"]:first-child{width:1em;position:relative;top:1px}
+ul.checklist,ul.none,ol.none,ul.no-bullet,ol.no-bullet,ol.unnumbered,ul.unstyled,ol.unstyled{list-style-type:none}
+ul.no-bullet,ol.no-bullet,ol.unnumbered{margin-left:.625em}
+ul.unstyled,ol.unstyled{margin-left:0}
+ul.checklist{margin-left:.625em}
+ul.checklist li>p:first-child>.fa-square-o:first-child,ul.checklist li>p:first-child>.fa-check-square-o:first-child{width:1.25em;font-size:.8em;position:relative;bottom:.125em}
+ul.checklist li>p:first-child>input[type="checkbox"]:first-child{margin-right:.25em}
 ul.inline{margin:0 auto .625em auto;margin-left:-1.375em;margin-right:0;padding:0;list-style:none;overflow:hidden}
 ul.inline>li{list-style:none;float:left;margin-left:1.375em;display:block}
 ul.inline>li>*{display:block}
@@ -301,7 +306,8 @@ ol.lowergreek{list-style-type:lower-greek}
 td.hdlist1,td.hdlist2{vertical-align:top;padding:0 .625em}
 td.hdlist1{font-weight:bold;padding-bottom:1.25em}
 .literalblock+.colist,.listingblock+.colist{margin-top:-.5em}
-.colist>table tr>td:first-of-type{padding:0 .75em;line-height:1}
+.colist>table tr>td:first-of-type{padding:.4em .75em 0 .75em;line-height:1;vertical-align:top}
+.colist>table tr>td:first-of-type img{max-width:initial}
 .colist>table tr>td:last-of-type{padding:.25em 0}
 .thumb,.th{line-height:0;display:inline-block;border:solid 4px #fff;-webkit-box-shadow:0 0 0 1px #ddd;box-shadow:0 0 0 1px #ddd}
 .imageblock.left,.imageblock[style*="float: left"]{margin:.25em .625em 1.25em 0}
@@ -364,6 +370,7 @@ div.unbreakable{page-break-inside:avoid}
 .yellow{color:#bfbf00}
 .yellow-background{background-color:#fafa00}
 span.icon>.fa{cursor:default}
+a span.icon>.fa{cursor:inherit}
 .admonitionblock td.icon [class^="fa icon-"]{font-size:2.5em;text-shadow:1px 1px 2px rgba(0,0,0,.5);cursor:default}
 .admonitionblock td.icon .icon-note:before{content:"\f05a";color:#19407c}
 .admonitionblock td.icon .icon-tip:before{content:"\f0eb";text-shadow:1px 1px 2px rgba(155,155,0,.8);color:#111}
@@ -524,8 +531,10 @@ table.CodeRay td.code>pre{padding:0}
 </li>
 <li><a href="#_how_to_install_doctoolchain">2. How to install docToolchain</a>
 <ul class="sectlevel2">
-<li><a href="#_default_configuration">2.1. Default configuration</a></li>
-<li><a href="#_custom_configuration">2.2. Custom configuration</a></li>
+<li><a href="#_get_the_tool">2.1. Get the tool</a></li>
+<li><a href="#_initialize_directory_for_documents">2.2. Initialize directory for documents</a></li>
+<li><a href="#_build">2.3. Build</a></li>
+<li><a href="#_publish_to_confluence">2.4. Publish to Confluence</a></li>
 </ul>
 </li>
 <li><a href="#_overview_of_available_tasks">3. Overview of available Tasks</a>
@@ -539,22 +548,31 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_converttodocx">3.7. convertToDocx</a></li>
 <li><a href="#_converttoepub">3.8. convertToEpub</a></li>
 <li><a href="#_exportea">3.9. exportEA</a></li>
-<li><a href="#_exportchangelog">3.10. exportChangeLog</a></li>
-<li><a href="#_exportjiraissues">3.11. exportJiraIssues</a></li>
-<li><a href="#_exportppt">3.12. exportPPT</a></li>
-<li><a href="#_exportexcel">3.13. exportExcel</a></li>
-<li><a href="#_htmlsanitycheck">3.14. htmlSanityCheck</a></li>
-<li><a href="#_dependencyupdates">3.15. dependencyUpdates</a></li>
+<li><a href="#_exportvisio">3.10. exportVisio</a></li>
+<li><a href="#_exportchangelog">3.11. exportChangeLog</a></li>
+<li><a href="#_exportjiraissues">3.12. exportJiraIssues</a></li>
+<li><a href="#_exportppt">3.13. exportPPT</a></li>
+<li><a href="#_exportexcel">3.14. exportExcel</a></li>
+<li><a href="#_exportmarkdown">3.15. exportMarkdown</a></li>
+<li><a href="#_htmlsanitycheck">3.16. htmlSanityCheck</a></li>
+<li><a href="#_dependencyupdates">3.17. dependencyUpdates</a></li>
 </ul>
 </li>
-<li><a href="#_further_reading">4. Further Reading</a>
+<li><a href="#_faq_frequently_asked_questions">4. FAQ: Frequently asked Questions</a>
 <ul class="sectlevel2">
-<li><a href="#_links">4.1. Links</a></li>
-<li><a href="#_books">4.2. Books</a></li>
-<li><a href="#_past_and_upcoming_talks">4.3. Past and upcoming Talks</a></li>
+<li><a href="#_images">4.1. Images</a></li>
+<li><a href="#_exportvisio_2">4.2. exportVisio</a></li>
+<li><a href="#_sparx_enterprise_architect">4.3. Sparx Enterprise Architect</a></li>
 </ul>
 </li>
-<li><a href="#_acknowledgements_and_contributors">5. Acknowledgements and Contributors</a></li>
+<li><a href="#_further_reading">5. Further Reading</a>
+<ul class="sectlevel2">
+<li><a href="#_links">5.1. Links</a></li>
+<li><a href="#_books">5.2. Books</a></li>
+<li><a href="#_past_and_upcoming_talks">5.3. Past and upcoming Talks</a></li>
+</ul>
+</li>
+<li><a href="#_acknowledgements_and_contributors">6. Acknowledgements and Contributors</a></li>
 </ul>
 </div>
 </div>
@@ -565,10 +583,27 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="sect1">
-<h2 id="_introduction_and_goals">1. Introduction and Goals</h2>
+<h2 id="_introduction_and_goals"><a class="anchor" href="#_introduction_and_goals"></a>1. Introduction and Goals</h2>
 <div class="sectionbody">
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/01_introduction_and_goals.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Jump directly to the <a href="https://github.com/docToolchain/docToolchain">github repository</a>
+</td>
+</tr>
+</table>
+</div>
 <div class="sect2">
-<h3 id="_create_awesome_docs">1.1. Create awesome docs!</h3>
+<h3 id="_create_awesome_docs"><a class="anchor" href="#_create_awesome_docs"></a>1.1. Create awesome docs!</h3>
 <div class="paragraph">
 <p><em>docToolchain</em> is an implementation of the <a href="http://www.writethedocs.org/guide/docs-as-code/"><em>docs-as-code</em></a> approach for software architecture plus some additional automation.
 The basis of docToolchain is the philosophy that software documentation should be treated in the same way as code together with the <a href="http://arc42.org"><em>arc42</em></a> template for software architecture.</p>
@@ -577,7 +612,7 @@ The basis of docToolchain is the philosophy that software documentation should b
 <p>How it all began&#8230;&#8203;</p>
 </div>
 <div class="sect3">
-<h4 id="_docs_as_code">1.1.1. docs-as-code</h4>
+<h4 id="_docs_as_code"><a class="anchor" href="#_docs_as_code"></a>1.1.1. docs-as-code</h4>
 <div class="paragraph">
 <p>Before this project started, I wasn&#8217;t aware of the term <em>docs-as-code</em>.
 I just grew tired of keeping all my architecture diagrams up to date by copying them from my UML tool over to my word processor.</p>
@@ -589,7 +624,7 @@ This enabled me to reference the diagrams from within my text and update them ju
 </div>
 </div>
 <div class="sect3">
-<h4 id="_arc42">1.1.2. arc42</h4>
+<h4 id="_arc42"><a class="anchor" href="#_arc42"></a>1.1.2. arc42</h4>
 <div class="paragraph">
 <p>Since my goal was to document software architectures, I was already using arc42 - a template for software architecture.
 At this time, it used the MS Word template.</p>
@@ -607,9 +642,9 @@ These explanations are part of every chapter of the template and give you guidan
 </div>
 </div>
 <div class="sect3">
-<h4 id="_doctoolchain">1.1.3. docToolchain</h4>
+<h4 id="_doctoolchain"><a class="anchor" href="#_doctoolchain"></a>1.1.3. docToolchain</h4>
 <div class="paragraph">
-<p>In order to follow the <em>docs-as-code</em> approach, you need a build script which automates steps like exporting diagrams and rendering the used markdown (<em>asciidoc</em> in case of <em>docToolchain</em>) to the target format.</p>
+<p>In order to follow the <em>docs-as-code</em> approach, you need a build script which automates steps like exporting diagrams and rendering the used markdown (<em>AsciiDoc</em> in case of <em>docToolchain</em>) to the target format.</p>
 </div>
 <div class="paragraph">
 <p>Unfortunately, such a build script is not easy to create in the first place ('how do I create .docx?', 'why does lib x not work with lib y?') and it is also not too easy to maintain.</p>
@@ -628,14 +663,14 @@ The goal is to have an easy to use build script which only has to be configured 
 </div>
 </div>
 <div class="sect2">
-<h3 id="_benefits_of_the_docs_as_code_approach">1.2. Benefits of the docs-as-code Approach</h3>
+<h3 id="_benefits_of_the_docs_as_code_approach"><a class="anchor" href="#_benefits_of_the_docs_as_code_approach"></a>1.2. Benefits of the docs-as-code Approach</h3>
 <div class="paragraph">
 <p>You want to write technical docs for your software project.
 So it is very likely that you already have the tools and processes to work with source code in place.
 Why not also use it for your docs?</p>
 </div>
 <div class="sect3">
-<h4 id="_document_management_system">1.2.1. Document Management System</h4>
+<h4 id="_document_management_system"><a class="anchor" href="#_document_management_system"></a>1.2.1. Document Management System</h4>
 <div class="paragraph">
 <p>By using a version control system like <a href="https://git-scm.com/">Git</a>, you get a perfect document management system for free.
 It lets you version your docs, branch them and gives you an audit trail.
@@ -650,7 +685,7 @@ Isn&#8217;t that great?</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_collaboration_and_review_process">1.2.2. Collaboration and Review Process</h4>
+<h4 id="_collaboration_and_review_process"><a class="anchor" href="#_collaboration_and_review_process"></a>1.2.2. Collaboration and Review Process</h4>
 <div class="paragraph">
 <p>Git as a distributed version control system even enables collaboration on your docs.
 People can fork the docs and send you pull requests for the changes they made.
@@ -659,7 +694,7 @@ Most git frontends like <a href="https://www.bitbucket.org">Bitbucket</a>, <a hr
 </div>
 </div>
 <div class="sect3">
-<h4 id="_image_references_and_code_snippets">1.2.3. Image References and Code Snippets</h4>
+<h4 id="_image_references_and_code_snippets"><a class="anchor" href="#_image_references_and_code_snippets"></a>1.2.3. Image References and Code Snippets</h4>
 <div class="paragraph">
 <p>Instead of pasting images to a binary document format, you now can reference images.
 This will ensure that those images are always up to date every time you rebuild your documents.</p>
@@ -670,14 +705,14 @@ This way, these snippets are also always up to date!</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_compound_and_stakeholder_tailored_docs">1.2.4. Compound and Stakeholder-Tailored Docs</h4>
+<h4 id="_compound_and_stakeholder_tailored_docs"><a class="anchor" href="#_compound_and_stakeholder_tailored_docs"></a>1.2.4. Compound and Stakeholder-Tailored Docs</h4>
 <div class="paragraph">
 <p>Since you can not only reference images and code snippets but also sub-documents, you can split your docs into several sub-documents and a master which brings all those docs together.
 But you are not restricted to one master - you can create master docs for several different stakeholders which only contain the chapters needed for them.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_many_more_features">1.2.5. Many more Features&#8230;&#8203;</h4>
+<h4 id="_many_more_features"><a class="anchor" href="#_many_more_features"></a>1.2.5. Many more Features&#8230;&#8203;</h4>
 <div class="paragraph">
 <p>If you can dream it, you can script it.</p>
 </div>
@@ -704,21 +739,23 @@ But you are not restricted to one master - you can create master docs for severa
 </div>
 </div>
 <div class="sect1">
-<h2 id="_how_to_install_doctoolchain">2. How to install docToolchain</h2>
+<h2 id="_how_to_install_doctoolchain"><a class="anchor" href="#_how_to_install_doctoolchain"></a>2. How to install docToolchain</h2>
 <div class="sectionbody">
-<div class="sect2">
-<h3 id="_default_configuration">2.1. Default configuration</h3>
-<div class="paragraph">
-<p>Let&#8217;s get started&#8230;&#8203;</p>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/02_install.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_get_the_tool"><a class="anchor" href="#_get_the_tool"></a>2.1. Get the tool</h3>
 <div class="paragraph">
-<p>Assuming that you first create your solution architecture and then the code, you simply start by getting a copy of the current docToolchain repository.
+<p>To start with docToolchain you need to get a copy of the current docToolchain repository.
 The easiest way is to clone the repository without history and remove the <code>.git</code> folder:</p>
 </div>
 <div class="listingblock">
 <div class="title">Linux with git clone</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">git clone --recursive https://github.com/docToolchain/docToolchain.git &lt;your project name&gt;
+<pre class="CodeRay highlight"><code data-lang="bash">git clone --recursive https://github.com/docToolchain/docToolchain.git &lt;docToolchain home&gt;
 rm -rf .git
 rm -rf resources/asciidoctor-reveal.js/.git
 rm -rf resources/reveal.js/.git</code></pre>
@@ -750,7 +787,7 @@ wget https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip -O
 unzip asciidoctor-reveal.js.zip
 mv asciidoctor-reveal.js-9667f5c5d926b3be48361d6d6413d3896954894c asciidoctor-reveal.js
 
-mv docToolchain-master &lt;your project name&gt;</code></pre>
+mv docToolchain-master &lt;docToolchain home&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -762,49 +799,121 @@ mv docToolchain-master &lt;your project name&gt;</code></pre>
 <p>After unzipping, put the dependencies in <code>resources</code> folder, so that the structure is the same as on <a href="https://github.com/docToolchain/docToolchain/tree/master/resources">GitHub</a>.</p>
 </div>
 <div class="paragraph">
-<p>This should already be enough to start a first build:</p>
+<p>You can add &lt;docToolchain home&gt;/bin to your PATH or you can run doctoolchain with full path if you prefer.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_initialize_directory_for_documents"><a class="anchor" href="#_initialize_directory_for_documents"></a>2.2. Initialize directory for documents</h3>
+<div class="paragraph">
+<p>The next step after getting docToolchain is to initialize a directory where your documents live. In docToolchain this
+directory is named "newDocDir" during initialization, or just "docDir" later on.</p>
+</div>
+<div class="sect3">
+<h4 id="_existing_documents"><a class="anchor" href="#_existing_documents"></a>2.2.1. Existing documents</h4>
+<div class="paragraph">
+<p>If you already have some existing documents in AsciiDoc format in your project, you need to put the configuration
+file there to inform docToolchain what and how to process. You can do that manually by copying the contents of
+template_config directory. You can also do that by running <code>initExisting</code> task.</p>
 </div>
 <div class="listingblock">
-<div class="title">Linux with Gradle wrapper</div>
+<div class="title">Linux initExisting example</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./gradlew</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">cd &lt;docToolchain home&gt;
+./gradlew -b init.gradle initExisting -PnewDocDir=&lt;your directory&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You need to open Config.groovy file and configure names of your files properly.
+You may also change the PDF schema file to your taste.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_arc42_from_scratch"><a class="anchor" href="#_arc42_from_scratch"></a>2.2.2. Arc42 from scratch</h4>
+<div class="paragraph">
+<p>If you don&#8217;t have existing documents yet, or if you need a fresh start, you can get the Arc42 template in AsciiDoc
+format. You can do that by manually downloading from <a href="http://arc42.org/download" class="bare">http://arc42.org/download</a>. You can also to that by running
+<code>initArc42&lt;language&gt;</code> task. Currently supported languages are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>DE - German.</p>
+</li>
+<li>
+<p>EN - English.</p>
+</li>
+<li>
+<p>ES - Spanish.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Linux initArc42EN example</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">cd &lt;docToolchain home&gt;
+./gradlew -b init.gradle initArc42EN -PnewDocDir=&lt;newDocDir&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The Config.groovy file is then preconfigured to use the downloaded template.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Blog-Post: <a href="https://rdmueller.github.io/arc42/">Let&#8217;s add Content!</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_build"><a class="anchor" href="#_build"></a>2.3. Build</h3>
+<div class="paragraph">
+<p>This should already be enough to start a first build.</p>
+</div>
+<div class="listingblock">
+<div class="title">Linux</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">doctoolchain &lt;docDir&gt; generateHTML
+doctoolchain &lt;docDir&gt; generatePDF</code></pre>
 </div>
 </div>
 <div class="listingblock">
-<div class="title">Linux with Maven wrapper</div>
+<div class="title">Windows</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./mvnw</code></pre>
+<pre class="CodeRay highlight"><code>doctoolchain.bat &lt;docDir&gt; generateHTML
+doctoolchain.bat &lt;docDir&gt; generatePDF</code></pre>
 </div>
 </div>
-<div class="listingblock">
-<div class="title">Windows with Gradle wrapper</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./gradlew</code></pre>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Windows with Maven wrapper</div>
-<div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./mvnw.bat</code></pre>
-</div>
+<div class="paragraph">
+<p>&lt;docDir&gt; may be relative, e.g. ".", or absolute.</p>
 </div>
 <div class="paragraph">
 <p>As a result, you will see the progress of your build together with some warnings which you can just ignore for the moment.</p>
 </div>
 <div class="paragraph">
-<p>The first build generated some file within the <code>&lt;project&gt;/build</code> folder:</p>
+<p>The first build generated some files within the <code>&lt;docDir&gt;/build</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code>&lt;project&gt;:
-    build:
-        docs:
-            html5:
-                images:
-                arc42-template-de.html
-                arc42-template-end.html
-            pdf:
-                arc42-template-de.pdf</code></pre>
+<pre class="CodeRay highlight"><code>build
+|-- html5
+|   |-- arc42-template.html
+|   `-- images
+|       |-- 05_building_blocks-EN.png
+|       |-- 08-Crosscutting-Concepts-Structure-EN.png
+|       `-- arc42-logo.png
+`-- pdf
+    |-- arc42-template.pdf
+    `-- images
+        |-- 05_building_blocks-EN.png
+        |-- 08-Crosscutting-Concepts-Structure-EN.png
+        `-- arc42-logo.png</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -813,23 +922,37 @@ mv docToolchain-master &lt;your project name&gt;</code></pre>
 <div class="paragraph">
 <p>If you didn&#8217;t get the right output, please raise an issue on <a href="https://github.com/docToolchain/docToolchain/issues">github</a></p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Blog-Posts: <a href="https://rdmueller.github.io/enterprise-edition/">Behind the great Firewall</a>, <a href="https://rdmueller.github.io/enterprise-edition2/">Enterprise AsciiDoctor</a>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_custom_configuration">2.2. Custom configuration</h3>
+<h3 id="_publish_to_confluence"><a class="anchor" href="#_publish_to_confluence"></a>2.4. Publish to Confluence</h3>
 <div class="paragraph">
-<p>You can install docToolchain in a directory separate from your project. Then docToolchain is a standalone tool that can be
-upgraded independently from your code or used for multiple projects.
-If you want to install docToolchain separately, you need to create a copy of Config.groovy and
-ConfluenceConfig.groovy for each project. Inside each configuration file you need to specify the input and output
-folders and files.</p>
+<p>In addition to <code>Config.groovy</code> there is also a <code>scripts/ConfluenceConfig.groovy</code> file. If you are not using Confluence
+you can remove it. If you use Confluence, then you need to open this file and adapt to your environment.
+You can also create multiple copies of that file. For example you can have <code>ConfluenceConfig.groovy</code> for publishing
+official pages, and <code>MyConfluenceConfig.groovy</code> with a different Confluence space for reviews.</p>
 </div>
 <div class="paragraph">
-<p>The paths to those configuration files can be provided by giving -P option to gradlew, for example:</p>
+<p>The paths to those configuration files can be provided by giving -P option to doctoolchain, for example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash">./gradlew -PconfluenceConfigFile=$HOME/projectA/ConfluenceConfig.groovy -PmainConfigFile=$HOME/projectA/Config.groovy
-./gradlew -PconfluenceConfigFile=$HOME/projectB/ConfluenceConfig.groovy -PmainConfigFile=$HOME/projectB/Config.groovy</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash"># Uses scripts/ConfluenceConfig.groovy by default
+doctoolchain &lt;docDir&gt; publishToConfluence --no-daemon -q
+
+# Uses scripts/MyConfluenceConfig.groovy
+doctoolchain &lt;docDir&gt; publishToConfluence -PconfluenceConfigFile=scripts/MyConfluenceConfig.groovy --no-daemon -q</code></pre>
 </div>
 </div>
 <hr>
@@ -838,8 +961,13 @@ folders and files.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_overview_of_available_tasks">3. Overview of available Tasks</h2>
+<h2 id="_overview_of_available_tasks"><a class="anchor" href="#_overview_of_available_tasks"></a>3. Overview of available Tasks</h2>
 <div class="sectionbody">
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_tasks.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="paragraph">
 <p>This chapter explains all docToolchain specific tasks.</p>
 </div>
@@ -853,19 +981,19 @@ folders and files.</p>
 <div class="title">Figure 1. docToolchain</div>
 </div>
 <div class="sect2">
-<h3 id="_conventions">3.1. Conventions</h3>
+<h3 id="_conventions"><a class="anchor" href="#_conventions"></a>3.1. Conventions</h3>
 <div class="paragraph">
 <p>There are some simple naming conventions for the tasks.
 They might be confusing at first and that&#8217;s why they are explained here.</p>
 </div>
 <div class="sect3">
-<h4 id="_generatex">3.1.1. generateX</h4>
+<h4 id="_generatex"><a class="anchor" href="#_generatex"></a>3.1.1. generateX</h4>
 <div class="paragraph">
-<p><em>render</em> would have been another good prefix, since these tasks use the plain asciidoctor functionality to render the source to a given format.</p>
+<p><em>render</em> would have been another good prefix, since these tasks use the plain AsciiDoctor functionality to render the source to a given format.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_exportx">3.1.2. exportX</h4>
+<h4 id="_exportx"><a class="anchor" href="#_exportx"></a>3.1.2. exportX</h4>
 <div class="paragraph">
 <p>These tasks export images and AsciiDoc snippets from other systems or file formats.
 The resulting artifacts can then be included from your main sources.</p>
@@ -878,14 +1006,14 @@ The resulting artifacts can then be included from your main sources.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_converttox">3.1.3. convertToX</h4>
+<h4 id="_converttox"><a class="anchor" href="#_converttox"></a>3.1.3. convertToX</h4>
 <div class="paragraph">
-<p>These tasks take the output from asciidoctor and convert it (through other tools) to the target format.
+<p>These tasks take the output from AsciiDoctor and convert it (through other tools) to the target format.
 This results in a dependency on a <em>generateX</em> task and another external tool (currently <a href="http://pandoc.org">pandoc</a>).</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_publishtox">3.1.4. publishToX</h4>
+<h4 id="_publishtox"><a class="anchor" href="#_publishtox"></a>3.1.4. publishToX</h4>
 <div class="paragraph">
 <p>These tasks not only convert your documents but also deploy/publish/move them to a remote system&#8201;&#8212;&#8201;currently Confluence.
 This means that the result is likely to be visible immediately to others.</p>
@@ -895,17 +1023,22 @@ This means that the result is likely to be visible immediately to others.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_generatehtml">3.2. generateHTML</h3>
+<h3 id="_generatehtml"><a class="anchor" href="#_generatehtml"></a>3.2. generateHTML</h3>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_generateHTML.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/generateHTML.png" alt="generateHTML">
 </div>
 </div>
 <div class="paragraph">
-<p>This is the standard asciidoctor generator which is supported out of the box.</p>
+<p>This is the standard AsciiDoctor generator which is supported out of the box.</p>
 </div>
 <div class="paragraph">
-<p>The result is written to <code>build/docs/html5</code>.
+<p>The result is written to <code>build/html5</code>.
 The HTML files need the images folder to be in the same directory to display correctly.</p>
 </div>
 <div class="admonitionblock note">
@@ -915,7 +1048,7 @@ The HTML files need the images folder to be in the same directory to display cor
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-if you would like to have a single-file HTML as result, you can configure asciidoctor to store the images inline as <code>data-uri</code>.<br>
+If you would like to have a single-file HTML as result, you can configure AsciiDoctor to store the images inline as <code>data-uri</code>.<br>
 Just set <code>:data-uri:</code> in the config of your AsciiDoc file.<br>
 But be warned - such a file can become very big easily and some browsers might get into trouble rendering them.<br>
 <a href="https://rdmueller.github.io/single-file-html/" class="bare">https://rdmueller.github.io/single-file-html/</a>
@@ -924,15 +1057,15 @@ But be warned - such a file can become very big easily and some browsers might g
 </table>
 </div>
 <div class="sect3">
-<h4 id="_text_based_diagrams">3.2.1. Text based Diagrams</h4>
+<h4 id="_text_based_diagrams"><a class="anchor" href="#_text_based_diagrams"></a>3.2.1. Text based Diagrams</h4>
 <div class="paragraph">
-<p>For docToolchain, it is configured to use the <a href="http://asciidoctor.org/docs/asciidoctor-diagram/">asciidoctor-diagram</a> plugin which is used to create plantUML diagrams.</p>
+<p>For docToolchain, it is configured to use the <a href="http://asciidoctor.org/docs/asciidoctor-diagram/">asciidoctor-diagram</a> plugin which is used to create PlantUML diagrams.</p>
 </div>
 <div class="paragraph">
-<p>The plugin also supports a bunch of other text based diagrams, but <a href="http://plantuml.com/">plantUML</a> is the most used.</p>
+<p>The plugin also supports a bunch of other text based diagrams, but <a href="http://plantuml.com/">PlantUML</a> is the most used.</p>
 </div>
 <div class="paragraph">
-<p>To use it, just specify your plantUML code like this:</p>
+<p>To use it, just specify your PlantUML code like this:</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -966,7 +1099,7 @@ The second element is the name of the image to be created and the third specifie
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-the {plantUMLDir} ensures that plantUML also works for the <a href="#_generatepdf">generatePDF</a> task.
+The <code>{plantUMLDir}</code> ensures that PlantUML also works for the <a href="#_generatepdf">generatePDF</a> task.
 Without it, <a href="#_generatehtml">generateHTML</a> works fine, but the PDF will not contain the generated images.
 </td>
 </tr>
@@ -979,7 +1112,7 @@ Without it, <a href="#_generatehtml">generateHTML</a> works fine, but the PDF wi
 <i class="fa icon-important" title="Important"></i>
 </td>
 <td class="content">
-make sure to specify a unique image name for each diagram, otherwise they will overwrite each other.
+Make sure to specify a unique image name for each diagram, otherwise they will overwrite each other.
 </td>
 </tr>
 </table>
@@ -989,9 +1122,37 @@ make sure to specify a unique image name for each diagram, otherwise they will o
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/demoPlantUML.png" alt="example diagram" width="247" height="238">
+<img src="images/demoPlantUML.png" alt="demoPlantUML" width="246" height="236">
 </div>
 <div class="title">Figure 2. example diagram</div>
+</div>
+<div class="paragraph">
+<p>If you want to control the size of the generated diagram in the output, you can configure the "width" attribute (in pixels) or "scale" attribute (floating point ratio) passed to <a href="http://asciidoctor.org/docs/asciidoctor-diagram/">asciidoctor-diagram</a>.
+For example, if you take the example diagram above and change the declaration to one of the below versions</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>[plantuml, target="{plantUMLDir}demoPlantUMLWidth", format=png, width=250]
+# rest of the diagram definition
+
+[plantuml, target="{plantUMLDir}demoPlantUMLScale", format=png, scale=0.75]
+# rest of the diagram definition</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>it will render like this:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/demoPlantUMLWidth.png" alt="demoPlantUMLWidth" width="250" height="236">
+</div>
+<div class="title">Figure 3. example diagram (with specified width)</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/demoPlantUMLScale.png" alt="demoPlantUMLScale" width="184" height="177">
+</div>
+<div class="title">Figure 4. example diagram (with specified scale)</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1000,7 +1161,7 @@ make sure to specify a unique image name for each diagram, otherwise they will o
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-plantUML needs graphviz dot installed to work.
+PlantUML needs Graphviz dot installed to work.
 If you can&#8217;t install it, you can use the Java based version of the dot library.
 Just add <code>!pragma graphviz_dot jdot</code> as the first line of your diagram definition.
 This is still an experimental feature, but already works quite well!<br>
@@ -1009,11 +1170,23 @@ This is still an experimental feature, but already works quite well!<br>
 </tr>
 </table>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Blog-Posts: <a href="https://rdmueller.github.io/plantuml-gradle/">PlantUML with Gradle</a>, <a href="https://rdmueller.github.io/plantUML-and-pdf/">plantUML with Asciidoctor-pdf</a>, <a href="https://rdmueller.github.io/plantUML-revisited/">plantUML revisited</a>, <a href="https://rdmueller.github.io/plantuml-without-graphviz/">How to use PlantUML without Graphviz</a>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect3">
-<h4 id="_source">3.2.2. Source</h4>
+<h4 id="_source"><a class="anchor" href="#_source"></a>3.2.2. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">AsciiDocBasics.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">task generateHTML (
         <span class="key">type</span>: AsciidoctorTask,
@@ -1022,6 +1195,12 @@ This is still an experimental feature, but already works quite well!<br>
 
     attributes \
         <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
+
+    onlyIf {
+        !sourceFiles.findAll {
+            <span class="string"><span class="delimiter">'</span><span class="content">html</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
+        }.empty
+    }
 
     sources {
         sourceFiles.findAll {
@@ -1040,7 +1219,12 @@ This is still an experimental feature, but already works quite well!<br>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_generatepdf">3.3. generatePDF</h3>
+<h3 id="_generatepdf"><a class="anchor" href="#_generatepdf"></a>3.3. generatePDF</h3>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_generatePDF.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/generatePDF.png" alt="generatePDF">
@@ -1050,7 +1234,7 @@ This is still an experimental feature, but already works quite well!<br>
 <p>This task makes use of the <a href="http://asciidoctor.org/docs/convert-asciidoc-to-pdf/">asciidoctor-pdf</a> plugin to render your documents as a pretty PDF file.</p>
 </div>
 <div class="paragraph">
-<p>The file will be written to <code>src/docs/pdf</code>.</p>
+<p>The file will be written to <code>build/pdf</code>.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -1074,10 +1258,22 @@ The result looks more like a nicely rendered book than a print-to-pdf HTML page.
 This can be done by changing the <code>src/docs/custom-theme.yml</code> file.
 Documentation on how to modify a theme can be found in the <a href="https://github.com/asciidoctor/asciidoctor-pdf/blob/master/docs/theming-guide.adoc">asciidoctor-pdf theming guide</a>.</p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Blog-Post: <a href="https://rdmueller.github.io/pdf-output/">Beyond HTML</a>
+</td>
+</tr>
+</table>
+</div>
 <div class="sect3">
-<h4 id="_source_2">3.3.1. Source</h4>
+<h4 id="_source_2"><a class="anchor" href="#_source_2"></a>3.3.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">AsciiDocBasics.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">task generatePDF (
         <span class="key">type</span>: AsciidoctorTask,
@@ -1086,6 +1282,12 @@ Documentation on how to modify a theme can be found in the <a href="https://gith
 
     attributes \
         <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : file(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>docDir<span class="inline-delimiter">}</span></span><span class="content">/</span><span class="inline"><span class="inline-delimiter">${</span>config.outputPath<span class="inline-delimiter">}</span></span><span class="content">/images/plantUML/</span><span class="delimiter">&quot;</span></span>).path
+
+    onlyIf {
+        !sourceFiles.findAll {
+            <span class="string"><span class="delimiter">'</span><span class="content">pdf</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
+        }.empty
+    }
 
     sources {
         sourceFiles.findAll {
@@ -1104,7 +1306,12 @@ Documentation on how to modify a theme can be found in the <a href="https://gith
 </div>
 </div>
 <div class="sect2">
-<h3 id="_generatedocbook">3.4. generateDocbook</h3>
+<h3 id="_generatedocbook"><a class="anchor" href="#_generatedocbook"></a>3.4. generateDocbook</h3>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_generateDocBook.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/generateDocBook.png" alt="generateDocBook">
@@ -1114,14 +1321,20 @@ Documentation on how to modify a theme can be found in the <a href="https://gith
 <p>This is only a helper task - it generates the intermediate format for <a href="#_converttodocx">convertToDocx</a> and <a href="#_converttoepub">convertToEpub</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="_source_3">3.4.1. Source</h4>
+<h4 id="_source_3"><a class="anchor" href="#_source_3"></a>3.4.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">AsciiDocBasics.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">task generateDocbook (
         <span class="key">type</span>: AsciidoctorTask,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">use docbook as asciidoc backend</span><span class="delimiter">'</span></span>) {
+
+    onlyIf {
+        !sourceFiles.findAll {
+            <span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
+        }.empty
+    }
 
     sources {
         sourceFiles.findAll {
@@ -1140,7 +1353,12 @@ Documentation on how to modify a theme can be found in the <a href="https://gith
 </div>
 </div>
 <div class="sect2">
-<h3 id="_generatedeck">3.5. generateDeck</h3>
+<h3 id="_generatedeck"><a class="anchor" href="#_generatedeck"></a>3.5. generateDeck</h3>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_generateDeck.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/generateDeck.png" alt="generateDeck">
@@ -1154,9 +1372,9 @@ Documentation on how to modify a theme can be found in the <a href="https://gith
 It creates a PowerPoint presentation and enriches it with reveal.js slide definitions in AsciiDoc within the speaker notes.</p>
 </div>
 <div class="sect3">
-<h4 id="_source_4">3.5.1. Source</h4>
+<h4 id="_source_4"><a class="anchor" href="#_source_4"></a>3.5.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">AsciiDocBasics.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">task generateDeck (
         <span class="key">type</span>: AsciidoctorTask,
@@ -1165,18 +1383,24 @@ It creates a PowerPoint presentation and enriches it with reveal.js slide defini
 
     attributes \
         <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">idprefix</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">slide-</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">idseparator</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">-</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">docinfo1</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_theme</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">black</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_progress</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_touch</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_hideAddressBar</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_transition</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">linear</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_history</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
-        <span class="string"><span class="delimiter">'</span><span class="content">revealjs_slideNumber</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>
+            <span class="string"><span class="delimiter">'</span><span class="content">idprefix</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">slide-</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">idseparator</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">-</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">docinfo1</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs_theme</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">black</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs_progress</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs_touch</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs_hideAddressBar</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs_transition</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">linear</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs_history</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs_slideNumber</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>
 
     options template_dirs : [<span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">resources/asciidoctor-reveal.js</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">templates/slim</span><span class="delimiter">'</span></span>).absolutePath ]
+
+    onlyIf {
+        !sourceFiles.findAll {
+            <span class="string"><span class="delimiter">'</span><span class="content">revealjs</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
+        }.empty
+    }
 
     sources {
         sourceFiles.findAll {
@@ -1207,16 +1431,93 @@ It creates a PowerPoint presentation and enriches it with reveal.js slide defini
 </div>
 </div>
 <div class="sect2">
-<h3 id="_publishtoconfluence">3.6. publishToConfluence</h3>
+<h3 id="_publishtoconfluence"><a class="anchor" href="#_publishtoconfluence"></a>3.6. publishToConfluence</h3>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_publishToConfluence.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/publishToConfluence.png" alt="publishToConfluence">
 </div>
 </div>
 <div class="sect3">
-<h4 id="_source_5">3.6.1. Source</h4>
+<h4 id="_css_styling"><a class="anchor" href="#_css_styling"></a>3.6.1. CSS Styling</h4>
+<div class="paragraph">
+<p>Some AsciiDoctor features depend on particular CSS style definitions.
+Unless these styles are defined, some formatting that is present in the HTML version will not be represented when published to Confluence.</p>
+</div>
+<div class="olist arabic">
+<div class="title">To configure Confluence to include additional style definitions:</div>
+<ol class="arabic">
+<li>
+<p>Log in to Confluence as a space admin</p>
+</li>
+<li>
+<p>Go to the desired space</p>
+</li>
+<li>
+<p>Select "Space tools", "Look and Feel", "Stylesheet"</p>
+</li>
+<li>
+<p>Click "Edit", enter the desired style definitions, and click "Save"</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>The default style definitions can be found in the AsciiDoc project as <a href="https://raw.githubusercontent.com/asciidoctor/asciidoctor/master/data/stylesheets/asciidoctor-default.css">asciidoctor-default.css</a>.
+Note that you likely do <strong>NOT</strong> want to include the whole thing, as some of the definitions are likely to disrupt Confluence&#8217;s layout.</p>
+</div>
+<div class="paragraph">
+<p>The following style definitions are believed to be Confluence-compatible, and enable use of the built-in roles (<code>big</code>/<code>small</code>, <code>underline</code>/<code>overline</code>/<code>line-through</code>, <code><em>COLOR</em></code>/<code><em>COLOR</em>-background</code> for the <a href="http://en.wikipedia.org/wiki/Web_colors#HTML_color_names">sixteen HTML color names</a>):</p>
+</div>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="css"><span class="class">.big</span>{<span class="key">font-size</span>:<span class="value">larger</span>}
+<span class="class">.small</span>{<span class="key">font-size</span>:<span class="value">smaller</span>}
+<span class="class">.underline</span>{<span class="key">text-decoration</span>:<span class="value">underline</span>}
+<span class="class">.overline</span>{<span class="key">text-decoration</span>:<span class="value">overline</span>}
+<span class="class">.line-through</span>{<span class="key">text-decoration</span>:<span class="value">line-through</span>}
+<span class="class">.aqua</span>{<span class="key">color</span>:<span class="color">#00bfbf</span>}
+<span class="class">.aqua-background</span>{<span class="key">background-color</span>:<span class="color">#00fafa</span>}
+<span class="class">.black</span>{<span class="key">color</span>:<span class="color">#000</span>}
+<span class="class">.black-background</span>{<span class="key">background-color</span>:<span class="color">#000</span>}
+<span class="class">.blue</span>{<span class="key">color</span>:<span class="color">#0000bf</span>}
+<span class="class">.blue-background</span>{<span class="key">background-color</span>:<span class="color">#0000fa</span>}
+<span class="class">.fuchsia</span>{<span class="key">color</span>:<span class="color">#bf00bf</span>}
+<span class="class">.fuchsia-background</span>{<span class="key">background-color</span>:<span class="color">#fa00fa</span>}
+<span class="class">.gray</span>{<span class="key">color</span>:<span class="color">#606060</span>}
+<span class="class">.gray-background</span>{<span class="key">background-color</span>:<span class="color">#7d7d7d</span>}
+<span class="class">.green</span>{<span class="key">color</span>:<span class="color">#006000</span>}
+<span class="class">.green-background</span>{<span class="key">background-color</span>:<span class="color">#007d00</span>}
+<span class="class">.lime</span>{<span class="key">color</span>:<span class="color">#00bf00</span>}
+<span class="class">.lime-background</span>{<span class="key">background-color</span>:<span class="color">#00fa00</span>}
+<span class="class">.maroon</span>{<span class="key">color</span>:<span class="color">#600000</span>}
+<span class="class">.maroon-background</span>{<span class="key">background-color</span>:<span class="color">#7d0000</span>}
+<span class="class">.navy</span>{<span class="key">color</span>:<span class="color">#000060</span>}
+<span class="class">.navy-background</span>{<span class="key">background-color</span>:<span class="color">#00007d</span>}
+<span class="class">.olive</span>{<span class="key">color</span>:<span class="color">#606000</span>}
+<span class="class">.olive-background</span>{<span class="key">background-color</span>:<span class="color">#7d7d00</span>}
+<span class="class">.purple</span>{<span class="key">color</span>:<span class="color">#600060</span>}
+<span class="class">.purple-background</span>{<span class="key">background-color</span>:<span class="color">#7d007d</span>}
+<span class="class">.red</span>{<span class="key">color</span>:<span class="color">#bf0000</span>}
+<span class="class">.red-background</span>{<span class="key">background-color</span>:<span class="color">#fa0000</span>}
+<span class="class">.silver</span>{<span class="key">color</span>:<span class="color">#909090</span>}
+<span class="class">.silver-background</span>{<span class="key">background-color</span>:<span class="color">#bcbcbc</span>}
+<span class="class">.teal</span>{<span class="key">color</span>:<span class="color">#006060</span>}
+<span class="class">.teal-background</span>{<span class="key">background-color</span>:<span class="color">#007d7d</span>}
+<span class="class">.white</span>{<span class="key">color</span>:<span class="color">#bfbfbf</span>}
+<span class="class">.white-background</span>{<span class="key">background-color</span>:<span class="color">#fafafa</span>}
+<span class="class">.yellow</span>{<span class="key">color</span>:<span class="color">#bfbf00</span>}
+<span class="class">.yellow-background</span>{<span class="key">background-color</span>:<span class="color">#fafa00</span>}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_source_5"><a class="anchor" href="#_source_5"></a>3.6.2. Source</h4>
+<div class="listingblock">
+<div class="title">publishToConfluence.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">task publishToConfluence(
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">publishes the HTML rendered output to confluence</span><span class="delimiter">'</span></span>,
@@ -1391,6 +1692,11 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
     confluencePagePrefix + pageTitle
 }
 
+<span class="keyword">def</span> rewriteMarks = { body -&gt;
+    <span class="comment">// Confluence strips out mark elements.  Replace them with default formatting.</span>
+    body.select(<span class="string"><span class="delimiter">'</span><span class="content">mark</span><span class="delimiter">'</span></span>).wrap(<span class="string"><span class="delimiter">'</span><span class="content">&lt;span style=&quot;background:#ff0;color:#000&quot;&gt;&lt;/style&gt;</span><span class="delimiter">'</span></span>).unwrap()
+}
+
 <span class="keyword">def</span> rewriteDescriptionLists = { body -&gt;
     <span class="keyword">def</span> TAGS = [ <span class="key">dt</span>: <span class="string"><span class="delimiter">'</span><span class="content">th</span><span class="delimiter">'</span></span>, <span class="key">dd</span>: <span class="string"><span class="delimiter">'</span><span class="content">td</span><span class="delimiter">'</span></span> ]
     body.select(<span class="string"><span class="delimiter">'</span><span class="content">dl</span><span class="delimiter">'</span></span>).each { dl -&gt;
@@ -1488,6 +1794,7 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
             <span class="keyword">def</span> suffix = html.substring(end)
             <span class="keyword">def</span> unescaped = html.substring(start + CDATA_PLACEHOLDER_START.length(), end)
                     .replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&amp;lt;</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">&lt;</span><span class="delimiter">'</span></span>).replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&amp;gt;</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">&gt;</span><span class="delimiter">'</span></span>)
+                    .replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">&amp;amp;</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">&amp;</span><span class="delimiter">'</span></span>)
             html = prefix + unescaped + suffix
         }
         start = html.indexOf(CDATA_PLACEHOLDER_START, start + <span class="integer">1</span>)
@@ -1553,6 +1860,7 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
         }
         img.remove()
     }
+    rewriteMarks body
     rewriteDescriptionLists body
     rewriteInternalLinks body, anchors, pageAnchors
     <span class="comment">//sanitize code inside code tags</span>
@@ -1580,7 +1888,6 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
     <span class="comment">//this fixes the encoding</span>
     api.encoderRegistry = <span class="keyword">new</span> EncoderRegistry( <span class="key">charset</span>: <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span> )
     <span class="comment">//try to get an existing page</span>
-    <span class="keyword">def</span> page
     localPage = parseBody(pageBody, anchors, pageAnchors)
 
     <span class="keyword">def</span> localHash = MD5(localPage)
@@ -1607,14 +1914,21 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
                 [ <span class="key">type</span>: <span class="string"><span class="delimiter">'</span><span class="content">page</span><span class="delimiter">'</span></span>, <span class="key">id</span>: parentId]
         ]
     }
+
+    <span class="keyword">def</span> pages
     trythis {
-        page = api.get(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">content</span><span class="delimiter">'</span></span>,
-                <span class="key">query</span>: [
-                        <span class="string"><span class="delimiter">'</span><span class="content">spaceKey</span><span class="delimiter">'</span></span>: confluenceSpaceKey,
-                        <span class="string"><span class="delimiter">'</span><span class="content">title</span><span class="delimiter">'</span></span>   : realTitle(pageTitle),
-                        <span class="string"><span class="delimiter">'</span><span class="content">expand</span><span class="delimiter">'</span></span>  : <span class="string"><span class="delimiter">'</span><span class="content">body.storage,version</span><span class="delimiter">'</span></span>
-                ], <span class="key">headers</span>: headers).data.results[<span class="integer">0</span>]
+        <span class="keyword">def</span> cql = <span class="string"><span class="delimiter">&quot;</span><span class="content">space='</span><span class="inline"><span class="inline-delimiter">${</span>confluenceSpaceKey<span class="inline-delimiter">}</span></span><span class="content">' AND type=page AND title~'</span><span class="delimiter">&quot;</span></span> + realTitle(pageTitle) + <span class="string"><span class="delimiter">&quot;</span><span class="content">'</span><span class="delimiter">&quot;</span></span>
+        <span class="keyword">if</span> (parentId) {
+            cql += <span class="string"><span class="delimiter">&quot;</span><span class="content"> AND parent=</span><span class="inline"><span class="inline-delimiter">${</span>parentId<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+        }
+        pages = api.get(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">content/search</span><span class="delimiter">'</span></span>,
+                        <span class="key">query</span>: [<span class="string"><span class="delimiter">'</span><span class="content">cql</span><span class="delimiter">'</span></span> : cql,
+                                <span class="string"><span class="delimiter">'</span><span class="content">expand</span><span class="delimiter">'</span></span>  : <span class="string"><span class="delimiter">'</span><span class="content">body.storage,version</span><span class="delimiter">'</span></span>
+                               ], <span class="key">headers</span>: headers).data.results
     }
+
+    <span class="keyword">def</span> page = pages.find { p -&gt; p.title.equalsIgnoreCase(realTitle(pageTitle)) }
+
     <span class="keyword">if</span> (page) {
         <span class="comment">//println &quot;found existing page: &quot; + page.id +&quot; version &quot;+page.version.number</span>
 
@@ -1639,8 +1953,8 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
                 request.id      = page.id
                 request.version = [<span class="key">number</span>: (page.version.number <span class="keyword">as</span> <span class="predefined-type">Integer</span>) + <span class="integer">1</span>]
                 <span class="keyword">def</span> res = api.put(<span class="key">contentType</span>: ContentType.JSON,
-                        requestContentType : ContentType.JSON,
-                        <span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">content/</span><span class="delimiter">'</span></span> + page.id, <span class="key">body</span>: request, <span class="key">headers</span>: headers)
+                                  requestContentType : ContentType.JSON,
+                                  <span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">content/</span><span class="delimiter">'</span></span> + page.id, <span class="key">body</span>: request, <span class="key">headers</span>: headers)
             }
             println <span class="string"><span class="delimiter">&quot;</span><span class="content">&gt; updated page</span><span class="delimiter">&quot;</span></span>+page.id
             deferredUpload.each {
@@ -1650,11 +1964,29 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
             <span class="keyword">return</span> page.id
         }
     } <span class="keyword">else</span> {
+        <span class="keyword">if</span> (parentId) {
+            <span class="keyword">def</span> foreignPages
+            trythis {
+                <span class="keyword">def</span> foreignCql = <span class="string"><span class="delimiter">&quot;</span><span class="content">space='</span><span class="inline"><span class="inline-delimiter">${</span>confluenceSpaceKey<span class="inline-delimiter">}</span></span><span class="content">' AND type=page AND title~'</span><span class="delimiter">&quot;</span></span> + realTitle(pageTitle) + <span class="string"><span class="delimiter">&quot;</span><span class="content">'</span><span class="delimiter">&quot;</span></span>
+                foreignPages = api.get(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">content/search</span><span class="delimiter">'</span></span>,
+                                      <span class="key">query</span>: [<span class="string"><span class="delimiter">'</span><span class="content">cql</span><span class="delimiter">'</span></span> : foreignCql],
+                                    <span class="key">headers</span>: headers).data.results
+            }
+
+            <span class="keyword">def</span> foreignPage = foreignPages.find { p -&gt; p.title.equalsIgnoreCase(realTitle(pageTitle)) }
+
+            <span class="keyword">if</span> (foreignPage) {
+                <span class="keyword">throw</span> <span class="keyword">new</span> <span class="exception">IllegalArgumentException</span>(<span class="string"><span class="delimiter">&quot;</span><span class="content">Cannot create page, page with the same </span><span class="delimiter">&quot;</span></span>
+                    + <span class="string"><span class="delimiter">&quot;</span><span class="content">title=</span><span class="inline"><span class="inline-delimiter">${</span>foreignPage.title<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>
+                    + <span class="string"><span class="delimiter">&quot;</span><span class="content">and id=</span><span class="inline"><span class="inline-delimiter">${</span>foreignPage.id<span class="inline-delimiter">}</span></span><span class="content"> already exists in the space</span><span class="delimiter">&quot;</span></span>)
+            }
+        }
+
         <span class="comment">//create a page</span>
         trythis {
             page = api.post(<span class="key">contentType</span>: ContentType.JSON,
-                    <span class="key">requestContentType</span>: ContentType.JSON,
-                    <span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">content</span><span class="delimiter">'</span></span>, <span class="key">body</span>: request, <span class="key">headers</span>: headers)
+                            <span class="key">requestContentType</span>: ContentType.JSON,
+                            <span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">content</span><span class="delimiter">'</span></span>, <span class="key">body</span>: request, <span class="key">headers</span>: headers)
         }
         println <span class="string"><span class="delimiter">&quot;</span><span class="content">&gt; created page </span><span class="delimiter">&quot;</span></span>+page?.data?.id
         deferredUpload.each {
@@ -1786,32 +2118,53 @@ config.input.each { input -&gt;
 </div>
 </div>
 <div class="sect2">
-<h3 id="_converttodocx">3.7. convertToDocx</h3>
+<h3 id="_converttodocx"><a class="anchor" href="#_converttodocx"></a>3.7. convertToDocx</h3>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_convertToDocx.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/convertToDocx.png" alt="convertToDocx">
 </div>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Blog-Post: <a href="https://rdmueller.github.io/create-docx/">Render AsciiDoc to docx (MS Word)</a>
+</td>
+</tr>
+</table>
+</div>
 <div class="sect3">
-<h4 id="_source_6">3.7.1. Source</h4>
+<h4 id="_source_6"><a class="anchor" href="#_source_6"></a>3.7.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">pandoc.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">task convertToDocx (
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
+        <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">converts file to .docx via pandoc. Needs pandoc installed.</span><span class="delimiter">'</span></span>,
         <span class="key">type</span>: Exec
 ) {
-    <span class="comment">// For now it's only taking the first input file that has docbook format specified</span>
-    <span class="keyword">def</span> sourceFile = sourceFiles.find { <span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats }.file.replace(<span class="string"><span class="delimiter">'</span><span class="content">.adoc</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">.xml</span><span class="delimiter">'</span></span>)
-    <span class="keyword">def</span> targetFile = sourceFile.replace(<span class="string"><span class="delimiter">'</span><span class="content">.xml</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">.docx</span><span class="delimiter">'</span></span>)
+    <span class="comment">// All files with option `docx` in config.groovy is converted to docbook and then to docx.</span>
+    <span class="keyword">def</span> sourceFilesDocx = sourceFiles.findAll { <span class="string"><span class="delimiter">'</span><span class="content">docx</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats }
+    sourceFilesDocx.each {
+        <span class="keyword">def</span> sourceFile = <span class="local-variable">it</span>.file.replace(<span class="string"><span class="delimiter">'</span><span class="content">.adoc</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">.xml</span><span class="delimiter">'</span></span>)
+        <span class="keyword">def</span> targetFile = sourceFile.replace(<span class="string"><span class="delimiter">'</span><span class="content">.xml</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">.docx</span><span class="delimiter">'</span></span>)
 
-    workingDir <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/docbook</span><span class="delimiter">&quot;</span></span>
-    executable = <span class="string"><span class="delimiter">&quot;</span><span class="content">pandoc</span><span class="delimiter">&quot;</span></span>
-    <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/docx/</span><span class="delimiter">&quot;</span></span>).mkdirs()
-    args = [<span class="string"><span class="delimiter">'</span><span class="content">-r</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span>,
-            <span class="string"><span class="delimiter">'</span><span class="content">-t</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docx</span><span class="delimiter">'</span></span>,
-            <span class="string"><span class="delimiter">'</span><span class="content">-o</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">../docx/</span><span class="inline"><span class="inline-delimiter">$</span>targetFile</span><span class="delimiter">&quot;</span></span>,
-            sourceFile]
+        workingDir <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/docbook</span><span class="delimiter">&quot;</span></span>
+        executable = <span class="string"><span class="delimiter">&quot;</span><span class="content">pandoc</span><span class="delimiter">&quot;</span></span>
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/docx/</span><span class="delimiter">&quot;</span></span>).mkdirs()
+        args = [<span class="string"><span class="delimiter">'</span><span class="content">-r</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span>,
+                <span class="string"><span class="delimiter">'</span><span class="content">-t</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docx</span><span class="delimiter">'</span></span>,
+                <span class="string"><span class="delimiter">'</span><span class="content">-o</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">../docx/</span><span class="inline"><span class="inline-delimiter">$</span>targetFile</span><span class="delimiter">&quot;</span></span>,
+                sourceFile]
+        }
 }</code></pre>
 </div>
 </div>
@@ -1820,7 +2173,12 @@ config.input.each { input -&gt;
 </div>
 </div>
 <div class="sect2">
-<h3 id="_converttoepub">3.8. convertToEpub</h3>
+<h3 id="_converttoepub"><a class="anchor" href="#_converttoepub"></a>3.8. convertToEpub</h3>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_convertToEpub.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/convertToEpub.png" alt="convertToEpub">
@@ -1836,26 +2194,43 @@ This way, you can read your documentation in a convenient way on an eBook-reader
 <div class="paragraph">
 <p>The resulting file can be found in <code>build/docs/epub</code></p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Blog-Post: <a href="https://rdmueller.github.io/create-epub/">Turn your Document into an Audio-Book</a>
+</td>
+</tr>
+</table>
+</div>
 <div class="sect3">
-<h4 id="_source_7">3.8.1. Source</h4>
+<h4 id="_source_7"><a class="anchor" href="#_source_7"></a>3.8.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">pandoc.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">task convertToEpub (
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
+        <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">converts file to .epub via pandoc. Needs pandoc installed.</span><span class="delimiter">'</span></span>,
         <span class="key">type</span>: Exec
 ) {
-    <span class="comment">// For now it's only taking the first input file that has docbook format specified</span>
-    <span class="keyword">def</span> sourceFile = sourceFiles.find { <span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats }.file.replace(<span class="string"><span class="delimiter">'</span><span class="content">.adoc</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">.xml</span><span class="delimiter">'</span></span>)
-    <span class="keyword">def</span> targetFile = sourceFile.replace(<span class="string"><span class="delimiter">'</span><span class="content">.xml</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">.epub</span><span class="delimiter">'</span></span>)
+    <span class="comment">// All files with option `epub` in config.groovy is converted to docbook and then to epub.</span>
+    <span class="keyword">def</span> sourceFilesEpub = sourceFiles.findAll { <span class="string"><span class="delimiter">'</span><span class="content">epub</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats }
+    sourceFilesEpub.each {
+        <span class="keyword">def</span> sourceFile = <span class="local-variable">it</span>.file.replace(<span class="string"><span class="delimiter">'</span><span class="content">.adoc</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">.xml</span><span class="delimiter">'</span></span>)
+        <span class="keyword">def</span> targetFile = sourceFile.replace(<span class="string"><span class="delimiter">'</span><span class="content">.xml</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">.epub</span><span class="delimiter">'</span></span>)
 
-    workingDir <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/docbook</span><span class="delimiter">&quot;</span></span>
-    executable = <span class="string"><span class="delimiter">&quot;</span><span class="content">pandoc</span><span class="delimiter">&quot;</span></span>
-    <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/epub/</span><span class="delimiter">&quot;</span></span>).mkdirs()
-    args = [<span class="string"><span class="delimiter">'</span><span class="content">-r</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span>,
-            <span class="string"><span class="delimiter">'</span><span class="content">-t</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">epub</span><span class="delimiter">'</span></span>,
-            <span class="string"><span class="delimiter">'</span><span class="content">-o</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">../epub/</span><span class="inline"><span class="inline-delimiter">$</span>targetFile</span><span class="delimiter">&quot;</span></span>,
-            sourceFile]
+        workingDir <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/docbook</span><span class="delimiter">&quot;</span></span>
+        executable = <span class="string"><span class="delimiter">&quot;</span><span class="content">pandoc</span><span class="delimiter">&quot;</span></span>
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/epub/</span><span class="delimiter">&quot;</span></span>).mkdirs()
+        args = [<span class="string"><span class="delimiter">'</span><span class="content">-r</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span>,
+                <span class="string"><span class="delimiter">'</span><span class="content">-t</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">epub</span><span class="delimiter">'</span></span>,
+                <span class="string"><span class="delimiter">'</span><span class="content">-o</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">../epub/</span><span class="inline"><span class="inline-delimiter">$</span>targetFile</span><span class="delimiter">&quot;</span></span>,
+                sourceFile]
+
+    }
 }</code></pre>
 </div>
 </div>
@@ -1864,14 +2239,31 @@ This way, you can read your documentation in a convenient way on an eBook-reader
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportea">3.9. exportEA</h3>
+<h3 id="_exportea"><a class="anchor" href="#_exportea"></a>3.9. exportEA</h3>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_exportEA.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/exportEA.png" alt="exportEA">
 </div>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Blog-Posts: <a href="https://rdmueller.github.io/jria2eac/">JIRA to Sparx EA</a>, <a href="https://rdmueller.github.io/sparx-ea/">Did you ever wish you had better Diagrams?</a>
+</td>
+</tr>
+</table>
+</div>
 <div class="sect3">
-<h4 id="_source_8">3.9.1. Source</h4>
+<h4 id="_source_8"><a class="anchor" href="#_source_8"></a>3.9.1. Source</h4>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
@@ -1880,7 +2272,7 @@ This way, you can read your documentation in a convenient way on an eBook-reader
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports all diagrams and some texts from EA files</span><span class="delimiter">'</span></span>,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>
 ) {
-    doLast {
+    doFirst {
         <span class="comment">//make sure path for notes exists</span>
         <span class="comment">//and remove old notes</span>
         <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/ea</span><span class="delimiter">'</span></span>).deleteDir()
@@ -1903,6 +2295,8 @@ use `gradle exportEA` to re-export files
         <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/images/ea/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
         <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/ea/.</span><span class="delimiter">'</span></span>).mkdirs()
         <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/ea/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
+    }
+    doLast {
         <span class="comment">//execute through cscript in order to make sure that we get WScript.echo right</span>
         <span class="string"><span class="delimiter">&quot;</span><span class="content">%SystemRoot%</span><span class="char">\\</span><span class="content">System32</span><span class="char">\\</span><span class="content">cscript.exe //nologo scripts/exportEAP.vbs</span><span class="delimiter">&quot;</span></span>.executeCmd()
         <span class="comment">//the VB Script is only capable of writing iso-8859-1-Files.</span>
@@ -2171,21 +2565,254 @@ use `gradle exportEA` to re-export files
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportchangelog">3.10. exportChangeLog</h3>
+<h3 id="_exportvisio"><a class="anchor" href="#_exportvisio"></a>3.10. exportVisio</h3>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_exportVisio.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="images/ea/Manual/exportVisio.png" alt="exportVisio">
+</div>
+</div>
+<div class="paragraph">
+<p>This tasks searches for Visio files in the <code>/src/docs</code> folder.
+It then exports all diagrams and element notes to <code>/src/docs/images/visio</code> and <code>/src/docs/visio</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Images are stored as <code>/images/visio/[filename]-[pagename].png</code></p>
+</li>
+<li>
+<p>Notes are stored as <code>/visio/[filename]-[pagename].adoc</code></p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>You can specify a file name to which the notes of a diagram are exported by starting any comment with {adoc:[filename].adoc}`. It will then be written to <code>/viso/[filename].adoc</code>.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Currently, only Visio files stored directly in <code>/src/docs</code> are supported. For all others, the exported files will be in the wrong location.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Please close any running Visio instance before starting this task.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Todos: <a href="https://github.com/docToolchain/docToolchain/issues/112">issue #112</a>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_source_9"><a class="anchor" href="#_source_9"></a>3.10.1. Source</h4>
+<div class="listingblock">
+<div class="title">exportVisio.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">task exportVisio(
+        <span class="key">dependsOn</span>: [streamingExecute],
+        <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports all diagrams and notes from visio files</span><span class="delimiter">'</span></span>,
+        <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>
+) {
+    doLast {
+        <span class="comment">//make sure path for notes exists</span>
+        <span class="comment">//and remove old notes</span>
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/visio</span><span class="delimiter">'</span></span>).deleteDir()
+        <span class="comment">//also remove old diagrams</span>
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/images/visio</span><span class="delimiter">'</span></span>).deleteDir()
+        <span class="comment">//create a readme to clarify things</span>
+        <span class="keyword">def</span> readme = <span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">This folder contains exported diagrams and notes from visio files.
+
+Please note that these are generated files but reside in the `src`-folder in order to be versioned.
+
+This is to make sure that they can be used from environments other than windows.
+
+# Warning!
+
+**The contents of this folder        will be overwritten with each re-export!**
+
+use `gradle exportVisio` to re-export files
+</span><span class="delimiter">&quot;&quot;&quot;</span></span>
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/images/visio/.</span><span class="delimiter">'</span></span>).mkdirs()
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/images/visio/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/visio/.</span><span class="delimiter">'</span></span>).mkdirs()
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/visio/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
+        <span class="keyword">def</span> sourcePath = <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">src/docs/.</span><span class="delimiter">'</span></span>).canonicalPath
+        <span class="keyword">def</span> scriptPath = <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">scripts/VisioPageToPngConverter.ps1</span><span class="delimiter">'</span></span>).canonicalPath
+        <span class="string"><span class="delimiter">&quot;</span><span class="content">powershell </span><span class="inline"><span class="inline-delimiter">${</span>scriptPath<span class="inline-delimiter">}</span></span><span class="content"> -SourcePath </span><span class="inline"><span class="inline-delimiter">${</span>sourcePath<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>.executeCmd()
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">scripts/VisioPageToPngConverter.ps1</div>
+<div class="content">
+<pre class="CodeRay highlight"><code># Convert all pages in all visio files in the given directory to png files.
+# A Visio windows might flash shortly.
+# The converted png files are stored in the same directory
+# The name of the png file is concatenated from the Visio file name and the page name.
+# In addtion all the comments are stored in adoc files.
+# If the Viso file is named "MyVisio.vsdx" and the page is called "FirstPage"
+# the name of the png file will be "MyVisio-FirstPage.png" and the comment will
+# be stored in "MyVisio-FirstPage.adoc".
+# But for the name of the adoc files there is an alternative. It can be given in the first
+# line of the comment. If it is given in the comment it has to be given in curly brackes
+# with the prefix "adoc:", e.g. {adoc:MyCommentFile.adoc}
+# Prerequisites: Viso and PowerShell has to be installed on the computer.
+# Parameter: SourcePath where visio files can be found
+# Example powershell VisoPageToPngConverter.ps1 -SourcePath c:\convertertest\
+
+Param
+(
+    [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=0)]
+    [Alias('p')][String]$SourcePath
+)
+
+
+If (!(Test-Path -Path $SourcePath))
+{
+    Write-Warning "The path ""$SourcePath"" does not exist or is not accessible, please input the correct path."
+    Exit
+}
+
+# Extend the source path to get only Visio files of the given directory and not in subdircetories
+If ($SourcePath.EndsWith("\"))
+{
+    $SourcePath  = "$SourcePath*"
+}
+Else
+{
+    $SourcePath  = "$SourcePath\*"
+}
+
+$VisioFiles = Get-ChildItem -Path $SourcePath -Include *.vsdx,*.vssx,*.vstx,*.vxdm,*.vssm,*.vstm,*.vsd,*.vdw,*.vss,*.vst
+
+If(!($VisioFiles))
+{
+    Write-Warning "There are no Visio files in the path ""$SourcePath""."
+    Exit
+}
+
+$VisioApp = New-Object -ComObject Visio.Application
+$VisioApp.Visible = $false
+
+# Extract the png from all the files in the folder
+Foreach($File in $VisioFiles)
+{
+    $FilePath = $File.FullName
+               $FileDirectory = $File.DirectoryName   # Get the folder containing the Visio file. Will be used to store the png and adoc files
+    $FileBaseName = $File.BaseName    # Get the filename to be used as part of the name of the png and adoc files
+
+    Try
+    {
+        $Document = $VisioApp.Documents.Open($FilePath)
+        $Pages = $VisioApp.ActiveDocument.Pages
+        Foreach($Page in $Pages)
+        {
+            # Create valid filenames for the png and adoc files
+            $PngFileName = $Page.Name -replace '[:/\\*?|&lt;&gt;]','-'
+            $PngFileName = "$FileBaseName-$PngFileName.png"
+            $AdocFileName = $PngFileName.Replace(".png", ".adoc")
+
+            #TODO: this needs better logic
+            $Page.Export("$FileDirectory\images\visio\$PngFileName")
+
+            $AllPageComments = ""
+            ForEach($PageComment in $Page.Comments)
+            {
+                # Extract adoc filename from comment text if the syntax is valid
+                # Remove the filename from the text and save the comment in a file with a valid name
+                $EofStringIndex = $PageComment.Text.IndexOf(".adoc}")
+                if ($PageComment.Text.StartsWith("{adoc") -And ($EofStringIndex -gt 6))
+                {
+                    $AdocFileName = $PageComment.Text.Substring(6, $EofStringIndex -1)
+                    $AllPageComments += $PageComment.Text.Substring($EofStringIndex + 6)
+                }
+                else
+                {
+                    $AllPageComments += $PageComment.Text+"`n"
+                }
+            }
+            If ($AllPageComments)
+            {
+
+                $AdocFileName = $AdocFileName -replace '[:/\\*?|&lt;&gt;]','-'
+                #TODO: this needs better logic
+                $stream = [System.IO.StreamWriter] "$FileDirectory\visio\$AdocFileName"
+                $stream.WriteLine($AllPageComments)
+                $stream.close()
+            }
+        }
+        $Document.Close()
+    }
+    Catch
+    {
+        if ($Document)
+        {
+            $Document.Close()
+        }
+        Write-Warning "One or more visio page(s) in file ""$FilePath"" have been lost in this converting."
+        Write-Warning "Error was: $_"
+    }
+}
+$VisioApp.Quit()</code></pre>
+</div>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exportchangelog"><a class="anchor" href="#_exportchangelog"></a>3.11. exportChangeLog</h3>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_exportChangeLog.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/exportChangeLog.png" alt="exportChangeLog">
 </div>
 </div>
 <div class="paragraph">
-<p>As the name says, this task exports the changelog to be referenced from within your documentation - if needed.</p>
+<p>As the name says, this task exports the changelog to be referenced from within your documentation - if needed.
+The changelog is written to <code>build/docs/changelog.adoc</code>.</p>
 </div>
 <div class="paragraph">
-<p>The source is the git changelog for the path <code>src/docs</code> - it only contains the commit messages for changes on the documentation.
-All changes on the build or other sources from the repository will not show up.</p>
+<p>This task can be configured to use different source control system or different directory.
+To configure the task, copy <code>template_config/scripts/ChangelogConfig.groovy</code> to your directory and modify to your needs.
+Then give the path to your configuration file to the task using -PchangelogConfigFile=&lt;your config file&gt;.
+See the description inside the template for more details.</p>
 </div>
 <div class="paragraph">
-<p>The changelog is written to <code>build/docs/changelog.adoc</code> and contains the changes with <em>date</em>, <em>author</em> and <em>commit message</em> already formatted as AsciiDoc table content:</p>
+<p>By default, the source is the Git changelog for the path <code>src/docs</code> - it only contains the commit messages for changes on the documentation.
+All changes on the build or other sources from the repository will not show up.
+By default, the changelog contains the changes with <em>date</em>, <em>author</em> and <em>commit message</em> already formatted as AsciiDoc table content:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2231,21 +2858,41 @@ But this isn&#8217;t implemented yet.
 </tr>
 </table>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Blog-Post: <a href="https://rdmueller.github.io/changelog/">The only constant in life is change</a>
+</td>
+</tr>
+</table>
+</div>
 <div class="sect3">
-<h4 id="_source_9">3.10.1. Source</h4>
+<h4 id="_source_10"><a class="anchor" href="#_source_10"></a>3.11.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">exportChangelog.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">task exportChangeLog(
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports the change log from a git subpath</span><span class="delimiter">'</span></span>,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>
-) doLast {
-    <span class="comment">// https://git-scm.com/docs/pretty-formats</span>
-    <span class="keyword">def</span> changes = <span class="string"><span class="delimiter">&quot;</span><span class="content">git log --pretty=format:%x7c%x20%ad%x20%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n --date=short ./src/docs/arc42</span><span class="delimiter">&quot;</span></span>.execute().text
-    <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir).mkdirs()
-    <span class="keyword">def</span> changelog = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir, <span class="string"><span class="delimiter">'</span><span class="content">changelog.adoc</span><span class="delimiter">'</span></span>)
-    logger.info <span class="string"><span class="delimiter">&quot;</span><span class="content">&gt; changelog exported</span><span class="delimiter">&quot;</span></span>
-    changelog.write(changes)
+) {
+    doFirst {
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir).mkdirs()
+    }
+    doLast {
+        println <span class="string"><span class="delimiter">&quot;</span><span class="content">changelogConfigFile: </span><span class="inline"><span class="inline-delimiter">${</span>changelogConfigFile<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+        <span class="keyword">def</span> config
+        config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, changelogConfigFile).text)
+
+        <span class="keyword">def</span> cmd = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>config.changelogCmd<span class="inline-delimiter">}</span></span><span class="content"> .</span><span class="delimiter">&quot;</span></span>
+        <span class="keyword">def</span> changes = cmd.execute(<span class="predefined-constant">null</span>, <span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, config.changelogDir)).text
+        <span class="keyword">def</span> changelog = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir, <span class="string"><span class="delimiter">'</span><span class="content">changelog.adoc</span><span class="delimiter">'</span></span>)
+        logger.info <span class="string"><span class="delimiter">&quot;</span><span class="content">&gt; changelog exported </span><span class="inline"><span class="inline-delimiter">${</span>changelog.canonicalPath<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+        changelog.write(changes)
+    }
 }</code></pre>
 </div>
 </div>
@@ -2254,16 +2901,33 @@ But this isn&#8217;t implemented yet.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportjiraissues">3.11. exportJiraIssues</h3>
+<h3 id="_exportjiraissues"><a class="anchor" href="#_exportjiraissues"></a>3.12. exportJiraIssues</h3>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_exportJiraIssues.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/exportJiraIssues.png" alt="exportJiraIssues">
 </div>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Blog-Post: <a href="https://rdmueller.github.io/Jira/">Living Documents for Agile Projects</a>
+</td>
+</tr>
+</table>
+</div>
 <div class="sect3">
-<h4 id="_source_10">3.11.1. Source</h4>
+<h4 id="_source_11"><a class="anchor" href="#_source_11"></a>3.12.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">exportJiraIssues.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">task exportJiraIssues(
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports all jira issues from a given search</span><span class="delimiter">'</span></span>,
@@ -2308,16 +2972,33 @@ But this isn&#8217;t implemented yet.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportppt">3.12. exportPPT</h3>
+<h3 id="_exportppt"><a class="anchor" href="#_exportppt"></a>3.13. exportPPT</h3>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_exportPPT.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/exportPPT.png" alt="exportPPT">
 </div>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Blog-Post: <a href="https://rdmueller.github.io/PPT-as-asciidoc-editor/">Do more with Slides</a>
+</td>
+</tr>
+</table>
+</div>
 <div class="sect3">
-<h4 id="_source_11">3.12.1. Source</h4>
+<h4 id="_source_12"><a class="anchor" href="#_source_12"></a>3.13.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">exportPPT.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">task exportPPT(
         <span class="key">dependsOn</span>: [streamingExecute],
@@ -2353,12 +3034,109 @@ use `gradle exportPPT` to re-export files
 }</code></pre>
 </div>
 </div>
+<div class="listingblock">
+<div class="title">exportPPT.vbs</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="vbs">    Const   ForAppending = 8
+    Const   ppPlaceholderBody = 2
+
+    ' Helper
+    ' http://windowsitpro.com/windows/jsi-tip-10441-how-can-vbscript-create-multiple-folders-path-mkdir-command
+    Function MakeDir (strPath)
+      Dim strParentPath, objFSO
+      Set objFSO = CreateObject(&quot;Scripting.FileSystemObject&quot;)
+      On Error Resume Next
+      strParentPath = objFSO.GetParentFolderName(strPath)
+
+      If Not objFSO.FolderExists(strParentPath) Then MakeDir strParentPath
+      If Not objFSO.FolderExists(strPath) Then objFSO.CreateFolder strPath
+      On Error Goto 0
+      MakeDir = objFSO.FolderExists(strPath)
+
+    End Function
+
+        Function SearchPresentations(path)
+
+                  For Each folder In path.SubFolders
+                    SearchPresentations folder
+                  Next
+
+                  For Each file In path.Files
+                                If Left(fso.GetExtensionName (file.Path), 3) = &quot;ppt&quot; Then
+                                        WScript.echo &quot;found &quot;&amp;file.path
+                                        ExportSlides(file.Path)
+                                End If
+                  Next
+
+    End Function
+
+    Sub ExportSlides(sFile)
+        Set objRegEx = CreateObject(&quot;VBScript.RegExp&quot;)
+        objRegEx.Global = True
+        objRegEx.IgnoreCase = True
+        objRegEx.MultiLine = True
+        ' &quot;.&quot; doesn't work for multiline in vbs, &quot;[\s,\S]&quot; does...
+        objRegEx.Pattern = &quot;[\s,\S]*{adoc}&quot;
+        ' http://www.pptfaq.com/FAQ00481_Export_the_notes_text_of_a_presentation.htm
+        strFileName = fso.GetFIle(sFile).Name
+        Set oPPT = CreateObject(&quot;PowerPoint.Application&quot;)
+        Set oPres = oPPT.Presentations.Open(sFile, True, False, False) ' Read Only, No Title, No Window
+        Set oSlides = oPres.Slides
+        strNotesText = &quot;&quot;
+        strImagePath = &quot;/src/docs/images/ppt/&quot; &amp; strFileName &amp; &quot;/&quot;
+        MakeDir(&quot;.&quot; &amp; strImagePath)
+        strNotesPath = &quot;/src/docs/ppt/&quot;
+        MakeDir(&quot;.&quot; &amp; strNotesPath)
+        For Each oSl In oSlides
+           strSlideName = oSl.Name
+           ' WScript.echo fso.GetAbsolutePathName(&quot;.&quot;) &amp; strImagePath &amp; strSlideName &amp; &quot;.jpg&quot;
+           oSl.Export fso.GetAbsolutePathName(&quot;.&quot;) &amp; strImagePath &amp; strSlideName &amp; &quot;.jpg&quot;, &quot;.jpg&quot;
+            For Each oSh In oSl.NotesPage.Shapes
+                If oSh.PlaceholderFormat.Type = ppPlaceholderBody  Then
+                    If oSh.HasTextFrame Then
+                        If oSh.TextFrame.HasText Then
+                            strCurrentNotes = oSh.TextFrame.TextRange.Text
+                            strCurrentNotes = Replace(strCurrentNotes,vbVerticalTab, vbCrLf)
+                            strCurrentNotes = Replace(strCurrentNotes,&quot;{slide}&quot;,&quot;image::ppt/&quot;&amp;strFileName&amp;&quot;/&quot;&amp;strSlideName&amp;&quot;.jpg[]&quot;)
+                            ' remove speaker notes before marker &quot;{adoc}&quot;
+                            strCurrentNotes = objRegEx.Replace(strCurrentNotes,&quot;&quot;)
+                            strNotesText = strNotesText  &amp; vbCrLf &amp; strCurrentNotes &amp; vbCrLf &amp; vbCrLf
+                        End If
+                    End If
+                End If
+            Next
+        Next
+        ' WScript.echo fso.GetAbsolutePathName(&quot;.&quot;) &amp; strNotesPath&amp;&quot;&quot;&amp;strFileName&amp;&quot;.ad&quot;
+        ' http://stackoverflow.com/questions/2524703/save-text-file-utf-8-encoded-with-vba
+
+        Set fsT = CreateObject(&quot;ADODB.Stream&quot;)
+        fsT.Type = 2 'Specify stream type - we want To save text/string data.
+        fsT.Charset = &quot;utf-8&quot; 'Specify charset For the source text data.
+        fsT.Open 'Open the stream And write binary data To the object
+        fsT.WriteText &quot;ifndef::imagesdir[:imagesdir: ../../images]&quot;&amp;vbCrLf&amp;CStr(strNotesText)
+        fsT.SaveToFile fso.GetAbsolutePathName(&quot;.&quot;) &amp; strNotesPath&amp;&quot;&quot;&amp;strFileName&amp;&quot;.ad&quot;, 2 'Save binary data To disk
+        oPres.Close()
+        oPPT.Quit()
+    End Sub
+
+  set fso = CreateObject(&quot;Scripting.fileSystemObject&quot;)
+  WScript.echo &quot;Slide extractor&quot;
+  WScript.echo &quot;looking for .ppt files in &quot; &amp; fso.GetAbsolutePathName(&quot;.&quot;) &amp; &quot;/src&quot;
+  SearchPresentations fso.GetFolder(&quot;./src&quot;)
+  WScript.echo &quot;finished exporting slides&quot;</code></pre>
+</div>
+</div>
 <hr>
 <div style="page-break-after: always;"></div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportexcel">3.13. exportExcel</h3>
+<h3 id="_exportexcel"><a class="anchor" href="#_exportexcel"></a>3.14. exportExcel</h3>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_exportExcel.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/exportExcel.png" alt="exportExcel">
@@ -2429,7 +3207,7 @@ include::excel/Sample.xlsx/Numerisch.csv[]
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_source_12">3.13.1. Source</h4>
+<h4 id="_source_13"><a class="anchor" href="#_source_13"></a>3.14.1. Source</h4>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
@@ -2437,7 +3215,7 @@ include::excel/Sample.xlsx/Numerisch.csv[]
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports all excelsheets to csv and AsciiDoc</span><span class="delimiter">'</span></span>,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>
 ) {
-    doLast {
+    doFirst {
         <span class="predefined-type">File</span> sourceDir = file(srcDir)
 
         <span class="keyword">def</span> tree = fileTree(srcDir).include(<span class="string"><span class="delimiter">'</span><span class="content">**/*.xlsx</span><span class="delimiter">'</span></span>).exclude(<span class="string"><span class="delimiter">'</span><span class="content">**/~*</span><span class="delimiter">'</span></span>)
@@ -2461,6 +3239,11 @@ use `gradle exportExcel` to re-export files
 </span><span class="delimiter">&quot;&quot;&quot;</span></span>
         exportFileDir.mkdirs()
         <span class="keyword">new</span> <span class="predefined-type">File</span>(exportFileDir, <span class="string"><span class="delimiter">'</span><span class="content">/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
+    }
+    doLast {
+        <span class="predefined-type">File</span> sourceDir = file(srcDir)
+        <span class="keyword">def</span> exportFileDir = <span class="keyword">new</span> <span class="predefined-type">File</span>(sourceDir, <span class="string"><span class="delimiter">'</span><span class="content">excel</span><span class="delimiter">'</span></span>)
+        <span class="keyword">def</span> tree = fileTree(srcDir).include(<span class="string"><span class="delimiter">'</span><span class="content">**/*.xlsx</span><span class="delimiter">'</span></span>).exclude(<span class="string"><span class="delimiter">'</span><span class="content">**/~*</span><span class="delimiter">'</span></span>)
 
         <span class="keyword">def</span> nl = <span class="predefined-type">System</span>.getProperty(<span class="string"><span class="delimiter">&quot;</span><span class="content">line.separator</span><span class="delimiter">&quot;</span></span>)
 
@@ -2627,7 +3410,51 @@ use `gradle exportExcel` to re-export files
 </div>
 </div>
 <div class="sect2">
-<h3 id="_htmlsanitycheck">3.14. htmlSanityCheck</h3>
+<h3 id="_exportmarkdown"><a class="anchor" href="#_exportmarkdown"></a>3.15. exportMarkdown</h3>
+<div class="paragraph">
+<p>The <em>exportMarkdown</em> task can be used to include <a href="http://markdown.de">markdown</a> files into the documentation.</p>
+</div>
+<div class="paragraph">
+<p>The task is scanning the directory <code>/src/docs</code> for markdown files (<code>*.md</code>) and converts them into AsciiDoc files. The converted files can then be referenced from within the <code>/build</code>-folder.</p>
+</div>
+<div class="sect3">
+<h4 id="_source_14"><a class="anchor" href="#_source_14"></a>3.15.1. Source</h4>
+<div class="listingblock">
+<div class="title">exportMarkdown.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">task exportMarkdown(
+        <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports all markdown files to AsciiDoc</span><span class="delimiter">'</span></span>,
+        <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
+        <span class="key">type</span>: Copy
+) {
+    from srcDir
+
+    include(<span class="string"><span class="delimiter">&quot;</span><span class="content">**/*.md</span><span class="delimiter">&quot;</span></span>) <span class="comment">//include only markdown files</span>
+    includeEmptyDirs = <span class="predefined-constant">false</span>
+    rename(<span class="regexp"><span class="delimiter">/</span><span class="content">(.+).md</span><span class="delimiter">/</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">$1.adoc</span><span class="delimiter">'</span></span>) <span class="comment">//rename all files from *.md to *.adoc</span>
+    filter(Markdown2AdocFilter) <span class="comment">// convert the content of the files</span>
+
+    into targetDir
+}
+
+<span class="type">class</span> <span class="class">Markdown2AdocFilter</span> <span class="directive">extends</span> <span class="predefined-type">FilterReader</span> {
+    Markdown2AdocFilter(<span class="predefined-type">Reader</span> input) {
+        <span class="local-variable">super</span>(<span class="keyword">new</span> <span class="predefined-type">StringReader</span>(nl.jworks.markdown_to_asciidoc.Converter.convertMarkdownToAsciiDoc(input.text)))
+    }
+}</code></pre>
+</div>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_htmlsanitycheck"><a class="anchor" href="#_htmlsanitycheck"></a>3.16. htmlSanityCheck</h3>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_htmlSanityCheck.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/htmlSanityCheck.png" alt="htmlSanityCheck">
@@ -2647,15 +3474,27 @@ It is a standalone (batch- and command-line) html sanity checker - it detects mi
 <div class="content">
 <img src="images/manual/htmlSanityCheck.png" alt="htmlSanityCheck">
 </div>
-<div class="title">Figure 3. sample report</div>
+<div class="title">Figure 5. sample report</div>
 </div>
 <div class="paragraph">
 <p>Further information can be found on github: <a href="https://github.com/aim42/htmlSanityCheck" class="bare">https://github.com/aim42/htmlSanityCheck</a></p>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Blog-Post: <a href="https://rdmueller.github.io/htmlSanityCheck/">Automated Quality-Checks</a>
+</td>
+</tr>
+</table>
+</div>
 <div class="sect3">
-<h4 id="_source_13">3.14.1. Source</h4>
+<h4 id="_source_15"><a class="anchor" href="#_source_15"></a>3.16.1. Source</h4>
 <div class="listingblock">
-<div class="title">build.gradle</div>
+<div class="title">htmlSanityCheck.gradle</div>
 <div class="content">
 <pre class="CodeRay highlight"><code data-lang="groovy">htmlSanityCheck {
     sourceDir = <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/html5</span><span class="delimiter">&quot;</span></span>)
@@ -2674,10 +3513,39 @@ It is a standalone (batch- and command-line) html sanity checker - it detects mi
 </div>
 </div>
 <div class="sect2">
-<h3 id="_dependencyupdates">3.15. dependencyUpdates</h3>
+<h3 id="_dependencyupdates"><a class="anchor" href="#_dependencyupdates"></a>3.17. dependencyUpdates</h3>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/03_task_dependencyUpdates.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="paragraph">
 <p>This task uses the <a href="https://github.com/ben-manes/gradle-versions-plugin">Gradle versions plugin</a> created by Ben Manes to check for outdated build dependencies.
 It is quite helpful to keep all dependencies up-to-date.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+if you discover newer version, this does not mean that they will play nicely together. If you want to make sure that everything works, rely on the versions which the docToolchain contributors have selected.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Blog-Post: <a href="https://rdmueller.github.io/dependency-update/">Handle Dependency Updates the easy Way</a>
+</td>
+</tr>
+</table>
 </div>
 <hr>
 <div style="page-break-after: always;"></div>
@@ -2685,13 +3553,167 @@ It is quite helpful to keep all dependencies up-to-date.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_further_reading">4. Further Reading</h2>
+<h2 id="_faq_frequently_asked_questions"><a class="anchor" href="#_faq_frequently_asked_questions"></a>4. FAQ: Frequently asked Questions</h2>
 <div class="sectionbody">
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/06_Frequently_asked_Questions.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
+<div class="paragraph">
+<p>This section tries to answer the most common and frequently asked questions about how to work with docToolchain.
+It will also contain questions relevant to the tools used to build docToolchain, but the main focus is docToolchain itself.</p>
+</div>
+<div class="paragraph">
+<p>If you are stuck, make sure that you also check other sources like <a href="https://stackoverflow.com/questions/tagged/asciidoctor">stackoverflow</a>.</p>
+</div>
+<div class="paragraph">
+<p>There is also a great FAQ for all your arc42 questions: <a href="http://faq.arc42.org/home/" class="bare">http://faq.arc42.org/home/</a></p>
+</div>
+<div class="paragraph">
+<p>If you have a question or problem for which you can&#8217;t find a solution, you can</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>for this repo, add your question and create a pull request</p>
+</li>
+<li>
+<p>raise the issue through the <a href="https://github.com/docToolchain/docToolchain/issues">github issue tracker</a></p>
+</li>
+<li>
+<p>ask your question on <a href="https://stackoverflow.com/questions/tagged/doctoolchain?sort=active&amp;pageSize=50">stackoverflow</a></p>
+</li>
+<li>
+<p>discuss the problem on <a href="https://t.co/lnqrUc1YMM">slack</a></p>
+</li>
+</ul>
+</div>
+<div class="sect2">
+<h3 id="_images"><a class="anchor" href="#_images"></a>4.1. Images</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="http://asciidoctor.org/docs/user-manual/#images">Asciidoctor User Manual on images</a></p>
+</li>
+<li>
+<p><a href="http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#images">Asciidoctor Quick Reference on images</a></p>
+</li>
+<li>
+<p><a href="http://asciidoctor.org/docs/asciidoc-writers-guide/#images">AsciiDoctor Writer Guide on images</a></p>
+</li>
+</ul>
+</div>
+<div class="sect3">
+<h4 id="_q_why_are_images_not_shown_in_the_preview_of_my_editor"><a class="anchor" href="#_q_why_are_images_not_shown_in_the_preview_of_my_editor"></a>4.1.1. Q: Why are images not shown in the preview of my editor?</h4>
+<div class="paragraph">
+<p>A: this is most likely because your editor doesn&#8217;t know where they are stored.
+If you follow the default settings, you probably store your images in a subfolder <code>images</code>.
+The build script knows about it, because the attribute <code>imagesdir</code> has been set to <code>./images</code>, but your editor doesn&#8217;t care about the build script - it only checks the currently opened AsciiDoc file.</p>
+</div>
+<div class="paragraph">
+<p>The solution is to add a line to each file which checks if the <code>imagesdir</code> is set and if not, sets it to a valid value:</p>
+</div>
+<div class="paragraph">
+<p><code>ifndef::imagesdir[:imagesdir: ../images]</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_q_which_image_format_should_i_use"><a class="anchor" href="#_q_which_image_format_should_i_use"></a>4.1.2. Q: Which image format should I use?</h4>
+<div class="paragraph">
+<p>A: AsciiDoc and AsciiDoctor support several formats like GIF, PNG, JPG and SVG.
+However, if you want to use most features, some formats are better to use than others:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">GIF</dt>
+<dd>
+<p>is not supported by the PDF renderer. Use JPG or PNG instead.</p>
+</dd>
+<dt class="hdlist1">JPG</dt>
+<dd>
+<p>is great for photos but not for diagrams (you might get compression artefacts).
+So, if you want to use photos from your flipcharts - JPG might work for you.</p>
+</dd>
+<dt class="hdlist1">SVG</dt>
+<dd>
+<p>great for high resolution diagrams, but not good supported by DOCX as output format.
+OpenOffice Writer might display the image a bit stretched, MS Word didn&#8217;t display it at all in some experiments.</p>
+</dd>
+<dt class="hdlist1">PNG</dt>
+<dd>
+<p>this is the preferred format for images used with docToolchain.
+All output formats support it and if diagrams are rendered with a resolution high enough to display all details, it will also be scaled ok with all output formats.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_q_why_are_my_images_rotated_in_the_output"><a class="anchor" href="#_q_why_are_my_images_rotated_in_the_output"></a>4.1.3. Q: Why are my images rotated in the output?</h4>
+<div class="paragraph">
+<p>A: This most likely happens when you&#8217;ve taken photos with a mobile device and include them in you docs.
+A mobile device does not rotate the image itself, it only stores the orientation of the device in the meta data of the photo.
+Your operating system will show you the image as expected, but the rendered AsciiDoc will not.
+This can be „fixed“ with Imagemagick, use convert -auto-orient or mogrify -auto-orient (thanx to <a href="https://twitter.com/RalfDMueller/status/920888868345384960">@rotnroll666</a> for this tip).
+You can also try to just open the image in your favourite editor and re-save it.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exportvisio_2"><a class="anchor" href="#_exportvisio_2"></a>4.2. exportVisio</h3>
+<div class="sect3">
+<h4 id="_q_i_get_an_error_message_saying_that_a_library_is_not_registered_when_i_try_to_run_the_code_exportvisio_code_task"><a class="anchor" href="#_q_i_get_an_error_message_saying_that_a_library_is_not_registered_when_i_try_to_run_the_code_exportvisio_code_task"></a>4.2.1. Q: I get an error message saying that a library is not registered when I try to run the <code>exportVisio</code>-task.</h4>
+<div class="listingblock">
+<div class="content">
+<pre>Ausnahme beim Festlegen von "Visible": "Das COM-Objekt des Typs "Microsoft.Office.Interop.Visio.ApplicationClass" kann nicht in den Schnittstellentyp
+"Microsoft.Office.Interop.Visio.IVApplication" umgewandelt werden. Dieser Vorgang konnte nicht durchgeführt werden, da der QueryInterface-Aufruf an die
+COM-Komponente für die Schnittstelle mit der IID "{000D0700-0000-0000-C000-000000000046}" aufgrund des folgenden Fehlers nicht durchgeführt werden konnte:
+Bibliothek nicht registriert. (Ausnahme von HRESULT: 0x8002801D (TYPE_E_LIBNOTREGISTERED))."
+In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
++ $VisioApp.Visible = $false
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:) [], SetValueInvocationException
+    + FullyQualifiedErrorId : ExceptionWhenSetting</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A: When Visio is installed, it registers itself as com library. It seems that this registration can break.
+You can fix this by visiting the windows system settings &#8594; install or uninstall a program, select <code>visio</code>, select <code>change</code> and then <code>repair</code>.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_sparx_enterprise_architect"><a class="anchor" href="#_sparx_enterprise_architect"></a>4.3. Sparx Enterprise Architect</h3>
+<div class="sect3">
+<h4 id="_q_sparx_enterprise_architect_is_a_windows_tool_isn_t_it"><a class="anchor" href="#_q_sparx_enterprise_architect_is_a_windows_tool_isn_t_it"></a>4.3.1. Q: Sparx Enterprise Architect is a Windows tool, isn&#8217;t it?</h4>
+<div class="paragraph">
+<p>Yes, it is, but it is written to support CrossOver in order to run on Linux based systems. Wine, the open source branch of CrossOver seems to work as well.</p>
+</div>
+<div class="paragraph">
+<p>Take a look at this page to see how to install it on a linux based system: <a href="http://www.sparxsystems.com/support/faq/ea_on_linux.html" class="bare">http://www.sparxsystems.com/support/faq/ea_on_linux.html</a></p>
+</div>
+<div class="paragraph">
+<p>I (Ralf) once gave it a try and even managed to get remote control over EA via VBS and COM up and running (which is the pre-requisite for docToolchain).</p>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_further_reading"><a class="anchor" href="#_further_reading"></a>5. Further Reading</h2>
+<div class="sectionbody">
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/04_further_reading.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="paragraph">
 <p>This chapter lists some additional references to interesting resources.</p>
 </div>
 <div class="sect2">
-<h3 id="_links">4.1. Links</h3>
+<h3 id="_links"><a class="anchor" href="#_links"></a>5.1. Links</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2718,7 +3740,7 @@ It is quite helpful to keep all dependencies up-to-date.</p>
 <p><a href="http://docs.arc42.org/home/">arc42 Tips &amp; Tricks</a></p>
 </li>
 <li>
-<p><a href="http://faq.arc42.org/home/">rc42 FAQ</a></p>
+<p><a href="http://faq.arc42.org/home/">arc42 FAQ</a></p>
 </li>
 </ul>
 </div>
@@ -2730,7 +3752,7 @@ It is quite helpful to keep all dependencies up-to-date.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_books">4.2. Books</h3>
+<h3 id="_books"><a class="anchor" href="#_books"></a>5.2. Books</h3>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -2744,7 +3766,7 @@ links to Amazon are affiliate links
 </table>
 </div>
 <div class="sect3">
-<h4 id="_english_books">4.2.1. English Books</h4>
+<h4 id="_english_books"><a class="anchor" href="#_english_books"></a>5.2.1. English Books</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2766,7 +3788,7 @@ links to Amazon are affiliate links
 </div>
 </div>
 <div class="sect3">
-<h4 id="_german_books">4.2.2. German Books</h4>
+<h4 id="_german_books"><a class="anchor" href="#_german_books"></a>5.2.2. German Books</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -2780,9 +3802,9 @@ links to Amazon are affiliate links
 </div>
 </div>
 <div class="sect2">
-<h3 id="_past_and_upcoming_talks">4.3. Past and upcoming Talks</h3>
+<h3 id="_past_and_upcoming_talks"><a class="anchor" href="#_past_and_upcoming_talks"></a>5.3. Past and upcoming Talks</h3>
 <div class="sect3">
-<h4 id="_dokumentation_am_riesen_beispiel_arc42_asciidoc_und_co_in_aktion">4.3.1. Dokumentation am (Riesen-)Beispiel – arc42, AsciiDoc und Co. in Aktion</h4>
+<h4 id="_dokumentation_am_riesen_beispiel_arc42_asciidoc_und_co_in_aktion"><a class="anchor" href="#_dokumentation_am_riesen_beispiel_arc42_asciidoc_und_co_in_aktion"></a>5.3.1. Dokumentation am (Riesen-)Beispiel – arc42, AsciiDoc und Co. in Aktion</h4>
 <div class="paragraph">
 <p><a href="https://twitter.com/gernotstarke">Gernot Starke</a> and <a href="https://twitter.com/ralfdmueller">Ralf D. Müller</a></p>
 </div>
@@ -2808,7 +3830,7 @@ Einige Teile dieser Doku können Sie sogar automatisiert testen.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_gesunde_dokumentation_mit_asciidoctor">4.3.2. Gesunde Dokumentation mit Asciidoctor</h4>
+<h4 id="_gesunde_dokumentation_mit_asciidoctor"><a class="anchor" href="#_gesunde_dokumentation_mit_asciidoctor"></a>5.3.2. Gesunde Dokumentation mit AsciiDoctor</h4>
 <div class="paragraph">
 <p><a href="https://twitter.com/ahus1de">Alexander Schwartz</a></p>
 </div>
@@ -2816,13 +3838,13 @@ Einige Teile dieser Doku können Sie sogar automatisiert testen.</p>
 <p>Autoren möchten Inhalte effizient dokumentieren und vorhandene Inhalte wiederverwenden. Ein Leser möchte das Dokument in einem ansprechenden Layout präsentiert bekommen.</p>
 </div>
 <div class="paragraph">
-<p>Das textbasierte Asciidoc-Format bietet für einen Entwickler oder technischen Redakteur alle notwendigen Auszeichungselemente, um auch anspruchsvolle Dokumente zu schreiben. So werden unter anderem Tabellen, Fußnoten und annotierte Quellcodes unterstützt. Gleichzeitig ist es ähnlich leichtgewichtig wie z.B. das Markdown Format. Für die Leser wird HTML, PDF oder EPUB generiert.</p>
+<p>Das textbasierte AsciiDoc-Format bietet für einen Entwickler oder technischen Redakteur alle notwendigen Auszeichungselemente, um auch anspruchsvolle Dokumente zu schreiben. So werden unter anderem Tabellen, Fußnoten und annotierte Quellcodes unterstützt. Gleichzeitig ist es ähnlich leichtgewichtig wie z.B. das Markdown Format. Für die Leser wird HTML, PDF oder EPUB generiert.</p>
 </div>
 <div class="paragraph">
-<p>Da Asciidoc wie Programmcode eingecheckt wird und Merge-Operationen einfach möglich sind, können Programmcode und Dokumentation zusammen versioniert und auf einem einheitlichen Stand gehalten werden.</p>
+<p>Da AsciiDoc wie Programmcode eingecheckt wird und Merge-Operationen einfach möglich sind, können Programmcode und Dokumentation zusammen versioniert und auf einem einheitlichen Stand gehalten werden.</p>
 </div>
 <div class="paragraph">
-<p>Der Vortrag gibt eine kurze Einführung in Asciidoc und die dazugehörigen Werkzeuge.</p>
+<p>Der Vortrag gibt eine kurze Einführung in AsciiDoc und die dazugehörigen Werkzeuge.</p>
 </div>
 <div class="imageblock" style="text-align: center">
 <div class="content">
@@ -2835,13 +3857,18 @@ Einige Teile dieser Doku können Sie sogar automatisiert testen.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_acknowledgements_and_contributors">5. Acknowledgements and Contributors</h2>
+<h2 id="_acknowledgements_and_contributors"><a class="anchor" href="#_acknowledgements_and_contributors"></a>6. Acknowledgements and Contributors</h2>
 <div class="sectionbody">
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/05_contributors.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
 <div class="paragraph">
 <p>This project is an open source project which is based on community efforts.</p>
 </div>
 <div class="paragraph">
-<p>Many people are involved in the underlying technologies like AsciiDoc, Asciidoctor, Gradle, arc42 etc.
+<p>Many people are involved in the underlying technologies like AsciiDoc, AsciiDoctor, Gradle, arc42 etc.
 This project depends and builds on them.</p>
 </div>
 <div class="paragraph">
@@ -2876,14 +3903,55 @@ This project depends and builds on them.</p>
 <li>
 <p><a href="https://github.com/mojavelinux">Dan Allen</a></p>
 </li>
+<li>
+<p><a href="https://github.com/dl1ely">Stefan Pfeiffer</a></p>
+</li>
+<li>
+<p><a href="https://github.com/isidorotrevino">isidorotrevino</a></p>
+</li>
+<li>
+<p><a href="https://github.com/jakubjab">Jakub Jablonski</a></p>
+</li>
+<li>
+<p><a href="https://github.com/FrankPohl">Frank Pohl</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/ixchelruiz">Ixchel Ruiz</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/ysb33r">Schalk Cronjé</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/marioggar">Mario García</a></p>
+</li>
+<li>
+<p><a href="https://github.com/joex2">Joe</a></p>
+</li>
+<li>
+<p><a href="https://github.com/davidmc24">David M. Carr</a></p>
+</li>
+<li>
+<p><a href="https://github.com/fnonnenmacher">Fabian Nonnenmacher</a></p>
+</li>
+<li>
+<p><a href="https://twitter.com/stoeps">Christoph Stoettner</a></p>
+</li>
 </ul>
+</div>
+<div class="paragraph">
+<p>(please update your entry to match your preferences! :-)</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/graphs/contributors"><img src="https://img.shields.io/github/contributors/doctoolchain/doctoolchain.svg" alt="doctoolchain"></a>
+</div>
 </div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-10-05 22:49:53 CEST
+Last updated 2018-10-05 23:49:40 CEST
 </div>
 </div>
 </body>

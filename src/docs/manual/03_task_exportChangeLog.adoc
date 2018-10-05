@@ -1,14 +1,21 @@
 ifndef::imagesdir[:imagesdir: ../images]
 = exportChangeLog
 
+image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}03_task_exportChangeLog.adoc, float=right]
+
 image::ea/Manual/exportChangeLog.png[]
 
 As the name says, this task exports the changelog to be referenced from within your documentation - if needed.
+The changelog is written to `build/docs/changelog.adoc`.
 
-The source is the git changelog for the path `src/docs` - it only contains the commit messages for changes on the documentation.
+This task can be configured to use different source control system or different directory.
+To configure the task, copy `template_config/scripts/ChangelogConfig.groovy` to your directory and modify to your needs.
+Then give the path to your configuration file to the task using -PchangelogConfigFile=<your config file>.
+See the description inside the template for more details.
+
+By default, the source is the Git changelog for the path `src/docs` - it only contains the commit messages for changes on the documentation.
 All changes on the build or other sources from the repository will not show up.
-
-The changelog is written to `build/docs/changelog.adoc` and contains the changes with _date_, _author_ and _commit message_ already formatted as AsciiDoc table content:
+By default, the changelog contains the changes with _date_, _author_ and _commit message_ already formatted as AsciiDoc table content:
 
 ----
 | 09.04.2017
@@ -40,9 +47,11 @@ By excluding the table definition, you can easily translate the table headings t
 NOTE: it might make sense to only include certain commit messages from the change log or exclude others (starting with `#` or `//`?).
 But this isn't implemented yet.
 
+TIP: Blog-Post: https://rdmueller.github.io/changelog/[The only constant in life is change]
+
 == Source
 
-.build.gradle
+.exportChangelog.gradle
 [source,groovy]
 ----
 include::../../../scripts/exportChangelog.gradle[tags=exportChangeLog]

@@ -7,6 +7,11 @@ jdk:
 git:
   depth: 3000
 
+addons:
+  apt:
+    packages:
+      - graphviz
+      
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 

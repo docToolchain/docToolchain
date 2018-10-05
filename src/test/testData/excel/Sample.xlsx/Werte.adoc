@@ -1,0 +1,56 @@
+[options="header",cols="36,9,18,18,18"]
+|===
+| A
+| B
+| C
+| =B
+| D
+
+| Wert A
+| WertV
+| WertC +
+WertD
+| WertV
+| Test "test"
+
+| a wide cell
+{set:cellbgcolor:#ffc000}
+| narrow
+{set:cellbgcolor!}
+| default
+{set:cellbgcolor:#4dbebb}
+| test *bold*
+{set:cellbgcolor!}
+| 6/1/17
+
+| left
+| 
+| 
+| test {vbar} test
+| 6/2/17
+
+>| right
+| 
+| 
+{set:cellbgcolor:#92d050}
+| 
+{set:cellbgcolor!}
+| 6/3/17
+
+^| center
+| 
+| 
+| 
+| 6/13/17
+
+| 1 +
+2 +
+3
+| 
+| top
+.^| middle
+{set:cellbgcolor:#00b0f0}
+.>| bottom
+{set:cellbgcolor!}
+
+|===
