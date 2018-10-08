@@ -21,6 +21,20 @@ dependencies {
     )
 }
 
+if (project.name!=rootProject.name) {
+    // disable all tasks which are not docToolchain tasks
+    // this avoids for example that task 'check' runs if invoked in main project
+    gradle.taskGraph.whenReady {
+        tasks.each { task ->
+            if (task.group in ['docToolchain', 'Documentation']
+                    || task.name in ['htmlSanityCheck', 'streamingExecute', 'tasks', 'clean']) {
+                task.enabled = true
+            } else {
+                task.enabled = false
+            }
+        }
+    }
+}
 
 //all available docToolchain modules
 //the first is mandatory
