@@ -87,4 +87,21 @@ Take a look at this page to see how to install it on a linux based system: http:
 
 I (Ralf) once gave it a try and even managed to get remote control over EA via VBS and COM up and running (which is the pre-requisite for docToolchain).
 
+== Known Issues
+
+=== Q: I get the error saying 'Failed to create MD5 hash for file content'.
+
+----
+* What went wrong:
+Failed to capture snapshot of input files for task ':generateHTML' property 'sourceDir' during up-to-date check.
+> Failed to create MD5 hash for file content.`
+----
+
+There are two reasons known for this error.
+
+1. One of the .adoc files is opened in an editor, so that windows can't get the lock for that file.
+    -> Close all .adoc files.
+
+2. You use the Bash script `doctoolchain` on a windows system. -> Use `doctoolchain.bat` instead. It works even in a
+ Bash Shell.
 
