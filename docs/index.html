@@ -563,6 +563,7 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_images">4.1. Images</a></li>
 <li><a href="#_exportvisio_2">4.2. exportVisio</a></li>
 <li><a href="#_sparx_enterprise_architect">4.3. Sparx Enterprise Architect</a></li>
+<li><a href="#_known_issues">4.4. Known Issues</a></li>
 </ul>
 </li>
 <li><a href="#_further_reading">5. Further Reading</a>
@@ -1122,7 +1123,7 @@ Make sure to specify a unique image name for each diagram, otherwise they will o
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/demoPlantUML.png" alt="demoPlantUML" width="246" height="236">
+<img src="images/demoPlantUML.png" alt="demoPlantUML" width="232" height="236">
 </div>
 <div class="title">Figure 2. example diagram</div>
 </div>
@@ -1150,7 +1151,7 @@ For example, if you take the example diagram above and change the declaration to
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/demoPlantUMLScale.png" alt="demoPlantUMLScale" width="184" height="177">
+<img src="images/demoPlantUMLScale.png" alt="demoPlantUMLScale" width="174" height="177">
 </div>
 <div class="title">Figure 4. example diagram (with specified scale)</div>
 </div>
@@ -3504,7 +3505,7 @@ Blog-Post: <a href="https://rdmueller.github.io/htmlSanityCheck/">Automated Qual
 
     <span class="comment">// where to put results of sanityChecks...</span>
     checkingResultsDir = <span class="keyword">new</span> <span class="predefined-type">File</span>( checkingResultsPath )
-    checkExternalLinks = <span class="predefined-constant">false</span>
+    <span class="comment">//checkExternalLinks = false</span>
 }</code></pre>
 </div>
 </div>
@@ -3694,6 +3695,34 @@ You can fix this by visiting the windows system settings &#8594; install or unin
 </div>
 <div class="paragraph">
 <p>I (Ralf) once gave it a try and even managed to get remote control over EA via VBS and COM up and running (which is the pre-requisite for docToolchain).</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_known_issues"><a class="anchor" href="#_known_issues"></a>4.4. Known Issues</h3>
+<div class="sect3">
+<h4 id="_q_i_get_the_error_saying_failed_to_create_md5_hash_for_file_content"><a class="anchor" href="#_q_i_get_the_error_saying_failed_to_create_md5_hash_for_file_content"></a>4.4.1. Q: I get the error saying 'Failed to create MD5 hash for file content'.</h4>
+<div class="listingblock">
+<div class="content">
+<pre>* What went wrong:
+Failed to capture snapshot of input files for task ':generateHTML' property 'sourceDir' during up-to-date check.
+&gt; Failed to create MD5 hash for file content.`</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There are two reasons known for this error.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>One of the .adoc files is opened in an editor, so that windows can&#8217;t get the lock for that file.
+&#8594; Close all .adoc files.</p>
+</li>
+<li>
+<p>You use the Bash script <code>doctoolchain</code> on a windows system. &#8594; Use <code>doctoolchain.bat</code> instead. It works even in a
+Bash Shell.</p>
+</li>
+</ol>
 </div>
 <hr>
 <div style="page-break-after: always;"></div>
@@ -3936,6 +3965,9 @@ This project depends and builds on them.</p>
 <li>
 <p><a href="https://twitter.com/stoeps">Christoph Stoettner</a></p>
 </li>
+<li>
+<p><a href="https://github.com/funkr">Roman Funk</a></p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -3951,7 +3983,7 @@ This project depends and builds on them.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-10-05 23:49:40 CEST
+Last updated 2018-10-12 23:27:01 MESZ
 </div>
 </div>
 </body>
