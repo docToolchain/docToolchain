@@ -21,6 +21,6 @@ htmlSanityCheck {
 
     // where to put results of sanityChecks...
     checkingResultsDir = new File( checkingResultsPath )
-    checkExternalLinks = false
+    //checkExternalLinks = false
 }
 //end::htmlSanityCheck[]
