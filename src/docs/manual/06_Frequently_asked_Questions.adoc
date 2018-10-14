@@ -87,7 +87,7 @@ Take a look at this page to see how to install it on a linux based system: http:
 
 I (Ralf) once gave it a try and even managed to get remote control over EA via VBS and COM up and running (which is the pre-requisite for docToolchain).
 
-== Known Issues
+== Known error Messages
 
 === Q: I get the error saying 'Failed to create MD5 hash for file content'.
 
@@ -104,4 +104,9 @@ There are two reasons known for this error.
 
 2. You use the Bash script `doctoolchain` on a windows system. -> Use `doctoolchain.bat` instead. It works even in a
  Bash Shell.
+
+=== Q: I get the error saying 'Unsupported major.minor version 52.0'
+
+This is a sign that you use an outdaed version of Java.
+Please upgrade to at least Java 8.
 
