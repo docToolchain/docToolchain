@@ -237,7 +237,7 @@ task generateDeck (
             include 'images/**'
         }
         into("ppt")
-        logger.error "${docDir}/${config.outputPath}/ppt/images"
+        logger.info "${docDir}/${config.outputPath}/ppt/images"
     }
 }
 //end::generateDeck[]
