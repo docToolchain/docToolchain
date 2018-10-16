@@ -1,5 +1,14 @@
 == docToolchain 
 
+[IMPORTANT]
+====
+if you've used docToolchain in the past, please be aware that the master branch is undergoing some changes. 
+
+If you are looking for a fresh version and are willing to accept changes in the configuration, the master branch ist the right thing for you.
+
+If you are looking for what you are used to, then download https://github.com/docToolchain/docToolchain/releases[the V1.0.0 release]
+====
+
 image::https://travis-ci.org/docToolchain/docToolchain.svg?branch=master["Build Status", link="https://travis-ci.org/docToolchain/docToolchain"]
 
 ==== create awesome docs!
@@ -10,3 +19,5 @@ The basis of docToolchain is the philosophy that software documentation should b
 https://docToolchain.github.io/docToolchain[read more...]
 
 image::https://doctoolchain.github.io/docToolchain/images/ea/Manual/Overview2.png[]
+
+https://doctoolchain.github.io/docToolchain/tests/[Integration Test Results], https://doctoolchain.github.io/docToolchain/htmlchecks/[htmlSanityCheck Test Results]
