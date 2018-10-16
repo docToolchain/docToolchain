@@ -1422,7 +1422,7 @@ It creates a PowerPoint presentation and enriches it with reveal.js slide defini
             include <span class="string"><span class="delimiter">'</span><span class="content">images/**</span><span class="delimiter">'</span></span>
         }
         into(<span class="string"><span class="delimiter">&quot;</span><span class="content">ppt</span><span class="delimiter">&quot;</span></span>)
-        logger.error <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>docDir<span class="inline-delimiter">}</span></span><span class="content">/</span><span class="inline"><span class="inline-delimiter">${</span>config.outputPath<span class="inline-delimiter">}</span></span><span class="content">/ppt/images</span><span class="delimiter">&quot;</span></span>
+        logger.info <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>docDir<span class="inline-delimiter">}</span></span><span class="content">/</span><span class="inline"><span class="inline-delimiter">${</span>config.outputPath<span class="inline-delimiter">}</span></span><span class="content">/ppt/images</span><span class="delimiter">&quot;</span></span>
     }
 }</code></pre>
 </div>
@@ -1443,8 +1443,107 @@ It creates a PowerPoint presentation and enriches it with reveal.js slide defini
 <img src="images/ea/Manual/publishToConfluence.png" alt="publishToConfluence">
 </div>
 </div>
+<div class="paragraph">
+<p>This target takes the generated HTML file, splits t by headline and pushes it to Confluence.
+This enables you to use the docs-as-code approach while getting feedback fron non-techies through Confluence comments.
+And it fulfills the "requirement" of "&#8230;&#8203; but all documentation is in Confluence" 🤣.</p>
+</div>
+<div class="paragraph">
+<p>Special feature: only pages and images which have changed between task runs are really published and hence only for those changes notifications are sent to watches.
+This is quite important - otherwise watches are easily annoyed by too many notifications.</p>
+</div>
 <div class="sect3">
-<h4 id="_css_styling"><a class="anchor" href="#_css_styling"></a>3.6.1. CSS Styling</h4>
+<h4 id="_configuration"><a class="anchor" href="#_configuration"></a>3.6.1. Configuration</h4>
+<div class="paragraph">
+<p>We tried to make the configuration self-explaning, but theree are always some note to add.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">ancestorId</dt>
+<dd>
+<p>this is the page ID of the parant page to which you want your docs to be published.
+Got to this page, click on edit and the needed ID will show up in the URL</p>
+</dd>
+<dt class="hdlist1">api</dt>
+<dd>
+<p>for could instances, <code>[context]</code> is <code>wiki</code></p>
+</dd>
+<dt class="hdlist1">pagePrefix</dt>
+<dd>
+<p>Confluence can&#8217;t handle two pages with the same name.
+So you should create a new confluence space for each piece of larger documentation.
+If you are restricted and can&#8217;t create new spaces, you can use this <code>pagePrefix</code> to define a prefix for this doc so that it doesn&#8217;t conflict with other page names.</p>
+</dd>
+<dt class="hdlist1">credentials</dt>
+<dd>
+<p>Use username and password or even better username and api-token.
+You can create new API-tokens in <a href="https://confluence.atlassian.com/cloud/api-tokens-938839638.html">your profile</a>.
+To avoid having your password or api-token versioned thorugh git, you can store it outside of this configuration as environment variable or in another file - the key here is that the config file is a groovy script.
+e.g. you can do things like <code>credentilas = "user:${new File("/home/me/apitoken").text}".bytes.encodeBase64().toString()</code></p>
+</dd>
+<dt class="hdlist1">extraPageContent</dt>
+<dd>
+<p>If you need to prefix you pages with a warning that this is generated content - this is the right place.</p>
+</dd>
+</dl>
+</div>
+<div class="listingblock">
+<div class="title">publishToConfluence.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="comment">//Configureation for publishToConfluence</span>
+
+confluence = [:]
+
+<span class="comment">// 'input' is an array of files to upload to Confluence with the ability</span>
+<span class="comment">//          to configure a different parent page for each file.</span>
+<span class="comment">//</span>
+<span class="comment">// Attributes</span>
+<span class="comment">// - 'file': absolute or relative path to the asciidoc generated html file to be exported</span>
+<span class="comment">// - 'url': absolute URL to an asciidoc generated html file to be exported</span>
+<span class="comment">// - 'ancestorId' (optional): the id of the parent page in Confluence; leave this empty</span>
+<span class="comment">//                                                           if a new parent shall be created in the space</span>
+<span class="comment">// - 'preambleTitle' (optional): the title of the page containing the preamble (everything</span>
+<span class="comment">//                               before the first second level heading). Default is 'arc42'</span>
+<span class="comment">//</span>
+<span class="comment">// only 'file' or 'url' is allowed. If both are given, 'url' is ignored</span>
+confluence.with {
+    input = [
+            [ <span class="key">file</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">build/docs/html5/arc42-template-de.html</span><span class="delimiter">&quot;</span></span> ],
+    ]
+
+
+    <span class="comment">// endpoint of the confluenceAPI (REST) to be used</span>
+    api = <span class="string"><span class="delimiter">'</span><span class="content">https://[yourServer]/[context]/rest/api/</span><span class="delimiter">'</span></span>
+
+    <span class="comment">// the key of the confluence space to write to</span>
+    spaceKey = <span class="string"><span class="delimiter">'</span><span class="content">asciidoc</span><span class="delimiter">'</span></span>
+
+    <span class="comment">// variable to determine whether &quot;.sect2&quot; sections shall be split from the current page into subpages</span>
+    createSubpages = <span class="predefined-constant">false</span>
+
+    <span class="comment">// the pagePrefix will be a prefix for each page title</span>
+    <span class="comment">// use this if you only have access to one confluence space but need to store several</span>
+    <span class="comment">// pages with the same title - a different pagePrefix will make them unique</span>
+    pagePrefix = <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
+
+    <span class="comment">// username:password of an account which has the right permissions to create and edit</span>
+    <span class="comment">// confluence pages in the given space.</span>
+    <span class="comment">// if you want to store it securely, fetch it from some external storage.</span>
+    <span class="comment">// you might even want to prompt the user for the password like in this example</span>
+
+    credentials = <span class="string"><span class="delimiter">&quot;</span><span class="content">user:pass_or_token</span><span class="delimiter">&quot;</span></span>.bytes.encodeBase64().toString()
+
+    <span class="comment">// HTML Content that will be included with every page published</span>
+    <span class="comment">// directly after the TOC. If left empty no additional content will be</span>
+    <span class="comment">// added</span>
+    <span class="comment">// extraPageContent = '&lt;ac:structured-macro ac:name=&quot;warning&quot;&gt;&lt;ac:parameter ac:name=&quot;title&quot; /&gt;&lt;ac:rich-text-body&gt;This is a generated page, do not edit!&lt;/ac:rich-text-body&gt;&lt;/ac:structured-macro&gt;</span>
+    extraPageContent = <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_css_styling"><a class="anchor" href="#_css_styling"></a>3.6.2. CSS Styling</h4>
 <div class="paragraph">
 <p>Some AsciiDoctor features depend on particular CSS style definitions.
 Unless these styles are defined, some formatting that is present in the HTML version will not be represented when published to Confluence.</p>
@@ -1516,7 +1615,7 @@ Note that you likely do <strong>NOT</strong> want to include the whole thing, as
 </div>
 </div>
 <div class="sect3">
-<h4 id="_source_5"><a class="anchor" href="#_source_5"></a>3.6.2. Source</h4>
+<h4 id="_source_5"><a class="anchor" href="#_source_5"></a>3.6.3. Source</h4>
 <div class="listingblock">
 <div class="title">publishToConfluence.gradle</div>
 <div class="content">
@@ -1525,9 +1624,11 @@ Note that you likely do <strong>NOT</strong> want to include the whole thing, as
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>
 ) {
     doLast {
-        binding.setProperty(<span class="string"><span class="delimiter">'</span><span class="content">docDir</span><span class="delimiter">'</span></span>, docDir)
-        binding.setProperty(<span class="string"><span class="delimiter">'</span><span class="content">confluenceConfigFile</span><span class="delimiter">'</span></span>, confluenceConfigFile)
-        evaluate(<span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">scripts/asciidoc2confluence.groovy</span><span class="delimiter">'</span></span>))
+        logger.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">docToolchain&gt; docDir: </span><span class="delimiter">&quot;</span></span>+docDir)
+        <span class="keyword">def</span> config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, mainConfigFile).text)
+        binding.setProperty(<span class="string"><span class="delimiter">'</span><span class="content">config</span><span class="delimiter">'</span></span>,config)
+        binding.setProperty(<span class="string"><span class="delimiter">'</span><span class="content">docDir</span><span class="delimiter">'</span></span>,docDir)
+        evaluate(<span class="keyword">new</span> <span class="predefined-type">File</span>(projectDir, <span class="string"><span class="delimiter">'</span><span class="content">scripts/asciidoc2confluence.groovy</span><span class="delimiter">'</span></span>))
     }
 }</code></pre>
 </div>
@@ -1593,10 +1694,6 @@ Note that you likely do <strong>NOT</strong> want to include the whole thing, as
 <span class="keyword">def</span> baseUrl
 
 <span class="comment">// configuration</span>
-<span class="keyword">def</span> config
-println <span class="string"><span class="delimiter">&quot;</span><span class="content">docDir: </span><span class="inline"><span class="inline-delimiter">${</span>docDir<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
-println <span class="string"><span class="delimiter">&quot;</span><span class="content">confluenceConfigFile: </span><span class="inline"><span class="inline-delimiter">${</span>confluenceConfigFile<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
-config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, confluenceConfigFile).text)
 
 <span class="keyword">def</span> confluenceSpaceKey
 <span class="keyword">def</span> confluenceCreateSubpages
@@ -1615,7 +1712,7 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
     } <span class="keyword">catch</span> (HttpResponseException error) {
         println <span class="string"><span class="delimiter">&quot;</span><span class="content">something went wrong - got an http response code </span><span class="delimiter">&quot;</span></span>+error.response.status+<span class="string"><span class="delimiter">&quot;</span><span class="content">:</span><span class="delimiter">&quot;</span></span>
         println error.response.data
-        <span class="keyword">throw</span> error
+        <span class="comment">//throw error</span>
     }
 }
 
@@ -1646,12 +1743,12 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
     }
 
     <span class="comment">//https://docs.atlassian.com/confluence/REST/latest/</span>
-    <span class="keyword">def</span> api = <span class="keyword">new</span> RESTClient(config.confluenceAPI)
+    <span class="keyword">def</span> api = <span class="keyword">new</span> RESTClient(config.confluence.api)
     <span class="comment">//this fixes the encoding</span>
     api.encoderRegistry = <span class="keyword">new</span> EncoderRegistry( <span class="key">charset</span>: <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span> )
 
     <span class="keyword">def</span> headers = [
-            <span class="string"><span class="delimiter">'</span><span class="content">Authorization</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">Basic </span><span class="delimiter">'</span></span> + config.confluenceCredentials,
+            <span class="string"><span class="delimiter">'</span><span class="content">Authorization</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">Basic </span><span class="delimiter">'</span></span> + config.confluence.credentials,
             <span class="string"><span class="delimiter">'</span><span class="content">X-Atlassian-Token</span><span class="delimiter">'</span></span>:<span class="string"><span class="delimiter">'</span><span class="content">no-check</span><span class="delimiter">'</span></span>
     ]
     <span class="comment">//check if attachment already exists</span>
@@ -1666,11 +1763,11 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
         <span class="keyword">def</span> remoteHash = attachment.results[<span class="integer">0</span>].extensions.comment.replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="content">(?sm).*#([^#]+)#.*</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">$1</span><span class="delimiter">'</span></span>)
         <span class="keyword">if</span> (remoteHash!=localHash) {
             <span class="comment">//hash is different -&gt; attachment needs to be updated</span>
-            http = <span class="keyword">new</span> HTTPBuilder(config.confluenceAPI + <span class="string"><span class="delimiter">'</span><span class="content">content/</span><span class="delimiter">'</span></span> + pageId + <span class="string"><span class="delimiter">'</span><span class="content">/child/attachment/</span><span class="delimiter">'</span></span> + attachment.results[<span class="integer">0</span>].id + <span class="string"><span class="delimiter">'</span><span class="content">/data</span><span class="delimiter">'</span></span>)
+            http = <span class="keyword">new</span> HTTPBuilder(config.confluence.api + <span class="string"><span class="delimiter">'</span><span class="content">content/</span><span class="delimiter">'</span></span> + pageId + <span class="string"><span class="delimiter">'</span><span class="content">/child/attachment/</span><span class="delimiter">'</span></span> + attachment.results[<span class="integer">0</span>].id + <span class="string"><span class="delimiter">'</span><span class="content">/data</span><span class="delimiter">'</span></span>)
             println <span class="string"><span class="delimiter">&quot;</span><span class="content">    updated attachment</span><span class="delimiter">&quot;</span></span>
         }
     } <span class="keyword">else</span> {
-        http = <span class="keyword">new</span> HTTPBuilder(config.confluenceAPI + <span class="string"><span class="delimiter">'</span><span class="content">content/</span><span class="delimiter">'</span></span> + pageId + <span class="string"><span class="delimiter">'</span><span class="content">/child/attachment</span><span class="delimiter">'</span></span>)
+        http = <span class="keyword">new</span> HTTPBuilder(config.confluence.api + <span class="string"><span class="delimiter">'</span><span class="content">content/</span><span class="delimiter">'</span></span> + pageId + <span class="string"><span class="delimiter">'</span><span class="content">/child/attachment</span><span class="delimiter">'</span></span>)
     }
     <span class="keyword">if</span> (http) {
         http.request(<span class="predefined-type">Method</span>.POST) { req -&gt;
@@ -1881,9 +1978,9 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
 
 <span class="comment">// the create-or-update functionality for confluence pages</span>
 <span class="keyword">def</span> pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors -&gt;
-    <span class="keyword">def</span> api = <span class="keyword">new</span> RESTClient(config.confluenceAPI)
+    <span class="keyword">def</span> api = <span class="keyword">new</span> RESTClient(config.confluence.api)
     <span class="keyword">def</span> headers = [
-            <span class="string"><span class="delimiter">'</span><span class="content">Authorization</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">Basic </span><span class="delimiter">'</span></span> + config.confluenceCredentials,
+            <span class="string"><span class="delimiter">'</span><span class="content">Authorization</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">Basic </span><span class="delimiter">'</span></span> + config.confluence.credentials,
             <span class="string"><span class="delimiter">'</span><span class="content">Content-Type</span><span class="delimiter">'</span></span>:<span class="string"><span class="delimiter">'</span><span class="content">application/json; charset=utf-8</span><span class="delimiter">'</span></span>
     ]
     <span class="comment">//this fixes the encoding</span>
@@ -1892,7 +1989,7 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
     localPage = parseBody(pageBody, anchors, pageAnchors)
 
     <span class="keyword">def</span> localHash = MD5(localPage)
-    <span class="keyword">def</span> prefix = <span class="string"><span class="delimiter">'</span><span class="content">&lt;p&gt;&lt;ac:structured-macro ac:name=&quot;toc&quot;/&gt;&lt;/p&gt;</span><span class="delimiter">'</span></span>+(config.extraPageContent?:<span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>)
+    <span class="keyword">def</span> prefix = <span class="string"><span class="delimiter">'</span><span class="content">&lt;p&gt;&lt;ac:structured-macro ac:name=&quot;toc&quot;/&gt;&lt;/p&gt;</span><span class="delimiter">'</span></span>+(config.confluence.extraPageContent?:<span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>)
     localPage  = prefix+localPage
     localPage += <span class="string"><span class="delimiter">'</span><span class="content">&lt;p&gt;&lt;ac:structured-macro ac:name=&quot;children&quot;&gt;&lt;ac:parameter ac:name=&quot;sort&quot;&gt;creation&lt;/ac:parameter&gt;&lt;/ac:structured-macro&gt;&lt;/p&gt;</span><span class="delimiter">'</span></span>
     localPage += <span class="string"><span class="delimiter">'</span><span class="content">&lt;p style=&quot;display:none&quot;&gt;hash: #</span><span class="delimiter">'</span></span>+localHash+<span class="string"><span class="delimiter">'</span><span class="content">#&lt;/p&gt;</span><span class="delimiter">'</span></span>
@@ -1901,7 +1998,7 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
             type : <span class="string"><span class="delimiter">'</span><span class="content">page</span><span class="delimiter">'</span></span>,
             <span class="key">title</span>: realTitle(pageTitle),
             <span class="key">space</span>: [
-                    <span class="key">key</span>: confluenceSpaceKey
+                    <span class="key">key</span>: config.confluence.spaceKey
             ],
             body : [
                     <span class="key">storage</span>: [
@@ -1918,7 +2015,7 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
 
     <span class="keyword">def</span> pages
     trythis {
-        <span class="keyword">def</span> cql = <span class="string"><span class="delimiter">&quot;</span><span class="content">space='</span><span class="inline"><span class="inline-delimiter">${</span>confluenceSpaceKey<span class="inline-delimiter">}</span></span><span class="content">' AND type=page AND title~'</span><span class="delimiter">&quot;</span></span> + realTitle(pageTitle) + <span class="string"><span class="delimiter">&quot;</span><span class="content">'</span><span class="delimiter">&quot;</span></span>
+        <span class="keyword">def</span> cql = <span class="string"><span class="delimiter">&quot;</span><span class="content">space='</span><span class="inline"><span class="inline-delimiter">${</span>config.confluence.spaceKey<span class="inline-delimiter">}</span></span><span class="content">' AND type=page AND title~'</span><span class="delimiter">&quot;</span></span> + realTitle(pageTitle) + <span class="string"><span class="delimiter">&quot;</span><span class="content">'</span><span class="delimiter">&quot;</span></span>
         <span class="keyword">if</span> (parentId) {
             cql += <span class="string"><span class="delimiter">&quot;</span><span class="content"> AND parent=</span><span class="inline"><span class="inline-delimiter">${</span>parentId<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
         }
@@ -1968,7 +2065,7 @@ config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="key
         <span class="keyword">if</span> (parentId) {
             <span class="keyword">def</span> foreignPages
             trythis {
-                <span class="keyword">def</span> foreignCql = <span class="string"><span class="delimiter">&quot;</span><span class="content">space='</span><span class="inline"><span class="inline-delimiter">${</span>confluenceSpaceKey<span class="inline-delimiter">}</span></span><span class="content">' AND type=page AND title~'</span><span class="delimiter">&quot;</span></span> + realTitle(pageTitle) + <span class="string"><span class="delimiter">&quot;</span><span class="content">'</span><span class="delimiter">&quot;</span></span>
+                <span class="keyword">def</span> foreignCql = <span class="string"><span class="delimiter">&quot;</span><span class="content">space='</span><span class="inline"><span class="inline-delimiter">${</span>config.confluence.spaceKey<span class="inline-delimiter">}</span></span><span class="content">' AND type=page AND title~'</span><span class="delimiter">&quot;</span></span> + realTitle(pageTitle) + <span class="string"><span class="delimiter">&quot;</span><span class="content">'</span><span class="delimiter">&quot;</span></span>
                 foreignPages = api.get(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">content/search</span><span class="delimiter">'</span></span>,
                                       <span class="key">query</span>: [<span class="string"><span class="delimiter">'</span><span class="content">cql</span><span class="delimiter">'</span></span> : foreignCql],
                                     <span class="key">headers</span>: headers).data.results
@@ -2032,9 +2129,11 @@ pushPages = { pages, anchors, pageAnchors -&gt;
     }
 }
 
-config.input.each { input -&gt;
+config.confluence.input.each { input -&gt;
 
     input.file = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>docDir<span class="inline-delimiter">}</span></span><span class="content">/</span><span class="inline"><span class="inline-delimiter">${</span>input.file<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+
+    println <span class="string"><span class="delimiter">&quot;</span><span class="content">publish </span><span class="inline"><span class="inline-delimiter">${</span>input.file<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
 
     <span class="keyword">if</span> (input.file ==~ <span class="regexp"><span class="delimiter">/</span><span class="content">.*[.](ad|adoc|asciidoc)</span><span class="content">$</span><span class="delimiter">/</span></span>) {
         println <span class="string"><span class="delimiter">&quot;</span><span class="content">convert </span><span class="inline"><span class="inline-delimiter">${</span>input.file<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
@@ -2042,9 +2141,9 @@ config.input.each { input -&gt;
         input.file = input.file.replaceAll(<span class="regexp"><span class="delimiter">/</span><span class="content">[.](ad|adoc|asciidoc)</span><span class="content">$</span><span class="delimiter">/</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">.html</span><span class="delimiter">'</span></span>)
         println <span class="string"><span class="delimiter">&quot;</span><span class="content">to </span><span class="inline"><span class="inline-delimiter">${</span>input.file<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
     }
-    confluenceSpaceKey = input.spaceKey?:config.confluenceSpaceKey
-    confluenceCreateSubpages = (input.createSubpages!= <span class="predefined-constant">null</span>)?input.createSubpages:config.confluenceCreateSubpages
-    confluencePagePrefix = input.pagePrefix?:config.confluencePagePrefix
+    confluenceSpaceKey = input.spaceKey?:config.confluence.spaceKey
+    confluenceCreateSubpages = (input.createSubpages!= <span class="predefined-constant">null</span>)?input.createSubpages:config.confluence.createSubpages
+    confluencePagePrefix = input.pagePrefix?:config.confluence.pagePrefix
 
     <span class="keyword">def</span> html =input.file?<span class="keyword">new</span> <span class="predefined-type">File</span>(input.file).getText(<span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>):<span class="keyword">new</span> <span class="predefined-type">URL</span>(input.url).getText()
     baseUrl  =input.file?<span class="keyword">new</span> <span class="predefined-type">File</span>(input.file):<span class="keyword">new</span> <span class="predefined-type">URL</span>(input.url)
@@ -3983,7 +4082,7 @@ This project depends and builds on them.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-10-12 23:27:01 MESZ
+Last updated 2018-10-05 23:21:46 MESZ
 </div>
 </div>
 </body>

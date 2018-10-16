@@ -56,10 +56,6 @@ def CDATA_PLACEHOLDER_END = '</cdata-placeholder>'
 def baseUrl
 
 // configuration
-def config
-println "docDir: ${docDir}"
-println "confluenceConfigFile: ${confluenceConfigFile}"
-config = new ConfigSlurper().parse(new File(docDir, confluenceConfigFile).text)
 
 def confluenceSpaceKey
 def confluenceCreateSubpages
@@ -78,7 +74,7 @@ void trythis (Closure action) {
     } catch (HttpResponseException error) {
         println "something went wrong - got an http response code "+error.response.status+":"
         println error.response.data
-        throw error
+        //throw error
     }
 }
 
@@ -109,12 +105,12 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
     }
 
     //https://docs.atlassian.com/confluence/REST/latest/
-    def api = new RESTClient(config.confluenceAPI)
+    def api = new RESTClient(config.confluence.api)
     //this fixes the encoding
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
 
     def headers = [
-            'Authorization': 'Basic ' + config.confluenceCredentials,
+            'Authorization': 'Basic ' + config.confluence.credentials,
             'X-Atlassian-Token':'no-check'
     ]
     //check if attachment already exists
@@ -129,11 +125,11 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
         def remoteHash = attachment.results[0].extensions.comment.replaceAll("(?sm).*#([^#]+)#.*",'$1')
         if (remoteHash!=localHash) {
             //hash is different -> attachment needs to be updated
-            http = new HTTPBuilder(config.confluenceAPI + 'content/' + pageId + '/child/attachment/' + attachment.results[0].id + '/data')
+            http = new HTTPBuilder(config.confluence.api + 'content/' + pageId + '/child/attachment/' + attachment.results[0].id + '/data')
             println "    updated attachment"
         }
     } else {
-        http = new HTTPBuilder(config.confluenceAPI + 'content/' + pageId + '/child/attachment')
+        http = new HTTPBuilder(config.confluence.api + 'content/' + pageId + '/child/attachment')
     }
     if (http) {
         http.request(Method.POST) { req ->
@@ -344,9 +340,9 @@ def parseBody =  { body, anchors, pageAnchors ->
 
 // the create-or-update functionality for confluence pages
 def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
-    def api = new RESTClient(config.confluenceAPI)
+    def api = new RESTClient(config.confluence.api)
     def headers = [
-            'Authorization': 'Basic ' + config.confluenceCredentials,
+            'Authorization': 'Basic ' + config.confluence.credentials,
             'Content-Type':'application/json; charset=utf-8'
     ]
     //this fixes the encoding
@@ -355,7 +351,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
     localPage = parseBody(pageBody, anchors, pageAnchors)
 
     def localHash = MD5(localPage)
-    def prefix = '<p><ac:structured-macro ac:name="toc"/></p>'+(config.extraPageContent?:'')
+    def prefix = '<p><ac:structured-macro ac:name="toc"/></p>'+(config.confluence.extraPageContent?:'')
     localPage  = prefix+localPage
     localPage += '<p><ac:structured-macro ac:name="children"><ac:parameter ac:name="sort">creation</ac:parameter></ac:structured-macro></p>'
     localPage += '<p style="display:none">hash: #'+localHash+'#</p>'
@@ -364,7 +360,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
             type : 'page',
             title: realTitle(pageTitle),
             space: [
-                    key: confluenceSpaceKey
+                    key: config.confluence.spaceKey
             ],
             body : [
                     storage: [
@@ -381,7 +377,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
 
     def pages
     trythis {
-        def cql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
+        def cql = "space='${config.confluence.spaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
         if (parentId) {
             cql += " AND parent=${parentId}"
         }
@@ -431,7 +427,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
         if (parentId) {
             def foreignPages
             trythis {
-                def foreignCql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
+                def foreignCql = "space='${config.confluence.spaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
                 foreignPages = api.get(path: 'content/search',
                                       query: ['cql' : foreignCql],
                                     headers: headers).data.results
@@ -495,9 +491,11 @@ def promoteHeaders = { tree, start, offset ->
     }
 }
 
-config.input.each { input ->
+config.confluence.input.each { input ->
 
     input.file = "${docDir}/${input.file}"
+
+    println "publish ${input.file}"
 
     if (input.file ==~ /.*[.](ad|adoc|asciidoc)$/) {
         println "convert ${input.file}"
@@ -505,9 +503,9 @@ config.input.each { input ->
         input.file = input.file.replaceAll(/[.](ad|adoc|asciidoc)$/,'.html')
         println "to ${input.file}"
     }
-    confluenceSpaceKey = input.spaceKey?:config.confluenceSpaceKey
-    confluenceCreateSubpages = (input.createSubpages!= null)?input.createSubpages:config.confluenceCreateSubpages
-    confluencePagePrefix = input.pagePrefix?:config.confluencePagePrefix
+    confluenceSpaceKey = input.spaceKey?:config.confluence.spaceKey
+    confluenceCreateSubpages = (input.createSubpages!= null)?input.createSubpages:config.confluence.createSubpages
+    confluencePagePrefix = input.pagePrefix?:config.confluence.pagePrefix
 
     def html =input.file?new File(input.file).getText('utf-8'):new URL(input.url).getText()
     baseUrl  =input.file?new File(input.file):new URL(input.url)
