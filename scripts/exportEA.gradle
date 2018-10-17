@@ -44,11 +44,12 @@ task exportEA(
         group: 'docToolchain'
 ) {
     doFirst {
+        logger.info ("docToolchain> docDir: "+docDir)
         //make sure path for notes exists
         //and remove old notes
-        new File('src/docs/ea').deleteDir()
+        new File(docDir, 'src/docs/ea').deleteDir()
         //also remove old diagrams
-        new File('src/docs/images/ea').deleteDir()
+        new File(docDir, 'src/docs/images/ea').deleteDir()
         //create a readme to clarify things
         def readme = """This folder contains exported diagrams or notes from Enterprise Architect.
 		
@@ -62,17 +63,17 @@ This is to make sure that they can be used from environments other than windows.
 
 use `gradle exportEA` to re-export files
 """
-        new File('src/docs/images/ea/.').mkdirs()
-        new File('src/docs/images/ea/readme.ad').write(readme)
-        new File('src/docs/ea/.').mkdirs()
-        new File('src/docs/ea/readme.ad').write(readme)
+        new File(docDir, 'src/docs/images/ea/.').mkdirs()
+        new File(docDir, 'src/docs/images/ea/readme.ad').write(readme)
+        new File(docDir, 'src/docs/ea/.').mkdirs()
+        new File(docDir, 'src/docs/ea/readme.ad').write(readme)
     }
     doLast {
         //execute through cscript in order to make sure that we get WScript.echo right
-        "%SystemRoot%\\System32\\cscript.exe //nologo scripts/exportEAP.vbs".executeCmd()
+        "%SystemRoot%\\System32\\cscript.exe //nologo ${projectDir}/scripts/exportEAP.vbs".executeCmd()
         //the VB Script is only capable of writing iso-8859-1-Files.
         //we now have to convert them to UTF-8
-        new File('src/docs/ea/.').eachFileRecurse { file ->
+        new File(docDir, 'src/docs/ea/.').eachFileRecurse { file ->
             if (file.isFile()) {
                 println "exported notes " + file.canonicalPath
                 file.write(file.getText('iso-8859-1'), 'utf-8')
