@@ -438,7 +438,8 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
             if (foreignPage) {
                 throw new IllegalArgumentException("Cannot create page, page with the same "
                     + "title=${foreignPage.title} "
-                    + "and id=${foreignPage.id} already exists in the space")
+                    + "with id=${foreignPage.id} already exists in the space. "
+                    + "A Confluence page title must be unique within a space, consider specifying a 'confluencePagePrefix' in ConfluenceConfig.groovy")
             }
         }
 
