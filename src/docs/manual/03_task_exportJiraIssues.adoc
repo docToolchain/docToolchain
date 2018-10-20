@@ -1,8 +1,9 @@
 :filename: 03_task_exportJiraIssues.adoc
-include::feedback.adoc[]
-
 ifndef::imagesdir[:imagesdir: ../images]
+
 = exportJiraIssues
+
+include::feedback.adoc[]
 
 image::ea/Manual/exportJiraIssues.png[]
 

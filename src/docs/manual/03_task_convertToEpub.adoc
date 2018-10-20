@@ -1,8 +1,9 @@
 ifndef::imagesdir[:imagesdir: ../images]
 :filename: 03_task_convertToEpub.adoc
-include::feedback.adoc[]
 
 = convertToEpub
+
+include::feedback.adoc[]
 
 image::ea/Manual/convertToEpub.png[]
 

@@ -1,8 +1,9 @@
 :filename: 03_task_generateHTML.adoc
-include::feedback.adoc[]
-
 ifndef::imagesdir[:imagesdir: ../images]
+
 = generateHTML
+
+include::feedback.adoc[]
 
 image::ea/Manual/generateHTML.png[]
 

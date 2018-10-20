@@ -1,8 +1,9 @@
 :filename: 03_task_exportVisio.adoc
-include::feedback.adoc[]
-
 ifndef::imagesdir[:imagesdir: ../images]
+
 = exportVisio
+
+include::feedback.adoc[]
 
 image::ea/Manual/exportVisio.png[]
 

@@ -1,8 +1,9 @@
 :filename: 03_task_htmlSanityCheck.adoc
-include::feedback.adoc[]
-
 ifndef::imagesdir[:imagesdir: ../images]
+
 = htmlSanityCheck
+
+include::feedback.adoc[]
 
 image::ea/Manual/htmlSanityCheck.png[]
 

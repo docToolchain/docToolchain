@@ -1,8 +1,9 @@
 :filename: 03_task_generateDeck.adoc
-include::feedback.adoc[]
-
 ifndef::imagesdir[:imagesdir: ../images]
+
 = generateDeck
+
+include::feedback.adoc[]
 
 image::ea/Manual/generateDeck.png[]
 

@@ -1,8 +1,9 @@
 :filename: 03_task_exportEA.adoc
-include::feedback.adoc[]
-
 ifndef::imagesdir[:imagesdir: ../images]
+
 = exportEA
+
+include::feedback.adoc[]
 
 image::ea/Manual/exportEA.png[]
 

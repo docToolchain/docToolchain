@@ -1,8 +1,9 @@
 ifndef::imagesdir[:imagesdir: ../images]
 :filename: 03_task_convertToDocx.adoc
-include::feedback.adoc[]
 
 = convertToDocx
+
+include::feedback.adoc[]
 
 image::ea/Manual/convertToDocx.png[]
 

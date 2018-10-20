@@ -1,9 +1,9 @@
 :filename: 03_task_generateDocBook.adoc
-include::feedback.adoc[]
-
 ifndef::imagesdir[:imagesdir: ../images]
 
 = generateDocbook
+
+include::feedback.adoc[]
 
 image::ea/Manual/generateDocBook.png[]
 

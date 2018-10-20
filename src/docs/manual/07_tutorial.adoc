@@ -1,8 +1,9 @@
 :filename: 07_tutorial.adoc
-include::feedback.adoc[]
 
 ifndef::imagesdir[:imagesdir: ../images]
 = Tutorial
+
+include::feedback.adoc[]
 
 This project is an open source project which is based on community efforts.
 

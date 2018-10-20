@@ -1,8 +1,9 @@
 :filename: 03_task_exportPPT.adoc
-include::feedback.adoc[]
-
 ifndef::imagesdir[:imagesdir: ../images]
+
 = exportPPT
+
+include::feedback.adoc[]
 
 image::ea/Manual/exportPPT.png[]
 

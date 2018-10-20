@@ -1,8 +1,9 @@
 :filename: 03_task_exportChangeLog.adoc
-include::feedback.adoc[]
-
 ifndef::imagesdir[:imagesdir: ../images]
+
 = exportChangeLog
+
+include::feedback.adoc[]
 
 image::ea/Manual/exportChangeLog.png[]
 

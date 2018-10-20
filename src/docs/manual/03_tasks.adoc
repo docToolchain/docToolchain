@@ -1,8 +1,9 @@
 :filename: 03_tasks.adoc
-include::feedback.adoc[]
-
 ifndef::imagesdir[:imagesdir: ../images]
+
 = Overview of available Tasks
+
+include::feedback.adoc[]
 
 This chapter explains all docToolchain specific tasks.
 

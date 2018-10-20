@@ -1,8 +1,9 @@
 :filename: 05_contributors.adoc
-include::feedback.adoc[]
-
 ifndef::imagesdir[:imagesdir: ../images]
+
 = Acknowledgements and Contributors
+
+include::feedback.adoc[]
 
 This project is an open source project which is based on community efforts.
 
