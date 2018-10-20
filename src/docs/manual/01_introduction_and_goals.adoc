@@ -16,7 +16,7 @@ How it all began...
 === docs-as-code
 
 Before this project started, I wasn't aware of the term _docs-as-code_.
-I just grew tired of keeping all my architecture diagrams up to date by copying them from my UML tool over to my word processor.
+I just got tired of keeping all my architecture diagrams up to date by copying them from my UML tool over to my word processor.
 
 As a lazy developer, I told myself 'there has to be a better way of doing this'.
 And I started to automate the diagram export and switched from a full fledged word processor over to a markup renderer.
