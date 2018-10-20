@@ -10,7 +10,7 @@ It will also contain questions relevant to the tools used to build docToolchain,
 
 If you are stuck, make sure that you also check other sources like https://stackoverflow.com/questions/tagged/asciidoctor[stackoverflow].
 
-There is also a great FAQ for all your arc42 questions: http://faq.arc42.org/home/
+There is also a great FAQ for all your arc42 questions: https://faq.arc42.org/home/
 
 If you have a question or problem for which you can't find a solution, you can
 
@@ -21,9 +21,9 @@ If you have a question or problem for which you can't find a solution, you can
 
 == Images
 
-* http://asciidoctor.org/docs/user-manual/#images[Asciidoctor User Manual on images]
-* http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#images[Asciidoctor Quick Reference on images]
-* http://asciidoctor.org/docs/asciidoc-writers-guide/#images[AsciiDoctor Writer Guide on images]
+* https://asciidoctor.org/docs/user-manual/#images[Asciidoctor User Manual on images]
+* https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#images[Asciidoctor Quick Reference on images]
+* https://asciidoctor.org/docs/asciidoc-writers-guide/#images[AsciiDoctor Writer Guide on images]
 
 === Q: Why are images not shown in the preview of my editor?
 
@@ -84,7 +84,7 @@ You can fix this by visiting the windows system settings -> install or uninstall
 
 Yes, it is, but it is written to support CrossOver in order to run on Linux based systems. Wine, the open source branch of CrossOver seems to work as well.
 
-Take a look at this page to see how to install it on a linux based system: http://www.sparxsystems.com/support/faq/ea_on_linux.html
+Take a look at this page to see how to install it on a linux based system: https://www.sparxsystems.com/support/faq/ea_on_linux.html
 
 I (Ralf) once gave it a try and even managed to get remote control over EA via VBS and COM up and running (which is the pre-requisite for docToolchain).
 

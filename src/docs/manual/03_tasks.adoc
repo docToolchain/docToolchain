@@ -32,7 +32,7 @@ It is also likely that you have to put the resulting artifacts under version con
 === convertToX
 
 These tasks take the output from AsciiDoctor and convert it (through other tools) to the target format.
-This results in a dependency on a _generateX_ task and another external tool (currently http://pandoc.org[pandoc]).
+This results in a dependency on a _generateX_ task and another external tool (currently https://pandoc.org[pandoc]).
 
 === publishToX
 

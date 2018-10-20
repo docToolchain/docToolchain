@@ -18,7 +18,7 @@ https://rdmueller.github.io/single-file-html/
 
 == Text based Diagrams
 
-For docToolchain, it is configured to use the http://asciidoctor.org/docs/asciidoctor-diagram/[asciidoctor-diagram] plugin which is used to create PlantUML diagrams.
+For docToolchain, it is configured to use the https://asciidoctor.org/docs/asciidoctor-diagram/[asciidoctor-diagram] plugin which is used to create PlantUML diagrams.
 
 The plugin also supports a bunch of other text based diagrams, but http://plantuml.com/[PlantUML] is the most used.
 
@@ -63,7 +63,7 @@ DiagramBlock <|-- DitaaBlock
 DiagramBlock <|-- PlantUmlBlock
 ----
 
-If you want to control the size of the generated diagram in the output, you can configure the "width" attribute (in pixels) or "scale" attribute (floating point ratio) passed to http://asciidoctor.org/docs/asciidoctor-diagram/[asciidoctor-diagram].
+If you want to control the size of the generated diagram in the output, you can configure the "width" attribute (in pixels) or "scale" attribute (floating point ratio) passed to https://asciidoctor.org/docs/asciidoctor-diagram/[asciidoctor-diagram].
 For example, if you take the example diagram above and change the declaration to one of the below versions
 
 ....

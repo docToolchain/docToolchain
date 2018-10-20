@@ -6,7 +6,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 image::ea/Manual/generatePDF.png[]
 
-This task makes use of the http://asciidoctor.org/docs/convert-asciidoc-to-pdf/[asciidoctor-pdf] plugin to render your documents as a pretty PDF file.
+This task makes use of the https://asciidoctor.org/docs/convert-asciidoc-to-pdf/[asciidoctor-pdf] plugin to render your documents as a pretty PDF file.
 
 The file will be written to `build/pdf`.
 
