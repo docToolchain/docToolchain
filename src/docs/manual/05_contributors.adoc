@@ -1,7 +1,8 @@
+:filename: 05_contributors.adoc
+include::feedback.adoc[]
+
 ifndef::imagesdir[:imagesdir: ../images]
 = Acknowledgements and Contributors
-
-image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}05_contributors.adoc, float=right]
 
 This project is an open source project which is based on community efforts.
 

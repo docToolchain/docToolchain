@@ -1,8 +1,9 @@
+:filename: 06_Frequently_asked_Questions.adoc
+include::feedback.adoc[]
+
 ifndef::imagesdir[:imagesdir: ../images]
 
 = FAQ: Frequently asked Questions
-
-image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}06_Frequently_asked_Questions.adoc, float=right]
 
 This section tries to answer the most common and frequently asked questions about how to work with docToolchain.
 It will also contain questions relevant to the tools used to build docToolchain, but the main focus is docToolchain itself.
