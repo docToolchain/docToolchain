@@ -30,9 +30,14 @@ confluence = [:]
 // - 'file': absolute or relative path to the asciidoc generated html file to be exported
 // - 'url': absolute URL to an asciidoc generated html file to be exported
 // - 'ancestorId' (optional): the id of the parent page in Confluence; leave this empty
-// 							  if a new parent shall be created in the space
+//                            if a new parent shall be created in the space
 // - 'preambleTitle' (optional): the title of the page containing the preamble (everything
-//                               before the first second level heading). Default is 'arc42'
+//                            before the first second level heading). Default is 'arc42'
+// - 'spaceKey' (optional): page specific variable for the key of the confluence space to write to
+// - 'createSubpages' (optional): page specific variable to determine whether ".sect2" sections shall be split from the current page into subpages
+// - 'pagePrefix' (optional): page specific variable, the pagePrefix will be a prefix for the page title and it's sub-pages
+//                            use this if you only have access to one confluence space but need to store several
+//                            pages with the same title - a different pagePrefix will make them unique
 //
 // only 'file' or 'url' is allowed. If both are given, 'url' is ignored
 confluence.with {
