@@ -24,3 +24,5 @@ htmlSanityCheck {
     //checkExternalLinks = false
 }
 //end::htmlSanityCheck[]
+
+htmlSanityCheck.dependsOn generateHTML
