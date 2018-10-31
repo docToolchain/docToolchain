@@ -1,0 +1,50 @@
+//tag::exportContributors[]
+import static groovy.io.FileType.*
+import java.security.MessageDigest
+
+task exportContributors(
+        description: 'exports all contributors for all asciidoc files',
+        group: 'docToolchain'
+) {
+    doFirst {
+        new File(targetDir, 'contributors').mkdirs()
+    }
+    doLast {
+        def md5 = { input ->
+            MessageDigest md5 = MessageDigest.getInstance("MD5");
+            md5.update(input.getBytes());
+            BigInteger hash = new BigInteger(1, md5.digest());
+            hash.toString(16);
+        }
+        def sourceFolder = new File(projectDir, './src/docs')
+        sourceFolder.traverse (type: FILES) { file ->
+            if (file.name ==~ '^.*[.](ad|adoc|asciidoc)$') {
+                def currentFileName = file.canonicalPath.replace("\\", "\\\\")
+                def contributors = "git shortlog -sen --no-merges  HEAD \"${currentFileName}\""
+                        .execute()
+                        .text
+                        .split("\n")
+                        .collect{ line ->
+                    def matcher = line =~ /[\t ]*([0-9]+)[\t ]+([^<]+)<([^>]+)>/
+                    if (matcher) {
+                        [matcher[0][2], matcher[0][3]]
+                    } else { ["",""] }
+                }.unique {a, b -> a[1] <=> b[1]}
+                def avatars = contributors.collect {
+                    "image:http://www.gravatar.com/avatar/"+
+                            md5(it[1].toLowerCase().trim())+
+                            "?d=identicon"+
+                            "[32,32,role='gravatar',alt='${it[0]}',title='${it[0]}']"
+                }.join(" ")
+                def tag = (file.canonicalPath-sourceFolder.canonicalPath).replace("\\", "/").replaceAll("^/","")
+                def targetFile = new File(targetDir, "/contributors/"+tag)
+                new File(targetDir, ("/contributors/"+tag).split("/")[0..-2].join("/")).mkdirs()
+                targetFile.write (avatars+"\n")
+                print "."
+            }
+        }
+        println ""
+    }
+}
+
+//end::exportContributors[]
