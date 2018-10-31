@@ -4,7 +4,7 @@ outputPath = 'build/docs'
 // This path is appended to the docDir property specified in gradle.properties
 // or in the command line, and therefore must be relative to it.
 
-inputPath = 'src/docs'
+//inputPath = 'src/docs' => moved to gradle.properties!
 
 
 inputFiles = [
