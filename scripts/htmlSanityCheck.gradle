@@ -6,7 +6,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath ('gradle.plugin.org.aim42:htmlSanityCheck:0.9.7')
+        classpath ('gradle.plugin.org.aim42:htmlSanityCheck:1.0.0-RC-2')
     }
 }
 
@@ -24,6 +24,5 @@ htmlSanityCheck {
     //checkExternalLinks = false
 }
 //end::htmlSanityCheck[]
-project.afterEvaluate {
-    project.tasks.htmlSanityCheck.dependsOn generateHTML
-}
+
+htmlSanityCheck.dependsOn generateHTML

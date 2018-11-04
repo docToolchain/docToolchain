@@ -1,5 +1,9 @@
+:filename: manual/07_tutorial.adoc
+
 ifndef::imagesdir[:imagesdir: ../images]
 = Tutorial
+
+include::feedback.adoc[]
 
 This project is an open source project which is based on community efforts.
 
@@ -11,7 +15,7 @@ But it even more depends on the direct contributions made through giving feedbac
 Here is an incomplete and unordered list of contributors:
 
 - https://github.com/bodewig[Stefan Bodewig]
-- https://github.com/MoePad[MoePad]
+- MoePad
 - https://github.com/opensource21[Niels]
 - https://github.com/wschaef[wschaef]
 - https://github.com/gernotstarke[Gernot Starke]

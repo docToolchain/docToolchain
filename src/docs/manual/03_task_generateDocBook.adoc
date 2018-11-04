@@ -1,8 +1,9 @@
+:filename: manual/03_task_generateDocBook.adoc
 ifndef::imagesdir[:imagesdir: ../images]
 
 = generateDocbook
 
-image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}03_task_generateDocBook.adoc, float=right]
+include::feedback.adoc[]
 
 image::ea/Manual/generateDocBook.png[]
 

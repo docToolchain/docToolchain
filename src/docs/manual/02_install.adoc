@@ -1,6 +1,8 @@
+:filename: manual/02_install.adoc
+
 = How to install docToolchain
 
-image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}02_install.adoc, float=right]
+include::feedback.adoc[]
 
 == Get the tool
 
@@ -81,7 +83,7 @@ You may also change the PDF schema file to your taste.
 === Arc42 from scratch
 
 If you don't have existing documents yet, or if you need a fresh start, you can get the Arc42 template in AsciiDoc
-format. You can do that by manually downloading from http://arc42.org/download. You can also to that by running
+format. You can do that by manually downloading from https://arc42.org/download. You can also to that by running
 `initArc42<language>` task. Currently supported languages are:
 
 - DE - German.

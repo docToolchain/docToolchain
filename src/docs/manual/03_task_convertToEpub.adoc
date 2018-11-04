@@ -1,13 +1,15 @@
 ifndef::imagesdir[:imagesdir: ../images]
+:filename: manual/03_task_convertToEpub.adoc
+
 = convertToEpub
 
-image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}03_task_convertToEpub.adoc, float=right]
+include::feedback.adoc[]
 
 image::ea/Manual/convertToEpub.png[]
 
-Dependency: <<generateDocBook>>
+Dependency: <<_generatedocbook>>
 
-This task uses http://pandoc.org[pandoc] to convert the DocBook output from AsciiDoctor to ePub.
+This task uses https://pandoc.org[pandoc] to convert the DocBook output from AsciiDoctor to ePub.
 This way, you can read your documentation in a convenient way on an eBook-reader.
 
 The resulting file can be found in `build/docs/epub`

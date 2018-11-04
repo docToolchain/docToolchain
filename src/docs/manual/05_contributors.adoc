@@ -1,7 +1,9 @@
+:filename: manual/05_contributors.adoc
 ifndef::imagesdir[:imagesdir: ../images]
+
 = Acknowledgements and Contributors
 
-image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}05_contributors.adoc, float=right]
+include::feedback.adoc[]
 
 This project is an open source project which is based on community efforts.
 
@@ -13,7 +15,7 @@ But it even more depends on the direct contributions made through giving feedbac
 Here is an incomplete and unordered list of contributors:
 
 - https://github.com/bodewig[Stefan Bodewig]
-- https://github.com/MoePad[MoePad]
+- MoePad
 - https://github.com/opensource21[Niels]
 - https://github.com/wschaef[wschaef]
 - https://github.com/gernotstarke[Gernot Starke]

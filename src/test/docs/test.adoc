@@ -54,7 +54,7 @@ include::../../build/docs/openissues.adoc[]
 NOTE: test
 
 == a title
-http://google.de[a link]
+https://google.de[a link]
 text
 
 :source-highlighter: pygments

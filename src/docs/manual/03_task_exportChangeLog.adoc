@@ -1,7 +1,9 @@
+:filename: manual/03_task_exportChangeLog.adoc
 ifndef::imagesdir[:imagesdir: ../images]
+
 = exportChangeLog
 
-image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}03_task_exportChangeLog.adoc, float=right]
+include::feedback.adoc[]
 
 image::ea/Manual/exportChangeLog.png[]
 

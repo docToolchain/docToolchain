@@ -29,13 +29,15 @@ if (pdfThemeDir.startsWith('.')) {
 logger.info "docToolchain> docDir: ${docDir}"
 logger.info "docToolchain> mainConfigFile: ${mainConfigFile}"
 logger.info "docToolchain> pdfThemeDir: ${pdfThemeDir}"
-config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text)
-logger.info "docToolchain> inputPath: ${config.inputPath}"
+def configSlurper = new ConfigSlurper()
+configSlurper.setBinding([inputPath: inputPath])
+config = configSlurper.parse(new File(docDir, mainConfigFile).text)
+logger.info "docToolchain> inputPath: ${inputPath}"
 logger.info "docToolchain> inputFiles: ${config.inputFiles}"
 logger.info "docToolchain> outputPath: ${config.outputPath}"
 
 ext {
-    srcDir  = "${docDir}/${config.inputPath}"
+    srcDir  = "${docDir}/${inputPath}"
     targetDir = "${docDir}/${config.outputPath}"
     javaVersion = System.getProperty("java.version")
     currentDate = new Date().format("d. MMM yyyy")
@@ -87,7 +89,8 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
             'currentDate'         : "$currentDate",
             'allow-uri-read'      : true,
             'sectanchors'         : true,
-            'manualdir'           : "https://github.com/docToolchain/docToolchain/blob/master/src/docs/manual/"
+            'manualdir'           : "https://github.com/docToolchain/docToolchain/edit/master/src/docs/",
+            'targetDir'           : targetDir
     // Here we can add the code for extensions we write.
     extensions {
         inlinemacro (name: "jira") {

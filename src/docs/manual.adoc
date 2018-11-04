@@ -2,6 +2,15 @@
 
 = docToolchain Manual
 
+++++
+<style>
+.gravatar img {
+    margin-left: 3px;
+    border-radius: 4px;
+}
+</style>
+++++
+
 // numbering from here on
 :numbered:
 
@@ -75,6 +84,12 @@ include::manual/03_task_exportVisio.adoc[leveloffset=+2]
 <<<<
 
 include::manual/03_task_exportChangeLog.adoc[leveloffset=+2]
+
+---
+
+<<<<
+
+include::manual/03_task_exportContributors.adoc[leveloffset=+2]
 
 ---
 

@@ -44,6 +44,7 @@ apply from: 'scripts/exportEA.gradle'
 apply from: 'scripts/exportPPT.gradle'
 apply from: 'scripts/exportVisio.gradle'
 apply from: 'scripts/exportChangelog.gradle'
+apply from: 'scripts/exportContributors.gradle'
 apply from: 'scripts/exportJiraIssues.gradle'
 apply from: 'scripts/exportExcel.gradle'
 apply from: 'scripts/exportMarkdown.gradle'
@@ -53,4 +54,4 @@ apply from: 'scripts/htmlSanityCheck.gradle'
 
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
-defaultTasks 'exportChangeLog', 'exportMarkdown', 'generateHTML', 'generatePDF', 'htmlSanityCheck'
+defaultTasks 'exportChangeLog', 'exportContributors', 'exportMarkdown', 'generateHTML', 'generatePDF', 'htmlSanityCheck'

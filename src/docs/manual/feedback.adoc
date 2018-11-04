@@ -1,0 +1,6 @@
+ifndef::backend-pdf[]
+
+image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}{filename}, float=right]
+image::https://img.shields.io/badge/create-an%20issue-blue.svg[link="https://github.com/docToolchain/documentation/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:{filename}", float=right]
+endif::[]
+include::{targetDir}/contributors/{filename}[]

@@ -1,7 +1,9 @@
+:filename: manual/03_task_publishToConfluence.adoc
 ifndef::imagesdir[:imagesdir: ../images]
+
 = publishToConfluence
 
-image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}03_task_publishToConfluence.adoc, float=right]
+include::feedback.adoc[]
 
 image::ea/Manual/publishToConfluence.png[]
 
@@ -57,7 +59,7 @@ Unless these styles are defined, some formatting that is present in the HTML ver
 The default style definitions can be found in the AsciiDoc project as https://raw.githubusercontent.com/asciidoctor/asciidoctor/master/data/stylesheets/asciidoctor-default.css[asciidoctor-default.css].
 Note that you likely do *NOT* want to include the whole thing, as some of the definitions are likely to disrupt Confluence's layout.
 
-The following style definitions are believed to be Confluence-compatible, and enable use of the built-in roles (`big`/`small`, `underline`/`overline`/`line-through`, `_COLOR_`/`_COLOR_-background` for the http://en.wikipedia.org/wiki/Web_colors#HTML_color_names[sixteen HTML color names]):
+The following style definitions are believed to be Confluence-compatible, and enable use of the built-in roles (`big`/`small`, `underline`/`overline`/`line-through`, `_COLOR_`/`_COLOR_-background` for the https://en.wikipedia.org/wiki/Web_colors#HTML_color_names[sixteen HTML color names]):
 
 [source,css]
 ----

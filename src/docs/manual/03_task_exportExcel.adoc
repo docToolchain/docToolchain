@@ -1,7 +1,9 @@
+:filename: manual/03_task_exportExcel.adoc
 ifndef::imagesdir[:imagesdir: ../images]
+
 = exportExcel
 
-image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}03_task_exportExcel.adoc, float=right]
+include::feedback.adoc[]
 
 image::ea/Manual/exportExcel.png[]
 

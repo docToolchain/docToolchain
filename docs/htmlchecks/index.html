@@ -61,7 +61,7 @@ function scrollToTop() {
 
       <div class="infoBox" id="checks">
 
-          <div class="counter">538</div>
+          <div class="counter">668</div>
 
           checks</div>
 
@@ -71,7 +71,7 @@ function scrollToTop() {
 
       <div class="infoBox" id="findings">
 
-          <div class="counter">23</div>
+          <div class="counter">5</div>
 
           issues</div>
 
@@ -81,7 +81,7 @@ function scrollToTop() {
 
       <div class="infoBox" id="duration">
 
-          <div class="counter">47.0sec</div>
+          <div class="counter">92.622sec</div>
 
           duration</div>
 
@@ -90,7 +90,7 @@ function scrollToTop() {
 
     <td><div class="infoBox failures" id="successRate">
 
-        <div class="percent">95%</div>
+        <div class="percent">99%</div>
         successful</div>
     </td></tr></table>
 
@@ -104,16 +104,16 @@ function scrollToTop() {
    <tbody>
       <tr>
         <td class="failures"><a href="#manualXhtml">manual.html</a></td>
-        <td class="number">538</td>
-        <td class="number">23</td>
-        <td class="number failures">95%</td>
+        <td class="number">668</td>
+        <td class="number">5</td>
+        <td class="number failures">99%</td>
       </tr>
 
     </tbody>
   </table><hr>
 
 <h1 id="manualXhtml">Results for manual.html </h1>
-location : C:\Users\ralfd\projects\github\docToolchainMaster\htmlSanityCheck\docToolchain\build\docs\html5\manual.html <p>
+location : C:\Users\ralfd\projects\github\docToolchainMaster\docToolchain\build\docs\html5\manual.html <p>
 
 <table><tr><td><div class="summaryGroup">
 <table>
@@ -123,7 +123,7 @@ location : C:\Users\ralfd\projects\github\docToolchainMaster\htmlSanityCheck\doc
 
       <div class="infoBox" id="size">
 
-          <div class="counter">276.31</div>
+          <div class="counter">300.35</div>
 
           kByte</div>
 
@@ -133,7 +133,7 @@ location : C:\Users\ralfd\projects\github\docToolchainMaster\htmlSanityCheck\doc
 
       <div class="infoBox" id="checks">
 
-          <div class="counter">538</div>
+          <div class="counter">668</div>
 
           checks</div>
 
@@ -143,7 +143,7 @@ location : C:\Users\ralfd\projects\github\docToolchainMaster\htmlSanityCheck\doc
 
       <div class="infoBox" id="findings">
 
-          <div class="counter">23</div>
+          <div class="counter">5</div>
 
           issues</div>
 
@@ -152,28 +152,45 @@ location : C:\Users\ralfd\projects\github\docToolchainMaster\htmlSanityCheck\doc
 
     <td><div class="infoBox failures" id="successRate">
 
-        <div class="percent">95%</div>
+        <div class="percent">99%</div>
         successful</div>
     </td></tr></table>
 
 
-<div class="success"><h3>Missing alt-attribute declaration in image tags</h3></div>
+<div class="failures"><h3>External links Check</h3></div>
 
 
- 43 image tags checked,
- 0 missing alt attributes found.<br>
+ 136 anchor href attribute checked,
+ 4 broken external link found.<br>
  
+  <ul>
+      <li> Error: https://git-scm.com/ returned statuscode 403. </li>
+      <li> Error: https://stackoverflow.com/questions/tagged/doctoolchain?sort=active&pageSize=50 returned statuscode 404. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_exportContributors.adoc returned statuscode 404. </li>
+      <li> Error: https://www.writethedocs.org/guide/docs-as-code/ returned statuscode 403. </li>
+  </ul>
+
+<div class="success"><h3>Broken Internal Links Check</h3></div>
+
+
+ 296 href checked,
+ 0 missing id found.<br>
+ 
+<div class="failures"><h3>Missing alt-attribute declaration in image tags</h3></div>
+
+
+ 128 image tags checked,
+ 1 missing alt attributes found.<br>
+ 
+  <ul>
+      <li> image "http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?d=identicon" is missing alt-attribute </li>
+  </ul>
+
 <div class="success"><h3>Duplicate Definition of id Check</h3></div>
 
 
- 86 id checked,
+ 87 id checked,
  0 duplicate id found.<br>
- 
-<div class="success"><h3>Consistency of ImageMaps</h3></div>
-
-
- 0 imageMap checked,
- 0 map/area and usemap-references found.<br>
  
 <div class="success"><h3>Missing Local Images Check</h3></div>
 
@@ -187,53 +204,17 @@ location : C:\Users\ralfd\projects\github\docToolchainMaster\htmlSanityCheck\doc
  0 anchor tag href attribute checked,
  0 missing local resources found.<br>
  
-<div class="failures"><h3>External links Check</h3></div>
+<div class="success"><h3>Consistency of ImageMaps</h3></div>
 
 
- 114 anchor href attribute checked,
- 22 broken external link found.<br>
- 
-  <ul>
-      <li> Warning: http://arc42.org/download returned statuscode 301. </li>
-      <li> Warning: http://en.wikipedia.org/wiki/Web_colors#HTML_color_names returned statuscode 301. </li>
-      <li> Warning: http://amzn.to/2sn0kyx returned statuscode 301. </li>
-      <li> Warning: http://asciidoctor.org/docs/asciidoctor-diagram/ returned statuscode 301. </li>
-      <li> Warning: http://asciidoctor.org/docs/asciidoc-writers-guide/#images returned statuscode 301. </li>
-      <li> Warning: http://asciidoctor.org/docs/user-manual/ returned statuscode 301. </li>
-      <li> Warning: http://amzn.to/2smM5Kp returned statuscode 301. </li>
-      <li> Error: http://www.writethedocs.org/guide/docs-as-code/ returned statuscode 403. </li>
-      <li> Warning: http://arc42.org/ returned statuscode 301. </li>
-      <li> Error: https://git-scm.com/ returned statuscode 403. </li>
-      <li> Error: https://stackoverflow.com/questions/tagged/doctoolchain?sort=active&pageSize=50 returned statuscode 404. </li>
-      <li> Warning: http://arc42.org returned statuscode 301. </li>
-      <li> Warning: http://amzn.to/2smRhxE returned statuscode 301. </li>
-      <li> Warning: http://asciidoctor.org/docs/user-manual/#images returned statuscode 301. </li>
-      <li> Warning: http://amzn.to/2ru9Yvr returned statuscode 301. </li>
-      <li> Warning: http://docs.arc42.org/home/ returned statuscode 301. </li>
-      <li> Error: https://github.com/MoePad returned statuscode 404. </li>
-      <li> Warning: http://faq.arc42.org/home/ returned statuscode 301. </li>
-      <li> Warning: http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#images returned statuscode 301. </li>
-      <li> Warning: http://asciidoctor.org/docs/convert-asciidoc-to-pdf/ returned statuscode 301. </li>
-      <li> Warning: http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/ returned statuscode 301. </li>
-      <li> Warning: http://www.sparxsystems.com/support/faq/ea_on_linux.html returned statuscode 302. </li>
-  </ul>
-
-<div class="failures"><h3>Broken Internal Links Check</h3></div>
-
-
- 274 href checked,
- 1 missing id found.<br>
- 
-  <ul>
-      <li> link target "generateDocBook" missing
- (Suggestions: _gesunde_dokumentation_mit_asciidoctor) </li>
-  </ul>
-<hr><p>
+ 0 imageMap checked,
+ 0 map/area and usemap-references found.<br>
+ <hr><p>
 <!-- scroll-to-top icon -->
 <div class="scroll-top-wrapper">
    <img src="arrow-up.png" alt="to top"/>
 </div>
 
 <div id="footer">
-  Generated by <a href="https://www.aim42.org">htmlSanityCheck</a> (version 1.0.0-RC-2) at 16. Oktober 2018, 22:13 
+  Generated by <a href="https://www.aim42.org">htmlSanityCheck</a> (version 1.0.0-RC-2) at 31. Oktober 2018, 12:17 
 </div></body></html>

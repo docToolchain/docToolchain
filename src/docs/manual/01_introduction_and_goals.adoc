@@ -1,20 +1,22 @@
+:filename: manual/01_introduction_and_goals.adoc
+
 = Introduction and Goals
 
-image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}01_introduction_and_goals.adoc, float=right]
+include::feedback.adoc[]
 
 NOTE: Jump directly to the https://github.com/docToolchain/docToolchain[github repository]
 
 == Create awesome docs!
 
-_docToolchain_ is an implementation of the http://www.writethedocs.org/guide/docs-as-code/[_docs-as-code_] approach for software architecture plus some additional automation.
-The basis of docToolchain is the philosophy that software documentation should be treated in the same way as code together with the http://arc42.org[_arc42_] template for software architecture.
+_docToolchain_ is an implementation of the https://www.writethedocs.org/guide/docs-as-code/[_docs-as-code_] approach for software architecture plus some additional automation.
+The basis of docToolchain is the philosophy that software documentation should be treated in the same way as code together with the https://arc42.org[_arc42_] template for software architecture.
 
 How it all began...
 
 === docs-as-code
 
 Before this project started, I wasn't aware of the term _docs-as-code_.
-I just grew tired of keeping all my architecture diagrams up to date by copying them from my UML tool over to my word processor.
+I just got tired of keeping all my architecture diagrams up to date by copying them from my UML tool over to my word processor.
 
 As a lazy developer, I told myself 'there has to be a better way of doing this'.
 And I started to automate the diagram export and switched from a full fledged word processor over to a markup renderer.
@@ -31,7 +33,7 @@ Dr. Gernot Starke and Peter Hruschka created this template in a joint effort to 
 They dumped all their experience about software architectures not only into a structure but also explaining texts.
 These explanations are part of every chapter of the template and give you guidance on how to write each chapter of the document.
 
-arc42 is available in many formats like MS Word, textile, and Confluence. All these formats are automatically generated from one _golden master_ which is formatted in http://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[_asciidoc_].
+arc42 is available in many formats like MS Word, textile, and Confluence. All these formats are automatically generated from one _golden master_ which is formatted in https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[_asciidoc_].
 
 === docToolchain
 
