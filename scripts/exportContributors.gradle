@@ -16,7 +16,8 @@ task exportContributors(
             BigInteger hash = new BigInteger(1, md5.digest());
             hash.toString(16);
         }
-        def sourceFolder = new File(projectDir, './src/docs')
+        File sourceFolder = new File("${docDir}/${inputPath}")
+        println "sourceFolder: "+sourceFolder.canonicalPath
         sourceFolder.traverse (type: FILES) { file ->
             if (file.name ==~ '^.*[.](ad|adoc|asciidoc)$') {
                 def currentFileName = file.canonicalPath.replace("\\", "\\\\")
