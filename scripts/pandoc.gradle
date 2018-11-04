@@ -12,12 +12,14 @@ task convertToDocx (
 
         workingDir "$targetDir/docbook"
         executable = "pandoc"
-        new File("$targetDir/docx/").mkdirs()
         args = ['-r','docbook',
                 '-t','docx',
                 '-o',"../docx/$targetFile",
                 sourceFile]
-        }
+    }
+    doFirst {
+        new File("$targetDir/docx/").mkdirs()
+    }
 }
 //end::convertToDocx[]
 
@@ -35,12 +37,14 @@ task convertToEpub (
 
         workingDir "$targetDir/docbook"
         executable = "pandoc"
-        new File("$targetDir/epub/").mkdirs()
         args = ['-r','docbook',
                 '-t','epub',
                 '-o',"../epub/$targetFile",
                 sourceFile]
 
+    }
+    doFirst {
+        new File("$targetDir/epub/").mkdirs()
     }
 }
 //end::convertToEpub[]
