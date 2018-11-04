@@ -25,3 +25,6 @@ task publishToConfluence(
     }
 }
 //end::publishToConfluence[]
+project.afterEvaluate {
+    project.tasks.publishToConfluence.dependsOn generateHTML
+}

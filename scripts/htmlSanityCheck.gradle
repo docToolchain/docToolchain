@@ -24,3 +24,6 @@ htmlSanityCheck {
     //checkExternalLinks = false
 }
 //end::htmlSanityCheck[]
+project.afterEvaluate {
+    project.tasks.htmlSanityCheck.dependsOn generateHTML
+}
