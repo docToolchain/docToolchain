@@ -1,10 +1,8 @@
 
 outputPath = '../build/test/docs'
 
-inputPath = 'docs'
-
 inputFiles = [
-        [file: 'test.adoc', formats: ['html','revealjs','pdf','docbook']],
+        [file: 'test2.adoc', formats: ['html','revealjs','pdf','docbook']],
              ]
 
 taskInputsDirs = [
@@ -12,5 +10,5 @@ taskInputsDirs = [
                  ]
 
 taskInputsFiles = [
-                    "${inputPath}/test.adoc"
+                    "${inputPath}/test2.adoc"
                   ]

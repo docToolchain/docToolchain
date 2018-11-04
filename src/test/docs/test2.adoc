@@ -1,0 +1,88 @@
+include::config-de.adoc[]
+
+.sequence diagram (without graphviz)
+[plantuml,"{plantUMLDir}testPlant",png]
+----
+a --> b
+----
+
+.component diagram (needs graphviz)
+[plantuml,"{plantUMLDir}testPlant2",png]
+----
+[c]->[d]
+----
+
+.component diagram with jdot
+[plantuml, "{plantUMLDir}demoPlantUML", png]
+----
+'!pragma graphviz_dot jdot
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor <|-- DiagramBlock
+DiagramBlock <|-- DitaaBlock
+DiagramBlock <|-- PlantUmlBlock
+----
+
+image::ea/Use_Cases.png[width=25%]
+
+include::ea/UseCases.ad[]
+
+== a title
+
+created jira:ARC-33[] for this.
+
+[[section]] section
+
+a test jira:DOC-50[] more
+
+openIssues:test[]
+
+<<DOC-50>>
+
+.Open Issues
+[options="header",cols="2,1,1,2,6"]
+|====
+|ID | Priority | Created | Assignee | Summary
+
+include::../../build/docs/openissues.adoc[]
+
+|====
+
+NOTE: test
+
+== a title
+https://google.de[a link]
+text
+
+:source-highlighter: pygments
+
+[source,ruby]
+----
+print 'hello' #<1>
+print 'World' // <2>
+----
+<1> first callout
+<2> second
+
+== exportExcel
+
+=== AsciiDoc
+
+include::excel/Sample.xlsx/Numerisch.adoc[]
+
+include::excel/Sample.xlsx/Werte.adoc[]
+
+=== CSV
+
+[options="header",format="csv"]
+|===
+include::excel/Sample.xlsx/Numerisch.csv[]
+|===
+
+[options="header",format="csv"]
+|===
+include::excel/Sample.xlsx/Werte.csv[]
+|===

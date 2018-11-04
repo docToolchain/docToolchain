@@ -11,7 +11,7 @@ class GeneratePdfSpec extends Specification {
 
     void 'test correct handling of plantUML'() {
         when: 'input file contains a plantuml diagram'
-            def file = new File('src/test/docs/test.adoc')
+            def file = new File('src/test/docs/test2.adoc')
             println file.canonicalPath
             def fileContent = file.text
         then: ''
@@ -19,9 +19,10 @@ class GeneratePdfSpec extends Specification {
         when: 'the gradle task is invoked'
             def result = GradleRunner.create()
                     .withProjectDir(new File('.'))
-                    .withArguments(['generatePDF','--info','-PmainConfigFile=config_pdf.groovy', '-PdocDir=./src/test/'])
+                    .withArguments(['generatePDF','--info','-PmainConfigFile=config_pdf.groovy', '-PdocDir=./src/test/', '-PinputPath=docs'])
                     .build()
         then: 'the task has been successfully executed'
+        println result.output
             result.task(":generatePDF").outcome == SUCCESS
         and: 'the output does not contain the warning "image to embed not found or not readable"'
             println result.output
