@@ -3,6 +3,9 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 = exportPPT
 
+IMPORTANT: Currently this feature is WINDOWS-only. https://github.com/docToolchain/docToolchain/issues/231[See related issue]
+
+
 include::feedback.adoc[]
 
 image::ea/Manual/exportPPT.png[]
