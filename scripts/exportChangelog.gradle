@@ -7,12 +7,12 @@ task exportChangeLog(
         new File(targetDir).mkdirs()
     }
     doLast {
-        println "changelogConfigFile: ${changelogConfigFile}"
-        def config
-        config = new ConfigSlurper().parse(new File(docDir, changelogConfigFile).text)
+        logger.info("docToolchain> docDir: "+docDir)
+        logger.info("docToolchain> mainConfigFile: "+mainConfigFile)
+        def config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text)
 
-        def cmd = "${config.changelogCmd} ."
-        def changes = cmd.execute(null, new File(docDir, config.changelogDir)).text
+        def cmd = "${config.changelog.cmd} ."
+        def changes = cmd.execute(null, new File(docDir, config.changelog.dir)).text
         def changelog = new File(targetDir, 'changelog.adoc')
         logger.info "> changelog exported ${changelog.canonicalPath}"
         changelog.write(changes)
