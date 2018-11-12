@@ -41,6 +41,7 @@
             If (prefix<>"") Then
                 post = "_"
             End If
+			MakeDir(path&prefix&post)
             set objFile = objFSO.OpenTextFile(path&prefix&post&strFileName&".ad",ForAppending, True)
             name = currentElement.Name
             name = Replace(name,vbCr,"")
