@@ -2344,12 +2344,14 @@ Blog-Post: <a href="https://rdmueller.github.io/create-docx/">Render AsciiDoc to
 
         workingDir <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/docbook</span><span class="delimiter">&quot;</span></span>
         executable = <span class="string"><span class="delimiter">&quot;</span><span class="content">pandoc</span><span class="delimiter">&quot;</span></span>
-        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/docx/</span><span class="delimiter">&quot;</span></span>).mkdirs()
         args = [<span class="string"><span class="delimiter">'</span><span class="content">-r</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span>,
                 <span class="string"><span class="delimiter">'</span><span class="content">-t</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docx</span><span class="delimiter">'</span></span>,
                 <span class="string"><span class="delimiter">'</span><span class="content">-o</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">../docx/</span><span class="inline"><span class="inline-delimiter">$</span>targetFile</span><span class="delimiter">&quot;</span></span>,
                 sourceFile]
-        }
+    }
+    doFirst {
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/docx/</span><span class="delimiter">&quot;</span></span>).mkdirs()
+    }
 }</code></pre>
 </div>
 </div>
@@ -2417,12 +2419,14 @@ Blog-Post: <a href="https://rdmueller.github.io/create-epub/">Turn your Document
 
         workingDir <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/docbook</span><span class="delimiter">&quot;</span></span>
         executable = <span class="string"><span class="delimiter">&quot;</span><span class="content">pandoc</span><span class="delimiter">&quot;</span></span>
-        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/epub/</span><span class="delimiter">&quot;</span></span>).mkdirs()
         args = [<span class="string"><span class="delimiter">'</span><span class="content">-r</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">docbook</span><span class="delimiter">'</span></span>,
                 <span class="string"><span class="delimiter">'</span><span class="content">-t</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">epub</span><span class="delimiter">'</span></span>,
                 <span class="string"><span class="delimiter">'</span><span class="content">-o</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">../epub/</span><span class="inline"><span class="inline-delimiter">$</span>targetFile</span><span class="delimiter">&quot;</span></span>,
                 sourceFile]
 
+    }
+    doFirst {
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/epub/</span><span class="delimiter">&quot;</span></span>).mkdirs()
     }
 }</code></pre>
 </div>
@@ -2433,6 +2437,18 @@ Blog-Post: <a href="https://rdmueller.github.io/create-epub/">Turn your Document
 </div>
 <div class="sect2">
 <h3 id="_exportea"><a class="anchor" href="#_exportea"></a>3.9. exportEA</h3>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Currently this feature is WINDOWS-only. <a href="https://github.com/docToolchain/docToolchain/issues/231">See related issue</a>
+</td>
+</tr>
+</table>
+</div>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_exportEA.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -2444,7 +2460,7 @@ Blog-Post: <a href="https://rdmueller.github.io/create-epub/">Turn your Document
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span></p>
+<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev " width="32" title="ghp-dev "></span></p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -2559,6 +2575,7 @@ use `gradle exportEA` to re-export files
             If (prefix&lt;&gt;"") Then
                 post = "_"
             End If
+			MakeDir(path&amp;prefix&amp;post)
             set objFile = objFSO.OpenTextFile(path&amp;prefix&amp;post&amp;strFileName&amp;".ad",ForAppending, True)
             name = currentElement.Name
             name = Replace(name,vbCr,"")
@@ -3101,12 +3118,12 @@ Blog-Post: <a href="https://rdmueller.github.io/changelog/">The only constant in
         <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir).mkdirs()
     }
     doLast {
-        println <span class="string"><span class="delimiter">&quot;</span><span class="content">changelogConfigFile: </span><span class="inline"><span class="inline-delimiter">${</span>changelogConfigFile<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
-        <span class="keyword">def</span> config
-        config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, changelogConfigFile).text)
+        logger.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">docToolchain&gt; docDir: </span><span class="delimiter">&quot;</span></span>+docDir)
+        logger.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">docToolchain&gt; mainConfigFile: </span><span class="delimiter">&quot;</span></span>+mainConfigFile)
+        <span class="keyword">def</span> config = <span class="keyword">new</span> ConfigSlurper().parse(<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, mainConfigFile).text)
 
-        <span class="keyword">def</span> cmd = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>config.changelogCmd<span class="inline-delimiter">}</span></span><span class="content"> .</span><span class="delimiter">&quot;</span></span>
-        <span class="keyword">def</span> changes = cmd.execute(<span class="predefined-constant">null</span>, <span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, config.changelogDir)).text
+        <span class="keyword">def</span> cmd = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>config.changelog.cmd<span class="inline-delimiter">}</span></span><span class="content"> .</span><span class="delimiter">&quot;</span></span>
+        <span class="keyword">def</span> changes = cmd.execute(<span class="predefined-constant">null</span>, <span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, config.changelog.dir)).text
         <span class="keyword">def</span> changelog = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir, <span class="string"><span class="delimiter">'</span><span class="content">changelog.adoc</span><span class="delimiter">'</span></span>)
         logger.info <span class="string"><span class="delimiter">&quot;</span><span class="content">&gt; changelog exported </span><span class="inline"><span class="inline-delimiter">${</span>changelog.canonicalPath<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
         changelog.write(changes)
@@ -3221,6 +3238,18 @@ Blog-Post: <a href="https://rdmueller.github.io/Jira/">Living Documents for Agil
 </div>
 <div class="sect2">
 <h3 id="_exportppt"><a class="anchor" href="#_exportppt"></a>3.14. exportPPT</h3>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+Currently this feature is WINDOWS-only. <a href="https://github.com/docToolchain/docToolchain/issues/231">See related issue</a>
+</td>
+</tr>
+</table>
+</div>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_exportPPT.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -3232,7 +3261,7 @@ Blog-Post: <a href="https://rdmueller.github.io/Jira/">Living Documents for Agil
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span></p>
+<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev " width="32" title="ghp-dev "></span></p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -4293,7 +4322,7 @@ This project depends and builds on them.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2018-10-31 12:14:28 MEZ
+Last updated 2018-11-04 11:43:15 MEZ
 </div>
 </div>
 </body>
