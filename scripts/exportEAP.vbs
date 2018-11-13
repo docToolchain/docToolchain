@@ -229,15 +229,36 @@
 
       Set projectInterface = Repository.GetProjectInterface()
 
+      Dim childPackage 'As EA.Package
       ' Iterate through all model nodes
       Dim currentModel 'As EA.Package
-      For Each currentModel In Repository.Models
+      If (InStrRev(file,"{") > 0) Then
+        ' the filename references a GUID
+        ' like {04C44F80-8DA1-4a6f-ECB8-982349872349}
+        WScript.echo file
+        GUID = Mid(file, InStrRev(file,"{")+0,38)
+        WScript.echo GUID
+        Dim package
+        set package = EAapp.Repository.GetPackageByGuid(GUID)
+        WScript.echo TypeName(package)
+        set currentModel = package
+        while currentModel.IsModel = false
+            set currentModel = EAapp.Repository.GetPackageByID(currentModel.parentID)
+            WScript.echo currentModel.parentID
+        wend
         ' Iterate through all child packages and save out their diagrams
-        Dim childPackage 'As EA.Package
-        For Each childPackage In currentModel.Packages
-          call DumpDiagrams(childPackage,currentModel)
+        For Each childPackage In package.Packages
+            call DumpDiagrams(childPackage, currentModel)
         Next
-      Next
+      Else
+        ' Iterate through all model nodes
+        For Each currentModel In Repository.Models
+            ' Iterate through all child packages and save out their diagrams
+            For Each childPackage In currentModel.Packages
+                call DumpDiagrams(childPackage,currentModel)
+            Next
+        Next
+      End If
       EAapp.Repository.CloseFile()
     End Sub
 
