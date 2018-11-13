@@ -203,7 +203,11 @@
 		  For Each file In path.Files
 				If fso.GetExtensionName (file.Path) = "eap" Then
 					WScript.echo "found "&file.path
-					OpenProject(file.Path)          
+					If (Left(file.name, 1) = "_") Then
+					    WScript.echo "skipping, because it start with `_` (replication)"
+					Else
+					    OpenProject(file.Path)
+					End If
 				End If
 		  Next
 		
