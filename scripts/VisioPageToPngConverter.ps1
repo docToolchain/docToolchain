@@ -19,6 +19,7 @@ Param
     [Alias('p')][String]$SourcePath
 )
 
+Write-Output "starting to export visio"
 
 If (!(Test-Path -Path $SourcePath))
 {
@@ -29,14 +30,14 @@ If (!(Test-Path -Path $SourcePath))
 # Extend the source path to get only Visio files of the given directory and not in subdircetories
 If ($SourcePath.EndsWith("\"))
 {
-    $SourcePath  = "$SourcePath*" 
+    $SourcePath  = "$SourcePath"
 }
 Else
 {
-    $SourcePath  = "$SourcePath\*" 
+    $SourcePath  = "$SourcePath\"
 }
 
-$VisioFiles = Get-ChildItem -Path $SourcePath -Include *.vsdx,*.vssx,*.vstx,*.vxdm,*.vssm,*.vstm,*.vsd,*.vdw,*.vss,*.vst
+$VisioFiles = Get-ChildItem -Path "$SourcePath*" -Recurse -Include *.vsdx,*.vssx,*.vstx,*.vxdm,*.vssm,*.vstm,*.vsd,*.vdw,*.vss,*.vst
 
 If(!($VisioFiles))
 {
@@ -51,8 +52,9 @@ $VisioApp.Visible = $false
 Foreach($File in $VisioFiles)
 {
     $FilePath = $File.FullName
-               $FileDirectory = $File.DirectoryName   # Get the folder containing the Visio file. Will be used to store the png and adoc files
-    $FileBaseName = $File.BaseName    # Get the filename to be used as part of the name of the png and adoc files
+    Write-Output "found ""$FilePath"" ."
+    $FileDirectory = $File.DirectoryName   # Get the folder containing the Visio file. Will be used to store the png and adoc files
+    $FileBaseName = $File.BaseName -replace '[ :/\\*?|<>]','-'   # Get the filename to be used as part of the name of the png and adoc files
     
     Try
     {
@@ -61,12 +63,13 @@ Foreach($File in $VisioFiles)
         Foreach($Page in $Pages)
         {
             # Create valid filenames for the png and adoc files
-            $PngFileName = $Page.Name -replace '[:/\\*?|<>]','-'
+            $PngFileName = $Page.Name -replace '[ :/\\*?|<>]','-'
             $PngFileName = "$FileBaseName-$PngFileName.png"
             $AdocFileName = $PngFileName.Replace(".png", ".adoc")
 
             #TODO: this needs better logic
-            $Page.Export("$FileDirectory\images\visio\$PngFileName")
+            Write-Output("$SourcePath\images\visio\$PngFileName")
+            $Page.Export("$SourcePath\images\visio\$PngFileName")
             
             $AllPageComments = ""
             ForEach($PageComment in $Page.Comments)
@@ -89,7 +92,7 @@ Foreach($File in $VisioFiles)
 
                 $AdocFileName = $AdocFileName -replace '[:/\\*?|<>]','-'
                 #TODO: this needs better logic
-                $stream = [System.IO.StreamWriter] "$FileDirectory\visio\$AdocFileName"
+                $stream = [System.IO.StreamWriter] "$SourcePath\visio\$AdocFileName"
                 $stream.WriteLine($AllPageComments)
                 $stream.close()
             }                    
