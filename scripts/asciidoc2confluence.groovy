@@ -307,7 +307,8 @@ def parseBody =  { body, anchors, pageAnchors ->
         //it is not an online image, so upload it to confluence and use the ri:attachment tag
         if(!src.startsWith("http")) {
           def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')+src
-          def fileName = (src.tokenize('/')[-1])
+          def fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")
+          newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")      
 
           trythis {
               deferredUpload <<  [0,newUrl,fileName,"automatically uploaded"]
