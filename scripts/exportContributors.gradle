@@ -17,30 +17,35 @@ task exportContributors(
             hash.toString(16);
         }
         File sourceFolder = new File("${docDir}/${inputPath}")
-        println "sourceFolder: "+sourceFolder.canonicalPath
-        sourceFolder.traverse (type: FILES) { file ->
+        println "sourceFolder: " + sourceFolder.canonicalPath
+        sourceFolder.traverse(type: FILES) { file ->
             if (file.name ==~ '^.*[.](ad|adoc|asciidoc)$') {
                 def currentFileName = file.canonicalPath.replace("\\", "\\\\")
+                def readingtime = getReadingtime(currentFileName, 189)
                 def contributors = "git shortlog -sen --no-merges  HEAD \"${currentFileName}\""
                         .execute()
                         .text
                         .split("\n")
-                        .collect{ line ->
+                        .collect { line ->
                     def matcher = line =~ /[\t ]*([0-9]+)[\t ]+([^<]+)<([^>]+)>/
                     if (matcher) {
                         [matcher[0][2], matcher[0][3]]
-                    } else { ["",""] }
-                }.unique {a, b -> a[1] <=> b[1]}
+                    } else {
+                        ["", ""]
+                    }
+                }.unique { a, b -> a[1] <=> b[1] }
                 def avatars = contributors.collect {
-                    "image:http://www.gravatar.com/avatar/"+
-                            md5(it[1].toLowerCase().trim())+
-                            "?d=identicon"+
+                    "image:http://www.gravatar.com/avatar/" +
+                            md5(it[1].toLowerCase().trim()) +
+                            "?d=identicon" +
                             "[32,32,role='gravatar',alt='${it[0]}',title='${it[0]}']"
                 }.join(" ")
-                def tag = (file.canonicalPath-sourceFolder.canonicalPath).replace("\\", "/").replaceAll("^/","")
-                def targetFile = new File(targetDir, "/contributors/"+tag)
-                new File(targetDir, ("/contributors/"+tag).split("/")[0..-2].join("/")).mkdirs()
-                targetFile.write (avatars+"\n")
+                def tag = (file.canonicalPath - sourceFolder.canonicalPath).replace("\\", "/").replaceAll("^/", "")
+                def targetFile = new File(targetDir, "/contributors/" + tag)
+                new File(targetDir, ("/contributors/" + tag).split("/")[0..-2].join("/")).mkdirs()
+                targetFile.write(avatars + "\n")
+                println("0xF0" + readingtime + " minutes to read")
+                targetFile.write("0xF0" + readingtime + " minutes to read" + "\n")
                 print "."
             }
         }
@@ -48,4 +53,18 @@ task exportContributors(
     }
 }
 
+def getReadingtime(def filename, def wpm) {
+    assert wpm != 0
+    def file = new File(filename)
+
+    String[] words =
+            file
+                    .text
+                    .trim()
+                    .split("\\s+");
+
+    return (words.length / wpm).toInteger()
+}
+
 //end::exportContributors[]
+
