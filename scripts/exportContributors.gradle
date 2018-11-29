@@ -10,6 +10,7 @@ task exportContributors(
         new File(targetDir, 'contributors').mkdirs()
     }
     doLast {
+        def wordsPerMinute = 189
         def md5 = { input ->
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             md5.update(input.getBytes());
@@ -21,7 +22,7 @@ task exportContributors(
         sourceFolder.traverse(type: FILES) { file ->
             if (file.name ==~ '^.*[.](ad|adoc|asciidoc)$') {
                 def currentFileName = file.canonicalPath.replace("\\", "\\\\")
-                def readingtime = getReadingtime(currentFileName, 189)
+                def readingtime = getReadingtime(currentFileName, wordsPerMinute)
                 def contributors = "git shortlog -sen --no-merges  HEAD \"${currentFileName}\""
                         .execute()
                         .text
@@ -44,8 +45,8 @@ task exportContributors(
                 def targetFile = new File(targetDir, "/contributors/" + tag)
                 new File(targetDir, ("/contributors/" + tag).split("/")[0..-2].join("/")).mkdirs()
                 targetFile.write(avatars + "\n")
-                println("0xF0" + readingtime + " minutes to read")
-                targetFile.write("0xF0" + readingtime + " minutes to read" + "\n")
+//                println("\u023F1 $readingtime minutes to read")
+                targetFile.write(readingtime + " minutes to read" + "\n")
                 print "."
             }
         }
@@ -63,7 +64,7 @@ def getReadingtime(def filename, def wpm) {
                     .trim()
                     .split("\\s+");
 
-    return (words.length / wpm).toInteger()
+    return (words.length / wpm).toInteger() +1
 }
 
 //end::exportContributors[]
