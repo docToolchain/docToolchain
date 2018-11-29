@@ -1,6 +1,4 @@
 == docToolchain 
-image::https://opencollective.com/doctoolchain/backers/badge.svg["Backers on Open Collective"] 
-image::https://opencollective.com/doctoolchain/sponsors/badge.svg["Sponsors on Open Collective"]
 
 [IMPORTANT]
 ====
@@ -11,7 +9,9 @@ If you are looking for a fresh version and are willing to accept changes in the 
 If you are looking for what you are used to, then download https://github.com/docToolchain/docToolchain/releases[the V1.0.0 release]
 ====
 
-image::https://travis-ci.org/docToolchain/docToolchain.svg?branch=master["Build Status", link="https://travis-ci.org/docToolchain/docToolchain"]
+image:https://travis-ci.org/docToolchain/docToolchain.svg?branch=master["Build Status", link="https://travis-ci.org/docToolchain/docToolchain"]
+image:https://opencollective.com/doctoolchain/backers/badge.svg["Backers on Open Collective"] 
+image:https://opencollective.com/doctoolchain/sponsors/badge.svg["Sponsors on Open Collective"]
 
 ==== create awesome docs!
 
