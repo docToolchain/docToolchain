@@ -45,8 +45,9 @@ task exportContributors(
                 def targetFile = new File(targetDir, "/contributors/" + tag)
                 new File(targetDir, ("/contributors/" + tag).split("/")[0..-2].join("/")).mkdirs()
                 targetFile.write(avatars + "\n")
-//                println("\u023F1 $readingtime minutes to read")
-                targetFile.write(readingtime + " minutes to read" + "\n")
+//              println("\u023F1 $readingtime minutes to read")
+                def minutesTerm = readingtime == 1 ? "minute" : "minutes"
+                targetFile.append("\n $readingtime $minutesTerm to read \n")
                 print "."
             }
         }
