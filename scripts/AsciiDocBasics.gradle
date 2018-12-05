@@ -79,18 +79,18 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
     sourceDir = file(srcDir)
 
     attributes \
-            'pdf-stylesdir@': "${pdfThemeDir}",
-            'pdf-style@': 'custom',
-            'source-highlighter@': 'coderay',
-            'imagesdir@': 'images',
-            'toc@': 'left',
-            'icons@': 'font',
-            'javaVersion@'         : "$javaVersion",
-            'currentDate@'         : "$currentDate",
-            'allow-uri-read@'      : true,
+            'pdf-stylesdir': "${pdfThemeDir}@",
+            'pdf-style': 'custom@',
+            'source-highlighter': 'coderay@',
+            'imagesdir': 'images@',
+            'toc': 'left@',
+            'icons': 'font@',
+            'javaVersion'         : "$javaVersion",
+            'currentDate'         : "$currentDate",
+            'allow-uri-read'      : 'true@',
 //            'sectanchors@'         : true,
-            'manualdir@'           : "https://github.com/docToolchain/docToolchain/edit/master/src/docs/",
-            'targetDir@'           : targetDir
+            'manualdir'           : "https://github.com/docToolchain/docToolchain/edit/master/src/docs/",
+            'targetDir'           : targetDir
     // Here we can add the code for extensions we write.
     extensions {
         inlinemacro (name: "jira") {
