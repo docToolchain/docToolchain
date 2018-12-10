@@ -80,9 +80,9 @@ cd <docToolchain home>
 You need to open Config.groovy file and configure names of your files properly.
 You may also change the PDF schema file to your taste.
 
-=== Arc42 from scratch
+=== arc42 from scratch
 
-If you don't have existing documents yet, or if you need a fresh start, you can get the Arc42 template in AsciiDoc
+If you don't have existing documents yet, or if you need a fresh start, you can get the https://arc42.org[arc42] template in AsciiDoc
 format. You can do that by manually downloading from https://arc42.org/download. You can also to that by running
 `initArc42<language>` task. Currently supported languages are:
 
