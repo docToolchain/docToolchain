@@ -40,6 +40,7 @@ if (project.name!=rootProject.name) {
 //the first is mandatory
 apply from: 'scripts/AsciiDocBasics.gradle'
 //the following are optional
+apply from: 'scripts/fixEncoding.gradle'
 apply from: 'scripts/exportEA.gradle'
 apply from: 'scripts/exportPPT.gradle'
 apply from: 'scripts/exportVisio.gradle'
