@@ -3,13 +3,13 @@ import static groovy.io.FileType.*
 
 task fixEncoding(
         description: 'finds and converts non UTF-8 adoc files to UTF-8',
-        group: 'docToolchain',
+        group: 'docToolchain helper',
 ) {
     doLast {
         File sourceFolder = new File("${docDir}/${inputPath}")
         println("sourceFolder: " + sourceFolder.canonicalPath)
         sourceFolder.traverse(type: FILES) { file ->
-            if (file.name ==~ '^.*wrong2[.](ad|adoc|asciidoc)$') {
+            if (file.name ==~ '^.*(ad|adoc|asciidoc)$') {
                 CharsetToolkit toolkit = new CharsetToolkit(file);
                 // guess the encoding
                 def guessedCharset = toolkit.getCharset().toString().toUpperCase();
