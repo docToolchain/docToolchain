@@ -1,0 +1,25 @@
+:filename: manual/03_task_prependFilename.adoc
+
+ifndef::imagesdir[:imagesdir: ../images]
+
+= prependFilename
+
+include::feedback.adoc[]
+
+// image::ea/Manual/publishToConfluence.png[]
+
+When asciidoctor renders a file, the file context only knows the name of the top-level asciidoc file but an include file doesn't know that it is beeing included.
+It will simply get the name of the master file and has no chance to get his own names as attribute.
+
+This task simply crawls through all asciidoc files and prepends the name of the current file like this:
+
+    :filename: manual/03_task_prependFilename.adoc
+
+This way, each file can get its own file name.
+This enables features like the inclusion of file contributors (see exportContrbutors-task).
+
+.scripts/prependFilename.gradle
+[source, groovy]
+----
+include::../../../scripts/prependFilename.gradle[]
+----

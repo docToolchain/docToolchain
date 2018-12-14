@@ -1,0 +1,28 @@
+import static groovy.io.FileType.*
+
+task prependFilename(
+        description: 'finds and converts non UTF-8 adoc files to UTF-8',
+        group: 'docToolchain helper',
+) {
+    doLast {
+        File sourceFolder = new File("${docDir}/${inputPath}")
+        println("sourceFolder: " + sourceFolder.canonicalPath)
+        sourceFolder.traverse(type: FILES) { file ->
+            if (file.name ==~ '^.*(ad|adoc|asciidoc)$') {
+                if (file.name != "feedback.adoc") {
+                    def text = file.text
+                    def name = file.canonicalPath - sourceFolder.canonicalPath
+                    name = name.replace("\\", "/").replaceAll("^/", "")
+                    println name
+                    if (text.contains(":filename:")) {
+                        text = text.replaceAll(":filename:.*", ":filename: $name")
+                    } else {
+                        text = ":filename: $name\n" + text
+                    }
+                    file.write(text)
+                }
+            }
+        }
+    }
+}
+
