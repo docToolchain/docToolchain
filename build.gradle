@@ -34,6 +34,16 @@ if (project.name!=rootProject.name) {
             }
         }
     }
+    if (docDir=='.') {
+        throw new Exception("""
+You are running docToolchain as git submodule.
+That is great!
+Currently, it is still configured to build its own manual.
+Please configure docToolchain to point to your doc-sources.
+see https://docs-as-co.de/getstarted/tutorial2 for more details.
+        """)
+    }
+    
 }
 
 //all available docToolchain modules
