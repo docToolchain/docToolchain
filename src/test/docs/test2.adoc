@@ -57,7 +57,7 @@ NOTE: test
 https://google.de[a link]
 text
 
-:source-highlighter: pygments
+// :source-highlighter: pygments
 
 [source,ruby]
 ----
