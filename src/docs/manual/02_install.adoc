@@ -86,9 +86,10 @@ If you don't have existing documents yet, or if you need a fresh start, you can 
 format. You can do that by manually downloading from https://arc42.org/download. You can also to that by running
 `initArc42<language>` task. Currently supported languages are:
 
-- DE - German.
-- EN - English.
-- ES - Spanish.
+- DE - German
+- EN - English
+- ES - Spanish
+- RU - Russian
 
 .Linux initArc42EN example
 [source, bash]
