@@ -11,7 +11,7 @@ addons:
   apt:
     packages:
       - graphviz
-      
+
 before_cache:
   - rm -f $HOME/.gradle/caches/modules-2/modules-2.lock
 
@@ -22,5 +22,3 @@ cache:
 
 script:
 - ./gradlew test --info
-- ./gradlew
-- ./copyDocs.sh
