@@ -22,4 +22,5 @@ cache:
 
 script:
 - ./gradlew test --info
-
+- ./gradlew
+- ./copyDocs.sh
