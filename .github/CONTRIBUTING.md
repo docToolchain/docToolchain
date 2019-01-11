@@ -14,3 +14,7 @@ If you aim to make your contribution perfect, check if the manual needs an updat
 Jeder Beitrag ist willkommen - egal wie klein (Tippfehler gefunden?) oder welcher "qualität".
 We want to work together to make docToolchain better with each contribution but we also want learn as a community.
 So don't hesitate to contribute - the community will be here to help.
+
+### Licence
+
+By contributing to this project, you accept that your code will be open source under the [MIT licence](https://github.com/docToolchain/docToolchain/blob/master/LICENSE) and that you have the needed ownershipt of your contribution to put it under this licence. 
