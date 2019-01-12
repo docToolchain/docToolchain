@@ -4,10 +4,13 @@
 buildscript {
     repositories {
         jcenter()
+        //for lranpub
+        maven { url "http://dl.bintray.com/asciidoctor/maven" }
     }
 
     dependencies {
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+        classpath 'org.asciidoctor:asciidoctor-leanpub-markdown:0.1-alpha.2'
     }
 }
 import org.asciidoctor.gradle.AsciidoctorTask
@@ -244,3 +247,27 @@ task generateDeck (
     }
 }
 //end::generateDeck[]
+
+//tag::generateLeanpub[]
+task generateLeanpub (
+        type: AsciidoctorTask,
+        group: 'docToolchain',
+        description: 'use leanpub as asciidoc backend') {
+
+    onlyIf {
+        !sourceFiles.findAll {
+            'html' in it.formats
+        }.empty
+    }
+
+    sources {
+        sourceFiles.findAll {
+            'html' in it.formats
+        }.each {
+            include it.file
+        }
+    }
+
+    backends = ['leanpub']
+}
+//end::generateLeanpub[]
