@@ -41,7 +41,7 @@ Obviously, you get the most benefit if you not only have one ADR file, but sever
 
 You then include these files in your main documentation by using a single include:
 
-    include::\{targetDir}/docs/_includes/ADR_includes.adoc[]
+    include::{targetDir}/docs/_includes/ADR_includes.adoc[]
 
 .scripts/collectIncludes.gradle
 [source, groovy]
