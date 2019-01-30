@@ -562,22 +562,27 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_dependencyupdates">3.21. dependencyUpdates</a></li>
 </ul>
 </li>
-<li><a href="#_faq_frequently_asked_questions">4. FAQ: Frequently asked Questions</a>
+<li><a href="#_development">4. Development</a>
 <ul class="sectlevel2">
-<li><a href="#_images">4.1. Images</a></li>
-<li><a href="#_exportvisio_2">4.2. exportVisio</a></li>
-<li><a href="#_sparx_enterprise_architect">4.3. Sparx Enterprise Architect</a></li>
-<li><a href="#_known_error_messages">4.4. Known error Messages</a></li>
+<li><a href="#_how_to_run_tests">4.1. How to run Tests</a></li>
 </ul>
 </li>
-<li><a href="#_further_reading">5. Further Reading</a>
+<li><a href="#_faq_frequently_asked_questions">5. FAQ: Frequently asked Questions</a>
 <ul class="sectlevel2">
-<li><a href="#_links">5.1. Links</a></li>
-<li><a href="#_books">5.2. Books</a></li>
-<li><a href="#_past_and_upcoming_talks">5.3. Past and upcoming Talks</a></li>
+<li><a href="#_images">5.1. Images</a></li>
+<li><a href="#_exportvisio_2">5.2. exportVisio</a></li>
+<li><a href="#_sparx_enterprise_architect">5.3. Sparx Enterprise Architect</a></li>
+<li><a href="#_known_error_messages">5.4. Known error Messages</a></li>
 </ul>
 </li>
-<li><a href="#_acknowledgements_and_contributors">6. Acknowledgements and Contributors</a></li>
+<li><a href="#_further_reading">6. Further Reading</a>
+<ul class="sectlevel2">
+<li><a href="#_links">6.1. Links</a></li>
+<li><a href="#_books">6.2. Books</a></li>
+<li><a href="#_past_and_upcoming_talks">6.3. Past and upcoming Talks</a></li>
+</ul>
+</li>
+<li><a href="#_acknowledgements_and_contributors">7. Acknowledgements and Contributors</a></li>
 </ul>
 </div>
 </div>
@@ -1528,8 +1533,7 @@ Maybe not even within your `/src/docs`folder but right beside the code file for 
 <div class="listingblock">
 <div class="title">scripts/collectIncludes.gradle</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy"><span class="comment">//tag::collectIncludes[]</span>
-<span class="keyword">import</span> <span class="include">static</span> <span class="include">groovy.io.FileType.*</span>
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="keyword">import</span> <span class="include">static</span> <span class="include">groovy.io.FileType.*</span>
 <span class="keyword">import</span> <span class="include">java.security.MessageDigest</span>
 
 task collectIncludes(
@@ -1566,10 +1570,7 @@ task collectIncludes(
             }
         }
     }
-}
-
-
-<span class="comment">//end::collectIncludes[]</span></code></pre>
+}</code></pre>
 </div>
 </div>
 <hr>
@@ -4293,7 +4294,85 @@ Blog-Post: <a href="https://rdmueller.github.io/dependency-update/">Handle Depen
 </div>
 </div>
 <div class="sect1">
-<h2 id="_faq_frequently_asked_questions">4. FAQ: Frequently asked Questions</h2>
+<h2 id="_development">4. Development</h2>
+<div class="sectionbody">
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/08_development.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/documentation/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/08_development.adoc"><img src="https://img.shields.io/badge/create-an%20issue-blue.svg" alt="create an%20issue blue"></a>
+</div>
+</div>
+<div class="paragraph">
+<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?d=identicon" alt="" width="32" title=""></span></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>1 minute to read</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>INFO: this chapter is still work in progress</p>
+</div>
+<div class="sect2">
+<h3 id="_how_to_run_tests">4.1. How to run Tests</h3>
+<div class="sect3">
+<h4 id="_prerequisites">4.1.1. Prerequisites</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>make sure that Git and Graphvis are installed</p>
+</li>
+<li>
+<p>make sure that your Gradle setup is able to work with proxies</p>
+</li>
+<li>
+<p>use Java 8</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_prepare_the_project">4.1.2. Prepare the Project</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">git clone git@github.com:docToolchain/docToolchain.git
+cd docToolchain/
+git checkout V1.0.0         <i class="conum" data-value="1"></i><b>(1)</b>
+git submodule update -i</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>the version to test. Not needed if you work on the HEAD revision on Master</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_execute_tests">4.1.3. Execute Tests</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="bash">rm -r build &amp;&amp; ./gradlew test --info</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The <code>rm</code> command ensures that you really have a clean test running.
+Otherwise you might get false positives because Gradle will skip steps ('Up-to-date') because artifacts of an older test run still exist.</p>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_faq_frequently_asked_questions">5. FAQ: Frequently asked Questions</h2>
 <div class="sectionbody">
 <div class="imageblock" style="float: right">
 <div class="content">
@@ -4343,7 +4422,7 @@ It will also contain questions relevant to the tools used to build docToolchain,
 </ul>
 </div>
 <div class="sect2">
-<h3 id="_images">4.1. Images</h3>
+<h3 id="_images">5.1. Images</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4358,7 +4437,7 @@ It will also contain questions relevant to the tools used to build docToolchain,
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_q_why_are_images_not_shown_in_the_preview_of_my_editor">4.1.1. Q: Why are images not shown in the preview of my editor?</h4>
+<h4 id="_q_why_are_images_not_shown_in_the_preview_of_my_editor">5.1.1. Q: Why are images not shown in the preview of my editor?</h4>
 <div class="paragraph">
 <p>A: this is most likely because your editor doesn&#8217;t know where they are stored.
 If you follow the default settings, you probably store your images in a subfolder <code>images</code>.
@@ -4372,7 +4451,7 @@ The build script knows about it, because the attribute <code>imagesdir</code> ha
 </div>
 </div>
 <div class="sect3">
-<h4 id="_q_which_image_format_should_i_use">4.1.2. Q: Which image format should I use?</h4>
+<h4 id="_q_which_image_format_should_i_use">5.1.2. Q: Which image format should I use?</h4>
 <div class="paragraph">
 <p>A: AsciiDoc and AsciiDoctor support several formats like GIF, PNG, JPG and SVG.
 However, if you want to use most features, some formats are better to use than others:</p>
@@ -4402,7 +4481,7 @@ All output formats support it and if diagrams are rendered with a resolution hig
 </div>
 </div>
 <div class="sect3">
-<h4 id="_q_why_are_my_images_rotated_in_the_output">4.1.3. Q: Why are my images rotated in the output?</h4>
+<h4 id="_q_why_are_my_images_rotated_in_the_output">5.1.3. Q: Why are my images rotated in the output?</h4>
 <div class="paragraph">
 <p>A: This most likely happens when you&#8217;ve taken photos with a mobile device and include them in you docs.
 A mobile device does not rotate the image itself, it only stores the orientation of the device in the meta data of the photo.
@@ -4413,9 +4492,9 @@ You can also try to just open the image in your favourite editor and re-save it.
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportvisio_2">4.2. exportVisio</h3>
+<h3 id="_exportvisio_2">5.2. exportVisio</h3>
 <div class="sect3">
-<h4 id="_q_i_get_an_error_message_saying_that_a_library_is_not_registered_when_i_try_to_run_the_code_exportvisio_code_task">4.2.1. Q: I get an error message saying that a library is not registered when I try to run the <code>exportVisio</code>-task.</h4>
+<h4 id="_q_i_get_an_error_message_saying_that_a_library_is_not_registered_when_i_try_to_run_the_code_exportvisio_code_task">5.2.1. Q: I get an error message saying that a library is not registered when I try to run the <code>exportVisio</code>-task.</h4>
 <div class="listingblock">
 <div class="content">
 <pre>Ausnahme beim Festlegen von "Visible": "Das COM-Objekt des Typs "Microsoft.Office.Interop.Visio.ApplicationClass" kann nicht in den Schnittstellentyp
@@ -4436,9 +4515,9 @@ You can fix this by visiting the windows system settings &#8594; install or unin
 </div>
 </div>
 <div class="sect2">
-<h3 id="_sparx_enterprise_architect">4.3. Sparx Enterprise Architect</h3>
+<h3 id="_sparx_enterprise_architect">5.3. Sparx Enterprise Architect</h3>
 <div class="sect3">
-<h4 id="_q_sparx_enterprise_architect_is_a_windows_tool_isn_t_it">4.3.1. Q: Sparx Enterprise Architect is a Windows tool, isn&#8217;t it?</h4>
+<h4 id="_q_sparx_enterprise_architect_is_a_windows_tool_isn_t_it">5.3.1. Q: Sparx Enterprise Architect is a Windows tool, isn&#8217;t it?</h4>
 <div class="paragraph">
 <p>Yes, it is, but it is written to support CrossOver in order to run on Linux based systems. Wine, the open source branch of CrossOver seems to work as well.</p>
 </div>
@@ -4451,9 +4530,9 @@ You can fix this by visiting the windows system settings &#8594; install or unin
 </div>
 </div>
 <div class="sect2">
-<h3 id="_known_error_messages">4.4. Known error Messages</h3>
+<h3 id="_known_error_messages">5.4. Known error Messages</h3>
 <div class="sect3">
-<h4 id="_q_i_get_the_error_saying_failed_to_create_md5_hash_for_file_content">4.4.1. Q: I get the error saying 'Failed to create MD5 hash for file content'.</h4>
+<h4 id="_q_i_get_the_error_saying_failed_to_create_md5_hash_for_file_content">5.4.1. Q: I get the error saying 'Failed to create MD5 hash for file content'.</h4>
 <div class="listingblock">
 <div class="content">
 <pre>* What went wrong:
@@ -4478,7 +4557,7 @@ Bash Shell.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_q_i_get_the_error_saying_unsupported_major_minor_version_52_0">4.4.2. Q: I get the error saying 'Unsupported major.minor version 52.0'</h4>
+<h4 id="_q_i_get_the_error_saying_unsupported_major_minor_version_52_0">5.4.2. Q: I get the error saying 'Unsupported major.minor version 52.0'</h4>
 <div class="paragraph">
 <p>This is a sign that you use an outdaed version of Java.
 Please upgrade to at least Java 8.</p>
@@ -4490,7 +4569,7 @@ Please upgrade to at least Java 8.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_further_reading">5. Further Reading</h2>
+<h2 id="_further_reading">6. Further Reading</h2>
 <div class="sectionbody">
 <div class="imageblock" style="float: right">
 <div class="content">
@@ -4514,7 +4593,7 @@ Please upgrade to at least Java 8.</p>
 <p>This chapter lists some additional references to interesting resources.</p>
 </div>
 <div class="sect2">
-<h3 id="_links">5.1. Links</h3>
+<h3 id="_links">6.1. Links</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4553,7 +4632,7 @@ Please upgrade to at least Java 8.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_books">5.2. Books</h3>
+<h3 id="_books">6.2. Books</h3>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -4567,7 +4646,7 @@ links to Amazon are affiliate links
 </table>
 </div>
 <div class="sect3">
-<h4 id="_english_books">5.2.1. English Books</h4>
+<h4 id="_english_books">6.2.1. English Books</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4589,7 +4668,7 @@ links to Amazon are affiliate links
 </div>
 </div>
 <div class="sect3">
-<h4 id="_german_books">5.2.2. German Books</h4>
+<h4 id="_german_books">6.2.2. German Books</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -4603,9 +4682,9 @@ links to Amazon are affiliate links
 </div>
 </div>
 <div class="sect2">
-<h3 id="_past_and_upcoming_talks">5.3. Past and upcoming Talks</h3>
+<h3 id="_past_and_upcoming_talks">6.3. Past and upcoming Talks</h3>
 <div class="sect3">
-<h4 id="_dokumentation_am_riesen_beispiel_arc42_asciidoc_und_co_in_aktion">5.3.1. Dokumentation am (Riesen-)Beispiel – arc42, AsciiDoc und Co. in Aktion</h4>
+<h4 id="_dokumentation_am_riesen_beispiel_arc42_asciidoc_und_co_in_aktion">6.3.1. Dokumentation am (Riesen-)Beispiel – arc42, AsciiDoc und Co. in Aktion</h4>
 <div class="paragraph">
 <p><a href="https://twitter.com/gernotstarke">Gernot Starke</a> and <a href="https://twitter.com/ralfdmueller">Ralf D. Müller</a></p>
 </div>
@@ -4631,7 +4710,7 @@ Einige Teile dieser Doku können Sie sogar automatisiert testen.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_gesunde_dokumentation_mit_asciidoctor">5.3.2. Gesunde Dokumentation mit AsciiDoctor</h4>
+<h4 id="_gesunde_dokumentation_mit_asciidoctor">6.3.2. Gesunde Dokumentation mit AsciiDoctor</h4>
 <div class="paragraph">
 <p><a href="https://twitter.com/ahus1de">Alexander Schwartz</a></p>
 </div>
@@ -4658,7 +4737,7 @@ Einige Teile dieser Doku können Sie sogar automatisiert testen.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_acknowledgements_and_contributors">6. Acknowledgements and Contributors</h2>
+<h2 id="_acknowledgements_and_contributors">7. Acknowledgements and Contributors</h2>
 <div class="sectionbody">
 <div class="imageblock" style="float: right">
 <div class="content">
@@ -4774,7 +4853,7 @@ This project depends and builds on them.</p>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-01-18 09:58:34 MEZ
+Last updated 2019-01-30 20:19:35 MEZ
 </div>
 </div>
 </body>
