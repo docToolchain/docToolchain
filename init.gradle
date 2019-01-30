@@ -2,6 +2,7 @@
 buildscript {
     repositories {
         jcenter()
+        mavencenter()
     }
     dependencies {
         classpath 'de.undercouch:gradle-download-task:3.3.0'
