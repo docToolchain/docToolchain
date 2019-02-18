@@ -11,7 +11,8 @@ This helps us to track changes.
 
 If you aim to make your contribution perfect, check if the manual needs an update because of your contribution and try to add an automated test for your change.
 
-Jeder Beitrag ist willkommen - egal wie klein (Tippfehler gefunden?) oder welcher "qualität".
+Every contribution is valuable - no matter how smal (found a typo?) or of which quality (remember it's a pull request - we will brush it up if we think it needs to).
+
 We want to work together to make docToolchain better with each contribution but we also want learn as a community.
 So don't hesitate to contribute - the community will be here to help.
 
