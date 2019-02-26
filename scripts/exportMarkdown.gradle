@@ -1,10 +1,13 @@
 buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
     dependencies {
         //for the markdown conversion
         classpath 'nl.jworks.markdown_to_asciidoc:markdown_to_asciidoc:1.0'
-    }
-    repositories {
-        jcenter()
     }
 }
 
