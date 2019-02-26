@@ -1,0 +1,20 @@
+== Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog],
+and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic Versioning].
+
+== Unreleased
+
+=== Added
+
+2019-02-26::
+- first draft of `exportMetrics` task
+
+=== Changed
+
+-
+
+== Released
+

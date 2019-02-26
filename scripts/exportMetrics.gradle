@@ -1,0 +1,39 @@
+//tag::exportMetrics[]
+import static groovy.io.FileType.*
+import java.security.MessageDigest
+
+task exportMetrics(
+        description: 'exports some metrics for your texts',
+        group: 'docToolchain'
+) {
+    doLast {
+        File sourceFolder = new File("${docDir}/${inputPath}")
+        println "sourceFolder: " + sourceFolder.canonicalPath
+        def targetFile = new File(targetDir, "metrics.csv")
+        targetFile.write("date, numWords, file\n")
+        sourceFolder.traverse(type: FILES) { file ->
+            if (file.name ==~ '^.*[.](ad|adoc|asciidoc)$') {
+                def currentFileName = file.canonicalPath.replace("\\", "\\\\")
+                def numWords = getNumWords(currentFileName)
+                println("\u023F1 $numWords in File $currentFileName")
+                targetFile.append("${new Date().format('YYYY.MM.dd')}, $numWords, $currentFileName\n")
+            }
+        }
+        println ""
+    }
+}
+
+def getNumWords(def filename) {
+    def file = new File(filename)
+
+    String[] words =
+            file
+                    .text
+                    .trim()
+                    .split("\\s+");
+
+    return words.size()
+}
+
+//end::exportMetrics[]
+
