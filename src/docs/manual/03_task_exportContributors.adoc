@@ -6,4 +6,4 @@ ifndef::imagesdir[:imagesdir: ../images]
 include::feedback.adoc[]
 
 This tasks crawls through all asciidoctor source files and extracts a list of contributors.
-This list is then rendred as asciidoc images of the contributor's gravatar picture.
+This list is then rendered as asciidoc images of the contributor's gravatar picture.

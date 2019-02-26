@@ -10,7 +10,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === Added
 
 2019-02-26::
-- first draft of `exportMetrics` task
+- first version of `exportMetrics` task
 
 === Changed
 
