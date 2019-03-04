@@ -60,21 +60,24 @@ confluence = [:]
 //                            if a new parent shall be created in the space
 // - 'preambleTitle' (optional): the title of the page containing the preamble (everything
 //                            before the first second level heading). Default is 'arc42'
+//
+// The following four keys can also be used in the global section below
 // - 'spaceKey' (optional): page specific variable for the key of the confluence space to write to
 // - 'createSubpages' (optional): page specific variable to determine whether ".sect2" sections shall be split from the current page into subpages
 // - 'pagePrefix' (optional): page specific variable, the pagePrefix will be a prefix for the page title and it's sub-pages
 //                            use this if you only have access to one confluence space but need to store several
 //                            pages with the same title - a different pagePrefix will make them unique
-//
+// - 'pageSuffix' (optional): same usage as prefix but appended to the title and it's subpages
 // only 'file' or 'url' is allowed. If both are given, 'url' is ignored
 confluence.with {
     input = [
             [ file: "build/docs/html5/arc42-template-de.html" ],
     ]
 
-
     // endpoint of the confluenceAPI (REST) to be used
     api = 'https://[yourServer]/[context]/rest/api/'
+
+//    Additionally, spaceKey, createSubpages, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
 
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
@@ -86,6 +89,8 @@ confluence.with {
     // use this if you only have access to one confluence space but need to store several
     // pages with the same title - a different pagePrefix will make them unique
     pagePrefix = ''
+
+    pageSuffix = ''
 
     // username:password of an account which has the right permissions to create and edit
     // confluence pages in the given space.
