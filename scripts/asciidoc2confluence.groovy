@@ -73,7 +73,15 @@ void trythis (Closure action) {
         action.run()
     } catch (HttpResponseException error) {
         println "something went wrong - got an http response code "+error.response.status+":"
-        println error.response.data
+        switch (error.response.status) {
+            case '401':
+                println (error.response.data.toString().replaceAll("^.*Reason","Reason"))
+                println "please check your confluence credentials in "+configFile.canonicalPath
+                throw new Exception("missing authentication credentials")
+                break
+            default:
+                println error.response.data
+        }
         //throw error
     }
 }
@@ -502,15 +510,15 @@ config.confluence.input.each { input ->
     if (input.file ==~ /.*[.](ad|adoc|asciidoc)$/) {
         println "convert ${input.file}"
         "groovy asciidoc2html.groovy ${input.file}".execute()
-        input.file = input.file.replaceAll(/[.](ad|adoc|asciidoc)$/,'.html')
+        input.file = input.file.replaceAll(/[.](ad|adoc|asciidoc)$/, '.html')
         println "to ${input.file}"
     }
-    confluenceSpaceKey = input.spaceKey?:config.confluence.spaceKey
-    confluenceCreateSubpages = (input.createSubpages!= null)?input.createSubpages:config.confluence.createSubpages
-    confluencePagePrefix = input.pagePrefix?:config.confluence.pagePrefix
+    confluenceSpaceKey = input.spaceKey ?: config.confluence.spaceKey
+    confluenceCreateSubpages = (input.createSubpages != null) ? input.createSubpages : config.confluence.createSubpages
+    confluencePagePrefix = input.pagePrefix ?: config.confluence.pagePrefix
 
-    def html =input.file?new File(input.file).getText('utf-8'):new URL(input.url).getText()
-    baseUrl  =input.file?new File(input.file):new URL(input.url)
+    def html = input.file ? new File(input.file).getText('utf-8') : new URL(input.url).getText()
+    baseUrl = input.file ? new File(input.file) : new URL(input.url)
     Document dom = Jsoup.parse(html, 'utf-8', Parser.xmlParser())
     dom.outputSettings().prettyPrint(false);//makes html() preserve linebreaks and spacing
     dom.outputSettings().escapeMode(org.jsoup.nodes.Entities.EscapeMode.xhtml); //This will ensure xhtml validity regarding entities
@@ -522,7 +530,6 @@ config.confluence.input.each { input ->
     def anchors = [:]
     def pageAnchors = [:]
     def sections = pages = []
-
     // let's try to select the "first page" and push it to confluence
     dom.select('div#preamble div.sectionbody').each { pageBody ->
         pageBody.select('div.sect2').unwrap()
@@ -573,5 +580,10 @@ config.confluence.input.each { input ->
     }
 
     pushPages pages, anchors, pageAnchors
+    if (parentId) {
+        println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}/pages/${parentId}"
+    } else {
+        println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}"
+    }
 }
 ""

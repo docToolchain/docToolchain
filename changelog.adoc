@@ -14,7 +14,10 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === Changed
 
--
+2019-03-08::
+* asciidoc2confluence
+** added output where docs are published to
+** added better error message in case of failing authorization
 
 == Released
 
