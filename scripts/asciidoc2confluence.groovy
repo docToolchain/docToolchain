@@ -157,7 +157,7 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
 
 
 def realTitle = { pageTitle ->
-    confluencePagePrefix + pageTitle
+    confluencePagePrefix + pageTitle + confluencePageSuffix
 }
 
 def rewriteMarks = { body ->
@@ -369,7 +369,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
             type : 'page',
             title: realTitle(pageTitle),
             space: [
-                    key: config.confluence.spaceKey
+                    key: confluenceSpaceKey
             ],
             body : [
                     storage: [
@@ -386,7 +386,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
 
     def pages
     trythis {
-        def cql = "space='${config.confluence.spaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
+        def cql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
         if (parentId) {
             cql += " AND parent=${parentId}"
         }
@@ -436,7 +436,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
         if (parentId) {
             def foreignPages
             trythis {
-                def foreignCql = "space='${config.confluence.spaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
+                def foreignCql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
                 foreignPages = api.get(path: 'content/search',
                                       query: ['cql' : foreignCql],
                                     headers: headers).data.results
@@ -513,9 +513,13 @@ config.confluence.input.each { input ->
         input.file = input.file.replaceAll(/[.](ad|adoc|asciidoc)$/, '.html')
         println "to ${input.file}"
     }
+//  assignend, but never used in pushToConfluence(...) (fixed here)
     confluenceSpaceKey = input.spaceKey ?: config.confluence.spaceKey
     confluenceCreateSubpages = (input.createSubpages != null) ? input.createSubpages : config.confluence.createSubpages
+//  hard to read in case of using :sectnums: -> so we add a suffix
     confluencePagePrefix = input.pagePrefix ?: config.confluence.pagePrefix
+//  added
+    confluencePageSuffix = input.pageSuffix ?: config.confluence.pageSuffix
 
     def html = input.file ? new File(input.file).getText('utf-8') : new URL(input.url).getText()
     baseUrl = input.file ? new File(input.file) : new URL(input.url)
