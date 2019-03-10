@@ -100,8 +100,6 @@ cd <docToolchain home>
 
 The Config.groovy file is then preconfigured to use the downloaded template.
 
-IMPORTANT: there is currently https://github.com/docToolchain/docToolchain/issues/259[a bug] in the setup / configuration if you use this approach to install docToolchain. To workaround it, go to <docToolchain home> and set the `inputPath` property in `gradle.properties` to `.`. Alternativly, use the approach described in our https://docs-as-co.de/getstarted/tutorial2[tutorial].
-
 TIP: Blog-Post: https://rdmueller.github.io/arc42/[Let's add Content!]
 
 == Build

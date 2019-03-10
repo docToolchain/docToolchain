@@ -26,7 +26,7 @@ if (docDir.startsWith('.')) {
     docDir = new File(projectDir, docDir).canonicalPath
 }
 if (pdfThemeDir.startsWith('.')) {
-    pdfThemeDir = new File(projectDir, pdfThemeDir).canonicalPath
+    pdfThemeDir = new File(docDir, pdfThemeDir).canonicalPath
 }
 logger.info "docToolchain> docDir: ${docDir}"
 logger.info "docToolchain> mainConfigFile: ${mainConfigFile}"
@@ -247,4 +247,3 @@ task generateDeck (
     }
 }
 //end::generateDeck[]
-
