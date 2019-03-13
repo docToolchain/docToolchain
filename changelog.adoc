@@ -1,0 +1,31 @@
+== Changelog
+
+All notable changes to this project will be documented in this file.
+
+The format is based on https://keepachangelog.com/en/1.0.0/[Keep a Changelog],
+and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic Versioning].
+
+== Unreleased
+
+=== Added
+
+2019-02-26::
+- first version of `exportMetrics` task
+
+=== Changed
+
+2019-03-13::
+* prependFilename
+** fixed proper handling of file encoding
+** brushed up logging
+** `config.*`, `_config.*`, `feedback.*`, `_feedback.*` are excluded
+
+2019-03-06::
+* collectIncludes
+** changed regexp to accept ^[A-Z]{3,}-.*$ as file name, eg. all Files which start with an upper case word of at least 3 chars followed by a dash
+** fixed `sourceFolder` to work with docToolchain as submodule
+** added better console output
+** skip `docToolchain`-folder if used as submodule
+
+== Released
+
