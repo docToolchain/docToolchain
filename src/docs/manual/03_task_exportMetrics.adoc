@@ -1,0 +1,11 @@
+:filename: manual/03_task_exportMetrics.adoc
+ifndef::imagesdir[:imagesdir: ../images]
+
+= exportMetrics
+
+include::feedback.adoc[]
+
+This tasks crawls through all asciidoctor source files and extracts the number of words in each file.
+At the end, it displays the number of words overall.
+
+This task ist currently only intended to give you an output on the commandline to measure your writing progress.

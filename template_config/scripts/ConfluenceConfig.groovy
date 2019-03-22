@@ -1,4 +1,4 @@
-
+// Outdated: see docToolchain/Config.groovy
 // 'input' is an array of files to upload to Confluence with the ability
 //          to configure a different parent page for each file.
 //

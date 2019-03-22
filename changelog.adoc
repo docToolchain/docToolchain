@@ -10,7 +10,10 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === Added
 
 2019-02-26::
-- first version of `exportMetrics` task
+* first version of `exportMetrics` task
+https://github.com/docToolchain/docToolchain/commit/c25ac52e43ccb1d45fa538c06d376258b41e8e32[c25ac52e], https://github.com/docToolchain/docToolchain/commit/a752acfb00206b3ac875b9ab585cd54e9d8fde89[a752acfb]
+2019-03-08::
+* Add TomTom logo as company who uses docToolchain https://github.com/docToolchain/docToolchain/pull/284[PR#284]
 
 === Changed
 
@@ -20,12 +23,15 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 ** brushed up logging
 ** `config.*`, `_config.*`, `feedback.*`, `_feedback.*` are excluded
 
-2019-03-06::
-* collectIncludes
-** changed regexp to accept ^[A-Z]{3,}-.*$ as file name, eg. all Files which start with an upper case word of at least 3 chars followed by a dash
-** fixed `sourceFolder` to work with docToolchain as submodule
-** added better console output
-** skip `docToolchain`-folder if used as submodule
+2019-03-08::
+* asciidoc2confluence
+** added output where docs are published to and added better error message in case of failing authorization https://github.com/docToolchain/docToolchain/commit/1bc146ccc493b4c381cb09742ac71ef44265d990[1bc146c]
+
+=== Fixed
+
+2019-03-08::
+* asciidooc2confluence
+** #227 `spaceKey` was ignored https://github.com/docToolchain/docToolchain/pull/279/[PR#297]
 
 == Released
 

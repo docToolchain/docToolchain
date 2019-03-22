@@ -21,9 +21,11 @@ task publishToConfluence(
 ) {
     doLast {
         logger.info("docToolchain> docDir: "+docDir)
-        def config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text)
+        def configFile = new File(docDir, mainConfigFile)
+        def config = new ConfigSlurper().parse(configFile.text)
         binding.setProperty('config',config)
         binding.setProperty('docDir',docDir)
+        binding.setProperty('configFile', configFile)
         evaluate(new File(projectDir, 'scripts/asciidoc2confluence.groovy'))
     }
 }

@@ -25,10 +25,10 @@ ancestorId::
 api::
 for could instances, `[context]` is `wiki`
 
-pagePrefix::
+pagePrefix/pageSuffix::
 Confluence can't handle two pages with the same name.
 So you should create a new confluence space for each piece of larger documentation.
-If you are restricted and can't create new spaces, you can use this `pagePrefix` to define a prefix for this doc so that it doesn't conflict with other page names.
+If you are restricted and can't create new spaces, you can use this `pagePrefix`/`pageSuffix` to define a prefix/suffix for this doc so that it doesn't conflict with other page names.
 
 credentials::
 Use username and password or even better username and api-token.
