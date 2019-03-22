@@ -17,6 +17,12 @@ https://github.com/docToolchain/docToolchain/commit/c25ac52e43ccb1d45fa538c06d37
 
 === Changed
 
+2019-03-13::
+* prependFilename
+** fixed proper handling of file encoding
+** brushed up logging
+** `config.*`, `_config.*`, `feedback.*`, `_feedback.*` are excluded
+
 2019-03-08::
 * asciidoc2confluence
 ** added output where docs are published to and added better error message in case of failing authorization https://github.com/docToolchain/docToolchain/commit/1bc146ccc493b4c381cb09742ac71ef44265d990[1bc146c]
