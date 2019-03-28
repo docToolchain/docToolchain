@@ -565,7 +565,8 @@ config.confluence.input.each { input ->
                 def title = sect2.select('h3').text()
                 pageAnchors.putAll(recordPageAnchor(sect2.select('h3')))
                 sect2.select('h3').remove()
-                def body = sect2
+                def body = Jsoup.parse(sect2.toString(),'utf-8', Parser.xmlParser())
+                body.outputSettings(new Document.OutputSettings().prettyPrint(false))
                 def subPage = [
                     title: title,
                     body: body
