@@ -111,15 +111,15 @@ This should already be enough to start a first build.
 .Linux
 [source, bash]
 ----
-doctoolchain <docDir> generateHTML
-doctoolchain <docDir> generatePDF
+bin/doctoolchain <docDir> generateHTML
+bin/doctoolchain <docDir> generatePDF
 ----
 
 .Windows
 [source]
 ----
-doctoolchain.bat <docDir> generateHTML
-doctoolchain.bat <docDir> generatePDF
+bin\doctoolchain.bat <docDir> generateHTML
+bin\doctoolchain.bat <docDir> generatePDF
 ----
 
 <docDir> may be relative, e.g. ".", or absolute.
@@ -163,8 +163,8 @@ The paths to those configuration files can be provided by giving -P option to do
 [source, bash]
 ----
 # Uses scripts/ConfluenceConfig.groovy by default
-doctoolchain <docDir> publishToConfluence --no-daemon -q
+bin/doctoolchain <docDir> publishToConfluence --no-daemon -q
 
 # Uses scripts/MyConfluenceConfig.groovy
-doctoolchain <docDir> publishToConfluence -PconfluenceConfigFile=scripts/MyConfluenceConfig.groovy --no-daemon -q
+bin/doctoolchain <docDir> publishToConfluence -PconfluenceConfigFile=scripts/MyConfluenceConfig.groovy --no-daemon -q
 ----
