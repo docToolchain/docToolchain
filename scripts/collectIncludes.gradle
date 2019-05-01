@@ -12,7 +12,12 @@ task collectIncludes(
     doLast {
         //let's search the whole project for files, not only the docs folder
         //could be a problem with node projects :-)
-        File sourceFolder = projectDir
+        if (scanDir.startsWith('.')) {
+            scanDir = file(new File(docDir, scanDir))//.canonicalPath
+        }
+        logger.info "docToolchain> scanDir: ${scanDir}"
+
+        File sourceFolder = scanDir
         println "sourceFolder: " + sourceFolder.canonicalPath
         def collections = [:]
         sourceFolder.traverse(type: FILES) { file ->
@@ -24,7 +29,7 @@ task collectIncludes(
                 collections[type] << (file.canonicalPath - projectDir.canonicalPath)[1..-1]
             }
         }
-        def pathDiff = '../' * ((targetDir - projectDir.canonicalPath)
+        def pathDiff = '../' * ((targetDir - scanDir.canonicalPath)
                                     .replaceAll('^/','')
                                     .replaceAll('/$','')
                                     .replaceAll("[^/]",'').size()+1)
