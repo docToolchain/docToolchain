@@ -19,7 +19,7 @@ class GenerateHTMLSpec extends Specification {
         when: 'the gradle task is invoked'
             def result = GradleRunner.create()
                     .withProjectDir(new File('.'))
-                    .withArguments(['generateHTML','--info','-PmainConfigFile=src/test/config.groovy'])
+                    .withArguments(['generateHTML','--info', '-PinputPath=src/test/docs', '-PmainConfigFile=src/test/config.groovy'])
                     .build()
         then: 'the task has been successfully executed'
             result.task(":generateHTML").outcome == SUCCESS
@@ -28,6 +28,8 @@ class GenerateHTMLSpec extends Specification {
             result.output.contains('image to embed not found or not readable') == false
         and: 'the output does not contain the warning "invalid style for listing block: plantuml'
             result.output.contains('invalid style for listing block: plantuml') == false
+        and: 'an output file has been created'
+            new File('build/test/docs/html5/test.html').exists()
     }
 
 }
