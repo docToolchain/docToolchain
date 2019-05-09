@@ -19,7 +19,7 @@ class GeneratePdfSpec extends Specification {
         when: 'the gradle task is invoked'
             def result = GradleRunner.create()
                     .withProjectDir(new File('.'))
-                    .withArguments(['generatePDF','--info','-PmainConfigFile=config_pdf.groovy', '-PdocDir=./src/test/', '-PinputPath=docs'])
+                    .withArguments(['generatePDF','--info', '-PinputPath=src/test/docs', '-PmainConfigFile=src/test/config_pdf.groovy'])
                     .build()
         then: 'the task has been successfully executed'
         println result.output
