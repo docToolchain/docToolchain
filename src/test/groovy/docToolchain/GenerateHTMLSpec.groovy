@@ -11,7 +11,7 @@ class GenerateHTMLSpec extends Specification {
 
     void 'test correct handling of plantUML'() {
         when: 'input file contains a plantuml diagram'
-            def file = new File('src/test/docs/test.adoc')
+            def file = new File('./src/test/docs/test.adoc')
             println file.canonicalPath
             def fileContent = file.text
         then: ''
@@ -19,7 +19,7 @@ class GenerateHTMLSpec extends Specification {
         when: 'the gradle task is invoked'
             def result = GradleRunner.create()
                     .withProjectDir(new File('.'))
-                    .withArguments(['generateHTML','--info', '-PinputPath=src/test/docs', '-PmainConfigFile=src/test/config.groovy'])
+                    .withArguments(['generateHTML','--info', '-PinputPath=./src/test/docs', '-PmainConfigFile=./src/test/config.groovy'])
                     .build()
         then: 'the task has been successfully executed'
             result.task(":generateHTML").outcome == SUCCESS
@@ -29,7 +29,7 @@ class GenerateHTMLSpec extends Specification {
         and: 'the output does not contain the warning "invalid style for listing block: plantuml'
             result.output.contains('invalid style for listing block: plantuml') == false
         and: 'an output file has been created'
-            new File('build/test/docs/html5/test.html').exists()
+            new File('./build/test/docs/html5/test.html').exists()
     }
 
 }

@@ -8,7 +8,7 @@ import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
 class ExportMarkdownSpec extends Specification {
 
 
-    public static final File exportedMarkdownFile = new File('./build/docs/exportMarkdownDocs.adoc')
+    public static final File exportedMarkdownFile = new File('./build/docs/src/docs/exportMarkdownDocs.adoc')
 
     void 'test conversion of sample markdown file'() {
 

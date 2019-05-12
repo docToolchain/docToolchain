@@ -19,7 +19,7 @@ class GenerateDeckSpec extends Specification {
         then: 'the task has been successfully executed'
             result.task(":generateDeck").outcome == SUCCESS
         and:  'an output file has been created'
-            new File('build/test/docs/decks/html5/test.html').exists()
+            new File('./build/test/docs/decks/html5/test.html').exists()
     }
 
     void 'test skipped generation of slide deck'() {
