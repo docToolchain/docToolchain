@@ -1,7 +1,8 @@
 
 outputPath = 'build/test/docs'
 
-inputPath = 'src/test/docs'
+//this input path is ignored
+//inputPath = 'src/test/docs'
 
 inputFiles = [
         [file: 'test.adoc', formats: ['html','revealjs','pdf','docbook']],

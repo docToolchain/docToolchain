@@ -80,6 +80,9 @@ cd <docToolchain home>
 You need to open Config.groovy file and configure names of your files properly.
 You may also change the PDF schema file to your taste.
 
+IMPORTANT: docToolchain use by default `src/docs` as the directory of your documentation. If you use a different directory you need to go to <docToolchain home> and set the `inputPath` property in `gradle.properties` to `your/path`.
+
+
 === arc42 from scratch
 
 If you don't have existing documents yet, or if you need a fresh start, you can get the https://arc42.org[arc42] template in AsciiDoc

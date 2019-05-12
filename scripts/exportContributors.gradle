@@ -23,17 +23,18 @@ task exportContributors(
             if (file.name ==~ '^.*[.](ad|adoc|asciidoc)$') {
                 def currentFileName = file.canonicalPath.replace("\\", "\\\\")
                 def readingtime = getReadingtime(currentFileName, wordsPerMinute)
-                def contributors = "git shortlog -sen --no-merges  HEAD \"${currentFileName}\""
-                        .execute()
-                        .text
-                        .split("\n")
-                        .collect { line ->
-                    def matcher = line =~ /[\t ]*([0-9]+)[\t ]+([^<]+)<([^>]+)>/
-                    if (matcher) {
-                        [matcher[0][2], matcher[0][3]]
-                    } else {
-                        ["", ""]
-                    }
+                def contributors = ["git", "shortlog", "-sen", "--no-merges",  "HEAD", currentFileName].execute()
+                contributors.waitForOrKill(1000)
+                contributors = contributors
+                                    .text
+                                    .split("\n")
+                                    .collect { line ->
+                                def matcher = line =~ /[\t ]*([0-9]+)[\t ]+([^<]+)<([^>]+)>/
+                                if (matcher) {
+                                    [matcher[0][2], matcher[0][3]]
+                                } else {
+                                    ["", ""]
+                                }
                 }.unique { a, b -> a[1] <=> b[1] }
                 def avatars = contributors.collect {
                     "image:http://www.gravatar.com/avatar/" +
