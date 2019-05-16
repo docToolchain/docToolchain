@@ -38,8 +38,12 @@ if (project.name!=rootProject.name) {
         throw new Exception("""
 You are running docToolchain as git submodule.
 That is great!
-Currently, it is still configured to build its own manual.
+Currently, it is still configured to build its own manual,
+because the property docDir points to docToolchain itself.
 Please configure docToolchain to point to your doc-sources.
+You can do so by specifying it in your build.gradle or on the
+command line. Example:
+./gradlew generateHTML -PdocDir=../.
 see https://docs-as-co.de/getstarted/tutorial2 for more details.
         """)
     }
