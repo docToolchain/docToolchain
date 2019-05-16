@@ -1,4 +1,6 @@
 
+inputPath = 'testPdfDefaultThemeDocs'
+
 outputPath = '../build/test/docs'
 
 inputFiles = [

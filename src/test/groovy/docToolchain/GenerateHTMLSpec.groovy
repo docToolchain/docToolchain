@@ -19,7 +19,7 @@ class GenerateHTMLSpec extends Specification {
         when: 'the gradle task is invoked'
             def result = GradleRunner.create()
                     .withProjectDir(new File('.'))
-                    .withArguments(['generateHTML','--info', '-PinputPath=./src/test/docs', '-PmainConfigFile=./src/test/config.groovy'])
+                    .withArguments(['generateHTML','--info', '-PmainConfigFile=./src/test/config.groovy'])
                     .build()
         then: 'the task has been successfully executed'
             result.task(":generateHTML").outcome == SUCCESS

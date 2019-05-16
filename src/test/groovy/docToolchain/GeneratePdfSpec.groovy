@@ -21,8 +21,7 @@ class GeneratePdfSpecWithDefaultTheme extends Specification {
                     .withProjectDir(new File('.'))
                     .withArguments(['generatePDF','--info',
                         '-PdocDir=./src/test/testPdfDefaultTheme',
-                        '-PmainConfigFile=testPdfDefaultThemeConfig.groovy',
-                        '-PinputPath=testPdfDefaultThemeDocs'])
+                        '-PmainConfigFile=testPdfDefaultThemeConfig.groovy'])
                     .build()
         then: 'the task has been successfully executed'
         println result.output
@@ -53,8 +52,7 @@ class GeneratePdfSpecWithSpecificTheme extends Specification {
                     .withArguments(['generatePDF','--info',
                         '-PdocDir=./src/test/testPdfSpecificTheme',
                         '-PmainConfigFile=testPdfSpecificThemeConfig.groovy',
-                        '-PpdfThemeDir=./testPdfTheme',
-                        '-PinputPath=testPdfSpecificThemeDocs'])
+                        '-PpdfThemeDir=./testPdfTheme'])
                     .build()
         then: 'the task has been successfully executed'
         println result.output
