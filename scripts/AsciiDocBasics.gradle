@@ -20,14 +20,14 @@ if (docDir.startsWith('.')) {
     docDir = new File(projectDir, docDir).canonicalPath
 }
 if (pdfThemeDir.startsWith('.')) {
-    pdfThemeDir = new File(projectDir, pdfThemeDir).canonicalPath
+    pdfThemeDir = new File(docDir, pdfThemeDir).canonicalPath
 }
 logger.info "docToolchain> docDir: ${docDir}"
 logger.info "docToolchain> mainConfigFile: ${mainConfigFile}"
 logger.info "docToolchain> pdfThemeDir: ${pdfThemeDir}"
 def configSlurper = new ConfigSlurper()
-configSlurper.setBinding([inputPath: inputPath])
 config = configSlurper.parse(new File(docDir, mainConfigFile).text)
+inputPath = config.inputPath?config.inputPath:'.'
 logger.info "docToolchain> inputPath: ${inputPath}"
 logger.info "docToolchain> inputFiles: ${config.inputFiles}"
 logger.info "docToolchain> outputPath: ${config.outputPath}"
@@ -242,4 +242,3 @@ task generateDeck (
     }
 }
 //end::generateDeck[]
-
