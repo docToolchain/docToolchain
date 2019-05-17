@@ -58,7 +58,7 @@ task exportContributors(
                 def attributes = ["git", "log", "-1", "--no-merges", "--pretty=format:%x7c%x20%at%n%x7c%x20%ad%x20%n%x7c%x20%aE%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n", "--date=short", "HEAD", currentFileName].execute()
                 attributes.waitForOrKill(1000)
                 attributes = attributes.text.split("[|]").collect{it.trim()}
-                if (attributes) {
+                if (attributes.size()>1) {
                 attributes = attributes[1..-1]
                 def avatar = "http://www.gravatar.com/avatar/" +
                         md5(attributes[2].toLowerCase().trim()) +
