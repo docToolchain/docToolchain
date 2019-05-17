@@ -16,8 +16,11 @@ task collectIncludes(
             docDir = file(new File(projectDir, docDir).canonicalPath)
         }
         logger.info "docToolchain> docDir: ${docDir}"
+        logger.info "docToolchain> scanDir: ${scanDir}"
         if (scanDir.startsWith('.')) {
             scanDir = file(new File(docDir, scanDir).canonicalPath)
+        } else {
+            scanDir = file(new File(scanDir, "").canonicalPath)
         }
         logger.info "docToolchain> scanDir: ${scanDir}"
         
