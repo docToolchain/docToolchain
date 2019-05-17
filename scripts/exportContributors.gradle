@@ -8,6 +8,7 @@ task exportContributors(
 ) {
     doFirst {
         new File(targetDir, 'contributors').mkdirs()
+        new File(targetDir, 'fileattribs').mkdirs()
     }
     doLast {
         def wordsPerMinute = 189
@@ -49,6 +50,26 @@ task exportContributors(
 //              println("\u023F1 $readingtime minutes to read")
                 def minutesTerm = readingtime == 1 ? "minute" : "minutes"
                 targetFile.append("\n $readingtime $minutesTerm to read \n")
+
+                //file attributes
+                new File(targetDir, ("/fileattribs/" + tag).split("/")[0..-2].join("/")).mkdirs()
+                targetFile = new File(targetDir, "/fileattribs/" + tag)
+
+                def cmd = "git log --pretty=format:%x7c%x20%at%n%x7c%x20%ad%x20%n%x7c%x20%aE%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n --date=short"
+                def attributes = ["git", "log", "-1", "--no-merges", "--pretty=format:%x7c%x20%at%n%x7c%x20%ad%x20%n%x7c%x20%aE%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n", "--date=short", "HEAD", currentFileName].execute()
+                attributes.waitForOrKill(1000)
+                attributes = attributes.text.split("[|]").collect{it.trim()}[1..-1]
+                def avatar = "http://www.gravatar.com/avatar/" +
+                        md5(attributes[2].toLowerCase().trim()) +
+                        "?d=identicon" +
+                        "[32,32,role='gravatar',alt='${attributes[3]}',title='${attributes[3]}']"
+                targetFile.write("""\
+:lastUpdated: ${new Date(attributes[0] as Integer).format('dd.MM.yyyy hh:mm')}
+:lastAuthorName: ${attributes[3]}
+:lastAuthorEmail: ${attributes[2]}
+:lastAuthorAvatar: ${avatar}
+:lastMessage: ${attributes[4]}
+""")
                 print "."
             }
         }
