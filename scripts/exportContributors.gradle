@@ -65,7 +65,7 @@ task exportContributors(
                         "?d=identicon" +
                         "[32,32,role='gravatar',alt='${attributes[3]}',title='${attributes[3]}']"
                 targetFile.write("""\
-:lastUpdated: ${(new Date(attributes[0] as Long)*1000).format('dd.MM.yyyy hh:mm')}
+:lastUpdated: ${new Date((attributes[0] as Long)*1000).format('dd.MM.yyyy hh:mm')}
 :lastAuthorName: ${attributes[3]}
 :lastAuthorEmail: ${attributes[2]}
 :lastAuthorAvatar: ${avatar}
