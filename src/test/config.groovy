@@ -1,4 +1,6 @@
 
+inputPath = './src/test/docs'
+
 outputPath = 'build/test/docs'
 
 //this input path is ignored

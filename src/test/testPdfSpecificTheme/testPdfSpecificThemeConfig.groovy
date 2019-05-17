@@ -1,8 +1,10 @@
 
+inputPath = 'testPdfSpecificThemeDocs'
+
 outputPath = '../build/test/docs'
 
 inputFiles = [
-        [file: 'test2.adoc', formats: ['html','revealjs','pdf','docbook']],
+        [file: 'test2.adoc', formats: ['pdf']],
              ]
 
 taskInputsDirs = [
