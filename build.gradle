@@ -26,7 +26,7 @@ if (project.name!=rootProject.name) {
     // this avoids for example that task 'check' runs if invoked in main project
     gradle.taskGraph.whenReady {
         tasks.each { task ->
-            if (task.group in ['docToolchain', 'Documentation', 'docToolchain helper]
+            if (task.group in ['docToolchain', 'Documentation', 'docToolchain helper']
                     || task.name in ['htmlSanityCheck', 'streamingExecute', 'tasks', 'clean']) {
                 task.enabled = true
             } else {
