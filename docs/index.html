@@ -557,9 +557,8 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_exportjiraissues">3.16. exportJiraIssues</a></li>
 <li><a href="#_exportppt">3.17. exportPPT</a></li>
 <li><a href="#_exportexcel">3.18. exportExcel</a></li>
-<li><a href="#_exportmarkdown">3.19. exportMarkdown</a></li>
-<li><a href="#_htmlsanitycheck">3.20. htmlSanityCheck</a></li>
-<li><a href="#_dependencyupdates">3.21. dependencyUpdates</a></li>
+<li><a href="#_htmlsanitycheck">3.19. htmlSanityCheck</a></li>
+<li><a href="#_dependencyupdates">3.20. dependencyUpdates</a></li>
 </ul>
 </li>
 <li><a href="#_development">4. Development</a>
@@ -583,6 +582,13 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </li>
 <li><a href="#_acknowledgements_and_contributors">7. Acknowledgements and Contributors</a></li>
+<li><a href="#_configuration_2">Appendix A: Configuration</a>
+<ul class="sectlevel2">
+<li><a href="#_code_mainconfigfile_code_and_code_docdir_code">A.1. <code>mainConfigFile</code> and <code>docDir</code></a></li>
+<li><a href="#_asciidoc_config">A.2. AsciiDoc config</a></li>
+<li><a href="#_command_line_parameters">A.3. Command Line Parameters</a></li>
+</ul>
+</li>
 </ul>
 </div>
 </div>
@@ -785,7 +791,7 @@ But you are not restricted to one master - you can create master docs for severa
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>5 minutes to read</pre>
+<pre>4 minutes to read</pre>
 </div>
 </div>
 <div class="sect2">
@@ -1205,7 +1211,7 @@ Make sure to specify a unique image name for each diagram, otherwise they will o
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/demoPlantUML.png" alt="demoPlantUML" width="232" height="236">
+<img src="images/demoPlantUML.png" alt="demoPlantUML" width="246" height="236">
 </div>
 <div class="title">Figure 2. example diagram</div>
 </div>
@@ -1233,7 +1239,7 @@ For example, if you take the example diagram above and change the declaration to
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/demoPlantUMLScale.png" alt="demoPlantUMLScale" width="174" height="177">
+<img src="images/demoPlantUMLScale.png" alt="demoPlantUMLScale" width="184" height="177">
 </div>
 <div class="title">Figure 4. example diagram (with specified scale)</div>
 </div>
@@ -1276,9 +1282,9 @@ Blog-Posts: <a href="https://rdmueller.github.io/plantuml-gradle/">PlantUML with
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">use html5 as asciidoc backend</span><span class="delimiter">'</span></span>) {
 
-    attributes \
+    attributes (
         <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
-
+    )
     onlyIf {
         !sourceFiles.findAll {
             <span class="string"><span class="delimiter">'</span><span class="content">html</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
@@ -1290,6 +1296,7 @@ Blog-Posts: <a href="https://rdmueller.github.io/plantuml-gradle/">PlantUML with
             <span class="string"><span class="delimiter">'</span><span class="content">html</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
         }.each {
             include <span class="local-variable">it</span>.file
+            println <span class="local-variable">it</span>.file
         }
     }
 
@@ -1657,9 +1664,9 @@ Blog-Post: <a href="https://rdmueller.github.io/pdf-output/">Beyond HTML</a>
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">use pdf as asciidoc backend</span><span class="delimiter">'</span></span>) {
 
-    attributes \
+    attributes (
         <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : file(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>docDir<span class="inline-delimiter">}</span></span><span class="content">/</span><span class="inline"><span class="inline-delimiter">${</span>config.outputPath<span class="inline-delimiter">}</span></span><span class="content">/images/plantUML/</span><span class="delimiter">&quot;</span></span>).path
-
+    )
     onlyIf {
         !sourceFiles.findAll {
             <span class="string"><span class="delimiter">'</span><span class="content">pdf</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
@@ -1784,7 +1791,7 @@ It creates a PowerPoint presentation and enriches it with reveal.js slide defini
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">use revealJs as asciidoc backend to create a presentation</span><span class="delimiter">'</span></span>) {
 
-    attributes \
+    attributes (
             <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>  : <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>,
             <span class="string"><span class="delimiter">'</span><span class="content">idprefix</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">slide-</span><span class="delimiter">'</span></span>,
             <span class="string"><span class="delimiter">'</span><span class="content">idseparator</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">-</span><span class="delimiter">'</span></span>,
@@ -1796,7 +1803,7 @@ It creates a PowerPoint presentation and enriches it with reveal.js slide defini
             <span class="string"><span class="delimiter">'</span><span class="content">revealjs_transition</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">linear</span><span class="delimiter">'</span></span>,
             <span class="string"><span class="delimiter">'</span><span class="content">revealjs_history</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
             <span class="string"><span class="delimiter">'</span><span class="content">revealjs_slideNumber</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>
-
+    )
     options template_dirs : [<span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">'</span><span class="content">resources/asciidoctor-reveal.js</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">templates/slim</span><span class="delimiter">'</span></span>).absolutePath ]
 
     onlyIf {
@@ -3584,15 +3591,90 @@ Blog-Post: <a href="https://rdmueller.github.io/changelog/">The only constant in
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>1 minute to read</pre>
+<pre>2 minutes to read</pre>
 </div>
 </div>
 <div class="paragraph">
 <p>This tasks crawls through all asciidoctor source files and extracts a list of contributors.
 This list is then rendered as asciidoc images of the contributor&#8217;s gravatar picture.</p>
 </div>
+<div class="paragraph">
+<p>The extracted lists are stored in <code>/c/Users/ralfd/projects/github/temp/dtc-310/build/docs/contributors/manual/03_task_exportContributors.adoc</code> to be easily included in your documents.</p>
+</div>
+<div class="paragraph">
+<p>Best way to use this feature is to create a <code>feedback.adoc</code> file which might look like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">feedback.adoc</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="asciidoc">    ifndef::backend-pdf[] <i class="conum" data-value="1"></i><b>(1)</b>
+
+        image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}{filename}, float=right] <i class="conum" data-value="2"></i><b>(2)</b>
+        image::https://img.shields.io/badge/create-an%20issue-blue.svg[link=&quot;https://github.com/docToolchain/documentation/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:{filename}&quot;, float=right]
+
+    endif::[]
+
+    include::{targetDir}/contributors/{filename}[] <i class="conum" data-value="4"></i><b>(4)</b></code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>do not show this section when rendered as PDF</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>create an "improve this doc" button which links to the git sources</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>create a "create-an-issue" button which links to your issue tracker</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>include the list of contributors created by this task</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_reading_time">3.15.1. Reading Time</h4>
+<div class="paragraph">
+<p>The task also appends to the list of contributors the estimated reading time.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_file_attributes">3.15.2. File Attributes</h4>
+<div class="paragraph">
+<p>The task now also exports some attributes of the git files.
+The extracted attributes are stored in <code>/c/Users/ralfd/projects/github/temp/dtc-310/build/docs/fileattribs/manual/03_task_exportContributors.adoc</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="asciidoc">:lastUpdated: 16.05.2019 06:22
+:lastAuthorName: Ralf D. Müller
+:lastAuthorEmail: ralf.d.mueller@gmail.com
+:lastAuthorAvatar: http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon[32,32,role='gravatar',alt='Ralf D. Müller',title='Ralf D. Müller']
+:lastMessage: #310 started to document config options</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This enables you to import these attributes the same way you import the contributors list and use these attributes.</p>
+</div>
+<div class="paragraph">
+<p>Here is an example:</p>
+</div>
+<div class="listingblock">
+<div class="title">feedback.adoc</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="asciidoc">    include::{targetDir}/fileattribs/{filename}[]
+
+    Last updated {lastUpdated} by {lastAuthorName}</code></pre>
+</div>
+</div>
 <hr>
 <div style="page-break-after: always;"></div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_exportjiraissues">3.16. exportJiraIssues</h3>
@@ -4152,18 +4234,12 @@ use `gradle exportExcel` to re-export files
 </div>
 <hr>
 <div style="page-break-after: always;"></div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_exportmarkdown">3.19. exportMarkdown</h3>
 <div class="paragraph">
-<p>The <em>exportMarkdown</em> task can be used to include <a href="http://markdown.de">markdown</a> files into the documentation.</p>
+<p>Unresolved directive in manual/03_task_exportMarkdown.adoc - include::../../../build/docs/exportMarkdownDocs.adoc[]</p>
 </div>
-<div class="paragraph">
-<p>The task is scanning the directory <code>/src/docs</code> for markdown files (<code>*.md</code>) and converts them into AsciiDoc files. The converted files can then be referenced from within the <code>/build</code>-folder.</p>
 </div>
 <div class="sect3">
-<h4 id="_source_14">3.19.1. Source</h4>
+<h4 id="_source_14">3.18.2. Source</h4>
 <div class="listingblock">
 <div class="title">exportMarkdown.gradle</div>
 <div class="content">
@@ -4194,7 +4270,7 @@ use `gradle exportExcel` to re-export files
 </div>
 </div>
 <div class="sect2">
-<h3 id="_htmlsanitycheck">3.20. htmlSanityCheck</h3>
+<h3 id="_htmlsanitycheck">3.19. htmlSanityCheck</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_htmlSanityCheck.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -4250,7 +4326,7 @@ Blog-Post: <a href="https://rdmueller.github.io/htmlSanityCheck/">Automated Qual
 </table>
 </div>
 <div class="sect3">
-<h4 id="_source_15">3.20.1. Source</h4>
+<h4 id="_source_15">3.19.1. Source</h4>
 <div class="listingblock">
 <div class="title">htmlSanityCheck.gradle</div>
 <div class="content">
@@ -4271,7 +4347,7 @@ Blog-Post: <a href="https://rdmueller.github.io/htmlSanityCheck/">Automated Qual
 </div>
 </div>
 <div class="sect2">
-<h3 id="_dependencyupdates">3.21. dependencyUpdates</h3>
+<h3 id="_dependencyupdates">3.20. dependencyUpdates</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_dependencyUpdates.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -4780,7 +4856,7 @@ Einige Teile dieser Doku können Sie sogar automatisiert testen.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/eb5ceb4c4d2dfe351c58a8d005c6f3da?d=identicon" alt="Christoph Raaflaub " width="32" title="Christoph Raaflaub "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr " width="32" title="David M. Carr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer " width="32" title="Dr. Stefan Pfeiffer "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/64ec325b5e2d6c8b3d76e2df81056f2d?d=identicon" alt="Fabian Nonnenmacher " width="32" title="Fabian Nonnenmacher "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/fdbd46a8418be834d8ab743ca4b52455?d=identicon" alt="funkr " width="32" title="funkr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev " width="32" title="ghp-dev "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/2e3af23bd872d2b971788a4519e3bf46?d=identicon" alt="jakubjab " width="32" title="jakubjab "></span></p>
+<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/eb5ceb4c4d2dfe351c58a8d005c6f3da?d=identicon" alt="Christoph Raaflaub " width="32" title="Christoph Raaflaub "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr " width="32" title="David M. Carr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer " width="32" title="Dr. Stefan Pfeiffer "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/64ec325b5e2d6c8b3d76e2df81056f2d?d=identicon" alt="Fabian Nonnenmacher " width="32" title="Fabian Nonnenmacher "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/a00ae7656ba26679126c05ca950dd1fc?d=identicon" alt="Stefan Bohn " width="32" title="Stefan Bohn "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/fdbd46a8418be834d8ab743ca4b52455?d=identicon" alt="funkr " width="32" title="funkr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev " width="32" title="ghp-dev "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/2e3af23bd872d2b971788a4519e3bf46?d=identicon" alt="jakubjab " width="32" title="jakubjab "></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -4868,6 +4944,9 @@ This project depends and builds on them.</p>
 <li>
 <p><a href="https://github.com/chrira">Christoph Raaflaub</a></p>
 </li>
+<li>
+<p><a href="https://github.com/bohni">Stefan Bohn</a></p>
+</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -4878,12 +4957,229 @@ This project depends and builds on them.</p>
 <a class="image" href="https://github.com/docToolchain/docToolchain/graphs/contributors"><img src="https://img.shields.io/github/contributors/doctoolchain/doctoolchain.svg" alt="doctoolchain"></a>
 </div>
 </div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_configuration_2">Appendix A: Configuration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This appendix covers all configuration introduced by docToolchain.
+AsciiDoc, AsciiDoctor, Gradle and other tools and libraries used know of more configuration settings and you can read about those in the corresponding documentation.</p>
+</div>
+<div class="sect2">
+<h3 id="_code_mainconfigfile_code_and_code_docdir_code">A.1. <code>mainConfigFile</code> and <code>docDir</code></h3>
+<div class="paragraph">
+<p>docToolchain should be easy to use.
+That&#8217;s why the goal is to have one config file with all settings for each project.
+But first of all, docToolchain has to know where your documentation project is located.</p>
+</div>
+<div class="paragraph">
+<p>If <code>docDir</code> is defined, the default for <code>mainConfigFile</code> is <code>Config.groovy</code> in the root folder of your <code>docDir</code>.</p>
+</div>
+<div class="paragraph">
+<p>You have several options to specify the location of your documentation project(<code>docDir</code>) and the location of your config gile (<code>mainConfigFile</code>).</p>
+</div>
+<div class="sect3">
+<h4 id="_build_gradle">A.1.1. build.gradle</h4>
+<div class="paragraph">
+<p>If you use docToolchain as Gradle sub-project as described in <a href="https://docs-as-co.de/getstarted/tutorial2">our tutorial</a>, you will have some code in your main <code>build.gradle</code> which overwrites the location of the config file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="comment">//configure docToolchain to use the main project's config</span>
+project(<span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>) {
+    <span class="keyword">if</span> (project.hasProperty(<span class="string"><span class="delimiter">'</span><span class="content">docDir</span><span class="delimiter">'</span></span>)) {
+        docDir = <span class="string"><span class="delimiter">'</span><span class="content">../.</span><span class="delimiter">'</span></span>
+        mainConfigFile = <span class="string"><span class="delimiter">'</span><span class="content">Config.groovy</span><span class="delimiter">'</span></span>
+    } <span class="keyword">else</span> {
+        println <span class="string"><span class="delimiter">&quot;</span><span class="content">=</span><span class="delimiter">&quot;</span></span>*<span class="integer">80</span>
+        println <span class="string"><span class="delimiter">&quot;</span><span class="content">  please initialize the docToolchain submodule</span><span class="delimiter">&quot;</span></span>
+        println <span class="string"><span class="delimiter">&quot;</span><span class="content">  by executing git submodule update -i</span><span class="delimiter">&quot;</span></span>
+        println <span class="string"><span class="delimiter">&quot;</span><span class="content">=</span><span class="delimiter">&quot;</span></span>*<span class="integer">80</span>
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This way, you can place the config file wherever you like in your project.</p>
+</div>
+<div class="paragraph">
+<p>Since the <code>mainConfigFile</code> is a standard Gradle-Property, you can also overwrite it through a command line option.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+it is not possible to overwrite properties of a sub project throught the <code>gradle.properties</code> of the main project.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_commandline">A.1.2. Commandline</h4>
+<div class="paragraph">
+<p>Specify the property on the commandline</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>./gradlew generateHTML -PmainConfigFile=Config.groovy</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>and if you use the doctoolchain script</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>doctoolchain &lt;docDir&gt; generateHTML -PmainConfigFile=Config.groovy</pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+you can verify the location of your <code>Config.groovy</code> by executing docToolchain with the <code>--info</code> parameter which sets the loglevel to <code>info</code>. It will print the location on the command line (among other settings)
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_content_of_the_code_mainconfigfile_code">A.1.3. Content of the <code>mainConfigFile</code></h4>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">outputPath = <span class="string"><span class="delimiter">'</span><span class="content">build/docs</span><span class="delimiter">'</span></span>
+
+<span class="comment">// Path where the docToolchain will search for the input files.</span>
+<span class="comment">// This path is appended to the docDir property specified in gradle.properties</span>
+<span class="comment">// or in the command line, and therefore must be relative to it.</span>
+
+<span class="comment">//inputPath = 'src/docs' =&gt; moved to gradle.properties!</span>
+
+inputPath = <span class="string"><span class="delimiter">'</span><span class="content">src/docs</span><span class="delimiter">'</span></span>
+
+inputFiles = [
+        [<span class="key">file</span>: <span class="string"><span class="delimiter">'</span><span class="content">manual.adoc</span><span class="delimiter">'</span></span>,       <span class="key">formats</span>: [<span class="string"><span class="delimiter">'</span><span class="content">html</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">pdf</span><span class="delimiter">'</span></span>]],
+]
+
+
+taskInputsDirs = [<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>inputPath<span class="inline-delimiter">}</span></span><span class="content">/images</span><span class="delimiter">&quot;</span></span>]
+
+taskInputsFiles = <span class="type">[]</span>
+
+<span class="comment">//*****************************************************************************************</span>
+
+<span class="comment">//Configuration for exportChangelog</span>
+
+exportChangelog = [:]
+
+changelog.with {
+
+    <span class="comment">// Directory of which the exportChangelog task will export the changelog.</span>
+    <span class="comment">// It should be relative to the docDir directory provided in the</span>
+    <span class="comment">// gradle.properties file.</span>
+    dir = <span class="string"><span class="delimiter">'</span><span class="content">src/docs</span><span class="delimiter">'</span></span>
+
+    <span class="comment">// Command used to fetch the list of changes.</span>
+    <span class="comment">// It should be a single command taking a directory as a parameter.</span>
+    <span class="comment">// You cannot use multiple commands with pipe between.</span>
+    <span class="comment">// This command will be executed in the directory specified by changelogDir</span>
+    <span class="comment">// it the environment inherited from the parent process.</span>
+    <span class="comment">// This command should produce asciidoc text directly. The exportChangelog</span>
+    <span class="comment">// task does not do any post-processing</span>
+    <span class="comment">// of the output of that command.</span>
+    <span class="comment">//</span>
+    <span class="comment">// See also https://git-scm.com/docs/pretty-formats</span>
+    cmd = <span class="string"><span class="delimiter">'</span><span class="content">git log --pretty=format:%x7c%x20%ad%x20%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n --date=short</span><span class="delimiter">'</span></span>
+
+}
+
+<span class="comment">//*****************************************************************************************</span>
+
+<span class="comment">//Configureation for publishToConfluence</span>
+
+confluence = [:]
+
+<span class="comment">// 'input' is an array of files to upload to Confluence with the ability</span>
+<span class="comment">//          to configure a different parent page for each file.</span>
+<span class="comment">//</span>
+<span class="comment">// Attributes</span>
+<span class="comment">// - 'file': absolute or relative path to the asciidoc generated html file to be exported</span>
+<span class="comment">// - 'url': absolute URL to an asciidoc generated html file to be exported</span>
+<span class="comment">// - 'ancestorId' (optional): the id of the parent page in Confluence; leave this empty</span>
+<span class="comment">//                            if a new parent shall be created in the space</span>
+<span class="comment">// - 'preambleTitle' (optional): the title of the page containing the preamble (everything</span>
+<span class="comment">//                            before the first second level heading). Default is 'arc42'</span>
+<span class="comment">//</span>
+<span class="comment">// The following four keys can also be used in the global section below</span>
+<span class="comment">// - 'spaceKey' (optional): page specific variable for the key of the confluence space to write to</span>
+<span class="comment">// - 'createSubpages' (optional): page specific variable to determine whether &quot;.sect2&quot; sections shall be split from the current page into subpages</span>
+<span class="comment">// - 'pagePrefix' (optional): page specific variable, the pagePrefix will be a prefix for the page title and it's sub-pages</span>
+<span class="comment">//                            use this if you only have access to one confluence space but need to store several</span>
+<span class="comment">//                            pages with the same title - a different pagePrefix will make them unique</span>
+<span class="comment">// - 'pageSuffix' (optional): same usage as prefix but appended to the title and it's subpages</span>
+<span class="comment">// only 'file' or 'url' is allowed. If both are given, 'url' is ignored</span>
+confluence.with {
+    input = [
+            [ <span class="key">file</span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">build/docs/html5/arc42-template-de.html</span><span class="delimiter">&quot;</span></span> ],
+    ]
+
+    <span class="comment">// endpoint of the confluenceAPI (REST) to be used</span>
+    api = <span class="string"><span class="delimiter">'</span><span class="content">https://[yourServer]/[context]/rest/api/</span><span class="delimiter">'</span></span>
+
+<span class="comment">//    Additionally, spaceKey, createSubpages, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence</span>
+
+    <span class="comment">// the key of the confluence space to write to</span>
+    spaceKey = <span class="string"><span class="delimiter">'</span><span class="content">asciidoc</span><span class="delimiter">'</span></span>
+
+    <span class="comment">// variable to determine whether &quot;.sect2&quot; sections shall be split from the current page into subpages</span>
+    createSubpages = <span class="predefined-constant">false</span>
+
+    <span class="comment">// the pagePrefix will be a prefix for each page title</span>
+    <span class="comment">// use this if you only have access to one confluence space but need to store several</span>
+    <span class="comment">// pages with the same title - a different pagePrefix will make them unique</span>
+    pagePrefix = <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
+
+    pageSuffix = <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
+
+    <span class="comment">// username:password of an account which has the right permissions to create and edit</span>
+    <span class="comment">// confluence pages in the given space.</span>
+    <span class="comment">// if you want to store it securely, fetch it from some external storage.</span>
+    <span class="comment">// you might even want to prompt the user for the password like in this example</span>
+
+    credentials = <span class="string"><span class="delimiter">&quot;</span><span class="content">user:pass_or_token</span><span class="delimiter">&quot;</span></span>.bytes.encodeBase64().toString()
+
+    <span class="comment">// HTML Content that will be included with every page published</span>
+    <span class="comment">// directly after the TOC. If left empty no additional content will be</span>
+    <span class="comment">// added</span>
+    <span class="comment">// extraPageContent = '&lt;ac:structured-macro ac:name=&quot;warning&quot;&gt;&lt;ac:parameter ac:name=&quot;title&quot; /&gt;&lt;ac:rich-text-body&gt;This is a generated page, do not edit!&lt;/ac:rich-text-body&gt;&lt;/ac:structured-macro&gt;</span>
+    extraPageContent = <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_asciidoc_config">A.2. AsciiDoc config</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_command_line_parameters">A.3. Command Line Parameters</h3>
+
+</div>
 </div>
 </div>
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-04-28 23:19:34 MESZ
+Last updated 2019-05-16 17:23:29 UTC
 </div>
 </div>
 </body>
