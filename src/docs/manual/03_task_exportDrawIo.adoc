@@ -1,0 +1,15 @@
+:filename: manual/03_task_exportDrawIo.adoc
+ifndef::imagesdir[:imagesdir: ../images]
+
+= exportDrawIo
+
+include::feedback.adoc[]
+
+There is no `exportDrawIo` task because it is not needed.
+When you want to use https://draw.io[draw.io] for your diagrams,
+use the free offline version and save your diagrams with the `.png` file extension
+(or even better `.dio.png` to easily recognize draw.io images).
+
+Draw.io will save the diagram as PNG file with the diagram source as XML in the meta-data of the PNG!
+
+This let's you easily reference the PNG from within your AsciiDoc files and you can still open and edit it!
