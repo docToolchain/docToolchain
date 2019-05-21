@@ -8,6 +8,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 == Unreleased
 
 === Added
+2019-05-21::
+* first version of EA-PlantUML Exchange scripts
 
 2019-02-26::
 * first version of `exportMetrics` task
