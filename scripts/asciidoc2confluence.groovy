@@ -223,7 +223,7 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
         if (href.startsWith('#')) {
             def anchor = href.substring(1)
             def pageTitle = anchors[anchor] ?: pageAnchors[anchor]
-            if (pageTitle) {
+            if (pageTitle && a.text()) {
                 // as Confluence insists on link texts to be contained
                 // inside CDATA, we have to strip all HTML and
                 // potentially loose styling that way.
