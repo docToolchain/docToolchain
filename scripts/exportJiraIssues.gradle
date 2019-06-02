@@ -42,7 +42,7 @@ task exportJiraIssues(
         ).data.issues.each { issue ->
             openIssues.append("| <<${issue.key}>> ", 'utf-8')
             openIssues.append("| ${issue.fields.priority.name} ", 'utf-8')
-            openIssues.append("| ${Date.parse("yyyy-MM-dd'T'H:m:s.000z", issue.fields.created).format('dd.MM.yy')} ", 'utf-8')
+            openIssues.append("| ${Date.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)} ", 'utf-8')
             openIssues.append("| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'} ", 'utf-8')
             openIssues.append("| ${jiraRoot}/browse/${issue.key}[${issue.fields.summary}]\n", 'utf-8')
         }
