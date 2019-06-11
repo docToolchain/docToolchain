@@ -37,7 +37,6 @@ task collectIncludes(
         logger.info "docToolchain> includeRoot: ${includeRoot}"
 
         File sourceFolder = scanDir
->>>>>>> 4f2aee68f609cbee58b172fb9f1b356be342485b
         println "sourceFolder: " + sourceFolder.canonicalPath
         def collections = [:]
         sourceFolder.traverse(type: FILES) { file ->
@@ -46,8 +45,9 @@ task collectIncludes(
                 if (!collections[type]) {
                     collections[type] = []
                 }
-<<<<<<< HEAD
-                def fileName = ((file.canonicalPath - sourceFolder.canonicalPath)[1..-1])
+                println "file: " + file.canonicalPath
+                def fileName = (file.canonicalPath - scanDir.canonicalPath)[1..-1]
+                println "corrected file: " + fileName
                 if (fileName.startsWith('docToolchain')) {
                     //ignore docToolchain as submodule
                 } else {
@@ -55,17 +55,9 @@ task collectIncludes(
                 }
             }
         }
-        def pathDiff = '../' * ((targetDir - sourceFolder.canonicalPath)
-=======
-                println "file: " + file.canonicalPath
-                println "corrected file: " + (file.canonicalPath - scanDir.canonicalPath)[1..-1]
-                collections[type] << (file.canonicalPath - scanDir.canonicalPath)[1..-1]
-            }
-        }
         println "targetDir - docDir: " + (targetDir - docDir)
         println "targetDir - includeRoot: " + (targetDir - includeRoot)
         def pathDiff = '../' * ((targetDir - docDir)
->>>>>>> 4f2aee68f609cbee58b172fb9f1b356be342485b
                                     .replaceAll('^/','')
                                     .replaceAll('/$','')
                                     .replaceAll("[^/]",'').size()+1)
