@@ -12,7 +12,31 @@ task collectIncludes(
     doLast {
         //let's search the whole project for files, not only the docs folder
         //could be a problem with node projects :-)
-        File sourceFolder = project(':').projectDir
+        
+        //running as subproject? set scandir to main project
+        if (project.name!=rootProject.name && scanDir=='.') {
+            scanDir = project(':').projectDir
+        }
+        if (docDir.startsWith('.')) {
+            docDir = file(new File(projectDir, docDir).canonicalPath)
+        }
+        logger.info "docToolchain> docDir: ${docDir}"
+        logger.info "docToolchain> scanDir: ${scanDir}"
+        if (scanDir.startsWith('.')) {
+            scanDir = file(new File(docDir, scanDir).canonicalPath)
+        } else {
+            scanDir = file(new File(scanDir, "").canonicalPath)
+        }
+        logger.info "docToolchain> scanDir: ${scanDir}"
+        
+        logger.info "docToolchain> includeRoot: ${includeRoot}"
+
+        if (includeRoot.startsWith('.')) {
+            includeRoot = file(new File(docDir, includeRoot).canonicalPath)
+        }
+        logger.info "docToolchain> includeRoot: ${includeRoot}"
+
+        File sourceFolder = scanDir
         println "sourceFolder: " + sourceFolder.canonicalPath
         def collections = [:]
         sourceFolder.traverse(type: FILES) { file ->
@@ -21,7 +45,9 @@ task collectIncludes(
                 if (!collections[type]) {
                     collections[type] = []
                 }
-                def fileName = ((file.canonicalPath - sourceFolder.canonicalPath)[1..-1])
+                println "file: " + file.canonicalPath
+                def fileName = (file.canonicalPath - scanDir.canonicalPath)[1..-1]
+                println "corrected file: " + fileName
                 if (fileName.startsWith('docToolchain')) {
                     //ignore docToolchain as submodule
                 } else {
@@ -29,10 +55,14 @@ task collectIncludes(
                 }
             }
         }
-        def pathDiff = '../' * ((targetDir - sourceFolder.canonicalPath)
+        println "targetDir - docDir: " + (targetDir - docDir)
+        println "targetDir - includeRoot: " + (targetDir - includeRoot)
+        def pathDiff = '../' * ((targetDir - docDir)
                                     .replaceAll('^/','')
                                     .replaceAll('/$','')
                                     .replaceAll("[^/]",'').size()+1)
+        
+        println "pathDiff: " + pathDiff
         collections.each { type, fileNames ->
             if (fileNames) {
                 def outFile = new File(targetDir+'/_includes', type+'_includes.adoc')
