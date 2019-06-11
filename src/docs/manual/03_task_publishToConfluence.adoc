@@ -23,7 +23,7 @@ ancestorId::
     Got to this page, click on edit and the needed ID will show up in the URL
 
 api::
-for could instances, `[context]` is `wiki`
+for cloud instances, `[context]` is `wiki`
 
 pagePrefix/pageSuffix::
 Confluence can't handle two pages with the same name.
