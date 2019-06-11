@@ -35,6 +35,13 @@ https://github.com/docToolchain/docToolchain/commit/c25ac52e43ccb1d45fa538c06d37
 * asciidoc2confluence
 ** added output where docs are published to and added better error message in case of failing authorization https://github.com/docToolchain/docToolchain/commit/1bc146ccc493b4c381cb09742ac71ef44265d990[1bc146c]
 
+2019-03-06::
+* collectIncludes
+** changed regexp to accept ^[A-Z]{3,}-.*$ as file name, eg. all Files which start with an upper case word of at least 3 chars followed by a dash
+** fixed `sourceFolder` to work with docToolchain as submodule
+** added better console output
+** skip `docToolchain`-folder if used as submodule
+
 === Fixed
 
 2019-05-30::
