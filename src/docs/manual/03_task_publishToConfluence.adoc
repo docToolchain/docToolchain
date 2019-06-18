@@ -7,7 +7,7 @@ include::feedback.adoc[]
 
 image::ea/Manual/publishToConfluence.png[]
 
-This target takes the generated HTML file, splits t by headline and pushes it to Confluence.
+This target takes the generated HTML file, splits it by headline and pushes it to Confluence.
 This enables you to use the docs-as-code approach while getting feedback fron non-techies through Confluence comments.
 And it fulfills the "requirement" of "... but all documentation is in Confluence" 🤣.
 
