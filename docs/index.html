@@ -541,25 +541,26 @@ table.CodeRay td.code>pre{padding:0}
 <ul class="sectlevel2">
 <li><a href="#_conventions">3.1. Conventions</a></li>
 <li><a href="#_generatehtml">3.2. generateHTML</a></li>
-<li><a href="#_prependfilename">3.3. prependFilename</a></li>
-<li><a href="#_collectincludes">3.4. collectIncludes</a></li>
-<li><a href="#_generatepdf">3.5. generatePDF</a></li>
-<li><a href="#_generatedocbook">3.6. generateDocbook</a></li>
-<li><a href="#_generatedeck">3.7. generateDeck</a></li>
-<li><a href="#_publishtoconfluence">3.8. publishToConfluence</a></li>
-<li><a href="#_converttodocx">3.9. convertToDocx</a></li>
-<li><a href="#_converttoepub">3.10. convertToEpub</a></li>
-<li><a href="#_exportea">3.11. exportEA</a></li>
-<li><a href="#_exportvisio">3.12. exportVisio</a></li>
-<li><a href="#_exportdrawio">3.13. exportDrawIo</a></li>
-<li><a href="#_exportchangelog">3.14. exportChangeLog</a></li>
-<li><a href="#_exportcontributors">3.15. exportContributors</a></li>
-<li><a href="#_exportjiraissues">3.16. exportJiraIssues</a></li>
-<li><a href="#_exportppt">3.17. exportPPT</a></li>
-<li><a href="#_exportexcel">3.18. exportExcel</a></li>
-<li><a href="#_exportmarkdown">3.19. exportMarkdown</a></li>
-<li><a href="#_htmlsanitycheck">3.20. htmlSanityCheck</a></li>
-<li><a href="#_dependencyupdates">3.21. dependencyUpdates</a></li>
+<li><a href="#_fixencoding">3.3. fixEncoding</a></li>
+<li><a href="#_prependfilename">3.4. prependFilename</a></li>
+<li><a href="#_collectincludes">3.5. collectIncludes</a></li>
+<li><a href="#_generatepdf">3.6. generatePDF</a></li>
+<li><a href="#_generatedocbook">3.7. generateDocbook</a></li>
+<li><a href="#_generatedeck">3.8. generateDeck</a></li>
+<li><a href="#_publishtoconfluence">3.9. publishToConfluence</a></li>
+<li><a href="#_converttodocx">3.10. convertToDocx</a></li>
+<li><a href="#_converttoepub">3.11. convertToEpub</a></li>
+<li><a href="#_exportea">3.12. exportEA</a></li>
+<li><a href="#_exportvisio">3.13. exportVisio</a></li>
+<li><a href="#_exportdrawio">3.14. exportDrawIo</a></li>
+<li><a href="#_exportchangelog">3.15. exportChangeLog</a></li>
+<li><a href="#_exportcontributors">3.16. exportContributors</a></li>
+<li><a href="#_exportjiraissues">3.17. exportJiraIssues</a></li>
+<li><a href="#_exportppt">3.18. exportPPT</a></li>
+<li><a href="#_exportexcel">3.19. exportExcel</a></li>
+<li><a href="#_exportmarkdown">3.20. exportMarkdown</a></li>
+<li><a href="#_htmlsanitycheck">3.21. htmlSanityCheck</a></li>
+<li><a href="#_dependencyupdates">3.22. dependencyUpdates</a></li>
 </ul>
 </li>
 <li><a href="#_development">4. Development</a>
@@ -1307,15 +1308,89 @@ Blog-Posts: <a href="https://rdmueller.github.io/plantuml-gradle/">PlantUML with
 </div>
 <hr>
 <div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_fixencoding">3.3. fixEncoding</h3>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_fixencoding.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
+<div class="imageblock" style="float: right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/03_task_fixencoding.adoc"><img src="https://img.shields.io/badge/create-an%20issue-blue.svg" alt="create an%20issue blue"></a>
+</div>
+</div>
 <div class="paragraph">
-<p>Unresolved directive in manual.adoc - include::manual/03_task_fixEncoding.adoc[leveloffset=+2]</p>
+<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>1 minute to read</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Whenever Asciidoctor has to process a file which is not UTF-8 encoded, the underlying Ruby tries to read it and throws an error like this:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>asciidoctor: FAILED: /home/demo/test.adoc: Failed to load AsciiDoc document - invalid byte sequence in UTF-8</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Unfortunately, it is hard to find the wrong encoded file if a lot of <code>includes::</code> are used - asciidoctor only shows the name of the main document.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This is not a problem of asciidoctor, but of the underlying ruby interpreter.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>This target crawls throug all <code><strong>.ad</code> and <code></strong>.adoc</code> files and checks their encoding.
+If it encounters a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding.</p>
+</div>
+<div class="listingblock">
+<div class="title">scripts/fixEncoding.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="keyword">import</span> <span class="include">groovy.util.*</span>
+<span class="keyword">import</span> <span class="include">static</span> <span class="include">groovy.io.FileType.*</span>
+
+task fixEncoding(
+        <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">finds and converts non UTF-8 adoc files to UTF-8</span><span class="delimiter">'</span></span>,
+        <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain helper</span><span class="delimiter">'</span></span>,
+) {
+    doLast {
+        <span class="predefined-type">File</span> sourceFolder = <span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>docDir<span class="inline-delimiter">}</span></span><span class="content">/</span><span class="inline"><span class="inline-delimiter">${</span>inputPath<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+        println(<span class="string"><span class="delimiter">&quot;</span><span class="content">sourceFolder: </span><span class="delimiter">&quot;</span></span> + sourceFolder.canonicalPath)
+        sourceFolder.traverse(<span class="key">type</span>: FILES) { file -&gt;
+            <span class="keyword">if</span> (file.name ==~ <span class="string"><span class="delimiter">'</span><span class="content">^.*(ad|adoc|asciidoc)$</span><span class="delimiter">'</span></span>) {
+                CharsetToolkit toolkit = <span class="keyword">new</span> CharsetToolkit(file);
+                <span class="comment">// guess the encoding</span>
+                <span class="keyword">def</span> guessedCharset = toolkit.getCharset().toString().toUpperCase();
+                <span class="keyword">if</span> (guessedCharset!=<span class="string"><span class="delimiter">'</span><span class="content">UTF-8</span><span class="delimiter">'</span></span>) {
+                    <span class="keyword">def</span> text = file.text
+                    file.write(text, <span class="string"><span class="delimiter">&quot;</span><span class="content">utf-8</span><span class="delimiter">&quot;</span></span>)
+                    println(<span class="string"><span class="delimiter">&quot;</span><span class="content">  converted </span><span class="inline"><span class="inline-delimiter">${</span>file.name<span class="inline-delimiter">}</span></span><span class="content"> from '</span><span class="inline"><span class="inline-delimiter">${</span>guessedCharset<span class="inline-delimiter">}</span></span><span class="content">' to 'UFT-8'</span><span class="delimiter">&quot;</span></span>)
+                }
+            }
+        }
+    }
+}</code></pre>
+</div>
 </div>
 <hr>
 <div style="page-break-after: always;"></div>
 </div>
-</div>
 <div class="sect2">
-<h3 id="_prependfilename">3.3. prependFilename</h3>
+<h3 id="_prependfilename">3.4. prependFilename</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_prependFilename.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -1392,7 +1467,7 @@ task prependFilename(
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
-<h3 id="_collectincludes">3.4. collectIncludes</h3>
+<h3 id="_collectincludes">3.5. collectIncludes</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_collectIncludes.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -1517,7 +1592,7 @@ task collectIncludes(
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
-<h3 id="_generatepdf">3.5. generatePDF</h3>
+<h3 id="_generatepdf">3.6. generatePDF</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_generatePDF.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -1582,7 +1657,7 @@ Blog-Post: <a href="https://rdmueller.github.io/pdf-output/">Beyond HTML</a>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_source_2">3.5.1. Source</h4>
+<h4 id="_source_2">3.6.1. Source</h4>
 <div class="listingblock">
 <div class="title">AsciiDocBasics.gradle</div>
 <div class="content">
@@ -1617,7 +1692,7 @@ Blog-Post: <a href="https://rdmueller.github.io/pdf-output/">Beyond HTML</a>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_generatedocbook">3.6. generateDocbook</h3>
+<h3 id="_generatedocbook">3.7. generateDocbook</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_generateDocBook.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -1645,7 +1720,7 @@ Blog-Post: <a href="https://rdmueller.github.io/pdf-output/">Beyond HTML</a>
 <p>This is only a helper task - it generates the intermediate format for <a href="#_converttodocx">convertToDocx</a> and <a href="#_converttoepub">convertToEpub</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="_source_3">3.6.1. Source</h4>
+<h4 id="_source_3">3.7.1. Source</h4>
 <div class="listingblock">
 <div class="title">AsciiDocBasics.gradle</div>
 <div class="content">
@@ -1677,7 +1752,7 @@ Blog-Post: <a href="https://rdmueller.github.io/pdf-output/">Beyond HTML</a>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_generatedeck">3.7. generateDeck</h3>
+<h3 id="_generatedeck">3.8. generateDeck</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_generateDeck.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -1709,7 +1784,7 @@ Blog-Post: <a href="https://rdmueller.github.io/pdf-output/">Beyond HTML</a>
 It creates a PowerPoint presentation and enriches it with reveal.js slide definitions in AsciiDoc within the speaker notes.</p>
 </div>
 <div class="sect3">
-<h4 id="_source_4">3.7.1. Source</h4>
+<h4 id="_source_4">3.8.1. Source</h4>
 <div class="listingblock">
 <div class="title">AsciiDocBasics.gradle</div>
 <div class="content">
@@ -1768,7 +1843,7 @@ It creates a PowerPoint presentation and enriches it with reveal.js slide defini
 </div>
 </div>
 <div class="sect2">
-<h3 id="_publishtoconfluence">3.8. publishToConfluence</h3>
+<h3 id="_publishtoconfluence">3.9. publishToConfluence</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_publishToConfluence.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -1802,7 +1877,7 @@ And it fulfills the "requirement" of "&#8230;&#8203; but all documentation is in
 This is quite important - otherwise watches are easily annoyed by too many notifications.</p>
 </div>
 <div class="sect3">
-<h4 id="_configuration">3.8.1. Configuration</h4>
+<h4 id="_configuration">3.9.1. Configuration</h4>
 <div class="paragraph">
 <p>We tried to make the configuration self-explaning, but theree are always some note to add.</p>
 </div>
@@ -1902,7 +1977,7 @@ confluence.with {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_css_styling">3.8.2. CSS Styling</h4>
+<h4 id="_css_styling">3.9.2. CSS Styling</h4>
 <div class="paragraph">
 <p>Some AsciiDoctor features depend on particular CSS style definitions.
 Unless these styles are defined, some formatting that is present in the HTML version will not be represented when published to Confluence.</p>
@@ -1974,7 +2049,7 @@ Note that you likely do <strong>NOT</strong> want to include the whole thing, as
 </div>
 </div>
 <div class="sect3">
-<h4 id="_source_5">3.8.3. Source</h4>
+<h4 id="_source_5">3.9.3. Source</h4>
 <div class="listingblock">
 <div class="title">publishToConfluence.gradle</div>
 <div class="content">
@@ -2598,7 +2673,7 @@ config.confluence.input.each { input -&gt;
 </div>
 </div>
 <div class="sect2">
-<h3 id="_converttodocx">3.9. convertToDocx</h3>
+<h3 id="_converttodocx">3.10. convertToDocx</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2645,7 +2720,7 @@ Blog-Post: <a href="https://rdmueller.github.io/create-docx/">Render AsciiDoc to
 </table>
 </div>
 <div class="sect3">
-<h4 id="_source_6">3.9.1. Source</h4>
+<h4 id="_source_6">3.10.1. Source</h4>
 <div class="listingblock">
 <div class="title">pandoc.gradle</div>
 <div class="content">
@@ -2678,7 +2753,7 @@ Blog-Post: <a href="https://rdmueller.github.io/create-docx/">Render AsciiDoc to
 </div>
 </div>
 <div class="sect2">
-<h3 id="_converttoepub">3.10. convertToEpub</h3>
+<h3 id="_converttoepub">3.11. convertToEpub</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_convertToEpub.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -2725,7 +2800,7 @@ Blog-Post: <a href="https://rdmueller.github.io/create-epub/">Turn your Document
 </table>
 </div>
 <div class="sect3">
-<h4 id="_source_7">3.10.1. Source</h4>
+<h4 id="_source_7">3.11.1. Source</h4>
 <div class="listingblock">
 <div class="title">pandoc.gradle</div>
 <div class="content">
@@ -2759,7 +2834,7 @@ Blog-Post: <a href="https://rdmueller.github.io/create-epub/">Turn your Document
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportea">3.11. exportEA</h3>
+<h3 id="_exportea">3.12. exportEA</h3>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -2808,7 +2883,7 @@ Blog-Posts: <a href="https://rdmueller.github.io/jria2eac/">JIRA to Sparx EA</a>
 </table>
 </div>
 <div class="sect3">
-<h4 id="_source_8">3.11.1. Source</h4>
+<h4 id="_source_8">3.12.1. Source</h4>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
@@ -3137,7 +3212,7 @@ use `gradle exportEA` to re-export files
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportvisio">3.12. exportVisio</h3>
+<h3 id="_exportvisio">3.13. exportVisio</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_exportVisio.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -3215,7 +3290,7 @@ Todos: <a href="https://github.com/docToolchain/docToolchain/issues/112">issue #
 </table>
 </div>
 <div class="sect3">
-<h4 id="_source_9">3.12.1. Source</h4>
+<h4 id="_source_9">3.13.1. Source</h4>
 <div class="listingblock">
 <div class="title">exportVisio.gradle</div>
 <div class="content">
@@ -3376,7 +3451,7 @@ $VisioApp.Quit()</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportdrawio">3.13. exportDrawIo</h3>
+<h3 id="_exportdrawio">3.14. exportDrawIo</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_exportDrawIo.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -3411,7 +3486,7 @@ use the free offline version and save your diagrams with the <code>.png</code> f
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
-<h3 id="_exportchangelog">3.14. exportChangeLog</h3>
+<h3 id="_exportchangelog">3.15. exportChangeLog</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_exportChangeLog.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -3507,7 +3582,7 @@ Blog-Post: <a href="https://rdmueller.github.io/changelog/">The only constant in
 </table>
 </div>
 <div class="sect3">
-<h4 id="_source_10">3.14.1. Source</h4>
+<h4 id="_source_10">3.15.1. Source</h4>
 <div class="listingblock">
 <div class="title">exportChangelog.gradle</div>
 <div class="content">
@@ -3537,7 +3612,7 @@ Blog-Post: <a href="https://rdmueller.github.io/changelog/">The only constant in
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportcontributors">3.15. exportContributors</h3>
+<h3 id="_exportcontributors">3.16. exportContributors</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_exportContributors.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -3600,13 +3675,13 @@ This list is then rendered as asciidoc images of the contributor&#8217;s gravata
 </table>
 </div>
 <div class="sect3">
-<h4 id="_reading_time">3.15.1. Reading Time</h4>
+<h4 id="_reading_time">3.16.1. Reading Time</h4>
 <div class="paragraph">
 <p>The task also appends to the list of contributors the estimated reading time.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_file_attributes">3.15.2. File Attributes</h4>
+<h4 id="_file_attributes">3.16.2. File Attributes</h4>
 <div class="paragraph">
 <p>The task now also exports some attributes of the git files.
 The extracted attributes are stored in <code>/workspace/docToolchain/build/docs/fileattribs/manual/03_task_exportContributors.adoc</code>.</p>
@@ -3639,7 +3714,7 @@ The extracted attributes are stored in <code>/workspace/docToolchain/build/docs/
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportjiraissues">3.16. exportJiraIssues</h3>
+<h3 id="_exportjiraissues">3.17. exportJiraIssues</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_exportJiraIssues.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -3684,7 +3759,7 @@ Blog-Post: <a href="https://rdmueller.github.io/Jira/">Living Documents for Agil
 </table>
 </div>
 <div class="sect3">
-<h4 id="_source_11">3.16.1. Source</h4>
+<h4 id="_source_11">3.17.1. Source</h4>
 <div class="listingblock">
 <div class="title">exportJiraIssues.gradle</div>
 <div class="content">
@@ -3731,7 +3806,7 @@ Blog-Post: <a href="https://rdmueller.github.io/Jira/">Living Documents for Agil
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportppt">3.17. exportPPT</h3>
+<h3 id="_exportppt">3.18. exportPPT</h3>
 <div class="admonitionblock important">
 <table>
 <tr>
@@ -3780,7 +3855,7 @@ Blog-Post: <a href="https://rdmueller.github.io/PPT-as-asciidoc-editor/">Do more
 </table>
 </div>
 <div class="sect3">
-<h4 id="_source_12">3.17.1. Source</h4>
+<h4 id="_source_12">3.18.1. Source</h4>
 <div class="listingblock">
 <div class="title">exportPPT.gradle</div>
 <div class="content">
@@ -3915,7 +3990,7 @@ use `gradle exportPPT` to re-export files
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportexcel">3.18. exportExcel</h3>
+<h3 id="_exportexcel">3.19. exportExcel</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_exportExcel.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -4004,7 +4079,7 @@ include::excel/Sample.xlsx/Numerisch.csv[]
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_source_13">3.18.1. Source</h4>
+<h4 id="_source_13">3.19.1. Source</h4>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
@@ -4207,7 +4282,7 @@ use `gradle exportExcel` to re-export files
 </div>
 </div>
 <div class="sect2">
-<h3 id="_exportmarkdown">3.19. exportMarkdown</h3>
+<h3 id="_exportmarkdown">3.20. exportMarkdown</h3>
 <div class="paragraph">
 <p>The <em>exportMarkdown</em> task can be used to include <a href="http://markdown.de">markdown</a> files into the documentation.</p>
 </div>
@@ -4215,7 +4290,7 @@ use `gradle exportExcel` to re-export files
 <p>The task is scanning the directory <code>/src/docs</code> for markdown files (<code>*.md</code>) and converts them into AsciiDoc files. The converted files can then be referenced from within the <code>/build</code>-folder.</p>
 </div>
 <div class="sect3">
-<h4 id="_source_14">3.19.1. Source</h4>
+<h4 id="_source_14">3.20.1. Source</h4>
 <div class="listingblock">
 <div class="title">exportMarkdown.gradle</div>
 <div class="content">
@@ -4246,7 +4321,7 @@ use `gradle exportExcel` to re-export files
 </div>
 </div>
 <div class="sect2">
-<h3 id="_htmlsanitycheck">3.20. htmlSanityCheck</h3>
+<h3 id="_htmlsanitycheck">3.21. htmlSanityCheck</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_htmlSanityCheck.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -4302,7 +4377,7 @@ Blog-Post: <a href="https://rdmueller.github.io/htmlSanityCheck/">Automated Qual
 </table>
 </div>
 <div class="sect3">
-<h4 id="_source_15">3.20.1. Source</h4>
+<h4 id="_source_15">3.21.1. Source</h4>
 <div class="listingblock">
 <div class="title">htmlSanityCheck.gradle</div>
 <div class="content">
@@ -4323,7 +4398,7 @@ Blog-Post: <a href="https://rdmueller.github.io/htmlSanityCheck/">Automated Qual
 </div>
 </div>
 <div class="sect2">
-<h3 id="_dependencyupdates">3.21. dependencyUpdates</h3>
+<h3 id="_dependencyupdates">3.22. dependencyUpdates</h3>
 <div class="imageblock" style="float: right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_dependencyUpdates.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -5154,7 +5229,7 @@ confluence.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-06-24 17:44:18 UTC
+Last updated 2019-06-24 21:06:42 UTC
 </div>
 </div>
 </body>
