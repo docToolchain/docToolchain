@@ -35,7 +35,7 @@ class ExportExcelSpec extends Specification {
         when: 'the gradle task is invoked'
                 def result = GradleRunner.create()
                         .withProjectDir(new File('.'))
-                        .withArguments(['exportExcel', '--info'])
+                        .withArguments(['exportExcel', '--info', '-PmainConfigFile=./src/test/config.groovy'])
                         .build()
         then: 'the task has been successfully executed'
                 result.task(":exportExcel").outcome == SUCCESS
