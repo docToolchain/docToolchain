@@ -44,9 +44,9 @@ class ExportExcelSpec extends Specification {
     void 'test exported files: #filename'() {
         when: 'the test before exported the excel file'
         then: 'the export file have been created'
-                new File('./excel/Sample.xlsx/'+filename).exists() == true
+                new File('./src/test/docs/excel/Sample.xlsx/'+filename).exists() == true
                 and: 'its content ends with our sample file'
-                new File('./excel/Sample.xlsx/'+filename)
+                new File('./src/test/docs/excel/Sample.xlsx/'+filename)
                             .text.trim()
                                     .replaceAll("\r","")
                                     // the output depends on the locale!
