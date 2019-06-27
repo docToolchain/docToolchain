@@ -17,7 +17,7 @@ NOTE: If you are converting a Confluence page with embedded draw.io diagrams to 
 . Load the diagram you want to export from Confluence.
 . Click menu:File[Export as > PNG...]
 . In the Image modal, make sure that "Include a copy of my diagram" is selected.
-. Click Export to save the PNG file with the pattern `[file].dia.png`.
+. Click Export to save the PNG file with the pattern `[file].dio.png`.
 +
 NOTE: Specifying `.dia` in the name will help you identify PNG files containing embedded XML diagram source.
 +
