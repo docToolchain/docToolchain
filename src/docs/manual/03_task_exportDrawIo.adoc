@@ -25,7 +25,7 @@ NOTE: Specifying `.dio` (short for "**d**raw**io**") in the name will help you i
 
 You now have a diagram that can be managed in source control and edited using draw.io. 
 
-.Edit a diagram in Draw.io Offline editor
+.Edit a diagram in Draw.io Offline editor mode
 . Load https://www.draw.io/index.html?offline in your browser.
 . In the "Create New Diagram" modal, change your storage so it points to "Device".
 . Click "Open Existing Diagram" and select the `[file].dio.png` file you checked into source control.
@@ -42,4 +42,4 @@ You will need to clean these up manually prior to committing your diagram back i
 . Rename the latest duplicate file `file.png (3)` to `file.png`
 . Commit this version of the file to source control as the new diagram.
 
-You can repeat this editing workflow each time you need to make changes to your diagrams.
+You can repeat this editing workflow each time you need to make changes to your diagram
