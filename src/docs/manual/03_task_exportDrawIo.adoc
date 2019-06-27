@@ -19,7 +19,7 @@ NOTE: If you are converting a Confluence page with embedded draw.io diagrams to 
 . In the Image modal, make sure that "Include a copy of my diagram" is selected.
 . Click Export to save the PNG file with the pattern `[file].dio.png`.
 +
-NOTE: Specifying `.dia` in the name will help you identify PNG files containing embedded XML diagram source.
+NOTE: Specifying `.dio` (short for "**d**raw**io**") in the name will help you identify PNG files containing embedded XML diagram source.
 +
 . Commit the exported PNG file to source control.
 
@@ -37,8 +37,8 @@ Because you are not saving snapshots using Cloud saves, you can think of these d
 You will need to clean these up manually prior to committing your diagram back into source control.
 
 .Clean up snapshots and commit changes to source control
-. Find the latest duplicate save of the file. For example, `file.dia.png (3)`
-. Delete the previous versions of the file in your working directory. For example, `file.dia.png`, `file.dia.png (1)`, `file.dia.png (2)`.
+. Find the latest duplicate save of the file. For example, `file.dio.png (3)`
+. Delete the previous versions of the file in your working directory. For example, `file.dia.png`, `file.dio.png (1)`, `file.dio.png (2)`.
 . Rename the latest duplicate file `file.png (3)` to `file.png`
 . Commit this version of the file to source control as the new diagram.
 
