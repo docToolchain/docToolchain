@@ -1,15 +1,45 @@
 :filename: manual/03_task_exportDrawIo.adoc
 ifndef::imagesdir[:imagesdir: ../images]
+:experimental:
 
 = exportDrawIo
 
 include::feedback.adoc[]
 
-There is no `exportDrawIo` task because it is not needed.
-When you want to use https://draw.io[draw.io] for your diagrams,
-use the free offline version and save your diagrams with the `.png` file extension
-(or even better `.dio.png` to easily recognize draw.io images).
+There is no `exportDrawIo` task because it is not required. You can continue to use https://draw.io[draw.io] as an editor for your diagrams by making a change to your diagram authoring workflow.
 
-Draw.io will save the diagram as PNG file with the diagram source as XML in the meta-data of the PNG!
+Export your draw.io diagrams as a PNG with the source embedded in the file metadata.
+Using this approach allows you to embed your diagrams into AsciiDoc source as you normally do with the `image::` macro, with the added advantage of storing the diagram source with the image itself.
 
-This let's you easily reference the PNG from within your AsciiDoc files and you can still open and edit it!
+NOTE: If you are converting a Confluence page with embedded draw.io diagrams to AsciiDoc, you can use this export and editing workflow to continue to enjoy the draw.io editing experience. 
+
+.Export an editable PNG diagram from Confluence 
+. Load the diagram you want to export from Confluence.
+. Click menu:File[Export as > PNG...]
+. In the Image modal, make sure that "Include a copy of my diagram" is selected.
+. Click Export to save the PNG file with the pattern `[file].dia.png`.
++
+NOTE: Specifying `.dia` in the name will help you identify PNG files containing embedded XML diagram source.
++
+. Commit the exported PNG file to source control.
+
+You now have a diagram that can be managed in source control and edited using draw.io. 
+
+.Edit a diagram in Draw.io Offline editor
+. Load https://www.draw.io/index.html?offline in your browser.
+. In the "Create New Diagram" modal, change your storage so it points to "Device".
+. Click "Open Existing Diagram" and select the `[file].dio.png` file you checked into source control.
+. Make any edits to the diagram that you need to make. 
+. Save your changes.
+
+Each time you save, the draw.io Offline editor will create a duplicate of the file. 
+Because you are not saving snapshots using Cloud saves, you can think of these duplicates as snapshots of your file that let you roll-back during editing. 
+You will need to clean these up manually prior to committing your diagram back into source control.
+
+.Clean up snapshots and commit changes to source control
+. Find the latest duplicate save of the file. For example, `file.dia.png (3)`
+. Delete the previous versions of the file in your working directory. For example, `file.dia.png`, `file.dia.png (1)`, `file.dia.png (2)`.
+. Rename the latest duplicate file `file.png (3)` to `file.png`
+. Commit this version of the file to source control as the new diagram.
+
+You can repeat this editing workflow each time you need to make changes to your diagrams.
