@@ -27,3 +27,5 @@ You now have a diagram that can be managed in source control, added to your docu
 
 NOTE: Draw.io offer free and open source desktop editors for all major operating system platforms. 
 See https://about.draw.io/integrations/ to find a desktop editor application compatible with your operating system.
+When you use the desktop version, just create your diagram with the `.png` or even better `.dio.png` extension and draw.io will always save your diagam as PNG with the source as meta data.
+
