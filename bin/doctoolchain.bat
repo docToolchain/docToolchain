@@ -57,7 +57,7 @@ echo   Generate HTML:
 echo     doctoolchain . generateHTML
 echo.
 echo   Publish HTML to Confluence:
-echo     doctoolchain . publishToConfluence -PconfluenceConfigFile=ConfluenceConfig.groovy --no-daemon -q
+echo     doctoolchain . publishToConfluence
 goto :end
 
 :end
