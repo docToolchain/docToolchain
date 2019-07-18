@@ -7,7 +7,7 @@ include::feedback.adoc[]
 
 image::ea/Manual/publishToConfluence.png[]
 
-This target takes the generated HTML file, splits t by headline and pushes it to Confluence.
+This target takes the generated HTML file, splits it by headline and pushes it to Confluence.
 This enables you to use the docs-as-code approach while getting feedback fron non-techies through Confluence comments.
 And it fulfills the "requirement" of "... but all documentation is in Confluence" 🤣.
 
@@ -19,11 +19,11 @@ This is quite important - otherwise watches are easily annoyed by too many notif
 We tried to make the configuration self-explaning, but theree are always some note to add.
 
 ancestorId::
-    this is the page ID of the parant page to which you want your docs to be published.
+    this is the page ID of the parent page to which you want your docs to be published.
     Got to this page, click on edit and the needed ID will show up in the URL
 
 api::
-for could instances, `[context]` is `wiki`
+for cloud instances, `[context]` is `wiki`
 
 pagePrefix/pageSuffix::
 Confluence can't handle two pages with the same name.

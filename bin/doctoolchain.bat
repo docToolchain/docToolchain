@@ -24,13 +24,13 @@ cd /d %BASEDIR%
 
 IF "%PATHTODOCS:~0,1%"=="." goto :relativePath
 
-./gradlew --project-cache-dir %BASEDIR%/.gradle -PdocDir=%PATHTODOCS% %2 %3 %4 %5 %6
+./gradlew --project-cache-dir %BASEDIR%/.gradle "-PdocDir=%PATHTODOCS%" %2 %3 %4 %5 %6
 
 goto :end
 
 :relativePath
 
-./gradlew --project-cache-dir %BASEDIR%/.gradle -PdocDir=%WORKINGDIR%%PATHTODOCS% %2 %3 %4 %5 %6
+./gradlew --project-cache-dir %BASEDIR%/.gradle "-PdocDir=%WORKINGDIR%%PATHTODOCS%" %2 %3 %4 %5 %6
 
 goto :end
 

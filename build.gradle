@@ -26,7 +26,7 @@ if (project.name!=rootProject.name) {
     // this avoids for example that task 'check' runs if invoked in main project
     gradle.taskGraph.whenReady {
         tasks.each { task ->
-            if (task.group in ['docToolchain', 'Documentation']
+            if (task.group in ['docToolchain', 'Documentation', 'docToolchain helper']
                     || task.name in ['htmlSanityCheck', 'streamingExecute', 'tasks', 'clean']) {
                 task.enabled = true
             } else {
@@ -38,8 +38,12 @@ if (project.name!=rootProject.name) {
         throw new Exception("""
 You are running docToolchain as git submodule.
 That is great!
-Currently, it is still configured to build its own manual.
+Currently, it is still configured to build its own manual,
+because the property docDir points to docToolchain itself.
 Please configure docToolchain to point to your doc-sources.
+You can do so by specifying it in your build.gradle or on the
+command line. Example:
+./gradlew generateHTML -PdocDir=../.
 see https://docs-as-co.de/getstarted/tutorial2 for more details.
         """)
     }
