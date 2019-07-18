@@ -18,12 +18,12 @@ Examples:
 
   Generate PDF:
     doctoolchain . generatePDF
-    
+
   Generate HTML:
     doctoolchain . generateHTML
 
   Publish HTML to Confluence:
-    doctoolchain . publishToConfluence -PconfluenceConfigFile=ConfluenceConfig.groovy --no-daemon -q
+    doctoolchain . publishToConfluence
 '
 
     exit 1

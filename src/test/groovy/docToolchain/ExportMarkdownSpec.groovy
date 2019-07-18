@@ -8,7 +8,6 @@ import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
 
 class ExportMarkdownSpec extends Specification {
 
-
     public static final File exportedMarkdownFile = new File('./src/test/build/docs/src/docs/exportMarkdownDocs.adoc')
 
     @Ignore("somehow this test is currently broken (no, not the functionality :-)")

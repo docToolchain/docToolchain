@@ -154,18 +154,13 @@ TIP: Blog-Posts: https://rdmueller.github.io/enterprise-edition/[Behind the grea
 
 == Publish to Confluence
 
-In addition to `Config.groovy` there is also a `scripts/ConfluenceConfig.groovy` file. If you are not using Confluence
-you can remove it. If you use Confluence, then you need to open this file and adapt to your environment.
-You can also create multiple copies of that file. For example you can have `ConfluenceConfig.groovy` for publishing
-official pages, and `MyConfluenceConfig.groovy` with a different Confluence space for reviews.
+`Config.groovy` also contains configuration of Confluence.
+If you are not using Confluence you can remove it.
+If you use Confluence, then you need to open this file and adapt to your environment.
 
-The paths to those configuration files can be provided by giving -P option to doctoolchain, for example:
+For example:
 
 [source, bash]
 ----
-# Uses scripts/ConfluenceConfig.groovy by default
-doctoolchain <docDir> publishToConfluence --no-daemon -q
-
-# Uses scripts/MyConfluenceConfig.groovy
-doctoolchain <docDir> publishToConfluence -PconfluenceConfigFile=scripts/MyConfluenceConfig.groovy --no-daemon -q
+doctoolchain <docDir> publishToConfluence
 ----

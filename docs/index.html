@@ -789,7 +789,7 @@ But you are not restricted to one master - you can create master docs for severa
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/d2c684ec9e55edec506308356b67016?d=identicon" alt="Jakub J Jablonski " width="32" title="Jakub J Jablonski "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/df21e0a05d621d59a147b9091a56ebdc?d=identicon" alt="Dr. Gernot Starke " width="32" title="Dr. Gernot Starke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/2e3af23bd872d2b971788a4519e3bf46?d=identicon" alt="Jakub Jabłoński " width="32" title="Jakub Jabłoński "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/399cd7a37bd45f40c31dae5bb9f6cafe?d=identicon" alt="Jorge " width="32" title="Jorge "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Stefan Pfeiffer " width="32" title="Stefan Pfeiffer "></span></p>
+<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/d2c684ec9e55edec506308356b67016?d=identicon" alt="Jakub J Jablonski " width="32" title="Jakub J Jablonski "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/2e3af23bd872d2b971788a4519e3bf46?d=identicon" alt="Jakub Jabłoński " width="32" title="Jakub Jabłoński "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/df21e0a05d621d59a147b9091a56ebdc?d=identicon" alt="Dr. Gernot Starke " width="32" title="Dr. Gernot Starke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Stefan Pfeiffer " width="32" title="Stefan Pfeiffer "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/399cd7a37bd45f40c31dae5bb9f6cafe?d=identicon" alt="Jorge " width="32" title="Jorge "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -1003,21 +1003,16 @@ Blog-Posts: <a href="https://rdmueller.github.io/enterprise-edition/">Behind the
 <div class="sect2">
 <h3 id="_publish_to_confluence">2.4. Publish to Confluence</h3>
 <div class="paragraph">
-<p>In addition to <code>Config.groovy</code> there is also a <code>scripts/ConfluenceConfig.groovy</code> file. If you are not using Confluence
-you can remove it. If you use Confluence, then you need to open this file and adapt to your environment.
-You can also create multiple copies of that file. For example you can have <code>ConfluenceConfig.groovy</code> for publishing
-official pages, and <code>MyConfluenceConfig.groovy</code> with a different Confluence space for reviews.</p>
+<p><code>Config.groovy</code> also contains configuration of Confluence.
+If you are not using Confluence you can remove it.
+If you use Confluence, then you need to open this file and adapt to your environment.</p>
 </div>
 <div class="paragraph">
-<p>The paths to those configuration files can be provided by giving -P option to doctoolchain, for example:</p>
+<p>For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="bash"># Uses scripts/ConfluenceConfig.groovy by default
-doctoolchain &lt;docDir&gt; publishToConfluence --no-daemon -q
-
-# Uses scripts/MyConfluenceConfig.groovy
-doctoolchain &lt;docDir&gt; publishToConfluence -PconfluenceConfigFile=scripts/MyConfluenceConfig.groovy --no-daemon -q</code></pre>
+<pre class="CodeRay highlight"><code data-lang="bash">doctoolchain &lt;docDir&gt; publishToConfluence</code></pre>
 </div>
 </div>
 <hr>
@@ -1213,7 +1208,7 @@ Make sure to specify a unique image name for each diagram, otherwise they will o
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/demoPlantUML.png" alt="demoPlantUML" width="246" height="236">
+<img src="images/demoPlantUML.png" alt="demoPlantUML" width="232" height="236">
 </div>
 <div class="title">Figure 2. example diagram</div>
 </div>
@@ -1241,7 +1236,7 @@ For example, if you take the example diagram above and change the declaration to
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/demoPlantUMLScale.png" alt="demoPlantUMLScale" width="184" height="177">
+<img src="images/demoPlantUMLScale.png" alt="demoPlantUMLScale" width="174" height="177">
 </div>
 <div class="title">Figure 4. example diagram (with specified scale)</div>
 </div>
@@ -3692,7 +3687,7 @@ Blog-Post: <a href="https://rdmueller.github.io/changelog/">The only constant in
 This list is then rendered as asciidoc images of the contributor&#8217;s gravatar picture.</p>
 </div>
 <div class="paragraph">
-<p>The extracted lists are stored in <code>/workspace/docToolchain/build/docs/contributors/manual/03_task_exportContributors.adoc</code> to be easily included in your documents.</p>
+<p>The extracted lists are stored in <code>/Users/jablonsj/Git/docToolchain/jakubjab-docToolchain/build/docs/contributors/manual/03_task_exportContributors.adoc</code> to be easily included in your documents.</p>
 </div>
 <div class="paragraph">
 <p>Best way to use this feature is to create a <code>feedback.adoc</code> file which might look like this:</p>
@@ -3740,7 +3735,7 @@ This list is then rendered as asciidoc images of the contributor&#8217;s gravata
 <h4 id="_file_attributes">3.16.2. File Attributes</h4>
 <div class="paragraph">
 <p>The task now also exports some attributes of the git files.
-The extracted attributes are stored in <code>/workspace/docToolchain/build/docs/fileattribs/manual/03_task_exportContributors.adoc</code>.</p>
+The extracted attributes are stored in <code>/Users/jablonsj/Git/docToolchain/jakubjab-docToolchain/build/docs/fileattribs/manual/03_task_exportContributors.adoc</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4963,7 +4958,7 @@ Einige Teile dieser Doku können Sie sogar automatisiert testen.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/eb5ceb4c4d2dfe351c58a8d005c6f3da?d=identicon" alt="Christoph Raaflaub " width="32" title="Christoph Raaflaub "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr " width="32" title="David M. Carr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer " width="32" title="Dr. Stefan Pfeiffer "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/64ec325b5e2d6c8b3d76e2df81056f2d?d=identicon" alt="Fabian Nonnenmacher " width="32" title="Fabian Nonnenmacher "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/a00ae7656ba26679126c05ca950dd1fc?d=identicon" alt="Stefan Bohn " width="32" title="Stefan Bohn "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/fdbd46a8418be834d8ab743ca4b52455?d=identicon" alt="funkr " width="32" title="funkr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev " width="32" title="ghp-dev "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/2e3af23bd872d2b971788a4519e3bf46?d=identicon" alt="jakubjab " width="32" title="jakubjab "></span></p>
+<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer " width="32" title="Dr. Stefan Pfeiffer "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/64ec325b5e2d6c8b3d76e2df81056f2d?d=identicon" alt="Fabian Nonnenmacher " width="32" title="Fabian Nonnenmacher "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/a00ae7656ba26679126c05ca950dd1fc?d=identicon" alt="Stefan Bohn " width="32" title="Stefan Bohn "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/fdbd46a8418be834d8ab743ca4b52455?d=identicon" alt="funkr " width="32" title="funkr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev " width="32" title="ghp-dev "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/eb5ceb4c4d2dfe351c58a8d005c6f3da?d=identicon" alt="Christoph Raaflaub " width="32" title="Christoph Raaflaub "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/2e3af23bd872d2b971788a4519e3bf46?d=identicon" alt="jakubjab " width="32" title="jakubjab "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr " width="32" title="David M. Carr "></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -5285,7 +5280,7 @@ confluence.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-06-30 19:51:07 UTC
+Last updated 2019-07-18 09:07:59 CEST
 </div>
 </div>
 </body>
