@@ -13,6 +13,7 @@ The easiest way is to clone the repository without history and remove the `.git`
 [source,bash]
 ----
 git clone --recursive https://github.com/docToolchain/docToolchain.git <docToolchain home>
+cd <docToolchain home>
 rm -rf .git
 rm -rf resources/asciidoctor-reveal.js/.git
 rm -rf resources/reveal.js/.git
