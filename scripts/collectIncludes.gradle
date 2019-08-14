@@ -15,7 +15,7 @@ task collectIncludes(
         
         //running as subproject? set scandir to main project
         if (project.name!=rootProject.name && scanDir=='.') {
-            scanDir = project(':').projectDir
+            scanDir = project(':').projectDir.path
         }
         if (docDir.startsWith('.')) {
             docDir = file(new File(projectDir, docDir).canonicalPath)
