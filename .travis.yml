@@ -3,7 +3,6 @@ language: groovy
 jdk:
   - openjdk8
   - openjdk11
-  - oraclejdk8
 
 git:
   depth: 3000
