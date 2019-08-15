@@ -17,11 +17,11 @@ For example, the arc42-template has 12 chapters and a master template in which t
 But when you work with dynamic modules like ADRs - Architecture Decision Records, you create those files on the fly.
 Maybe not even within your `/src/docs`folder but right beside the code file for which you wrote the ADR.
 
-In order to include these files in your documentation, you now would have to add the file with its whole relativcve path to one of your AsciiDoc files.
+In order to include these files in your documentation, you now would have to add the file with its whole relative path to one of your AsciiDoc files.
 
 This task will handle it for you!
 
-Just stick with your files names to the pattern `^[A-Z]{3,}-.*` (it beginns with three upper case letters and a dash) and this task will collect this file and write it to your build folder. You only have to include this generated file from within your documentation.
+Just stick with your files names to the pattern `^[A-Z]{3,}-.*` (it begins with at last three upper case letters and a dash) and this task will collect this file and write it to your build folder. You only have to include this generated file from within your documentation.
 
 Example:
 
