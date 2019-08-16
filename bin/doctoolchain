@@ -35,4 +35,4 @@ shift
 
 cd $doctoolchain/..
 
-./gradlew --project-cache-dir $docDir/.gradle -PdocDir=$docDir "$@"
+./gradlew --project-cache-dir $docDir/.gradle -PdocDir="$docDir" "$@"
