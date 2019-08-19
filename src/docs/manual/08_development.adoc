@@ -11,7 +11,7 @@ INFO: this chapter is still work in progress
 
 === Prerequisites
 
-- make sure that Git and Graphvis are installed
+- make sure that Git and Graphviz are installed
 - make sure that your Gradle setup is able to work with proxies
 - use Java 8
 
@@ -23,7 +23,8 @@ cd docToolchain/
 git checkout V1.0.0         # <1>
 git submodule update -i
 ```
-<1> the version to test. Not needed if you work on the HEAD revision on Master
+<1> the version to test.
+Not needed if you work on the HEAD revision on Master
 
 === Execute Tests
 

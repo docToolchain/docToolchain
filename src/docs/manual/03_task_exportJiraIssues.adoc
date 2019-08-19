@@ -9,8 +9,8 @@ image::ea/Manual/exportJiraIssues.png[]
 
 This task exports all issues for a given query from jira as AsciiDoc table.
 
-The configuration for this task can currently be found winthin `gradle.properties`.
-Username/Passwort is deprecated, so you have to use Username/API-Token instead.
+The configuration for this task can currently be found within `gradle.properties`.
+Username/Password is deprecated, so you have to use username/API-token instead.
 An API-Token can be created through https://id.atlassian.com/manage/api-tokens[].
 
 TIP: Blog-Post: https://rdmueller.github.io/Jira/[Living Documents for Agile Projects]

@@ -1,5 +1,6 @@
 :filename: manual/03_task_generatePDF.adoc
 ifndef::imagesdir[:imagesdir: ../images]
+
 = generatePDF
 
 include::feedback.adoc[]

@@ -51,7 +51,7 @@ IMPORTANT: Make sure to specify a unique image name for each diagram, otherwise 
 The above example renders as
 
 .example diagram
-[plantuml, "{plantUMLDir}demoPlantUML", png]
+[plantuml,"{plantUMLDir}demoPlantUML",png]
 ----
 !pragma graphviz_dot jdot
 class BlockProcessor
@@ -78,7 +78,7 @@ For example, if you take the example diagram above and change the declaration to
 it will render like this:
 
 .example diagram (with specified width)
-[plantuml, target="{plantUMLDir}demoPlantUMLWidth", format=png, width=250]
+[plantuml,target="{plantUMLDir}demoPlantUMLWidth",format=png,width=250]
 ----
 !pragma graphviz_dot jdot
 class BlockProcessor
@@ -92,7 +92,7 @@ DiagramBlock <|-- PlantUmlBlock
 ----
 
 .example diagram (with specified scale)
-[plantuml, target="{plantUMLDir}demoPlantUMLScale", format=png, scale=0.75]
+[plantuml,target="{plantUMLDir}demoPlantUMLScale",format=png,scale=0.75]
 ----
 !pragma graphviz_dot jdot
 class BlockProcessor

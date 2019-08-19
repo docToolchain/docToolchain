@@ -15,7 +15,7 @@ When you create modular documentation, most includes are static.
 For example, the arc42-template has 12 chapters and a master template in which those 12 chapters are included.
 
 But when you work with dynamic modules like ADRs - Architecture Decision Records, you create those files on the fly.
-Maybe not even within your `/src/docs`folder but right beside the code file for which you wrote the ADR.
+Maybe not even within your `/src/docs` folder but right beside the code file for which you wrote the ADR.
 
 In order to include these files in your documentation, you now would have to add the file with its whole relative path to one of your AsciiDoc files.
 
@@ -25,7 +25,7 @@ Just stick with your files names to the pattern `^[A-Z]{3,}-.*` (it begins with 
 
 Example:
 
-you have a file called
+You have a file called
 
     /src/jave/yourCompany/domain/books/ADR-1-whyWeUseTheAISINInsteadOFISBN.adoc
 
@@ -37,14 +37,15 @@ Which will look like this:
 
     include::../../../src/jave/yourCompany/domain/books/ADR-1-whyWeUseTheAISINInsteadOFISBN.adoc[]
 
-Obviously, you get the most benefit if you not only have one ADR file, but severals ones which get collected. 😎
+Obviously, you get the most benefit if you not only have one ADR file, but several ones which get collected.
+😎
 
 You then include these files in your main documentation by using a single include:
 
     include::{targetDir}/docs/_includes/ADR_includes.adoc[]
 
 .scripts/collectIncludes.gradle
-[source, groovy]
+[source,groovy]
 ----
 include::../../../scripts/collectIncludes.gradle[tags=collectIncludes]
 ----

@@ -13,9 +13,11 @@ It then exports all diagrams and element notes to `/src/docs/images/visio` and `
 * Images are stored as `/images/visio/[filename]-[pagename].png`
 * Notes are stored as `/visio/[filename]-[pagename].adoc`
 
-You can specify a file name to which the notes of a diagram are exported by starting any comment with {adoc:[filename].adoc}`. It will then be written to `/viso/[filename].adoc`.
+You can specify a file name to which the notes of a diagram are exported by starting any comment with `+++{adoc:[filename].adoc}+++`.
+It will then be written to `/visio/[filename].adoc`.
 
-WARNING: Currently, only Visio files stored directly in `/src/docs` are supported. For all others, the exported files will be in the wrong location.
+WARNING: Currently, only Visio files stored directly in `/src/docs` are supported.
+For all others, the exported files will be in the wrong location.
 
 NOTE: Please close any running Visio instance before starting this task.
 
