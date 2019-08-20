@@ -24,13 +24,13 @@ cd /d %BASEDIR%
 
 IF "%PATHTODOCS:~0,1%"=="." goto :relativePath
 
-./gradlew --project-cache-dir %BASEDIR%/.gradle "-PdocDir=%PATHTODOCS%" %2 %3 %4 %5 %6
+call %GRADLECMD% --project-cache-dir %BASEDIR%/.gradle "-PdocDir=%PATHTODOCS%" %2 %3 %4 %5 %6
 
 goto :end
 
 :relativePath
 
-./gradlew --project-cache-dir %BASEDIR%/.gradle "-PdocDir=%WORKINGDIR%%PATHTODOCS%" %2 %3 %4 %5 %6
+call %GRADLECMD% --project-cache-dir %BASEDIR%/.gradle "-PdocDir=%WORKINGDIR%%PATHTODOCS%" %2 %3 %4 %5 %6
 
 goto :end
 
@@ -61,3 +61,5 @@ echo     doctoolchain . publishToConfluence
 goto :end
 
 :end
+rem back to WORKINGDIR
+cd /d %WORKINGDIR%
