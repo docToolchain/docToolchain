@@ -116,6 +116,9 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
     def api = new RESTClient(config.confluence.api)
     //this fixes the encoding
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
+    if (config.confluence.proxy) {
+        api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
+    }
 
     def headers = [
             'Authorization': 'Basic ' + config.confluence.credentials,
@@ -138,6 +141,9 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
         }
     } else {
         http = new HTTPBuilder(config.confluence.api + 'content/' + pageId + '/child/attachment')
+        if (config.confluence.proxy) {
+            http.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
+        }
     }
     if (http) {
         http.request(Method.POST) { req ->
@@ -316,7 +322,7 @@ def parseBody =  { body, anchors, pageAnchors ->
         if(!src.startsWith("http")) {
           def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')+src
           def fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")
-          newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")      
+          newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")
 
           trythis {
               deferredUpload <<  [0,newUrl,fileName,"automatically uploaded"]
@@ -356,6 +362,9 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
     ]
     //this fixes the encoding
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
+    if (config.confluence.proxy) {
+        api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
+    }
     //try to get an existing page
     localPage = parseBody(pageBody, anchors, pageAnchors)
 

@@ -39,6 +39,9 @@ e.g. you can do things like `credentials = "user:${new File("/home/me/apitoken")
 extraPageContent::
 If you need to prefix you pages with a warning that this is generated content - this is the right place.
 
+proxy::
+If you need to provide a proxy to access Confluence, you may set a map with keys `host` (e.g. `'my.proxy.com'`), `port` (e.g. `'1234'`) and `schema` (e.g. `'http'`) of your proxy.
+
 .configuration
 .publishToConfluence.gradle
 [source,groovy]
