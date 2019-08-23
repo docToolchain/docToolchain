@@ -11,8 +11,10 @@ This target takes the generated HTML file, splits it by headline and pushes it t
 This enables you to use the docs-as-code approach while getting feedback from non-techies through Confluence comments.
 And it fulfills the "requirement" of "... but all documentation is in Confluence" 🤣.
 
-Special feature: only pages and images which have changed between task runs are really published and hence only for those changes notifications are sent to watches.
-This is quite important - otherwise watches are easily annoyed by too many notifications.
+Special features:
+
+* only pages and images which have changed between task runs are really published and hence only for those changes notifications are sent to watches.This is quite important - otherwise watches are easily annoyed by too many notifications.
+* `:keywords:` Keywords are attached as labels to every generated Confluence page. The rules for page labels should be kept in mind. See https://confluence.atlassian.com/doc/add-remove-and-search-for-labels-136419.html. Several keywords are are allowed. The must be separated by comma, e.g. `:keywords: label_1, label-2, label3, ...`. Labels (keywords) must not contain a space character! User '_' or '-'.
 
 == Configuration
 
