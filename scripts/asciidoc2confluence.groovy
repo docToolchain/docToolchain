@@ -286,6 +286,7 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
     }
 }
 
+// dierk42: trying to introduce the usage of internal Confluence links. This is alpha
 def rewriteConfluenceLinks = { body, anchors, pageAnchors ->
     // find arbitrary Confluence links cross-references and replace them with link macros
     body.select('a[href]').each { a ->
