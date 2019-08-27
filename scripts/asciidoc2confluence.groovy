@@ -29,11 +29,12 @@
 
 // some dependencies
 /**
- @Grapes ([@Grab('org.jsoup:jsoup:1.8.2' ) ,
- @Grab ( 'org.codehaus.groovy.modules.http-builder:http-builder:0.6' ) ,
- @Grab ( 'org.apache.httpcomponents:httpmime:4.5.1' )]
-  )
-  * */
+@Grapes(
+        [@Grab('org.jsoup:jsoup:1.8.2'),
+         @Grab('org.codehaus.groovy.modules.http-builder:http-builder:0.6' ),
+         @Grab('org.apache.httpcomponents:httpmime:4.5.1')]
+)
+**/
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
 import org.jsoup.nodes.Entities.EscapeMode
@@ -47,7 +48,6 @@ import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.EncoderRegistry
 import groovyx.net.http.ContentType
 import java.security.MessageDigest
-
 //to upload attachments:
 import org.apache.http.entity.mime.MultipartEntity
 import org.apache.http.entity.mime.content.StringBody
@@ -73,15 +73,16 @@ def MD5(String s) {
 }
 
 // for getting better error message from the REST-API
+// LuisMuniz: return the action's result, if successful.
 def trythis(Closure action) {
     try {
         action.call()
     } catch (HttpResponseException error) {
-        println "something went wrong - got an http response code " + error.response.status + ":"
+        println "something went wrong - got an http response code "+error.response.status+":"
         switch (error.response.status) {
             case '401':
-                println(error.response.data.toString().replaceAll("^.*Reason", "Reason"))
-                println "please check your confluence credentials in " + configFile.canonicalPath
+                println (error.response.data.toString().replaceAll("^.*Reason","Reason"))
+                println "please check your confluence credentials in "+configFile.canonicalPath
                 throw new Exception("missing authentication credentials")
                 break
             default:
@@ -97,7 +98,7 @@ def parseAdmonitionBlock(block, String type) {
     content = block.select(".content").first()
     titleElement = content.select(".title")
     titleText = ''
-    if (titleElement != null) {
+    if(titleElement != null) {
         titleText = "<ac:parameter ac:name=\"title\">${titleElement.text()}</ac:parameter>"
         titleElement.remove()
     }
@@ -124,25 +125,25 @@ def addLabels = { def pageId, def labelsArray ->
     //https://docs.atlassian.com/confluence/REST/latest/
     def api = new RESTClient(config.confluence.api)
     //this fixes the encoding (dierk42: Is this needed here? Don't know)
-    api.encoderRegistry = new EncoderRegistry(charset: 'utf-8')
+    api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
 
     def headers = [
-            'Authorization'    : 'Basic ' + config.confluence.credentials,
-            'X-Atlassian-Token': 'no-check'
+            'Authorization': 'Basic ' + config.confluence.credentials,
+            'X-Atlassian-Token':'no-check'
     ]
     // Attach each label in a API call of its own. The only prefix possible
     // in our own Confluence is 'global'
     labelsArray.each { label ->
         label_data = [
-                prefix: 'global',
-                name  : label
+            prefix : 'global',
+            name : label
         ]
         trythis {
             // attach label to page pageId
             // https://developer.atlassian.com/display/CONFDEV/Confluence+REST+API+Examples#ConfluenceRESTAPIExamples-Updatingapage
             def res = api.post(contentType: ContentType.JSON,
-                    path: 'content/' + pageId + "/label", body: label_data, headers: headers)
-        }
+                              path: 'content/' + pageId + "/label", body: label_data, headers: headers)
+            }
         println "added label " + label + " to page ID " + pageId
     }
 }
@@ -164,11 +165,11 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
     //https://docs.atlassian.com/confluence/REST/latest/
     def api = new RESTClient(config.confluence.api)
     //this fixes the encoding
-    api.encoderRegistry = new EncoderRegistry(charset: 'utf-8')
+    api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
 
     def headers = [
-            'Authorization'    : 'Basic ' + config.confluence.credentials,
-            'X-Atlassian-Token': 'no-check'
+            'Authorization': 'Basic ' + config.confluence.credentials,
+            'X-Atlassian-Token':'no-check'
     ]
     //check if attachment already exists
     def result = "nothing"
@@ -177,10 +178,10 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
                     'filename': fileName,
             ], headers: headers).data
     def http
-    if (attachment.size == 1) {
+    if (attachment.size==1) {
         // attachment exists. need an update?
-        def remoteHash = attachment.results[0].extensions.comment.replaceAll("(?sm).*#([^#]+)#.*", '$1')
-        if (remoteHash != localHash) {
+        def remoteHash = attachment.results[0].extensions.comment.replaceAll("(?sm).*#([^#]+)#.*",'$1')
+        if (remoteHash!=localHash) {
             //hash is different -> attachment needs to be updated
             http = new HTTPBuilder(config.confluence.api + 'content/' + pageId + '/child/attachment/' + attachment.results[0].id + '/data')
             println "    updated attachment"
@@ -276,7 +277,7 @@ boolean hasRequestedParent(Map existingPage, String requestedParentId) {
 }
 
 def rewriteDescriptionLists = { body ->
-    def TAGS = [dt: 'th', dd: 'td']
+    def TAGS = [ dt: 'th', dd: 'td' ]
     body.select('dl').each { dl ->
         // WHATWG allows wrapping dt/dd in divs, simply unwrap them
         dl.select('div').each { it.unwrap() }
@@ -322,7 +323,7 @@ def rewriteDescriptionLists = { body ->
         }
 
         dl.wrap('<table></table>')
-                .unwrap()
+            .unwrap()
     }
 }
 
@@ -339,9 +340,9 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
                 // potentially loose styling that way.
                 a.html(a.text())
                 a.wrap("<ac:link${anchors.containsKey(anchor) ? ' ac:anchor="' + anchor + '"' : ''}></ac:link>")
-                        .before("<ri:page ri:content-title=\"${realTitle pageTitle}\"/>")
-                        .wrap("<ac:plain-text-link-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-link-body>")
-                        .unwrap()
+                   .before("<ri:page ri:content-title=\"${realTitle pageTitle}\"/>")
+                   .wrap("<ac:plain-text-link-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-link-body>")
+                   .unwrap()
             }
         }
     }
@@ -357,10 +358,10 @@ def rewriteCodeblocks = { body ->
             code.before("<ac:parameter ac:name=\"language\">${code.attr('data-lang')}</ac:parameter>")
         }
         code.parent() // pre now
-                .wrap('<ac:structured-macro ac:name="code"></ac:structured-macro>')
-                .unwrap()
+            .wrap('<ac:structured-macro ac:name="code"></ac:structured-macro>')
+            .unwrap()
         code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
-                .unwrap()
+            .unwrap()
     }
 }
 
@@ -385,16 +386,16 @@ def unescapeCDATASections = { html ->
 //definition lists are not displayed by confluence, so turn them into tables
 //body can be of type Element or Elements
 def deferredUpload = []
-def parseBody = { body, anchors, pageAnchors ->
+def parseBody =  { body, anchors, pageAnchors ->
     body.select('div.paragraph').unwrap()
     body.select('div.ulist').unwrap()
     body.select('div.sect3').unwrap()
-    ['note'     : 'info',
-     'warning'  : 'warning',
-     'important': 'warning',
-     'caution'  : 'note',
-     'tip'      : 'tip'].each { adType, cType ->
-        body.select('.admonitionblock.' + adType).each { block ->
+    [   'note':'info',
+        'warning':'warning',
+        'important':'warning',
+        'caution':'note',
+        'tip':'tip'            ].each { adType, cType ->
+        body.select('.admonitionblock.'+adType).each { block ->
             parseAdmonitionBlock(block, cType)
         }
     }
@@ -419,24 +420,24 @@ def parseBody = { body, anchors, pageAnchors ->
             //println attribute.dump()
         }
         def src = img.attr('src')
-        def imgWidth = img.attr('width') ?: 500
-        def imgAlign = img.attr('align') ?: "center"
-        println "    image: " + src
+        def imgWidth = img.attr('width')?:500
+        def imgAlign = img.attr('align')?:"center"
+        println "    image: "+src
 
         //it is not an online image, so upload it to confluence and use the ri:attachment tag
-        if (!src.startsWith("http")) {
-            def newUrl = baseUrl.toString().replaceAll('\\\\', '/').replaceAll('/[^/]*$', '/') + src
-            def fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]), "UTF-8")
-            newUrl = java.net.URLDecoder.decode(newUrl, "UTF-8")
+        if(!src.startsWith("http")) {
+          def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')+src
+          def fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")
+          newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")
 
-            trythis {
-                deferredUpload << [0, newUrl, fileName, "automatically uploaded"]
-            }
-            img.after("<ac:image ac:align=\"${imgAlign}\" ac:width=\"${imgWidth}\"><ri:attachment ri:filename=\"${fileName}\"/></ac:image>")
+          trythis {
+              deferredUpload <<  [0,newUrl,fileName,"automatically uploaded"]
+          }
+          img.after("<ac:image ac:align=\"${imgAlign}\" ac:width=\"${imgWidth}\"><ri:attachment ri:filename=\"${fileName}\"/></ac:image>")
         }
         // it is an online image, so we have to use the ri:url tag
         else {
-            img.after("<ac:image ac:align=\"imgAlign\" ac:width=\"${imgWidth}\"><ri:url ri:value=\"${src}\"/></ac:image>")
+          img.after("<ac:image ac:align=\"imgAlign\" ac:width=\"${imgWidth}\"><ri:url ri:value=\"${src}\"/></ac:image>")
         }
         img.remove()
     }
@@ -449,11 +450,11 @@ def parseBody = { body, anchors, pageAnchors ->
 
     //change some html elements through simple substitutions
     pageString = pageString
-            .replaceAll('<br>', '<br />')
-            .replaceAll('</br>', '<br />')
-            .replaceAll('<a([^>]*)></a>', '')
-            .replaceAll(CDATA_PLACEHOLDER_START, '<![CDATA[')
-            .replaceAll(CDATA_PLACEHOLDER_END, ']]>')
+            .replaceAll('<br>','<br />')
+            .replaceAll('</br>','<br />')
+            .replaceAll('<a([^>]*)></a>','')
+            .replaceAll(CDATA_PLACEHOLDER_START,'<![CDATA[')
+            .replaceAll(CDATA_PLACEHOLDER_END,']]>')
 
     return pageString
 }
@@ -464,16 +465,9 @@ def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnch
     def api = new RESTClient(config.confluence.api)
     def headers = [
             'Authorization': 'Basic ' + config.confluence.credentials,
-            'Content-Type' : 'application/json; charset=utf-8'
+            'Content-Type':'application/json; charset=utf-8'
     ]
     String realTitleLC = realTitle(pageTitle).toLowerCase()
-
-
-/*
-    println "*" * 40
-    println "* Handling page $realTitleLC"
-    println "*" * 40
-*/
 
     //this fixes the encoding
     api.encoderRegistry = new EncoderRegistry(charset: 'utf-8')
@@ -482,11 +476,11 @@ def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnch
 
     def localHash = MD5(localPage)
     def default_toc = '<p><ac:structured-macro ac:name="toc"/></p>'
-    def prefix = (config.confluence.tableOfContents ?: default_toc) + (config.confluence.extraPageContent ?: '')
-    localPage = prefix + localPage
+    def prefix = (config.confluence.tableOfContents?:default_toc)+(config.confluence.extraPageContent?:'')
+    localPage  = prefix+localPage
     def default_children = '<p><ac:structured-macro ac:name="children"><ac:parameter ac:name="sort">creation</ac:parameter></ac:structured-macro></p>'
-    localPage += (config.confluence.tableOfChildren ?: default_children)
-    localPage += '<p style="display:none">hash: #' + localHash + '#</p>'
+    localPage += (config.confluence.tableOfChildren?:default_children)
+    localPage += '<p style="display:none">hash: #'+localHash+'#</p>'
 
     def request = [
             type : 'page',
@@ -503,7 +497,7 @@ def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnch
     ]
     if (parentId) {
         request.ancestors = [
-                [type: 'page', id: parentId]
+                [ type: 'page', id: parentId]
         ]
     }
 
@@ -525,14 +519,14 @@ def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnch
     // println "Gefunden: " + page.id + " Titel: " + page.title
 
     if (page) {
-        println "found existing page: " + page.id + " version " + page.version.number
+        println "found existing page: " + page.id +" version "+page.version.number
 
         //extract hash from remote page to see if it is different from local one
 
         def remotePage = page.body.storage.value.toString().trim()
 
         def remoteHash = remotePage =~ /(?ms)hash: #([^#]+)#/
-        remoteHash = remoteHash.size() == 0 ? "" : remoteHash[0][1]
+        remoteHash = remoteHash.size()==0?"":remoteHash[0][1]
 
         // println "remoteHash: " + remoteHash
         // println "localHash:  " + localHash
@@ -552,13 +546,13 @@ def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnch
             trythis {
                 // update page
                 // https://developer.atlassian.com/display/CONFDEV/Confluence+REST+API+Examples#ConfluenceRESTAPIExamples-Updatingapage
-                request.id = page.id
+                request.id      = page.id
                 request.version = [number: (page.version.number as Integer) + 1]
                 def res = api.put(contentType: ContentType.JSON,
-                        requestContentType: ContentType.JSON,
-                        path: 'content/' + page.id, body: request, headers: headers)
+                                  requestContentType : ContentType.JSON,
+                                  path: 'content/' + page.id, body: request, headers: headers)
             }
-            println "> updated page ${page.id}"
+            println "> updated page "+page.id
             deferredUpload.each {
                 uploadAttachment(page.id, it[1], it[2], it[3])
             }
@@ -581,10 +575,10 @@ def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnch
         //create a page
         trythis {
             page = api.post(contentType: ContentType.JSON,
-                    requestContentType: ContentType.JSON,
-                    path: 'content', body: request, headers: headers)
+                            requestContentType: ContentType.JSON,
+                            path: 'content', body: request, headers: headers)
         }
-        println "> created page " + page?.data?.id
+        println "> created page "+page?.data?.id
         deferredUpload.each {
             uploadAttachment(page?.data?.id, it[1], it[2], it[3])
         }
@@ -629,7 +623,7 @@ def recordPageAnchor = { head ->
 
 def promoteHeaders = { tree, start, offset ->
     (start..7).each { i ->
-        tree.select("h${i}").tagName("h${i - offset}").before('<br />')
+        tree.select("h${i}").tagName("h${i-offset}").before('<br />')
     }
 }
 
@@ -679,10 +673,10 @@ config.confluence.input.each { input ->
     dom.select('div#preamble div.sectionbody').each { pageBody ->
         pageBody.select('div.sect2').unwrap()
         def preamble = [
-                title   : input.preambleTitle ?: "arc42",
-                body    : pageBody,
-                children: [],
-                parent  : parentId
+            title: input.preambleTitle ?: "arc42",
+            body: pageBody,
+            children: [],
+            parent: parentId
         ]
         pages << preamble
         sections = preamble.children
@@ -694,10 +688,10 @@ config.confluence.input.each { input ->
     dom.select('div.sect1').each { sect1 ->
         Elements pageBody = sect1.select('div.sectionbody')
         def currentPage = [
-                title   : sect1.select('h2').text(),
-                body    : pageBody,
-                children: [],
-                parent  : parentId
+            title: sect1.select('h2').text(),
+            body: pageBody,
+            children: [],
+            parent: parentId
         ]
         pageAnchors.putAll(recordPageAnchor(sect1.select('h2')))
 
@@ -706,11 +700,11 @@ config.confluence.input.each { input ->
                 def title = sect2.select('h3').text()
                 pageAnchors.putAll(recordPageAnchor(sect2.select('h3')))
                 sect2.select('h3').remove()
-                def body = Jsoup.parse(sect2.toString(), 'utf-8', Parser.xmlParser())
+                def body = Jsoup.parse(sect2.toString(),'utf-8', Parser.xmlParser())
                 body.outputSettings(new Document.OutputSettings().prettyPrint(false))
                 def subPage = [
-                        title: title,
-                        body : body
+                    title: title,
+                    body: body
                 ]
                 currentPage.children << subPage
                 promoteHeaders sect2, 4, 3
