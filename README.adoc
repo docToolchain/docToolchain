@@ -18,7 +18,7 @@ image:https://travis-ci.org/docToolchain/docToolchain.svg?branch=master["Build S
 image:https://opencollective.com/doctoolchain/backers/badge.svg["Backers on Open Collective"]
 image:https://opencollective.com/doctoolchain/sponsors/badge.svg["Sponsors on Open Collective"]
 
-==== create awesome docs!
+=== create awesome docs!
 
 _docToolchain_ is an implementation of the http://www.writethedocs.org/guide/docs-as-code/[_docs-as-code_] approach for software architecture.
 The basis of docToolchain is the philosophy that software documentation should be treated in the same way as code together with the http://arc42.org[_arc42_] template for software architecture.
@@ -29,7 +29,7 @@ image::https://doctoolchain.github.io/docToolchain/images/ea/Manual/Overview2.pn
 
 https://doctoolchain.github.io/docToolchain/tests/[Integration Test Results], https://doctoolchain.github.io/docToolchain/htmlchecks/[htmlSanityCheck Test Results]
 
-==== Contributors
+=== Contributors
 
 This project exists thanks to all the people who contribute!
 
@@ -43,7 +43,7 @@ Even just fixing a typo or starring the project helps to promote it.
 I decided to give people and companies a chance to support this project.
 This is done through https://opencollective.com - the same service which https://asciidoctor.org/[Asciidoctor] uses.
 
-==== Companies who use docToolchain
+=== Companies who use docToolchain
 
 docToolchain is still one of the smaller open source projects,
 but some companies already fully embrace the docs-as-code approach through docToolchain.
@@ -53,13 +53,13 @@ Please state in the PR that we are allowed to display the logo within all projec
 [link=https://www.tomtom.com]
 image::TomTomLogo.png[TomTom]
 
-==== Backers
+=== Backers
 
 Thank you to all our backers!
 
 image::https://opencollective.com/doctoolchain/backers.svg?width=890["Become a Backer", link="https://opencollective.com/doctoolchain#backers"]
 
-==== Sponsors
+=== Sponsors
 
 Support us by becoming a sponsor. Your logo will show up here with a link to your website.
 

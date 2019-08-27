@@ -24,7 +24,7 @@ rm -rf resources/reveal.js/.git
 Another way is to download the zipped git repository and rename it:
 
 .Linux with download as zip
-[source, bash]
+[source,bash]
 ----
 wget https://github.com/docToolchain/docToolchain/archive/master.zip
 unzip master.zip
@@ -46,10 +46,8 @@ mv asciidoctor-reveal.js-9667f5c5d926b3be48361d6d6413d3896954894c asciidoctor-re
 mv docToolchain-master <docToolchain home>
 ----
 
-
 If you work (like me) on a Windows environment, just download and unzip the https://github.com/docToolchain/docToolchain/archive/master.zip[repository] as well as its dependencies:
-https://github.com/hakimel/reveal.js/archive/tags/3.3.0.zip[reveal.js] and
-https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip[asciidoctor-reveal.js].
+https://github.com/hakimel/reveal.js/archive/tags/3.3.0.zip[reveal.js] and https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip[asciidoctor-reveal.js].
 
 After unzipping, put the dependencies in `resources` folder, so that the structure is the same as on https://github.com/docToolchain/docToolchain/tree/master/resources[GitHub].
 
@@ -62,17 +60,17 @@ You can add <docToolchain home>/bin to your PATH or you can run doctoolchain wit
 
 == Initialize directory for documents
 
-The next step after getting docToolchain is to initialize a directory where your documents live. In docToolchain this
-directory is named "newDocDir" during initialization, or just "docDir" later on.
+The next step after getting docToolchain is to initialize a directory where your documents live.
+In docToolchain this directory is named "newDocDir" during initialization, or just "docDir" later on.
 
 === Existing documents
 
-If you already have some existing documents in AsciiDoc format in your project, you need to put the configuration
-file there to inform docToolchain what and how to process. You can do that manually by copying the contents of
-template_config directory. You can also do that by running `initExisting` task.
+If you already have some existing documents in AsciiDoc format in your project, you need to put the configuration file there to inform docToolchain what and how to process.
+You can do that manually by copying the contents of template_config directory.
+You can also do that by running `initExisting` task.
 
 .Linux initExisting example
-[source, bash]
+[source,bash]
 ----
 cd <docToolchain home>
 ./gradlew -b init.gradle initExisting -PnewDocDir=<your directory>
@@ -81,14 +79,16 @@ cd <docToolchain home>
 You need to open Config.groovy file and configure names of your files properly.
 You may also change the PDF schema file to your taste.
 
-IMPORTANT: docToolchain use by default `src/docs` as the directory of your documentation. If you use a different directory you need to go to <docToolchain home> and set the `inputPath` property in `gradle.properties` to `your/path`.
-
+IMPORTANT: docToolchain use by default `src/docs` as the directory of your documentation.
+If you use a different directory you need to go to <docToolchain home> and set the `inputPath` property in `gradle.properties` to `your/path`.
 
 === arc42 from scratch
 
-If you don't have existing documents yet, or if you need a fresh start, you can get the https://arc42.org[arc42] template in AsciiDoc
-format. You can do that by manually downloading from https://arc42.org/download. You can also to that by running
-`initArc42<language>` task. Currently supported languages are:
+If you don't have existing documents yet, or if you need a fresh start, you can get the https://arc42.org[arc42] template in AsciiDoc format.
+You can do that by manually downloading from https://arc42.org/download.
+You can also to that by running
+`initArc42<language>` task.
+Currently supported languages are:
 
 - DE - German
 - EN - English
@@ -96,7 +96,7 @@ format. You can do that by manually downloading from https://arc42.org/download.
 - RU - Russian
 
 .Linux initArc42EN example
-[source, bash]
+[source,bash]
 ----
 cd <docToolchain home>
 ./gradlew -b init.gradle initArc42EN -PnewDocDir=<newDocDir>
@@ -111,7 +111,7 @@ TIP: Blog-Post: https://rdmueller.github.io/arc42/[Let's add Content!]
 This should already be enough to start a first build.
 
 .Linux
-[source, bash]
+[source,bash]
 ----
 doctoolchain <docDir> generateHTML
 doctoolchain <docDir> generatePDF
@@ -147,7 +147,7 @@ build
         `-- arc42-logo.png
 ----
 
-*Congratulations!* if you see the same folder structure, you just managed to render the standard arc42 template as html and pdf!
+*Congratulations!* If you see the same folder structure, you just managed to render the standard arc42 template as html and pdf!
 
 If you didn't get the right output, please raise an issue on https://github.com/docToolchain/docToolchain/issues[github]
 
@@ -155,13 +155,15 @@ TIP: Blog-Posts: https://rdmueller.github.io/enterprise-edition/[Behind the grea
 
 == Publish to Confluence
 
-`Config.groovy` also contains configuration of Confluence.
+In addition to `Config.groovy` there is also a `scripts/ConfluenceConfig.groovy` file.
 If you are not using Confluence you can remove it.
 If you use Confluence, then you need to open this file and adapt to your environment.
+You can also create multiple copies of that file.
+For example you can have `ConfluenceConfig.groovy` for publishing official pages, and `MyConfluenceConfig.groovy` with a different Confluence space for reviews.
 
 For example:
 
-[source, bash]
+[source,bash]
 ----
 doctoolchain <docDir> publishToConfluence
 ----

@@ -8,16 +8,16 @@ include::feedback.adoc[]
 This section tries to answer the most common and frequently asked questions about how to work with docToolchain.
 It will also contain questions relevant to the tools used to build docToolchain, but the main focus is docToolchain itself.
 
-If you are stuck, make sure that you also check other sources like https://stackoverflow.com/questions/tagged/asciidoctor[stackoverflow].
+If you are stuck, make sure that you also check other sources like https://stackoverflow.com/questions/tagged/asciidoctor[Stack Overflow].
 
 There is also a great FAQ for all your arc42 questions: https://faq.arc42.org/home/
 
 If you have a question or problem for which you can't find a solution, you can
 
 * for this repo, add your question and create a pull request
-* raise the issue through the https://github.com/docToolchain/docToolchain/issues[github issue tracker]
-* ask your question on https://stackoverflow.com/questions/tagged/doctoolchain?sort=active&pageSize=50[stackoverflow]
-* discuss the problem on https://t.co/lnqrUc1YMM[slack]
+* raise the issue through the https://github.com/docToolchain/docToolchain/issues[GitHub issue tracker]
+* ask your question on https://stackoverflow.com/questions/tagged/doctoolchain?sort=active&pageSize=50[Stack Overflow]
+* discuss the problem on https://t.co/lnqrUc1YMM[Slack]
 
 == Images
 
@@ -37,12 +37,14 @@ The solution is to add a line to each file which checks if the `imagesdir` is se
 
 === Q: Which image format should I use?
 
-A: AsciiDoc and AsciiDoctor support several formats like GIF, PNG, JPG and SVG.
+A:
+AsciiDoc and AsciiDoctor support several formats like GIF, PNG, JPG and SVG.
 However, if you want to use most features, some formats are better to use than others:
 
-GIF:: is not supported by the PDF renderer. Use JPG or PNG instead.
+GIF:: is not supported by the PDF renderer.
+Use JPG or PNG instead.
 
-JPG:: is great for photos but not for diagrams (you might get compression artefacts).
+JPG:: is great for photos but not for diagrams (you might get compression artifacts).
 So, if you want to use photos from your flipcharts - JPG might work for you.
 
 SVG:: great for high resolution diagrams, but not good supported by DOCX as output format.
@@ -53,7 +55,8 @@ All output formats support it and if diagrams are rendered with a resolution hig
 
 === Q: Why are my images rotated in the output?
 
-A: This most likely happens when you've taken photos with a mobile device and include them in you docs.
+A:
+This most likely happens when you've taken photos with a mobile device and include them in you docs.
 A mobile device does not rotate the image itself, it only stores the orientation of the device in the meta data of the photo.
 Your operating system will show you the image as expected, but the rendered AsciiDoc will not.
 This can be „fixed“ with Imagemagick, use convert -auto-orient or mogrify -auto-orient (thanx to https://twitter.com/RalfDMueller/status/920888868345384960[@rotnroll666] for this tip).
@@ -75,14 +78,17 @@ In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
     + FullyQualifiedErrorId : ExceptionWhenSetting
 ----
 
-A: When Visio is installed, it registers itself as com library. It seems that this registration can break.
+A:
+When Visio is installed, it registers itself as com library.
+It seems that this registration can break.
 You can fix this by visiting the windows system settings -> install or uninstall a program, select `visio`, select `change` and then `repair`.
 
 == Sparx Enterprise Architect
 
 === Q: Sparx Enterprise Architect is a Windows tool, isn't it?
 
-Yes, it is, but it is written to support CrossOver in order to run on Linux based systems. Wine, the open source branch of CrossOver seems to work as well.
+Yes, it is, but it is written to support CrossOver in order to run on Linux based systems.
+Wine, the open source branch of CrossOver seems to work as well.
 
 Take a look at this page to see how to install it on a linux based system: https://www.sparxsystems.com/support/faq/ea_on_linux.html
 
@@ -101,13 +107,14 @@ Failed to capture snapshot of input files for task ':generateHTML' property 'sou
 There are two reasons known for this error.
 
 1. One of the .adoc files is opened in an editor, so that windows can't get the lock for that file.
-    -> Close all .adoc files.
+-> Close all .adoc files.
 
-2. You use the Bash script `doctoolchain` on a windows system. -> Use `doctoolchain.bat` instead. It works even in a
- Bash Shell.
+2. You use the Bash script `doctoolchain` on a windows system.
+-> Use `doctoolchain.bat` instead.
+It works even in a Bash Shell.
 
 === Q: I get the error saying 'Unsupported major.minor version 52.0'
 
-This is a sign that you use an outdaed version of Java.
+This is a sign that you use an outdated version of Java.
 Please upgrade to at least Java 8.
 

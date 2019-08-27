@@ -1,24 +1,24 @@
-
 :filename: manual/03_task_exportContributors.adoc
 
 = exportContributors
 
 include::feedback.adoc[]
 
-This tasks crawls through all asciidoctor source files and extracts a list of contributors.
-This list is then rendered as asciidoc images of the contributor's gravatar picture.
+This tasks crawls through all Asciidoctor source files and extracts a list of contributors.
+This list is then rendered as AsciiDoc images of the contributor's gravatar picture.
 
 The extracted lists are stored in `{targetDir}/contributors/{filename}` to be easily included in your documents.
 
 Best way to use this feature is to create a `feedback.adoc` file which might look like this:
 
 .feedback.adoc
-[source, asciidoc]
+[source,asciidoc,indent=0]
+// the contents of the following source block are indented to prevent the ifndef/endif/include to resolve
 ----
     ifndef::backend-pdf[] // <1>
 
         image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}{filename}, float=right] // <2>
-        image::https://img.shields.io/badge/create-an%20issue-blue.svg[link="https://github.com/docToolchain/documentation/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:{filename}", float=right]
+        image::https://img.shields.io/badge/create-an%20issue-blue.svg[link="https://github.com/docToolchain/documentation/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:{filename}", float=right] // <3>
 
     endif::[]
 
@@ -39,7 +39,7 @@ The task also appends to the list of contributors the estimated reading time.
 The task now also exports some attributes of the git files.
 The extracted attributes are stored in `{targetDir}/fileattribs/{filename}`.
 
-[source, asciidoc]
+[source,asciidoc]
 ----
 :lastUpdated: 16.05.2019 06:22
 :lastAuthorName: Ralf D. Müller
@@ -53,7 +53,8 @@ This enables you to import these attributes the same way you import the contribu
 Here is an example:
 
 .feedback.adoc
-[source, asciidoc]
+[source,asciidoc,indent=0]
+// the contents of the following source block are indented to prevent the ifndef/endif/include to resolve
 ----
     include::{targetDir}/fileattribs/{filename}[]
 

@@ -8,19 +8,21 @@ include::feedback.adoc[]
 image::ea/Manual/publishToConfluence.png[]
 
 This target takes the generated HTML file, splits it by headline and pushes it to Confluence.
-This enables you to use the docs-as-code approach while getting feedback fron non-techies through Confluence comments.
+This enables you to use the docs-as-code approach while getting feedback from non-techies through Confluence comments.
 And it fulfills the "requirement" of "... but all documentation is in Confluence" 🤣.
 
-Special feature: only pages and images which have changed between task runs are really published and hence only for those changes notifications are sent to watches.
-This is quite important - otherwise watches are easily annoyed by too many notifications.
+Special features:
+
+* only pages and images which have changed between task runs are really published and hence only for those changes notifications are sent to watches.This is quite important - otherwise watches are easily annoyed by too many notifications.
+* `:keywords:` Keywords are attached as labels to every generated Confluence page. The rules for page labels should be kept in mind. See https://confluence.atlassian.com/doc/add-remove-and-search-for-labels-136419.html. Several keywords are are allowed. The must be separated by comma, e.g. `:keywords: label_1, label-2, label3, ...`. Labels (keywords) must not contain a space character! User '_' or '-'.
 
 == Configuration
 
-We tried to make the configuration self-explaning, but theree are always some note to add.
+We tried to make the configuration self-explaining, but there are always some note to add.
 
 ancestorId::
-    this is the page ID of the parent page to which you want your docs to be published.
-    Got to this page, click on edit and the needed ID will show up in the URL
+this is the page ID of the parent page to which you want your docs to be published.
+Got to this page, click on edit and the needed ID will show up in the URL
 
 api::
 for cloud instances, `[context]` is `wiki`
@@ -33,8 +35,8 @@ If you are restricted and can't create new spaces, you can use this `pagePrefix`
 credentials::
 Use username and password or even better username and api-token.
 You can create new API-tokens in https://confluence.atlassian.com/cloud/api-tokens-938839638.html[your profile].
-To avoid having your password or api-token versioned thorugh git, you can store it outside of this configuration as environment variable or in another file - the key here is that the config file is a groovy script.
-e.g. you can do things like `credentilas = "user:${new File("/home/me/apitoken").text}".bytes.encodeBase64().toString()`
+To avoid having your password or api-token versioned through git, you can store it outside of this configuration as environment variable or in another file - the key here is that the config file is a groovy script.
+e.g. you can do things like `credentials = "user:${new File("/home/me/apitoken").text}".bytes.encodeBase64().toString()`
 
 extraPageContent::
 If you need to prefix you pages with a warning that this is generated content - this is the right place.
@@ -47,6 +49,7 @@ include::../../../Config.groovy[tags=confluenceConfig]
 ----
 
 == CSS Styling
+
 Some AsciiDoctor features depend on particular CSS style definitions.
 Unless these styles are defined, some formatting that is present in the HTML version will not be represented when published to Confluence.
 

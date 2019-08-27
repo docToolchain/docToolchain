@@ -17,7 +17,7 @@ This task is the last default task and creates a report in `build/report/htmlche
 .sample report
 image::manual/htmlSanityCheck.png[align="center"]
 
-Further information can be found on github: https://github.com/aim42/htmlSanityCheck
+Further information can be found on GitHub: https://github.com/aim42/htmlSanityCheck
 
 TIP: Blog-Post: https://rdmueller.github.io/htmlSanityCheck/[Automated Quality-Checks]
 

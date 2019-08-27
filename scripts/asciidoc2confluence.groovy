@@ -22,6 +22,11 @@
  *
  */
 
+/*
+    Additions for issue #342 marked as #342-dierk42 
+    ;-)
+*/
+
 // some dependencies
 /**
 @Grapes(
@@ -99,10 +104,25 @@ def parseAdmonitionBlock(block, String type) {
     block.remove()
 }
 
+/*  #342-dierk42
+    
+    add labels to a Confluence page. Labels are taken from :keywords: which
+    are converted as meta tags in HTML. Building the array: see below
+
+    Confluence allows adding labels only after creation of a page.
+    Therefore we need extra API calls.
+
+    Currently the labels are added one by one. Suggestion for improvement:
+    Build a label structure of all labels an place them with one call.
+
+    Replaces exisiting labels. No harm
+    Does not check for deleted labels when keywords are deleted from source
+    document!
+*/
 def addLabels = { def pageId, def labelsArray ->
     //https://docs.atlassian.com/confluence/REST/latest/
     def api = new RESTClient(config.confluence.api)
-    //this fixes the encoding
+    //this fixes the encoding (dierk42: Is this needed here? Don't know)
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
 
     def headers = [
@@ -420,6 +440,7 @@ def parseBody =  { body, anchors, pageAnchors ->
 }
 
 // the create-or-update functionality for confluence pages
+// #342-dierk42: added parameter 'keywords'
 def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, keywords ->
     def api = new RESTClient(config.confluence.api)
     def headers = [
@@ -460,7 +481,8 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
 
     def pages
     trythis {
-        // Colons in title irritates Confluence's lucene search engine
+        // #342-dierk42: Colons in title irritate Confluence's lucene search engine
+        // (not really part of #342 but useful)
         def sPageTitle = pageTitle.replace(':', '')
         def cql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(sPageTitle) + "'"
         if (parentId) {
@@ -496,6 +518,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
                 uploadAttachment(page?.id, it[1], it[2], it[3])
             }
             deferredUpload = []
+            // #324-dierk42: Add keywords as labels to page.
             if (keywords) {
                 addLabels(page.id, keywords)
             }
@@ -515,6 +538,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
                 uploadAttachment(page.id, it[1], it[2], it[3])
             }
             deferredUpload = []
+            // #324-dierk42: Add keywords as labels to page.
             if (keywords) {
                 addLabels(page.id, keywords)
             }
@@ -551,6 +575,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
             uploadAttachment(page?.data?.id, it[1], it[2], it[3])
         }
         deferredUpload = []
+        // #324-dierk42: Add keywords as labels to page.
         if (keywords) {
             addLabels(page?.data?.id, keywords)
         }
@@ -627,7 +652,7 @@ config.confluence.input.each { input ->
     def anchors = [:]
     def pageAnchors = [:]
     def sections = pages = []
-    // get the keywords
+    // #342-dierk42: get the keywords from the meta tags
     def keywords = []
     dom.select('meta[name=keywords]').each { kw ->
         kws = kw.attr('content').split(',')

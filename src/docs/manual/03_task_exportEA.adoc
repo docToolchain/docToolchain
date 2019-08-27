@@ -2,6 +2,7 @@
 ifndef::imagesdir[:imagesdir: ../images]
 
 = exportEA
+
 IMPORTANT: Currently this feature is WINDOWS-only. https://github.com/docToolchain/docToolchain/issues/231[See related issue]
 
 include::feedback.adoc[]
