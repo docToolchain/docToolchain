@@ -99,6 +99,35 @@ def parseAdmonitionBlock(block, String type) {
     block.remove()
 }
 
+def addLabels = { def pageId, def labelsArray ->
+    //https://docs.atlassian.com/confluence/REST/latest/
+    def api = new RESTClient(config.confluence.api)
+    //this fixes the encoding
+    api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
+
+    def headers = [
+            'Authorization': 'Basic ' + config.confluence.credentials,
+            'X-Atlassian-Token':'no-check'
+    ]
+    // all labels to Confluence. Step 1: prepare the data array
+    def allLabels = []
+    labelsArray.each { label ->
+        allLabels << [
+            prefix : 'global',
+            name : label
+        ]
+    }
+    // Step2: Attach labels to page
+    trythis {
+        // attach label to page pageId
+        // https://developer.atlassian.com/display/CONFDEV/Confluence+REST+API+Examples#ConfluenceRESTAPIExamples-Updatingapage
+        def res = api.post(contentType: ContentType.JSON,
+                          path: 'content/' + pageId + "/label", body: allLabels, headers: headers)
+        }
+    println "added labels " + labelsArray + " to page ID " + pageId
+}
+
+
 def uploadAttachment = { def pageId, String url, String fileName, String note ->
     def is
     def localHash
@@ -237,6 +266,48 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
     }
 }
 
+def rewriteConfluenceLinks = { body, anchors, pageAnchors ->
+    // find arbitrary Confluence links cross-references and replace them with link macros
+    body.select('a[href]').each { a ->
+        def href = a.attr('href')
+        if (href.startsWith('confl://')) {
+            def confl_link = href.replace('confl://', '')
+            def space = ''
+            def page_title = ''
+            def page_anchor = ''
+            if (confl_link.find('::')) {
+                def splitted = confl_link.split('::')
+                space = splitted[0]
+                page_title = splitted[1]
+            }
+            else {
+                page_title = confl_link
+            }
+            // does page_title contain an anchor
+            if (page_title.find('#')) {
+                def splitted = page_title.split('#')
+                page_title = splitted[0]
+                page_anchor = splitted[1]
+            }
+            page_title = page_title.replace('+', ' ')
+// println "a.text: " + a.text()
+// println "space: " + space
+// println "page_title: " + page_title
+// println "page_anchor: " + page_anchor
+            if (page_title && a.text()) {
+                // as Confluence insists on link texts to be contained
+                // inside CDATA, we have to strip all HTML and
+                // potentially loose styling that way.
+                a.html(a.text())
+                a.wrap("<ac:link${page_anchor ? ' ac:anchor="' + page_anchor + '"' : ''}></ac:link>")
+                   .before("<ri:page ri:content-title=\"${page_title}\"${space ? 'ri:space-key="' + space + '"' : ''}/>")
+                   .wrap("<ac:plain-text-link-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-link-body>")
+                   .unwrap()
+            }
+        }
+    }
+}
+
 def rewriteCodeblocks = { body ->
     body.select('pre > code').each { code ->
         if (code.attr('data-lang')) {
@@ -332,6 +403,7 @@ def parseBody =  { body, anchors, pageAnchors ->
     rewriteMarks body
     rewriteDescriptionLists body
     rewriteInternalLinks body, anchors, pageAnchors
+    rewriteConfluenceLinks body, anchors, pageAnchors
     //sanitize code inside code tags
     rewriteCodeblocks body
     def pageString = unescapeCDATASections body.html().trim()
@@ -348,7 +420,7 @@ def parseBody =  { body, anchors, pageAnchors ->
 }
 
 // the create-or-update functionality for confluence pages
-def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
+def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, keywords ->
     def api = new RESTClient(config.confluence.api)
     def headers = [
             'Authorization': 'Basic ' + config.confluence.credentials,
@@ -360,9 +432,11 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
     localPage = parseBody(pageBody, anchors, pageAnchors)
 
     def localHash = MD5(localPage)
-    def prefix = '<p><ac:structured-macro ac:name="toc"/></p>'+(config.confluence.extraPageContent?:'')
+    def default_toc = '<p><ac:structured-macro ac:name="toc"/></p>'
+    def prefix = (config.confluence.tableOfContents?:default_toc)+(config.confluence.extraPageContent?:'')
     localPage  = prefix+localPage
-    localPage += '<p><ac:structured-macro ac:name="children"><ac:parameter ac:name="sort">creation</ac:parameter></ac:structured-macro></p>'
+    def default_children = '<p><ac:structured-macro ac:name="children"><ac:parameter ac:name="sort">creation</ac:parameter></ac:structured-macro></p>'
+    localPage += (config.confluence.tableOfChildren?:default_children)
     localPage += '<p style="display:none">hash: #'+localHash+'#</p>'
 
     def request = [
@@ -386,20 +460,25 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
 
     def pages
     trythis {
-        def cql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
+        // Colons in title irritates Confluence's lucene search engine
+        def sPageTitle = pageTitle.replace(':', '')
+        def cql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(sPageTitle) + "'"
         if (parentId) {
             cql += " AND parent=${parentId}"
         }
+        // println "CQL-Query: # " + cql + ' #'
         pages = api.get(path: 'content/search',
                         query: ['cql' : cql,
                                 'expand'  : 'body.storage,version'
                                ], headers: headers).data.results
     }
 
+    // println "Suche nach vorhandener Seite: " + pageTitle
     def page = pages.find { p -> p.title.equalsIgnoreCase(realTitle(pageTitle)) }
+    // println "Gefunden: " + page.id + " Titel: " + page.title
 
     if (page) {
-        //println "found existing page: " + page.id +" version "+page.version.number
+        println "found existing page: " + page.id +" version "+page.version.number
 
         //extract hash from remote page to see if it is different from local one
 
@@ -408,12 +487,18 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
         def remoteHash = remotePage =~ /(?ms)hash: #([^#]+)#/
         remoteHash = remoteHash.size()==0?"":remoteHash[0][1]
 
+        println "remoteHash: " + remoteHash
+        println "localHash:  " + localHash
+
         if (remoteHash == localHash) {
-            //println "page hasn't changed!"
+            println "page hasn't changed!"
             deferredUpload.each {
                 uploadAttachment(page?.id, it[1], it[2], it[3])
             }
             deferredUpload = []
+            if (keywords) {
+                addLabels(page.id, keywords)
+            }
             return page.id
         } else {
             trythis {
@@ -430,6 +515,9 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
                 uploadAttachment(page.id, it[1], it[2], it[3])
             }
             deferredUpload = []
+            if (keywords) {
+                addLabels(page.id, keywords)
+            }
             return page.id
         }
     } else {
@@ -463,6 +551,9 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
             uploadAttachment(page?.data?.id, it[1], it[2], it[3])
         }
         deferredUpload = []
+        if (keywords) {
+            addLabels(page?.data?.id, keywords)
+        }
         return page?.data?.id
     }
 }
@@ -478,12 +569,14 @@ def parseAnchors = { page ->
 }
 
 def pushPages
-pushPages = { pages, anchors, pageAnchors ->
+pushPages = { pages, anchors, pageAnchors, labels ->
     pages.each { page ->
         println page.title
-        def id = pushToConfluence page.title, page.body, page.parent, anchors, pageAnchors
+        def id = pushToConfluence page.title, page.body, page.parent, anchors, pageAnchors, labels
         page.children*.parent = id
-        pushPages page.children, anchors, pageAnchors
+        // println "Push children von id " + id
+        pushPages page.children, anchors, pageAnchors, labels
+        // println "Ende Push children von id " + id
     }
 }
 
@@ -534,6 +627,15 @@ config.confluence.input.each { input ->
     def anchors = [:]
     def pageAnchors = [:]
     def sections = pages = []
+    // get the keywords
+    def keywords = []
+    dom.select('meta[name=keywords]').each { kw ->
+        kws = kw.attr('content').split(',')
+        kws.each { skw ->
+            keywords << skw.trim()
+        }
+        println "Keywords:" + keywords
+    }
     // let's try to select the "first page" and push it to confluence
     dom.select('div#preamble div.sectionbody').each { pageBody ->
         pageBody.select('div.sect2').unwrap()
@@ -584,7 +686,7 @@ config.confluence.input.each { input ->
         anchors.putAll(parseAnchors(currentPage))
     }
 
-    pushPages pages, anchors, pageAnchors
+    pushPages pages, anchors, pageAnchors, keywords
     if (parentId) {
         println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}/pages/${parentId}"
     } else {
