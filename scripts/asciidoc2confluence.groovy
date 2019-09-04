@@ -23,7 +23,7 @@
  */
 
 /*
-    Additions for issue #342 marked as #342-dierk42
+    Additions for issue #342 marked as #342-dierk42 
     ;-)
 */
 
@@ -106,7 +106,7 @@ def parseAdmonitionBlock(block, String type) {
 }
 
 /*  #342-dierk42
-
+    
     add labels to a Confluence page. Labels are taken from :keywords: which
     are converted as meta tags in HTML. Building the array: see below
 
@@ -382,7 +382,7 @@ def parseBody =  { body, anchors, pageAnchors ->
         if(!src.startsWith("http")) {
           def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')+src
           def fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")
-          newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")
+          newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")      
 
           trythis {
               deferredUpload <<  [0,newUrl,fileName,"automatically uploaded"]
@@ -458,7 +458,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
         // #342-dierk42: Colons in title irritate Confluence's lucene search engine
         // (not really part of #342 but useful)
         def sPageTitle = pageTitle.replace(':', '')
-        def cql = "space='${confluenceSpaceKey}' AND type=page AND title = '" + realTitle(sPageTitle) + "'"
+        def cql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(sPageTitle) + "'"
         if (parentId) {
             cql += " AND parent=${parentId}"
         }
@@ -522,7 +522,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
         if (parentId) {
             def foreignPages
             trythis {
-                def foreignCql = "space='${confluenceSpaceKey}' AND type=page AND title = '" + realTitle(pageTitle) + "'"
+                def foreignCql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
                 foreignPages = api.get(path: 'content/search',
                                       query: ['cql' : foreignCql],
                                     headers: headers).data.results
