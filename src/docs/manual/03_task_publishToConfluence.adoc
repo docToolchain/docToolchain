@@ -41,6 +41,21 @@ e.g. you can do things like `credentials = "user:${new File("/home/me/apitoken")
 extraPageContent::
 If you need to prefix you pages with a warning that this is generated content - this is the right place.
 
+useOpenapiMacro::
+If this option is present and equal to `true`, then any source block marked with class openapi will be wrapped in a swagger-editor macro.
+(see https://marketplace.atlassian.com/apps/1218914/open-api-swagger-editor-for-confluence[Elitesoft Swagger Editor], based on swagger-ui) +
+This is how you'd include your openapi YAML file: +
++
+[source,asciidoc]
+--
+[source.openapi,yaml]
+----
+\include::myopeanapi.yaml[]
+----
+--
+
+
+
 .configuration
 .publishToConfluence.gradle
 [source,groovy]
