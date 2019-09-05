@@ -22,6 +22,11 @@
  *
  */
 
+/*
+    Additions for issue #342 marked as #342-dierk42 
+    ;-)
+*/
+
 // some dependencies
 /**
 @Grapes(
@@ -36,6 +41,7 @@ import org.jsoup.nodes.Entities.EscapeMode
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Document.OutputSettings
 import org.jsoup.nodes.Element
+import org.jsoup.nodes.TextNode
 import org.jsoup.select.Elements
 import groovyx.net.http.RESTClient
 import groovyx.net.http.HttpResponseException
@@ -98,6 +104,49 @@ def parseAdmonitionBlock(block, String type) {
     block.after("<ac:structured-macro ac:name=\"${type}\">${titleText}<ac:rich-text-body>${content}</ac:rich-text-body></ac:structured-macro>")
     block.remove()
 }
+
+/*  #342-dierk42
+    
+    add labels to a Confluence page. Labels are taken from :keywords: which
+    are converted as meta tags in HTML. Building the array: see below
+
+    Confluence allows adding labels only after creation of a page.
+    Therefore we need extra API calls.
+
+    Currently the labels are added one by one. Suggestion for improvement:
+    Build a label structure of all labels an place them with one call.
+
+    Replaces exisiting labels. No harm
+    Does not check for deleted labels when keywords are deleted from source
+    document!
+*/
+def addLabels = { def pageId, def labelsArray ->
+    //https://docs.atlassian.com/confluence/REST/latest/
+    def api = new RESTClient(config.confluence.api)
+    //this fixes the encoding (dierk42: Is this needed here? Don't know)
+    api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
+
+    def headers = [
+            'Authorization': 'Basic ' + config.confluence.credentials,
+            'X-Atlassian-Token':'no-check'
+    ]
+    // Attach each label in a API call of its own. The only prefix possible
+    // in our own Confluence is 'global'
+    labelsArray.each { label ->
+        label_data = [
+            prefix : 'global',
+            name : label
+        ]
+        trythis {
+            // attach label to page pageId
+            // https://developer.atlassian.com/display/CONFDEV/Confluence+REST+API+Examples#ConfluenceRESTAPIExamples-Updatingapage
+            def res = api.post(contentType: ContentType.JSON,
+                              path: 'content/' + pageId + "/label", body: label_data, headers: headers)
+            }
+        println "added label " + label + " to page ID " + pageId
+    }
+}
+
 
 def uploadAttachment = { def pageId, String url, String fileName, String note ->
     def is
@@ -243,6 +292,7 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
     }
 }
 
+
 def rewriteCodeblocks = { body ->
     body.select('pre > code').each { code ->
         if (code.attr('data-lang')) {
@@ -256,6 +306,20 @@ def rewriteCodeblocks = { body ->
             .unwrap()
         code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
             .unwrap()
+    }
+}
+
+def rewriteOpenAPI = { org.jsoup.nodes.Element body ->
+    if (config.confluence.useOpenapiMacro) {
+        body.select('div.openapi  pre > code').each { code ->
+            def parent=code.parent()
+            def rawYaml=code.wholeText()
+            code.parent()
+                    .wrap('<ac:structured-macro ac:name="confluence-open-api" ac:schema-version="1" ac:macro-id="1dfde21b-6111-4535-928a-470fa8ae3e7d"></ac:structured-macro>')
+                    .unwrap()
+            code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
+                    .replaceWith(new TextNode(rawYaml))
+        }
     }
 }
 
@@ -281,6 +345,8 @@ def unescapeCDATASections = { html ->
 //body can be of type Element or Elements
 def deferredUpload = []
 def parseBody =  { body, anchors, pageAnchors ->
+    rewriteOpenAPI body
+
     body.select('div.paragraph').unwrap()
     body.select('div.ulist').unwrap()
     body.select('div.sect3').unwrap()
@@ -354,7 +420,8 @@ def parseBody =  { body, anchors, pageAnchors ->
 }
 
 // the create-or-update functionality for confluence pages
-def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
+// #342-dierk42: added parameter 'keywords'
+def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, keywords ->
     def api = new RESTClient(config.confluence.api)
     def headers = [
             'Authorization': 'Basic ' + config.confluence.credentials,
@@ -369,9 +436,11 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
     localPage = parseBody(pageBody, anchors, pageAnchors)
 
     def localHash = MD5(localPage)
-    def prefix = '<p><ac:structured-macro ac:name="toc"/></p>'+(config.confluence.extraPageContent?:'')
+    def default_toc = '<p><ac:structured-macro ac:name="toc"/></p>'
+    def prefix = (config.confluence.tableOfContents?:default_toc)+(config.confluence.extraPageContent?:'')
     localPage  = prefix+localPage
-    localPage += '<p><ac:structured-macro ac:name="children"><ac:parameter ac:name="sort">creation</ac:parameter></ac:structured-macro></p>'
+    def default_children = '<p><ac:structured-macro ac:name="children"><ac:parameter ac:name="sort">creation</ac:parameter></ac:structured-macro></p>'
+    localPage += (config.confluence.tableOfChildren?:default_children)
     localPage += '<p style="display:none">hash: #'+localHash+'#</p>'
 
     def request = [
@@ -395,20 +464,26 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
 
     def pages
     trythis {
-        def cql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
+        // #342-dierk42: Colons in title irritate Confluence's lucene search engine
+        // (not really part of #342 but useful)
+        def sPageTitle = pageTitle.replace(':', '')
+        def cql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(sPageTitle) + "'"
         if (parentId) {
             cql += " AND parent=${parentId}"
         }
+        // println "CQL-Query: # " + cql + ' #'
         pages = api.get(path: 'content/search',
                         query: ['cql' : cql,
                                 'expand'  : 'body.storage,version'
                                ], headers: headers).data.results
     }
 
+    // println "Suche nach vorhandener Seite: " + pageTitle
     def page = pages.find { p -> p.title.equalsIgnoreCase(realTitle(pageTitle)) }
+    // println "Gefunden: " + page.id + " Titel: " + page.title
 
     if (page) {
-        //println "found existing page: " + page.id +" version "+page.version.number
+        println "found existing page: " + page.id +" version "+page.version.number
 
         //extract hash from remote page to see if it is different from local one
 
@@ -417,12 +492,19 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
         def remoteHash = remotePage =~ /(?ms)hash: #([^#]+)#/
         remoteHash = remoteHash.size()==0?"":remoteHash[0][1]
 
+        // println "remoteHash: " + remoteHash
+        // println "localHash:  " + localHash
+
         if (remoteHash == localHash) {
-            //println "page hasn't changed!"
+            println "page hasn't changed!"
             deferredUpload.each {
                 uploadAttachment(page?.id, it[1], it[2], it[3])
             }
             deferredUpload = []
+            // #324-dierk42: Add keywords as labels to page.
+            if (keywords) {
+                addLabels(page.id, keywords)
+            }
             return page.id
         } else {
             trythis {
@@ -439,6 +521,10 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
                 uploadAttachment(page.id, it[1], it[2], it[3])
             }
             deferredUpload = []
+            // #324-dierk42: Add keywords as labels to page.
+            if (keywords) {
+                addLabels(page.id, keywords)
+            }
             return page.id
         }
     } else {
@@ -472,6 +558,10 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
             uploadAttachment(page?.data?.id, it[1], it[2], it[3])
         }
         deferredUpload = []
+        // #324-dierk42: Add keywords as labels to page.
+        if (keywords) {
+            addLabels(page?.data?.id, keywords)
+        }
         return page?.data?.id
     }
 }
@@ -487,12 +577,14 @@ def parseAnchors = { page ->
 }
 
 def pushPages
-pushPages = { pages, anchors, pageAnchors ->
+pushPages = { pages, anchors, pageAnchors, labels ->
     pages.each { page ->
         println page.title
-        def id = pushToConfluence page.title, page.body, page.parent, anchors, pageAnchors
+        def id = pushToConfluence page.title, page.body, page.parent, anchors, pageAnchors, labels
         page.children*.parent = id
-        pushPages page.children, anchors, pageAnchors
+        // println "Push children von id " + id
+        pushPages page.children, anchors, pageAnchors, labels
+        // println "Ende Push children von id " + id
     }
 }
 
@@ -543,6 +635,15 @@ config.confluence.input.each { input ->
     def anchors = [:]
     def pageAnchors = [:]
     def sections = pages = []
+    // #342-dierk42: get the keywords from the meta tags
+    def keywords = []
+    dom.select('meta[name=keywords]').each { kw ->
+        kws = kw.attr('content').split(',')
+        kws.each { skw ->
+            keywords << skw.trim()
+        }
+        println "Keywords:" + keywords
+    }
     // let's try to select the "first page" and push it to confluence
     dom.select('div#preamble div.sectionbody').each { pageBody ->
         pageBody.select('div.sect2').unwrap()
@@ -593,7 +694,7 @@ config.confluence.input.each { input ->
         anchors.putAll(parseAnchors(currentPage))
     }
 
-    pushPages pages, anchors, pageAnchors
+    pushPages pages, anchors, pageAnchors, keywords
     if (parentId) {
         println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}/pages/${parentId}"
     } else {
