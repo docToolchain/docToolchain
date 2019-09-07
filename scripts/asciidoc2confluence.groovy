@@ -41,6 +41,7 @@ import org.jsoup.nodes.Entities.EscapeMode
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Document.OutputSettings
 import org.jsoup.nodes.Element
+import org.jsoup.nodes.TextNode
 import org.jsoup.select.Elements
 import groovyx.net.http.RESTClient
 import groovyx.net.http.HttpResponseException
@@ -166,6 +167,9 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
     def api = new RESTClient(config.confluence.api)
     //this fixes the encoding
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
+    if (config.confluence.proxy) {
+        api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
+    }
 
     def headers = [
             'Authorization': 'Basic ' + config.confluence.credentials,
@@ -188,6 +192,9 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
         }
     } else {
         http = new HTTPBuilder(config.confluence.api + 'content/' + pageId + '/child/attachment')
+        if (config.confluence.proxy) {
+            http.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
+        }
     }
     if (http) {
         http.request(Method.POST) { req ->
@@ -365,6 +372,20 @@ def rewriteCodeblocks = { body ->
     }
 }
 
+def rewriteOpenAPI = { org.jsoup.nodes.Element body ->
+    if (config.confluence.useOpenapiMacro) {
+        body.select('div.openapi  pre > code').each { code ->
+            def parent=code.parent()
+            def rawYaml=code.wholeText()
+            code.parent()
+                    .wrap('<ac:structured-macro ac:name="confluence-open-api" ac:schema-version="1" ac:macro-id="1dfde21b-6111-4535-928a-470fa8ae3e7d"></ac:structured-macro>')
+                    .unwrap()
+            code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
+                    .replaceWith(new TextNode(rawYaml))
+        }
+    }
+}
+
 def unescapeCDATASections = { html ->
     def start = html.indexOf(CDATA_PLACEHOLDER_START)
     while (start > -1) {
@@ -387,6 +408,8 @@ def unescapeCDATASections = { html ->
 //body can be of type Element or Elements
 def deferredUpload = []
 def parseBody =  { body, anchors, pageAnchors ->
+    rewriteOpenAPI body
+
     body.select('div.paragraph').unwrap()
     body.select('div.ulist').unwrap()
     body.select('div.sect3').unwrap()
@@ -470,7 +493,10 @@ def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnch
     String realTitleLC = realTitle(pageTitle).toLowerCase()
 
     //this fixes the encoding
-    api.encoderRegistry = new EncoderRegistry(charset: 'utf-8')
+    api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
+    if (config.confluence.proxy) {
+        api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
+    }
     //try to get an existing page
     localPage = parseBody(pageBody, anchors, pageAnchors)
 

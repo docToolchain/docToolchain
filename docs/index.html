@@ -1971,6 +1971,20 @@ e.g. you can do things like <code>credentials = "user:${new File("/home/me/apito
 <dd>
 <p>If you need to prefix you pages with a warning that this is generated content - this is the right place.</p>
 </dd>
+<dt class="hdlist1">useOpenapiMacro</dt>
+<dd>
+<p>If this option is present and equal to <code>true</code>, then any source block marked with class openapi will be wrapped in a swagger-editor macro.
+(see <a href="https://marketplace.atlassian.com/apps/1218914/open-api-swagger-editor-for-confluence">Elitesoft Swagger Editor</a>, based on swagger-ui)<br>
+This is how you&#8217;d include your openapi YAML file:<br></p>
+<div class="listingblock">
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="asciidoc">[source.openapi,yaml]
+----
+include::myopeanapi.yaml[]
+----</code></pre>
+</div>
+</div>
+</dd>
 </dl>
 </div>
 <div class="listingblock">
@@ -2178,6 +2192,7 @@ Note that you likely do <strong>NOT</strong> want to include the whole thing, as
 <span class="keyword">import</span> <span class="include">org.jsoup.nodes.Document</span>
 <span class="keyword">import</span> <span class="include">org.jsoup.nodes.Document.OutputSettings</span>
 <span class="keyword">import</span> <span class="include">org.jsoup.nodes.Element</span>
+<span class="keyword">import</span> <span class="include">org.jsoup.nodes.TextNode</span>
 <span class="keyword">import</span> <span class="include">org.jsoup.select.Elements</span>
 <span class="keyword">import</span> <span class="include">groovyx.net.http.RESTClient</span>
 <span class="keyword">import</span> <span class="include">groovyx.net.http.HttpResponseException</span>
@@ -2502,6 +2517,20 @@ Note that you likely do <strong>NOT</strong> want to include the whole thing, as
     }
 }
 
+<span class="keyword">def</span> rewriteOpenAPI = { org.jsoup.nodes.Element body -&gt;
+    <span class="keyword">if</span> (config.confluence.useOpenapiMacro) {
+        body.select(<span class="string"><span class="delimiter">'</span><span class="content">div.openapi  pre &gt; code</span><span class="delimiter">'</span></span>).each { code -&gt;
+            <span class="keyword">def</span> parent=code.parent()
+            <span class="keyword">def</span> rawYaml=code.wholeText()
+            code.parent()
+                    .wrap(<span class="string"><span class="delimiter">'</span><span class="content">&lt;ac:structured-macro ac:name=&quot;confluence-open-api&quot; ac:schema-version=&quot;1&quot; ac:macro-id=&quot;1dfde21b-6111-4535-928a-470fa8ae3e7d&quot;&gt;&lt;/ac:structured-macro&gt;</span><span class="delimiter">'</span></span>)
+                    .unwrap()
+            code.wrap(<span class="string"><span class="delimiter">&quot;</span><span class="content">&lt;ac:plain-text-body&gt;</span><span class="inline"><span class="inline-delimiter">${</span>CDATA_PLACEHOLDER_START<span class="inline-delimiter">}</span></span><span class="inline"><span class="inline-delimiter">${</span>CDATA_PLACEHOLDER_END<span class="inline-delimiter">}</span></span><span class="content">&lt;/ac:plain-text-body&gt;</span><span class="delimiter">&quot;</span></span>)
+                    .replaceWith(<span class="keyword">new</span> TextNode(rawYaml))
+        }
+    }
+}
+
 <span class="keyword">def</span> unescapeCDATASections = { html -&gt;
     <span class="keyword">def</span> start = html.indexOf(CDATA_PLACEHOLDER_START)
     <span class="keyword">while</span> (start &gt; -<span class="integer">1</span>) {
@@ -2524,6 +2553,8 @@ Note that you likely do <strong>NOT</strong> want to include the whole thing, as
 <span class="comment">//body can be of type Element or Elements</span>
 <span class="keyword">def</span> deferredUpload = <span class="type">[]</span>
 <span class="keyword">def</span> parseBody =  { body, anchors, pageAnchors -&gt;
+    rewriteOpenAPI body
+
     body.select(<span class="string"><span class="delimiter">'</span><span class="content">div.paragraph</span><span class="delimiter">'</span></span>).unwrap()
     body.select(<span class="string"><span class="delimiter">'</span><span class="content">div.ulist</span><span class="delimiter">'</span></span>).unwrap()
     body.select(<span class="string"><span class="delimiter">'</span><span class="content">div.sect3</span><span class="delimiter">'</span></span>).unwrap()
