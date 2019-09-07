@@ -23,7 +23,7 @@
  */
 
 /*
-    Additions for issue #342 marked as #342-dierk42 
+    Additions for issue #342 marked as #342-dierk42
     ;-)
 */
 
@@ -60,13 +60,13 @@ def CDATA_PLACEHOLDER_START = '<cdata-placeholder>'
 def CDATA_PLACEHOLDER_END = '</cdata-placeholder>'
 
 def baseUrl
-
+def allPages
 // configuration
 
 def confluenceSpaceKey
 def confluenceCreateSubpages
 def confluencePagePrefix
-
+def baseApiPath = new URI(config.confluence.api).path
 // helper functions
 
 def MD5(String s) {
@@ -74,9 +74,10 @@ def MD5(String s) {
 }
 
 // for getting better error message from the REST-API
-void trythis (Closure action) {
+// LuisMuniz: return the action's result, if successful.
+def trythis(Closure action) {
     try {
-        action.run()
+        action.call()
     } catch (HttpResponseException error) {
         println "something went wrong - got an http response code "+error.response.status+":"
         switch (error.response.status) {
@@ -88,6 +89,7 @@ void trythis (Closure action) {
             default:
                 println error.response.data
         }
+        null
         //throw error
     }
 }
@@ -106,7 +108,7 @@ def parseAdmonitionBlock(block, String type) {
 }
 
 /*  #342-dierk42
-    
+
     add labels to a Confluence page. Labels are taken from :keywords: which
     are converted as meta tags in HTML. Building the array: see below
 
@@ -218,6 +220,67 @@ def realTitle = { pageTitle ->
 def rewriteMarks = { body ->
     // Confluence strips out mark elements.  Replace them with default formatting.
     body.select('mark').wrap('<span style="background:#ff0;color:#000"></style>').unwrap()
+}
+
+// #352-LuisMuniz: Helper methods
+// Fetch all pages of the space. Only keep relevant info in the pages Map
+// The map is indexed by lower-case title
+def retrieveAllPages = { RESTClient api, Map headers, String spaceKey ->
+    if (allPages != null) {
+        println "allPages already retrieved"
+        allPages
+    } else {
+
+        def request = [
+                'type'    : 'page',
+                'spaceKey': spaceKey,
+                'expand'  : 'ancestors',
+        ]
+        def results = trythis {
+            def args = [
+                    'headers': headers,
+                    'path'   : "${baseApiPath}content",
+                    'query'  : request,
+            ]
+            api.get(args).data.results
+        } ?: []
+
+        allPages = results.inject([:]) { Map acc, Map match ->
+            //unique page names in confluence, so we can get away with indexing by title
+            def ancestors = match.ancestors.collect { it.id }
+
+            acc[match.title.toLowerCase()] = [
+                    title   : match.title,
+                    id      : match.id,
+                    parentId: ancestors.isEmpty() ? null : ancestors.last()
+            ]
+            acc
+        }
+    }
+}
+
+// Retrieve a page by id with contents and version
+def retrieveFullPage = { RESTClient api, Map headers, String id ->
+    trythis {
+        api.get(
+                [
+                        'headers': headers,
+                        'path'   : "${baseApiPath}content/${id}",
+                        'query'  : ['expand': 'body.storage,version'],
+                ]
+        ).data
+
+
+    } ?: [:]
+}
+
+//if a parent has been specified, check whether a page has the same parent.
+boolean hasRequestedParent(Map existingPage, String requestedParentId) {
+    if (requestedParentId) {
+        existingPage.parentId == requestedParentId
+    } else {
+        true
+    }
 }
 
 def rewriteDescriptionLists = { body ->
@@ -421,12 +484,14 @@ def parseBody =  { body, anchors, pageAnchors ->
 
 // the create-or-update functionality for confluence pages
 // #342-dierk42: added parameter 'keywords'
-def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, keywords ->
+def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnchors, keywords ->
     def api = new RESTClient(config.confluence.api)
     def headers = [
             'Authorization': 'Basic ' + config.confluence.credentials,
             'Content-Type':'application/json; charset=utf-8'
     ]
+    String realTitleLC = realTitle(pageTitle).toLowerCase()
+
     //this fixes the encoding
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
     if (config.confluence.proxy) {
@@ -462,24 +527,21 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
         ]
     }
 
-    def pages
-    trythis {
-        // #342-dierk42: Colons in title irritate Confluence's lucene search engine
-        // (not really part of #342 but useful)
-        def sPageTitle = pageTitle.replace(':', '')
-        def cql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(sPageTitle) + "'"
-        if (parentId) {
-            cql += " AND parent=${parentId}"
-        }
-        // println "CQL-Query: # " + cql + ' #'
-        pages = api.get(path: 'content/search',
-                        query: ['cql' : cql,
-                                'expand'  : 'body.storage,version'
-                               ], headers: headers).data.results
-    }
+    def pages = retrieveAllPages(api, headers, config.confluence.spaceKey)
 
     // println "Suche nach vorhandener Seite: " + pageTitle
-    def page = pages.find { p -> p.title.equalsIgnoreCase(realTitle(pageTitle)) }
+    Map existingPage = pages[realTitleLC]
+    def page
+
+    if (existingPage) {
+        if (hasRequestedParent(existingPage, parentId)) {
+            page = retrieveFullPage(api, headers, existingPage.id)
+        } else {
+            page = null
+        }
+    } else {
+        page = null
+    }
     // println "Gefunden: " + page.id + " Titel: " + page.title
 
     if (page) {
@@ -516,7 +578,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
                                   requestContentType : ContentType.JSON,
                                   path: 'content/' + page.id, body: request, headers: headers)
             }
-            println "> updated page"+page.id
+            println "> updated page "+page.id
             deferredUpload.each {
                 uploadAttachment(page.id, it[1], it[2], it[3])
             }
@@ -528,23 +590,12 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
             return page.id
         }
     } else {
-        if (parentId) {
-            def foreignPages
-            trythis {
-                def foreignCql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
-                foreignPages = api.get(path: 'content/search',
-                                      query: ['cql' : foreignCql],
-                                    headers: headers).data.results
-            }
-
-            def foreignPage = foreignPages.find { p -> p.title.equalsIgnoreCase(realTitle(pageTitle)) }
-
-            if (foreignPage) {
-                throw new IllegalArgumentException("Cannot create page, page with the same "
-                    + "title=${foreignPage.title} "
-                    + "with id=${foreignPage.id} already exists in the space. "
+        //#352-LuisMuniz if the existing page's parent does not match the requested parentId, fail
+        if (existingPage && !hasRequestedParent(existingPage, parentId)) {
+            throw new IllegalArgumentException("Cannot create page, page with the same "
+                    + "title=${existingPage.title} "
+                    + "with id=${existingPage.id} already exists in the space. "
                     + "A Confluence page title must be unique within a space, consider specifying a 'confluencePagePrefix' in ConfluenceConfig.groovy")
-            }
         }
 
         //create a page

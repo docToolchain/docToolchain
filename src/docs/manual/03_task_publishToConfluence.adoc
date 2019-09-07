@@ -9,7 +9,7 @@ image::ea/Manual/publishToConfluence.png[]
 
 This target takes the generated HTML file, splits it by headline and pushes it to Confluence.
 This enables you to use the docs-as-code approach while getting feedback from non-techies through Confluence comments.
-And it fulfills the "requirement" of "... but all documentation is in Confluence" 🤣.
+And it fulfills the "requirement" of "... but all documentation is in Confluence".
 
 Special features:
 
@@ -29,6 +29,7 @@ for cloud instances, `[context]` is `wiki`
 
 pagePrefix/pageSuffix::
 Confluence can't handle two pages with the same name.
+Moreover, the script matches pages regardless of the case. It will thus refuse to replace a page whose title only differs in case with an existing page.
 So you should create a new confluence space for each piece of larger documentation.
 If you are restricted and can't create new spaces, you can use this `pagePrefix`/`pageSuffix` to define a prefix/suffix for this doc so that it doesn't conflict with other page names.
 
