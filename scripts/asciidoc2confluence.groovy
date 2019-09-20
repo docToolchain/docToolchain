@@ -22,11 +22,6 @@
  *
  */
 
-/*
-    Additions for issue #342 marked as #342-dierk42 
-    ;-)
-*/
-
 // some dependencies
 /**
 @Grapes(
@@ -104,47 +99,30 @@ def parseAdmonitionBlock(block, String type) {
     block.remove()
 }
 
-/*  #342-dierk42
-    
-    add labels to a Confluence page. Labels are taken from :keywords: which
-    are converted as meta tags in HTML. Building the array: see below
-
-    Confluence allows adding labels only after creation of a page.
-    Therefore we need extra API calls.
-
-    Currently the labels are added one by one. Suggestion for improvement:
-    Build a label structure of all labels an place them with one call.
-
-    Replaces exisiting labels. No harm
-    Does not check for deleted labels when keywords are deleted from source
-    document!
-*/
 def addLabels = { def pageId, def labelsArray ->
     //https://docs.atlassian.com/confluence/REST/latest/
     def api = new RESTClient(config.confluence.api)
-    //this fixes the encoding (dierk42: Is this needed here? Don't know)
+    //this fixes the encoding
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
 
     def headers = [
             'Authorization': 'Basic ' + config.confluence.credentials,
             'X-Atlassian-Token':'no-check'
     ]
-    // all labels to Confluence. Step 1: prepare the data array
-    def allLabels = []
+    // Jedes Label hochladen
     labelsArray.each { label ->
-        allLabels << [
+        label_data = [
             prefix : 'global',
             name : label
         ]
+        trythis {
+            // attach label to page pageId
+            // https://developer.atlassian.com/display/CONFDEV/Confluence+REST+API+Examples#ConfluenceRESTAPIExamples-Updatingapage
+            def res = api.post(contentType: ContentType.JSON,
+                              path: 'content/' + pageId + "/label", body: label_data, headers: headers)
+            }
+        println "added label " + label + " to page ID " + pageId
     }
-    // Step2: Attach labels to page
-    trythis {
-        // attach label to page pageId
-        // https://developer.atlassian.com/display/CONFDEV/Confluence+REST+API+Examples#ConfluenceRESTAPIExamples-Updatingapage
-        def res = api.post(contentType: ContentType.JSON,
-                          path: 'content/' + pageId + "/label", body: allLabels, headers: headers)
-        }
-    println "added labels " + labelsArray + " to page ID " + pageId
 }
 
 
@@ -286,7 +264,6 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
     }
 }
 
-// dierk42: trying to introduce the usage of internal Confluence links. This is alpha
 def rewriteConfluenceLinks = { body, anchors, pageAnchors ->
     // find arbitrary Confluence links cross-references and replace them with link macros
     body.select('a[href]').each { a ->
@@ -395,31 +372,46 @@ def parseBody =  { body, anchors, pageAnchors ->
     // <ac:image ac:align="center" ac:width="500">
     // <ri:attachment ri:filename="deployment-context.png"/>
     // </ac:image>
-    body.select('img').each { img ->
-        img.attributes().each { attribute ->
-            //println attribute.dump()
+    body.select('div.imageblock').each { imageblock ->
+        println "imageblock gefunden"
+        def image_titel_text = ''
+        try { 
+            image_titel_text = imageblock.select('div.title').first().text()
+        } catch (Exception ex) {
+            println "Kein Image Titel gefunden"
         }
-        def src = img.attr('src')
-        def imgWidth = img.attr('width')?:500
-        def imgAlign = img.attr('align')?:"center"
-        println "    image: "+src
+        // println "Image-Titel: " + image_titel_text
+        if (image_titel_text.length() > 0) {
+            image_titel_text = "<b>" + image_titel_text + "</b>"
+        }
+        
+        imageblock.select('img').each { img ->
+            img.attributes().each { attribute ->
+                // println attribute.dump()
+            }
+            def src = img.attr('src')
+            def imgWidth = img.attr('width')?:500
+            def imgAlign = img.attr('align')?:"center"
+            def imgAltText = img.attr('alt')?:""
+            println "    image: "+src
 
-        //it is not an online image, so upload it to confluence and use the ri:attachment tag
-        if(!src.startsWith("http")) {
-          def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')+src
-          def fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")
-          newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")      
+            //it is not an online image, so upload it to confluence and use the ri:attachment tag
+            if(!src.startsWith("http")) {
+              def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')+src
+              def fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")
+              newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")      
 
-          trythis {
-              deferredUpload <<  [0,newUrl,fileName,"automatically uploaded"]
-          }
-          img.after("<ac:image ac:align=\"${imgAlign}\" ac:width=\"${imgWidth}\"><ri:attachment ri:filename=\"${fileName}\"/></ac:image>")
+              trythis {
+                  deferredUpload <<  [0,newUrl,fileName,"automatically uploaded"]
+              }
+              imageblock.after("<p style=\"text-align: center;\"><ac:image ac:border=\"true\" ac:align=\"${imgAlign}\" ac:width=\"${imgWidth}\" ac:alt=\"${imgAltText}\"><ri:attachment ri:filename=\"${fileName}\"/></ac:image><br/>${image_titel_text}</p>")
+            }
+            // it is an online image, so we have to use the ri:url tag
+            else {
+              imageblock.after("<ac:image ac:align=\"imgAlign\" ac:width=\"${imgWidth}\"><ri:url ri:value=\"${src}\"/></ac:image>")
+            }
+            imageblock.remove()
         }
-        // it is an online image, so we have to use the ri:url tag
-        else {
-          img.after("<ac:image ac:align=\"imgAlign\" ac:width=\"${imgWidth}\"><ri:url ri:value=\"${src}\"/></ac:image>")
-        }
-        img.remove()
     }
     rewriteMarks body
     rewriteDescriptionLists body
@@ -441,7 +433,6 @@ def parseBody =  { body, anchors, pageAnchors ->
 }
 
 // the create-or-update functionality for confluence pages
-// #342-dierk42: added parameter 'keywords'
 def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, keywords ->
     def api = new RESTClient(config.confluence.api)
     def headers = [
@@ -482,8 +473,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
 
     def pages
     trythis {
-        // #342-dierk42: Colons in title irritate Confluence's lucene search engine
-        // (not really part of #342 but useful)
+        // Colons in title irritates Confluence's lucene search engine
         def sPageTitle = pageTitle.replace(':', '')
         def cql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(sPageTitle) + "'"
         if (parentId) {
@@ -519,7 +509,6 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
                 uploadAttachment(page?.id, it[1], it[2], it[3])
             }
             deferredUpload = []
-            // #324-dierk42: Add keywords as labels to page.
             if (keywords) {
                 addLabels(page.id, keywords)
             }
@@ -539,7 +528,6 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
                 uploadAttachment(page.id, it[1], it[2], it[3])
             }
             deferredUpload = []
-            // #324-dierk42: Add keywords as labels to page.
             if (keywords) {
                 addLabels(page.id, keywords)
             }
@@ -576,7 +564,6 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
             uploadAttachment(page?.data?.id, it[1], it[2], it[3])
         }
         deferredUpload = []
-        // #324-dierk42: Add keywords as labels to page.
         if (keywords) {
             addLabels(page?.data?.id, keywords)
         }
@@ -653,7 +640,7 @@ config.confluence.input.each { input ->
     def anchors = [:]
     def pageAnchors = [:]
     def sections = pages = []
-    // #342-dierk42: get the keywords from the meta tags
+    // get the keywords
     def keywords = []
     dom.select('meta[name=keywords]').each { kw ->
         kws = kw.attr('content').split(',')
