@@ -231,31 +231,47 @@ def retrieveAllPages = { RESTClient api, Map headers, String spaceKey ->
         allPages
     } else {
 
+        boolean morePages=true
+        int start=0
         def request = [
                 'type'    : 'page',
                 'spaceKey': spaceKey,
                 'expand'  : 'ancestors',
+                'limit'   : 100
         ]
-        def results = trythis {
-            def args = [
-                    'headers': headers,
-                    'path'   : "${baseApiPath}content",
-                    'query'  : request,
-            ]
-            api.get(args).data.results
-        } ?: []
 
-        allPages = results.inject([:]) { Map acc, Map match ->
-            //unique page names in confluence, so we can get away with indexing by title
-            def ancestors = match.ancestors.collect { it.id }
+        allPages =[:]
+        while(morePages) {
+            def results = trythis {
+                request.start=start
+                def args = [
+                        'headers': headers,
+                        'path'   : "${baseApiPath}content",
+                        'query'  : request,
+                ]
+                api.get(args).data.results
+            } ?: []
 
-            acc[match.title.toLowerCase()] = [
-                    title   : match.title,
-                    id      : match.id,
-                    parentId: ancestors.isEmpty() ? null : ancestors.last()
-            ]
-            acc
+            if (results.empty) {
+                morePages=false
+            } else {
+                start += results.size
+            }
+
+            results.inject(allPages) { Map acc, Map match ->
+                //unique page names in confluence, so we can get away with indexing by title
+                def ancestors = match.ancestors.collect { it.id }
+
+                acc[match.title.toLowerCase()] = [
+                        title   : match.title,
+                        id      : match.id,
+                        parentId: ancestors.isEmpty() ? null : ancestors.last()
+                ]
+                acc
+            }
         }
+
+        allPages
     }
 }
 
