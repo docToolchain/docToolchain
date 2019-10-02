@@ -3,6 +3,12 @@ ifdef::env-github[]
 :imagesdir: https://github.com/docToolchain/docToolchain/blob/master/images
 endif::[]
 
+image::https://hacktoberfest.digitalocean.com/assets/logo-hf19-full-10f3c000cea930c76acc1dedc516ea7118b95353220869a3051848e45ff1d656.svg[float=left,width=200]
+
+*This plugin joined https://hacktoberfest.digitalocean.com/[Hacktoberfest]!
+Issues that can give you a good start are https://github.com/docToolchain/docToolchain/issues?q=is%3Aissue+is%3Aopen+label%3AHacktoberfest[have the label "Hacktoberfest"] and maintainers are willing to help.
+Feel free to choose these or any other ticket to participate, or even create pull requests without a prior ticket).*
+
 == docToolchain
 
 [IMPORTANT]
