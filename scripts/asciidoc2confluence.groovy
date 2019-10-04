@@ -516,12 +516,12 @@ def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnch
     //try to get an existing page
     localPage = parseBody(pageBody, anchors, pageAnchors)
 
-    def localHash = MD5(localPage)
     def default_toc = '<p><ac:structured-macro ac:name="toc"/></p>'
     def prefix = (config.confluence.tableOfContents?:default_toc)+(config.confluence.extraPageContent?:'')
     localPage  = prefix+localPage
     def default_children = '<p><ac:structured-macro ac:name="children"><ac:parameter ac:name="sort">creation</ac:parameter></ac:structured-macro></p>'
     localPage += (config.confluence.tableOfChildren?:default_children)
+    def localHash = MD5(localPage)
     localPage += '<p style="display:none">hash: #'+localHash+'#</p>'
 
     def request = [
