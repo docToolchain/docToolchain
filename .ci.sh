@@ -20,6 +20,7 @@ dependency_info() {
   echo "#        Check for dependency updates      #"
   echo "#                                          #"
   echo "############################################"
+  ./gradlew -b init.gradle dependencyUpdates
   ./gradlew dependencyUpdates
 }
 
