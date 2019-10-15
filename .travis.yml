@@ -21,4 +21,4 @@ cache:
     - $HOME/.gradle/wrapper/
 
 script:
-- ./gradlew test --info
+- ./.ci.sh
