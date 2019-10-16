@@ -27,6 +27,9 @@ Go to this page, click on edit and the needed ID will show up in the URL
 api::
 for cloud instances, `[context]` is `wiki`
 
+preambleTitle::
+the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
+
 pagePrefix/pageSuffix::
 Confluence can't handle two pages with the same name.
 Moreover, the script matches pages regardless of the case. It will thus refuse to replace a page whose title only differs in case with an existing page.
@@ -135,4 +138,3 @@ include::../../../scripts/publishToConfluence.gradle[tags=publishToConfluence]
 ----
 include::../../../scripts/asciidoc2confluence.groovy[]
 ----
-

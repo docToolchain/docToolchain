@@ -82,6 +82,9 @@ confluence.with {
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
 
+    // the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
+    preambleTitle = ''
+
     // variable to determine whether ".sect2" sections shall be split from the current page into subpages
     createSubpages = false
 
