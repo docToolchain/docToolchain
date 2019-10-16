@@ -1447,7 +1447,7 @@ The task skips all files named <code>config.*</code>, <code>_config.*</code>, <c
 <pre class="CodeRay highlight"><code data-lang="groovy"><span class="keyword">import</span> <span class="include">static</span> <span class="include">groovy.io.FileType.*</span>
 
 task prependFilename(
-        <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">finds and converts non UTF-8 adoc files to UTF-8</span><span class="delimiter">'</span></span>,
+        <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">crawls through all AsciiDoc files and prepends the name of the current file</span><span class="delimiter">'</span></span>,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain helper</span><span class="delimiter">'</span></span>,
 ) {
     doLast {
@@ -1656,11 +1656,11 @@ task collectIncludes(
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer " width="32" title="Dr. Stefan Pfeiffer "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz " width="32" title="Alexander Schwartz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span></p>
+<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer " width="32" title="Dr. Stefan Pfeiffer "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz " width="32" title="Alexander Schwartz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller " width="32" title="Ralf D. Müller "></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>1 minute to read</pre>
+<pre>2 minutes to read</pre>
 </div>
 </div>
 <div class="imageblock">
@@ -1693,8 +1693,20 @@ The result looks more like a nicely rendered book than a print-to-pdf HTML page.
 </div>
 <div class="paragraph">
 <p>It is very likely that you need to "theme" you PDF - change colors, fonts, page header, and footer.
-This can be done by changing the <code>src/docs/pdfTheme/custom-theme.yml</code> file.
-Documentation on how to modify a theme can be found in the <a href="https://github.com/asciidoctor/asciidoctor-pdf/blob/master/docs/theming-guide.adoc">asciidoctor-pdf theming guide</a>.</p>
+This can be done by creating a <code>custom-theme.yml</code> file.
+As a starting point, copy the file <code>src/docs/pdfTheme/custom-theme.yml</code> from docToolchain to your project and reference it from your main <code>.adoc`file via setting the `:pdf-stylesdir:</code>.
+For instance, insert</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>:pdf-stylesdir: ../pdfTheme</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>at the top of your document to reference the <code>custom-theme.yml</code> from the <code>/pdfTheme</code> folder.</p>
+</div>
+<div class="paragraph">
+<p>Documentation on how to modify a theme can be found in the <a href="https://github.com/asciidoctor/asciidoctor-pdf/blob/master/docs/theming-guide.adoc">asciidoctor-pdf theming guide</a>.</p>
 </div>
 <div class="admonitionblock tip">
 <table>
@@ -1907,7 +1919,7 @@ It creates a PowerPoint presentation and enriches it with reveal.js slide defini
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz " width="32" title="Alexander Schwartz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/6c384e5d2b684c60fc8f062d75dae3f7?d=identicon" alt="Alfon " width="32" title="Alfon "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr " width="32" title="David M. Carr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/6c5a117679f7101b5de26dd25a2a8e98?d=identicon" alt="Dierk Höppner " width="32" title="Dierk Höppner "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/2dc2929d0609d6338d2794446156f312?d=identicon" alt="Thomas Grabietz " width="32" title="Thomas Grabietz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/3c015f3ee9960d842c195993cbb91cff?d=identicon" alt="Tim Riemer " width="32" title="Tim Riemer "></span></p>
+<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/aacd09e76c0affa36f76f8ef337a1536?d=identicon" alt="Luis Muniz " width="32" title="Luis Muniz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/3c015f3ee9960d842c195993cbb91cff?d=identicon" alt="Tim Riemer " width="32" title="Tim Riemer "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz " width="32" title="Alexander Schwartz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/6c384e5d2b684c60fc8f062d75dae3f7?d=identicon" alt="Alfon " width="32" title="Alfon "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr " width="32" title="David M. Carr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/6c5a117679f7101b5de26dd25a2a8e98?d=identicon" alt="Dierk Höppner " width="32" title="Dierk Höppner "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/2dc2929d0609d6338d2794446156f312?d=identicon" alt="Thomas Grabietz " width="32" title="Thomas Grabietz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/e7d9e6618a36e94b35d43cbd2925aee0?d=identicon" alt="bit-jkraushaar " width="32" title="bit-jkraushaar "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/be47969496f94a5a89159d70cd82bda0?d=identicon" alt="sabatmonk " width="32" title="sabatmonk "></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -1930,10 +1942,10 @@ And it fulfills the "requirement" of "&#8230;&#8203; but all documentation is in
 <div class="ulist">
 <ul>
 <li>
-<p>only pages and images which have changed between task runs are really published and hence only for those changes notifications are sent to watches.This is quite important - otherwise watches are easily annoyed by too many notifications.</p>
+<p>only pages and images which have changed between task runs are really published and hence only for those changes notifications are sent to watchers. This is quite important - otherwise watchers are easily annoyed by too many notifications.</p>
 </li>
 <li>
-<p><code>:keywords:</code> Keywords are attached as labels to every generated Confluence page. The rules for page labels should be kept in mind. See <a href="https://confluence.atlassian.com/doc/add-remove-and-search-for-labels-136419.html" class="bare">https://confluence.atlassian.com/doc/add-remove-and-search-for-labels-136419.html</a>. Several keywords are are allowed. The must be separated by comma, e.g. <code>:keywords: label_1, label-2, label3, &#8230;&#8203;</code>. Labels (keywords) must not contain a space character! User '_' or '-'.</p>
+<p><code>:keywords:</code> Keywords are attached as labels to every generated Confluence page. The rules for page labels should be kept in mind. See <a href="https://confluence.atlassian.com/doc/add-remove-and-search-for-labels-136419.html" class="bare">https://confluence.atlassian.com/doc/add-remove-and-search-for-labels-136419.html</a>. Several keywords are allowed. They must be separated by comma, e.g. <code>:keywords: label_1, label-2, label3, &#8230;&#8203;</code>. Labels (keywords) must not contain a space character! Use '_' or '-'.</p>
 </li>
 </ul>
 </div>
@@ -1947,11 +1959,15 @@ And it fulfills the "requirement" of "&#8230;&#8203; but all documentation is in
 <dt class="hdlist1">ancestorId</dt>
 <dd>
 <p>this is the page ID of the parent page to which you want your docs to be published.
-Got to this page, click on edit and the needed ID will show up in the URL</p>
+Go to this page, click on edit and the needed ID will show up in the URL</p>
 </dd>
 <dt class="hdlist1">api</dt>
 <dd>
 <p>for cloud instances, <code>[context]</code> is <code>wiki</code></p>
+</dd>
+<dt class="hdlist1">preambleTitle</dt>
+<dd>
+<p>the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'</p>
 </dd>
 <dt class="hdlist1">pagePrefix/pageSuffix</dt>
 <dd>
@@ -1969,7 +1985,11 @@ e.g. you can do things like <code>credentials = "user:${new File("/home/me/apito
 </dd>
 <dt class="hdlist1">extraPageContent</dt>
 <dd>
-<p>If you need to prefix you pages with a warning that this is generated content - this is the right place.</p>
+<p>If you need to prefix your pages with a warning that this is generated content - this is the right place.</p>
+</dd>
+<dt class="hdlist1">proxy</dt>
+<dd>
+<p>If you need to provide a proxy to access Confluence, you may set a map with keys <code>host</code> (e.g. <code>'my.proxy.com'</code>), <code>port</code> (e.g. <code>'1234'</code>) and <code>schema</code> (e.g. <code>'http'</code>) of your proxy.</p>
 </dd>
 <dt class="hdlist1">useOpenapiMacro</dt>
 <dd>
@@ -2026,6 +2046,9 @@ confluence.with {
     <span class="comment">// the key of the confluence space to write to</span>
     spaceKey = <span class="string"><span class="delimiter">'</span><span class="content">asciidoc</span><span class="delimiter">'</span></span>
 
+    <span class="comment">// the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'</span>
+    preambleTitle = <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
+
     <span class="comment">// variable to determine whether &quot;.sect2&quot; sections shall be split from the current page into subpages</span>
     createSubpages = <span class="predefined-constant">false</span>
 
@@ -2048,6 +2071,10 @@ confluence.with {
     <span class="comment">// added</span>
     <span class="comment">// extraPageContent = '&lt;ac:structured-macro ac:name=&quot;warning&quot;&gt;&lt;ac:parameter ac:name=&quot;title&quot; /&gt;&lt;ac:rich-text-body&gt;This is a generated page, do not edit!&lt;/ac:rich-text-body&gt;&lt;/ac:structured-macro&gt;</span>
     extraPageContent = <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
+
+    <span class="comment">// Optional proxy configuration, only used to access Confluence</span>
+    <span class="comment">// schema supports http and https</span>
+    <span class="comment">// proxy = [host: 'my.proxy.com', port: 1234, schema: 'http']</span>
 }</code></pre>
 </div>
 </div>
@@ -2080,8 +2107,7 @@ Unless these styles are defined, some formatting that is present in the HTML ver
 Note that you likely do <strong>NOT</strong> want to include the whole thing, as some of the definitions are likely to disrupt Confluence&#8217;s layout.</p>
 </div>
 <div class="paragraph">
-<p>The following style definitions are believed to be Confluence-compatible, and enable use of the built-in roles (<code>big</code>/<code>small</code>, <code>underline</code>/<code>overline</code>/<code>line-through</code>, <code><em>COLOR</em></code>/<code><em>COLOR</em>-background</code> for the <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">sixteen HTML color names</a>):
-0</p>
+<p>The following style definitions are believed to be Confluence-compatible, and enable use of the built-in roles (<code>big</code>/<code>small</code>, <code>underline</code>/<code>overline</code>/<code>line-through</code>, <code><em>COLOR</em></code>/<code><em>COLOR</em>-background</code> for the <a href="https://en.wikipedia.org/wiki/Web_colors#HTML_color_names">sixteen HTML color names</a>):</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2318,6 +2344,9 @@ Note that you likely do <strong>NOT</strong> want to include the whole thing, as
     <span class="keyword">def</span> api = <span class="keyword">new</span> RESTClient(config.confluence.api)
     <span class="comment">//this fixes the encoding</span>
     api.encoderRegistry = <span class="keyword">new</span> EncoderRegistry( <span class="key">charset</span>: <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span> )
+    <span class="keyword">if</span> (config.confluence.proxy) {
+        api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: <span class="string"><span class="delimiter">'</span><span class="content">http</span><span class="delimiter">'</span></span>)
+    }
 
     <span class="keyword">def</span> headers = [
             <span class="string"><span class="delimiter">'</span><span class="content">Authorization</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">Basic </span><span class="delimiter">'</span></span> + config.confluence.credentials,
@@ -2340,6 +2369,9 @@ Note that you likely do <strong>NOT</strong> want to include the whole thing, as
         }
     } <span class="keyword">else</span> {
         http = <span class="keyword">new</span> HTTPBuilder(config.confluence.api + <span class="string"><span class="delimiter">'</span><span class="content">content/</span><span class="delimiter">'</span></span> + pageId + <span class="string"><span class="delimiter">'</span><span class="content">/child/attachment</span><span class="delimiter">'</span></span>)
+        <span class="keyword">if</span> (config.confluence.proxy) {
+            http.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: <span class="string"><span class="delimiter">'</span><span class="content">http</span><span class="delimiter">'</span></span>)
+        }
     }
     <span class="keyword">if</span> (http) {
         http.request(<span class="predefined-type">Method</span>.POST) { req -&gt;
@@ -2376,31 +2408,47 @@ Note that you likely do <strong>NOT</strong> want to include the whole thing, as
         allPages
     } <span class="keyword">else</span> {
 
+        <span class="type">boolean</span> morePages=<span class="predefined-constant">true</span>
+        <span class="type">int</span> start=<span class="integer">0</span>
         <span class="keyword">def</span> request = [
                 <span class="string"><span class="delimiter">'</span><span class="content">type</span><span class="delimiter">'</span></span>    : <span class="string"><span class="delimiter">'</span><span class="content">page</span><span class="delimiter">'</span></span>,
                 <span class="string"><span class="delimiter">'</span><span class="content">spaceKey</span><span class="delimiter">'</span></span>: spaceKey,
                 <span class="string"><span class="delimiter">'</span><span class="content">expand</span><span class="delimiter">'</span></span>  : <span class="string"><span class="delimiter">'</span><span class="content">ancestors</span><span class="delimiter">'</span></span>,
+                <span class="string"><span class="delimiter">'</span><span class="content">limit</span><span class="delimiter">'</span></span>   : <span class="integer">100</span>
         ]
-        <span class="keyword">def</span> results = trythis {
-            <span class="keyword">def</span> args = [
-                    <span class="string"><span class="delimiter">'</span><span class="content">headers</span><span class="delimiter">'</span></span>: headers,
-                    <span class="string"><span class="delimiter">'</span><span class="content">path</span><span class="delimiter">'</span></span>   : <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>baseApiPath<span class="inline-delimiter">}</span></span><span class="content">content</span><span class="delimiter">&quot;</span></span>,
-                    <span class="string"><span class="delimiter">'</span><span class="content">query</span><span class="delimiter">'</span></span>  : request,
-            ]
-            api.get(args).data.results
-        } ?: <span class="type">[]</span>
 
-        allPages = results.inject([:]) { <span class="predefined-type">Map</span> acc, <span class="predefined-type">Map</span> match -&gt;
-            <span class="comment">//unique page names in confluence, so we can get away with indexing by title</span>
-            <span class="keyword">def</span> ancestors = match.ancestors.collect { <span class="local-variable">it</span>.id }
+        allPages =[:]
+        <span class="keyword">while</span>(morePages) {
+            <span class="keyword">def</span> results = trythis {
+                request.start=start
+                <span class="keyword">def</span> args = [
+                        <span class="string"><span class="delimiter">'</span><span class="content">headers</span><span class="delimiter">'</span></span>: headers,
+                        <span class="string"><span class="delimiter">'</span><span class="content">path</span><span class="delimiter">'</span></span>   : <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>baseApiPath<span class="inline-delimiter">}</span></span><span class="content">content</span><span class="delimiter">&quot;</span></span>,
+                        <span class="string"><span class="delimiter">'</span><span class="content">query</span><span class="delimiter">'</span></span>  : request,
+                ]
+                api.get(args).data.results
+            } ?: <span class="type">[]</span>
 
-            acc[match.title.toLowerCase()] = [
-                    title   : match.title,
-                    id      : match.id,
-                    <span class="key">parentId</span>: ancestors.isEmpty() ? <span class="predefined-constant">null</span> : ancestors.last()
-            ]
-            acc
+            <span class="keyword">if</span> (results.empty) {
+                morePages=<span class="predefined-constant">false</span>
+            } <span class="keyword">else</span> {
+                start += results.size
+            }
+
+            results.inject(allPages) { <span class="predefined-type">Map</span> acc, <span class="predefined-type">Map</span> match -&gt;
+                <span class="comment">//unique page names in confluence, so we can get away with indexing by title</span>
+                <span class="keyword">def</span> ancestors = match.ancestors.collect { <span class="local-variable">it</span>.id }
+
+                acc[match.title.toLowerCase()] = [
+                        title   : match.title,
+                        id      : match.id,
+                        <span class="key">parentId</span>: ancestors.isEmpty() ? <span class="predefined-constant">null</span> : ancestors.last()
+                ]
+                acc
+            }
         }
+
+        allPages
     }
 }
 
@@ -2638,16 +2686,19 @@ Note that you likely do <strong>NOT</strong> want to include the whole thing, as
     <span class="predefined-type">String</span> realTitleLC = realTitle(pageTitle).toLowerCase()
 
     <span class="comment">//this fixes the encoding</span>
-    api.encoderRegistry = <span class="keyword">new</span> EncoderRegistry(<span class="key">charset</span>: <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+    api.encoderRegistry = <span class="keyword">new</span> EncoderRegistry( <span class="key">charset</span>: <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span> )
+    <span class="keyword">if</span> (config.confluence.proxy) {
+        api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: <span class="string"><span class="delimiter">'</span><span class="content">http</span><span class="delimiter">'</span></span>)
+    }
     <span class="comment">//try to get an existing page</span>
     localPage = parseBody(pageBody, anchors, pageAnchors)
 
-    <span class="keyword">def</span> localHash = MD5(localPage)
     <span class="keyword">def</span> default_toc = <span class="string"><span class="delimiter">'</span><span class="content">&lt;p&gt;&lt;ac:structured-macro ac:name=&quot;toc&quot;/&gt;&lt;/p&gt;</span><span class="delimiter">'</span></span>
     <span class="keyword">def</span> prefix = (config.confluence.tableOfContents?:default_toc)+(config.confluence.extraPageContent?:<span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>)
     localPage  = prefix+localPage
     <span class="keyword">def</span> default_children = <span class="string"><span class="delimiter">'</span><span class="content">&lt;p&gt;&lt;ac:structured-macro ac:name=&quot;children&quot;&gt;&lt;ac:parameter ac:name=&quot;sort&quot;&gt;creation&lt;/ac:parameter&gt;&lt;/ac:structured-macro&gt;&lt;/p&gt;</span><span class="delimiter">'</span></span>
     localPage += (config.confluence.tableOfChildren?:default_children)
+    <span class="keyword">def</span> localHash = MD5(localPage)
     localPage += <span class="string"><span class="delimiter">'</span><span class="content">&lt;p style=&quot;display:none&quot;&gt;hash: #</span><span class="delimiter">'</span></span>+localHash+<span class="string"><span class="delimiter">'</span><span class="content">#&lt;/p&gt;</span><span class="delimiter">'</span></span>
 
     <span class="keyword">def</span> request = [
@@ -2814,6 +2865,7 @@ config.confluence.input.each { input -&gt;
     confluencePagePrefix = input.pagePrefix ?: config.confluence.pagePrefix
 <span class="comment">//  added</span>
     confluencePageSuffix = input.pageSuffix ?: config.confluence.pageSuffix
+    confluencePreambleTitle = input.preambleTitle ?: config.confluence.preambleTitle
 
     <span class="keyword">def</span> html = input.file ? <span class="keyword">new</span> <span class="predefined-type">File</span>(input.file).getText(<span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>) : <span class="keyword">new</span> <span class="predefined-type">URL</span>(input.url).getText()
     baseUrl = input.file ? <span class="keyword">new</span> <span class="predefined-type">File</span>(input.file) : <span class="keyword">new</span> <span class="predefined-type">URL</span>(input.url)
@@ -2841,7 +2893,7 @@ config.confluence.input.each { input -&gt;
     dom.select(<span class="string"><span class="delimiter">'</span><span class="content">div#preamble div.sectionbody</span><span class="delimiter">'</span></span>).each { pageBody -&gt;
         pageBody.select(<span class="string"><span class="delimiter">'</span><span class="content">div.sect2</span><span class="delimiter">'</span></span>).unwrap()
         <span class="keyword">def</span> preamble = [
-            <span class="key">title</span>: input.preambleTitle ?: <span class="string"><span class="delimiter">&quot;</span><span class="content">arc42</span><span class="delimiter">&quot;</span></span>,
+            <span class="key">title</span>: confluencePreambleTitle ?: <span class="string"><span class="delimiter">&quot;</span><span class="content">arc42</span><span class="delimiter">&quot;</span></span>,
             <span class="key">body</span>: pageBody,
             <span class="key">children</span>: <span class="type">[]</span>,
             <span class="key">parent</span>: parentId
@@ -3924,7 +3976,7 @@ Blog-Post: <a href="https://rdmueller.github.io/changelog/">The only constant in
 This list is then rendered as AsciiDoc images of the contributor&#8217;s gravatar picture.</p>
 </div>
 <div class="paragraph">
-<p>The extracted lists are stored in <code>/home/lmuniz/work/b2boost/sony/sales-reporting-sony-gw/docToolchain/build/docs/contributors/manual/03_task_exportContributors.adoc</code> to be easily included in your documents.</p>
+<p>The extracted lists are stored in <code>D:\projects\docToolchain/build/docs/contributors/manual/03_task_exportContributors.adoc</code> to be easily included in your documents.</p>
 </div>
 <div class="paragraph">
 <p>Best way to use this feature is to create a <code>feedback.adoc</code> file which might look like this:</p>
@@ -3972,7 +4024,7 @@ include::{targetDir}/contributors/{filename}[] <i class="conum" data-value="4"><
 <h4 id="_file_attributes">3.16.2. File Attributes</h4>
 <div class="paragraph">
 <p>The task now also exports some attributes of the git files.
-The extracted attributes are stored in <code>/home/lmuniz/work/b2boost/sony/sales-reporting-sony-gw/docToolchain/build/docs/fileattribs/manual/03_task_exportContributors.adoc</code>.</p>
+The extracted attributes are stored in <code>D:\projects\docToolchain/build/docs/fileattribs/manual/03_task_exportContributors.adoc</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -5213,7 +5265,7 @@ Für die Leser wird HTML, PDF oder EPUB generiert.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/eb5ceb4c4d2dfe351c58a8d005c6f3da?d=identicon" alt="Christoph Raaflaub " width="32" title="Christoph Raaflaub "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr " width="32" title="David M. Carr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer " width="32" title="Dr. Stefan Pfeiffer "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/64ec325b5e2d6c8b3d76e2df81056f2d?d=identicon" alt="Fabian Nonnenmacher " width="32" title="Fabian Nonnenmacher "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/aacd09e76c0affa36f76f8ef337a1536?d=identicon" alt="Luis Muniz " width="32" title="Luis Muniz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/a00ae7656ba26679126c05ca950dd1fc?d=identicon" alt="Stefan Bohn " width="32" title="Stefan Bohn "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/fdbd46a8418be834d8ab743ca4b52455?d=identicon" alt="funkr " width="32" title="funkr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev " width="32" title="ghp-dev "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/2e3af23bd872d2b971788a4519e3bf46?d=identicon" alt="jakubjab " width="32" title="jakubjab "></span></p>
+<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/fa70f591d1ee3f8346afcf8c3973cac2?d=identicon" alt="Andreas Offenhaeuser " width="32" title="Andreas Offenhaeuser "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/eb5ceb4c4d2dfe351c58a8d005c6f3da?d=identicon" alt="Christoph Raaflaub " width="32" title="Christoph Raaflaub "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr " width="32" title="David M. Carr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer " width="32" title="Dr. Stefan Pfeiffer "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/64ec325b5e2d6c8b3d76e2df81056f2d?d=identicon" alt="Fabian Nonnenmacher " width="32" title="Fabian Nonnenmacher "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/aacd09e76c0affa36f76f8ef337a1536?d=identicon" alt="Luis Muniz " width="32" title="Luis Muniz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/a00ae7656ba26679126c05ca950dd1fc?d=identicon" alt="Stefan Bohn " width="32" title="Stefan Bohn "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/e7d9e6618a36e94b35d43cbd2925aee0?d=identicon" alt="bit-jkraushaar " width="32" title="bit-jkraushaar "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/fdbd46a8418be834d8ab743ca4b52455?d=identicon" alt="funkr " width="32" title="funkr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev " width="32" title="ghp-dev "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/2e3af23bd872d2b971788a4519e3bf46?d=identicon" alt="jakubjab " width="32" title="jakubjab "></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -5308,7 +5360,16 @@ This project depends and builds on them.</p>
 <p><a href="https://github.com/bohni">Stefan Bohn</a></p>
 </li>
 <li>
+<p><a href="https://github.com/bit-jkraushaar">Jochen Kraushaar</a></p>
+</li>
+<li>
 <p><a href="https://github.com/LuisMuniz">Luis Muniz</a></p>
+</li>
+<li>
+<p><a href="https://anoff.io">Andreas Offenhaeuser</a></p>
+</li>
+<li>
+<p><a href="https://github.com/sabatmonk">Sabatmonk</a></p>
 </li>
 </ul>
 </div>
@@ -5502,6 +5563,9 @@ confluence.with {
     <span class="comment">// the key of the confluence space to write to</span>
     spaceKey = <span class="string"><span class="delimiter">'</span><span class="content">asciidoc</span><span class="delimiter">'</span></span>
 
+    <span class="comment">// the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'</span>
+    preambleTitle = <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
+
     <span class="comment">// variable to determine whether &quot;.sect2&quot; sections shall be split from the current page into subpages</span>
     createSubpages = <span class="predefined-constant">false</span>
 
@@ -5524,6 +5588,10 @@ confluence.with {
     <span class="comment">// added</span>
     <span class="comment">// extraPageContent = '&lt;ac:structured-macro ac:name=&quot;warning&quot;&gt;&lt;ac:parameter ac:name=&quot;title&quot; /&gt;&lt;ac:rich-text-body&gt;This is a generated page, do not edit!&lt;/ac:rich-text-body&gt;&lt;/ac:structured-macro&gt;</span>
     extraPageContent = <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
+
+    <span class="comment">// Optional proxy configuration, only used to access Confluence</span>
+    <span class="comment">// schema supports http and https</span>
+    <span class="comment">// proxy = [host: 'my.proxy.com', port: 1234, schema: 'http']</span>
 }</code></pre>
 </div>
 </div>
@@ -5542,7 +5610,7 @@ confluence.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-08-25 16:14:24 CEST
+Last updated 2019-10-16 09:11:19 EDT
 </div>
 </div>
 </body>
