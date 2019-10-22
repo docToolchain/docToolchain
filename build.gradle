@@ -4,8 +4,8 @@
 
 plugins {
     id "org.asciidoctor.convert" version "1.5.3"
-    id "org.aim42.htmlSanityCheck" version "1.0.0-RC-2"
-    id "com.github.ben-manes.versions" version "0.15.0"
+    id "org.aim42.htmlSanityCheck" version "1.1.3"
+    id "com.github.ben-manes.versions" version "0.27.0"
 }
 
 apply plugin:'groovy'
