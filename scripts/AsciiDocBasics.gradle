@@ -77,6 +77,7 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
     attributes  (
             'pdf-stylesdir': "${pdfThemeDir}@",
             'pdf-style': 'custom@',
+            'pdf-fontsdir': "${docDir}/fonts",
             'source-highlighter': 'coderay@',
             'imagesdir': 'images@',
             'toc': 'left@',
