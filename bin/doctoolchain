@@ -33,6 +33,6 @@ doctoolchain="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 docDir="$(unset CDPATH && cd "$1" && pwd)"
 shift
 
-cd $doctoolchain/..
+cd "$doctoolchain"/..
 
-./gradlew --project-cache-dir $docDir/.gradle -PdocDir="$docDir" "$@"
+./gradlew --project-cache-dir "$docDir"/.gradle -PdocDir="$docDir" "$@"

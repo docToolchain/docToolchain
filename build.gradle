@@ -5,7 +5,7 @@
 plugins {
     id "org.asciidoctor.convert" version "1.5.3"
     id "org.aim42.htmlSanityCheck" version "1.0.0-RC-2"
-    id "com.github.ben-manes.versions" version "0.15.0"
+    id "com.github.ben-manes.versions" version "0.26.0"
     id 'org.jbake.site' version '5.0.0'
 }
 
