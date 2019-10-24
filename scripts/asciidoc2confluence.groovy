@@ -688,6 +688,7 @@ config.confluence.input.each { input ->
     confluencePagePrefix = input.pagePrefix ?: config.confluence.pagePrefix
 //  added
     confluencePageSuffix = input.pageSuffix ?: config.confluence.pageSuffix
+    confluencePreambleTitle = input.preambleTitle ?: config.confluence.preambleTitle
 
     def html = input.file ? new File(input.file).getText('utf-8') : new URL(input.url).getText()
     baseUrl = input.file ? new File(input.file) : new URL(input.url)
@@ -715,7 +716,7 @@ config.confluence.input.each { input ->
     dom.select('div#preamble div.sectionbody').each { pageBody ->
         pageBody.select('div.sect2').unwrap()
         def preamble = [
-            title: input.preambleTitle ?: "arc42",
+            title: confluencePreambleTitle ?: "arc42",
             body: pageBody,
             children: [],
             parent: parentId
