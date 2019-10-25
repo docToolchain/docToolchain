@@ -7,7 +7,7 @@ buildscript {
     }
     dependencies {
         //for export Excel Task
-        classpath 'org.apache.poi:poi-ooxml:3.10.1'
+        classpath 'org.apache.poi:poi-ooxml:4.1.1'
     }
 }
 
@@ -126,7 +126,7 @@ use `gradle exportExcel` to re-export files
                                         cellStyle += '.^'
                                         break
                                 }
-                                color = cell.cellStyle.fillForegroundXSSFColor?.rgb?.encodeHex()
+                                color = cell.cellStyle.fillForegroundXSSFColor?.RGB?.encodeHex()
                                 color = color != null ? nl + "{set:cellbgcolor:#${color}}" : ''
                                 data << cellValue
                                 if (color == '' && resetColor) {
