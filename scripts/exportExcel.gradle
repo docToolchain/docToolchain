@@ -7,7 +7,7 @@ buildscript {
     }
     dependencies {
         //for export Excel Task
-        classpath 'org.apache.poi:poi-ooxml:3.9'
+        classpath 'org.apache.poi:poi-ooxml:3.10.1'
     }
 }
 
