@@ -4,3 +4,5 @@
 # Declare files that will always have LF line endings on checkout.
 *.sh text eol=lf
 gradlew text eol=lf
+doctoolchain text eol=lf
+dtc-int-test.sh text eol=lf
