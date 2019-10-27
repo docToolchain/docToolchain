@@ -79,14 +79,14 @@ cd <docToolchain home>
 You need to open Config.groovy file and configure names of your files properly.
 You may also change the PDF schema file to your taste.
 
-IMPORTANT: docToolchain use by default `src/docs` as the directory of your documentation.
+IMPORTANT: docToolchain by default uses `src/docs` as the directory of your documentation.
 If you use a different directory you need to go to <docToolchain home> and set the `inputPath` property in `gradle.properties` to `your/path`.
 
 === arc42 from scratch
 
 If you don't have existing documents yet, or if you need a fresh start, you can get the https://arc42.org[arc42] template in AsciiDoc format.
 You can do that by manually downloading from https://arc42.org/download.
-You can also to that by running
+You can also do that by running the
 `initArc42<language>` task.
 Currently supported languages are:
 
@@ -157,7 +157,7 @@ TIP: Blog-Posts: https://rdmueller.github.io/enterprise-edition/[Behind the grea
 
 In addition to `Config.groovy` there is also a `scripts/ConfluenceConfig.groovy` file.
 If you are not using Confluence you can remove it.
-If you use Confluence, then you need to open this file and adapt to your environment.
+If you use Confluence, then you need to open this file and adapt it to your environment.
 You can also create multiple copies of that file.
 For example you can have `ConfluenceConfig.groovy` for publishing official pages, and `MyConfluenceConfig.groovy` with a different Confluence space for reviews.
 

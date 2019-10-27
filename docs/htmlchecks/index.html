@@ -61,7 +61,7 @@ function scrollToTop() {
 
       <div class="infoBox" id="checks">
 
-          <div class="counter">726</div>
+          <div class="counter">624</div>
 
           checks</div>
 
@@ -71,7 +71,7 @@ function scrollToTop() {
 
       <div class="infoBox" id="findings">
 
-          <div class="counter">12</div>
+          <div class="counter">3</div>
 
           issues</div>
 
@@ -81,7 +81,7 @@ function scrollToTop() {
 
       <div class="infoBox" id="duration">
 
-          <div class="counter">45.86sec</div>
+          <div class="counter">91.986sec</div>
 
           duration</div>
 
@@ -90,7 +90,7 @@ function scrollToTop() {
 
     <td><div class="infoBox failures" id="successRate">
 
-        <div class="percent">98%</div>
+        <div class="percent">99%</div>
         successful</div>
     </td></tr></table>
 
@@ -104,16 +104,16 @@ function scrollToTop() {
    <tbody>
       <tr>
         <td class="failures"><a href="#manualXhtml">manual.html</a></td>
-        <td class="number">726</td>
-        <td class="number">12</td>
-        <td class="number failures">98%</td>
+        <td class="number">624</td>
+        <td class="number">3</td>
+        <td class="number failures">99%</td>
       </tr>
 
     </tbody>
   </table><hr>
 
 <h1 id="manualXhtml">Results for manual.html </h1>
-location : D:\projects\docToolchain\build\docs\html5\manual.html <p>
+location : /home/sp/github/docToolchain/build/docs/html5/manual.html <p>
 
 <table><tr><td><div class="summaryGroup">
 <table>
@@ -123,7 +123,7 @@ location : D:\projects\docToolchain\build\docs\html5\manual.html <p>
 
       <div class="infoBox" id="size">
 
-          <div class="counter">385.03</div>
+          <div class="counter">366.15</div>
 
           kByte</div>
 
@@ -133,7 +133,7 @@ location : D:\projects\docToolchain\build\docs\html5\manual.html <p>
 
       <div class="infoBox" id="checks">
 
-          <div class="counter">726</div>
+          <div class="counter">624</div>
 
           checks</div>
 
@@ -143,7 +143,7 @@ location : D:\projects\docToolchain\build\docs\html5\manual.html <p>
 
       <div class="infoBox" id="findings">
 
-          <div class="counter">12</div>
+          <div class="counter">3</div>
 
           issues</div>
 
@@ -152,37 +152,10 @@ location : D:\projects\docToolchain\build\docs\html5\manual.html <p>
 
     <td><div class="infoBox failures" id="successRate">
 
-        <div class="percent">98%</div>
+        <div class="percent">99%</div>
         successful</div>
     </td></tr></table>
 
-
-<div class="success"><h3>Missing Local Images Check</h3></div>
-
-
- 21 img src attributes checked,
- 0 missing image files found.<br>
- 
-<div class="failures"><h3>External links Check</h3></div>
-
-
- 161 anchor href attribute checked,
- 12 broken external link found.<br>
- 
-  <ul>
-      <li> Error: https://www.amazon.de/dp/B0784ZJWSR returned statuscode 503. </li>
-      <li> Warning: http://phantomjs.org/ returned statuscode 301. </li>
-      <li> Error: https://git-scm.com/ returned statuscode 403. </li>
-      <li> Error: https://about.draw.io/integrations/ returned statuscode 403. </li>
-      <li> Error: https://amzn.to/2sn0kyx returned statuscode 503. </li>
-      <li> Error: https://amzn.to/2ru9Yvr returned statuscode 503. </li>
-      <li> Error: https://stackoverflow.com/questions/tagged/doctoolchain?sort=active&pageSize=50 returned statuscode 404. </li>
-      <li> Error: https://amzn.to/2smM5Kp returned statuscode 503. </li>
-      <li> Error: https://draw.io returned statuscode 403. </li>
-      <li> Error: https://www.writethedocs.org/guide/docs-as-code/ returned statuscode 403. </li>
-      <li> Warning: http://markdown.de returned statuscode 302. </li>
-      <li> Error: https://anoff.io returned statuscode 403. </li>
-  </ul>
 
 <div class="success"><h3>Consistency of ImageMaps</h3></div>
 
@@ -190,23 +163,41 @@ location : D:\projects\docToolchain\build\docs\html5\manual.html <p>
  0 imageMap checked,
  0 map/area and usemap-references found.<br>
  
+<div class="success"><h3>Missing Local Images Check</h3></div>
+
+
+ 21 img src attributes checked,
+ 0 missing image files found.<br>
+ 
+<div class="success"><h3>Broken Internal Links Check</h3></div>
+
+
+ 258 href checked,
+ 0 missing id found.<br>
+ 
+<div class="success"><h3>Missing alt-attribute declaration in image tags</h3></div>
+
+
+ 76 image tags checked,
+ 0 missing alt attributes found.<br>
+ 
+<div class="failures"><h3>External links Check</h3></div>
+
+
+ 164 anchor href attribute checked,
+ 3 broken external link found.<br>
+ 
+  <ul>
+      <li> Warning: http://phantomjs.org/ returned statuscode 301. </li>
+      <li> Error: https://stackoverflow.com/questions/tagged/doctoolchain?sort=active&pageSize=50 returned statuscode 404. </li>
+      <li> Warning: http://markdown.de returned statuscode 302. </li>
+  </ul>
+
 <div class="success"><h3>Missing Local Resources Check</h3></div>
 
 
  0 anchor tag href attribute checked,
  0 missing local resources found.<br>
- 
-<div class="success"><h3>Missing alt-attribute declaration in image tags</h3></div>
-
-
- 184 image tags checked,
- 0 missing alt attributes found.<br>
- 
-<div class="success"><h3>Broken Internal Links Check</h3></div>
-
-
- 255 href checked,
- 0 missing id found.<br>
  
 <div class="success"><h3>Duplicate Definition of id Check</h3></div>
 
@@ -220,5 +211,5 @@ location : D:\projects\docToolchain\build\docs\html5\manual.html <p>
 </div>
 
 <div id="footer">
-  Generated by <a href="https://www.aim42.org">htmlSanityCheck</a> (version 1.0.0-RC-2) at 16. October 2019, 09:21 
+  Generated by <a href="https://www.aim42.org">htmlSanityCheck</a> (version 1.0.0-RC-2) at 27. October 2019, 13:25 
 </div></body></html>
