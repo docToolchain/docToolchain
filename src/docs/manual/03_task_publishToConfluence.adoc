@@ -22,7 +22,8 @@ We tried to make the configuration self-explaining, but there are always some no
 
 ancestorId::
 this is the page ID of the parent page to which you want your docs to be published.
-Go to this page, click on edit and the needed ID will show up in the URL
+Go to this page, click on edit and the needed ID will show up in the URL.
+Specify the ID as string within the config file.
 
 api::
 for cloud instances, `[context]` is `wiki`

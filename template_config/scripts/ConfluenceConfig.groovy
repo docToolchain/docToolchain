@@ -20,8 +20,8 @@ input = [
         [ file: "build/docs/html5/arc42-template-de.html" ],
 //      [ url:  "http://aim42.github.io/htmlSanityCheck/hsc_arc42.html" ],
 //    	[ file: "asciidocOutput1.html", ancestorId: '' ],
-//    	[ file: "asciidocOutput2.html", ancestorId: 123456 ],
-//      [ file: "asciidocOutput3.html", ancestorId: 123456, preambleTitle: 'Third Output', createSubpages: true, pagePrefix: 'docs-as-code - ']
+//    	[ file: "asciidocOutput2.html", ancestorId: '123456' ],
+//      [ file: "asciidocOutput3.html", ancestorId: '123456', preambleTitle: 'Third Output', createSubpages: true, pagePrefix: 'docs-as-code - ']
 ]
 
 // endpoint of the confluenceAPI (REST) to be used
