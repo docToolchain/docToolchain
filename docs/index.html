@@ -620,7 +620,7 @@ table.CodeRay td.code>pre{padding:0}
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/01_introduction_and_goals.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/01_introduction_and_goals.adoc[]</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -650,7 +650,7 @@ The basis of docToolchain is the philosophy that software documentation should b
 I just got tired of keeping all my architecture diagrams up to date by copying them from my UML tool over to my word processor.</p>
 </div>
 <div class="paragraph">
-<p>As a lazy developer, I told myself 'there has to be a better way of doing this'.
+<p>As a lazy developer, I told myself &#8216;there has to be a better way of doing this&#8217;.
 And I started to automate the diagram export and switched from a full fledged word processor over to a markup renderer.
 This enabled me to reference the diagrams from within my text and update them just before I render the document.</p>
 </div>
@@ -658,8 +658,8 @@ This enabled me to reference the diagrams from within my text and update them ju
 <div class="sect3">
 <h4 id="_arc42">1.1.2. arc42</h4>
 <div class="paragraph">
-<p>Since my goal was to document software architectures, I was already using arc42 - a template for software architecture.
-At this time, it used the MS Word template.</p>
+<p>Since my goal was to document software architectures, I was already using arc42, a template for software architecture documentation.
+At that time, I used the MS Word template.</p>
 </div>
 <div class="paragraph">
 <p>But what is arc42?</p>
@@ -671,20 +671,20 @@ These explanations are part of every chapter of the template and give you guidan
 </div>
 <div class="paragraph">
 <p>arc42 is available in many formats like MS Word, textile, and Confluence.
-All these formats are automatically generated from one <em>golden master</em> which is formatted in <a href="https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/"><em>asciidoc</em></a>.</p>
+All these formats are automatically generated from one <em>golden master</em> formatted in <a href="https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/"><em>AsciiDoc</em></a>.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_doctoolchain">1.1.3. docToolchain</h4>
 <div class="paragraph">
-<p>In order to follow the <em>docs-as-code</em> approach, you need a build script which automates steps like exporting diagrams and rendering the used Markdown (<em>AsciiDoc</em> in case of <em>docToolchain</em>) to the target format.</p>
+<p>In order to follow the <em>docs-as-code</em> approach, you need a build script that automates steps like exporting diagrams and rendering the used Markdown (<em>AsciiDoc</em> in case of <em>docToolchain</em>) to the target format.</p>
 </div>
 <div class="paragraph">
-<p>Unfortunately, such a build script is not easy to create in the first place ('how do I create .docx?', 'why does lib x not work with lib y?') and it is also not too easy to maintain.</p>
+<p>Unfortunately, such a build script is not easy to create in the first place (&#8216;how do I create .docx?&#8217;, &#8216;why does lib x not work with lib y?&#8217;) and it is also not too easy to maintain.</p>
 </div>
 <div class="paragraph">
 <p><em>docToolchain</em> is the result of my journey through the <em>docs-as-code</em> land.
-The goal is to have an easy to use build script which only has to be configured and not modified and which is maintained by a community as open source software.</p>
+The goal is to have an easy to use build script that only has to be configured and not modified and that is maintained by a community as open source software.</p>
 </div>
 <div class="paragraph">
 <p>The technical steps of my journey are written down in my blog: <a href="https://rdmueller.github.io" class="bare">https://rdmueller.github.io</a>.</p>
@@ -699,7 +699,7 @@ The goal is to have an easy to use build script which only has to be configured 
 <h3 id="_benefits_of_the_docs_as_code_approach">1.2. Benefits of the docs-as-code Approach</h3>
 <div class="paragraph">
 <p>You want to write technical docs for your software project.
-So it is very likely that you already have the tools and processes to work with source code in place.
+So it is likely you already have the tools and processes to work with source code in place.
 Why not also use it for your docs?</p>
 </div>
 <div class="sect3">
@@ -723,7 +723,7 @@ Isn&#8217;t that great?</p>
 <p>Git as a distributed version control system even enables collaboration on your docs.
 People can fork the docs and send you pull requests for the changes they made.
 By reviewing the pull request, you have a perfect review process out of the box - by accepting the pull request, you show that you&#8217;ve reviewed and accepted the changes.
-Most git frontends like <a href="https://www.bitbucket.org">Bitbucket</a>, <a href="https://gitlab.com">GitLab</a> and of course <a href="https://github.com">GitHub</a> also allow you to reject pull requests with comments.</p>
+Most Git frontends like <a href="https://www.bitbucket.org">Bitbucket</a>, <a href="https://gitlab.com">GitLab</a> and of course <a href="https://github.com">GitHub</a> also allow you to reject pull requests with comments.</p>
 </div>
 </div>
 <div class="sect3">
@@ -740,8 +740,8 @@ This way, these snippets are also always up to date!</p>
 <div class="sect3">
 <h4 id="_compound_and_stakeholder_tailored_docs">1.2.4. Compound and Stakeholder-Tailored Docs</h4>
 <div class="paragraph">
-<p>Since you can not only reference images and code snippets but also sub-documents, you can split your docs into several sub-documents and a master which brings all those docs together.
-But you are not restricted to one master - you can create master docs for several different stakeholders which only contain the chapters needed for them.</p>
+<p>Since you can not only reference images and code snippets but also sub-documents, you can split your docs into several sub-documents and a master, which brings all those docs together.
+But you are not restricted to one master&#8201;&#8212;&#8201;you can create master docs for different stakeholders that only contain the chapters needed for them.</p>
 </div>
 </div>
 <div class="sect3">
@@ -788,7 +788,7 @@ But you are not restricted to one master - you can create master docs for severa
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/02_install.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/02_install.adoc[]</p>
 </div>
 <div class="sect2">
 <h3 id="_get_the_tool">2.1. Get the tool</h3>
@@ -1033,7 +1033,7 @@ For example you can have <code>ConfluenceConfig.groovy</code> for publishing off
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_tasks.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_tasks.adoc[]</p>
 </div>
 <div class="paragraph">
 <p>This chapter explains all docToolchain specific tasks.</p>
@@ -1102,7 +1102,7 @@ This means that the result is likely to be visible immediately to others.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_generateHTML.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_generateHTML.adoc[]</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1307,7 +1307,7 @@ Blog-Posts: <a href="https://rdmueller.github.io/plantuml-gradle/">PlantUML with
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_fixencoding.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_fixencoding.adoc[]</p>
 </div>
 <div class="paragraph">
 <p>Whenever Asciidoctor has to process a file which is not UTF-8 encoded, the underlying Ruby tries to read it and throws an error like this:</p>
@@ -1381,7 +1381,7 @@ task fixEncoding(
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_prependFilename.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_prependFilename.adoc[]</p>
 </div>
 <div class="paragraph">
 <p>When Asciidoctor renders a file, the file context only knows the name of the top-level AsciiDoc file but an include file doesn&#8217;t know that it is being included.
@@ -1462,7 +1462,7 @@ task prependFilename(
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_collectIncludes.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_collectIncludes.adoc[]</p>
 </div>
 <div class="paragraph">
 <p>This tasks crawls through your whole project looking for AsciiDoc files with a certain name pattern.
@@ -1621,7 +1621,7 @@ task collectIncludes(
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_generatePDF.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_generatePDF.adoc[]</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1728,7 +1728,7 @@ Blog-Post: <a href="https://rdmueller.github.io/pdf-output/">Beyond HTML</a>
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_generateDocBook.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_generateDocBook.adoc[]</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1783,7 +1783,7 @@ Blog-Post: <a href="https://rdmueller.github.io/pdf-output/">Beyond HTML</a>
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_generateDeck.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_generateDeck.adoc[]</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1869,7 +1869,7 @@ It creates a PowerPoint presentation and enriches it with reveal.js slide defini
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_publishToConfluence.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_publishToConfluence.adoc[]</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -1904,7 +1904,8 @@ And it fulfills the "requirement" of "&#8230;&#8203; but all documentation is in
 <dt class="hdlist1">ancestorId</dt>
 <dd>
 <p>this is the page ID of the parent page to which you want your docs to be published.
-Go to this page, click on edit and the needed ID will show up in the URL</p>
+Go to this page, click on edit and the needed ID will show up in the URL.
+Specify the ID as string within the config file.</p>
 </dd>
 <dt class="hdlist1">api</dt>
 <dd>
@@ -1965,7 +1966,7 @@ confluence = [:]
 <span class="comment">// Attributes</span>
 <span class="comment">// - 'file': absolute or relative path to the asciidoc generated html file to be exported</span>
 <span class="comment">// - 'url': absolute URL to an asciidoc generated html file to be exported</span>
-<span class="comment">// - 'ancestorId' (optional): the id of the parent page in Confluence; leave this empty</span>
+<span class="comment">// - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty</span>
 <span class="comment">//                            if a new parent shall be created in the space</span>
 <span class="comment">// - 'preambleTitle' (optional): the title of the page containing the preamble (everything</span>
 <span class="comment">//                            before the first second level heading). Default is 'arc42'</span>
@@ -2921,7 +2922,7 @@ config.confluence.input.each { input -&gt;
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_convertToDocx.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_convertToDocx.adoc[]</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -2986,7 +2987,7 @@ Blog-Post: <a href="https://rdmueller.github.io/create-docx/">Render AsciiDoc to
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_convertToEpub.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_convertToEpub.adoc[]</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -3074,7 +3075,7 @@ Currently this feature is WINDOWS-only. <a href="https://github.com/docToolchain
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_exportEA.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_exportEA.adoc[]</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -3435,7 +3436,7 @@ use `gradle exportEA` to re-export files
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_exportVisio.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_exportVisio.adoc[]</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -3671,7 +3672,7 @@ $VisioApp.Quit()</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_exportDrawIo.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_exportDrawIo.adoc[]</p>
 </div>
 <div class="paragraph">
 <p>There is no <code>exportDrawIo</code> task because it is not required.
@@ -3758,7 +3759,7 @@ When you use the desktop version, just create your diagram with the <code>.png</
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_exportChangeLog.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_exportChangeLog.adoc[]</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -3879,14 +3880,14 @@ Blog-Post: <a href="https://rdmueller.github.io/changelog/">The only constant in
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_exportContributors.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_exportContributors.adoc[]</p>
 </div>
 <div class="paragraph">
 <p>This tasks crawls through all Asciidoctor source files and extracts a list of contributors.
 This list is then rendered as AsciiDoc images of the contributor&#8217;s gravatar picture.</p>
 </div>
 <div class="paragraph">
-<p>The extracted lists are stored in <code>/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_exportContributors.adoc</code> to be easily included in your documents.</p>
+<p>The extracted lists are stored in <code>/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_exportContributors.adoc</code> to be easily included in your documents.</p>
 </div>
 <div class="paragraph">
 <p>Best way to use this feature is to create a <code>feedback.adoc</code> file which might look like this:</p>
@@ -3934,7 +3935,7 @@ include::{targetDir}/contributors/{filename}[] <i class="conum" data-value="4"><
 <h4 id="_file_attributes">3.16.2. File Attributes</h4>
 <div class="paragraph">
 <p>The task now also exports some attributes of the git files.
-The extracted attributes are stored in <code>/home/sp/github/docToolchain/build/docs/fileattribs/manual/03_task_exportContributors.adoc</code>.</p>
+The extracted attributes are stored in <code>/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/fileattribs/manual/03_task_exportContributors.adoc</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -3976,7 +3977,7 @@ Last updated {lastUpdated} by {lastAuthorName}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_exportJiraIssues.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_exportJiraIssues.adoc[]</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -4075,7 +4076,7 @@ Currently this feature is WINDOWS-only. <a href="https://github.com/docToolchain
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_exportPPT.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_exportPPT.adoc[]</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -4242,7 +4243,7 @@ use `gradle exportPPT` to re-export files
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_exportExcel.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_exportExcel.adoc[]</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -4568,7 +4569,7 @@ use `gradle exportExcel` to re-export files
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_htmlSanityCheck.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_htmlSanityCheck.adoc[]</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -4640,7 +4641,7 @@ Blog-Post: <a href="https://rdmueller.github.io/htmlSanityCheck/">Automated Qual
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/03_task_dependencyUpdates.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/03_task_dependencyUpdates.adoc[]</p>
 </div>
 <div class="paragraph">
 <p>This task uses the <a href="https://github.com/ben-manes/gradle-versions-plugin">Gradle versions plugin</a> created by Ben Manes to check for outdated build dependencies.
@@ -4690,7 +4691,7 @@ Blog-Post: <a href="https://rdmueller.github.io/dependency-update/">Handle Depen
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/08_development.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/08_development.adoc[]</p>
 </div>
 <div class="paragraph">
 <p>INFO: this chapter is still work in progress</p>
@@ -4764,7 +4765,7 @@ Otherwise you might get false positives because Gradle will skip steps ('Up-to-d
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/06_Frequently_asked_Questions.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/06_Frequently_asked_Questions.adoc[]</p>
 </div>
 <div class="paragraph">
 <p>This section tries to answer the most common and frequently asked questions about how to work with docToolchain.
@@ -4963,7 +4964,7 @@ Please upgrade to Java 8 at least.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/04_further_reading.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/04_further_reading.adoc[]</p>
 </div>
 <div class="paragraph">
 <p>This chapter lists some additional references to interesting resources.</p>
@@ -5135,7 +5136,7 @@ Für die Leser wird HTML, PDF oder EPUB generiert.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in manual/feedback.adoc - include::/home/sp/github/docToolchain/build/docs/contributors/manual/05_contributors.adoc[]</p>
+<p>Unresolved directive in manual/feedback.adoc - include::/c/Users/ralfd/projects/github/temp/dtc-031119/build/docs/contributors/manual/05_contributors.adoc[]</p>
 </div>
 <div class="paragraph">
 <p>This project is an open source project which is based on community efforts.</p>
@@ -5244,6 +5245,9 @@ This project depends and builds on them.</p>
 </li>
 <li>
 <p><a href="https://github.com/mpriess">Michael Prieß</a></p>
+</li>
+<li>
+<p><a href="https://github.com/stehlih">Heiko Stehli</a></p>
 </li>
 </ul>
 </div>
@@ -5411,7 +5415,7 @@ confluence = [:]
 <span class="comment">// Attributes</span>
 <span class="comment">// - 'file': absolute or relative path to the asciidoc generated html file to be exported</span>
 <span class="comment">// - 'url': absolute URL to an asciidoc generated html file to be exported</span>
-<span class="comment">// - 'ancestorId' (optional): the id of the parent page in Confluence; leave this empty</span>
+<span class="comment">// - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty</span>
 <span class="comment">//                            if a new parent shall be created in the space</span>
 <span class="comment">// - 'preambleTitle' (optional): the title of the page containing the preamble (everything</span>
 <span class="comment">//                            before the first second level heading). Default is 'arc42'</span>
@@ -5484,7 +5488,7 @@ confluence.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2019-10-27 12:58:22 CET
+Last updated 2019-11-03 17:14:09 CET
 </div>
 </div>
 </body>
