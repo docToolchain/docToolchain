@@ -1,0 +1,29 @@
+ifndef::imagesdir[:imagesdir: ../images]
+:filename: manual/03_task_createReferenceDoc.adoc
+
+= createReferenceDoc
+
+* Needs https://pandoc.org[pandoc] installed
+* Please make sure that 'referenceDocFile' property is set to your custom reference file in Config.groovy
+
+include::feedback.adoc[]
+
+Creates a reference docx file used by https://pandoc.org[pandoc] during conversion from docbook to docx.
+You can edit this file to use your prefered styles in task <<convertToDocx>>.
+
+[IMPORTANT]
+====
+The contents of the reference docx are ignored, but its stylesheets and document properties (including margins, page size, header, and footer) are used in the new docx.
+
+See Pandoc User's Guide: https://pandoc.org/MANUAL.html#options-affecting-specific-writers[Options affecting specific writers (--reference-doc)]
+
+If you have problems with changing the default table style: see https://github.com/jgm/pandoc/issues/3275.
+====
+
+== Source
+
+.pandoc.gradle
+[source,groovy]
+----
+include::../../../scripts/pandoc.gradle[tags=createReferenceDoc]
+----
