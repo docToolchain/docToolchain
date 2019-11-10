@@ -31,6 +31,8 @@ inputPath = config.inputPath?config.inputPath:'.'
 logger.info "docToolchain> inputPath: ${inputPath}"
 logger.info "docToolchain> inputFiles: ${config.inputFiles}"
 logger.info "docToolchain> outputPath: ${config.outputPath}"
+referenceDocFile = config.referenceDocFile?config.referenceDocFile:''
+logger.info "docToolchain> referenceDocFile: ${referenceDocFile}"
 
 ext {
     srcDir  = "${docDir}/${inputPath}"
