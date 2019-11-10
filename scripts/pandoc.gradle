@@ -50,7 +50,6 @@ task convertToEpub (
                 '-t','epub',
                 '-o',"../epub/$targetFile",
                 sourceFile]
-
     }
     doFirst {
         new File("$targetDir/epub/").mkdirs()
@@ -73,6 +72,12 @@ task createReferenceDoc (
     args = ["-o", "${docDir}/${referenceDocFile}",
             "--print-default-data-file",
             "reference.docx"]
+    
+    doFirst {
+        if(!(referenceDocFile?.trim())) {
+            throw new GradleException("Option `referenceDocFile` is not defined in config.groovy or has an empty value.")
+        }
+    }   
 }
 //end::createReferenceDoc[]
 
