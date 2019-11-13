@@ -12,10 +12,19 @@ task convertToDocx (
 
         workingDir "$targetDir/docbook"
         executable = "pandoc"
-        args = ['-r','docbook',
-                '-t','docx',
-                '-o',"../docx/$targetFile",
-                sourceFile]
+
+        if(referenceDocFile?.trim()) {
+            args = ["-r","docbook",
+                    "-t","docx",
+                    "-o","../docx/$targetFile",
+                    "--reference-doc=${docDir}/${referenceDocFile}",
+                    sourceFile]
+        } else {
+            args = ["-r","docbook",
+                    "-t","docx",
+                    "-o","../docx/$targetFile",
+                    sourceFile]
+        }
     }
     doFirst {
         new File("$targetDir/docx/").mkdirs()
@@ -41,7 +50,6 @@ task convertToEpub (
                 '-t','epub',
                 '-o',"../epub/$targetFile",
                 sourceFile]
-
     }
     doFirst {
         new File("$targetDir/epub/").mkdirs()
@@ -52,3 +60,24 @@ project.afterEvaluate {
     project.tasks.convertToDocx.dependsOn generateDocbook
     project.tasks.convertToEpub.dependsOn generateDocbook
 }
+
+//tag::createReferenceDoc[]
+task createReferenceDoc (
+        group: 'docToolchain helper',
+        description: 'creates a docx file to be used as a format style reference in task convertToDocx. Needs pandoc installed.',
+        type: Exec
+) {
+    workingDir "$docDir"
+    executable = "pandoc"
+    args = ["-o", "${docDir}/${referenceDocFile}",
+            "--print-default-data-file",
+            "reference.docx"]
+    
+    doFirst {
+        if(!(referenceDocFile?.trim())) {
+            throw new GradleException("Option `referenceDocFile` is not defined in config.groovy or has an empty value.")
+        }
+    }   
+}
+//end::createReferenceDoc[]
+

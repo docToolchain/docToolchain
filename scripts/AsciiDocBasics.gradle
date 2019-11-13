@@ -31,6 +31,8 @@ inputPath = config.inputPath?config.inputPath:'.'
 logger.info "docToolchain> inputPath: ${inputPath}"
 logger.info "docToolchain> inputFiles: ${config.inputFiles}"
 logger.info "docToolchain> outputPath: ${config.outputPath}"
+referenceDocFile = config.referenceDocFile?config.referenceDocFile:''
+logger.info "docToolchain> referenceDocFile: ${referenceDocFile}"
 
 ext {
     srcDir  = "${docDir}/${inputPath}"
@@ -77,6 +79,7 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
     attributes  (
             'pdf-stylesdir': "${pdfThemeDir}@",
             'pdf-style': 'custom@',
+    //        'pdf-fontsdir': "${docDir}/fonts",
             'source-highlighter': 'coderay@',
             'imagesdir': 'images@',
             'toc': 'left@',

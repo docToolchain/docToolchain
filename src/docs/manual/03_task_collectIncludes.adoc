@@ -27,7 +27,7 @@ Example:
 
 You have a file called
 
-    /src/jave/yourCompany/domain/books/ADR-1-whyWeUseTheAISINInsteadOFISBN.adoc
+    /src/java/yourCompany/domain/books/ADR-1-whyWeUseTheAISINInsteadOFISBN.adoc
 
 The task will collect this file and write another file called
 
@@ -35,7 +35,7 @@ The task will collect this file and write another file called
 
 Which will look like this:
 
-    include::../../../src/jave/yourCompany/domain/books/ADR-1-whyWeUseTheAISINInsteadOFISBN.adoc[]
+    include::../../../src/java/yourCompany/domain/books/ADR-1-whyWeUseTheAISINInsteadOFISBN.adoc[]
 
 Obviously, you get the most benefit if you not only have one ADR file, but several ones which get collected.
 😎
