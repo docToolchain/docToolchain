@@ -7,10 +7,10 @@ buildscript {
     }
     dependencies {
         //for the exportJiraIssues Task
-        classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.6'
+        classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.2'
         //for the renderToConfluence Task
-        classpath 'org.apache.httpcomponents:httpmime:4.5.1'
-        classpath 'org.jsoup:jsoup:1.11.3'
+        classpath 'org.apache.httpcomponents:httpmime:4.5.10'
+        classpath 'org.jsoup:jsoup:1.12.1'
     }
 }
 
