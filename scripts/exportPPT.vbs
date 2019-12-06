@@ -23,7 +23,7 @@
 		  Next
 
 		  For Each file In path.Files
-				If Left(fso.GetExtensionName (file.Path), 3) = "ppt" Then
+				If (Left(fso.GetExtensionName (file.Path), 3) = "ppt") OR (Left(fso.GetExtensionName (file.Path), 3) = "pps")  Then
 					WScript.echo "found "&file.path
 					ExportSlides(file.Path)
 				End If
