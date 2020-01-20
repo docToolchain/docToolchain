@@ -201,7 +201,7 @@
 		  Next
 		  
 		  For Each file In path.Files
-				If fso.GetExtensionName (file.Path) = "eap" Then
+				If fso.GetExtensionName (file.Path) = "eap" OR fso.GetExtensionName (file.Path) = "eapx" Then
 					WScript.echo "found "&file.path
 					If (Left(file.name, 1) = "_") Then
 					    WScript.echo "skipping, because it start with `_` (replication)"
@@ -264,7 +264,7 @@
 
   set fso = CreateObject("Scripting.fileSystemObject") 
   WScript.echo "Image extractor"
-  WScript.echo "looking for .eap files in " & fso.GetAbsolutePathName(".") & "/src"
+  WScript.echo "looking for .eap(x) files in " & fso.GetAbsolutePathName(".") & "/src"
   'Dim f As Scripting.Files
   SearchEAProjects fso.GetFolder("./src")
   WScript.echo "finished exporting images"
