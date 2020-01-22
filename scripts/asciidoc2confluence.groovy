@@ -378,6 +378,13 @@ def rewriteCodeblocks = { body ->
             code.select('span[class]').each { span ->
                 span.unwrap()
             }
+            code.select('i[class]').each { i ->
+                i.unwrap()
+            }
+            code.select('b').each { b ->
+                b.before(" // ")
+                b.unwrap()
+            }
             code.before("<ac:parameter ac:name=\"language\">${code.attr('data-lang')}</ac:parameter>")
         }
         code.parent() // pre now
