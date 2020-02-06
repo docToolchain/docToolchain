@@ -13,8 +13,12 @@ And it fulfills the "requirement" of "... but all documentation is in Confluence
 
 Special features:
 
+* `[source]`-blocks are converted to code-macro blocks in confluence.
 * only pages and images which have changed between task runs are really published and hence only for those changes notifications are sent to watchers. This is quite important - otherwise watchers are easily annoyed by too many notifications.
 * `:keywords:` Keywords are attached as labels to every generated Confluence page. The rules for page labels should be kept in mind. See https://confluence.atlassian.com/doc/add-remove-and-search-for-labels-136419.html. Several keywords are allowed. They must be separated by comma, e.g. `:keywords: label_1, label-2, label3, ...`. Labels (keywords) must not contain a space character! Use '_' or '-'.
+
+NOTE: code-macro-blocks in confluence render an error if the language attribute contains an unknown language. 
+See https://confluence.atlassian.com/doc/code-block-macro-139390.html for a list of valid language and how to add further languages.
 
 == Configuration
 
