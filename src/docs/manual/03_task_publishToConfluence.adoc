@@ -17,7 +17,7 @@ Special features:
 * only pages and images which have changed between task runs are really published and hence only for those changes notifications are sent to watchers. This is quite important - otherwise watchers are easily annoyed by too many notifications.
 * `:keywords:` Keywords are attached as labels to every generated Confluence page. The rules for page labels should be kept in mind. See https://confluence.atlassian.com/doc/add-remove-and-search-for-labels-136419.html. Several keywords are allowed. They must be separated by comma, e.g. `:keywords: label_1, label-2, label3, ...`. Labels (keywords) must not contain a space character! Use '_' or '-'.
 
-NOTE: code-macro-blocks in confluence render an error if the language attribute contains an unknown language. 
+NOTE: code-macro-blocks in confluence render an error if the language attribute contains an unknown language.
 See https://confluence.atlassian.com/doc/code-block-macro-139390.html for a list of valid language and how to add further languages.
 
 == Configuration
@@ -49,6 +49,11 @@ Use username and password or even better username and api-token.
 You can create new API-tokens in https://confluence.atlassian.com/cloud/api-tokens-938839638.html[your profile].
 To avoid having your password or api-token versioned through git, you can store it outside of this configuration as environment variable or in another file - the key here is that the config file is a groovy script.
 e.g. you can do things like `credentials = "user:${new File("/home/me/apitoken").text}".bytes.encodeBase64().toString()`
+
+To simplify the injection of credentials from external sources there is a fallback. Should you leave the credentials field empty,
+the variables `confluenceUser` and `confluencePassword` from the build environment will be used for authentication. You can set these through any means
+allowed by gradle like the `gradle.properties` file in the project or your home directory, environment variables or command-line flags.
+For all ways to set these variables, have a look at the https://docs.gradle.org/current/userguide/build_environment.html[gradle manual].
 
 extraPageContent::
 If you need to prefix your pages with a warning that this is generated content - this is the right place.

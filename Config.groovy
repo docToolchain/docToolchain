@@ -97,7 +97,8 @@ confluence.with {
 
     // username:password of an account which has the right permissions to create and edit
     // confluence pages in the given space.
-    // if you want to store it securely, fetch it from some external storage.
+    // if you want to store it securely, fetch it from some external storage or leave it empty to fallback to gradle variables
+    // set through gradle properties files or environment variables. The fallback uses the 'confluenceUser' and 'confluencePassword' keys.
     // you might even want to prompt the user for the password like in this example
 
     credentials = "user:pass_or_token".bytes.encodeBase64().toString()
