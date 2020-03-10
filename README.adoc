@@ -1,6 +1,10 @@
 
 :imagesdir: images
 
+++++
+<blockquote class="twitter-tweet"><p lang="en" dir="ltr">if you are near frankfurt at the end of april and love docs, you should mark this date in your calendar:<br><br>‼️ 2020-04-25 ‼️<br><br>...because <a href="https://twitter.com/ahus1de?ref_src=twsrc%5Etfw">@ahus1de</a> will organize the first Continuous Documentation Camp 🥳🎉<a href="https://t.co/t6gXdt8j7H">https://t.co/t6gXdt8j7H</a> <a href="https://t.co/VRl5gxavi9">pic.twitter.com/VRl5gxavi9</a></p>&mdash; Ralf D. Müller™ (@RalfDMueller) <a href="https://twitter.com/RalfDMueller/status/1232324275832598530?ref_src=twsrc%5Etfw">February 25, 2020</a></blockquote> <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+++++
+
 == docToolchain
 
 [IMPORTANT]
@@ -68,3 +72,13 @@ Support us by becoming a sponsor. Your logo will show up here with a link to you
 https://opencollective.com/doctoolchain#sponsors[Become a Sponsor]
 
 image::https://opencollective.com/doctoolchain/sponsor/0/avatar.svg["Sponsor", link="https://opencollective.com/doctoolchain/sponsor/0/website"]
+
+=== History of this project
+
+I just found an older https://twitter.com/RalfDMueller/status/668540860649349120[tweet] which remindet me of the roots and beginning of this project.
+It all began with two important parts. 
+A script called asciidoc2confluence and some scripts to export diagrams from enterprise architect.
+
+The first one is linked in the tweet above and the first commit dates back to mid of 2015.
+Since then, many contributors have joined!
+Thanx for all of your contributions!
