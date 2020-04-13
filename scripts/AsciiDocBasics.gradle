@@ -47,7 +47,7 @@ ext {
 
 
 dependencies {
-    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.0-alpha.15'
+    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.3'
     // carefull!
     // asciidoctor 1.5.6 needs diagram 1.5.4.1
     // but then reveal.js is broken...
