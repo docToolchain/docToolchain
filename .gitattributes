@@ -1,0 +1,29 @@
+# Set the default behavior, in case people don't have core.autocrlf set.
+* text=auto
+
+# Declare files that will always have CRLF line endings on checkout.
+*.sln  text eol=crlf
+
+# Declare files that will always have CRLF line endings on checkout.
+*.awk  text eol=lf
+*.sed  text eol=lf
+*.sh   text eol=lf
+
+# Denote all files that are truly binary and should not be modified.
+*.png binary
+*.jpg binary
+*.gif binary
+*.tif binary
+*.pdf binary
+
+*.7z  binary
+*.gz  binary
+*.rar binary
+*.tar binary
+*.tgz binary
+*.zip binary
+*.nupkg binary
+
+*.exe binary
+*.dll binary
+*.com binary
