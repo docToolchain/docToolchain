@@ -48,15 +48,11 @@ ext {
 
 dependencies {
     asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.3'
-    // carefull!
-    // asciidoctor 1.5.6 needs diagram 1.5.4.1
-    // but then reveal.js is broken...
-    // https://github.com/asciidoctor/asciidoctor-diagram/issues/161
-    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:1.5.8'
+    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:2.0.1'
 }
 
 asciidoctorj {
-    version = '1.5.4'
+    version = '1.6.2'
 }
 
 //tag::AsciidoctorTask[]
@@ -101,7 +97,7 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
                 ]
 
                 // Create the link to the issue.
-                createInline(parent, "anchor", target, attributes, options).render()
+                createPhraseNode(parent, "anchor", target, attributes, options).render()
         }
     }
 
