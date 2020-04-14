@@ -4,11 +4,12 @@
 # Declare files that will always have CRLF line endings on checkout.
 *.sln  text eol=crlf
 
-# Declare files that will always have CRLF line endings on checkout.
-*.awk     text eol=lf
-*.sed     text eol=lf
-*.sh      text eol=lf
-gradlew   text eol=lf
+# Declare files that will always have LF line endings on checkout.
+*.awk          text eol=lf
+*.sed          text eol=lf
+*.sh           text eol=lf
+gradlew        text eol=lf
+doctoolchain   text eol=lf
 
 # Denote all files that are truly binary and should not be modified.
 *.png binary
