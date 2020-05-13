@@ -37,6 +37,7 @@ or as a CSV file
 The AsciiDoc version gives you a bit more control:
 
 - horizontal and vertical alignment is preserved
+- col- and row-spans are preserved
 - line breaks are preserved
 - column width relative to other columns is preserved
 - background colors are preserved.
