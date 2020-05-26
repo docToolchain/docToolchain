@@ -711,9 +711,11 @@ config.confluence.input.each { input ->
     dom.outputSettings().prettyPrint(false);//makes html() preserve linebreaks and spacing
     dom.outputSettings().escapeMode(org.jsoup.nodes.Entities.EscapeMode.xhtml); //This will ensure xhtml validity regarding entities
     dom.outputSettings().charset("UTF-8"); //does no harm :-)
-    
-    // if confluenceAncestorId is not set, create a new parent page
+
+    //if input does not contain an ancestorId, check if there is a global one
     def parentId = input.ancestorId ?: config.confluence.ancestorId
+    // if parentId is still not set, create a new parent page (parentId = null)
+    parentId = parentId ?: null
     def anchors = [:]
     def pageAnchors = [:]
     def sections = pages = []
