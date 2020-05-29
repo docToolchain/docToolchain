@@ -114,3 +114,25 @@ confluence.with {
     // proxy = [host: 'my.proxy.com', port: 1234, schema: 'http']
 }
 //end::confluenceConfig[]
+//*****************************************************************************************
+//tag::exportEAConfig[]
+//Configuration for the export script 'exportEA.vbs'.
+// The following parameters can be used to change the default behaviour of 'exportEA'.
+// All parameter are optionally.
+// Parameter 'connection' allows to select a certain database connection by using the ConnectionString as used for 
+// directly connecting to the project database instead of looking for EAP/EAPX files inside and below the 'src' folder. 
+// Parameter 'packageFilter' is an array of package GUID's to be used for export. All images inside and in all packages below the package represented by its GUID are exported.
+// A packageGUID, that is not found in the currently opened project, is silently skipped.
+// PackageGUID of multiple project files can be mixed in case multiple projects have to be opened.
+
+exportEA.with {
+// OPTIONAL: Set the connection to a certain project or comment it out to use all project files inside the src folder or its child folder.
+// connection = "DBType=1;Connect=Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=[THE_DB_NAME_OF_THE_PROJECT];Data Source=[server_hosting_database.com];LazyLoad=1;"
+// OPTIONAL: Add one or multiple packageGUIDs to be used for export. All packages are analysed, if no packageFilter is set.
+// packageFilter = [
+//                    "{A237ECDE-5419-4d47-AECC-B836999E7AE0}",
+//                    "{B73FA2FB-267D-4bcd-3D37-5014AD8806D6}"
+//                  ]
+}
+//end::exportEAConfig[]
+ 
