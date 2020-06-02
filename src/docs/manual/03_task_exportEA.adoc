@@ -11,6 +11,20 @@ image::ea/Manual/exportEA.png[]
 
 TIP: Blog-Posts: https://rdmueller.github.io/jria2eac/[JIRA to Sparx EA], https://rdmueller.github.io/sparx-ea/[Did you ever wish you had better Diagrams?]
 
+== Configuration
+By default no special configuration is necessary.
+But, to be more specific on the project and its packages to be used for export,
+two optional parameter configurations are available.
+The parameters can be used independently from each other.
+A sample how to edit your projects Config.groovy is given in the 'Config.groovy'
+of the docToolchain project itself.
+
+connection::
+Set the connection to a certain project or comment it out to use all project files inside the src folder or its child folder.
+
+packageFilter::
+Add one or multiple packageGUIDs to be used for export. All packages are analysed, if no packageFilter is set.
+
 == Source
 
 .build.gradle
