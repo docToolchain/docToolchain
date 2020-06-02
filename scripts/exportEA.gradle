@@ -69,8 +69,24 @@ use `gradle exportEA` to re-export files
         new File(docDir, 'src/docs/ea/readme.ad').write(readme)
     }
     doLast {
+        logger.info("docToolchain > exportEA: "+docDir)
+        logger.info("docToolchain > exportEA: "+mainConfigFile)
+        def configFile = new File(docDir, mainConfigFile)
+        def config = new ConfigSlurper().parse(configFile.text)
+		def scriptParameterString = ""
+        if(!config.exportEA.connection.isEmpty()){
+            logger.info("docToolchain > exportEA: found "+config.exportEA.connection)
+			scriptParameterString = scriptParameterString + "-c \"${config.exportEA.connection}\""
+        }
+        if (!config.exportEA.packageFilter.isEmpty()){
+            def packageFilterToCreate = config.exportEA.packageFilter as List
+            logger.info("docToolchain > exportEA: package filter list size: "+packageFilterToCreate.size())
+            packageFilterToCreate.each { packageFilter ->
+               scriptParameterString = scriptParameterString + " -p \"${packageFilter}\""
+            }
+        }
         //execute through cscript in order to make sure that we get WScript.echo right
-        "%SystemRoot%\\System32\\cscript.exe //nologo ${projectDir}/scripts/exportEAP.vbs".executeCmd()
+        "%SystemRoot%\\System32\\cscript.exe //nologo ${projectDir}/scripts/exportEAP.vbs ${scriptParameterString}".executeCmd()
         //the VB Script is only capable of writing iso-8859-1-Files.
         //we now have to convert them to UTF-8
         new File(docDir, 'src/docs/ea/.').eachFileRecurse { file ->
