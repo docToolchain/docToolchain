@@ -175,6 +175,11 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
             'Authorization': 'Basic ' + config.confluence.credentials,
             'X-Atlassian-Token':'no-check'
     ]
+    //Add api key and value to REST API request header if configured - required for authentification.
+    if (config.confluence.apikey)
+    {
+       headers.keyid = config.confluence.apikey
+    }
     //check if attachment already exists
     def result = "nothing"
     def attachment = api.get(path: 'content/' + pageId + '/child/attachment',
@@ -513,6 +518,11 @@ def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnch
             'Authorization': 'Basic ' + config.confluence.credentials,
             'Content-Type':'application/json; charset=utf-8'
     ]
+    //Add api key and value to REST API request header if configured - required for authentification.
+    if (config.confluence.apikey)
+    {
+       headers.keyid = config.confluence.apikey
+    }
     String realTitleLC = realTitle(pageTitle).toLowerCase()
 
     //this fixes the encoding
