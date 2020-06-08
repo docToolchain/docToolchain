@@ -487,6 +487,35 @@ def parseBody =  { body, anchors, pageAnchors ->
         }
         img.remove()
     }
+
+
+    if(config.confluence.enableAttachments){
+        attachmentPrefix = config.confluence.attachmentPrefix ? config.confluence.attachmentPrefix : 'attachment'
+        body.select('a').each { link ->
+
+            def src = link.attr('href')
+            println "    attachment src: "+src
+
+            //upload it to confluence and use the ri:attachment tag
+            if(src.startsWith(attachmentPrefix)) {
+                def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')+src
+                def fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")
+                newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")
+
+                trythis {
+                    deferredUpload <<  [0,newUrl,fileName,"automatically uploaded non-image attachment by docToolchain"]
+                }
+                def uriArray=fileName.split("/")
+                def pureFilename = uriArray[uriArray.length-1]
+                def innerhtml = link.html()
+                link.after("<ac:structured-macro ac:name=\"view-file\" ac:schema-version=\"1\"><ac:parameter ac:name=\"name\"><ri:attachment ri:filename=\"${pureFilename}\"/></ac:parameter></ac:structured-macro>")
+                link.after("<ac:link><ri:attachment ri:filename=\"${pureFilename}\"/><ac:plain-text-link-body> <![CDATA[\"${innerhtml}\"]]></ac:plain-text-link-body></ac:link>")
+                link.remove()
+
+            }
+        }
+    }
+
     rewriteMarks body
     rewriteDescriptionLists body
     rewriteInternalLinks body, anchors, pageAnchors
