@@ -3,8 +3,8 @@
 * [ ] Does your PR affect the documentation?
 * [ ] If yes, did you update the documentation or create an issue for updating it?
 
-The source of the documentation can be found in `/src/docs/manual`. 
-To "publish" it, execute `./gradlew && ./copyDocs.sh`.
+The source of the documentation can be found in `/src/docs/manual`.
+To "publish" it, execute `./gradlew exportContributors && ./gradlew && ./copyDocs.sh`.
 This will convert the `.adoc` file to HTML and copy them to the right folder so that github pages will pick them up.
 
 If you didn't find the time to update docs, please create an issue as reminder to do so.
