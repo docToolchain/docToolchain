@@ -118,7 +118,19 @@ It works even in a Bash Shell.
 This is a sign that you use an outdated version of Java.
 Please upgrade to Java 8 at least.
 
-=== Q: I get an error message saying 'Error occurred during initialization of VM - Could not reserve enough space for 2097152KB object heap'
+=== Q: I get an error message saying 'Error occurred during initialization of VM'
+
+```
+Starting a Gradle Daemon, 1 incompatible Daemon could not be reused, use --status for details
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Unable to start the daemon process.
+…
+Error occurred during initialization of VM
+Could not reserve enough space for 2097152KB object heap
+```
 
 Somehow docToolchain can't allocate the memory which is configured out of the box.
 Try to free up some memory or comment out the line `org.gradle.jvmargs=-Xmx2048m` in `gradle.properties`
