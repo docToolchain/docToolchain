@@ -109,6 +109,13 @@ confluence.with {
     // extraPageContent = '<ac:structured-macro ac:name="warning"><ac:parameter ac:name="title" /><ac:rich-text-body>This is a generated page, do not edit!</ac:rich-text-body></ac:structured-macro>
     extraPageContent = ''
 
+    // enable or disable attachment uploads for local file references
+    enableAttachments = false
+
+    // default attachmentPrefix = attachment - All files to attach will require to be linked inside the document.
+    // attachmentPrefix = "attachment"
+
+
     // Optional proxy configuration, only used to access Confluence
     // schema supports http and https
     // proxy = [host: 'my.proxy.com', port: 1234, schema: 'http']
@@ -135,4 +142,3 @@ exportEA.with {
 //                  ]
 }
 //end::exportEAConfig[]
- 

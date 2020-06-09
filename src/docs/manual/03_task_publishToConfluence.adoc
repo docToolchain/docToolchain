@@ -58,6 +58,21 @@ For all ways to set these variables, have a look at the https://docs.gradle.org/
 extraPageContent::
 If you need to prefix your pages with a warning that this is generated content - this is the right place.
 
+enableAttachments::
+
+If value is set to *true*, your links to local file references will be uploaded as attachments. The current implementation only supports a single folder. This foldername will be used as a prefix to validate if your file should be uploaded or not.
+In case you enable this feature, and use a folder which starts with "attachment*", an adaption of this prefix is required.
+
+Example:
+
+All files to attach will require to be linked inside the document.
+
+``link:attachement/myfolder/myfile.json[My API definition]``
+
+attachmentPrefix::
+
+The expected foldername of your output dir. *Default*: `attachment`
+
 proxy::
 If you need to provide a proxy to access Confluence, you may set a map with keys `host` (e.g. `'my.proxy.com'`), `port` (e.g. `'1234'`) and `schema` (e.g. `'http'`) of your proxy.
 
