@@ -103,6 +103,9 @@ confluence.with {
 
     credentials = "user:pass_or_token".bytes.encodeBase64().toString()
 
+    //optional API-token to be added in case the credentials are needed for user and password exchange.
+    //apikey = "[API-token]"
+
     // HTML Content that will be included with every page published
     // directly after the TOC. If left empty no additional content will be
     // added
@@ -126,8 +129,8 @@ confluence.with {
 //Configuration for the export script 'exportEA.vbs'.
 // The following parameters can be used to change the default behaviour of 'exportEA'.
 // All parameter are optionally.
-// Parameter 'connection' allows to select a certain database connection by using the ConnectionString as used for 
-// directly connecting to the project database instead of looking for EAP/EAPX files inside and below the 'src' folder. 
+// Parameter 'connection' allows to select a certain database connection by using the ConnectionString as used for
+// directly connecting to the project database instead of looking for EAP/EAPX files inside and below the 'src' folder.
 // Parameter 'packageFilter' is an array of package GUID's to be used for export. All images inside and in all packages below the package represented by its GUID are exported.
 // A packageGUID, that is not found in the currently opened project, is silently skipped.
 // PackageGUID of multiple project files can be mixed in case multiple projects have to be opened.
