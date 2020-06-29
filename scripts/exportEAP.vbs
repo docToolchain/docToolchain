@@ -21,9 +21,17 @@
       If Not objFSO.FolderExists(strPath) Then objFSO.CreateFolder strPath
       On Error Goto 0
       MakeDir = objFSO.FolderExists(strPath)
-
     End Function
 
+    ' Replaces certain characters with '_' to avoid unwanted file or folder names causing errors or structure failures.
+    ' Regular expression can easily be extended with further characters to be replaced.
+    Function NormalizeName(theName)
+       dim re : Set re = new regexp
+       re.Pattern = "[\\/\[\]\s]"
+       re.Global = True
+       NormalizeName = re.Replace(theName, "_")
+    End Function
+    
     Sub WriteNote(currentModel, currentElement, notes, prefix)
         If (Left(notes, 6) = "{adoc:") Then
             strFileName = Mid(notes,7,InStr(notes,"}")-7)
@@ -31,22 +39,23 @@
             set objFSO = CreateObject("Scripting.FileSystemObject")
             If (currentModel.Name="Model") Then
               ' When we work with the default model, we don't need a sub directory
-              path = "./src/docs/ea/"
+              path = objFSO.BuildPath(exportDestination,"ea/")
             Else
-              path = "./src/docs/ea/"&currentModel.Name&"/"
+              path = objFSO.BuildPath(exportDestination,"ea/"&NormalizeName(currentModel.Name)&"/")
             End If
             MakeDir(path)
-            ' WScript.echo path&strFileName
+
             post = ""
             If (prefix<>"") Then
                 post = "_"
             End If
             MakeDir(path&prefix&post)
+            
             set objFile = objFSO.OpenTextFile(path&prefix&post&strFileName&".ad",ForAppending, True)
-            name = currentElement.Name
+            name = NormalizeName(currentElement.Name)
             name = Replace(name,vbCr,"")
             name = Replace(name,vbLf,"")
-            ' WScript.echo "-"&Left(strNotes, 6)&"-"
+
             if (Left(strNotes, 3) = vbCRLF&"|") Then
                 ' content should be rendered as table - so don't interfere with it
                 objFile.WriteLine(vbCRLF)
@@ -127,21 +136,26 @@
         Repository.OpenDiagram(currentDiagram.DiagramID)
 
         ' Save and close the diagram
+        set objFSO = CreateObject("Scripting.FileSystemObject")
         If (currentModel.Name="Model") Then
             ' When we work with the default model, we don't need a sub directory
-            path = "/src/docs/images/ea/"
+            path = objFSO.BuildPath(exportDestination,"/images/ea/")
         Else
-            path = "/src/docs/images/ea/" & currentModel.Name & "/"
+            path = objFSO.BuildPath(exportDestination,"/images/ea/" & NormalizeName(currentModel.Name) & "/")
         End If
-        diagramName = Replace(currentDiagram.Name," ","_")
+        path = objFSO.GetAbsolutePathName(path)
+        MakeDir(path)
+        
+        diagramName = currentDiagram.Name
         diagramName = Replace(diagramName,vbCr,"")
         diagramName = Replace(diagramName,vbLf,"")
-        filename = path & diagramName & ".png"
-        MakeDir("." & path)
-        projectInterface.SaveDiagramImageToFile(fso.GetAbsolutePathName(".")&filename)
-        ' projectInterface.putDiagramImageToFile currentDiagram.DiagramID,fso.GetAbsolutePathName(".")&filename,1
-        WScript.echo " extracted image to ." & filename
+        diagramName = NormalizeName(diagramName)
+        filename = objFSO.BuildPath(path, diagramName & ".png")
+
+        projectInterface.SaveDiagramImageToFile(filename)
+        WScript.echo " extracted image to " & filename
         Repository.CloseDiagram(currentDiagram.DiagramID)
+
         For Each diagramElement In currentDiagram.DiagramObjects
             Set currentElement = Repository.GetElementByID(diagramElement.ElementID)
             WriteNote currentModel, currentElement, currentElement.Notes, diagramName&"_notes"
@@ -282,8 +296,14 @@
 
   Private connectionString
   Private packageFilter
+  Private exportDestination
+  Private searchPath
+  
+  exportDestination = "./src/docs"
+  searchPath = "./src"
   Set packageFilter = CreateObject("System.Collections.ArrayList")
   Set objArguments = WScript.Arguments
+  
   Dim argCount
   argCount = 0
   While objArguments.Count > argCount+1
@@ -292,15 +312,19 @@
         connectionString = objArguments(argCount+1)
       Case "-p"
         packageFilter.Add objArguments(argCount+1)
+      Case "-d"
+        exportDestination = objArguments(argCount+1)
+      Case "-s"
+        searchPath = objArguments(argCount+1)
     End Select
     argCount = argCount + 2
   WEnd
   set fso = CreateObject("Scripting.fileSystemObject") 
   WScript.echo "Image extractor"
   If IsEmpty(connectionString) Then
-  WScript.echo "looking for .eap(x) files in " & fso.GetAbsolutePathName(".") & "/src"
+  WScript.echo "looking for .eap(x) files in " & fso.GetAbsolutePathName(searchPath)
   'Dim f As Scripting.Files
-  SearchEAProjects fso.GetFolder("./src")
+  SearchEAProjects fso.GetFolder(searchPath)
   Else
      WScript.echo "opening database connection now"
      OpenProject(connectionString)

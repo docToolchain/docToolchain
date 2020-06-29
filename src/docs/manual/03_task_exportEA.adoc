@@ -14,7 +14,7 @@ TIP: Blog-Posts: https://rdmueller.github.io/jria2eac/[JIRA to Sparx EA], https:
 == Configuration
 By default no special configuration is necessary.
 But, to be more specific on the project and its packages to be used for export,
-two optional parameter configurations are available.
+four optional parameter configurations are available.
 The parameters can be used independently from each other.
 A sample how to edit your projects Config.groovy is given in the 'Config.groovy'
 of the docToolchain project itself.
@@ -24,6 +24,20 @@ Set the connection to a certain project or comment it out to use all project fil
 
 packageFilter::
 Add one or multiple packageGUIDs to be used for export. All packages are analysed, if no packageFilter is set.
+
+exportPath::
+Relative path to base 'docDir' to which the diagrams and notes are to be exported.
+Default: "src/docs".
+Example: docDir = 'D:\work\mydoc\' ; exportPath = 'src/pdocs' ;
+Images will be exported to 'D:\work\mydoc\src\pdocs\images\ea',
+Notes  will be exported to 'D:\work\mydoc\src\pdocs\ea',
+
+searchPath::
+Relative path to base 'docDir', in which Enterprise Architect project files are searched
+Default: "src/docs".
+Example: docDir = 'D:\work\mydoc\' ; exportPath = 'src/projects' ;
+Lookup for eap and eapx files starts in 'D:\work\mydoc\src\projects' and goes down the folder structure.
+*Note*: In case connection is already defined, the searchPath value is ignored.
 
 == Source
 
