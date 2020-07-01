@@ -147,6 +147,12 @@ exportEA.with {
 // exportPath = "src/docs/"
 // OPTIONAL: relative path to base 'docDir', in which Enterprise Architect project files are searched
 // searchPath = "src/docs/"
- 
+
 }
 //end::exportEAConfig[]
+
+//tag::htmlSanityCheckConfig[]
+htmlSanityCheck.with {
+    //sourceDir = "build/html5/site"
+    //checkingResultsDir =
+}
