@@ -69,6 +69,10 @@ enableAttachments::
 If value is set to *true*, your links to local file references will be uploaded as attachments. The current implementation only supports a single folder. This foldername will be used as a prefix to validate if your file should be uploaded or not.
 In case you enable this feature, and use a folder which starts with "attachment*", an adaption of this prefix is required.
 
+jiraServerId::
+the jira server id your confluence instance is connected to. If value is set, all anchors pointing to a jira ticket will be replaced by the confluence jira macro. 
+To function properly jiraRoot has to be configured (see <<03_task_exportJiraIssues.adoc#exportJiraIssues>>).
+
 Example:
 
 All files to attach will require to be linked inside the document.
