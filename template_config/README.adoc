@@ -1,0 +1,14 @@
+== README
+
+This is just a demo file.
+
+execute
+
+    doctoolchain <docDir> generateHTML
+
+or
+
+    doctoolchain <docDir> generatePDF
+
+to start a first conversion.
+You will find the results in <docDir>/build
