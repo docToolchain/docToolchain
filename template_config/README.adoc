@@ -12,3 +12,6 @@ or
 
 to start a first conversion.
 You will find the results in <docDir>/build
+
+if it does not work, you probably haven't added doctoolchain to your path yet.
+So add `<doctoolchainDir>/bin` to your path or execute the above commands as `<doctoolchainDir>/bin/doctoolchain ...`
