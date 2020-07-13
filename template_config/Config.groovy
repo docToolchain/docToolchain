@@ -14,8 +14,12 @@ inputFiles = [
 ]
 
 
-taskInputsDirs = ["${inputPath}/src",
-                  "${inputPath}/images",
+// these are directories (dirs) and files which Gradle monitors for a change
+// in order to decide if the docs have to be re-build
+taskInputsDirs = [
+                    "${inputPath}",
+//                  "${inputPath}/src",
+//                  "${inputPath}/images",
                  ]
 
 taskInputsFiles = []
