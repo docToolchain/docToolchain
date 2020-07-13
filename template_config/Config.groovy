@@ -11,6 +11,7 @@ inputPath = '.';
 
 inputFiles = [
         [file: 'README.adoc',       formats: ['html','pdf']],
+        [file: 'arc42-template',    formats: ['html','pdf']],
 ]
 
 
