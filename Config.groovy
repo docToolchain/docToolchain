@@ -156,6 +156,7 @@ htmlSanityCheck.with {
     //sourceDir = "build/html5/site"
     //checkingResultsDir =
 }
+//end::htmlSanityCheckConfig[]
 
 //tag::jiraConfig[]
 // Configuration for Jira related tasks
