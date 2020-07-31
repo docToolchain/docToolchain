@@ -30,7 +30,7 @@ task exportJiraIssues(
                 'Authorization': "Basic " + "${user}:${pass}".bytes.encodeBase64().toString(),
                 'Content-Type' : 'application/json; charset=utf-8'
         ]
-        def openIssues = new File(targetDir, 'openissues.adoc')
+        def openIssues = new File(targetDir, jiraResultsFilename)
         openIssues.write("", 'utf-8')
         println jiraJql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel)
         jira.get(path: 'search',
