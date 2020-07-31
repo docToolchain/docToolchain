@@ -177,8 +177,9 @@ jira.with {
     
     /*
     username:password (username:token) of an account which has the right permissions to read the JIRA issues for a given project.
-    If you want to store it securely, fetch it from some external storage or leave it empty to fallback to gradle variables set through gradle properties files or environment variables.
-    The fallback uses the 'jiraUser' and 'jiraPassword' keys. It is recommended to pass these as environment variables
+    It is recommended to store these securely instead of commiting them to your git repository.
+    In that case, either fetch it from some external storage or leave it empty (credentials = '') to fallback to gradle variables set through gradle properties files or environment variables.
+    The fallback in gradle.properties uses the 'jiraUser' and 'jiraPassword' keys.
     You might even want to prompt the user for the password (by not providing it anywhere)
     */
 
