@@ -24,11 +24,11 @@ task exportJiraIssues(
             logger.quiet("No JIRA credentials are set in '${configFile.name}'")
             logger.quiet("Trying 'jiraUser' and 'jiraPassword' from gradle properties")
 
-            if(project.hasProperty("jiraUser") && project.hasProperty("jiraPassword")){
-                if (!jiraPassword) {
-                     jiraPassword = System.console().readPassword("Jira password for user '$jiraUser': ")
+            if(project.hasProperty("jiraUser") && project.hasProperty("jiraPass")){
+                if (!jiraPass) {
+                     jiraPass = System.console().readPassword("Jira password for user '$jiraUser': ")
                 }
-                config.jira.credentials = "${jiraUser}:${jiraPassword}".bytes.encodeBase64().toString()
+                config.jira.credentials = "${jiraUser}:${jiraPass}".bytes.encodeBase64().toString()
             }else{
                 logger.quiet("Variables 'jiraUser' and/or 'jiraPassword' are not set!")
                 logger.quiet("Please specify them with other Jira properties through Config.groovy, or even better via the CLI or environment variables")
