@@ -26,6 +26,7 @@ task exportJiraIssues(
 
             if(project.hasProperty("jiraUser") && project.hasProperty("jiraPass")){
                 if (!jiraPass) {
+                    // FIXME Currently doesn't work with Gradle daemon. See: https://github.com/gradle/gradle/issues/1251
                      jiraPass = System.console().readPassword("Jira password for user '$jiraUser': ")
                 }
                 config.jira.credentials = "${jiraUser}:${jiraPass}".bytes.encodeBase64().toString()
