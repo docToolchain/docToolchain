@@ -156,3 +156,41 @@ htmlSanityCheck.with {
     //sourceDir = "build/html5/site"
     //checkingResultsDir =
 }
+
+//tag::jiraConfig[]
+// Configuration for Jira related tasks
+jira = [:]
+
+jira.with {
+
+    // endpoint of the JiraAPI (REST) to be used
+    api = 'https://your-jira-instance'
+    
+    /*
+    username:password (username:token) of an account which has the right permissions to read the JIRA issues for a given project.
+    If you want to store it securely, fetch it from some external storage or leave it empty to fallback to gradle variables set through gradle properties files or environment variables.
+    The fallback uses the 'jiraUser' and 'jiraPassword' keys. It is recommended to pass these as environment variables
+    You might even want to prompt the user for the password (by not providing it anywhere)
+    */
+
+    credentials = "username@domain.com:accesstoken".bytes.encodeBase64().toString() // colon ":" is used as a separation of username from password/token before base64 encoding 
+    
+    // the key of the Jira project
+    project = 'PROJECTKEY'
+    
+    // the format of the received date time values to parse
+    dateTimeFormatParse = "yyyy-MM-dd'T'H:m:s.SSSz" // i.e. 2020-07-24'T'9:12:40.999 CEST
+    
+    // the format in which the date time should be saved to output
+    dateTimeFormatOutput = "dd.MM.yyyy HH:mm:ss z" // i.e. 24.07.2020 09:02:40 CEST
+
+    // the label to restrict search to
+    label = 
+
+    // Jira query
+    jql = "project='%jiraProject%' AND labels='%jiraLabel%' ORDER BY priority DESC, duedate ASC"
+    
+    // Filename in which Jira query results should be stored
+    resultsFilename = 'JiraTicketsContent.adoc'
+}
+//end::jiraConfig[]
