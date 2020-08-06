@@ -84,7 +84,7 @@
             strSearch = Mid(notes,7,InStr(notes,"}")-7)
             Set objShell = CreateObject("WScript.Shell")
             'objShell.CurrentDirectory = fso.GetFolder("./scripts")
-            Set objExecObject = objShell.Exec ("cmd /K  groovy ./scripts/exportJira.groovy """ & strSearch &""" & exit")
+            Set objExecObject = objShell.Exec ("cmd /K  groovy ./scripts/exportEAPJiraPrintHelper.groovy """ & strSearch &""" & exit")
             strReturn = ""
             x = 0
             y = 0
