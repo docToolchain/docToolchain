@@ -40,6 +40,7 @@ task publishToConfluence(
         binding.setProperty('config',config)
         binding.setProperty('docDir',docDir)
         binding.setProperty('configFile', configFile)
+        binding.setProperty('jiraRoot', jiraRoot)
         evaluate(new File(projectDir, 'scripts/asciidoc2confluence.groovy'))
     }
 }

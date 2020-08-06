@@ -376,6 +376,21 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
     }
 }
 
+def rewriteJiraLinks = { body ->
+    // find links to jira tickets and replace them with jira macros
+    body.select('a[href]').each { a ->
+        def href = a.attr('href')
+        if (href.startsWith(jiraRoot + "/browse/")) { 
+                def ticketId = a.text()
+                a.before("""<ac:structured-macro ac:name=\"jira\" ac:schema-version=\"1\">
+                     <ac:parameter ac:name=\"key\">${ticketId}</ac:parameter>
+                     <ac:parameter ac:name=\"serverId\">${config.confluence.jiraServerId}</ac:parameter>
+                     </ac:structured-macro>""")
+                a.remove()
+        }
+    }
+}
+
 
 def rewriteCodeblocks = { body ->
     body.select('pre > code').each { code ->
@@ -519,6 +534,10 @@ def parseBody =  { body, anchors, pageAnchors ->
 
             }
         }
+    }
+
+    if(config.confluence.jiraServerId){
+        rewriteJiraLinks body
     }
 
     rewriteMarks body
