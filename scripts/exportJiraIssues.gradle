@@ -8,8 +8,14 @@ buildscript {
     dependencies {
         //for the exportJiraIssues Task
         classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.2'
+        classpath 'org.apache.poi:poi-ooxml:4.1.1'
     }
 }
+
+import org.apache.poi.ss.usermodel.*
+import org.apache.poi.xssf.usermodel.*
+import org.apache.poi.ss.util.*
+import org.apache.poi.common.usermodel.*
 
 //tag::exportJiraIssues[]
 task exportJiraIssues(
