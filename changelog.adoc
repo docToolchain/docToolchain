@@ -8,6 +8,11 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 == Unreleased
 
 === Added
+2020-07-08::
+* Jira configuration for multiple request to Jira API
+* Saving Jira results to Excel files
+* Basic support for custom fields in Jira results
+
 2020-05-08::
 * Jira configuration refactoring to Config.groovy
 
