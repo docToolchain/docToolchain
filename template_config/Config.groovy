@@ -165,6 +165,7 @@ htmlSanityCheck.with {
     //sourceDir = "build/html5/site"
     //checkingResultsDir =
 }
+//end::htmlSanityCheckConfig[]
 
 //tag::jiraConfig[]
 // Configuration for Jira related tasks
@@ -197,10 +198,36 @@ jira.with {
     // the label to restrict search to
     label = 
 
-    // Jira query
-    jql = "project='%jiraProject%' AND labels='%jiraLabel%' ORDER BY priority DESC, duedate ASC"
+    // Base filename in which Jira query results should be stored
+    resultsFilename = 'JiraTicketsContent'
+
+    saveAsciidoc = true // if true, asciidoc file will be created with *.adoc extension
+    saveExcel = true // if true, Excel file will be created with *.xlsx extension
+
+    /* 
+    List of requests to Jira API:
+    These are basically JQL expressions bundled with a filename in which results will be saved.
+    User can configure custom fields IDs and name those for column header,
+    i.e. customfield_10026:'Story Points' for Jira instance that has custom field with that name and will be saved in a coloumn named "Story Points"
+    */
+    requests = [
+        new JiraRequest(
+            filename:"File1_Done_issues",
+            jql:"project='%jiraProject%' AND status='Done' ORDER BY duedate ASC",
+            customfields: [customfield_10026:'Story Points']
+        ),
+        new JiraRequest(
+            filename:'CurrentSprint',
+            jql:"project='%jiraProject%' AND Sprint in openSprints() ORDER BY priority DESC, duedate ASC", 
+            customfields: [customfield_10026:'Story Points']
+        ),
+    ]    
+}
     
-    // Filename in which Jira query results should be stored
-    resultsFilename = 'JiraTicketsContent.adoc'
+@groovy.transform.Immutable
+class JiraRequest {
+    String filename  //filename (without extension) of the file in which JQL results will be saved. Extension will be determined automatically for Asciidoc or Excel file
+    String jql // Jira Query Language syntax 
+    Map<String,String> customfields // map of customFieldId:displayName values for Jira fields which don't have default names, i.e. customfield_10026:StoryPoints
 }
 //end::jiraConfig[]
