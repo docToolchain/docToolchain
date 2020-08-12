@@ -264,6 +264,7 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
     }
 }
 
+// dierk42 Test for using internal Confluence links in asciidoc docs
 def rewriteConfluenceLinks = { body, anchors, pageAnchors ->
     // find arbitrary Confluence links cross-references and replace them with link macros
     body.select('a[href]').each { a ->
@@ -288,10 +289,6 @@ def rewriteConfluenceLinks = { body, anchors, pageAnchors ->
                 page_anchor = splitted[1]
             }
             page_title = page_title.replace('+', ' ')
-// println "a.text: " + a.text()
-// println "space: " + space
-// println "page_title: " + page_title
-// println "page_anchor: " + page_anchor
             if (page_title && a.text()) {
                 // as Confluence insists on link texts to be contained
                 // inside CDATA, we have to strip all HTML and
@@ -622,6 +619,7 @@ config.confluence.input.each { input ->
 //  assignend, but never used in pushToConfluence(...) (fixed here)
     confluenceSpaceKey = input.spaceKey ?: config.confluence.spaceKey
     confluenceCreateSubpages = (input.createSubpages != null) ? input.createSubpages : config.confluence.createSubpages
+println "confluenceCreateSubpages: " + confluenceCreateSubpages
 //  hard to read in case of using :sectnums: -> so we add a suffix
     confluencePagePrefix = input.pagePrefix ?: config.confluence.pagePrefix
 //  added
