@@ -12,7 +12,7 @@ But first of all, docToolchain has to know where your documentation project is l
 
 If `docDir` is defined, the default for `mainConfigFile` is `Config.groovy` in the root folder of your `docDir`.
 
-You have several options to specify the location of your documentation project (`docDir`) and the location of your config gile (`mainConfigFile`).
+You have several options to specify the location of your documentation project (`docDir`) and the location of your config file (`mainConfigFile`).
 
 === build.gradle
 

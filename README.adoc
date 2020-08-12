@@ -1,9 +1,16 @@
 
-ifdef::env-github[]
-:imagesdir: https://github.com/docToolchain/docToolchain/blob/master/images
-endif::[]
+:imagesdir: images
 
 == docToolchain
+
+[NOTE]
+====
+Corona/Covid19 is taking its toll.
+Time is short in these times and issues are not worked on.
+That's why I (rdmueller) have just introduced `sponsored` issues with higher priority.
+The label should help to explain why some issues will be preferred over others.
+If you want to sponsor an issue, just use the sponsor link on top of this page.
+====
 
 [IMPORTANT]
 ====
@@ -33,7 +40,7 @@ https://doctoolchain.github.io/docToolchain/tests/[Integration Test Results], ht
 
 This project exists thanks to all the people who contribute!
 
-image::https://opencollective.com/doctoolchain/contributors.svg?button=false[]
+image::https://opencollective.com/doctoolchain/contributors.svg?width=600&button=false[]
 
 See also the https://doctoolchain.github.io/docToolchain/#_acknowledgements_and_contributors[list of contributors] from the docs.
 
@@ -50,8 +57,12 @@ but some companies already fully embrace the docs-as-code approach through docTo
 If your company uses docToolchain, then feel free to add your companies logo through a pull request.
 Please state in the PR that we are allowed to display the logo within all projects websites and documentation.
 
-[link=https://www.tomtom.com]
-image::TomTomLogo.png[TomTom]
+[cols="1,2"]
+|===
+a| [link=https://www.tomtom.com]
+image::TomTomLogo.png[TomTom, width=50%]
+a| ## Deutsche Bahn - https://www.dbsystel.de/[DB Systel]
+|===
 
 === Backers
 
@@ -66,3 +77,13 @@ Support us by becoming a sponsor. Your logo will show up here with a link to you
 https://opencollective.com/doctoolchain#sponsors[Become a Sponsor]
 
 image::https://opencollective.com/doctoolchain/sponsor/0/avatar.svg["Sponsor", link="https://opencollective.com/doctoolchain/sponsor/0/website"]
+
+=== History of this project
+
+I just found an older https://twitter.com/RalfDMueller/status/668540860649349120[tweet] which remindet me of the roots and beginning of this project.
+It all began with two important parts. 
+A script called asciidoc2confluence and some scripts to export diagrams from enterprise architect.
+
+The first one is linked in the tweet above and the first commit dates back to mid of 2015.
+Since then, many contributors have joined!
+Thanx for all of your contributions!

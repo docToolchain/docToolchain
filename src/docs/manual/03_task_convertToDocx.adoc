@@ -3,8 +3,9 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 = convertToDocx
 
-* Needs pandoc installed
+* Needs https://pandoc.org[pandoc] installed
 * Please make sure that 'docbook' and 'docx' are added to the inputFiles formats in Config.groovy
+* Optional: you can specify a reference doc file with custom stylesheets (see task <<createReferenceDoc>>)
 
 include::feedback.adoc[]
 

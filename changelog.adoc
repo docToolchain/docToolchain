@@ -8,6 +8,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 == Unreleased
 
 === Added
+2020-05-08::
+* Jira configuration refactoring to Config.groovy
+
 2019-05-21::
 * first version of EA-PlantUML Exchange scripts
 
@@ -56,3 +59,6 @@ https://github.com/docToolchain/docToolchain/commit/c25ac52e43ccb1d45fa538c06d37
 
 == Released
 
+2020-08-06::
+* publishToConfluence
+** https://github.com/docToolchain/docToolchain/pull/445[#445 Publish to confluence jira macro support]

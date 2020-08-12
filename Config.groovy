@@ -56,7 +56,7 @@ confluence = [:]
 // Attributes
 // - 'file': absolute or relative path to the asciidoc generated html file to be exported
 // - 'url': absolute URL to an asciidoc generated html file to be exported
-// - 'ancestorId' (optional): the id of the parent page in Confluence; leave this empty
+// - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty
 //                            if a new parent shall be created in the space
 // - 'preambleTitle' (optional): the title of the page containing the preamble (everything
 //                            before the first second level heading). Default is 'arc42'
@@ -82,6 +82,9 @@ confluence.with {
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
 
+    // the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
+    preambleTitle = ''
+
     // variable to determine whether ".sect2" sections shall be split from the current page into subpages
     createSubpages = false
 
@@ -94,15 +97,102 @@ confluence.with {
 
     // username:password of an account which has the right permissions to create and edit
     // confluence pages in the given space.
-    // if you want to store it securely, fetch it from some external storage.
+    // if you want to store it securely, fetch it from some external storage or leave it empty to fallback to gradle variables
+    // set through gradle properties files or environment variables. The fallback uses the 'confluenceUser' and 'confluencePassword' keys.
     // you might even want to prompt the user for the password like in this example
 
     credentials = "user:pass_or_token".bytes.encodeBase64().toString()
+
+    //optional API-token to be added in case the credentials are needed for user and password exchange.
+    //apikey = "[API-token]"
 
     // HTML Content that will be included with every page published
     // directly after the TOC. If left empty no additional content will be
     // added
     // extraPageContent = '<ac:structured-macro ac:name="warning"><ac:parameter ac:name="title" /><ac:rich-text-body>This is a generated page, do not edit!</ac:rich-text-body></ac:structured-macro>
     extraPageContent = ''
+
+    // enable or disable attachment uploads for local file references
+    enableAttachments = false
+
+    // default attachmentPrefix = attachment - All files to attach will require to be linked inside the document.
+    // attachmentPrefix = "attachment"
+
+
+    // Optional proxy configuration, only used to access Confluence
+    // schema supports http and https
+    // proxy = [host: 'my.proxy.com', port: 1234, schema: 'http']
 }
 //end::confluenceConfig[]
+//*****************************************************************************************
+//tag::exportEAConfig[]
+//Configuration for the export script 'exportEA.vbs'.
+// The following parameters can be used to change the default behaviour of 'exportEA'.
+// All parameter are optionally.
+// Parameter 'connection' allows to select a certain database connection by using the ConnectionString as used for
+// directly connecting to the project database instead of looking for EAP/EAPX files inside and below the 'src' folder.
+// Parameter 'packageFilter' is an array of package GUID's to be used for export. All images inside and in all packages below the package represented by its GUID are exported.
+// A packageGUID, that is not found in the currently opened project, is silently skipped.
+// PackageGUID of multiple project files can be mixed in case multiple projects have to be opened.
+
+exportEA.with {
+// OPTIONAL: Set the connection to a certain project or comment it out to use all project files inside the src folder or its child folder.
+// connection = "DBType=1;Connect=Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=[THE_DB_NAME_OF_THE_PROJECT];Data Source=[server_hosting_database.com];LazyLoad=1;"
+// OPTIONAL: Add one or multiple packageGUIDs to be used for export. All packages are analysed, if no packageFilter is set.
+// packageFilter = [
+//                    "{A237ECDE-5419-4d47-AECC-B836999E7AE0}",
+//                    "{B73FA2FB-267D-4bcd-3D37-5014AD8806D6}"
+//                  ]
+// OPTIONAL: relative path to base 'docDir' to which the diagrams and notes are to be exported
+// exportPath = "src/docs/"
+// OPTIONAL: relative path to base 'docDir', in which Enterprise Architect project files are searched
+// searchPath = "src/docs/"
+
+}
+//end::exportEAConfig[]
+
+//tag::htmlSanityCheckConfig[]
+htmlSanityCheck.with {
+    //sourceDir = "build/html5/site"
+    //checkingResultsDir =
+}
+//end::htmlSanityCheckConfig[]
+
+//tag::jiraConfig[]
+// Configuration for Jira related tasks
+jira = [:]
+
+jira.with {
+
+    // endpoint of the JiraAPI (REST) to be used
+    api = 'https://your-jira-instance'
+    
+    /*
+    username:password (username:token) of an account which has the right permissions to read the JIRA issues for a given project.
+    It is recommended to store these securely instead of commiting them to your git repository.
+    In that case, either fetch it from some external storage or leave it empty (credentials = '') to fallback to gradle variables set through gradle properties files or environment variables.
+    The fallback in gradle.properties uses the 'jiraUser' and 'jiraPassword' keys.
+    You might even want to prompt the user for the password (by not providing it anywhere)
+    */
+
+    credentials = "username@domain.com:accesstoken".bytes.encodeBase64().toString() // colon ":" is used as a separation of username from password/token before base64 encoding 
+    
+    // the key of the Jira project
+    project = 'PROJECTKEY'
+    
+    // the format of the received date time values to parse
+    dateTimeFormatParse = "yyyy-MM-dd'T'H:m:s.SSSz" // i.e. 2020-07-24'T'9:12:40.999 CEST
+    
+    // the format in which the date time should be saved to output
+    dateTimeFormatOutput = "dd.MM.yyyy HH:mm:ss z" // i.e. 24.07.2020 09:02:40 CEST
+
+    // the label to restrict search to
+    label = 
+
+    // Jira query
+    jql = "project='%jiraProject%' AND labels='%jiraLabel%' ORDER BY priority DESC, duedate ASC"
+    
+    // Filename in which Jira query results should be stored
+    resultsFilename = 'JiraTicketsContent.adoc'
+}
+//end::jiraConfig[]

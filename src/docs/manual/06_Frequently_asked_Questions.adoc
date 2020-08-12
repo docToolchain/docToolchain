@@ -51,7 +51,7 @@ SVG:: great for high resolution diagrams, but not good supported by DOCX as outp
 OpenOffice Writer might display the image a bit stretched, MS Word didn't display it at all in some experiments.
 
 PNG:: this is the preferred format for images used with docToolchain.
-All output formats support it and if diagrams are rendered with a resolution high enough to display all details, it will also be scaled ok with all output formats.
+All output formats support it and if diagrams are rendered with a resolution high enough to display all details, it will also be scaled well with all output formats.
 
 === Q: Why are my images rotated in the output?
 
@@ -59,7 +59,7 @@ A:
 This most likely happens when you've taken photos with a mobile device and include them in you docs.
 A mobile device does not rotate the image itself, it only stores the orientation of the device in the meta data of the photo.
 Your operating system will show you the image as expected, but the rendered AsciiDoc will not.
-This can be „fixed“ with Imagemagick, use convert -auto-orient or mogrify -auto-orient (thanx to https://twitter.com/RalfDMueller/status/920888868345384960[@rotnroll666] for this tip).
+This can be „fixed“ with Imagemagick, by using `convert -auto-orient` or `mogrify -auto-orient` (thanx to https://twitter.com/RalfDMueller/status/920888868345384960[@rotnroll666] for this tip).
 You can also try to just open the image in your favourite editor and re-save it.
 
 == exportVisio
@@ -79,7 +79,7 @@ In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
 ----
 
 A:
-When Visio is installed, it registers itself as com library.
+When Visio is installed, it registers itself as a com library.
 It seems that this registration can break.
 You can fix this by visiting the windows system settings -> install or uninstall a program, select `visio`, select `change` and then `repair`.
 
@@ -88,7 +88,7 @@ You can fix this by visiting the windows system settings -> install or uninstall
 === Q: Sparx Enterprise Architect is a Windows tool, isn't it?
 
 Yes, it is, but it is written to support CrossOver in order to run on Linux based systems.
-Wine, the open source branch of CrossOver seems to work as well.
+Wine, the open source branch of CrossOver, seems to work as well.
 
 Take a look at this page to see how to install it on a linux based system: https://www.sparxsystems.com/support/faq/ea_on_linux.html
 
@@ -104,7 +104,7 @@ Failed to capture snapshot of input files for task ':generateHTML' property 'sou
 > Failed to create MD5 hash for file content.`
 ----
 
-There are two reasons known for this error.
+There are two known reasons for this error.
 
 1. One of the .adoc files is opened in an editor, so that windows can't get the lock for that file.
 -> Close all .adoc files.
@@ -116,5 +116,21 @@ It works even in a Bash Shell.
 === Q: I get the error saying 'Unsupported major.minor version 52.0'
 
 This is a sign that you use an outdated version of Java.
-Please upgrade to at least Java 8.
+Please upgrade to Java 8 at least.
 
+=== Q: I get an error message saying 'Error occurred during initialization of VM'
+
+```
+Starting a Gradle Daemon, 1 incompatible Daemon could not be reused, use --status for details
+
+FAILURE: Build failed with an exception.
+
+* What went wrong:
+Unable to start the daemon process.
+…
+Error occurred during initialization of VM
+Could not reserve enough space for 2097152KB object heap
+```
+
+Somehow docToolchain can't allocate the memory which is configured out of the box.
+Try to free up some memory or comment out the line `org.gradle.jvmargs=-Xmx2048m` in `gradle.properties`

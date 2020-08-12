@@ -21,9 +21,17 @@
       If Not objFSO.FolderExists(strPath) Then objFSO.CreateFolder strPath
       On Error Goto 0
       MakeDir = objFSO.FolderExists(strPath)
-
     End Function
 
+    ' Replaces certain characters with '_' to avoid unwanted file or folder names causing errors or structure failures.
+    ' Regular expression can easily be extended with further characters to be replaced.
+    Function NormalizeName(theName)
+       dim re : Set re = new regexp
+       re.Pattern = "[\\/\[\]\s]"
+       re.Global = True
+       NormalizeName = re.Replace(theName, "_")
+    End Function
+    
     Sub WriteNote(currentModel, currentElement, notes, prefix)
         If (Left(notes, 6) = "{adoc:") Then
             strFileName = Mid(notes,7,InStr(notes,"}")-7)
@@ -31,22 +39,23 @@
             set objFSO = CreateObject("Scripting.FileSystemObject")
             If (currentModel.Name="Model") Then
               ' When we work with the default model, we don't need a sub directory
-              path = "./src/docs/ea/"
+              path = objFSO.BuildPath(exportDestination,"ea/")
             Else
-              path = "./src/docs/ea/"&currentModel.Name&"/"
+              path = objFSO.BuildPath(exportDestination,"ea/"&NormalizeName(currentModel.Name)&"/")
             End If
             MakeDir(path)
-            ' WScript.echo path&strFileName
+
             post = ""
             If (prefix<>"") Then
                 post = "_"
             End If
-			MakeDir(path&prefix&post)
+            MakeDir(path&prefix&post)
+            
             set objFile = objFSO.OpenTextFile(path&prefix&post&strFileName&".ad",ForAppending, True)
-            name = currentElement.Name
+            name = NormalizeName(currentElement.Name)
             name = Replace(name,vbCr,"")
             name = Replace(name,vbLf,"")
-            ' WScript.echo "-"&Left(strNotes, 6)&"-"
+
             if (Left(strNotes, 3) = vbCRLF&"|") Then
                 ' content should be rendered as table - so don't interfere with it
                 objFile.WriteLine(vbCRLF)
@@ -75,7 +84,7 @@
             strSearch = Mid(notes,7,InStr(notes,"}")-7)
             Set objShell = CreateObject("WScript.Shell")
             'objShell.CurrentDirectory = fso.GetFolder("./scripts")
-            Set objExecObject = objShell.Exec ("cmd /K  groovy ./scripts/exportJira.groovy """ & strSearch &""" & exit")
+            Set objExecObject = objShell.Exec ("cmd /K  groovy ./scripts/exportEAPJiraPrintHelper.groovy """ & strSearch &""" & exit")
             strReturn = ""
             x = 0
             y = 0
@@ -123,39 +132,43 @@
     End Sub
 
     Sub SaveDiagram(currentModel, currentDiagram)
-                ' Open the diagram
-            Repository.OpenDiagram(currentDiagram.DiagramID)
+        ' Open the diagram
+        Repository.OpenDiagram(currentDiagram.DiagramID)
 
-            ' Save and close the diagram
-            If (currentModel.Name="Model") Then
-                ' When we work with the default model, we don't need a sub directory
-                path = "/src/docs/images/ea/"
-            Else
-                path = "/src/docs/images/ea/" & currentModel.Name & "/"
-            End If
-            diagramName = Replace(currentDiagram.Name," ","_")
-            diagramName = Replace(diagramName,vbCr,"")
-            diagramName = Replace(diagramName,vbLf,"")
-            filename = path & diagramName & ".png"
-            MakeDir("." & path)
-            projectInterface.SaveDiagramImageToFile(fso.GetAbsolutePathName(".")&filename)
-            ' projectInterface.putDiagramImageToFile currentDiagram.DiagramID,fso.GetAbsolutePathName(".")&filename,1
-            WScript.echo " extracted image to ." & filename
-            Repository.CloseDiagram(currentDiagram.DiagramID)
-            For Each diagramElement In currentDiagram.DiagramObjects
-                Set currentElement = Repository.GetElementByID(diagramElement.ElementID)
-                WriteNote currentModel, currentElement, currentElement.Notes, diagramName&"_notes"
-            Next
-            For Each diagramLink In currentDiagram.DiagramLinks
-                set currentConnector = Repository.GetConnectorByID(diagramLink.ConnectorID)
-                WriteNote currentModel, currentConnector, currentConnector.Notes, diagramName&"_links"
-            Next
+        ' Save and close the diagram
+        set objFSO = CreateObject("Scripting.FileSystemObject")
+        If (currentModel.Name="Model") Then
+            ' When we work with the default model, we don't need a sub directory
+            path = objFSO.BuildPath(exportDestination,"/images/ea/")
+        Else
+            path = objFSO.BuildPath(exportDestination,"/images/ea/" & NormalizeName(currentModel.Name) & "/")
+        End If
+        path = objFSO.GetAbsolutePathName(path)
+        MakeDir(path)
+        
+        diagramName = currentDiagram.Name
+        diagramName = Replace(diagramName,vbCr,"")
+        diagramName = Replace(diagramName,vbLf,"")
+        diagramName = NormalizeName(diagramName)
+        filename = objFSO.BuildPath(path, diagramName & ".png")
+
+        projectInterface.SaveDiagramImageToFile(filename)
+        WScript.echo " extracted image to " & filename
+        Repository.CloseDiagram(currentDiagram.DiagramID)
+
+        For Each diagramElement In currentDiagram.DiagramObjects
+            Set currentElement = Repository.GetElementByID(diagramElement.ElementID)
+            WriteNote currentModel, currentElement, currentElement.Notes, diagramName&"_notes"
+        Next
+        For Each diagramLink In currentDiagram.DiagramLinks
+            set currentConnector = Repository.GetConnectorByID(diagramLink.ConnectorID)
+            WriteNote currentModel, currentConnector, currentConnector.Notes, diagramName&"_links"
+        Next
     End Sub
     '
     ' Recursively saves all diagrams under the provided package and its children
     '
     Sub DumpDiagrams(thePackage,currentModel)
-
         Set currentPackage = thePackage
 
         ' export element notes
@@ -194,23 +207,44 @@
         End If
     End Sub
 
-		Function SearchEAProjects(path)
-		
-		  For Each folder In path.SubFolders
-		    SearchEAProjects folder
-		  Next
-		  
-		  For Each file In path.Files
-				If fso.GetExtensionName (file.Path) = "eap" Then
-					WScript.echo "found "&file.path
-					If (Left(file.name, 1) = "_") Then
-					    WScript.echo "skipping, because it start with `_` (replication)"
-					Else
-					    OpenProject(file.Path)
-					End If
-				End If
-		  Next
-		
+    Function SearchEAProjects(path)
+      For Each folder In path.SubFolders
+        SearchEAProjects folder
+      Next
+
+      For Each file In path.Files
+            If fso.GetExtensionName (file.Path) = "eap" OR fso.GetExtensionName (file.Path) = "eapx" Then
+                WScript.echo "found "&file.path
+                If (Left(file.name, 1) = "_") Then
+                    WScript.echo "skipping, because it start with `_` (replication)"
+                Else
+                    OpenProject(file.Path)
+                End If
+            End If
+      Next
+    End Function
+
+    'Gets the package object as referenced by its GUID from the Enterprise Architect project.
+    'Looks for the model node, the package is a child of as it is required for the diagram export.
+    'Calls the Sub routine DumpDiagrams for the model and package found.
+    'An error is printed to console only if the packageGUID is not found in the project.
+    Function DumpPackageDiagrams(EAapp, packageGUID)
+        WScript.echo "DumpPackageDiagrams"
+        WScript.echo packageGUID
+        Dim package
+        Set package = EAapp.Repository.GetPackageByGuid(packageGUID)
+        If (package Is Nothing) Then
+          WScript.echo "invalid package - as package is not part of the project"
+        Else
+          Dim currentModel
+          Set currentModel = package
+          while currentModel.IsModel = false
+            Set currentModel = EAapp.Repository.GetPackageByID(currentModel.parentID)
+          wend
+          ' Iterate through all child packages and save out their diagrams
+          ' save all diagrams of package itself
+          call DumpDiagrams(package, currentModel)
+        End If
     End Function
 
     Sub OpenProject(file)
@@ -238,19 +272,11 @@
         WScript.echo file
         GUID = Mid(file, InStrRev(file,"{")+0,38)
         WScript.echo GUID
-        Dim package
-        set package = EAapp.Repository.GetPackageByGuid(GUID)
-        WScript.echo TypeName(package)
-        set currentModel = package
-        while currentModel.IsModel = false
-            set currentModel = EAapp.Repository.GetPackageByID(currentModel.parentID)
-            WScript.echo currentModel.parentID
-        wend
         ' Iterate through all child packages and save out their diagrams
-        For Each childPackage In package.Packages
-            call DumpDiagrams(childPackage, currentModel)
-        Next
+        call DumpPackageDiagrams(EAapp, GUID)
       Else
+        If packageFilter.Count = 0 Then
+          WScript.echo "done"
         ' Iterate through all model nodes
         For Each currentModel In Repository.Models
             ' Iterate through all child packages and save out their diagrams
@@ -258,13 +284,49 @@
                 call DumpDiagrams(childPackage,currentModel)
             Next
         Next
+        Else
+          ' Iterate through all packages found in the package filter given by script parameter.
+          For Each packageGUID In packageFilter
+            call DumpPackageDiagrams(EAapp, packageGUID)
+          Next
+        End If
       End If
       EAapp.Repository.CloseFile()
     End Sub
 
+  Private connectionString
+  Private packageFilter
+  Private exportDestination
+  Private searchPath
+  
+  exportDestination = "./src/docs"
+  searchPath = "./src"
+  Set packageFilter = CreateObject("System.Collections.ArrayList")
+  Set objArguments = WScript.Arguments
+  
+  Dim argCount
+  argCount = 0
+  While objArguments.Count > argCount+1
+    Select Case objArguments(argCount)
+      Case "-c"
+        connectionString = objArguments(argCount+1)
+      Case "-p"
+        packageFilter.Add objArguments(argCount+1)
+      Case "-d"
+        exportDestination = objArguments(argCount+1)
+      Case "-s"
+        searchPath = objArguments(argCount+1)
+    End Select
+    argCount = argCount + 2
+  WEnd
   set fso = CreateObject("Scripting.fileSystemObject") 
   WScript.echo "Image extractor"
-  WScript.echo "looking for .eap files in " & fso.GetAbsolutePathName(".") & "/src"
+  If IsEmpty(connectionString) Then
+  WScript.echo "looking for .eap(x) files in " & fso.GetAbsolutePathName(searchPath)
   'Dim f As Scripting.Files
-  SearchEAProjects fso.GetFolder("./src")
+  SearchEAProjects fso.GetFolder(searchPath)
+  Else
+     WScript.echo "opening database connection now"
+     OpenProject(connectionString)
+  End If
   WScript.echo "finished exporting images"
