@@ -8,8 +8,14 @@ buildscript {
     dependencies {
         //for the exportJiraIssues Task
         classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.2'
+        classpath 'org.apache.poi:poi-ooxml:4.1.1'
     }
 }
+
+import org.apache.poi.ss.usermodel.*
+import org.apache.poi.xssf.usermodel.*
+import org.apache.poi.ss.util.*
+import org.apache.poi.common.usermodel.*
 
 //tag::exportJiraIssues[]
 task exportJiraIssues(
@@ -41,12 +47,12 @@ task exportJiraIssues(
 
         // map configuration from Config.groovy to existing variables for compatibility with naming of Jira settings in gradle.properties
         jiraRoot = config.jira.api
-        jiraJql = config.jira.jql
         jiraProject = config.jira.project
         jiraLabel = config.jira.label
         jiraResultsFilename = config.jira.resultsFilename
         jiraDateTimeFormatParse = config.jira.dateTimeFormatParse
         jiraDateTimeOutput = config.jira.dateTimeFormatOutput
+        def defaultFields = 'priority,created,resolutiondate,summary,assignee,timeoriginalestimate,status'
 
         def jira = new groovyx.net.http.RESTClient(jiraRoot + '/rest/api/2/')
         jira.encoderRegistry = new groovyx.net.http.EncoderRegistry(charset: 'utf-8')
@@ -54,24 +60,153 @@ task exportJiraIssues(
                 'Authorization': "Basic " + config.jira.credentials,
                 'Content-Type' : 'application/json; charset=utf-8'
         ]
-        def openIssues = new File(targetDir, jiraResultsFilename)
-        openIssues.write(".Table {Title}\n", 'utf-8')
-        openIssues.append("|=== \n")
-        openIssues.append("|Key |Priority |Created | Assignee | Summary\n", 'utf-8')
-        println jiraJql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel)
-        jira.get(path: 'search',
-                query: ['jql'       : jiraJql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel),
+        
+        def jiraRequests = config.jira.requests
+        
+        if (config.jira.jql) {
+            logger.warn(">>>Found legacy Jira requests. Please migrate to the new Jira configuration ASAP. Old config with jql will be removed soon")
+            writeAsciiDocFileForLegacyConfiguration(jira, headers, config.jira)
+        }
+        
+        jiraRequests.each {rq -> 
+            logger.quiet("Request to Jira API for '${rq.filename}' with query: '${rq.jql}'")
+
+            def allHeaders = "${defaultFields},${rq.customfields.values().join(",")}"
+            def allFieldIds = "${defaultFields},${rq.customfields.keySet().join(",")}"
+            logger.quiet("Preparing headers for default & custom fields: ${allHeaders}")
+            logger.quiet("Preparing field IDs for default & custom fields: ${allFieldIds}")
+
+            // Save AsciiDoc file
+            if (config.jira.saveAsciidoc) {
+                def extension = 'adoc'
+                jiraResultsFilename = "${rq.filename}.${extension}"
+                logger.info("Results will be saved in '${rq.filename}.${extension}' file")
+                
+                def openIssues = new File(targetDir, "${rq.filename}.${extension}")
+                openIssues.write(".Table {Title}\n", 'utf-8')
+                openIssues.append("|=== \n")
+
+                // AsciiDoc table headers (custom fields map needs values here)
+                openIssues.append("|Key ", 'utf-8')
+                allHeaders.split(",").each {field -> 
+                    openIssues.append("|${field} ", 'utf-8')
+                }
+                openIssues.append("\n", 'utf-8')
+                
+                jira.get(path: 'search',
+                    query: ['jql'       : rq.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel),
+                            'maxResults': 1000,
+                            fields: "${allFieldIds}"
+                    ],
+                    headers: headers
+                ).data.issues.each { issue ->
+                    //logger.quiet(">> Whole issue ${issue.key}:\n   ${issue.fields}")
+                    openIssues.append("| ${jiraRoot}/browse/${issue.key}[${issue.key}] ", 'utf-8')
+                    openIssues.append("| ${issue.fields.priority.name} ", 'utf-8')
+                    openIssues.append("| ${Date.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)} ", 'utf-8')
+                    openIssues.append("| ${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''} ", 'utf-8')
+                    openIssues.append("| ${issue.fields.summary} ", 'utf-8')
+                    openIssues.append("| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}", 'utf-8')
+                    openIssues.append("| ${issue.fields.timeoriginalestimate} ", 'utf-8')
+                    openIssues.append("| ${issue.fields.status.name} ", 'utf-8')
+                    
+                    rq.customfields.each { field -> 
+                        def foundCustom = issue.fields.find {it.key == field.key}
+                        //logger.quiet("Examining issue '${issue.key}' for custom field '${field.key}' has found: '${foundCustom}'")
+                        openIssues.append("| ${foundCustom ? foundCustom.value : '-'}\n", 'utf-8')
+                    }
+                }
+                openIssues.append("|=== \n")
+            } else {
+                logger.quiet("Set saveAsciidoc=true in '${configFile.name}' to save results in AsciiDoc file")
+            }
+
+            // Save Excel file
+            if (config.jira.saveExcel) {
+                def extension = 'xlsx'
+                jiraResultsFilename = "${rq.filename}.${extension}"
+                logger.quiet(">> Results will be saved in '${rq.filename}.${extension}' file")
+                
+                def openIssues = new File(targetDir, "${rq.filename}.${extension}")
+
+                def jiraDataXls = new File(targetDir, jiraResultsFilename)
+                def jiraFos = new FileOutputStream(jiraDataXls)
+
+                Workbook wb = new XSSFWorkbook();
+                CreationHelper hyperlinkHelper = wb.getCreationHelper();
+                def sheetName = "${rq.filename}"
+                def ws = wb.createSheet(sheetName)
+
+                def titleRow = ws.createRow(0);
+                int cellNumber = 0;
+                titleRow.createCell(cellNumber).setCellValue("Key")
+                allHeaders.split(",").each {field -> 
+                    titleRow.createCell(++cellNumber).setCellValue("${field}")
+                }
+                def lastRow = titleRow.getRowNum()
+
+                jira.get(path: 'search',
+                    query: ['jql'       : rq.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel),
+                            'maxResults': 1000,
+                            fields: "${allFieldIds}"
+                    ],
+                    headers: headers
+                ).data.issues.each { issue ->
+                    int cellPosition = 0
+                    def row = ws.createRow(++lastRow)
+                    Hyperlink link = hyperlinkHelper.createHyperlink(HyperlinkType.URL)
+                    link.setAddress("${jiraRoot}/browse/${issue.key}")
+                    Cell cellWithUrl = row.createCell(cellPosition)
+                    cellWithUrl.setCellValue("${issue.key}")
+                    cellWithUrl.setHyperlink(link)
+
+                    row.createCell(++cellPosition).setCellValue("${issue.fields.priority.name}")
+                    row.createCell(++cellPosition).setCellValue("${Date.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)}")
+                    row.createCell(++cellPosition).setCellValue("${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''}")
+                    row.createCell(++cellPosition).setCellValue("${issue.fields.summary}")
+                    row.createCell(++cellPosition).setCellValue("${issue.fields.assignee ? issue.fields.assignee.displayName : ''}")
+                    row.createCell(++cellPosition).setCellValue("${issue.fields.timeoriginalestimate} ")
+                    row.createCell(++cellPosition).setCellValue("${issue.fields.status.name}")
+
+                    // Custom fields
+                    rq.customfields.each { field -> 
+                        def position = ++cellPosition
+                        def foundCustom = issue.fields.find {it.key == field.key}
+                        row.createCell(position).setCellValue("${foundCustom ? foundCustom.value : '-'}")
+                    }
+                }
+                wb.write(jiraFos)
+            } else {
+                logger.quiet("Set saveExcel=true in '${configFile.name}' to save results in Excel file")
+            }
+        }
+    }
+}
+
+// This method can be removed when support for legacy Jira configuration is gone
+def writeAsciiDocFileForLegacyConfiguration(def restClient, def headers, def jiraConfig) {
+    def resultsFilename = "${jiraConfig.resultsFilename}_legacy.adoc"
+    
+    def openIssues = new File(targetDir, "${resultsFilename}")
+    openIssues.write(".Table {Title}\n", 'utf-8')
+    openIssues.append("|=== \n")
+    openIssues.append("|Key |Priority |Created | Assignee | Summary\n", 'utf-8')
+        def legacyJql = jiraConfig.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel)
+        println ("Results will for legacy query ${legacyJql} will be saved in '${resultsFilename}' file")
+        
+        restClient.get(path: 'search',
+                query: ['jql'       : jiraConfig.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel),
                         'maxResults': 1000,
                         'fields'    : 'created,resolutiondate,priority,summary,timeoriginalestimate, assignee'
                 ],
                 headers: headers
-        ).data.issues.each { issue ->
-            openIssues.append("| <<${issue.key}>> ", 'utf-8')
-            openIssues.append("| ${issue.fields.priority.name} ", 'utf-8')
-            openIssues.append("| ${Date.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)} ", 'utf-8')
-            openIssues.append("| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'} ", 'utf-8')
-            openIssues.append("| ${jiraRoot}/browse/${issue.key}[${issue.fields.summary}]\n", 'utf-8')
-        }
+      ).data.issues.each { issue ->
+        openIssues.append("| ${jiraRoot}/browse/${issue.key}[${issue.key}] ", 'utf-8')
+        openIssues.append("| ${issue.fields.priority.name} ", 'utf-8')
+        openIssues.append("| ${Date.parse(jiraConfig.dateTimeFormatParse, issue.fields.created).format(jiraConfig.dateTimeFormatOutput)} ", 'utf-8')
+        openIssues.append("| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}", 'utf-8')
+        openIssues.append("| ${issue.fields.summary} ", 'utf-8')
     }
+    openIssues.append("|=== \n")
 }
 //end::exportJiraIssues[]
