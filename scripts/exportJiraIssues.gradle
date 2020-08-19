@@ -80,7 +80,7 @@ task exportJiraIssues(
             if (config.jira.saveAsciidoc) {
                 def extension = 'adoc'
                 jiraResultsFilename = "${rq.filename}.${extension}"
-                logger.quiet(">> Results will be saved in '${rq.filename}.${extension}' file")
+                logger.info("Results will be saved in '${rq.filename}.${extension}' file")
                 
                 def openIssues = new File(targetDir, "${rq.filename}.${extension}")
                 openIssues.write(".Table {Title}\n", 'utf-8')
