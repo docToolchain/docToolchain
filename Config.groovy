@@ -187,7 +187,10 @@ jira.with {
     dateTimeFormatOutput = "dd.MM.yyyy HH:mm:ss z" // i.e. 24.07.2020 09:02:40 CEST
 
     // the label to restrict search to
-    label = 
+    label = 'label1'
+
+    // Legacy settings for Jira query. This setting is deprecated & support for it will soon be completely removed. Please use JiraRequests settings
+    jql = "project='%jiraProject%' AND labels='%jiraLabel%' ORDER BY priority DESC, duedate ASC"
 
     // Base filename in which Jira query results should be stored
     resultsFilename = 'JiraTicketsContent'

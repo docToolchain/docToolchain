@@ -63,6 +63,11 @@ task exportJiraIssues(
         
         def jiraRequests = config.jira.requests
         
+        if (config.jira.jql) {
+            logger.warn(">>>Found legacy Jira requests. Please migrate to the new Jira configuration ASAP. Old config with jql will be removed soon")
+            writeAsciiDocFileForLegacyConfiguration(jira, headers, config.jira)
+        }
+        
         jiraRequests.each {rq -> 
             logger.quiet("Request to Jira API for '${rq.filename}' with query: '${rq.jql}'")
 
@@ -176,5 +181,32 @@ task exportJiraIssues(
             }
         }
     }
+}
+
+// This method can be removed when support for legacy Jira configuration is gone
+def writeAsciiDocFileForLegacyConfiguration(def restClient, def headers, def jiraConfig) {
+    def resultsFilename = "${jiraConfig.resultsFilename}_legacy.adoc"
+    
+    def openIssues = new File(targetDir, "${resultsFilename}")
+    openIssues.write(".Table {Title}\n", 'utf-8')
+    openIssues.append("|=== \n")
+    openIssues.append("|Key |Priority |Created | Assignee | Summary\n", 'utf-8')
+        def legacyJql = jiraConfig.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel)
+        println ("Results will for legacy query ${legacyJql} will be saved in '${resultsFilename}' file")
+        
+        restClient.get(path: 'search',
+                query: ['jql'       : jiraConfig.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel),
+                        'maxResults': 1000,
+                        'fields'    : 'created,resolutiondate,priority,summary,timeoriginalestimate, assignee'
+                ],
+                headers: headers
+      ).data.issues.each { issue ->
+        openIssues.append("| ${jiraRoot}/browse/${issue.key}[${issue.key}] ", 'utf-8')
+        openIssues.append("| ${issue.fields.priority.name} ", 'utf-8')
+        openIssues.append("| ${Date.parse(jiraConfig.dateTimeFormatParse, issue.fields.created).format(jiraConfig.dateTimeFormatOutput)} ", 'utf-8')
+        openIssues.append("| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}", 'utf-8')
+        openIssues.append("| ${issue.fields.summary} ", 'utf-8')
+    }
+    openIssues.append("|=== \n")
 }
 //end::exportJiraIssues[]
