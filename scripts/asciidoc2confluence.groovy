@@ -742,6 +742,27 @@ def promoteHeaders = { tree, start, offset ->
     }
 }
 
+def retrievePageIdByName = { String name ->
+        def api = new RESTClient(config.confluence.api)
+        def headers = [
+            'Authorization': 'Basic ' + config.confluence.credentials,
+            'Content-Type':'application/json; charset=utf-8'
+        ]
+        trythis {
+            def request = [
+                'title'    : name,
+                'spaceKey' : confluenceSpaceKey
+            ]
+            api.get(
+                [
+                        'headers': headers,
+                        'path'   : "${baseApiPath}content",
+                        'query'  : request,
+                ]
+            ).data.results?.getAt(0)?.id
+        } ?: null
+}
+
 config.confluence.input.each { input ->
 
     input.file = "${docDir}/${input.file}"
