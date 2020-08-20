@@ -804,6 +804,8 @@ config.confluence.input.each { input ->
 
     // if parentId is still not set, create a new parent page (parentId = null)
     parentId = parentId ?: null
+    //println("ancestorName: '${input.ancestorName}', ancestorId: ${input.ancestorId} ---> final parentId: ${parentId}")
+
     def anchors = [:]
     def pageAnchors = [:]
     def sections = pages = []
