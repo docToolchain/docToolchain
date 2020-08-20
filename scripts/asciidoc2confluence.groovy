@@ -791,8 +791,17 @@ config.confluence.input.each { input ->
     dom.outputSettings().escapeMode(org.jsoup.nodes.Entities.EscapeMode.xhtml); //This will ensure xhtml validity regarding entities
     dom.outputSettings().charset("UTF-8"); //does no harm :-)
 
-    //if input does not contain an ancestorId, check if there is a global one
-    def parentId = input.ancestorId ?: config.confluence.ancestorId
+    // if ancestorName is defined try to find machingAncestorId in confluence
+    def retrievedAncestorId
+    if (input.ancestorName) {
+        // Retrieve a page id by name
+        retrievedAncestorId = retrievePageIdByName(input.ancestorName)
+        println("Retrieved pageId for given ancestorName '${input.ancestorName}' is ${retrievedAncestorId}")
+    }
+
+    // if input does not contain an ancestorName, check if there is ancestorId, otherwise check if there is a global one
+    def parentId = retrievedAncestorId ?: input.ancestorId ?: config.confluence.ancestorId
+
     // if parentId is still not set, create a new parent page (parentId = null)
     parentId = parentId ?: null
     def anchors = [:]
