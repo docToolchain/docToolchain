@@ -238,7 +238,7 @@ openApi = [:]
 //
 
 openApi.with {
-    specFile = 'petstore.yaml'
+    specFile = 'petstore-v2.0.yaml'
     infoUrl = 'https://my-api.company.com'
     infoEmail = 'info@company.com'
 }
