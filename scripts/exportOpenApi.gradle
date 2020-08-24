@@ -1,0 +1,34 @@
+buildscript {
+    repositories {
+        jcenter()
+        maven {
+            url 'https://plugins.gradle.org/m2/'
+        }
+    }
+    dependencies {
+        classpath "org.openapitools:openapi-generator-gradle-plugin:4.3.1"
+    }
+}
+apply plugin: 'org.openapi.generator'
+
+def config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text)
+def specFile = config.openApi.specFile
+
+//tag::exportOpenApi[]
+task exportOpenApi (
+        type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask,
+        group: 'docToolchain',
+        description: 'exports OpenAPI specification to the asciidoc file') {
+        
+    outputs.upToDateWhen { false }
+    outputs.cacheIf { false }
+    generatorName = 'asciidoc'
+    outputDir = "$rootDir/${config.outputPath}/OpenAPI".toString()
+    inputSpec = specFile
+    
+    additionalProperties = [
+        infoEmail:"${config.openApi.infoEmail}",
+        infoUrl:"${config.openApi.infoUrl}"
+    ]
+}
+//end::exportOpenApi[]

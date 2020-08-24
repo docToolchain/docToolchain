@@ -70,6 +70,7 @@ apply from: 'scripts/publishToConfluence.gradle'
 apply from: 'scripts/htmlSanityCheck.gradle'
 apply from: 'scripts/collectIncludes.gradle'
 apply from: 'scripts/exportMetrics.gradle'
+apply from: 'scripts/exportOpenApi.gradle'
 
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
