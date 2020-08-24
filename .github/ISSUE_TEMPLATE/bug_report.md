@@ -28,3 +28,11 @@ If applicable, add screenshots to help explain your problem.
 
 **Additional context**
 Add any other context about the problem here.
+
+**Find a good headline**
+Now it is time to find a good headline/subject for the problem.
+Please prefix it with the name of the task which fails.
+
+Example:
+exportContributors throws exception when ...
+
