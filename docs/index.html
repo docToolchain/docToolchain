@@ -565,8 +565,9 @@ table.CodeRay td.code>pre{padding:0}
 <li><a href="#_exportppt">3.19. exportPPT</a></li>
 <li><a href="#_exportexcel">3.20. exportExcel</a></li>
 <li><a href="#_exportmarkdown">3.21. exportMarkdown</a></li>
-<li><a href="#_htmlsanitycheck">3.22. htmlSanityCheck</a></li>
-<li><a href="#_dependencyupdates">3.23. dependencyUpdates</a></li>
+<li><a href="#_exportopenapi">3.22. exportOpenAPI</a></li>
+<li><a href="#_htmlsanitycheck">3.23. htmlSanityCheck</a></li>
+<li><a href="#_dependencyupdates">3.24. dependencyUpdates</a></li>
 </ul>
 </li>
 <li><a href="#_development">4. Development</a>
@@ -590,7 +591,7 @@ table.CodeRay td.code>pre{padding:0}
 </ul>
 </li>
 <li><a href="#_acknowledgements_and_contributors">7. Acknowledgements and Contributors</a></li>
-<li><a href="#_configuration_3">Appendix A: Configuration</a>
+<li><a href="#_configuration_4">Appendix A: Configuration</a>
 <ul class="sectlevel2">
 <li><a href="#_mainconfigfile_and_docdir">A.1. <code>mainConfigFile</code> and <code>docDir</code></a></li>
 <li><a href="#_asciidoc_config">A.2. AsciiDoc config</a></li>
@@ -1925,7 +1926,7 @@ It creates a PowerPoint presentation and enriches it with reveal.js slide defini
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/aacd09e76c0affa36f76f8ef337a1536?d=identicon" alt="Luis Muniz " width="32" title="Luis Muniz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/3c015f3ee9960d842c195993cbb91cff?d=identicon" alt="Tim Riemer " width="32" title="Tim Riemer "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/be47969496f94a5a89159d70cd82bda0?d=identicon" alt="sabatmonk " width="32" title="sabatmonk "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/4280fc350b2b3cb323d151be608be3f8?d=identicon" alt="Alexander Herrmann " width="32" title="Alexander Herrmann "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz " width="32" title="Alexander Schwartz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/6c384e5d2b684c60fc8f062d75dae3f7?d=identicon" alt="Alfon " width="32" title="Alfon "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr " width="32" title="David M. Carr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/6c5a117679f7101b5de26dd25a2a8e98?d=identicon" alt="Dierk Höppner " width="32" title="Dierk Höppner "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/415bf2233be007b088ca81b749f02071?d=identicon" alt="Nils Mahlstaedt " width="32" title="Nils Mahlstaedt "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange " width="32" title="Peter Stange "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/2dc2929d0609d6338d2794446156f312?d=identicon" alt="Thomas Grabietz " width="32" title="Thomas Grabietz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/e7d9e6618a36e94b35d43cbd2925aee0?d=identicon" alt="bit-jkraushaar " width="32" title="bit-jkraushaar "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/7107bc30257a84fd371a188bda07309f?d=identicon" alt="oliver drewes " width="32" title="oliver drewes "></span></p>
+<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/6dd2fe167fd7d2a84322787e3428d14e?d=identicon" alt="Joseph Staub " width="32" title="Joseph Staub "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/aacd09e76c0affa36f76f8ef337a1536?d=identicon" alt="Luis Muniz " width="32" title="Luis Muniz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/3c015f3ee9960d842c195993cbb91cff?d=identicon" alt="Tim Riemer " width="32" title="Tim Riemer "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/be47969496f94a5a89159d70cd82bda0?d=identicon" alt="sabatmonk " width="32" title="sabatmonk "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/4280fc350b2b3cb323d151be608be3f8?d=identicon" alt="Alexander Herrmann " width="32" title="Alexander Herrmann "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz " width="32" title="Alexander Schwartz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/6c384e5d2b684c60fc8f062d75dae3f7?d=identicon" alt="Alfon " width="32" title="Alfon "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr " width="32" title="David M. Carr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/6c5a117679f7101b5de26dd25a2a8e98?d=identicon" alt="Dierk Höppner " width="32" title="Dierk Höppner "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/415bf2233be007b088ca81b749f02071?d=identicon" alt="Nils Mahlstaedt " width="32" title="Nils Mahlstaedt "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange " width="32" title="Peter Stange "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/2dc2929d0609d6338d2794446156f312?d=identicon" alt="Thomas Grabietz " width="32" title="Thomas Grabietz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/e7d9e6618a36e94b35d43cbd2925aee0?d=identicon" alt="bit-jkraushaar " width="32" title="bit-jkraushaar "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/7107bc30257a84fd371a188bda07309f?d=identicon" alt="oliver drewes " width="32" title="oliver drewes "></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -2036,6 +2037,11 @@ Example including storing of the real value outside this configuration: <code>ap
 <p>If value is set to <strong>true</strong>, your links to local file references will be uploaded as attachments. The current implementation only supports a single folder. This foldername will be used as a prefix to validate if your file should be uploaded or not.
 In case you enable this feature, and use a folder which starts with "attachment*", an adaption of this prefix is required.</p>
 </dd>
+<dt class="hdlist1">jiraServerId</dt>
+<dd>
+<p>the jira server id your confluence instance is connected to. If value is set, all anchors pointing to a jira ticket will be replaced by the confluence jira macro.
+To function properly jiraRoot has to be configured (see <a href="#_exportjiraissues">exportJiraIssues</a>).</p>
+</dd>
 </dl>
 </div>
 <div class="paragraph">
@@ -2086,6 +2092,9 @@ confluence = [:]
 <span class="comment">// Attributes</span>
 <span class="comment">// - 'file': absolute or relative path to the asciidoc generated html file to be exported</span>
 <span class="comment">// - 'url': absolute URL to an asciidoc generated html file to be exported</span>
+<span class="comment">// - 'ancestorName' (optional): the name of the parent page in Confluence as string;</span>
+<span class="comment">//                             this attribute has priority over ancestorId, but if page with given name doesn't exist,</span>
+<span class="comment">//                             ancestorId will be used as a fallback</span>
 <span class="comment">// - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty</span>
 <span class="comment">//                            if a new parent shall be created in the space</span>
 <span class="comment">// - 'preambleTitle' (optional): the title of the page containing the preamble (everything</span>
@@ -2258,6 +2267,7 @@ Note that you likely do <strong>NOT</strong> want to include the whole thing, as
         binding.setProperty(<span class="string"><span class="delimiter">'</span><span class="content">config</span><span class="delimiter">'</span></span>,config)
         binding.setProperty(<span class="string"><span class="delimiter">'</span><span class="content">docDir</span><span class="delimiter">'</span></span>,docDir)
         binding.setProperty(<span class="string"><span class="delimiter">'</span><span class="content">configFile</span><span class="delimiter">'</span></span>, configFile)
+        binding.setProperty(<span class="string"><span class="delimiter">'</span><span class="content">jiraRoot</span><span class="delimiter">'</span></span>, jiraRoot)
         evaluate(<span class="keyword">new</span> <span class="predefined-type">File</span>(projectDir, <span class="string"><span class="delimiter">'</span><span class="content">scripts/asciidoc2confluence.groovy</span><span class="delimiter">'</span></span>))
     }
 }</code></pre>
@@ -2644,6 +2654,21 @@ Note that you likely do <strong>NOT</strong> want to include the whole thing, as
     }
 }
 
+<span class="keyword">def</span> rewriteJiraLinks = { body -&gt;
+    <span class="comment">// find links to jira tickets and replace them with jira macros</span>
+    body.select(<span class="string"><span class="delimiter">'</span><span class="content">a[href]</span><span class="delimiter">'</span></span>).each { a -&gt;
+        <span class="keyword">def</span> href = a.attr(<span class="string"><span class="delimiter">'</span><span class="content">href</span><span class="delimiter">'</span></span>)
+        <span class="keyword">if</span> (href.startsWith(jiraRoot + <span class="string"><span class="delimiter">&quot;</span><span class="content">/browse/</span><span class="delimiter">&quot;</span></span>)) {
+                <span class="keyword">def</span> ticketId = a.text()
+                a.before(<span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">&lt;ac:structured-macro ac:name=</span><span class="char">\&quot;</span><span class="content">jira</span><span class="char">\&quot;</span><span class="content"> ac:schema-version=</span><span class="char">\&quot;</span><span class="content">1</span><span class="char">\&quot;</span><span class="content">&gt;
+                     &lt;ac:parameter ac:name=</span><span class="char">\&quot;</span><span class="content">key</span><span class="char">\&quot;</span><span class="content">&gt;</span><span class="inline"><span class="inline-delimiter">${</span>ticketId<span class="inline-delimiter">}</span></span><span class="content">&lt;/ac:parameter&gt;
+                     &lt;ac:parameter ac:name=</span><span class="char">\&quot;</span><span class="content">serverId</span><span class="char">\&quot;</span><span class="content">&gt;</span><span class="inline"><span class="inline-delimiter">${</span>config.confluence.jiraServerId<span class="inline-delimiter">}</span></span><span class="content">&lt;/ac:parameter&gt;
+                     &lt;/ac:structured-macro&gt;</span><span class="delimiter">&quot;&quot;&quot;</span></span>)
+                a.remove()
+        }
+    }
+}
+
 
 <span class="keyword">def</span> rewriteCodeblocks = { body -&gt;
     body.select(<span class="string"><span class="delimiter">'</span><span class="content">pre &gt; code</span><span class="delimiter">'</span></span>).each { code -&gt;
@@ -2787,6 +2812,10 @@ Note that you likely do <strong>NOT</strong> want to include the whole thing, as
 
             }
         }
+    }
+
+    <span class="keyword">if</span>(config.confluence.jiraServerId){
+        rewriteJiraLinks body
     }
 
     rewriteMarks body
@@ -2991,6 +3020,27 @@ pushPages = { pages, anchors, pageAnchors, labels -&gt;
     }
 }
 
+<span class="keyword">def</span> retrievePageIdByName = { <span class="predefined-type">String</span> name -&gt;
+        <span class="keyword">def</span> api = <span class="keyword">new</span> RESTClient(config.confluence.api)
+        <span class="keyword">def</span> headers = [
+            <span class="string"><span class="delimiter">'</span><span class="content">Authorization</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">Basic </span><span class="delimiter">'</span></span> + config.confluence.credentials,
+            <span class="string"><span class="delimiter">'</span><span class="content">Content-Type</span><span class="delimiter">'</span></span>:<span class="string"><span class="delimiter">'</span><span class="content">application/json; charset=utf-8</span><span class="delimiter">'</span></span>
+        ]
+        trythis {
+            <span class="keyword">def</span> request = [
+                <span class="string"><span class="delimiter">'</span><span class="content">title</span><span class="delimiter">'</span></span>    : name,
+                <span class="string"><span class="delimiter">'</span><span class="content">spaceKey</span><span class="delimiter">'</span></span> : confluenceSpaceKey
+            ]
+            api.get(
+                [
+                        <span class="string"><span class="delimiter">'</span><span class="content">headers</span><span class="delimiter">'</span></span>: headers,
+                        <span class="string"><span class="delimiter">'</span><span class="content">path</span><span class="delimiter">'</span></span>   : <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>baseApiPath<span class="inline-delimiter">}</span></span><span class="content">content</span><span class="delimiter">&quot;</span></span>,
+                        <span class="string"><span class="delimiter">'</span><span class="content">query</span><span class="delimiter">'</span></span>  : request,
+                ]
+            ).data.results?.getAt(<span class="integer">0</span>)?.id
+        } ?: <span class="predefined-constant">null</span>
+}
+
 config.confluence.input.each { input -&gt;
 
     input.file = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>docDir<span class="inline-delimiter">}</span></span><span class="content">/</span><span class="inline"><span class="inline-delimiter">${</span>input.file<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
@@ -3019,10 +3069,21 @@ config.confluence.input.each { input -&gt;
     dom.outputSettings().escapeMode(org.jsoup.nodes.Entities.EscapeMode.xhtml); <span class="comment">//This will ensure xhtml validity regarding entities</span>
     dom.outputSettings().charset(<span class="string"><span class="delimiter">&quot;</span><span class="content">UTF-8</span><span class="delimiter">&quot;</span></span>); <span class="comment">//does no harm :-)</span>
 
-    <span class="comment">//if input does not contain an ancestorId, check if there is a global one</span>
-    <span class="keyword">def</span> parentId = input.ancestorId ?: config.confluence.ancestorId
+    <span class="comment">// if ancestorName is defined try to find machingAncestorId in confluence</span>
+    <span class="keyword">def</span> retrievedAncestorId
+    <span class="keyword">if</span> (input.ancestorName) {
+        <span class="comment">// Retrieve a page id by name</span>
+        retrievedAncestorId = retrievePageIdByName(input.ancestorName)
+        println(<span class="string"><span class="delimiter">&quot;</span><span class="content">Retrieved pageId for given ancestorName '</span><span class="inline"><span class="inline-delimiter">${</span>input.ancestorName<span class="inline-delimiter">}</span></span><span class="content">' is </span><span class="inline"><span class="inline-delimiter">${</span>retrievedAncestorId<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+    }
+
+    <span class="comment">// if input does not contain an ancestorName, check if there is ancestorId, otherwise check if there is a global one</span>
+    <span class="keyword">def</span> parentId = retrievedAncestorId ?: input.ancestorId ?: config.confluence.ancestorId
+
     <span class="comment">// if parentId is still not set, create a new parent page (parentId = null)</span>
     parentId = parentId ?: <span class="predefined-constant">null</span>
+    <span class="comment">//println(&quot;ancestorName: '${input.ancestorName}', ancestorId: ${input.ancestorId} ---&gt; final parentId: ${parentId}&quot;)</span>
+
     <span class="keyword">def</span> anchors = [:]
     <span class="keyword">def</span> pageAnchors = [:]
     <span class="keyword">def</span> sections = pages = <span class="type">[]</span>
@@ -4361,7 +4422,7 @@ Blog-Post: <a href="https://rdmueller.github.io/changelog/">The only constant in
 This list is then rendered as AsciiDoc images of the contributor&#8217;s gravatar picture.</p>
 </div>
 <div class="paragraph">
-<p>The extracted lists are stored in <code>/home/vbjelako/Downloads/docs-as-code/docToolchain-Ewoks-Fork/build/docs/contributors/manual/03_task_exportContributors.adoc</code> to be easily included in your documents.</p>
+<p>The extracted lists are stored in <code>/workspace/docToolchain/build/docs/contributors/manual/03_task_exportContributors.adoc</code> to be easily included in your documents.</p>
 </div>
 <div class="paragraph">
 <p>Best way to use this feature is to create a <code>feedback.adoc</code> file which might look like this:</p>
@@ -4409,7 +4470,7 @@ include::{targetDir}/contributors/{filename}[] <i class="conum" data-value="4"><
 <h4 id="_file_attributes">3.17.2. File Attributes</h4>
 <div class="paragraph">
 <p>The task now also exports some attributes of the git files.
-The extracted attributes are stored in <code>/home/vbjelako/Downloads/docs-as-code/docToolchain-Ewoks-Fork/build/docs/fileattribs/manual/03_task_exportContributors.adoc</code>.</p>
+The extracted attributes are stored in <code>/workspace/docToolchain/build/docs/fileattribs/manual/03_task_exportContributors.adoc</code>.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -4451,7 +4512,7 @@ Last updated {lastUpdated} by {lastAuthorName}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz " width="32" title="Alexander Schwartz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/b55e260be513eedfb745afb36248b8ec?d=identicon" alt="Vladi " width="32" title="Vladi "></span></p>
+<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz " width="32" title="Alexander Schwartz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/e0f7ac7994ea3ac2c1437a0da586ba63?d=identicon" alt="Vladi " width="32" title="Vladi "></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -4518,12 +4579,12 @@ Blog-Post: <a href="https://rdmueller.github.io/Jira/">Living Documents for Agil
 
         <span class="comment">// map configuration from Config.groovy to existing variables for compatibility with naming of Jira settings in gradle.properties</span>
         jiraRoot = config.jira.api
-        jiraJql = config.jira.jql
         jiraProject = config.jira.project
         jiraLabel = config.jira.label
         jiraResultsFilename = config.jira.resultsFilename
         jiraDateTimeFormatParse = config.jira.dateTimeFormatParse
         jiraDateTimeOutput = config.jira.dateTimeFormatOutput
+        <span class="keyword">def</span> defaultFields = <span class="string"><span class="delimiter">'</span><span class="content">priority,created,resolutiondate,summary,assignee,timeoriginalestimate,status</span><span class="delimiter">'</span></span>
 
         <span class="keyword">def</span> jira = <span class="keyword">new</span> groovyx.net.http.RESTClient(jiraRoot + <span class="string"><span class="delimiter">'</span><span class="content">/rest/api/2/</span><span class="delimiter">'</span></span>)
         jira.encoderRegistry = <span class="keyword">new</span> groovyx.net.http.EncoderRegistry(<span class="key">charset</span>: <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
@@ -4531,25 +4592,154 @@ Blog-Post: <a href="https://rdmueller.github.io/Jira/">Living Documents for Agil
                 <span class="string"><span class="delimiter">'</span><span class="content">Authorization</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">&quot;</span><span class="content">Basic </span><span class="delimiter">&quot;</span></span> + config.jira.credentials,
                 <span class="string"><span class="delimiter">'</span><span class="content">Content-Type</span><span class="delimiter">'</span></span> : <span class="string"><span class="delimiter">'</span><span class="content">application/json; charset=utf-8</span><span class="delimiter">'</span></span>
         ]
-        <span class="keyword">def</span> openIssues = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir, jiraResultsFilename)
-        openIssues.write(<span class="string"><span class="delimiter">&quot;</span><span class="content">.Table {Title}</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
-        openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">|=== </span><span class="char">\n</span><span class="delimiter">&quot;</span></span>)
-        openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">|Key |Priority |Created | Assignee | Summary</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
-        println jiraJql.replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraProject%</span><span class="delimiter">'</span></span>, jiraProject).replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraLabel%</span><span class="delimiter">'</span></span>, jiraLabel)
-        jira.get(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">search</span><span class="delimiter">'</span></span>,
-                <span class="key">query</span>: [<span class="string"><span class="delimiter">'</span><span class="content">jql</span><span class="delimiter">'</span></span>       : jiraJql.replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraProject%</span><span class="delimiter">'</span></span>, jiraProject).replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraLabel%</span><span class="delimiter">'</span></span>, jiraLabel),
+
+        <span class="keyword">def</span> jiraRequests = config.jira.requests
+
+        <span class="keyword">if</span> (config.jira.jql) {
+            logger.warn(<span class="string"><span class="delimiter">&quot;</span><span class="content">&gt;&gt;&gt;Found legacy Jira requests. Please migrate to the new Jira configuration ASAP. Old config with jql will be removed soon</span><span class="delimiter">&quot;</span></span>)
+            writeAsciiDocFileForLegacyConfiguration(jira, headers, config.jira)
+        }
+
+        jiraRequests.each {rq -&gt;
+            logger.quiet(<span class="string"><span class="delimiter">&quot;</span><span class="content">Request to Jira API for '</span><span class="inline"><span class="inline-delimiter">${</span>rq.filename<span class="inline-delimiter">}</span></span><span class="content">' with query: '</span><span class="inline"><span class="inline-delimiter">${</span>rq.jql<span class="inline-delimiter">}</span></span><span class="content">'</span><span class="delimiter">&quot;</span></span>)
+
+            <span class="keyword">def</span> allHeaders = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>defaultFields<span class="inline-delimiter">}</span></span><span class="content">,</span><span class="inline"><span class="inline-delimiter">${</span>rq.customfields.values().join(<span class="string"><span class="delimiter">&quot;</span><span class="content">,</span><span class="delimiter">&quot;</span></span>)<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+            <span class="keyword">def</span> allFieldIds = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>defaultFields<span class="inline-delimiter">}</span></span><span class="content">,</span><span class="inline"><span class="inline-delimiter">${</span>rq.customfields.keySet().join(<span class="string"><span class="delimiter">&quot;</span><span class="content">,</span><span class="delimiter">&quot;</span></span>)<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+            logger.quiet(<span class="string"><span class="delimiter">&quot;</span><span class="content">Preparing headers for default &amp; custom fields: </span><span class="inline"><span class="inline-delimiter">${</span>allHeaders<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+            logger.quiet(<span class="string"><span class="delimiter">&quot;</span><span class="content">Preparing field IDs for default &amp; custom fields: </span><span class="inline"><span class="inline-delimiter">${</span>allFieldIds<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+
+            <span class="comment">// Save AsciiDoc file</span>
+            <span class="keyword">if</span> (config.jira.saveAsciidoc) {
+                <span class="keyword">def</span> extension = <span class="string"><span class="delimiter">'</span><span class="content">adoc</span><span class="delimiter">'</span></span>
+                jiraResultsFilename = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>rq.filename<span class="inline-delimiter">}</span></span><span class="content">.</span><span class="inline"><span class="inline-delimiter">${</span>extension<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+                logger.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">Results will be saved in '</span><span class="inline"><span class="inline-delimiter">${</span>rq.filename<span class="inline-delimiter">}</span></span><span class="content">.</span><span class="inline"><span class="inline-delimiter">${</span>extension<span class="inline-delimiter">}</span></span><span class="content">' file</span><span class="delimiter">&quot;</span></span>)
+
+                <span class="keyword">def</span> openIssues = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir, <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>rq.filename<span class="inline-delimiter">}</span></span><span class="content">.</span><span class="inline"><span class="inline-delimiter">${</span>extension<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+                openIssues.write(<span class="string"><span class="delimiter">&quot;</span><span class="content">.Table {Title}</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+                openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">|=== </span><span class="char">\n</span><span class="delimiter">&quot;</span></span>)
+
+                <span class="comment">// AsciiDoc table headers (custom fields map needs values here)</span>
+                openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">|Key </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+                allHeaders.split(<span class="string"><span class="delimiter">&quot;</span><span class="content">,</span><span class="delimiter">&quot;</span></span>).each {field -&gt;
+                    openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">|</span><span class="inline"><span class="inline-delimiter">${</span>field<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+                }
+                openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+
+                jira.get(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">search</span><span class="delimiter">'</span></span>,
+                    <span class="key">query</span>: [<span class="string"><span class="delimiter">'</span><span class="content">jql</span><span class="delimiter">'</span></span>       : rq.jql.replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraProject%</span><span class="delimiter">'</span></span>, jiraProject).replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraLabel%</span><span class="delimiter">'</span></span>, jiraLabel),
+                            <span class="string"><span class="delimiter">'</span><span class="content">maxResults</span><span class="delimiter">'</span></span>: <span class="integer">1000</span>,
+                            <span class="key">fields</span>: <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>allFieldIds<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+                    ],
+                    <span class="key">headers</span>: headers
+                ).data.issues.each { issue -&gt;
+                    <span class="comment">//logger.quiet(&quot;&gt;&gt; Whole issue ${issue.key}:\n   ${issue.fields}&quot;)</span>
+                    openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>jiraRoot<span class="inline-delimiter">}</span></span><span class="content">/browse/</span><span class="inline"><span class="inline-delimiter">${</span>issue.key<span class="inline-delimiter">}</span></span><span class="content">[</span><span class="inline"><span class="inline-delimiter">${</span>issue.key<span class="inline-delimiter">}</span></span><span class="content">] </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+                    openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.priority.name<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+                    openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span><span class="predefined-type">Date</span>.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+                    openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.resolutiondate ? <span class="predefined-type">Date</span>.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span><span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+                    openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.summary<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+                    openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.assignee ? issue.fields.assignee.displayName : <span class="string"><span class="delimiter">'</span><span class="content">not assigned</span><span class="delimiter">'</span></span><span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+                    openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.timeoriginalestimate<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+                    openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.status.name<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+
+                    rq.customfields.each { field -&gt;
+                        <span class="keyword">def</span> foundCustom = issue.fields.find {<span class="local-variable">it</span>.key == field.key}
+                        <span class="comment">//logger.quiet(&quot;Examining issue '${issue.key}' for custom field '${field.key}' has found: '${foundCustom}'&quot;)</span>
+                        openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>foundCustom ? foundCustom.value : <span class="string"><span class="delimiter">'</span><span class="content">-</span><span class="delimiter">'</span></span><span class="inline-delimiter">}</span></span><span class="char">\n</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+                    }
+                }
+                openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">|=== </span><span class="char">\n</span><span class="delimiter">&quot;</span></span>)
+            } <span class="keyword">else</span> {
+                logger.quiet(<span class="string"><span class="delimiter">&quot;</span><span class="content">Set saveAsciidoc=true in '</span><span class="inline"><span class="inline-delimiter">${</span>configFile.name<span class="inline-delimiter">}</span></span><span class="content">' to save results in AsciiDoc file</span><span class="delimiter">&quot;</span></span>)
+            }
+
+            <span class="comment">// Save Excel file</span>
+            <span class="keyword">if</span> (config.jira.saveExcel) {
+                <span class="keyword">def</span> extension = <span class="string"><span class="delimiter">'</span><span class="content">xlsx</span><span class="delimiter">'</span></span>
+                jiraResultsFilename = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>rq.filename<span class="inline-delimiter">}</span></span><span class="content">.</span><span class="inline"><span class="inline-delimiter">${</span>extension<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+                logger.quiet(<span class="string"><span class="delimiter">&quot;</span><span class="content">&gt;&gt; Results will be saved in '</span><span class="inline"><span class="inline-delimiter">${</span>rq.filename<span class="inline-delimiter">}</span></span><span class="content">.</span><span class="inline"><span class="inline-delimiter">${</span>extension<span class="inline-delimiter">}</span></span><span class="content">' file</span><span class="delimiter">&quot;</span></span>)
+
+                <span class="keyword">def</span> openIssues = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir, <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>rq.filename<span class="inline-delimiter">}</span></span><span class="content">.</span><span class="inline"><span class="inline-delimiter">${</span>extension<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+
+                <span class="keyword">def</span> jiraDataXls = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir, jiraResultsFilename)
+                <span class="keyword">def</span> jiraFos = <span class="keyword">new</span> <span class="predefined-type">FileOutputStream</span>(jiraDataXls)
+
+                Workbook wb = <span class="keyword">new</span> XSSFWorkbook();
+                CreationHelper hyperlinkHelper = wb.getCreationHelper();
+                <span class="keyword">def</span> sheetName = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>rq.filename<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+                <span class="keyword">def</span> ws = wb.createSheet(sheetName)
+
+                <span class="keyword">def</span> titleRow = ws.createRow(<span class="integer">0</span>);
+                <span class="type">int</span> cellNumber = <span class="integer">0</span>;
+                titleRow.createCell(cellNumber).setCellValue(<span class="string"><span class="delimiter">&quot;</span><span class="content">Key</span><span class="delimiter">&quot;</span></span>)
+                allHeaders.split(<span class="string"><span class="delimiter">&quot;</span><span class="content">,</span><span class="delimiter">&quot;</span></span>).each {field -&gt;
+                    titleRow.createCell(++cellNumber).setCellValue(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>field<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+                }
+                <span class="keyword">def</span> lastRow = titleRow.getRowNum()
+
+                jira.get(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">search</span><span class="delimiter">'</span></span>,
+                    <span class="key">query</span>: [<span class="string"><span class="delimiter">'</span><span class="content">jql</span><span class="delimiter">'</span></span>       : rq.jql.replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraProject%</span><span class="delimiter">'</span></span>, jiraProject).replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraLabel%</span><span class="delimiter">'</span></span>, jiraLabel),
+                            <span class="string"><span class="delimiter">'</span><span class="content">maxResults</span><span class="delimiter">'</span></span>: <span class="integer">1000</span>,
+                            <span class="key">fields</span>: <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>allFieldIds<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+                    ],
+                    <span class="key">headers</span>: headers
+                ).data.issues.each { issue -&gt;
+                    <span class="type">int</span> cellPosition = <span class="integer">0</span>
+                    <span class="keyword">def</span> row = ws.createRow(++lastRow)
+                    Hyperlink link = hyperlinkHelper.createHyperlink(HyperlinkType.URL)
+                    link.setAddress(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>jiraRoot<span class="inline-delimiter">}</span></span><span class="content">/browse/</span><span class="inline"><span class="inline-delimiter">${</span>issue.key<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+                    Cell cellWithUrl = row.createCell(cellPosition)
+                    cellWithUrl.setCellValue(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>issue.key<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+                    cellWithUrl.setHyperlink(link)
+
+                    row.createCell(++cellPosition).setCellValue(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.priority.name<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+                    row.createCell(++cellPosition).setCellValue(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span><span class="predefined-type">Date</span>.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+                    row.createCell(++cellPosition).setCellValue(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.resolutiondate ? <span class="predefined-type">Date</span>.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span><span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+                    row.createCell(++cellPosition).setCellValue(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.summary<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+                    row.createCell(++cellPosition).setCellValue(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.assignee ? issue.fields.assignee.displayName : <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span><span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+                    row.createCell(++cellPosition).setCellValue(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.timeoriginalestimate<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>)
+                    row.createCell(++cellPosition).setCellValue(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.status.name<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+
+                    <span class="comment">// Custom fields</span>
+                    rq.customfields.each { field -&gt;
+                        <span class="keyword">def</span> position = ++cellPosition
+                        <span class="keyword">def</span> foundCustom = issue.fields.find {<span class="local-variable">it</span>.key == field.key}
+                        row.createCell(position).setCellValue(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>foundCustom ? foundCustom.value : <span class="string"><span class="delimiter">'</span><span class="content">-</span><span class="delimiter">'</span></span><span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+                    }
+                }
+                wb.write(jiraFos)
+            } <span class="keyword">else</span> {
+                logger.quiet(<span class="string"><span class="delimiter">&quot;</span><span class="content">Set saveExcel=true in '</span><span class="inline"><span class="inline-delimiter">${</span>configFile.name<span class="inline-delimiter">}</span></span><span class="content">' to save results in Excel file</span><span class="delimiter">&quot;</span></span>)
+            }
+        }
+    }
+}
+
+<span class="comment">// This method can be removed when support for legacy Jira configuration is gone</span>
+<span class="keyword">def</span> <span class="function">writeAsciiDocFileForLegacyConfiguration</span>(<span class="keyword">def</span> restClient, <span class="keyword">def</span> headers, <span class="keyword">def</span> jiraConfig) {
+    <span class="keyword">def</span> resultsFilename = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>jiraConfig.resultsFilename<span class="inline-delimiter">}</span></span><span class="content">_legacy.adoc</span><span class="delimiter">&quot;</span></span>
+
+    <span class="keyword">def</span> openIssues = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir, <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>resultsFilename<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>)
+    openIssues.write(<span class="string"><span class="delimiter">&quot;</span><span class="content">.Table {Title}</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+    openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">|=== </span><span class="char">\n</span><span class="delimiter">&quot;</span></span>)
+    openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">|Key |Priority |Created | Assignee | Summary</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+        <span class="keyword">def</span> legacyJql = jiraConfig.jql.replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraProject%</span><span class="delimiter">'</span></span>, jiraProject).replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraLabel%</span><span class="delimiter">'</span></span>, jiraLabel)
+        println (<span class="string"><span class="delimiter">&quot;</span><span class="content">Results will for legacy query </span><span class="inline"><span class="inline-delimiter">${</span>legacyJql<span class="inline-delimiter">}</span></span><span class="content"> will be saved in '</span><span class="inline"><span class="inline-delimiter">${</span>resultsFilename<span class="inline-delimiter">}</span></span><span class="content">' file</span><span class="delimiter">&quot;</span></span>)
+
+        restClient.get(<span class="key">path</span>: <span class="string"><span class="delimiter">'</span><span class="content">search</span><span class="delimiter">'</span></span>,
+                <span class="key">query</span>: [<span class="string"><span class="delimiter">'</span><span class="content">jql</span><span class="delimiter">'</span></span>       : jiraConfig.jql.replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraProject%</span><span class="delimiter">'</span></span>, jiraProject).replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">%jiraLabel%</span><span class="delimiter">'</span></span>, jiraLabel),
                         <span class="string"><span class="delimiter">'</span><span class="content">maxResults</span><span class="delimiter">'</span></span>: <span class="integer">1000</span>,
                         <span class="string"><span class="delimiter">'</span><span class="content">fields</span><span class="delimiter">'</span></span>    : <span class="string"><span class="delimiter">'</span><span class="content">created,resolutiondate,priority,summary,timeoriginalestimate, assignee</span><span class="delimiter">'</span></span>
                 ],
                 <span class="key">headers</span>: headers
-        ).data.issues.each { issue -&gt;
-            openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| &lt;&lt;</span><span class="inline"><span class="inline-delimiter">${</span>issue.key<span class="inline-delimiter">}</span></span><span class="content">&gt;&gt; </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
-            openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.priority.name<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
-            openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span><span class="predefined-type">Date</span>.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
-            openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.assignee ? issue.fields.assignee.displayName : <span class="string"><span class="delimiter">'</span><span class="content">not assigned</span><span class="delimiter">'</span></span><span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
-            openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>jiraRoot<span class="inline-delimiter">}</span></span><span class="content">/browse/</span><span class="inline"><span class="inline-delimiter">${</span>issue.key<span class="inline-delimiter">}</span></span><span class="content">[</span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.summary<span class="inline-delimiter">}</span></span><span class="content">]</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
-        }
+      ).data.issues.each { issue -&gt;
+        openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>jiraRoot<span class="inline-delimiter">}</span></span><span class="content">/browse/</span><span class="inline"><span class="inline-delimiter">${</span>issue.key<span class="inline-delimiter">}</span></span><span class="content">[</span><span class="inline"><span class="inline-delimiter">${</span>issue.key<span class="inline-delimiter">}</span></span><span class="content">] </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+        openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.priority.name<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+        openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span><span class="predefined-type">Date</span>.parse(jiraConfig.dateTimeFormatParse, issue.fields.created).format(jiraConfig.dateTimeFormatOutput)<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+        openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.assignee ? issue.fields.assignee.displayName : <span class="string"><span class="delimiter">'</span><span class="content">not assigned</span><span class="delimiter">'</span></span><span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
+        openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">| </span><span class="inline"><span class="inline-delimiter">${</span>issue.fields.summary<span class="inline-delimiter">}</span></span><span class="content"> </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
     }
+    openIssues.append(<span class="string"><span class="delimiter">&quot;</span><span class="content">|=== </span><span class="char">\n</span><span class="delimiter">&quot;</span></span>)
 }</code></pre>
 </div>
 </div>
@@ -5076,7 +5266,78 @@ use `gradle exportExcel` to re-export files
 </div>
 </div>
 <div class="sect2">
-<h3 id="_htmlsanitycheck">3.22. htmlSanityCheck</h3>
+<h3 id="_exportopenapi">3.22. exportOpenAPI</h3>
+<div class="imageblock right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_exportOpenApi.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
+</div>
+</div>
+<div class="imageblock right">
+<div class="content">
+<a class="image" href="https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/03_task_exportOpenApi.adoc"><img src="https://img.shields.io/badge/create-an%20issue-blue.svg" alt="create an%20issue blue"></a>
+</div>
+</div>
+<div class="paragraph">
+<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/b55e260be513eedfb745afb36248b8ec?d=identicon" alt="Vladi " width="32" title="Vladi "></span></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>1 minute to read</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This task exports OpenAPI specification defined in a yaml file to AsciiDoc document.
+Currently it relies on <a href="https://github.com/OpenAPITools/openapi-generator">OpenAPI Generator (v4.3.1)</a> and its <a href="https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin">gradle plugin</a>.</p>
+</div>
+<div class="sect3">
+<h4 id="_configuration_3">3.22.1. Configuration</h4>
+<div class="listingblock">
+<div class="title">Config.groovy</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="comment">// Configuration for OpenAPI related task</span>
+openApi = [:]
+
+<span class="comment">// 'specFile' is the name of OpenAPI specification yaml file. Asciidoc files will be generated based on this file</span>
+<span class="comment">// 'infoUrl' and 'infoEmail' are specification metadata about further info related to the API. By default this values would be filled by openapi-generator plugin placeholders</span>
+<span class="comment">//</span>
+
+openApi.with {
+    specFile = <span class="string"><span class="delimiter">'</span><span class="content">petstore-v2.0.yaml</span><span class="delimiter">'</span></span>
+    infoUrl = <span class="string"><span class="delimiter">'</span><span class="content">https://my-api.company.com</span><span class="delimiter">'</span></span>
+    infoEmail = <span class="string"><span class="delimiter">'</span><span class="content">info@company.com</span><span class="delimiter">'</span></span>
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_source_16">3.22.2. Source</h4>
+<div class="listingblock">
+<div class="title">exportOpenApi.gradle</div>
+<div class="content">
+<pre class="CodeRay highlight"><code data-lang="groovy">task exportOpenApi (
+        <span class="key">type</span>: org.openapitools.generator.gradle.plugin.tasks.GenerateTask,
+        <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
+        <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports OpenAPI specification to the asciidoc file</span><span class="delimiter">'</span></span>) {
+
+    outputs.upToDateWhen { <span class="predefined-constant">false</span> }
+    outputs.cacheIf { <span class="predefined-constant">false</span> }
+    generatorName = <span class="string"><span class="delimiter">'</span><span class="content">asciidoc</span><span class="delimiter">'</span></span>
+    outputDir = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>rootDir</span><span class="content">/</span><span class="inline"><span class="inline-delimiter">${</span>config.outputPath<span class="inline-delimiter">}</span></span><span class="content">/OpenAPI</span><span class="delimiter">&quot;</span></span>.toString()
+    inputSpec = <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>inputPath</span><span class="content">/</span><span class="inline"><span class="inline-delimiter">$</span>specFile</span><span class="delimiter">&quot;</span></span>
+
+    additionalProperties = [
+        <span class="key">infoEmail</span>:<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>config.openApi.infoEmail<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>,
+        <span class="key">infoUrl</span>:<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>config.openApi.infoUrl<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+    ]
+}</code></pre>
+</div>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_htmlsanitycheck">3.23. htmlSanityCheck</h3>
 <div class="imageblock right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_htmlSanityCheck.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -5132,7 +5393,7 @@ Blog-Post: <a href="https://rdmueller.github.io/htmlSanityCheck/">Automated Qual
 </table>
 </div>
 <div class="sect3">
-<h4 id="_source_16">3.22.1. Source</h4>
+<h4 id="_source_17">3.23.1. Source</h4>
 <div class="listingblock">
 <div class="title">htmlSanityCheck.gradle</div>
 <div class="content">
@@ -5154,7 +5415,7 @@ Blog-Post: <a href="https://rdmueller.github.io/htmlSanityCheck/">Automated Qual
 </div>
 </div>
 <div class="sect2">
-<h3 id="_dependencyupdates">3.23. dependencyUpdates</h3>
+<h3 id="_dependencyupdates">3.24. dependencyUpdates</h3>
 <div class="imageblock right">
 <div class="content">
 <a class="image" href="https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_dependencyUpdates.adoc"><img src="https://img.shields.io/badge/improve-this%20doc-orange.svg" alt="improve this%20doc orange"></a>
@@ -5701,11 +5962,11 @@ Für die Leser wird HTML, PDF oder EPUB generiert.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/fa70f591d1ee3f8346afcf8c3973cac2?d=identicon" alt="Andreas Offenhaeuser " width="32" title="Andreas Offenhaeuser "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/eb5ceb4c4d2dfe351c58a8d005c6f3da?d=identicon" alt="Christoph Raaflaub " width="32" title="Christoph Raaflaub "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/adff7a288a49c60d485bb6f22739f3f2?d=identicon" alt="Daniel Bast " width="32" title="Daniel Bast "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr " width="32" title="David M. Carr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer " width="32" title="Dr. Stefan Pfeiffer "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/64ec325b5e2d6c8b3d76e2df81056f2d?d=identicon" alt="Fabian Nonnenmacher " width="32" title="Fabian Nonnenmacher "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/aacd09e76c0affa36f76f8ef337a1536?d=identicon" alt="Luis Muniz " width="32" title="Luis Muniz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/e499bc25cdf5bc253b89c3ced73035c4?d=identicon" alt="Maarten Gribnau " width="32" title="Maarten Gribnau "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/83c930e7c60a8e5b3201fb763cca1d6?d=identicon" alt="Michael Prieß " width="32" title="Michael Prieß "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/415bf2233be007b088ca81b749f02071?d=identicon" alt="Nils Mahlstaedt " width="32" title="Nils Mahlstaedt "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange " width="32" title="Peter Stange "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/a00ae7656ba26679126c05ca950dd1fc?d=identicon" alt="Stefan Bohn " width="32" title="Stefan Bohn "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/b55e260be513eedfb745afb36248b8ec?d=identicon" alt="Vladi " width="32" title="Vladi "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/9d3a17c1ac936fea4675ed193080c35b?d=identicon" alt="Werner Kevin " width="32" title="Werner Kevin "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/e7d9e6618a36e94b35d43cbd2925aee0?d=identicon" alt="bit-jkraushaar " width="32" title="bit-jkraushaar "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/fdbd46a8418be834d8ab743ca4b52455?d=identicon" alt="funkr " width="32" title="funkr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev " width="32" title="ghp-dev "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/2e3af23bd872d2b971788a4519e3bf46?d=identicon" alt="jakubjab " width="32" title="jakubjab "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/be47969496f94a5a89159d70cd82bda0?d=identicon" alt="sabatmonk " width="32" title="sabatmonk "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/5107bc93f3e4d103ca06f4e68a64b38?d=identicon" alt="stehlih " width="32" title="stehlih "></span></p>
+<p><span class="image gravatar"><img src="http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/fa70f591d1ee3f8346afcf8c3973cac2?d=identicon" alt="Andreas Offenhaeuser " width="32" title="Andreas Offenhaeuser "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/eb5ceb4c4d2dfe351c58a8d005c6f3da?d=identicon" alt="Christoph Raaflaub " width="32" title="Christoph Raaflaub "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/adff7a288a49c60d485bb6f22739f3f2?d=identicon" alt="Daniel Bast " width="32" title="Daniel Bast "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr " width="32" title="David M. Carr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer " width="32" title="Dr. Stefan Pfeiffer "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/64ec325b5e2d6c8b3d76e2df81056f2d?d=identicon" alt="Fabian Nonnenmacher " width="32" title="Fabian Nonnenmacher "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/6dd2fe167fd7d2a84322787e3428d14e?d=identicon" alt="Joseph Staub " width="32" title="Joseph Staub "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" title="Lars Francke "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/aacd09e76c0affa36f76f8ef337a1536?d=identicon" alt="Luis Muniz " width="32" title="Luis Muniz "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/e499bc25cdf5bc253b89c3ced73035c4?d=identicon" alt="Maarten Gribnau " width="32" title="Maarten Gribnau "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/83c930e7c60a8e5b3201fb763cca1d6?d=identicon" alt="Michael Prieß " width="32" title="Michael Prieß "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/415bf2233be007b088ca81b749f02071?d=identicon" alt="Nils Mahlstaedt " width="32" title="Nils Mahlstaedt "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange " width="32" title="Peter Stange "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/a00ae7656ba26679126c05ca950dd1fc?d=identicon" alt="Stefan Bohn " width="32" title="Stefan Bohn "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/e0f7ac7994ea3ac2c1437a0da586ba63?d=identicon" alt="Vladi " width="32" title="Vladi "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/9d3a17c1ac936fea4675ed193080c35b?d=identicon" alt="Werner Kevin " width="32" title="Werner Kevin "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/e7d9e6618a36e94b35d43cbd2925aee0?d=identicon" alt="bit-jkraushaar " width="32" title="bit-jkraushaar "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/fdbd46a8418be834d8ab743ca4b52455?d=identicon" alt="funkr " width="32" title="funkr "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev " width="32" title="ghp-dev "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/2e3af23bd872d2b971788a4519e3bf46?d=identicon" alt="jakubjab " width="32" title="jakubjab "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/be47969496f94a5a89159d70cd82bda0?d=identicon" alt="sabatmonk " width="32" title="sabatmonk "></span> <span class="image gravatar"><img src="http://www.gravatar.com/avatar/5107bc93f3e4d103ca06f4e68a64b38?d=identicon" alt="stehlih " width="32" title="stehlih "></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>1 minute to read</pre>
+<pre>2 minutes to read</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5829,6 +6090,9 @@ This project depends and builds on them.</p>
 <p><a href="https://github.com/k-werner">Kevin Werner</a></p>
 </li>
 <li>
+<p><a href="https://github.com/jostaub">J. Staub</a></p>
+</li>
+<li>
 <p><a href="https://github.com/ewoks">Vladi Bjelakovic</a></p>
 </li>
 </ul>
@@ -5845,7 +6109,7 @@ This project depends and builds on them.</p>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_configuration_3">Appendix A: Configuration</h2>
+<h2 id="_configuration_4">Appendix A: Configuration</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>This appendix covers all configuration introduced by docToolchain.
@@ -5997,6 +6261,9 @@ confluence = [:]
 <span class="comment">// Attributes</span>
 <span class="comment">// - 'file': absolute or relative path to the asciidoc generated html file to be exported</span>
 <span class="comment">// - 'url': absolute URL to an asciidoc generated html file to be exported</span>
+<span class="comment">// - 'ancestorName' (optional): the name of the parent page in Confluence as string;</span>
+<span class="comment">//                             this attribute has priority over ancestorId, but if page with given name doesn't exist,</span>
+<span class="comment">//                             ancestorId will be used as a fallback</span>
 <span class="comment">// - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty</span>
 <span class="comment">//                            if a new parent shall be created in the space</span>
 <span class="comment">// - 'preambleTitle' (optional): the title of the page containing the preamble (everything</span>
@@ -6100,7 +6367,7 @@ jira = [:]
 jira.with {
 
     <span class="comment">// endpoint of the JiraAPI (REST) to be used</span>
-    api = <span class="string"><span class="delimiter">'</span><span class="content">https://batmanly.atlassian.net</span><span class="delimiter">'</span></span>
+    api = <span class="string"><span class="delimiter">'</span><span class="content">https://your-jira-instance</span><span class="delimiter">'</span></span>
 
     <span class="comment">/*
     username:password (username:token) of an account which has the right permissions to read the JIRA issues for a given project.
@@ -6110,25 +6377,67 @@ jira.with {
     You might even want to prompt the user for the password (by not providing it anywhere)
     */</span>
 
-    credentials = <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
+    credentials = <span class="string"><span class="delimiter">&quot;</span><span class="content">username@domain.com:accesstoken</span><span class="delimiter">&quot;</span></span>.bytes.encodeBase64().toString() <span class="comment">// colon &quot;:&quot; is used as a separation of username from password/token before base64 encoding</span>
 
     <span class="comment">// the key of the Jira project</span>
-    project = <span class="string"><span class="delimiter">'</span><span class="content">BC</span><span class="delimiter">'</span></span>
+    project = <span class="string"><span class="delimiter">'</span><span class="content">PROJECTKEY</span><span class="delimiter">'</span></span>
 
     <span class="comment">// the format of the received date time values to parse</span>
-    dateTimeFormatParse = <span class="string"><span class="delimiter">&quot;</span><span class="content">yyyy-MM-dd'T'H:m:s.SSSz</span><span class="delimiter">&quot;</span></span>
+    dateTimeFormatParse = <span class="string"><span class="delimiter">&quot;</span><span class="content">yyyy-MM-dd'T'H:m:s.SSSz</span><span class="delimiter">&quot;</span></span> <span class="comment">// i.e. 2020-07-24'T'9:12:40.999 CEST</span>
 
     <span class="comment">// the format in which the date time should be saved to output</span>
     dateTimeFormatOutput = <span class="string"><span class="delimiter">&quot;</span><span class="content">dd.MM.yyyy HH:mm:ss z</span><span class="delimiter">&quot;</span></span> <span class="comment">// i.e. 24.07.2020 09:02:40 CEST</span>
 
     <span class="comment">// the label to restrict search to</span>
-    label =
+    label = <span class="string"><span class="delimiter">'</span><span class="content">label1</span><span class="delimiter">'</span></span>
 
-    <span class="comment">// Jira query</span>
-    jql = <span class="string"><span class="delimiter">&quot;</span><span class="content">project='%jiraProject%' ORDER BY priority DESC, duedate ASC</span><span class="delimiter">&quot;</span></span>
+    <span class="comment">// Legacy settings for Jira query. This setting is deprecated &amp; support for it will soon be completely removed. Please use JiraRequests settings</span>
+    jql = <span class="string"><span class="delimiter">&quot;</span><span class="content">project='%jiraProject%' AND labels='%jiraLabel%' ORDER BY priority DESC, duedate ASC</span><span class="delimiter">&quot;</span></span>
 
-    <span class="comment">// Filename in which Jira query results should be stored</span>
-    resultsFilename = <span class="string"><span class="delimiter">'</span><span class="content">JiraTicketsContent.adoc</span><span class="delimiter">'</span></span>
+    <span class="comment">// Base filename in which Jira query results should be stored</span>
+    resultsFilename = <span class="string"><span class="delimiter">'</span><span class="content">JiraTicketsContent</span><span class="delimiter">'</span></span>
+
+    saveAsciidoc = <span class="predefined-constant">true</span> <span class="comment">// if true, asciidoc file will be created with *.adoc extension</span>
+    saveExcel = <span class="predefined-constant">true</span> <span class="comment">// if true, Excel file will be created with *.xlsx extension</span>
+
+    <span class="comment">/*
+    List of requests to Jira API:
+    These are basically JQL expressions bundled with a filename in which results will be saved.
+    User can configure custom fields IDs and name those for column header,
+    i.e. customfield_10026:'Story Points' for Jira instance that has custom field with that name and will be saved in a coloumn named &quot;Story Points&quot;
+    */</span>
+    requests = [
+        <span class="keyword">new</span> JiraRequest(
+            <span class="key">filename</span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">File1_Done_issues</span><span class="delimiter">&quot;</span></span>,
+            <span class="key">jql</span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">project='%jiraProject%' AND status='Done' ORDER BY duedate ASC</span><span class="delimiter">&quot;</span></span>,
+            <span class="key">customfields</span>: [<span class="key">customfield_10026</span>:<span class="string"><span class="delimiter">'</span><span class="content">Story Points</span><span class="delimiter">'</span></span>]
+        ),
+        <span class="keyword">new</span> JiraRequest(
+            <span class="key">filename</span>:<span class="string"><span class="delimiter">'</span><span class="content">CurrentSprint</span><span class="delimiter">'</span></span>,
+            <span class="key">jql</span>:<span class="string"><span class="delimiter">&quot;</span><span class="content">project='%jiraProject%' AND Sprint in openSprints() ORDER BY priority DESC, duedate ASC</span><span class="delimiter">&quot;</span></span>,
+            <span class="key">customfields</span>: [<span class="key">customfield_10026</span>:<span class="string"><span class="delimiter">'</span><span class="content">Story Points</span><span class="delimiter">'</span></span>]
+        ),
+    ]
+}
+
+<span class="annotation">@groovy</span>.transform.Immutable
+<span class="type">class</span> <span class="class">JiraRequest</span> {
+    <span class="predefined-type">String</span> filename  <span class="comment">//filename (without extension) of the file in which JQL results will be saved. Extension will be determined automatically for Asciidoc or Excel file</span>
+    <span class="predefined-type">String</span> jql <span class="comment">// Jira Query Language syntax</span>
+    <span class="predefined-type">Map</span>&lt;<span class="predefined-type">String</span>,<span class="predefined-type">String</span>&gt; customfields <span class="comment">// map of customFieldId:displayName values for Jira fields which don't have default names, i.e. customfield_10026:StoryPoints</span>
+}
+
+<span class="comment">// Configuration for OpenAPI related task</span>
+openApi = [:]
+
+<span class="comment">// 'specFile' is the name of OpenAPI specification yaml file. Asciidoc files will be generated based on this file</span>
+<span class="comment">// 'infoUrl' and 'infoEmail' are specification metadata about further info related to the API. By default this values would be filled by openapi-generator plugin placeholders</span>
+<span class="comment">//</span>
+
+openApi.with {
+    specFile = <span class="string"><span class="delimiter">'</span><span class="content">petstore-v2.0.yaml</span><span class="delimiter">'</span></span>
+    infoUrl = <span class="string"><span class="delimiter">'</span><span class="content">https://my-api.company.com</span><span class="delimiter">'</span></span>
+    infoEmail = <span class="string"><span class="delimiter">'</span><span class="content">info@company.com</span><span class="delimiter">'</span></span>
 }</code></pre>
 </div>
 </div>
@@ -6147,7 +6456,7 @@ jira.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-07-31 13:39:43 +0200
+Last updated 2020-08-24 19:53:57 UTC
 </div>
 </div>
 </body>

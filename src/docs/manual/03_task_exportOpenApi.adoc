@@ -1,4 +1,4 @@
-:filename: manual/03_task_exportOpenAPI.adoc
+:filename: manual/03_task_exportOpenApi.adoc
 ifndef::imagesdir[:imagesdir: ../images]
 
 = exportOpenAPI
@@ -6,7 +6,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 include::feedback.adoc[]
 
 This task exports OpenAPI specification defined in a yaml file to AsciiDoc document.
-Currently it relies on https://github.com/OpenAPITools/openapi-generator[OpenAPI Generator (v4.3.1)] and its https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin[gradle plugin]. 
+Currently it relies on https://github.com/OpenAPITools/openapi-generator[OpenAPI Generator (v4.3.1)] and its https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin[gradle plugin].
 
 == Configuration
 
