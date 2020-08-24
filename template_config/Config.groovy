@@ -65,6 +65,9 @@ confluence = [:]
 // Attributes
 // - 'file': absolute or relative path to the asciidoc generated html file to be exported
 // - 'url': absolute URL to an asciidoc generated html file to be exported
+// - 'ancestorName' (optional): the name of the parent page in Confluence as string;
+//                             this attribute has priority over ancestorId, but if page with given name doesn't exist,
+//                             ancestorId will be used as a fallback 
 // - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty
 //                            if a new parent shall be created in the space
 // - 'preambleTitle' (optional): the title of the page containing the preamble (everything
