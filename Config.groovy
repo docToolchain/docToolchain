@@ -228,3 +228,18 @@ class JiraRequest {
     Map<String,String> customfields // map of customFieldId:displayName values for Jira fields which don't have default names, i.e. customfield_10026:StoryPoints
 }
 //end::jiraConfig[]
+
+//tag::openApiConfig[]
+// Configuration for OpenAPI related task
+openApi = [:]
+
+// 'specFile' is the name of OpenAPI specification yaml file. Asciidoc files will be generated based on this file
+// 'infoUrl' and 'infoEmail' are specification metadata about further info related to the API. By default this values would be filled by openapi-generator plugin placeholders
+//
+
+openApi.with {
+    specFile = 'petstore-v2.0.yaml'
+    infoUrl = 'https://my-api.company.com'
+    infoEmail = 'info@company.com'
+}
+//end::openApiConfig[]
