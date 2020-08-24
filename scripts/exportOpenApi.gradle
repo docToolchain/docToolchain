@@ -24,7 +24,7 @@ task exportOpenApi (
     outputs.cacheIf { false }
     generatorName = 'asciidoc'
     outputDir = "$rootDir/${config.outputPath}/OpenAPI".toString()
-    inputSpec = specFile
+    inputSpec = "$inputPath/$specFile"
     
     additionalProperties = [
         infoEmail:"${config.openApi.infoEmail}",
