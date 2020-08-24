@@ -8,6 +8,13 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 == Unreleased
 
 === Added
+
+2020-08-24::
+* Ability to export OpenAPI specification to asciidoc (https://github.com/docToolchain/docToolchain/issues/464[#464])
+
+2020-08-20::
+* New attribute 'ancestorName' for easier nesting in Confluence (https://github.com/docToolchain/docToolchain/issues/460[#460])
+
 2020-07-08::
 * Jira configuration for multiple request to Jira API
 * Saving Jira results to Excel files
