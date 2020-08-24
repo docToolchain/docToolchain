@@ -233,7 +233,7 @@ class JiraRequest {
 // Configuration for OpenAPI related task
 openApi = [:]
 
-// 'specFile' is the name of OpenAPI specification yaml file. Asciidoc files will be generated based on this file
+// 'specFile' is the name of OpenAPI specification yaml file. Tool expects this file in the 'inputPath' defined at the top of configuration file
 // 'infoUrl' and 'infoEmail' are specification metadata about further info related to the API. By default this values would be filled by openapi-generator plugin placeholders
 //
 
