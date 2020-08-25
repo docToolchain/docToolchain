@@ -166,8 +166,8 @@ The paths to those configuration files can be provided by giving -P option to do
 [source, bash]
 ----
 # Uses scripts/ConfluenceConfig.groovy by default
-bin/doctoolchain <docDir> publishToConfluence --no-daemon -q
+doctoolchain <docDir> publishToConfluence --no-daemon -q
 
 # Uses scripts/MyConfluenceConfig.groovy
-bin/doctoolchain <docDir> publishToConfluence -PconfluenceConfigFile=scripts/MyConfluenceConfig.groovy --no-daemon -q
+doctoolchain <docDir> publishToConfluence -PconfluenceConfigFile=scripts/MyConfluenceConfig.groovy --no-daemon -q
 ----
