@@ -1,7 +1,7 @@
 import static groovy.io.FileType.*
 
 task prependFilename(
-        description: 'finds and converts non UTF-8 adoc files to UTF-8',
+        description: 'crawls through all AsciiDoc files and prepends the name of the current file',
         group: 'docToolchain helper',
 ) {
     doLast {

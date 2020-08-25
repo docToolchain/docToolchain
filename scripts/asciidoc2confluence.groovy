@@ -22,6 +22,11 @@
  *
  */
 
+/*
+    Additions for issue #342 marked as #342-dierk42
+    ;-)
+*/
+
 // some dependencies
 /**
 @Grapes(
@@ -36,6 +41,7 @@ import org.jsoup.nodes.Entities.EscapeMode
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Document.OutputSettings
 import org.jsoup.nodes.Element
+import org.jsoup.nodes.TextNode
 import org.jsoup.select.Elements
 import groovyx.net.http.RESTClient
 import groovyx.net.http.HttpResponseException
@@ -54,13 +60,13 @@ def CDATA_PLACEHOLDER_START = '<cdata-placeholder>'
 def CDATA_PLACEHOLDER_END = '</cdata-placeholder>'
 
 def baseUrl
-
+def allPages
 // configuration
 
 def confluenceSpaceKey
 def confluenceCreateSubpages
 def confluencePagePrefix
-
+def baseApiPath = new URI(config.confluence.api).path
 // helper functions
 
 def MD5(String s) {
@@ -68,9 +74,10 @@ def MD5(String s) {
 }
 
 // for getting better error message from the REST-API
-void trythis (Closure action) {
+// LuisMuniz: return the action's result, if successful.
+def trythis(Closure action) {
     try {
-        action.run()
+        action.call()
     } catch (HttpResponseException error) {
         println "something went wrong - got an http response code "+error.response.status+":"
         switch (error.response.status) {
@@ -82,6 +89,7 @@ void trythis (Closure action) {
             default:
                 println error.response.data
         }
+        null
         //throw error
     }
 }
@@ -98,6 +106,49 @@ def parseAdmonitionBlock(block, String type) {
     block.after("<ac:structured-macro ac:name=\"${type}\">${titleText}<ac:rich-text-body>${content}</ac:rich-text-body></ac:structured-macro>")
     block.remove()
 }
+
+/*  #342-dierk42
+
+    add labels to a Confluence page. Labels are taken from :keywords: which
+    are converted as meta tags in HTML. Building the array: see below
+
+    Confluence allows adding labels only after creation of a page.
+    Therefore we need extra API calls.
+
+    Currently the labels are added one by one. Suggestion for improvement:
+    Build a label structure of all labels an place them with one call.
+
+    Replaces exisiting labels. No harm
+    Does not check for deleted labels when keywords are deleted from source
+    document!
+*/
+def addLabels = { def pageId, def labelsArray ->
+    //https://docs.atlassian.com/confluence/REST/latest/
+    def api = new RESTClient(config.confluence.api)
+    //this fixes the encoding (dierk42: Is this needed here? Don't know)
+    api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
+
+    def headers = [
+            'Authorization': 'Basic ' + config.confluence.credentials,
+            'X-Atlassian-Token':'no-check'
+    ]
+    // Attach each label in a API call of its own. The only prefix possible
+    // in our own Confluence is 'global'
+    labelsArray.each { label ->
+        label_data = [
+            prefix : 'global',
+            name : label
+        ]
+        trythis {
+            // attach label to page pageId
+            // https://developer.atlassian.com/display/CONFDEV/Confluence+REST+API+Examples#ConfluenceRESTAPIExamples-Updatingapage
+            def res = api.post(contentType: ContentType.JSON,
+                              path: 'content/' + pageId + "/label", body: label_data, headers: headers)
+            }
+        println "added label " + label + " to page ID " + pageId
+    }
+}
+
 
 def uploadAttachment = { def pageId, String url, String fileName, String note ->
     def is
@@ -116,11 +167,19 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
     def api = new RESTClient(config.confluence.api)
     //this fixes the encoding
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
+    if (config.confluence.proxy) {
+        api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
+    }
 
     def headers = [
             'Authorization': 'Basic ' + config.confluence.credentials,
             'X-Atlassian-Token':'no-check'
     ]
+    //Add api key and value to REST API request header if configured - required for authentification.
+    if (config.confluence.apikey)
+    {
+       headers.keyid = config.confluence.apikey
+    }
     //check if attachment already exists
     def result = "nothing"
     def attachment = api.get(path: 'content/' + pageId + '/child/attachment',
@@ -138,6 +197,9 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
         }
     } else {
         http = new HTTPBuilder(config.confluence.api + 'content/' + pageId + '/child/attachment')
+        if (config.confluence.proxy) {
+            http.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
+        }
     }
     if (http) {
         http.request(Method.POST) { req ->
@@ -163,6 +225,83 @@ def realTitle = { pageTitle ->
 def rewriteMarks = { body ->
     // Confluence strips out mark elements.  Replace them with default formatting.
     body.select('mark').wrap('<span style="background:#ff0;color:#000"></style>').unwrap()
+}
+
+// #352-LuisMuniz: Helper methods
+// Fetch all pages of the space. Only keep relevant info in the pages Map
+// The map is indexed by lower-case title
+def retrieveAllPages = { RESTClient api, Map headers, String spaceKey ->
+    if (allPages != null) {
+        println "allPages already retrieved"
+        allPages
+    } else {
+
+        boolean morePages=true
+        int start=0
+        def request = [
+                'type'    : 'page',
+                'spaceKey': spaceKey,
+                'expand'  : 'ancestors',
+                'limit'   : 100
+        ]
+
+        allPages =[:]
+        while(morePages) {
+            def results = trythis {
+                request.start=start
+                def args = [
+                        'headers': headers,
+                        'path'   : "${baseApiPath}content",
+                        'query'  : request,
+                ]
+                api.get(args).data.results
+            } ?: []
+
+            if (results.empty) {
+                morePages=false
+            } else {
+                start += results.size
+            }
+
+            results.inject(allPages) { Map acc, Map match ->
+                //unique page names in confluence, so we can get away with indexing by title
+                def ancestors = match.ancestors.collect { it.id }
+
+                acc[match.title.toLowerCase()] = [
+                        title   : match.title,
+                        id      : match.id,
+                        parentId: ancestors.isEmpty() ? null : ancestors.last()
+                ]
+                acc
+            }
+        }
+
+        allPages
+    }
+}
+
+// Retrieve a page by id with contents and version
+def retrieveFullPage = { RESTClient api, Map headers, String id ->
+    trythis {
+        api.get(
+                [
+                        'headers': headers,
+                        'path'   : "${baseApiPath}content/${id}",
+                        'query'  : ['expand': 'body.storage,version'],
+                ]
+        ).data
+
+
+    } ?: [:]
+}
+
+//if a parent has been specified, check whether a page has the same parent.
+boolean hasRequestedParent(Map existingPage, String requestedParentId) {
+    if (requestedParentId) {
+        existingPage.parentId == requestedParentId
+    } else {
+        true
+    }
 }
 
 def rewriteDescriptionLists = { body ->
@@ -223,7 +362,7 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
         if (href.startsWith('#')) {
             def anchor = href.substring(1)
             def pageTitle = anchors[anchor] ?: pageAnchors[anchor]
-            if (pageTitle) {
+            if (pageTitle && a.text()) {
                 // as Confluence insists on link texts to be contained
                 // inside CDATA, we have to strip all HTML and
                 // potentially loose styling that way.
@@ -237,11 +376,34 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
     }
 }
 
+def rewriteJiraLinks = { body ->
+    // find links to jira tickets and replace them with jira macros
+    body.select('a[href]').each { a ->
+        def href = a.attr('href')
+        if (href.startsWith(jiraRoot + "/browse/")) { 
+                def ticketId = a.text()
+                a.before("""<ac:structured-macro ac:name=\"jira\" ac:schema-version=\"1\">
+                     <ac:parameter ac:name=\"key\">${ticketId}</ac:parameter>
+                     <ac:parameter ac:name=\"serverId\">${config.confluence.jiraServerId}</ac:parameter>
+                     </ac:structured-macro>""")
+                a.remove()
+        }
+    }
+}
+
+
 def rewriteCodeblocks = { body ->
     body.select('pre > code').each { code ->
         if (code.attr('data-lang')) {
             code.select('span[class]').each { span ->
                 span.unwrap()
+            }
+            code.select('i[class]').each { i ->
+                i.unwrap()
+            }
+            code.select('b').each { b ->
+                b.before(" // ")
+                b.unwrap()
             }
             code.before("<ac:parameter ac:name=\"language\">${code.attr('data-lang')}</ac:parameter>")
         }
@@ -250,6 +412,20 @@ def rewriteCodeblocks = { body ->
             .unwrap()
         code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
             .unwrap()
+    }
+}
+
+def rewriteOpenAPI = { org.jsoup.nodes.Element body ->
+    if (config.confluence.useOpenapiMacro) {
+        body.select('div.openapi  pre > code').each { code ->
+            def parent=code.parent()
+            def rawYaml=code.wholeText()
+            code.parent()
+                    .wrap('<ac:structured-macro ac:name="confluence-open-api" ac:schema-version="1" ac:macro-id="1dfde21b-6111-4535-928a-470fa8ae3e7d"></ac:structured-macro>')
+                    .unwrap()
+            code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
+                    .replaceWith(new TextNode(rawYaml))
+        }
     }
 }
 
@@ -275,6 +451,8 @@ def unescapeCDATASections = { html ->
 //body can be of type Element or Elements
 def deferredUpload = []
 def parseBody =  { body, anchors, pageAnchors ->
+    rewriteOpenAPI body
+
     body.select('div.paragraph').unwrap()
     body.select('div.ulist').unwrap()
     body.select('div.sect3').unwrap()
@@ -316,7 +494,7 @@ def parseBody =  { body, anchors, pageAnchors ->
         if(!src.startsWith("http")) {
           def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')+src
           def fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")
-          newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")      
+          newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")
 
           trythis {
               deferredUpload <<  [0,newUrl,fileName,"automatically uploaded"]
@@ -329,6 +507,39 @@ def parseBody =  { body, anchors, pageAnchors ->
         }
         img.remove()
     }
+
+
+    if(config.confluence.enableAttachments){
+        attachmentPrefix = config.confluence.attachmentPrefix ? config.confluence.attachmentPrefix : 'attachment'
+        body.select('a').each { link ->
+
+            def src = link.attr('href')
+            println "    attachment src: "+src
+
+            //upload it to confluence and use the ri:attachment tag
+            if(src.startsWith(attachmentPrefix)) {
+                def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')+src
+                def fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")
+                newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")
+
+                trythis {
+                    deferredUpload <<  [0,newUrl,fileName,"automatically uploaded non-image attachment by docToolchain"]
+                }
+                def uriArray=fileName.split("/")
+                def pureFilename = uriArray[uriArray.length-1]
+                def innerhtml = link.html()
+                link.after("<ac:structured-macro ac:name=\"view-file\" ac:schema-version=\"1\"><ac:parameter ac:name=\"name\"><ri:attachment ri:filename=\"${pureFilename}\"/></ac:parameter></ac:structured-macro>")
+                link.after("<ac:link><ri:attachment ri:filename=\"${pureFilename}\"/><ac:plain-text-link-body> <![CDATA[\"${innerhtml}\"]]></ac:plain-text-link-body></ac:link>")
+                link.remove()
+
+            }
+        }
+    }
+
+    if(config.confluence.jiraServerId){
+        rewriteJiraLinks body
+    }
+
     rewriteMarks body
     rewriteDescriptionLists body
     rewriteInternalLinks body, anchors, pageAnchors
@@ -348,22 +559,43 @@ def parseBody =  { body, anchors, pageAnchors ->
 }
 
 // the create-or-update functionality for confluence pages
-def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
+// #342-dierk42: added parameter 'keywords'
+def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnchors, keywords ->
     def api = new RESTClient(config.confluence.api)
     def headers = [
             'Authorization': 'Basic ' + config.confluence.credentials,
             'Content-Type':'application/json; charset=utf-8'
     ]
+    //Add api key and value to REST API request header if configured - required for authentification.
+    if (config.confluence.apikey)
+    {
+       headers.keyid = config.confluence.apikey
+    }
+    String realTitleLC = realTitle(pageTitle).toLowerCase()
+
     //this fixes the encoding
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
+    if (config.confluence.proxy) {
+        api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
+    }
     //try to get an existing page
     localPage = parseBody(pageBody, anchors, pageAnchors)
-
     def localHash = MD5(localPage)
-    def prefix = '<p><ac:structured-macro ac:name="toc"/></p>'+(config.confluence.extraPageContent?:'')
-    localPage  = prefix+localPage
-    localPage += '<p><ac:structured-macro ac:name="children"><ac:parameter ac:name="sort">creation</ac:parameter></ac:structured-macro></p>'
-    localPage += '<p style="display:none">hash: #'+localHash+'#</p>'
+    if(config.confluence.disableToC){
+        def prefix = (config.confluence.extraPageContent?:'')
+        localPage  = prefix+localPage
+        localHash = MD5(localPage)
+        localPage += '<p style="display:none">hash: #'+localHash+'#</p>'
+    }else{
+        def default_toc = '<p><ac:structured-macro ac:name="toc"/></p>'
+        def prefix = (config.confluence.tableOfContents?:default_toc)+(config.confluence.extraPageContent?:'')
+        localPage  = prefix+localPage
+        def default_children = '<p><ac:structured-macro ac:name="children"><ac:parameter ac:name="sort">creation</ac:parameter></ac:structured-macro></p>'
+        localPage += (config.confluence.tableOfChildren?:default_children)
+        localHash = MD5(localPage)
+        localPage += '<p style="display:none">hash: #'+localHash+'#</p>'
+    }
+
 
     def request = [
             type : 'page',
@@ -384,22 +616,25 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
         ]
     }
 
-    def pages
-    trythis {
-        def cql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
-        if (parentId) {
-            cql += " AND parent=${parentId}"
-        }
-        pages = api.get(path: 'content/search',
-                        query: ['cql' : cql,
-                                'expand'  : 'body.storage,version'
-                               ], headers: headers).data.results
-    }
+    def pages = retrieveAllPages(api, headers, config.confluence.spaceKey)
 
-    def page = pages.find { p -> p.title.equalsIgnoreCase(realTitle(pageTitle)) }
+    // println "Suche nach vorhandener Seite: " + pageTitle
+    Map existingPage = pages[realTitleLC]
+    def page
+
+    if (existingPage) {
+        if (hasRequestedParent(existingPage, parentId)) {
+            page = retrieveFullPage(api, headers, existingPage.id)
+        } else {
+            page = null
+        }
+    } else {
+        page = null
+    }
+    // println "Gefunden: " + page.id + " Titel: " + page.title
 
     if (page) {
-        //println "found existing page: " + page.id +" version "+page.version.number
+        println "found existing page: " + page.id +" version "+page.version.number
 
         //extract hash from remote page to see if it is different from local one
 
@@ -408,12 +643,19 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
         def remoteHash = remotePage =~ /(?ms)hash: #([^#]+)#/
         remoteHash = remoteHash.size()==0?"":remoteHash[0][1]
 
+        // println "remoteHash: " + remoteHash
+        // println "localHash:  " + localHash
+
         if (remoteHash == localHash) {
-            //println "page hasn't changed!"
+            println "page hasn't changed!"
             deferredUpload.each {
                 uploadAttachment(page?.id, it[1], it[2], it[3])
             }
             deferredUpload = []
+            // #324-dierk42: Add keywords as labels to page.
+            if (keywords) {
+                addLabels(page.id, keywords)
+            }
             return page.id
         } else {
             trythis {
@@ -425,31 +667,24 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
                                   requestContentType : ContentType.JSON,
                                   path: 'content/' + page.id, body: request, headers: headers)
             }
-            println "> updated page"+page.id
+            println "> updated page "+page.id
             deferredUpload.each {
                 uploadAttachment(page.id, it[1], it[2], it[3])
             }
             deferredUpload = []
+            // #324-dierk42: Add keywords as labels to page.
+            if (keywords) {
+                addLabels(page.id, keywords)
+            }
             return page.id
         }
     } else {
-        if (parentId) {
-            def foreignPages
-            trythis {
-                def foreignCql = "space='${confluenceSpaceKey}' AND type=page AND title~'" + realTitle(pageTitle) + "'"
-                foreignPages = api.get(path: 'content/search',
-                                      query: ['cql' : foreignCql],
-                                    headers: headers).data.results
-            }
-
-            def foreignPage = foreignPages.find { p -> p.title.equalsIgnoreCase(realTitle(pageTitle)) }
-
-            if (foreignPage) {
-                throw new IllegalArgumentException("Cannot create page, page with the same "
-                    + "title=${foreignPage.title} "
-                    + "with id=${foreignPage.id} already exists in the space. "
+        //#352-LuisMuniz if the existing page's parent does not match the requested parentId, fail
+        if (existingPage && !hasRequestedParent(existingPage, parentId)) {
+            throw new IllegalArgumentException("Cannot create page, page with the same "
+                    + "title=${existingPage.title} "
+                    + "with id=${existingPage.id} already exists in the space. "
                     + "A Confluence page title must be unique within a space, consider specifying a 'confluencePagePrefix' in ConfluenceConfig.groovy")
-            }
         }
 
         //create a page
@@ -463,6 +698,10 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors ->
             uploadAttachment(page?.data?.id, it[1], it[2], it[3])
         }
         deferredUpload = []
+        // #324-dierk42: Add keywords as labels to page.
+        if (keywords) {
+            addLabels(page?.data?.id, keywords)
+        }
         return page?.data?.id
     }
 }
@@ -478,12 +717,14 @@ def parseAnchors = { page ->
 }
 
 def pushPages
-pushPages = { pages, anchors, pageAnchors ->
+pushPages = { pages, anchors, pageAnchors, labels ->
     pages.each { page ->
         println page.title
-        def id = pushToConfluence page.title, page.body, page.parent, anchors, pageAnchors
+        def id = pushToConfluence page.title, page.body, page.parent, anchors, pageAnchors, labels
         page.children*.parent = id
-        pushPages page.children, anchors, pageAnchors
+        // println "Push children von id " + id
+        pushPages page.children, anchors, pageAnchors, labels
+        // println "Ende Push children von id " + id
     }
 }
 
@@ -499,6 +740,27 @@ def promoteHeaders = { tree, start, offset ->
     (start..7).each { i ->
         tree.select("h${i}").tagName("h${i-offset}").before('<br />')
     }
+}
+
+def retrievePageIdByName = { String name ->
+        def api = new RESTClient(config.confluence.api)
+        def headers = [
+            'Authorization': 'Basic ' + config.confluence.credentials,
+            'Content-Type':'application/json; charset=utf-8'
+        ]
+        trythis {
+            def request = [
+                'title'    : name,
+                'spaceKey' : confluenceSpaceKey
+            ]
+            api.get(
+                [
+                        'headers': headers,
+                        'path'   : "${baseApiPath}content",
+                        'query'  : request,
+                ]
+            ).data.results?.getAt(0)?.id
+        } ?: null
 }
 
 config.confluence.input.each { input ->
@@ -520,6 +782,7 @@ config.confluence.input.each { input ->
     confluencePagePrefix = input.pagePrefix ?: config.confluence.pagePrefix
 //  added
     confluencePageSuffix = input.pageSuffix ?: config.confluence.pageSuffix
+    confluencePreambleTitle = input.preambleTitle ?: config.confluence.preambleTitle
 
     def html = input.file ? new File(input.file).getText('utf-8') : new URL(input.url).getText()
     baseUrl = input.file ? new File(input.file) : new URL(input.url)
@@ -527,18 +790,39 @@ config.confluence.input.each { input ->
     dom.outputSettings().prettyPrint(false);//makes html() preserve linebreaks and spacing
     dom.outputSettings().escapeMode(org.jsoup.nodes.Entities.EscapeMode.xhtml); //This will ensure xhtml validity regarding entities
     dom.outputSettings().charset("UTF-8"); //does no harm :-)
-    def masterid = input.ancestorId
 
-    // if confluenceAncestorId is not set, create a new parent page
-    def parentId = !input.ancestorId ? null : input.ancestorId
+    // if ancestorName is defined try to find machingAncestorId in confluence
+    def retrievedAncestorId
+    if (input.ancestorName) {
+        // Retrieve a page id by name
+        retrievedAncestorId = retrievePageIdByName(input.ancestorName)
+        println("Retrieved pageId for given ancestorName '${input.ancestorName}' is ${retrievedAncestorId}")
+    }
+
+    // if input does not contain an ancestorName, check if there is ancestorId, otherwise check if there is a global one
+    def parentId = retrievedAncestorId ?: input.ancestorId ?: config.confluence.ancestorId
+
+    // if parentId is still not set, create a new parent page (parentId = null)
+    parentId = parentId ?: null
+    //println("ancestorName: '${input.ancestorName}', ancestorId: ${input.ancestorId} ---> final parentId: ${parentId}")
+
     def anchors = [:]
     def pageAnchors = [:]
     def sections = pages = []
+    // #342-dierk42: get the keywords from the meta tags
+    def keywords = []
+    dom.select('meta[name=keywords]').each { kw ->
+        kws = kw.attr('content').split(',')
+        kws.each { skw ->
+            keywords << skw.trim()
+        }
+        println "Keywords:" + keywords
+    }
     // let's try to select the "first page" and push it to confluence
     dom.select('div#preamble div.sectionbody').each { pageBody ->
         pageBody.select('div.sect2').unwrap()
         def preamble = [
-            title: input.preambleTitle ?: "arc42",
+            title: confluencePreambleTitle ?: "arc42",
             body: pageBody,
             children: [],
             parent: parentId
@@ -584,7 +868,7 @@ config.confluence.input.each { input ->
         anchors.putAll(parseAnchors(currentPage))
     }
 
-    pushPages pages, anchors, pageAnchors
+    pushPages pages, anchors, pageAnchors, keywords
     if (parentId) {
         println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}/pages/${parentId}"
     } else {

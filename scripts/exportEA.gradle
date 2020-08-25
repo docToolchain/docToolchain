@@ -44,15 +44,17 @@ task exportEA(
         group: 'docToolchain'
 ) {
     doFirst {
-        logger.info ("docToolchain> docDir: "+docDir)
-        //make sure path for notes exists
-        //and remove old notes
-        new File(docDir, 'src/docs/ea').deleteDir()
-        //also remove old diagrams
-        new File(docDir, 'src/docs/images/ea').deleteDir()
-        //create a readme to clarify things
+    }
+    doLast {
+        logger.info("docToolchain > exportEA: "+docDir)
+        logger.info("docToolchain > exportEA: "+mainConfigFile)
+        def configFile = new File(docDir, mainConfigFile)
+        def config = new ConfigSlurper().parse(configFile.text)
+        def scriptParameterString = ""
+        def exportPath = ""
+        def searchPath = ""
         def readme = """This folder contains exported diagrams or notes from Enterprise Architect.
-		
+
 Please note that these are generated files but reside in the `src`-folder in order to be versioned.
 
 This is to make sure that they can be used from environments other than windows.
@@ -63,17 +65,51 @@ This is to make sure that they can be used from environments other than windows.
 
 use `gradle exportEA` to re-export files
 """
-        new File(docDir, 'src/docs/images/ea/.').mkdirs()
-        new File(docDir, 'src/docs/images/ea/readme.ad').write(readme)
-        new File(docDir, 'src/docs/ea/.').mkdirs()
-        new File(docDir, 'src/docs/ea/readme.ad').write(readme)
-    }
-    doLast {
+
+        if(!config.exportEA.connection.isEmpty()){
+            logger.info("docToolchain > exportEA: found "+config.exportEA.connection)
+            scriptParameterString = scriptParameterString + "-c \"${config.exportEA.connection}\""
+        }
+        if (!config.exportEA.packageFilter.isEmpty()){
+            def packageFilterToCreate = config.exportEA.packageFilter as List
+            logger.info("docToolchain > exportEA: package filter list size: "+packageFilterToCreate.size())
+            packageFilterToCreate.each { packageFilter ->
+               scriptParameterString = scriptParameterString + " -p \"${packageFilter}\""
+            }
+        }
+        if (!config.exportEA.exportPath.isEmpty()){
+            exportPath = new File(docDir, config.exportEA.exportPath).getAbsolutePath()
+        }
+        else {
+            exportPath = new File(docDir, 'src/docs').getAbsolutePath()
+        }
+        if (!config.exportEA.searchPath.isEmpty()){
+            searchPath = new File(docDir, config.exportEA.searchPath).getAbsolutePath()
+        }
+        else {
+            searchPath = new File(docDir, 'src').getAbsolutePath()
+        }
+        scriptParameterString = scriptParameterString + " -d \"$exportPath\""
+        scriptParameterString = scriptParameterString + " -s \"$searchPath\""
+        logger.info("docToolchain > exportEA: exportPath: "+exportPath)
+
+        //make sure path for notes exists
+        //and remove old notes
+        new File(exportPath , 'ea').deleteDir()
+        //also remove old diagrams
+        new File(exportPath , 'images/ea').deleteDir()
+
+        //create a readme to clarify things
+        new File(exportPath , 'images/ea/.').mkdirs()
+        new File(exportPath , 'images/ea/readme.ad').write(readme)
+        new File(exportPath , 'ea/.').mkdirs()
+        new File(exportPath , 'ea/readme.ad').write(readme)
+
         //execute through cscript in order to make sure that we get WScript.echo right
-        "%SystemRoot%\\System32\\cscript.exe //nologo ${projectDir}/scripts/exportEAP.vbs".executeCmd()
+        "%SystemRoot%\\System32\\cscript.exe //nologo ${projectDir}/scripts/exportEAP.vbs ${scriptParameterString}".executeCmd()
         //the VB Script is only capable of writing iso-8859-1-Files.
         //we now have to convert them to UTF-8
-        new File(docDir, 'src/docs/ea/.').eachFileRecurse { file ->
+        new File(exportPath, 'ea/.').eachFileRecurse { file ->
             if (file.isFile()) {
                 println "exported notes " + file.canonicalPath
                 file.write(file.getText('iso-8859-1'), 'utf-8')

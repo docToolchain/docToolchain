@@ -2,7 +2,14 @@ language: groovy
 
 jdk:
   - openjdk8
-  - oraclejdk8
+  - openjdk11
+  - openjdk12
+  - openjdk13
+
+addons:
+  apt:
+    packages:
+      - shellcheck
 
 git:
   depth: 3000
@@ -21,4 +28,5 @@ cache:
     - $HOME/.gradle/wrapper/
 
 script:
-- ./gradlew test --info
+  - ./.ci.sh
+  - find . -type f -exec grep -l '^#!/bin/bash' {} + | xargs shellcheck

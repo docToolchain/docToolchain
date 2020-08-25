@@ -1,0 +1,4 @@
+image:
+  file: .gitpod.dockerfile
+tasks:
+- command: echo "Hello"

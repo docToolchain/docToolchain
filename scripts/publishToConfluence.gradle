@@ -7,10 +7,10 @@ buildscript {
     }
     dependencies {
         //for the exportJiraIssues Task
-        classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.6'
+        classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.2'
         //for the renderToConfluence Task
-        classpath 'org.apache.httpcomponents:httpmime:4.5.1'
-        classpath 'org.jsoup:jsoup:1.9.1'
+        classpath 'org.apache.httpcomponents:httpmime:4.5.10'
+        classpath 'org.jsoup:jsoup:1.12.1'
     }
 }
 
@@ -23,9 +23,24 @@ task publishToConfluence(
         logger.info("docToolchain> docDir: "+docDir)
         def configFile = new File(docDir, mainConfigFile)
         def config = new ConfigSlurper().parse(configFile.text)
+
+        if(config.confluence.credentials.isEmpty()){
+            logger.quiet("no credentials set in '${configFile.name}'")
+            logger.quiet("trying 'confluenceUser' and 'confluencePassword' from gradle properties")
+
+            if(project.hasProperty("confluenceUser") && project.hasProperty("confluencePassword")){
+                config.confluence.credentials = "${confluenceUser}:${confluencePassword}".bytes.encodeBase64().toString()
+            }else{
+                logger.quiet("variables 'confluenceUser' and/or 'confluencePassword' are not set!")
+                logger.quiet("please specify them through gradle.properties, the commandline or environment variables")
+            }
+
+        }
+
         binding.setProperty('config',config)
         binding.setProperty('docDir',docDir)
         binding.setProperty('configFile', configFile)
+        binding.setProperty('jiraRoot', jiraRoot)
         evaluate(new File(projectDir, 'scripts/asciidoc2confluence.groovy'))
     }
 }

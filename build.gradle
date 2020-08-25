@@ -3,20 +3,22 @@
  */
 
 plugins {
-    id "org.asciidoctor.convert" version "1.5.3"
-    id "org.aim42.htmlSanityCheck" version "1.0.0-RC-2"
-    id "com.github.ben-manes.versions" version "0.15.0"
+    id "org.asciidoctor.convert" version "2.4.0"
+    id "org.aim42.htmlSanityCheck" version "1.1.3"
+    id "com.github.ben-manes.versions" version "0.27.0"
+    id "org.openapi.generator" version "4.3.1"
+//    id 'org.jbake.site' version '5.0.0'
 }
 
 apply plugin:'groovy'
 
 dependencies {
-    testCompile(
+    testImplementation(
             ('junit:junit:4.12'),
-            ('org.spockframework:spock-core:1.1-groovy-2.4'),
-            ('com.athaydes:spock-reports:1.3.2'),
-            ('org.slf4j:slf4j-api:1.7.13'),
-            ('org.slf4j:slf4j-simple:1.7.13'),
+            ('org.spockframework:spock-core:1.3-groovy-2.5'),
+            ('com.athaydes:spock-reports:1.6.2'),
+            //('org.slf4j:slf4j-api:1.7.13'),
+            //('org.slf4j:slf4j-simple:1.7.13'),
             gradleTestKit()
     )
 }
@@ -26,7 +28,7 @@ if (project.name!=rootProject.name) {
     // this avoids for example that task 'check' runs if invoked in main project
     gradle.taskGraph.whenReady {
         tasks.each { task ->
-            if (task.group in ['docToolchain', 'Documentation']
+            if (task.group in ['docToolchain', 'Documentation', 'docToolchain helper']
                     || task.name in ['htmlSanityCheck', 'streamingExecute', 'tasks', 'clean']) {
                 task.enabled = true
             } else {
@@ -38,12 +40,15 @@ if (project.name!=rootProject.name) {
         throw new Exception("""
 You are running docToolchain as git submodule.
 That is great!
-Currently, it is still configured to build its own manual.
+Currently, it is still configured to build its own manual,
+because the property docDir points to docToolchain itself.
 Please configure docToolchain to point to your doc-sources.
+You can do so by specifying it in your build.gradle or on the
+command line. Example:
+./gradlew generateHTML -PdocDir=../.
 see https://docs-as-co.de/getstarted/tutorial2 for more details.
         """)
     }
-    
 }
 
 //all available docToolchain modules
@@ -65,7 +70,8 @@ apply from: 'scripts/publishToConfluence.gradle'
 apply from: 'scripts/htmlSanityCheck.gradle'
 apply from: 'scripts/collectIncludes.gradle'
 apply from: 'scripts/exportMetrics.gradle'
+apply from: 'scripts/exportOpenApi.gradle'
 
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
-defaultTasks 'exportChangeLog', 'exportContributors', 'exportMarkdown', 'generateHTML', 'generatePDF', 'htmlSanityCheck'
+defaultTasks 'exportChangeLog', 'exportContributors', 'exportMarkdown', 'generateHTML', 'htmlSanityCheck'

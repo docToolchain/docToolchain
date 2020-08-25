@@ -20,17 +20,17 @@ set PATHTODOCS=%1
 
 @REM %GRADLECMD% --project-cache-dir %BASEDIR%.gradle -p %BASEDIR% -PdocDir=%WORKINGDIR%%1 %2 %3 %4 %5 %6 %7 %8 %9
 
-cd %BASEDIR%
+cd /d %BASEDIR%
 
 IF "%PATHTODOCS:~0,1%"=="." goto :relativePath
 
-./gradlew --project-cache-dir %BASEDIR%/.gradle -PdocDir=%PATHTODOCS% %2 %3 %4 %5 %6
+call %GRADLECMD% --project-cache-dir %BASEDIR%/.gradle "-PdocDir=%PATHTODOCS%" %2 %3 %4 %5 %6
 
 goto :end
 
 :relativePath
 
-./gradlew --project-cache-dir %BASEDIR%/.gradle -PdocDir=%WORKINGDIR%%PATHTODOCS% %2 %3 %4 %5 %6
+call %GRADLECMD% --project-cache-dir %BASEDIR%/.gradle "-PdocDir=%WORKINGDIR%%PATHTODOCS%" %2 %3 %4 %5 %6
 
 goto :end
 
@@ -57,7 +57,9 @@ echo   Generate HTML:
 echo     doctoolchain . generateHTML
 echo.
 echo   Publish HTML to Confluence:
-echo     doctoolchain . publishToConfluence -PconfluenceConfigFile=ConfluenceConfig.groovy --no-daemon -q
+echo     doctoolchain . publishToConfluence
 goto :end
 
 :end
+rem back to WORKINGDIR
+cd /d %WORKINGDIR%

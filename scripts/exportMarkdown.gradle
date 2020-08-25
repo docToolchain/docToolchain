@@ -7,7 +7,7 @@ buildscript {
     }
     dependencies {
         //for the markdown conversion
-        classpath 'nl.jworks.markdown_to_asciidoc:markdown_to_asciidoc:1.0'
+        classpath 'nl.jworks.markdown_to_asciidoc:markdown_to_asciidoc:1.1'
     }
 }
 

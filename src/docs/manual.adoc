@@ -1,6 +1,8 @@
 :imagesdir: images
 :allow-uri-read:
 
+:manualdir: https://github.com/docToolchain/docToolchain/edit/master/src/docs/
+
 = docToolchain Manual
 
 ++++
@@ -36,7 +38,7 @@ include::manual/03_task_generateHTML.adoc[leveloffset=+2]
 
 <<<<
 
-include::manual/03_task_fixEncoding.adoc[leveloffset=+2]
+include::manual/03_task_fixencoding.adoc[leveloffset=+2]
 
 ---
 
@@ -84,6 +86,12 @@ include::manual/03_task_convertToDocx.adoc[leveloffset=+2]
 
 <<<<
 
+include::manual/03_task_createReferenceDoc.adoc[leveloffset=+2]
+
+---
+
+<<<<
+
 include::manual/03_task_convertToEpub.adoc[leveloffset=+2]
 
 ---
@@ -97,6 +105,12 @@ include::manual/03_task_exportEA.adoc[leveloffset=+2]
 <<<<
 
 include::manual/03_task_exportVisio.adoc[leveloffset=+2]
+
+---
+
+<<<<
+
+include::manual/03_task_exportDrawIo.adoc[leveloffset=+2]
 
 ---
 
@@ -138,6 +152,12 @@ include::manual/03_task_exportMarkdown.adoc[leveloffset=+2]
 
 <<<<
 
+include::manual/03_task_exportOpenApi.adoc[leveloffset=+2]
+
+---
+
+<<<<
+
 include::manual/03_task_htmlSanityCheck.adoc[leveloffset=+2]
 
 ---
@@ -168,5 +188,8 @@ include::manual/04_further_reading.adoc[leveloffset=+1]
 
 include::manual/05_contributors.adoc[leveloffset=+1]
 
+<<<<
+
+include::manual/0A_config.adoc[leveloffset=+1]
 
 

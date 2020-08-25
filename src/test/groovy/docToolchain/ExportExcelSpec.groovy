@@ -35,7 +35,7 @@ class ExportExcelSpec extends Specification {
         when: 'the gradle task is invoked'
                 def result = GradleRunner.create()
                         .withProjectDir(new File('.'))
-                        .withArguments(['exportExcel', '--info'])
+                        .withArguments(['exportExcel', '--info', '-PmainConfigFile=./src/test/config.groovy'])
                         .build()
         then: 'the task has been successfully executed'
                 result.task(":exportExcel").outcome == SUCCESS
@@ -44,9 +44,9 @@ class ExportExcelSpec extends Specification {
     void 'test exported files: #filename'() {
         when: 'the test before exported the excel file'
         then: 'the export file have been created'
-                new File('./src/docs/excel/Sample.xlsx/'+filename).exists() == true
+                new File('./src/test/docs/excel/Sample.xlsx/'+filename).exists() == true
                 and: 'its content ends with our sample file'
-                new File('./src/docs/excel/Sample.xlsx/'+filename)
+                new File('./src/test/docs/excel/Sample.xlsx/'+filename)
                             .text.trim()
                                     .replaceAll("\r","")
                                     // the output depends on the locale!

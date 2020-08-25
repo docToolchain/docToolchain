@@ -7,13 +7,13 @@ import groovyx.net.http.ContentType
 
 try {
     def config
-    config = new ConfigSlurper().parse(new File('./scripts/JiraConfig.groovy').text)
+    config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text)
 
     def stats = [:]
     def jira = new groovyx.net.http.RESTClient(config.jiraAPI)
     jira.encoderRegistry = new groovyx.net.http.EncoderRegistry(charset: 'utf-8')
     def headers = [
-            'Authorization': "Basic " + config.jiraCredentials,
+            'Authorization': "Basic " + config.jira.credentials,
             'Content-Type' : 'application/json; charset=utf-8'
     ]
     jira.get(path: 'search',

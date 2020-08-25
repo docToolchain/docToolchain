@@ -1,6 +1,7 @@
 :filename: manual/07_tutorial.adoc
 
 ifndef::imagesdir[:imagesdir: ../images]
+
 = Tutorial
 
 include::feedback.adoc[]
@@ -27,4 +28,5 @@ Here is an incomplete and unordered list of contributors:
 - https://github.com/jakubjab[Jakub Jablonski]
 - https://github.com/FrankPohl[Frank Pohl]
 
-(please update your entry to match your preferences! :-)
+(please update your entry to match your preferences!
+:-)

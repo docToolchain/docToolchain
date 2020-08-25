@@ -7,6 +7,13 @@ include::feedback.adoc[]
 
 image::ea/Manual/exportJiraIssues.png[]
 
+This task exports all issues for a given query from Jira as AsciiDoc table.
+
+The configuration for this task can be found within `Config.gradle` (`gradle.properties` can be used as a fallback configuration).
+Username/Password is deprecated, so you have to use username/API-token instead.
+An API-Token can be created through https://id.atlassian.com/manage/api-tokens[].
+It is encouraged to keep username and API token out of git repository and to pass it as environment variables to the docToolchain.
+
 TIP: Blog-Post: https://rdmueller.github.io/Jira/[Living Documents for Agile Projects]
 
 == Source

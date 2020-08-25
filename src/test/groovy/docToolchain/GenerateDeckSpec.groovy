@@ -14,17 +14,19 @@ class GenerateDeckSpec extends Specification {
         when: 'the gradle task is invoked'
             def result = GradleRunner.create()
                     .withProjectDir(new File('.'))
-                    .withArguments(['generateDeck','--info','-PmainConfigFile=src/test/config.groovy'])
+                    .withArguments(['generateDeck','--info', '-PinputPath=src/test/docs','-PmainConfigFile=src/test/config.groovy'])
                     .build()
         then: 'the task has been successfully executed'
             result.task(":generateDeck").outcome == SUCCESS
+        and:  'an output file has been created'
+            new File('./build/test/docs/decks/html5/test.html').exists()
     }
 
     void 'test skipped generation of slide deck'() {
         when: 'the gradle task is invoked'
             def result = GradleRunner.create()
                     .withProjectDir(new File('.'))
-                    .withArguments(['generateDeck','--info','-PmainConfigFile=src/test/config_without_revealjs.groovy'])
+                    .withArguments(['generateDeck','--info', '-PinputPath=src/test/docs','-PmainConfigFile=src/test/config_without_revealjs.groovy'])
                     .build()
         then: 'the task has been skipped'
             result.task(":generateDeck").outcome == SKIPPED

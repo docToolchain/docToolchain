@@ -9,6 +9,23 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === Added
 
+2020-08-24::
+* Ability to export OpenAPI specification to asciidoc (https://github.com/docToolchain/docToolchain/issues/464[#464])
+
+2020-08-20::
+* New attribute 'ancestorName' for easier nesting in Confluence (https://github.com/docToolchain/docToolchain/issues/460[#460])
+
+2020-07-08::
+* Jira configuration for multiple request to Jira API
+* Saving Jira results to Excel files
+* Basic support for custom fields in Jira results
+
+2020-05-08::
+* Jira configuration refactoring to Config.groovy
+
+2019-05-21::
+* first version of EA-PlantUML Exchange scripts
+
 2019-02-26::
 * first version of `exportMetrics` task
 https://github.com/docToolchain/docToolchain/commit/c25ac52e43ccb1d45fa538c06d376258b41e8e32[c25ac52e], https://github.com/docToolchain/docToolchain/commit/a752acfb00206b3ac875b9ab585cd54e9d8fde89[a752acfb]
@@ -16,6 +33,12 @@ https://github.com/docToolchain/docToolchain/commit/c25ac52e43ccb1d45fa538c06d37
 * Add TomTom logo as company who uses docToolchain https://github.com/docToolchain/docToolchain/pull/284[PR#284]
 
 === Changed
+
+2019-05-09::
+* upgraded to run with JDK11
+** upgraded Gradle to 5.3.1
+** upgraded Groovy to 2.5.4 (comes with Gradle 5.4.1)
+** upgraded Spock to 1.3
 
 2019-03-13::
 * prependFilename
@@ -27,7 +50,20 @@ https://github.com/docToolchain/docToolchain/commit/c25ac52e43ccb1d45fa538c06d37
 * asciidoc2confluence
 ** added output where docs are published to and added better error message in case of failing authorization https://github.com/docToolchain/docToolchain/commit/1bc146ccc493b4c381cb09742ac71ef44265d990[1bc146c]
 
+2019-03-06::
+* collectIncludes
+** changed regexp to accept ^[A-Z]{3,}-.*$ as file name, eg. all Files which start with an upper case word of at least 3 chars followed by a dash
+** fixed `sourceFolder` to work with docToolchain as submodule
+** added better console output
+** skip `docToolchain`-folder if used as submodule
+
 === Fixed
+
+2019-05-30::
+* fix publishToConfluence internal link targets (#223)
+2019-05-09::
+* fixed .bat (#305)
+* fixed tests (#307)
 
 2019-03-08::
 * asciidooc2confluence
@@ -35,3 +71,6 @@ https://github.com/docToolchain/docToolchain/commit/c25ac52e43ccb1d45fa538c06d37
 
 == Released
 
+2020-08-06::
+* publishToConfluence
+** https://github.com/docToolchain/docToolchain/pull/445[#445 Publish to confluence jira macro support]
