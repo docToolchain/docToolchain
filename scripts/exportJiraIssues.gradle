@@ -26,6 +26,9 @@ task exportJiraIssues(
         def configFile = new File(docDir, mainConfigFile)
         def config = new ConfigSlurper().parse(configFile.text)
 
+        final File targetFolder = new File(targetDir)
+        if (!targetFolder.exists()) targetFolder.mkdirs()
+
         if(config.jira.credentials.isEmpty()){
             logger.quiet("No JIRA credentials are set in '${configFile.name}'")
             logger.quiet("Trying 'jiraUser' and 'jiraPassword' from gradle properties")
