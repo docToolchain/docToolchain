@@ -23,8 +23,8 @@ task exportOpenApi (
     outputs.upToDateWhen { false }
     outputs.cacheIf { false }
     generatorName = 'asciidoc'
-    outputDir = "${buildDir}/OpenAPI".toString()
-    inputSpec = "${inputPath == '.' ? '' : inputPath.toString() + '/'}${specFile}" // plugin is not able to find file if inputPath is defined as '.'
+    outputDir = "${targetDir}/OpenAPI".toString()
+    inputSpec = "${docDir}/${specFile}" // plugin is not able to find file if inputPath is defined as '.'
     
     additionalProperties = [
         infoEmail:"${config.openApi.infoEmail}",
