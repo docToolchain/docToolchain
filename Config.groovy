@@ -243,3 +243,22 @@ openApi.with {
     infoEmail = 'info@company.com'
 }
 //end::openApiConfig[]
+
+//tag::sprintChangelogConfig[]
+// Sprint changelog configuration generate changelog lists based on tickets in sprints of an Jira instance.
+// This feature requires at least Jira API & credentials to be properly set in Jira section of this configuration
+sprintChangelog = [:]
+sprintChangelog.with {
+    sprintState = 'closed' // it is possible to define multiple states, i.e. 'closed, active, future'
+    ticketStatus = "Done, Closed" // it is possible to define multiple ticket statuses, i.e. "Done, Closed, 'in Progress'"
+
+    showAssignee = false
+    showTicketStatus = false
+    showTicketType = true
+    sprintBoardId = 12345  // Jira instance probably have multiple boards; here it can be defined which board should be used
+
+    // if sprintName is not defined or sprint with that name isn't found, release notes will be created on for all sprints that match sprint state configuration
+    sprintName = 'PRJ Sprint 1' // if sprint with a given sprintName is found, release notes will be created just for that sprint
+    allSprintsFilename = 'Sprints_Changelogs' // Extension will be automatically added.
+}
+//end::sprintChangelogConfig[]
