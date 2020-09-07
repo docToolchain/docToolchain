@@ -209,6 +209,9 @@ task exportJiraSprintChangelog(
             }
             // Close the asciidoc table
             changeLogAdoc.append("\n|=== \n",'utf-8')
+
+            // Set auto-width to KEY column
+            ws.autoSizeColumn(0);
         }
         // Write to Excel file
         wb.write(changelogsXlsFos)
