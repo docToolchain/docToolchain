@@ -16,6 +16,7 @@ import org.apache.poi.ss.usermodel.*
 import org.apache.poi.xssf.usermodel.*
 import org.apache.poi.ss.util.*
 import org.apache.poi.common.usermodel.*
+import org.apache.commons.codec.binary.Hex
 
 //tag::exportJiraIssues[]
 task exportJiraIssues(
@@ -55,7 +56,7 @@ task exportJiraIssues(
         jiraResultsFilename = config.jira.resultsFilename
         jiraDateTimeFormatParse = config.jira.dateTimeFormatParse
         jiraDateTimeOutput = config.jira.dateTimeFormatOutput
-        def defaultFields = 'priority,created,resolutiondate,summary,assignee,timeoriginalestimate,status'
+        def defaultFields = 'priority,created,resolutiondate,summary,assignee,status'
 
         def jira = new groovyx.net.http.RESTClient(jiraRoot + '/rest/api/2/')
         jira.encoderRegistry = new groovyx.net.http.EncoderRegistry(charset: 'utf-8')
@@ -86,13 +87,13 @@ task exportJiraIssues(
                 logger.info("Results will be saved in '${rq.filename}.${extension}' file")
                 
                 def openIssues = new File(targetDir, "${rq.filename}.${extension}")
-                openIssues.write(".Table {Title}\n", 'utf-8')
+                openIssues.write(".${rq.filename}\n", 'utf-8')
                 openIssues.append("|=== \n")
 
                 // AsciiDoc table headers (custom fields map needs values here)
                 openIssues.append("|Key ", 'utf-8')
                 allHeaders.split(",").each {field -> 
-                    openIssues.append("|${field} ", 'utf-8')
+                    openIssues.append("|${field.capitalize()} ", 'utf-8')
                 }
                 openIssues.append("\n", 'utf-8')
                 
@@ -110,7 +111,6 @@ task exportJiraIssues(
                     openIssues.append("| ${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''} ", 'utf-8')
                     openIssues.append("| ${issue.fields.summary} ", 'utf-8')
                     openIssues.append("| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}", 'utf-8')
-                    openIssues.append("| ${issue.fields.timeoriginalestimate} ", 'utf-8')
                     openIssues.append("| ${issue.fields.status.name} ", 'utf-8')
                     
                     rq.customfields.each { field -> 
@@ -140,13 +140,21 @@ task exportJiraIssues(
                 def sheetName = "${rq.filename}"
                 def ws = wb.createSheet(sheetName)
 
+                String rgbS = "A7A7A7"
+                byte[] rgbB = Hex.decodeHex(rgbS)
+                XSSFColor color = new XSSFColor(rgbB, null) //IndexedColorMap has no usage until now. So it can be set null.
+                XSSFCellStyle headerCellStyle = (XSSFCellStyle) wb.createCellStyle()
+                headerCellStyle.setFillForegroundColor(color)
+                headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND)
+
                 def titleRow = ws.createRow(0);
                 int cellNumber = 0;
                 titleRow.createCell(cellNumber).setCellValue("Key")
                 allHeaders.split(",").each {field -> 
-                    titleRow.createCell(++cellNumber).setCellValue("${field}")
+                    titleRow.createCell(++cellNumber).setCellValue("${field.capitalize()}")
                 }
                 def lastRow = titleRow.getRowNum()
+                titleRow.setRowStyle(headerCellStyle)
 
                 jira.get(path: 'search',
                     query: ['jql'       : rq.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel),
@@ -168,7 +176,6 @@ task exportJiraIssues(
                     row.createCell(++cellPosition).setCellValue("${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''}")
                     row.createCell(++cellPosition).setCellValue("${issue.fields.summary}")
                     row.createCell(++cellPosition).setCellValue("${issue.fields.assignee ? issue.fields.assignee.displayName : ''}")
-                    row.createCell(++cellPosition).setCellValue("${issue.fields.timeoriginalestimate} ")
                     row.createCell(++cellPosition).setCellValue("${issue.fields.status.name}")
 
                     // Custom fields
@@ -178,6 +185,16 @@ task exportJiraIssues(
                         row.createCell(position).setCellValue("${foundCustom ? foundCustom.value : '-'}")
                     }
                 }
+                
+                // set jira issue key column fits the content width
+                
+                for(int colNum = 0; colNum<allHeaders.size()+1;colNum++) {
+                    ws.autoSizeColumn(colNum)
+                }
+                // Set summary column width slightly wider but fixed size, so it doesn't change with every summary update 
+                ws.setColumnWidth(4, 25*384)
+                
+
                 wb.write(jiraFos)
             } else {
                 logger.quiet("Set saveExcel=true in '${configFile.name}' to save results in Excel file")
