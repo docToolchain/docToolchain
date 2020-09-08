@@ -87,7 +87,7 @@ task exportJiraIssues(
                 logger.info("Results will be saved in '${rq.filename}.${extension}' file")
                 
                 def openIssues = new File(targetDir, "${rq.filename}.${extension}")
-                openIssues.write(".Table {Title}\n", 'utf-8')
+                openIssues.write(".${rq.filename}\n", 'utf-8')
                 openIssues.append("|=== \n")
 
                 // AsciiDoc table headers (custom fields map needs values here)
