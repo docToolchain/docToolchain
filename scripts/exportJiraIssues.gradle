@@ -56,7 +56,7 @@ task exportJiraIssues(
         jiraResultsFilename = config.jira.resultsFilename
         jiraDateTimeFormatParse = config.jira.dateTimeFormatParse
         jiraDateTimeOutput = config.jira.dateTimeFormatOutput
-        def defaultFields = 'priority,created,resolutiondate,summary,assignee,timeoriginalestimate,status'
+        def defaultFields = 'priority,created,resolutiondate,summary,assignee,status'
 
         def jira = new groovyx.net.http.RESTClient(jiraRoot + '/rest/api/2/')
         jira.encoderRegistry = new groovyx.net.http.EncoderRegistry(charset: 'utf-8')
@@ -111,7 +111,6 @@ task exportJiraIssues(
                     openIssues.append("| ${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''} ", 'utf-8')
                     openIssues.append("| ${issue.fields.summary} ", 'utf-8')
                     openIssues.append("| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}", 'utf-8')
-                    openIssues.append("| ${issue.fields.timeoriginalestimate} ", 'utf-8')
                     openIssues.append("| ${issue.fields.status.name} ", 'utf-8')
                     
                     rq.customfields.each { field -> 
@@ -177,7 +176,6 @@ task exportJiraIssues(
                     row.createCell(++cellPosition).setCellValue("${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''}")
                     row.createCell(++cellPosition).setCellValue("${issue.fields.summary}")
                     row.createCell(++cellPosition).setCellValue("${issue.fields.assignee ? issue.fields.assignee.displayName : ''}")
-                    row.createCell(++cellPosition).setCellValue("${issue.fields.timeoriginalestimate} ")
                     row.createCell(++cellPosition).setCellValue("${issue.fields.status.name}")
 
                     // Custom fields
