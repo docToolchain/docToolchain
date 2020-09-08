@@ -93,7 +93,7 @@ task exportJiraIssues(
                 // AsciiDoc table headers (custom fields map needs values here)
                 openIssues.append("|Key ", 'utf-8')
                 allHeaders.split(",").each {field -> 
-                    openIssues.append("|${field} ", 'utf-8')
+                    openIssues.append("|${field.capitalize()} ", 'utf-8')
                 }
                 openIssues.append("\n", 'utf-8')
                 
@@ -152,7 +152,7 @@ task exportJiraIssues(
                 int cellNumber = 0;
                 titleRow.createCell(cellNumber).setCellValue("Key")
                 allHeaders.split(",").each {field -> 
-                    titleRow.createCell(++cellNumber).setCellValue("${field}")
+                    titleRow.createCell(++cellNumber).setCellValue("${field.capitalize()}")
                 }
                 def lastRow = titleRow.getRowNum()
                 titleRow.setRowStyle(headerCellStyle)
