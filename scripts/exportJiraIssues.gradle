@@ -16,6 +16,7 @@ import org.apache.poi.ss.usermodel.*
 import org.apache.poi.xssf.usermodel.*
 import org.apache.poi.ss.util.*
 import org.apache.poi.common.usermodel.*
+import org.apache.commons.codec.binary.Hex
 
 //tag::exportJiraIssues[]
 task exportJiraIssues(
@@ -140,6 +141,13 @@ task exportJiraIssues(
                 def sheetName = "${rq.filename}"
                 def ws = wb.createSheet(sheetName)
 
+                String rgbS = "A7A7A7"
+                byte[] rgbB = Hex.decodeHex(rgbS)
+                XSSFColor color = new XSSFColor(rgbB, null) //IndexedColorMap has no usage until now. So it can be set null.
+                XSSFCellStyle headerCellStyle = (XSSFCellStyle) wb.createCellStyle()
+                headerCellStyle.setFillForegroundColor(color)
+                headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND)
+
                 def titleRow = ws.createRow(0);
                 int cellNumber = 0;
                 titleRow.createCell(cellNumber).setCellValue("Key")
@@ -147,6 +155,7 @@ task exportJiraIssues(
                     titleRow.createCell(++cellNumber).setCellValue("${field}")
                 }
                 def lastRow = titleRow.getRowNum()
+                titleRow.setRowStyle(headerCellStyle)
 
                 jira.get(path: 'search',
                     query: ['jql'       : rq.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel),
