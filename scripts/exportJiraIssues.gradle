@@ -187,6 +187,16 @@ task exportJiraIssues(
                         row.createCell(position).setCellValue("${foundCustom ? foundCustom.value : '-'}")
                     }
                 }
+                
+                // set jira issue key column fits the content width
+                
+                for(int colNum = 0; colNum<allHeaders.size()+1;colNum++) {
+                    ws.autoSizeColumn(colNum)
+                }
+                // Set summary column width slightly wider but fixed size, so it doesn't change with every summary update 
+                ws.setColumnWidth(4, 25*384)
+                
+
                 wb.write(jiraFos)
             } else {
                 logger.quiet("Set saveExcel=true in '${configFile.name}' to save results in Excel file")
