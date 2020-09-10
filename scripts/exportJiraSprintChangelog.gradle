@@ -50,9 +50,10 @@ task exportJiraSprintChangelog(
         }
 
         // preparing target folder for generated files
-        final String taskSubfolderName = "Sprints"
+        final String taskSubfolderName = config.sprintChangelog.resultsFolder
         final File targetFolder = new File(targetDir + File.separator + taskSubfolderName)
         if (!targetFolder.exists()) targetFolder.mkdirs()
+        logger.debug("Output folder for 'exportJiraSprintChangelog' task is: '${targetFolder}'")
 
         // Checking Jira credentials
         if(config.jira.credentials.isEmpty()){

@@ -27,9 +27,10 @@ task exportJiraIssues(
         def configFile = new File(docDir, mainConfigFile)
         def config = new ConfigSlurper().parse(configFile.text)
 
-        final String taskSubfolderName = "JiraRequests"
+        final String taskSubfolderName = config.jira.resultsFolder
         final File targetFolder = new File(targetDir + File.separator + taskSubfolderName)
         if (!targetFolder.exists()) targetFolder.mkdirs()
+        logger.debug("Output folder for 'exportJiraIssues' task is: '${targetFolder}'")
 
         if(config.jira.credentials.isEmpty()){
             logger.quiet("No JIRA credentials are set in '${configFile.name}'")
