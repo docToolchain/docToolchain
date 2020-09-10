@@ -26,6 +26,8 @@ task exportJiraSprintChangelog(
     doLast {
         def configFile = new File(docDir, mainConfigFile)
         def config = new ConfigSlurper().parse(configFile.text)
+
+        // Pre defined ticket fields for Changelog based on Jira Sprints
         def defaultTicketFields = 'summary,status,assignee,issuetype'
 
         // retrieving sprints for a given board
@@ -48,7 +50,8 @@ task exportJiraSprintChangelog(
         }
 
         // preparing target folder for generated files
-        final File targetFolder = new File(targetDir)
+        final String taskSubfolderName = "Sprints"
+        final File targetFolder = new File(targetDir + File.separator + taskSubfolderName)
         if (!targetFolder.exists()) targetFolder.mkdirs()
 
         // Checking Jira credentials
@@ -102,7 +105,7 @@ task exportJiraSprintChangelog(
         def allChangelogsFilename = "${allSprintsFilename}.xlsx"
         logger.quiet("Changelogs of all sprints will be saved in '${allChangelogsFilename}' file")
         
-        def changelogsXls = new File(targetDir, allChangelogsFilename)
+        def changelogsXls = new File(targetFolder, allChangelogsFilename)
         def changelogsXlsFos = new FileOutputStream(changelogsXls)
         Workbook wb = new XSSFWorkbook();
         CreationHelper hyperlinkHelper = wb.getCreationHelper();
@@ -155,7 +158,7 @@ task exportJiraSprintChangelog(
             def asciidocFilename = "${sprint.name.replaceAll(" ", "_")}.adoc"
             logger.info("Results will be saved in '${asciidocFilename}' file")
             
-            def changeLogAdoc = new File(targetDir, "${asciidocFilename}")
+            def changeLogAdoc = new File(targetFolder, "${asciidocFilename}")
             changeLogAdoc.write(".Table ${sprint.name} Changelog\n", 'utf-8')
             changeLogAdoc.append("|=== \n")
 
