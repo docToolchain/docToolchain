@@ -201,6 +201,9 @@ jira.with {
     saveAsciidoc = true // if true, asciidoc file will be created with *.adoc extension
     saveExcel = true // if true, Excel file will be created with *.xlsx extension
 
+    // Output folder for this task inside main outputPath
+    resultsFolder = 'JiraRequests'
+    
     /* 
     List of requests to Jira API:
     These are basically JQL expressions bundled with a filename in which results will be saved.
@@ -256,6 +259,9 @@ sprintChangelog.with {
     showTicketStatus = false
     showTicketType = true
     sprintBoardId = 12345  // Jira instance probably have multiple boards; here it can be defined which board should be used
+
+    // Output folder for this task inside main outputPath
+    resultsFolder = 'Sprints'
 
     // if sprintName is not defined or sprint with that name isn't found, release notes will be created on for all sprints that match sprint state configuration
     sprintName = 'PRJ Sprint 1' // if sprint with a given sprintName is found, release notes will be created just for that sprint

@@ -27,8 +27,10 @@ task exportJiraIssues(
         def configFile = new File(docDir, mainConfigFile)
         def config = new ConfigSlurper().parse(configFile.text)
 
-        final File targetFolder = new File(targetDir)
+        final String taskSubfolderName = config.jira.resultsFolder
+        final File targetFolder = new File(targetDir + File.separator + taskSubfolderName)
         if (!targetFolder.exists()) targetFolder.mkdirs()
+        logger.debug("Output folder for 'exportJiraIssues' task is: '${targetFolder}'")
 
         if(config.jira.credentials.isEmpty()){
             logger.quiet("No JIRA credentials are set in '${configFile.name}'")
@@ -69,7 +71,7 @@ task exportJiraIssues(
         
         if (config.jira.jql) {
             logger.warn(">>>Found legacy Jira requests. Please migrate to the new Jira configuration ASAP. Old config with jql will be removed soon")
-            writeAsciiDocFileForLegacyConfiguration(jira, headers, config.jira)
+            writeAsciiDocFileForLegacyConfiguration(targetFolder, jira, headers, config.jira)
         }
         
         jiraRequests.each {rq -> 
@@ -86,16 +88,16 @@ task exportJiraIssues(
                 jiraResultsFilename = "${rq.filename}.${extension}"
                 logger.info("Results will be saved in '${rq.filename}.${extension}' file")
                 
-                def openIssues = new File(targetDir, "${rq.filename}.${extension}")
-                openIssues.write(".${rq.filename}\n", 'utf-8')
-                openIssues.append("|=== \n")
+                def jiraDataAsciidoc = new File(targetFolder, "${rq.filename}.${extension}")
+                jiraDataAsciidoc.write(".${rq.filename}\n", 'utf-8')
+                jiraDataAsciidoc.append("|=== \n")
 
                 // AsciiDoc table headers (custom fields map needs values here)
-                openIssues.append("|Key ", 'utf-8')
+                jiraDataAsciidoc.append("|Key ", 'utf-8')
                 allHeaders.split(",").each {field -> 
-                    openIssues.append("|${field.capitalize()} ", 'utf-8')
+                    jiraDataAsciidoc.append("|${field.capitalize()} ", 'utf-8')
                 }
-                openIssues.append("\n", 'utf-8')
+                jiraDataAsciidoc.append("\n", 'utf-8')
                 
                 jira.get(path: 'search',
                     query: ['jql'       : rq.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel),
@@ -105,21 +107,21 @@ task exportJiraIssues(
                     headers: headers
                 ).data.issues.each { issue ->
                     //logger.quiet(">> Whole issue ${issue.key}:\n   ${issue.fields}")
-                    openIssues.append("| ${jiraRoot}/browse/${issue.key}[${issue.key}] ", 'utf-8')
-                    openIssues.append("| ${issue.fields.priority.name} ", 'utf-8')
-                    openIssues.append("| ${Date.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)} ", 'utf-8')
-                    openIssues.append("| ${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''} ", 'utf-8')
-                    openIssues.append("| ${issue.fields.summary} ", 'utf-8')
-                    openIssues.append("| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}", 'utf-8')
-                    openIssues.append("| ${issue.fields.status.name} ", 'utf-8')
+                    jiraDataAsciidoc.append("| ${jiraRoot}/browse/${issue.key}[${issue.key}] ", 'utf-8')
+                    jiraDataAsciidoc.append("| ${issue.fields.priority.name} ", 'utf-8')
+                    jiraDataAsciidoc.append("| ${Date.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)} ", 'utf-8')
+                    jiraDataAsciidoc.append("| ${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''} ", 'utf-8')
+                    jiraDataAsciidoc.append("| ${issue.fields.summary} ", 'utf-8')
+                    jiraDataAsciidoc.append("| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}", 'utf-8')
+                    jiraDataAsciidoc.append("| ${issue.fields.status.name} ", 'utf-8')
                     
                     rq.customfields.each { field -> 
                         def foundCustom = issue.fields.find {it.key == field.key}
                         //logger.quiet("Examining issue '${issue.key}' for custom field '${field.key}' has found: '${foundCustom}'")
-                        openIssues.append("| ${foundCustom ? foundCustom.value : '-'}\n", 'utf-8')
+                        jiraDataAsciidoc.append("| ${foundCustom ? foundCustom.value : '-'}\n", 'utf-8')
                     }
                 }
-                openIssues.append("|=== \n")
+                jiraDataAsciidoc.append("|=== \n")
             } else {
                 logger.quiet("Set saveAsciidoc=true in '${configFile.name}' to save results in AsciiDoc file")
             }
@@ -130,9 +132,9 @@ task exportJiraIssues(
                 jiraResultsFilename = "${rq.filename}.${extension}"
                 logger.quiet(">> Results will be saved in '${rq.filename}.${extension}' file")
                 
-                def openIssues = new File(targetDir, "${rq.filename}.${extension}")
+                //def jiraDataAsciidoc = new File(targetFolder, "${rq.filename}.${extension}")
 
-                def jiraDataXls = new File(targetDir, jiraResultsFilename)
+                def jiraDataXls = new File(targetFolder, jiraResultsFilename)
                 def jiraFos = new FileOutputStream(jiraDataXls)
 
                 Workbook wb = new XSSFWorkbook();
@@ -204,10 +206,10 @@ task exportJiraIssues(
 }
 
 // This method can be removed when support for legacy Jira configuration is gone
-def writeAsciiDocFileForLegacyConfiguration(def restClient, def headers, def jiraConfig) {
+def writeAsciiDocFileForLegacyConfiguration(def targetFolder, def restClient, def headers, def jiraConfig) {
     def resultsFilename = "${jiraConfig.resultsFilename}_legacy.adoc"
     
-    def openIssues = new File(targetDir, "${resultsFilename}")
+    def openIssues = new File(targetFolder, "${resultsFilename}")
     openIssues.write(".Table {Title}\n", 'utf-8')
     openIssues.append("|=== \n")
     openIssues.append("|Key |Priority |Created | Assignee | Summary\n", 'utf-8')
