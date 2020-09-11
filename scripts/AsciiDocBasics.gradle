@@ -15,7 +15,6 @@ buildscript {
 import org.asciidoctor.gradle.AsciidoctorTask
 
 // configuration
-def config
 if (docDir.startsWith('.')) {
     docDir = new File(projectDir, docDir).canonicalPath
 }
