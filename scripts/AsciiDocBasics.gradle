@@ -28,7 +28,7 @@ def configSlurper = new ConfigSlurper()
 config = configSlurper.parse(new File(docDir, mainConfigFile).text)
 
 def props = project.gradle.startParameter.projectProperties
-logger.info("\nGradle project Properties [${props.size()}]:\n==============================")
+logger.info("\nGradle project Properties [${props.size()}]:\n${props}\n==============================")
 
 if (project.hasProperty('jiraUser') && project.hasProperty('jiraPass')) {
     logger.info("Found passed Jira credentials")
