@@ -83,7 +83,7 @@ def trythis(Closure action) {
         switch (error.response.status) {
             case '401':
                 println (error.response.data.toString().replaceAll("^.*Reason","Reason"))
-                println "please check your confluence credentials in "+configFile.canonicalPath
+                println "please check your confluence credentials in config file or passed parameters"
                 throw new Exception("missing authentication credentials")
                 break
             default:
@@ -380,7 +380,7 @@ def rewriteJiraLinks = { body ->
     // find links to jira tickets and replace them with jira macros
     body.select('a[href]').each { a ->
         def href = a.attr('href')
-        if (href.startsWith(jiraRoot + "/browse/")) { 
+        if (href.startsWith(config.jira.api + "/browse/")) { 
                 def ticketId = a.text()
                 a.before("""<ac:structured-macro ac:name=\"jira\" ac:schema-version=\"1\">
                      <ac:parameter ac:name=\"key\">${ticketId}</ac:parameter>
