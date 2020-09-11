@@ -213,8 +213,7 @@ def writeAsciiDocFileForLegacyConfiguration(def targetFolder, def restClient, de
     openIssues.write(".Table {Title}\n", 'utf-8')
     openIssues.append("|=== \n")
     openIssues.append("|Key |Priority |Created | Assignee | Summary\n", 'utf-8')
-        def legacyJql = jiraConfig.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel)
-        println ("Results will for legacy query ${legacyJql} will be saved in '${resultsFilename}' file")
+        println ("Results for legacy query '${legacyJql}' will be saved in '${resultsFilename}' file")
         
         restClient.get(path: 'search',
                 query: ['jql'       : jiraConfig.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel),
