@@ -22,20 +22,6 @@ task publishToConfluence(
     doLast {
         logger.info("docToolchain> docDir: "+docDir)
         def configFile = new File(docDir, mainConfigFile)
-        def config = new ConfigSlurper().parse(configFile.text)
-
-        if(config.confluence.credentials.isEmpty()){
-            logger.quiet("no credentials set in '${configFile.name}'")
-            logger.quiet("trying 'confluenceUser' and 'confluencePassword' from gradle properties")
-
-            if(project.hasProperty("confluenceUser") && project.hasProperty("confluencePassword")){
-                config.confluence.credentials = "${confluenceUser}:${confluencePassword}".bytes.encodeBase64().toString()
-            }else{
-                logger.quiet("variables 'confluenceUser' and/or 'confluencePassword' are not set!")
-                logger.quiet("please specify them through gradle.properties, the commandline or environment variables")
-            }
-
-        }
 
         binding.setProperty('config',config)
         binding.setProperty('docDir',docDir)

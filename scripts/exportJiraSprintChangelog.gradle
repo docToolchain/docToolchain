@@ -24,9 +24,6 @@ task exportJiraSprintChangelog(
         group: 'docToolchain'
 ) {
     doLast {
-        def configFile = new File(docDir, mainConfigFile)
-        def config = new ConfigSlurper().parse(configFile.text)
-
         // Pre defined ticket fields for Changelog based on Jira Sprints
         def defaultTicketFields = 'summary,status,assignee,issuetype'
 
@@ -55,29 +52,9 @@ task exportJiraSprintChangelog(
         if (!targetFolder.exists()) targetFolder.mkdirs()
         logger.debug("Output folder for 'exportJiraSprintChangelog' task is: '${targetFolder}'")
 
-        // Checking Jira credentials
-        if(config.jira.credentials.isEmpty()){
-            logger.debug("No JIRA credentials are set in '${configFile.name}'")
-            logger.debug("Trying 'jiraUser' and 'jiraPassword' from gradle properties")
-
-            if(project.hasProperty("jiraUser") && project.hasProperty("jiraPass")){
-                if (!jiraPass) {
-                    // FIXME Currently doesn't work with Gradle daemon. See: https://github.com/gradle/gradle/issues/1251
-                     jiraPass = System.console().readPassword("Jira password for user '$jiraUser': ")
-                }
-                config.jira.credentials = "${jiraUser}:${jiraPass}".bytes.encodeBase64().toString()
-            }else{
-                logger.debug("Variables 'jiraUser' and/or 'jiraPassword' are not set!")
-                logger.debug("Please specify them with other Jira properties through Config.groovy, or even better via the CLI or environment variables")
-            }
-
-        } else {
-            logger.quiet("Found JIRA credentials in '${configFile.name}'. Consider passing these via environment variables")
-        }
-
         // Getting configuration
-        jiraRoot = config.jira.api
-        jiraProject = config.jira.project
+        def jiraRoot = config.jira.api
+        def jiraProject = config.jira.project
         
         def sprintState = config.sprintChangelog.sprintState
         def ticketStatusForReleaseNotes = config.sprintChangelog.ticketStatus
