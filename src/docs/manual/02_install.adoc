@@ -110,6 +110,9 @@ TIP: Blog-Post: https://rdmueller.github.io/arc42/[Let's add Content!]
 
 This should already be enough to start a first build.
 
+By now, docToolchain should be installed as command line tool and the path to its `bin` folder should be on your path.
+If you now switch to your freshly initialized <newDocDir>, you should be able to execute the following commands:
+
 .Linux
 [source,bash]
 ----
