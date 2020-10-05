@@ -11,7 +11,6 @@ buildscript {
 }
 apply plugin: 'org.openapi.generator'
 
-def config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text)
 def specFile = config.openApi.specFile
 
 //tag::exportOpenApi[]

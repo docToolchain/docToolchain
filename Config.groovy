@@ -98,13 +98,16 @@ confluence.with {
 
     pageSuffix = ''
 
-    // username:password of an account which has the right permissions to create and edit
-    // confluence pages in the given space.
-    // if you want to store it securely, fetch it from some external storage or leave it empty to fallback to gradle variables
-    // set through gradle properties files or environment variables. The fallback uses the 'confluenceUser' and 'confluencePassword' keys.
-    // you might even want to prompt the user for the password like in this example
+    /*
+    WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!
 
-    credentials = "user:pass_or_token".bytes.encodeBase64().toString()
+    Tool expects credentials that belong to an account which has the right permissions to to create and edit confluence pages in the given space.
+    Credentials can be used in a form of:
+     - passed parameters when calling script (-PconfluenceUser=myUsername -PconfluencePass=myPassword) which can be fetched as a secrets on CI/CD or  
+     - gradle variables set through gradle properties (uses the 'confluenceUser' and 'confluencePass' keys)
+    Often, same credentials are used for Jira & Confluence, in which case it is recommended to pass CLI parameters for both entities as 
+    -Pusername=myUser -Ppassword=myPassword
+    */
 
     //optional API-token to be added in case the credentials are needed for user and password exchange.
     //apikey = "[API-token]"
@@ -171,15 +174,16 @@ jira.with {
     api = 'https://your-jira-instance'
     
     /*
-    username:password (username:token) of an account which has the right permissions to read the JIRA issues for a given project.
-    It is recommended to store these securely instead of commiting them to your git repository.
-    In that case, either fetch it from some external storage or leave it empty (credentials = '') to fallback to gradle variables set through gradle properties files or environment variables.
-    The fallback in gradle.properties uses the 'jiraUser' and 'jiraPassword' keys.
-    You might even want to prompt the user for the password (by not providing it anywhere)
+    WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!
+
+    Tool expects credentials that belong to an account which has the right permissions to read the JIRA issues for a given project.
+    Credentials can be used in a form of:
+     - passed parameters when calling script (-PjiraUser=myUsername -PjiraPass=myPassword) which can be fetched as a secrets on CI/CD or  
+     - gradle variables set through gradle properties (uses the 'jiraUser' and 'jiraPass' keys)
+    Often, Jira & Confluence credentials are the same, in which case it is recommended to pass CLI parameters for both entities as 
+    -Pusername=myUser -Ppassword=myPassword
     */
 
-    credentials = "username@domain.com:accesstoken".bytes.encodeBase64().toString() // colon ":" is used as a separation of username from password/token before base64 encoding 
-    
     // the key of the Jira project
     project = 'PROJECTKEY'
     

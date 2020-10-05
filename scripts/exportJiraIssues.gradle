@@ -24,40 +24,18 @@ task exportJiraIssues(
         group: 'docToolchain'
 ) {
     doLast {
-        def configFile = new File(docDir, mainConfigFile)
-        def config = new ConfigSlurper().parse(configFile.text)
-
         final String taskSubfolderName = config.jira.resultsFolder
         final File targetFolder = new File(targetDir + File.separator + taskSubfolderName)
         if (!targetFolder.exists()) targetFolder.mkdirs()
         logger.debug("Output folder for 'exportJiraIssues' task is: '${targetFolder}'")
 
-        if(config.jira.credentials.isEmpty()){
-            logger.quiet("No JIRA credentials are set in '${configFile.name}'")
-            logger.quiet("Trying 'jiraUser' and 'jiraPassword' from gradle properties")
-
-            if(project.hasProperty("jiraUser") && project.hasProperty("jiraPass")){
-                if (!jiraPass) {
-                    // FIXME Currently doesn't work with Gradle daemon. See: https://github.com/gradle/gradle/issues/1251
-                     jiraPass = System.console().readPassword("Jira password for user '$jiraUser': ")
-                }
-                config.jira.credentials = "${jiraUser}:${jiraPass}".bytes.encodeBase64().toString()
-            }else{
-                logger.quiet("Variables 'jiraUser' and/or 'jiraPassword' are not set!")
-                logger.quiet("Please specify them with other Jira properties through Config.groovy, or even better via the CLI or environment variables")
-            }
-
-        } else {
-            logger.quiet("Found JIRA credentials in '${configFile.name}'. Consider passing these via environment variables")
-        }
-
         // map configuration from Config.groovy to existing variables for compatibility with naming of Jira settings in gradle.properties
-        jiraRoot = config.jira.api
-        jiraProject = config.jira.project
-        jiraLabel = config.jira.label
-        jiraResultsFilename = config.jira.resultsFilename
-        jiraDateTimeFormatParse = config.jira.dateTimeFormatParse
-        jiraDateTimeOutput = config.jira.dateTimeFormatOutput
+        def jiraRoot = config.jira.api
+        def jiraProject = config.jira.project
+        def jiraLabel = config.jira.label
+        def jiraResultsFilename = config.jira.resultsFilename
+        def jiraDateTimeFormatParse = config.jira.dateTimeFormatParse
+        def jiraDateTimeOutput = config.jira.dateTimeFormatOutput
         def defaultFields = 'priority,created,resolutiondate,summary,assignee,status'
 
         def jira = new groovyx.net.http.RESTClient(jiraRoot + '/rest/api/2/')
@@ -213,11 +191,11 @@ def writeAsciiDocFileForLegacyConfiguration(def targetFolder, def restClient, de
     openIssues.write(".Table {Title}\n", 'utf-8')
     openIssues.append("|=== \n")
     openIssues.append("|Key |Priority |Created | Assignee | Summary\n", 'utf-8')
-        def legacyJql = jiraConfig.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel)
-        println ("Results will for legacy query ${legacyJql} will be saved in '${resultsFilename}' file")
+        def legacyJql = jiraConfig.jql.replaceAll('%jiraProject%', config.jira.project).replaceAll('%jiraLabel%', config.jira.label)
+        println ("Results for legacy query '${legacyJql}' will be saved in '${resultsFilename}' file")
         
         restClient.get(path: 'search',
-                query: ['jql'       : jiraConfig.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel),
+                query: ['jql'       : legacyJql,
                         'maxResults': 1000,
                         'fields'    : 'created,resolutiondate,priority,summary,timeoriginalestimate, assignee'
                 ],
