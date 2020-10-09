@@ -6,17 +6,13 @@ jdk:
   - openjdk12
   - openjdk13
 
+git:
+  depth: false
+
 addons:
   apt:
     packages:
       - shellcheck
-
-git:
-  depth: 3000
-
-addons:
-  apt:
-    packages:
       - graphviz
 
 before_cache:
@@ -27,6 +23,13 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
+install: skip
+
 script:
   - ./.ci.sh
   - find . -type f -exec grep -l '^#!/bin/bash' {} + | xargs shellcheck
+
+env:
+  global:
+    # use `travis env set GH_TOKEN XXX` to set token to publish contents to GitHub pages
+    secure: XsGE9f9tLzIdqzKVCf6HyULznWPgw2k3Ghve+TAACsmSu1N1CpuNUdjfMS/9IdDncoP+AWV2aYZUAKImE/WyBvvXrgy8n3VpcCe13efU3fEXRkPQNBIZZOL1+/P7jeVTjX4cTe2ptemtJ2d4oFBcslJAX/c4D5HSu2/GMAfhe74=

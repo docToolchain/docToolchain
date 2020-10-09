@@ -3,6 +3,10 @@
 
 == docToolchain
 
+:url-ci-travis: https://travis-ci.org/doctoolchain/doctoolchain
+
+image:https://api.travis-ci.org/doctoolchain/doctoolchain.svg?branch=master[link={url-ci-travis}]
+
 image::https://hacktoberfest.digitalocean.com/assets/HF-full-logo-b05d5eb32b3f3ecc9b2240526104cf4da3187b8b61963dd9042fdc2536e4a76c.svg[float=left,width=200]
 
 *This project joined https://hacktoberfest.digitalocean.com/[Hacktoberfest]!
@@ -86,7 +90,7 @@ image::https://opencollective.com/doctoolchain/sponsor/0/avatar.svg["Sponsor", l
 === History of this project
 
 I just found an older https://twitter.com/RalfDMueller/status/668540860649349120[tweet] which reminded me of the roots and beginning of this project.
-It all began with two important parts. 
+It all began with two important parts.
 A script called asciidoc2confluence and some scripts to export diagrams from enterprise architect.
 
 The first one is linked in the tweet above and the first commit dates back to mid of 2015.

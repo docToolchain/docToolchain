@@ -75,4 +75,4 @@ apply from: 'scripts/exportOpenApi.gradle'
 
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
-defaultTasks 'exportChangeLog', 'exportContributors', 'exportMarkdown', 'generateHTML', 'htmlSanityCheck'
+defaultTasks 'exportMarkdown', 'exportChangeLog', 'exportContributors', 'generateHTML', 'htmlSanityCheck'

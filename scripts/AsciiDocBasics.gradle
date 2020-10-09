@@ -32,23 +32,23 @@ logger.info("\nGradle project Properties [${props.size()}]:\n${props}\n=========
 
 if (project.hasProperty('jiraUser') && project.hasProperty('jiraPass')) {
     logger.info("Found passed Jira credentials")
-    config.jira.credentials = "${project.getProperty('jiraUser')}:${project.getProperty('jiraPass')}".bytes.encodeBase64().toString() 
+    config.jira.credentials = "${project.getProperty('jiraUser')}:${project.getProperty('jiraPass')}".bytes.encodeBase64().toString()
 }
 if (project.hasProperty('confluenceUser') && project.hasProperty('confluencePass')) {
     logger.info("Found passed Confluence credentials")
-    config.confluence.credentials = "${project.getProperty('confluenceUser')}:${project.getProperty('confluencePass')}".bytes.encodeBase64().toString() 
+    config.confluence.credentials = "${project.getProperty('confluenceUser')}:${project.getProperty('confluencePass')}".bytes.encodeBase64().toString()
 }
 if (project.hasProperty('username') && project.hasProperty('password')) {
     logger.info("Found passed common Jira & Confluence credentials")
-    config.jira.credentials = "${project.getProperty('username')}:${project.getProperty('password')}".bytes.encodeBase64().toString() 
-    config.confluence.credentials = "${project.getProperty('username')}:${project.getProperty('password')}".bytes.encodeBase64().toString() 
+    config.jira.credentials = "${project.getProperty('username')}:${project.getProperty('password')}".bytes.encodeBase64().toString()
+    config.confluence.credentials = "${project.getProperty('username')}:${project.getProperty('password')}".bytes.encodeBase64().toString()
 }
 
 inputPath = config.inputPath?config.inputPath:'.'
 referenceDocFile = config.referenceDocFile?config.referenceDocFile:''
 logger.info "docToolchain> referenceDocFile: ${referenceDocFile}"
 logger.info("\n==================\nParsed config file has ${config.size()} entries\n")
-config.each {key, value -> 
+config.each {key, value ->
     logger.info("Found config -> '${key}': '${value}'")
 }
 
@@ -143,6 +143,10 @@ task generateHTML (
             'html' in it.formats
         }.empty
     }
+
+    // specify output folder explicitly to avoid cleaning targetDir from other generated content
+    outputDir = file(targetDir + '/html5/')
+    separateOutputDirs(false)
 
     sources {
         sourceFiles.findAll {
