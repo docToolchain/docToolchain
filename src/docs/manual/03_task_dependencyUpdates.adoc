@@ -1,5 +1,0 @@
-= dependencyUpdates
-
-This task uses the https://github.com/ben-manes/gradle-versions-plugin[Gradle versions plugin] created by Ben Manes to check for outdated build dependencies.
-Quite helpful to keep all dependencies up-to-date.
-
