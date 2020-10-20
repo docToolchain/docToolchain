@@ -71,7 +71,7 @@ function scrollToTop() {
 
       <div class="infoBox" id="findings">
 
-          <div class="counter">3</div>
+          <div class="counter">15</div>
 
           issues</div>
 
@@ -81,7 +81,7 @@ function scrollToTop() {
 
       <div class="infoBox" id="duration">
 
-          <div class="counter">45.157sec</div>
+          <div class="counter">57.798sec</div>
 
           duration</div>
 
@@ -90,7 +90,7 @@ function scrollToTop() {
 
     <td><div class="infoBox failures" id="successRate">
 
-        <div class="percent">99%</div>
+        <div class="percent">98%</div>
         successful</div>
     </td></tr></table>
 
@@ -105,8 +105,8 @@ function scrollToTop() {
       <tr>
         <td class="failures"><a href="#manualXhtml">manual.html</a></td>
         <td class="number">829</td>
-        <td class="number">3</td>
-        <td class="number failures">99%</td>
+        <td class="number">15</td>
+        <td class="number failures">98%</td>
       </tr>
 
     </tbody>
@@ -143,7 +143,7 @@ location : /home/travis/build/docToolchain/docToolchain/build/docs/html5/manual.
 
       <div class="infoBox" id="findings">
 
-          <div class="counter">3</div>
+          <div class="counter">15</div>
 
           issues</div>
 
@@ -152,33 +152,16 @@ location : /home/travis/build/docToolchain/docToolchain/build/docs/html5/manual.
 
     <td><div class="infoBox failures" id="successRate">
 
-        <div class="percent">99%</div>
+        <div class="percent">98%</div>
         successful</div>
     </td></tr></table>
 
 
-<div class="failures"><h3>External Links Check</h3></div>
+<div class="success"><h3>Missing alt-attribute declaration in image tags</h3></div>
 
 
- 184 anchor href attribute checked,
- 2 broken external link found.<br>
- 
-  <ul>
-      <li> Warning: https://id.atlassian.com/manage/api-tokens returned statuscode 302, new location: http://id.atlassian.com/manage-profile/security/api-tokens </li>
-      <li> Warning: http://plantuml.com/ returned statuscode 301, new location: https://plantuml.com </li>
-  </ul>
-
-<div class="success"><h3>Duplicate Definition of id Check</h3></div>
-
-
- 116 id checked,
- 0 duplicate id found.<br>
- 
-<div class="success"><h3>Consistency of ImageMaps</h3></div>
-
-
- 0 imageMap checked,
- 0 map/area and usemap-references found.<br>
+ 221 image tags checked,
+ 0 missing alt attributes found.<br>
  
 <div class="success"><h3>Missing Local Images Check</h3></div>
 
@@ -186,17 +169,11 @@ location : /home/travis/build/docToolchain/docToolchain/build/docs/html5/manual.
  22 img src attributes checked,
  0 missing image files found.<br>
  
-<div class="success"><h3>Broken Internal Links Check</h3></div>
+<div class="success"><h3>Duplicate Definition of id Check</h3></div>
 
 
- 285 href checked,
- 0 missing id found.<br>
- 
-<div class="success"><h3>Missing alt-attribute declaration in image tags</h3></div>
-
-
- 221 image tags checked,
- 0 missing alt attributes found.<br>
+ 116 id checked,
+ 0 duplicate id found.<br>
  
 <div class="failures"><h3>Missing Local Resources Check</h3></div>
 
@@ -207,12 +184,47 @@ location : /home/travis/build/docToolchain/docToolchain/build/docs/html5/manual.
   <ul>
       <li> local resource "attachement/myfolder/myfile.json" missing </li>
   </ul>
-<hr><p>
+
+<div class="success"><h3>Broken Internal Links Check</h3></div>
+
+
+ 285 href checked,
+ 0 missing id found.<br>
+ 
+<div class="failures"><h3>External Links Check</h3></div>
+
+
+ 184 anchor href attribute checked,
+ 14 broken external link found.<br>
+ 
+  <ul>
+      <li> Error: https://www.amazon.de/dp/B0784ZJWSR returned statuscode 405. </li>
+      <li> Error: https://github.com/davidmc24 returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/03_task_publishToConfluence.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/opensource21 returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/02_install.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/ahus1 returned statuscode 429. </li>
+      <li> Error: https://github.com/aheusingfeld returned statuscode 429. </li>
+      <li> Warning: https://id.atlassian.com/manage/api-tokens returned statuscode 302, new location: http://id.atlassian.com/manage-profile/security/api-tokens </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/03_task_htmlSanityCheck.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/03_task_exportChangeLog.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/03_task_exportJiraSprintChangelog.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/05_contributors.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_convertToEpub.adoc returned statuscode 429. </li>
+      <li> Warning: http://plantuml.com/ returned statuscode 301, new location: https://plantuml.com </li>
+  </ul>
+
+<div class="success"><h3>Consistency of ImageMaps</h3></div>
+
+
+ 0 imageMap checked,
+ 0 map/area and usemap-references found.<br>
+ <hr><p>
 <!-- scroll-to-top icon -->
 <div class="scroll-top-wrapper">
    <img src="arrow-up.png" alt="to top"/>
 </div>
 
 <div id="footer">
-  Generated by <a href="https://www.aim42.org">htmlSanityCheck</a> (version 1.1.3) at 19. October 2020, 19:05 
+  Generated by <a href="https://www.aim42.org">htmlSanityCheck</a> (version 1.1.3) at 20. October 2020, 07:06 
 </div></body></html>
