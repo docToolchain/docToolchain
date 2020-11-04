@@ -197,11 +197,13 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
         }
     } else {
         http = new HTTPBuilder(config.confluence.api + 'content/' + pageId + '/child/attachment')
-        if (config.confluence.proxy) {
-            http.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
-        }
+        
     }
-    if (http) {
+    if (http) {																												
+		if (config.confluence.proxy) {
+            http.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
+        } 
+		
         http.request(Method.POST) { req ->
             requestContentType: "multipart/form-data"
             MultipartEntity multiPartContent = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE)
