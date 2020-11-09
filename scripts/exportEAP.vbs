@@ -1,6 +1,8 @@
     ' based on the "Project Interface Example" which comes with EA
     ' http://stackoverflow.com/questions/1441479/automated-method-to-export-enterprise-architect-diagrams
 
+
+
     Dim EAapp 'As EA.App
     Dim Repository 'As EA.Repository
     Dim FS 'As Scripting.FileSystemObject
@@ -246,6 +248,44 @@
           call DumpDiagrams(package, currentModel)
         End If
     End Function
+    
+    Function FormatStringToJSONString(inputString)
+        outputString = Replace(inputString, "\", "\\")
+        outputString = Replace(outputString, """", "\""")
+        outputString = Replace(outputString, vbCrLf, "\n")
+        outputString = Replace(outputString, vbLf, "\n")
+        outputString = Replace(outputString, vbCr, "\n")
+        FormatStringToJSONString = outputString
+    End Function
+    
+    'If a valid file path is set, the glossary terms are read from EA repository,
+    'formatted in a JSON compatible format and written into file.
+    'The file is read and reformatted by the exportEA gradle task afterwards.
+    Function ExportGlossaryTermsAsJSONFile(EArepo)
+        If (Len(glossaryFilePath) > 0) Then
+            set objFSO = CreateObject("Scripting.FileSystemObject")
+            GUID = Replace(EArepo.ProjectGUID,"{","")
+            GUID = Replace(GUID,"}","")
+            currentGlossaryFile = objFSO.BuildPath(glossaryFilePath,"/"&GUID&".ad")
+            set objFile = objFSO.OpenTextFile(currentGlossaryFile,ForAppending, True)
+            
+            Set glossary = EArepo.Terms()
+            objFile.WriteLine("[") 
+            dim counter
+            counter = 0
+            For Each term In glossary
+                if (counter > 0) Then
+                    objFile.Write(",")
+                end if
+                objFile.Write("{ ""term"" : """&FormatStringToJSONString(term.term)&""", ""meaning"" : """&FormatStringToJSONString(term.Meaning)&""",")
+                objFile.WriteLine(" ""termID"" : """&FormatStringToJSONString(term.termID)&""", ""type"" : """&FormatStringToJSONString(term.type)&""" }")
+                counter = counter + 1
+            Next
+            objFile.WriteLine("]") 
+            
+            objFile.Close        
+        End If
+    End Function
 
     Sub OpenProject(file)
       ' open Enterprise Architect
@@ -260,6 +300,7 @@
       Set Repository = EAapp.Repository
       ' Show the script output window
       ' Repository.EnsureOutputVisible("Script")
+      call ExportGlossaryTermsAsJSONFile(Repository)
 
       Set projectInterface = Repository.GetProjectInterface()
 
@@ -298,6 +339,7 @@
   Private packageFilter
   Private exportDestination
   Private searchPath
+  Private glossaryFilePath
   
   exportDestination = "./src/docs"
   searchPath = "./src"
@@ -316,6 +358,8 @@
         exportDestination = objArguments(argCount+1)
       Case "-s"
         searchPath = objArguments(argCount+1)
+      Case "-g"
+        glossaryFilePath = objArguments(argCount+1)
     End Select
     argCount = argCount + 2
   WEnd

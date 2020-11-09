@@ -1,3 +1,88 @@
+import org.json.*;
+import groovy.json.JsonSlurper
+
+
+//The GlossaryHandler reads all files from a given folder path url.
+//It expects the files are JSON formatted glossary exports from EA. 
+//There is one single glossary file per EA project expected.
+//All entries not being part of the glossaryTypes list will be removed from the glossaries.
+//If the glossaryTypes list is empty, all entries will be used.
+//Each glossary is sorted by terms in alphabetical order.
+//Using the outputFormat the json formatted file is overwritten with 
+//the sorted and filtered list to be included in asciidoc files.
+//An additional file is written to the folder containing the entries of all
+//single glossaries in an alphabetical sorted order. 
+//This global glossary is stored as glossary.ad.
+class GlossaryHandler 
+{
+    private List<List<Object>> globalGlossaryList = []
+    
+    //Collect all files inside the glossary folder (jsonFilePath)
+    //Each file is processed individually,
+    //finally a merged glossary of all single glossaries is written
+    void execute(jsonFilePath, outputFormat, glossaryTypes) {
+        def count = 0
+        def glossaryFile
+        new File(jsonFilePath).eachFileRecurse { file ->
+            if (file.isFile()) {
+                glossaryFile = file.canonicalPath
+                reformatJsonFile(glossaryFile, outputFormat, glossaryTypes)
+                count = count+1
+            }
+        }  
+        if (!globalGlossaryList.isEmpty()) {
+            if (count == 1) { 
+                //use the already sorted and stored file, but rename it
+                new File(glossaryFile).renameTo(new File(jsonFilePath+"/glossary.ad"))
+            }
+            else {
+                //sort and store the global glossary (summary of all single glossaries)
+                sortAndWriteToFile(jsonFilePath+"/glossary.ad", globalGlossaryList, outputFormat)
+            }
+        }        
+    }
+    
+    //Reads the json file if available, other terminates silently.
+    //the glossary list read is filtered by the glossaryTypes list and 
+    //sorted by term in alphabetical order.
+    //The resulting glossary list is handed over to a 
+    //file handler to be sorted and written to file system
+    void reformatJsonFile(jsonFilePath, outputFormat, glossaryTypes) {
+        if (new File(jsonFilePath).isFile()) {
+            def jsonSlurper = new JsonSlurper()
+            def glossaryList = jsonSlurper.parse(new File(jsonFilePath))
+            if (glossaryTypes && !glossaryTypes.isEmpty()) {
+                glossaryList.retainAll { glossaryTypes.contains(it['type']) }
+            }
+            globalGlossaryList.addAll(glossaryList)
+            sortAndWriteToFile(jsonFilePath, glossaryList, outputFormat)
+        }
+    }
+    
+    //Sorts the given glossaryList in alphabetical order and calls the output formatter
+    //to create the new output format and write the file.
+    void sortAndWriteToFile(jsonFilePath, glossaryList, outputFormat) {
+        glossaryList.sort{a, b -> a['term'].compareTo(b['term'])}
+        writeFormattedGlossaryToFile(jsonFilePath, glossaryList, outputFormat)
+    }
+    
+    //Filehandler to write a glossary list to a new file.
+    //An output format is used to format each glossary entry in a certain output format.
+    //Following placeholder are defined: ID, TERM, MEANING, TYPE. One or many of these placeholder can 
+    //be used by the output format. A valid output format: "TERM:: MEANING" to include the glossary
+    //as a flat list. Other formats can be used to include it as a table row.
+    void writeFormattedGlossaryToFile(jsonFilePath, glossaryList, outputFormat) {
+        new File(jsonFilePath).withWriter('utf-8') { writer ->
+            glossaryList.each { key ->
+                def out = outputFormat.replace("ID" , key['termID'])
+                out = out.replace("TERM" , key['term'])
+                out = out.replace("MEANING" , key['meaning'])
+                out = out.replace("TYPE" , key['type'])
+                writer.writeLine(out)
+            }
+        }
+    }
+}
 
 //tag::streamingExecute[]
 task streamingExecute(
@@ -53,6 +138,7 @@ task exportEA(
         def scriptParameterString = ""
         def exportPath = ""
         def searchPath = ""
+        def glossaryPath = ""
         def readme = """This folder contains exported diagrams or notes from Enterprise Architect.
 
 Please note that these are generated files but reside in the `src`-folder in order to be versioned.
@@ -92,7 +178,16 @@ use `gradle exportEA` to re-export files
         scriptParameterString = scriptParameterString + " -d \"$exportPath\""
         scriptParameterString = scriptParameterString + " -s \"$searchPath\""
         logger.info("docToolchain > exportEA: exportPath: "+exportPath)
-
+        
+        //remove old glossary files/folder if exist
+        new File(exportPath , 'glossary').deleteDir()
+        //set the glossary file path in case an output format is configured, other no glossary is written
+        if (!config.exportEA.glossaryAsciiDocFormat.isEmpty()) {
+            //create folder to store glossaries
+            new File(exportPath , 'glossary/.').mkdirs()
+            glossaryPath = new File(exportPath , 'glossary').getAbsolutePath()
+            scriptParameterString = scriptParameterString + " -g \"$glossaryPath\""
+        }
         //make sure path for notes exists
         //and remove old notes
         new File(exportPath , 'ea').deleteDir()
@@ -114,6 +209,16 @@ use `gradle exportEA` to re-export files
                 println "exported notes " + file.canonicalPath
                 file.write(file.getText('iso-8859-1'), 'utf-8')
             }
+        }
+        
+        //sort, filter and reformat a glossary if an output format is configured
+        if (!config.exportEA.glossaryAsciiDocFormat.isEmpty()) {
+            def glossaryTypes
+
+            if (!config.exportEA.glossaryTypes.isEmpty()){
+                glossaryTypes = config.exportEA.glossaryTypes as List
+            }
+            new GlossaryHandler().execute(glossaryPath, config.exportEA.glossaryAsciiDocFormat, glossaryTypes);
         }
     }
 }

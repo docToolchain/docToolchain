@@ -135,11 +135,19 @@ confluence.with {
 //Configuration for the export script 'exportEA.vbs'.
 // The following parameters can be used to change the default behaviour of 'exportEA'.
 // All parameter are optionally.
-// Parameter 'connection' allows to select a certain database connection by using the ConnectionString as used for
-// directly connecting to the project database instead of looking for EAP/EAPX files inside and below the 'src' folder.
-// Parameter 'packageFilter' is an array of package GUID's to be used for export. All images inside and in all packages below the package represented by its GUID are exported.
-// A packageGUID, that is not found in the currently opened project, is silently skipped.
-// PackageGUID of multiple project files can be mixed in case multiple projects have to be opened.
+// -  connection: Parameter allows to select a certain database connection by 
+//    using the ConnectionString as used for directly connecting to the project
+//    database instead of looking for EAP/EAPX files inside and below the 'src' folder.
+// - 'packageFilter' is an array of package GUID's to be used for export. All 
+//    images inside and in all packages below the package represented by its GUID 
+//    are exported. A packageGUID, that is not found in the currently opened
+//    project, is silently skipped. PackageGUID of multiple project files can
+//    be mixed in case multiple projects have to be opened.
+// -  exportPath: relative path to base 'docDir' to which the diagrams and notes are to be exported
+// -  searchPath: relative path to base 'docDir', in which Enterprise Architect project files are searched
+// -  glossaryAsciiDocFormat: if set, the EA glossary is exported into exportPath as 'glossary.ad'
+// -  glossaryTypes: if set and glossary is exported, used to filter for certain types.
+//    Not set or empty list will cause no filtered glossary.
 
 exportEA.with {
 // OPTIONAL: Set the connection to a certain project or comment it out to use all project files inside the src folder or its child folder.
@@ -149,11 +157,14 @@ exportEA.with {
 //                    "{A237ECDE-5419-4d47-AECC-B836999E7AE0}",
 //                    "{B73FA2FB-267D-4bcd-3D37-5014AD8806D6}"
 //                  ]
-// OPTIONAL: relative path to base 'docDir' to which the diagrams and notes are to be exported
+// OPTIONAL: export diagrams, notes, etc. below folder src/docs
 // exportPath = "src/docs/"
-// OPTIONAL: relative path to base 'docDir', in which Enterprise Architect project files are searched
-// searchPath = "src/docs/"
-
+// OPTIONAL: EA project files are expected to be located in folder src/projects  
+// searchPath = "src/projects/"
+// OPTIONAL: terms will be exported as asciidoc 'Description, single-line'
+// glossaryAsciiDocFormat = "TERM:: MEANING"
+// OPTIONAL: only terms of type Business and Technical will be exported.
+// glossaryTypes = ["Business", "Technical"]
 }
 //end::exportEAConfig[]
 
