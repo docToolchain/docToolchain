@@ -2566,11 +2566,11 @@ Currently this feature is WINDOWS-only. <a href="https://github.com/docToolchain
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" height="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz " width="32" height="32" title="Alexander Schwartz "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" height="32" title="Lars Francke "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange " width="32" height="32" title="Peter Stange "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange " width="32" height="32" title="Peter Stange "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev " width="32" height="32" title="ghp-dev "></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" height="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange " width="32" height="32" title="Peter Stange "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz " width="32" height="32" title="Alexander Schwartz "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" height="32" title="Lars Francke "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange " width="32" height="32" title="Peter Stange "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev " width="32" height="32" title="ghp-dev "></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>2 minutes to read</pre>
+<pre>3 minutes to read</pre>
 </div>
 </div>
 <div class="imageblock">
@@ -2595,7 +2595,7 @@ Blog-Posts: <a href="https://rdmueller.github.io/jria2eac/">JIRA to Sparx EA</a>
 <div class="paragraph">
 <p>By default no special configuration is necessary.
 But, to be more specific on the project and its packages to be used for export,
-four optional parameter configurations are available.
+six optional parameter configurations are available.
 The parameters can be used independently from each other.
 A sample how to edit your projects Config.groovy is given in the 'Config.groovy'
 of the docToolchain project itself.</p>
@@ -2626,11 +2626,58 @@ Example: docDir = 'D:\work\mydoc\' ; exportPath = 'src/projects' ;
 Lookup for eap and eapx files starts in 'D:\work\mydoc\src\projects' and goes down the folder structure.
 <strong>Note</strong>: In case connection is already defined, the searchPath value is ignored.</p>
 </dd>
+<dt class="hdlist1">glossaryAsciiDocFormat</dt>
+<dd>
+<p>Depending on this configuration option, the EA project glossary is exported.
+If it is not set or an empty string, no glossary is exported.
+The glossaryAsciiDocFormat string is used to format each glossary entry in a
+certain asciidoc format.
+Following placeholder for the format string are defined: ID, TERM, MEANING, TYPE.
+One or many of these placeholder can be used by the output format.</p>
+</dd>
+</dl>
+</div>
+<div class="paragraph">
+<p>Example: A valid output format to include the glossary as a flat list.
+The file can be included where needed in the documentation.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>glossaryAsciiDocFormat = "TERM:: MEANING"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Other format strings can be used to include it as a table row.
+The glossary is sorted by terms in alphabetical order.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">glossaryTypes</dt>
+<dd>
+<p>This parameter is used in case a glossaryAsciiDocFormat is defined, otherwise it
+is not evaluated. It is used to filter for certain types. If the glossaryTypes
+list is empty, all entries will be used.
+Example: glossaryTypes = ["Business", "Technical"]</p>
+</dd>
 </dl>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_source_9">3.13.2. Source</h4>
+<h4 id="_glossary_export">3.13.2. Glossary export</h4>
+<div class="paragraph">
+<p>By setting the glossaryAsciiDocFormat the glossary terms stored in the EA project
+is exported into a folder named 'glossary' below the configured exportPath.
+In case multiple EA projects were found for export, one glossary per project is
+exported. Each named with the projects GUID plus extension '.ad'.
+Each single file will be filtered (see glossaryTypes) and sorted in alphabetical order.
+In addition, a global glossary is created by using all single glossary files.
+This global file is named 'glossary.ad' and is also placed in the glossary folder.
+The global glossary is also filtered and sorted.
+In case there is one EA project only, the global glossary is written only.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_source_9">3.13.3. Source</h4>
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
@@ -2649,6 +2696,7 @@ Lookup for eap and eapx files starts in 'D:\work\mydoc\src\projects' and goes do
         <span class="keyword">def</span> scriptParameterString = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>
         <span class="keyword">def</span> exportPath = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>
         <span class="keyword">def</span> searchPath = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>
+        <span class="keyword">def</span> glossaryPath = <span class="string"><span class="delimiter">&quot;</span><span class="delimiter">&quot;</span></span>
         <span class="keyword">def</span> readme = <span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">This folder contains exported diagrams or notes from Enterprise Architect.
 
 Please note that these are generated files but reside in the `src`-folder in order to be versioned.
@@ -2689,6 +2737,15 @@ use `gradle exportEA` to re-export files
         scriptParameterString = scriptParameterString + <span class="string"><span class="delimiter">&quot;</span><span class="content"> -s </span><span class="char">\&quot;</span><span class="inline"><span class="inline-delimiter">$</span>searchPath</span><span class="char">\&quot;</span><span class="delimiter">&quot;</span></span>
         logger.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">docToolchain &gt; exportEA: exportPath: </span><span class="delimiter">&quot;</span></span>+exportPath)
 
+        <span class="comment">//remove old glossary files/folder if exist</span>
+        <span class="keyword">new</span> <span class="predefined-type">File</span>(exportPath , <span class="string"><span class="delimiter">'</span><span class="content">glossary</span><span class="delimiter">'</span></span>).deleteDir()
+        <span class="comment">//set the glossary file path in case an output format is configured, other no glossary is written</span>
+        <span class="keyword">if</span> (!config.exportEA.glossaryAsciiDocFormat.isEmpty()) {
+            <span class="comment">//create folder to store glossaries</span>
+            <span class="keyword">new</span> <span class="predefined-type">File</span>(exportPath , <span class="string"><span class="delimiter">'</span><span class="content">glossary/.</span><span class="delimiter">'</span></span>).mkdirs()
+            glossaryPath = <span class="keyword">new</span> <span class="predefined-type">File</span>(exportPath , <span class="string"><span class="delimiter">'</span><span class="content">glossary</span><span class="delimiter">'</span></span>).getAbsolutePath()
+            scriptParameterString = scriptParameterString + <span class="string"><span class="delimiter">&quot;</span><span class="content"> -g </span><span class="char">\&quot;</span><span class="inline"><span class="inline-delimiter">$</span>glossaryPath</span><span class="char">\&quot;</span><span class="delimiter">&quot;</span></span>
+        }
         <span class="comment">//make sure path for notes exists</span>
         <span class="comment">//and remove old notes</span>
         <span class="keyword">new</span> <span class="predefined-type">File</span>(exportPath , <span class="string"><span class="delimiter">'</span><span class="content">ea</span><span class="delimiter">'</span></span>).deleteDir()
@@ -2711,6 +2768,16 @@ use `gradle exportEA` to re-export files
                 file.write(file.getText(<span class="string"><span class="delimiter">'</span><span class="content">iso-8859-1</span><span class="delimiter">'</span></span>), <span class="string"><span class="delimiter">'</span><span class="content">utf-8</span><span class="delimiter">'</span></span>)
             }
         }
+
+        <span class="comment">//sort, filter and reformat a glossary if an output format is configured</span>
+        <span class="keyword">if</span> (!config.exportEA.glossaryAsciiDocFormat.isEmpty()) {
+            <span class="keyword">def</span> glossaryTypes
+
+            <span class="keyword">if</span> (!config.exportEA.glossaryTypes.isEmpty()){
+                glossaryTypes = config.exportEA.glossaryTypes <span class="keyword">as</span> <span class="predefined-type">List</span>
+            }
+            <span class="keyword">new</span> GlossaryHandler().execute(glossaryPath, config.exportEA.glossaryAsciiDocFormat, glossaryTypes);
+        }
     }
 }</code></pre>
 </div>
@@ -2720,6 +2787,8 @@ use `gradle exportEA` to re-export files
 <div class="content">
 <pre class="CodeRay highlight"><code>    ' based on the "Project Interface Example" which comes with EA
     ' http://stackoverflow.com/questions/1441479/automated-method-to-export-enterprise-architect-diagrams
+
+
 
     Dim EAapp 'As EA.App
     Dim Repository 'As EA.Repository
@@ -2967,6 +3036,44 @@ use `gradle exportEA` to re-export files
         End If
     End Function
 
+    Function FormatStringToJSONString(inputString)
+        outputString = Replace(inputString, "\", "\\")
+        outputString = Replace(outputString, """", "\""")
+        outputString = Replace(outputString, vbCrLf, "\n")
+        outputString = Replace(outputString, vbLf, "\n")
+        outputString = Replace(outputString, vbCr, "\n")
+        FormatStringToJSONString = outputString
+    End Function
+
+    'If a valid file path is set, the glossary terms are read from EA repository,
+    'formatted in a JSON compatible format and written into file.
+    'The file is read and reformatted by the exportEA gradle task afterwards.
+    Function ExportGlossaryTermsAsJSONFile(EArepo)
+        If (Len(glossaryFilePath) &gt; 0) Then
+            set objFSO = CreateObject("Scripting.FileSystemObject")
+            GUID = Replace(EArepo.ProjectGUID,"{","")
+            GUID = Replace(GUID,"}","")
+            currentGlossaryFile = objFSO.BuildPath(glossaryFilePath,"/"&amp;GUID&amp;".ad")
+            set objFile = objFSO.OpenTextFile(currentGlossaryFile,ForAppending, True)
+
+            Set glossary = EArepo.Terms()
+            objFile.WriteLine("[")
+            dim counter
+            counter = 0
+            For Each term In glossary
+                if (counter &gt; 0) Then
+                    objFile.Write(",")
+                end if
+                objFile.Write("{ ""term"" : """&amp;FormatStringToJSONString(term.term)&amp;""", ""meaning"" : """&amp;FormatStringToJSONString(term.Meaning)&amp;""",")
+                objFile.WriteLine(" ""termID"" : """&amp;FormatStringToJSONString(term.termID)&amp;""", ""type"" : """&amp;FormatStringToJSONString(term.type)&amp;""" }")
+                counter = counter + 1
+            Next
+            objFile.WriteLine("]")
+
+            objFile.Close
+        End If
+    End Function
+
     Sub OpenProject(file)
       ' open Enterprise Architect
       Set EAapp = CreateObject("EA.App")
@@ -2980,6 +3087,7 @@ use `gradle exportEA` to re-export files
       Set Repository = EAapp.Repository
       ' Show the script output window
       ' Repository.EnsureOutputVisible("Script")
+      call ExportGlossaryTermsAsJSONFile(Repository)
 
       Set projectInterface = Repository.GetProjectInterface()
 
@@ -3018,6 +3126,7 @@ use `gradle exportEA` to re-export files
   Private packageFilter
   Private exportDestination
   Private searchPath
+  Private glossaryFilePath
 
   exportDestination = "./src/docs"
   searchPath = "./src"
@@ -3036,6 +3145,8 @@ use `gradle exportEA` to re-export files
         exportDestination = objArguments(argCount+1)
       Case "-s"
         searchPath = objArguments(argCount+1)
+      Case "-g"
+        glossaryFilePath = objArguments(argCount+1)
     End Select
     argCount = argCount + 2
   WEnd
@@ -5818,11 +5929,19 @@ confluence.with {
 <span class="comment">//Configuration for the export script 'exportEA.vbs'.</span>
 <span class="comment">// The following parameters can be used to change the default behaviour of 'exportEA'.</span>
 <span class="comment">// All parameter are optionally.</span>
-<span class="comment">// Parameter 'connection' allows to select a certain database connection by using the ConnectionString as used for</span>
-<span class="comment">// directly connecting to the project database instead of looking for EAP/EAPX files inside and below the 'src' folder.</span>
-<span class="comment">// Parameter 'packageFilter' is an array of package GUID's to be used for export. All images inside and in all packages below the package represented by its GUID are exported.</span>
-<span class="comment">// A packageGUID, that is not found in the currently opened project, is silently skipped.</span>
-<span class="comment">// PackageGUID of multiple project files can be mixed in case multiple projects have to be opened.</span>
+<span class="comment">// -  connection: Parameter allows to select a certain database connection by</span>
+<span class="comment">//    using the ConnectionString as used for directly connecting to the project</span>
+<span class="comment">//    database instead of looking for EAP/EAPX files inside and below the 'src' folder.</span>
+<span class="comment">// - 'packageFilter' is an array of package GUID's to be used for export. All</span>
+<span class="comment">//    images inside and in all packages below the package represented by its GUID</span>
+<span class="comment">//    are exported. A packageGUID, that is not found in the currently opened</span>
+<span class="comment">//    project, is silently skipped. PackageGUID of multiple project files can</span>
+<span class="comment">//    be mixed in case multiple projects have to be opened.</span>
+<span class="comment">// -  exportPath: relative path to base 'docDir' to which the diagrams and notes are to be exported</span>
+<span class="comment">// -  searchPath: relative path to base 'docDir', in which Enterprise Architect project files are searched</span>
+<span class="comment">// -  glossaryAsciiDocFormat: if set, the EA glossary is exported into exportPath as 'glossary.ad'</span>
+<span class="comment">// -  glossaryTypes: if set and glossary is exported, used to filter for certain types.</span>
+<span class="comment">//    Not set or empty list will cause no filtered glossary.</span>
 
 exportEA.with {
 <span class="comment">// OPTIONAL: Set the connection to a certain project or comment it out to use all project files inside the src folder or its child folder.</span>
@@ -5832,11 +5951,14 @@ exportEA.with {
 <span class="comment">//                    &quot;{A237ECDE-5419-4d47-AECC-B836999E7AE0}&quot;,</span>
 <span class="comment">//                    &quot;{B73FA2FB-267D-4bcd-3D37-5014AD8806D6}&quot;</span>
 <span class="comment">//                  ]</span>
-<span class="comment">// OPTIONAL: relative path to base 'docDir' to which the diagrams and notes are to be exported</span>
+<span class="comment">// OPTIONAL: export diagrams, notes, etc. below folder src/docs</span>
 <span class="comment">// exportPath = &quot;src/docs/&quot;</span>
-<span class="comment">// OPTIONAL: relative path to base 'docDir', in which Enterprise Architect project files are searched</span>
-<span class="comment">// searchPath = &quot;src/docs/&quot;</span>
-
+<span class="comment">// OPTIONAL: EA project files are expected to be located in folder src/projects</span>
+<span class="comment">// searchPath = &quot;src/projects/&quot;</span>
+<span class="comment">// OPTIONAL: terms will be exported as asciidoc 'Description, single-line'</span>
+<span class="comment">// glossaryAsciiDocFormat = &quot;TERM:: MEANING&quot;</span>
+<span class="comment">// OPTIONAL: only terms of type Business and Technical will be exported.</span>
+<span class="comment">// glossaryTypes = [&quot;Business&quot;, &quot;Technical&quot;]</span>
 }
 
 htmlSanityCheck.with {
@@ -5963,7 +6085,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-10-20 06:58:32 UTC
+Last updated 2020-11-09 12:11:54 UTC
 </div>
 </div>
 </body>
