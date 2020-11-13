@@ -20,7 +20,7 @@ task exportOpenApi (
         description: 'exports OpenAPI specification to the asciidoc file') {
         
     if (!specFile) {
-        logger.error("\n---> OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)")
+        logger.info("\n---> OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)")
         return
     } else { 
         logger.info("Found OpenAPI specification in Config.groovy")
