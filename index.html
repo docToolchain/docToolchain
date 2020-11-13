@@ -4893,7 +4893,7 @@ openApi.with {
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">exports OpenAPI specification to the asciidoc file</span><span class="delimiter">'</span></span>) {
 
     <span class="keyword">if</span> (!specFile) {
-        logger.error(<span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="content">---&gt; OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)</span><span class="delimiter">&quot;</span></span>)
+        logger.info(<span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="content">---&gt; OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)</span><span class="delimiter">&quot;</span></span>)
         <span class="keyword">return</span>
     } <span class="keyword">else</span> {
         logger.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">Found OpenAPI specification in Config.groovy</span><span class="delimiter">&quot;</span></span>)
@@ -6085,7 +6085,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-11-11 10:14:09 UTC
+Last updated 2020-11-13 12:52:13 UTC
 </div>
 </div>
 </body>
