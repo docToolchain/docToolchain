@@ -2570,7 +2570,7 @@ Currently this feature is WINDOWS-only. <a href="https://github.com/docToolchain
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>3 minutes to read</pre>
+<pre>4 minutes to read</pre>
 </div>
 </div>
 <div class="imageblock">
@@ -2659,6 +2659,18 @@ is not evaluated. It is used to filter for certain types. If the glossaryTypes
 list is empty, all entries will be used.
 Example: glossaryTypes = ["Business", "Technical"]</p>
 </dd>
+<dt class="hdlist1">diagramAttributes</dt>
+<dd>
+<p>Beside the diagram image, an EA diagram offers several useful attributes which
+could be required in the resulting document. If set, the string is used to create
+and store the diagram attributes to be included in the document.
+These placeholders are defined and filled with the diagram attributes if used in the
+diagramAttributes string: %DIAGRAM_AUTHOR%, %DIAGRAM_CREATED%, %DIAGRAM_GUID%, %DIAGRAM_MODIFIED%, %DIAGRAM_NAME%.
+Example: diagramAttributes = "Last modification: %DIAGRAM_MODIFIED%"
+The resulting text is stored beside the diagram image using same path and file named,
+but different file extension (.ad). This can included in the document if required.
+If diagramAttributes is not set or string is empty, no file is written.</p>
+</dd>
 </dl>
 </div>
 </div>
@@ -2745,6 +2757,10 @@ use `gradle exportEA` to re-export files
             <span class="keyword">new</span> <span class="predefined-type">File</span>(exportPath , <span class="string"><span class="delimiter">'</span><span class="content">glossary/.</span><span class="delimiter">'</span></span>).mkdirs()
             glossaryPath = <span class="keyword">new</span> <span class="predefined-type">File</span>(exportPath , <span class="string"><span class="delimiter">'</span><span class="content">glossary</span><span class="delimiter">'</span></span>).getAbsolutePath()
             scriptParameterString = scriptParameterString + <span class="string"><span class="delimiter">&quot;</span><span class="content"> -g </span><span class="char">\&quot;</span><span class="inline"><span class="inline-delimiter">$</span>glossaryPath</span><span class="char">\&quot;</span><span class="delimiter">&quot;</span></span>
+        }
+        <span class="comment">//configure additional diagram attributes to be exported</span>
+        <span class="keyword">if</span> (!config.exportEA.diagramAttributes.isEmpty()) {
+            scriptParameterString = scriptParameterString + <span class="string"><span class="delimiter">&quot;</span><span class="content"> -da </span><span class="char">\&quot;</span><span class="inline"><span class="inline-delimiter">$</span>config</span><span class="content">.exportEA.diagramAttributes</span><span class="char">\&quot;</span><span class="delimiter">&quot;</span></span>
         }
         <span class="comment">//make sure path for notes exists</span>
         <span class="comment">//and remove old notes</span>
@@ -2920,6 +2936,28 @@ use `gradle exportEA` to re-export files
         End If
     End Sub
 
+    ' This sub routine checks if the format string defined in diagramAttributes
+    ' does contain any characters. It replaces the known placeholders:
+    ' %DIAGRAM_AUTHOR%, %DIAGRAM_CREATED%, %DIAGRAM_GUID%, %DIAGRAM_MODIFIED%, %DIAGRAM_NAME%
+    ' with the attribute values read from the EA diagram object.
+    ' None, one or multiple number of placeholders can be used to create a diagram attribute
+    ' to be added to the document. The attribute string is stored as a file with the same
+    ' path and name as the diagram image, but with suffix .ad. So, it can
+    ' easily be included in an asciidoc file.
+    Sub SaveDiagramAttribute(currentDiagram, path, diagramName)
+        If Len(diagramAttributes) &gt; 0 Then
+            set objFSO = CreateObject("Scripting.FileSystemObject")
+            filename = objFSO.BuildPath(path, diagramName &amp; ".ad")
+            set objFile = objFSO.OpenTextFile(filename, ForAppending, True)
+            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_AUTHOR%", currentDiagram.Author)
+            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_CREATED%", currentDiagram.CreatedDate)
+            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_GUID%", currentDiagram.DiagramGUID)
+            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_MODIFIED%", currentDiagram.ModifiedDate)
+            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_NAME%", currentDiagram.Name)
+            objFile.WriteLine(diagramAttributes)
+            objFile.Close
+        End If
+    End Sub
     Sub SaveDiagram(currentModel, currentDiagram)
         ' Open the diagram
         Repository.OpenDiagram(currentDiagram.DiagramID)
@@ -2943,6 +2981,9 @@ use `gradle exportEA` to re-export files
 
         projectInterface.SaveDiagramImageToFile(filename)
         WScript.echo " extracted image to " &amp; filename
+        If Not IsEmpty(diagramAttributes) Then
+            SaveDiagramAttribute currentDiagram, path, diagramName
+        End If
         Repository.CloseDiagram(currentDiagram.DiagramID)
 
         For Each diagramElement In currentDiagram.DiagramObjects
@@ -3127,6 +3168,7 @@ use `gradle exportEA` to re-export files
   Private exportDestination
   Private searchPath
   Private glossaryFilePath
+  Private diagramAttributes
 
   exportDestination = "./src/docs"
   searchPath = "./src"
@@ -3147,6 +3189,8 @@ use `gradle exportEA` to re-export files
         searchPath = objArguments(argCount+1)
       Case "-g"
         glossaryFilePath = objArguments(argCount+1)
+      Case "-da"
+        diagramAttributes = objArguments(argCount+1)
     End Select
     argCount = argCount + 2
   WEnd
@@ -5942,6 +5986,7 @@ confluence.with {
 <span class="comment">// -  glossaryAsciiDocFormat: if set, the EA glossary is exported into exportPath as 'glossary.ad'</span>
 <span class="comment">// -  glossaryTypes: if set and glossary is exported, used to filter for certain types.</span>
 <span class="comment">//    Not set or empty list will cause no filtered glossary.</span>
+<span class="comment">// -  diagramAttributes: if set, the diagram attributes are exported and formatted as specified</span>
 
 exportEA.with {
 <span class="comment">// OPTIONAL: Set the connection to a certain project or comment it out to use all project files inside the src folder or its child folder.</span>
@@ -5959,6 +6004,8 @@ exportEA.with {
 <span class="comment">// glossaryAsciiDocFormat = &quot;TERM:: MEANING&quot;</span>
 <span class="comment">// OPTIONAL: only terms of type Business and Technical will be exported.</span>
 <span class="comment">// glossaryTypes = [&quot;Business&quot;, &quot;Technical&quot;]</span>
+<span class="comment">// OPTIONAL: Additional files will be exported containing diagram attributes in the given asciidoc format</span>
+<span class="comment">// diagramAttributes = &quot;Modified: %DIAGRAM_AUTHOR%, %DIAGRAM_MODIFIED%, %DIAGRAM_NAME%, %DIAGRAM_GUID%, %DIAGRAM_CREATED%&quot;</span>
 }
 
 htmlSanityCheck.with {
@@ -6085,7 +6132,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-11-13 12:52:13 UTC
+Last updated 2020-11-20 16:17:58 UTC
 </div>
 </div>
 </body>
