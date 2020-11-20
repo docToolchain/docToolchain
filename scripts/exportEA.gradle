@@ -188,6 +188,10 @@ use `gradle exportEA` to re-export files
             glossaryPath = new File(exportPath , 'glossary').getAbsolutePath()
             scriptParameterString = scriptParameterString + " -g \"$glossaryPath\""
         }
+        //configure additional diagram attributes to be exported
+        if (!config.exportEA.diagramAttributes.isEmpty()) {
+            scriptParameterString = scriptParameterString + " -da \"$config.exportEA.diagramAttributes\""
+        }
         //make sure path for notes exists
         //and remove old notes
         new File(exportPath , 'ea').deleteDir()

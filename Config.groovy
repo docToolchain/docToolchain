@@ -148,6 +148,7 @@ confluence.with {
 // -  glossaryAsciiDocFormat: if set, the EA glossary is exported into exportPath as 'glossary.ad'
 // -  glossaryTypes: if set and glossary is exported, used to filter for certain types.
 //    Not set or empty list will cause no filtered glossary.
+// -  diagramAttributes: if set, the diagram attributes are exported and formatted as specified
 
 exportEA.with {
 // OPTIONAL: Set the connection to a certain project or comment it out to use all project files inside the src folder or its child folder.
@@ -165,6 +166,8 @@ exportEA.with {
 // glossaryAsciiDocFormat = "TERM:: MEANING"
 // OPTIONAL: only terms of type Business and Technical will be exported.
 // glossaryTypes = ["Business", "Technical"]
+// OPTIONAL: Additional files will be exported containing diagram attributes in the given asciidoc format
+// diagramAttributes = "Modified: %DIAGRAM_AUTHOR%, %DIAGRAM_MODIFIED%, %DIAGRAM_NAME%, %DIAGRAM_GUID%, %DIAGRAM_CREATED%"
 }
 //end::exportEAConfig[]
 
