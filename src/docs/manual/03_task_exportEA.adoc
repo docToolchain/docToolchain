@@ -61,6 +61,18 @@ is not evaluated. It is used to filter for certain types. If the glossaryTypes
 list is empty, all entries will be used.
 Example: glossaryTypes = ["Business", "Technical"]
 
+diagramAttributes::
+Beside the diagram image, an EA diagram offers several useful attributes which 
+could be required in the resulting document. If set, the string is used to create
+and store the diagram attributes to be included in the document.
+These placeholders are defined and filled with the diagram attributes if used in the 
+diagramAttributes string: %DIAGRAM_AUTHOR%, %DIAGRAM_CREATED%, %DIAGRAM_GUID%, %DIAGRAM_MODIFIED%, %DIAGRAM_NAME%.
+Example: diagramAttributes = "Last modification: %DIAGRAM_MODIFIED%"
+The resulting text is stored beside the diagram image using same path and file named,
+but different file extension (.ad). This can included in the document if required.
+If diagramAttributes is not set or string is empty, no file is written.
+
+
 == Glossary export
 By setting the glossaryAsciiDocFormat the glossary terms stored in the EA project
 is exported into a folder named 'glossary' below the configured exportPath.

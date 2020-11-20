@@ -133,6 +133,28 @@
         End If
     End Sub
 
+    ' This sub routine checks if the format string defined in diagramAttributes 
+    ' does contain any characters. It replaces the known placeholders: 
+    ' %DIAGRAM_AUTHOR%, %DIAGRAM_CREATED%, %DIAGRAM_GUID%, %DIAGRAM_MODIFIED%, %DIAGRAM_NAME%
+    ' with the attribute values read from the EA diagram object.
+    ' None, one or multiple number of placeholders can be used to create a diagram attribute
+    ' to be added to the document. The attribute string is stored as a file with the same
+    ' path and name as the diagram image, but with suffix .ad. So, it can 
+    ' easily be included in an asciidoc file.
+    Sub SaveDiagramAttribute(currentDiagram, path, diagramName)
+        If Len(diagramAttributes) > 0 Then
+            set objFSO = CreateObject("Scripting.FileSystemObject")
+            filename = objFSO.BuildPath(path, diagramName & ".ad")
+            set objFile = objFSO.OpenTextFile(filename, ForAppending, True)
+            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_AUTHOR%", currentDiagram.Author)
+            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_CREATED%", currentDiagram.CreatedDate)
+            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_GUID%", currentDiagram.DiagramGUID)                        
+            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_MODIFIED%", currentDiagram.ModifiedDate)
+            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_NAME%", currentDiagram.Name)                        
+            objFile.WriteLine(diagramAttributes)
+            objFile.Close
+        End If
+    End Sub
     Sub SaveDiagram(currentModel, currentDiagram)
         ' Open the diagram
         Repository.OpenDiagram(currentDiagram.DiagramID)
@@ -156,6 +178,9 @@
 
         projectInterface.SaveDiagramImageToFile(filename)
         WScript.echo " extracted image to " & filename
+        If Not IsEmpty(diagramAttributes) Then
+            SaveDiagramAttribute currentDiagram, path, diagramName
+        End If
         Repository.CloseDiagram(currentDiagram.DiagramID)
 
         For Each diagramElement In currentDiagram.DiagramObjects
@@ -340,6 +365,7 @@
   Private exportDestination
   Private searchPath
   Private glossaryFilePath
+  Private diagramAttributes
   
   exportDestination = "./src/docs"
   searchPath = "./src"
@@ -360,6 +386,8 @@
         searchPath = objArguments(argCount+1)
       Case "-g"
         glossaryFilePath = objArguments(argCount+1)
+      Case "-da" 
+        diagramAttributes = objArguments(argCount+1)
     End Select
     argCount = argCount + 2
   WEnd
