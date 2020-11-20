@@ -7,10 +7,6 @@
 
 image:https://api.travis-ci.org/doctoolchain/doctoolchain.svg?branch=master[link={url-ci-travis}]
 
-image::https://hacktoberfest.digitalocean.com/assets/HF-full-logo-b05d5eb32b3f3ecc9b2240526104cf4da3187b8b61963dd9042fdc2536e4a76c.svg[float=left,width=200]
-
-*This project joined https://hacktoberfest.digitalocean.com/[Hacktoberfest]!
-Issues that can give you a good start are https://github.com/docToolchain/docToolchain/issues?q=is%3Aissue+is%3Aopen+label%3AHacktoberfest[have the label "Hacktoberfest"] and maintainers are willing to help.*
 
 [NOTE]
 ====
