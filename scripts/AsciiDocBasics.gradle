@@ -47,9 +47,17 @@ if (project.hasProperty('username') && project.hasProperty('password')) {
 inputPath = config.inputPath?config.inputPath:'.'
 referenceDocFile = config.referenceDocFile?config.referenceDocFile:''
 logger.info "docToolchain> referenceDocFile: ${referenceDocFile}"
-logger.info("\n==================\nParsed config file has ${config.size()} entries\n")
-config.each {key, value ->
-    logger.info("Found config -> '${key}': '${value}'")
+logger.info("\n==================\nParsed config file has ${config.flatten().size()} entries\n")
+
+List<String> confidentialIdentifiers = ["credential", "token", "secret"]
+config.flatten().each {key, value ->
+    String keyString = "${key}"
+
+    if(confidentialIdentifiers.any {id -> keyString.toLowerCase().contains(id)}){
+        logger.info("Found config -> '${keyString}': '********'")
+    }else{
+        logger.info("Found config -> '${keyString}': '${value}'")
+    }
 }
 
 ext {
