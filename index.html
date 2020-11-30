@@ -2986,6 +2986,9 @@ use `gradle exportEA` to re-export files
         End If
         Repository.CloseDiagram(currentDiagram.DiagramID)
 
+        ' Write the note of the diagram
+        WriteNote currentModel, currentDiagram, currentDiagram.Notes, diagramName&amp;"_notes"
+
         For Each diagramElement In currentDiagram.DiagramObjects
             Set currentElement = Repository.GetElementByID(diagramElement.ElementID)
             WriteNote currentModel, currentElement, currentElement.Notes, diagramName&amp;"_notes"
@@ -6132,7 +6135,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-11-26 16:52:11 UTC
+Last updated 2020-11-30 14:32:48 UTC
 </div>
 </div>
 </body>
