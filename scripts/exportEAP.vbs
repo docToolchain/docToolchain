@@ -183,6 +183,9 @@
         End If
         Repository.CloseDiagram(currentDiagram.DiagramID)
 
+        ' Write the note of the diagram 
+        WriteNote currentModel, currentDiagram, currentDiagram.Notes, diagramName&"_notes"
+        
         For Each diagramElement In currentDiagram.DiagramObjects
             Set currentElement = Repository.GetElementByID(diagramElement.ElementID)
             WriteNote currentModel, currentElement, currentElement.Notes, diagramName&"_notes"
