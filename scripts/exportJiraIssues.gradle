@@ -2,7 +2,7 @@ buildscript {
     repositories {
         jcenter()
         maven {
-            url 'https://plugins.gradle.org/m2/'
+            url mavenRepository
         }
     }
     dependencies {
@@ -44,15 +44,15 @@ task exportJiraIssues(
                 'Authorization': "Basic " + config.jira.credentials,
                 'Content-Type' : 'application/json; charset=utf-8'
         ]
-        
+
         def jiraRequests = config.jira.requests
-        
+
         if (config.jira.jql) {
             logger.warn(">>>Found legacy Jira requests. Please migrate to the new Jira configuration ASAP. Old config with jql will be removed soon")
             writeAsciiDocFileForLegacyConfiguration(targetFolder, jira, headers, config.jira)
         }
-        
-        jiraRequests.each {rq -> 
+
+        jiraRequests.each {rq ->
             logger.quiet("Request to Jira API for '${rq.filename}' with query: '${rq.jql}'")
 
             def allHeaders = "${defaultFields},${rq.customfields.values().join(",")}"
@@ -65,18 +65,18 @@ task exportJiraIssues(
                 def extension = 'adoc'
                 jiraResultsFilename = "${rq.filename}.${extension}"
                 logger.info("Results will be saved in '${rq.filename}.${extension}' file")
-                
+
                 def jiraDataAsciidoc = new File(targetFolder, "${rq.filename}.${extension}")
                 jiraDataAsciidoc.write(".${rq.filename}\n", 'utf-8')
                 jiraDataAsciidoc.append("|=== \n")
 
                 // AsciiDoc table headers (custom fields map needs values here)
                 jiraDataAsciidoc.append("|Key ", 'utf-8')
-                allHeaders.split(",").each {field -> 
+                allHeaders.split(",").each {field ->
                     jiraDataAsciidoc.append("|${field.capitalize()} ", 'utf-8')
                 }
                 jiraDataAsciidoc.append("\n", 'utf-8')
-                
+
                 jira.get(path: 'search',
                     query: ['jql'       : rq.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel),
                             'maxResults': 1000,
@@ -92,8 +92,8 @@ task exportJiraIssues(
                     jiraDataAsciidoc.append("| ${issue.fields.summary} ", 'utf-8')
                     jiraDataAsciidoc.append("| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}", 'utf-8')
                     jiraDataAsciidoc.append("| ${issue.fields.status.name} ", 'utf-8')
-                    
-                    rq.customfields.each { field -> 
+
+                    rq.customfields.each { field ->
                         def foundCustom = issue.fields.find {it.key == field.key}
                         //logger.quiet("Examining issue '${issue.key}' for custom field '${field.key}' has found: '${foundCustom}'")
                         jiraDataAsciidoc.append("| ${foundCustom ? foundCustom.value : '-'}\n", 'utf-8')
@@ -109,7 +109,7 @@ task exportJiraIssues(
                 def extension = 'xlsx'
                 jiraResultsFilename = "${rq.filename}.${extension}"
                 logger.quiet(">> Results will be saved in '${rq.filename}.${extension}' file")
-                
+
                 //def jiraDataAsciidoc = new File(targetFolder, "${rq.filename}.${extension}")
 
                 def jiraDataXls = new File(targetFolder, jiraResultsFilename)
@@ -130,7 +130,7 @@ task exportJiraIssues(
                 def titleRow = ws.createRow(0);
                 int cellNumber = 0;
                 titleRow.createCell(cellNumber).setCellValue("Key")
-                allHeaders.split(",").each {field -> 
+                allHeaders.split(",").each {field ->
                     titleRow.createCell(++cellNumber).setCellValue("${field.capitalize()}")
                 }
                 def lastRow = titleRow.getRowNum()
@@ -159,21 +159,21 @@ task exportJiraIssues(
                     row.createCell(++cellPosition).setCellValue("${issue.fields.status.name}")
 
                     // Custom fields
-                    rq.customfields.each { field -> 
+                    rq.customfields.each { field ->
                         def position = ++cellPosition
                         def foundCustom = issue.fields.find {it.key == field.key}
                         row.createCell(position).setCellValue("${foundCustom ? foundCustom.value : '-'}")
                     }
                 }
-                
+
                 // set jira issue key column fits the content width
-                
+
                 for(int colNum = 0; colNum<allHeaders.size()+1;colNum++) {
                     ws.autoSizeColumn(colNum)
                 }
-                // Set summary column width slightly wider but fixed size, so it doesn't change with every summary update 
+                // Set summary column width slightly wider but fixed size, so it doesn't change with every summary update
                 ws.setColumnWidth(4, 25*384)
-                
+
 
                 wb.write(jiraFos)
             } else {
@@ -186,14 +186,14 @@ task exportJiraIssues(
 // This method can be removed when support for legacy Jira configuration is gone
 def writeAsciiDocFileForLegacyConfiguration(def targetFolder, def restClient, def headers, def jiraConfig) {
     def resultsFilename = "${jiraConfig.resultsFilename}_legacy.adoc"
-    
+
     def openIssues = new File(targetFolder, "${resultsFilename}")
     openIssues.write(".Table {Title}\n", 'utf-8')
     openIssues.append("|=== \n")
     openIssues.append("|Key |Priority |Created | Assignee | Summary\n", 'utf-8')
         def legacyJql = jiraConfig.jql.replaceAll('%jiraProject%', config.jira.project).replaceAll('%jiraLabel%', config.jira.label)
         println ("Results for legacy query '${legacyJql}' will be saved in '${resultsFilename}' file")
-        
+
         restClient.get(path: 'search',
                 query: ['jql'       : legacyJql,
                         'maxResults': 1000,

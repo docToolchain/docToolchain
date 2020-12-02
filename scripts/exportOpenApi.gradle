@@ -2,7 +2,7 @@ buildscript {
     repositories {
         jcenter()
         maven {
-            url 'https://plugins.gradle.org/m2/'
+            url mavenRepository
         }
     }
     dependencies {
@@ -18,11 +18,11 @@ task exportOpenApi (
         type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask,
         group: 'docToolchain',
         description: 'exports OpenAPI specification to the asciidoc file') {
-        
+
     if (!specFile) {
         logger.info("\n---> OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)")
         return
-    } else { 
+    } else {
         logger.info("Found OpenAPI specification in Config.groovy")
     }
 
@@ -31,7 +31,7 @@ task exportOpenApi (
     generatorName = 'asciidoc'
     outputDir = "${targetDir}/OpenAPI".toString()
     inputSpec = "${docDir}/${specFile}" // plugin is not able to find file if inputPath is defined as '.'
-    
+
     logger.debug("\n=====================\nProject Config:\n=====================")
     logger.debug("Docdir: ${docDir}")
     logger.debug("Target: ${targetDir}")
@@ -39,7 +39,7 @@ task exportOpenApi (
     logger.info("Specification file: ${specFile}")
     logger.info("inputSpec: ${inputSpec.value}")
     logger.info("outputDir: ${outputDir.value}\n")
-    
+
     additionalProperties = [
         infoEmail:"${config.openApi.infoEmail}",
         infoUrl:"${config.openApi.infoUrl}"
