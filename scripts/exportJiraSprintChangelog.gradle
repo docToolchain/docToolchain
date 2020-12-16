@@ -2,7 +2,7 @@ buildscript {
     repositories {
         jcenter()
         maven {
-            url 'https://plugins.gradle.org/m2/'
+            url mavenRepository
         }
     }
     dependencies {
@@ -55,7 +55,7 @@ task exportJiraSprintChangelog(
         // Getting configuration
         def jiraRoot = config.jira.api
         def jiraProject = config.jira.project
-        
+
         def sprintState = config.sprintChangelog.sprintState
         def ticketStatusForReleaseNotes = config.sprintChangelog.ticketStatus
         def sprintBoardId = config.sprintChangelog.sprintBoardId
@@ -82,7 +82,7 @@ task exportJiraSprintChangelog(
 
         def allChangelogsFilename = "${allSprintsFilename}.xlsx"
         logger.quiet("Changelogs of all sprints will be saved in '${allChangelogsFilename}' file")
-        
+
         def changelogsXls = new File(targetFolder, allChangelogsFilename)
         def changelogsXlsFos = new FileOutputStream(changelogsXls)
         Workbook wb = new XSSFWorkbook();
@@ -101,19 +101,19 @@ task exportJiraSprintChangelog(
         if (!showTicketStatus) { columns = columns.minus('status')}
         if (!showTicketType) { columns = columns.minus('issuetype')}
         logger.info("Release notes will contain following info: ${columns}")
-        
+
         logger.info("\n=====================\n      Sprints\n=====================")
         //
         def allMatchedSprints = sprints(api, headers, sprintBoardId, sprintState).values
         def foundExactSprint = allMatchedSprints.any {it.name == sprintName}
         logger.info("All sprints that matched configuration: ${allMatchedSprints.size()}")
-        
+
         def sprintsForChangelog = foundExactSprint ? allMatchedSprints.stream().filter() {it.name == sprintName} : allMatchedSprints
         logger.info("Found exact Sprint with name '${sprintName}': ${foundExactSprint}.")
 
-        sprintsForChangelog.each { sprint -> 
+        sprintsForChangelog.each { sprint ->
             logger.quiet("\nSprint: $sprint.name [id: $sprint.id] state <$sprint.state>")
-            
+
             /* ================================================
                 Create new worksheet inside existing excel file
                ================================================ */
@@ -132,10 +132,10 @@ task exportJiraSprintChangelog(
 
             /* =========================================
                       AsciiDoc file for each sprint
-               ========================================= */ 
+               ========================================= */
             def asciidocFilename = "${sprint.name.replaceAll(" ", "_")}.adoc"
             logger.info("Results will be saved in '${asciidocFilename}' file")
-            
+
             def changeLogAdoc = new File(targetFolder, "${asciidocFilename}")
             changeLogAdoc.write(".Table ${sprint.name} Changelog\n", 'utf-8')
             changeLogAdoc.append("|=== \n")
@@ -145,18 +145,18 @@ task exportJiraSprintChangelog(
 
             /* =========================================
                       Add tickets for the sprint
-               ========================================= */ 
-            issues(api, headers, sprintBoardId, sprint.id, ticketStatusForReleaseNotes).issues.each {issue -> 
+               ========================================= */
+            issues(api, headers, sprintBoardId, sprint.id, ticketStatusForReleaseNotes).issues.each {issue ->
                 def assignee = "${issue.fields.assignee ? issue.fields.assignee.displayName : 'unassigned'} "
                 def message = showAssignee ? "by ${assignee} ": ""
                 logger.quiet("Issue: [$issue.key] '$issue.fields.summary' ${message}<$issue.fields.status.name>")
-                
+
                 /* ===========================
                       Write ticket to Excel
-                   =========================== */ 
+                   =========================== */
                 int cellPosition = 0
                 def row = ws.createRow(++lastRow)
-                
+
                 Hyperlink link = hyperlinkHelper.createHyperlink(HyperlinkType.URL)
                 link.setAddress("${jiraRoot}/browse/${issue.key}")
                 Cell cellWithUrl = row.createCell(cellPosition)
@@ -167,7 +167,7 @@ task exportJiraSprintChangelog(
 
                 /* =============================
                       Write ticket to Asciidoc
-                   ============================= */ 
+                   ============================= */
                 changeLogAdoc.append("\n", 'utf-8')
                 changeLogAdoc.append("| ${jiraRoot}/browse/${issue.key}[${issue.key}] ", 'utf-8')
                 changeLogAdoc.append("| ${issue.fields.summary} ", 'utf-8')

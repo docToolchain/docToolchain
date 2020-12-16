@@ -22,7 +22,6 @@ dependencies {
             gradleTestKit()
     )
 }
-
 if (project.name!=rootProject.name) {
     // disable all tasks which are not docToolchain tasks
     // this avoids for example that task 'check' runs if invoked in main project
