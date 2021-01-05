@@ -174,7 +174,20 @@ exportEA.with {
 //tag::htmlSanityCheckConfig[]
 htmlSanityCheck.with {
     //sourceDir = "build/html5/site"
+
+    // where to put results of sanityChecks...
     //checkingResultsDir =
+
+    // OPTIONAL: directory where the results written to in JUnit XML format
+    //junitResultsDir =
+
+    // OPTIONAL: which statuscodes shall be interpreted as warning, error or success defaults to standard
+    //httpSuccessCodes = []
+    //httpWarningCodes = []
+    //httpErrorCodes = []
+
+    // fail build on errors?
+    failOnErrors = false
 }
 //end::htmlSanityCheckConfig[]
 
