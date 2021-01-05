@@ -5038,7 +5038,17 @@ Blog-Post: <a href="https://rdmueller.github.io/htmlSanityCheck/">Automated Qual
     <span class="comment">//sourceDocuments = [ &quot;one-file.html&quot;, &quot;another-file.html&quot;, &quot;index.html&quot;]</span>
 
     <span class="comment">// where to put results of sanityChecks...</span>
-    checkingResultsDir = <span class="keyword">new</span> <span class="predefined-type">File</span>( config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath )
+    checkingResultsDir = <span class="keyword">new</span> <span class="predefined-type">File</span>(config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath)
+    <span class="comment">// directory where the results written to in JUnit XML format</span>
+    junitResultsDir = <span class="keyword">new</span> <span class="predefined-type">File</span>(config.htmlSanityCheck.junitResultsDir?:<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">$</span>targetDir</span><span class="content">/test-results/htmlchecks</span><span class="delimiter">&quot;</span></span>)
+
+    <span class="comment">// which statuscodes shall be interpreted as warning, error or success defaults to standard</span>
+    httpSuccessCodes = config.htmlSanityCheck.httpSuccessCodes?:<span class="type">[]</span>
+    httpWarningCodes = config.htmlSanityCheck.httpWarningCodes?:<span class="type">[]</span>
+    httpErrorCodes = config.htmlSanityCheck.httpErrorCodes?:<span class="type">[]</span>
+
+    <span class="comment">// fail build on errors?</span>
+    failOnErrors = config.htmlSanityCheck.failOnErrors?:<span class="predefined-constant">false</span>
 
     logger.info <span class="string"><span class="delimiter">&quot;</span><span class="content">docToolchain&gt; HSC sourceDir: </span><span class="inline"><span class="inline-delimiter">${</span>sourceDir<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
     logger.info <span class="string"><span class="delimiter">&quot;</span><span class="content">docToolchain&gt; HSC checkingResultsDir: </span><span class="inline"><span class="inline-delimiter">${</span>checkingResultsDir<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
@@ -6013,7 +6023,20 @@ exportEA.with {
 
 htmlSanityCheck.with {
     <span class="comment">//sourceDir = &quot;build/html5/site&quot;</span>
+
+    <span class="comment">// where to put results of sanityChecks...</span>
     <span class="comment">//checkingResultsDir =</span>
+
+    <span class="comment">// OPTIONAL: directory where the results written to in JUnit XML format</span>
+    <span class="comment">//junitResultsDir =</span>
+
+    <span class="comment">// OPTIONAL: which statuscodes shall be interpreted as warning, error or success defaults to standard</span>
+    <span class="comment">//httpSuccessCodes = []</span>
+    <span class="comment">//httpWarningCodes = []</span>
+    <span class="comment">//httpErrorCodes = []</span>
+
+    <span class="comment">// fail build on errors?</span>
+    failOnErrors = <span class="predefined-constant">false</span>
 }
 
 <span class="comment">// Configuration for Jira related tasks</span>
@@ -6135,7 +6158,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2020-12-16 20:10:56 UTC
+Last updated 2021-01-05 17:41:39 UTC
 </div>
 </div>
 </body>
