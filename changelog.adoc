@@ -13,6 +13,12 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 2021-01-05::
 * dtc wrapper
+2021-01-08::
+* first definition of a static site taken from arc42-template-project
+* updated gradle wrapper (6.6.1)
+* added downloadTemplates task
+* added feature to automatically create a Config file if it doesn't exist
+* configured gradle to run without daemon
 
 === Added
 
