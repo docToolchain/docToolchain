@@ -8,8 +8,9 @@ inputPath = '.';
 
 
 inputFiles = [
-        [file: 'doctoolchain_demo.adoc',       formats: ['html','pdf']],
-        [file: 'arc42-template.adoc',    formats: ['html','pdf']],
+        //[file: 'doctoolchain_demo.adoc',       formats: ['html','pdf']],
+        //[file: 'arc42-template.adoc',    formats: ['html','pdf']],
+        /** inputFiles **/
 ]
 
 
@@ -65,7 +66,7 @@ confluence = [:]
 // - 'url': absolute URL to an asciidoc generated html file to be exported
 // - 'ancestorName' (optional): the name of the parent page in Confluence as string;
 //                             this attribute has priority over ancestorId, but if page with given name doesn't exist,
-//                             ancestorId will be used as a fallback 
+//                             ancestorId will be used as a fallback
 // - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty
 //                            if a new parent shall be created in the space
 // - 'preambleTitle' (optional): the title of the page containing the preamble (everything
@@ -110,9 +111,9 @@ confluence.with {
 
     Tool expects credentials that belong to an account which has the right permissions to to create and edit confluence pages in the given space.
     Credentials can be used in a form of:
-     - passed parameters when calling script (-PconfluenceUser=myUsername -PconfluencePass=myPassword) which can be fetched as a secrets on CI/CD or  
+     - passed parameters when calling script (-PconfluenceUser=myUsername -PconfluencePass=myPassword) which can be fetched as a secrets on CI/CD or
      - gradle variables set through gradle properties (uses the 'confluenceUser' and 'confluencePass' keys)
-    Often, same credentials are used for Jira & Confluence, in which case it is recommended to pass CLI parameters for both entities as 
+    Often, same credentials are used for Jira & Confluence, in which case it is recommended to pass CLI parameters for both entities as
     -Pusername=myUser -Ppassword=myPassword
     */
 
@@ -179,29 +180,29 @@ jira.with {
 
     // endpoint of the JiraAPI (REST) to be used
     api = 'https://your-jira-instance'
-    
+
     /*
     WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!
 
     Tool expects credentials that belong to an account which has the right permissions to read the JIRA issues for a given project.
     Credentials can be used in a form of:
-     - passed parameters when calling script (-PjiraUser=myUsername -PjiraPass=myPassword) which can be fetched as a secrets on CI/CD or  
+     - passed parameters when calling script (-PjiraUser=myUsername -PjiraPass=myPassword) which can be fetched as a secrets on CI/CD or
      - gradle variables set through gradle properties (uses the 'jiraUser' and 'jiraPass' keys)
-    Often, Jira & Confluence credentials are the same, in which case it is recommended to pass CLI parameters for both entities as 
+    Often, Jira & Confluence credentials are the same, in which case it is recommended to pass CLI parameters for both entities as
     -Pusername=myUser -Ppassword=myPassword
     */
 
     // the key of the Jira project
     project = 'PROJECTKEY'
-    
+
     // the format of the received date time values to parse
     dateTimeFormatParse = "yyyy-MM-dd'T'H:m:s.SSSz" // i.e. 2020-07-24'T'9:12:40.999 CEST
-    
+
     // the format in which the date time should be saved to output
     dateTimeFormatOutput = "dd.MM.yyyy HH:mm:ss z" // i.e. 24.07.2020 09:02:40 CEST
 
     // the label to restrict search to
-    label = 
+    label =
 
     // Legacy settings for Jira query. This setting is deprecated & support for it will soon be completely removed. Please use JiraRequests settings
     jql = "project='%jiraProject%' AND labels='%jiraLabel%' ORDER BY priority DESC, duedate ASC"
@@ -215,7 +216,7 @@ jira.with {
     // Output folder for this task inside main outputPath
     resultsFolder = 'JiraRequests'
 
-    /* 
+    /*
     List of requests to Jira API:
     These are basically JQL expressions bundled with a filename in which results will be saved.
     User can configure custom fields IDs and name those for column header,
@@ -229,16 +230,16 @@ jira.with {
         ),
         new JiraRequest(
             filename:'CurrentSprint',
-            jql:"project='%jiraProject%' AND Sprint in openSprints() ORDER BY priority DESC, duedate ASC", 
+            jql:"project='%jiraProject%' AND Sprint in openSprints() ORDER BY priority DESC, duedate ASC",
             customfields: [customfield_10026:'Story Points']
         ),
-    ]    
+    ]
 }
-    
+
 @groovy.transform.Immutable
 class JiraRequest {
     String filename  //filename (without extension) of the file in which JQL results will be saved. Extension will be determined automatically for Asciidoc or Excel file
-    String jql // Jira Query Language syntax 
+    String jql // Jira Query Language syntax
     Map<String,String> customfields // map of customFieldId:displayName values for Jira fields which don't have default names, i.e. customfield_10026:StoryPoints
 }
 //end::jiraConfig[]
