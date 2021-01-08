@@ -1,0 +1,54 @@
+buildscript {
+    repositories {
+        maven {
+            url mavenRepository
+        }
+    }
+    dependencies {
+        classpath 'org.asciidoctor:asciidoctorj-diagram:2.0.2'
+        classpath 'io.pebbletemplates:pebble:3.1.4'
+    }
+}
+
+apply plugin: 'org.jbake.site'
+
+jbake {
+    version = '2.6.5'
+    srcDirName = "${targetDir}/jbake/tmp/site"
+    //configuration['asciidoctor.option.requires'] = "asciidoctor-diagram"
+    configuration['asciidoctor.attributes'] = [
+        'source-highlighter=prettify@',
+        'imagesDir=/images@',
+        "imagesoutDir=${targetDir}/jbake/images@"
+    ]
+}
+bakePreview {
+    port = '8046'
+}
+
+task generateSite(
+    group: 'docToolchain',
+    description: 'generate a microsite using jBake') {
+    new File("${targetDir}/jbake/tmp/").mkdirs()
+    println "created"
+    println new File("${targetDir}/jbake/tmp/").canonicalPath
+    copy {
+        from('src/site')
+        into("${targetDir}/jbake/tmp/site")
+    }
+    copy {
+        from(new File(new File(docDir, inputPath), '../site')) {}
+        into("${targetDir}/jbake/tmp/site")
+    }
+    copy {
+        from(new File(docDir, inputPath)) {}
+        into("${targetDir}/jbake/tmp/doc")
+    }
+}
+task copyImages(type: Copy) {
+    from(new File (new File(docDir, inputPath),'images')) {}
+    into("${targetDir}/jbake/images")
+}
+
+bake.dependsOn copyImages
+generateSite.finalizedBy bake
