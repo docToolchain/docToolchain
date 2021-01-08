@@ -7,7 +7,8 @@ plugins {
     id "org.aim42.htmlSanityCheck" version "1.1.3"
     id "com.github.ben-manes.versions" version "0.27.0"
     id "org.openapi.generator" version "4.3.1"
-//    id 'org.jbake.site' version '5.0.0'
+    id "de.undercouch.download" version "4.1.1"
+    id 'org.jbake.site' version '5.3.0'
 }
 
 apply plugin:'groovy'
@@ -71,6 +72,8 @@ apply from: 'scripts/htmlSanityCheck.gradle'
 apply from: 'scripts/collectIncludes.gradle'
 apply from: 'scripts/exportMetrics.gradle'
 apply from: 'scripts/exportOpenApi.gradle'
+apply from: 'scripts/downloadTemplates.gradle'
+apply from: 'scripts/generateSite.gradle'
 
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
