@@ -25,7 +25,19 @@ logger.info "docToolchain> docDir: ${docDir}"
 logger.info "docToolchain> mainConfigFile: ${mainConfigFile}"
 logger.info "docToolchain> pdfThemeDir: ${pdfThemeDir}"
 def configSlurper = new ConfigSlurper()
-config = configSlurper.parse(new File(docDir, mainConfigFile).text)
+def configFile = new File(docDir, mainConfigFile)
+if (configFile.exists()) {
+    //ok - nothing to do
+} else {
+    println "Config file '${configFile.canonicalPath}' does not exist"
+    def input = ant.input(message: "do you want me to create a default one for you?", validargs: 'y,n', addproperty: 'yesno')
+    if (ant.yesno=="y") {
+        configFile.write(new File("./template_config/Config.groovy").text)
+    } else {
+        throw new Exception("can't continue without a config file")
+    }
+}
+config = configSlurper.parse(configFile.text)
 
 def props = project.gradle.startParameter.projectProperties
 logger.info("\nGradle project Properties [${props.size()}]:\n${props}\n==============================")
