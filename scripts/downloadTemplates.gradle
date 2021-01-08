@@ -1,0 +1,35 @@
+plugins {
+    id "de.undercouch.download" version "4.0.2"
+    id "com.github.ben-manes.versions" version "0.27.0"
+    id "groovy"
+}
+
+//tag::initArc42DE[]
+task downloadTemplate(
+    description: 'Download a specified template and install it',
+    group: 'docToolchain'
+)
+doFirst {
+    println "Install arc42 documentation template."
+    println "For more information about arc42 see https://arc42.org"
+    def lang = ant.input(message: "Which language do you want to install?", validargs: 'EN,DE,ES,RU', addproperty: 'lang')
+    def help = ant.input(message: "Do you want the template with or without help?", validargs: 'withhelp,plain', addproperty: 'help')
+}
+doLast {
+
+    download {
+        src 'https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-'+ant.lang+'-'+ant.help+'-asciidoc.zip'
+        dest new File(docDir, 'arc42.zip')
+    }
+    copy {
+        from zipTree(new File(docDir, 'arc42.zip'))
+        into newDocDir
+    }
+    delete {
+        delete new File(docDir, 'arc42.zip')
+    }
+
+    logger.info "arc42 template unpacked into ${docDir}"
+}
+//end::downloadTemplate[]
+

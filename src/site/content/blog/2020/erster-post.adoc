@@ -1,0 +1,19 @@
+:jbake-title: Erster Post
+:jbake-date: 2020-12-15
+:jbake-type: post
+:jbake-tags: blog, asciidoc
+:jbake-status: published
+
+= Erster Post
+Ralf D. Müller
+2020-12-15
+
+Dieses Weblog demonstriert wie eine Architekturdokumentation nach dem Docs-as-Code Ansatz aussehen kann.
+
+[plantuml]
+----
+Reader -> Website
+    Website -> Repository
+    Website <-- Repository
+Reader <-- Website
+----

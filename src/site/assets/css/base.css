@@ -1,0 +1,21 @@
+main.container {
+  padding: 80px 15px 0;
+}
+body {
+  min-height: 100vh;
+}
+
+@media only screen and (min-width: 992px) {
+  #toc.toc {
+    position: fixed;
+    width: 20rem;
+    background: rgba(40,40,40,0.1);
+    margin-left: -21rem;
+    padding: 6px 6px;
+  }
+
+  body.toc main.container {
+    padding-left: 21rem;
+  }
+
+}

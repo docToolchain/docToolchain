@@ -1,0 +1,7 @@
+:jbake-title: Entwurfsentscheidungen
+:jbake-type: page_toc
+:jbake-status: published
+
+:toc: left
+
+include::../../../doc/arc42/chapters/09_design_decisions.adoc[leveloffset=-1]
