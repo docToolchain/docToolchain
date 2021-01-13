@@ -26,7 +26,8 @@ NOTE: Specifying `.dio` (short for "**d**raw**io**") in the name will help you i
 
 You now have a diagram that can be managed in source control, added to your documentation source, and edited using a draw.io Desktop version.
 
-NOTE: Draw.io offer free and open source desktop editors for all major operating system platforms.
+NOTE: Draw.io offers free and open source desktop editors for all major operating system platforms.
 See https://about.draw.io/integrations/ to find a desktop editor application compatible with your operating system.
 When you use the desktop version, just create your diagram with the `.png` or even better `.dio.png` extension and draw.io will always save your diagam as PNG with the source as meta data.
 
+NEW! Draw.io is now called diagrams.net and there is a free plugin for VS Code and IntelliJ to edit your diagrams even offline!
