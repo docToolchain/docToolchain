@@ -176,7 +176,13 @@ task generateHTML (
             println it.file
         }
     }
-
+    resources {
+        config.imageDirs.each { imageDir ->
+            from(new File(file(srcDir),imageDir))
+            logger.info ('imageDir: '+imageDir)
+        }
+        into './images'
+    }
     backends = ['html5']
 }
 //end::generateHTML[]
