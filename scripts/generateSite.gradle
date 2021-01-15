@@ -29,20 +29,22 @@ bakePreview {
 task generateSite(
     group: 'docToolchain',
     description: 'generate a microsite using jBake') {
-    new File("${targetDir}/jbake/tmp/").mkdirs()
-    println "created"
-    println new File("${targetDir}/jbake/tmp/").canonicalPath
-    copy {
-        from('src/site')
-        into("${targetDir}/jbake/tmp/site")
-    }
-    copy {
-        from(new File(new File(docDir, inputPath), '../site')) {}
-        into("${targetDir}/jbake/tmp/site")
-    }
-    copy {
-        from(new File(docDir, inputPath)) {}
-        into("${targetDir}/jbake/tmp/doc")
+    doLast {
+        new File("${targetDir}/jbake/tmp/").mkdirs()
+        println "created"
+        println new File("${targetDir}/jbake/tmp/").canonicalPath
+        copy {
+            from('src/site')
+            into("${targetDir}/jbake/tmp/site")
+        }
+        copy {
+            from(new File(new File(docDir, inputPath), '../site')) {}
+            into("${targetDir}/jbake/tmp/site")
+        }
+        copy {
+            from(new File(docDir, inputPath)) {}
+            into("${targetDir}/jbake/tmp/doc")
+        }
     }
 }
 task copyImages(type: Copy) {
