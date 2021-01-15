@@ -4,7 +4,7 @@ outputPath = 'build'
 // This path is appended to the docDir property specified in gradle.properties
 // or in the command line, and therefore must be relative to it.
 
-inputPath = '.';
+inputPath = 'src/docs';
 
 
 inputFiles = [
@@ -13,6 +13,11 @@ inputFiles = [
         /** inputFiles **/
 ]
 
+//folders in which asciidoc will find images.
+//these will be copied as resources to ./images
+imageDirs = [
+    /** imageDirs **/
+]
 
 // these are directories (dirs) and files which Gradle monitors for a change
 // in order to decide if the docs have to be re-build
