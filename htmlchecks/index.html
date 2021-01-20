@@ -61,7 +61,7 @@ function scrollToTop() {
 
       <div class="infoBox" id="checks">
 
-          <div class="counter">834</div>
+          <div class="counter">837</div>
 
           checks</div>
 
@@ -71,7 +71,7 @@ function scrollToTop() {
 
       <div class="infoBox" id="findings">
 
-          <div class="counter">13</div>
+          <div class="counter">57</div>
 
           issues</div>
 
@@ -81,7 +81,7 @@ function scrollToTop() {
 
       <div class="infoBox" id="duration">
 
-          <div class="counter">59.914sec</div>
+          <div class="counter">59.714sec</div>
 
           duration</div>
 
@@ -90,7 +90,7 @@ function scrollToTop() {
 
     <td><div class="infoBox failures" id="successRate">
 
-        <div class="percent">98%</div>
+        <div class="percent">93%</div>
         successful</div>
     </td></tr></table>
 
@@ -104,9 +104,9 @@ function scrollToTop() {
    <tbody>
       <tr>
         <td class="failures"><a href="#manualXhtml">manual.html</a></td>
-        <td class="number">834</td>
-        <td class="number">13</td>
-        <td class="number failures">98%</td>
+        <td class="number">837</td>
+        <td class="number">57</td>
+        <td class="number failures">93%</td>
       </tr>
 
     </tbody>
@@ -123,7 +123,7 @@ location : /home/travis/build/docToolchain/docToolchain/build/docs/html5/manual.
 
       <div class="infoBox" id="size">
 
-          <div class="counter">439.42</div>
+          <div class="counter">440.04</div>
 
           kByte</div>
 
@@ -133,7 +133,7 @@ location : /home/travis/build/docToolchain/docToolchain/build/docs/html5/manual.
 
       <div class="infoBox" id="checks">
 
-          <div class="counter">834</div>
+          <div class="counter">837</div>
 
           checks</div>
 
@@ -143,7 +143,7 @@ location : /home/travis/build/docToolchain/docToolchain/build/docs/html5/manual.
 
       <div class="infoBox" id="findings">
 
-          <div class="counter">13</div>
+          <div class="counter">57</div>
 
           issues</div>
 
@@ -152,43 +152,22 @@ location : /home/travis/build/docToolchain/docToolchain/build/docs/html5/manual.
 
     <td><div class="infoBox failures" id="successRate">
 
-        <div class="percent">98%</div>
+        <div class="percent">93%</div>
         successful</div>
     </td></tr></table>
 
 
-<div class="failures"><h3>External Links Check</h3></div>
+<div class="success"><h3>Missing alt-attribute declaration in image tags</h3></div>
 
 
- 185 anchor href attribute checked,
- 12 broken external link found.<br>
+ 224 image tags checked,
+ 0 missing alt attributes found.<br>
  
-  <ul>
-      <li> Error: https://www.amazon.de/dp/B0784ZJWSR returned statuscode 405. </li>
-      <li> Error: https://twitter.com/marioggar returned statuscode 400. </li>
-      <li> Error: https://twitter.com/gernotstarke returned statuscode 400. </li>
-      <li> Error: https://twitter.com/RalfDMueller/status/920888868345384960 returned statuscode 400. </li>
-      <li> Warning: https://id.atlassian.com/manage/api-tokens returned statuscode 302, new location: http://id.atlassian.com/manage-profile/security/api-tokens </li>
-      <li> Error: https://twitter.com/ysb33r returned statuscode 400. </li>
-      <li> Error: https://twitter.com/ralfdmueller returned statuscode 400. </li>
-      <li> Warning: http://plantuml.com/ returned statuscode 301, new location: https://plantuml.com </li>
-      <li> Error: https://twitter.com/ixchelruiz returned statuscode 400. </li>
-      <li> Error: https://twitter.com/ahus1de returned statuscode 400. </li>
-      <li> Error: https://twitter.com/jagedn returned statuscode 400. </li>
-      <li> Error: https://twitter.com/stoeps returned statuscode 400. </li>
-  </ul>
-
 <div class="success"><h3>Duplicate Definition of id Check</h3></div>
 
 
  117 id checked,
  0 duplicate id found.<br>
- 
-<div class="success"><h3>Broken Internal Links Check</h3></div>
-
-
- 286 href checked,
- 0 missing id found.<br>
  
 <div class="success"><h3>Consistency of ImageMaps</h3></div>
 
@@ -196,18 +175,77 @@ location : /home/travis/build/docToolchain/docToolchain/build/docs/html5/manual.
  0 imageMap checked,
  0 map/area and usemap-references found.<br>
  
-<div class="success"><h3>Missing Local Images Check</h3></div>
+<div class="success"><h3>Broken Internal Links Check</h3></div>
 
 
- 22 img src attributes checked,
- 0 missing image files found.<br>
+ 287 href checked,
+ 0 missing id found.<br>
  
-<div class="success"><h3>Missing alt-attribute declaration in image tags</h3></div>
+<div class="failures"><h3>External Links Check</h3></div>
 
 
- 223 image tags checked,
- 0 missing alt attributes found.<br>
+ 186 anchor href attribute checked,
+ 56 broken external link found.<br>
  
+  <ul>
+      <li> Error: https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_prependFilename.adoc returned statuscode 429. </li>
+      <li> Error: https://www.amazon.de/dp/B0784ZJWSR returned statuscode 405. </li>
+      <li> Error: https://twitter.com/marioggar returned statuscode 400. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_exportDrawIo.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/jostaub returned statuscode 429. </li>
+      <li> Error: https://github.com/OpenAPITools/openapi-generator returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_collectIncludes.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/03_task_generateDocBook.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/bodewig returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_exportJiraSprintChangelog.adoc returned statuscode 429. </li>
+      <li> Error: https://twitter.com/gernotstarke returned statuscode 400. </li>
+      <li> Error: https://github.com/mojavelinux returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/03_task_dependencyUpdates.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/06_Frequently_asked_Questions.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/davidmc24 returned statuscode 429. </li>
+      <li> Error: https://twitter.com/RalfDMueller/status/920888868345384960 returned statuscode 400. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/02_install.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/ahus1 returned statuscode 429. </li>
+      <li> Error: https://github.com/uniqueck/asciidoctorj-office-extension returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/08_development.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/aheusingfeld returned statuscode 429. </li>
+      <li> Warning: https://id.atlassian.com/manage/api-tokens returned statuscode 302, new location: http://id.atlassian.com/manage-profile/security/api-tokens </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/03_task_htmlSanityCheck.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/02_install.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/03_task_exportJiraSprintChangelog.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/03_task_generatePDF.adoc returned statuscode 429. </li>
+      <li> Error: https://twitter.com/ysb33r returned statuscode 400. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/05_contributors.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/03_task_exportVisio.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/jakubjab returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_convertToDocx.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com returned statuscode 429. </li>
+      <li> Error: https://github.com/sabatmonk returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_exportPPT.adoc returned statuscode 429. </li>
+      <li> Error: https://twitter.com/ralfdmueller returned statuscode 400. </li>
+      <li> Error: https://github.com/mpriess returned statuscode 429. </li>
+      <li> Warning: http://plantuml.com/ returned statuscode 301, new location: https://plantuml.com </li>
+      <li> Error: https://github.com/bit-jkraushaar returned statuscode 429. </li>
+      <li> Error: https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/03_task_prependFilename.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/bjsee returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/03_task_convertToDocx.adoc returned statuscode 429. </li>
+      <li> Error: https://twitter.com/ixchelruiz returned statuscode 400. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_createReferenceDoc.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/peterstange returned statuscode 429. </li>
+      <li> Error: https://github.com/ben-manes/gradle-versions-plugin returned statuscode 429. </li>
+      <li> Error: https://github.com/FrankPohl returned statuscode 429. </li>
+      <li> Error: https://github.com/asciidoctor/asciidoctor-pdf/blob/master/docs/theming-guide.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_exportVisio.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/ewoks returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/01_introduction_and_goals.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/issues/new?title=&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:manual/03_task_exportContributors.adoc returned statuscode 429. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_exportEA.adoc returned statuscode 429. </li>
+      <li> Error: https://twitter.com/ahus1de returned statuscode 400. </li>
+      <li> Error: https://twitter.com/jagedn returned statuscode 400. </li>
+      <li> Error: https://twitter.com/stoeps returned statuscode 400. </li>
+  </ul>
+
 <div class="failures"><h3>Missing Local Resources Check</h3></div>
 
 
@@ -217,12 +255,18 @@ location : /home/travis/build/docToolchain/docToolchain/build/docs/html5/manual.
   <ul>
       <li> local resource "attachement/myfolder/myfile.json" missing </li>
   </ul>
-<hr><p>
+
+<div class="success"><h3>Missing Local Images Check</h3></div>
+
+
+ 22 img src attributes checked,
+ 0 missing image files found.<br>
+ <hr><p>
 <!-- scroll-to-top icon -->
 <div class="scroll-top-wrapper">
    <img src="arrow-up.png" alt="to top"/>
 </div>
 
 <div id="footer">
-  Generated by <a href="https://www.aim42.org">htmlSanityCheck</a> (version 1.1.3) at 13. January 2021, 22:32 
+  Generated by <a href="https://www.aim42.org">htmlSanityCheck</a> (version 1.1.3) at 20. January 2021, 11:26 
 </div></body></html>
