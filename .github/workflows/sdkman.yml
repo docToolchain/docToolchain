@@ -1,0 +1,43 @@
+# This is a basic workflow to help you get started with Actions
+
+name: sdkman deploy
+
+# Controls when the action will run. Workflow runs when manually triggered using the UI
+# or API.
+on:
+  workflow_dispatch:
+    # Inputs the workflow accepts.
+    inputs:
+      version:
+        description: 'version'
+        # Default value if no value is explicitly provided
+        default: 'x.y.z'
+        # Input has to be provided for the workflow to run
+        required: true
+      url:
+        # Friendly description to be shown in the UI instead of 'name'
+        description: 'download-url'
+        # Default value if no value is explicitly provided
+        default: 'something.zip'
+        # Input has to be provided for the workflow to run
+        required: true
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  deploy-sdkman:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      - name: curl
+        env: 
+          CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
+          CONSUMER_TOKEN: ${{secrets.CONSUMER_TOKEN}}
+        shell: bash
+        run: |
+          curl -X POST \
+          -H 'Consumer-Key: $CONSUMER_KEY' \
+          -H 'Consumer-Token: $CONSUMER_TOKEN' \
+          -H 'Content-Type: application/json' \
+          -d '{"candidate": "doctoolchain", "version": "${{ github.event.inputs.version }}", "url": "${{ github.event.inputs.url }}"}' \
+          https://vendors.sdkman.io/release
