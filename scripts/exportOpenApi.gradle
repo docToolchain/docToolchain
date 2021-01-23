@@ -37,8 +37,8 @@ task exportOpenApi (
     logger.debug("Target: ${targetDir}")
     logger.info("\n=====================\nOpenAPI Config:\n=====================")
     logger.info("Specification file: ${specFile}")
-    logger.info("inputSpec: ${inputSpec.value}")
-    logger.info("outputDir: ${outputDir.value}\n")
+    logger.info("inputSpec: ${inputSpec}")
+    logger.info("outputDir: ${outputDir}\n")
 
     additionalProperties = [
         infoEmail:"${config.openApi.infoEmail}",
