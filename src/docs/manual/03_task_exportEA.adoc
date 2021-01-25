@@ -37,7 +37,9 @@ Relative path to base 'docDir', in which Enterprise Architect project files are 
 Default: "src/docs".
 Example: docDir = 'D:\work\mydoc\' ; exportPath = 'src/projects' ;
 Lookup for eap and eapx files starts in 'D:\work\mydoc\src\projects' and goes down the folder structure.
-*Note*: In case connection is already defined, the searchPath value is ignored.
+*Note*: In case parameter 'connection' is already defined, the searchPath value is used, too.
+exportEA starts opening the database parameter 'connection' first and looks afterwards for
+further project files either in the searchPath (if set) or in the docDir folder of the project.
 
 glossaryAsciiDocFormat::
 Depending on this configuration option, the EA project glossary is exported.
@@ -62,10 +64,10 @@ list is empty, all entries will be used.
 Example: glossaryTypes = ["Business", "Technical"]
 
 diagramAttributes::
-Beside the diagram image, an EA diagram offers several useful attributes which 
+Beside the diagram image, an EA diagram offers several useful attributes which
 could be required in the resulting document. If set, the string is used to create
 and store the diagram attributes to be included in the document.
-These placeholders are defined and filled with the diagram attributes if used in the 
+These placeholders are defined and filled with the diagram attributes if used in the
 diagramAttributes string: %DIAGRAM_AUTHOR%, %DIAGRAM_CREATED%, %DIAGRAM_GUID%, %DIAGRAM_MODIFIED%, %DIAGRAM_NAME%.
 Example: diagramAttributes = "Last modification: %DIAGRAM_MODIFIED%"
 The resulting text is stored beside the diagram image using same path and file named,

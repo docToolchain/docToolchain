@@ -396,12 +396,14 @@
   WEnd
   set fso = CreateObject("Scripting.fileSystemObject") 
   WScript.echo "Image extractor"
-  If IsEmpty(connectionString) Then
-  WScript.echo "looking for .eap(x) files in " & fso.GetAbsolutePathName(searchPath)
-  'Dim f As Scripting.Files
-  SearchEAProjects fso.GetFolder(searchPath)
-  Else
+
+  ' Check both types in parallel - 1st check Enterprise Architect database connection, 2nd look for local project files
+  If Not IsEmpty(connectionString) Then
      WScript.echo "opening database connection now"
      OpenProject(connectionString)
   End If
+  WScript.echo "looking for .eap(x) files in " & fso.GetAbsolutePathName(searchPath)
+  ' Dim f As Scripting.Files
+  SearchEAProjects fso.GetFolder(searchPath)
+
   WScript.echo "finished exporting images"
