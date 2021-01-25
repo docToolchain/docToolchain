@@ -42,6 +42,8 @@ https://github.com/docToolchain/docToolchain/commit/c25ac52e43ccb1d45fa538c06d37
 
 2021-01-25::
 * Add support of multiple EA project locations in parallel #514
+* updated Gradle to 6.7.1
+* added JDK14 for travis-ci testing
 
 2019-05-09::
 * upgraded to run with JDK11
