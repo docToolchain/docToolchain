@@ -2624,7 +2624,9 @@ Notes  will be exported to 'D:\work\mydoc\src\pdocs\ea',</p>
 Default: "src/docs".
 Example: docDir = 'D:\work\mydoc\' ; exportPath = 'src/projects' ;
 Lookup for eap and eapx files starts in 'D:\work\mydoc\src\projects' and goes down the folder structure.
-<strong>Note</strong>: In case connection is already defined, the searchPath value is ignored.</p>
+<strong>Note</strong>: In case parameter 'connection' is already defined, the searchPath value is used, too.
+exportEA starts opening the database parameter 'connection' first and looks afterwards for
+further project files either in the searchPath (if set) or in the docDir folder of the project.</p>
 </dd>
 <dt class="hdlist1">glossaryAsciiDocFormat</dt>
 <dd>
@@ -3199,14 +3201,16 @@ use `gradle exportEA` to re-export files
   WEnd
   set fso = CreateObject("Scripting.fileSystemObject")
   WScript.echo "Image extractor"
-  If IsEmpty(connectionString) Then
-  WScript.echo "looking for .eap(x) files in " &amp; fso.GetAbsolutePathName(searchPath)
-  'Dim f As Scripting.Files
-  SearchEAProjects fso.GetFolder(searchPath)
-  Else
+
+  ' Check both types in parallel - 1st check Enterprise Architect database connection, 2nd look for local project files
+  If Not IsEmpty(connectionString) Then
      WScript.echo "opening database connection now"
      OpenProject(connectionString)
   End If
+  WScript.echo "looking for .eap(x) files in " &amp; fso.GetAbsolutePathName(searchPath)
+  ' Dim f As Scripting.Files
+  SearchEAProjects fso.GetFolder(searchPath)
+
   WScript.echo "finished exporting images"</code></pre>
 </div>
 </div>
@@ -6188,7 +6192,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-01-20 11:35:44 UTC
+Last updated 2021-01-25 10:27:28 UTC
 </div>
 </div>
 </body>
