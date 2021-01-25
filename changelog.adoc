@@ -37,6 +37,9 @@ https://github.com/docToolchain/docToolchain/commit/c25ac52e43ccb1d45fa538c06d37
 
 === Changed
 
+2021-01-25::
+* Add support of multiple EA project locations in parallel #514
+
 2019-05-09::
 * upgraded to run with JDK11
 ** upgraded Gradle to 5.3.1
