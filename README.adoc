@@ -3,9 +3,9 @@
 
 == docToolchain
 
-:url-ci-travis: https://travis-ci.org/doctoolchain/doctoolchain
+:url-ci-travis: https://travis-ci.com/doctoolchain/doctoolchain
 
-image:https://api.travis-ci.org/doctoolchain/doctoolchain.svg?branch=master[link={url-ci-travis}]
+image:https://api.travis-ci.com/doctoolchain/doctoolchain.svg?branch=master[link={url-ci-travis}]
 
 
 [NOTE]
