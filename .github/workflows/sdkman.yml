@@ -30,11 +30,14 @@ jobs:
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
       - name: curl
+        env: 
+          CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
+          CONSUMER_TOKEN: ${{secrets.CONSUMER_TOKEN}}
         shell: bash
         run: |
           curl -X POST \
-          -H 'Consumer-Key: ${{secrets.CONSUMER_KEY}}' \
-          -H 'Consumer-Token: ${{secrets.CONSUMER_TOKEN}}' \
+          -H 'Consumer-Key: $CONSUMER_KEY' \
+          -H 'Consumer-Token: $CONSUMER_TOKEN' \
           -H 'Content-Type: application/json' \
           -d '{"candidate": "doctoolchain", "version": "${{ github.event.inputs.version }}", "url": "${{ github.event.inputs.url }}"}' \
           https://vendors.sdkman.io/release
