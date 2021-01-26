@@ -5143,7 +5143,7 @@ Blog-Post: <a href="https://rdmueller.github.io/dependency-update/">Handle Depen
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>1 minute to read</pre>
+<pre>2 minutes to read</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5198,8 +5198,80 @@ Not needed if you work on the HEAD revision on Master</td>
 <p>The <code>rm</code> command ensures that you really have a clean test running.
 Otherwise you might get false positives because Gradle will skip steps ('Up-to-date') because artifacts of an older test run still exist.</p>
 </div>
+</div>
+<div class="sect3">
+<h4 id="_create_new_release">4.1.4. Create new Release</h4>
+<div class="paragraph">
+<p>We use <a href="https://semver.org/">semantic versioning</a> and <a href="https://keepachangelog.com/">keep a changelog</a>. Bot on a best effort base.</p>
+</div>
+<div class="paragraph">
+<p>A release consists of four parts:</p>
+</div>
+<div class="sect4">
+<h5 id="_github">Github</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>update the changelog</p>
+<div class="ulist">
+<ul>
+<li>
+<p>create a section for the the version</p>
+</li>
+<li>
+<p>copy all unreleased features which will be in the release to the created section</p>
+</li>
+<li>
+<p>commit and push the new version</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/releases/new">Draft a new release</a></p>
+</li>
+<li>
+<p>copy the content of the changelog for this version to the description and submit</p>
+</li>
+<li>
+<p>this creates a zip of the source which is the distribution file</p>
+</li>
+<li>
+<p>future releases will use a small zip (see ng-branch)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_dockerhub">Dockerhub</h5>
+<div class="paragraph">
+<p>The image build for <a href="https://hub.docker.com/repository/docker/rdmueller/doctoolchain">rdmueller/doctoolchain</a> depends on the github repository <a href="https://github.com/docToolchain/docker-image">docToolchain/docker-image</a></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>update the <a href="https://github.com/docToolchain/docker-image/tree/master/alpine">Dockerfile</a> to reflect the new version</p>
+</li>
+<li>
+<p>create a <a href="https://github.com/docToolchain/docker-image/releases/new">new release</a></p>
+</li>
+<li>
+<p>reference the github release for changelog</p>
+</li>
+<li>
+<p>the build on dockerhub will be automatically triggered</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_sdkman">sdkman</h5>
+<div class="paragraph">
+<p>A github action has been created to deploy to sdkman: <a href="https://github.com/docToolchain/docToolchain/actions?query=workflow%3A%22sdkman+deploy%22">sdkman deploy</a>.</p>
+</div>
 <hr>
 <div style="page-break-after: always;"></div>
+</div>
 </div>
 </div>
 </div>
@@ -6173,7 +6245,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-01-26 09:57:14 UTC
+Last updated 2021-01-26 10:54:12 UTC
 </div>
 </div>
 </body>
