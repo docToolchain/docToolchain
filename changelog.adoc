@@ -21,7 +21,10 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === Fixed
 
-2021-25-01::
+2021-01-25::
+* [523] - fix for generateDeck
+
+2021-01-25::
 * fixed docs: ConfluenceConfig.groovy missing #492
 
 == 1.3.0 - 2021-01-20
@@ -96,6 +99,9 @@ https://github.com/docToolchain/docToolchain/commit/c25ac52e43ccb1d45fa538c06d37
 
 === Fixed
 
+2021-25-01::
+* fixed docs: ConfluenceConfig.groovy missing #492
+
 2019-05-30::
 * fix publishToConfluence internal link targets (#223)
 2019-05-09::
@@ -105,3 +111,9 @@ https://github.com/docToolchain/docToolchain/commit/c25ac52e43ccb1d45fa538c06d37
 2019-03-08::
 * asciidooc2confluence
 ** #227 `spaceKey` was ignored https://github.com/docToolchain/docToolchain/pull/279/[PR#297]
+
+== Released
+
+2020-08-06::
+* publishToConfluence
+** https://github.com/docToolchain/docToolchain/pull/445[#445 Publish to confluence jira macro support]

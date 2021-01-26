@@ -265,8 +265,8 @@ task generateDeck (
         from(sourceDir) {
             include 'images/**'
         }
-        into("ppt")
-        logger.info "${docDir}/${config.outputPath}/ppt/images"
+        into("")
+        logger.info "${docDir}/${config.outputPath}/images"
     }
 }
 //end::generateDeck[]
