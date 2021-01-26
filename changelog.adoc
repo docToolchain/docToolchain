@@ -70,6 +70,9 @@ https://github.com/docToolchain/docToolchain/commit/c25ac52e43ccb1d45fa538c06d37
 
 === Fixed
 
+2021-01-24::
+* [523] - fix for generateDeck
+
 2021-25-01::
 * fixed docs: ConfluenceConfig.groovy missing #492
 
