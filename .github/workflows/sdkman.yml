@@ -36,5 +36,5 @@ jobs:
           -H 'Consumer-Key: ${{secrets.CONSUMER_KEY}}' \
           -H 'Consumer-Token: ${{secrets.CONSUMER_TOKEN}}' \
           -H 'Content-Type: application/json' \
-          -d '{"candidate": "doctoolchain", "version": "${{ github.event.inputs.version }}", "url": "${{ github.event.inputs.url }}' \
+          -d '{"candidate": "doctoolchain", "version": "${{ github.event.inputs.version }}", "url": "${{ github.event.inputs.url }}"}' \
           https://vendors.sdkman.io/release
