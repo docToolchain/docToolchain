@@ -18,6 +18,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * Add support of multiple EA project locations in parallel #514
 * updated Gradle to 6.7.1
 * added JDK14 for travis-ci testing
+* [517] - update revealJs to 3.9.1 and asciidoctor-revealjs to 2.0.1
 
 === Fixed
 
