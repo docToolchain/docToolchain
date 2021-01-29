@@ -41,7 +41,7 @@ mv reveal.js-tags-3.9.1 reveal.js
 rm -d asciidoctor-reveal.js
 wget https://github.com/asciidoctor/asciidoctor-reveal.js/archive/v2.0.1.zip -O asciidoctor-reveal.js.zip
 unzip asciidoctor-reveal.js.zip
-mv mv asciidoctor-reveal.js-2.0.1 asciidoctor-reveal.js
+mv asciidoctor-reveal.js-2.0.1 asciidoctor-reveal.js
 
 mv docToolchain-master <docToolchain home>
 ----
