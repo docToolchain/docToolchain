@@ -34,14 +34,14 @@ unzip master.zip
 cd docToolchain-master/resources
 
 rm -d reveal.js
-wget https://github.com/hakimel/reveal.js/archive/tags/3.3.0.zip -O reveal.js.zip
+wget https://github.com/hakimel/reveal.js/archive/tags/3.9.2.zip -O reveal.js.zip
 unzip reveal.js.zip
-mv reveal.js-tags-3.3.0 reveal.js
+mv reveal.js-tags-3.9.2 reveal.js
 
 rm -d asciidoctor-reveal.js
-wget https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip -O asciidoctor-reveal.js.zip
+wget https://github.com/asciidoctor/asciidoctor-reveal.js/archive/v2.0.1.zip -O asciidoctor-reveal.js.zip
 unzip asciidoctor-reveal.js.zip
-mv asciidoctor-reveal.js-9667f5c5d926b3be48361d6d6413d3896954894c asciidoctor-reveal.js
+mv asciidoctor-reveal.js-2.0.1 asciidoctor-reveal.js
 
 mv docToolchain-master <docToolchain home>
 ----
