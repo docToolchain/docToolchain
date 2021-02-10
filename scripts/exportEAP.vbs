@@ -10,6 +10,7 @@
     Dim projectInterface 'As EA.Project
     
     Const   ForAppending = 8
+    Const   ForWriting = 2
     
     ' Helper
     ' http://windowsitpro.com/windows/jsi-tip-10441-how-can-vbscript-create-multiple-folders-path-mkdir-command
@@ -143,15 +144,16 @@
     ' easily be included in an asciidoc file.
     Sub SaveDiagramAttribute(currentDiagram, path, diagramName)
         If Len(diagramAttributes) > 0 Then
+            filledDiagAttr = diagramAttributes
             set objFSO = CreateObject("Scripting.FileSystemObject")
             filename = objFSO.BuildPath(path, diagramName & ".ad")
-            set objFile = objFSO.OpenTextFile(filename, ForAppending, True)
-            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_AUTHOR%", currentDiagram.Author)
-            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_CREATED%", currentDiagram.CreatedDate)
-            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_GUID%", currentDiagram.DiagramGUID)                        
-            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_MODIFIED%", currentDiagram.ModifiedDate)
-            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_NAME%", currentDiagram.Name)                        
-            objFile.WriteLine(diagramAttributes)
+            set objFile = objFSO.OpenTextFile(filename, ForWriting, True)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_AUTHOR%", currentDiagram.Author)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_CREATED%", currentDiagram.CreatedDate)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_GUID%", currentDiagram.DiagramGUID)                        
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_MODIFIED%", currentDiagram.ModifiedDate)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NAME%", currentDiagram.Name)                        
+            objFile.WriteLine(filledDiagAttr)
             objFile.Close
         End If
     End Sub
