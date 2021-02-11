@@ -28,6 +28,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === Fixed
 
+2021-02-10:
+- [530] - fix Fix writing of diagram attributes using exportEA
+
 2021-01-25::
 * [523] - fix for generateDeck
 
