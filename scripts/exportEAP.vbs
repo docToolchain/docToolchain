@@ -136,7 +136,8 @@
 
     ' This sub routine checks if the format string defined in diagramAttributes 
     ' does contain any characters. It replaces the known placeholders: 
-    ' %DIAGRAM_AUTHOR%, %DIAGRAM_CREATED%, %DIAGRAM_GUID%, %DIAGRAM_MODIFIED%, %DIAGRAM_NAME%
+    ' %DIAGRAM_AUTHOR%, %DIAGRAM_CREATED%, %DIAGRAM_GUID%, %DIAGRAM_MODIFIED%,
+    ' %DIAGRAM_NAME%, %DIAGRAM_NOTES%
     ' with the attribute values read from the EA diagram object.
     ' None, one or multiple number of placeholders can be used to create a diagram attribute
     ' to be added to the document. The attribute string is stored as a file with the same
@@ -148,11 +149,13 @@
             set objFSO = CreateObject("Scripting.FileSystemObject")
             filename = objFSO.BuildPath(path, diagramName & ".ad")
             set objFile = objFSO.OpenTextFile(filename, ForWriting, True)
-            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_AUTHOR%", currentDiagram.Author)
-            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_CREATED%", currentDiagram.CreatedDate)
-            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_GUID%", currentDiagram.DiagramGUID)                        
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_AUTHOR%",   currentDiagram.Author)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_CREATED%",  currentDiagram.CreatedDate)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_GUID%",     currentDiagram.DiagramGUID)                        
             filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_MODIFIED%", currentDiagram.ModifiedDate)
-            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NAME%", currentDiagram.Name)                        
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NAME%",     currentDiagram.Name)                        
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NOTES%",    currentDiagram.Notes)
+            filledDiagAttr = Replace(filledDiagAttr, "%NEWLINE%",          vbCrLf)
             objFile.WriteLine(filledDiagAttr)
             objFile.Close
         End If
