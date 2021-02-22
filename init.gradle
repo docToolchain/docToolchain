@@ -83,3 +83,25 @@ task initArc42ES(
     logger.info "arc42 template unpacked into ${newDocDir}"
 }
 //end::initArc42ES[]
+
+//tag::initArc42RU[]
+task initArc42RU(
+        description: 'Download sussian arc42 template from GitHub into newDocDir',
+        group: 'docToolchain',
+        dependsOn: 'initExisting'
+) doLast {
+    download {
+        src 'https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-RU-withhelp-asciidoc.zip'
+        dest new File(newDocDir, 'arc42-template-RU-withhelp-asciidoc.zip')
+    }
+    copy {
+        from zipTree(new File(newDocDir, 'arc42-template-RU-withhelp-asciidoc.zip'))
+        into newDocDir
+    }
+    delete {
+        delete new File(newDocDir, 'arc42-template-RU-withhelp-asciidoc.zip')
+    }
+
+    logger.info "arc42 template unpacked into ${newDocDir}"
+}
+//end::initArc42RU[]
