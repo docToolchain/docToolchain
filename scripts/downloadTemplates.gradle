@@ -36,7 +36,7 @@ task downloadTemplate(
                 .replaceAll('/[*]{2} inputFiles [*]{2}/',
                             "[file: 'arc42/arc42.adoc', formats: ['html','pdf']],\n\t/** inputFiles **/")
                 .replaceAll('/[*]{2} imageDirs [*]{2}/',
-                            "'arc42/images/.',\n\t/** inputFiles **/")
+                            "'arc42/images/.',\n\t/** imageDirs **/")
         )
         println "arc42 template unpacked into ${targetDir}"
         println "added template to ${mainConfigFile}"
