@@ -45,4 +45,8 @@ task downloadTemplate(
     }
 }
 //end::downloadTemplate[]
-
+task installTemplate(
+    description: 'alias for downloadTemplate',
+    group: 'docToolchain',
+    dependsOn: [downloadTemplate]
+) {}
