@@ -22,8 +22,49 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === Added
 
+2021-01-29::
+* [519] - Describe release process, update changelog
+
+2021-01-26::
+* [522] - Added sdkman file
+
+2021-01-25::
+* [522] - Support for JDK 14
+* [514] - Add support of multiple EA project locations in parallel
+
+=== Changed
+
+2021-01-25::
+* Add support of multiple EA project locations in parallel #514
+* updated Gradle to 6.7.1
+* added JDK14 for travis-ci testing
+* [517] - update revealJs to 3.9.1 and asciidoctor-revealjs to 2.0.1
+
+=== Fixed
+
+2021-02-10:
+- [530] - fix Fix writing of diagram attributes using exportEA
+
+2021-01-25::
+* [523] - fix for generateDeck
+
+2021-01-25::
+* fixed docs: ConfluenceConfig.groovy missing #492
+
+== 1.3.0 - 2021-01-20
+
+=== Added
+
+2021-01-05::
+* Add properties for htmlSanityCheck #507
+
 2020-09-07::
 * Ability to export Jira Sprint(s) data changelog (key, summary) (https://github.com/docToolchain/docToolchain/pull/473[#473])
+
+
+== 1.2.0 - 2020-02-09
+
+=== Added
 
 2020-08-24::
 * Ability to export OpenAPI specification to asciidoc (https://github.com/docToolchain/docToolchain/issues/464[#464])
@@ -45,8 +86,18 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 2019-02-26::
 * first version of `exportMetrics` task
 https://github.com/docToolchain/docToolchain/commit/c25ac52e43ccb1d45fa538c06d376258b41e8e32[c25ac52e], https://github.com/docToolchain/docToolchain/commit/a752acfb00206b3ac875b9ab585cd54e9d8fde89[a752acfb]
+
 2019-03-08::
 * Add TomTom logo as company who uses docToolchain https://github.com/docToolchain/docToolchain/pull/284[PR#284]
+
+
+== 1.1.0 - 2020-08-31
+
+=== Added
+
+2020-08-06::
+* publishToConfluence
+** https://github.com/docToolchain/docToolchain/pull/445[#445 Publish to confluence jira macro support]
 
 === Changed
 
@@ -74,6 +125,9 @@ https://github.com/docToolchain/docToolchain/commit/c25ac52e43ccb1d45fa538c06d37
 ** skip `docToolchain`-folder if used as submodule
 
 === Fixed
+
+2021-25-01::
+* fixed docs: ConfluenceConfig.groovy missing #492
 
 2019-05-30::
 * fix publishToConfluence internal link targets (#223)

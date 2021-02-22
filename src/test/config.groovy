@@ -7,7 +7,8 @@ outputPath = 'build/test/docs'
 //inputPath = 'src/test/docs'
 
 inputFiles = [
-        [file: 'test.adoc', formats: ['html','revealjs','pdf','docbook']],
+        [file: 'simplePresentation.adoc',   formats: ['revealjs',]],
+        [file: 'test.adoc',                 formats: ['html','pdf','docbook']],
              ]
 
 taskInputsDirs = [
@@ -15,7 +16,8 @@ taskInputsDirs = [
                  ]
 
 taskInputsFiles = [
-                    "${inputPath}/test.adoc"
+                    "${inputPath}/test.adoc",
+                    "${inputPath}/simplePresentation.adoc"
                   ]
 
 changelog = [:]

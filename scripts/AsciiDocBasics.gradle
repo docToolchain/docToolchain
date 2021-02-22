@@ -257,7 +257,7 @@ task generateDeck (
             'revealjs_history': 'true',
             'revealjs_slideNumber': 'true'
     )
-    options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates/slim').absolutePath ]
+    options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates').absolutePath ]
 
     onlyIf {
         !sourceFiles.findAll {
@@ -283,8 +283,8 @@ task generateDeck (
         from(sourceDir) {
             include 'images/**'
         }
-        into("ppt")
-        logger.info "${docDir}/${config.outputPath}/ppt/images"
+        into("")
+        logger.info "${docDir}/${config.outputPath}/images"
     }
 }
 //end::generateDeck[]

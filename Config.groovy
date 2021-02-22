@@ -173,7 +173,8 @@ exportEA.with {
 // OPTIONAL: only terms of type Business and Technical will be exported.
 // glossaryTypes = ["Business", "Technical"]
 // OPTIONAL: Additional files will be exported containing diagram attributes in the given asciidoc format
-// diagramAttributes = "Modified: %DIAGRAM_AUTHOR%, %DIAGRAM_MODIFIED%, %DIAGRAM_NAME%, %DIAGRAM_GUID%, %DIAGRAM_CREATED%"
+// diagramAttributes = "Modified: %DIAGRAM_AUTHOR%, %DIAGRAM_MODIFIED%, %DIAGRAM_NAME%,
+// %DIAGRAM_GUID%, %DIAGRAM_CREATED%, %DIAGRAM_NOTES%"
 }
 //end::exportEAConfig[]
 

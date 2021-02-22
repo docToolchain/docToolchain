@@ -77,7 +77,7 @@ Example:
 
 All files to attach will require to be linked inside the document.
 
-``link:attachement/myfolder/myfile.json[My API definition]``
+``\link:attachement/myfolder/myfile.json[My API definition]``
 
 attachmentPrefix::
 

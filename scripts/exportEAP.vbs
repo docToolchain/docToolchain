@@ -10,6 +10,7 @@
     Dim projectInterface 'As EA.Project
     
     Const   ForAppending = 8
+    Const   ForWriting = 2
     
     ' Helper
     ' http://windowsitpro.com/windows/jsi-tip-10441-how-can-vbscript-create-multiple-folders-path-mkdir-command
@@ -135,7 +136,8 @@
 
     ' This sub routine checks if the format string defined in diagramAttributes 
     ' does contain any characters. It replaces the known placeholders: 
-    ' %DIAGRAM_AUTHOR%, %DIAGRAM_CREATED%, %DIAGRAM_GUID%, %DIAGRAM_MODIFIED%, %DIAGRAM_NAME%
+    ' %DIAGRAM_AUTHOR%, %DIAGRAM_CREATED%, %DIAGRAM_GUID%, %DIAGRAM_MODIFIED%,
+    ' %DIAGRAM_NAME%, %DIAGRAM_NOTES%
     ' with the attribute values read from the EA diagram object.
     ' None, one or multiple number of placeholders can be used to create a diagram attribute
     ' to be added to the document. The attribute string is stored as a file with the same
@@ -143,15 +145,18 @@
     ' easily be included in an asciidoc file.
     Sub SaveDiagramAttribute(currentDiagram, path, diagramName)
         If Len(diagramAttributes) > 0 Then
+            filledDiagAttr = diagramAttributes
             set objFSO = CreateObject("Scripting.FileSystemObject")
             filename = objFSO.BuildPath(path, diagramName & ".ad")
-            set objFile = objFSO.OpenTextFile(filename, ForAppending, True)
-            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_AUTHOR%", currentDiagram.Author)
-            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_CREATED%", currentDiagram.CreatedDate)
-            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_GUID%", currentDiagram.DiagramGUID)                        
-            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_MODIFIED%", currentDiagram.ModifiedDate)
-            diagramAttributes = Replace(diagramAttributes, "%DIAGRAM_NAME%", currentDiagram.Name)                        
-            objFile.WriteLine(diagramAttributes)
+            set objFile = objFSO.OpenTextFile(filename, ForWriting, True)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_AUTHOR%",   currentDiagram.Author)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_CREATED%",  currentDiagram.CreatedDate)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_GUID%",     currentDiagram.DiagramGUID)                        
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_MODIFIED%", currentDiagram.ModifiedDate)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NAME%",     currentDiagram.Name)                        
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NOTES%",    currentDiagram.Notes)
+            filledDiagAttr = Replace(filledDiagAttr, "%NEWLINE%",          vbCrLf)
+            objFile.WriteLine(filledDiagAttr)
             objFile.Close
         End If
     End Sub
@@ -396,12 +401,14 @@
   WEnd
   set fso = CreateObject("Scripting.fileSystemObject") 
   WScript.echo "Image extractor"
-  If IsEmpty(connectionString) Then
-  WScript.echo "looking for .eap(x) files in " & fso.GetAbsolutePathName(searchPath)
-  'Dim f As Scripting.Files
-  SearchEAProjects fso.GetFolder(searchPath)
-  Else
+
+  ' Check both types in parallel - 1st check Enterprise Architect database connection, 2nd look for local project files
+  If Not IsEmpty(connectionString) Then
      WScript.echo "opening database connection now"
      OpenProject(connectionString)
   End If
+  WScript.echo "looking for .eap(x) files in " & fso.GetAbsolutePathName(searchPath)
+  ' Dim f As Scripting.Files
+  SearchEAProjects fso.GetFolder(searchPath)
+
   WScript.echo "finished exporting images"

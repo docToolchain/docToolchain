@@ -42,6 +42,8 @@ The AsciiDoc version gives you a bit more control:
 - column width relative to other columns is preserved
 - background colors are preserved.
 
+NOTE: see https://github.com/uniqueck/asciidoctorj-office-extension[asciidoctorj-office-extension] for another way how you can use Excel sheets in your docs.
+
 == Source
 
 .build.gradle
