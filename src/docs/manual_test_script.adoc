@@ -1,0 +1,108 @@
+== docToolchain manual tests
+
+=== Install
+
+==== dtcw on linux
+
+```
+wget docToolchain.github.io/dtcw
+chmod +x dtcw
+./dtcw local tasks
+./dtcw docker tasks
+./dtcw sdk tasks
+./dtcw
+```
+
+* check for correct version
+* check that local, docker and sdkman work
+
+Command to use for further tests is `./dtcw []`
+
+==== sdkman
+
+sdk install doctoolchain 1.3.0-beta
+
+=== Commands
+
+==== downloadTemplate
+
+```
+tree src/docs
+./dtcw downloadTemplate
+tree src/docs
+```
+
+* check that different templates can be downloaded
+* check that the following `generate`-tasks work
+* check that user gets a hint if she tries to install a second arc42 template instance
+
+==== generateHTML
+
+```
+tree build
+./dtcw generateHTML
+tree build
+start build/html5/arc42/arc42.html
+```
+
+* check generated output
+** check for images (arc42-logo, chapter 5)
+
+==== generatePDF
+
+```
+tree build
+./dtcw generatePDF
+tree build
+start build/docs/pdf/arc42.pdf
+```
+
+* check generated output
+** check for images (arc42-logo, chapter 5)
+
+==== generateDocbook
+
+```
+tree build
+./dtcw generateDocbook
+tree build
+start build/docs/pdf/arc42.pdf
+```
+
+* check generated output
+
+==== generateSite
+
+==== publishToConfluence
+
+==== exportExcel
+
+==== exportPPT
+
+==== fixEncoding
+==== prependFilename
+==== collectIncludes
+==== generateDeck
+
+* create a presentation.adoc in your srcDir
+* configure in Config.groovy that it has formats: ['revealjs']
+* run generateDeck
+* goto srcDir/build/decks/
+* you see presentation.html andpptDirectory
+* open presentation in editor and you see that reveal.js is included reveal.js/lib/css/zenburn.css
+* the reveal.js directory is under ppt/ and not on the same level as presentation.adoc
+
+==== convertToDocx
+==== createReferenceDoc
+==== convertToEpub
+==== exportEA
+==== exportVisio
+==== exportChangeLog
+==== exportContributors
+==== exportJiraIssues
+==== exportJiraSprintChangelogIssues
+==== exportPPT
+==== exportMarkdown
+==== exportOpenAPI
+==== htmlSanityCheck
+==== dependencyUpdates
