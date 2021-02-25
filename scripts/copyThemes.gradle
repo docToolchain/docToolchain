@@ -11,17 +11,19 @@ task copyThemes(
             def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37]
             return new String((char) 27) + "[${colors[color]}m${text}" + new String((char) 27) + "[0m"
         }
-        println "${color 'green', 'What do you want me to copy?'}"
         def lang = ant.input(message: "${color 'green', 'What do you want me to copy?'}", validargs: 'pdfTheme,jBakeTheme', addproperty: 'what')
-        switch (what) {
+        switch (ant.what) {
             case 'pdfTheme':
-                def targetDir = new File(docDir, pdfTheme)
+                def targetDir = new File(pdfThemeDir)
                 if (targetDir.exists()) {
                     println "${targetDir.canonicalPath} already exists"
                     println "in order to re-install the theme, please remove the folder first and re-run the script"
                     throw new RuntimeException("pdfTheme folder already exists")
                 }
                 targetDir.mkdirs()
+                def source = new File(projectDir, 'template_config/pdfTheme')
+                println source.canonicalPath
+                println targetDir.canonicalPath
                 copy {
                     from new File(projectDir, 'template_config/pdfTheme')
                     into targetDir

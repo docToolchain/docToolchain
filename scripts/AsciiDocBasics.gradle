@@ -115,10 +115,9 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
     // configure source and output files and folders
     outputDir = file(targetDir)
     sourceDir = file(srcDir)
-
     attributes  (
             'pdf-stylesdir': "${pdfThemeDir}@",
-            'pdf-style': 'custom@',
+            'pdf-style': "custom@",
     //        'pdf-fontsdir': "${docDir}/fonts",
             'source-highlighter': 'coderay@',
             'imagesdir': 'images@',
