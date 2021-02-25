@@ -31,7 +31,7 @@ task copyThemes(
                 println "pdfTheme copied into ${targetDir}"
                 break
             case 'jBakeTheme':
-                def targetDir = new File(docDir, 'site')
+                def targetDir = new File(new File(docDir, inputPath), '../site')
                 if (targetDir.exists()) {
                     println "${targetDir.canonicalPath} already exists"
                     println "in order to re-install the theme, please remove the folder first and re-run the script"
@@ -42,7 +42,7 @@ task copyThemes(
                     from new File(projectDir, 'src/site')
                     into targetDir
                 }
-                println "jBakeTheme copied into ${targetDir}"
+                println "jBakeTheme copied into ${targetDir.canonicalPath}"
                 break
         }
     }

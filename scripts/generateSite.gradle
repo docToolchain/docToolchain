@@ -15,6 +15,7 @@ apply plugin: 'org.jbake.site'
 jbake {
     version = '2.6.5'
     srcDirName = "${targetDir}/jbake/tmp/site"
+    destDirName = "${targetDir}/jbake/output"
     //configuration['asciidoctor.option.requires'] = "asciidoctor-diagram"
     configuration['asciidoctor.attributes'] = [
         'source-highlighter=prettify@',
