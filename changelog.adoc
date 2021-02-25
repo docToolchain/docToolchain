@@ -36,8 +36,17 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 == Version 1.3.1
 === Added
 
+=== Changed
+
+=== Fixed
+
+== 1.3.1 - 2021-02-27
+
+=== Added
+
 2021-01-29::
 * [519] - Describe release process, update changelog
+* smaller distribution file through createDist task
 
 2021-01-26::
 * [522] - Added sdkman file
@@ -56,8 +65,10 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === Fixed
 
+2021-02-22:
+- [535] - add initArc42RU task
 2021-02-10:
-- [530] - fix Fix writing of diagram attributes using exportEA
+- [530] - fix writing of diagram attributes using exportEA
 
 2021-01-25::
 * [523] - fix for generateDeck
