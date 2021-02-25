@@ -14,23 +14,24 @@ buildscript {
 }
 import org.asciidoctor.gradle.AsciidoctorTask
 
+def color = { color, text ->
+    def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37]
+    return new String((char) 27) + "[${colors[color]}m${text}" + new String((char) 27) + "[0m"
+}
+
 // configuration
 if (docDir.startsWith('.')) {
     docDir = new File(projectDir, docDir).canonicalPath
 }
-if (pdfThemeDir.startsWith('.')) {
-    pdfThemeDir = new File(docDir, pdfThemeDir).canonicalPath
-}
 logger.info "docToolchain> docDir: ${docDir}"
 logger.info "docToolchain> mainConfigFile: ${mainConfigFile}"
-logger.info "docToolchain> pdfThemeDir: ${pdfThemeDir}"
 def configSlurper = new ConfigSlurper()
 def configFile = new File(docDir, mainConfigFile)
 if (configFile.exists()) {
     //ok - nothing to do
 } else {
-    println "Config file '${configFile.canonicalPath}' does not exist"
-    def input = ant.input(message: "do you want me to create a default one for you?", validargs: 'y,n', addproperty: 'yesno')
+    println "${color 'green', """Config file '${configFile.canonicalPath}' does not exist' """}"
+    def input = ant.input(message: "${color 'green', 'do you want me to create a default one for you?'}", validargs: 'y,n', addproperty: 'yesno')
     if (ant.yesno=="y") {
         configFile.write(new File("./template_config/Config.groovy").text)
     } else {
@@ -38,7 +39,13 @@ if (configFile.exists()) {
     }
 }
 config = configSlurper.parse(configFile.text)
-
+pdfThemeDir = config.pdfThemeDir?config.pdfThemeDir:''
+if (pdfThemeDir.startsWith('.')) {
+    pdfThemeDir = new File(docDir, pdfThemeDir).canonicalPath
+}
+logger.info "docToolchain> pdfThemeDir: ${pdfThemeDir}"
+inputPath = config.inputPath?config.inputPath:'.'
+logger.info "docToolchain> inputPath: ${inputPath}"
 def props = project.gradle.startParameter.projectProperties
 logger.info("\nGradle project Properties [${props.size()}]:\n${props}\n==============================")
 
@@ -56,7 +63,6 @@ if (project.hasProperty('username') && project.hasProperty('password')) {
     config.confluence.credentials = "${project.getProperty('username')}:${project.getProperty('password')}".bytes.encodeBase64().toString()
 }
 
-inputPath = config.inputPath?config.inputPath:'.'
 referenceDocFile = config.referenceDocFile?config.referenceDocFile:''
 logger.info "docToolchain> referenceDocFile: ${referenceDocFile}"
 logger.info("\n==================\nParsed config file has ${config.flatten().size()} entries\n")

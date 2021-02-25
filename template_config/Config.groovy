@@ -5,7 +5,7 @@ outputPath = 'build'
 // or in the command line, and therefore must be relative to it.
 
 inputPath = 'src/docs';
-
+pdfThemeDir = 'src/docs/pdfTheme'
 
 inputFiles = [
         //[file: 'doctoolchain_demo.adoc',       formats: ['html','pdf']],

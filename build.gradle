@@ -77,6 +77,7 @@ apply from: 'scripts/exportOpenApi.gradle'
 apply from: 'scripts/downloadTemplates.gradle'
 apply from: 'scripts/generateSite.gradle'
 
+
 task prepareDist() {
     doLast {
         new File(buildDir, "dist").mkdirs()
@@ -139,69 +140,7 @@ task createDist(type: Zip, dependsOn: prepareDist) {
     destinationDir(file(buildDir))
 
 }
+
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
-defaultTasks 'exportMarkdown', 'exportChangeLog', 'exportContributors', 'generateHTML', 'htmlSanityCheck'
-
-task prepareDist() {
-    doLast {
-        new File(buildDir, "dist").mkdirs()
-        copy{
-            from new File("./bin")
-            into new File(buildDir,"dist/bin")
-        }
-        copy{
-            from (new File("./gradle")) {
-                include "*"
-                include "**/*"
-            }
-            into new File(buildDir,"dist/gradle")
-        }
-        copy{
-            from (new File("./resources")) {
-                include "*"
-                include "**/*"
-            }
-            into new File(buildDir,"dist/resources")
-        }
-        copy{
-            from new File("./scripts")
-            into new File(buildDir,"dist/scripts")
-        }
-        copy{
-            from (new File("./src/site")) {
-                include "*"
-                include "**/*"
-            }
-            into new File(buildDir,"dist/src/site")
-        }
-        copy{
-            from (new File("./template_config")) {
-                include "*"
-                include "**/*"
-            }
-            into new File(buildDir,"dist/template_config")
-        }
-        copy{
-            from (new File(".")) {
-                include '.gitmodules'
-                include 'build.gradle'
-                include 'gradle.properties'
-                include 'gradlew*'
-                include 'init.gradle'
-                include 'LICENCE'
-                include 'README.adoc'
-                include 'settings.gradle'
-            }
-            into new File(buildDir,"dist/.")
-        }
-    }
-}
-task createDist(type: Zip, dependsOn: prepareDist) {
-    from new File(buildDir,"dist")
-    include '*'
-    include '**/*' //to include contents of a folder present inside Reports directory
-    archiveName 'docToolchain-dist.zip'
-    destinationDir(file(buildDir))
-
-}
+//defaultTasks 'generateHTML', 'htmlSanityCheck'

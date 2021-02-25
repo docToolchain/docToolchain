@@ -1,116 +1,124 @@
 :filename: manual/02_install.adoc
 
+include::_blocks.adoc[]
+
 = How to install docToolchain
 
 include::feedback.adoc[]
 
-== Get the tool
+== Get the Wrapper
 
-To start with docToolchain you need to get a copy of the current docToolchain repository.
-The easiest way is to clone the repository without history and remove the `.git` folder:
+The basic strategy on how to install docToolchain has changed with V2.x.
+You now install a small wrapper scripts to your project which does the rest for you:
 
-.Linux with git clone
-[source,bash]
+.Linux / WSL2 with bash
+[role='primary']
+--
+[source, bash]
 ----
-git clone --recursive https://github.com/docToolchain/docToolchain.git <docToolchain home>
-cd <docToolchain home>
-rm -rf .git
-rm -rf resources/asciidoctor-reveal.js/.git
-rm -rf resources/reveal.js/.git
-----
-
-`--recursive` option is required because the repository contains 2 submodules - `resources/asciidoctor-reveal.js` and `resources/reveal.js`.
-
-Another way is to download the zipped git repository and rename it:
-
-.Linux with download as zip
-[source,bash]
-----
-wget https://github.com/docToolchain/docToolchain/archive/master.zip
-unzip master.zip
-
-# fetching dependencies
-
-cd docToolchain-master/resources
-
-rm -d reveal.js
-wget https://github.com/hakimel/reveal.js/archive/tags/3.9.2.zip -O reveal.js.zip
-unzip reveal.js.zip
-mv reveal.js-tags-3.9.2 reveal.js
-
-rm -d asciidoctor-reveal.js
-wget https://github.com/asciidoctor/asciidoctor-reveal.js/archive/v2.0.1.zip -O asciidoctor-reveal.js.zip
-unzip asciidoctor-reveal.js.zip
-mv asciidoctor-reveal.js-2.0.1 asciidoctor-reveal.js
-
-mv docToolchain-master <docToolchain home>
+cd <your project>
+wget doctoolchain.github.io/dtcw
+chmod +x dtcw
 ----
 
-If you work (like me) on a Windows environment, just download and unzip the https://github.com/docToolchain/docToolchain/archive/master.zip[repository] as well as its dependencies:
-https://github.com/hakimel/reveal.js/archive/tags/3.3.0.zip[reveal.js] and https://github.com/asciidoctor/asciidoctor-reveal.js/archive/9667f5c.zip[asciidoctor-reveal.js].
-
-After unzipping, put the dependencies in `resources` folder, so that the structure is the same as on https://github.com/docToolchain/docToolchain/tree/master/resources[GitHub].
-
-//[source]
-//----
-//(New-Object Net.WebClient).DownloadFile('https://github.com/docToolchain/docToolchain/archive/master.zip','master.zip')
-//----
-
-You can add <docToolchain home>/bin to your PATH or you can run doctoolchain with full path if you prefer.
-
-== Initialize directory for documents
-
-The next step after getting docToolchain is to initialize a directory where your documents live.
-In docToolchain this directory is named "newDocDir" during initialization, or just "docDir" later on.
-
-=== Existing documents
-
-If you already have some existing documents in AsciiDoc format in your project, you need to put the configuration file there to inform docToolchain what and how to process.
-You can do that manually by copying the contents of template_config directory.
-You can also do that by running `initExisting` task.
-
-.Linux initExisting example
-[source,bash]
+if you don't have `wget` installed, you can also use `curl`:
+[source, bash]
 ----
-cd <docToolchain home>
-./gradlew -b init.gradle initExisting -PnewDocDir=<your directory>
+cd <your project>
+curl -Lo dtcw doctoolchain.github.io/dtcw
+chmod +x dtcw
 ----
 
-You need to open Config.groovy file and configure names of your files properly.
-You may also change the PDF schema file to your taste.
+--
 
-IMPORTANT: docToolchain by default uses `src/docs` as the directory of your documentation.
-If you use a different directory you need to go to <docToolchain home> and set the `inputPath` property in `gradle.properties` to `your/path`.
+.Windows with Powershell
+[role='secondary']
+--
+[source, powershell]
+----
+cd <your project>
+wget doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1
+----
+--
 
-=== arc42 from scratch
+NOTE: In order to support development for your project on both, Linux and Windows, it makes sense to download both scripts to your project.
+
+The wrapper helps you in several ways:
+
+- it ensures that everyone who uses your repository, uses the same version of docToolchain
+- it keeps all the technology out of your repository
+- it wraps all your commands and directs them to your local docToolchain installation
+- even more, it checks the way you have docToolchain installed and if it hasn't been installed, it will install it for you via direct download or docker
+
+== run a first command
+
+To get started, you can run `tasks` as a first command:
+
+.Linux / WSL2 with bash
+[role='primary']
+--
+[source, bash]
+----
+./dtcw tasks --group=doctoolchain
+----
+--
+
+.Windows with Powershell
+[role='secondary']
+--
+[source, powershell]
+----
+./dtcw.ps1 tasks --group=doctoolchain
+----
+--
+
+This command will show you all tasks available through docToolchain, but first it will make sure that docToolchain is installed:
+
+* it checks for a configuration file and creates a default one if none is available.
+* it prefers a local installation
+* if docker is available and no local installation, it will use docker. The download of the images might take a while when run for the first time
+* if docker is not available, it will download and install docToolchain to your home folder
+** it will then run a gradle build through the gradle wrapper. This will download and isntall gradle when run for the first time.
+** the gradle build will also fetch some dependencies. This will also take some time when run for the first time.
+
+As you can see, the installation is an incremental process and will take some time because of additional downloads.
+After the first few commands, you will have all the needed dependencies installed and things will be faster.
+
+== Existing documents
+
+If you already have some existing documents in AsciiDoc format in your project, you need to tell docToolchain where it can find these documents.
+To do so, take a look at the created `docToolchainConfig.groovy` and update it.
+
+== arc42 from scratch
 
 If you don't have existing documents yet, or if you need a fresh start, you can get the https://arc42.org[arc42] template in AsciiDoc format.
-You can do that by manually downloading from https://arc42.org/download.
-You can also do that by running the
-`initArc42<language>` task.
-Currently supported languages are:
 
-- DE - German
-- EN - English
-- ES - Spanish
-- RU - Russian
+Run the following command to ask docToolchain to download the template of your choice:
 
-.Linux initArc42EN example
+.Linux
+[.primary]
+--
 [source,bash]
 ----
-cd <docToolchain home>
-./gradlew -b init.gradle initArc42EN -PnewDocDir=<newDocDir>
+./dtcw downloadTemplate
 ----
+--
 
-The Config.groovy file is then preconfigured to use the downloaded template.
-
-TIP: Blog-Post: https://rdmueller.github.io/arc42/[Let's add Content!]
+.Windows
+[.secondary]
+--
+[source,powershell]
+----
+./dtcw.ps1 downloadTemplate
+----
+--
 
 == Build
 
-This should already be enough to start a first build.
+By now, docToolchain is installed in some way, the docToolchain wrapper `dtcw` resides in your project folder and the arc42 template is installed.
+Now let's render it as HTML and PDF.
 
-By now, docToolchain should be installed as command line tool and the path to its `bin` folder should be on your path.
+should be installed as command line tool and the path to its `bin` folder should be on your path.
 If you now switch to your freshly initialized <newDocDir>, you should be able to execute the following commands:
 
 .Linux

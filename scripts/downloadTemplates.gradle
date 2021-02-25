@@ -1,8 +1,8 @@
 
-//tag::initArc42DE[]
+//tag::downloadTemplate[]
 task downloadTemplate(
     description: 'Download a specified template and install it',
-    group: 'docToolchain'
+    group: 'docToolchain helper'
 ) {
     doFirst {
     }
@@ -67,8 +67,3 @@ task downloadTemplate(
     }
 }
 //end::downloadTemplate[]
-task installTemplate(
-    description: 'alias for downloadTemplate',
-    group: 'docToolchain',
-    dependsOn: [downloadTemplate]
-) {}
