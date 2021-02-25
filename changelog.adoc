@@ -11,6 +11,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 ==== added
 
+2012-02-26::
+* copyThemes task
 2021-02-23::
 * first version of powershell wrapper
 2021-02-22::
@@ -25,7 +27,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * configured gradle to run without daemon
 
 ==== fixed
-
+2021-02-24::
+* [543] dtcw: added pre-requisites check and alternative curl instead of wget
 2021-02-22::
 * handling of images for generateHTML
 
