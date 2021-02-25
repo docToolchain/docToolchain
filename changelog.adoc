@@ -19,6 +19,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 2021-01-29::
 * [519] - Describe release process, update changelog
+* smaller distribution file through createDist task
 
 2021-01-26::
 * [522] - Added sdkman file
