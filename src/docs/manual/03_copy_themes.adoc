@@ -1,0 +1,25 @@
+:filename: manual/03_task_fixencoding.adoc
+ifndef::imagesdir[:imagesdir: ../images]
+
+= fixEncoding
+
+include::feedback.adoc[]
+
+// image::ea/Manual/publishToConfluence.png[]
+
+Whenever Asciidoctor has to process a file which is not UTF-8 encoded, the underlying Ruby tries to read it and throws an error like this:
+
+    asciidoctor: FAILED: /home/demo/test.adoc: Failed to load AsciiDoc document - invalid byte sequence in UTF-8
+
+Unfortunately, it is hard to find the wrong encoded file if a lot of `includes::` are used - Asciidoctor only shows the name of the main document.
+
+NOTE: This is not a problem of Asciidoctor, but of the underlying ruby interpreter.
+
+This target crawls through all `+++*.ad+++` and `+++*.adoc+++` files and checks their encoding.
+If it encounters a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding.
+
+.scripts/fixEncoding.gradle
+[source,groovy]
+----
+include::../../../scripts/fixEncoding.gradle[]
+----
