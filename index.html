@@ -5222,7 +5222,7 @@ Otherwise you might get false positives because Gradle will skip steps ('Up-to-d
 <div class="ulist">
 <ul>
 <li>
-<p>create a section for the the version</p>
+<p>create a section for the version</p>
 </li>
 <li>
 <p>copy all unreleased features which will be in the release to the created section</p>
@@ -5240,10 +5240,16 @@ Otherwise you might get false positives because Gradle will skip steps ('Up-to-d
 <p>copy the content of the changelog for this version to the description and submit</p>
 </li>
 <li>
-<p>this creates a zip of the source which is the distribution file</p>
+<p>set version as <strong>v</strong>X.Y.Z</p>
 </li>
 <li>
-<p>future releases will use a small zip (see ng-branch)</p>
+<p>run <code>./gradlew createDist</code></p>
+</li>
+<li>
+<p>this creates a zip of the source in <code>build</code> which is the distribution file</p>
+</li>
+<li>
+<p>add this zip and submit the new release</p>
 </li>
 </ul>
 </div>
@@ -5274,6 +5280,16 @@ Otherwise you might get false positives because Gradle will skip steps ('Up-to-d
 <h5 id="_sdkman">sdkman</h5>
 <div class="paragraph">
 <p>A github action has been created to deploy to sdkman: <a href="https://github.com/docToolchain/docToolchain/actions?query=workflow%3A%22sdkman+deploy%22">sdkman deploy</a>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>set version to the same as for the other relases but without the pre-pended <em>v</em>: X.Y.Z</p>
+</li>
+<li>
+<p>use as download link the link to the <code>docToolchain-dist.zip</code> from the github release (hint: looks like  <a href="https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip" class="bare">https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip</a>)</p>
+</li>
+</ul>
 </div>
 <hr>
 <div style="page-break-after: always;"></div>
@@ -6255,7 +6271,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-02-27 19:56:54 UTC
+Last updated 2021-02-27 20:49:17 UTC
 </div>
 </div>
 </body>
