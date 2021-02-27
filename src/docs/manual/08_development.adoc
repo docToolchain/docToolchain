@@ -43,6 +43,7 @@ A release consists of four parts:
 
 ==== Github
 
+* update version in `gradle.properties`
 * update the changelog
 ** create a section for the version
 ** copy all unreleased features which will be in the release to the created section

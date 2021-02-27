@@ -81,42 +81,43 @@ apply from: 'scripts/copyThemes.gradle'
 
 task prepareDist() {
     doLast {
-        new File(buildDir, "dist").mkdirs()
+        def distFolder = "dist/docToolchain-"+dtc_version
+        new File(buildDir, distFolder).mkdirs()
         copy{
             from new File("./bin")
-            into new File(buildDir,"dist/bin")
+            into new File(buildDir, distFolder+"/bin")
         }
         copy{
             from (new File("./gradle")) {
                 include "*"
                 include "**/*"
             }
-            into new File(buildDir,"dist/gradle")
+            into new File(buildDir,distFolder+"/gradle")
         }
         copy{
             from (new File("./resources")) {
                 include "*"
                 include "**/*"
             }
-            into new File(buildDir,"dist/resources")
+            into new File(buildDir,distFolder+"/resources")
         }
         copy{
             from new File("./scripts")
-            into new File(buildDir,"dist/scripts")
+            into new File(buildDir,distFolder+"/scripts")
         }
         copy{
             from (new File("./src/site")) {
                 include "*"
                 include "**/*"
             }
-            into new File(buildDir,"dist/src/site")
+            into new File(buildDir,distFolder+"/src/site")
         }
         copy{
             from (new File("./template_config")) {
                 include "*"
                 include "**/*"
             }
-            into new File(buildDir,"dist/template_config")
+            into new File(buildDir,distFolder+"/template_config")
         }
         copy{
             from (new File(".")) {
@@ -129,15 +130,18 @@ task prepareDist() {
                 include 'README.adoc'
                 include 'settings.gradle'
             }
-            into new File(buildDir,"dist/.")
+            into new File(buildDir,distFolder+"/.")
         }
     }
 }
 task createDist(type: Zip, dependsOn: prepareDist) {
-    from new File(buildDir,"dist")
+    println "generate distribution for "+dtc_version
+    def distFolder = "dist"
+    from new File(buildDir,distFolder)
     include '*'
     include '**/*' //to include contents of a folder present inside Reports directory
-    archiveName 'docToolchain-dist.zip'
+    archiveFileName = 'docToolchain-'+dtc_version+'.zip'
+    destinationDirectory = new File(buildDir, distFolder)
     destinationDir(file(buildDir))
 
 }
