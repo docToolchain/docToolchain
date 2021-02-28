@@ -82,6 +82,7 @@ apply from: 'scripts/copyThemes.gradle'
 task prepareDist() {
     doLast {
         def distFolder = "dist/docToolchain-"+dtc_version
+        println "generate distribution for "+dtc_version
         new File(buildDir, distFolder).mkdirs()
         copy{
             from new File("./bin")
@@ -135,7 +136,6 @@ task prepareDist() {
     }
 }
 task createDist(type: Zip, dependsOn: prepareDist) {
-    println "generate distribution for "+dtc_version
     def distFolder = "dist"
     from new File(buildDir,distFolder)
     include '*'
