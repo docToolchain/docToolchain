@@ -16,7 +16,6 @@ set GRADLECMD=%BASEDIR%gradlew.bat
 set WORKINGDIR=%cd%\
 set PATHTODOCS=%1
 
-echo "-------------------"
 @REM throw the first parameter away
 set params=%*
 set params=%params:* =%
