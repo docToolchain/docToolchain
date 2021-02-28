@@ -43,7 +43,31 @@ task downloadTemplate(
         }
         delete new File(targetDir, 'images/.')
         new File(targetDir, 'src').renameTo(new File(targetDir, 'chapters'))
-        new File(targetDir, 'src').renameTo(new File(targetDir, 'chapters'))
+        //add jbake header
+        new File(targetDir, 'chapters').eachFileRecurse { file->
+            if (file.name.endsWith('.adoc') && file.name ==~ /[0-9]+_.*/) {
+                def text = file.getText('utf-8')
+                def title = ""
+                text.eachLine { line ->
+                    if (title=="" && line.startsWith('=')) {
+                        title = line.split(" ")[1..-1].join(" ")
+                    }
+                }
+                text = """\
+:jbake-title: $title
+:jbake-type: page_toc
+:jbake-status: published
+:jbake-menu: arc42
+:jbake-order: ${file.name.split("_")[0] as Integer}
+:filename: ${file.canonicalPath-targetDir.canonicalPath}
+ifndef::immagesdir[:imagesdir: ../../images]
+
+:toc:
+
+"""+text
+                file.write(text,'utf-8')
+            }
+        }
         new File(targetDir, 'arc42-template.adoc').renameTo(new File(targetDir, 'arc42.adoc'))
         def configAdoc = new File(targetDir,'chapters/config.adoc')
         configAdoc.write(configAdoc.text.replaceAll("[.]/images","../images"))

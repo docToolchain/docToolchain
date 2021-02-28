@@ -7,12 +7,45 @@
 
 <main class="container">
 	<div class="bg-light p-5 rounded">
-		<h1>Architekturdokumentation</h1>
+		<h1>Solution Architecture Documentation</h1>
 		<p class="lead">
-			Diese Microsite enthält die Architekturdokumentation zum System X
+			This Microsite contains the documentation for system X
 		</p>
-		<p>Hier kann noch ganz viel beschreibender Text stehen</p>
+		<p>Insert an introduction here</p>
 	</div>
+
+    <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+        <div class="col">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 fw-normal">Feature One</h4>
+                </div>
+                <div class="card-body">
+                    Write a teaser for this feature here.
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 fw-normal">Feature Two</h4>
+                </div>
+                <div class="card-body">
+                    Write a teaser for this feature here.
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 fw-normal">Feature Three</h4>
+                </div>
+                <div class="card-body">
+                    Write a teaser for this feature here.
+                </div>
+            </div>
+        </div>
+    </div>
 </main>
 
 <%include "footer.gsp"%>

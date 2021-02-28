@@ -15,11 +15,13 @@ task copyThemes(
         switch (ant.what) {
             case 'pdfTheme':
                 def targetDir = new File(pdfThemeDir)
+                /**
                 if (targetDir.exists()) {
                     println "${targetDir.canonicalPath} already exists"
                     println "in order to re-install the theme, please remove the folder first and re-run the script"
                     throw new RuntimeException("pdfTheme folder already exists")
                 }
+                **/
                 targetDir.mkdirs()
                 def source = new File(projectDir, 'template_config/pdfTheme')
                 println source.canonicalPath
@@ -32,11 +34,13 @@ task copyThemes(
                 break
             case 'jBakeTheme':
                 def targetDir = new File(new File(docDir, inputPath), '../site')
+                /**
                 if (targetDir.exists()) {
                     println "${targetDir.canonicalPath} already exists"
                     println "in order to re-install the theme, please remove the folder first and re-run the script"
                     throw new RuntimeException("jBakeTheme folder already exists")
                 }
+                **/
                 targetDir.mkdirs()
                 copy {
                     from new File(projectDir, 'src/site')

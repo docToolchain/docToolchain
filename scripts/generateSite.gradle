@@ -10,6 +10,7 @@ buildscript {
 }
 dependencies {
     jbake 'org.asciidoctor:asciidoctorj-diagram:2.0.2'
+    jbake 'io.pebbletemplates:pebble:3.1.2'
 }
 
 apply plugin: 'org.jbake.site'
@@ -47,8 +48,17 @@ task generateSite(
         }
         copy {
             from(new File(docDir, inputPath)) {}
-            into("${targetDir}/jbake/tmp/doc")
+            into("${targetDir}/jbake/tmp/site/doc")
         }
+        /**
+        println "="*80
+        println (new File("${targetDir}/jbake/tmp/site/doc").canonicalPath)
+        new File("${targetDir}/jbake/tmp/site/doc").eachFileRecurse { file ->
+            if (file.name.endsWith('.adoc')) {
+                System.out.println ">> "+file.name
+            }
+        }
+        **/
     }
 }
 task copyImages(type: Copy) {

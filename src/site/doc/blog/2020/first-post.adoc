@@ -1,14 +1,18 @@
-:jbake-title: Erster Post
+:jbake-title: First Post
 :jbake-date: 2020-12-15
 :jbake-type: post
 :jbake-tags: blog, asciidoc
 :jbake-status: published
 
-= Erster Post
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+= First Post
 Ralf D. Müller
 2020-12-15
 
-Dieses Weblog demonstriert wie eine Architekturdokumentation nach dem Docs-as-Code Ansatz aussehen kann.
+This is just a demonstration on how to use the blog.
+
+imagesdir: {imagesdir}
 
 [plantuml]
 ----
