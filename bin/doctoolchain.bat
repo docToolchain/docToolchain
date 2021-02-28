@@ -15,23 +15,27 @@ set BASEDIR=%SCRIPTDIR%..\
 set GRADLECMD=%BASEDIR%gradlew.bat
 set WORKINGDIR=%cd%\
 set PATHTODOCS=%1
-shift
+
+echo "-------------------"
+@REM throw the first parameter away
+set params=%*
+set params=%params:* =%
 
 @REM Execute docToolchain
 
-@REM %GRADLECMD% --project-cache-dir %BASEDIR%.gradle -p %BASEDIR% -PdocDir=%WORKINGDIR%%1 %*
+@REM %GRADLECMD% --project-cache-dir %BASEDIR%.gradle -p %BASEDIR% -PdocDir=%WORKINGDIR%%1 %params%
 
 cd /d %BASEDIR%
 
 IF "%PATHTODOCS:~0,1%"=="." goto :relativePath
 
-call %GRADLECMD% --project-cache-dir %BASEDIR%/.gradle "-PdocDir=%PATHTODOCS%" %*
+call %GRADLECMD% --project-cache-dir %BASEDIR%/.gradle "-PdocDir=%PATHTODOCS%" %params%
 
 goto :end
 
 :relativePath
 
-call %GRADLECMD% --project-cache-dir %BASEDIR%/.gradle "-PdocDir=%WORKINGDIR%%PATHTODOCS%" %*
+call %GRADLECMD% --project-cache-dir %BASEDIR%/.gradle "-PdocDir=%WORKINGDIR%%PATHTODOCS%" %params%
 
 goto :end
 
