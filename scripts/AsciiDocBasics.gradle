@@ -120,7 +120,7 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
             'pdf-style': "custom@",
     //        'pdf-fontsdir': "${docDir}/fonts",
             'source-highlighter': 'coderay@',
-            'imagesdir': 'images@',
+            'imagesdir': './images@',
             'toc': 'left@',
             'icons': 'font@',
             'javaVersion'         : "$javaVersion",
@@ -199,7 +199,9 @@ task generatePDF (
         description: 'use pdf as asciidoc backend') {
 
     attributes (
-        'plantUMLDir'         : file("${docDir}/${config.outputPath}/images/plantUML/").path
+        'data-uri': 'true',
+        'plantUMLDir'         : file("${docDir}/${config.outputPath}/images/").path,
+        'imagesoutdir'        : file("${docDir}/${config.outputPath}/images/").path
     )
     onlyIf {
         !sourceFiles.findAll {
