@@ -6,8 +6,10 @@ buildscript {
     }
     dependencies {
         classpath 'org.asciidoctor:asciidoctorj-diagram:2.0.2'
-        classpath 'io.pebbletemplates:pebble:3.1.4'
     }
+}
+dependencies {
+    jbake 'org.asciidoctor:asciidoctorj-diagram:2.0.2'
 }
 
 apply plugin: 'org.jbake.site'
@@ -16,11 +18,12 @@ jbake {
     version = '2.6.5'
     srcDirName = "${targetDir}/jbake/tmp/site"
     destDirName = "${targetDir}/jbake/output"
-    //configuration['asciidoctor.option.requires'] = "asciidoctor-diagram"
+    configuration['asciidoctor.option.requires'] = "asciidoctor-diagram"
     configuration['asciidoctor.attributes'] = [
+        "sourceDir=${targetDir}",
         'source-highlighter=prettify@',
-        'imagesDir=/images@',
-        "imagesoutDir=${targetDir}/jbake/images@"
+        'imagesDir=../images@',
+        "imagesoutDir=${targetDir}/jbake/output/images@"
     ]
 }
 bakePreview {
