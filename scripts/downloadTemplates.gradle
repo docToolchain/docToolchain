@@ -60,7 +60,7 @@ task downloadTemplate(
 :jbake-menu: arc42
 :jbake-order: ${file.name.split("_")[0] as Integer}
 :filename: ${file.canonicalPath-targetDir.canonicalPath}
-ifndef::immagesdir[:imagesdir: ../../images]
+ifndef::imagesdir[:imagesdir: ../../images]
 
 :toc:
 
