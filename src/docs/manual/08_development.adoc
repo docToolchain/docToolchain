@@ -17,31 +17,34 @@ INFO: this chapter is still work in progress
 
 === Prepare the Project
 
-```bash
+[source,bash]
+----
 git clone git@github.com:docToolchain/docToolchain.git
 cd docToolchain/
 git checkout V1.0.0         # <1>
 git submodule update -i
-```
+----
+
 <1> the version to test.
 Not needed if you work on the HEAD revision on Master
 
 === Execute Tests
 
-```bash
+[source,bash]
+----
 rm -r build && ./gradlew test --info
-```
+----
 
 The `rm` command ensures that you really have a clean test running.
 Otherwise you might get false positives because Gradle will skip steps ('Up-to-date') because artifacts of an older test run still exist.
 
-=== Create new Release
+== Create new Release
 
 We use https://semver.org/[semantic versioning] and https://keepachangelog.com/[keep a changelog]. Bot on a best effort base.
 
 A release consists of four parts:
 
-==== Github
+=== Github
 
 * update version in `gradle.properties`
 * update the changelog
@@ -55,7 +58,7 @@ A release consists of four parts:
 * this creates a zip of the source in `build` which is the distribution file
 * add this zip and submit the new release
 
-==== Dockerhub
+=== Dockerhub
 
 The image build for https://hub.docker.com/repository/docker/rdmueller/doctoolchain[rdmueller/doctoolchain] depends on the github repository https://github.com/docToolchain/docker-image[docToolchain/docker-image]
 
@@ -64,7 +67,7 @@ The image build for https://hub.docker.com/repository/docker/rdmueller/doctoolch
 * reference the github release for changelog
 * the build on dockerhub will be automatically triggered
 
-==== sdkman
+=== sdkman
 
 A github action has been created to deploy to sdkman: https://github.com/docToolchain/docToolchain/actions?query=workflow%3A%22sdkman+deploy%22[sdkman deploy].
 
