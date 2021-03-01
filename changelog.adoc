@@ -13,6 +13,14 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+== Version: 2.0.0-rc2
+
+=== fixed
+
+2012-03-01::
+* updated docs for generateSite
+* fixed menu for generateSite
+
 2012-02-27::
 * fixed createDist task
 * fixed plantUML for generatePDF
