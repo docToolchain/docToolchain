@@ -23,7 +23,7 @@ jbake {
     configuration['asciidoctor.attributes'] = [
         "sourceDir=${targetDir}",
         'source-highlighter=prettify@',
-        'imagesDir=../images@',
+        //'imagesDir=../images@',
         "imagesoutDir=${targetDir}/jbake/output/images@"
     ]
 }

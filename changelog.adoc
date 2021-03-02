@@ -13,6 +13,13 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+== Version: 2.0.0-rc4
+
+=== fixed
+
+2012-03-02::
+* removed default imagesdir for generateSite
+
 == Version: 2.0.0-rc3
 
 === fixed
