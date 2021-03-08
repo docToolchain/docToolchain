@@ -91,9 +91,11 @@ confluence.with {
     ]
 
     // endpoint of the confluenceAPI (REST) to be used
+    // to verify the endpoint, add user/current and pate it into your browser
+    // you should get a json about your own user
     api = 'https://[yourServer]/[context]/rest/api/'
 
-//    Additionally, spaceKey, createSubpages, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
+    //    Additionally, spaceKey, createSubpages, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
 
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
