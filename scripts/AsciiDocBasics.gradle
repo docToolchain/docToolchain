@@ -75,6 +75,15 @@ ext {
 dependencies {
     asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.3'
     asciidoctor 'org.asciidoctor:asciidoctorj-diagram:2.0.1'
+
+    // the next line allows users to include PPT slides and Excel tables
+    // into a *.adoc file, directly.
+    // Looks like slide::/path/to/powerpointFile.pptx[slideNumber=1]
+    // or like excel::/path/to/excel.(xlsx|xls)[sheetName=Table1]
+    // See https://github.com/uniqueck/asciidoctorj-office-extension
+    // asciidoctor 'com.uniqueck:asciidoctorj-office-extension:0.0.1-alpha'
+    // https://mvnrepository.com/artifact/org.uniqueck/asciidoctorj-office-extension
+    asciidoctor group: 'org.uniqueck', name: 'asciidoctorj-office-extension', version: '0.0.1-alpha'
 }
 
 asciidoctorj {
