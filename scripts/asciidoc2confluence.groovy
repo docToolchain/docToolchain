@@ -197,13 +197,13 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
         }
     } else {
         http = new HTTPBuilder(config.confluence.api + 'content/' + pageId + '/child/attachment')
-        
+
     }
-    if (http) {																												
+    if (http) {
 		if (config.confluence.proxy) {
             http.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
-        } 
-		
+        }
+
         http.request(Method.POST) { req ->
             requestContentType: "multipart/form-data"
             MultipartEntity multiPartContent = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE)
@@ -382,7 +382,7 @@ def rewriteJiraLinks = { body ->
     // find links to jira tickets and replace them with jira macros
     body.select('a[href]').each { a ->
         def href = a.attr('href')
-        if (href.startsWith(config.jira.api + "/browse/")) { 
+        if (href.startsWith(config.jira.api + "/browse/")) {
                 def ticketId = a.text()
                 a.before("""<ac:structured-macro ac:name=\"jira\" ac:schema-version=\"1\">
                      <ac:parameter ac:name=\"key\">${ticketId}</ac:parameter>
@@ -417,17 +417,31 @@ def rewriteCodeblocks = { body ->
     }
 }
 
+
 def rewriteOpenAPI = { org.jsoup.nodes.Element body ->
-    if (config.confluence.useOpenapiMacro) {
-        body.select('div.openapi  pre > code').each { code ->
-            def parent=code.parent()
-            def rawYaml=code.wholeText()
-            code.parent()
-                    .wrap('<ac:structured-macro ac:name="confluence-open-api" ac:schema-version="1" ac:macro-id="1dfde21b-6111-4535-928a-470fa8ae3e7d"></ac:structured-macro>')
-                    .unwrap()
-            code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
-                    .replaceWith(new TextNode(rawYaml))
-        }
+         if (config.confluence.useOpenapiMacro == true || config.confluence.useOpenapiMacro == 'confluence-open-api') {
+            body.select('div.openapi  pre > code').each { code ->
+                def parent=code.parent()
+                def rawYaml=code.wholeText()
+                code.parent()
+                        .wrap('<ac:structured-macro ac:name="confluence-open-api" ac:schema-version="1" ac:macro-id="1dfde21b-6111-4535-928a-470fa8ae3e7d"></ac:structured-macro>')
+                        .unwrap()
+                code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
+                        .replaceWith(new TextNode(rawYaml))
+            }
+         }
+        else if (config.confluence.useOpenapiMacro == 'open-api') {
+            body.select('div.openapi  pre > code').each { code ->
+                def parent=code.parent()
+                def rawYaml=code.wholeText()
+                code.parent()
+                        .wrap('<ac:structured-macro ac:name="open-api" ac:schema-version="1" data-layout="default" ac:macro-id="4302c9d8-fca4-4f14-99a9-9885128870fa"></ac:structured-macro>')
+                        .unwrap()
+                // default: show download button
+                code.before('<ac:parameter ac:name="showDownloadButton">true</ac:parameter>')
+                code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
+                        .replaceWith(new TextNode(rawYaml))
+            }
     }
 }
 
