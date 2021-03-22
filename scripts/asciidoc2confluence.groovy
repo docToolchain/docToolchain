@@ -197,13 +197,13 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
         }
     } else {
         http = new HTTPBuilder(config.confluence.api + 'content/' + pageId + '/child/attachment')
-
+        
     }
-    if (http) {
+    if (http) {																												
 		if (config.confluence.proxy) {
             http.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
-        }
-
+        } 
+		
         http.request(Method.POST) { req ->
             requestContentType: "multipart/form-data"
             MultipartEntity multiPartContent = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE)
@@ -382,7 +382,7 @@ def rewriteJiraLinks = { body ->
     // find links to jira tickets and replace them with jira macros
     body.select('a[href]').each { a ->
         def href = a.attr('href')
-        if (href.startsWith(config.jira.api + "/browse/")) {
+        if (href.startsWith(config.jira.api + "/browse/")) { 
                 def ticketId = a.text()
                 a.before("""<ac:structured-macro ac:name=\"jira\" ac:schema-version=\"1\">
                      <ac:parameter ac:name=\"key\">${ticketId}</ac:parameter>
@@ -416,7 +416,6 @@ def rewriteCodeblocks = { body ->
             .unwrap()
     }
 }
-
 
 def rewriteOpenAPI = { org.jsoup.nodes.Element body ->
          if (config.confluence.useOpenapiMacro == true || config.confluence.useOpenapiMacro == 'confluence-open-api') {

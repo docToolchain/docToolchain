@@ -58,7 +58,7 @@ confluence = [:]
 // - 'url': absolute URL to an asciidoc generated html file to be exported
 // - 'ancestorName' (optional): the name of the parent page in Confluence as string;
 //                             this attribute has priority over ancestorId, but if page with given name doesn't exist,
-//                             ancestorId will be used as a fallback
+//                             ancestorId will be used as a fallback 
 // - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty
 //                            if a new parent shall be created in the space
 // - 'preambleTitle' (optional): the title of the page containing the preamble (everything
@@ -103,9 +103,9 @@ confluence.with {
 
     Tool expects credentials that belong to an account which has the right permissions to to create and edit confluence pages in the given space.
     Credentials can be used in a form of:
-     - passed parameters when calling script (-PconfluenceUser=myUsername -PconfluencePass=myPassword) which can be fetched as a secrets on CI/CD or
+     - passed parameters when calling script (-PconfluenceUser=myUsername -PconfluencePass=myPassword) which can be fetched as a secrets on CI/CD or  
      - gradle variables set through gradle properties (uses the 'confluenceUser' and 'confluencePass' keys)
-    Often, same credentials are used for Jira & Confluence, in which case it is recommended to pass CLI parameters for both entities as
+    Often, same credentials are used for Jira & Confluence, in which case it is recommended to pass CLI parameters for both entities as 
     -Pusername=myUser -Ppassword=myPassword
     */
 
@@ -129,9 +129,9 @@ confluence.with {
     // schema supports http and https
     // proxy = [host: 'my.proxy.com', port: 1234, schema: 'http']
 
-   // Optional: specify which Confluence OpenAPI Macro should be used to render OpenAPI definitions
-   // possible values: ["confluence-open-api", "open-api", true]. true is the same as "confluence-open-api" for backward compatibility
-   // useOpenapiMacro = "confluence-open-api"
+    // Optional: specify which Confluence OpenAPI Macro should be used to render OpenAPI definitions
+    // possible values: ["confluence-open-api", "open-api", true]. true is the same as "confluence-open-api" for backward compatibility
+    // useOpenapiMacro = "confluence-open-api"
 }
 //end::confluenceConfig[]
 //*****************************************************************************************
@@ -139,11 +139,11 @@ confluence.with {
 //Configuration for the export script 'exportEA.vbs'.
 // The following parameters can be used to change the default behaviour of 'exportEA'.
 // All parameter are optionally.
-// -  connection: Parameter allows to select a certain database connection by
+// -  connection: Parameter allows to select a certain database connection by 
 //    using the ConnectionString as used for directly connecting to the project
 //    database instead of looking for EAP/EAPX files inside and below the 'src' folder.
-// - 'packageFilter' is an array of package GUID's to be used for export. All
-//    images inside and in all packages below the package represented by its GUID
+// - 'packageFilter' is an array of package GUID's to be used for export. All 
+//    images inside and in all packages below the package represented by its GUID 
 //    are exported. A packageGUID, that is not found in the currently opened
 //    project, is silently skipped. PackageGUID of multiple project files can
 //    be mixed in case multiple projects have to be opened.
@@ -164,7 +164,7 @@ exportEA.with {
 //                  ]
 // OPTIONAL: export diagrams, notes, etc. below folder src/docs
 // exportPath = "src/docs/"
-// OPTIONAL: EA project files are expected to be located in folder src/projects
+// OPTIONAL: EA project files are expected to be located in folder src/projects  
 // searchPath = "src/projects/"
 // OPTIONAL: terms will be exported as asciidoc 'Description, single-line'
 // glossaryAsciiDocFormat = "TERM:: MEANING"
@@ -204,24 +204,24 @@ jira.with {
 
     // endpoint of the JiraAPI (REST) to be used
     api = 'https://your-jira-instance'
-
+    
     /*
     WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!
 
     Tool expects credentials that belong to an account which has the right permissions to read the JIRA issues for a given project.
     Credentials can be used in a form of:
-     - passed parameters when calling script (-PjiraUser=myUsername -PjiraPass=myPassword) which can be fetched as a secrets on CI/CD or
+     - passed parameters when calling script (-PjiraUser=myUsername -PjiraPass=myPassword) which can be fetched as a secrets on CI/CD or  
      - gradle variables set through gradle properties (uses the 'jiraUser' and 'jiraPass' keys)
-    Often, Jira & Confluence credentials are the same, in which case it is recommended to pass CLI parameters for both entities as
+    Often, Jira & Confluence credentials are the same, in which case it is recommended to pass CLI parameters for both entities as 
     -Pusername=myUser -Ppassword=myPassword
     */
 
     // the key of the Jira project
     project = 'PROJECTKEY'
-
+    
     // the format of the received date time values to parse
     dateTimeFormatParse = "yyyy-MM-dd'T'H:m:s.SSSz" // i.e. 2020-07-24'T'9:12:40.999 CEST
-
+    
     // the format in which the date time should be saved to output
     dateTimeFormatOutput = "dd.MM.yyyy HH:mm:ss z" // i.e. 24.07.2020 09:02:40 CEST
 
@@ -239,8 +239,8 @@ jira.with {
 
     // Output folder for this task inside main outputPath
     resultsFolder = 'JiraRequests'
-
-    /*
+    
+    /* 
     List of requests to Jira API:
     These are basically JQL expressions bundled with a filename in which results will be saved.
     User can configure custom fields IDs and name those for column header,
@@ -254,16 +254,16 @@ jira.with {
         ),
         new JiraRequest(
             filename:'CurrentSprint',
-            jql:"project='%jiraProject%' AND Sprint in openSprints() ORDER BY priority DESC, duedate ASC",
+            jql:"project='%jiraProject%' AND Sprint in openSprints() ORDER BY priority DESC, duedate ASC", 
             customfields: [customfield_10026:'Story Points']
         ),
-    ]
+    ]    
 }
-
+    
 @groovy.transform.Immutable
 class JiraRequest {
     String filename  //filename (without extension) of the file in which JQL results will be saved. Extension will be determined automatically for Asciidoc or Excel file
-    String jql // Jira Query Language syntax
+    String jql // Jira Query Language syntax 
     Map<String,String> customfields // map of customFieldId:displayName values for Jira fields which don't have default names, i.e. customfield_10026:StoryPoints
 }
 //end::jiraConfig[]
