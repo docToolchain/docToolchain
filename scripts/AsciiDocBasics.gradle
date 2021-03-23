@@ -83,7 +83,9 @@ dependencies {
     // See https://github.com/uniqueck/asciidoctorj-office-extension
     // asciidoctor 'com.uniqueck:asciidoctorj-office-extension:0.0.1-alpha'
     // https://mvnrepository.com/artifact/org.uniqueck/asciidoctorj-office-extension
-    asciidoctor group: 'org.uniqueck', name: 'asciidoctorj-office-extension', version: '0.0.1-alpha'
+    asciidoctor (group: 'org.uniqueck', name: 'asciidoctorj-office-extension', version: '0.0.1-alpha') {
+        exclude group: 'org.asciidoctor', module: 'asciidoctorj'
+    }
 }
 
 asciidoctorj {
