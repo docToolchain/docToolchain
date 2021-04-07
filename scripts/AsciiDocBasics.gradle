@@ -104,6 +104,7 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
     //        'pdf-fontsdir': "${docDir}/fonts",
             'source-highlighter': 'coderay@',
             'imagesdir': 'images@',
+            'plantUMLDir'         : file("${docDir}/${config.outputPath}/images/plantUML/").path,
             'toc': 'left@',
             'icons': 'font@',
             'javaVersion'         : "$javaVersion",
@@ -143,9 +144,6 @@ task generateHTML (
         group: 'docToolchain',
         description: 'use html5 as asciidoc backend') {
 
-    attributes (
-        'plantUMLDir'         : ''
-    )
     onlyIf {
         !sourceFiles.findAll {
             'html' in it.formats
@@ -175,9 +173,6 @@ task generatePDF (
         group: 'docToolchain',
         description: 'use pdf as asciidoc backend') {
 
-    attributes (
-        'plantUMLDir'         : file("${docDir}/${config.outputPath}/images/plantUML/").path
-    )
     onlyIf {
         !sourceFiles.findAll {
             'pdf' in it.formats
@@ -227,7 +222,6 @@ task generateDeck (
         description: 'use revealJs as asciidoc backend to create a presentation') {
 
     attributes (
-            'plantUMLDir'  : '',
             'idprefix': 'slide-',
             'idseparator': '-',
             'docinfo1': '',
