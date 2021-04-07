@@ -31,6 +31,32 @@ taskInputsFiles = []
 
 //*****************************************************************************************
 
+//Configuration for microsite: generateSite + previewSite
+
+microsite = [:]
+
+// these properties will be set as jBake properties
+// microsite.foo will be site.foo in jBake and can be used as config.site_foo in a template
+// see https://jbake.org/docs/2.6.4/#configuration for how to configure jBake
+// other properties listed here might be used in the jBake templates and thus are not
+// documented in the jBake docs but hopefully in the template docs.
+microsite.with {
+    /** start:microsite **/
+
+    // is your microsite deplyoed with a context path?
+    contextPath = '/'
+    // used as title in the template
+    title='Microsite'
+    // used in the template for absolute uris
+    host='https://localhost'
+    // configure a port on which your preview server will run
+    previewPort = 8881
+
+    /** end:microsite **/
+}
+
+//*****************************************************************************************
+
 //Configuration for exportChangelog
 
 exportChangelog = [:]

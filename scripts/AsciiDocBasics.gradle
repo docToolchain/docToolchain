@@ -30,8 +30,8 @@ def configFile = new File(docDir, mainConfigFile)
 if (configFile.exists()) {
     //ok - nothing to do
 } else {
-    println "${color 'green', """Config file '${configFile.canonicalPath}' does not exist' """}"
-    def input = ant.input(message: "${color 'green', 'do you want me to create a default one for you?'}", validargs: 'y,n', addproperty: 'yesno')
+    println "\n${color 'green', """Config file '${configFile.canonicalPath}' does not exist' """}"
+    def input = ant.input(message: "\n${color 'green', 'do you want me to create a default one for you?'}", validargs: 'y,n', addproperty: 'yesno')
     if (ant.yesno=="y") {
         configFile.write(new File("./template_config/Config.groovy").text)
     } else {
@@ -219,6 +219,13 @@ task generatePDF (
     }
 
     backends = ['pdf']
+    //check if a remote pdfTheme is defined
+    def pdfTheme = System.getenv('DTC_PDFTHEME')
+    def themeFolder = pdfTheme.md5()
+    if (pdfTheme) {
+        //check if it is already installed
+        //TODO: finish this...
+    }
 }
 //end::generatePDF[]
 

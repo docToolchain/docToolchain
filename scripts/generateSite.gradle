@@ -14,57 +14,201 @@ dependencies {
 }
 
 apply plugin: 'org.jbake.site'
+apply plugin: 'org.gretty'
+
+def color = { color, text ->
+    def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37]
+    return new String((char) 27) + "[${colors[color]}m${text}" + new String((char) 27) + "[0m"
+}
 
 jbake {
     version = '2.6.5'
-    srcDirName = "${targetDir}/jbake/tmp/site"
-    destDirName = "${targetDir}/jbake/output"
+    srcDirName = "${targetDir}/microsite/tmp/site"
+    destDirName = "${targetDir}/microsite/output"
     configuration['asciidoctor.option.requires'] = "asciidoctor-diagram"
+    config.microsite.each { key, value ->
+        configuration['site.'+key-'config.microsite.'] = value
+        //println 'site.'+key-'config.microsite.' +" = "+ value
+    }
+
     configuration['asciidoctor.attributes'] = [
         "sourceDir=${targetDir}",
         'source-highlighter=prettify@',
         //'imagesDir=../images@',
-        "imagesoutDir=${targetDir}/jbake/output/images@"
+        "imagesoutDir=${targetDir}/microsite/output/images@",
+        "imagesDir=${config.microsite.contextPath}/images",
     ]
+
 }
 bakePreview {
     port = '8046'
 }
+gretty {
+    httpPort = "${config.microsite.previewPort}" as Integer
+    contextPath = "${config.microsite.contextPath}"
+    extraResourceBases = ["${targetDir}/microsite/output"]
+}
+
 
 task generateSite(
     group: 'docToolchain',
     description: 'generate a microsite using jBake') {
     doLast {
-        new File("${targetDir}/jbake/tmp/").mkdirs()
+        new File("${targetDir}/microsite/tmp/").mkdirs()
         println "created"
-        println new File("${targetDir}/jbake/tmp/").canonicalPath
+        println new File("${targetDir}/microsite/tmp/").canonicalPath
+        //copy internal theme
+        println "copy internal theme ${new File(projectDir, 'src/site').canonicalPath}"
         copy {
             from('src/site')
-            into("${targetDir}/jbake/tmp/site")
+            into("${targetDir}/microsite/tmp/site")
         }
-        copy {
-            from(new File(new File(docDir, inputPath), '../site')) {}
-            into("${targetDir}/jbake/tmp/site")
-        }
-        copy {
-            from(new File(docDir, inputPath)) {}
-            into("${targetDir}/jbake/tmp/site/doc")
-        }
-        /**
-        println "="*80
-        println (new File("${targetDir}/jbake/tmp/site/doc").canonicalPath)
-        new File("${targetDir}/jbake/tmp/site/doc").eachFileRecurse { file ->
-            if (file.name.endsWith('.adoc')) {
-                System.out.println ">> "+file.name
+        //check if a remote pdfTheme is defined
+        def siteTheme = System.getenv('DTC_SITETHEME')?:""
+        def themeFolder = new File(projectDir, "../themes/" + siteTheme.md5())
+        try {
+            if (siteTheme) {
+                //check if it is already installed
+                if (!themeFolder.exists()) {
+                    println "${color 'green', """\nTheme '$siteTheme' is not installed yet. """}"
+                    def input = ant.input(message: """
+${color 'green', 'do you want me to download and install it to '}
+${color 'green', '   '+themeFolder.canonicalPath}
+${color 'green', 'for you?'}\n""",
+                        validargs: 'y,n', addproperty: 'yesno')
+
+                    if (ant.yesno == "y") {
+                        themeFolder.mkdirs()
+                        download {
+                            src siteTheme
+                            dest new File(themeFolder, 'siteTheme.zip')
+                        }
+                        copy {
+                            from zipTree(new File(themeFolder, 'siteTheme.zip'))
+                            into themeFolder
+                        }
+                        delete {
+                            delete new File(themeFolder, 'siteTheme.zip')
+                        }
+
+                    } else {
+                        println "${color 'green', """\nI will continue without the theme for now... """}"
+                        siteTheme = ""
+                    }
+
+                }
+                 //copy external theme
+                if (siteTheme) {
+                    copy {
+                        from(themeFolder) {}
+                        into("${targetDir}/microsite/tmp/")
+                    }
+                    //copy the dummy docs (blog, landing page) to the project repository
+                    copy {
+                        from(new File(themeFolder, 'site/doc')) {}
+                        into(new File(docDir, inputPath))
+                    }
+                    //check if the config has to be updated
+                    // check if config still contains /** microsite **/
+                    def configFile = new File(docDir, mainConfigFile)
+                    def configFileText = configFile.text
+                    if (configFileText.contains("/** start:microsite **/")) {
+                        println "${color 'green', """
+It seems that this theme is used for the first time in this project.
+Let's confige it!
+If you are unsure, change these settings later in your config file
+$configFile.canonicalPath
+"""}"
+                        def configFragment = new File(targetDir,'/microsite/tmp/site/configFragment.groovy')
+                        def comment = ""
+                        def conf = ""
+                        def example = ""
+                        def i = 0
+                        configFragment.eachLine { line ->
+                            if (line.trim()) {
+                                if (line.startsWith("//")) {
+                                    conf += "    "+line+"\n"
+                                    def tmp = line[2..-1].trim()
+                                    comment += color('green', tmp) + "\n"
+                                    if (tmp.toLowerCase().startsWith("example")) {
+                                        example = tmp.replaceAll("[^ ]* ","")
+                                    }
+                                } else {
+                                    //only prompt if there is something to prompt
+                                    if (line.contains("##")) {
+                                        def property = line.replaceAll("[ =].*", "")
+                                        if (!example) {
+                                            example = config.microsite[property]
+                                        }
+                                        comment = color('blue', "$property") + "\n" + comment
+                                        if (example) {
+                                            ant.input(message: comment,
+                                                addproperty: 'res' + i, defaultvalue: example)
+                                        } else {
+                                            ant.input(message: comment,
+                                                addproperty: 'res' + i)
+                                        }
+                                        (comment, example) = ["", ""]
+                                        line = line.replaceAll("##.+##", ant['res' + i])
+                                        conf += "    "+line + "\n"
+                                        i++
+                                    } else {
+                                        conf += "    "+line + "\n"
+                                    }
+                                }
+                            } else {
+                                conf += "\n"
+                            }
+                        }
+                        configFile.write(configFileText.replaceAll("(?sm)/[*][*] start:microsite [*][*]/.*/[*][*] end:microsite [*][*]/","%%marker%%").replace("%%marker%%",conf))
+                        println color('green',"config written\ntry\n ./dtcw generateSite previewSite\nto see your microsite!")
+                    }
+                }
+            }
+        } catch (Exception e) {
+            themeFolder.deleteDir()
+            println color('red', e.message)
+            if (e.message.startsWith("Not Found")) {
+                throw new GradleException("Couldn't find theme. Did you specify the right URL?\n"+e.message)
+            } else {
+                throw new GradleException(e.message)
             }
         }
-        **/
+        //copy project theme
+        println "copy project theme ${new File(new File(docDir, inputPath), '../site')}"
+        copy {
+            from(new File(new File(docDir, inputPath), '../site')) {}
+            into("${targetDir}/microsite/tmp/site")
+        }
+        //copy docs
+        copy {
+            from(new File(docDir, inputPath)) {}
+            into("${targetDir}/microsite/tmp/site/doc")
+        }
+
+        /**
+         println "="*80
+         println (new File("${targetDir}/microsite/tmp/site/doc").canonicalPath)
+         new File("${targetDir}/microsite/tmp/site/doc").eachFileRecurse { file ->
+         if (file.name.endsWith('.adoc')) {
+         System.out.println ">> "+file.name
+         }
+         }
+         **/
     }
+}
+task previewSite(
+    group: 'docToolchain',
+    dependsOn: [generateSite],
+    description: 'start a little webserver to preview your microsite',
+) {
+
 }
 task copyImages(type: Copy) {
     from(new File (new File(docDir, inputPath),'images')) {}
-    into("${targetDir}/jbake/images")
+    into("${targetDir}/microsite/images")
 }
 
 bake.dependsOn copyImages
 generateSite.finalizedBy bake
+previewSite.finalizedBy 'jettyRun'
