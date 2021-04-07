@@ -4,9 +4,11 @@
 buildscript {
     repositories {
         maven {
-            url mavenRepository
+            url mavenRepository2
         }
-        jcenter()
+        maven {
+            url mavenRepository1
+        }
     }
     dependencies {
         classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
@@ -83,7 +85,7 @@ dependencies {
     // See https://github.com/uniqueck/asciidoctorj-office-extension
     // asciidoctor 'com.uniqueck:asciidoctorj-office-extension:0.0.1-alpha'
     // https://mvnrepository.com/artifact/org.uniqueck/asciidoctorj-office-extension
-    asciidoctor (group: 'org.uniqueck', name: 'asciidoctorj-office-extension', version: '0.0.1-alpha') {
+    asciidoctor (group: 'com.uniqueck', name: 'asciidoctorj-office-extension', version: '0.0.1-alpha.2') {
         exclude group: 'org.asciidoctor', module: 'asciidoctorj'
     }
 }
