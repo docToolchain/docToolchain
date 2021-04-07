@@ -1210,7 +1210,7 @@ Make sure to specify a unique image name for each diagram, otherwise they will o
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/demoPlantUML.png" alt="demoPlantUML" width="246" height="236">
+<img src="/home/travis/build/docToolchain/docToolchain/build/docs/images/plantUMLdemoPlantUML.png" alt="plantUMLdemoPlantUML" width="246" height="236">
 </div>
 <div class="title">Figure 2. example diagram</div>
 </div>
@@ -1232,13 +1232,13 @@ For example, if you take the example diagram above and change the declaration to
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/demoPlantUMLWidth.png" alt="demoPlantUMLWidth" width="250" height="236">
+<img src="/home/travis/build/docToolchain/docToolchain/build/docs/images/plantUMLdemoPlantUMLWidth.png" alt="plantUMLdemoPlantUMLWidth" width="250" height="236">
 </div>
 <div class="title">Figure 3. example diagram (with specified width)</div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="images/demoPlantUMLScale.png" alt="demoPlantUMLScale" width="184" height="177">
+<img src="/home/travis/build/docToolchain/docToolchain/build/docs/images/plantUMLdemoPlantUMLScale.png" alt="plantUMLdemoPlantUMLScale" width="184" height="177">
 </div>
 <div class="title">Figure 4. example diagram (with specified scale)</div>
 </div>
@@ -1281,9 +1281,6 @@ Blog-Posts: <a href="https://rdmueller.github.io/plantuml-gradle/">PlantUML with
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">use html5 as asciidoc backend</span><span class="delimiter">'</span></span>) {
 
-    attributes (
-        <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>
-    )
     onlyIf {
         !sourceFiles.findAll {
             <span class="string"><span class="delimiter">'</span><span class="content">html</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
@@ -1727,9 +1724,6 @@ Blog-Post: <a href="https://rdmueller.github.io/pdf-output/">Beyond HTML</a>
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">use pdf as asciidoc backend</span><span class="delimiter">'</span></span>) {
 
-    attributes (
-        <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : file(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>docDir<span class="inline-delimiter">}</span></span><span class="content">/</span><span class="inline"><span class="inline-delimiter">${</span>config.outputPath<span class="inline-delimiter">}</span></span><span class="content">/images/plantUML/</span><span class="delimiter">&quot;</span></span>).path
-    )
     onlyIf {
         !sourceFiles.findAll {
             <span class="string"><span class="delimiter">'</span><span class="content">pdf</span><span class="delimiter">'</span></span> <span class="keyword">in</span> <span class="local-variable">it</span>.formats
@@ -1855,7 +1849,6 @@ It creates a PowerPoint presentation and enriches it with reveal.js slide defini
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">use revealJs as asciidoc backend to create a presentation</span><span class="delimiter">'</span></span>) {
 
     attributes (
-            <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>  : <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>,
             <span class="string"><span class="delimiter">'</span><span class="content">idprefix</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">slide-</span><span class="delimiter">'</span></span>,
             <span class="string"><span class="delimiter">'</span><span class="content">idseparator</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">-</span><span class="delimiter">'</span></span>,
             <span class="string"><span class="delimiter">'</span><span class="content">docinfo1</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="delimiter">'</span></span>,
@@ -6283,7 +6276,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-03-24 20:30:04 UTC
+Last updated 2021-04-07 14:25:30 UTC
 </div>
 </div>
 </body>
