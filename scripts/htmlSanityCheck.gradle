@@ -2,10 +2,7 @@
 buildscript {
     repositories {
         maven {
-            url mavenRepository2
-        }
-        maven {
-            url mavenRepository1
+            url mavenRepository
         }
     }
     dependencies {
