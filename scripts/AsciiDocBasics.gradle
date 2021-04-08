@@ -81,9 +81,7 @@ dependencies {
     // Looks like slide::/path/to/powerpointFile.pptx[slideNumber=1]
     // or like excel::/path/to/excel.(xlsx|xls)[sheetName=Table1]
     // See https://github.com/uniqueck/asciidoctorj-office-extension
-    // asciidoctor 'com.uniqueck:asciidoctorj-office-extension:0.0.1-alpha'
-    // https://mvnrepository.com/artifact/org.uniqueck/asciidoctorj-office-extension
-    asciidoctor (group: 'org.uniqueck', name: 'asciidoctorj-office-extension', version: '0.0.1-alpha') {
+    asciidoctor (group: 'de.uniqueck.asciidoctorj.extensions', name: 'asciidoctorj-office-extension', version: '0.1.0') {
         exclude group: 'org.asciidoctor', module: 'asciidoctorj'
     }
 }
