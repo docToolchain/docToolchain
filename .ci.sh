@@ -79,7 +79,7 @@ create_doc () {
   echo "#        Create documentation              #"
   echo "#                                          #"
   echo "############################################"
-  ./gradlew generateHTML --stacktrace && ./copyDocs.sh
+  ./gradlew exportMarkdown exportChangeLog exportContributors generateHTML htmlSanityCheck --stacktrace && ./copyDocs.sh
 }
 
 publish_doc () {
