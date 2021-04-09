@@ -85,7 +85,7 @@ create_doc () {
 publish_doc () {
   # Take from and modified http://sleepycoders.blogspot.de/2013/03/sharing-travis-ci-generated-files.html
   # ensure publishing doesn't run on pull requests, only when token is available and only on JDK11 matrix build and on master or a travisci test branch
-  if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ -n "$GH_TOKEN" ] && [ "$TRAVIS_JDK_VERSION" == "openjdk11" ] && { [ "$TRAVIS_BRANCH" == "travisci" ] || [ "$TRAVIS_BRANCH" == "master" ]; } ; then
+  if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ -n "$GH_TOKEN" ] && [ "$TRAVIS_JDK_VERSION" == "openjdk11" ] && { [ "$TRAVIS_BRANCH" == "travisci" ] || [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "ng" ] || [ "$TRAVIS_BRANCH" == "main-1.x" ] || [ "$TRAVIS_BRANCH" == "main-2.x" ]; } ; then
     echo "############################################"
     echo "#                                          #"
     echo "#        Publish documentation             #"
@@ -101,11 +101,21 @@ publish_doc () {
     #using token clone gh-pages branch
     git clone --quiet --branch=gh-pages "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" gh-pages > /dev/null
 
-    #go into directory and copy data we're interested in to that directory
-    cd gh-pages
-    rm -rf ./*
-    cp -Rf "$TRAVIS_BUILD_DIR"/docs/* .
-
+    if [ "$TRAVIS_BRANCH" == "master" ||  "$TRAVIS_BRANCH" == "main-1.x" ] ; then
+      #go into directory and copy data we're interested in to that directory
+      cd gh-pages
+      mkdir v1.3.x
+      rm -rf v1.3.x/*
+      cp -Rf "$TRAVIS_BUILD_DIR"/docs/* v1.3.x/.
+    fi
+    if [ "$TRAVIS_BRANCH" == "ng" ||  "$TRAVIS_BRANCH" == "main-2.x" ] ; then
+      #go into directory and copy data we're interested in to that directory
+      cd gh-pages
+      mkdir v2.0.x
+      rm -rf v2.0.x/*
+      cp -Rf "$TRAVIS_BUILD_DIR"/docs/* v2.0.x/.
+    fi
+    
     #add, commit and push files
     git add -f .
     git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to gh-pages"
