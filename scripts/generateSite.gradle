@@ -44,7 +44,7 @@ bakePreview {
     port = '8046'
 }
 gretty {
-    httpPort = "${config.microsite.previewPort}" as Integer
+    httpPort = "${config.microsite.previewPort?:8042}" as Integer
     contextPath = "${config.microsite.contextPath}"
     extraResourceBases = ["${targetDir}/microsite/output"]
 }
