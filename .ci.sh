@@ -104,14 +104,12 @@ publish_doc () {
     if [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "main-1.x" ] ; then
       #go into directory and copy data we're interested in to that directory
       cd gh-pages
-      mkdir v1.3.x
       rm -rf v1.3.x/*
       cp -Rf "$TRAVIS_BUILD_DIR"/docs/* v1.3.x/.
     fi
     if [ "$TRAVIS_BRANCH" == "ng" ] || [ "$TRAVIS_BRANCH" == "main-2.x" ] ; then
       #go into directory and copy data we're interested in to that directory
       cd gh-pages
-      mkdir v2.0.x
       rm -rf v2.0.x/*
       cp -Rf "$TRAVIS_BUILD_DIR"/docs/* v2.0.x/.
     fi
