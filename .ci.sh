@@ -108,7 +108,7 @@ publish_doc () {
       rm -rf v1.3.x/*
       cp -Rf "$TRAVIS_BUILD_DIR"/docs/* v1.3.x/.
     fi
-    if [ "$TRAVIS_BRANCH" == "ng" ] || ["$TRAVIS_BRANCH" == "main-2.x" ] ; then
+    if [ "$TRAVIS_BRANCH" == "ng" ] || [ "$TRAVIS_BRANCH" == "main-2.x" ] ; then
       #go into directory and copy data we're interested in to that directory
       cd gh-pages
       mkdir v2.0.x
