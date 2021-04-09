@@ -219,6 +219,7 @@ task generatePDF (
     }
 
     backends = ['pdf']
+    /**
     //check if a remote pdfTheme is defined
     def pdfTheme = System.getenv('DTC_PDFTHEME')
     def themeFolder = pdfTheme.md5()
@@ -226,6 +227,7 @@ task generatePDF (
         //check if it is already installed
         //TODO: finish this...
     }
+    **/
 }
 //end::generatePDF[]
 
