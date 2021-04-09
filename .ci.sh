@@ -101,14 +101,14 @@ publish_doc () {
     #using token clone gh-pages branch
     git clone --quiet --branch=gh-pages "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" gh-pages > /dev/null
 
-    if [ "$TRAVIS_BRANCH" == "master" ||  "$TRAVIS_BRANCH" == "main-1.x" ] ; then
+    if [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "main-1.x" ] ; then
       #go into directory and copy data we're interested in to that directory
       cd gh-pages
       mkdir v1.3.x
       rm -rf v1.3.x/*
       cp -Rf "$TRAVIS_BUILD_DIR"/docs/* v1.3.x/.
     fi
-    if [ "$TRAVIS_BRANCH" == "ng" ||  "$TRAVIS_BRANCH" == "main-2.x" ] ; then
+    if [ "$TRAVIS_BRANCH" == "ng" ] || ["$TRAVIS_BRANCH" == "main-2.x" ] ; then
       #go into directory and copy data we're interested in to that directory
       cd gh-pages
       mkdir v2.0.x
