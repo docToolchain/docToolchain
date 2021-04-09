@@ -75,7 +75,7 @@ apply from: 'scripts/htmlSanityCheck.gradle'
 apply from: 'scripts/collectIncludes.gradle'
 apply from: 'scripts/exportMetrics.gradle'
 apply from: 'scripts/exportOpenApi.gradle'
-apply from: 'scripts/downloadTemplates.gradle'
+apply from: 'scripts/downloadTemplate.gradle'
 apply from: 'scripts/generateSite.gradle'
 apply from: 'scripts/copyThemes.gradle'
 

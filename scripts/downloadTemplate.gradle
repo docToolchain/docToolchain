@@ -11,29 +11,50 @@ task downloadTemplate(
             def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37]
             return new String((char) 27) + "[${colors[color]}m${text}" + new String((char) 27) + "[0m"
         }
-        println "${color 'green', 'Install arc42 documentation template.'}"
-        println "For more information about arc42 see https://arc42.org"
-        def targetDir = new File(new File(docDir, inputPath), 'arc42')
-        if (targetDir.exists()) {
-            println "${targetDir.canonicalPath} already exists"
-            println "in order to re-install the template, please remove the folder first and re-run the script"
-            throw new RuntimeException("Template folder already exists")
+        def lang, help
+        def templates = [arc42:"https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-${->lang}-${->help}-asciidoc.zip"]
+        for (int i=1; i<20; i++) {
+            def template = System.getenv('DTC_TEMPLATE' + i) ?: ""
+            if (template) {
+                def name = template.replaceAll("^.*/","").replaceAll(/.zip$/,"")
+                templates << [(name):template]
+            }
         }
-        def lang = ant.input(message: "${color 'green', 'Which language do you want to install?'}", validargs: 'EN,DE,ES,RU', addproperty: 'lang')
-        def help = ant.input(message: "${color 'green', 'Do you want the template with or without help?'}", validargs: 'withhelp,plain', addproperty: 'help')
+        def template = 'arc42'
+        if (templates.size()>1) {
+            def prompt = ""
+            templates.eachWithIndex { templateName, url, i ->
+                prompt += "\n ${color 'green', "${i+1}) $templateName"}"
+            }
+            ant.input(message: "${color 'green', "Which template do you want to install?"}$prompt\n", validargs: (1..templates.size()).join(","), addproperty: 'template')
+            template = templates.keySet()[(ant.template as Integer)-1]
+        }
+        println "${color 'green', 'Install '+template+' documentation template.'}"
+        def targetDir = new File(new File(docDir, inputPath), 'arc42')
         targetDir.mkdirs()
+        if (template=='arc42') {
+            println "For more information about arc42 see https://arc42.org"
+            /**
+             if (targetDir.exists()) {println "${targetDir.canonicalPath} already exists"
+             println "in order to re-install the template, please remove the folder first and re-run the script"
+             throw new RuntimeException("Template folder already exists")}**/
+            ant.input(message: "${color 'green', 'Which language do you want to install?'}", validargs: 'EN,DE,ES,RU', addproperty: 'lang')
+            ant.input(message: "${color 'green', 'Do you want the template with or without help?'}", validargs: 'withhelp,plain', addproperty: 'help')
+            lang = ant.lang
+            help = ant.help
+        }
         download {
-            src 'https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-' + ant.lang + '-' + ant.help + '-asciidoc.zip'
-            dest new File(targetDir, 'arc42.zip')
+            src templates[template]
+            dest new File(targetDir, 'template.zip')
         }
         copy {
-            from zipTree(new File(targetDir, 'arc42.zip'))
+            from zipTree(new File(targetDir, 'template.zip'))
             into targetDir
         }
         delete {
-            delete new File(targetDir, 'arc42.zip')
+            delete new File(targetDir, 'template.zip')
         }
-        println "arc42 template unpacked into ${targetDir}"
+        println "${ant.template[0]} template unpacked into ${targetDir}"
         //re-organize content
         //move images folder
         new File(targetDir, '../images/.').mkdirs()
