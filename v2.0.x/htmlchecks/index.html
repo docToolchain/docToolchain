@@ -1,0 +1,255 @@
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html><head><meta httpEquiv="Content-Type" content="text/html"; charset="utf-8"/>
+<title>HTML Sanity Check Results</title>
+<link href="scroll.css" rel="stylesheet" type="text/css"/>
+<link href="htmlsc-style.css" rel="stylesheet" type="text/css"/>
+
+<script type="text/javascript" src="jquery.min.js"></script>
+
+<script>
+$(function(){
+
+    $(document).on( 'scroll', function(){
+      if ($(window).scrollTop() > 100) {
+            $('.scroll-top-wrapper').addClass('show');
+        } else {
+            $('.scroll-top-wrapper').removeClass('show');
+        }
+    });
+});
+
+$(function(){
+    $(document).on( 'scroll', function(){
+        if ($(window).scrollTop() > 80) {
+            $('.scroll-top-wrapper').addClass('show');
+        } else {
+            $('.scroll-top-wrapper').removeClass('show');
+        }
+    });
+    $('.scroll-top-wrapper').on('click', scrollToTop);
+});
+
+function scrollToTop() {
+    verticalOffset = typeof(verticalOffset) != 'undefined' ? verticalOffset : 0;
+    element = $('body');
+    offset = element.offset();
+    offsetTop = offset.top;
+    $('html, body').animate({scrollTop: offsetTop}, 500, 'linear');
+}
+</script>
+
+</head>
+<body id="top">
+<img class="logo" src="htmlsanitycheck-logo.png" alt="htmlSC" align="right"/><h1>HTML Sanity Check Results </h1>
+
+<table><tr><td><div class="summaryGroup">
+<table>
+<tr>
+
+    <td>
+
+      <div class="infoBox" id="pages">
+
+          <div class="counter">1</div>
+
+          page</div>
+
+    </td>
+
+    <td>
+
+      <div class="infoBox" id="checks">
+
+          <div class="counter">884</div>
+
+          checks</div>
+
+    </td>
+
+    <td>
+
+      <div class="infoBox" id="findings">
+
+          <div class="counter">37</div>
+
+          issues</div>
+
+    </td>
+
+    <td>
+
+      <div class="infoBox" id="duration">
+
+          <div class="counter">68.684sec</div>
+
+          duration</div>
+
+    </td></tr>
+</table></div></td  >
+
+    <td><div class="infoBox failures" id="successRate">
+
+        <div class="percent">95%</div>
+        successful</div>
+    </td></tr></table>
+
+<h2>Results by Page </h2>
+<table>
+   <thead>
+     <tr>
+       <th>Page</th> <th>Checks</th> <th>Findings</th> <th>Success rate</th>
+     </tr>
+   </thead>
+   <tbody>
+      <tr>
+        <td class="failures"><a href="#manualXhtml">manual.html</a></td>
+        <td class="number">884</td>
+        <td class="number">37</td>
+        <td class="number failures">95%</td>
+      </tr>
+
+    </tbody>
+  </table><hr>
+
+<h1 id="manualXhtml">Results for manual.html </h1>
+location : /home/travis/build/docToolchain/docToolchain/build/docs/html5/manual.html <p>
+
+<table><tr><td><div class="summaryGroup">
+<table>
+<tr>
+
+    <td>
+
+      <div class="infoBox" id="size">
+
+          <div class="counter">487.0</div>
+
+          kByte</div>
+
+    </td>
+
+    <td>
+
+      <div class="infoBox" id="checks">
+
+          <div class="counter">884</div>
+
+          checks</div>
+
+    </td>
+
+    <td>
+
+      <div class="infoBox" id="findings">
+
+          <div class="counter">37</div>
+
+          issues</div>
+
+    </td></tr>
+</table></div></td  >
+
+    <td><div class="infoBox failures" id="successRate">
+
+        <div class="percent">95%</div>
+        successful</div>
+    </td></tr></table>
+
+
+<div class="success"><h3>Duplicate Definition of id Check</h3></div>
+
+
+ 128 id checked,
+ 0 duplicate id found.<br>
+ 
+<div class="failures"><h3>External Links Check</h3></div>
+
+
+ 197 anchor href attribute checked,
+ 16 broken external link found.<br>
+ 
+  <ul>
+      <li> Error: https://www.amazon.de/dp/B0784ZJWSR returned statuscode 405. </li>
+      <li> Error: https://twitter.com/marioggar returned statuscode 400. </li>
+      <li> Warning: http://getbootstrap.com/ returned statuscode 301, new location: https://getbootstrap.com/ </li>
+      <li> Error: https://twitter.com/gernotstarke returned statuscode 400. </li>
+      <li> Error: https://twitter.com/ysb33r returned statuscode 400. </li>
+      <li> Error: https://twitter.com/ralfdmueller returned statuscode 400. </li>
+      <li> Error: https://github.com/docToolchain/docToolchain/edit/master/src/docs/manual/03_task_generateSite.adoc returned statuscode 404. </li>
+      <li> Error: https://twitter.com/jagedn returned statuscode 400. </li>
+      <li> Warning: https://about.draw.io/integrations/ returned statuscode 308, new location: https://www.diagrams.net/integrations </li>
+      <li> Error: https://twitter.com/Txemanu returned statuscode 400. </li>
+      <li> Error: https://twitter.com/RalfDMueller/status/920888868345384960 returned statuscode 400. </li>
+      <li> Warning: https://id.atlassian.com/manage/api-tokens returned statuscode 302, new location: http://id.atlassian.com/manage-profile/security/api-tokens </li>
+      <li> Warning: http://plantuml.com/ returned statuscode 301, new location: https://plantuml.com </li>
+      <li> Error: https://twitter.com/ixchelruiz returned statuscode 400. </li>
+      <li> Error: https://twitter.com/ahus1de returned statuscode 400. </li>
+      <li> Error: https://twitter.com/stoeps returned statuscode 400. </li>
+  </ul>
+
+<div class="failures"><h3>Broken Internal Links Check</h3></div>
+
+
+ 305 href checked,
+ 2 missing id found.<br>
+ 
+  <ul>
+      <li> link target "task-copyThemes" missing, reference count: 2
+ (Suggestions: _links) </li>
+  </ul>
+
+<div class="success"><h3>Missing alt-attribute declaration in image tags</h3></div>
+
+
+ 232 image tags checked,
+ 0 missing alt attributes found.<br>
+ 
+<div class="success"><h3>Missing Local Resources Check</h3></div>
+
+
+ 0 anchor tag href attribute checked,
+ 0 missing local resources found.<br>
+ 
+<div class="success"><h3>Consistency of ImageMaps</h3></div>
+
+
+ 0 imageMap checked,
+ 0 map/area and usemap-references found.<br>
+ 
+<div class="failures"><h3>Missing Local Images Check</h3></div>
+
+
+ 22 img src attributes checked,
+ 19 missing image files found.<br>
+ 
+  <ul>
+      <li> image "images/ea/Manual/Overview2.png" missing </li>
+      <li> image "images/ea/Manual/generateHTML.png" missing </li>
+      <li> image "images/ea/Manual/generatePDF.png" missing </li>
+      <li> image "images/ea/Manual/generateDocBook.png" missing </li>
+      <li> image "images/ea/Manual/generateDeck.png" missing </li>
+      <li> image "images/ea/Manual/publishToConfluence.png" missing </li>
+      <li> image "images/ea/Manual/convertToDocx.png" missing </li>
+      <li> image "images/ea/Manual/convertToEpub.png" missing </li>
+      <li> image "images/ea/Manual/exportEA.png" missing </li>
+      <li> image "images/ea/Manual/exportVisio.png" missing </li>
+      <li> image "images/ea/Manual/exportChangeLog.png" missing </li>
+      <li> image "images/ea/Manual/exportJiraIssues.png" missing </li>
+      <li> image "images/ea/Manual/exportPPT.png" missing </li>
+      <li> image "images/ea/Manual/exportExcel.png" missing </li>
+      <li> image "images/manual/openAPI.png" missing </li>
+      <li> image "images/ea/Manual/htmlSanityCheck.png" missing </li>
+      <li> image "images/manual/htmlSanityCheck.png" missing </li>
+      <li> image "images/manual/speakerdeck1.png" missing </li>
+      <li> image "images/manual/speakerdeck2.png" missing </li>
+  </ul>
+<hr><p>
+<!-- scroll-to-top icon -->
+<div class="scroll-top-wrapper">
+   <img src="arrow-up.png" alt="to top"/>
+</div>
+
+<div id="footer">
+  Generated by <a href="https://www.aim42.org">htmlSanityCheck</a> (version 1.1.3) at 09. April 2021, 07:53 
+</div></body></html>
