@@ -9,12 +9,18 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === added
 
-2021-04-07::
-* generateSite can now handle themes
-
 === changed
 
 === fixed
+
+== Version: 2.0.0-rc13
+
+=== added
+
+2021-04-07::
+* generateSite can now handle themes
+2021-04-09::
+* downloadTemplate can now handle further templates
 
 == Version: 2.0.0-rc4
 
