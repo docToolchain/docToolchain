@@ -2138,6 +2138,7 @@ task generateSite(
         <span class="keyword">def</span> themeFolder = <span class="keyword">new</span> <span class="predefined-type">File</span>(projectDir, <span class="string"><span class="delimiter">&quot;</span><span class="content">../themes/</span><span class="delimiter">&quot;</span></span> + siteTheme.md5())
         <span class="keyword">try</span> {
             <span class="keyword">if</span> (siteTheme) {
+                println <span class="string"><span class="delimiter">&quot;</span><span class="content">use siteTheme </span><span class="inline"><span class="inline-delimiter">$</span>siteTheme</span><span class="delimiter">&quot;</span></span>
                 <span class="comment">//check if it is already installed</span>
                 <span class="keyword">if</span> (!themeFolder.exists()) {
                     println <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>color <span class="string"><span class="delimiter">'</span><span class="content">green</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="char">\n</span><span class="content">Theme '</span><span class="inline"><span class="inline-delimiter">$</span>siteTheme</span><span class="content">' is not installed yet. </span><span class="delimiter">&quot;&quot;&quot;</span></span><span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
@@ -6836,7 +6837,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-09 15:21:12 UTC
+Last updated 2021-04-21 16:06:14 UTC
 </div>
 </div>
 </body>
