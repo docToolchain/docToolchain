@@ -54,7 +54,7 @@ task downloadTemplate(
         delete {
             delete new File(targetDir, 'template.zip')
         }
-        println "${ant.template[0]} template unpacked into ${targetDir}"
+        println "${template} template unpacked into ${targetDir}"
         //re-organize content
         //move images folder
         new File(targetDir, '../images/.').mkdirs()

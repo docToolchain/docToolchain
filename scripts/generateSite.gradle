@@ -68,6 +68,7 @@ task generateSite(
         def themeFolder = new File(projectDir, "../themes/" + siteTheme.md5())
         try {
             if (siteTheme) {
+                println "use siteTheme $siteTheme"
                 //check if it is already installed
                 if (!themeFolder.exists()) {
                     println "${color 'green', """\nTheme '$siteTheme' is not installed yet. """}"
