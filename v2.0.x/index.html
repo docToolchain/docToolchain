@@ -2276,7 +2276,10 @@ task previewSite(
 
 }
 task copyImages(<span class="key">type</span>: Copy) {
-    from(<span class="keyword">new</span> <span class="predefined-type">File</span> (<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, inputPath),<span class="string"><span class="delimiter">'</span><span class="content">images</span><span class="delimiter">'</span></span>)) {}
+    config.imageDirs.each { imageDir -&gt;
+        from(<span class="keyword">new</span> <span class="predefined-type">File</span> (<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, inputPath),imageDir)) {}
+        logger.info (<span class="string"><span class="delimiter">'</span><span class="content">imageDir: </span><span class="delimiter">'</span></span>+imageDir)
+    }
     into(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>targetDir<span class="inline-delimiter">}</span></span><span class="content">/microsite/images</span><span class="delimiter">&quot;</span></span>)
 }
 
@@ -6837,7 +6840,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-21 16:08:44 UTC
+Last updated 2021-04-28 13:35:07 UTC
 </div>
 </div>
 </body>
