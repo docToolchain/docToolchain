@@ -206,7 +206,10 @@ task previewSite(
 
 }
 task copyImages(type: Copy) {
-    from(new File (new File(docDir, inputPath),'images')) {}
+    config.imageDirs.each { imageDir ->
+        from(new File (new File(docDir, inputPath),imageDir)) {}
+        logger.info ('imageDir: '+imageDir)
+    }
     into("${targetDir}/microsite/images")
 }
 
