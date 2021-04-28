@@ -13,6 +13,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+2021-04-28::
+* fix copyImages for generateSite
+
 == Version: 2.0.0-rc13
 
 === added
