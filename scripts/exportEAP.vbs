@@ -366,6 +366,8 @@
         End If
       End If
       EAapp.Repository.CloseFile()
+      ' Since EA 15.2 the Enterprise Architect background process hangs without calling Exit explicitly
+      EAapp.Repository.Exit()
     End Sub
 
   Private connectionString
