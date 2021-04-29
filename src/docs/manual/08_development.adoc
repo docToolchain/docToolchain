@@ -35,6 +35,17 @@ rm -r build && ./gradlew test --info
 The `rm` command ensures that you really have a clean test running.
 Otherwise you might get false positives because Gradle will skip steps ('Up-to-date') because artifacts of an older test run still exist.
 
+=== Proxy Setting for Tests
+
+The docToolchain test setup is based on the https://docs.gradle.org/current/userguide/test_kit.html[Gradle-Test-Kit] and makes use of the  https://code.google.com/archive/p/spock/[Spock test execution framework].
+
+The gradle test runner is started in its own test environment and its own JVM instance.
+As a result the global proxy settings are ignored.
+
+As workarund to execute the test with the correct proxy settings it is necessary to copy the proxy setting normally done in the in gradle.properties located in the user directory to the gradle.properties file located in the docToolchain folder itself.
+
+NOTE: The files 
+
 === Create new Release
 
 We use https://semver.org/[semantic versioning] and https://keepachangelog.com/[keep a changelog]. Bot on a best effort base.
