@@ -3151,6 +3151,8 @@ use `gradle exportEA` to re-export files
         End If
       End If
       EAapp.Repository.CloseFile()
+      ' Since EA 15.2 the Enterprise Architect background process hangs without calling Exit explicitly
+      EAapp.Repository.Exit()
     End Sub
 
   Private connectionString
@@ -6276,7 +6278,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-22 18:03:54 UTC
+Last updated 2021-04-29 09:49:07 UTC
 </div>
 </div>
 </body>
