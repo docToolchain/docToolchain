@@ -44,7 +44,7 @@ As a result the global proxy settings are ignored.
 
 As workarund to execute the test with the correct proxy settings it is necessary to copy the proxy setting normally done in the in gradle.properties located in the user directory to the gradle.properties file located in the docToolchain folder itself.
 
-NOTE: The files 
+NOTE: The files downloaded by the Gradle test Runner are placed in a different folder than the default gradle cache. You'll find them in the Tmp folder: C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches
 
 === Create new Release
 
