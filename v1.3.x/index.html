@@ -5145,11 +5145,11 @@ Blog-Post: <a href="https://rdmueller.github.io/dependency-update/">Handle Depen
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller " width="32" height="32" title="Ralf D. Müller "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz " width="32" height="32" title="Alexander Schwartz "></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller " width="32" height="32" title="Ralf D. Müller "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/6d1e043c42721cbc8d12374f19290a8c?d=identicon" alt="FIXED-TERM Macaluso Andrea (XC-DA/ESS1) " width="32" height="32" title="FIXED-TERM Macaluso Andrea (XC-DA/ESS1) "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz " width="32" height="32" title="Alexander Schwartz "></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>2 minutes to read</pre>
+<pre>3 minutes to read</pre>
 </div>
 </div>
 <div class="paragraph">
@@ -5206,7 +5206,32 @@ Otherwise you might get false positives because Gradle will skip steps ('Up-to-d
 </div>
 </div>
 <div class="sect3">
-<h4 id="_create_new_release">4.1.4. Create new Release</h4>
+<h4 id="_proxy_setting_for_tests">4.1.4. Proxy Setting for Tests</h4>
+<div class="paragraph">
+<p>The docToolchain test setup is based on the <a href="https://docs.gradle.org/current/userguide/test_kit.html">Gradle-Test-Kit</a> and makes use of the  <a href="https://code.google.com/archive/p/spock/">Spock test execution framework</a>.</p>
+</div>
+<div class="paragraph">
+<p>The gradle test runner is started in its own test environment and its own JVM instance.
+As a result the global proxy settings are ignored.</p>
+</div>
+<div class="paragraph">
+<p>As workarund to execute the test with the correct proxy settings it is necessary to copy the proxy setting normally done in the in gradle.properties located in the user directory to the gradle.properties file located in the docToolchain folder itself.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The files downloaded by the Gradle test Runner are placed in a different folder than the default gradle cache. You&#8217;ll find them in the Tmp folder: C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_create_new_release">4.1.5. Create new Release</h4>
 <div class="paragraph">
 <p>We use <a href="https://semver.org/">semantic versioning</a> and <a href="https://keepachangelog.com/">keep a changelog</a>. Bot on a best effort base.</p>
 </div>
@@ -5713,7 +5738,7 @@ Für die Leser wird HTML, PDF oder EPUB generiert.</p>
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" height="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/fa70f591d1ee3f8346afcf8c3973cac2?d=identicon" alt="Andreas Offenhaeuser " width="32" height="32" title="Andreas Offenhaeuser "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/82ab33e9bd68d1ddb91ba2142715c2f0?d=identicon" alt="Björn Seebeck " width="32" height="32" title="Björn Seebeck "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eb5ceb4c4d2dfe351c58a8d005c6f3da?d=identicon" alt="Christoph Raaflaub " width="32" height="32" title="Christoph Raaflaub "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/adff7a288a49c60d485bb6f22739f3f2?d=identicon" alt="Daniel Bast " width="32" height="32" title="Daniel Bast "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/1f740fa3302a7633dcce6df5d0b1c997?d=identicon" alt="Daniel Kessel " width="32" height="32" title="Daniel Kessel "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr " width="32" height="32" title="David M. Carr "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer " width="32" height="32" title="Dr. Stefan Pfeiffer "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/64ec325b5e2d6c8b3d76e2df81056f2d?d=identicon" alt="Fabian Nonnenmacher " width="32" height="32" title="Fabian Nonnenmacher "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/6dd2fe167fd7d2a84322787e3428d14e?d=identicon" alt="Joseph Staub " width="32" height="32" title="Joseph Staub "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" height="32" title="Lars Francke "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/aacd09e76c0affa36f76f8ef337a1536?d=identicon" alt="Luis Muniz " width="32" height="32" title="Luis Muniz "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/e499bc25cdf5bc253b89c3ced73035c4?d=identicon" alt="Maarten Gribnau " width="32" height="32" title="Maarten Gribnau "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/83c930e7c60a8e5b3201fb763cca1d6?d=identicon" alt="Michael Prieß " width="32" height="32" title="Michael Prieß "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/518a75fcbe5adea38aa4bec267d7572b?d=identicon" alt="Nikolay Orozov " width="32" height="32" title="Nikolay Orozov "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/415bf2233be007b088ca81b749f02071?d=identicon" alt="Nils Mahlstaedt " width="32" height="32" title="Nils Mahlstaedt "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange " width="32" height="32" title="Peter Stange "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a00ae7656ba26679126c05ca950dd1fc?d=identicon" alt="Stefan Bohn " width="32" height="32" title="Stefan Bohn "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/576f91d00c844e9041dc90026329552d?d=identicon" alt="Txemanu " width="32" height="32" title="Txemanu "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/e0f7ac7994ea3ac2c1437a0da586ba63?d=identicon" alt="Vladi " width="32" height="32" title="Vladi "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/9d3a17c1ac936fea4675ed193080c35b?d=identicon" alt="Werner Kevin " width="32" height="32" title="Werner Kevin "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/e7d9e6618a36e94b35d43cbd2925aee0?d=identicon" alt="bit-jkraushaar " width="32" height="32" title="bit-jkraushaar "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/fdbd46a8418be834d8ab743ca4b52455?d=identicon" alt="funkr " width="32" height="32" title="funkr "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev " width="32" height="32" title="ghp-dev "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2e3af23bd872d2b971788a4519e3bf46?d=identicon" alt="jakubjab " width="32" height="32" title="jakubjab "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/be47969496f94a5a89159d70cd82bda0?d=identicon" alt="sabatmonk " width="32" height="32" title="sabatmonk "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5107bc93f3e4d103ca06f4e68a64b38?d=identicon" alt="stehlih " width="32" height="32" title="stehlih "></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" height="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/fa70f591d1ee3f8346afcf8c3973cac2?d=identicon" alt="Andreas Offenhaeuser " width="32" height="32" title="Andreas Offenhaeuser "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/82ab33e9bd68d1ddb91ba2142715c2f0?d=identicon" alt="Björn Seebeck " width="32" height="32" title="Björn Seebeck "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eb5ceb4c4d2dfe351c58a8d005c6f3da?d=identicon" alt="Christoph Raaflaub " width="32" height="32" title="Christoph Raaflaub "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/adff7a288a49c60d485bb6f22739f3f2?d=identicon" alt="Daniel Bast " width="32" height="32" title="Daniel Bast "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/1f740fa3302a7633dcce6df5d0b1c997?d=identicon" alt="Daniel Kessel " width="32" height="32" title="Daniel Kessel "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr " width="32" height="32" title="David M. Carr "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer " width="32" height="32" title="Dr. Stefan Pfeiffer "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/6d1e043c42721cbc8d12374f19290a8c?d=identicon" alt="FIXED-TERM Macaluso Andrea (XC-DA/ESS1) " width="32" height="32" title="FIXED-TERM Macaluso Andrea (XC-DA/ESS1) "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/64ec325b5e2d6c8b3d76e2df81056f2d?d=identicon" alt="Fabian Nonnenmacher " width="32" height="32" title="Fabian Nonnenmacher "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/6dd2fe167fd7d2a84322787e3428d14e?d=identicon" alt="Joseph Staub " width="32" height="32" title="Joseph Staub "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" height="32" title="Lars Francke "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/aacd09e76c0affa36f76f8ef337a1536?d=identicon" alt="Luis Muniz " width="32" height="32" title="Luis Muniz "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/e499bc25cdf5bc253b89c3ced73035c4?d=identicon" alt="Maarten Gribnau " width="32" height="32" title="Maarten Gribnau "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/83c930e7c60a8e5b3201fb763cca1d6?d=identicon" alt="Michael Prieß " width="32" height="32" title="Michael Prieß "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/518a75fcbe5adea38aa4bec267d7572b?d=identicon" alt="Nikolay Orozov " width="32" height="32" title="Nikolay Orozov "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/415bf2233be007b088ca81b749f02071?d=identicon" alt="Nils Mahlstaedt " width="32" height="32" title="Nils Mahlstaedt "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange " width="32" height="32" title="Peter Stange "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a00ae7656ba26679126c05ca950dd1fc?d=identicon" alt="Stefan Bohn " width="32" height="32" title="Stefan Bohn "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/576f91d00c844e9041dc90026329552d?d=identicon" alt="Txemanu " width="32" height="32" title="Txemanu "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/e0f7ac7994ea3ac2c1437a0da586ba63?d=identicon" alt="Vladi " width="32" height="32" title="Vladi "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/9d3a17c1ac936fea4675ed193080c35b?d=identicon" alt="Werner Kevin " width="32" height="32" title="Werner Kevin "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/e7d9e6618a36e94b35d43cbd2925aee0?d=identicon" alt="bit-jkraushaar " width="32" height="32" title="bit-jkraushaar "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/fdbd46a8418be834d8ab743ca4b52455?d=identicon" alt="funkr " width="32" height="32" title="funkr "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev " width="32" height="32" title="ghp-dev "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2e3af23bd872d2b971788a4519e3bf46?d=identicon" alt="jakubjab " width="32" height="32" title="jakubjab "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/be47969496f94a5a89159d70cd82bda0?d=identicon" alt="sabatmonk " width="32" height="32" title="sabatmonk "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5107bc93f3e4d103ca06f4e68a64b38?d=identicon" alt="stehlih " width="32" height="32" title="stehlih "></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -5857,6 +5882,9 @@ This project depends and builds on them.</p>
 </li>
 <li>
 <p><a href="https://github.com/silverdonkey">Nikolay Orozov</a></p>
+</li>
+<li>
+<p><a href="https://github.com/AndreaMcls">Andrea Macaluso</a></p>
 </li>
 </ul>
 </div>
@@ -6278,7 +6306,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-04-29 09:50:43 UTC
+Last updated 2021-04-30 18:22:37 UTC
 </div>
 </div>
 </body>
