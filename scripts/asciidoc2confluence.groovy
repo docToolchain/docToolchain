@@ -86,11 +86,15 @@ def trythis(Closure action) {
                 println "please check your confluence credentials in config file or passed parameters"
                 throw new Exception("missing authentication credentials")
                 break
+            case '400':
+                println error.response.data.message
+                println "please check the ancestorId in your config file"
+                throw new Exception("Parent does not exist")
+                break
             default:
                 println error.response.data
         }
         null
-        //throw error
     }
 }
 
