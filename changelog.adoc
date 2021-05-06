@@ -13,6 +13,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+2021-05-06::
+* fix #574: publishToConfluence: Problem with wrong ancestorId
 2021-04-28::
 * fix copyImages for generateSite
 
