@@ -1597,8 +1597,8 @@ task collectIncludes(
         println <span class="string"><span class="delimiter">&quot;</span><span class="content">sourceFolder: </span><span class="delimiter">&quot;</span></span> + sourceFolder.canonicalPath
         <span class="keyword">def</span> collections = [:]
         sourceFolder.traverse(<span class="key">type</span>: FILES) { file -&gt;
-            <span class="keyword">if</span> (file.name ==~ <span class="string"><span class="delimiter">'</span><span class="content">^[A-Z]{3,}-.*[.](ad|adoc|asciidoc)$</span><span class="delimiter">'</span></span>) {
-                <span class="keyword">def</span> type = file.name.replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">^([A-Z]{3,})-.*$</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">\$1</span><span class="delimiter">'</span></span>)
+            <span class="keyword">if</span> (file.name ==~ <span class="string"><span class="delimiter">'</span><span class="content">^[A-Z]{3,}[-_].*[.](ad|adoc|asciidoc)$</span><span class="delimiter">'</span></span>) {
+                <span class="keyword">def</span> type = file.name.replaceAll(<span class="string"><span class="delimiter">'</span><span class="content">^([A-Z]{3,})[-_].*$</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">'</span><span class="content">\$1</span><span class="delimiter">'</span></span>)
                 <span class="keyword">if</span> (!collections[type]) {
                     collections[type] = <span class="type">[]</span>
                 }
@@ -6306,7 +6306,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-07 11:52:32 UTC
+Last updated 2021-05-11 07:46:22 UTC
 </div>
 </div>
 </body>
