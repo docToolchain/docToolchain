@@ -41,7 +41,7 @@ task collectIncludes(
         def collections = [:]
         sourceFolder.traverse(type: FILES) { file ->
             if (file.name ==~ '^[A-Z]{3,}[-_].*[.](ad|adoc|asciidoc)$') {
-                def type = file.name.replaceAll('^([A-Z]{3,})-.*$','\$1')
+                def type = file.name.replaceAll('^([A-Z]{3,})[-_].*$','\$1')
                 if (!collections[type]) {
                     collections[type] = []
                 }
