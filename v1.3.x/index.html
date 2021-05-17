@@ -5337,7 +5337,7 @@ The files downloaded by the Gradle test Runner are placed in a different folder 
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" height="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz " width="32" height="32" title="Alexander Schwartz "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer " width="32" height="32" title="Dr. Stefan Pfeiffer "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" height="32" title="Lars Francke "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/fdbd46a8418be834d8ab743ca4b52455?d=identicon" alt="funkr " width="32" height="32" title="funkr "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2e3af23bd872d2b971788a4519e3bf46?d=identicon" alt="jakubjab " width="32" height="32" title="jakubjab "></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" height="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz " width="32" height="32" title="Alexander Schwartz "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer " width="32" height="32" title="Dr. Stefan Pfeiffer "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" height="32" title="Lars Francke "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller " width="32" height="32" title="Ralf D. Müller "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/fdbd46a8418be834d8ab743ca4b52455?d=identicon" alt="funkr " width="32" height="32" title="funkr "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2e3af23bd872d2b971788a4519e3bf46?d=identicon" alt="jakubjab " width="32" height="32" title="jakubjab "></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -5424,7 +5424,8 @@ So, if you want to use photos from your flipcharts - JPG might work for you.</p>
 <dt class="hdlist1">SVG</dt>
 <dd>
 <p>great for high resolution diagrams, but not good supported by DOCX as output format.
-OpenOffice Writer might display the image a bit stretched, MS Word didn&#8217;t display it at all in some experiments.</p>
+OpenOffice Writer might display the image a bit stretched, MS Word didn&#8217;t display it at all in some experiments.
+PDF output might display a warning that newer SVG versions are not supported (happends especially with diagrams.net images).</p>
 </dd>
 <dt class="hdlist1">PNG</dt>
 <dd>
@@ -5540,6 +5541,18 @@ Could not reserve enough space for 2097152KB object heap</code></pre>
 <div class="paragraph">
 <p>Somehow docToolchain can&#8217;t allocate the memory which is configured out of the box.
 Try to free up some memory or comment out the line <code>org.gradle.jvmargs=-Xmx2048m</code> in <code>gradle.properties</code></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_q_i_get_the_error_saying_could_not_initialize_class_java_awt_graphicsenvironmentlocalege">5.4.4. Q: I get the error saying 'Could not initialize class java.awt.GraphicsEnvironment$LocaleGE'</h4>
+<div class="paragraph">
+<p>This seems to be a problem with WSL on Windows.
+Some sources mention to run Java in headless mode, but in this case, it doesn&#8217;t solve the problem.
+The root cause seems to be plantUML trying to get some font information.</p>
+</div>
+<div class="paragraph">
+<p>Only real solution seems to be to shutdown WSL from a powershell window wiht <code>wsl --shutdown</code> and retry.
+Warning: this will kill all your WSL terminals without warning.</p>
 </div>
 <hr>
 <div style="page-break-after: always;"></div>
@@ -6306,7 +6319,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-11 07:46:22 UTC
+Last updated 2021-05-17 13:12:13 UTC
 </div>
 </div>
 </body>
