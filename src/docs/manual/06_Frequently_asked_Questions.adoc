@@ -143,5 +143,6 @@ Some sources mention to run Java in headless mode, but in this case, it doesn't 
 The root cause seems to be plantUML trying to get some font information.
 
 Only real solution seems to be to shutdown WSL from a powershell window wiht `wsl --shutdown` and retry.
-Warning: this will kill all your WSL terminals without warning.
+
+WARNING: this will kill all your WSL terminals without warning.
 
