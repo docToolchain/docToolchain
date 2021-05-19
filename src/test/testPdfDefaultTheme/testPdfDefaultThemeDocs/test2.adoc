@@ -14,7 +14,7 @@ a --> b
 .component diagram with jdot
 [plantuml, "{plantUMLDir}demoPlantUML", png]
 ----
-'!pragma graphviz_dot jdot
+'!pragma graphviz_dot smetana
 class BlockProcessor
 class DiagramBlock
 class DitaaBlock

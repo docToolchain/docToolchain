@@ -74,7 +74,7 @@ ext {
 
 dependencies {
     asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.3'
-    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:2.0.1'
+    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:2.1.2'
 }
 
 asciidoctorj {

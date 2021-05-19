@@ -53,7 +53,7 @@ The above example renders as
 .example diagram
 [plantuml,"{plantUMLDir}demoPlantUML",png]
 ----
-!pragma graphviz_dot jdot
+!pragma graphviz_dot smetana
 class BlockProcessor
 class DiagramBlock
 class DitaaBlock
@@ -80,7 +80,7 @@ it will render like this:
 .example diagram (with specified width)
 [plantuml,target="{plantUMLDir}demoPlantUMLWidth",format=png,width=250]
 ----
-!pragma graphviz_dot jdot
+!pragma graphviz_dot smetana
 class BlockProcessor
 class DiagramBlock
 class DitaaBlock
@@ -94,7 +94,7 @@ DiagramBlock <|-- PlantUmlBlock
 .example diagram (with specified scale)
 [plantuml,target="{plantUMLDir}demoPlantUMLScale",format=png,scale=0.75]
 ----
-!pragma graphviz_dot jdot
+!pragma graphviz_dot smetana
 class BlockProcessor
 class DiagramBlock
 class DitaaBlock
@@ -107,7 +107,7 @@ DiagramBlock <|-- PlantUmlBlock
 
 NOTE: PlantUML needs Graphviz dot installed to work.
 If you can't install it, you can use the Java based version of the dot library.
-Just add `!pragma graphviz_dot jdot` as the first line of your diagram definition.
+Just add `!pragma graphviz_dot smetana` as the first line of your diagram definition.
 This is still an experimental feature, but already works quite well! +
 https://rdmueller.github.io/plantuml-without-graphviz/
 
