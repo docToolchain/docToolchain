@@ -22,6 +22,11 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === added
 
+2021-05-21::
+* if the outputPath from the config starts with a '/', it will be considered as absolute path. +
+This way, you can move the build fodler outside of your repository. +
+`outputPath = System.getenv('HOME')+'/.doctoolchain/build/'+(new File('.')).canonicalPath.md5()`
+
 2021-05-18::
 * Headless mode for themes
 * fix landing page (only gets copied once when microsite config isn't set yet.)

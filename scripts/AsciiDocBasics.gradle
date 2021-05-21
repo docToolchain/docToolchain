@@ -80,7 +80,11 @@ config.flatten().each {key, value ->
 
 ext {
     srcDir  = "${docDir}/${inputPath}"
-    targetDir = "${docDir}/${config.outputPath}"
+    if (config.outputPath.startsWith('/')) {
+        targetDir = config.outputPath
+    } else {
+        targetDir = "${docDir}/${config.outputPath}"
+    }
     javaVersion = System.getProperty("java.version")
     currentDate = new Date().format("d. MMM yyyy")
     // where HTMLSanityCheck checking results ares stored
