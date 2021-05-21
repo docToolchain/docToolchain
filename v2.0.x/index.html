@@ -1903,7 +1903,7 @@ Blog-Post: <a href="https://rdmueller.github.io/pdf-output/">Beyond HTML</a>
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller " width="32" height="32" title="Ralf D. Müller "></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller " width="32" height="32" title="Ralf D. Müller "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller " width="32" height="32" title="Ralf D. Müller "></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -2064,11 +2064,24 @@ Instead, it only has a search input-field which can be used to link to another s
 </div>
 </div>
 <div class="sect3">
-<h4 id="_source_3">3.7.6. Source</h4>
+<h4 id="_cicd">3.7.6. CI/CD</h4>
+<div class="paragraph">
+<p>When run in an automated build, you should set the environment variable <code>DTC_HEADLESS</code> to <code>true</code> or <code>1</code> to ensure that docToolchain will not ask to install the configured theme.
+It will simply assume that you do want to install it.</p>
+</div>
+<div class="paragraph">
+<p>To avoid the download of the theme with every build, you can copy the themes folder from <code>$HOME/.doctoolchain/themes</code> to the corresponding folder in your build container.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_source_3">3.7.7. Source</h4>
 <div class="listingblock">
 <div class="title">scripts/generateSite.gradle</div>
 <div class="content">
-<pre class="CodeRay highlight"><code data-lang="groovy">buildscript {
+<pre class="CodeRay highlight"><code data-lang="groovy"><span class="keyword">import</span> <span class="include">groovy.util.*</span>
+<span class="keyword">import</span> <span class="include">static</span> <span class="include">groovy.io.FileType.*</span>
+
+buildscript {
     repositories {
         maven {
             url mavenRepository
@@ -2141,13 +2154,16 @@ task generateSite(
                 println <span class="string"><span class="delimiter">&quot;</span><span class="content">use siteTheme </span><span class="inline"><span class="inline-delimiter">$</span>siteTheme</span><span class="delimiter">&quot;</span></span>
                 <span class="comment">//check if it is already installed</span>
                 <span class="keyword">if</span> (!themeFolder.exists()) {
-                    println <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>color <span class="string"><span class="delimiter">'</span><span class="content">green</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="char">\n</span><span class="content">Theme '</span><span class="inline"><span class="inline-delimiter">$</span>siteTheme</span><span class="content">' is not installed yet. </span><span class="delimiter">&quot;&quot;&quot;</span></span><span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
-                    <span class="keyword">def</span> input = ant.input(<span class="key">message</span>: <span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
+                    <span class="keyword">if</span> (<span class="predefined-type">System</span>.getenv(<span class="string"><span class="delimiter">'</span><span class="content">DTC_HEADLESS</span><span class="delimiter">'</span></span>)) {
+                        ant.yesno = <span class="string"><span class="delimiter">&quot;</span><span class="content">y</span><span class="delimiter">&quot;</span></span>
+                    } <span class="keyword">else</span> {
+                        println <span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>color <span class="string"><span class="delimiter">'</span><span class="content">green</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="char">\n</span><span class="content">Theme '</span><span class="inline"><span class="inline-delimiter">$</span>siteTheme</span><span class="content">' is not installed yet. </span><span class="delimiter">&quot;&quot;&quot;</span></span><span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+                        <span class="keyword">def</span> input = ant.input(<span class="key">message</span>: <span class="string"><span class="delimiter">&quot;&quot;&quot;</span><span class="content">
 </span><span class="inline"><span class="inline-delimiter">${</span>color <span class="string"><span class="delimiter">'</span><span class="content">green</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">do you want me to download and install it to </span><span class="delimiter">'</span></span><span class="inline-delimiter">}</span></span><span class="content">
-</span><span class="inline"><span class="inline-delimiter">${</span>color <span class="string"><span class="delimiter">'</span><span class="content">green</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">   </span><span class="delimiter">'</span></span>+themeFolder.canonicalPath<span class="inline-delimiter">}</span></span><span class="content">
+</span><span class="inline"><span class="inline-delimiter">${</span>color <span class="string"><span class="delimiter">'</span><span class="content">green</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">   </span><span class="delimiter">'</span></span> + themeFolder.canonicalPath<span class="inline-delimiter">}</span></span><span class="content">
 </span><span class="inline"><span class="inline-delimiter">${</span>color <span class="string"><span class="delimiter">'</span><span class="content">green</span><span class="delimiter">'</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">for you?</span><span class="delimiter">'</span></span><span class="inline-delimiter">}</span></span><span class="char">\n</span><span class="delimiter">&quot;&quot;&quot;</span></span>,
-                        <span class="key">validargs</span>: <span class="string"><span class="delimiter">'</span><span class="content">y,n</span><span class="delimiter">'</span></span>, <span class="key">addproperty</span>: <span class="string"><span class="delimiter">'</span><span class="content">yesno</span><span class="delimiter">'</span></span>)
-
+                            <span class="key">validargs</span>: <span class="string"><span class="delimiter">'</span><span class="content">y,n</span><span class="delimiter">'</span></span>, <span class="key">addproperty</span>: <span class="string"><span class="delimiter">'</span><span class="content">yesno</span><span class="delimiter">'</span></span>)
+                    }
                     <span class="keyword">if</span> (ant.yesno == <span class="string"><span class="delimiter">&quot;</span><span class="content">y</span><span class="delimiter">&quot;</span></span>) {
                         themeFolder.mkdirs()
                         download {
@@ -2173,11 +2189,6 @@ task generateSite(
                     copy {
                         from(themeFolder) {}
                         into(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>targetDir<span class="inline-delimiter">}</span></span><span class="content">/microsite/tmp/</span><span class="delimiter">&quot;</span></span>)
-                    }
-                    <span class="comment">//copy the dummy docs (blog, landing page) to the project repository</span>
-                    copy {
-                        from(<span class="keyword">new</span> <span class="predefined-type">File</span>(themeFolder, <span class="string"><span class="delimiter">'</span><span class="content">site/doc</span><span class="delimiter">'</span></span>)) {}
-                        into(<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, inputPath))
                     }
                     <span class="comment">//check if the config has to be updated</span>
                     <span class="comment">// check if config still contains /** microsite **/</span>
@@ -2233,6 +2244,11 @@ If you are unsure, change these settings later in your config file
                         }
                         configFile.write(configFileText.replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="content">(?sm)/[*][*] start:microsite [*][*]/.*/[*][*] end:microsite [*][*]/</span><span class="delimiter">&quot;</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">%%marker%%</span><span class="delimiter">&quot;</span></span>).replace(<span class="string"><span class="delimiter">&quot;</span><span class="content">%%marker%%</span><span class="delimiter">&quot;</span></span>,conf))
                         println color(<span class="string"><span class="delimiter">'</span><span class="content">green</span><span class="delimiter">'</span></span>,<span class="string"><span class="delimiter">&quot;</span><span class="content">config written</span><span class="char">\n</span><span class="content">try</span><span class="char">\n</span><span class="content"> ./dtcw generateSite previewSite</span><span class="char">\n</span><span class="content">to see your microsite!</span><span class="delimiter">&quot;</span></span>)
+                        <span class="comment">//copy the dummy docs (blog, landing page) to the project repository</span>
+                        copy {
+                            from(<span class="keyword">new</span> <span class="predefined-type">File</span>(themeFolder, <span class="string"><span class="delimiter">'</span><span class="content">site/doc</span><span class="delimiter">'</span></span>)) {}
+                            into(<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, inputPath))
+                        }
                     }
                 }
             }
@@ -2246,15 +2262,91 @@ If you are unsure, change these settings later in your config file
             }
         }
         <span class="comment">//copy project theme</span>
-        println <span class="string"><span class="delimiter">&quot;</span><span class="content">copy project theme </span><span class="inline"><span class="inline-delimiter">${</span><span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, inputPath), <span class="string"><span class="delimiter">'</span><span class="content">../site</span><span class="delimiter">'</span></span>)<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
-        copy {
-            from(<span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, inputPath), <span class="string"><span class="delimiter">'</span><span class="content">../site</span><span class="delimiter">'</span></span>)) {}
-            into(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>targetDir<span class="inline-delimiter">}</span></span><span class="content">/microsite/tmp/site</span><span class="delimiter">&quot;</span></span>)
+        <span class="keyword">if</span> (config.microsite.siteFolder) {
+            println <span class="string"><span class="delimiter">&quot;</span><span class="content">copy project theme </span><span class="inline"><span class="inline-delimiter">${</span><span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, inputPath), config.microsite.siteFolder)<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>
+            copy {
+                from(<span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, inputPath), config.microsite.siteFolder)) {}
+                into(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>targetDir<span class="inline-delimiter">}</span></span><span class="content">/microsite/tmp/site</span><span class="delimiter">&quot;</span></span>)
+            }
         }
         <span class="comment">//copy docs</span>
         copy {
             from(<span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, inputPath)) {}
             into(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>targetDir<span class="inline-delimiter">}</span></span><span class="content">/microsite/tmp/site/doc</span><span class="delimiter">&quot;</span></span>)
+        }
+
+        <span class="comment">//fix MetaData-Header</span>
+        <span class="predefined-type">File</span> sourceFolder = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir, <span class="string"><span class="delimiter">'</span><span class="content">/microsite/tmp/site/doc</span><span class="delimiter">'</span></span>)
+        println(<span class="string"><span class="delimiter">&quot;</span><span class="content">sourceFolder: </span><span class="delimiter">&quot;</span></span> + sourceFolder.canonicalPath)
+        sourceFolder.traverse(<span class="key">type</span>: FILES) { file -&gt;
+            <span class="keyword">if</span> (file.name ==~ <span class="string"><span class="delimiter">'</span><span class="content">^.*(ad|adoc|asciidoc)$</span><span class="delimiter">'</span></span>) {
+                <span class="keyword">if</span> (file.name.startsWith(<span class="string"><span class="delimiter">&quot;</span><span class="content">_</span><span class="delimiter">&quot;</span></span>)) {
+                    <span class="comment">//ignore</span>
+                } <span class="keyword">else</span> {
+                    <span class="keyword">def</span> text = file.text
+                    <span class="keyword">if</span> (text.contains(<span class="string"><span class="delimiter">'</span><span class="content">:jbake-title:</span><span class="delimiter">'</span></span>) || text.contains(<span class="string"><span class="delimiter">'</span><span class="content">~~~~~~</span><span class="delimiter">'</span></span>)) {
+                        <span class="comment">//everything is fine, we have a metadata ehader</span>
+                    } <span class="keyword">else</span> {
+                        <span class="keyword">def</span> name = file.canonicalPath - (sourceFolder.canonicalPath+<span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span>)
+                        <span class="keyword">def</span> state = <span class="string"><span class="delimiter">&quot;</span><span class="content">published</span><span class="delimiter">&quot;</span></span>
+                        name = name.split(<span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span>)
+                        <span class="keyword">if</span> (name.size()&gt;<span class="integer">1</span>) {
+                            <span class="keyword">def</span> header = <span class="type">[]</span>
+                            <span class="keyword">def</span> menu = name[<span class="integer">0</span>]
+                            <span class="keyword">if</span> (menu ==~ <span class="regexp"><span class="delimiter">/</span><span class="content">[0-9]+[-_].*</span><span class="delimiter">/</span></span>) {
+                                menu = menu.split(<span class="string"><span class="delimiter">&quot;</span><span class="content">[-_]</span><span class="delimiter">&quot;</span></span>)[<span class="integer">1</span>]
+                            }
+                            <span class="keyword">def</span> order = -<span class="integer">1</span>
+                            <span class="keyword">def</span> docname = name[-<span class="integer">1</span>]
+                            <span class="keyword">if</span> (docname ==~ <span class="regexp"><span class="delimiter">/</span><span class="content">[0-9]+[-_].*</span><span class="delimiter">/</span></span>) {
+                                (order, docname) = docname.split(<span class="string"><span class="delimiter">&quot;</span><span class="content">[-_]</span><span class="delimiter">&quot;</span></span>)
+                            }
+                            <span class="keyword">if</span> (name.size() &gt; <span class="integer">2</span>) {
+                                <span class="keyword">if</span> ((order <span class="keyword">as</span> <span class="predefined-type">Integer</span>)==<span class="integer">0</span>) {
+                                    <span class="comment">// let's take the order from the second level dir or file and not the file</span>
+                                    <span class="keyword">def</span> secondLevel = name[<span class="integer">1</span>]
+                                    <span class="keyword">if</span> (secondLevel ==~ <span class="regexp"><span class="delimiter">/</span><span class="content">[0-9]+[-_].*</span><span class="delimiter">/</span></span>) {
+                                        order = secondLevel.split(<span class="string"><span class="delimiter">&quot;</span><span class="content">[-_]</span><span class="delimiter">&quot;</span></span>)[<span class="integer">0</span>]
+                                    }
+                                } <span class="keyword">else</span> {
+                                    println <span class="string"><span class="delimiter">&quot;</span><span class="content">&gt;&gt;&gt;&gt; </span><span class="delimiter">&quot;</span></span>+order
+                                    println name
+                                    state = <span class="string"><span class="delimiter">&quot;</span><span class="content">draft</span><span class="delimiter">&quot;</span></span>
+                                }
+                            }
+                            <span class="keyword">def</span> title
+                            <span class="keyword">def</span> leveloffset = <span class="integer">0</span>
+                            text.eachLine { line -&gt;
+                                <span class="keyword">if</span> (!title &amp;&amp; line ==~ <span class="string"><span class="delimiter">&quot;</span><span class="content">^=+ .*</span><span class="delimiter">&quot;</span></span>) {
+                                    title = (line =~ <span class="string"><span class="delimiter">&quot;</span><span class="content">^=+ (.*)</span><span class="delimiter">&quot;</span></span>)[<span class="integer">0</span>][<span class="integer">1</span>]
+                                    <span class="keyword">def</span> level = (line =~ <span class="string"><span class="delimiter">&quot;</span><span class="content">^(=+) .*</span><span class="delimiter">&quot;</span></span>)[<span class="integer">0</span>][<span class="integer">1</span>]
+                                    <span class="keyword">if</span> (level==<span class="string"><span class="delimiter">&quot;</span><span class="content">=</span><span class="delimiter">&quot;</span></span>) {
+                                        leveloffset = <span class="integer">1</span>
+                                    }
+                                }
+                            }
+                            <span class="keyword">if</span> (leveloffset==<span class="integer">1</span>) {
+                                <span class="comment">//leveloffset needed</span>
+                                <span class="comment">// we always start wit &quot;==&quot; not with &quot;=&quot;</span>
+                                text = text.replaceAll(<span class="string"><span class="delimiter">&quot;</span><span class="content">(?ms)^(=+) </span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">'</span><span class="content">$1= </span><span class="delimiter">'</span></span>)
+                            }
+                            header &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">:jbake-status: </span><span class="delimiter">&quot;</span></span>+state
+                            header &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">:jbake-menu: </span><span class="delimiter">&quot;</span></span> + menu
+                            header &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">:jbake-order: </span><span class="delimiter">&quot;</span></span> + (order <span class="keyword">as</span> <span class="predefined-type">Integer</span>)
+                            header &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">:jbake-title: </span><span class="delimiter">&quot;</span></span> + title
+                            header &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">:jbake-type: page_toc</span><span class="delimiter">&quot;</span></span>
+                            <span class="keyword">if</span> (text.contains(<span class="string"><span class="delimiter">&quot;</span><span class="content">:toc:</span><span class="delimiter">&quot;</span></span>)) {
+                                <span class="comment">//everything ok</span>
+                            } <span class="keyword">else</span> {
+                                header &lt;&lt; <span class="string"><span class="delimiter">&quot;</span><span class="content">:toc: left</span><span class="delimiter">&quot;</span></span>
+                            }
+                            header = header.join(<span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="delimiter">&quot;</span></span>)
+                            file.write(header + <span class="string"><span class="delimiter">&quot;</span><span class="char">\n</span><span class="char">\n</span><span class="delimiter">&quot;</span></span> + text, <span class="string"><span class="delimiter">&quot;</span><span class="content">utf-8</span><span class="delimiter">&quot;</span></span>)
+                        }
+                    }
+
+                }
+            }
         }
 
         <span class="comment">/**
@@ -6840,7 +6932,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-06 20:18:06 UTC
+Last updated 2021-05-21 13:16:38 UTC
 </div>
 </div>
 </body>
