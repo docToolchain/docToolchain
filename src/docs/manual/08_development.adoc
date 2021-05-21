@@ -46,13 +46,13 @@ As workarund to execute the test with the correct proxy settings it is necessary
 
 NOTE: The files downloaded by the Gradle test Runner are placed in a different folder than the default gradle cache. You'll find them in the Tmp folder: C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches
 
-=== Create new Release
+== Create new Release
 
 We use https://semver.org/[semantic versioning] and https://keepachangelog.com/[keep a changelog]. Bot on a best effort base.
 
 A release consists of four parts:
 
-==== Github
+=== Github
 
 * update the changelog
 ** create a section for the version
@@ -65,7 +65,7 @@ A release consists of four parts:
 * this creates a zip of the source in `build` which is the distribution file
 * add this zip and submit the new release
 
-==== Dockerhub
+=== Dockerhub
 
 The image build for https://hub.docker.com/repository/docker/rdmueller/doctoolchain[rdmueller/doctoolchain] depends on the github repository https://github.com/docToolchain/docker-image[docToolchain/docker-image]
 
@@ -74,7 +74,7 @@ The image build for https://hub.docker.com/repository/docker/rdmueller/doctoolch
 * reference the github release for changelog
 * the build on dockerhub will be automatically triggered
 
-==== sdkman
+=== sdkman
 
 A github action has been created to deploy to sdkman: https://github.com/docToolchain/docToolchain/actions?query=workflow%3A%22sdkman+deploy%22[sdkman deploy].
 
