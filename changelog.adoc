@@ -9,6 +9,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === Added
 
+2021-05-21::
+* removed jCenter references
+
 2021-03-21::
 
 * https://github.com/docToolchain/docToolchain/pull/560[Add support for another OpenAPI Confluence macro] by https://github.com/silverdonkey[Nikolay Orozov]
