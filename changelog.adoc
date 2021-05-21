@@ -22,6 +22,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === added
 
+2021-05-18::
+* Headless mode for themes
+* fix landing page (only gets copied once when microsite config isn't set yet.)
 2021-04-07::
 * generateSite can now handle themes
 2021-04-09::

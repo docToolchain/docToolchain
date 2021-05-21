@@ -71,13 +71,16 @@ task generateSite(
                 println "use siteTheme $siteTheme"
                 //check if it is already installed
                 if (!themeFolder.exists()) {
-                    println "${color 'green', """\nTheme '$siteTheme' is not installed yet. """}"
-                    def input = ant.input(message: """
+                    if (System.getenv('DTC_HEADLESS')) {
+                        ant.yesno = "y"
+                    } else {
+                        println "${color 'green', """\nTheme '$siteTheme' is not installed yet. """}"
+                        def input = ant.input(message: """
 ${color 'green', 'do you want me to download and install it to '}
-${color 'green', '   '+themeFolder.canonicalPath}
+${color 'green', '   ' + themeFolder.canonicalPath}
 ${color 'green', 'for you?'}\n""",
-                        validargs: 'y,n', addproperty: 'yesno')
-
+                            validargs: 'y,n', addproperty: 'yesno')
+                    }
                     if (ant.yesno == "y") {
                         themeFolder.mkdirs()
                         download {
@@ -103,11 +106,6 @@ ${color 'green', 'for you?'}\n""",
                     copy {
                         from(themeFolder) {}
                         into("${targetDir}/microsite/tmp/")
-                    }
-                    //copy the dummy docs (blog, landing page) to the project repository
-                    copy {
-                        from(new File(themeFolder, 'site/doc')) {}
-                        into(new File(docDir, inputPath))
                     }
                     //check if the config has to be updated
                     // check if config still contains /** microsite **/
@@ -163,6 +161,11 @@ $configFile.canonicalPath
                         }
                         configFile.write(configFileText.replaceAll("(?sm)/[*][*] start:microsite [*][*]/.*/[*][*] end:microsite [*][*]/","%%marker%%").replace("%%marker%%",conf))
                         println color('green',"config written\ntry\n ./dtcw generateSite previewSite\nto see your microsite!")
+                        //copy the dummy docs (blog, landing page) to the project repository
+                        copy {
+                            from(new File(themeFolder, 'site/doc')) {}
+                            into(new File(docDir, inputPath))
+                        }
                     }
                 }
             }
