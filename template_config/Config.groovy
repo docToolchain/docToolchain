@@ -171,6 +171,10 @@ confluence.with {
     // Optional proxy configuration, only used to access Confluence
     // schema supports http and https
     // proxy = [host: 'my.proxy.com', port: 1234, schema: 'http']
+
+    // Optional: specify which Confluence OpenAPI Macro should be used to render OpenAPI definitions
+    // possible values: ["confluence-open-api", "open-api", true]. true is the same as "confluence-open-api" for backward compatibility
+    // useOpenapiMacro = "confluence-open-api"
 }
 //end::confluenceConfig[]
 //*****************************************************************************************

@@ -87,8 +87,9 @@ proxy::
 If you need to provide a proxy to access Confluence, you may set a map with keys `host` (e.g. `'my.proxy.com'`), `port` (e.g. `'1234'`) and `schema` (e.g. `'http'`) of your proxy.
 
 useOpenapiMacro::
-If this option is present and equal to `true`, then any source block marked with class openapi will be wrapped in a swagger-editor macro.
-(see https://marketplace.atlassian.com/apps/1218914/open-api-swagger-editor-for-confluence[Elitesoft Swagger Editor], based on swagger-ui) +
+If this option is present and equal to "confluence-open-api" then any source block marked with class openapi will be wrapped in Elitesoft Swagger Editor macro:  (see https://marketplace.atlassian.com/apps/1218914/open-api-swagger-editor-for-confluence[Elitesoft Swagger Editor]) +
+For backward compatibility: If this option is present and equal to `true`, then again the Elitesoft Swagger Editor macro will be used. +
+If this option is present and equal to "open-api" then any source block marked with class openapi will be wrapped in Open API Documentation for Confluence macro:  (see https://marketplace.atlassian.com/apps/1215176/open-api-documentation-for-confluence[Open API Documentation for Confluence]). A download source (yaml) button is shown by default. +
 This is how you'd include your openapi YAML file: +
 +
 [source,asciidoc]

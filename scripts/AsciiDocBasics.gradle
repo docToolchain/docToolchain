@@ -96,8 +96,7 @@ ext {
 
 dependencies {
     asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.3'
-    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:2.0.2'
-
+    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:2.1.2'
 }
 
 asciidoctorj {
@@ -125,7 +124,8 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
             'pdf-style': "custom@",
     //        'pdf-fontsdir': "${docDir}/fonts",
             'source-highlighter': 'coderay@',
-            'imagesdir': './images@',
+            'imagesdir': 'images@',
+            'plantUMLDir'         : file("${docDir}/${config.outputPath}/images/plantUML/").path,
             'toc': 'left@',
             'icons': 'font@',
             'javaVersion'         : "$javaVersion",
@@ -165,9 +165,6 @@ task generateHTML (
         group: 'docToolchain',
         description: 'use html5 as asciidoc backend') {
 
-    attributes (
-        'plantUMLDir'         : ''
-    )
     onlyIf {
         !sourceFiles.findAll {
             'html' in it.formats
@@ -266,7 +263,6 @@ task generateDeck (
         description: 'use revealJs as asciidoc backend to create a presentation') {
 
     attributes (
-            'plantUMLDir'  : '',
             'idprefix': 'slide-',
             'idseparator': '-',
             'docinfo1': '',

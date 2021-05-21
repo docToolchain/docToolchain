@@ -94,7 +94,11 @@ task streamingExecute(
         String.metaClass.executeCmd = { silent ->
             //make sure that all paramters are interpreted through the cmd-shell
             //TODO: make this also work with *nix
-            def p = "cmd /c ${delegate.value}".execute()
+            def command = delegate.value
+            if (command.toString().startsWith('[')) {
+                command = new String(delegate.value)
+            }
+            def p = "cmd /c ${command}".execute()
             def result = [std: '', err: '']
             def ready = false
             Thread.start {
