@@ -26,7 +26,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * if the outputPath from the config starts with a '/', it will be considered as absolute path. +
 This way, you can move the build fodler outside of your repository. +
 `outputPath = System.getenv('HOME')+'/.doctoolchain/build/'+(new File('.')).canonicalPath.md5()`
-
+* repository theme gets only copied to build if it is defined in `siteFolder`
+* generateSite will now add meta-data to all asciidoc files which have no meta-data defined. The menu name and order will be created corresponding to the folder and file name. The title will be extracted as first headline from the file itself.
 2021-05-18::
 * Headless mode for themes
 * fix landing page (only gets copied once when microsite config isn't set yet.)
