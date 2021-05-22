@@ -33,7 +33,7 @@ task copyThemes(
                 println "pdfTheme copied into ${targetDir}"
                 break
             case 'jBakeTheme':
-                def targetDir = new File(new File(docDir, inputPath), '../site')
+                def targetDir = new File(new File(docDir, inputPath), config.microsite.siteFolder?:'../site')
                 /**
                 if (targetDir.exists()) {
                     println "${targetDir.canonicalPath} already exists"
@@ -46,6 +46,13 @@ task copyThemes(
                     from new File(projectDir, 'src/site')
                     into targetDir
                 }
+                def siteTheme = System.getenv('DTC_SITETHEME')?:""
+                def themeFolder = new File(projectDir, "../themes/" + siteTheme.md5())
+                copy {
+                    from(themeFolder) {}
+                    into targetDir
+                }
+
                 println "jBakeTheme copied into ${targetDir.canonicalPath}"
                 break
         }
