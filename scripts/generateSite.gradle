@@ -197,7 +197,7 @@ $configFile.canonicalPath
 
         //fix MetaData-Header
         File sourceFolder = new File(targetDir, '/microsite/tmp/site/doc')
-        println("sourceFolder: " + sourceFolder.canonicalPath)
+        logger.info("sourceFolder: " + sourceFolder.canonicalPath)
         sourceFolder.traverse(type: FILES) { file ->
             if (file.name ==~ '^.*(ad|adoc|asciidoc)$') {
                 if (file.name.startsWith("_")) {
@@ -229,8 +229,6 @@ $configFile.canonicalPath
                                         order = secondLevel.split("[-_]")[0]
                                     }
                                 } else {
-                                    println ">>>> "+order
-                                    println name
                                     state = "draft"
                                 }
                             }
