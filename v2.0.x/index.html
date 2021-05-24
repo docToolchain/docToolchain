@@ -2286,7 +2286,7 @@ If you are unsure, change these settings later in your config file
 
         <span class="comment">//fix MetaData-Header</span>
         <span class="predefined-type">File</span> sourceFolder = <span class="keyword">new</span> <span class="predefined-type">File</span>(targetDir, <span class="string"><span class="delimiter">'</span><span class="content">/microsite/tmp/site/doc</span><span class="delimiter">'</span></span>)
-        println(<span class="string"><span class="delimiter">&quot;</span><span class="content">sourceFolder: </span><span class="delimiter">&quot;</span></span> + sourceFolder.canonicalPath)
+        logger.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">sourceFolder: </span><span class="delimiter">&quot;</span></span> + sourceFolder.canonicalPath)
         sourceFolder.traverse(<span class="key">type</span>: FILES) { file -&gt;
             <span class="keyword">if</span> (file.name ==~ <span class="string"><span class="delimiter">'</span><span class="content">^.*(ad|adoc|asciidoc)$</span><span class="delimiter">'</span></span>) {
                 <span class="keyword">if</span> (file.name.startsWith(<span class="string"><span class="delimiter">&quot;</span><span class="content">_</span><span class="delimiter">&quot;</span></span>)) {
@@ -2318,8 +2318,6 @@ If you are unsure, change these settings later in your config file
                                         order = secondLevel.split(<span class="string"><span class="delimiter">&quot;</span><span class="content">[-_]</span><span class="delimiter">&quot;</span></span>)[<span class="integer">0</span>]
                                     }
                                 } <span class="keyword">else</span> {
-                                    println <span class="string"><span class="delimiter">&quot;</span><span class="content">&gt;&gt;&gt;&gt; </span><span class="delimiter">&quot;</span></span>+order
-                                    println name
                                     state = <span class="string"><span class="delimiter">&quot;</span><span class="content">draft</span><span class="delimiter">&quot;</span></span>
                                 }
                             }
@@ -7012,7 +7010,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-23 11:16:03 UTC
+Last updated 2021-05-24 20:10:38 UTC
 </div>
 </div>
 </body>
