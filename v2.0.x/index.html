@@ -1326,7 +1326,7 @@ Make sure to specify a unique image name for each diagram, otherwise they will o
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="/home/travis/build/docToolchain/docToolchain/build/docs/images/plantUMLdemoPlantUML.png" alt="plantUMLdemoPlantUML" width="249" height="242">
+<img src="images/plantUMLdemoPlantUML.png" alt="plantUMLdemoPlantUML" width="249" height="242">
 </div>
 <div class="title">Figure 2. example diagram</div>
 </div>
@@ -1348,13 +1348,13 @@ For example, if you take the example diagram above and change the declaration to
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="/home/travis/build/docToolchain/docToolchain/build/docs/images/plantUMLdemoPlantUMLWidth.png" alt="plantUMLdemoPlantUMLWidth" width="250" height="242">
+<img src="images/plantUMLdemoPlantUMLWidth.png" alt="plantUMLdemoPlantUMLWidth" width="250" height="242">
 </div>
 <div class="title">Figure 3. example diagram (with specified width)</div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="/home/travis/build/docToolchain/docToolchain/build/docs/images/plantUMLdemoPlantUMLScale.png" alt="plantUMLdemoPlantUMLScale" width="186" height="181">
+<img src="images/plantUMLdemoPlantUMLScale.png" alt="plantUMLdemoPlantUMLScale" width="186" height="181">
 </div>
 <div class="title">Figure 4. example diagram (with specified scale)</div>
 </div>
@@ -1396,6 +1396,9 @@ Blog-Posts: <a href="https://rdmueller.github.io/plantuml-gradle/">PlantUML with
         <span class="key">type</span>: AsciidoctorTask,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">use html5 as asciidoc backend</span><span class="delimiter">'</span></span>) {
+        attributes (
+            <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : file(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>docDir<span class="inline-delimiter">}</span></span><span class="content">/</span><span class="inline"><span class="inline-delimiter">${</span>config.outputPath<span class="inline-delimiter">}</span></span><span class="content">/html5</span><span class="delimiter">&quot;</span></span>).toURI().relativize(<span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>docDir<span class="inline-delimiter">}</span></span><span class="content">/</span><span class="inline"><span class="inline-delimiter">${</span>config.outputPath<span class="inline-delimiter">}</span></span><span class="content">/html5/plantUML/</span><span class="delimiter">&quot;</span></span>).toURI()).getPath()
+        )
 
     onlyIf {
         !sourceFiles.findAll {
@@ -1862,6 +1865,9 @@ Blog-Post: <a href="https://rdmueller.github.io/pdf-output/">Beyond HTML</a>
         <span class="key">type</span>: AsciidoctorTask,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">use pdf as asciidoc backend</span><span class="delimiter">'</span></span>) {
+        attributes (
+            <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : file(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>docDir<span class="inline-delimiter">}</span></span><span class="content">/</span><span class="inline"><span class="inline-delimiter">${</span>config.outputPath<span class="inline-delimiter">}</span></span><span class="content">/pdf/images/plantUML/</span><span class="delimiter">&quot;</span></span>).path
+        )
 
     attributes (
         <span class="string"><span class="delimiter">'</span><span class="content">data-uri</span><span class="delimiter">'</span></span>: <span class="string"><span class="delimiter">'</span><span class="content">true</span><span class="delimiter">'</span></span>,
@@ -7010,7 +7016,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-24 20:10:38 UTC
+Last updated 2021-05-28 20:18:42 UTC
 </div>
 </div>
 </body>
