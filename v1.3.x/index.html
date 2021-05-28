@@ -1211,7 +1211,7 @@ Make sure to specify a unique image name for each diagram, otherwise they will o
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="/home/travis/build/docToolchain/docToolchain/build/docs/images/plantUMLdemoPlantUML.png" alt="plantUMLdemoPlantUML" width="249" height="242">
+<img src="images/plantUMLdemoPlantUML.png" alt="plantUMLdemoPlantUML" width="249" height="242">
 </div>
 <div class="title">Figure 2. example diagram</div>
 </div>
@@ -1233,13 +1233,13 @@ For example, if you take the example diagram above and change the declaration to
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="/home/travis/build/docToolchain/docToolchain/build/docs/images/plantUMLdemoPlantUMLWidth.png" alt="plantUMLdemoPlantUMLWidth" width="250" height="242">
+<img src="images/plantUMLdemoPlantUMLWidth.png" alt="plantUMLdemoPlantUMLWidth" width="250" height="242">
 </div>
 <div class="title">Figure 3. example diagram (with specified width)</div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="/home/travis/build/docToolchain/docToolchain/build/docs/images/plantUMLdemoPlantUMLScale.png" alt="plantUMLdemoPlantUMLScale" width="186" height="181">
+<img src="images/plantUMLdemoPlantUMLScale.png" alt="plantUMLdemoPlantUMLScale" width="186" height="181">
 </div>
 <div class="title">Figure 4. example diagram (with specified scale)</div>
 </div>
@@ -1281,6 +1281,9 @@ Blog-Posts: <a href="https://rdmueller.github.io/plantuml-gradle/">PlantUML with
         <span class="key">type</span>: AsciidoctorTask,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">use html5 as asciidoc backend</span><span class="delimiter">'</span></span>) {
+        attributes (
+            <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : file(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>docDir<span class="inline-delimiter">}</span></span><span class="content">/</span><span class="inline"><span class="inline-delimiter">${</span>config.outputPath<span class="inline-delimiter">}</span></span><span class="content">/html5</span><span class="delimiter">&quot;</span></span>).toURI().relativize(<span class="keyword">new</span> <span class="predefined-type">File</span>(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>docDir<span class="inline-delimiter">}</span></span><span class="content">/</span><span class="inline"><span class="inline-delimiter">${</span>config.outputPath<span class="inline-delimiter">}</span></span><span class="content">/html5/plantUML/</span><span class="delimiter">&quot;</span></span>).toURI()).getPath()
+        )
 
     onlyIf {
         !sourceFiles.findAll {
@@ -1736,6 +1739,9 @@ Blog-Post: <a href="https://rdmueller.github.io/pdf-output/">Beyond HTML</a>
         <span class="key">type</span>: AsciidoctorTask,
         <span class="key">group</span>: <span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>,
         <span class="key">description</span>: <span class="string"><span class="delimiter">'</span><span class="content">use pdf as asciidoc backend</span><span class="delimiter">'</span></span>) {
+        attributes (
+            <span class="string"><span class="delimiter">'</span><span class="content">plantUMLDir</span><span class="delimiter">'</span></span>         : file(<span class="string"><span class="delimiter">&quot;</span><span class="inline"><span class="inline-delimiter">${</span>docDir<span class="inline-delimiter">}</span></span><span class="content">/</span><span class="inline"><span class="inline-delimiter">${</span>config.outputPath<span class="inline-delimiter">}</span></span><span class="content">/pdf/images/plantUML/</span><span class="delimiter">&quot;</span></span>).path
+        )
 
     onlyIf {
         !sourceFiles.findAll {
@@ -2111,6 +2117,10 @@ confluence.with {
     ]
 
     <span class="comment">// endpoint of the confluenceAPI (REST) to be used</span>
+    <span class="comment">// verfiy that you got the correct endpoint by browsing to</span>
+    <span class="comment">// https://[yourServer]/[context]/rest/api/user/current</span>
+    <span class="comment">// you should get a valid json which describes your current user</span>
+    <span class="comment">// a working example is https://arc42-template.atlassian.net/wiki/rest/api/user/current</span>
     api = <span class="string"><span class="delimiter">'</span><span class="content">https://[yourServer]/[context]/rest/api/</span><span class="delimiter">'</span></span>
 
 <span class="comment">//    Additionally, spaceKey, createSubpages, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence</span>
@@ -6117,6 +6127,10 @@ confluence.with {
     ]
 
     <span class="comment">// endpoint of the confluenceAPI (REST) to be used</span>
+    <span class="comment">// verfiy that you got the correct endpoint by browsing to</span>
+    <span class="comment">// https://[yourServer]/[context]/rest/api/user/current</span>
+    <span class="comment">// you should get a valid json which describes your current user</span>
+    <span class="comment">// a working example is https://arc42-template.atlassian.net/wiki/rest/api/user/current</span>
     api = <span class="string"><span class="delimiter">'</span><span class="content">https://[yourServer]/[context]/rest/api/</span><span class="delimiter">'</span></span>
 
 <span class="comment">//    Additionally, spaceKey, createSubpages, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence</span>
@@ -6349,7 +6363,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-28 19:03:24 UTC
+Last updated 2021-05-28 20:16:41 UTC
 </div>
 </div>
 </body>
