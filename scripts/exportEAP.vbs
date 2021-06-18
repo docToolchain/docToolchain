@@ -55,7 +55,7 @@
             MakeDir(path&prefix&post)
             
             set objFile = objFSO.OpenTextFile(path&prefix&post&strFileName&".ad",ForAppending, True)
-            name = NormalizeName(currentElement.Name)
+            name = currentElement.Name
             name = Replace(name,vbCr,"")
             name = Replace(name,vbLf,"")
 
