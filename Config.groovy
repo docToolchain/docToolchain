@@ -14,6 +14,7 @@ inputFiles = [
 
 //folders in which asciidoc will find images.
 //these will be copied as resources to ./images
+//folders are relative to inputPath
 imageDirs = [
         /** imageDirs **/
 ]
