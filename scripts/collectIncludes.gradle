@@ -53,10 +53,10 @@ task collectIncludes(
                     if (file.name ==~ '^.*[A-Z]{3,}_includes.adoc$') {
                         println "ignore generated _includes files: " + fileName
                     } else {
-                        println "corrected file: " + fileName
-                        if (fileName.startsWith('docToolchain')) {
+                        if ( fileName.startsWith('docToolchain') || fileName.replace("\\", "/").matches('^.*/docToolchain/.*$')) {
                             //ignore docToolchain as submodule
                         } else {
+                            println "include corrected file: " + fileName
                             collections[type] << fileName
                         }
                     }
