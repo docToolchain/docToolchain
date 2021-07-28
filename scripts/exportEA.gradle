@@ -176,6 +176,9 @@ use `gradle exportEA` to re-export files
         if (!config.exportEA.searchPath.isEmpty()){
             searchPath = new File(docDir, config.exportEA.searchPath).getAbsolutePath()
         }
+        else if (!config.exportEA.absoluteSearchPath.isEmpty()) {
+        searchPath = new File(config.exportEA.absoluteSearchPath).getAbsolutePath()
+        }
         else {
             searchPath = new File(docDir, 'src').getAbsolutePath()
         }
