@@ -153,7 +153,7 @@ confluence.with {
 //    be mixed in case multiple projects have to be opened.
 // -  exportPath: relative path to base 'docDir' to which the diagrams and notes are to be exported
 // -  searchPath: relative path to base 'docDir', in which Enterprise Architect project files are searched
-// -  absoluteSearchPath: absoute path in which Enterprise Architect project files are searched
+// -  absoluteSearchPath: absolute path in which Enterprise Architect project files are searched
 // -  glossaryAsciiDocFormat: if set, the EA glossary is exported into exportPath as 'glossary.ad'
 // -  glossaryTypes: if set and glossary is exported, used to filter for certain types.
 //    Not set or empty list will cause no filtered glossary.
