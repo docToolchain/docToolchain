@@ -3,18 +3,23 @@
 
 == docToolchain
 
+:url-ci-travis: https://travis-ci.com/doctoolchain/doctoolchain
+
+image:https://api.travis-ci.com/doctoolchain/doctoolchain.svg?branch=master[link={url-ci-travis}]
+
+
 [NOTE]
 ====
 Corona/Covid19 is taking its toll.
 Time is short in these times and issues are not worked on.
-That's why I (rdmueller) have just introduced `sponsored` issues with higher priority.
+That is why I (rdmueller) have just introduced `sponsored` issues with higher priority.
 The label should help to explain why some issues will be preferred over others.
 If you want to sponsor an issue, just use the sponsor link on top of this page.
 ====
 
 [IMPORTANT]
 ====
-if you've used docToolchain in the past, please be aware that the master branch is undergoing some changes.
+If you have used docToolchain in the past, please be aware that the master branch is undergoing some changes.
 
 If you are looking for a fresh version and are willing to accept changes in the configuration, the master branch is the right thing for you.
 
@@ -54,7 +59,7 @@ This is done through https://opencollective.com - the same service which https:/
 
 docToolchain is still one of the smaller open source projects,
 but some companies already fully embrace the docs-as-code approach through docToolchain.
-If your company uses docToolchain, then feel free to add your companies logo through a pull request.
+If your company uses docToolchain, then feel free to add your company's logo through a pull request.
 Please state in the PR that we are allowed to display the logo within all projects websites and documentation.
 
 [cols="1,2"]
@@ -80,8 +85,8 @@ image::https://opencollective.com/doctoolchain/sponsor/0/avatar.svg["Sponsor", l
 
 === History of this project
 
-I just found an older https://twitter.com/RalfDMueller/status/668540860649349120[tweet] which remindet me of the roots and beginning of this project.
-It all began with two important parts. 
+I just found an older https://twitter.com/RalfDMueller/status/668540860649349120[tweet] which reminded me of the roots and beginning of this project.
+It all began with two important parts.
 A script called asciidoc2confluence and some scripts to export diagrams from enterprise architect.
 
 The first one is linked in the tweet above and the first commit dates back to mid of 2015.

@@ -56,6 +56,9 @@ confluence = [:]
 // Attributes
 // - 'file': absolute or relative path to the asciidoc generated html file to be exported
 // - 'url': absolute URL to an asciidoc generated html file to be exported
+// - 'ancestorName' (optional): the name of the parent page in Confluence as string;
+//                             this attribute has priority over ancestorId, but if page with given name doesn't exist,
+//                             ancestorId will be used as a fallback 
 // - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty
 //                            if a new parent shall be created in the space
 // - 'preambleTitle' (optional): the title of the page containing the preamble (everything
@@ -75,6 +78,10 @@ confluence.with {
     ]
 
     // endpoint of the confluenceAPI (REST) to be used
+    // verfiy that you got the correct endpoint by browsing to 
+    // https://[yourServer]/[context]/rest/api/user/current
+    // you should get a valid json which describes your current user
+    // a working example is https://arc42-template.atlassian.net/wiki/rest/api/user/current
     api = 'https://[yourServer]/[context]/rest/api/'
 
 //    Additionally, spaceKey, createSubpages, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
@@ -95,13 +102,16 @@ confluence.with {
 
     pageSuffix = ''
 
-    // username:password of an account which has the right permissions to create and edit
-    // confluence pages in the given space.
-    // if you want to store it securely, fetch it from some external storage or leave it empty to fallback to gradle variables
-    // set through gradle properties files or environment variables. The fallback uses the 'confluenceUser' and 'confluencePassword' keys.
-    // you might even want to prompt the user for the password like in this example
+    /*
+    WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!
 
-    credentials = "user:pass_or_token".bytes.encodeBase64().toString()
+    Tool expects credentials that belong to an account which has the right permissions to to create and edit confluence pages in the given space.
+    Credentials can be used in a form of:
+     - passed parameters when calling script (-PconfluenceUser=myUsername -PconfluencePass=myPassword) which can be fetched as a secrets on CI/CD or  
+     - gradle variables set through gradle properties (uses the 'confluenceUser' and 'confluencePass' keys)
+    Often, same credentials are used for Jira & Confluence, in which case it is recommended to pass CLI parameters for both entities as 
+    -Pusername=myUser -Ppassword=myPassword
+    */
 
     //optional API-token to be added in case the credentials are needed for user and password exchange.
     //apikey = "[API-token]"
@@ -122,6 +132,10 @@ confluence.with {
     // Optional proxy configuration, only used to access Confluence
     // schema supports http and https
     // proxy = [host: 'my.proxy.com', port: 1234, schema: 'http']
+
+    // Optional: specify which Confluence OpenAPI Macro should be used to render OpenAPI definitions
+    // possible values: ["confluence-open-api", "open-api", true]. true is the same as "confluence-open-api" for backward compatibility
+    // useOpenapiMacro = "confluence-open-api"
 }
 //end::confluenceConfig[]
 //*****************************************************************************************
@@ -129,11 +143,21 @@ confluence.with {
 //Configuration for the export script 'exportEA.vbs'.
 // The following parameters can be used to change the default behaviour of 'exportEA'.
 // All parameter are optionally.
-// Parameter 'connection' allows to select a certain database connection by using the ConnectionString as used for
-// directly connecting to the project database instead of looking for EAP/EAPX files inside and below the 'src' folder.
-// Parameter 'packageFilter' is an array of package GUID's to be used for export. All images inside and in all packages below the package represented by its GUID are exported.
-// A packageGUID, that is not found in the currently opened project, is silently skipped.
-// PackageGUID of multiple project files can be mixed in case multiple projects have to be opened.
+// -  connection: Parameter allows to select a certain database connection by 
+//    using the ConnectionString as used for directly connecting to the project
+//    database instead of looking for EAP/EAPX files inside and below the 'src' folder.
+// - 'packageFilter' is an array of package GUID's to be used for export. All 
+//    images inside and in all packages below the package represented by its GUID 
+//    are exported. A packageGUID, that is not found in the currently opened
+//    project, is silently skipped. PackageGUID of multiple project files can
+//    be mixed in case multiple projects have to be opened.
+// -  exportPath: relative path to base 'docDir' to which the diagrams and notes are to be exported
+// -  searchPath: relative path to base 'docDir', in which Enterprise Architect project files are searched
+// -  absoluteSearchPath: absolute path in which Enterprise Architect project files are searched
+// -  glossaryAsciiDocFormat: if set, the EA glossary is exported into exportPath as 'glossary.ad'
+// -  glossaryTypes: if set and glossary is exported, used to filter for certain types.
+//    Not set or empty list will cause no filtered glossary.
+// -  diagramAttributes: if set, the diagram attributes are exported and formatted as specified
 
 exportEA.with {
 // OPTIONAL: Set the connection to a certain project or comment it out to use all project files inside the src folder or its child folder.
@@ -143,18 +167,37 @@ exportEA.with {
 //                    "{A237ECDE-5419-4d47-AECC-B836999E7AE0}",
 //                    "{B73FA2FB-267D-4bcd-3D37-5014AD8806D6}"
 //                  ]
-// OPTIONAL: relative path to base 'docDir' to which the diagrams and notes are to be exported
+// OPTIONAL: export diagrams, notes, etc. below folder src/docs
 // exportPath = "src/docs/"
-// OPTIONAL: relative path to base 'docDir', in which Enterprise Architect project files are searched
-// searchPath = "src/docs/"
-
+// OPTIONAL: EA project files are expected to be located in folder src/projects  
+// searchPath = "src/projects/"
+// OPTIONAL: terms will be exported as asciidoc 'Description, single-line'
+// glossaryAsciiDocFormat = "TERM:: MEANING"
+// OPTIONAL: only terms of type Business and Technical will be exported.
+// glossaryTypes = ["Business", "Technical"]
+// OPTIONAL: Additional files will be exported containing diagram attributes in the given asciidoc format
+// diagramAttributes = "Modified: %DIAGRAM_AUTHOR%, %DIAGRAM_MODIFIED%, %DIAGRAM_NAME%,
+// %DIAGRAM_GUID%, %DIAGRAM_CREATED%, %DIAGRAM_NOTES%"
 }
 //end::exportEAConfig[]
 
 //tag::htmlSanityCheckConfig[]
 htmlSanityCheck.with {
     //sourceDir = "build/html5/site"
+
+    // where to put results of sanityChecks...
     //checkingResultsDir =
+
+    // OPTIONAL: directory where the results written to in JUnit XML format
+    //junitResultsDir =
+
+    // OPTIONAL: which statuscodes shall be interpreted as warning, error or success defaults to standard
+    //httpSuccessCodes = []
+    //httpWarningCodes = []
+    //httpErrorCodes = []
+
+    // fail build on errors?
+    failOnErrors = false
 }
 //end::htmlSanityCheckConfig[]
 
@@ -168,15 +211,16 @@ jira.with {
     api = 'https://your-jira-instance'
     
     /*
-    username:password (username:token) of an account which has the right permissions to read the JIRA issues for a given project.
-    It is recommended to store these securely instead of commiting them to your git repository.
-    In that case, either fetch it from some external storage or leave it empty (credentials = '') to fallback to gradle variables set through gradle properties files or environment variables.
-    The fallback in gradle.properties uses the 'jiraUser' and 'jiraPassword' keys.
-    You might even want to prompt the user for the password (by not providing it anywhere)
+    WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!
+
+    Tool expects credentials that belong to an account which has the right permissions to read the JIRA issues for a given project.
+    Credentials can be used in a form of:
+     - passed parameters when calling script (-PjiraUser=myUsername -PjiraPass=myPassword) which can be fetched as a secrets on CI/CD or  
+     - gradle variables set through gradle properties (uses the 'jiraUser' and 'jiraPass' keys)
+    Often, Jira & Confluence credentials are the same, in which case it is recommended to pass CLI parameters for both entities as 
+    -Pusername=myUser -Ppassword=myPassword
     */
 
-    credentials = "username@domain.com:accesstoken".bytes.encodeBase64().toString() // colon ":" is used as a separation of username from password/token before base64 encoding 
-    
     // the key of the Jira project
     project = 'PROJECTKEY'
     
@@ -187,12 +231,81 @@ jira.with {
     dateTimeFormatOutput = "dd.MM.yyyy HH:mm:ss z" // i.e. 24.07.2020 09:02:40 CEST
 
     // the label to restrict search to
-    label = 
+    label = 'label1'
 
-    // Jira query
+    // Legacy settings for Jira query. This setting is deprecated & support for it will soon be completely removed. Please use JiraRequests settings
     jql = "project='%jiraProject%' AND labels='%jiraLabel%' ORDER BY priority DESC, duedate ASC"
+
+    // Base filename in which Jira query results should be stored
+    resultsFilename = 'JiraTicketsContent'
+
+    saveAsciidoc = true // if true, asciidoc file will be created with *.adoc extension
+    saveExcel = true // if true, Excel file will be created with *.xlsx extension
+
+    // Output folder for this task inside main outputPath
+    resultsFolder = 'JiraRequests'
     
-    // Filename in which Jira query results should be stored
-    resultsFilename = 'JiraTicketsContent.adoc'
+    /* 
+    List of requests to Jira API:
+    These are basically JQL expressions bundled with a filename in which results will be saved.
+    User can configure custom fields IDs and name those for column header,
+    i.e. customfield_10026:'Story Points' for Jira instance that has custom field with that name and will be saved in a coloumn named "Story Points"
+    */
+    requests = [
+        new JiraRequest(
+            filename:"File1_Done_issues",
+            jql:"project='%jiraProject%' AND status='Done' ORDER BY duedate ASC",
+            customfields: [customfield_10026:'Story Points']
+        ),
+        new JiraRequest(
+            filename:'CurrentSprint',
+            jql:"project='%jiraProject%' AND Sprint in openSprints() ORDER BY priority DESC, duedate ASC", 
+            customfields: [customfield_10026:'Story Points']
+        ),
+    ]    
+}
+    
+@groovy.transform.Immutable
+class JiraRequest {
+    String filename  //filename (without extension) of the file in which JQL results will be saved. Extension will be determined automatically for Asciidoc or Excel file
+    String jql // Jira Query Language syntax 
+    Map<String,String> customfields // map of customFieldId:displayName values for Jira fields which don't have default names, i.e. customfield_10026:StoryPoints
 }
 //end::jiraConfig[]
+
+//tag::openApiConfig[]
+// Configuration for OpenAPI related task
+openApi = [:]
+
+// 'specFile' is the name of OpenAPI specification yaml file. Tool expects this file inside working dir (as a filename or relative path with filename)
+// 'infoUrl' and 'infoEmail' are specification metadata about further info related to the API. By default this values would be filled by openapi-generator plugin placeholders
+//
+
+openApi.with {
+    specFile = 'src/docs/petstore-v2.0.yaml' // i.e. 'petstore.yaml', 'src/doc/petstore.yaml'
+    infoUrl = 'https://my-api.company.com'
+    infoEmail = 'info@company.com'
+}
+//end::openApiConfig[]
+
+//tag::sprintChangelogConfig[]
+// Sprint changelog configuration generate changelog lists based on tickets in sprints of an Jira instance.
+// This feature requires at least Jira API & credentials to be properly set in Jira section of this configuration
+sprintChangelog = [:]
+sprintChangelog.with {
+    sprintState = 'closed' // it is possible to define multiple states, i.e. 'closed, active, future'
+    ticketStatus = "Done, Closed" // it is possible to define multiple ticket statuses, i.e. "Done, Closed, 'in Progress'"
+
+    showAssignee = false
+    showTicketStatus = false
+    showTicketType = true
+    sprintBoardId = 12345  // Jira instance probably have multiple boards; here it can be defined which board should be used
+
+    // Output folder for this task inside main outputPath
+    resultsFolder = 'Sprints'
+
+    // if sprintName is not defined or sprint with that name isn't found, release notes will be created on for all sprints that match sprint state configuration
+    sprintName = 'PRJ Sprint 1' // if sprint with a given sprintName is found, release notes will be created just for that sprint
+    allSprintsFilename = 'Sprints_Changelogs' // Extension will be automatically added.
+}
+//end::sprintChangelogConfig[]

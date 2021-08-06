@@ -1,0 +1,29 @@
+:filename: manual/03_task_exportJiraSprintChangelog.adoc
+ifndef::imagesdir[:imagesdir: ../images]
+
+= exportJiraSprintChangelogIssues
+
+include::feedback.adoc[]
+
+This task exports simplified (Key & summary) list of Jira issues for specific Sprint. Few additional fields (i.e. assignee etc..) can be switched using configuration flags. 
+
+Users can define one specific sprint in which they are interested. This will result in generating Asciidoc and Excel file.
+In case sprint defined in users configuration isn't found, changelogs for all sprints that match configuration will be saved in separate Asciidoc files and in a different tabs of an Excel file.
+
+The configuration for this task can be found within `Config.gradle`. In addition to the below listed configuration snippet, it is important to configure Jira API and credentials in Jira section of the configuration inside same file.
+
+== Configuration
+
+.Config.groovy
+[source,groovy]
+----
+include::../../../Config.groovy[tags=sprintChangelogConfig]
+----
+
+== Source
+
+.exportJiraSprintChangelog.gradle
+[source,groovy]
+----
+include::../../../scripts/exportJiraSprintChangelog.gradle[tags=exportJiraSprintChangelog]
+----

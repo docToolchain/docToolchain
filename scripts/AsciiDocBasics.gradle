@@ -3,9 +3,8 @@
  */
 buildscript {
     repositories {
-        jcenter()
         maven {
-            url 'https://plugins.gradle.org/m2/'
+            url mavenRepository
         }
     }
     dependencies {
@@ -15,7 +14,6 @@ buildscript {
 import org.asciidoctor.gradle.AsciidoctorTask
 
 // configuration
-def config
 if (docDir.startsWith('.')) {
     docDir = new File(projectDir, docDir).canonicalPath
 }
@@ -27,12 +25,39 @@ logger.info "docToolchain> mainConfigFile: ${mainConfigFile}"
 logger.info "docToolchain> pdfThemeDir: ${pdfThemeDir}"
 def configSlurper = new ConfigSlurper()
 config = configSlurper.parse(new File(docDir, mainConfigFile).text)
+
+def props = project.gradle.startParameter.projectProperties
+logger.info("\nGradle project Properties [${props.size()}]:\n${props}\n==============================")
+
+if (project.hasProperty('jiraUser') && project.hasProperty('jiraPass')) {
+    logger.info("Found passed Jira credentials")
+    config.jira.credentials = "${project.getProperty('jiraUser')}:${project.getProperty('jiraPass')}".bytes.encodeBase64().toString()
+}
+if (project.hasProperty('confluenceUser') && project.hasProperty('confluencePass')) {
+    logger.info("Found passed Confluence credentials")
+    config.confluence.credentials = "${project.getProperty('confluenceUser')}:${project.getProperty('confluencePass')}".bytes.encodeBase64().toString()
+}
+if (project.hasProperty('username') && project.hasProperty('password')) {
+    logger.info("Found passed common Jira & Confluence credentials")
+    config.jira.credentials = "${project.getProperty('username')}:${project.getProperty('password')}".bytes.encodeBase64().toString()
+    config.confluence.credentials = "${project.getProperty('username')}:${project.getProperty('password')}".bytes.encodeBase64().toString()
+}
+
 inputPath = config.inputPath?config.inputPath:'.'
-logger.info "docToolchain> inputPath: ${inputPath}"
-logger.info "docToolchain> inputFiles: ${config.inputFiles}"
-logger.info "docToolchain> outputPath: ${config.outputPath}"
 referenceDocFile = config.referenceDocFile?config.referenceDocFile:''
 logger.info "docToolchain> referenceDocFile: ${referenceDocFile}"
+logger.info("\n==================\nParsed config file has ${config.flatten().size()} entries\n")
+
+List<String> confidentialIdentifiers = ["credential", "token", "secret"]
+config.flatten().each {key, value ->
+    String keyString = "${key}"
+
+    if(confidentialIdentifiers.any {id -> keyString.toLowerCase().contains(id)}){
+        logger.info("Found config -> '${keyString}': '********'")
+    }else{
+        logger.info("Found config -> '${keyString}': '${value}'")
+    }
+}
 
 ext {
     srcDir  = "${docDir}/${inputPath}"
@@ -48,7 +73,7 @@ ext {
 
 dependencies {
     asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.3'
-    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:2.0.1'
+    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:2.1.2'
 }
 
 asciidoctorj {
@@ -116,15 +141,19 @@ task generateHTML (
         type: AsciidoctorTask,
         group: 'docToolchain',
         description: 'use html5 as asciidoc backend') {
+        attributes (
+            'plantUMLDir'         : file("${docDir}/${config.outputPath}/html5").toURI().relativize(new File("${docDir}/${config.outputPath}/html5/plantUML/").toURI()).getPath()
+        )
 
-    attributes (
-        'plantUMLDir'         : ''
-    )
     onlyIf {
         !sourceFiles.findAll {
             'html' in it.formats
         }.empty
     }
+
+    // specify output folder explicitly to avoid cleaning targetDir from other generated content
+    outputDir = file(targetDir + '/html5/')
+    separateOutputDirs(false)
 
     sources {
         sourceFiles.findAll {
@@ -144,10 +173,10 @@ task generatePDF (
         type: AsciidoctorTask,
         group: 'docToolchain',
         description: 'use pdf as asciidoc backend') {
+        attributes (
+            'plantUMLDir'         : file("${docDir}/${config.outputPath}/pdf/images/plantUML/").path
+        )
 
-    attributes (
-        'plantUMLDir'         : file("${docDir}/${config.outputPath}/images/plantUML/").path
-    )
     onlyIf {
         !sourceFiles.findAll {
             'pdf' in it.formats
@@ -197,7 +226,6 @@ task generateDeck (
         description: 'use revealJs as asciidoc backend to create a presentation') {
 
     attributes (
-            'plantUMLDir'  : '',
             'idprefix': 'slide-',
             'idseparator': '-',
             'docinfo1': '',
@@ -209,7 +237,7 @@ task generateDeck (
             'revealjs_history': 'true',
             'revealjs_slideNumber': 'true'
     )
-    options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates/slim').absolutePath ]
+    options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates').absolutePath ]
 
     onlyIf {
         !sourceFiles.findAll {
@@ -235,8 +263,8 @@ task generateDeck (
         from(sourceDir) {
             include 'images/**'
         }
-        into("ppt")
-        logger.info "${docDir}/${config.outputPath}/ppt/images"
+        into("")
+        logger.info "${docDir}/${config.outputPath}/images"
     }
 }
 //end::generateDeck[]

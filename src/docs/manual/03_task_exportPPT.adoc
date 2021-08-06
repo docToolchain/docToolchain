@@ -12,6 +12,8 @@ image::ea/Manual/exportPPT.png[]
 
 TIP: Blog-Post: https://rdmueller.github.io/PPT-as-asciidoc-editor/[Do more with Slides]
 
+NOTE: see https://github.com/uniqueck/asciidoctorj-office-extension[asciidoctorj-office-extension] for another way how you can use PPT slides in your docs.
+
 == Source
 
 .exportPPT.gradle

@@ -56,12 +56,14 @@ header:
   verso_content:
     center: '{document-title}'
 footer:
-  height: 0.75in
-  line_height: 1
-  recto_content:
-    right: '{chapter-title} | *{page-number}*'
-  verso_content:
-    left: '*{page-number}* | {chapter-title}'
+   height: 0.75in
+   line_height: 1
+   recto:
+     right: 
+       content: '{chapter-title} | *{page-number}*'
+   verso:
+     left: 
+      content: '*{page-number}* | {chapter-title}'
 image:
   align: center
 caption:

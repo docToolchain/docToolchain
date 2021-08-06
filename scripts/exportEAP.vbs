@@ -1,6 +1,8 @@
     ' based on the "Project Interface Example" which comes with EA
     ' http://stackoverflow.com/questions/1441479/automated-method-to-export-enterprise-architect-diagrams
 
+
+
     Dim EAapp 'As EA.App
     Dim Repository 'As EA.Repository
     Dim FS 'As Scripting.FileSystemObject
@@ -8,6 +10,7 @@
     Dim projectInterface 'As EA.Project
     
     Const   ForAppending = 8
+    Const   ForWriting = 2
     
     ' Helper
     ' http://windowsitpro.com/windows/jsi-tip-10441-how-can-vbscript-create-multiple-folders-path-mkdir-command
@@ -52,7 +55,7 @@
             MakeDir(path&prefix&post)
             
             set objFile = objFSO.OpenTextFile(path&prefix&post&strFileName&".ad",ForAppending, True)
-            name = NormalizeName(currentElement.Name)
+            name = currentElement.Name
             name = Replace(name,vbCr,"")
             name = Replace(name,vbLf,"")
 
@@ -131,6 +134,32 @@
         End If
     End Sub
 
+    ' This sub routine checks if the format string defined in diagramAttributes 
+    ' does contain any characters. It replaces the known placeholders: 
+    ' %DIAGRAM_AUTHOR%, %DIAGRAM_CREATED%, %DIAGRAM_GUID%, %DIAGRAM_MODIFIED%,
+    ' %DIAGRAM_NAME%, %DIAGRAM_NOTES%
+    ' with the attribute values read from the EA diagram object.
+    ' None, one or multiple number of placeholders can be used to create a diagram attribute
+    ' to be added to the document. The attribute string is stored as a file with the same
+    ' path and name as the diagram image, but with suffix .ad. So, it can 
+    ' easily be included in an asciidoc file.
+    Sub SaveDiagramAttribute(currentDiagram, path, diagramName)
+        If Len(diagramAttributes) > 0 Then
+            filledDiagAttr = diagramAttributes
+            set objFSO = CreateObject("Scripting.FileSystemObject")
+            filename = objFSO.BuildPath(path, diagramName & ".ad")
+            set objFile = objFSO.OpenTextFile(filename, ForWriting, True)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_AUTHOR%",   currentDiagram.Author)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_CREATED%",  currentDiagram.CreatedDate)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_GUID%",     currentDiagram.DiagramGUID)                        
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_MODIFIED%", currentDiagram.ModifiedDate)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NAME%",     currentDiagram.Name)                        
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NOTES%",    currentDiagram.Notes)
+            filledDiagAttr = Replace(filledDiagAttr, "%NEWLINE%",          vbCrLf)
+            objFile.WriteLine(filledDiagAttr)
+            objFile.Close
+        End If
+    End Sub
     Sub SaveDiagram(currentModel, currentDiagram)
         ' Open the diagram
         Repository.OpenDiagram(currentDiagram.DiagramID)
@@ -154,8 +183,14 @@
 
         projectInterface.SaveDiagramImageToFile(filename)
         WScript.echo " extracted image to " & filename
+        If Not IsEmpty(diagramAttributes) Then
+            SaveDiagramAttribute currentDiagram, path, diagramName
+        End If
         Repository.CloseDiagram(currentDiagram.DiagramID)
 
+        ' Write the note of the diagram 
+        WriteNote currentModel, currentDiagram, currentDiagram.Notes, diagramName&"_notes"
+        
         For Each diagramElement In currentDiagram.DiagramObjects
             Set currentElement = Repository.GetElementByID(diagramElement.ElementID)
             WriteNote currentModel, currentElement, currentElement.Notes, diagramName&"_notes"
@@ -246,6 +281,44 @@
           call DumpDiagrams(package, currentModel)
         End If
     End Function
+    
+    Function FormatStringToJSONString(inputString)
+        outputString = Replace(inputString, "\", "\\")
+        outputString = Replace(outputString, """", "\""")
+        outputString = Replace(outputString, vbCrLf, "\n")
+        outputString = Replace(outputString, vbLf, "\n")
+        outputString = Replace(outputString, vbCr, "\n")
+        FormatStringToJSONString = outputString
+    End Function
+    
+    'If a valid file path is set, the glossary terms are read from EA repository,
+    'formatted in a JSON compatible format and written into file.
+    'The file is read and reformatted by the exportEA gradle task afterwards.
+    Function ExportGlossaryTermsAsJSONFile(EArepo)
+        If (Len(glossaryFilePath) > 0) Then
+            set objFSO = CreateObject("Scripting.FileSystemObject")
+            GUID = Replace(EArepo.ProjectGUID,"{","")
+            GUID = Replace(GUID,"}","")
+            currentGlossaryFile = objFSO.BuildPath(glossaryFilePath,"/"&GUID&".ad")
+            set objFile = objFSO.OpenTextFile(currentGlossaryFile,ForAppending, True)
+            
+            Set glossary = EArepo.Terms()
+            objFile.WriteLine("[") 
+            dim counter
+            counter = 0
+            For Each term In glossary
+                if (counter > 0) Then
+                    objFile.Write(",")
+                end if
+                objFile.Write("{ ""term"" : """&FormatStringToJSONString(term.term)&""", ""meaning"" : """&FormatStringToJSONString(term.Meaning)&""",")
+                objFile.WriteLine(" ""termID"" : """&FormatStringToJSONString(term.termID)&""", ""type"" : """&FormatStringToJSONString(term.type)&""" }")
+                counter = counter + 1
+            Next
+            objFile.WriteLine("]") 
+            
+            objFile.Close        
+        End If
+    End Function
 
     Sub OpenProject(file)
       ' open Enterprise Architect
@@ -260,6 +333,7 @@
       Set Repository = EAapp.Repository
       ' Show the script output window
       ' Repository.EnsureOutputVisible("Script")
+      call ExportGlossaryTermsAsJSONFile(Repository)
 
       Set projectInterface = Repository.GetProjectInterface()
 
@@ -292,12 +366,16 @@
         End If
       End If
       EAapp.Repository.CloseFile()
+      ' Since EA 15.2 the Enterprise Architect background process hangs without calling Exit explicitly
+      EAapp.Repository.Exit()
     End Sub
 
   Private connectionString
   Private packageFilter
   Private exportDestination
   Private searchPath
+  Private glossaryFilePath
+  Private diagramAttributes
   
   exportDestination = "./src/docs"
   searchPath = "./src"
@@ -316,17 +394,23 @@
         exportDestination = objArguments(argCount+1)
       Case "-s"
         searchPath = objArguments(argCount+1)
+      Case "-g"
+        glossaryFilePath = objArguments(argCount+1)
+      Case "-da" 
+        diagramAttributes = objArguments(argCount+1)
     End Select
     argCount = argCount + 2
   WEnd
   set fso = CreateObject("Scripting.fileSystemObject") 
   WScript.echo "Image extractor"
-  If IsEmpty(connectionString) Then
-  WScript.echo "looking for .eap(x) files in " & fso.GetAbsolutePathName(searchPath)
-  'Dim f As Scripting.Files
-  SearchEAProjects fso.GetFolder(searchPath)
-  Else
+
+  ' Check both types in parallel - 1st check Enterprise Architect database connection, 2nd look for local project files
+  If Not IsEmpty(connectionString) Then
      WScript.echo "opening database connection now"
      OpenProject(connectionString)
   End If
+  WScript.echo "looking for .eap(x) files in " & fso.GetAbsolutePathName(searchPath)
+  ' Dim f As Scripting.Files
+  SearchEAProjects fso.GetFolder(searchPath)
+
   WScript.echo "finished exporting images"

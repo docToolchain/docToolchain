@@ -6,10 +6,6 @@ task exportContributors(
         description: 'exports all contributors for all asciidoc files',
         group: 'docToolchain'
 ) {
-    doFirst {
-        new File(targetDir, 'contributors').mkdirs()
-        new File(targetDir, 'fileattribs').mkdirs()
-    }
     doLast {
         def wordsPerMinute = 189
         def md5 = { input ->
@@ -38,22 +34,22 @@ task exportContributors(
                                 }
                 }.unique { a, b -> a[1] <=> b[1] }
                 def avatars = contributors.collect {
-                    "image:http://www.gravatar.com/avatar/" +
+                    "image:https://www.gravatar.com/avatar/" +
                             md5(it[1].toLowerCase().trim()) +
                             "?d=identicon" +
-                            "[32,32,role='gravatar',alt='${it[0]}',title='${it[0]}']"
+                            "[height=32,width=32,role='gravatar',alt='${it[0]}',title='${it[0]}']"
                 }.join(" ")
                 def tag = (file.canonicalPath - sourceFolder.canonicalPath).replace("\\", "/").replaceAll("^/", "")
-                def targetFile = new File(targetDir, "/contributors/" + tag)
-                new File(targetDir, ("/contributors/" + tag).split("/")[0..-2].join("/")).mkdirs()
+                File targetFile = new File(targetDir.toString(), "/contributors/" + tag)
+                safeMkDirs(targetFile)
                 targetFile.write(avatars + "\n")
 //              println("\u023F1 $readingtime minutes to read")
                 def minutesTerm = readingtime == 1 ? "minute" : "minutes"
                 targetFile.append("\n $readingtime $minutesTerm to read \n")
 
                 //file attributes
-                new File(targetDir, ("/fileattribs/" + tag).split("/")[0..-2].join("/")).mkdirs()
-                targetFile = new File(targetDir, "/fileattribs/" + tag)
+                targetFile = new File(targetDir.toString(), "/fileattribs/" + tag)
+                safeMkDirs(targetFile)
 
                 def attributes = ["git", "log", "-1", "--no-merges", "--pretty=format:%x7c%x20%at%n%x7c%x20%ad%x20%n%x7c%x20%aE%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n", "--date=short", "HEAD", currentFileName].execute()
                 attributes.waitForOrKill(1000)
@@ -90,6 +86,15 @@ def getReadingtime(def filename, def wpm) {
                     .split("\\s+");
 
     return (words.length / wpm).toInteger() +1
+}
+
+void safeMkDirs(File file) {
+    File fileDir = file.getParentFile();
+    if (!fileDir.exists()) {
+        if (!fileDir.mkdirs()) {
+            throw new RuntimeException("unable to create folder '" + fileDir + '')
+        }
+    }
 }
 
 //end::exportContributors[]

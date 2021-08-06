@@ -83,14 +83,18 @@ def trythis(Closure action) {
         switch (error.response.status) {
             case '401':
                 println (error.response.data.toString().replaceAll("^.*Reason","Reason"))
-                println "please check your confluence credentials in "+configFile.canonicalPath
+                println "please check your confluence credentials in config file or passed parameters"
                 throw new Exception("missing authentication credentials")
+                break
+            case '400':
+                println error.response.data.message
+                println "please check the ancestorId in your config file"
+                throw new Exception("Parent does not exist")
                 break
             default:
                 println error.response.data
         }
         null
-        //throw error
     }
 }
 
@@ -198,11 +202,13 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
         }
     } else {
         http = new HTTPBuilder(config.confluence.api + 'content/' + pageId + '/child/attachment')
-        if (config.confluence.proxy) {
-            http.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
-        }
+        
     }
-    if (http) {
+    if (http) {																												
+		if (config.confluence.proxy) {
+            http.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
+        } 
+		
         http.request(Method.POST) { req ->
             requestContentType: "multipart/form-data"
             MultipartEntity multiPartContent = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE)
@@ -424,7 +430,7 @@ def rewriteJiraLinks = { body ->
     // find links to jira tickets and replace them with jira macros
     body.select('a[href]').each { a ->
         def href = a.attr('href')
-        if (href.startsWith(jiraRoot + "/browse/")) { 
+        if (href.startsWith(config.jira.api + "/browse/")) { 
                 def ticketId = a.text()
                 a.before("""<ac:structured-macro ac:name=\"jira\" ac:schema-version=\"1\">
                      <ac:parameter ac:name=\"key\">${ticketId}</ac:parameter>
@@ -460,16 +466,29 @@ def rewriteCodeblocks = { body ->
 }
 
 def rewriteOpenAPI = { org.jsoup.nodes.Element body ->
-    if (config.confluence.useOpenapiMacro) {
-        body.select('div.openapi  pre > code').each { code ->
-            def parent=code.parent()
-            def rawYaml=code.wholeText()
-            code.parent()
-                    .wrap('<ac:structured-macro ac:name="confluence-open-api" ac:schema-version="1" ac:macro-id="1dfde21b-6111-4535-928a-470fa8ae3e7d"></ac:structured-macro>')
-                    .unwrap()
-            code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
-                    .replaceWith(new TextNode(rawYaml))
-        }
+         if (config.confluence.useOpenapiMacro == true || config.confluence.useOpenapiMacro == 'confluence-open-api') {
+            body.select('div.openapi  pre > code').each { code ->
+                def parent=code.parent()
+                def rawYaml=code.wholeText()
+                code.parent()
+                        .wrap('<ac:structured-macro ac:name="confluence-open-api" ac:schema-version="1" ac:macro-id="1dfde21b-6111-4535-928a-470fa8ae3e7d"></ac:structured-macro>')
+                        .unwrap()
+                code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
+                        .replaceWith(new TextNode(rawYaml))
+            }
+         }
+        else if (config.confluence.useOpenapiMacro == 'open-api') {
+            body.select('div.openapi  pre > code').each { code ->
+                def parent=code.parent()
+                def rawYaml=code.wholeText()
+                code.parent()
+                        .wrap('<ac:structured-macro ac:name="open-api" ac:schema-version="1" data-layout="default" ac:macro-id="4302c9d8-fca4-4f14-99a9-9885128870fa"></ac:structured-macro>')
+                        .unwrap()
+                // default: show download button
+                code.before('<ac:parameter ac:name="showDownloadButton">true</ac:parameter>')
+                code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
+                        .replaceWith(new TextNode(rawYaml))
+            }
     }
 }
 
@@ -811,6 +830,27 @@ def promoteHeaders = { tree, start, offset ->
     }
 }
 
+def retrievePageIdByName = { String name ->
+        def api = new RESTClient(config.confluence.api)
+        def headers = [
+            'Authorization': 'Basic ' + config.confluence.credentials,
+            'Content-Type':'application/json; charset=utf-8'
+        ]
+        trythis {
+            def request = [
+                'title'    : name,
+                'spaceKey' : confluenceSpaceKey
+            ]
+            api.get(
+                [
+                        'headers': headers,
+                        'path'   : "${baseApiPath}content",
+                        'query'  : request,
+                ]
+            ).data.results?.getAt(0)?.id
+        } ?: null
+}
+
 config.confluence.input.each { input ->
 
     input.file = "${docDir}/${input.file}"
@@ -840,10 +880,21 @@ println "confluenceCreateSubpages: " + confluenceCreateSubpages
     dom.outputSettings().escapeMode(org.jsoup.nodes.Entities.EscapeMode.xhtml); //This will ensure xhtml validity regarding entities
     dom.outputSettings().charset("UTF-8"); //does no harm :-)
 
-    //if input does not contain an ancestorId, check if there is a global one
-    def parentId = input.ancestorId ?: config.confluence.ancestorId
+    // if ancestorName is defined try to find machingAncestorId in confluence
+    def retrievedAncestorId
+    if (input.ancestorName) {
+        // Retrieve a page id by name
+        retrievedAncestorId = retrievePageIdByName(input.ancestorName)
+        println("Retrieved pageId for given ancestorName '${input.ancestorName}' is ${retrievedAncestorId}")
+    }
+
+    // if input does not contain an ancestorName, check if there is ancestorId, otherwise check if there is a global one
+    def parentId = retrievedAncestorId ?: input.ancestorId ?: config.confluence.ancestorId
+
     // if parentId is still not set, create a new parent page (parentId = null)
     parentId = parentId ?: null
+    //println("ancestorName: '${input.ancestorName}', ancestorId: ${input.ancestorId} ---> final parentId: ${parentId}")
+
     def anchors = [:]
     def pageAnchors = [:]
     def sections = pages = []

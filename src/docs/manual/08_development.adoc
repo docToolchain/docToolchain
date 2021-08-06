@@ -34,3 +34,49 @@ rm -r build && ./gradlew test --info
 
 The `rm` command ensures that you really have a clean test running.
 Otherwise you might get false positives because Gradle will skip steps ('Up-to-date') because artifacts of an older test run still exist.
+
+=== Proxy Setting for Tests
+
+The docToolchain test setup is based on the https://docs.gradle.org/current/userguide/test_kit.html[Gradle-Test-Kit] and makes use of the  https://code.google.com/archive/p/spock/[Spock test execution framework].
+
+The gradle test runner is started in its own test environment and its own JVM instance.
+As a result the global proxy settings are ignored.
+
+As workarund to execute the test with the correct proxy settings it is necessary to copy the proxy setting normally done in the in gradle.properties located in the user directory to the gradle.properties file located in the docToolchain folder itself.
+
+NOTE: The files downloaded by the Gradle test Runner are placed in a different folder than the default gradle cache. You'll find them in the Tmp folder: C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches
+
+== Create new Release
+
+We use https://semver.org/[semantic versioning] and https://keepachangelog.com/[keep a changelog]. Bot on a best effort base.
+
+A release consists of four parts:
+
+=== Github
+
+* update the changelog
+** create a section for the version
+** copy all unreleased features which will be in the release to the created section
+** commit and push the new version
+* https://github.com/docToolchain/docToolchain/releases/new[Draft a new release]
+* copy the content of the changelog for this version to the description and submit
+* set version as **v**X.Y.Z
+* run `./gradlew createDist`
+* this creates a zip of the source in `build` which is the distribution file
+* add this zip and submit the new release
+
+=== Dockerhub
+
+The image build for https://hub.docker.com/repository/docker/rdmueller/doctoolchain[rdmueller/doctoolchain] depends on the github repository https://github.com/docToolchain/docker-image[docToolchain/docker-image]
+
+* update the https://github.com/docToolchain/docker-image/tree/master/alpine[Dockerfile] to reflect the new version
+* create a https://github.com/docToolchain/docker-image/releases/new[new release]
+* reference the github release for changelog
+* the build on dockerhub will be automatically triggered
+
+=== sdkman
+
+A github action has been created to deploy to sdkman: https://github.com/docToolchain/docToolchain/actions?query=workflow%3A%22sdkman+deploy%22[sdkman deploy].
+
+* set version to the same as for the other relases but without the pre-pended _v_: X.Y.Z
+* use as download link the link to the `docToolchain-dist.zip` from the github release (hint: looks like  https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip)

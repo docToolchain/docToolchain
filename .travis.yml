@@ -3,20 +3,17 @@ language: groovy
 jdk:
   - openjdk8
   - openjdk11
-  - openjdk12
-  - openjdk13
+#  - openjdk12
+#  - openjdk13
+  - openjdk14
+
+git:
+  depth: false
 
 addons:
   apt:
     packages:
       - shellcheck
-
-git:
-  depth: 3000
-
-addons:
-  apt:
-    packages:
       - graphviz
 
 before_cache:
@@ -27,6 +24,10 @@ cache:
     - $HOME/.gradle/caches/
     - $HOME/.gradle/wrapper/
 
+install: skip
+
 script:
   - ./.ci.sh
   - find . -type f -exec grep -l '^#!/bin/bash' {} + | xargs shellcheck
+
+# use `travis env set GH_TOKEN XXX` to set token to publish contents to GitHub pages

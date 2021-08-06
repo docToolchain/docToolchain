@@ -49,6 +49,7 @@ So, if you want to use photos from your flipcharts - JPG might work for you.
 
 SVG:: great for high resolution diagrams, but not good supported by DOCX as output format.
 OpenOffice Writer might display the image a bit stretched, MS Word didn't display it at all in some experiments.
+PDF output might display a warning that newer SVG versions are not supported (happends especially with diagrams.net images).
 
 PNG:: this is the preferred format for images used with docToolchain.
 All output formats support it and if diagrams are rendered with a resolution high enough to display all details, it will also be scaled well with all output formats.
@@ -134,3 +135,14 @@ Could not reserve enough space for 2097152KB object heap
 
 Somehow docToolchain can't allocate the memory which is configured out of the box.
 Try to free up some memory or comment out the line `org.gradle.jvmargs=-Xmx2048m` in `gradle.properties`
+
+=== Q: I get the error saying 'Could not initialize class java.awt.GraphicsEnvironment$LocaleGE'
+
+This seems to be a problem with WSL on Windows. 
+Some sources mention to run Java in headless mode, but in this case, it doesn't solve the problem.
+The root cause seems to be plantUML trying to get some font information.
+
+Only real solution seems to be to shutdown WSL from a powershell window wiht `wsl --shutdown` and retry.
+
+WARNING: this will kill all your WSL terminals without warning.
+

@@ -2,7 +2,7 @@
 buildscript {
     repositories {
         maven {
-            url 'https://plugins.gradle.org/m2/'
+            url mavenRepository
         }
     }
     dependencies {
@@ -30,7 +30,17 @@ htmlSanityCheck {
     //sourceDocuments = [ "one-file.html", "another-file.html", "index.html"]
 
     // where to put results of sanityChecks...
-    checkingResultsDir = new File( config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath )
+    checkingResultsDir = new File(config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath)
+    // directory where the results written to in JUnit XML format
+    junitResultsDir = new File(config.htmlSanityCheck.junitResultsDir?:"$targetDir/test-results/htmlchecks")
+
+    // which statuscodes shall be interpreted as warning, error or success defaults to standard
+    httpSuccessCodes = config.htmlSanityCheck.httpSuccessCodes?:[]
+    httpWarningCodes = config.htmlSanityCheck.httpWarningCodes?:[]
+    httpErrorCodes = config.htmlSanityCheck.httpErrorCodes?:[]
+
+    // fail build on errors?
+    failOnErrors = config.htmlSanityCheck.failOnErrors?:false
 
     logger.info "docToolchain> HSC sourceDir: ${sourceDir}"
     logger.info "docToolchain> HSC checkingResultsDir: ${checkingResultsDir}"
