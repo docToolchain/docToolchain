@@ -69,7 +69,7 @@ A release consists of four parts:
 * this creates a zip of the source in `build` which is the distribution file
 * add this zip and submit the new release
 
-=== Wrapper
+=== docToolchain-Wrapper (dtcw)
 
 * update the version used in the wrapper
 ** https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw[dtcw]
