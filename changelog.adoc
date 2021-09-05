@@ -9,6 +9,11 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === added
 
+2021-09-06::
+* added warning when running on WSL
+* added dtcw.bat to avoid execution restrictions
+* updated developer docs
+
 === changed
 
 === fixed
