@@ -1,6 +1,7 @@
 :filename: manual/03_task_generateSite.adoc
 ifndef::imagesdir[:imagesdir: ../images]
 
+[[task_generatesite]]
 = generateSite
 
 include::feedback.adoc[]
@@ -112,6 +113,10 @@ When run in an automated build, you should set the environment variable `DTC_HEA
 It will simply assume that you do want to install it.
 
 To avoid the download of the theme with every build, you can copy the themes folder from `$HOME/.doctoolchain/themes` to the corresponding folder in your build container.
+
+== See also
+
+<<task_previewsite>>
 
 == Source
 
