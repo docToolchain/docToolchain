@@ -66,6 +66,31 @@ This will give you the connection back to the github repository and you can modi
 If you want to create a new theme from scratch, the hash is a simple md5 hash.
 So, for example, if you configure your new theme as `"myTheme"`, then `"myTheme".md5()` will be the hash.
 
+==== Special functionality for Themes
+
+===== Config Fragments
+
+It is quite likely that you need a new config item for your self generated theme.
+And wouldn't it be nice if the user would be asked to set a value for this new config item when she installs the theme for the first time?
+
+Create a file `configFragment.groovy` in the `site` folder of your theme.
+Here is an example for what to put in this file:
+
+[source, groovy]
+----
+// the title of the microsite, displayed in the upper left corner
+// Example: my new site
+title = '##site-title##'
+----
+
+The first line is some explanation displayed to the user.
+You can have several lines of explanations.
+
+The second line, starting with `Example:` is used as default value for the prompt.
+
+The third line is the config item itself.
+If the value is surrounded by `##`, the user will be prompted for this value and it will be replaced with the user's input.
+Otherwise, the config item will be added without a prompt to the users current `docToochainConfig.groovy`.
 
 == How to run Tests
 
