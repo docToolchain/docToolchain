@@ -6,11 +6,11 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 include::feedback.adoc[]
 
-docToolchain provides you with some default themes which reside within docToolchain.
-There are times where you want to overwrite these themes in your project.
+docToolchain provides you with a default theme which reside within docToolchain.
+It is just a simple twitter bootstrap theme and it is likely that you want to use another theme in your project.
 In order to give you a good start, you can execute `copyThemes` and copy the pdfTheme or jBakeTheme to your project.
-Feel free to remove all files which should remain as the default and change all other.
-With the next run of docToolchain, it will lay your theme files over the default one in order to generate the PDF or site.
+Feel free to remove all files which should remain as the default and change all others.
+With the next run of docToolchain, it will lay your theme files over the default theme in order to generate the PDF or site.
 
 .scripts/copyThemes.gradle
 [source,groovy]
