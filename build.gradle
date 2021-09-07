@@ -150,3 +150,5 @@ task createDist(type: Zip, dependsOn: prepareDist) {
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
 //defaultTasks 'generateHTML', 'htmlSanityCheck'
+//defaultTasks 'exportMarkdown', 'exportContributors', 'generateHTML', 'htmlSanityCheck'
+//copyDocs
