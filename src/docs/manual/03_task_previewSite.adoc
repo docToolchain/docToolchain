@@ -1,0 +1,122 @@
+:filename: manual/03_task_generateSite.adoc
+ifndef::imagesdir[:imagesdir: ../images]
+
+= generateSite
+
+include::feedback.adoc[]
+
+When you have _one_ document, the output of `generateHTML` might fit your needs.
+When your documentation grows, and you have _several_ documents, you need a microsite which bundles all the information.
+
+The `generateSite` task uses https://jbake.org[jBake] to create a static site with a Landingpage, Blog and Search.
+
+== Pages
+
+The microsite is page oriented instead of document oriented.
+It is likely that you already organized your documents by chapter.
+Use these chapters as pages to create a great user experience.
+
+The arc42-template sources are a good example.
+
+In order to include a page in the microsite, add a meta-data header to it.
+
+.page meta-data
+[source, asciidoc]
+----
+:jbake-menu: arc42
+:jbake-title: Solution Strategy
+:jbake-order: 4
+:jbake-type: page_toc
+:jbake-status: published
+:filename: \chapters\04_solution_strategy.adoc
+ifndef::immagesdir[:imagesdir: ../../images]
+
+:toc:
+
+[[section-solution-strategy]]
+== Solution Strategy
+----
+
+jbake-menu:: the top-level menu for this page.
+Defaults to the top-level folder name of the adoc file within the `docDir`.
+jbake-title:: the title to be displayed in the drop-down top-level menu.
+Defaults to the first headline of the file.
+jbake-order:: give the drop-down entries a sort order.
+Defaults to a prefixed number of the file like `**04**_filename.adoc` or to the prefixed number of the second level folder name.
+jbake-type:: the page type.
+This controls which template is used to render the page.
+You will mostly use `page` for a full-width page or `page_toc` for a page with a table of contents (toc) rendered on the left.
+Defaults to `page_toc`.
+jbake-status:: `draft` or `published`.
+Only `published` pages will be rendered.
+Defaults to `published` for files with a `jbake-order` and `draft` for files without order or files prefixed with `_`.
+filename:: needed for edit and feedback-links (coming soon).
+Defaults to the filename :-)
+ifndef:: this fixes the imagesdir according to the nesting level of your docs folder
+Defaults to the main `docDir/images`
+toc:: for `:jbake-type: page_toc`, you need this line to generate the toc.
+
+NOTE: Start your pages with a `==` level headline. You can fix the level offset when you include the page in a larger document with `include::chapter.adoc[leveloffset=+1]`
+
+== Templates and Style
+
+The jBake templates and CSS etc. is hidden away from you for convenience.
+The basic template use http://getbootstrap.com/[twitter Bootstrap 5] as CSS framework.
+
+Use the <<task-copyThemes,`copyThemes`>> task to copy all hidden jBake resources to your project.
+You can then remove the ones you don't need and change those you want to change.
+
+NOTE: `copyThemes` overwrites existing files, but your code is under version control, isn't it?
+
+== Landing Page
+
+Put a `index.gsp` page as landing page in `src/site/templates`.
+This landing page is plain HTML5 styled with twitter bootstrap.
+Header and footer is added by docToolchain.
+An example can be found through <<task-copyThemes,`copyThemes`>> or https://github.com/docToolchain/docToolchain/blob/ng/src/site/templates/index.gsp[on github].
+
+== Blog
+
+The microsite also contains a simple but powerful blog.
+Use it to inform your team about changes and architecture decision records (ADRs).
+
+To create a new blog post, create a new file in `src/docs/blog/<year>/<post-name>.adoc` with the following template:
+
+.blog post template
+[source, asciidoc]
+----
+:jbake-title: <title-of your post>
+:jbake-date: <date formatted as 2021-02-28>
+:jbake-type: post
+:jbake-tags: <blog, asciidoc>
+:jbake-status: published
+
+:imagesdir: ../../images
+
+= {jbake-title}
+{jbake-author}
+{jbake-date}
+
+<insert your text here>
+
+----
+
+== Search
+
+The microsite does not bring its own local search.
+Instead, it only has a search input-field which can be used to link to another search engine.
+
+== CI/CD
+
+When run in an automated build, you should set the environment variable `DTC_HEADLESS` to `true` or `1` to ensure that docToolchain will not ask to install the configured theme.
+It will simply assume that you do want to install it.
+
+To avoid the download of the theme with every build, you can copy the themes folder from `$HOME/.doctoolchain/themes` to the corresponding folder in your build container.
+
+== Source
+
+.scripts/generateSite.gradle
+[source,groovy]
+----
+include::../../../scripts/generateSite.gradle[]
+----

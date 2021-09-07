@@ -29,9 +29,16 @@ Examples:
     exit 1
 fi
 
+# the bin folder of docToolchain
 doctoolchain="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+# the project folder
 docDir="$(unset CDPATH && cd "$1" && pwd)"
 shift
+
+if [ "$1" = "autobuildSite" ]; then
+    echo "starting autobuild"
+    eval "cd ${docDir} && ${doctoolchain}/autobuildSite.bash"
+fi
 
 cd "$doctoolchain"/..
 
