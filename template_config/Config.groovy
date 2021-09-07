@@ -44,7 +44,7 @@ microsite = [:]
 microsite.with {
     /** start:microsite **/
 
-    // is your microsite deplyoed with a context path?
+    // is your microsite deployed with a context path?
     contextPath = '/'
     // used as title in the template
     title='Microsite'
@@ -56,6 +56,12 @@ microsite.with {
     //siteFolder = '../site'
 
     /** end:microsite **/
+
+    //project theme
+    //site folder relative to the docs folder
+    //see 'copyTheme' for more details
+    siteFolder = '../site'
+
 }
 
 //*****************************************************************************************

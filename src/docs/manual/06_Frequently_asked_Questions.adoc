@@ -117,7 +117,8 @@ It works even in a Bash Shell.
 === Q: I get the error saying 'Unsupported major.minor version 52.0'
 
 This is a sign that you use an outdated version of Java.
-Please upgrade to Java 8 at least.
+Please upgrade to Java 8 at least and 14 max.
+The docToolchain-wrapper (dtcw) in v2.0 will check the java version for you so that you will not see this error message in the future.
 
 === Q: I get an error message saying 'Error occurred during initialization of VM'
 
@@ -136,13 +137,25 @@ Could not reserve enough space for 2097152KB object heap
 Somehow docToolchain can't allocate the memory which is configured out of the box.
 Try to free up some memory or comment out the line `org.gradle.jvmargs=-Xmx2048m` in `gradle.properties`
 
-=== Q: I get the error saying 'Could not initialize class java.awt.GraphicsEnvironment$LocaleGE'
+[[wsl]]
+=== Q: I get the error saying `Could not initialize class java.awt.GraphicsEnvironment$LocaleGE`
 
-This seems to be a problem with WSL on Windows. 
+This seems to be a problem with WSL on Windows.
 Some sources mention to run Java in headless mode, but in this case, it doesn't solve the problem.
 The root cause seems to be plantUML trying to get some font information.
 
 Only real solution seems to be to shutdown WSL from a powershell window wiht `wsl --shutdown` and retry.
 
 WARNING: this will kill all your WSL terminals without warning.
+
+Another solution seems to be to install a fresh version of your java runtime (I thought it is immutable, but it really helps).
+
+Best Solution is to switch to powershell.
+
+Another solution is to avoid PlantUML and generate Diagrams through a https://kroki.io[kroki.io] server.
+
+Another variant of this is `Can't connect to X11 window server using '192.168.189.153:0' as the value of the DISPLAY variable.`.
+In this case, it might help to install an X-Server (x410 for example) and configure the `DISPLAY` variable correctly.
+An easy way to test you configuration is to run `xeyes` in WSL.
+
 

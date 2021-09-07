@@ -7,6 +7,66 @@ include::feedback.adoc[]
 
 INFO: this chapter is still work in progress
 
+== Setup Development Environment
+
+Since v2.0, all the code is hidden from curious eyes when you install docToolchain.
+To access and change the code, you first have to know some details about the inner workings.
+
+=== local install, docker, sdkman
+
+Development is based on the local installation of docToolchain.
+Docker simply contains a local install and sdkman install docToolchain locally, but the location is controller by sdkman and not docToolchain.
+This is why you need a local installation for development.
+Docker and sdkman are derived from it.
+
+The docToolchain-Wrapper installs docToolchain locally to `$HOME/.doctoolchain/docToolchain-${VERSION}/`.
+
+All task invokations through the docToolchain wrapper `dtcw` are redirected to `$HOME/.doctoolchain/docToolchain-${VERSION}/bin/doctoolchain`.
+This is another shell script which calls the gradle wrapper for most tasks.
+
+So create a local install which is connected to your github fork of docToolchain, create a folder called
+
+`$HOME/.doctoolchain/docToolchain-2.0.0-dev/`
+
+and checkout the ng-branch of your fork to this folder.
+
+To use this version in your test project, edit the version configured at the start of your `dtcw` script to `2.0.0-dev`.
+
+NOTE: you have now the full repository locally cloned.
+To save memory, only some parts of this repository are zipped for distribution.
+Check out the https://github.com/docToolchain/docToolchain/blob/master/build.gradle#L79[prepareDist-Task] if you run into problems.
+
+=== Create Gradle independent tasks
+
+Currently, all tasks use Gradle to run.
+To make docToolchain faster, it makes sense to circumvent Gradle for tasks where it doesn't add any benefits.
+To do so, you can use the `bin/doctoolchain` scripts and create a switch.
+
+=== Create or Change a Theme
+
+Not only the docToolchain code but also the themes for the static site generator jBake are hidden.
+
+==== Overwrite Theme for a Project
+
+When docToolchain builds the static website, it first copies an internal theme to a temp-folder, then copies an external theme (if defined) over it and as a last step, it copies the project theme over it.
+
+This gives you the chance to overwrite some parts of the theme on a per project basis.
+To make it easier, run the `copyThemes` task.
+It will copy the internal and external theme to `microsite.siteFolder`.
+You can then check those files (take a look at https://jbake.org[jbake.org] to get a better understanding), modify the ones you wish to change and delete all others.
+
+==== Create a new Theme
+
+An external theme is in fact just a zipped copy of the `microsite.siteFolder` as mentioned in the previous chapter.
+All themes are once downloaded when referenced from a `dtcw` configuration and are stored in `$HOME/.doctoolchain/themes/[hash of url]`.
+
+If you want to modify an existing theme, go to its folder and checkout the theme's project instead of the downloaded copy.
+This will give you the connection back to the github repository and you can modify the theme directly in `$HOME/.doctoolchain/themes/[hash of url]`.
+
+If you want to create a new theme from scratch, the hash is a simple md5 hash.
+So, for example, if you configure your new theme as `"myTheme"`, then `"myTheme".md5()` will be the hash.
+
+
 == How to run Tests
 
 === Prerequisites
@@ -69,7 +129,7 @@ A release consists of four parts:
 * this creates a zip of the source in `build` which is the distribution file
 * add this zip and submit the new release
 
-=== Wrapper
+=== docToolchain-Wrapper (dtcw)
 
 * update the version used in the wrapper
 ** https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw[dtcw]

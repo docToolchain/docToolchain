@@ -183,9 +183,10 @@ $configFile.canonicalPath
         }
         //copy project theme
         if (config.microsite.siteFolder) {
-            println "copy project theme ${new File(new File(docDir, inputPath), config.microsite.siteFolder)}"
+            def projectTheme = new File(new File(docDir, inputPath), config.microsite.siteFolder)
+            println "copy project theme ${projectTheme.canonicalPath}"
             copy {
-                from(new File(new File(docDir, inputPath), config.microsite.siteFolder)) {}
+                from(projectTheme) {}
                 into("${targetDir}/microsite/tmp/site")
             }
         }
@@ -203,66 +204,70 @@ $configFile.canonicalPath
                 if (file.name.startsWith("_")) {
                     //ignore
                 } else {
-                    def text = file.text
-                    if (text.contains(':jbake-title:') || text.contains('~~~~~~')) {
-                        //everything is fine, we have a metadata ehader
-                    } else {
-                        def name = file.canonicalPath - (sourceFolder.canonicalPath+"/")
-                        def state = "published"
-                        name = name.split("/")
-                        if (name.size()>1) {
-                            def header = []
-                            def menu = name[0]
-                            if (menu ==~ /[0-9]+[-_].*/) {
-                                menu = menu.split("[-_]")[1]
-                            }
-                            def order = -1
-                            def docname = name[-1]
-                            if (docname ==~ /[0-9]+[-_].*/) {
-                                (order, docname) = docname.split("[-_]")
-                            }
-                            if (name.size() > 2) {
-                                if ((order as Integer)==0) {
-                                    // let's take the order from the second level dir or file and not the file
-                                    def secondLevel = name[1]
-                                    if (secondLevel ==~ /[0-9]+[-_].*/) {
-                                        order = secondLevel.split("[-_]")[0]
-                                    }
-                                } else {
-                                    state = "draft"
-                                }
-                            }
-                            def title
-                            def leveloffset = 0
-                            text.eachLine { line ->
-                                if (!title && line ==~ "^=+ .*") {
-                                    title = (line =~ "^=+ (.*)")[0][1]
-                                    def level = (line =~ "^(=+) .*")[0][1]
-                                    if (level=="=") {
-                                        leveloffset = 1
-                                    }
-                                }
-                            }
-                            if (leveloffset==1) {
-                                //leveloffset needed
-                                // we always start wit "==" not with "="
-                                text = text.replaceAll("(?ms)^(=+) ", '$1= ')
-                            }
-                            header << ":jbake-status: "+state
-                            header << ":jbake-menu: " + menu
-                            header << ":jbake-order: " + (order as Integer)
-                            header << ":jbake-title: " + title
-                            header << ":jbake-type: page_toc"
-                            if (text.contains(":toc:")) {
-                                //everything ok
-                            } else {
-                                header << ":toc: left"
-                            }
-                            header = header.join("\n")
-                            file.write(header + "\n\n" + text, "utf-8")
+                    def origText = file.text
+                    //parse jbake attributes
+                    def text = ""
+                    def jbake = [
+                        state: "published",
+                        order: -1,
+
+                    ]
+                    origText.eachLine { line ->
+                        if (line.startsWith(":jbake")) {
+                            line = (line - ":jbake-").split(": +", 2)
+                            jbake[line[0]] = line[1]
+                        } else {
+                            text += line+"\n"
                         }
                     }
-
+                    def name = file.canonicalPath - (sourceFolder.canonicalPath+"/")
+                    name = name.split("/")
+                    if (name.size()>1) {
+                        jbake.menu = name[0]
+                        if (jbake.menu ==~ /[0-9]+[-_].*/) {
+                            jbake.menu = jbake.menu.split("[-_]")[1]
+                        }
+                        def docname = name[-1]
+                        if (docname ==~ /[0-9]+[-_].*/) {
+                            jbake.order = docname.split("[-_]")[0]
+                            docname     = docname.split("[-_]")[1]
+                        }
+                        if (name.size() > 2) {
+                            if ((jbake.order as Integer)==0) {
+                                // let's take the order from the second level dir or file and not the file
+                                def secondLevel = name[1]
+                                if (secondLevel ==~ /[0-9]+[-_].*/) {
+                                    jbake.order = secondLevel.split("[-_]")[0]
+                                }
+                            } else {
+                                jbake.state = "draft"
+                            }
+                        }
+                        if (jbake.order==-1 && docname.startsWith('index')) {
+                            jbake.order = 0
+                        }
+                        def leveloffset = 0
+                        text.eachLine { line ->
+                            if (!jbake.title && line ==~ "^=+ .*") {
+                                jbake.title = (line =~ "^=+ (.*)")[0][1]
+                                def level = (line =~ "^(=+) .*")[0][1]
+                                if (level=="=") {
+                                    leveloffset = 1
+                                }
+                            }
+                        }
+                        if (leveloffset==1) {
+                            //leveloffset needed
+                            // we always start wit "==" not with "="
+                            text = text.replaceAll("(?ms)^(=+) ", '$1= ')
+                        }
+                        jbake.type= 'page_toc'
+                        def header = ''
+                        jbake.each { key, value ->
+                            header += ":jbake-${key}: ${value}\n"
+                        }
+                        file.write(header + "\n:toc: left\n\n++++\n<!-- endtoc -->\n++++\n" + text, "utf-8")
+                    }
                 }
             }
         }
