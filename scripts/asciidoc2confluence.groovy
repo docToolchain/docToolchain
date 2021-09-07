@@ -429,9 +429,7 @@ def rewriteOpenAPI = { org.jsoup.nodes.Element body ->
                      if (s.startsWith("url")) {
                          //include the link to the URL for the macro
                          includeURL = s.replace('url:', '')
-                         println(includeURL)
-                         //code.before('<ac:parameter ac:name="url">'+s.replace('url:','')+'</ac:parameter>')
-                     }
+                    }
                  }
              }
 
