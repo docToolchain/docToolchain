@@ -1,0 +1,23 @@
+:source-highlighter: highlightjs
+:highlightjs-theme: monokai-sublime
+
+++++
+<!--link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.18.3/styles/monokai-sublime.min.css"-->
+<style>
+.content pre>code {display:block !important;overflow-x:auto !important;padding:.5em !important;background-color :#23241f !important}
+.hljs,.hljs-tag,.hljs-subst{color:#f8f8f2 !important}
+.hljs-strong,.hljs-emphasis{color:#a8a8a2 !important}
+.hljs-bullet,.hljs-quote,.hljs-number,.hljs-regexp,.hljs-literal,.hljs-link{color:#ae81ff !important}
+pre code .pun {color:#a8a8a2 !important}
+pre code .pln {color:#f8f8f2 !important}
+.hljs-strong{font-weight:bold !important}
+.hljs-emphasis{font-style:italic !important}
+.hljs-keyword,.hljs-selector-tag,.hljs-name,.hljs-attr{color:#f92672 !important}
+.hljs-symbol,.hljs-attribute{color:#66d9ef !important}
+.hljs-params,.hljs-class .hljs-title{color:#f8f8f2 !important}
+.hljs-string,.hljs-type,.hljs-built_in,.hljs-builtin-name,.hljs-selector-id,.hljs-selector-attr,.hljs-selector-pseudo,.hljs-addition,.hljs-variable,.hljs-template-variable{color:#e6db74 !important}
+.hljs-comment,.hljs-deletion,.hljs-meta{color:#75715e !important}
+</style>
+++++
+
+include::../manual/_blocks.adoc[]

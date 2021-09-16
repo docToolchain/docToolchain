@@ -1,0 +1,19 @@
+:filename: tutorial/01_Install.adoc
+:jbake-title: Install docToolchain
+include::_config.adoc[]
+
+== Welcome!
+
+Nice to meet you.
+Glad that you want to learn more about how to use docToolchain.
+Let's start with the installation.
+
+The following steps are the same as described in the manual.
+Please follow them step by step.
+
+If you encounter problems, please create a github issue and the community will help you.
+
+include::../manual/02_install.adoc[tags=install]
+
+.Result of tasks-Task
+image::tutorial/dtcw-tasks.png[]

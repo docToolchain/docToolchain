@@ -1,0 +1,14 @@
+:filename: manual/tasks/03_task_previewSite.adoc
+include::_config.adoc[]
+
+[[task_previewsite]]
+= previewSite
+
+include::../_feedback.adoc[]
+
+When you use the build in static site generator through <<task_generatesite>>, you sometimes need a real static server locally running to preview the results.
+
+This task will start a jetty with your generated site.
+
+NOTE: Most site themes don't need the static site server.
+You can just preview the site by opening it right from the filesystem in your browser.

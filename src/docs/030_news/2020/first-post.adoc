@@ -1,0 +1,23 @@
+:jbake-title: First Post
+:jbake-date: 2020-12-15
+:jbake-type: post
+:jbake-tags: blog, asciidoc
+:jbake-status: published
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+= First Post
+Ralf D. Müller
+2020-12-15
+
+This is just a demonstration on how to use the blog.
+
+imagesdir: {imagesdir}
+
+[plantuml]
+----
+Reader -> Website
+    Website -> Repository
+    Website <-- Repository
+Reader <-- Website
+----

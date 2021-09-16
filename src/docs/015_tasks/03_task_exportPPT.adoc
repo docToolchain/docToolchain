@@ -1,0 +1,29 @@
+:filename: manual/tasks/03_task_exportPPT.adoc
+include::_config.adoc[]
+
+= exportPPT
+
+IMPORTANT: Currently this feature is WINDOWS-only. https://github.com/docToolchain/docToolchain/issues/231[See related issue]
+
+
+include::../_feedback.adoc[]
+
+image::ea/Manual/exportPPT.png[]
+
+TIP: Blog-Post: https://rdmueller.github.io/PPT-as-asciidoc-editor/[Do more with Slides]
+
+NOTE: see https://github.com/uniqueck/asciidoctorj-office-extension[asciidoctorj-office-extension] for another way how you can use PPT slides in your docs.
+
+== Source
+
+.exportPPT.gradle
+[source,groovy]
+----
+include::{projectDir}/scripts/exportPPT.gradle[tags=exportPPT]
+----
+
+.exportPPT.vbs
+[source,vbs]
+----
+include::{projectDir}/scripts/exportPPT.vbs[]
+----

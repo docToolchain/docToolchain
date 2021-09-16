@@ -1,0 +1,13 @@
+:jbake-title: About
+:jbake-type: page
+:jbake-status: published
+
+include::../../../../../README.adoc[tags=about]
+
+'''
+
+include::../doc/arc42/chapters/about-arc42.adoc[]
+
+'''
+
+

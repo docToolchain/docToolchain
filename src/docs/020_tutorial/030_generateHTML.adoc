@@ -1,0 +1,29 @@
+:filename: tutorial/030_generateHTML.adoc
+include::_config.adoc[]
+
+[source, shell session]
+----
+$ ./dtcw generateHTML
+dtcw - docToolchain wrapper V0.23
+docToolchain V2.0.0-dev
+
+Bash is running on WSL
+this might cause problems with plantUML
+see https://doctoolchain.github.io/docToolchain/#wsl for more details
+
+Java Version 11
+docker available
+home folder exists
+use local homefolder install /home/rdmueller/.doctoolchain/
+Starting a Gradle Daemon, 22 busy Daemons could not be reused, use --status for details
+
+> Configure project :
+arc42/arc42.adoc
+
+> Task :generateHTML
+Converting /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42/arc42.adoc
+
+BUILD SUCCESSFUL in 26s
+1 actionable task: 1 executed
+----
+

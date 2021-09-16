@@ -1,0 +1,13 @@
+:filename: manual/tasks/03_task_exportMarkdown.adoc
+include::_config.adoc[]
+
+// the source is in exportMarkdownDocs.md !!
+include::../../../build/docs/exportMarkdownDocs.adoc[]
+
+== Source
+
+.exportMarkdown.gradle
+[source,groovy]
+----
+include::{projectDir}/scripts/exportMarkdown.gradle[tags=exportMarkdown]
+----

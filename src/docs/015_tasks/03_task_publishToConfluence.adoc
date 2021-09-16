@@ -1,0 +1,179 @@
+:filename: manual/tasks/03_task_publishToConfluence.adoc
+include::_config.adoc[]
+
+= publishToConfluence
+
+include::../_feedback.adoc[]
+
+image::ea/Manual/publishToConfluence.png[]
+
+This target takes the generated HTML file, splits it by headline and pushes it to Confluence.
+This enables you to use the docs-as-code approach while getting feedback from non-techies through Confluence comments.
+And it fulfills the "requirement" of "... but all documentation is in Confluence".
+
+Special features:
+
+* `[source]`-blocks are converted to code-macro blocks in confluence.
+* only pages and images which have changed between task runs are really published and hence only for those changes notifications are sent to watchers. This is quite important - otherwise watchers are easily annoyed by too many notifications.
+* `:keywords:` Keywords are attached as labels to every generated Confluence page. The rules for page labels should be kept in mind. See https://confluence.atlassian.com/doc/add-remove-and-search-for-labels-136419.html. Several keywords are allowed. They must be separated by comma, e.g. `:keywords: label_1, label-2, label3, ...`. Labels (keywords) must not contain a space character! Use '_' or '-'.
+
+NOTE: code-macro-blocks in confluence render an error if the language attribute contains an unknown language.
+See https://confluence.atlassian.com/doc/code-block-macro-139390.html for a list of valid language and how to add further languages.
+
+== Configuration
+
+We tried to make the configuration self-explaining, but there are always some note to add.
+
+ancestorId::
+this is the page ID of the parent page to which you want your docs to be published.
+Go to this page, click on edit and the needed ID will show up in the URL.
+Specify the ID as string within the config file.
+
+api::
+for cloud instances, `[context]` is `wiki`
+
+preambleTitle::
+the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
+
+disableToC::
+This boolean configuration define if the Table of Content (ToC) is disabled from the page once uploaded in confluence. (it is false by default, so the ToC is active)
+
+pagePrefix/pageSuffix::
+Confluence can't handle two pages with the same name.
+Moreover, the script matches pages regardless of the case. It will thus refuse to replace a page whose title only differs in case with an existing page.
+So you should create a new confluence space for each piece of larger documentation.
+If you are restricted and can't create new spaces, you can use this `pagePrefix`/`pageSuffix` to define a prefix/suffix for this doc so that it doesn't conflict with other page names.
+
+credentials::
+Use username and password or even better username and api-token.
+You can create new API-tokens in https://confluence.atlassian.com/cloud/api-tokens-938839638.html[your profile].
+To avoid having your password or api-token versioned through git, you can store it outside of this configuration as environment variable or in another file - the key here is that the config file is a groovy script.
+e.g. you can do things like `credentials = "user:${new File("/home/me/apitoken").text}".bytes.encodeBase64().toString()`
+
+To simplify the injection of credentials from external sources there is a fallback. Should you leave the credentials field empty,
+the variables `confluenceUser` and `confluencePassword` from the build environment will be used for authentication. You can set these through any means
+allowed by gradle like the `gradle.properties` file in the project or your home directory, environment variables or command-line flags.
+For all ways to set these variables, have a look at the https://docs.gradle.org/current/userguide/build_environment.html[gradle manual].
+
+apikey::
+In cases where you have to use full user authorization because of internal confluence permission handling, you need to add the API-token in addition to the credentials.
+The API-token cannot be added to the credentials as it is used for user and password exchange.
+Therefore the API-token can be added as parameter apikey, which makes the addition of the token as a separate header field with key: `keyId` and value of `apikey`.
+Example including storing of the real value outside this configuration: `apikey = "${new File("/home/me/apitoken").text}"`.
+
+extraPageContent::
+If you need to prefix your pages with a warning that this is generated content - this is the right place.
+
+enableAttachments::
+
+If value is set to *true*, your links to local file references will be uploaded as attachments. The current implementation only supports a single folder. This foldername will be used as a prefix to validate if your file should be uploaded or not.
+In case you enable this feature, and use a folder which starts with "attachment*", an adaption of this prefix is required.
+
+jiraServerId::
+the jira server id your confluence instance is connected to. If value is set, all anchors pointing to a jira ticket will be replaced by the confluence jira macro.
+To function properly jiraRoot has to be configured (see <<exportJiraIssues>>).
+
+Example:
+
+All files to attach will require to be linked inside the document.
+
+``\link:attachement/myfolder/myfile.json[My API definition]``
+
+attachmentPrefix::
+
+The expected foldername of your output dir. *Default*: `attachment`
+
+proxy::
+If you need to provide a proxy to access Confluence, you may set a map with keys `host` (e.g. `'my.proxy.com'`), `port` (e.g. `'1234'`) and `schema` (e.g. `'http'`) of your proxy.
+
+useOpenapiMacro::
+If this option is present and equal to "confluence-open-api" then any source block marked with class openapi will be wrapped in Elitesoft Swagger Editor macro:  (see https://marketplace.atlassian.com/apps/1218914/open-api-swagger-editor-for-confluence[Elitesoft Swagger Editor]) +
+For backward compatibility: If this option is present and equal to `true`, then again the Elitesoft Swagger Editor macro will be used. +
+If this option is present and equal to "open-api" then any source block marked with class openapi will be wrapped in Open API Documentation for Confluence macro:  (see https://marketplace.atlassian.com/apps/1215176/open-api-documentation-for-confluence[Open API Documentation for Confluence]). A download source (yaml) button is shown by default. +
+This is how you'd include your openapi YAML file: +
++
+[source,asciidoc]
+--
+[source.openapi,yaml]
+----
+\include::myopeanapi.yaml[]
+----
+--
+
+.configuration
+.publishToConfluence.gradle
+[source,groovy]
+----
+include::{projectDir}/Config.groovy[tags=confluenceConfig]
+----
+
+== CSS Styling
+
+Some AsciiDoctor features depend on particular CSS style definitions.
+Unless these styles are defined, some formatting that is present in the HTML version will not be represented when published to Confluence.
+
+.To configure Confluence to include additional style definitions:
+. Log in to Confluence as a space admin
+. Go to the desired space
+. Select "Space tools", "Look and Feel", "Stylesheet"
+. Click "Edit", enter the desired style definitions, and click "Save"
+
+The default style definitions can be found in the AsciiDoc project as https://raw.githubusercontent.com/asciidoctor/asciidoctor/master/data/stylesheets/asciidoctor-default.css[asciidoctor-default.css].
+Note that you likely do *NOT* want to include the whole thing, as some of the definitions are likely to disrupt Confluence's layout.
+
+The following style definitions are believed to be Confluence-compatible, and enable use of the built-in roles (`big`/`small`, `underline`/`overline`/`line-through`, `_COLOR_`/`_COLOR_-background` for the https://en.wikipedia.org/wiki/Web_colors#HTML_color_names[sixteen HTML color names]):
+
+[source,css]
+----
+.big{font-size:larger}
+.small{font-size:smaller}
+.underline{text-decoration:underline}
+.overline{text-decoration:overline}
+.line-through{text-decoration:line-through}
+.aqua{color:#00bfbf}
+.aqua-background{background-color:#00fafa}
+.black{color:#000}
+.black-background{background-color:#000}
+.blue{color:#0000bf}
+.blue-background{background-color:#0000fa}
+.fuchsia{color:#bf00bf}
+.fuchsia-background{background-color:#fa00fa}
+.gray{color:#606060}
+.gray-background{background-color:#7d7d7d}
+.green{color:#006000}
+.green-background{background-color:#007d00}
+.lime{color:#00bf00}
+.lime-background{background-color:#00fa00}
+.maroon{color:#600000}
+.maroon-background{background-color:#7d0000}
+.navy{color:#000060}
+.navy-background{background-color:#00007d}
+.olive{color:#606000}
+.olive-background{background-color:#7d7d00}
+.purple{color:#600060}
+.purple-background{background-color:#7d007d}
+.red{color:#bf0000}
+.red-background{background-color:#fa0000}
+.silver{color:#909090}
+.silver-background{background-color:#bcbcbc}
+.teal{color:#006060}
+.teal-background{background-color:#007d7d}
+.white{color:#bfbfbf}
+.white-background{background-color:#fafafa}
+.yellow{color:#bfbf00}
+.yellow-background{background-color:#fafa00}
+----
+
+== Source
+
+.publishToConfluence.gradle
+[source,groovy]
+----
+include::{projectDir}/scripts/publishToConfluence.gradle[tags=publishToConfluence]
+----
+
+.scripts/asciidoc2confluence.groovy
+[source,groovy]
+----
+include::{projectDir}/scripts/asciidoc2confluence.groovy[tags=publishToConfluence]
+----

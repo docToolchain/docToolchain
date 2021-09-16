@@ -1,0 +1,122 @@
+:filename: manual/tasks/03_task_generateHTML.adoc
+include::_config.adoc[]
+
+= generateHTML
+
+include::../_feedback.adoc[]
+
+image::ea/Manual/generateHTML.png[]
+
+This is the standard AsciiDoctor generator which is supported out of the box.
+
+The result is written to `build/html5`.
+The HTML files need the images folder to be in the same directory to display correctly.
+
+NOTE: If you would like to have a single-file HTML as result, you can configure AsciiDoctor to store the images inline as `data-uri`. +
+Just set `:data-uri:` in the config of your AsciiDoc file. +
+But be warned - such a file can become very big easily and some browsers might get into trouble rendering them. +
+https://rdmueller.github.io/single-file-html/
+
+== Text based Diagrams
+
+For docToolchain, it is configured to use the https://asciidoctor.org/docs/asciidoctor-diagram/[asciidoctor-diagram] plugin which is used to create PlantUML diagrams.
+
+The plugin also supports a bunch of other text based diagrams, but http://plantuml.com/[PlantUML] is the most used.
+
+To use it, just specify your PlantUML code like this:
+
+....
+.example diagram
+[plantuml, "{plantUMLDir}demoPlantUML", png] # <1>
+----
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor <|-- DiagramBlock
+DiagramBlock <|-- DitaaBlock
+DiagramBlock <|-- PlantUmlBlock
+----
+....
+
+<1> The element of this list specifies the diagram tool `plantuml` to be used. +
+The second element is the name of the image to be created and the third specifies the image type.
+
+NOTE: The `\{plantUMLDir}` ensures that PlantUML also works for the <<generatePDF>> task.
+Without it, <<generateHTML>> works fine, but the PDF will not contain the generated images.
+
+IMPORTANT: Make sure to specify a unique image name for each diagram, otherwise they will overwrite each other.
+
+The above example renders as
+
+.example diagram
+[plantuml,"{plantUMLDir}demoPlantUML",png]
+----
+!pragma graphviz_dot smetana
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor <|-- DiagramBlock
+DiagramBlock <|-- DitaaBlock
+DiagramBlock <|-- PlantUmlBlock
+----
+
+If you want to control the size of the generated diagram in the output, you can configure the "width" attribute (in pixels) or "scale" attribute (floating point ratio) passed to https://asciidoctor.org/docs/asciidoctor-diagram/[asciidoctor-diagram].
+For example, if you take the example diagram above and change the declaration to one of the below versions
+
+....
+[plantuml, target="{plantUMLDir}demoPlantUMLWidth", format=png, width=250]
+# rest of the diagram definition
+
+[plantuml, target="{plantUMLDir}demoPlantUMLScale", format=png, scale=0.75]
+# rest of the diagram definition
+....
+
+it will render like this:
+
+.example diagram (with specified width)
+[plantuml,target="{plantUMLDir}demoPlantUMLWidth",format=png,width=250]
+----
+!pragma graphviz_dot smetana
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor <|-- DiagramBlock
+DiagramBlock <|-- DitaaBlock
+DiagramBlock <|-- PlantUmlBlock
+----
+
+.example diagram (with specified scale)
+[plantuml,target="{plantUMLDir}demoPlantUMLScale",format=png,scale=0.75]
+----
+!pragma graphviz_dot smetana
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor <|-- DiagramBlock
+DiagramBlock <|-- DitaaBlock
+DiagramBlock <|-- PlantUmlBlock
+----
+
+NOTE: PlantUML needs Graphviz dot installed to work.
+If you can't install it, you can use the Java based version of the dot library.
+Just add `!pragma graphviz_dot smetana` as the first line of your diagram definition.
+This is still an experimental feature, but already works quite well! +
+https://rdmueller.github.io/plantuml-without-graphviz/
+
+TIP: Blog-Posts: https://rdmueller.github.io/plantuml-gradle/[PlantUML with Gradle], https://rdmueller.github.io/plantUML-and-pdf/[plantUML with Asciidoctor-pdf], https://rdmueller.github.io/plantUML-revisited/[plantUML revisited], https://rdmueller.github.io/plantuml-without-graphviz/[How to use PlantUML without Graphviz]
+
+== Source
+
+.AsciiDocBasics.gradle
+[source,groovy]
+----
+include::{projectDir}/scripts/AsciiDocBasics.gradle[tags=generateHTML]
+----

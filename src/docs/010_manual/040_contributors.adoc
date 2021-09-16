@@ -1,0 +1,65 @@
+:filename: manual/05_contributors.adoc
+ifndef::imagesdir[:imagesdir: ../images]
+
+= Acknowledgements and Contributors
+
+include::_feedback.adoc[]
+
+This project is an open source project which is based on community efforts.
+
+Many people are involved in the underlying technologies like AsciiDoc, AsciiDoctor, Gradle, arc42 etc.
+This project depends and builds on them.
+
+But it even more depends on the direct contributions made through giving feedback, creating issues, answering questions, or sending pull requests.
+
+Here is an incomplete and unordered list of contributors:
+
+- https://github.com/bodewig[Stefan Bodewig]
+- MoePad
+- https://github.com/opensource21[Niels]
+- https://github.com/wschaef[wschaef]
+- https://github.com/gernotstarke[Gernot Starke]
+- https://github.com/ahus1[Alexander Schwartz]
+- https://github.com/aheusingfeld[Alexander Heusingfeld]
+- https://github.com/mojavelinux[Dan Allen]
+- https://github.com/dl1ely[Stefan Pfeiffer]
+- https://github.com/isidorotrevino[isidorotrevino]
+- https://github.com/jakubjab[Jakub Jablonski]
+- https://github.com/FrankPohl[Frank Pohl]
+- https://twitter.com/ixchelruiz[Ixchel Ruiz]
+- https://twitter.com/ysb33r[Schalk Cronjé]
+- https://twitter.com/marioggar[Mario García]
+- https://github.com/joex2[Joe]
+- https://github.com/davidmc24[David M. Carr]
+- https://github.com/fnonnenmacher[Fabian Nonnenmacher]
+- https://twitter.com/stoeps[Christoph Stoettner]
+- https://github.com/funkr[Roman Funk]
+- https://github.com/ghp-dev[ghp-dev]
+- https://github.com/chrira[Christoph Raaflaub]
+- https://twitter.com/jagedn[Jorge Aguilera]
+- https://github.com/bohni[Stefan Bohn]
+- https://github.com/bit-jkraushaar[Jochen Kraushaar]
+- https://github.com/LuisMuniz[Luis Muniz]
+- https://anoff.io[Andreas Offenhaeuser]
+- https://github.com/dbast[Daniel Bast]
+- https://github.com/sabatmonk[Sabatmonk]
+- https://github.com/mindyou[Maarten Gribnau]
+- https://github.com/mpriess[Michael Prieß]
+- https://github.com/stehlih[Heiko Stehli]
+- https://github.com/peterstange[Peter Stange]
+- https://github.com/nilsmahlstaedt[Nils Mahlstädt] @ https://github.com/hmmh[hmmh]
+- https://github.com/k-werner[Kevin Werner]
+- https://github.com/jostaub[J. Staub]
+- https://github.com/ewoks[Vladi Bjelakovic]
+- https://github.com/dkessel[Daniel Kessel]
+- https://github.com/bjsee[Björn Seebeck]
+- https://twitter.com/Txemanu[Txemanu]
+- https://github.com/silverdonkey[Nikolay Orozov]
+- https://github.com/AndreaMcls[Andrea Macaluso]
+- https://github.com/Rosi2143[Michael Roßner]
+- https://github.com/DaHoC[Jan Hendriks]
+- https://github.com/danielkocot[Daniel Kocot]
+
+(please update your entry to match your preferences! :-)
+
+image::https://img.shields.io/github/contributors/doctoolchain/doctoolchain.svg[link=https://github.com/docToolchain/docToolchain/graphs/contributors]

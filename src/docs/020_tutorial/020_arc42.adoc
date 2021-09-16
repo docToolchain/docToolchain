@@ -1,0 +1,45 @@
+:filename: tutorial/02_arc42.adoc
+:jbake-title: Install docToolchain
+include::_config.adoc[]
+
+== Get the arc42 Template
+
+include::../manual/_feedback.adoc[]
+
+To work with docToolchain, you first need some documents.
+So let's fetch the https://arc42.org[arc42 template] for software architecture documentation.
+
+docToolchain comes with a task called <<task_downloadTemplate,`downloadTemplate`>>.
+Let's invoke it and see what happens.
+
+.Linux / WSL2 with bash
+[role='primary']
+--
+[source, bash]
+----
+./dtcw downloadTemplate
+----
+
+--
+
+.Windows with Powershell
+[role='secondary']
+--
+[source, powershell]
+----
+./dtcw.ps1 downloadTemplate
+----
+--
+
+.Result of downloadTemplate-Task
+image::../images/tutorial/dtcw-downloadTemplate.png[]
+
+Out of the box, docToolchain only knows the open source arc42 template for software architecture.
+That's why it doesn't as which template to install.
+Since the template exists in four different languages and with or without help on how to use it, docToolchain asks you for these two parameters.
+It then downloads the template right from the source, unzips it and reformats it a little bit to fit docToolchain.
+
+That's it.
+You have now docToolchain with the arc42 template installed.
+Let's render is as HTML, PDF or Microsite in the next steps.
+

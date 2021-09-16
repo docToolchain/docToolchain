@@ -1,0 +1,18 @@
+:filename: manual/tasks/03_task_generateDocBook.adoc
+include::_config.adoc[]
+
+= generateDocbook
+
+include::../_feedback.adoc[]
+
+image::ea/Manual/generateDocBook.png[]
+
+This is only a helper task - it generates the intermediate format for <<convertToDocx>> and <<convertToEpub>>.
+
+== Source
+
+.AsciiDocBasics.gradle
+[source,groovy]
+----
+include::{projectDir}/scripts/AsciiDocBasics.gradle[tags=generateDocbook]
+----

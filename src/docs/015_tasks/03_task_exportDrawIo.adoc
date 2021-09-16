@@ -1,0 +1,33 @@
+:filename: manual/tasks/03_task_exportDrawIo.adoc
+include::_config.adoc[]
+:experimental:
+
+= exportDrawIo
+
+include::../_feedback.adoc[]
+
+There is no `exportDrawIo` task because it is not required.
+You can continue to use https://draw.io[draw.io] as an editor for your diagrams by making a change to your diagram authoring workflow.
+
+Export your draw.io diagrams as a PNG with the source embedded in the file metadata.
+Using this approach allows you to embed your diagrams into AsciiDoc source as you normally do with the `image::` macro, with the added advantage of storing the diagram source with the image itself.
+
+NOTE: If you are converting a Confluence page with embedded draw.io diagrams to AsciiDoc, you can use this export workflow to continue to enjoy the draw.io editing experience.
+
+.Export an editable PNG diagram from Confluence
+. Load the diagram you want to export from Confluence.
+. Click menu:File[Export as > PNG...]
+. In the Image modal, make sure that "Include a copy of my diagram" is selected.
+. Click Export to save the PNG file with the pattern `[file].dio.png`.
++
+NOTE: Specifying `.dio` (short for "**d**raw**io**") in the name will help you identify PNG files containing embedded XML diagram source.
++
+. Commit the exported PNG file to source control.
+
+You now have a diagram that can be managed in source control, added to your documentation source, and edited using a draw.io Desktop version.
+
+NOTE: Draw.io offers free and open source desktop editors for all major operating system platforms.
+See https://about.draw.io/integrations/ to find a desktop editor application compatible with your operating system.
+When you use the desktop version, just create your diagram with the `.png` or even better `.dio.png` extension and draw.io will always save your diagam as PNG with the source as meta data.
+
+NEW! Draw.io is now called diagrams.net and there is a free plugin for VS Code and IntelliJ to edit your diagrams even offline!

@@ -1,0 +1,60 @@
+:filename: manual/tasks/03_task_exportChangeLog.adoc
+include::_config.adoc[]
+
+= exportChangeLog
+
+include::../_feedback.adoc[]
+
+image::ea/Manual/exportChangeLog.png[]
+
+As the name says, this task exports the changelog to be referenced from within your documentation - if needed.
+The changelog is written to `build/docs/changelog.adoc`.
+
+This task can be configured to use different source control system or different directory.
+To configure the task, copy `template_config/scripts/ChangelogConfig.groovy` to your directory and modify to your needs.
+Then give the path to your configuration file to the task using -PchangelogConfigFile=<your config file>.
+See the description inside the template for more details.
+
+By default, the source is the Git changelog for the path `src/docs` - it only contains the commit messages for changes on the documentation.
+All changes on the build or other sources from the repository will not show up.
+By default, the changelog contains the changes with _date_, _author_ and _commit message_ already formatted as AsciiDoc table content:
+
+----
+| 09.04.2017
+| Ralf D. Mueller
+| fix #24 template updated to V7.0
+
+| 08.04.2017
+| Ralf D. Mueller
+| fixed typo
+----
+
+You simply include it like this:
+
+----
+.Changes
+[options="header",cols="1,2,6"]
+|====
+| Date
+| Author
+| Comment
+
+\include::../../build/docs/changelog.adoc[]
+
+|====
+----
+
+By excluding the table definition, you can easily translate the table headings through different text snippets.
+
+NOTE: it might make sense to only include certain commit messages from the change log or exclude others (starting with `#` or `//`?).
+But this isn't implemented yet.
+
+TIP: Blog-Post: https://rdmueller.github.io/changelog/[The only constant in life is change]
+
+== Source
+
+.exportChangelog.gradle
+[source,groovy]
+----
+include::{projectDir}/scripts/exportChangelog.gradle[tags=exportChangeLog]
+----
