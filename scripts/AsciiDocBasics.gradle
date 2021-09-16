@@ -121,16 +121,18 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
     attributes  (
             'pdf-stylesdir': "${pdfThemeDir}@",
             'pdf-style': "custom@",
-    //        'pdf-fontsdir': "${docDir}/fonts",
-            'source-highlighter': 'coderay@',
+            'pdf-fontsdir': "${pdfThemeDir}/fonts@",
+            'source-highlighter': 'highlightjs@',
             'imagesdir': 'images@',
             'toc': 'left@',
             'icons': 'font@',
             'javaVersion'         : "$javaVersion",
             'currentDate'         : "$currentDate",
             'allow-uri-read'      : 'true@',
-//            'sectanchors@'         : true,
-            'targetDir'           : targetDir
+            'sectanchors'         : 'true@',
+            'targetDir'           : targetDir,
+            'docDir'              : docDir,
+            'projectDir'          : projectDir
     )
     // Here we can add the code for extensions we write.
     extensions {

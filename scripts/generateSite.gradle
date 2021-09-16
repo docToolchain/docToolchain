@@ -39,7 +39,10 @@ jbake {
         'source-highlighter=prettify@',
         //'imagesDir=../images@',
         "imagesoutDir=${targetDir}/microsite/output/images@",
-        "imagesDir=${config.microsite.contextPath}/images",
+        "imagesDir=${config.microsite.contextPath}/images@",
+        "targetDir=${targetDir}",
+        "docDir=${docDir}",
+        "projectDir=${projectDir}"
     ]
 
 }
@@ -115,55 +118,57 @@ ${color 'green', 'for you?'}\n""",
                     def configFile = new File(docDir, mainConfigFile)
                     def configFileText = configFile.text
                     if (configFileText.contains("/** start:microsite **/")) {
-                        println "${color 'green', """
-It seems that this theme is used for the first time in this project.
-Let's confige it!
-If you are unsure, change these settings later in your config file
-$configFile.canonicalPath
-"""}"
                         def configFragment = new File(targetDir,'/microsite/tmp/site/configFragment.groovy')
-                        def comment = ""
-                        def conf = ""
-                        def example = ""
-                        def i = 0
-                        configFragment.eachLine { line ->
-                            if (line.trim()) {
-                                if (line.startsWith("//")) {
-                                    conf += "    "+line+"\n"
-                                    def tmp = line[2..-1].trim()
-                                    comment += color('green', tmp) + "\n"
-                                    if (tmp.toLowerCase().startsWith("example")) {
-                                        example = tmp.replaceAll("[^ ]* ","")
+                        if (configFragment.exists()) {
+                            println "${color 'green', """
+    It seems that this theme is used for the first time in this project.
+    Let's confige it!
+    If you are unsure, change these settings later in your config file
+    $configFile.canonicalPath
+    """}"
+                            def comment = ""
+                            def conf = ""
+                            def example = ""
+                            def i = 0
+                            configFragment.eachLine { line ->
+                                if (line.trim()) {
+                                    if (line.startsWith("//")) {
+                                        conf += "    " + line + "\n"
+                                        def tmp = line[2..-1].trim()
+                                        comment += color('green', tmp) + "\n"
+                                        if (tmp.toLowerCase().startsWith("example")) {
+                                            example = tmp.replaceAll("[^ ]* ", "")
+                                        }
+                                    } else {
+                                        //only prompt if there is something to prompt
+                                        if (line.contains("##")) {
+                                            def property = line.replaceAll("[ =].*", "")
+                                            if (!example) {
+                                                example = config.microsite[property]
+                                            }
+                                            comment = color('blue', "$property") + "\n" + comment
+                                            if (example) {
+                                                ant.input(message: comment,
+                                                    addproperty: 'res' + i, defaultvalue: example)
+                                            } else {
+                                                ant.input(message: comment,
+                                                    addproperty: 'res' + i)
+                                            }
+                                            (comment, example) = ["", ""]
+                                            line = line.replaceAll("##.+##", ant['res' + i])
+                                            conf += "    " + line + "\n"
+                                            i++
+                                        } else {
+                                            conf += "    " + line + "\n"
+                                        }
                                     }
                                 } else {
-                                    //only prompt if there is something to prompt
-                                    if (line.contains("##")) {
-                                        def property = line.replaceAll("[ =].*", "")
-                                        if (!example) {
-                                            example = config.microsite[property]
-                                        }
-                                        comment = color('blue', "$property") + "\n" + comment
-                                        if (example) {
-                                            ant.input(message: comment,
-                                                addproperty: 'res' + i, defaultvalue: example)
-                                        } else {
-                                            ant.input(message: comment,
-                                                addproperty: 'res' + i)
-                                        }
-                                        (comment, example) = ["", ""]
-                                        line = line.replaceAll("##.+##", ant['res' + i])
-                                        conf += "    "+line + "\n"
-                                        i++
-                                    } else {
-                                        conf += "    "+line + "\n"
-                                    }
+                                    conf += "\n"
                                 }
-                            } else {
-                                conf += "\n"
                             }
+                            configFile.write(configFileText.replaceAll("(?sm)/[*][*] start:microsite [*][*]/.*/[*][*] end:microsite [*][*]/", "%%marker%%").replace("%%marker%%", conf))
+                            println color('green', "config written\ntry\n ./dtcw generateSite previewSite\nto see your microsite!")
                         }
-                        configFile.write(configFileText.replaceAll("(?sm)/[*][*] start:microsite [*][*]/.*/[*][*] end:microsite [*][*]/","%%marker%%").replace("%%marker%%",conf))
-                        println color('green',"config written\ntry\n ./dtcw generateSite previewSite\nto see your microsite!")
                         //copy the dummy docs (blog, landing page) to the project repository
                         copy {
                             from(new File(themeFolder, 'site/doc')) {}
@@ -173,10 +178,10 @@ $configFile.canonicalPath
                 }
             }
         } catch (Exception e) {
-            themeFolder.deleteDir()
             println color('red', e.message)
             if (e.message.startsWith("Not Found")) {
                 throw new GradleException("Couldn't find theme. Did you specify the right URL?\n"+e.message)
+                themeFolder.deleteDir()
             } else {
                 throw new GradleException(e.message)
             }
@@ -208,7 +213,7 @@ $configFile.canonicalPath
                     //parse jbake attributes
                     def text = ""
                     def jbake = [
-                        state: "published",
+                        status: "published",
                         order: -1,
 
                     ]
@@ -240,7 +245,7 @@ $configFile.canonicalPath
                                     jbake.order = secondLevel.split("[-_]")[0]
                                 }
                             } else {
-                                jbake.state = "draft"
+                                jbake.status = "draft"
                             }
                         }
                         if (jbake.order==-1 && docname.startsWith('index')) {
