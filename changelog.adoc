@@ -9,6 +9,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === Added
 
+2021-09-16::
+* Add maven credentials for maven repository #612
+
 === Changed
 
 === Fixed
