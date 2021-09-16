@@ -194,7 +194,6 @@ use `gradle exportEA` to re-export files
         scriptParameterString = scriptParameterString + " -d \"$exportPath\""
         scriptParameterString = scriptParameterString + " -s \"$searchPath\""
         logger.info("docToolchain > exportEA: exportPath: " + exportPath)
-
         //remove old glossary files/folder if exist
         new File(exportPath, 'glossary').deleteDir()
         //set the glossary file path in case an output format is configured, other no glossary is written
