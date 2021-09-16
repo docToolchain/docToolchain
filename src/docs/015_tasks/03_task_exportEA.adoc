@@ -67,13 +67,24 @@ diagramAttributes::
 Beside the diagram image, an EA diagram offers several useful attributes which
 could be required in the resulting document. If set, the string is used to create
 and store the diagram attributes to be included in the document.
-These placeholders are defined and filled with the diagram attributes if used in the
-diagramAttributes string: %DIAGRAM_AUTHOR%, %DIAGRAM_CREATED%, %DIAGRAM_GUID%, %DIAGRAM_MODIFIED%, %DIAGRAM_NAME%. %DIAGRAM_NOTES%,
+These placeholders are defined and filled with the diagram attributes, if used in the
+diagramAttributes string: +
+`%DIAGRAM_AUTHOR%`, +
+`%DIAGRAM_CREATED%`, +
+`%DIAGRAM_GUID%`, +
+`%DIAGRAM_MODIFIED%`, +
+`%DIAGRAM_NAME%`, +
+`%DIAGRAM_NOTES%`, +
+`%NEWLINE%` +
 Example: diagramAttributes = "Last modification: %DIAGRAM_MODIFIED%" +
 You can add the string %NEWLINE% where a line break shall be added. +
 The resulting text is stored beside the diagram image using same path and file named,
 but different file extension (.ad). This can included in the document if required.
 If diagramAttributes is not set or string is empty, no file is written.
+
+additionalOptions::
+This parameter is used to define specific behavior of the export. Currently these options are supported: +
+`KeepFirstDiagram` - in case a diagrams are not names uniquely, the last diagram will be saved. If you want to prevent that diagrams are overwritten, add this parameter to additionalOptions.
 
 
 == Glossary export

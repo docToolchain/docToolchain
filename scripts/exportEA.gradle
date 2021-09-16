@@ -207,6 +207,10 @@ use `gradle exportEA` to re-export files
         if (!config.exportEA.diagramAttributes.isEmpty()) {
             scriptParameterString = scriptParameterString + " -da \"$config.exportEA.diagramAttributes\""
         }
+        //configure additional diagram attributes to be exported
+        if (!config.exportEA.additionalOptions.isEmpty()) {
+            scriptParameterString = scriptParameterString + " -ao \"$config.exportEA.additionalOptions\""
+        }
         //make sure path for notes exists
         //and remove old notes
         new File(exportPath, 'ea').deleteDir()
@@ -220,6 +224,7 @@ use `gradle exportEA` to re-export files
         new File(exportPath, 'ea/readme.ad').write(readme)
 
         //execute through cscript in order to make sure that we get WScript.echo right
+        logger.info("docToolchain > exportEA: parameters: " + scriptParameterString)
         "%SystemRoot%\\System32\\cscript.exe //nologo ${projectDir}/scripts/exportEAP.vbs ${scriptParameterString}".executeCmd()
         //the VB Script is only capable of writing iso-8859-1-Files.
         //we now have to convert them to UTF-8
