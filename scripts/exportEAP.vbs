@@ -8,10 +8,10 @@
     Dim FS 'As Scripting.FileSystemObject
 
     Dim projectInterface 'As EA.Project
-    
+
     Const   ForAppending = 8
     Const   ForWriting = 2
-    
+
     ' Helper
     ' http://windowsitpro.com/windows/jsi-tip-10441-how-can-vbscript-create-multiple-folders-path-mkdir-command
     Function MakeDir (strPath)
@@ -34,7 +34,7 @@
        re.Global = True
        NormalizeName = re.Replace(theName, "_")
     End Function
-    
+
     Sub WriteNote(currentModel, currentElement, notes, prefix)
         If (Left(notes, 6) = "{adoc:") Then
             strFileName = Mid(notes,7,InStr(notes,"}")-7)
@@ -53,7 +53,7 @@
                 post = "_"
             End If
             MakeDir(path&prefix&post)
-            
+
             set objFile = objFSO.OpenTextFile(path&prefix&post&strFileName&".ad",ForAppending, True)
             name = currentElement.Name
             name = Replace(name,vbCr,"")
@@ -134,14 +134,14 @@
         End If
     End Sub
 
-    ' This sub routine checks if the format string defined in diagramAttributes 
-    ' does contain any characters. It replaces the known placeholders: 
+    ' This sub routine checks if the format string defined in diagramAttributes
+    ' does contain any characters. It replaces the known placeholders:
     ' %DIAGRAM_AUTHOR%, %DIAGRAM_CREATED%, %DIAGRAM_GUID%, %DIAGRAM_MODIFIED%,
     ' %DIAGRAM_NAME%, %DIAGRAM_NOTES%
     ' with the attribute values read from the EA diagram object.
     ' None, one or multiple number of placeholders can be used to create a diagram attribute
     ' to be added to the document. The attribute string is stored as a file with the same
-    ' path and name as the diagram image, but with suffix .ad. So, it can 
+    ' path and name as the diagram image, but with suffix .ad. So, it can
     ' easily be included in an asciidoc file.
     Sub SaveDiagramAttribute(currentDiagram, path, diagramName)
         If Len(diagramAttributes) > 0 Then
@@ -151,9 +151,9 @@
             set objFile = objFSO.OpenTextFile(filename, ForWriting, True)
             filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_AUTHOR%",   currentDiagram.Author)
             filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_CREATED%",  currentDiagram.CreatedDate)
-            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_GUID%",     currentDiagram.DiagramGUID)                        
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_GUID%",     currentDiagram.DiagramGUID)
             filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_MODIFIED%", currentDiagram.ModifiedDate)
-            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NAME%",     currentDiagram.Name)                        
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NAME%",     currentDiagram.Name)
             filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NOTES%",    currentDiagram.Notes)
             filledDiagAttr = Replace(filledDiagAttr, "%NEWLINE%",          vbCrLf)
             objFile.WriteLine(filledDiagAttr)
@@ -161,6 +161,8 @@
         End If
     End Sub
     Sub SaveDiagram(currentModel, currentDiagram)
+        Dim exportDiagram ' As Boolean
+
         ' Open the diagram
         Repository.OpenDiagram(currentDiagram.DiagramID)
 
@@ -174,23 +176,39 @@
         End If
         path = objFSO.GetAbsolutePathName(path)
         MakeDir(path)
-        
+
         diagramName = currentDiagram.Name
         diagramName = Replace(diagramName,vbCr,"")
         diagramName = Replace(diagramName,vbLf,"")
         diagramName = NormalizeName(diagramName)
         filename = objFSO.BuildPath(path, diagramName & ".png")
 
-        projectInterface.SaveDiagramImageToFile(filename)
-        WScript.echo " extracted image to " & filename
-        If Not IsEmpty(diagramAttributes) Then
-            SaveDiagramAttribute currentDiagram, path, diagramName
+        exportDiagram = True
+        If objFSO.FileExists(filename) Then
+            WScript.echo " --- " & filename & " already exists."
+            If Len(additionalOptions) > 0 Then
+                If additionalOptions.Contains("OverwriteDiagramms") Then
+                    WScript.echo " --- Overwriting -- parameter 'OverwriteDiagramms' set."
+                Else
+                    WScript.echo " --- Skipping export -- parameter 'OverwriteDiagramms' not set."
+                    exportDiagram = False
+                End If
+            Else
+                WScript.echo " --- Skipping export -- parameter 'OverwriteDiagramms' not set."
+            End If
+        End If
+        If exportDiagram Then
+          projectInterface.SaveDiagramImageToFile(filename)
+          WScript.echo " extracted image to " & filename
+          If Not IsEmpty(diagramAttributes) Then
+              SaveDiagramAttribute currentDiagram, path, diagramName
+          End If
         End If
         Repository.CloseDiagram(currentDiagram.DiagramID)
 
-        ' Write the note of the diagram 
+        ' Write the note of the diagram
         WriteNote currentModel, currentDiagram, currentDiagram.Notes, diagramName&"_notes"
-        
+
         For Each diagramElement In currentDiagram.DiagramObjects
             Set currentElement = Repository.GetElementByID(diagramElement.ElementID)
             WriteNote currentModel, currentElement, currentElement.Notes, diagramName&"_notes"
@@ -224,8 +242,8 @@
                 DumpDiagrams currentElement,currentModel
             End If
         Next
-        
-        
+
+
         ' Iterate through all diagrams in the current package
         For Each currentDiagram In currentPackage.Diagrams
             SyncJira currentModel, currentDiagram
@@ -281,7 +299,7 @@
           call DumpDiagrams(package, currentModel)
         End If
     End Function
-    
+
     Function FormatStringToJSONString(inputString)
         outputString = Replace(inputString, "\", "\\")
         outputString = Replace(outputString, """", "\""")
@@ -290,7 +308,7 @@
         outputString = Replace(outputString, vbCr, "\n")
         FormatStringToJSONString = outputString
     End Function
-    
+
     'If a valid file path is set, the glossary terms are read from EA repository,
     'formatted in a JSON compatible format and written into file.
     'The file is read and reformatted by the exportEA gradle task afterwards.
@@ -301,9 +319,9 @@
             GUID = Replace(GUID,"}","")
             currentGlossaryFile = objFSO.BuildPath(glossaryFilePath,"/"&GUID&".ad")
             set objFile = objFSO.OpenTextFile(currentGlossaryFile,ForAppending, True)
-            
+
             Set glossary = EArepo.Terms()
-            objFile.WriteLine("[") 
+            objFile.WriteLine("[")
             dim counter
             counter = 0
             For Each term In glossary
@@ -314,9 +332,9 @@
                 objFile.WriteLine(" ""termID"" : """&FormatStringToJSONString(term.termID)&""", ""type"" : """&FormatStringToJSONString(term.type)&""" }")
                 counter = counter + 1
             Next
-            objFile.WriteLine("]") 
-            
-            objFile.Close        
+            objFile.WriteLine("]")
+
+            objFile.Close
         End If
     End Function
 
@@ -376,12 +394,13 @@
   Private searchPath
   Private glossaryFilePath
   Private diagramAttributes
-  
+  Private additionalOptions
+
   exportDestination = "./src/docs"
   searchPath = "./src"
   Set packageFilter = CreateObject("System.Collections.ArrayList")
   Set objArguments = WScript.Arguments
-  
+
   Dim argCount
   argCount = 0
   While objArguments.Count > argCount+1
@@ -396,12 +415,14 @@
         searchPath = objArguments(argCount+1)
       Case "-g"
         glossaryFilePath = objArguments(argCount+1)
-      Case "-da" 
+      Case "-da"
         diagramAttributes = objArguments(argCount+1)
+      Case "-ao"
+        additionalOptions = objArguments(argCount+1)
     End Select
     argCount = argCount + 2
   WEnd
-  set fso = CreateObject("Scripting.fileSystemObject") 
+  set fso = CreateObject("Scripting.fileSystemObject")
   WScript.echo "Image extractor"
 
   ' Check both types in parallel - 1st check Enterprise Architect database connection, 2nd look for local project files
