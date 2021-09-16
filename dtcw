@@ -1,0 +1,216 @@
+#!/usr/bin/env bash
+
+#here you can specify the URL of a theme to use with generateSite-task
+#export DTC_SITETHEME=https://....zip
+
+#here you can specify the location of additional templates
+#export DTC_TEMPLATE1=https://....zip
+#export DTC_TEMPLATE2=https://....zip
+#...
+
+MAIN_CONFIG_FILE=docToolchainConfig.groovy
+VERSION=2.0.0-dev
+DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/archive/v${VERSION}.zip
+
+
+DTC_OPTS="$DTC_OPTS -PmainConfigFile=$MAIN_CONFIG_FILE --warning-mode=none"
+
+echo "dtcw - docToolchain wrapper V0.22"
+echo "docToolchain V${VERSION}"
+
+# check if CLI, docker or sdkman are installed
+cli=false
+docker=false
+sdkman=false
+homefolder=false
+java=false
+wsl=false
+
+if [[ $(grep -i 'microsoft' /proc/version) ]]; then
+  echo " "
+  echo "Bash is running on WSL"
+  echo "this might cause problems with plantUML"
+  echo "see https://doctoolchain.github.io/docToolchain/#wsl for more details"
+  echo " "
+  wsl=true
+fi
+
+java_help_and_die() {
+    echo "one way to install or update java is to install"
+    echo "sdkman and then java via sdkman"
+    echo "https://sdkman.io/install"
+    echo "$ curl -s "https://get.sdkman.io" | bash"
+    echo "$ sdk install java"
+    echo ""
+    echo "make sure that your java version is between 8 and 14"
+    exit 1
+
+}
+if command -v java &> /dev/null; then
+    java=true
+    if java -version 2>&1 >/dev/null | grep -q "Unable to locate a Java Runtime" ; then
+      ##we are on a mac and the java command is only a shim
+      java=false
+    fi
+fi
+if [ "$java" = false ] ; then
+    echo "docToolchain depends on java, but the java command couldn't be found"
+    java_help_and_die
+fi
+javaversion=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed '/^1\./s///' | cut -d'.' -f1)
+echo "Java Version $javaversion"
+if (( $javaversion < 8 )); then
+    echo "your java version $javaversion is too old (<8): $(which java)"
+    echo "please update your java installation and try again"
+    java_help_and_die
+else
+  if (( $javaversion > 14 )); then
+    echo "your java version $javaversion is too new (>14): $(which java)"
+    echo "please update your java installation and try again"
+    java_help_and_die
+  fi
+fi
+if command -v doctoolchain &> /dev/null; then
+    echo "docToolchain as CLI available"
+    cli=true
+fi
+if command -v docker &> /dev/null; then
+    echo "docker available"
+    docker=true
+fi
+if command -v sdk &> /dev/null; then
+    echo "sdkman available"
+    sdkman=true
+fi
+if [ -d "$HOME/.doctoolchain/docToolchain-${VERSION}/." ]; then
+    echo "home folder exists"
+    homefolder=true
+fi
+if [ "$1" = "local" ] ; then
+    echo "force use of local install"
+    docker=false
+    cli=false
+    shift
+fi
+if [ "$1" = "docker" ] ; then
+    cli=false
+    homefolder=false
+    echo "force use of docker"
+    shift
+fi
+if [ "$1" = "sdk" ] ; then
+    cli=false
+    homefolder=false
+    docker=false
+    sdkman=true
+    echo "force use of sdkman"
+    shift
+fi
+#if bakePreview is called, deactivate deamon
+if [ "$1" = "bakePreview" ] ; then
+    DTC_OPTS="$DTC_OPTS -Dorg.gradle.daemon=false"
+fi
+
+if [[ $# -lt 1 ]]; then
+    echo '
+Usage: ./dtcw [option...] [task...]
+
+You can use the same options and tasks as in underlying gradle.
+Use "./dtcw tasks --group doctoolchain" to see available tasks.
+Use "local", "sdk" or "docker" as first argument to force the use of a local, sdkman or docker install.
+
+Examples:
+
+  Download and install arc42 Template:
+    ./dtcw downloadTemplate
+
+  Generate PDF:
+    ./dtcw generatePDF
+
+  Generate HTML:
+    ./dtcw generateHTML
+
+  Publish HTML to Confluence:
+    ./dtcw publishToConfluence
+    
+  get more documentation at https://doctoolchain.github.io
+'
+    exit 1
+fi
+
+if [ "$cli" = true ] ; then
+    command="$(which doctoolchain) . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS"
+    echo "use cli install $(which doctoolchain)"
+else
+    if [ "$homefolder" = true ] ; then
+      command="$HOME/.doctoolchain/docToolchain-${VERSION}/bin/doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS"
+      echo "use local homefolder install $HOME/.doctoolchain/"
+    else
+      if [ "$docker" = true ] ; then
+	  if ! docker info >/dev/null 2>&1; then
+	      echo "Docker does not seem to be running, run it first and retry"
+	      exit 1
+	  fi
+          docker_cmd=$(which docker)
+          echo $docker_cmd
+          command="$docker_cmd run -u $(id -u):$(id -g) --name doctoolchain${version}b -e DTC_HEADLESS=1 -e DTC_SITETHEME -p 8042:8042 --rm -it --entrypoint /bin/bash -v ${PWD}:/project rdmueller/doctoolchain:v${VERSION}b -c \"doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS && exit\""
+	  echo "use docker installation"
+      else
+
+          echo "docToolchain not installed."
+          if [ "$sdkman" = true ] ; then
+              echo "please use sdkman to install docToolchain"
+              echo "$ sdk install doctoolchain ${VERSION}-beta"
+              exit
+          else
+              echo "sdkman not found"
+              echo "Do you wish to install doctoolchain to $HOME/.doctoolchain?"
+              select yn in "Yes" "No"; do
+                case $yn in
+                  Yes ) echo "installing doctoolchain";
+                        #check that pre-requisites are met
+                        if !(command -v wget &> /dev/null); then
+                          if !(command -v curl &> /dev/null); then
+                            echo "you need either wget or curl installed"
+                            echo "please install it and re-run the command"
+                            exit 1
+                          fi
+                        fi
+                        if !(command -v unzip &> /dev/null); then
+                            echo "you need unzip installed"
+                            echo "please install it and re-run the command"
+                            exit 1
+                        fi
+                        mkdir $HOME/.doctoolchain
+                        wgetversion=$(wget --version | head -1 | sed -E 's/^.* 1.([0-9.]+) .*$/\1/')
+                        if command -v curl &> /dev/null; then
+                          curl -Lo $HOME/.doctoolchain/source.zip $DISTRIBUTION_URL
+                        else
+                          if (( $wgetversion > 13 )); then
+                            wget $DISTRIBUTION_URL -O $HOME/.doctoolchain/source.zip
+                          else
+                            echo "you need curl or wget (version >= 1.14) installed"
+                            echo "please install or update and re-run the command"
+                            exit 1
+                          fi
+                        fi
+                        unzip $HOME/.doctoolchain/source.zip -d $HOME/.doctoolchain/.
+                        command="$HOME/.doctoolchain/docToolchain-${VERSION}/bin/doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS"
+                        break
+                    ;;
+                  No )
+                        echo "you need docToolchain as CLI-Tool installed or docker."
+                        echo "to install docToolchain as CLI-Tool, please install"
+                        echo "sdkman and re-run this command."
+                        echo "https://sdkman.io/install"
+                        echo "$ curl -s "https://get.sdkman.io" | bash"
+                        exit 1
+                    ;;
+                esac
+              done
+          fi
+       fi
+    fi
+fi
+
+bash -cl "$command"
