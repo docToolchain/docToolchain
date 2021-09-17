@@ -189,14 +189,14 @@
         If objFSO.FileExists(filename) Then
             WScript.echo " --- " & filename & " already exists."
             If Len(additionalOptions) > 0 Then
-                If additionalOptions.Contains("OverwriteDiagramms") Then
-                    WScript.echo " --- Overwriting -- parameter 'OverwriteDiagramms' set."
+                If additionalOptions.Contains("KeepFirstDiagram") Then
+                    WScript.echo " --- Skipping export -- parameter 'KeepFirstDiagram' set."
                 Else
-                    WScript.echo " --- Skipping export -- parameter 'OverwriteDiagramms' not set."
+                    WScript.echo " --- Overwriting -- parameter 'KeepFirstDiagram' not set."
                     exportDiagram = False
                 End If
             Else
-                WScript.echo " --- Skipping export -- parameter 'OverwriteDiagramms' not set."
+                WScript.echo " --- Overwriting -- parameter 'KeepFirstDiagram' not set."
             End If
         End If
         If exportDiagram Then
