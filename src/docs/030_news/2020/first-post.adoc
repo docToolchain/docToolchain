@@ -4,16 +4,13 @@
 :jbake-tags: blog, asciidoc
 :jbake-status: published
 :jbake-menu: news
+:jbake-author: Ralf D. Müller
 
 ifndef::imagesdir[:imagesdir: ../../../images]
 
 = First Post
-Ralf D. Müller
-2020-12-15
 
 This is just a demonstration on how to use the blog.
-
-imagesdir: {imagesdir}
 
 [plantuml]
 ----

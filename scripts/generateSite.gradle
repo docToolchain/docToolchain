@@ -215,7 +215,7 @@ ${color 'green', 'for you?'}\n""",
                     def jbake = [
                         status: "published",
                         order: -1,
-
+                        type: 'page_toc'
                     ]
                     def parseAttribs = true
                     origText.eachLine { line ->
@@ -282,7 +282,6 @@ ${color 'green', 'for you?'}\n""",
                             // we always start wit "==" not with "="
                             text = text.replaceAll("(?ms)^(=+) ", '$1= ')
                         }
-                        jbake.type= 'page_toc'
                         def header = ''
                         jbake.each { key, value ->
                             header += ":jbake-${key}: ${value}\n"

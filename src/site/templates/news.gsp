@@ -19,7 +19,22 @@
                 </div>
             </div>
             <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
-                <h1>Blog</h1>
+                <%
+                    def splitBody = content.body.split("(?ms)<!-- endtoc -->", 2)
+                    out << splitBody[1]
+                %>
+
+                <%
+                    alltags?.sort().each { tag ->
+                        tag = tag.trim()
+                        def postsCount = posts.findAll { post ->
+                            post.status == "published" && post.tags?.contains(tag)
+                        }.size()
+                %>
+                <span class="tag"><a href="${content.rootpath}tags/${tag.replace(' ', '-')}.html">${tag}&nbsp;<span class="badge">${postsCount}</span></a></span>
+                <%
+                    }
+                %>
                 <%published_posts.each {post ->%>
                 <p class="lead">
                     <a href="../${post.uri}"><h3>${post.title}</h3></a>

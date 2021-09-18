@@ -19,9 +19,14 @@
 				</div>
 			</div>
 			<main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
-				<h1>${content.title}</h1>
-				<p><em>${new java.text.SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH).format(content.date)}</em></p>
-				<p>${content.body}</p>
+				<p><em>${new java.text.SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH).format(content.date)}, ${content.author?:''}</em></p>
+				<p>
+                    <%
+                        def splitBody = content.body.split("(?ms)<!-- endtoc -->", 2)
+                        out << splitBody[1]
+                    %>
+
+                </p>
 			</main>
 
 		</div>
