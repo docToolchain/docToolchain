@@ -1,8 +1,11 @@
+:jbake-title: exportMarkdown
 :filename: manual/tasks/03_task_exportMarkdown.adoc
 include::_config.adoc[]
 
+include::../_feedback.adoc[]
+
 // the source is in exportMarkdownDocs.md !!
-include::../../../build/docs/exportMarkdownDocs.adoc[]
+include::{projectDir}/build/exportMarkdownDocs.adoc[]
 
 == Source
 

@@ -20,4 +20,4 @@ pre code .pln {color:#f8f8f2 !important}
 </style>
 ++++
 
-include::../manual/_blocks.adoc[]
+include::../_blocks.adoc[]

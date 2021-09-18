@@ -3,7 +3,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 = Development
 
-include::_feedback.adoc[]
+include::../_feedback.adoc[]
 
 INFO: this chapter is still work in progress
 

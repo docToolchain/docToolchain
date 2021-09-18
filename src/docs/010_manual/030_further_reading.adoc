@@ -3,20 +3,48 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 = Further Reading
 
-include::_feedback.adoc[]
+include::../_feedback.adoc[]
 
 This chapter lists some additional references to interesting resources.
 
-== Links
+== Underlying Technologies
 
-* *AsciiDoc*
+This project relies on many underlying technologies.
+Here is a lists and some explaining words
+
+=== Markup
+
+* *AsciiDoc* +
+AsciiDoc is our preferred markup language for technical docs
 ** https://asciidoctor.org/docs/user-manual/[Asciidoctor User-Manual]
 ** https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Syntax Quick Reference]
-* *arc42*
+** Video: https://www.ahus1.de/post/asciidoctor-intro-and-deep-dive["Asciidoctor Deep Dive"] by Alexander Schwartz
+* *Markdown* +
+Since we use jBake as Static-Site-Generator, you can also use Markdown to write your docs.
+** https://github.com/vsch/flexmark-java[flexmark-java] is the Markdown parser and flavour used by jBake
+** if you prefer to use the <<task_exportMarkdown, `exportMarkdown`>>-Task, then https://github.com/bodiam/markdown-to-asciidoc[markdown-to-asciidoc] library is used. The IntelliJ-Plugin also uses this library.
+
+=== Templates
+
+* *arc42* +
+is the perfect documentation template for your softare solution architecture documentation.
 ** https://arc42.org/[arc42]
 ** https://docs.arc42.org/home/[arc42 Tips & Tricks]
 ** https://faq.arc42.org/home/[arc42 FAQ]
-* https://rdmueller.github.io/[the docToolchain Blog]
+
+=== Docs-as-Code
+
+* *docs-as-code* +
+is the approach you use when you treat your docs the same as your code.
+We've create a little microsite with some additional resources.
+** https://docs-as-co.de/[Docs-as-Code]
+** https://www.writethedocs.org/guide/docs-as-code/[write the docs: docs-as-code] is another independent resource.
+
+=== Static Site Generator
+
+* https://jbake.org[jBake] is the underlying static site generator for the <<task_generatesite, `generateSite`>>-Task
+* https://www.docsy.dev/[docsy] is the standard theme we use
+* https://getbootstrap.com/docs/4.6/getting-started/introduction/[twitter bootstrap] is the CSS framework
 
 == Books
 
@@ -27,7 +55,7 @@ NOTE: links to Amazon are affiliate links
 * https://www.amazon.de/dp/B0784ZJWSR[DOCS-LIKE-CODE] by Anne Gentle
 * https://amzn.to/2sn0kyx[Modern technical writing:
 An Introduction to Software Documentation] by Andrew Etter
-* https://leanpub.com/arc42byexample[arc42 by Example] by Gernot Starke, Stefan Zörner, Michael Simons
+* https://leanpub.com/arc42byexample[arc42 by Example] by Gernot Starke, Stefan Zörner, Michael Simons, Ralf D. Müller
 * https://leanpub.com/arc42inpractice[Communicating Software Architectures with arc42] by Gernot Starke und Peter Hruschka
 * https://leanpub.com/visualising-software-architecture[Visualise, document and explore your software architecture] by Simon Brown
 

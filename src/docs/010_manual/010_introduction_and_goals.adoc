@@ -1,8 +1,10 @@
 :filename: manual/01_introduction_and_goals.adoc
 
+{imagesdir}
+
 = Introduction and Goals
 
-include::_feedback.adoc[]
+include::../_feedback.adoc[]
 
 NOTE: Jump directly to the https://github.com/docToolchain/docToolchain[github repository]
 

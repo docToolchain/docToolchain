@@ -2,11 +2,11 @@
 
 :filename: manual/02_install.adoc
 
-include::_blocks.adoc[]
+include::../_blocks.adoc[]
 
 = How to install docToolchain
 
-include::_feedback.adoc[]
+include::../_feedback.adoc[]
 
 == Get the Wrapper
 

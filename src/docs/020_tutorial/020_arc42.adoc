@@ -4,7 +4,7 @@ include::_config.adoc[]
 
 == Get the arc42 Template
 
-include::../manual/_feedback.adoc[]
+include::../_feedback.adoc[]
 
 To work with docToolchain, you first need some documents.
 So let's fetch the https://arc42.org[arc42 template] for software architecture documentation.

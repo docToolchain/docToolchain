@@ -1,6 +1,8 @@
 :filename: manual/0A_config.adoc
 [appendix]
-= Configuration
+= Appendix A: Configuration
+
+include::../_feedback.adoc[]
 
 This appendix covers all configuration introduced by docToolchain.
 AsciiDoc, AsciiDoctor, Gradle and other tools and libraries used know of more configuration settings and you can read about those in the corresponding documentation.

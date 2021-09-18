@@ -3,7 +3,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 = Acknowledgements and Contributors
 
-include::_feedback.adoc[]
+include::../_feedback.adoc[]
 
 This project is an open source project which is based on community efforts.
 

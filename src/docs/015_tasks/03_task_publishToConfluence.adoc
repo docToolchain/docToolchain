@@ -175,5 +175,5 @@ include::{projectDir}/scripts/publishToConfluence.gradle[tags=publishToConfluenc
 .scripts/asciidoc2confluence.groovy
 [source,groovy]
 ----
-include::{projectDir}/scripts/asciidoc2confluence.groovy[tags=publishToConfluence]
+include::{projectDir}/scripts/asciidoc2confluence.groovy[]
 ----

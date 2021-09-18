@@ -3,7 +3,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 = FAQ: Frequently asked Questions
 
-include::_feedback.adoc[]
+include::../_feedback.adoc[]
 
 This section tries to answer the most common and frequently asked questions about how to work with docToolchain.
 It will also contain questions relevant to the tools used to build docToolchain, but the main focus is docToolchain itself.

@@ -1,2 +1,2 @@
 ifndef::imagesdir[:imagesdir: ../../images]
-ifndef::projectDir[:projectDir: {projectDir}]
+ifndef::projectDir[:projectDir: ../../../]
