@@ -153,7 +153,7 @@ else
 	  fi
           docker_cmd=$(which docker)
           echo $docker_cmd
-          command="$docker_cmd run -u $(id -u):$(id -g) --name doctoolchain${version}b -e DTC_HEADLESS=1 -e DTC_SITETHEME -p 8042:8042 --rm -it --entrypoint /bin/bash -v ${PWD}:/project rdmueller/doctoolchain:v${VERSION}b -c \"doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS && exit\""
+          command="$docker_cmd run -u $(id -u):$(id -g) --name doctoolchain${version} -e DTC_HEADLESS=1 -e DTC_SITETHEME -p 8042:8042 --rm -it --entrypoint /bin/bash -v ${PWD}:/project rdmueller/doctoolchain:v${VERSION} -c \"doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS && exit\""
 	  echo "use docker installation"
       else
 
