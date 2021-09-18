@@ -2,15 +2,6 @@
     def menu = [:]
     def entriesMap = [:]
     try {
-        System.out.println """
-
-$content.collect{it.filename}
-
-
-$published_content.collect{it.filename}
-
-
-"""
         published_content.each { page ->
 
             if (page['jbake-menu']) {
@@ -34,7 +25,6 @@ $published_content.collect{it.filename}
         }
         // now, add all remaining codes
         menu.each { code, entries ->
-            System.out.println "$code - $entries"
             if (config.site_menu[code]) {
                 // already covered
             } else {
@@ -60,7 +50,7 @@ $published_content.collect{it.filename}
     </a>
     <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
         <ul class="navbar-nav mt-2 mt-lg-0">
-    <li class="nav-item mr-4 mb-2 mb-lg-0"><img src="${content.rootpath}images/status.png" width="16" height="16"></li>
+    <li class="nav-item mr-4 mb-2 mb-lg-0"><img src="${content.rootpath}images/status.png" width="16" height="16" onerror="this.style.display='none'"></li>
             <!--
             ${menu}
             -->
@@ -70,7 +60,8 @@ $published_content.collect{it.filename}
             def (title, entries) = data
             if (entries[0]) {
                 if (title!="-" ) {
-                    def url = "${content.rootpath}${entries.find{it.order==0}?.uri?:entries[0].uri}"
+                    def firstEntry = entries.sort{a, b ->a.order <=> b.order ?: a.title <=> b.title }[0]
+                    def url = "${content.rootpath}${firstEntry.uri}"
                     def basePath = url.replaceAll('[^/]*$','')
                     def isActive = ""
                     if ((content.rootpath+content.uri)?.startsWith(basePath)) {

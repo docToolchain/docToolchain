@@ -18,6 +18,10 @@ footerGithub = '##Github-url##'
 // Slack Channel
 footerSlack = '##Slack-url##'
 //
+// Footer Text
+// example: <small class="text-white">build with docToolchain and jBake <br /> theme: docsy</small>
+footerText = '##Footer-Text##'
+//
 // the location of the landing page
 landingPage = 'landingpage.gsp'
 // the menu of the microsite. A map of [code:'title'] entries to specify the order and title of the entries.

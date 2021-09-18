@@ -74,10 +74,8 @@
 
                 </div>
                 <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
-                    <small class="text-white">© 2021 The Docsy Authors All Rights Reserved</small>
-                    <small class="ml-1"><a href="https://policies.google.com/privacy" target="_blank">Privacy Policy</a></small>
 
-                    <p class="mt-2"><a href="https://example.docsy.dev/about/">About Goldydocs</a></p>
+                        ${config.site_footerText}
 
                 </div>
             </div>

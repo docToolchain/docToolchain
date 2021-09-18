@@ -11,6 +11,8 @@
           content.rootpath = '../' * (content.sourceuri?.split('/')?.size()-1)
         }
       }
+      //this is mainly a fix for the imagesdir which is set to /images
+      content.body = content.body?.replaceAll('src="/','src="'+content.rootpath)
   %>
   <!-- ${content.sourceuri} -->
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">

@@ -1,5 +1,6 @@
 <%
-    def menu = content.menu
+    def menu = content.menu[content['jbake-menu']]
+
 %>
         <form class="td-sidebar__search d-flex align-items-center d-lg-none">
 
@@ -22,7 +23,7 @@
                 <ul>
                     <li class="collapse show" id="docs">
                         <ul class="td-sidebar-nav__section pr-md-3">
-                            <% menu[content['jbake-menu']]?.sort{it.order}.each { entry -> %>
+                            <% menu?.sort{a, b ->a.order <=> b.order ?: a.title <=> b.title }.each { entry -> %>
                             <%
                                         def isActive = ""
                                         if (content.uri==entry.uri) {
