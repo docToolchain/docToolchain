@@ -55,9 +55,9 @@
     <link rel="icon" type="image/png" sizes="32x32" href="${content.rootpath}favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="${content.rootpath}favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="${content.rootpath}favicon-16x16.png">
-    <link rel="manifest" href="${content.rootpath}/manifest.json">
+    <link rel="manifest" href="${content.rootpath}manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="${content.rootpath}/ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="${content.rootpath}ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
   <script crossorigin="anonymous" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
