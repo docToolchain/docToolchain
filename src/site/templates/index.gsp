@@ -7,7 +7,6 @@
 </header>
 <div class="container-fluid td-outer">
     <div class="td-main">
-        ${config.site_landingPage}
         <%include "../doc/${config.site_landingPage}"%>
     </div>
 
