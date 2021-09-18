@@ -40,7 +40,7 @@
   <link href="${content.rootpath}css/asciidoctor.css" rel="stylesheet">
   <link href="${content.rootpath}css/prettify.css" rel="stylesheet">
 
-    // favicon generated with https://www.favicon-generator.org/
+    <!-- favicon generated with https://www.favicon-generator.org/ -->
     <link rel="shortcut icon" href="${content.rootpath}favicon.ico">
     <link rel="apple-touch-icon" sizes="57x57" href="${content.rootpath}apple-icon-57x57.png">
     <link rel="apple-touch-icon" sizes="60x60" href="${content.rootpath}apple-icon-60x60.png">
