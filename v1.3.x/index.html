@@ -1618,10 +1618,10 @@ task collectIncludes(
                     <span class="keyword">if</span> (file.name ==~ <span class="string"><span class="delimiter">'</span><span class="content">^.*[A-Z]{3,}_includes.adoc$</span><span class="delimiter">'</span></span>) {
                         println <span class="string"><span class="delimiter">&quot;</span><span class="content">ignore generated _includes files: </span><span class="delimiter">&quot;</span></span> + fileName
                     } <span class="keyword">else</span> {
-                        println <span class="string"><span class="delimiter">&quot;</span><span class="content">corrected file: </span><span class="delimiter">&quot;</span></span> + fileName
-                        <span class="keyword">if</span> (fileName.startsWith(<span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>)) {
+                        <span class="keyword">if</span> ( fileName.startsWith(<span class="string"><span class="delimiter">'</span><span class="content">docToolchain</span><span class="delimiter">'</span></span>) || fileName.replace(<span class="string"><span class="delimiter">&quot;</span><span class="char">\\</span><span class="delimiter">&quot;</span></span>, <span class="string"><span class="delimiter">&quot;</span><span class="content">/</span><span class="delimiter">&quot;</span></span>).matches(<span class="string"><span class="delimiter">'</span><span class="content">^.*/docToolchain/.*$</span><span class="delimiter">'</span></span>)) {
                             <span class="comment">//ignore docToolchain as submodule</span>
                         } <span class="keyword">else</span> {
+                            println <span class="string"><span class="delimiter">&quot;</span><span class="content">include corrected file: </span><span class="delimiter">&quot;</span></span> + fileName
                             collections[type] &lt;&lt; fileName
                         }
                     }
@@ -1928,11 +1928,11 @@ It creates a PowerPoint presentation and enriches it with reveal.js slide defini
 </div>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" height="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/6dd2fe167fd7d2a84322787e3428d14e?d=identicon" alt="Joseph Staub " width="32" height="32" title="Joseph Staub "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/aacd09e76c0affa36f76f8ef337a1536?d=identicon" alt="Luis Muniz " width="32" height="32" title="Luis Muniz "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/518a75fcbe5adea38aa4bec267d7572b?d=identicon" alt="Nikolay Orozov " width="32" height="32" title="Nikolay Orozov "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/3c015f3ee9960d842c195993cbb91cff?d=identicon" alt="Tim Riemer " width="32" height="32" title="Tim Riemer "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/be47969496f94a5a89159d70cd82bda0?d=identicon" alt="sabatmonk " width="32" height="32" title="sabatmonk "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/4280fc350b2b3cb323d151be608be3f8?d=identicon" alt="Alexander Herrmann " width="32" height="32" title="Alexander Herrmann "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz " width="32" height="32" title="Alexander Schwartz "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/6c384e5d2b684c60fc8f062d75dae3f7?d=identicon" alt="Alfon " width="32" height="32" title="Alfon "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr " width="32" height="32" title="David M. Carr "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/6c5a117679f7101b5de26dd25a2a8e98?d=identicon" alt="Dierk Höppner " width="32" height="32" title="Dierk Höppner "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" height="32" title="Lars Francke "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/415bf2233be007b088ca81b749f02071?d=identicon" alt="Nils Mahlstaedt " width="32" height="32" title="Nils Mahlstaedt "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange " width="32" height="32" title="Peter Stange "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller " width="32" height="32" title="Ralf D. Müller "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2dc2929d0609d6338d2794446156f312?d=identicon" alt="Thomas Grabietz " width="32" height="32" title="Thomas Grabietz "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/b55e260be513eedfb745afb36248b8ec?d=identicon" alt="Vladi " width="32" height="32" title="Vladi "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/e7d9e6618a36e94b35d43cbd2925aee0?d=identicon" alt="bit-jkraushaar " width="32" height="32" title="bit-jkraushaar "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/7107bc30257a84fd371a188bda07309f?d=identicon" alt="oliver drewes " width="32" height="32" title="oliver drewes "></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Mueller " width="32" height="32" title="Ralf D. Mueller "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/6dd2fe167fd7d2a84322787e3428d14e?d=identicon" alt="Joseph Staub " width="32" height="32" title="Joseph Staub "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/aacd09e76c0affa36f76f8ef337a1536?d=identicon" alt="Luis Muniz " width="32" height="32" title="Luis Muniz "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/518a75fcbe5adea38aa4bec267d7572b?d=identicon" alt="Nikolay Orozov " width="32" height="32" title="Nikolay Orozov "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller " width="32" height="32" title="Ralf D. Müller "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/3c015f3ee9960d842c195993cbb91cff?d=identicon" alt="Tim Riemer " width="32" height="32" title="Tim Riemer "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/be47969496f94a5a89159d70cd82bda0?d=identicon" alt="sabatmonk " width="32" height="32" title="sabatmonk "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/4280fc350b2b3cb323d151be608be3f8?d=identicon" alt="Alexander Herrmann " width="32" height="32" title="Alexander Herrmann "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz " width="32" height="32" title="Alexander Schwartz "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/6c384e5d2b684c60fc8f062d75dae3f7?d=identicon" alt="Alfon " width="32" height="32" title="Alfon "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr " width="32" height="32" title="David M. Carr "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/6c5a117679f7101b5de26dd25a2a8e98?d=identicon" alt="Dierk Höppner " width="32" height="32" title="Dierk Höppner "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke " width="32" height="32" title="Lars Francke "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/415bf2233be007b088ca81b749f02071?d=identicon" alt="Nils Mahlstaedt " width="32" height="32" title="Nils Mahlstaedt "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange " width="32" height="32" title="Peter Stange "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2dc2929d0609d6338d2794446156f312?d=identicon" alt="Thomas Grabietz " width="32" height="32" title="Thomas Grabietz "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/b55e260be513eedfb745afb36248b8ec?d=identicon" alt="Vladi " width="32" height="32" title="Vladi "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/e7d9e6618a36e94b35d43cbd2925aee0?d=identicon" alt="bit-jkraushaar " width="32" height="32" title="bit-jkraushaar "></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/7107bc30257a84fd371a188bda07309f?d=identicon" alt="oliver drewes " width="32" height="32" title="oliver drewes "></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>6 minutes to read</pre>
+<pre>7 minutes to read</pre>
 </div>
 </div>
 <div class="imageblock">
@@ -2039,12 +2039,18 @@ Example including storing of the real value outside this configuration: <code>ap
 <p>If value is set to <strong>true</strong>, your links to local file references will be uploaded as attachments. The current implementation only supports a single folder. This foldername will be used as a prefix to validate if your file should be uploaded or not.
 In case you enable this feature, and use a folder which starts with "attachment*", an adaption of this prefix is required.</p>
 </dd>
-<dt class="hdlist1">jiraServerId</dt>
-<dd>
-<p>the jira server id your confluence instance is connected to. If value is set, all anchors pointing to a jira ticket will be replaced by the confluence jira macro.
-To function properly jiraRoot has to be configured (see <a href="#_exportjiraissues">exportJiraIssues</a>).</p>
-</dd>
 </dl>
+</div>
+<div class="paragraph">
+<p>docToolchain will crawl through all your generated &lt;a href&gt;-Tags and compare the defined <code>attachmentPrefix</code> with the start of the <code>href</code>-attribute.
+If it matches, the referenced file will be uploaded as attachment.</p>
+</div>
+<div class="paragraph">
+<p>So, for each document folder, which references attachments, you will need a folder called <code>${attachmentPrefix}</code> to store your attachments.</p>
+</div>
+<div class="paragraph">
+<p>As alternative, you can set <code>attachmentPrefix</code> to <code>./</code> and ensure that all your <code>link:</code> macros which reference attachments, start with <code>./</code>.
+In this case make sure that you don&#8217;t link to other pages starting with <code>./</code>, otherwise, these will also be uploaded as attachments.</p>
 </div>
 <div class="paragraph">
 <p>Example:</p>
@@ -2060,6 +2066,11 @@ To function properly jiraRoot has to be configured (see <a href="#_exportjiraiss
 <dt class="hdlist1">attachmentPrefix</dt>
 <dd>
 <p>The expected foldername of your output dir. <strong>Default</strong>: <code>attachment</code></p>
+</dd>
+<dt class="hdlist1">jiraServerId</dt>
+<dd>
+<p>the jira server id your confluence instance is connected to. If value is set, all anchors pointing to a jira ticket will be replaced by the confluence jira macro.
+To function properly jiraRoot has to be configured (see <a href="#_exportjiraissues">exportJiraIssues</a>).</p>
 </dd>
 <dt class="hdlist1">proxy</dt>
 <dd>
@@ -2668,13 +2679,25 @@ Example: glossaryTypes = ["Business", "Technical"]</p>
 <p>Beside the diagram image, an EA diagram offers several useful attributes which
 could be required in the resulting document. If set, the string is used to create
 and store the diagram attributes to be included in the document.
-These placeholders are defined and filled with the diagram attributes if used in the
-diagramAttributes string: %DIAGRAM_AUTHOR%, %DIAGRAM_CREATED%, %DIAGRAM_GUID%, %DIAGRAM_MODIFIED%, %DIAGRAM_NAME%. %DIAGRAM_NOTES%,
+These placeholders are defined and filled with the diagram attributes, if used in the
+diagramAttributes string:<br>
+<code>%DIAGRAM_AUTHOR%</code>,<br>
+<code>%DIAGRAM_CREATED%</code>,<br>
+<code>%DIAGRAM_GUID%</code>,<br>
+<code>%DIAGRAM_MODIFIED%</code>,<br>
+<code>%DIAGRAM_NAME%</code>,<br>
+<code>%DIAGRAM_NOTES%</code>,<br>
+<code>%NEWLINE%</code><br>
 Example: diagramAttributes = "Last modification: %DIAGRAM_MODIFIED%"<br>
 You can add the string %NEWLINE% where a line break shall be added.<br>
 The resulting text is stored beside the diagram image using same path and file named,
 but different file extension (.ad). This can included in the document if required.
 If diagramAttributes is not set or string is empty, no file is written.</p>
+</dd>
+<dt class="hdlist1">additionalOptions</dt>
+<dd>
+<p>This parameter is used to define specific behavior of the export. Currently these options are supported:<br>
+<code>KeepFirstDiagram</code> - in case a diagrams are not names uniquely, the last diagram will be saved. If you want to prevent that diagrams are overwritten, add this parameter to additionalOptions.</p>
 </dd>
 </dl>
 </div>
@@ -2747,6 +2770,9 @@ use `gradle exportEA` to re-export files
         <span class="keyword">if</span> (!config.exportEA.searchPath.isEmpty()){
             searchPath = <span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, config.exportEA.searchPath).getAbsolutePath()
         }
+        <span class="keyword">else</span> <span class="keyword">if</span> (!config.exportEA.absoluteSearchPath.isEmpty()) {
+        searchPath = <span class="keyword">new</span> <span class="predefined-type">File</span>(config.exportEA.absoluteSearchPath).getAbsolutePath()
+        }
         <span class="keyword">else</span> {
             searchPath = <span class="keyword">new</span> <span class="predefined-type">File</span>(docDir, <span class="string"><span class="delimiter">'</span><span class="content">src</span><span class="delimiter">'</span></span>).getAbsolutePath()
         }
@@ -2767,6 +2793,10 @@ use `gradle exportEA` to re-export files
         <span class="keyword">if</span> (!config.exportEA.diagramAttributes.isEmpty()) {
             scriptParameterString = scriptParameterString + <span class="string"><span class="delimiter">&quot;</span><span class="content"> -da </span><span class="char">\&quot;</span><span class="inline"><span class="inline-delimiter">$</span>config</span><span class="content">.exportEA.diagramAttributes</span><span class="char">\&quot;</span><span class="delimiter">&quot;</span></span>
         }
+        <span class="comment">//configure additional diagram attributes to be exported</span>
+        <span class="keyword">if</span> (!config.exportEA.additionalOptions.isEmpty()) {
+            scriptParameterString = scriptParameterString + <span class="string"><span class="delimiter">&quot;</span><span class="content"> -ao </span><span class="char">\&quot;</span><span class="inline"><span class="inline-delimiter">$</span>config</span><span class="content">.exportEA.additionalOptions</span><span class="char">\&quot;</span><span class="delimiter">&quot;</span></span>
+        }
         <span class="comment">//make sure path for notes exists</span>
         <span class="comment">//and remove old notes</span>
         <span class="keyword">new</span> <span class="predefined-type">File</span>(exportPath , <span class="string"><span class="delimiter">'</span><span class="content">ea</span><span class="delimiter">'</span></span>).deleteDir()
@@ -2780,6 +2810,7 @@ use `gradle exportEA` to re-export files
         <span class="keyword">new</span> <span class="predefined-type">File</span>(exportPath , <span class="string"><span class="delimiter">'</span><span class="content">ea/readme.ad</span><span class="delimiter">'</span></span>).write(readme)
 
         <span class="comment">//execute through cscript in order to make sure that we get WScript.echo right</span>
+        logger.info(<span class="string"><span class="delimiter">&quot;</span><span class="content">docToolchain &gt; exportEA: parameters: </span><span class="delimiter">&quot;</span></span> + scriptParameterString)
         <span class="string"><span class="delimiter">&quot;</span><span class="content">%SystemRoot%</span><span class="char">\\</span><span class="content">System32</span><span class="char">\\</span><span class="content">cscript.exe //nologo </span><span class="inline"><span class="inline-delimiter">${</span>projectDir<span class="inline-delimiter">}</span></span><span class="content">/scripts/exportEAP.vbs </span><span class="inline"><span class="inline-delimiter">${</span>scriptParameterString<span class="inline-delimiter">}</span></span><span class="delimiter">&quot;</span></span>.executeCmd()
         <span class="comment">//the VB Script is only capable of writing iso-8859-1-Files.</span>
         <span class="comment">//we now have to convert them to UTF-8</span>
@@ -2863,7 +2894,7 @@ use `gradle exportEA` to re-export files
             MakeDir(path&amp;prefix&amp;post)
 
             set objFile = objFSO.OpenTextFile(path&amp;prefix&amp;post&amp;strFileName&amp;".ad",ForAppending, True)
-            name = NormalizeName(currentElement.Name)
+            name = currentElement.Name
             name = Replace(name,vbCr,"")
             name = Replace(name,vbLf,"")
 
@@ -2969,6 +3000,8 @@ use `gradle exportEA` to re-export files
         End If
     End Sub
     Sub SaveDiagram(currentModel, currentDiagram)
+        Dim exportDiagram ' As Boolean
+
         ' Open the diagram
         Repository.OpenDiagram(currentDiagram.DiagramID)
 
@@ -2989,10 +3022,26 @@ use `gradle exportEA` to re-export files
         diagramName = NormalizeName(diagramName)
         filename = objFSO.BuildPath(path, diagramName &amp; ".png")
 
-        projectInterface.SaveDiagramImageToFile(filename)
-        WScript.echo " extracted image to " &amp; filename
-        If Not IsEmpty(diagramAttributes) Then
-            SaveDiagramAttribute currentDiagram, path, diagramName
+        exportDiagram = True
+        If objFSO.FileExists(filename) Then
+            WScript.echo " --- " &amp; filename &amp; " already exists."
+            If Len(additionalOptions) &gt; 0 Then
+                If InStr(additionalOptions, "KeepFirstDiagram") &gt; 0 Then
+                    WScript.echo " --- Skipping export -- parameter 'KeepFirstDiagram' set."
+                Else
+                    WScript.echo " --- Overwriting -- parameter 'KeepFirstDiagram' not set."
+                    exportDiagram = False
+                End If
+            Else
+                WScript.echo " --- Overwriting -- parameter 'KeepFirstDiagram' not set."
+            End If
+        End If
+        If exportDiagram Then
+          projectInterface.SaveDiagramImageToFile(filename)
+          WScript.echo " extracted image to " &amp; filename
+          If Not IsEmpty(diagramAttributes) Then
+              SaveDiagramAttribute currentDiagram, path, diagramName
+          End If
         End If
         Repository.CloseDiagram(currentDiagram.DiagramID)
 
@@ -3184,6 +3233,7 @@ use `gradle exportEA` to re-export files
   Private searchPath
   Private glossaryFilePath
   Private diagramAttributes
+  Private additionalOptions
 
   exportDestination = "./src/docs"
   searchPath = "./src"
@@ -3206,6 +3256,8 @@ use `gradle exportEA` to re-export files
         glossaryFilePath = objArguments(argCount+1)
       Case "-da"
         diagramAttributes = objArguments(argCount+1)
+      Case "-ao"
+        additionalOptions = objArguments(argCount+1)
     End Select
     argCount = argCount + 2
   WEnd
@@ -6200,6 +6252,7 @@ confluence.with {
 <span class="comment">//    be mixed in case multiple projects have to be opened.</span>
 <span class="comment">// -  exportPath: relative path to base 'docDir' to which the diagrams and notes are to be exported</span>
 <span class="comment">// -  searchPath: relative path to base 'docDir', in which Enterprise Architect project files are searched</span>
+<span class="comment">// -  absoluteSearchPath: absolute path in which Enterprise Architect project files are searched</span>
 <span class="comment">// -  glossaryAsciiDocFormat: if set, the EA glossary is exported into exportPath as 'glossary.ad'</span>
 <span class="comment">// -  glossaryTypes: if set and glossary is exported, used to filter for certain types.</span>
 <span class="comment">//    Not set or empty list will cause no filtered glossary.</span>
@@ -6363,7 +6416,7 @@ sprintChangelog.with {
 </div>
 <div id="footer">
 <div id="footer-text">
-Last updated 2021-05-28 20:16:41 UTC
+Last updated 2021-09-18 13:28:33 UTC
 </div>
 </div>
 </body>
