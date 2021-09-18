@@ -88,7 +88,7 @@ create_doc () {
   echo "#                                          #"
   echo "############################################"
   if [ "$TRAVIS_BRANCH" == "ng" ] || [ "$TRAVIS_BRANCH" == "main-2.x" ] ; then
-    ./dtcw exportMarkdown exportChangeLog exportContributors generateSite htmlSanityCheck --stacktrace && ./copyDocs.sh
+    ./dtcw exportMarkdown exportChangeLog exportContributors generateSite --stacktrace && ./copyDocs.sh
   else
     ./gradlew exportMarkdown exportChangeLog exportContributors generateHTML htmlSanityCheck --stacktrace && ./copyDocs.sh
   fi
