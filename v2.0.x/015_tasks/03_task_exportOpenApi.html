@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
   
-  <!-- null -->
+  <!-- 015_tasks/03_task_exportOpenApi.html -->
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>JBake</title>
+  <title>exportOpenAPI</title>
   <meta content="Documentation" property="og:title">
   <meta content="A Docsy example site" property="og:description">
   <meta content="website" property="og:type">
@@ -21,35 +21,35 @@
   <meta content="Documentation" name="twitter:title">
   <meta content="A Docsy example site" name="twitter:description">
 
-  <link as="style" href="css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+  <link as="style" href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
         rel="preload">
-  <link href="css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css" integrity=""
+  <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css" integrity=""
         rel="stylesheet">
-  <link href="css/asciidoctor.css" rel="stylesheet">
-  <link href="css/prettify.css" rel="stylesheet">
+  <link href="../css/asciidoctor.css" rel="stylesheet">
+  <link href="../css/prettify.css" rel="stylesheet">
 
     // favicon generated with https://www.favicon-generator.org/
-    <link rel="shortcut icon" href="favicon.ico">
-    <link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
-    <link rel="manifest" href="/manifest.json">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="apple-touch-icon" sizes="57x57" href="../apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192"  href="../android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="manifest" href="..//manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="..//ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
   <script crossorigin="anonymous" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-          src="js/jquery-3.5.1.min.js"></script>
+          src="../js/jquery-3.5.1.min.js"></script>
   <style>
   span.tag {
       border-radius: 10px;
@@ -85,22 +85,22 @@
 
 <body onload="prettyPrint()" class="td-section">
 <header>
-
+	
 
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
-    <a class="navbar-brand" href="">
+    <a class="navbar-brand" href="../">
         <span class="navbar-logo"></span><span
             class="font-weight-bold">docToolchain</span>
     </a>
     <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
         <ul class="navbar-nav mt-2 mt-lg-0">
-    <li class="nav-item mr-4 mb-2 mb-lg-0"><img src="images/status.png" width="16" height="16" onerror="this.style.display='none'"></li>
+    <li class="nav-item mr-4 mb-2 mb-lg-0"><img src="../images/status.png" width="16" height="16" onerror="this.style.display='none'"></li>
             <!--
             [news:[[title:First Post, order:16079868, filename:null, uri:030_news/2020/first-post.html], [title:Overview, order:0, filename:null, uri:030_news/index.html]], manual:[[title:FAQ: Frequently asked Questions, order:050, filename:null, uri:010_manual/050_Frequently_asked_Questions.html], [title:Features, order:025, filename:null, uri:010_manual/025_features.html], [title:Introduction and Goals, order:010, filename:null, uri:010_manual/010_introduction_and_goals.html], [title:Appendix A: Configuration, order:100, filename:null, uri:010_manual/100_config.html], [title:Acknowledgements and Contributors, order:040, filename:null, uri:010_manual/040_contributors.html], [title:Further Reading, order:030, filename:null, uri:010_manual/030_further_reading.html], [title:How to install docToolchain, order:020, filename:null, uri:010_manual/020_install.html]], ADRs:[[title:null, order:-1, filename:null, uri:050_ADRs/ADR-2-anotherTest.html], [title:null, order:-1, filename:null, uri:050_ADRs/ADR-1-firstTest.html]], development:[[title:Development, order:08, filename:null, uri:025_development/08_development.html]], ea:[[title:null, order:-1, filename:null, uri:ea/readme.html], [title:null, order:-1, filename:null, uri:ea/UseCases.html], [title:null, order:-1, filename:null, uri:ea/issue2.html], [title:null, order:-1, filename:null, uri:ea/issue1.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_notes_UseCases.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_notes.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_links_issue2.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_links.html], [title:null, order:-1, filename:null, uri:ea/Architect_notes_issue2.html], [title:null, order:-1, filename:null, uri:ea/Architect_notes.html], [title:null, order:-1, filename:null, uri:ea/Activity_notes_issue1.html], [title:null, order:-1, filename:null, uri:ea/Activity_notes.html]], tutorial:[[title:null, order:030, filename:null, uri:020_tutorial/030_generateHTML.html], [title:Install docToolchain, order:020, filename:null, uri:020_tutorial/020_arc42.html], [title:Install docToolchain, order:010, filename:null, uri:020_tutorial/010_Install.html]], tasks:[[title:downloadTemplate, order:03, filename:null, uri:015_tasks/03_task_downloadTemplate.html], [title:prependFilename, order:03, filename:null, uri:015_tasks/03_task_prependFilename.html], [title:generateSite, order:03, filename:null, uri:015_tasks/03_task_generateSite.html], [title:generatePDF, order:03, filename:null, uri:015_tasks/03_task_generatePDF.html], [title:generateDeck, order:03, filename:null, uri:015_tasks/03_task_generateDeck.html], [title:exportMetrics, order:03, filename:null, uri:015_tasks/03_task_exportMetrics.html], [title:previewSite, order:03, filename:null, uri:015_tasks/03_task_previewSite.html], [title:htmlSanityCheck, order:03, filename:null, uri:015_tasks/03_task_htmlSanityCheck.html], [title:fixEncoding, order:03, filename:null, uri:015_tasks/03_task_fixencoding.html], [title:exportEA, order:03, filename:null, uri:015_tasks/03_task_exportEA.html], [title:exportChangeLog, order:03, filename:null, uri:015_tasks/03_task_exportChangeLog.html], [title:createReferenceDoc, order:03, filename:null, uri:015_tasks/03_task_createReferenceDoc.html], [title:copyThemes, order:03, filename:null, uri:015_tasks/03_task_copy_themes.html], [title:Overview of available Tasks, order:03, filename:null, uri:015_tasks/03_tasks.html], [title:generateDocbook, order:03, filename:null, uri:015_tasks/03_task_generateDocBook.html], [title:exportJiraIssues, order:03, filename:null, uri:015_tasks/03_task_exportJiraIssues.html], [title:exportExcel, order:03, filename:null, uri:015_tasks/03_task_exportExcel.html], [title:exportContributors, order:03, filename:null, uri:015_tasks/03_task_exportContributors.html], [title:exportVisio, order:03, filename:null, uri:015_tasks/03_task_exportVisio.html], [title:exportOpenAPI, order:03, filename:null, uri:015_tasks/03_task_exportOpenApi.html], [title:convertToDocx, order:03, filename:null, uri:015_tasks/03_task_convertToDocx.html], [title:collectIncludes, order:03, filename:null, uri:015_tasks/03_task_collectIncludes.html], [title:publishToConfluence, order:03, filename:null, uri:015_tasks/03_task_publishToConfluence.html], [title:exportMarkdown, order:03, filename:null, uri:015_tasks/03_task_exportMarkdown.html], [title:exportDrawIo, order:03, filename:null, uri:015_tasks/03_task_exportDrawIo.html], [title:convertToEpub, order:03, filename:null, uri:015_tasks/03_task_convertToEpub.html], [title:generateHTML, order:03, filename:null, uri:015_tasks/03_task_generateHTML.html], [title:exportPPT, order:03, filename:null, uri:015_tasks/03_task_exportPPT.html], [title:exportJiraSprintChangelogIssues, order:03, filename:null, uri:015_tasks/03_task_exportJiraSprintChangelog.html], [title:dependencyUpdates, order:03, filename:null, uri:015_tasks/03_task_dependencyUpdates.html]]]
             -->
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="010_manual/010_introduction_and_goals.html"><span>Manual</span></a>
+                <a class="nav-link " href="../010_manual/010_introduction_and_goals.html"><span>Manual</span></a>
             </li>
             <!--
             [news:[[title:First Post, order:16079868, filename:null, uri:030_news/2020/first-post.html], [title:Overview, order:0, filename:null, uri:030_news/index.html]], manual:[[title:Introduction and Goals, order:010, filename:null, uri:010_manual/010_introduction_and_goals.html], [title:How to install docToolchain, order:020, filename:null, uri:010_manual/020_install.html], [title:Features, order:025, filename:null, uri:010_manual/025_features.html], [title:Further Reading, order:030, filename:null, uri:010_manual/030_further_reading.html], [title:Acknowledgements and Contributors, order:040, filename:null, uri:010_manual/040_contributors.html], [title:FAQ: Frequently asked Questions, order:050, filename:null, uri:010_manual/050_Frequently_asked_Questions.html], [title:Appendix A: Configuration, order:100, filename:null, uri:010_manual/100_config.html]], ADRs:[[title:null, order:-1, filename:null, uri:050_ADRs/ADR-2-anotherTest.html], [title:null, order:-1, filename:null, uri:050_ADRs/ADR-1-firstTest.html]], development:[[title:Development, order:08, filename:null, uri:025_development/08_development.html]], ea:[[title:null, order:-1, filename:null, uri:ea/readme.html], [title:null, order:-1, filename:null, uri:ea/UseCases.html], [title:null, order:-1, filename:null, uri:ea/issue2.html], [title:null, order:-1, filename:null, uri:ea/issue1.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_notes_UseCases.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_notes.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_links_issue2.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_links.html], [title:null, order:-1, filename:null, uri:ea/Architect_notes_issue2.html], [title:null, order:-1, filename:null, uri:ea/Architect_notes.html], [title:null, order:-1, filename:null, uri:ea/Activity_notes_issue1.html], [title:null, order:-1, filename:null, uri:ea/Activity_notes.html]], tutorial:[[title:null, order:030, filename:null, uri:020_tutorial/030_generateHTML.html], [title:Install docToolchain, order:020, filename:null, uri:020_tutorial/020_arc42.html], [title:Install docToolchain, order:010, filename:null, uri:020_tutorial/010_Install.html]], tasks:[[title:downloadTemplate, order:03, filename:null, uri:015_tasks/03_task_downloadTemplate.html], [title:prependFilename, order:03, filename:null, uri:015_tasks/03_task_prependFilename.html], [title:generateSite, order:03, filename:null, uri:015_tasks/03_task_generateSite.html], [title:generatePDF, order:03, filename:null, uri:015_tasks/03_task_generatePDF.html], [title:generateDeck, order:03, filename:null, uri:015_tasks/03_task_generateDeck.html], [title:exportMetrics, order:03, filename:null, uri:015_tasks/03_task_exportMetrics.html], [title:previewSite, order:03, filename:null, uri:015_tasks/03_task_previewSite.html], [title:htmlSanityCheck, order:03, filename:null, uri:015_tasks/03_task_htmlSanityCheck.html], [title:fixEncoding, order:03, filename:null, uri:015_tasks/03_task_fixencoding.html], [title:exportEA, order:03, filename:null, uri:015_tasks/03_task_exportEA.html], [title:exportChangeLog, order:03, filename:null, uri:015_tasks/03_task_exportChangeLog.html], [title:createReferenceDoc, order:03, filename:null, uri:015_tasks/03_task_createReferenceDoc.html], [title:copyThemes, order:03, filename:null, uri:015_tasks/03_task_copy_themes.html], [title:Overview of available Tasks, order:03, filename:null, uri:015_tasks/03_tasks.html], [title:generateDocbook, order:03, filename:null, uri:015_tasks/03_task_generateDocBook.html], [title:exportJiraIssues, order:03, filename:null, uri:015_tasks/03_task_exportJiraIssues.html], [title:exportExcel, order:03, filename:null, uri:015_tasks/03_task_exportExcel.html], [title:exportContributors, order:03, filename:null, uri:015_tasks/03_task_exportContributors.html], [title:exportVisio, order:03, filename:null, uri:015_tasks/03_task_exportVisio.html], [title:exportOpenAPI, order:03, filename:null, uri:015_tasks/03_task_exportOpenApi.html], [title:convertToDocx, order:03, filename:null, uri:015_tasks/03_task_convertToDocx.html], [title:collectIncludes, order:03, filename:null, uri:015_tasks/03_task_collectIncludes.html], [title:publishToConfluence, order:03, filename:null, uri:015_tasks/03_task_publishToConfluence.html], [title:exportMarkdown, order:03, filename:null, uri:015_tasks/03_task_exportMarkdown.html], [title:exportDrawIo, order:03, filename:null, uri:015_tasks/03_task_exportDrawIo.html], [title:convertToEpub, order:03, filename:null, uri:015_tasks/03_task_convertToEpub.html], [title:generateHTML, order:03, filename:null, uri:015_tasks/03_task_generateHTML.html], [title:exportPPT, order:03, filename:null, uri:015_tasks/03_task_exportPPT.html], [title:exportJiraSprintChangelogIssues, order:03, filename:null, uri:015_tasks/03_task_exportJiraSprintChangelog.html], [title:dependencyUpdates, order:03, filename:null, uri:015_tasks/03_task_dependencyUpdates.html]]]
@@ -109,7 +109,7 @@
             -->
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="015_tasks/03_tasks.html"><span>Tasks</span></a>
+                <a class="nav-link active" href="../015_tasks/03_tasks.html"><span>Tasks</span></a>
             </li>
             <!--
             [news:[[title:First Post, order:16079868, filename:null, uri:030_news/2020/first-post.html], [title:Overview, order:0, filename:null, uri:030_news/index.html]], manual:[[title:Introduction and Goals, order:010, filename:null, uri:010_manual/010_introduction_and_goals.html], [title:How to install docToolchain, order:020, filename:null, uri:010_manual/020_install.html], [title:Features, order:025, filename:null, uri:010_manual/025_features.html], [title:Further Reading, order:030, filename:null, uri:010_manual/030_further_reading.html], [title:Acknowledgements and Contributors, order:040, filename:null, uri:010_manual/040_contributors.html], [title:FAQ: Frequently asked Questions, order:050, filename:null, uri:010_manual/050_Frequently_asked_Questions.html], [title:Appendix A: Configuration, order:100, filename:null, uri:010_manual/100_config.html]], ADRs:[[title:null, order:-1, filename:null, uri:050_ADRs/ADR-2-anotherTest.html], [title:null, order:-1, filename:null, uri:050_ADRs/ADR-1-firstTest.html]], development:[[title:Development, order:08, filename:null, uri:025_development/08_development.html]], ea:[[title:null, order:-1, filename:null, uri:ea/readme.html], [title:null, order:-1, filename:null, uri:ea/UseCases.html], [title:null, order:-1, filename:null, uri:ea/issue2.html], [title:null, order:-1, filename:null, uri:ea/issue1.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_notes_UseCases.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_notes.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_links_issue2.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_links.html], [title:null, order:-1, filename:null, uri:ea/Architect_notes_issue2.html], [title:null, order:-1, filename:null, uri:ea/Architect_notes.html], [title:null, order:-1, filename:null, uri:ea/Activity_notes_issue1.html], [title:null, order:-1, filename:null, uri:ea/Activity_notes.html]], tutorial:[[title:null, order:030, filename:null, uri:020_tutorial/030_generateHTML.html], [title:Install docToolchain, order:020, filename:null, uri:020_tutorial/020_arc42.html], [title:Install docToolchain, order:010, filename:null, uri:020_tutorial/010_Install.html]], tasks:[[title:Overview of available Tasks, order:03, filename:null, uri:015_tasks/03_tasks.html], [title:collectIncludes, order:03, filename:null, uri:015_tasks/03_task_collectIncludes.html], [title:convertToDocx, order:03, filename:null, uri:015_tasks/03_task_convertToDocx.html], [title:convertToEpub, order:03, filename:null, uri:015_tasks/03_task_convertToEpub.html], [title:copyThemes, order:03, filename:null, uri:015_tasks/03_task_copy_themes.html], [title:createReferenceDoc, order:03, filename:null, uri:015_tasks/03_task_createReferenceDoc.html], [title:dependencyUpdates, order:03, filename:null, uri:015_tasks/03_task_dependencyUpdates.html], [title:downloadTemplate, order:03, filename:null, uri:015_tasks/03_task_downloadTemplate.html], [title:exportChangeLog, order:03, filename:null, uri:015_tasks/03_task_exportChangeLog.html], [title:exportContributors, order:03, filename:null, uri:015_tasks/03_task_exportContributors.html], [title:exportDrawIo, order:03, filename:null, uri:015_tasks/03_task_exportDrawIo.html], [title:exportEA, order:03, filename:null, uri:015_tasks/03_task_exportEA.html], [title:exportExcel, order:03, filename:null, uri:015_tasks/03_task_exportExcel.html], [title:exportJiraIssues, order:03, filename:null, uri:015_tasks/03_task_exportJiraIssues.html], [title:exportJiraSprintChangelogIssues, order:03, filename:null, uri:015_tasks/03_task_exportJiraSprintChangelog.html], [title:exportMarkdown, order:03, filename:null, uri:015_tasks/03_task_exportMarkdown.html], [title:exportMetrics, order:03, filename:null, uri:015_tasks/03_task_exportMetrics.html], [title:exportOpenAPI, order:03, filename:null, uri:015_tasks/03_task_exportOpenApi.html], [title:exportPPT, order:03, filename:null, uri:015_tasks/03_task_exportPPT.html], [title:exportVisio, order:03, filename:null, uri:015_tasks/03_task_exportVisio.html], [title:fixEncoding, order:03, filename:null, uri:015_tasks/03_task_fixencoding.html], [title:generateDeck, order:03, filename:null, uri:015_tasks/03_task_generateDeck.html], [title:generateDocbook, order:03, filename:null, uri:015_tasks/03_task_generateDocBook.html], [title:generateHTML, order:03, filename:null, uri:015_tasks/03_task_generateHTML.html], [title:generatePDF, order:03, filename:null, uri:015_tasks/03_task_generatePDF.html], [title:generateSite, order:03, filename:null, uri:015_tasks/03_task_generateSite.html], [title:htmlSanityCheck, order:03, filename:null, uri:015_tasks/03_task_htmlSanityCheck.html], [title:prependFilename, order:03, filename:null, uri:015_tasks/03_task_prependFilename.html], [title:previewSite, order:03, filename:null, uri:015_tasks/03_task_previewSite.html], [title:publishToConfluence, order:03, filename:null, uri:015_tasks/03_task_publishToConfluence.html]]]
@@ -118,7 +118,7 @@
             -->
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="020_tutorial/010_Install.html"><span>Tutorial</span></a>
+                <a class="nav-link " href="../020_tutorial/010_Install.html"><span>Tutorial</span></a>
             </li>
             <!--
             [news:[[title:First Post, order:16079868, filename:null, uri:030_news/2020/first-post.html], [title:Overview, order:0, filename:null, uri:030_news/index.html]], manual:[[title:Introduction and Goals, order:010, filename:null, uri:010_manual/010_introduction_and_goals.html], [title:How to install docToolchain, order:020, filename:null, uri:010_manual/020_install.html], [title:Features, order:025, filename:null, uri:010_manual/025_features.html], [title:Further Reading, order:030, filename:null, uri:010_manual/030_further_reading.html], [title:Acknowledgements and Contributors, order:040, filename:null, uri:010_manual/040_contributors.html], [title:FAQ: Frequently asked Questions, order:050, filename:null, uri:010_manual/050_Frequently_asked_Questions.html], [title:Appendix A: Configuration, order:100, filename:null, uri:010_manual/100_config.html]], ADRs:[[title:null, order:-1, filename:null, uri:050_ADRs/ADR-2-anotherTest.html], [title:null, order:-1, filename:null, uri:050_ADRs/ADR-1-firstTest.html]], development:[[title:Development, order:08, filename:null, uri:025_development/08_development.html]], ea:[[title:null, order:-1, filename:null, uri:ea/readme.html], [title:null, order:-1, filename:null, uri:ea/UseCases.html], [title:null, order:-1, filename:null, uri:ea/issue2.html], [title:null, order:-1, filename:null, uri:ea/issue1.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_notes_UseCases.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_notes.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_links_issue2.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_links.html], [title:null, order:-1, filename:null, uri:ea/Architect_notes_issue2.html], [title:null, order:-1, filename:null, uri:ea/Architect_notes.html], [title:null, order:-1, filename:null, uri:ea/Activity_notes_issue1.html], [title:null, order:-1, filename:null, uri:ea/Activity_notes.html]], tutorial:[[title:Install docToolchain, order:010, filename:null, uri:020_tutorial/010_Install.html], [title:Install docToolchain, order:020, filename:null, uri:020_tutorial/020_arc42.html], [title:null, order:030, filename:null, uri:020_tutorial/030_generateHTML.html]], tasks:[[title:Overview of available Tasks, order:03, filename:null, uri:015_tasks/03_tasks.html], [title:collectIncludes, order:03, filename:null, uri:015_tasks/03_task_collectIncludes.html], [title:convertToDocx, order:03, filename:null, uri:015_tasks/03_task_convertToDocx.html], [title:convertToEpub, order:03, filename:null, uri:015_tasks/03_task_convertToEpub.html], [title:copyThemes, order:03, filename:null, uri:015_tasks/03_task_copy_themes.html], [title:createReferenceDoc, order:03, filename:null, uri:015_tasks/03_task_createReferenceDoc.html], [title:dependencyUpdates, order:03, filename:null, uri:015_tasks/03_task_dependencyUpdates.html], [title:downloadTemplate, order:03, filename:null, uri:015_tasks/03_task_downloadTemplate.html], [title:exportChangeLog, order:03, filename:null, uri:015_tasks/03_task_exportChangeLog.html], [title:exportContributors, order:03, filename:null, uri:015_tasks/03_task_exportContributors.html], [title:exportDrawIo, order:03, filename:null, uri:015_tasks/03_task_exportDrawIo.html], [title:exportEA, order:03, filename:null, uri:015_tasks/03_task_exportEA.html], [title:exportExcel, order:03, filename:null, uri:015_tasks/03_task_exportExcel.html], [title:exportJiraIssues, order:03, filename:null, uri:015_tasks/03_task_exportJiraIssues.html], [title:exportJiraSprintChangelogIssues, order:03, filename:null, uri:015_tasks/03_task_exportJiraSprintChangelog.html], [title:exportMarkdown, order:03, filename:null, uri:015_tasks/03_task_exportMarkdown.html], [title:exportMetrics, order:03, filename:null, uri:015_tasks/03_task_exportMetrics.html], [title:exportOpenAPI, order:03, filename:null, uri:015_tasks/03_task_exportOpenApi.html], [title:exportPPT, order:03, filename:null, uri:015_tasks/03_task_exportPPT.html], [title:exportVisio, order:03, filename:null, uri:015_tasks/03_task_exportVisio.html], [title:fixEncoding, order:03, filename:null, uri:015_tasks/03_task_fixencoding.html], [title:generateDeck, order:03, filename:null, uri:015_tasks/03_task_generateDeck.html], [title:generateDocbook, order:03, filename:null, uri:015_tasks/03_task_generateDocBook.html], [title:generateHTML, order:03, filename:null, uri:015_tasks/03_task_generateHTML.html], [title:generatePDF, order:03, filename:null, uri:015_tasks/03_task_generatePDF.html], [title:generateSite, order:03, filename:null, uri:015_tasks/03_task_generateSite.html], [title:htmlSanityCheck, order:03, filename:null, uri:015_tasks/03_task_htmlSanityCheck.html], [title:prependFilename, order:03, filename:null, uri:015_tasks/03_task_prependFilename.html], [title:previewSite, order:03, filename:null, uri:015_tasks/03_task_previewSite.html], [title:publishToConfluence, order:03, filename:null, uri:015_tasks/03_task_publishToConfluence.html]]]
@@ -127,7 +127,7 @@
             -->
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="025_development/08_development.html"><span>Developer</span></a>
+                <a class="nav-link " href="../025_development/08_development.html"><span>Developer</span></a>
             </li>
             <!--
             [news:[[title:First Post, order:16079868, filename:null, uri:030_news/2020/first-post.html], [title:Overview, order:0, filename:null, uri:030_news/index.html]], manual:[[title:Introduction and Goals, order:010, filename:null, uri:010_manual/010_introduction_and_goals.html], [title:How to install docToolchain, order:020, filename:null, uri:010_manual/020_install.html], [title:Features, order:025, filename:null, uri:010_manual/025_features.html], [title:Further Reading, order:030, filename:null, uri:010_manual/030_further_reading.html], [title:Acknowledgements and Contributors, order:040, filename:null, uri:010_manual/040_contributors.html], [title:FAQ: Frequently asked Questions, order:050, filename:null, uri:010_manual/050_Frequently_asked_Questions.html], [title:Appendix A: Configuration, order:100, filename:null, uri:010_manual/100_config.html]], ADRs:[[title:null, order:-1, filename:null, uri:050_ADRs/ADR-2-anotherTest.html], [title:null, order:-1, filename:null, uri:050_ADRs/ADR-1-firstTest.html]], development:[[title:Development, order:08, filename:null, uri:025_development/08_development.html]], ea:[[title:null, order:-1, filename:null, uri:ea/readme.html], [title:null, order:-1, filename:null, uri:ea/UseCases.html], [title:null, order:-1, filename:null, uri:ea/issue2.html], [title:null, order:-1, filename:null, uri:ea/issue1.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_notes_UseCases.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_notes.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_links_issue2.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_links.html], [title:null, order:-1, filename:null, uri:ea/Architect_notes_issue2.html], [title:null, order:-1, filename:null, uri:ea/Architect_notes.html], [title:null, order:-1, filename:null, uri:ea/Activity_notes_issue1.html], [title:null, order:-1, filename:null, uri:ea/Activity_notes.html]], tutorial:[[title:Install docToolchain, order:010, filename:null, uri:020_tutorial/010_Install.html], [title:Install docToolchain, order:020, filename:null, uri:020_tutorial/020_arc42.html], [title:null, order:030, filename:null, uri:020_tutorial/030_generateHTML.html]], tasks:[[title:Overview of available Tasks, order:03, filename:null, uri:015_tasks/03_tasks.html], [title:collectIncludes, order:03, filename:null, uri:015_tasks/03_task_collectIncludes.html], [title:convertToDocx, order:03, filename:null, uri:015_tasks/03_task_convertToDocx.html], [title:convertToEpub, order:03, filename:null, uri:015_tasks/03_task_convertToEpub.html], [title:copyThemes, order:03, filename:null, uri:015_tasks/03_task_copy_themes.html], [title:createReferenceDoc, order:03, filename:null, uri:015_tasks/03_task_createReferenceDoc.html], [title:dependencyUpdates, order:03, filename:null, uri:015_tasks/03_task_dependencyUpdates.html], [title:downloadTemplate, order:03, filename:null, uri:015_tasks/03_task_downloadTemplate.html], [title:exportChangeLog, order:03, filename:null, uri:015_tasks/03_task_exportChangeLog.html], [title:exportContributors, order:03, filename:null, uri:015_tasks/03_task_exportContributors.html], [title:exportDrawIo, order:03, filename:null, uri:015_tasks/03_task_exportDrawIo.html], [title:exportEA, order:03, filename:null, uri:015_tasks/03_task_exportEA.html], [title:exportExcel, order:03, filename:null, uri:015_tasks/03_task_exportExcel.html], [title:exportJiraIssues, order:03, filename:null, uri:015_tasks/03_task_exportJiraIssues.html], [title:exportJiraSprintChangelogIssues, order:03, filename:null, uri:015_tasks/03_task_exportJiraSprintChangelog.html], [title:exportMarkdown, order:03, filename:null, uri:015_tasks/03_task_exportMarkdown.html], [title:exportMetrics, order:03, filename:null, uri:015_tasks/03_task_exportMetrics.html], [title:exportOpenAPI, order:03, filename:null, uri:015_tasks/03_task_exportOpenApi.html], [title:exportPPT, order:03, filename:null, uri:015_tasks/03_task_exportPPT.html], [title:exportVisio, order:03, filename:null, uri:015_tasks/03_task_exportVisio.html], [title:fixEncoding, order:03, filename:null, uri:015_tasks/03_task_fixencoding.html], [title:generateDeck, order:03, filename:null, uri:015_tasks/03_task_generateDeck.html], [title:generateDocbook, order:03, filename:null, uri:015_tasks/03_task_generateDocBook.html], [title:generateHTML, order:03, filename:null, uri:015_tasks/03_task_generateHTML.html], [title:generatePDF, order:03, filename:null, uri:015_tasks/03_task_generatePDF.html], [title:generateSite, order:03, filename:null, uri:015_tasks/03_task_generateSite.html], [title:htmlSanityCheck, order:03, filename:null, uri:015_tasks/03_task_htmlSanityCheck.html], [title:prependFilename, order:03, filename:null, uri:015_tasks/03_task_prependFilename.html], [title:previewSite, order:03, filename:null, uri:015_tasks/03_task_previewSite.html], [title:publishToConfluence, order:03, filename:null, uri:015_tasks/03_task_publishToConfluence.html]]]
@@ -136,7 +136,7 @@
             -->
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="030_news/index.html"><span>News</span></a>
+                <a class="nav-link " href="../030_news/index.html"><span>News</span></a>
             </li>
             <!--
             [news:[[title:Overview, order:0, filename:null, uri:030_news/index.html], [title:First Post, order:16079868, filename:null, uri:030_news/2020/first-post.html]], manual:[[title:Introduction and Goals, order:010, filename:null, uri:010_manual/010_introduction_and_goals.html], [title:How to install docToolchain, order:020, filename:null, uri:010_manual/020_install.html], [title:Features, order:025, filename:null, uri:010_manual/025_features.html], [title:Further Reading, order:030, filename:null, uri:010_manual/030_further_reading.html], [title:Acknowledgements and Contributors, order:040, filename:null, uri:010_manual/040_contributors.html], [title:FAQ: Frequently asked Questions, order:050, filename:null, uri:010_manual/050_Frequently_asked_Questions.html], [title:Appendix A: Configuration, order:100, filename:null, uri:010_manual/100_config.html]], ADRs:[[title:null, order:-1, filename:null, uri:050_ADRs/ADR-2-anotherTest.html], [title:null, order:-1, filename:null, uri:050_ADRs/ADR-1-firstTest.html]], development:[[title:Development, order:08, filename:null, uri:025_development/08_development.html]], ea:[[title:null, order:-1, filename:null, uri:ea/readme.html], [title:null, order:-1, filename:null, uri:ea/UseCases.html], [title:null, order:-1, filename:null, uri:ea/issue2.html], [title:null, order:-1, filename:null, uri:ea/issue1.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_notes_UseCases.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_notes.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_links_issue2.html], [title:null, order:-1, filename:null, uri:ea/Use_Cases_links.html], [title:null, order:-1, filename:null, uri:ea/Architect_notes_issue2.html], [title:null, order:-1, filename:null, uri:ea/Architect_notes.html], [title:null, order:-1, filename:null, uri:ea/Activity_notes_issue1.html], [title:null, order:-1, filename:null, uri:ea/Activity_notes.html]], tutorial:[[title:Install docToolchain, order:010, filename:null, uri:020_tutorial/010_Install.html], [title:Install docToolchain, order:020, filename:null, uri:020_tutorial/020_arc42.html], [title:null, order:030, filename:null, uri:020_tutorial/030_generateHTML.html]], tasks:[[title:Overview of available Tasks, order:03, filename:null, uri:015_tasks/03_tasks.html], [title:collectIncludes, order:03, filename:null, uri:015_tasks/03_task_collectIncludes.html], [title:convertToDocx, order:03, filename:null, uri:015_tasks/03_task_convertToDocx.html], [title:convertToEpub, order:03, filename:null, uri:015_tasks/03_task_convertToEpub.html], [title:copyThemes, order:03, filename:null, uri:015_tasks/03_task_copy_themes.html], [title:createReferenceDoc, order:03, filename:null, uri:015_tasks/03_task_createReferenceDoc.html], [title:dependencyUpdates, order:03, filename:null, uri:015_tasks/03_task_dependencyUpdates.html], [title:downloadTemplate, order:03, filename:null, uri:015_tasks/03_task_downloadTemplate.html], [title:exportChangeLog, order:03, filename:null, uri:015_tasks/03_task_exportChangeLog.html], [title:exportContributors, order:03, filename:null, uri:015_tasks/03_task_exportContributors.html], [title:exportDrawIo, order:03, filename:null, uri:015_tasks/03_task_exportDrawIo.html], [title:exportEA, order:03, filename:null, uri:015_tasks/03_task_exportEA.html], [title:exportExcel, order:03, filename:null, uri:015_tasks/03_task_exportExcel.html], [title:exportJiraIssues, order:03, filename:null, uri:015_tasks/03_task_exportJiraIssues.html], [title:exportJiraSprintChangelogIssues, order:03, filename:null, uri:015_tasks/03_task_exportJiraSprintChangelog.html], [title:exportMarkdown, order:03, filename:null, uri:015_tasks/03_task_exportMarkdown.html], [title:exportMetrics, order:03, filename:null, uri:015_tasks/03_task_exportMetrics.html], [title:exportOpenAPI, order:03, filename:null, uri:015_tasks/03_task_exportOpenApi.html], [title:exportPPT, order:03, filename:null, uri:015_tasks/03_task_exportPPT.html], [title:exportVisio, order:03, filename:null, uri:015_tasks/03_task_exportVisio.html], [title:fixEncoding, order:03, filename:null, uri:015_tasks/03_task_fixencoding.html], [title:generateDeck, order:03, filename:null, uri:015_tasks/03_task_generateDeck.html], [title:generateDocbook, order:03, filename:null, uri:015_tasks/03_task_generateDocBook.html], [title:generateHTML, order:03, filename:null, uri:015_tasks/03_task_generateHTML.html], [title:generatePDF, order:03, filename:null, uri:015_tasks/03_task_generatePDF.html], [title:generateSite, order:03, filename:null, uri:015_tasks/03_task_generateSite.html], [title:htmlSanityCheck, order:03, filename:null, uri:015_tasks/03_task_htmlSanityCheck.html], [title:prependFilename, order:03, filename:null, uri:015_tasks/03_task_prependFilename.html], [title:previewSite, order:03, filename:null, uri:015_tasks/03_task_previewSite.html], [title:publishToConfluence, order:03, filename:null, uri:015_tasks/03_task_publishToConfluence.html]]]
@@ -155,99 +155,436 @@
 
 </header>
 <div class="container-fluid td-outer">
-    <div class="td-main">
-        landingpage.gsp
-        <div class="row flex-xl-nowrap">
-    <main class="col-12 col-md-12 col-xl-12 pl-md-12" role="main">
-        <div class="bg-light p-5 rounded">
-            <h1>docToolchain</h1>
-            <p class="lead">
-                This Microsite contains the documentation for system X
-            </p>
-            <p>Insert an introduction here</p>
-            <p>This is the landing page of your project documentation.
-            It is plain HTML with twitter <a href="https://getbootstrap.com/">bootstrap</a> pre-installed to give you all the flexibility you need to create a nice and appealing landing page for your project.<br />
-                Use ist to describe to your customers the main benefits and features of your project to make them curious and read on.
-            </p>
-        </div>
-        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-            <div class="col">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-header">
-                        <h4 class="my-0 fw-normal">Multi-Repository-Builds</h4>
-                    </div>
-                    <div class="card-body">
-                        Just kidding.
-                        Since all your dev environments will already contain a git client, we didn't add another one.
-                        Just use Git to create your Multi-Repository-Builds as explained in our tutorial.
-                        
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-header">
-                        <h4 class="my-0 fw-normal">Landingpage</h4>
-                    </div>
-                    <div class="card-body">
-                        This is the front door of your project.
-                        Use it to tell all visitors what your project is all about and which great features it implements.
-                        To give you more power to do so, we've thrown in the well known twitter bootstrap to get you started.
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-header">
-                        <h4 class="my-0 fw-normal">Feature Three</h4>
-                    </div>
-                    <div class="card-body">
-                        Write a teaser for this feature here.
-                    </div>
-                </div>
-            </div>
-        </div>
+	<div class="td-main">
+		<div class="row flex-xl-nowrap">
+			<div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
+				<div class="td-sidebar__inner" id="td-sidebar-menu" >
+					
+        <form class="td-sidebar__search d-flex align-items-center d-lg-none">
 
-        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
-            <div class="col">
-                <div class="card mb-12 shadow-sm">
-                    <div class="card-header">
-                        <h4 class="my-0 fw-normal">Microsites</h4>
-                    </div>
-                    <div class="card-body">
-                        docToolchain now contains jBake as Static Site Generator which lets you create documentation microsites for your projects.
-                        This is such a huge feature that we have to explain it with some sub-features 😀
-                    </div>
-                </div>
-            </div>
-            <div class="col">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-header">
-                        <h4 class="my-0 fw-normal">Docsy-Theme</h4>
-                    </div>
-                    <div class="card-body">
-                        We've "stolen" the great Docsy-Theme from hugo and made it the default theme for docToolchain.
-                        Enjoy your docs with a nice and clear theme and easiyl customize it to make it your own!
-                    </div>
-                </div>
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-header">
-                        <h4 class="my-0 fw-normal">autobuildSite</h4>
-                    </div>
-                    <div class="card-body">
-                        If you want to, docToolchain automatically re-build the site locally, whenever the sources change.
-                        Quite convenient.
-                    </div>
-                </div>
-            </div>
-        </div>
-    </main>
+            <input aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+                   placeholder=" Search this site…" type="search">
 
+
+            <button aria-controls="td-docs-nav" aria-expanded="false"
+                    aria-label="Toggle section navigation" class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" data-target="#td-section-nav"
+                    data-toggle="collapse" type="button">
+            </button>
+        </form>
+
+        <nav class="collapse td-sidebar-nav" id="td-section-nav" >
+
+            <ul class="td-sidebar-nav__section pr-md-3">
+                <li class="td-sidebar-nav__section-title">
+                    <span class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Tasks</span>
+                </li>
+                <ul>
+                    <li class="collapse show" id="docs">
+                        <ul class="td-sidebar-nav__section pr-md-3">
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_tasks.html">Overview of available Tasks</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_collectIncludes.html">collectIncludes</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_convertToDocx.html">convertToDocx</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_convertToEpub.html">convertToEpub</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_copy_themes.html">copyThemes</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_createReferenceDoc.html">createReferenceDoc</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_dependencyUpdates.html">dependencyUpdates</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_downloadTemplate.html">downloadTemplate</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportChangeLog.html">exportChangeLog</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportContributors.html">exportContributors</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportDrawIo.html">exportDrawIo</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportEA.html">exportEA</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportExcel.html">exportExcel</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportJiraIssues.html">exportJiraIssues</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportJiraSprintChangelog.html">exportJiraSprintChangelogIssues</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportMarkdown.html">exportMarkdown</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportMetrics.html">exportMetrics</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../015_tasks/03_task_exportOpenApi.html">exportOpenAPI</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportPPT.html">exportPPT</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportVisio.html">exportVisio</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_fixencoding.html">fixEncoding</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateDeck.html">generateDeck</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateDocBook.html">generateDocbook</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateHTML.html">generateHTML</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generatePDF.html">generatePDF</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateSite.html">generateSite</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_htmlSanityCheck.html">htmlSanityCheck</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_prependFilename.html">prependFilename</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_previewSite.html">previewSite</a>
+                            </li>
+                            
+                            
+                            <li class="td-sidebar-nav__section-title">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_publishToConfluence.html">publishToConfluence</a>
+                            </li>
+                            
+                            <!--li class="td-sidebar-nav__section-title">
+                                <a  href="/docs/overview/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Overview</a>
+                            </li>
+                            <ul>
+                                <li class="collapse show">
+                                    <a class="td-sidebar-link td-sidebar-link__page " id="m-docsgetting-startedexample-page" href="/docs/getting-started/example-page/">Example Page</a>
+                                </li>
+                            </ul-->
+                        </ul>
+
+        </nav>
+
+				</div>
+			</div>
+			<div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+					
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/master/content/src/docs/015_tasks/03_task_exportOpenApi.adoc"
+           target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
+        <!--a href="https://github.com/google/docsy-example/new/master/content/en/docs/_index.md?filename=change-me.md&amp;value=---%0Atitle%3A+%22Long+Page+Title%22%0AlinkTitle%3A+%22Short+Nav+Title%22%0Aweight%3A+100%0Adescription%3A+%3E-%0A+++++Page+description+for+heading+and+indexes.%0A---%0A%0A%23%23+Heading%0A%0AEdit+this+template+to+create+your+new+page.%0A%0A%2A+Give+it+a+good+name%2C+ending+in+%60.md%60+-+e.g.+%60getting-started.md%60%0A%2A+Edit+the+%22front+matter%22+section+at+the+top+of+the+page+%28weight+controls+how+its+ordered+amongst+other+pages+in+the+same+directory%3B+lowest+number+first%29.%0A%2A+Add+a+good+commit+message+at+the+bottom+of+the+page+%28%3C80+characters%3B+use+the+extended+description+field+for+more+detail%29.%0A%2A+Create+a+new+branch+so+you+can+preview+your+new+file+and+request+a+review+via+Pull+Request.%0A"
+           target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a-->
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportOpenAPI%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_exportOpenApi.adoc" target="_blank"><i
+                class="fab fa-github fa-fw"></i> Create an issue</a>
+        <!--a href="https://github.com/google/docsy/issues/new" target="_blank"><i
+                class="fas fa-tasks fa-fw"></i> Create project issue</a-->
+        <!--a href="https://example.docsy.dev/docs/_print/" id="print"><i class="fa fa-print fa-fw"></i> Print
+        entire section</a-->
+
+        <hr />
+        <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_exportopenapi">exportOpenAPI</a>
+<ul class="sectlevel2">
+<li><a href="#_configuration">Configuration</a></li>
+<li><a href="#_source">Source</a></li>
+</ul>
+</li>
+</ul>
 </div>
 
+
+				</div>
+			</div>
+			<main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+				    <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+        <ol class="breadcrumb spb-1">
+            <!--li aria-current="page" class="breadcrumb-item active">
+                <a href="https://example.docsy.dev/docs/">Documentation</a>
+            </li-->
+
+        </ol>
+    </nav>
+
+
+    <div class="td-content">
+        <p>
+            
+<div class="sect1">
+<h2 id="_exportopenapi">exportOpenAPI</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?d=identicon" alt="" width="32" height="32" title=""></span></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>1 minute to read</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This task exports OpenAPI specification defined in a yaml file to AsciiDoc document.
+Currently it relies on <a href="https://github.com/OpenAPITools/openapi-generator">OpenAPI Generator (v4.3.1)</a> and its <a href="https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin">gradle plugin</a>.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/manual/openAPI.png" alt="openAPI">
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration">Configuration</h3>
+<div class="listingblock">
+<div class="title">Config.groovy</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">// Configuration for OpenAPI related task
+openApi = [:]
+
+// 'specFile' is the name of OpenAPI specification yaml file. Tool expects this file inside working dir (as a filename or relative path with filename)
+// 'infoUrl' and 'infoEmail' are specification metadata about further info related to the API. By default this values would be filled by openapi-generator plugin placeholders
+//
+
+openApi.with {
+    specFile = 'src/docs/petstore-v2.0.yaml' // i.e. 'petstore.yaml', 'src/doc/petstore.yaml'
+    infoUrl = 'https://my-api.company.com'
+    infoEmail = 'info@company.com'
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_source">Source</h3>
+<div class="listingblock">
+<div class="title">exportOpenApi.gradle</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">task exportOpenApi (
+        type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask,
+        group: 'docToolchain',
+        description: 'exports OpenAPI specification to the asciidoc file') {
+
+    if (!specFile) {
+        logger.info("\n---&gt; OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)")
+        return
+    } else {
+        logger.info("Found OpenAPI specification in Config.groovy")
+    }
+
+    outputs.upToDateWhen { false }
+    outputs.cacheIf { false }
+    generatorName = 'asciidoc'
+    outputDir = "${targetDir}/OpenAPI".toString()
+    inputSpec = "${docDir}/${specFile}" // plugin is not able to find file if inputPath is defined as '.'
+
+    logger.debug("\n=====================\nProject Config:\n=====================")
+    logger.debug("Docdir: ${docDir}")
+    logger.debug("Target: ${targetDir}")
+    logger.info("\n=====================\nOpenAPI Config:\n=====================")
+    logger.info("Specification file: ${specFile}")
+    logger.info("inputSpec: ${inputSpec}")
+    logger.info("outputDir: ${outputDir}\n")
+
+    additionalProperties = [
+        infoEmail:"${config.openApi.infoEmail}",
+        infoUrl:"${config.openApi.infoUrl}"
+    ]
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+        </p>
+
+        <style>
+.feedback--answer {
+    display: inline-block;
+}
+
+.feedback--answer-no {
+    margin-left: 1em;
+}
+
+.feedback--response {
+    display: none;
+    margin-top: 1em;
+}
+
+.feedback--response__visible {
+    display: block;
+}
+</style>
+<div class="d-print-none">
+    <h2 class="feedback--title">Feedback</h2>
+    <p class="feedback--question">Was this page helpful?</p>
+    <button class="feedback--answer feedback--answer-yes">Yes</button>
+    <button class="feedback--answer feedback--answer-no">No</button>
+    <p class="feedback--response feedback--response-yes">
+        Glad to hear it! Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us
+    how we can improve</a>.
+    </p>
+    <p class="feedback--response feedback--response-no">
+        Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell
+    us how we can improve</a>.
+    </p>
+</div>
+<script>
+    const yesButton = document.querySelector('.feedback--answer-yes');
+    const noButton = document.querySelector('.feedback--answer-no');
+    const yesResponse = document.querySelector('.feedback--response-yes');
+    const noResponse = document.querySelector('.feedback--response-no');
+    const disableButtons = () => {
+        yesButton.disabled = true;
+        noButton.disabled = true;
+    };
+    const sendFeedback = (value) => {
+        if (typeof ga !== 'function') return;
+        const args = {
+            command: 'send',
+            hitType: 'event',
+            category: 'Helpful',
+            action: 'click',
+            label: window.location.pathname,
+            value: value
+        };
+        ga(args.command, args.hitType, args.category, args.action, args.label, args.value);
+    };
+    yesButton.addEventListener('click', () => {
+        yesResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(1);
+    });
+    noButton.addEventListener('click', () => {
+        noResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(0);
+    });
+</script>
+
+
+        <br>
+
+        <!--div class="text-muted mt-5 pt-3 border-top">Last modified July 3, 2019: <a
+                href="https://github.com/google/docsy-example/commit/d6aa89c8b24089d7e6741030864eff209465e896">Added
+            links to user guide repo (d6aa89c)</a>
+        </div-->
     </div>
 
-    
+
+			</main>
+
+		</div>
+	</div>
+
+
+	
     <!--footer class="footer mt-auto py-3 bg-light">
         <div class="container">
             <span class="text-muted">&copy; 2020 | based on <a href="https://arc42.org">arc42 7.0</a> | mixed with <a href="http://getbootstrap.com/">Bootstrap v5.0.0-beta</a> | Baked with <a href="http://jbake.org">JBake v2.6.5</a></span>
@@ -333,9 +670,9 @@
 
     <script crossorigin="anonymous"
             integrity="sha256-tfwbKdJGWDWEQlS9TYBHOOryTAzsUwCbTGiZmJvlWkc=" src="/js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
-    <script src="js/jquery-1.11.1.min.js"></script>
-    <script src="js/bootstrap.min.js"></script>
-    <script src="js/prettify.js"></script>
+    <script src="../js/jquery-1.11.1.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+    <script src="../js/prettify.js"></script>
 
 
 </body>

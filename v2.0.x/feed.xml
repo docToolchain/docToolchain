@@ -1,0 +1,40 @@
+<?xml version="1.0"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>JBake</title>
+    <link>https://localhost</link>
+    <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
+    <description>JBake Bootstrap Template</description>
+    <language>en-gb</language>
+    <pubDate>Sat, 18 Sep 2021 14:41:42 +0200</pubDate>
+    <lastBuildDate>Sat, 18 Sep 2021 14:41:42 +0200</lastBuildDate>
+
+    
+    <item>
+      <title>First Post</title>
+      <link>https://localhost/030_news/2020/first-post.html</link>
+      <pubDate>Tue, 15 Dec 2020 00:00:00 +0100</pubDate>
+      <guid isPermaLink="false">030_news/2020/first-post.html</guid>
+      <description>
+      &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
+&lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
+&lt;ul class=&quot;sectlevel0&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_first_post&quot;&gt;First Post&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- endtoc --&gt;
+&lt;h1 id=&quot;_first_post&quot; class=&quot;sect0&quot;&gt;First Post&lt;/h1&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This is just a demonstration on how to use the blog.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;imageblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;img src=&quot;/images/diag-674e329d9b7ab6fc6f92f6757ddcd8d6.png&quot; alt=&quot;diag 674e329d9b7ab6fc6f92f6757ddcd8d6&quot; width=&quot;268&quot; height=&quot;153&quot;&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	  </description>
+    </item>
+    
+
+  </channel> 
+</rss>
