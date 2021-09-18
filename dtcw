@@ -9,7 +9,7 @@
 #...
 
 MAIN_CONFIG_FILE=docToolchainConfig.groovy
-VERSION=2.0.0-dev
+VERSION=2.0.0-rc15
 DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/archive/v${VERSION}.zip
 
 
@@ -132,7 +132,7 @@ Examples:
 
   Publish HTML to Confluence:
     ./dtcw publishToConfluence
-    
+
   get more documentation at https://doctoolchain.github.io
 '
     exit 1
