@@ -1,0 +1,185 @@
+//tag::install[]
+
+:filename: manual/02_install.adoc
+
+include::../_blocks.adoc[]
+
+= How to install docToolchain
+
+include::../_feedback.adoc[]
+
+== Get the Wrapper
+
+The basic strategy on how to install docToolchain has changed with V2.x.
+You now install a small wrapper scripts to your project which does the rest for you:
+
+.Linux / WSL2 with bash
+[role='primary']
+--
+[source, bash]
+----
+cd <your project>
+wget doctoolchain.github.io/dtcw
+chmod +x dtcw
+----
+
+if you don't have `wget` installed, you can also use `curl`:
+[source, bash]
+----
+cd <your project>
+curl -Lo dtcw doctoolchain.github.io/dtcw
+chmod +x dtcw
+----
+
+--
+
+.Windows with Powershell
+[role='secondary']
+--
+[source, powershell]
+----
+cd <your project>
+wget doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1
+----
+--
+
+.Windows with cmd.exe
+[role='secondary']
+--
+[source, cmd]
+----
+cd <your project>
+curl -Lo dtcw.bat doctoolchain.github.io/dtcw.bat
+----
+
+NOTE: `dtcw.bat` wraps the `dtcw.ps1` script and executes it in powershell. This might be easier to use if you haven't yet configured your powershell as a developer.
+
+--
+
+NOTE: In order to support development for your project on both, Linux and Windows, it makes sense to download all three scripts to your project.
+
+NOTE: if you use `cmd.exe`, please follow the instructions for powershell in the manual. We will not further differentiate between both.
+
+The wrapper helps you in several ways:
+
+- it ensures that everyone who uses your repository, uses the same version of docToolchain
+- it keeps all the technology out of your repository
+- it wraps all your commands and directs them to your local docToolchain installation
+- even more, it checks the way you have docToolchain installed and if it hasn't been installed, it will install it for you via direct download or docker
+
+== run a first command
+
+To get started, you can run `tasks` as a first command:
+
+.Linux / WSL2 with bash
+[role='primary']
+--
+[source, bash]
+----
+./dtcw tasks --group=doctoolchain
+----
+--
+
+.Windows with Powershell
+[role='secondary']
+--
+[source, powershell]
+----
+./dtcw.ps1 tasks --group=doctoolchain
+----
+--
+
+This command will show you all tasks available through docToolchain, but first it will make sure that docToolchain is installed:
+
+* it checks for a configuration file and creates a default one if none is available.
+* it prefers a local installation
+* if docker is available and no local installation, it will use docker. The download of the images might take a while when run for the first time
+* if docker is not available, it will download and install docToolchain to your home folder
+** it will then run a gradle build through the gradle wrapper. This will download and isntall gradle when run for the first time.
+** the gradle build will also fetch some dependencies. This will also take some time when run for the first time.
+
+As you can see, the installation is an incremental process and will take some time because of additional downloads.
+After the first few commands, you will have all the needed dependencies installed and things will be faster.
+
+//end::install[]
+
+== Existing documents
+
+If you already have some existing documents in AsciiDoc format in your project, you need to tell docToolchain where it can find these documents.
+To do so, take a look at the created `docToolchainConfig.groovy` and update it.
+
+== arc42 from scratch
+
+If you don't have existing documents yet, or if you need a fresh start, you can get the https://arc42.org[arc42] template in AsciiDoc format.
+
+Run the following command to ask docToolchain to download the template of your choice:
+
+.Linux
+[.primary]
+--
+[source,bash]
+----
+./dtcw downloadTemplate
+----
+--
+
+.Windows
+[.secondary]
+--
+[source,powershell]
+----
+./dtcw.ps1 downloadTemplate
+----
+--
+
+== Build
+
+By now, docToolchain is installed in some way, the docToolchain wrapper `dtcw` resides in your project folder and the arc42 template is installed.
+Now let's render it as HTML and PDF.
+
+should be installed as command line tool and the path to its `bin` folder should be on your path.
+If you now switch to your freshly initialized <newDocDir>, you should be able to execute the following commands:
+
+.Linux
+[source,bash]
+----
+doctoolchain <docDir> generateHTML
+doctoolchain <docDir> generatePDF
+----
+
+.Windows
+[source]
+----
+doctoolchain.bat <docDir> generateHTML
+doctoolchain.bat <docDir> generatePDF
+----
+
+<docDir> may be relative, e.g. ".", or absolute.
+
+As a result, you will see the progress of your build together with some warnings which you can just ignore for the moment.
+
+The first build generated some files within the `<docDir>/build`:
+
+[source]
+----
+build
+|-- html5
+|   |-- arc42-template.html
+|   `-- images
+|       |-- 05_building_blocks-EN.png
+|       |-- 08-Crosscutting-Concepts-Structure-EN.png
+|       `-- arc42-logo.png
+`-- pdf
+    |-- arc42-template.pdf
+    `-- images
+        |-- 05_building_blocks-EN.png
+        |-- 08-Crosscutting-Concepts-Structure-EN.png
+        `-- arc42-logo.png
+----
+
+*Congratulations!* If you see the same folder structure, you just managed to render the standard arc42 template as html and pdf!
+
+If you didn't get the right output, please raise an issue on https://github.com/docToolchain/docToolchain/issues[github]
+
+TIP: Blog-Posts: https://rdmueller.github.io/enterprise-edition/[Behind the great Firewall], https://rdmueller.github.io/enterprise-edition2/[Enterprise AsciiDoctor]
+

@@ -79,7 +79,13 @@ apply from: 'scripts/downloadTemplate.gradle'
 apply from: 'scripts/generateSite.gradle'
 apply from: 'scripts/copyThemes.gradle'
 
+task autobuildSite(
+    group: 'docToolchain',
+    description: 'linux: automatically re-build the static site every time a change in src/docs is detected') {
+    // this is a stub ony to show some help for the "tasks" task
+    // the real implementation can be found in /bin/doctoolchain
 
+}
 task prepareDist() {
     doLast {
         def distFolder = "dist/docToolchain-"+dtc_version
