@@ -8,10 +8,10 @@ cp src/docs/images/ready.png build/microsite/output/images/status.png
 #eval $COMMAND
 
 #wait for changes and execute
-while [[ 1=1 ]] ; do
+while true ; do
   watch --no-title --chgexit "ls -lR ${DIR_TO_WATCH} | sha1sum"
   cp src/docs/images/building.png build/microsite/output/images/status.png
-  eval $COMMAND
+  eval "$COMMAND"
   cp src/docs/images/ready.png build/microsite/output/images/status.png
   sleep 6
 done
