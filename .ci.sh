@@ -79,7 +79,11 @@ create_doc () {
   echo "#        Create documentation              #"
   echo "#                                          #"
   echo "############################################"
-  ./gradlew exportMarkdown exportChangeLog exportContributors generateHTML htmlSanityCheck --stacktrace && ./copyDocs.sh
+  if [ "$TRAVIS_BRANCH" == "ng" ] || [ "$TRAVIS_BRANCH" == "main-2.x" ] ; then
+    ./gradlew exportMarkdown exportChangeLog exportContributors generateSite htmlSanityCheck --stacktrace && ./copyDocs.sh
+  else
+    ./gradlew exportMarkdown exportChangeLog exportContributors generateHTML htmlSanityCheck --stacktrace && ./copyDocs.sh
+  fi
 }
 
 publish_doc () {
@@ -111,9 +115,9 @@ publish_doc () {
       #go into directory and copy data we're interested in to that directory
       cd gh-pages
       rm -rf v2.0.x/*
-      cp -Rf "$TRAVIS_BUILD_DIR"/docs/* v2.0.x/.
+      cp -Rf "$TRAVIS_BUILD_DIR"/microsite/output/* v2.0.x/.
     fi
-    
+
     #add, commit and push files
     git add -f .
     git commit -m "Travis build $TRAVIS_BUILD_NUMBER pushed to gh-pages"
