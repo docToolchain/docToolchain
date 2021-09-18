@@ -84,14 +84,14 @@
 
     <script crossorigin="anonymous"
             integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
-            src="/js/popper.min.js"></script>
+            src="${content.rootpath}/js/popper.min.js"></script>
     <script crossorigin="anonymous"
             integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy"
-            src="/js/bootstrap.min.js"></script>
+            src="${content.rootpath}/js/bootstrap.min.js"></script>
 
 
     <script crossorigin="anonymous"
-            integrity="sha256-tfwbKdJGWDWEQlS9TYBHOOryTAzsUwCbTGiZmJvlWkc=" src="/js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
+            integrity="sha256-tfwbKdJGWDWEQlS9TYBHOOryTAzsUwCbTGiZmJvlWkc=" src="${content.rootpath}/js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
     <script src="${content.rootpath}js/jquery-1.11.1.min.js"></script>
     <script src="${content.rootpath}js/bootstrap.min.js"></script>
     <script src="${content.rootpath}js/prettify.js"></script>
