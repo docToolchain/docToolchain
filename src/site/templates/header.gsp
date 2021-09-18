@@ -21,7 +21,7 @@
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title><%if (content.title) {%>${content.title}<% } else { %>JBake<% }%></title>
+  <title><%if (content.title) {%>${content.title}<% } else { %>config.site_title<% }%></title>
   <meta content="Documentation" property="og:title">
   <meta content="A Docsy example site" property="og:description">
   <meta content="website" property="og:type">

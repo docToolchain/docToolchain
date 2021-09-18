@@ -80,6 +80,8 @@ microsite.with {
     footerSlack = ''
     // general text for the footer
     footerText = '<small class="text-white">build with docToolchain and jBake <br /> theme: docsy</small>'
+    // site title if no other title is given
+    title = 'docToolchain'
 
     /** end:microsite **/
 }
