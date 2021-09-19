@@ -94,10 +94,14 @@ create_doc () {
     echo ">>> exportChangelog"
     ./dtcw local exportChangeLog
     echo ">>> exportContributors"
-    ./dtcw local exportContributors --info
+    ./dtcw local exportContributors
     echo ">>> generateSite"
     ./dtcw local generateSite --stacktrace
-    ./copyDocs.sh
+    [ -d docs ] || mkdir docs
+    cp -r build/microsite/output/. docs/.
+#    [ -d  docs/htmlchecks ] || mkdir docs/htmlchecks
+#    cp -r build/docs/report/htmlchecks/. docs/htmlchecks/.
+
   else
     ./gradlew exportMarkdown exportChangeLog exportContributors generateHTML htmlSanityCheck --stacktrace && ./copyDocs.sh
   fi
