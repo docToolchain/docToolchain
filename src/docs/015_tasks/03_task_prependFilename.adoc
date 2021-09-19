@@ -1,4 +1,4 @@
-:filename: manual/tasks/03_task_prependFilename.adoc
+:filename: 015_tasks/03_task_prependFilename.adoc
 include::_config.adoc[]
 
 = prependFilename
@@ -12,7 +12,7 @@ It will simply get the name of the master file and has no chance to get his own 
 
 This task simply crawls through all AsciiDoc files and prepends the name of the current file like this:
 
-    :filename: manual/tasks/03_task_prependFilename.adoc
+    :filename: 015_tasks/03_task_prependFilename.adoc
 
 This way, each file can get its own file name.
 This enables features like the inclusion of file contributors (see exportContributors-task).

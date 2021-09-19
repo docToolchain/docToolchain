@@ -1,4 +1,4 @@
-:filename: manual/tasks/03_task_generateSite.adoc
+:filename: 015_tasks/03_task_generateSite.adoc
 include::_config.adoc[]
 
 [[task_generatesite]]
@@ -29,7 +29,7 @@ In order to include a page in the microsite, add a meta-data header to it.
 :jbake-order: 4
 :jbake-type: page_toc
 :jbake-status: published
-:filename: manual/tasks/03_task_generateSite.adoc
+:filename: 015_tasks/03_task_generateSite.adoc
 ifndef::immagesdir[:imagesdir: ../../images]
 
 :toc:
