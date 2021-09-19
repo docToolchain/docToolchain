@@ -137,8 +137,8 @@ publish_doc () {
 
 cleaning
 dependency_info
-unit_tests
-integration_tests
+#unit_tests
+#integration_tests
 check_for_clean_worktree
 create_doc
 publish_doc
