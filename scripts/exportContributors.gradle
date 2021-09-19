@@ -16,6 +16,7 @@ task exportContributors(
         }
         File sourceFolder = new File("${docDir}/${inputPath}")
         println "sourceFolder: " + sourceFolder.canonicalPath
+        println "targetFolder: " + targetDir.canonicalPath +"/contributors"
         sourceFolder.traverse(type: FILES) { file ->
             if (file.name ==~ '^.*[.](ad|adoc|asciidoc)$') {
                 def currentFileName = file.canonicalPath.replace("\\", "\\\\")

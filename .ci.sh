@@ -87,10 +87,15 @@ create_doc () {
   echo "#        Create documentation              #"
   echo "#                                          #"
   echo "############################################"
+  echo "TRAVIS_BRANCH=$TRAVIS_BRANCH"
   if [ "$TRAVIS_BRANCH" == "ng" ] || [ "$TRAVIS_BRANCH" == "main-2.x" ] ; then
+    echo ">>> exportMarkdown"
     ./dtcw local exportMarkdown
+    echo ">>> exportChangelog"
     ./dtcw local exportChangeLog
-    ./dtcw local exportContributors
+    echo ">>> exportContributors"
+    ./dtcw local exportContributors --info
+    echo ">>> generateSite"
     ./dtcw local generateSite --stacktrace
     ./copyDocs.sh
   else
