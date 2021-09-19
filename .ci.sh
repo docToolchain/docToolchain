@@ -104,6 +104,7 @@ create_doc () {
 }
 
 publish_doc () {
+  echo "publish_doc"
   # Take from and modified http://sleepycoders.blogspot.de/2013/03/sharing-travis-ci-generated-files.html
   # ensure publishing doesn't run on pull requests, only when token is available and only on JDK11 matrix build and on master or a travisci test branch
   if [ "$TRAVIS_PULL_REQUEST" == "false" ] && [ -n "$GH_TOKEN" ] && [ "$TRAVIS_JDK_VERSION" == "openjdk11" ] && { [ "$TRAVIS_BRANCH" == "travisci" ] || [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "ng" ] || [ "$TRAVIS_BRANCH" == "main-1.x" ] || [ "$TRAVIS_BRANCH" == "main-2.x" ]; } ; then
