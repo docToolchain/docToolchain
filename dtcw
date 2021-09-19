@@ -8,6 +8,8 @@
 #export DTC_TEMPLATE2=https://....zip
 #...
 
+DTC_HEADLESS=true
+
 MAIN_CONFIG_FILE=docToolchainConfig.groovy
 VERSION=2.0.0-rc15
 DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/archive/v${VERSION}.zip
@@ -44,6 +46,37 @@ java_help_and_die() {
     echo ""
     echo "make sure that your java version is between 8 and 14"
     exit 1
+
+}
+install_local() {
+    #check that pre-requisites are met
+    if !(command -v wget &> /dev/null); then
+      if !(command -v curl &> /dev/null); then
+        echo "you need either wget or curl installed"
+        echo "please install it and re-run the command"
+        exit 1
+      fi
+    fi
+    if !(command -v unzip &> /dev/null); then
+        echo "you need unzip installed"
+        echo "please install it and re-run the command"
+        exit 1
+    fi
+    mkdir $HOME/.doctoolchain
+    wgetversion=$(wget --version | head -1 | sed -E 's/^.* 1.([0-9.]+) .*$/\1/')
+    if command -v curl &> /dev/null; then
+      curl -Lo $HOME/.doctoolchain/source.zip $DISTRIBUTION_URL
+    else
+      if (( $wgetversion > 13 )); then
+        wget $DISTRIBUTION_URL -O $HOME/.doctoolchain/source.zip
+      else
+        echo "you need curl or wget (version >= 1.14) installed"
+        echo "please install or update and re-run the command"
+        exit 1
+      fi
+    fi
+    unzip $HOME/.doctoolchain/source.zip -d $HOME/.doctoolchain/.
+    command="$HOME/.doctoolchain/docToolchain-${VERSION}/bin/doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS"
 
 }
 if command -v java &> /dev/null; then
@@ -164,50 +197,28 @@ else
               exit
           else
               echo "sdkman not found"
-              echo "Do you wish to install doctoolchain to $HOME/.doctoolchain?"
-              select yn in "Yes" "No"; do
-                case $yn in
-                  Yes ) echo "installing doctoolchain";
-                        #check that pre-requisites are met
-                        if !(command -v wget &> /dev/null); then
-                          if !(command -v curl &> /dev/null); then
-                            echo "you need either wget or curl installed"
-                            echo "please install it and re-run the command"
+              if [ "$DTC_HEADLESS" == true ] ; then
+                  # just download
+                  install_local
+              else
+                  echo "Do you wish to install doctoolchain to $HOME/.doctoolchain?"
+                  select yn in "Yes" "No"; do
+                    case $yn in
+                      Yes ) echo "installing doctoolchain";
+                            install_local
+                            break
+                        ;;
+                      No )
+                            echo "you need docToolchain as CLI-Tool installed or docker."
+                            echo "to install docToolchain as CLI-Tool, please install"
+                            echo "sdkman and re-run this command."
+                            echo "https://sdkman.io/install"
+                            echo "$ curl -s "https://get.sdkman.io" | bash"
                             exit 1
-                          fi
-                        fi
-                        if !(command -v unzip &> /dev/null); then
-                            echo "you need unzip installed"
-                            echo "please install it and re-run the command"
-                            exit 1
-                        fi
-                        mkdir $HOME/.doctoolchain
-                        wgetversion=$(wget --version | head -1 | sed -E 's/^.* 1.([0-9.]+) .*$/\1/')
-                        if command -v curl &> /dev/null; then
-                          curl -Lo $HOME/.doctoolchain/source.zip $DISTRIBUTION_URL
-                        else
-                          if (( $wgetversion > 13 )); then
-                            wget $DISTRIBUTION_URL -O $HOME/.doctoolchain/source.zip
-                          else
-                            echo "you need curl or wget (version >= 1.14) installed"
-                            echo "please install or update and re-run the command"
-                            exit 1
-                          fi
-                        fi
-                        unzip $HOME/.doctoolchain/source.zip -d $HOME/.doctoolchain/.
-                        command="$HOME/.doctoolchain/docToolchain-${VERSION}/bin/doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS"
-                        break
-                    ;;
-                  No )
-                        echo "you need docToolchain as CLI-Tool installed or docker."
-                        echo "to install docToolchain as CLI-Tool, please install"
-                        echo "sdkman and re-run this command."
-                        echo "https://sdkman.io/install"
-                        echo "$ curl -s "https://get.sdkman.io" | bash"
-                        exit 1
-                    ;;
-                esac
-              done
+                        ;;
+                    esac
+                  done
+             fi
           fi
        fi
     fi
