@@ -17,22 +17,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/issue2.html</loc>
-    	<lastmod>2021-09-19</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/issue1.html</loc>
-    	<lastmod>2021-09-19</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
-    	<lastmod>2021-09-19</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
     	<lastmod>2021-09-19</lastmod>
     </url>
 
@@ -43,6 +28,31 @@
 
     <url>
     	<loc>https://localhost/ea/Architect_notes_issue2.html</loc>
+    	<lastmod>2021-09-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/issue2.html</loc>
+    	<lastmod>2021-09-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
+    	<lastmod>2021-09-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
+    	<lastmod>2021-09-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
+    	<lastmod>2021-09-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
     	<lastmod>2021-09-19</lastmod>
     </url>
 
@@ -62,27 +72,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
-    	<lastmod>2021-09-19</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
-    	<lastmod>2021-09-19</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/010_manual/050_Frequently_asked_Questions.html</loc>
-    	<lastmod>2021-09-19</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/010_manual/025_features.html</loc>
     	<lastmod>2021-09-19</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/040_contributors.html</loc>
+    	<loc>https://localhost/010_manual/050_Frequently_asked_Questions.html</loc>
     	<lastmod>2021-09-19</lastmod>
     </url>
 
@@ -97,12 +92,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/020_install.html</loc>
+    	<loc>https://localhost/010_manual/040_contributors.html</loc>
     	<lastmod>2021-09-19</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/010_manual/030_further_reading.html</loc>
+    	<lastmod>2021-09-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/010_manual/020_install.html</loc>
     	<lastmod>2021-09-19</lastmod>
     </url>
 
@@ -162,17 +162,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_generateSite.html</loc>
+    	<lastmod>2021-09-19</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_generateHTML.html</loc>
     	<lastmod>2021-09-19</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportContributors.html</loc>
-    	<lastmod>2021-09-19</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_generateSite.html</loc>
     	<lastmod>2021-09-19</lastmod>
     </url>
 
@@ -207,22 +207,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
-    	<lastmod>2021-09-19</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportMetrics.html</loc>
-    	<lastmod>2021-09-19</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
-    	<lastmod>2021-09-19</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_createReferenceDoc.html</loc>
     	<lastmod>2021-09-19</lastmod>
     </url>
 
@@ -237,7 +222,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
+    	<lastmod>2021-09-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportMetrics.html</loc>
+    	<lastmod>2021-09-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_createReferenceDoc.html</loc>
     	<lastmod>2021-09-19</lastmod>
     </url>
 
@@ -247,12 +242,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_collectIncludes.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
     	<lastmod>2021-09-19</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_collectIncludes.html</loc>
     	<lastmod>2021-09-19</lastmod>
     </url>
 
@@ -268,6 +263,11 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportMarkdown.html</loc>
+    	<lastmod>2021-09-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
     	<lastmod>2021-09-19</lastmod>
     </url>
 
