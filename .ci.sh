@@ -137,7 +137,7 @@ publish_doc () {
       #go into directory and copy data we're interested in to that directory
       cd gh-pages
       rm -rf v2.0.x/*
-      cp -Rf "$TRAVIS_BUILD_DIR"/microsite/output/* v2.0.x/.
+      cp -Rf "$TRAVIS_BUILD_DIR"/build/microsite/output/* v2.0.x/.
     fi
 
     #add, commit and push files
