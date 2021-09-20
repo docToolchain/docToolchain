@@ -12,7 +12,7 @@ text = content.body
 %>
 {
     "id": $i,
-    "uri": "${content.rootpath}${content.uri}",
+    "uri": "${content.uri}",
     "menu": "${content.menu}",
     "title": "${content.title}",
     "text": "${text}"

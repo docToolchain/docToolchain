@@ -17,7 +17,7 @@ function dosearch(element) {
         var lastTitle = ""
         results.forEach(function (it) {
             var doc = documents[it.ref];
-            output += "<h3><a href='" + doc.uri + "#:~:text=" + element.value + "'>" + doc.title + "</a></h3>";
+            output += "<h4><a href='" + doc.uri + "#:~:text=" + element.value + "'>" + doc.title + "</a></h4>";
             for( var field in it.matchData.metadata) {
                 var matches = it.matchData.metadata[field];
                 if (matches['text']) {
