@@ -305,7 +305,7 @@ ${color 'green', 'for you?'}\n""",
 }
 task previewSite(
     group: 'docToolchain',
-    dependsOn: [generateSite],
+    dependsOn: [],
     description: 'start a little webserver to preview your microsite',
 ) {
 
