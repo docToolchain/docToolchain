@@ -16,17 +16,23 @@
     display: block;
 }
 </style>
+<%
+    //let's build some urls.
+    //what's the correct source file name with path?
+    def sourceFileName = content?.uri?.replaceAll("[.]"+content.outfilesuffix[1..-1],content.docfilesuffix)
+    def subject = java.net.URLEncoder.encode("Docs: Feedback for '${content?.title}'", "UTF-8")
+%>
 <div class="d-print-none">
     <h2 class="feedback--title">Feedback</h2>
     <p class="feedback--question">Was this page helpful?</p>
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell us
+        Glad to hear it! Please <a href="${config.site_issueUrl}?title=${subject}%20👍&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:${sourceFileName}">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/USERNAME/REPOSITORY/issues/new">tell
+        Sorry to hear that. Please <a href="${config.site_issueUrl}?title=${subject}%20👎&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:${sourceFileName}">tell
     us how we can improve</a>.
     </p>
 </div>
