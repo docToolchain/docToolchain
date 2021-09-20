@@ -90,9 +90,11 @@
   #td-section-nav {
     max-height: calc(100vh - 4rem);
     font-size: smaller;
+    line-hight: 1.1;
   }
   .td-page-meta {
       font-size: smaller;
+      line-hight: 1.1;
   }
   #td-section-nav ul.td-sidebar-nav__section  {
     padding-left:0px;
