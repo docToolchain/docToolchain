@@ -20,8 +20,11 @@
             </div>
             <main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
                 <%
-                    def splitBody = content.body.split("(?ms)<!-- endtoc -->", 2)
-                    out << splitBody[1]
+                    def splitBody = content.body
+                    if (splitBody.contains("<!-- endtoc -->")) {
+                        splitBody = splitBody.split("(?ms)<!-- endtoc -->", 2)
+                    }
+                    out << splitBody
                 %>
 
                 <%

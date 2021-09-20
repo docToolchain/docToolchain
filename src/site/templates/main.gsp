@@ -11,8 +11,11 @@
     <div class="td-content">
         <p>
             <%
-                def splitBody = content.body.split("(?ms)<!-- endtoc -->", 2)
-                out << splitBody[1]
+                def splitBody = content.body
+                if (splitBody.contains("<!-- endtoc -->")) {
+                    splitBody = splitBody.split("(?ms)<!-- endtoc -->", 2)[1]
+                }
+                out << splitBody
             %>
         </p>
 

@@ -2,9 +2,9 @@
     def menu = content.menu[content['jbake-menu']]
 
 %>
-        <form class="td-sidebar__search d-flex align-items-center d-lg-none">
+        <form class="td-sidebar__search d-flex align-items-center d-lg-none" action="${content.rootpath}search.html">
 
-            <input aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+            <input aria-label="Search this site…" name="q" autocomplete="off" class="form-control td-search-input"
                    placeholder=" Search this site…" type="search">
 
 

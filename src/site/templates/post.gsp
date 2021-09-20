@@ -22,8 +22,11 @@
 				<p><em>${new java.text.SimpleDateFormat("dd MMMM yyyy", Locale.ENGLISH).format(content.date)}, ${content.author?:''}</em></p>
 				<p>
                     <%
-                        def splitBody = content.body.split("(?ms)<!-- endtoc -->", 2)
-                        out << splitBody[1]
+                        def splitBody = content.body
+                        if (splitBody.contains("<!-- endtoc -->")) {
+                            splitBody = splitBody.split("(?ms)<!-- endtoc -->", 2)
+                        }
+                        out << splitBody
                     %>
 
                 </p>

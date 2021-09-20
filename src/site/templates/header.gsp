@@ -99,6 +99,9 @@
   #td-section-nav ul.td-sidebar-nav__section  {
     padding-left:0px;
   }
+  .match {
+      font-size: smaller;
+  }
   </style>
 
 
