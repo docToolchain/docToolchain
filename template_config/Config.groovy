@@ -89,6 +89,15 @@ microsite.with {
     // site title if no other title is given
     title = 'docToolchain'
     //
+    // the url to create an issue in github
+    // Example: https://github.com/docToolchain/docToolchain/issues/new
+    issueUrl = '##issue-url##'
+    //
+    // the base url for code files in github
+    // Example: https://github.com/doctoolchain/doctoolchain/edit/master/content/src/docs/
+    gitRepoUrl = '##git-repo-url##'
+
+    //
     // the location of the landing page
     landingPage = 'landingpage.gsp'
     // the menu of the microsite. A map of [code:'title'] entries to specify the order and title of the entries.

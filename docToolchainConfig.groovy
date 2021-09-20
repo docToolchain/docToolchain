@@ -82,6 +82,12 @@ microsite.with {
     footerText = '<small class="text-white">build with docToolchain and jBake <br /> theme: docsy</small>'
     // site title if no other title is given
     title = 'docToolchain'
+    //
+    // the url to create an issue in github
+    issueUrl = 'https://github.com/docToolchain/docToolchain/issues/new'
+    //
+    // the base url for code files in github
+    gitRepoUrl = 'https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs'
 
     /** end:microsite **/
 }
