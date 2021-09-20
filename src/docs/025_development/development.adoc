@@ -1,0 +1,14 @@
+:filename: 025_development/08_development.adoc
+:jbake-status: draft
+ifndef::imagesdir[:imagesdir: ../images]
+
+= Development
+
+include::../_feedback.adoc[]
+
+INFO: this chapter is still work in progress
+
+include::010_setup_dev_env.adoc[]
+include::020_run_tests.adoc[]
+include::030_create_new_release.adoc[]
+include::040_debugging.adoc[]

@@ -1,0 +1,41 @@
+== Debugging
+
+include::../_feedback.adoc[]
+
+Sometimes things go are different than expected and you need to find out what's wrong.
+Here are some tips that might help you.
+
+=== General Advice
+
+To dig deeper into the workings of docToolchain, it makes sense that you setup yourself a development environment.
+This gives you the chance to add extra debug output to the tasks which you want to inspect.
+
+=== Gradle
+
+You get most hints on what is going on in regards to gradle when you add the `--info` flag to your command.
+
+`./dtcw generateSite --info`
+
+This will output all configuration settings as seen by docToolchain and many more internal bits.
+
+=== jBake Templates
+
+If something goes wrong within a template, you often get not much information.
+Take a look at `menu.gsp` to see how you can use `try/catch` blocks to get an error message.
+But to find out _where_ the problem occurs, you need to use poor mans debugger and add some `System.out.println` statements.
+Make sure that you use the full `System.out.println` statement and not only `println`.
+Otherwise, you will see no output.
+
+=== Theming / Menu / Images
+
+It might seem a bit like magic how the system creates the menu entries.
+Sometimes you don't find the reason why an image is not shown.
+Remember, that you can check out the generated files.
+
+Check the `build/microsite/tmp` folder to see the folder which is fed into jBake.
+In this folder, all files will have additional `jbake` attributes which are used to build the menu.
+They are generated from the original attributes of the file and folder/filename information.
+
+Check the `build/microsite/output` folder to see the generated result.
+This often helps to check where an image actually is located.
+
