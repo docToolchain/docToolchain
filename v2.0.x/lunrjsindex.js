@@ -26,22 +26,6 @@ var documents = [
 
 {
     "id": 3,
-    "uri": "ea/issue1.html",
-    "menu": "ea",
-    "title": "null",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 4,
-    "uri": "ea/Use_Cases_links.html",
-    "menu": "ea",
-    "title": "null",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
-},
-
-{
-    "id": 5,
     "uri": "ea/UseCases.html",
     "menu": "ea",
     "title": "null",
@@ -49,7 +33,7 @@ var documents = [
 },
 
 {
-    "id": 6,
+    "id": 4,
     "uri": "ea/Architect_notes_issue2.html",
     "menu": "ea",
     "title": "null",
@@ -57,31 +41,7 @@ var documents = [
 },
 
 {
-    "id": 7,
-    "uri": "ea/Architect_notes.html",
-    "menu": "ea",
-    "title": "null",
-    "text": " "
-},
-
-{
-    "id": 8,
-    "uri": "ea/Activity_notes_issue1.html",
-    "menu": "ea",
-    "title": "null",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 9,
-    "uri": "ea/Activity_notes.html",
-    "menu": "ea",
-    "title": "null",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 10,
+    "id": 5,
     "uri": "ea/issue2.html",
     "menu": "ea",
     "title": "null",
@@ -89,16 +49,56 @@ var documents = [
 },
 
 {
-    "id": 11,
-    "uri": "ea/Use_Cases_notes_UseCases.html",
+    "id": 6,
+    "uri": "ea/issue1.html",
+    "menu": "ea",
+    "title": "null",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
+    "id": 7,
+    "uri": "ea/Use_Cases_notes.html",
     "menu": "ea",
     "title": "null",
     "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create_stunning_docs invoked by gradle or maven command "
 },
 
 {
+    "id": 8,
+    "uri": "ea/Use_Cases_links.html",
+    "menu": "ea",
+    "title": "null",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+},
+
+{
+    "id": 9,
+    "uri": "ea/Architect_notes.html",
+    "menu": "ea",
+    "title": "null",
+    "text": " "
+},
+
+{
+    "id": 10,
+    "uri": "ea/Activity_notes_issue1.html",
+    "menu": "ea",
+    "title": "null",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
+    "id": 11,
+    "uri": "ea/Activity_notes.html",
+    "menu": "ea",
+    "title": "null",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
     "id": 12,
-    "uri": "ea/Use_Cases_notes.html",
+    "uri": "ea/Use_Cases_notes_UseCases.html",
     "menu": "ea",
     "title": "null",
     "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create_stunning_docs invoked by gradle or maven command "
@@ -114,18 +114,18 @@ var documents = [
 
 {
     "id": 14,
-    "uri": "010_manual/025_features.html",
-    "menu": "manual",
-    "title": "Features",
-    "text": " Table of Contents Features Features 1 minute to read docToolchain implements quite a lot of features via scripts which you call through the command line. We call these tasks and they are listed under the top-level menu Tasks in this documentation. "
-},
-
-{
-    "id": 15,
     "uri": "010_manual/050_Frequently_asked_Questions.html",
     "menu": "manual",
     "title": "FAQ: Frequently asked Questions",
     "text": " Table of Contents FAQ: Frequently asked Questions Images exportVisio Sparx Enterprise Architect Known error Messages FAQ: Frequently asked Questions 7 minutes to read This section tries to answer the most common and frequently asked questions about how to work with docToolchain. It will also contain questions relevant to the tools used to build docToolchain, but the main focus is docToolchain itself. If you are stuck, make sure that you also check other sources like Stack Overflow . There is also a great FAQ for all your arc42 questions: https://faq.arc42.org/home/ If you have a question or problem for which you can&#8217;t find a solution, you can for this repo, add your question and create a pull request raise the issue through the GitHub issue tracker ask your question on Stack Overflow discuss the problem on Slack Images Asciidoctor User Manual on images Asciidoctor Quick Reference on images AsciiDoctor Writer Guide on images Q: Why are images not shown in the preview of my editor? A: this is most likely because your editor doesn&#8217;t know where they are stored. If you follow the default settings, you probably store your images in a subfolder images . The build script knows about it, because the attribute imagesdir has been set to ./images , but your editor doesn&#8217;t care about the build script - it only checks the currently opened AsciiDoc file. The solution is to add a line to each file which checks if the imagesdir is set and if not, sets it to a valid value: ifndef::imagesdir[:imagesdir: ../images] Q: Which image format should I use? A: AsciiDoc and AsciiDoctor support several formats like GIF, PNG, JPG and SVG. However, if you want to use most features, some formats are better to use than others: GIF is not supported by the PDF renderer. Use JPG or PNG instead. JPG is great for photos but not for diagrams (you might get compression artifacts). So, if you want to use photos from your flipcharts - JPG might work for you. SVG great for high resolution diagrams, but not good supported by DOCX as output format. OpenOffice Writer might display the image a bit stretched, MS Word didn&#8217;t display it at all in some experiments. PDF output might display a warning that newer SVG versions are not supported (happends especially with diagrams.net images). PNG this is the preferred format for images used with docToolchain. All output formats support it and if diagrams are rendered with a resolution high enough to display all details, it will also be scaled well with all output formats. Q: Why are my images rotated in the output? A: This most likely happens when you&#8217;ve taken photos with a mobile device and include them in you docs. A mobile device does not rotate the image itself, it only stores the orientation of the device in the meta data of the photo. Your operating system will show you the image as expected, but the rendered AsciiDoc will not. This can be „fixed“ with Imagemagick, by using convert -auto-orient or mogrify -auto-orient (thanx to @rotnroll666 for this tip). You can also try to just open the image in your favourite editor and re-save it. exportVisio Q: I get an error message saying that a library is not registered when I try to run the exportVisio -task. Ausnahme beim Festlegen von Visible: Das COM-Objekt des Typs Microsoft.Office.Interop.Visio.ApplicationClass kann nicht in den Schnittstellentyp Microsoft.Office.Interop.Visio.IVApplication umgewandelt werden. Dieser Vorgang konnte nicht durchgeführt werden, da der QueryInterface-Aufruf an die COM-Komponente für die Schnittstelle mit der IID {000D0700-0000-0000-C000-000000000046} aufgrund des folgenden Fehlers nicht durchgeführt werden konnte: Bibliothek nicht registriert. (Ausnahme von HRESULT: 0x8002801D (TYPE_E_LIBNOTREGISTERED)). In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1 + $VisioApp.Visible = $false + ~~~~~~~~~~~~~~~~~~~~~~~~~~ + CategoryInfo : NotSpecified: (:) [], SetValueInvocationException + FullyQualifiedErrorId : ExceptionWhenSetting A: When Visio is installed, it registers itself as a com library. It seems that this registration can break. You can fix this by visiting the windows system settings &#8594; install or uninstall a program, select visio , select change and then repair . Sparx Enterprise Architect Q: Sparx Enterprise Architect is a Windows tool, isn&#8217;t it? Yes, it is, but it is written to support CrossOver in order to run on Linux based systems. Wine, the open source branch of CrossOver, seems to work as well. Take a look at this page to see how to install it on a linux based system: https://www.sparxsystems.com/support/faq/ea_on_linux.html I (Ralf) once gave it a try and even managed to get remote control over EA via VBS and COM up and running (which is the pre-requisite for docToolchain). Known error Messages Q: I get the error saying 'Failed to create MD5 hash for file content'. * What went wrong: Failed to capture snapshot of input files for task ':generateHTML' property 'sourceDir' during up-to-date check. &gt; Failed to create MD5 hash for file content.` There are two known reasons for this error. One of the .adoc files is opened in an editor, so that windows can&#8217;t get the lock for that file. &#8594; Close all .adoc files. You use the Bash script doctoolchain on a windows system. &#8594; Use doctoolchain.bat instead. It works even in a Bash Shell. Q: I get the error saying 'Unsupported major.minor version 52.0' This is a sign that you use an outdated version of Java. Please upgrade to Java 8 at least and 14 max. The docToolchain-wrapper (dtcw) in v2.0 will check the java version for you so that you will not see this error message in the future. Q: I get an error message saying 'Error occurred during initialization of VM' Starting a Gradle Daemon, 1 incompatible Daemon could not be reused, use --status for details FAILURE: Build failed with an exception. * What went wrong: Unable to start the daemon process. … Error occurred during initialization of VM Could not reserve enough space for 2097152KB object heap Somehow docToolchain can&#8217;t allocate the memory which is configured out of the box. Try to free up some memory or comment out the line org.gradle.jvmargs=-Xmx2048m in gradle.properties Q: I get the error saying Could not initialize class java.awt.GraphicsEnvironment$LocaleGE This seems to be a problem with WSL on Windows. Some sources mention to run Java in headless mode, but in this case, it doesn&#8217;t solve the problem. The root cause seems to be plantUML trying to get some font information. Only real solution seems to be to shutdown WSL from a powershell window wiht wsl --shutdown and retry. Warning this will kill all your WSL terminals without warning. Another solution seems to be to install a fresh version of your java runtime (I thought it is immutable, but it really helps). Best Solution is to switch to powershell. Another solution is to avoid PlantUML and generate Diagrams through a kroki.io server. Another variant of this is Can&#8217;t connect to X11 window server using '192.168.189.153:0' as the value of the DISPLAY variable. . In this case, it might help to install an X-Server (x410 for example) and configure the DISPLAY variable correctly. An easy way to test you configuration is to run xeyes in WSL. "
+},
+
+{
+    "id": 15,
+    "uri": "010_manual/025_features.html",
+    "menu": "manual",
+    "title": "Features",
+    "text": " Table of Contents Features Features 1 minute to read docToolchain implements quite a lot of features via scripts which you call through the command line. We call these tasks and they are listed under the top-level menu Tasks in this documentation. "
 },
 
 {
@@ -154,18 +154,18 @@ var documents = [
 
 {
     "id": 19,
-    "uri": "010_manual/030_further_reading.html",
-    "menu": "manual",
-    "title": "Further Reading",
-    "text": " Table of Contents Further Reading Underlying Technologies Books Past and upcoming Talks Further Reading 3 minutes to read This chapter lists some additional references to interesting resources. Underlying Technologies This project relies on many underlying technologies. Here is a lists and some explaining words Markup AsciiDoc AsciiDoc is our preferred markup language for technical docs Asciidoctor User-Manual AsciiDoc Syntax Quick Reference Video: Asciidoctor Deep Dive by Alexander Schwartz Markdown Since we use jBake as Static-Site-Generator, you can also use Markdown to write your docs. flexmark-java is the Markdown parser and flavour used by jBake if you prefer to use the exportMarkdown -Task, then markdown-to-asciidoc library is used. The IntelliJ-Plugin also uses this library. Templates arc42 is the perfect documentation template for your softare solution architecture documentation. arc42 arc42 Tips &amp; Tricks arc42 FAQ Docs-as-Code docs-as-code is the approach you use when you treat your docs the same as your code. We&#8217;ve create a little microsite with some additional resources. Docs-as-Code write the docs: docs-as-code is another independent resource. Static Site Generator jBake is the underlying static site generator for the generateSite -Task docsy is the standard theme we use twitter bootstrap is the CSS framework Books Note links to Amazon are affiliate links English Books DOCS-LIKE-CODE by Anne Gentle Modern technical writing: An Introduction to Software Documentation by Andrew Etter arc42 by Example by Gernot Starke, Stefan Zörner, Michael Simons, Ralf D. Müller Communicating Software Architectures with arc42 by Gernot Starke und Peter Hruschka Visualise, document and explore your software architecture by Simon Brown German Books arc42 in Aktion: Praktische Tipps zur Architekturdokumentation von Gernot Starke und Peter Hruschka Softwarearchitekturen dokumentieren und kommunizieren: Entwürfe, Entscheidungen und Lösungen nachvollziehbar und wirkungsvoll festhalten von Stefan Zörner Past and upcoming Talks Dokumentation am (Riesen-)Beispiel – arc42, AsciiDoc und Co. in Aktion Gernot Starke and Ralf D. Müller Anhand eines großen Systems zeigen Gernot und Ralf, wie Sie mit ziemlich wenig Aufwand angemessene und vernünftige Dokumentation für unterschiedliche Stakeholder produzieren – sodass Entwicklungsteams dabei auch noch Spaß haben. Unser Rezept: AsciiDoc mit arc42 mischen, Automatisierung mit Gradle und Maven hinzufügen und mit Diagramm- oder Modellierungstools Ihrer Wahl kombinieren. Schon sind schicke HTML- und reviewfähige PDF-Dokumente fertig. Auf Wunsch gibts DOCX und Confluence als Zugabe. Wir zeigen, wie Sie Doku genau wie Quellcode verwalten können, stakeholderspezifische Dokumente erzeugen und Diagramme automatisiert integrieren können. Einige Teile dieser Doku können Sie sogar automatisiert testen. Zwischendurch bekommen Sie zahlreiche Tipps, wie und wo Sie systematisch den Aufwand für Dokumentation reduzieren können und trotzdem lesbare, verständliche und praxistaugliche Ergebnisse produzieren. Gesunde Dokumentation mit AsciiDoctor Alexander Schwartz Autoren möchten Inhalte effizient dokumentieren und vorhandene Inhalte wiederverwenden. Ein Leser möchte das Dokument in einem ansprechenden Layout präsentiert bekommen. Das textbasierte AsciiDoc-Format bietet für einen Entwickler oder technischen Redakteur alle notwendigen Auszeichungselemente, um auch anspruchsvolle Dokumente zu schreiben. So werden unter anderem Tabellen, Fußnoten und annotierte Quellcodes unterstützt. Gleichzeitig ist es ähnlich leichtgewichtig wie z.B. das Markdown Format. Für die Leser wird HTML, PDF oder EPUB generiert. Da AsciiDoc wie Programmcode eingecheckt wird und Merge-Operationen einfach möglich sind, können Programmcode und Dokumentation zusammen versioniert und auf einem einheitlichen Stand gehalten werden. Der Vortrag gibt eine kurze Einführung in AsciiDoc und die dazugehörigen Werkzeuge. "
-},
-
-{
-    "id": 20,
     "uri": "010_manual/020_install.html",
     "menu": "manual",
     "title": "How to install docToolchain",
     "text": " Table of Contents How to install docToolchain Get the Wrapper run a first command Existing documents arc42 from scratch Build How to install docToolchain 5 minutes to read Get the Wrapper The basic strategy on how to install docToolchain has changed with V2.x. You now install a small wrapper scripts to your project which does the rest for you: Linux / WSL2 with bash cd &lt;your project&gt; wget doctoolchain.github.io/dtcw chmod +x dtcw if you don&#8217;t have wget installed, you can also use curl : cd &lt;your project&gt; curl -Lo dtcw doctoolchain.github.io/dtcw chmod +x dtcw Windows with Powershell cd &lt;your project&gt; wget doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1 Windows with cmd.exe cd &lt;your project&gt; curl -Lo dtcw.bat doctoolchain.github.io/dtcw.bat Note dtcw.bat wraps the dtcw.ps1 script and executes it in powershell. This might be easier to use if you haven&#8217;t yet configured your powershell as a developer. Note In order to support development for your project on both, Linux and Windows, it makes sense to download all three scripts to your project. Note if you use cmd.exe , please follow the instructions for powershell in the manual. We will not further differentiate between both. The wrapper helps you in several ways: it ensures that everyone who uses your repository, uses the same version of docToolchain it keeps all the technology out of your repository it wraps all your commands and directs them to your local docToolchain installation even more, it checks the way you have docToolchain installed and if it hasn&#8217;t been installed, it will install it for you via direct download or docker run a first command To get started, you can run tasks as a first command: Linux / WSL2 with bash ./dtcw tasks --group=doctoolchain Windows with Powershell ./dtcw.ps1 tasks --group=doctoolchain This command will show you all tasks available through docToolchain, but first it will make sure that docToolchain is installed: it checks for a configuration file and creates a default one if none is available. it prefers a local installation if docker is available and no local installation, it will use docker. The download of the images might take a while when run for the first time if docker is not available, it will download and install docToolchain to your home folder it will then run a gradle build through the gradle wrapper. This will download and isntall gradle when run for the first time. the gradle build will also fetch some dependencies. This will also take some time when run for the first time. As you can see, the installation is an incremental process and will take some time because of additional downloads. After the first few commands, you will have all the needed dependencies installed and things will be faster. Existing documents If you already have some existing documents in AsciiDoc format in your project, you need to tell docToolchain where it can find these documents. To do so, take a look at the created docToolchainConfig.groovy and update it. arc42 from scratch If you don&#8217;t have existing documents yet, or if you need a fresh start, you can get the arc42 template in AsciiDoc format. Run the following command to ask docToolchain to download the template of your choice: Linux ./dtcw downloadTemplate Windows ./dtcw.ps1 downloadTemplate Build By now, docToolchain is installed in some way, the docToolchain wrapper dtcw resides in your project folder and the arc42 template is installed. Now let&#8217;s render it as HTML and PDF. should be installed as command line tool and the path to its bin folder should be on your path. If you now switch to your freshly initialized &lt;newDocDir&gt;, you should be able to execute the following commands: Linux doctoolchain &lt;docDir&gt; generateHTML doctoolchain &lt;docDir&gt; generatePDF Windows doctoolchain.bat &lt;docDir&gt; generateHTML doctoolchain.bat &lt;docDir&gt; generatePDF &lt;docDir&gt; may be relative, e.g. ., or absolute. As a result, you will see the progress of your build together with some warnings which you can just ignore for the moment. The first build generated some files within the &lt;docDir&gt;/build : build |-- html5 | |-- arc42-template.html | `-- images | |-- 05_building_blocks-EN.png | |-- 08-Crosscutting-Concepts-Structure-EN.png | `-- arc42-logo.png `-- pdf |-- arc42-template.pdf `-- images |-- 05_building_blocks-EN.png |-- 08-Crosscutting-Concepts-Structure-EN.png `-- arc42-logo.png Congratulations! If you see the same folder structure, you just managed to render the standard arc42 template as html and pdf! If you didn&#8217;t get the right output, please raise an issue on github Tip Blog-Posts: Behind the great Firewall , Enterprise AsciiDoctor "
+},
+
+{
+    "id": 20,
+    "uri": "010_manual/030_further_reading.html",
+    "menu": "manual",
+    "title": "Further Reading",
+    "text": " Table of Contents Further Reading Underlying Technologies Books Past and upcoming Talks Further Reading 3 minutes to read This chapter lists some additional references to interesting resources. Underlying Technologies This project relies on many underlying technologies. Here is a lists and some explaining words Markup AsciiDoc AsciiDoc is our preferred markup language for technical docs Asciidoctor User-Manual AsciiDoc Syntax Quick Reference Video: Asciidoctor Deep Dive by Alexander Schwartz Markdown Since we use jBake as Static-Site-Generator, you can also use Markdown to write your docs. flexmark-java is the Markdown parser and flavour used by jBake if you prefer to use the exportMarkdown -Task, then markdown-to-asciidoc library is used. The IntelliJ-Plugin also uses this library. Templates arc42 is the perfect documentation template for your softare solution architecture documentation. arc42 arc42 Tips &amp; Tricks arc42 FAQ Docs-as-Code docs-as-code is the approach you use when you treat your docs the same as your code. We&#8217;ve create a little microsite with some additional resources. Docs-as-Code write the docs: docs-as-code is another independent resource. Static Site Generator jBake is the underlying static site generator for the generateSite -Task docsy is the standard theme we use twitter bootstrap is the CSS framework Books Note links to Amazon are affiliate links English Books DOCS-LIKE-CODE by Anne Gentle Modern technical writing: An Introduction to Software Documentation by Andrew Etter arc42 by Example by Gernot Starke, Stefan Zörner, Michael Simons, Ralf D. Müller Communicating Software Architectures with arc42 by Gernot Starke und Peter Hruschka Visualise, document and explore your software architecture by Simon Brown German Books arc42 in Aktion: Praktische Tipps zur Architekturdokumentation von Gernot Starke und Peter Hruschka Softwarearchitekturen dokumentieren und kommunizieren: Entwürfe, Entscheidungen und Lösungen nachvollziehbar und wirkungsvoll festhalten von Stefan Zörner Past and upcoming Talks Dokumentation am (Riesen-)Beispiel – arc42, AsciiDoc und Co. in Aktion Gernot Starke and Ralf D. Müller Anhand eines großen Systems zeigen Gernot und Ralf, wie Sie mit ziemlich wenig Aufwand angemessene und vernünftige Dokumentation für unterschiedliche Stakeholder produzieren – sodass Entwicklungsteams dabei auch noch Spaß haben. Unser Rezept: AsciiDoc mit arc42 mischen, Automatisierung mit Gradle und Maven hinzufügen und mit Diagramm- oder Modellierungstools Ihrer Wahl kombinieren. Schon sind schicke HTML- und reviewfähige PDF-Dokumente fertig. Auf Wunsch gibts DOCX und Confluence als Zugabe. Wir zeigen, wie Sie Doku genau wie Quellcode verwalten können, stakeholderspezifische Dokumente erzeugen und Diagramme automatisiert integrieren können. Einige Teile dieser Doku können Sie sogar automatisiert testen. Zwischendurch bekommen Sie zahlreiche Tipps, wie und wo Sie systematisch den Aufwand für Dokumentation reduzieren können und trotzdem lesbare, verständliche und praxistaugliche Ergebnisse produzieren. Gesunde Dokumentation mit AsciiDoctor Alexander Schwartz Autoren möchten Inhalte effizient dokumentieren und vorhandene Inhalte wiederverwenden. Ein Leser möchte das Dokument in einem ansprechenden Layout präsentiert bekommen. Das textbasierte AsciiDoc-Format bietet für einen Entwickler oder technischen Redakteur alle notwendigen Auszeichungselemente, um auch anspruchsvolle Dokumente zu schreiben. So werden unter anderem Tabellen, Fußnoten und annotierte Quellcodes unterstützt. Gleichzeitig ist es ähnlich leichtgewichtig wie z.B. das Markdown Format. Für die Leser wird HTML, PDF oder EPUB generiert. Da AsciiDoc wie Programmcode eingecheckt wird und Merge-Operationen einfach möglich sind, können Programmcode und Dokumentation zusammen versioniert und auf einem einheitlichen Stand gehalten werden. Der Vortrag gibt eine kurze Einführung in AsciiDoc und die dazugehörigen Werkzeuge. "
 },
 
 {
@@ -226,46 +226,6 @@ var documents = [
 
 {
     "id": 28,
-    "uri": "015_tasks/03_task_exportDrawIo.html",
-    "menu": "tasks",
-    "title": "exportDrawIo",
-    "text": " Table of Contents exportDrawIo exportDrawIo 2 minutes to read There is no exportDrawIo task because it is not required. You can continue to use draw.io as an editor for your diagrams by making a change to your diagram authoring workflow. Export your draw.io diagrams as a PNG with the source embedded in the file metadata. Using this approach allows you to embed your diagrams into AsciiDoc source as you normally do with the image:: macro, with the added advantage of storing the diagram source with the image itself. Note If you are converting a Confluence page with embedded draw.io diagrams to AsciiDoc, you can use this export workflow to continue to enjoy the draw.io editing experience. Export an editable PNG diagram from Confluence Load the diagram you want to export from Confluence. Click File &#160; &#8250; Export as &#160; &#8250; PNG&#8230;&#8203; In the Image modal, make sure that Include a copy of my diagram is selected. Click Export to save the PNG file with the pattern [file].dio.png . Note Specifying .dio (short for  d raw io ) in the name will help you identify PNG files containing embedded XML diagram source. Commit the exported PNG file to source control. You now have a diagram that can be managed in source control, added to your documentation source, and edited using a draw.io Desktop version. Note Draw.io offers free and open source desktop editors for all major operating system platforms. See https://about.draw.io/integrations/ to find a desktop editor application compatible with your operating system. When you use the desktop version, just create your diagram with the .png or even better .dio.png extension and draw.io will always save your diagam as PNG with the source as meta data. NEW! Draw.io is now called diagrams.net and there is a free plugin for VS Code and IntelliJ to edit your diagrams even offline! "
-},
-
-{
-    "id": 29,
-    "uri": "015_tasks/03_task_convertToEpub.html",
-    "menu": "tasks",
-    "title": "convertToEpub",
-    "text": " Table of Contents convertToEpub Source convertToEpub 1 minute to read Dependency: [_generatedocbook] This task uses pandoc to convert the DocBook output from AsciiDoctor to ePub. This way, you can read your documentation in a convenient way on an eBook-reader. The resulting file can be found in build/docs/epub Tip Blog-Post: Turn your Document into an Audio-Book Source pandoc.gradle task convertToEpub ( group: 'docToolchain', description: 'converts file to .epub via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `epub` in config.groovy is converted to docbook and then to epub. def sourceFilesEpub = sourceFiles.findAll { 'epub' in it.formats } sourceFilesEpub.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.epub') workingDir $targetDir/docbook executable = pandoc args = ['-r','docbook', '-t','epub', '-o',../epub/$targetFile, sourceFile] } doFirst { new File($targetDir/epub/).mkdirs() } } "
-},
-
-{
-    "id": 30,
-    "uri": "015_tasks/03_task_autobuildSite.html",
-    "menu": "tasks",
-    "title": "autobuildSite",
-    "text": " Table of Contents autobuildSite autobuildSite 1 minute to read This script starts an endless loop which checks for changes in your docs source and re-runs the generateSite -task whenever it detects changes. Output will be logged to build/generateSite.log . bin/autobuildSite.bash "
-},
-
-{
-    "id": 31,
-    "uri": "015_tasks/03_task_generateDeck.html",
-    "menu": "tasks",
-    "title": "generateDeck",
-    "text": " Table of Contents generateDeck Source generateDeck 1 minute to read This task makes use of the asciidoctor-reveal.js backend to render your documents into a HTML based presentation. This task is best used together with the [exportPPT] task. It creates a PowerPoint presentation and enriches it with reveal.js slide definitions in AsciiDoc within the speaker notes. Source AsciiDocBasics.gradle task generateDeck ( type: AsciidoctorTask, group: 'docToolchain', description: 'use revealJs as asciidoc backend to create a presentation') { attributes ( 'idprefix': 'slide-', 'idseparator': '-', 'docinfo1': '', 'revealjs_theme': 'black', 'revealjs_progress': 'true', 'revealjs_touch': 'true', 'revealjs_hideAddressBar': 'true', 'revealjs_transition': 'linear', 'revealjs_history': 'true', 'revealjs_slideNumber': 'true' ) options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates').absolutePath ] onlyIf { !sourceFiles.findAll { 'revealjs' in it.formats }.empty } sources { sourceFiles.findAll { 'revealjs' in it.formats }.each { include it.file } } outputDir = file(targetDir+'/decks/') resources { from('resources') { include 'reveal.js/**' } from(sourceDir) { include 'images/**' } into() logger.info ${docDir}/${config.outputPath}/images } } "
-},
-
-{
-    "id": 32,
-    "uri": "015_tasks/03_task_fixencoding.html",
-    "menu": "tasks",
-    "title": "fixEncoding",
-    "text": " Table of Contents fixEncoding fixEncoding 1 minute to read Whenever Asciidoctor has to process a file which is not UTF-8 encoded, the underlying Ruby tries to read it and throws an error like this: asciidoctor: FAILED: /home/demo/test.adoc: Failed to load AsciiDoc document - invalid byte sequence in UTF-8 Unfortunately, it is hard to find the wrong encoded file if a lot of includes:: are used - Asciidoctor only shows the name of the main document. Note This is not a problem of Asciidoctor, but of the underlying ruby interpreter. This target crawls through all *.ad and *.adoc files and checks their encoding. If it encounters a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding. scripts/fixEncoding.gradle import groovy.util.* import static groovy.io.FileType.* task fixEncoding( description: 'finds and converts non UTF-8 adoc files to UTF-8', group: 'docToolchain helper', ) { doLast { File sourceFolder = new File(${docDir}/${inputPath}) println(sourceFolder:  + sourceFolder.canonicalPath) sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^.*(ad|adoc|asciidoc)$') { CharsetToolkit toolkit = new CharsetToolkit(file); // guess the encoding def guessedCharset = toolkit.getCharset().toString().toUpperCase(); if (guessedCharset!='UTF-8') { def text = file.text file.write(text, utf-8) println( converted ${file.name} from '${guessedCharset}' to 'UFT-8') } } } } } "
-},
-
-{
-    "id": 33,
     "uri": "015_tasks/03_task_exportEA.html",
     "menu": "tasks",
     "title": "exportEA",
@@ -273,15 +233,47 @@ var documents = [
 },
 
 {
-    "id": 34,
-    "uri": "015_tasks/03_task_convertToDocx.html",
+    "id": 29,
+    "uri": "015_tasks/03_task_exportDrawIo.html",
     "menu": "tasks",
-    "title": "convertToDocx",
-    "text": " Table of Contents convertToDocx Source convertToDocx Needs pandoc installed Please make sure that 'docbook' and 'docx' are added to the inputFiles formats in Config.groovy Optional: you can specify a reference doc file with custom stylesheets (see task [createReferenceDoc] ) 1 minute to read Tip Blog-Post: Render AsciiDoc to docx (MS Word) Source pandoc.gradle task convertToDocx ( group: 'docToolchain', description: 'converts file to .docx via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `docx` in config.groovy is converted to docbook and then to docx. def sourceFilesDocx = sourceFiles.findAll { 'docx' in it.formats } sourceFilesDocx.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.docx') workingDir $targetDir/docbook executable = pandoc if(referenceDocFile?.trim()) { args = [-r,docbook, -t,docx, -o,../docx/$targetFile, --reference-doc=${docDir}/${referenceDocFile}, sourceFile] } else { args = [-r,docbook, -t,docx, -o,../docx/$targetFile, sourceFile] } } doFirst { new File($targetDir/docx/).mkdirs() } } "
+    "title": "exportDrawIo",
+    "text": " Table of Contents exportDrawIo exportDrawIo 2 minutes to read There is no exportDrawIo task because it is not required. You can continue to use draw.io as an editor for your diagrams by making a change to your diagram authoring workflow. Export your draw.io diagrams as a PNG with the source embedded in the file metadata. Using this approach allows you to embed your diagrams into AsciiDoc source as you normally do with the image:: macro, with the added advantage of storing the diagram source with the image itself. Note If you are converting a Confluence page with embedded draw.io diagrams to AsciiDoc, you can use this export workflow to continue to enjoy the draw.io editing experience. Export an editable PNG diagram from Confluence Load the diagram you want to export from Confluence. Click File &#160; &#8250; Export as &#160; &#8250; PNG&#8230;&#8203; In the Image modal, make sure that Include a copy of my diagram is selected. Click Export to save the PNG file with the pattern [file].dio.png . Note Specifying .dio (short for  d raw io ) in the name will help you identify PNG files containing embedded XML diagram source. Commit the exported PNG file to source control. You now have a diagram that can be managed in source control, added to your documentation source, and edited using a draw.io Desktop version. Note Draw.io offers free and open source desktop editors for all major operating system platforms. See https://about.draw.io/integrations/ to find a desktop editor application compatible with your operating system. When you use the desktop version, just create your diagram with the .png or even better .dio.png extension and draw.io will always save your diagam as PNG with the source as meta data. NEW! Draw.io is now called diagrams.net and there is a free plugin for VS Code and IntelliJ to edit your diagrams even offline! "
 },
 
 {
-    "id": 35,
+    "id": 30,
+    "uri": "015_tasks/03_task_convertToEpub.html",
+    "menu": "tasks",
+    "title": "convertToEpub",
+    "text": " Table of Contents convertToEpub Source convertToEpub 1 minute to read Dependency: [_generatedocbook] This task uses pandoc to convert the DocBook output from AsciiDoctor to ePub. This way, you can read your documentation in a convenient way on an eBook-reader. The resulting file can be found in build/docs/epub Tip Blog-Post: Turn your Document into an Audio-Book Source pandoc.gradle task convertToEpub ( group: 'docToolchain', description: 'converts file to .epub via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `epub` in config.groovy is converted to docbook and then to epub. def sourceFilesEpub = sourceFiles.findAll { 'epub' in it.formats } sourceFilesEpub.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.epub') workingDir $targetDir/docbook executable = pandoc args = ['-r','docbook', '-t','epub', '-o',../epub/$targetFile, sourceFile] } doFirst { new File($targetDir/epub/).mkdirs() } } "
+},
+
+{
+    "id": 31,
+    "uri": "015_tasks/03_task_autobuildSite.html",
+    "menu": "tasks",
+    "title": "autobuildSite",
+    "text": " Table of Contents autobuildSite autobuildSite 1 minute to read This script starts an endless loop which checks for changes in your docs source and re-runs the generateSite -task whenever it detects changes. Output will be logged to build/generateSite.log . bin/autobuildSite.bash "
+},
+
+{
+    "id": 32,
+    "uri": "015_tasks/03_task_generateDeck.html",
+    "menu": "tasks",
+    "title": "generateDeck",
+    "text": " Table of Contents generateDeck Source generateDeck 1 minute to read This task makes use of the asciidoctor-reveal.js backend to render your documents into a HTML based presentation. This task is best used together with the [exportPPT] task. It creates a PowerPoint presentation and enriches it with reveal.js slide definitions in AsciiDoc within the speaker notes. Source AsciiDocBasics.gradle task generateDeck ( type: AsciidoctorTask, group: 'docToolchain', description: 'use revealJs as asciidoc backend to create a presentation') { attributes ( 'idprefix': 'slide-', 'idseparator': '-', 'docinfo1': '', 'revealjs_theme': 'black', 'revealjs_progress': 'true', 'revealjs_touch': 'true', 'revealjs_hideAddressBar': 'true', 'revealjs_transition': 'linear', 'revealjs_history': 'true', 'revealjs_slideNumber': 'true' ) options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates').absolutePath ] onlyIf { !sourceFiles.findAll { 'revealjs' in it.formats }.empty } sources { sourceFiles.findAll { 'revealjs' in it.formats }.each { include it.file } } outputDir = file(targetDir+'/decks/') resources { from('resources') { include 'reveal.js/**' } from(sourceDir) { include 'images/**' } into() logger.info ${docDir}/${config.outputPath}/images } } "
+},
+
+{
+    "id": 33,
+    "uri": "015_tasks/03_task_fixencoding.html",
+    "menu": "tasks",
+    "title": "fixEncoding",
+    "text": " Table of Contents fixEncoding fixEncoding 1 minute to read Whenever Asciidoctor has to process a file which is not UTF-8 encoded, the underlying Ruby tries to read it and throws an error like this: asciidoctor: FAILED: /home/demo/test.adoc: Failed to load AsciiDoc document - invalid byte sequence in UTF-8 Unfortunately, it is hard to find the wrong encoded file if a lot of includes:: are used - Asciidoctor only shows the name of the main document. Note This is not a problem of Asciidoctor, but of the underlying ruby interpreter. This target crawls through all *.ad and *.adoc files and checks their encoding. If it encounters a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding. scripts/fixEncoding.gradle import groovy.util.* import static groovy.io.FileType.* task fixEncoding( description: 'finds and converts non UTF-8 adoc files to UTF-8', group: 'docToolchain helper', ) { doLast { File sourceFolder = new File(${docDir}/${inputPath}) println(sourceFolder:  + sourceFolder.canonicalPath) sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^.*(ad|adoc|asciidoc)$') { CharsetToolkit toolkit = new CharsetToolkit(file); // guess the encoding def guessedCharset = toolkit.getCharset().toString().toUpperCase(); if (guessedCharset!='UTF-8') { def text = file.text file.write(text, utf-8) println( converted ${file.name} from '${guessedCharset}' to 'UFT-8') } } } } } "
+},
+
+{
+    "id": 34,
     "uri": "015_tasks/03_tasks.html",
     "menu": "tasks",
     "title": "Overview of available Tasks",
@@ -289,15 +281,7 @@ var documents = [
 },
 
 {
-    "id": 36,
-    "uri": "015_tasks/03_task_generateHTML.html",
-    "menu": "tasks",
-    "title": "generateHTML",
-    "text": " Table of Contents generateHTML Text based Diagrams Source generateHTML 3 minutes to read This is the standard AsciiDoctor generator which is supported out of the box. The result is written to build/html5 . The HTML files need the images folder to be in the same directory to display correctly. Note If you would like to have a single-file HTML as result, you can configure AsciiDoctor to store the images inline as data-uri . Just set :data-uri: in the config of your AsciiDoc file. But be warned - such a file can become very big easily and some browsers might get into trouble rendering them. https://rdmueller.github.io/single-file-html/ Text based Diagrams For docToolchain, it is configured to use the asciidoctor-diagram plugin which is used to create PlantUML diagrams. The plugin also supports a bunch of other text based diagrams, but PlantUML is the most used. To use it, just specify your PlantUML code like this: .example diagram [plantuml, {plantUMLDir}demoPlantUML, png] # (1) ---- class BlockProcessor class DiagramBlock class DitaaBlock class PlantUmlBlock BlockProcessor &lt;|-- DiagramBlock DiagramBlock &lt;|-- DitaaBlock DiagramBlock &lt;|-- PlantUmlBlock ---- The element of this list specifies the diagram tool plantuml to be used. The second element is the name of the image to be created and the third specifies the image type. Note The {plantUMLDir} ensures that PlantUML also works for the [generatePDF] task. Without it, generateHTML works fine, but the PDF will not contain the generated images. Important Make sure to specify a unique image name for each diagram, otherwise they will overwrite each other. The above example renders as Figure 1. example diagram If you want to control the size of the generated diagram in the output, you can configure the width attribute (in pixels) or scale attribute (floating point ratio) passed to asciidoctor-diagram . For example, if you take the example diagram above and change the declaration to one of the below versions [plantuml, target={plantUMLDir}demoPlantUMLWidth, format=png, width=250] # rest of the diagram definition [plantuml, target={plantUMLDir}demoPlantUMLScale, format=png, scale=0.75] # rest of the diagram definition it will render like this: Figure 2. example diagram (with specified width) Figure 3. example diagram (with specified scale) Note PlantUML needs Graphviz dot installed to work. If you can&#8217;t install it, you can use the Java based version of the dot library. Just add !pragma graphviz_dot smetana as the first line of your diagram definition. This is still an experimental feature, but already works quite well! https://rdmueller.github.io/plantuml-without-graphviz/ Tip Blog-Posts: PlantUML with Gradle , plantUML with Asciidoctor-pdf , plantUML revisited , How to use PlantUML without Graphviz Source AsciiDocBasics.gradle task generateHTML ( type: AsciidoctorTask, group: 'docToolchain', description: 'use html5 as asciidoc backend') { attributes ( 'plantUMLDir' : file(${docDir}/${config.outputPath}/html5).toURI().relativize(new File(${docDir}/${config.outputPath}/html5/plantUML/).toURI()).getPath() ) onlyIf { !sourceFiles.findAll { 'html' in it.formats }.empty } // specify output folder explicitly to avoid cleaning targetDir from other generated content outputDir = file(targetDir + '/html5/') separateOutputDirs(false) sources { sourceFiles.findAll { 'html' in it.formats }.each { include it.file println it.file } } resources { config.imageDirs.each { imageDir -&gt; from(new File(file(srcDir),imageDir)) logger.info ('imageDir: '+imageDir) } into './images' } backends = ['html5'] } "
-},
-
-{
-    "id": 37,
+    "id": 35,
     "uri": "015_tasks/03_task_exportContributors.html",
     "menu": "tasks",
     "title": "exportContributors",
@@ -305,11 +289,27 @@ var documents = [
 },
 
 {
-    "id": 38,
+    "id": 36,
+    "uri": "015_tasks/03_task_convertToDocx.html",
+    "menu": "tasks",
+    "title": "convertToDocx",
+    "text": " Table of Contents convertToDocx Source convertToDocx Needs pandoc installed Please make sure that 'docbook' and 'docx' are added to the inputFiles formats in Config.groovy Optional: you can specify a reference doc file with custom stylesheets (see task [createReferenceDoc] ) 1 minute to read Tip Blog-Post: Render AsciiDoc to docx (MS Word) Source pandoc.gradle task convertToDocx ( group: 'docToolchain', description: 'converts file to .docx via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `docx` in config.groovy is converted to docbook and then to docx. def sourceFilesDocx = sourceFiles.findAll { 'docx' in it.formats } sourceFilesDocx.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.docx') workingDir $targetDir/docbook executable = pandoc if(referenceDocFile?.trim()) { args = [-r,docbook, -t,docx, -o,../docx/$targetFile, --reference-doc=${docDir}/${referenceDocFile}, sourceFile] } else { args = [-r,docbook, -t,docx, -o,../docx/$targetFile, sourceFile] } } doFirst { new File($targetDir/docx/).mkdirs() } } "
+},
+
+{
+    "id": 37,
     "uri": "015_tasks/03_task_generateSite.html",
     "menu": "tasks",
     "title": "generateSite",
     "text": " Table of Contents generateSite Pages Templates and Style Landing Page Blog Search CI/CD See also Source generateSite 4 minutes to read When you have one document, the output of generateHTML might fit your needs. When your documentation grows, and you have several documents, you need a microsite which bundles all the information. The generateSite task uses jBake to create a static site with a Landingpage, Blog and Search. Pages The microsite is page oriented instead of document oriented. It is likely that you already organized your documents by chapter. Use these chapters as pages to create a great user experience. The arc42-template sources are a good example. In order to include a page in the microsite, add a meta-data header to it. page meta-data :jbake-menu: arc42 :jbake-title: Solution Strategy :jbake-order: 4 :jbake-type: page_toc :jbake-status: published :filename: 015_tasks/03_task_generateSite.adoc :imagesdir: ../../images :toc: [[section-solution-strategy]] === Solution Strategy jbake-menu the top-level menu for this page. Defaults to the top-level folder name of the adoc file within the docDir . jbake-title the title to be displayed in the drop-down top-level menu. Defaults to the first headline of the file. jbake-order give the drop-down entries a sort order. Defaults to a prefixed number of the file like 04 _filename.adoc or to the prefixed number of the second level folder name. jbake-type the page type. This controls which template is used to render the page. You will mostly use page for a full-width page or page_toc for a page with a table of contents (toc) rendered on the left. Defaults to page_toc . jbake-status draft or published . Only published pages will be rendered. Defaults to published for files with a jbake-order and draft for files without order or files prefixed with _ . filename needed for edit and feedback-links (coming soon). Defaults to the filename :-) ifndef this fixes the imagesdir according to the nesting level of your docs folder Defaults to the main docDir/images toc for :jbake-type: page_toc , you need this line to generate the toc. Note Start your pages with a == level headline. You can fix the level offset when you include the page in a larger document with include::chapter.adoc[leveloffset=+1] Templates and Style The jBake templates and CSS etc. is hidden away from you for convenience. The basic template use twitter Bootstrap 5 as CSS framework. Use the copyThemes task to copy all hidden jBake resources to your project. You can then remove the ones you don&#8217;t need and change those you want to change. Note copyThemes overwrites existing files, but your code is under version control, isn&#8217;t it? Landing Page Put a index.gsp page as landing page in src/site/templates . This landing page is plain HTML5 styled with twitter bootstrap. Header and footer is added by docToolchain. An example can be found through copyThemes or on github . Blog The microsite also contains a simple but powerful blog. Use it to inform your team about changes and architecture decision records (ADRs). To create a new blog post, create a new file in src/docs/blog/&lt;year&gt;/&lt;post-name&gt;.adoc with the following template: blog post template :jbake-title: &lt;title-of your post&gt; :jbake-date: &lt;date formatted as 2021-02-28&gt; :jbake-type: post :jbake-tags: &lt;blog, asciidoc&gt; :jbake-status: published :imagesdir: ../../images == {jbake-title} {jbake-author} {jbake-date} &lt;insert your text here&gt; Search The microsite does not bring its own local search. Instead, it only has a search input-field which can be used to link to another search engine. CI/CD When run in an automated build, you should set the environment variable DTC_HEADLESS to true or 1 to ensure that docToolchain will not ask to install the configured theme. It will simply assume that you do want to install it. To avoid the download of the theme with every build, you can copy the themes folder from $HOME/.doctoolchain/themes to the corresponding folder in your build container. See also [task_previewsite] Source scripts/generateSite.gradle import groovy.util.* import static groovy.io.FileType.* buildscript { repositories { maven { url mavenRepository } } dependencies { classpath 'org.asciidoctor:asciidoctorj-diagram:2.0.2' } } dependencies { jbake 'org.asciidoctor:asciidoctorj-diagram:2.0.2' jbake 'io.pebbletemplates:pebble:3.1.2' } apply plugin: 'org.jbake.site' apply plugin: 'org.gretty' def color = { color, text -&gt; def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37] return new String((char) 27) + [${colors[color]}m${text} + new String((char) 27) + [0m } jbake { version = '2.6.7' srcDirName = ${targetDir}/microsite/tmp/site destDirName = ${targetDir}/microsite/output configuration['asciidoctor.option.requires'] = asciidoctor-diagram config.microsite.each { key, value -&gt; configuration['site.'+key-'config.microsite.'] = value //println 'site.'+key-'config.microsite.' + = + value } configuration['asciidoctor.attributes'] = [ sourceDir=${targetDir}, 'source-highlighter=prettify@', //'imagesDir=../images@', imagesoutDir=${targetDir}/microsite/output/images@, imagesDir=${config.microsite.contextPath}/images@, targetDir=${targetDir}, docDir=${docDir}, projectDir=${projectDir} ] } bakePreview { port = '8046' } gretty { httpPort = ${config.microsite.previewPort?:8042} as Integer contextPath = ${config.microsite.contextPath} extraResourceBases = [${targetDir}/microsite/output] } task generateSite( group: 'docToolchain', description: 'generate a microsite using jBake') { doLast { new File(${targetDir}/microsite/tmp).mkdirs() println created println new File(${targetDir}/microsite/tmp/).canonicalPath //copy internal theme println copy internal theme ${new File(projectDir, 'src/site').canonicalPath} copy { from('src/site') into(${targetDir}/microsite/tmp/site) } //check if a remote pdfTheme is defined def siteTheme = System.getenv('DTC_SITETHEME')?: def themeFolder = new File(projectDir, ../themes/ + siteTheme.md5()) try { if (siteTheme) { println use siteTheme $siteTheme //check if it is already installed if (!themeFolder.exists()) { if (System.getenv('DTC_HEADLESS')) { ant.yesno = y } else { println ${color 'green', \nTheme '$siteTheme' is not installed yet. } def input = ant.input(message:  ${color 'green', 'do you want me to download and install it to '} ${color 'green', ' ' + themeFolder.canonicalPath} ${color 'green', 'for you?'}\n, validargs: 'y,n', addproperty: 'yesno') } if (ant.yesno == y) { themeFolder.mkdirs() download { src siteTheme dest new File(themeFolder, 'siteTheme.zip') } copy { from zipTree(new File(themeFolder, 'siteTheme.zip')) into themeFolder } delete { delete new File(themeFolder, 'siteTheme.zip') } } else { println ${color 'green', \nI will continue without the theme for now... } siteTheme =  } } //copy external theme if (siteTheme) { copy { from(themeFolder) {} into(${targetDir}/microsite/tmp/) } //check if the config has to be updated // check if config still contains /** microsite **/ def configFile = new File(docDir, mainConfigFile) def configFileText = configFile.text if (configFileText.contains(/** start:microsite **/)) { def configFragment = new File(targetDir,'/microsite/tmp/site/configFragment.groovy') if (configFragment.exists()) { println ${color 'green',  It seems that this theme is used for the first time in this project. Let's confige it! If you are unsure, change these settings later in your config file $configFile.canonicalPath } def comment =  def conf =  def example =  def i = 0 configFragment.eachLine { line -&gt; if (line.trim()) { if (line.startsWith(//)) { conf +=   + line + \n def tmp = line[2..-1].trim() comment += color('green', tmp) + \n if (tmp.toLowerCase().startsWith(example)) { example = tmp.replaceAll([^ ]* , ) } } else { //only prompt if there is something to prompt if (line.contains(##)) { def property = line.replaceAll([ =].*, ) if (!example) { example = config.microsite[property] } comment = color('blue', $property) + \n + comment if (example) { ant.input(message: comment, addproperty: 'res' + i, defaultvalue: example) } else { ant.input(message: comment, addproperty: 'res' + i) } (comment, example) = [, ] line = line.replaceAll(##.+##, ant['res' + i]) conf +=   + line + \n i++ } else { conf +=   + line + \n } } } else { conf += \n } } configFile.write(configFileText.replaceAll((?sm)/[*][*] start:microsite [*][*]/.*/[*][*] end:microsite [*][*]/, %%marker%%).replace(%%marker%%, conf)) println color('green', config written\ntry\n ./dtcw generateSite previewSite\nto see your microsite!) } //copy the dummy docs (blog, landing page) to the project repository copy { from(new File(themeFolder, 'site/doc')) {} into(new File(docDir, inputPath)) } } } } } catch (Exception e) { println color('red', e.message) if (e.message.startsWith(Not Found)) { throw new GradleException(Couldn't find theme. Did you specify the right URL?\n+e.message) themeFolder.deleteDir() } else { throw new GradleException(e.message) } } //copy project theme if (config.microsite.siteFolder) { def projectTheme = new File(new File(docDir, inputPath), config.microsite.siteFolder) println copy project theme ${projectTheme.canonicalPath} copy { from(projectTheme) {} into(${targetDir}/microsite/tmp/site) } } //copy docs copy { from(new File(docDir, inputPath)) {} into(${targetDir}/microsite/tmp/site/doc) } //fix MetaData-Header File sourceFolder = new File(targetDir, '/microsite/tmp/site/doc') logger.info(sourceFolder:  + sourceFolder.canonicalPath) sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^.*(ad|adoc|asciidoc)$') { if (file.name.startsWith(_)) { //ignore } else { def origText = file.text //parse jbake attributes def text =  def jbake = [ status: published, order: -1, type: 'page_toc' ] def parseAttribs = true origText.eachLine { line -&gt; if (parseAttribs &amp;&amp; line.startsWith(:jbake)) { line = (line - :jbake-).split(: +, 2) jbake[line[0]] = line[1] } else { if (line.startsWith([)) { // stop parsing jBake-attribs when a [source] - block starts which might contain those attribs as example parseAttribs = false } text += line+\n } } def name = file.canonicalPath - (sourceFolder.canonicalPath+/) name = name.split(/) if (name.size()&gt;1) { if (!jbake.menu) { jbake.menu = name[0] if (jbake.menu ==~ /[0-9]+[-_].*/) { jbake.menu = jbake.menu.split([-_], 2)[1] } } def docname = name[-1] if (docname ==~ /[0-9]+[-_].*/) { jbake.order = docname.split([-_],2)[0] docname = docname.split([-_],2)[1] } if (name.size() &gt; 2) { if ((jbake.order as Integer)==0) { // let's take the order from the second level dir or file and not the file def secondLevel = name[1] if (secondLevel ==~ /[0-9]+[-_].*/) { jbake.order = secondLevel.split([-_],2)[0] } } else { if ((jbake.order as Integer) &gt; 0) { // } else { jbake.status = draft } } } if (jbake.order==-1 &amp;&amp; docname.startsWith('index')) { jbake.order = 0 jbake.status = published } // news blog if (jbake.order==-1 &amp;&amp; jbake.type=='post') { jbake.order = 0 try { jbake.order = Date.parse(yyyy-MM-dd, jbake.date).time / 100000 } catch ( Exception e) { System.out.println unparsable date ${jbake.date} in $name } jbake.status = published } def leveloffset = 0 text.eachLine { line -&gt; if (!jbake.title &amp;&amp; line ==~ ^=+ .*) { jbake.title = (line =~ ^=+ (.*))[0][1] def level = (line =~ ^(=+) .*)[0][1] if (level===) { leveloffset = 1 } } } if (leveloffset==1) { //leveloffset needed // we always start wit == not with = text = text.replaceAll((?ms)^(=+) , '$1= ') } def header = '' jbake.each { key, value -&gt; header += :jbake-${key}: ${value}\n } file.write(header + \n:toc: left\n\n++++\n&lt;!-- endtoc --&gt;\n++++\n + text, utf-8) } } } } /** println =*80 println (new File(${targetDir}/microsite/tmp/site/doc).canonicalPath) new File(${targetDir}/microsite/tmp/site/doc).eachFileRecurse { file -&gt; if (file.name.endsWith('.adoc')) { System.out.println &gt;&gt; +file.name } } **/ } } task previewSite( group: 'docToolchain', dependsOn: [], description: 'start a little webserver to preview your microsite', ) { } task copyImages(type: Copy) { config.imageDirs.each { imageDir -&gt; from(new File (new File(docDir, inputPath),imageDir)) {} logger.info ('imageDir: '+imageDir) } into(${targetDir}/microsite/images) } bake.dependsOn copyImages generateSite.finalizedBy bake previewSite.finalizedBy 'jettyRun' "
+},
+
+{
+    "id": 38,
+    "uri": "015_tasks/03_task_generateHTML.html",
+    "menu": "tasks",
+    "title": "generateHTML",
+    "text": " Table of Contents generateHTML Text based Diagrams Source generateHTML 3 minutes to read This is the standard AsciiDoctor generator which is supported out of the box. The result is written to build/html5 . The HTML files need the images folder to be in the same directory to display correctly. Note If you would like to have a single-file HTML as result, you can configure AsciiDoctor to store the images inline as data-uri . Just set :data-uri: in the config of your AsciiDoc file. But be warned - such a file can become very big easily and some browsers might get into trouble rendering them. https://rdmueller.github.io/single-file-html/ Text based Diagrams For docToolchain, it is configured to use the asciidoctor-diagram plugin which is used to create PlantUML diagrams. The plugin also supports a bunch of other text based diagrams, but PlantUML is the most used. To use it, just specify your PlantUML code like this: .example diagram [plantuml, {plantUMLDir}demoPlantUML, png] # (1) ---- class BlockProcessor class DiagramBlock class DitaaBlock class PlantUmlBlock BlockProcessor &lt;|-- DiagramBlock DiagramBlock &lt;|-- DitaaBlock DiagramBlock &lt;|-- PlantUmlBlock ---- The element of this list specifies the diagram tool plantuml to be used. The second element is the name of the image to be created and the third specifies the image type. Note The {plantUMLDir} ensures that PlantUML also works for the [generatePDF] task. Without it, generateHTML works fine, but the PDF will not contain the generated images. Important Make sure to specify a unique image name for each diagram, otherwise they will overwrite each other. The above example renders as Figure 1. example diagram If you want to control the size of the generated diagram in the output, you can configure the width attribute (in pixels) or scale attribute (floating point ratio) passed to asciidoctor-diagram . For example, if you take the example diagram above and change the declaration to one of the below versions [plantuml, target={plantUMLDir}demoPlantUMLWidth, format=png, width=250] # rest of the diagram definition [plantuml, target={plantUMLDir}demoPlantUMLScale, format=png, scale=0.75] # rest of the diagram definition it will render like this: Figure 2. example diagram (with specified width) Figure 3. example diagram (with specified scale) Note PlantUML needs Graphviz dot installed to work. If you can&#8217;t install it, you can use the Java based version of the dot library. Just add !pragma graphviz_dot smetana as the first line of your diagram definition. This is still an experimental feature, but already works quite well! https://rdmueller.github.io/plantuml-without-graphviz/ Tip Blog-Posts: PlantUML with Gradle , plantUML with Asciidoctor-pdf , plantUML revisited , How to use PlantUML without Graphviz Source AsciiDocBasics.gradle task generateHTML ( type: AsciidoctorTask, group: 'docToolchain', description: 'use html5 as asciidoc backend') { attributes ( 'plantUMLDir' : file(${docDir}/${config.outputPath}/html5).toURI().relativize(new File(${docDir}/${config.outputPath}/html5/plantUML/).toURI()).getPath() ) onlyIf { !sourceFiles.findAll { 'html' in it.formats }.empty } // specify output folder explicitly to avoid cleaning targetDir from other generated content outputDir = file(targetDir + '/html5/') separateOutputDirs(false) sources { sourceFiles.findAll { 'html' in it.formats }.each { include it.file println it.file } } resources { config.imageDirs.each { imageDir -&gt; from(new File(file(srcDir),imageDir)) logger.info ('imageDir: '+imageDir) } into './images' } backends = ['html5'] } "
 },
 
 {
@@ -322,18 +322,18 @@ var documents = [
 
 {
     "id": 40,
-    "uri": "015_tasks/03_task_exportOpenApi.html",
-    "menu": "tasks",
-    "title": "exportOpenAPI",
-    "text": " Table of Contents exportOpenAPI Configuration Source exportOpenAPI 1 minute to read This task exports OpenAPI specification defined in a yaml file to AsciiDoc document. Currently it relies on OpenAPI Generator (v4.3.1) and its gradle plugin . Configuration Config.groovy Unresolved directive in &lt;stdin&gt; - include::/home/travis/.doctoolchain/docToolchain-2.0.0-rc16/Config.groovy[tags=openApiConfig] Source exportOpenApi.gradle task exportOpenApi ( type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask, group: 'docToolchain', description: 'exports OpenAPI specification to the asciidoc file') { if (!specFile) { logger.info(\n---&gt; OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)) return } else { logger.info(Found OpenAPI specification in Config.groovy) } outputs.upToDateWhen { false } outputs.cacheIf { false } generatorName = 'asciidoc' outputDir = ${targetDir}/OpenAPI.toString() inputSpec = ${docDir}/${specFile} // plugin is not able to find file if inputPath is defined as '.' logger.debug(\n=====================\nProject Config:\n=====================) logger.debug(Docdir: ${docDir}) logger.debug(Target: ${targetDir}) logger.info(\n=====================\nOpenAPI Config:\n=====================) logger.info(Specification file: ${specFile}) logger.info(inputSpec: ${inputSpec}) logger.info(outputDir: ${outputDir}\n) additionalProperties = [ infoEmail:${config.openApi.infoEmail}, infoUrl:${config.openApi.infoUrl} ] } "
-},
-
-{
-    "id": 41,
     "uri": "015_tasks/03_task_exportVisio.html",
     "menu": "tasks",
     "title": "exportVisio",
     "text": " Table of Contents exportVisio Source exportVisio 1 minute to read This tasks searches for Visio files in the /src/docs folder. It then exports all diagrams and element notes to /src/docs/images/visio and /src/docs/visio . Images are stored as /images/visio/[filename]-[pagename].png Notes are stored as /visio/[filename]-[pagename].adoc You can specify a file name to which the notes of a diagram are exported by starting any comment with {adoc:[filename].adoc} . It will then be written to /visio/[filename].adoc . Warning Currently, only Visio files stored directly in /src/docs are supported. For all others, the exported files will be in the wrong location. Note Please close any running Visio instance before starting this task. Note Todos: issue #112 Source exportVisio.gradle task exportVisio( dependsOn: [streamingExecute], description: 'exports all diagrams and notes from visio files', group: 'docToolchain' ) { doLast { //make sure path for notes exists //and remove old notes new File(docDir, 'src/docs/visio').deleteDir() //also remove old diagrams new File(docDir, 'src/docs/images/visio').deleteDir() //create a readme to clarify things def readme = This folder contains exported diagrams and notes from visio files. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportVisio` to re-export files  new File(docDir, 'src/docs/images/visio/.').mkdirs() new File(docDir, 'src/docs/images/visio/readme.ad').write(readme) new File(docDir, 'src/docs/visio/.').mkdirs() new File(docDir, 'src/docs/visio/readme.ad').write(readme) def sourcePath = new File(docDir, 'src/docs/.').canonicalPath def scriptPath = new File(projectDir, 'scripts/VisioPageToPngConverter.ps1').canonicalPath powershell ${scriptPath} -SourcePath ${sourcePath}.executeCmd() } } scripts/VisioPageToPngConverter.ps1 # Convert all pages in all visio files in the given directory to png files. # A Visio windows might flash shortly. # The converted png files are stored in the same directory # The name of the png file is concatenated from the Visio file name and the page name. # In addtion all the comments are stored in adoc files. # If the Viso file is named MyVisio.vsdx and the page is called FirstPage # the name of the png file will be MyVisio-FirstPage.png and the comment will # be stored in MyVisio-FirstPage.adoc. # But for the name of the adoc files there is an alternative. It can be given in the first # line of the comment. If it is given in the comment it has to be given in curly brackes # with the prefix adoc:, e.g. {adoc:MyCommentFile.adoc} # Prerequisites: Viso and PowerShell has to be installed on the computer. # Parameter: SourcePath where visio files can be found # Example powershell VisoPageToPngConverter.ps1 -SourcePath c:\convertertest\ Param ( [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=0)] [Alias('p')][String]$SourcePath ) Write-Output starting to export visio If (!(Test-Path -Path $SourcePath)) { Write-Warning The path $SourcePath does not exist or is not accessible, please input the correct path. Exit } # Extend the source path to get only Visio files of the given directory and not in subdircetories If ($SourcePath.EndsWith(\)) { $SourcePath = $SourcePath } Else { $SourcePath = $SourcePath\ } $VisioFiles = Get-ChildItem -Path $SourcePath* -Recurse -Include *.vsdx,*.vssx,*.vstx,*.vxdm,*.vssm,*.vstm,*.vsd,*.vdw,*.vss,*.vst If(!($VisioFiles)) { Write-Warning There are no Visio files in the path $SourcePath. Exit } $VisioApp = New-Object -ComObject Visio.Application $VisioApp.Visible = $false # Extract the png from all the files in the folder Foreach($File in $VisioFiles) { $FilePath = $File.FullName Write-Output found $FilePath . $FileDirectory = $File.DirectoryName # Get the folder containing the Visio file. Will be used to store the png and adoc files $FileBaseName = $File.BaseName -replace '[ :/\\*?|&lt;&gt;]','-' # Get the filename to be used as part of the name of the png and adoc files Try { $Document = $VisioApp.Documents.Open($FilePath) $Pages = $VisioApp.ActiveDocument.Pages Foreach($Page in $Pages) { # Create valid filenames for the png and adoc files $PngFileName = $Page.Name -replace '[ :/\\*?|&lt;&gt;]','-' $PngFileName = $FileBaseName-$PngFileName.png $AdocFileName = $PngFileName.Replace(.png, .adoc) #TODO: this needs better logic Write-Output($SourcePath\images\visio\$PngFileName) $Page.Export($SourcePath\images\visio\$PngFileName) $AllPageComments =  ForEach($PageComment in $Page.Comments) { # Extract adoc filename from comment text if the syntax is valid # Remove the filename from the text and save the comment in a file with a valid name $EofStringIndex = $PageComment.Text.IndexOf(.adoc}) if ($PageComment.Text.StartsWith({adoc) -And ($EofStringIndex -gt 6)) { $AdocFileName = $PageComment.Text.Substring(6, $EofStringIndex -1) $AllPageComments += $PageComment.Text.Substring($EofStringIndex + 6) } else { $AllPageComments += $PageComment.Text+`n } } If ($AllPageComments) { $AdocFileName = $AdocFileName -replace '[:/\\*?|&lt;&gt;]','-' #TODO: this needs better logic $stream = [System.IO.StreamWriter] $SourcePath\visio\$AdocFileName $stream.WriteLine($AllPageComments) $stream.close() } } $Document.Close() } Catch { if ($Document) { $Document.Close() } Write-Warning One or more visio page(s) in file $FilePath have been lost in this converting. Write-Warning Error was: $_ } } $VisioApp.Quit() "
+},
+
+{
+    "id": 41,
+    "uri": "015_tasks/03_task_exportOpenApi.html",
+    "menu": "tasks",
+    "title": "exportOpenAPI",
+    "text": " Table of Contents exportOpenAPI Configuration Source exportOpenAPI 1 minute to read This task exports OpenAPI specification defined in a yaml file to AsciiDoc document. Currently it relies on OpenAPI Generator (v4.3.1) and its gradle plugin . Configuration Config.groovy Unresolved directive in &lt;stdin&gt; - include::/home/travis/.doctoolchain/docToolchain-2.0.0-rc16/Config.groovy[tags=openApiConfig] Source exportOpenApi.gradle task exportOpenApi ( type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask, group: 'docToolchain', description: 'exports OpenAPI specification to the asciidoc file') { if (!specFile) { logger.info(\n---&gt; OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)) return } else { logger.info(Found OpenAPI specification in Config.groovy) } outputs.upToDateWhen { false } outputs.cacheIf { false } generatorName = 'asciidoc' outputDir = ${targetDir}/OpenAPI.toString() inputSpec = ${docDir}/${specFile} // plugin is not able to find file if inputPath is defined as '.' logger.debug(\n=====================\nProject Config:\n=====================) logger.debug(Docdir: ${docDir}) logger.debug(Target: ${targetDir}) logger.info(\n=====================\nOpenAPI Config:\n=====================) logger.info(Specification file: ${specFile}) logger.info(inputSpec: ${inputSpec}) logger.info(outputDir: ${outputDir}\n) additionalProperties = [ infoEmail:${config.openApi.infoEmail}, infoUrl:${config.openApi.infoUrl} ] } "
 },
 
 {
@@ -370,14 +370,6 @@ var documents = [
 
 {
     "id": 46,
-    "uri": "015_tasks/03_task_exportMetrics.html",
-    "menu": "tasks",
-    "title": "exportMetrics",
-    "text": " Table of Contents exportMetrics exportMetrics 1 minute to read This tasks crawls through all Asciidoctor source files and extracts the number of words in each file. At the end, it displays the number of words overall. This task ist currently only intended to give you an output on the commandline to measure your writing progress. "
-},
-
-{
-    "id": 47,
     "uri": "015_tasks/03_task_copy_themes.html",
     "menu": "tasks",
     "title": "copyThemes",
@@ -385,7 +377,7 @@ var documents = [
 },
 
 {
-    "id": 48,
+    "id": 47,
     "uri": "015_tasks/03_task_publishToConfluence.html",
     "menu": "tasks",
     "title": "publishToConfluence",
@@ -393,11 +385,19 @@ var documents = [
 },
 
 {
-    "id": 49,
+    "id": 48,
     "uri": "015_tasks/03_task_previewSite.html",
     "menu": "tasks",
     "title": "previewSite",
     "text": " Table of Contents previewSite previewSite 1 minute to read When you use the build in static site generator through [task_generatesite] , you sometimes need a real static server locally running to preview the results. This task will start a jetty with your generated site. Note When you use WSL to execute this command, you will need the IP V6 address of localhost [::1] to access the server. 127.0.0.1 or localhost will not work. Note Most site themes don&#8217;t need the static site server for general content. You can just preview the site by opening it right from the filesystem in your browser. But some javascript features will not work because of CORS restrictions. "
+},
+
+{
+    "id": 49,
+    "uri": "015_tasks/03_task_exportMetrics.html",
+    "menu": "tasks",
+    "title": "exportMetrics",
+    "text": " Table of Contents exportMetrics exportMetrics 1 minute to read This tasks crawls through all Asciidoctor source files and extracts the number of words in each file. At the end, it displays the number of words overall. This task ist currently only intended to give you an output on the commandline to measure your writing progress. "
 },
 
 {
