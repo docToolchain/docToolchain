@@ -24,7 +24,7 @@
                     <%
                         def splitBody = content.body
                         if (splitBody.contains("<!-- endtoc -->")) {
-                            splitBody = splitBody.split("(?ms)<!-- endtoc -->", 2)
+                            splitBody = splitBody.split("(?ms)<!-- endtoc -->", 2)[1]
                         }
                         out << splitBody
                     %>
