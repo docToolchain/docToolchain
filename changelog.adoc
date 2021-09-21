@@ -9,9 +9,16 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === added
 
+2021-09-21::
+* added lunrjs as local search engine
+
 === changed
 
 === fixed
+
+2021-09-21::
+* updated exportContributors to follow moved files
+* fixed downloadTemplate
 
 == 2.0.0-rc15 - 2021-09-18
 
