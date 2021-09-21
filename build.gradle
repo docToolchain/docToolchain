@@ -11,7 +11,7 @@ plugins {
     id "org.openapi.generator" version "4.3.1"
     id "de.undercouch.download" version "4.1.2"
     id 'org.jbake.site' version '5.5.0'
-    id 'org.gretty' version '4.0.0'
+    id 'org.gretty' version '3.0.6'
 }
 
 apply plugin:'groovy'
