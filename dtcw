@@ -12,7 +12,7 @@ DTC_HEADLESS=true
 
 MAIN_CONFIG_FILE=docToolchainConfig.groovy
 VERSION=2.0.0-rc16
-DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/archive/v${VERSION}.zip
+DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/releases/download/V${VERSION}/docToolchain-${VERSION}.zip
 
 
 DTC_OPTS="$DTC_OPTS -PmainConfigFile=$MAIN_CONFIG_FILE --warning-mode=none"
@@ -64,6 +64,7 @@ install_local() {
     fi
     mkdir $HOME/.doctoolchain
     wgetversion=$(wget --version | head -1 | sed -E 's/^.* 1.([0-9.]+) .*$/\1/')
+    echo $DISTRIBUTION_URL
     if command -v curl &> /dev/null; then
       curl -Lo $HOME/.doctoolchain/source.zip $DISTRIBUTION_URL
     else
