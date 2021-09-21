@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
   
-  <!-- 015_tasks/03_task_collectIncludes.html -->
+  <!-- 015_tasks/03_task_autobuildSite.html -->
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>collectIncludes</title>
+  <title>autobuildSite</title>
   <meta content="docToolchain" property="og:title">
   <meta content="build your dev docs the easy way..." property="og:description">
   <meta content="website" property="og:type">
@@ -245,13 +245,13 @@
                             
                             
                             <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../015_tasks/03_task_autobuildSite.html">autobuildSite</a>
                             </li>
                             
                             
                             <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../015_tasks/03_task_collectIncludes.html">collectIncludes</a>
                             </li>
                             
@@ -440,11 +440,11 @@
 			<div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_task_collectIncludes.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_task_autobuildSite.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
         <!--a href="https://github.com/google/docsy-example/new/master/content/en/docs/_index.md?filename=change-me.md&amp;value=---%0Atitle%3A+%22Long+Page+Title%22%0AlinkTitle%3A+%22Short+Nav+Title%22%0Aweight%3A+100%0Adescription%3A+%3E-%0A+++++Page+description+for+heading+and+indexes.%0A---%0A%0A%23%23+Heading%0A%0AEdit+this+template+to+create+your+new+page.%0A%0A%2A+Give+it+a+good+name%2C+ending+in+%60.md%60+-+e.g.+%60getting-started.md%60%0A%2A+Edit+the+%22front+matter%22+section+at+the+top+of+the+page+%28weight+controls+how+its+ordered+amongst+other+pages+in+the+same+directory%3B+lowest+number+first%29.%0A%2A+Add+a+good+commit+message+at+the+bottom+of+the+page+%28%3C80+characters%3B+use+the+extended+description+field+for+more+detail%29.%0A%2A+Create+a+new+branch+so+you+can+preview+your+new+file+and+request+a+review+via+Pull+Request.%0A"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a-->
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27collectIncludes%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_collectIncludes.adoc" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27autobuildSite%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_autobuildSite.adoc" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
         <!--a href="https://github.com/google/docsy/issues/new" target="_blank"><i
                 class="fas fa-tasks fa-fw"></i> Create project issue</a-->
@@ -455,7 +455,7 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_collectincludes">collectIncludes</a></li>
+<li><a href="#_autobuildsite">autobuildSite</a></li>
 </ul>
 </div>
 
@@ -477,167 +477,24 @@
         <p>
             
 <div class="sect1">
-<h2 id="_collectincludes">collectIncludes</h2>
+<h2 id="_autobuildsite">autobuildSite</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/d41d8cd98f00b204e9800998ecf8427e?d=identicon" alt="" width="32" height="32" title=""></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>2 minutes to read</pre>
+<pre>1 minute to read</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>This tasks crawls through your whole project looking for AsciiDoc files with a certain name pattern.
-It then creates an AsciiDoc file which just includes all files found.</p>
-</div>
-<div class="paragraph">
-<p>When you create modular documentation, most includes are static.
-For example, the arc42-template has 12 chapters and a master template in which those 12 chapters are included.</p>
-</div>
-<div class="paragraph">
-<p>But when you work with dynamic modules like ADRs - Architecture Decision Records - you create those files on the fly.
-Maybe not even within your <code>/src/docs</code> folder but right beside the code file for which you wrote the ADR.</p>
-</div>
-<div class="paragraph">
-<p>In order to include these files in your documentation, you now would have to add the file with its whole relative path to one of your AsciiDoc files.</p>
-</div>
-<div class="paragraph">
-<p>This task will handle it for you!</p>
-</div>
-<div class="paragraph">
-<p>Just stick with your files names to the pattern <code>^[A-Z]{3,}[-\_].\*</code> (it begins with at last three upper case letters and a dash/underscore) and this task will collect this file and write it to your build folder.
-You only have to include this generated file from within your documentation.</p>
-</div>
-<div class="paragraph">
-<p>If you provide templates for the documents these templates are skipped if the name matches the pattern <code>^.*[-_][tT]emplate[-\_].*</code>.</p>
-</div>
-<div class="paragraph">
-<p>Example:</p>
-</div>
-<div class="paragraph">
-<p>You have a file called</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>/src/java/yourCompany/domain/books/ADR-1-whyWeUseTheAISINInsteadOFISBN.adoc</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The task will collect this file and write another file called</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>/build/docs/_includes/ADR_includes.adoc</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Which will look like this:</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>include::../../../src/java/yourCompany/domain/books/ADR-1-whyWeUseTheAISINInsteadOFISBN.adoc[]</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Obviously, you get the most benefit if you not only have one ADR file, but several ones which get collected.
-😎</p>
-</div>
-<div class="paragraph">
-<p>You then include these files in your main documentation by using a single include:</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>include::{targetDir}/docs/_includes/ADR_includes.adoc[]</pre>
-</div>
+<p>This script starts an endless loop which checks for changes in your docs source and re-runs the <code>generateSite</code>-task whenever it detects changes.
+Output will be logged to <code>build/generateSite.log</code>.</p>
 </div>
 <div class="listingblock">
-<div class="title">scripts/collectIncludes.gradle</div>
+<div class="title">bin/autobuildSite.bash</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">import static groovy.io.FileType.*
-import java.security.MessageDigest
-
-task collectIncludes(
-        description: 'collect all ADRs as includes in one file',
-        group: 'docToolchain'
-) {
-    doFirst {
-        new File(targetDir, '_includes').mkdirs()
-    }
-    doLast {
-        //let's search the whole project for files, not only the docs folder
-        //could be a problem with node projects :-)
-
-        //running as subproject? set scandir to main project
-        if (project.name!=rootProject.name &amp;&amp; scanDir=='.') {
-            scanDir = project(':').projectDir.path
-        }
-        if (docDir.startsWith('.')) {
-            docDir = file(new File(projectDir, docDir).canonicalPath)
-        }
-        logger.info "docToolchain&gt; docDir: ${docDir}"
-        logger.info "docToolchain&gt; scanDir: ${scanDir}"
-        if (scanDir.startsWith('.')) {
-            scanDir = file(new File(docDir, scanDir).canonicalPath)
-        } else {
-            scanDir = file(new File(scanDir, "").canonicalPath)
-        }
-        logger.info "docToolchain&gt; scanDir: ${scanDir}"
-
-        logger.info "docToolchain&gt; includeRoot: ${includeRoot}"
-
-        if (includeRoot.startsWith('.')) {
-            includeRoot = file(new File(docDir, includeRoot).canonicalPath)
-        }
-        logger.info "docToolchain&gt; includeRoot: ${includeRoot}"
-
-        File sourceFolder = scanDir
-        println "sourceFolder: " + sourceFolder.canonicalPath
-        def collections = [:]
-        sourceFolder.traverse(type: FILES) { file -&gt;
-            if (file.name ==~ '^[A-Z]{3,}[-_].*[.](ad|adoc|asciidoc)$') {
-                def type = file.name.replaceAll('^([A-Z]{3,})[-_].*$','\$1')
-                if (!collections[type]) {
-                    collections[type] = []
-                }
-                println "file: " + file.canonicalPath
-                def fileName = (file.canonicalPath - scanDir.canonicalPath)[1..-1]
-                if (file.name ==~ '^.*[Tt]emplate.*$') {
-                    println "ignore template file: " + fileName
-                } else {
-                    if (file.name ==~ '^.*[A-Z]{3,}_includes.adoc$') {
-                        println "ignore generated _includes files: " + fileName
-                    } else {
-                        println "corrected file: " + fileName
-                        if (fileName.startsWith('docToolchain')) {
-                            //ignore docToolchain as submodule
-                        } else {
-                            collections[type] &lt;&lt; fileName
-                        }
-                    }
-                }
-            }
-        }
-        println "targetDir - docDir: " + (targetDir - docDir)
-        println "targetDir - includeRoot: " + (targetDir - includeRoot)
-        def pathDiff = '../' * ((targetDir - docDir)
-                                    .replaceAll('^/','')
-                                    .replaceAll('/$','')
-                                    .replaceAll("[^/]",'').size()+1)
-
-        println "pathDiff: " + pathDiff
-        collections.each { type, fileNames -&gt;
-            if (fileNames) {
-                def outFile = new File(targetDir+'/_includes', type + '_includes.adoc')
-                println outFile.canonicalPath-sourceFolder.canonicalPath
-                outFile.write("// this is autogenerated\n")
-                fileNames.sort().each { fileName -&gt;
-                    outFile.append ("include::../"+pathDiff+fileName.replace("\\", "/")+"[]\n\n")
-                }
-            }
-        }
-    }
-}</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash"></code></pre>
 </div>
 </div>
 </div>
@@ -669,11 +526,11 @@ task collectIncludes(
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27collectIncludes%27%20👍&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_collectIncludes.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27autobuildSite%27%20👍&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_autobuildSite.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27collectIncludes%27%20👎&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_collectIncludes.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27autobuildSite%27%20👎&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_autobuildSite.adoc">tell
     us how we can improve</a>.
     </p>
 </div>
