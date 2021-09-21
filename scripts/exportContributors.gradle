@@ -3,8 +3,8 @@ import static groovy.io.FileType.*
 import java.security.MessageDigest
 
 task exportContributors(
-        description: 'exports all contributors for all asciidoc files',
-        group: 'docToolchain'
+    description: 'exports all contributors for all asciidoc files',
+    group: 'docToolchain'
 ) {
     doLast {
         def wordsPerMinute = 189
@@ -21,24 +21,25 @@ task exportContributors(
             if (file.name ==~ '^.*[.](ad|adoc|asciidoc)$') {
                 def currentFileName = file.canonicalPath.replace("\\", "\\\\")
                 def readingtime = getReadingtime(currentFileName, wordsPerMinute)
-                def contributors = ["git", "log", "--no-merges", "--follow",  "HEAD", currentFileName].execute()
+                def contributors = ["git", "log", "--no-merges", "--follow",  "HEAD", currentFileName].execute(null,  sourceFolder)
+                def sout = new StringBuilder(), serr = new StringBuilder()
                 contributors.waitForOrKill(1000)
                 contributors = contributors.text
                 contributors = contributors
-                                    //.text
-                                    .split("\n")
-                                    .collect { line ->
-                                        if (line.startsWith('Author')) {
-                                            def matcher = line =~ /[\t ]*Author: ([^<]+) <([^>]+)>/
-                                            if (matcher) {
-                                                [matcher[0][1], matcher[0][2]]
-                                            } else {
-                                                ["", ""]
-                                            }
-                                        } else {
-                                            ["", ""]
-                                        }
-                }.unique { a, b -> a[1] <=> b[1] }
+                //.text
+                    .split("\n")
+                    .collect { line ->
+                        if (line.startsWith('Author')) {
+                            def matcher = line =~ /[\t ]*Author: ([^<]+) <([^>]+)>/
+                            if (matcher) {
+                                [matcher[0][1], matcher[0][2]]
+                            } else {
+                                ["", ""]
+                            }
+                        } else {
+                            ["", ""]
+                        }
+                    }.unique { a, b -> a[1] <=> b[1] }
                 def avatars = contributors.collect {
                     if (it[1]) {
                         "image:https://www.gravatar.com/avatar/" +
@@ -59,16 +60,16 @@ task exportContributors(
                 targetFile = new File(targetDir.toString(), "/fileattribs/" + tag)
                 safeMkDirs(targetFile)
 
-                def attributes = ["git", "log", "-1", "--no-merges", "--pretty=format:%x7c%x20%at%n%x7c%x20%ad%x20%n%x7c%x20%aE%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n", "--date=short", "HEAD", currentFileName].execute()
+                def attributes = ["git", "log", "-1", "--no-merges", "--pretty=format:%x7c%x20%at%n%x7c%x20%ad%x20%n%x7c%x20%aE%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n", "--date=short", "HEAD", currentFileName].execute(null,  sourceFolder)
                 attributes.waitForOrKill(1000)
                 attributes = attributes.text.split("[|]").collect{it.trim()}
                 if (attributes.size()>1) {
-                attributes = attributes[1..-1]
-                def avatar = "http://www.gravatar.com/avatar/" +
+                    attributes = attributes[1..-1]
+                    def avatar = "http://www.gravatar.com/avatar/" +
                         md5(attributes[2].toLowerCase().trim()) +
                         "?d=identicon" +
                         "[32,32,role='gravatar',alt='${attributes[3]}',title='${attributes[3]}']"
-                targetFile.write("""\
+                    targetFile.write("""\
 :lastUpdated: ${new Date((attributes[0] as Long)*1000).format('dd.MM.yyyy hh:mm')}
 :lastAuthorName: ${attributes[3]}
 :lastAuthorEmail: ${attributes[2]}
@@ -88,10 +89,10 @@ def getReadingtime(def filename, def wpm) {
     def file = new File(filename)
 
     String[] words =
-            file
-                    .text
-                    .trim()
-                    .split("\\s+");
+        file
+            .text
+            .trim()
+            .split("\\s+");
 
     return (words.length / wpm).toInteger() +1
 }
