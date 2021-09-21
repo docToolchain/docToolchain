@@ -17,7 +17,6 @@ task exportContributors(
         File sourceFolder = new File("${docDir}/${inputPath}")
         println "sourceFolder: " + sourceFolder.canonicalPath
         println "targetFolder: " + targetDir + "/contributors"
-        def first = true
         sourceFolder.traverse(type: FILES) { file ->
             if (file.name ==~ '^.*[.](ad|adoc|asciidoc)$') {
                 def currentFileName = file.canonicalPath.replace("\\", "\\\\")
@@ -25,10 +24,6 @@ task exportContributors(
                 def contributors = ["git", "log", "--no-merges", "--follow",  "HEAD", currentFileName].execute()
                 contributors.waitForOrKill(1000)
                 contributors = contributors.text
-                if (first) {
-                    println currentFileName
-                    println contributors
-                }
                 contributors = contributors
                                     //.text
                                     .split("\n")
@@ -44,10 +39,6 @@ task exportContributors(
                                             ["", ""]
                                         }
                 }.unique { a, b -> a[1] <=> b[1] }
-                if (first) {
-                    println contributors
-                    first = false
-                }
                 def avatars = contributors.collect {
                     if (it[1]) {
                         "image:https://www.gravatar.com/avatar/" +
