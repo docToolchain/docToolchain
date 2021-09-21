@@ -10,5 +10,9 @@ When you use the build in static site generator through <<task_generatesite>>, y
 
 This task will start a jetty with your generated site.
 
-NOTE: Most site themes don't need the static site server.
+NOTE: When you use WSL to execute this command, you will need the IP V6 address of localhost `[::1]` to access the server.
+`127.0.0.1` or `localhost` will not work.
+
+NOTE: Most site themes don't need the static site server for general content.
 You can just preview the site by opening it right from the filesystem in your browser.
+But some javascript features will not work because of CORS restrictions.
