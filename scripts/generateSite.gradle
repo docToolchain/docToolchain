@@ -60,7 +60,7 @@ task generateSite(
     group: 'docToolchain',
     description: 'generate a microsite using jBake') {
     doLast {
-        new File("${targetDir}/microsite/tmp/").mkdirs()
+        new File("${targetDir}/microsite/tmp").mkdirs()
         println "created"
         println new File("${targetDir}/microsite/tmp/").canonicalPath
         //copy internal theme
@@ -233,9 +233,11 @@ ${color 'green', 'for you?'}\n""",
                     def name = file.canonicalPath - (sourceFolder.canonicalPath+"/")
                     name = name.split("/")
                     if (name.size()>1) {
-                        jbake.menu = name[0]
-                        if (jbake.menu ==~ /[0-9]+[-_].*/) {
-                            jbake.menu = jbake.menu.split("[-_]",2)[1]
+                        if (!jbake.menu) {
+                            jbake.menu = name[0]
+                            if (jbake.menu ==~ /[0-9]+[-_].*/) {
+                                jbake.menu = jbake.menu.split("[-_]", 2)[1]
+                            }
                         }
                         def docname = name[-1]
                         if (docname ==~ /[0-9]+[-_].*/) {
@@ -250,7 +252,11 @@ ${color 'green', 'for you?'}\n""",
                                     jbake.order = secondLevel.split("[-_]",2)[0]
                                 }
                             } else {
-                                jbake.status = "draft"
+                                if ((jbake.order as Integer) > 0) {
+                                    //
+                                } else {
+                                    jbake.status = "draft"
+                                }
                             }
                         }
                         if (jbake.order==-1 && docname.startsWith('index')) {

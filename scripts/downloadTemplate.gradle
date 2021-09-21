@@ -71,7 +71,9 @@ task downloadTemplate(
                 def title = ""
                 text.eachLine { line ->
                     if (title=="" && line.startsWith('=')) {
-                        title = line.split(" ")[1..-1].join(" ")
+                        println line
+                        title = line.split("[ \t]+",2)[1]
+                        println title
                     }
                 }
                 text = """\
@@ -93,7 +95,7 @@ ifndef::imagesdir[:imagesdir: ../../images]
         def configAdoc = new File(targetDir,'chapters/config.adoc')
         configAdoc.write(configAdoc.text.replaceAll("[.]/images","../images"))
         def mainDoc = new File(targetDir,'arc42.adoc')
-        mainDoc.write(":imagesdir: ../images\n"+mainDoc.text.replaceAll('src/','chapters/'))
+        mainDoc.write(":imagesdir: ../images\n:jbake-menu: -\n"+mainDoc.text.replaceAll('src/','chapters/'))
         //write asciidoctorconfig for editor preview
         new File(targetDir,'/chapters/.asciidoctorconfig.adoc').write(':imagesdir: ../../images\n\n')
         new File(targetDir,'/.asciidoctorconfig.adoc').write(':imagesdir: ../images\n\n')
