@@ -21,25 +21,31 @@ task exportContributors(
             if (file.name ==~ '^.*[.](ad|adoc|asciidoc)$') {
                 def currentFileName = file.canonicalPath.replace("\\", "\\\\")
                 def readingtime = getReadingtime(currentFileName, wordsPerMinute)
-                def contributors = ["git", "shortlog", "-sen", "--no-merges",  "HEAD", currentFileName].execute()
+                def contributors = ["git", "log", "--no-merges", "--follow",  "HEAD", currentFileName].execute()
                 contributors.waitForOrKill(1000)
                 contributors = contributors
                                     .text
                                     .split("\n")
                                     .collect { line ->
-                                def matcher = line =~ /[\t ]*([0-9]+)[\t ]+([^<]+)<([^>]+)>/
-                                if (matcher) {
-                                    [matcher[0][2], matcher[0][3]]
-                                } else {
-                                    ["", ""]
-                                }
+                                        if (line.startsWith('Author')) {
+                                            def matcher = line =~ /[\t ]*Author: ([^<]+) <([^>]+)>/
+                                            if (matcher) {
+                                                [matcher[0][1], matcher[0][2]]
+                                            } else {
+                                                ["", ""]
+                                            }
+                                        } else {
+                                            ["", ""]
+                                        }
                 }.unique { a, b -> a[1] <=> b[1] }
                 def avatars = contributors.collect {
-                    "image:https://www.gravatar.com/avatar/" +
+                    if (it[1]) {
+                        "image:https://www.gravatar.com/avatar/" +
                             md5(it[1].toLowerCase().trim()) +
                             "?d=identicon" +
                             "[height=32,width=32,role='gravatar',alt='${it[0]}',title='${it[0]}']"
-                }.join(" ")
+                    } else { ""}
+                }.minus("").join(" ")
                 def tag = (file.canonicalPath - sourceFolder.canonicalPath).replace("\\", "/").replaceAll("^/", "")
                 File targetFile = new File(targetDir.toString(), "/contributors/" + tag)
                 safeMkDirs(targetFile)
