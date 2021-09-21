@@ -9,10 +9,16 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === added
 
+=== changed
+
+=== fixed
+
+== 2.0.0-rc16 - 2021-09-21
+
+=== added
+
 2021-09-21::
 * added lunrjs as local search engine
-
-=== changed
 
 === fixed
 

@@ -11,7 +11,7 @@
 DTC_HEADLESS=true
 
 MAIN_CONFIG_FILE=docToolchainConfig.groovy
-VERSION=2.0.0-rc15
+VERSION=2.0.0-rc16
 DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/archive/v${VERSION}.zip
 
 
