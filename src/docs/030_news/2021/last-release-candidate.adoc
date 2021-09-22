@@ -1,0 +1,18 @@
+:filename: 030_news/2021/last-release-candidate.adoc
+:jbake-title: Last Release Candidate
+:jbake-date: 2021-09-22
+:jbake-type: post
+:jbake-tags: docToolchain
+:jbake-status: published
+:jbake-menu: news
+:jbake-author: Ralf D. Müller
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+= Last Release Candidate
+
+Good news: we've just released the (hopefully) last release candidate.
+All known major issues have been fixed and many cool features have been added.
+All remaining and currently unknown issues will be fixed in 2.0.x versions.
+
+But first, let's create some tutorials for you to try out all features of docToolchain.
