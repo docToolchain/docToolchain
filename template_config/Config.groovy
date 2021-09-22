@@ -168,8 +168,10 @@ confluence.with {
     ]
 
     // endpoint of the confluenceAPI (REST) to be used
-    // to verify the endpoint, add user/current and pate it into your browser
-    // you should get a json about your own user
+    // verfiy that you got the correct endpoint by browsing to 
+    // https://[yourServer]/[context]/rest/api/user/current
+    // you should get a valid json which describes your current user
+    // a working example is https://arc42-template.atlassian.net/wiki/rest/api/user/current
     api = 'https://[yourServer]/[context]/rest/api/'
 
     //    Additionally, spaceKey, createSubpages, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
