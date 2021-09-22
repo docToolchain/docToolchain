@@ -6,31 +6,31 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Tue, 21 Sep 2021 21:40:42 +0000</pubDate>
-    <lastBuildDate>Tue, 21 Sep 2021 21:40:42 +0000</lastBuildDate>
+    <pubDate>Wed, 22 Sep 2021 08:47:56 +0000</pubDate>
+    <lastBuildDate>Wed, 22 Sep 2021 08:47:56 +0000</lastBuildDate>
 
     
     <item>
-      <title>First Post</title>
-      <link>https://localhost/030_news/2020/first-post.html</link>
-      <pubDate>Tue, 15 Dec 2020 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">030_news/2020/first-post.html</guid>
+      <title>Last Release Candidate</title>
+      <link>https://localhost/030_news/2021/last-release-candidate.html</link>
+      <pubDate>Wed, 22 Sep 2021 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">030_news/2021/last-release-candidate.html</guid>
       <description>
       &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
 &lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
 &lt;ul class=&quot;sectlevel0&quot;&gt;
-&lt;li&gt;&lt;a href=&quot;#_first_post&quot;&gt;First Post&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_last_release_candidate&quot;&gt;Last Release Candidate&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;!-- endtoc --&gt;
-&lt;h1 id=&quot;_first_post&quot; class=&quot;sect0&quot;&gt;First Post&lt;/h1&gt;
+&lt;h1 id=&quot;_last_release_candidate&quot; class=&quot;sect0&quot;&gt;Last Release Candidate&lt;/h1&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This is just a demonstration on how to use the blog.&lt;/p&gt;
+&lt;p&gt;Good news: we&amp;#8217;ve just released the (hopefully) last release candidate.
+All known major issues have been fixed and many cool features have been added.
+All remaining and currently unknown issues will be fixed in 2.0.x versions.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class=&quot;imageblock&quot;&gt;
-&lt;div class=&quot;content&quot;&gt;
-&lt;img src=&quot;/images/diag-674e329d9b7ab6fc6f92f6757ddcd8d6.png&quot; alt=&quot;diag 674e329d9b7ab6fc6f92f6757ddcd8d6&quot; width=&quot;268&quot; height=&quot;153&quot;&gt;
-&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;But first, let&amp;#8217;s create some tutorials for you to try out all features of docToolchain.&lt;/p&gt;
 &lt;/div&gt;
 	  </description>
     </item>
