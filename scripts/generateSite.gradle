@@ -283,6 +283,9 @@ ${color 'green', 'for you?'}\n""",
                                 }
                             }
                         }
+                        if (!jbake.title) {
+                            jbake.title = docname
+                        }
                         if (leveloffset==1) {
                             //leveloffset needed
                             // we always start wit "==" not with "="
