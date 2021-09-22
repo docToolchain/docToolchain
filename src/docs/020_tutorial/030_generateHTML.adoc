@@ -1,6 +1,8 @@
 :filename: 020_tutorial/030_generateHTML.adoc
 include::_config.adoc[]
 
+== generateHTML
+
 [source, shell session]
 ----
 $ ./dtcw generateHTML
