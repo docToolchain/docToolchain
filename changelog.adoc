@@ -11,6 +11,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 
+2021-09-22::
+* streamingExecute (exportPPT, exportEA) now emits a note instead ot an error when running on linux
+
 === fixed
 
 == 2.0.0-rc16 - 2021-09-21
