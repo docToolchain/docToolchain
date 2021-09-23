@@ -6,9 +6,75 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Thu, 23 Sep 2021 06:15:34 +0000</pubDate>
-    <lastBuildDate>Thu, 23 Sep 2021 06:15:34 +0000</lastBuildDate>
+    <pubDate>Thu, 23 Sep 2021 18:37:49 +0000</pubDate>
+    <lastBuildDate>Thu, 23 Sep 2021 18:37:49 +0000</lastBuildDate>
 
+    
+    <item>
+      <title>Release v2.0.0</title>
+      <link>https://localhost/030_news/2021/2.0.0-release.html</link>
+      <pubDate>Thu, 23 Sep 2021 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">030_news/2021/2.0.0-release.html</guid>
+      <description>
+      &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
+&lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
+&lt;ul class=&quot;sectlevel1&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_v2_0_0_of_doctoolchain_has_been_released&quot;&gt;v2.0.0 of docToolchain has been released!&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_which_new_features_can_you_expect&quot;&gt;Which new features can you expect?&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- endtoc --&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_v2_0_0_of_doctoolchain_has_been_released&quot;&gt;v2.0.0 of docToolchain has been released!&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Today docToolchain reached an important milestone - the release of version 2.0.0 aka ng or next-generation.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_which_new_features_can_you_expect&quot;&gt;Which new features can you expect?&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The most important change is the &lt;strong&gt;switch to a command line based approach&lt;/strong&gt;.
+You can now fully focus on your documentation without having lots of other files like scripts or themes in your repository.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This is possible through the introduction of the &lt;strong&gt;docToolchain-wrapper&lt;/strong&gt; or short dtcw.
+A little script which resides together with a config file in your repository.
+It takes care that the right version of docToolchain is used, all pre-requisites are met, and it even checks if it should use docker or a local installation to execute docToolchain.
+If docToolchain is not installed, it will install it for you.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Another change is that we tried very hard to &lt;strong&gt;avoid error messages&lt;/strong&gt;.
+Where we can&amp;#8217;t avoid errors, we tried to convert them to helpful hints.
+This should make the use of docToolchain a better experience.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Another huge added feature is the &lt;code&gt;generateSite&lt;/code&gt;-Task which includes &lt;a href=&quot;https://jbake.org&quot;&gt;jBake&lt;/a&gt; as &lt;strong&gt;static site generator&lt;/strong&gt; to help you even more to create awesome docs.
+You can now create a full documentation website with less than a hand full commands.
+And it even contains a &lt;strong&gt;local search&lt;/strong&gt; implemented with &lt;a href=&quot;https://lunrjs.com&quot;&gt;lunr&lt;/a&gt;.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To get you started with your solution architecture documentation, we&amp;#8217;ve added the &lt;code&gt;downloadTemplate&lt;/code&gt;-task to provide you with the famous &lt;strong&gt;arc42 template&lt;/strong&gt; in four languages.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Last but not least, we used the new &lt;code&gt;generateSite&lt;/code&gt;-Feature to restructure the documentation of docToolchain itself.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The goal for the next weeks is now to provide you with tutorials over the next few weeks to demonstrate all features.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Happy writing!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Ralf&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	  </description>
+    </item>
     
     <item>
       <title>Last Release Candidate</title>
