@@ -24,6 +24,7 @@ if (docDir.startsWith('.')) {
 }
 logger.info "docToolchain> docDir: ${docDir}"
 logger.info "docToolchain> mainConfigFile: ${mainConfigFile}"
+logger.info "docToolchain> projectDir: ${projectDir}"
 def configSlurper = new ConfigSlurper()
 def configFile = new File(docDir, mainConfigFile)
 if (configFile.exists()) {
@@ -132,7 +133,7 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
             'sectanchors'         : 'true@',
             'targetDir'           : targetDir,
             'docDir'              : docDir,
-            'projectDir'          : projectDir
+            'projectRootDir'          : "${projectDir}@",
     )
     // Here we can add the code for extensions we write.
     extensions {
@@ -165,7 +166,7 @@ task generateHTML (
         group: 'docToolchain',
         description: 'use html5 as asciidoc backend') {
         attributes (
-            'plantUMLDir'         : file("${docDir}/${config.outputPath}/html5").toURI().relativize(new File("${docDir}/${config.outputPath}/html5/plantUML/").toURI()).getPath()
+            'plantUMLDir'         : file("${docDir}/${config.outputPath}/html5").toURI().relativize(new File("${docDir}/${config.outputPath}/html5/plantUML/").toURI()).getPath(),
         )
 
     // specify output folder explicitly to avoid cleaning targetDir from other generated content
@@ -213,7 +214,7 @@ task generatePDF (
         description: 'use pdf as asciidoc backend') {
 
     attributes (
-        'plantUMLDir'         : file("${docDir}/${config.outputPath}/pdf/images/plantUML/").path
+        'plantUMLDir'         : file("${docDir}/${config.outputPath}/pdf/images/plantUML/").path,
     )
 
     attributes (
