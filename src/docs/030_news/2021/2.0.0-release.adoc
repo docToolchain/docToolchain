@@ -30,13 +30,13 @@ Another change is that we tried very hard to *avoid error messages*.
 Where we can't avoid errors, we tried to convert them to helpful hints.
 This should make the use of docToolchain a better experience.
 
-Another huge added feature is the link:../015_tasks/03_task_generateSite.html[`generateSite`]-Task which includes jBake as *static site generator* to help you even more to create awesome docs.
+Another huge added feature is the link:../../015_tasks/03_task_generateSite.html[`generateSite`]-Task which includes jBake as *static site generator* to help you even more to create awesome docs.
 You can now create a full documentation website with less than a handful commands.
-It uses the beautiful docsy theme known from hugo, and it even contains a link:../search.html[*local search*] implemented with lunr.
+It uses the beautiful docsy theme known from hugo, and it even contains a link:../../search.html[*local search*] implemented with lunr.
 
-To get you started with your solution architecture documentation, we've added the `downloadTemplate`-task to provide you with the famous *arc42 template* in four languages.
+To get you started with your solution architecture documentation, we've added the link:../../015_tasks/03_task_downloadTemplate.html[`downloadTemplate`]-task to provide you with the famous *arc42 template* in four languages.
 
-Last but not least, we used the new `generateSite`-Feature to restructure the documentation of docToolchain itself.
+Last but not least, we used the new link:../../015_tasks/03_task_generateSite.html[`generateSite`]-Feature to restructure the documentation of docToolchain itself.
 
 The goal for the next weeks is now to provide you with tutorials over the next few weeks to demonstrate all new features.
 
