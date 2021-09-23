@@ -119,9 +119,9 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
     outputDir = file(targetDir)
     sourceDir = file(srcDir)
     attributes  (
-            'pdf-stylesdir': "${pdfThemeDir}@",
-            'pdf-style': "custom@",
-            'pdf-fontsdir': "${pdfThemeDir}/fonts@",
+ //           'pdf-stylesdir': "${pdfThemeDir}@",
+ //           'pdf-style': "custom@",
+ //           'pdf-fontsdir': "${pdfThemeDir}/fonts@",
             'source-highlighter': 'highlightjs@',
             'imagesdir': 'images@',
             'toc': 'left@',
@@ -168,20 +168,19 @@ task generateHTML (
             'plantUMLDir'         : file("${docDir}/${config.outputPath}/html5").toURI().relativize(new File("${docDir}/${config.outputPath}/html5/plantUML/").toURI()).getPath()
         )
 
-    onlyIf {
-        !sourceFiles.findAll {
-            'html' in it.formats
-        }.empty
-    }
-
     // specify output folder explicitly to avoid cleaning targetDir from other generated content
     outputDir = file(targetDir + '/html5/')
     separateOutputDirs(false)
 
+    def sourceFilesHTML = sourceFiles.findAll {
+                                'html' in it.formats
+                            }
+//    onlyIf {
+//        sourceFilesHTML
+//    }
+
     sources {
-        sourceFiles.findAll {
-            'html' in it.formats
-        }.each {
+        sourceFilesHTML.each {
             include it.file
             println it.file
         }
@@ -191,9 +190,19 @@ task generateHTML (
             from(new File(file(srcDir),imageDir))
             logger.info ('imageDir: '+imageDir)
         }
-        into './images'
+        into './output/images'
     }
     backends = ['html5']
+doFirst {
+    if (sourceFilesHTML.size()==0) {
+        throw new Exception ("""
+
+>> No source files defined for type HTML.
+>> Please specify at least one inputFile in your docToolchainConfig.groovy
+""")
+    }
+
+}
 }
 //end::generateHTML[]
 
@@ -202,25 +211,26 @@ task generatePDF (
         type: AsciidoctorTask,
         group: 'docToolchain',
         description: 'use pdf as asciidoc backend') {
-        attributes (
-            'plantUMLDir'         : file("${docDir}/${config.outputPath}/pdf/images/plantUML/").path
-        )
+
+    attributes (
+        'plantUMLDir'         : file("${docDir}/${config.outputPath}/pdf/images/plantUML/").path
+    )
 
     attributes (
         'data-uri': 'true',
         'plantUMLDir'         : file("${docDir}/${config.outputPath}/images/").path,
         'imagesoutdir'        : file("${docDir}/${config.outputPath}/images/").path
     )
-    onlyIf {
-        !sourceFiles.findAll {
-            'pdf' in it.formats
-        }.empty
+
+    def sourceFilesPDF = sourceFiles.findAll {
+        'pdf' in it.formats
     }
+//    onlyIf {
+//        sourceFilesPDF
+//    }
 
     sources {
-        sourceFiles.findAll {
-            'pdf' in it.formats
-        }.each {
+        sourceFilesPDF.each {
             include it.file
         }
     }
@@ -235,6 +245,16 @@ task generatePDF (
         //TODO: finish this...
     }
     **/
+    doFirst {
+            if (sourceFilesPDF.size()==0) {
+                throw new Exception ("""
+
+    >> No source files defined for type PDF.
+    >> Please specify at least one inputFile in your docToolchainConfig.groovy
+    """)
+            }
+
+    }
 }
 //end::generatePDF[]
 
@@ -244,21 +264,30 @@ task generateDocbook (
         group: 'docToolchain',
         description: 'use docbook as asciidoc backend') {
 
-    onlyIf {
-        !sourceFiles.findAll {
-            'docbook' in it.formats
-        }.empty
+    def sourceFilesDOCBOOK = sourceFiles.findAll {
+        'docbook' in it.formats
     }
+//    onlyIf {
+//        sourceFilesDOCBOOK
+//    }
 
     sources {
-        sourceFiles.findAll {
-            'docbook' in it.formats
-        }.each {
+        sourceFilesDOCBOOK.each {
             include it.file
         }
     }
 
     backends = ['docbook']
+    doFirst {
+        if (sourceFilesDOCBOOK.size()==0) {
+            throw new Exception ("""
+
+    >> No source files defined for type docbook.
+    >> Please specify at least one inputFile in your docToolchainConfig.groovy
+    """)
+        }
+
+    }
 }
 //end::generateDocbook[]
 
@@ -282,19 +311,17 @@ task generateDeck (
     )
     options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates').absolutePath ]
 
-    onlyIf {
-        !sourceFiles.findAll {
-            'revealjs' in it.formats
-        }.empty
+    def sourceFilesREVEAL = sourceFiles.findAll {
+        'revealjs' in it.formats
     }
+//    onlyIf {
+//        sourceFilesREVEAL
+//    }
 
     sources {
-        sourceFiles.findAll {
-            'revealjs' in it.formats
-        }.each {
+        sourceFilesREVEAL.each {
             include it.file
         }
-
     }
 
     outputDir = file(targetDir+'/decks/')
@@ -308,6 +335,15 @@ task generateDeck (
         }
         into("")
         logger.info "${docDir}/${config.outputPath}/images"
+    }
+    doFirst {
+        if (sourceFilesREVEAL.size()==0) {
+            throw new Exception ("""
+    >> No source files defined for type 'revealjs'.
+    >> Please specify at least one inputFile in your docToolchainConfig.groovy
+    """)
+        }
+
     }
 }
 //end::generateDeck[]
