@@ -2,10 +2,14 @@
 :imagesdir: images
 :allow-uri-read:
 
+:projectRootDir: {projectRootDir}
+
 :manualdir: https://github.com/docToolchain/docToolchain/edit/master/src/docs/
 
 = docToolchain Manual
 
+
+ifndef::backend-pdf[]
 ++++
 <style>
 .gravatar img {
@@ -14,201 +18,206 @@
 }
 </style>
 ++++
+endif::backend-pdf[]
 
 // numbering from here on
 :numbered:
 
+
 <<<<
-include::manual/01_introduction_and_goals.adoc[leveloffset=+1]
+include::010_manual/010_introduction_and_goals.adoc[leveloffset=+1]
 
 ---
 <<<<
-include::manual/02_install.adoc[leveloffset=+1]
+include::010_manual/020_install.adoc[leveloffset=+1]
 
 ---
 <<<<
-include::manual/03_tasks.adoc[leveloffset=+1]
+include::010_manual/025_features.adoc[leveloffset=+1]
 
 ---
-
 <<<<
-
-include::manual/03_task_generateHTML.adoc[leveloffset=+2]
+include::015_tasks/03_task_autobuildSite.adoc[leveloffset=+1]
 
 ---
-
 <<<<
 
-include::manual/03_copy_themes.adoc[leveloffset=+2]
+include::015_tasks/03_task_generateHTML.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_fixencoding.adoc[leveloffset=+2]
+include::015_tasks/03_copy_themes.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_prependFilename.adoc[leveloffset=+2]
+include::015_tasks/03_task_fixencoding.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_collectIncludes.adoc[leveloffset=+2]
+include::015_tasks/03_task_prependFilename.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_generatePDF.adoc[leveloffset=+2]
+include::015_tasks/03_task_collectIncludes.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_generateSite.adoc[leveloffset=+2]
+include::015_tasks/03_task_generatePDF.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_generateDocBook.adoc[leveloffset=+2]
+include::015_tasks/03_task_generateSite.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_generateDeck.adoc[leveloffset=+2]
+include::015_tasks/03_task_generateDocBook.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_publishToConfluence.adoc[leveloffset=+2]
+include::015_tasks/03_task_generateDeck.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_convertToDocx.adoc[leveloffset=+2]
+include::015_tasks/03_task_publishToConfluence.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_createReferenceDoc.adoc[leveloffset=+2]
+include::015_tasks/03_task_convertToDocx.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_convertToEpub.adoc[leveloffset=+2]
+include::015_tasks/03_task_createReferenceDoc.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_exportEA.adoc[leveloffset=+2]
+include::015_tasks/03_task_convertToEpub.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_exportVisio.adoc[leveloffset=+2]
+include::015_tasks/03_task_exportEA.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_exportDrawIo.adoc[leveloffset=+2]
+include::015_tasks/03_task_exportVisio.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_exportChangeLog.adoc[leveloffset=+2]
+include::015_tasks/03_task_exportDrawIo.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_exportContributors.adoc[leveloffset=+2]
+include::015_tasks/03_task_exportChangeLog.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_exportJiraIssues.adoc[leveloffset=+2]
+include::015_tasks/03_task_exportContributors.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_exportJiraSprintChangelog.adoc[leveloffset=+2]
+include::015_tasks/03_task_exportJiraIssues.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_exportPPT.adoc[leveloffset=+2]
+include::015_tasks/03_task_exportJiraSprintChangelog.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_exportExcel.adoc[leveloffset=+2]
+include::015_tasks/03_task_exportPPT.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_exportMarkdown.adoc[leveloffset=+2]
+include::015_tasks/03_task_exportExcel.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_exportOpenApi.adoc[leveloffset=+2]
+include::015_tasks/03_task_exportMarkdown.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_htmlSanityCheck.adoc[leveloffset=+2]
+include::015_tasks/03_task_exportOpenApi.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/03_task_dependencyUpdates.adoc[leveloffset=+2]
+include::015_tasks/03_task_htmlSanityCheck.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/08_development.adoc[leveloffset=+1]
+include::015_tasks/03_task_dependencyUpdates.adoc[leveloffset=+2]
 
 ---
 
 <<<<
 
-include::manual/06_Frequently_asked_Questions.adoc[leveloffset=+1]
+include::010_manual/08_development.adoc[leveloffset=+1]
 
 ---
 
 <<<<
 
-include::manual/04_further_reading.adoc[leveloffset=+1]
+include::010_manual/050_Frequently_asked_Questions.adoc[leveloffset=+1]
+
+---
 
 <<<<
 
-include::manual/05_contributors.adoc[leveloffset=+1]
+include::010_manual/04_further_reading.adoc[leveloffset=+1]
 
 <<<<
 
-include::manual/0A_config.adoc[leveloffset=+1]
+include::010_manual/040_contributors.adoc[leveloffset=+1]
+
+<<<<
+
+include::010_manual/100_config.adoc[leveloffset=+1]
 
 

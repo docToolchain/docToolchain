@@ -118,5 +118,5 @@ TIP: Blog-Posts: https://rdmueller.github.io/plantuml-gradle/[PlantUML with Grad
 .AsciiDocBasics.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/AsciiDocBasics.gradle[tags=generateHTML]
+include::{projectRootDir}/scripts/AsciiDocBasics.gradle[tags=generateHTML]
 ----

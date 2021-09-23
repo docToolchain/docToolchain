@@ -15,7 +15,7 @@ image::manual/openAPI.png[]
 .Config.groovy
 [source,groovy]
 ----
-include::{projectDir}/Config.groovy[tags=openApiConfig]
+include::{projectRootDir}/Config.groovy[tags=openApiConfig]
 ----
 
 == Source
@@ -23,5 +23,5 @@ include::{projectDir}/Config.groovy[tags=openApiConfig]
 .exportOpenApi.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/exportOpenApi.gradle[tags=exportOpenApi]
+include::{projectRootDir}/scripts/exportOpenApi.gradle[tags=exportOpenApi]
 ----

@@ -123,5 +123,5 @@ To avoid the download of the theme with every build, you can copy the themes fol
 .scripts/generateSite.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/generateSite.gradle[]
+include::{projectRootDir}/scripts/generateSite.gradle[]
 ----

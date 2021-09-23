@@ -18,5 +18,5 @@ TIP: Blog-Post: https://rdmueller.github.io/create-docx/[Render AsciiDoc to docx
 .pandoc.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/pandoc.gradle[tags=convertToDocx]
+include::{projectRootDir}/scripts/pandoc.gradle[tags=convertToDocx]
 ----

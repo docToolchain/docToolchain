@@ -26,7 +26,7 @@ IMPORTANT: Old configuration based on *single Jira query is deprecated* (single 
 .Config.groovy
 [source,groovy]
 ----
-include::{projectDir}/Config.groovy[tags=jiraConfig]
+include::{projectRootDir}/Config.groovy[tags=jiraConfig]
 ----
 
 == Source
@@ -34,5 +34,5 @@ include::{projectDir}/Config.groovy[tags=jiraConfig]
 .exportJiraIssues.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/exportJiraIssues.gradle[tags=exportJiraIssues]
+include::{projectRootDir}/scripts/exportJiraIssues.gradle[tags=exportJiraIssues]
 ----

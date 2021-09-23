@@ -17,5 +17,5 @@ It creates a PowerPoint presentation and enriches it with reveal.js slide defini
 .AsciiDocBasics.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/AsciiDocBasics.gradle[tags=generateDeck]
+include::{projectRootDir}/scripts/AsciiDocBasics.gradle[tags=generateDeck]
 ----

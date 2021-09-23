@@ -50,5 +50,5 @@ You then include these files in your main documentation by using a single includ
 .scripts/collectIncludes.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/collectIncludes.gradle[tags=collectIncludes]
+include::{projectRootDir}/scripts/collectIncludes.gradle[tags=collectIncludes]
 ----

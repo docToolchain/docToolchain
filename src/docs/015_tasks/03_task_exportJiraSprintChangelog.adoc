@@ -17,7 +17,7 @@ The configuration for this task can be found within `Config.gradle`. In addition
 .Config.groovy
 [source,groovy]
 ----
-include::{projectDir}/Config.groovy[tags=sprintChangelogConfig]
+include::{projectRootDir}/Config.groovy[tags=sprintChangelogConfig]
 ----
 
 == Source
@@ -25,5 +25,5 @@ include::{projectDir}/Config.groovy[tags=sprintChangelogConfig]
 .exportJiraSprintChangelog.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/exportJiraSprintChangelog.gradle[tags=exportJiraSprintChangelog]
+include::{projectRootDir}/scripts/exportJiraSprintChangelog.gradle[tags=exportJiraSprintChangelog]
 ----

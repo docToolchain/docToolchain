@@ -21,5 +21,5 @@ TIP: Blog-Post: https://rdmueller.github.io/create-epub/[Turn your Document into
 .pandoc.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/pandoc.gradle[tags=convertToEpub]
+include::{projectRootDir}/scripts/pandoc.gradle[tags=convertToEpub]
 ----

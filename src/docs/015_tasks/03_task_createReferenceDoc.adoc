@@ -35,5 +35,5 @@ If you have problems with changing the default table style: see https://github.c
 .pandoc.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/pandoc.gradle[tags=createReferenceDoc]
+include::{projectRootDir}/scripts/pandoc.gradle[tags=createReferenceDoc]
 ----

@@ -22,5 +22,5 @@ NOTE: The task skips all files named `+++config.*+++`, `+++_config.*+++`, `+++fe
 .scripts/prependFilename.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/prependFilename.gradle[]
+include::{projectRootDir}/scripts/prependFilename.gradle[]
 ----

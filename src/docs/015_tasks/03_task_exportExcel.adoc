@@ -49,5 +49,5 @@ NOTE: see https://github.com/uniqueck/asciidoctorj-office-extension[asciidoctorj
 .build.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/exportExcel.gradle[tags=exportExcel]
+include::{projectRootDir}/scripts/exportExcel.gradle[tags=exportExcel]
 ----

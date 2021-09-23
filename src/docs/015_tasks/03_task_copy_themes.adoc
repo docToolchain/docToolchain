@@ -15,5 +15,5 @@ With the next run of docToolchain, it will lay your theme files over the default
 .scripts/copyThemes.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/copyThemes.gradle[]
+include::{projectRootDir}/scripts/copyThemes.gradle[]
 ----

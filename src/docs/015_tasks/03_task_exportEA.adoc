@@ -92,11 +92,11 @@ In case there is one EA project only, the global glossary is written only.
 .build.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/exportEA.gradle[tags=exportEA]
+include::{projectRootDir}/scripts/exportEA.gradle[tags=exportEA]
 ----
 
 .scripts/exportEAP.vbs
 [source]
 ----
-include::{projectDir}/scripts/exportEAP.vbs[]
+include::{projectRootDir}/scripts/exportEAP.vbs[]
 ----

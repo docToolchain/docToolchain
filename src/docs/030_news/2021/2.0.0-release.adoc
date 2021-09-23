@@ -1,18 +1,43 @@
-:filename: 030_news/2021/last-release-candidate.adoc
-:jbake-title: Last Release Candidate
-:jbake-date: 2021-09-22
+:filename: 030_news/2021/2.0.0-release.adoc
+:jbake-title: Release v2.0.0
+:jbake-date: 2021-09-23
 :jbake-type: post
 :jbake-tags: docToolchain
-:jbake-status: published
+:jbake-status: draft
 :jbake-menu: news
 :jbake-author: Ralf D. Müller
 
 ifndef::imagesdir[:imagesdir: ../../../images]
 
-= Last Release Candidate
+== v2.0.0 of docToolchain has been released!
 
-Good news: we've just released the (hopefully) last release candidate.
-All known major issues have been fixed and many cool features have been added.
-All remaining and currently unknown issues will be fixed in 2.0.x versions.
+Today docToolchain reached an important milestone - the release of version 2.0.0 aka ng or next-generation.
 
-But first, let's create some tutorials for you to try out all features of docToolchain.
+=== Which new features can you expect?
+
+The most important change is the *switch to a command line based approach*.
+You can now fully focus on your documentation without having lots of other files like scripts or themes in your repository.
+
+This is possible through the introduction of the *docToolchain-wrapper* or short dtcw.
+A little script which resides together with a config file in your repository.
+It takes care that the right version of docToolchain is used, all pre-requisites are met, and it even checks if it should use docker or a local installation to execute docToolchain.
+If docToolchain is not installed, it will install it for you.
+
+Another change is that we tried very hard to *avoid error messages*.
+Where we can't avoid errors, we tried to convert them to helpful hints.
+This should make the use of docToolchain a better experience.
+
+Another huge added feature is the `generateSite`-Task which includes https://jbake.org[jBake] as *static site generator* to help you even more to create awesome docs.
+You can now create a full documentation website with less than a hand full commands.
+And it even contains a *local search* implemented with https://lunrjs.com[lunr].
+
+To get you started with your solution architecture documentation, we've added the `downloadTemplate`-task to provide you with the famous *arc42 template* in four languages.
+
+Last but not least, we used the new `generateSite`-Feature to restructure the documentation of docToolchain itself.
+
+The goal for the next weeks is now to provide you with tutorials over the next few weeks to demonstrate all features.
+
+Happy writing!
+
+Ralf
+

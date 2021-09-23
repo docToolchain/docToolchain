@@ -19,11 +19,11 @@ NOTE: see https://github.com/uniqueck/asciidoctorj-office-extension[asciidoctorj
 .exportPPT.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/exportPPT.gradle[tags=exportPPT]
+include::{projectRootDir}/scripts/exportPPT.gradle[tags=exportPPT]
 ----
 
 .exportPPT.vbs
 [source,vbs]
 ----
-include::{projectDir}/scripts/exportPPT.vbs[]
+include::{projectRootDir}/scripts/exportPPT.vbs[]
 ----

@@ -14,5 +14,5 @@ This is only a helper task - it generates the intermediate format for <<convertT
 .AsciiDocBasics.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/AsciiDocBasics.gradle[tags=generateDocbook]
+include::{projectRootDir}/scripts/AsciiDocBasics.gradle[tags=generateDocbook]
 ----

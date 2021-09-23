@@ -5,12 +5,12 @@ include::_config.adoc[]
 include::../_feedback.adoc[]
 
 // the source is in exportMarkdownDocs.md !!
-include::{projectDir}/build/exportMarkdownDocs.adoc[]
+include::{projectRootDir}/build/exportMarkdownDocs.adoc[]
 
 == Source
 
 .exportMarkdown.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/exportMarkdown.gradle[tags=exportMarkdown]
+include::{projectRootDir}/scripts/exportMarkdown.gradle[tags=exportMarkdown]
 ----

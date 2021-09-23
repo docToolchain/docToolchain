@@ -26,5 +26,5 @@ TIP: Blog-Post: https://rdmueller.github.io/htmlSanityCheck/[Automated Quality-C
 .htmlSanityCheck.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/htmlSanityCheck.gradle[tags=htmlSanityCheck]
+include::{projectRootDir}/scripts/htmlSanityCheck.gradle[tags=htmlSanityCheck]
 ----

@@ -104,7 +104,7 @@ This is how you'd include your openapi YAML file: +
 .publishToConfluence.gradle
 [source,groovy]
 ----
-include::{projectDir}/Config.groovy[tags=confluenceConfig]
+include::{projectRootDir}/Config.groovy[tags=confluenceConfig]
 ----
 
 == CSS Styling
@@ -169,11 +169,11 @@ The following style definitions are believed to be Confluence-compatible, and en
 .publishToConfluence.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/publishToConfluence.gradle[tags=publishToConfluence]
+include::{projectRootDir}/scripts/publishToConfluence.gradle[tags=publishToConfluence]
 ----
 
 .scripts/asciidoc2confluence.groovy
 [source,groovy]
 ----
-include::{projectDir}/scripts/asciidoc2confluence.groovy[]
+include::{projectRootDir}/scripts/asciidoc2confluence.groovy[]
 ----

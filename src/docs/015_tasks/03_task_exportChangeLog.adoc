@@ -56,5 +56,5 @@ TIP: Blog-Post: https://rdmueller.github.io/changelog/[The only constant in life
 .exportChangelog.gradle
 [source,groovy]
 ----
-include::{projectDir}/scripts/exportChangelog.gradle[tags=exportChangeLog]
+include::{projectRootDir}/scripts/exportChangelog.gradle[tags=exportChangeLog]
 ----
