@@ -26,6 +26,7 @@ A release consists of four parts:
 * update the version used in the wrapper
 ** https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw[dtcw]
 ** https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw.ps1[dtcw.ps1]
+** https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw.bat[dtcw.bat]
 
 === Dockerhub
 
