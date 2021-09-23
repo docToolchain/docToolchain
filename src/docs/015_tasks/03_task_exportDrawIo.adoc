@@ -31,3 +31,12 @@ See https://about.draw.io/integrations/ to find a desktop editor application com
 When you use the desktop version, just create your diagram with the `.png` or even better `.dio.png` extension and draw.io will always save your diagam as PNG with the source as meta data.
 
 NEW! Draw.io is now called diagrams.net and there is a free plugin for VS Code and IntelliJ to edit your diagrams even offline!
+
+++++
+<script src="https://plugins.jetbrains.com/assets/scripts/mp-widget.js"></script>
+<script>
+  // Please, replace #yourelement with a real element id on your webpage
+  MarketplaceWidget.setupMarketplaceWidget('card', 15635, "#myelement");
+</script>
+<div id="myelement"></div>
+++++
