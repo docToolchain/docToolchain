@@ -37,7 +37,95 @@ Last but not least, we used the new `generateSite`-Feature to restructure the do
 
 The goal for the next weeks is now to provide you with tutorials over the next few weeks to demonstrate all features.
 
+IMPORTANT: Thanx to all contributors, sponsors and users of docToolchain for your efforts!
+Without you, this project would not exist 💯
+
 Happy writing!
 
 Ralf
+
+=== Changelog for v2.0.0
+
+==== added
+2021-09-21::
+* added lunrjs as local search engine
+2021-09-06::
+* added warning when running on WSL
+* added dtcw.bat to avoid execution restrictions
+* updated developer docs
+* added docsy as theme
+2021-05-21::
+* if the outputPath from the config starts with a '/', it will be considered as absolute path. +
+This way, you can move the build fodler outside of your repository. +
+`outputPath = System.getenv('HOME')+'/.doctoolchain/build/'+(new File('.')).canonicalPath.md5()`
+* repository theme gets only copied to build if it is defined in `siteFolder`
+* generateSite will now add meta-data to all asciidoc files which have no meta-data defined. The menu name and order will be created corresponding to the folder and file name. The title will be extracted as first headline from the file itself.
+2021-05-18::
+* Headless mode for themes
+* fix landing page (only gets copied once when microsite config isn't set yet.)
+
+2021-04-07::
+* generateSite can now handle themes
+2021-04-09::
+* downloadTemplate can now handle further templates
+
+2021-02-26::
+* copyThemes task
+* generateSite task
+2021-02-23::
+* first version of powershell wrapper
+2021-02-22::
+* manual test script
+2021-01-05::
+* dtc wrapper
+2021-01-08::
+* first definition of a static site taken from arc42-template-project
+* updated gradle wrapper (6.6.1)
+* added downloadTemplates task
+* added feature to automatically create a Config file if it doesn't exist
+* configured gradle to run without daemon
+
+==== changed
+
+2021-09-22::
+* streamingExecute (exportPPT, exportEA) now emits a note instead ot an error when running on linux
+* brushed up powershell wrapper
+
+
+==== fixed
+
+2021-09-21::
+* updated exportContributors to follow moved files
+* fixed downloadTemplate
+
+2021-09-18::
+* fixed favicons
+* fixed blog
+2021-05-22::
+* fix copyThemes to also copy the external theme
+2021-05-06::
+* fix #574: publishToConfluence: Problem with wrong ancestorId
+2021-04-28::
+* fix copyImages for generateSite
+
+2021-03-02::
+* removed default imagesdir for generateSite
+
+2021-03-01::
+* fixed imagesdir typo
+
+2021-03-01::
+* updated docs for generateSite
+* fixed menu for generateSite
+
+2021-02-27::
+* fixed createDist task
+* fixed plantUML for generatePDF
+* fixed plantUML for generateSite
+
+2021-02-24::
+* [543] dtcw: added pre-requisites check and alternative curl instead of wget
+2021-02-22::
+* handling of images for generateHTML
+
 
