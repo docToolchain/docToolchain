@@ -59,7 +59,7 @@
         </div>
 
 
-        <div class="row row-cols-1">
+        <!--div class="row row-cols-1">
             <div class="col">
                 <div class="card mb-12 shadow-sm">
                     <div class="card-header">
@@ -189,7 +189,7 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div-->
     </main>
 
 </div>

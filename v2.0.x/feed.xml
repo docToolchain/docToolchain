@@ -6,8 +6,8 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Thu, 23 Sep 2021 19:23:21 +0000</pubDate>
-    <lastBuildDate>Thu, 23 Sep 2021 19:23:21 +0000</lastBuildDate>
+    <pubDate>Thu, 23 Sep 2021 19:26:57 +0000</pubDate>
+    <lastBuildDate>Thu, 23 Sep 2021 19:26:57 +0000</lastBuildDate>
 
     
     <item>
@@ -35,7 +35,7 @@
 &lt;p&gt;Today docToolchain reached an important milestone - the release of version 2.0.0 aka ng or next-generation.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The focus of this huge release is usability and distraction free writing.&lt;/p&gt;
+&lt;p&gt;The focus of this huge release is simplified setup, better usability and distraction free writing.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect2&quot;&gt;
 &lt;h3 id=&quot;_which_new_features_can_you_expect&quot;&gt;Which new features can you expect?&lt;/h3&gt;
@@ -72,7 +72,7 @@ It uses the beautiful docsy theme known from hugo, and it even contains a &lt;a 
 &lt;table&gt;
 &lt;tr&gt;
 &lt;td class=&quot;icon&quot;&gt;
-&lt;div class=&quot;title&quot;&gt;Important&lt;/div&gt;
+&lt;i class=&quot;fa icon-important&quot; title=&quot;Important&quot;&gt;&lt;/i&gt;
 &lt;/td&gt;
 &lt;td class=&quot;content&quot;&gt;
 Thanx to all contributors, sponsors, and users of docToolchain for your efforts!
