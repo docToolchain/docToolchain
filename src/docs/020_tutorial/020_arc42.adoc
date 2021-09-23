@@ -9,7 +9,7 @@ include::../_feedback.adoc[]
 To work with docToolchain, you first need some documents.
 So let's fetch the https://arc42.org[arc42 template] for software architecture documentation.
 
-docToolchain comes with a task called <<task_downloadTemplate,`downloadTemplate`>>.
+docToolchain comes with a task called xref:../015_tasks/03_task_downloadTemplate.adoc[`downloadTemplate`].
 Let's invoke it and see what happens.
 
 .Linux / WSL2 with bash
@@ -32,12 +32,45 @@ Let's invoke it and see what happens.
 --
 
 .Result of downloadTemplate-Task
-image::../images/tutorial/dtcw-downloadTemplate.png[]
+[source, shell]
+----
+$ ./dtcw downloadTemplate
+dtcw - docToolchain wrapper V0.24
+docToolchain V2.0.0
+
+Bash is running on WSL
+this might cause problems with plantUML
+see https://doctoolchain.github.io/docToolchain/#wsl for more details
+
+Java Version 11
+docker available
+home folder exists
+use local homefolder install /home/rdmueller/.doctoolchain/
+
+> Configure project :
+arc42/arc42.adoc
+
+> Task :downloadTemplate
+Install arc42 documentation template.
+For more information about arc42 see https://arc42.org
+[ant:input] Which language do you want to install? (EN, DE, ES, RU)
+<-------------> 0% EXECUTING [6s]
+[ant:input] Do you want the template with or without help? (withhelp, plain)
+<-----<-------------> 0% EXECUTING [10s]
+Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-DE-withhelp-asciidoc.zip
+arc42 template unpacked into /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42
+added template to docToolchainConfig.groovy
+use 'generateHTML', 'generatePDF' or  'generateSite' to convert the template
+
+BUILD SUCCESSFUL in 15s
+1 actionable task: 1 executed
+----
 
 Out of the box, docToolchain only knows the open source arc42 template for software architecture.
-That's why it doesn't as which template to install.
+That's why it doesn't ask which template to install.
 Since the template exists in four different languages and with or without help on how to use it, docToolchain asks you for these two parameters.
-It then downloads the template right from the source, unzips it and reformats it a little bit to fit docToolchain.
+It then downloads the template right from the source, unzips it and reformats it a little bit to fit the needs of docToolchain.
+It also adds the template to your configuration file.
 
 That's it.
 You have now docToolchain with the arc42 template installed.

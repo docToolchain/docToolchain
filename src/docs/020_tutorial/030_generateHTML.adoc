@@ -3,12 +3,33 @@ include::_config.adoc[]
 
 == generateHTML & generatePDF
 
+The xref:../015_tasks/03_task_generateHTML.adoc[`generateHTML`] and xref:../015_tasks/03_task_generatePDF.adoc[`generatePDF`] tasks are the most basic tasks which just invoke asciidoctor to generate the output you want.
 
+.Linux / WSL2 with bash
+[role='primary']
+--
+[source, bash]
+----
+./dtcw generateHTML
+----
+
+--
+
+.Windows with Powershell
+[role='secondary']
+--
+[source, powershell]
+----
+./dtcw.ps1 generateHTML
+----
+--
+
+.output of generateHTML
 [source, shell session]
 ----
 $ ./dtcw generateHTML
 dtcw - docToolchain wrapper V0.23
-docToolchain V2.0.0-dev
+docToolchain V2.0.0
 
 Bash is running on WSL
 this might cause problems with plantUML
@@ -30,3 +51,24 @@ BUILD SUCCESSFUL in 26s
 1 actionable task: 1 executed
 ----
 
+The output is written to `build/html5/arc42/arc42.html` and `build/pdf/arc42/Arc42.pdf`.
+
+:xrefstyle: short
+
+[[html_out]]
+.generated output of generateHTML task
+image::generateHTML.dio.png[]
+
+As you can see in <<html_out>>, the HTML output is rendered as a single page with a table of contents (TOC) on the left.
+If you have chosen the `withhelp` version, you will notice some little question marks on the right.
+Hover over these with your mouse and you will see the full help text for each paragraph.
+This way, you can leave these help texts in your docs without annoying your readers.
+
+[[pdf_out]]
+.generated output of generatePDF task
+image::generatePDF.png[]
+
+<<pdf_out>> shows you the generated PDF.
+It also contains a TOC on the first pages and your PDF reader will also show the TOC on the left for you to navigate through the document.
+
+Both, the HTML and PDF output can be styled to fit your needs.
