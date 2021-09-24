@@ -28,7 +28,7 @@ When you get an error similiar to this one...
 ./dtcw: line 1: `<!DOCTYPE html>'
 ----
 
-... it is likely that the download of the wrapper didn't work.
+it is likely that the download of the wrapper didn't work.
 Your will see that an HTML page has been downloaded instead of the wrapper.
 Please try to re-download it.
 
@@ -46,6 +46,6 @@ Could not compile settings file '/Users/falk/.doctoolchain/docToolchain-2.0.0/se
   java.lang.IllegalArgumentException: Unsupported class file major version 61
 ----  
 
-... then you've got a wrong java version.
+then you've got a wrong java version.
 dtcw tries to check the java version upfront by doing a  `java --version` but gradle sometimes picks up a different version.
 In that case, please try to re-install a correct java version.
