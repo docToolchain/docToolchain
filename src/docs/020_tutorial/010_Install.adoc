@@ -15,3 +15,37 @@ If you encounter problems, please create a github issue and the community will h
 
 include::../010_manual/020_install.adoc[tags=install]
 
+=== Problems & Solutions
+
+==== dtcw does not run
+
+When you get an error similiar to this one...
+
+[source]
+----
+./dtcw local tasks --group=doctoolchain
+./dtcw: line 1: syntax error near unexpected token `newline'
+./dtcw: line 1: `<!DOCTYPE html>'
+----
+
+... it is likely that the download of the wrapper didn't work.
+Your will see that an HTML page has been downloaded instead of the wrapper.
+Please try to re-download it.
+
+==== wrong java version
+
+When docToolchain starts but crashes with a stacktrace that starts like this...
+
+[source]
+----
+* What went wrong:
+Could not compile settings file '/Users/falk/.doctoolchain/docToolchain-2.0.0/settings.gradle'.
+> startup failed:
+  General error during semantic analysis: Unsupported class file major version 61
+  
+  java.lang.IllegalArgumentException: Unsupported class file major version 61
+----  
+
+... then you've got a wrong java version.
+dtcw tries to check the java version upfront by doing a  `java --version` but gradle sometimes picks up a different version.
+In that case, please try to re-install a correct java version.
