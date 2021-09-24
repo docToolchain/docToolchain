@@ -37,6 +37,11 @@
     </url>
 
     <url>
+    	<loc>https://localhost/ea/Architect_notes.html</loc>
+    	<lastmod>2021-09-24</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/Activity_notes_issue1.html</loc>
     	<lastmod>2021-09-24</lastmod>
     </url>
@@ -63,11 +68,6 @@
 
     <url>
     	<loc>https://localhost/ea/Use_Cases_links.html</loc>
-    	<lastmod>2021-09-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Architect_notes.html</loc>
     	<lastmod>2021-09-24</lastmod>
     </url>
 
@@ -127,17 +127,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/025_development/040_debugging.html</loc>
+    	<lastmod>2021-09-24</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/025_development/030_create_new_release.html</loc>
     	<lastmod>2021-09-24</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/025_development/020_run_tests.html</loc>
-    	<lastmod>2021-09-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/025_development/040_debugging.html</loc>
     	<lastmod>2021-09-24</lastmod>
     </url>
 
@@ -152,17 +152,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportEA.html</loc>
-    	<lastmod>2021-09-24</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_exportDrawIo.html</loc>
     	<lastmod>2021-09-24</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
+    	<lastmod>2021-09-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportEA.html</loc>
     	<lastmod>2021-09-24</lastmod>
     </url>
 
@@ -212,16 +212,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
-    	<lastmod>2021-09-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_generatePDF.html</loc>
-    	<lastmod>2021-09-24</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_exportVisio.html</loc>
     	<lastmod>2021-09-24</lastmod>
     </url>
@@ -232,12 +222,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
     	<lastmod>2021-09-24</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_generatePDF.html</loc>
     	<lastmod>2021-09-24</lastmod>
     </url>
 
@@ -247,7 +237,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_createReferenceDoc.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
     	<lastmod>2021-09-24</lastmod>
     </url>
 
@@ -262,12 +252,27 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
+    	<lastmod>2021-09-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_createReferenceDoc.html</loc>
     	<lastmod>2021-09-24</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_downloadTemplate.html</loc>
+    	<lastmod>2021-09-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
+    	<lastmod>2021-09-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
     	<lastmod>2021-09-24</lastmod>
     </url>
 
@@ -282,7 +287,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
     	<lastmod>2021-09-24</lastmod>
     </url>
 
@@ -302,17 +307,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
+    	<loc>https://localhost/020_tutorial/020_arc42.html</loc>
     	<lastmod>2021-09-24</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/020_tutorial/100_diagrams.net.html</loc>
-    	<lastmod>2021-09-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/020_tutorial/020_arc42.html</loc>
     	<lastmod>2021-09-24</lastmod>
     </url>
 
