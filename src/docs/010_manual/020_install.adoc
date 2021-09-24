@@ -58,6 +58,8 @@ NOTE: In order to support development for your project on both, Linux and Window
 
 NOTE: if you use `cmd.exe`, please follow the instructions for powershell in the manual. We will not further differentiate between both.
 
+IMPORTANT: `dtcw` uses bash as shell and thus tries to find java from within bash. Chances are that when you use `dtcw` from another shell like zsh, you shell knows about the right java version but your bash doesn't. In that case, please switch to bash and make sure that the right java version is known. Afterwards, you can switch back to your shell.
+
 The wrapper helps you in several ways:
 
 - it ensures that everyone who uses your repository, uses the same version of docToolchain
