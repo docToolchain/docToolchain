@@ -3,8 +3,9 @@ import org.jsoup.parser.Parser
 
 buildscript {
     repositories {
-        maven { url = "https://bahnhub.tech.rz.db.de/artifactory/jcenter-remote" }
-        maven { url = "https://bahnhub.tech.rz.db.de/artifactory/gradle-plugins-remote" }
+        maven {
+            url mavenRepository
+        }
     }
     dependencies {
         classpath 'org.jsoup:jsoup:1.12.1'
