@@ -1,0 +1,113 @@
+import org.jsoup.Jsoup
+import org.jsoup.parser.Parser
+
+buildscript {
+    repositories {
+        maven { url = "https://bahnhub.tech.rz.db.de/artifactory/jcenter-remote" }
+        maven { url = "https://bahnhub.tech.rz.db.de/artifactory/gradle-plugins-remote" }
+    }
+    dependencies {
+        classpath 'org.jsoup:jsoup:1.12.1'
+    }
+}
+
+//tag::publishToConfluence[]
+task globalReferences(
+        description: '',
+        group: 'docToolchain'
+) {
+    doLast {
+        def links=[anchors:[:]]
+        def siteDir = new File(buildDir,"docs/html5/site")
+    
+        System.out.println "first pass ".center(80,"=")
+
+        //first pass:
+        //collect information about all anchors
+        siteDir.eachFileRecurse { file ->
+            if (file.isDirectory()) {
+                // do nothing
+            } else {
+                if (file.name.endsWith('.html')) {
+                    // anchors & links extrahieren
+                    def nameWithPath = file.canonicalPath - siteDir.canonicalPath
+                    def html = file.getText('utf-8')
+                    def dom = Jsoup.parse(html, 'utf-8', Parser.xmlParser())
+                    dom.outputSettings().prettyPrint(false);//makes html() preserve linebreaks and spacing
+                    dom.outputSettings().escapeMode(org.jsoup.nodes.Entities.EscapeMode.xhtml); //This will ensure xhtml validity regarding entities
+                    dom.outputSettings().charset("UTF-8"); //does no harm :-)
+
+                    dom.select('body div.container.content a[href]').each { anchor ->
+                        if (anchor.attr('class').contains('anchor')) {
+                            def anchorName = anchor.attr('href').toString()
+                            def label = anchor.nextSibling().text()
+                            if (anchorName.startsWith("#G_")) {
+                                if (!links.anchors[anchorName]) {
+                                    System.out.println("Global Anchor gefunden: ${anchorName}, Label: ${label}")
+                                    links.anchors[anchorName] = [nameWithPath,label]
+                                } else {
+                                    logger.warn("2 Dateien definieren den gleichen globalen Anchor (Anchor:{anchorName})")
+                                }
+                            }
+                        }
+                    }
+                    // dom.select('body div.container.content').select('div[id],a[id]').each { div ->
+                    //     if (div.attr('id').startsWith("G_")) {
+                    //         def anchorName = "#"+ div.attr('id').toString()
+                    //         if (!links.anchors[anchorName]) {
+                    //             System.out.println("Global Anchor gefunden: " + anchorName)
+                    //             links.anchors[anchorName] = nameWithPath
+                    //         } else {
+                    //             logger.warn("2 Dateien definieren den gleichen globalen Anchor (Anchor:{anchorName})")
+                    //         }
+                    //     }
+                    // }
+                }
+            }
+        }
+
+        System.out.println " second pass ".center(80,"=")
+
+        //second pass:
+        //check links and fix them if necessary
+        siteDir.eachFileRecurse { file ->
+            if (file.isDirectory()) {
+                // do nothing
+            } else {
+                if (file.name.endsWith('.html')) {
+                    def nameWithPath = file.canonicalPath - siteDir.canonicalPath
+                    def html = file.getText('utf-8')
+                    def isModified = false
+                    def dom = Jsoup.parse(html, 'utf-8', Parser.xmlParser())
+                    dom.outputSettings().prettyPrint(false);//makes html() preserve linebreaks and spacing
+                    dom.outputSettings().escapeMode(org.jsoup.nodes.Entities.EscapeMode.xhtml); //This will ensure xhtml validity regarding entities
+                    dom.outputSettings().charset("UTF-8"); //does no harm :-)
+
+                    dom.select('body div.container.content a[href]').each { anchor ->
+                        if (anchor.attr('class').contains('anchor') || anchor.attr('class').contains('no-lnk')) {
+                            //ignore
+                        } else {
+                            def anchorName = anchor.attr('href').toString()
+                            //no external links
+
+                            if (anchorName.startsWith("#G_") && links.anchors[anchorName] != null) {
+                                def newTarget = links.anchors[anchorName][0]
+                                System.out.println("Datei ${file.name} - ersetze globalen Anchor ${anchorName} in ${serverContextPath + newTarget + anchorName}")
+                                anchor.attr('href', serverContextPath + newTarget + anchorName)
+
+                                if (anchor.childNode(0).text() == "[${anchorName.substring(1)}]") {
+                                    anchor.childNode(0).text(links.anchors[anchorName][1])
+                                } 
+                                isModified = true
+                            }
+                        }
+                    }
+                    if (isModified) {
+                        file.write(dom.toString())
+                        logger.warn("wrote file ${file.name}")
+                    }
+                }
+            }
+        }
+    }
+}
