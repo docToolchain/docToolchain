@@ -191,7 +191,7 @@ task generateHTML (
             from(new File(file(srcDir),imageDir))
             logger.info ('imageDir: '+imageDir)
         }
-        into './output/images'
+        into './images'
     }
     backends = ['html5']
 doFirst {

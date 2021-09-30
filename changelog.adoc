@@ -13,6 +13,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+2021-09-30::
+* fix #632 - broken images with generateHTML
+
 == 2.0.0-rc17 - 2021-09-22
 
 === changed
