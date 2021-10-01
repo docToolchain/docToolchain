@@ -96,7 +96,7 @@ This command will show you all tasks available through docToolchain, but first i
 * it prefers a local installation
 * if docker is available and no local installation, it will use docker. The download of the images might take a while when run for the first time
 * if docker is not available, it will download and install docToolchain to your home folder
-** it will then run a gradle build through the gradle wrapper. This will download and isntall gradle when run for the first time.
+** it will then run a gradle build through the gradle wrapper. This will download and install gradle when run for the first time.
 ** the gradle build will also fetch some dependencies. This will also take some time when run for the first time.
 
 As you can see, the installation is an incremental process and will take some time because of additional downloads.
@@ -115,7 +115,7 @@ If you don't have existing documents yet, or if you need a fresh start, you can 
 
 Run the following command to ask docToolchain to download the template of your choice:
 
-.Linux
+.Linux / WSL2 with bash
 [.primary]
 --
 [source,bash]
@@ -135,13 +135,12 @@ Run the following command to ask docToolchain to download the template of your c
 
 == Build
 
-By now, docToolchain is installed in some way, the docToolchain wrapper `dtcw` resides in your project folder and the arc42 template is installed.
+By now, docToolchain is installed as command line tool and the path to its `bin` folder should be on your path, the docToolchain wrapper `dtcw` resides in your project folder and the arc42 template is installed.
 Now let's render it as HTML and PDF.
 
-should be installed as command line tool and the path to its `bin` folder should be on your path.
 If you now switch to your freshly initialized <newDocDir>, you should be able to execute the following commands:
 
-.Linux
+.Linux / WSL2 with bash
 [source,bash]
 ----
 doctoolchain <docDir> generateHTML
