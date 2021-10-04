@@ -96,17 +96,45 @@ If you need to provide a proxy to access Confluence, you may set a map with keys
 
 useOpenapiMacro::
 If this option is present and equal to "confluence-open-api" then any source block marked with class openapi will be wrapped in Elitesoft Swagger Editor macro:  (see https://marketplace.atlassian.com/apps/1218914/open-api-swagger-editor-for-confluence[Elitesoft Swagger Editor]) +
-For backward compatibility: If this option is present and equal to `true`, then again the Elitesoft Swagger Editor macro will be used. +
-If this option is present and equal to "open-api" then any source block marked with class openapi will be wrapped in Open API Documentation for Confluence macro:  (see https://marketplace.atlassian.com/apps/1215176/open-api-documentation-for-confluence[Open API Documentation for Confluence]). A download source (yaml) button is shown by default. +
-This is how you'd include your openapi YAML file: +
-+
+For backward compatibility: If this option is present and equal to `true`, then again the Elitesoft Swagger +
 [source,asciidoc]
 --
 [source.openapi,yaml]
 ----
 \include::myopeanapi.yaml[]
 ----
+-- 
+
+If this option is present and equal to "open-api" then any source block marked with class openapi will be wrapped in Open API Documentation for Confluence macro:  (see https://marketplace.atlassian.com/apps/1215176/open-api-documentation-for-confluence[Open API Documentation for Confluence]). A download source (yaml) button is shown by default. +
+Using the plugin can be handled on different ways.
+
+* copy/paste the content of the YAML file to the plugin without linking to the origin source by using the url to the YAML file 
+
+[source,asciidoc]
 --
+    [source.openapi,yaml]
+    ----
+    \include::https://my-domain.com/path-to-yaml[]
+    ----
+-- 
+* copy/paste the content of the YAML file to the plugin without linking to the origin source by using a YAML file in your project structure:
+
+[source,asciidoc]
+--
+    [source.openapi,yaml]
+    ----
+    \include::my-yaml-file.yaml[]
+    ----
+-- 
+* create a link between the plugin and the YAML file without copying the content into the plugin. The advantage following this way is that even in case the API specification is changed without re-generating the documentation, the new version of the configuration is used in Confluence.
+
+[source,asciidoc]
+--
+    [source.openapi,yaml,role="url:https://my-domain.com/path-to-yaml"]
+    ----
+    \include::https://my-domain.com/path-to-yaml[]
+    ----
+-- 
 
 .configuration
 .publishToConfluence.gradle
