@@ -276,7 +276,7 @@ jira.with {
     label =
 
     // Legacy settings for Jira query. This setting is deprecated & support for it will soon be completely removed. Please use JiraRequests settings
-    jql = "project='%jiraProject%' AND labels='%jiraLabel%' ORDER BY priority DESC, duedate ASC"
+    //jql = "project='%jiraProject%' AND labels='%jiraLabel%' ORDER BY priority DESC, duedate ASC"
 
     // Base filename in which Jira query results should be stored
     resultsFilename = 'JiraTicketsContent'

@@ -168,7 +168,7 @@ confluence.with {
     ]
 
     // endpoint of the confluenceAPI (REST) to be used
-    // verfiy that you got the correct endpoint by browsing to 
+    // verfiy that you got the correct endpoint by browsing to
     // https://[yourServer]/[context]/rest/api/user/current
     // you should get a valid json which describes your current user
     // a working example is https://arc42-template.atlassian.net/wiki/rest/api/user/current
@@ -295,7 +295,7 @@ jira.with {
     label =
 
     // Legacy settings for Jira query. This setting is deprecated & support for it will soon be completely removed. Please use JiraRequests settings
-    jql = "project='%jiraProject%' AND labels='%jiraLabel%' ORDER BY priority DESC, duedate ASC"
+    //jql = "project='%jiraProject%' AND labels='%jiraLabel%' ORDER BY priority DESC, duedate ASC"
 
     // Base filename in which Jira query results should be stored
     resultsFilename = 'JiraTicketsContent'
