@@ -11,10 +11,13 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 
+2021-10-04::
+* fix [#616 - Enhance the Confluence Open-API Documentation API to refer to URLs](https://github.com/docToolchain/docToolchain/issues/616) 
+
 === fixed
 
 2021-09-30::
-* fix #632 - broken images with generateHTML
+* fix [#632 - broken images with generateHTML](https://github.com/docToolchain/docToolchain/issues/632) 
 
 == 2.0.0-rc17 - 2021-09-22
 
