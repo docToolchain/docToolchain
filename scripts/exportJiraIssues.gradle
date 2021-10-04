@@ -100,7 +100,7 @@ task exportJiraIssues(
                 }
                 jiraDataAsciidoc.append("|=== \n")
             } else {
-                logger.quiet("Set saveAsciidoc=true in '${configFile.name}' to save results in AsciiDoc file")
+                logger.quiet("Set saveAsciidoc=true in '${mainConfigFile}' to save results in AsciiDoc file")
             }
 
             // Save Excel file
@@ -176,7 +176,7 @@ task exportJiraIssues(
 
                 wb.write(jiraFos)
             } else {
-                logger.quiet("Set saveExcel=true in '${configFile.name}' to save results in Excel file")
+                logger.quiet("Set saveExcel=true in '${mainConfigFile}' to save results in Excel file")
             }
         }
     }

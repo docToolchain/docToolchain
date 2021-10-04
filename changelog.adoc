@@ -12,12 +12,15 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === changed
 
 2021-10-04::
-* fix https://github.com/docToolchain/docToolchain/issues/616[#616 - Enhance the Confluence Open-API Documentation API to refer to URLs]
+* fix https://github.com/docToolchain/docToolchain/issues/616[#616 - exportOpenAPI: Enhance the Confluence Open-API Documentation API to refer to URLs]
 
 === fixed
 
+2021-10-04::
+* fix https://github.com/docToolchain/docToolchain/issues/645[#645 - exportJiraIssues: Could not get unknown property 'configFile' for task ':exportJiraIssues' of type org.gradle.api.DefaultTask]
+
 2021-09-30::
-* fix https://github.com/docToolchain/docToolchain/issues/632[#632 - broken images with generateHTML]
+* fix https://github.com/docToolgchain/docToolchain/issues/632[#632 - generateHTML: broken images with generateHTML]
 
 == 2.0.0-rc17 - 2021-09-22
 
