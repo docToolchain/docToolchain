@@ -1,5 +1,6 @@
 ### All Submissions:
 
+* [ ] Did you update the `changelog.adoc`?
 * [ ] Does your PR affect the documentation?
 * [ ] If yes, did you update the documentation or create an issue for updating it?
 
