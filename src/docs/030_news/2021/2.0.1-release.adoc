@@ -1,0 +1,36 @@
+:filename: 030_news/2021/2.0.1-release.adoc
+:jbake-title: Release v2.0.1
+:jbake-date: 2021-10-06
+:jbake-type: post
+:jbake-tags: docToolchain
+:jbake-status: published
+:jbake-menu: news
+:jbake-author: Ralf D. Müller
+:icons: font
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+== v2.0.1 of docToolchain has been released!
+
+This is a first bugfix release.
+
+=== added
+
+2021-10-06::
+* experimental: globalReferences
+
+=== changed
+
+2021-10-04::
+* fix https://github.com/docToolchain/docToolchain/issues/616[#616 - exportOpenAPI: Enhance the Confluence Open-API Documentation API to refer to URLs]
+
+=== fixed
+
+2021-10-06::
+* fix https://github.com/docToolchain/docToolchain/issues/636[#636 - theme: larger admonition icons]
+* fix https://github.com/docToolchain/docToolchain/issues/649[#649 - generateSite on powershell wrong file-separator]
+2021-10-04::
+* fix https://github.com/docToolchain/docToolchain/issues/645[#645 - exportJiraIssues: Could not get unknown property 'configFile' for task ':exportJiraIssues' of type org.gradle.api.DefaultTask]
+
+2021-09-30::
+* fix https://github.com/docToolgchain/docToolchain/issues/632[#632 - generateHTML: broken images with generateHTML]
