@@ -20,6 +20,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === fixed
 
 2021-10-06::
+* fix https://github.com/docToolchain/docToolchain/issues/636[#636 - theme: larger admonition icons]
 * fix https://github.com/docToolchain/docToolchain/issues/649[#649 - generateSite on powershell wrong file-separator]
 2021-10-04::
 * fix https://github.com/docToolchain/docToolchain/issues/645[#645 - exportJiraIssues: Could not get unknown property 'configFile' for task ':exportJiraIssues' of type org.gradle.api.DefaultTask]

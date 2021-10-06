@@ -102,10 +102,12 @@
   .match {
       font-size: smaller;
   }
+      .admonitionblock td.icon .fa:before {
+          font-size: xxx-large;
+      }
   </style>
 
-
-    <style>
+   <style>
     div.openblock.primary div.content, div.openblock.secondary div.content {
         border: 1px solid #7a2518;
         padding: 5px;
