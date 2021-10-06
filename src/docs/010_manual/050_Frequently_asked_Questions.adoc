@@ -158,4 +158,5 @@ Another variant of this is `Can't connect to X11 window server using '192.168.18
 In this case, it might help to install an X-Server (x410 for example) and configure the `DISPLAY` variable correctly.
 An easy way to test you configuration is to run `xeyes` in WSL.
 
+NOTE:: Please make sure that you wsl is up-to-date bei executing `wsl --update` - this is not part of your regular windows update!
 
