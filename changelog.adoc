@@ -9,6 +9,14 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === added
 
+=== changed
+
+=== fixed
+
+== 2.0.1 - 2021-10-06
+
+=== added
+
 2021-10-06::
 * experimental: globalReferences
 
@@ -27,6 +35,11 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 2021-09-30::
 * fix https://github.com/docToolgchain/docToolchain/issues/632[#632 - generateHTML: broken images with generateHTML]
+
+== 2.0.0 - 2021-09-23
+
+The 2.0.0 relase contains all changes of the release candidates.
+See "https://doctoolchain.github.io/docToolchain/v2.0.x/030_news/2021/2.0.0-release.html[v2.0.0 of docToolchain has been released!]" for more details.
 
 == 2.0.0-rc17 - 2021-09-22
 
