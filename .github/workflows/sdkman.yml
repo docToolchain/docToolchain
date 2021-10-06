@@ -29,7 +29,7 @@ jobs:
 
     # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-      - name: curl
+      - name: publish
         env:
           CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
           CONSUMER_TOKEN: ${{secrets.CONSUMER_TOKEN}}
@@ -42,3 +42,16 @@ jobs:
           -H "Accept: application/json" \
           -d '{"candidate": "doctoolchain", "version": "${{ github.event.inputs.version }}", "url": "${{ github.event.inputs.url }}"}' \
           https://vendors.sdkman.io/release
+      - name: set-default
+        env:
+          CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
+          CONSUMER_TOKEN: ${{secrets.CONSUMER_TOKEN}}
+        shell: bash
+        run: |
+          curl -X PUT \
+          -H "Consumer-Key: $CONSUMER_KEY" \
+          -H "Consumer-Token: $CONSUMER_TOKEN" \
+          -H "Content-Type: application/json" \
+          -H "Accept: application/json" \
+          -d '{"candidate": "doctoolchain", "version": "${{ github.event.inputs.version }}"}' \
+          https://vendors.sdkman.io/default
