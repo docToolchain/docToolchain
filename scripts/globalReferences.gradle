@@ -14,13 +14,13 @@ buildscript {
 
 //tag::publishToConfluence[]
 task globalReferences(
-        description: '',
+        description: 'fixes global AsciiDoc references (G_) in generated microsite',
         group: 'docToolchain'
 ) {
     doLast {
         def links=[anchors:[:]]
-        def siteDir = new File(buildDir,"docs/html5/site")
-    
+        def siteDir = new File(buildDir,"microsite/output")
+
         System.out.println "first pass ".center(80,"=")
 
         //first pass:
@@ -98,7 +98,7 @@ task globalReferences(
 
                                 if (anchor.childNode(0).text() == "[${anchorName.substring(1)}]") {
                                     anchor.childNode(0).text(links.anchors[anchorName][1])
-                                } 
+                                }
                                 isModified = true
                             }
                         }
