@@ -55,3 +55,16 @@ jobs:
           -H "Accept: application/json" \
           -d '{"candidate": "doctoolchain", "version": "${{ github.event.inputs.version }}"}' \
           https://vendors.sdkman.io/default
+      - name: announce
+        env:
+          CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
+          CONSUMER_TOKEN: ${{secrets.CONSUMER_TOKEN}}
+        shell: bash
+        run: |
+          curl -X POST \
+          -H "Consumer-Key: $CONSUMER_KEY" \
+          -H "Consumer-Token: $CONSUMER_TOKEN" \
+          -H "Content-Type: application/json" \
+          -H "Accept: application/json" \
+          -d '{"candidate": "doctoolchain", "version": "${{ github.event.inputs.version }}", "url": "https://doctoolchain.github.io/docToolchain/v2.0.x/030_news/2021/${{ github.event.inputs.version }}-release.html"}' \
+          https://vendors.sdkman.io/announce/struct
