@@ -6,9 +6,113 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Wed, 6 Oct 2021 09:41:09 +0000</pubDate>
-    <lastBuildDate>Wed, 6 Oct 2021 09:41:09 +0000</lastBuildDate>
+    <pubDate>Wed, 6 Oct 2021 10:42:09 +0000</pubDate>
+    <lastBuildDate>Wed, 6 Oct 2021 10:42:09 +0000</lastBuildDate>
 
+    
+    <item>
+      <title>Release v2.0.1</title>
+      <link>https://localhost/030_news/2021/2.0.1-release.html</link>
+      <pubDate>Wed, 6 Oct 2021 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">030_news/2021/2.0.1-release.html</guid>
+      <description>
+      &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
+&lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
+&lt;ul class=&quot;sectlevel1&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_v2_0_1_of_doctoolchain_has_been_released&quot;&gt;v2.0.1 of docToolchain has been released!&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_added&quot;&gt;added&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_changed&quot;&gt;changed&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_fixed&quot;&gt;fixed&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- endtoc --&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_v2_0_1_of_doctoolchain_has_been_released&quot;&gt;v2.0.1 of docToolchain has been released!&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This is a first bugfix release.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_added&quot;&gt;added&lt;/h3&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;2021-10-06&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;experimental: globalReferences&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_changed&quot;&gt;changed&lt;/h3&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;2021-10-04&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;fix &lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/616&quot;&gt;#616 - exportOpenAPI: Enhance the Confluence Open-API Documentation API to refer to URLs&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_fixed&quot;&gt;fixed&lt;/h3&gt;
+&lt;div class=&quot;dlist&quot;&gt;
+&lt;dl&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;2021-10-06&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;fix &lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/636&quot;&gt;#636 - theme: larger admonition icons&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;fix &lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/649&quot;&gt;#649 - generateSite on powershell wrong file-separator&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;2021-10-04&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;fix &lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/645&quot;&gt;#645 - exportJiraIssues: Could not get unknown property &apos;configFile&apos; for task &apos;:exportJiraIssues&apos; of type org.gradle.api.DefaultTask&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;dt class=&quot;hdlist1&quot;&gt;2021-09-30&lt;/dt&gt;
+&lt;dd&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;fix &lt;a href=&quot;https://github.com/docToolgchain/docToolchain/issues/632&quot;&gt;#632 - generateHTML: broken images with generateHTML&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/dd&gt;
+&lt;/dl&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	  </description>
+    </item>
     
     <item>
       <title>Release v2.0.0</title>
