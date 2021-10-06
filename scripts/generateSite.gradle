@@ -230,8 +230,12 @@ ${color 'green', 'for you?'}\n""",
                             text += line+"\n"
                         }
                     }
-                    def name = file.canonicalPath - (sourceFolder.canonicalPath+"/")
-                    name = name.split("/")
+                    def name = file.canonicalPath - (sourceFolder.canonicalPath+File.separator)
+                    if (File.separator=='\\') {
+                        name = name.split("\\\\")
+                    } else {
+                        name = name.split("/")
+                    }
                     if (name.size()>1) {
                         if (!jbake.menu) {
                             jbake.menu = name[0]
