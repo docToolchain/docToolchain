@@ -45,7 +45,7 @@ var documents = [
     "uri": "ea/UseCases.html",
     "menu": "ea",
     "title": "UseCases.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create_stunning_docs invoked by gradle or maven command "
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
 },
 
 {
@@ -66,54 +66,22 @@ var documents = [
 
 {
     "id": 8,
-    "uri": "ea/Use_Cases_links.html",
+    "uri": "ea/Use_Cases_notes_UseCases.html",
     "menu": "ea",
-    "title": "Use_Cases_links.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+    "title": "Use_Cases_notes_UseCases.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
 },
 
 {
     "id": 9,
-    "uri": "ea/Architect_notes.html",
+    "uri": "ea/Use_Cases_notes.html",
     "menu": "ea",
-    "title": "Architect_notes.ad",
-    "text": " "
+    "title": "Use_Cases_notes.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
 },
 
 {
     "id": 10,
-    "uri": "ea/Activity_notes_issue1.html",
-    "menu": "ea",
-    "title": "Activity_notes_issue1.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 11,
-    "uri": "ea/Activity_notes.html",
-    "menu": "ea",
-    "title": "Activity_notes.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 12,
-    "uri": "ea/Use_Cases_notes_UseCases.html",
-    "menu": "ea",
-    "title": "Use_Cases_notes_UseCases.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create_stunning_docs invoked by gradle or maven command "
-},
-
-{
-    "id": 13,
-    "uri": "ea/Use_Cases_notes.html",
-    "menu": "ea",
-    "title": "Use_Cases_notes.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create_stunning_docs invoked by gradle or maven command "
-},
-
-{
-    "id": 14,
     "uri": "ea/Use_Cases_links_issue2.html",
     "menu": "ea",
     "title": "Use_Cases_links_issue2.ad",
@@ -121,11 +89,43 @@ var documents = [
 },
 
 {
+    "id": 11,
+    "uri": "ea/Use_Cases_links.html",
+    "menu": "ea",
+    "title": "Use_Cases_links.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+},
+
+{
+    "id": 12,
+    "uri": "ea/Architect_notes.html",
+    "menu": "ea",
+    "title": "Architect_notes.ad",
+    "text": " "
+},
+
+{
+    "id": 13,
+    "uri": "ea/Activity_notes_issue1.html",
+    "menu": "ea",
+    "title": "Activity_notes_issue1.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
+    "id": 14,
+    "uri": "ea/Activity_notes.html",
+    "menu": "ea",
+    "title": "Activity_notes.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
     "id": 15,
     "uri": "010_manual/050_Frequently_asked_Questions.html",
     "menu": "manual",
     "title": "FAQ: Frequently asked Questions",
-    "text": " Table of Contents FAQ: Frequently asked Questions Images exportVisio Sparx Enterprise Architect Known error Messages FAQ: Frequently asked Questions 7 minutes to read This section tries to answer the most common and frequently asked questions about how to work with docToolchain. It will also contain questions relevant to the tools used to build docToolchain, but the main focus is docToolchain itself. If you are stuck, make sure that you also check other sources like Stack Overflow . There is also a great FAQ for all your arc42 questions: https://faq.arc42.org/home/ If you have a question or problem for which you can&#8217;t find a solution, you can for this repo, add your question and create a pull request raise the issue through the GitHub issue tracker ask your question on Stack Overflow discuss the problem on Slack Images Asciidoctor User Manual on images Asciidoctor Quick Reference on images AsciiDoctor Writer Guide on images Q: Why are images not shown in the preview of my editor? A: this is most likely because your editor doesn&#8217;t know where they are stored. If you follow the default settings, you probably store your images in a subfolder images . The build script knows about it, because the attribute imagesdir has been set to ./images , but your editor doesn&#8217;t care about the build script - it only checks the currently opened AsciiDoc file. The solution is to add a line to each file which checks if the imagesdir is set and if not, sets it to a valid value: ifndef::imagesdir[:imagesdir: ../images] Q: Which image format should I use? A: AsciiDoc and AsciiDoctor support several formats like GIF, PNG, JPG and SVG. However, if you want to use most features, some formats are better to use than others: GIF is not supported by the PDF renderer. Use JPG or PNG instead. JPG is great for photos but not for diagrams (you might get compression artifacts). So, if you want to use photos from your flipcharts - JPG might work for you. SVG great for high resolution diagrams, but not good supported by DOCX as output format. OpenOffice Writer might display the image a bit stretched, MS Word didn&#8217;t display it at all in some experiments. PDF output might display a warning that newer SVG versions are not supported (happends especially with diagrams.net images). PNG this is the preferred format for images used with docToolchain. All output formats support it and if diagrams are rendered with a resolution high enough to display all details, it will also be scaled well with all output formats. Q: Why are my images rotated in the output? A: This most likely happens when you&#8217;ve taken photos with a mobile device and include them in you docs. A mobile device does not rotate the image itself, it only stores the orientation of the device in the meta data of the photo. Your operating system will show you the image as expected, but the rendered AsciiDoc will not. This can be „fixed“ with Imagemagick, by using convert -auto-orient or mogrify -auto-orient (thanx to @rotnroll666 for this tip). You can also try to just open the image in your favourite editor and re-save it. exportVisio Q: I get an error message saying that a library is not registered when I try to run the exportVisio -task. Ausnahme beim Festlegen von Visible: Das COM-Objekt des Typs Microsoft.Office.Interop.Visio.ApplicationClass kann nicht in den Schnittstellentyp Microsoft.Office.Interop.Visio.IVApplication umgewandelt werden. Dieser Vorgang konnte nicht durchgeführt werden, da der QueryInterface-Aufruf an die COM-Komponente für die Schnittstelle mit der IID {000D0700-0000-0000-C000-000000000046} aufgrund des folgenden Fehlers nicht durchgeführt werden konnte: Bibliothek nicht registriert. (Ausnahme von HRESULT: 0x8002801D (TYPE_E_LIBNOTREGISTERED)). In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1 + $VisioApp.Visible = $false + ~~~~~~~~~~~~~~~~~~~~~~~~~~ + CategoryInfo : NotSpecified: (:) [], SetValueInvocationException + FullyQualifiedErrorId : ExceptionWhenSetting A: When Visio is installed, it registers itself as a com library. It seems that this registration can break. You can fix this by visiting the windows system settings &#8594; install or uninstall a program, select visio , select change and then repair . Sparx Enterprise Architect Q: Sparx Enterprise Architect is a Windows tool, isn&#8217;t it? Yes, it is, but it is written to support CrossOver in order to run on Linux based systems. Wine, the open source branch of CrossOver, seems to work as well. Take a look at this page to see how to install it on a linux based system: https://www.sparxsystems.com/support/faq/ea_on_linux.html I (Ralf) once gave it a try and even managed to get remote control over EA via VBS and COM up and running (which is the pre-requisite for docToolchain). Known error Messages Q: I get the error saying 'Failed to create MD5 hash for file content'. * What went wrong: Failed to capture snapshot of input files for task ':generateHTML' property 'sourceDir' during up-to-date check. &gt; Failed to create MD5 hash for file content.` There are two known reasons for this error. One of the .adoc files is opened in an editor, so that windows can&#8217;t get the lock for that file. &#8594; Close all .adoc files. You use the Bash script doctoolchain on a windows system. &#8594; Use doctoolchain.bat instead. It works even in a Bash Shell. Q: I get the error saying 'Unsupported major.minor version 52.0' This is a sign that you use an outdated version of Java. Please upgrade to Java 8 at least and 14 max. The docToolchain-wrapper (dtcw) in v2.0 will check the java version for you so that you will not see this error message in the future. Q: I get an error message saying 'Error occurred during initialization of VM' Starting a Gradle Daemon, 1 incompatible Daemon could not be reused, use --status for details FAILURE: Build failed with an exception. * What went wrong: Unable to start the daemon process. … Error occurred during initialization of VM Could not reserve enough space for 2097152KB object heap Somehow docToolchain can&#8217;t allocate the memory which is configured out of the box. Try to free up some memory or comment out the line org.gradle.jvmargs=-Xmx2048m in gradle.properties Q: I get the error saying Could not initialize class java.awt.GraphicsEnvironment$LocaleGE This seems to be a problem with WSL on Windows. Some sources mention to run Java in headless mode, but in this case, it doesn&#8217;t solve the problem. The root cause seems to be plantUML trying to get some font information. Only real solution seems to be to shutdown WSL from a powershell window wiht wsl --shutdown and retry. Warning this will kill all your WSL terminals without warning. Another solution seems to be to install a fresh version of your java runtime (I thought it is immutable, but it really helps). Best Solution is to switch to powershell. Another solution is to avoid PlantUML and generate Diagrams through a kroki.io server. Another variant of this is Can&#8217;t connect to X11 window server using '192.168.189.153:0' as the value of the DISPLAY variable. . In this case, it might help to install an X-Server (x410 for example) and configure the DISPLAY variable correctly. An easy way to test you configuration is to run xeyes in WSL. "
+    "text": " Table of Contents FAQ: Frequently asked Questions Images exportVisio Sparx Enterprise Architect Known error Messages FAQ: Frequently asked Questions 7 minutes to read This section tries to answer the most common and frequently asked questions about how to work with docToolchain. It will also contain questions relevant to the tools used to build docToolchain, but the main focus is docToolchain itself. If you are stuck, make sure that you also check other sources like Stack Overflow . There is also a great FAQ for all your arc42 questions: https://faq.arc42.org/home/ If you have a question or problem for which you can&#8217;t find a solution, you can for this repo, add your question and create a pull request raise the issue through the GitHub issue tracker ask your question on Stack Overflow discuss the problem on Slack Images Asciidoctor User Manual on images Asciidoctor Quick Reference on images AsciiDoctor Writer Guide on images Q: Why are images not shown in the preview of my editor? A: this is most likely because your editor doesn&#8217;t know where they are stored. If you follow the default settings, you probably store your images in a subfolder images . The build script knows about it, because the attribute imagesdir has been set to ./images , but your editor doesn&#8217;t care about the build script - it only checks the currently opened AsciiDoc file. The solution is to add a line to each file which checks if the imagesdir is set and if not, sets it to a valid value: ifndef::imagesdir[:imagesdir: ../images] Q: Which image format should I use? A: AsciiDoc and AsciiDoctor support several formats like GIF, PNG, JPG and SVG. However, if you want to use most features, some formats are better to use than others: GIF is not supported by the PDF renderer. Use JPG or PNG instead. JPG is great for photos but not for diagrams (you might get compression artifacts). So, if you want to use photos from your flipcharts - JPG might work for you. SVG great for high resolution diagrams, but not good supported by DOCX as output format. OpenOffice Writer might display the image a bit stretched, MS Word didn&#8217;t display it at all in some experiments. PDF output might display a warning that newer SVG versions are not supported (happends especially with diagrams.net images). PNG this is the preferred format for images used with docToolchain. All output formats support it and if diagrams are rendered with a resolution high enough to display all details, it will also be scaled well with all output formats. Q: Why are my images rotated in the output? A: This most likely happens when you&#8217;ve taken photos with a mobile device and include them in you docs. A mobile device does not rotate the image itself, it only stores the orientation of the device in the meta data of the photo. Your operating system will show you the image as expected, but the rendered AsciiDoc will not. This can be „fixed“ with Imagemagick, by using convert -auto-orient or mogrify -auto-orient (thanx to @rotnroll666 for this tip). You can also try to just open the image in your favourite editor and re-save it. exportVisio Q: I get an error message saying that a library is not registered when I try to run the exportVisio -task. Ausnahme beim Festlegen von Visible: Das COM-Objekt des Typs Microsoft.Office.Interop.Visio.ApplicationClass kann nicht in den Schnittstellentyp Microsoft.Office.Interop.Visio.IVApplication umgewandelt werden. Dieser Vorgang konnte nicht durchgeführt werden, da der QueryInterface-Aufruf an die COM-Komponente für die Schnittstelle mit der IID {000D0700-0000-0000-C000-000000000046} aufgrund des folgenden Fehlers nicht durchgeführt werden konnte: Bibliothek nicht registriert. (Ausnahme von HRESULT: 0x8002801D (TYPE_E_LIBNOTREGISTERED)). In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1 + $VisioApp.Visible = $false + ~~~~~~~~~~~~~~~~~~~~~~~~~~ + CategoryInfo : NotSpecified: (:) [], SetValueInvocationException + FullyQualifiedErrorId : ExceptionWhenSetting A: When Visio is installed, it registers itself as a com library. It seems that this registration can break. You can fix this by visiting the windows system settings &#8594; install or uninstall a program, select visio , select change and then repair . Sparx Enterprise Architect Q: Sparx Enterprise Architect is a Windows tool, isn&#8217;t it? Yes, it is, but it is written to support CrossOver in order to run on Linux based systems. Wine, the open source branch of CrossOver, seems to work as well. Take a look at this page to see how to install it on a linux based system: https://www.sparxsystems.com/support/faq/ea_on_linux.html I (Ralf) once gave it a try and even managed to get remote control over EA via VBS and COM up and running (which is the pre-requisite for docToolchain). Known error Messages Q: I get the error saying 'Failed to create MD5 hash for file content'. * What went wrong: Failed to capture snapshot of input files for task ':generateHTML' property 'sourceDir' during up-to-date check. &gt; Failed to create MD5 hash for file content.` There are two known reasons for this error. One of the .adoc files is opened in an editor, so that windows can&#8217;t get the lock for that file. &#8594; Close all .adoc files. You use the Bash script doctoolchain on a windows system. &#8594; Use doctoolchain.bat instead. It works even in a Bash Shell. Q: I get the error saying 'Unsupported major.minor version 52.0' This is a sign that you use an outdated version of Java. Please upgrade to Java 8 at least and 14 max. The docToolchain-wrapper (dtcw) in v2.0 will check the java version for you so that you will not see this error message in the future. Q: I get an error message saying 'Error occurred during initialization of VM' Starting a Gradle Daemon, 1 incompatible Daemon could not be reused, use --status for details FAILURE: Build failed with an exception. * What went wrong: Unable to start the daemon process. … Error occurred during initialization of VM Could not reserve enough space for 2097152KB object heap Somehow docToolchain can&#8217;t allocate the memory which is configured out of the box. Try to free up some memory or comment out the line org.gradle.jvmargs=-Xmx2048m in gradle.properties Q: I get the error saying Could not initialize class java.awt.GraphicsEnvironment$LocaleGE This seems to be a problem with WSL on Windows. Some sources mention to run Java in headless mode, but in this case, it doesn&#8217;t solve the problem. The root cause seems to be plantUML trying to get some font information. Only real solution seems to be to shutdown WSL from a powershell window wiht wsl --shutdown and retry. Warning this will kill all your WSL terminals without warning. Another solution seems to be to install a fresh version of your java runtime (I thought it is immutable, but it really helps). Best Solution is to switch to powershell. Another solution is to avoid PlantUML and generate Diagrams through a kroki.io server. Another variant of this is Can&#8217;t connect to X11 window server using '192.168.189.153:0' as the value of the DISPLAY variable. . In this case, it might help to install an X-Server (x410 for example) and configure the DISPLAY variable correctly. An easy way to test you configuration is to run xeyes in WSL. NOTE Please make sure that you wsl is up-to-date bei executing wsl --update - this is not part of your regular windows update! "
 },
 
 {
@@ -202,6 +202,14 @@ var documents = [
 
 {
     "id": 25,
+    "uri": "025_development/020_run_tests.html",
+    "menu": "development",
+    "title": "How to run Tests",
+    "text": " Table of Contents How to run Tests Prerequisites Prepare the Project Execute Tests Proxy Setting for Tests How to run Tests 2 minutes to read Prerequisites make sure that Git and Graphviz are installed make sure that your Gradle setup is able to work with proxies use Java 8 Prepare the Project git clone git@github.com:docToolchain/docToolchain.git cd docToolchain/ git checkout V1.0.0 # (1) git submodule update -i the version to test. Not needed if you work on the HEAD revision on Master Execute Tests rm -r build &amp;&amp; ./gradlew test --info The rm command ensures that you really have a clean test running. Otherwise you might get false positives because Gradle will skip steps ('Up-to-date') because artifacts of an older test run still exist. Proxy Setting for Tests The docToolchain test setup is based on the Gradle-Test-Kit and makes use of the Spock test execution framework . The gradle test runner is started in its own test environment and its own JVM instance. As a result the global proxy settings are ignored. As workarund to execute the test with the correct proxy settings it is necessary to copy the proxy setting normally done in the in gradle.properties located in the user directory to the gradle.properties file located in the docToolchain folder itself. Note The files downloaded by the Gradle test Runner are placed in a different folder than the default gradle cache. You&#8217;ll find them in the Tmp folder: C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches "
+},
+
+{
+    "id": 26,
     "uri": "025_development/010_setup_dev_env.html",
     "menu": "development",
     "title": "Setup Development Environment",
@@ -209,19 +217,11 @@ var documents = [
 },
 
 {
-    "id": 26,
+    "id": 27,
     "uri": "025_development/040_debugging.html",
     "menu": "development",
     "title": "Debugging",
     "text": " Table of Contents Debugging General Advice Gradle jBake Templates Theming / Menu / Images Debugging 2 minutes to read Sometimes things go are different than expected and you need to find out what&#8217;s wrong. Here are some tips that might help you. General Advice To dig deeper into the workings of docToolchain, it makes sense that you setup yourself a development environment. This gives you the chance to add extra debug output to the tasks which you want to inspect. Gradle You get most hints on what is going on in regards to gradle when you add the --info flag to your command. ./dtcw generateSite --info This will output all configuration settings as seen by docToolchain and many more internal bits. jBake Templates If something goes wrong within a template, you often get not much information. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem occurs, you need to use poor mans debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println . Otherwise, you will see no output. Theming / Menu / Images It might seem a bit like magic how the system creates the menu entries. Sometimes you don&#8217;t find the reason why an image is not shown. Remember, that you can check out the generated files. Check the build/microsite/tmp folder to see the folder which is fed into jBake. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Check the build/microsite/output folder to see the generated result. This often helps to check where an image actually is located. "
-},
-
-{
-    "id": 27,
-    "uri": "025_development/020_run_tests.html",
-    "menu": "development",
-    "title": "How to run Tests",
-    "text": " Table of Contents How to run Tests Prerequisites Prepare the Project Execute Tests Proxy Setting for Tests How to run Tests 2 minutes to read Prerequisites make sure that Git and Graphviz are installed make sure that your Gradle setup is able to work with proxies use Java 8 Prepare the Project git clone git@github.com:docToolchain/docToolchain.git cd docToolchain/ git checkout V1.0.0 # (1) git submodule update -i the version to test. Not needed if you work on the HEAD revision on Master Execute Tests rm -r build &amp;&amp; ./gradlew test --info The rm command ensures that you really have a clean test running. Otherwise you might get false positives because Gradle will skip steps ('Up-to-date') because artifacts of an older test run still exist. Proxy Setting for Tests The docToolchain test setup is based on the Gradle-Test-Kit and makes use of the Spock test execution framework . The gradle test runner is started in its own test environment and its own JVM instance. As a result the global proxy settings are ignored. As workarund to execute the test with the correct proxy settings it is necessary to copy the proxy setting normally done in the in gradle.properties located in the user directory to the gradle.properties file located in the docToolchain folder itself. Note The files downloaded by the Gradle test Runner are placed in a different folder than the default gradle cache. You&#8217;ll find them in the Tmp folder: C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches "
 },
 
 {
@@ -242,30 +242,6 @@ var documents = [
 
 {
     "id": 30,
-    "uri": "015_tasks/03_task_exportDrawIo.html",
-    "menu": "tasks",
-    "title": "exportDrawIo",
-    "text": " Table of Contents exportDrawIo .gravatar img { margin-left: 3px; border-radius: 4px; } exportDrawIo 2 minutes to read There is no exportDrawIo task because it is not required. You can continue to use draw.io as an editor for your diagrams by making a change to your diagram authoring workflow. Export your draw.io diagrams as a PNG with the source embedded in the file metadata. Using this approach allows you to embed your diagrams into AsciiDoc source as you normally do with the image:: macro, with the added advantage of storing the diagram source with the image itself. Note If you are converting a Confluence page with embedded draw.io diagrams to AsciiDoc, you can use this export workflow to continue to enjoy the draw.io editing experience. Export an editable PNG diagram from Confluence Load the diagram you want to export from Confluence. Click File &#160; &#8250; Export as &#160; &#8250; PNG&#8230;&#8203; In the Image modal, make sure that Include a copy of my diagram is selected. Click Export to save the PNG file with the pattern [file].dio.png . Note Specifying .dio (short for  d raw io ) in the name will help you identify PNG files containing embedded XML diagram source. Commit the exported PNG file to source control. You now have a diagram that can be managed in source control, added to your documentation source, and edited using a draw.io Desktop version. Note Draw.io offers free and open source desktop editors for all major operating system platforms. See https://about.draw.io/integrations/ to find a desktop editor application compatible with your operating system. When you use the desktop version, just create your diagram with the .png or even better .dio.png extension and draw.io will always save your diagam as PNG with the source as meta data. NEW! Draw.io is now called diagrams.net and there is a free plugin for VS Code and IntelliJ to edit your diagrams even offline! // Please, replace #yourelement with a real element id on your webpage MarketplaceWidget.setupMarketplaceWidget('card', 15635, #myelement); "
-},
-
-{
-    "id": 31,
-    "uri": "015_tasks/03_task_convertToEpub.html",
-    "menu": "tasks",
-    "title": "convertToEpub",
-    "text": " Table of Contents convertToEpub Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToEpub 1 minute to read Dependency: [_generatedocbook] This task uses pandoc to convert the DocBook output from AsciiDoctor to ePub. This way, you can read your documentation in a convenient way on an eBook-reader. The resulting file can be found in build/docs/epub Tip Blog-Post: Turn your Document into an Audio-Book Source pandoc.gradle task convertToEpub ( group: 'docToolchain', description: 'converts file to .epub via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `epub` in config.groovy is converted to docbook and then to epub. def sourceFilesEpub = sourceFiles.findAll { 'epub' in it.formats } sourceFilesEpub.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.epub') workingDir $targetDir/docbook executable = pandoc args = ['-r','docbook', '-t','epub', '-o',../epub/$targetFile, sourceFile] } doFirst { new File($targetDir/epub/).mkdirs() } } "
-},
-
-{
-    "id": 32,
-    "uri": "015_tasks/03_task_fixencoding.html",
-    "menu": "tasks",
-    "title": "fixEncoding",
-    "text": " Table of Contents fixEncoding .gravatar img { margin-left: 3px; border-radius: 4px; } fixEncoding 1 minute to read Whenever Asciidoctor has to process a file which is not UTF-8 encoded, the underlying Ruby tries to read it and throws an error like this: asciidoctor: FAILED: /home/demo/test.adoc: Failed to load AsciiDoc document - invalid byte sequence in UTF-8 Unfortunately, it is hard to find the wrong encoded file if a lot of includes:: are used - Asciidoctor only shows the name of the main document. Note This is not a problem of Asciidoctor, but of the underlying ruby interpreter. This target crawls through all *.ad and *.adoc files and checks their encoding. If it encounters a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding. scripts/fixEncoding.gradle import groovy.util.* import static groovy.io.FileType.* task fixEncoding( description: 'finds and converts non UTF-8 adoc files to UTF-8', group: 'docToolchain helper', ) { doLast { File sourceFolder = new File(${docDir}/${inputPath}) println(sourceFolder:  + sourceFolder.canonicalPath) sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^.*(ad|adoc|asciidoc)$') { CharsetToolkit toolkit = new CharsetToolkit(file); // guess the encoding def guessedCharset = toolkit.getCharset().toString().toUpperCase(); if (guessedCharset!='UTF-8') { def text = file.text file.write(text, utf-8) println( converted ${file.name} from '${guessedCharset}' to 'UFT-8') } } } } } "
-},
-
-{
-    "id": 33,
     "uri": "015_tasks/03_task_exportEA.html",
     "menu": "tasks",
     "title": "exportEA",
@@ -273,7 +249,23 @@ var documents = [
 },
 
 {
-    "id": 34,
+    "id": 31,
+    "uri": "015_tasks/03_task_exportDrawIo.html",
+    "menu": "tasks",
+    "title": "exportDrawIo",
+    "text": " Table of Contents exportDrawIo .gravatar img { margin-left: 3px; border-radius: 4px; } exportDrawIo 2 minutes to read There is no exportDrawIo task because it is not required. You can continue to use draw.io as an editor for your diagrams by making a change to your diagram authoring workflow. Export your draw.io diagrams as a PNG with the source embedded in the file metadata. Using this approach allows you to embed your diagrams into AsciiDoc source as you normally do with the image:: macro, with the added advantage of storing the diagram source with the image itself. Note If you are converting a Confluence page with embedded draw.io diagrams to AsciiDoc, you can use this export workflow to continue to enjoy the draw.io editing experience. Export an editable PNG diagram from Confluence Load the diagram you want to export from Confluence. Click File &#160; &#8250; Export as &#160; &#8250; PNG&#8230;&#8203; In the Image modal, make sure that Include a copy of my diagram is selected. Click Export to save the PNG file with the pattern [file].dio.png . Note Specifying .dio (short for  d raw io ) in the name will help you identify PNG files containing embedded XML diagram source. Commit the exported PNG file to source control. You now have a diagram that can be managed in source control, added to your documentation source, and edited using a draw.io Desktop version. Note Draw.io offers free and open source desktop editors for all major operating system platforms. See https://about.draw.io/integrations/ to find a desktop editor application compatible with your operating system. When you use the desktop version, just create your diagram with the .png or even better .dio.png extension and draw.io will always save your diagam as PNG with the source as meta data. NEW! Draw.io is now called diagrams.net and there is a free plugin for VS Code and IntelliJ to edit your diagrams even offline! // Please, replace #yourelement with a real element id on your webpage MarketplaceWidget.setupMarketplaceWidget('card', 15635, #myelement); "
+},
+
+{
+    "id": 32,
+    "uri": "015_tasks/03_task_convertToEpub.html",
+    "menu": "tasks",
+    "title": "convertToEpub",
+    "text": " Table of Contents convertToEpub Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToEpub 1 minute to read Dependency: [_generatedocbook] This task uses pandoc to convert the DocBook output from AsciiDoctor to ePub. This way, you can read your documentation in a convenient way on an eBook-reader. The resulting file can be found in build/docs/epub Tip Blog-Post: Turn your Document into an Audio-Book Source pandoc.gradle task convertToEpub ( group: 'docToolchain', description: 'converts file to .epub via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `epub` in config.groovy is converted to docbook and then to epub. def sourceFilesEpub = sourceFiles.findAll { 'epub' in it.formats } sourceFilesEpub.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.epub') workingDir $targetDir/docbook executable = pandoc args = ['-r','docbook', '-t','epub', '-o',../epub/$targetFile, sourceFile] } doFirst { new File($targetDir/epub/).mkdirs() } } "
+},
+
+{
+    "id": 33,
     "uri": "015_tasks/03_tasks.html",
     "menu": "tasks",
     "title": "Overview of available Tasks",
@@ -281,7 +273,7 @@ var documents = [
 },
 
 {
-    "id": 35,
+    "id": 34,
     "uri": "015_tasks/03_task_generateDeck.html",
     "menu": "tasks",
     "title": "generateDeck",
@@ -289,15 +281,15 @@ var documents = [
 },
 
 {
-    "id": 36,
-    "uri": "015_tasks/03_task_exportContributors.html",
+    "id": 35,
+    "uri": "015_tasks/03_task_fixencoding.html",
     "menu": "tasks",
-    "title": "exportContributors",
-    "text": " Table of Contents exportContributors Reading Time File Attributes .gravatar img { margin-left: 3px; border-radius: 4px; } exportContributors 2 minutes to read This tasks crawls through all Asciidoctor source files and extracts a list of contributors. This list is then rendered as AsciiDoc images of the contributor&#8217;s gravatar picture. The extracted lists are stored in /home/travis/build/docToolchain/docToolchain/build/contributors/015_tasks/03_task_exportContributors.adoc to be easily included in your documents. Best way to use this feature is to create a feedback.adoc file which might look like this: feedback.adoc ifndef::backend-pdf[] // (1) image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}{filename}, float=right] // (2) image::https://img.shields.io/badge/create-an%20issue-blue.svg[link=https://github.com/docToolchain/documentation/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:{filename}, float=right] // (3) endif::[] include::{targetDir}/contributors/{filename}[] // (4) do not show this section when rendered as PDF create an improve this doc button which links to the git sources create a create-an-issue button which links to your issue tracker include the list of contributors created by this task Reading Time The task also appends to the list of contributors the estimated reading time. File Attributes The task now also exports some attributes of the git files. The extracted attributes are stored in /home/travis/build/docToolchain/docToolchain/build/fileattribs/015_tasks/03_task_exportContributors.adoc . :lastUpdated: 16.05.2019 06:22 :lastAuthorName: Ralf D. Müller :lastAuthorEmail: ralf.d.mueller@gmail.com :lastAuthorAvatar: http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon[32,32,role='gravatar',alt='Ralf D. Müller',title='Ralf D. Müller'] :lastMessage: #310 started to document config options This enables you to import these attributes the same way you import the contributors list and use these attributes. Here is an example: feedback.adoc include::{targetDir}/fileattribs/{filename}[] Last updated {lastUpdated} by {lastAuthorName} "
+    "title": "fixEncoding",
+    "text": " Table of Contents fixEncoding .gravatar img { margin-left: 3px; border-radius: 4px; } fixEncoding 1 minute to read Whenever Asciidoctor has to process a file which is not UTF-8 encoded, the underlying Ruby tries to read it and throws an error like this: asciidoctor: FAILED: /home/demo/test.adoc: Failed to load AsciiDoc document - invalid byte sequence in UTF-8 Unfortunately, it is hard to find the wrong encoded file if a lot of includes:: are used - Asciidoctor only shows the name of the main document. Note This is not a problem of Asciidoctor, but of the underlying ruby interpreter. This target crawls through all *.ad and *.adoc files and checks their encoding. If it encounters a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding. scripts/fixEncoding.gradle import groovy.util.* import static groovy.io.FileType.* task fixEncoding( description: 'finds and converts non UTF-8 adoc files to UTF-8', group: 'docToolchain helper', ) { doLast { File sourceFolder = new File(${docDir}/${inputPath}) println(sourceFolder:  + sourceFolder.canonicalPath) sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^.*(ad|adoc|asciidoc)$') { CharsetToolkit toolkit = new CharsetToolkit(file); // guess the encoding def guessedCharset = toolkit.getCharset().toString().toUpperCase(); if (guessedCharset!='UTF-8') { def text = file.text file.write(text, utf-8) println( converted ${file.name} from '${guessedCharset}' to 'UFT-8') } } } } } "
 },
 
 {
-    "id": 37,
+    "id": 36,
     "uri": "015_tasks/03_task_convertToDocx.html",
     "menu": "tasks",
     "title": "convertToDocx",
@@ -305,7 +297,7 @@ var documents = [
 },
 
 {
-    "id": 38,
+    "id": 37,
     "uri": "015_tasks/03_task_generateSite.html",
     "menu": "tasks",
     "title": "generateSite",
@@ -313,11 +305,19 @@ var documents = [
 },
 
 {
-    "id": 39,
+    "id": 38,
     "uri": "015_tasks/03_task_generateHTML.html",
     "menu": "tasks",
     "title": "generateHTML",
     "text": " Table of Contents generateHTML Text based Diagrams Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateHTML 3 minutes to read This is the standard AsciiDoctor generator which is supported out of the box. The result is written to build/html5 . The HTML files need the images folder to be in the same directory to display correctly. Note If you would like to have a single-file HTML as result, you can configure AsciiDoctor to store the images inline as data-uri . Just set :data-uri: in the config of your AsciiDoc file. But be warned - such a file can become very big easily and some browsers might get into trouble rendering them. https://rdmueller.github.io/single-file-html/ Text based Diagrams For docToolchain, it is configured to use the asciidoctor-diagram plugin which is used to create PlantUML diagrams. The plugin also supports a bunch of other text based diagrams, but PlantUML is the most used. To use it, just specify your PlantUML code like this: .example diagram [plantuml, {plantUMLDir}demoPlantUML, png] # (1) ---- class BlockProcessor class DiagramBlock class DitaaBlock class PlantUmlBlock BlockProcessor &lt;|-- DiagramBlock DiagramBlock &lt;|-- DitaaBlock DiagramBlock &lt;|-- PlantUmlBlock ---- The element of this list specifies the diagram tool plantuml to be used. The second element is the name of the image to be created and the third specifies the image type. Note The {plantUMLDir} ensures that PlantUML also works for the [generatePDF] task. Without it, generateHTML works fine, but the PDF will not contain the generated images. Important Make sure to specify a unique image name for each diagram, otherwise they will overwrite each other. The above example renders as Figure 1. example diagram If you want to control the size of the generated diagram in the output, you can configure the width attribute (in pixels) or scale attribute (floating point ratio) passed to asciidoctor-diagram . For example, if you take the example diagram above and change the declaration to one of the below versions [plantuml, target={plantUMLDir}demoPlantUMLWidth, format=png, width=250] # rest of the diagram definition [plantuml, target={plantUMLDir}demoPlantUMLScale, format=png, scale=0.75] # rest of the diagram definition it will render like this: Figure 2. example diagram (with specified width) Figure 3. example diagram (with specified scale) Note PlantUML needs Graphviz dot installed to work. If you can&#8217;t install it, you can use the Java based version of the dot library. Just add !pragma graphviz_dot smetana as the first line of your diagram definition. This is still an experimental feature, but already works quite well! https://rdmueller.github.io/plantuml-without-graphviz/ Tip Blog-Posts: PlantUML with Gradle , plantUML with Asciidoctor-pdf , plantUML revisited , How to use PlantUML without Graphviz Source AsciiDocBasics.gradle task generateHTML ( type: AsciidoctorTask, group: 'docToolchain', description: 'use html5 as asciidoc backend') { attributes ( 'plantUMLDir' : file(${docDir}/${config.outputPath}/html5).toURI().relativize(new File(${docDir}/${config.outputPath}/html5/plantUML/).toURI()).getPath(), ) // specify output folder explicitly to avoid cleaning targetDir from other generated content outputDir = file(targetDir + '/html5/') separateOutputDirs(false) def sourceFilesHTML = sourceFiles.findAll { 'html' in it.formats } // onlyIf { // sourceFilesHTML // } sources { sourceFilesHTML.each { include it.file println it.file } } resources { config.imageDirs.each { imageDir -&gt; from(new File(file(srcDir),imageDir)) logger.info ('imageDir: '+imageDir) } into './output/images' } backends = ['html5'] doFirst { if (sourceFilesHTML.size()==0) { throw new Exception ( &gt;&gt; No source files defined for type HTML. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy ) } } } "
+},
+
+{
+    "id": 39,
+    "uri": "015_tasks/03_task_exportContributors.html",
+    "menu": "tasks",
+    "title": "exportContributors",
+    "text": " Table of Contents exportContributors Reading Time File Attributes .gravatar img { margin-left: 3px; border-radius: 4px; } exportContributors 2 minutes to read This tasks crawls through all Asciidoctor source files and extracts a list of contributors. This list is then rendered as AsciiDoc images of the contributor&#8217;s gravatar picture. The extracted lists are stored in /home/travis/build/docToolchain/docToolchain/build/contributors/015_tasks/03_task_exportContributors.adoc to be easily included in your documents. Best way to use this feature is to create a feedback.adoc file which might look like this: feedback.adoc ifndef::backend-pdf[] // (1) image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}{filename}, float=right] // (2) image::https://img.shields.io/badge/create-an%20issue-blue.svg[link=https://github.com/docToolchain/documentation/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:{filename}, float=right] // (3) endif::[] include::{targetDir}/contributors/{filename}[] // (4) do not show this section when rendered as PDF create an improve this doc button which links to the git sources create a create-an-issue button which links to your issue tracker include the list of contributors created by this task Reading Time The task also appends to the list of contributors the estimated reading time. File Attributes The task now also exports some attributes of the git files. The extracted attributes are stored in /home/travis/build/docToolchain/docToolchain/build/fileattribs/015_tasks/03_task_exportContributors.adoc . :lastUpdated: 16.05.2019 06:22 :lastAuthorName: Ralf D. Müller :lastAuthorEmail: ralf.d.mueller@gmail.com :lastAuthorAvatar: http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon[32,32,role='gravatar',alt='Ralf D. Müller',title='Ralf D. Müller'] :lastMessage: #310 started to document config options This enables you to import these attributes the same way you import the contributors list and use these attributes. Here is an example: feedback.adoc include::{targetDir}/fileattribs/{filename}[] Last updated {lastUpdated} by {lastAuthorName} "
 },
 
 {
@@ -418,18 +418,18 @@ var documents = [
 
 {
     "id": 52,
-    "uri": "015_tasks/03_task_downloadTemplate.html",
-    "menu": "tasks",
-    "title": "downloadTemplate",
-    "text": " Table of Contents downloadTemplate .gravatar img { margin-left: 3px; border-radius: 4px; } downloadTemplate 1 minute to read "
-},
-
-{
-    "id": 53,
     "uri": "015_tasks/03_task_exportPPT.html",
     "menu": "tasks",
     "title": "exportPPT",
     "text": " Table of Contents exportPPT Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportPPT Important Currently this feature is WINDOWS-only. See related issue 1 minute to read Tip Blog-Post: Do more with Slides Note see asciidoctorj-office-extension for another way how you can use PPT slides in your docs. Source exportPPT.gradle task exportPPT( dependsOn: [streamingExecute], description: 'exports all slides and some texts from PPT files', group: 'docToolchain' ) { doLast { //make sure path for notes exists //and remove old notes new File(projectDir, 'src/docs/ppt').deleteDir() //also remove old diagrams new File(projectDir, 'src/docs/images/ppt').deleteDir() //create a readme to clarify things def readme = This folder contains exported slides or notes from .ppt presentations. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportPPT` to re-export files  new File(projectDir, 'src/docs/images/ppt/.').mkdirs() new File(projectDir, 'src/docs/images/ppt/readme.ad').write(readme) new File(projectDir, 'src/docs/ppt/.').mkdirs() new File(projectDir, 'src/docs/ppt/readme.ad').write(readme) //execute through cscript in order to make sure that we get WScript.echo right %SystemRoot%\\System32\\cscript.exe //nologo ${projectDir}/scripts/exportPPT.vbs.executeCmd() } } exportPPT.vbs Const ForAppending = 8 Const ppPlaceholderBody = 2 ' Helper ' http://windowsitpro.com/windows/jsi-tip-10441-how-can-vbscript-create-multiple-folders-path-mkdir-command Function MakeDir (strPath) Dim strParentPath, objFSO Set objFSO = CreateObject(Scripting.FileSystemObject) On Error Resume Next strParentPath = objFSO.GetParentFolderName(strPath) If Not objFSO.FolderExists(strParentPath) Then MakeDir strParentPath If Not objFSO.FolderExists(strPath) Then objFSO.CreateFolder strPath On Error Goto 0 MakeDir = objFSO.FolderExists(strPath) End Function Function SearchPresentations(path) For Each folder In path.SubFolders SearchPresentations folder Next For Each file In path.Files If (Left(fso.GetExtensionName (file.Path), 3) = ppt) OR (Left(fso.GetExtensionName (file.Path), 3) = pps) Then WScript.echo found &amp;file.path ExportSlides(file.Path) End If Next End Function Sub ExportSlides(sFile) Set objRegEx = CreateObject(VBScript.RegExp) objRegEx.Global = True objRegEx.IgnoreCase = True objRegEx.MultiLine = True ' . doesn't work for multiline in vbs, [\s,\S] does... objRegEx.Pattern = [\s,\S]*{adoc} ' http://www.pptfaq.com/FAQ00481_Export_the_notes_text_of_a_presentation.htm strFileName = fso.GetFIle(sFile).Name Set oPPT = CreateObject(PowerPoint.Application) Set oPres = oPPT.Presentations.Open(sFile, True, False, False) ' Read Only, No Title, No Window Set oSlides = oPres.Slides strNotesText =  strImagePath = /src/docs/images/ppt/ &amp; strFileName &amp; / MakeDir(. &amp; strImagePath) strNotesPath = /src/docs/ppt/ MakeDir(. &amp; strNotesPath) For Each oSl In oSlides strSlideName = oSl.Name ' WScript.echo fso.GetAbsolutePathName(.) &amp; strImagePath &amp; strSlideName &amp; .jpg oSl.Export fso.GetAbsolutePathName(.) &amp; strImagePath &amp; strSlideName &amp; .jpg, .jpg For Each oSh In oSl.NotesPage.Shapes If oSh.PlaceholderFormat.Type = ppPlaceholderBody Then If oSh.HasTextFrame Then If oSh.TextFrame.HasText Then strCurrentNotes = oSh.TextFrame.TextRange.Text strCurrentNotes = Replace(strCurrentNotes,vbVerticalTab, vbCrLf) strCurrentNotes = Replace(strCurrentNotes,{slide},image::ppt/&amp;strFileName&amp;/&amp;strSlideName&amp;.jpg[]) ' remove speaker notes before marker {adoc} strCurrentNotes = objRegEx.Replace(strCurrentNotes,) strNotesText = strNotesText &amp; vbCrLf &amp; strCurrentNotes &amp; vbCrLf &amp; vbCrLf End If End If End If Next Next ' WScript.echo fso.GetAbsolutePathName(.) &amp; strNotesPath&amp;&amp;strFileName&amp;.ad ' http://stackoverflow.com/questions/2524703/save-text-file-utf-8-encoded-with-vba Set fsT = CreateObject(ADODB.Stream) fsT.Type = 2 'Specify stream type - we want To save text/string data. fsT.Charset = utf-8 'Specify charset For the source text data. fsT.Open 'Open the stream And write binary data To the object fsT.WriteText ifndef::imagesdir[:imagesdir: ../../images]&amp;vbCrLf&amp;CStr(strNotesText) fsT.SaveToFile fso.GetAbsolutePathName(.) &amp; strNotesPath&amp;&amp;strFileName&amp;.ad, 2 'Save binary data To disk oPres.Close() oPPT.Quit() End Sub set fso = CreateObject(Scripting.fileSystemObject) WScript.echo Slide extractor WScript.echo looking for .ppt files in  &amp; fso.GetAbsolutePathName(.) &amp; /src SearchPresentations fso.GetFolder(./src) WScript.echo finished exporting slides "
+},
+
+{
+    "id": 53,
+    "uri": "015_tasks/03_task_downloadTemplate.html",
+    "menu": "tasks",
+    "title": "downloadTemplate",
+    "text": " Table of Contents downloadTemplate .gravatar img { margin-left: 3px; border-radius: 4px; } downloadTemplate 1 minute to read "
 },
 
 {

@@ -42,6 +42,21 @@
     </url>
 
     <url>
+    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
+    	<lastmod>2021-10-06</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
+    	<lastmod>2021-10-06</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
+    	<lastmod>2021-10-06</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/Use_Cases_links.html</loc>
     	<lastmod>2021-10-06</lastmod>
     </url>
@@ -58,21 +73,6 @@
 
     <url>
     	<loc>https://localhost/ea/Activity_notes.html</loc>
-    	<lastmod>2021-10-06</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
-    	<lastmod>2021-10-06</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
-    	<lastmod>2021-10-06</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
     	<lastmod>2021-10-06</lastmod>
     </url>
 
@@ -127,17 +127,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/025_development/020_run_tests.html</loc>
+    	<lastmod>2021-10-06</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/025_development/010_setup_dev_env.html</loc>
     	<lastmod>2021-10-06</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/025_development/040_debugging.html</loc>
-    	<lastmod>2021-10-06</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/025_development/020_run_tests.html</loc>
     	<lastmod>2021-10-06</lastmod>
     </url>
 
@@ -152,22 +152,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_exportEA.html</loc>
+    	<lastmod>2021-10-06</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_exportDrawIo.html</loc>
     	<lastmod>2021-10-06</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
-    	<lastmod>2021-10-06</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_fixencoding.html</loc>
-    	<lastmod>2021-10-06</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportEA.html</loc>
     	<lastmod>2021-10-06</lastmod>
     </url>
 
@@ -182,7 +177,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportContributors.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_fixencoding.html</loc>
     	<lastmod>2021-10-06</lastmod>
     </url>
 
@@ -198,6 +193,11 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_generateHTML.html</loc>
+    	<lastmod>2021-10-06</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportContributors.html</loc>
     	<lastmod>2021-10-06</lastmod>
     </url>
 
@@ -262,12 +262,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_downloadTemplate.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
     	<lastmod>2021-10-06</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_downloadTemplate.html</loc>
     	<lastmod>2021-10-06</lastmod>
     </url>
 
