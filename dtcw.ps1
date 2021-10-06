@@ -2,7 +2,7 @@
 $main_config_file = "docToolchainConfig.groovy"
 # $version=ng
 $version = "2.0.0-dev"
-$dockerVersion = "2.0.0-rc16"
+$dockerVersion = "2.0.0"
 $distribution_url = "DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/releases/download/V$version/docToolchain-$version.zip"
 
 $dtc_opts="$dtc_opts -PmainConfigFile='$main_config_file' --warning-mode=none"
