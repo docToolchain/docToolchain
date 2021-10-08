@@ -71,9 +71,7 @@ task downloadTemplate(
                 def title = ""
                 text.eachLine { line ->
                     if (title=="" && line.startsWith('=')) {
-                        println line
                         title = line.split("[ \t]+",2)[1]
-                        println title
                     }
                 }
                 text = """\
