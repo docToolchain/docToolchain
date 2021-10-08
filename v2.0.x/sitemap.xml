@@ -97,22 +97,22 @@
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/010_introduction_and_goals.html</loc>
-    	<lastmod>2021-10-08</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/010_manual/100_config.html</loc>
     	<lastmod>2021-10-08</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/030_further_reading.html</loc>
+    	<loc>https://localhost/010_manual/010_introduction_and_goals.html</loc>
     	<lastmod>2021-10-08</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/010_manual/020_install.html</loc>
+    	<lastmod>2021-10-08</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/010_manual/030_further_reading.html</loc>
     	<lastmod>2021-10-08</lastmod>
     </url>
 
@@ -152,17 +152,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
-    	<lastmod>2021-10-08</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
-    	<lastmod>2021-10-08</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_fixencoding.html</loc>
     	<lastmod>2021-10-08</lastmod>
     </url>
 
@@ -177,7 +167,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_tasks.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
     	<lastmod>2021-10-08</lastmod>
     </url>
 
@@ -187,7 +177,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportContributors.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_fixencoding.html</loc>
     	<lastmod>2021-10-08</lastmod>
     </url>
 
@@ -197,17 +187,22 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_tasks.html</loc>
+    	<lastmod>2021-10-08</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_generateHTML.html</loc>
     	<lastmod>2021-10-08</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateSite.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportContributors.html</loc>
     	<lastmod>2021-10-08</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportOpenApi.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_generateSite.html</loc>
     	<lastmod>2021-10-08</lastmod>
     </url>
 
@@ -227,6 +222,11 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_exportOpenApi.html</loc>
+    	<lastmod>2021-10-08</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_exportJiraSprintChangelog.html</loc>
     	<lastmod>2021-10-08</lastmod>
     </url>
@@ -237,17 +237,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
-    	<lastmod>2021-10-08</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
-    	<lastmod>2021-10-08</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_exportMetrics.html</loc>
+    	<lastmod>2021-10-08</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
     	<lastmod>2021-10-08</lastmod>
     </url>
 
@@ -258,6 +253,11 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_publishToConfluence.html</loc>
+    	<lastmod>2021-10-08</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
     	<lastmod>2021-10-08</lastmod>
     </url>
 
@@ -292,17 +292,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
-    	<lastmod>2021-10-08</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_exportMarkdown.html</loc>
     	<lastmod>2021-10-08</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/020_tutorial/040_generateSite.html</loc>
+    	<lastmod>2021-10-08</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
     	<lastmod>2021-10-08</lastmod>
     </url>
 
