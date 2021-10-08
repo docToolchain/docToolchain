@@ -17,44 +17,37 @@ If `docDir` is defined, the default for `mainConfigFile` is `Config.groovy` in t
 
 You have several options to specify the location of your documentation project (`docDir`) and the location of your config file (`mainConfigFile`).
 
-=== build.gradle
-
-If you use docToolchain as Gradle sub-project as described in https://docs-as-co.de/getstarted/tutorial2[our tutorial], you will have some code in your main `build.gradle` which overwrites the location of the config file:
-
-[source,groovy]
-----
-//configure docToolchain to use the main project's config
-project('docToolchain') {
-    if (project.hasProperty('docDir')) {
-        docDir = '../.'
-        mainConfigFile = 'Config.groovy'
-    } else {
-        println "="*80
-        println "  please initialize the docToolchain submodule"
-        println "  by executing git submodule update -i"
-        println "="*80
-    }
-}
-----
-
-This way, you can place the config file wherever you like in your project.
-
-Since the `mainConfigFile` is a standard Gradle-Property, you can also overwrite it through a command line option.
-
-NOTE: it is not possible to overwrite properties of a sub project throught the `gradle.properties` of the main project.
-
 === Commandline
 
 Specify the property on the commandline
 
-    ./gradlew generateHTML -PmainConfigFile=Config.groovy
-
-and if you use the doctoolchain script
-
-    doctoolchain <docDir> generateHTML -PmainConfigFile=Config.groovy
+    ./dtcw generateHTML -PmainConfigFile=Config.groovy
 
 TIP: you can verify the location of your `Config.groovy` by executing docToolchain with the `--info` parameter which sets the loglevel to `info`.
 It will print the location on the command line (among other settings)
+
+=== dynamic configuration properties
+
+Sometime you need a more dynamic configuration.
+Since the configuration file is an executable `.groovy` file, you can not only configure static values but also fetch dynamic once.
+
+For example,
+```
+   example = System.properties.myProperty
+```
+
+You can then specify the property with the `-D` parameter like this
+```
+./dtcw docker generateHTML -DmyProperty=myValue
+```
+
+In the same way, you can use environment variables
+```
+   example = System.getenv("myEnvVariable")
+```
+
+But in this case, you have to ensure that the environment varaible can be accessed.
+It will not work for docker based execution of `dtcw`
 
 === Content of the `mainConfigFile`
 
