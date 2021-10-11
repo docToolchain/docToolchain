@@ -13,6 +13,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+2021-10-11::
+* fix https://github.com/docToolchain/docToolchain/issues/651[#651 - powershell: broken install when space in user path]
+
 == 2.0.1 - 2021-10-06
 
 === added
