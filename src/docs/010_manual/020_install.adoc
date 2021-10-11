@@ -38,7 +38,7 @@ chmod +x dtcw
 [source, powershell]
 ----
 cd <your project>
-wget doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1
+Invoke-WebRequest doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1
 ----
 --
 
