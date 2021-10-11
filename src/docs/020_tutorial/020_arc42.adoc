@@ -29,6 +29,10 @@ Let's invoke it and see what happens.
 ----
 ./dtcw.ps1 downloadTemplate
 ----
+
+NOTE: There is an interesting bug with the german version of the arc42 template in conjunction with running docToolchain in powershell: +
+The encoding of the files will be wrong.
+To fix that, just run `./dtcw.ps1 fixEncoding`.
 --
 
 .Result of downloadTemplate-Task
