@@ -1,75 +1,93 @@
-:filename: 020_tutorial/040_generateSite.adoc
+:filename: 020_tutorial/050_multipleRepositories.adoc
 include::_config.adoc[]
 
-== generateSite
+== How to generate docs from multiple repositories
 
-The xref:../015_tasks/03_task_generateSite.adoc[`generateSite`] task is more advanced.
-In many cases, your goal will not be to create a single HTML document but a whole documentation website.
-This is where `generateSite` shines.
-It uses a static site generator to turn your document into a nice looking microsite with landing-page, local search and edit links.
+Some static site generators sell multi-repository functionality as a feature.
+This feature is mainly achieved through a build in git client.
 
-.Linux / WSL2 with bash
-[role='primary']
---
+Since we almost always work on systems which already have git installed, docToolchain does not come with its own git client.
+
+The solution we propose instead is just a simple bash script which does the magic for you.
+Here is how.
+
+Imagine you have a documentation repository set up with the docToolchain wrapper `dtcw` and some code documents.
+Now you would like to include the documents from another repository.
+
+To get the contents of the other repository, one way is to do a `git clone` of it right to the `build` folder of your own repository.
+Let's call the script in which we store this command `clonerefs.sh`, because we clone a reference to the remote documentation.
+
+.clonerefs.sh
 [source, bash]
 ----
-./dtcw generateSite
+#!/usr/bin/env bash
+git clone git@github.com:docToolchain/docToolchain.git build/refs/docToolchain
 ----
 
---
+this works fine if you execute it once, but the second time it will complain that the folder `build/refs/docToolchain` is not empty.
+So let's create a `cloneOrPull` function which tries first to clone the repo and pulls an update if the clone fails.
 
-.Windows with Powershell
-[role='secondary']
---
-[source, powershell]
+.clonerefs.sh
+[source, bash]
 ----
-./dtcw.ps1 generateSite
-----
---
+#!/usr/bin/env bash
+function cloneOrPull {
+  echo ""
+  echo $1
+  (git clone "$1" "$2" 2> /dev/null && echo "cloned repo" )|| git -C "$2" pull
+}
 
-.output of generateHTML
-[source, shell session]
-----
-$ ./dtcw docker generateSite
-dtcw - docToolchain wrapper V0.24
-docToolchain V2.0.0
-
-Bash is running on WSL
-this might cause problems with plantUML
-see https://doctoolchain.github.io/docToolchain/#wsl for more details
-
-Java Version 11
-docker available
-home folder exists
-force use of docker
-/usr/bin/docker
-use docker installation
-Starting a Gradle Daemon (subsequent builds will be faster)
-
-> Configure project :
-arc42/arc42.adoc
-
-> Task :generateSite
-created
-/project/build/microsite/tmp
-copy internal theme /home/dtcuser/docToolchain/src/site
-copy project theme /project/src/site
-
-> Task :copyImages
-> Task :bake
-Warning: Nashorn engine is planned to be removed from a future JDK release
-
-BUILD SUCCESSFUL in 1m 15s
-3 actionable tasks: 3 executed
+cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain
 ----
 
-The output is written to `build/microsite/output/index.html`.
-You can open this file in your browser and view the results.
-But you will notice that some features which rely on javascript will be broken.
-To avoid this, use the task xref:../015_tasks/03_task_previewSite.adoc[`previewSite`] to start a little webserver which presents you the site without flaws.
+That's better.
+We can now include the docs from our main docs.
+But what if we don't want to include them but just let them render?
+We could clone the repository directly to our `src/docs` folder.
+But that would require that it only contains docs and no `src/docs` folder itself.
+So we have to copy it over to our `src/docs` folder.
 
-:xrefstyle: short
+.clonerefs.sh
+[source, bash]
+----
+#!/usr/bin/env bash
+function cloneOrPull {
+  echo ""
+  echo $1
+  (git clone "$1" "$2" 2> /dev/null && echo "cloned repo" )|| git -C "$2" pull
+}
 
-[[html_out]]
-.generated output of generateHTML task
-image::generateSite.png[]
+cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain
+cp build/refs/docToolchain/src/docs/manual src/docs/.
+----
+
+But we don't want to add these folders to our main repository, so let's add it to the `.gitignore` file.
+
+..gitignore
+[source, gitignore]
+----
+[...]
+src/docs/manual
+[...]
+----
+
+There is one more thing we can optimize.
+Currently, the script clones the repository with the full history.
+This is far to much traffic if you only want to use the latest version of your docs.
+Let's add `--depth 1` to the `git clone`command to only fetch the latest version.
+
+.clonerefs.sh
+[source, bash]
+----
+#!/usr/bin/env bash
+function cloneOrPull {
+  echo ""
+  echo $1
+  (git clone "$1" "$2" 2> /dev/null && echo "cloned repo" )|| git -C "$2" pull
+}
+
+cloneOrPull --depth 1 git@github.com:docToolchain/docToolchain.git build/refs/docToolchain
+cp build/refs/docToolchain/src/docs/manual src/docs/.
+----
+
+This script will now let you clone remote repositories and merge them with your main documentation before building.
