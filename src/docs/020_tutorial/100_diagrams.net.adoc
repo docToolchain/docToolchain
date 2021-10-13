@@ -5,7 +5,7 @@ include::_config.adoc[]
 
 There is no `exportDiagramsnet` or `exportDrawio` task, because working with these diagrams is more convenient than with the other diagramming tools.
 
-https://diagrams.net[Diagrams.net] (formerly known as Draw.io) is a neat little tool which is able to store the source of oyur diagrams in the meta-data of your `.png` or `.svg` files.
+https://app.diagrams.net/[Diagrams.net] (formerly known as Draw.io) is a neat little tool which is able to store the source of your diagrams in the meta-data of your `.png` or `.svg` files.
 To recognize these files as diagrams.net files, give them the extension `myfile**.dio.png**` or `myfile**.dio.svg**`.
 
 In IntelliJ, with the asciidoctor and diagrams.net plugin installed, type something like
