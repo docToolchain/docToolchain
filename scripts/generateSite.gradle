@@ -180,8 +180,8 @@ ${color 'green', 'for you?'}\n""",
         } catch (Exception e) {
             println color('red', e.message)
             if (e.message.startsWith("Not Found")) {
-                throw new GradleException("Couldn't find theme. Did you specify the right URL?\n"+e.message)
                 themeFolder.deleteDir()
+                throw new GradleException("Couldn't find theme. Did you specify the right URL?\n"+e.message)                
             } else {
                 throw new GradleException(e.message)
             }
