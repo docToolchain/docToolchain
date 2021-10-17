@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
   
-  <!-- 015_tasks/03_task_createReferenceDoc.html -->
+  <!-- 020_tutorial/060_CI-CD-Deployment.html -->
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>createReferenceDoc</title>
+  <title>How to generate docs from multiple repositories</title>
   <meta content="docToolchain" property="og:title">
   <meta content="build your dev docs the easy way..." property="og:description">
   <meta content="website" property="og:type">
@@ -165,7 +165,7 @@
             -->
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link active" href="../015_tasks/03_tasks.html"><span>Tasks</span></a>
+                <a class="nav-link " href="../015_tasks/03_tasks.html"><span>Tasks</span></a>
             </li>
             <!--
             [news:[[title:Release v2.0.1, order:16334784, filename:null, uri:030_news/2021/2.0.1-release.html], [title:Release v2.0.0, order:16323552, filename:null, uri:030_news/2021/2.0.0-release.html], [title:Last Release Candidate, order:16322688, filename:null, uri:030_news/2021/last-release-candidate.html], [title:Overview, order:0, filename:null, uri:030_news/index.html]], ea:[[title:readme.ad, order:-1, filename:null, uri:ea/readme.html], [title:issue2.ad, order:-1, filename:null, uri:ea/issue2.html], [title:issue1.ad, order:-1, filename:null, uri:ea/issue1.html], [title:Use_Cases_links.ad, order:-1, filename:null, uri:ea/Use_Cases_links.html], [title:UseCases.ad, order:-1, filename:null, uri:ea/UseCases.html], [title:Architect_notes_issue2.ad, order:-1, filename:null, uri:ea/Architect_notes_issue2.html], [title:Architect_notes.ad, order:-1, filename:null, uri:ea/Architect_notes.html], [title:Activity_notes_issue1.ad, order:-1, filename:null, uri:ea/Activity_notes_issue1.html], [title:Activity_notes.ad, order:-1, filename:null, uri:ea/Activity_notes.html], [title:Use_Cases_notes_UseCases.ad, order:-1, filename:null, uri:ea/Use_Cases_notes_UseCases.html], [title:Use_Cases_notes.ad, order:-1, filename:null, uri:ea/Use_Cases_notes.html], [title:Use_Cases_links_issue2.ad, order:-1, filename:null, uri:ea/Use_Cases_links_issue2.html]], manual:[[title:Introduction and Goals, order:010, filename:null, uri:010_manual/010_introduction_and_goals.html], [title:How to install docToolchain, order:020, filename:null, uri:010_manual/020_install.html], [title:Features, order:025, filename:null, uri:010_manual/025_features.html], [title:Further Reading, order:030, filename:null, uri:010_manual/030_further_reading.html], [title:Acknowledgements and Contributors, order:040, filename:null, uri:010_manual/040_contributors.html], [title:FAQ: Frequently asked Questions, order:050, filename:null, uri:010_manual/050_Frequently_asked_Questions.html], [title:Appendix A: Configuration, order:100, filename:null, uri:010_manual/100_config.html]], ADRs:[[title:ADR-2-anotherTest.ad, order:-1, filename:null, uri:050_ADRs/ADR-2-anotherTest.html], [title:ADR-1-firstTest.adoc, order:-1, filename:null, uri:050_ADRs/ADR-1-firstTest.html]], development:[[title:Setup Development Environment, order:010, filename:null, uri:025_development/010_setup_dev_env.html], [title:Debugging, order:040, filename:null, uri:025_development/040_debugging.html], [title:Create new Release, order:030, filename:null, uri:025_development/030_create_new_release.html], [title:How to run Tests, order:020, filename:null, uri:025_development/020_run_tests.html]], tasks:[[title:Overview of available Tasks, order:03, filename:null, uri:015_tasks/03_tasks.html], [title:autobuildSite, order:03, filename:null, uri:015_tasks/03_task_autobuildSite.html], [title:collectIncludes, order:03, filename:null, uri:015_tasks/03_task_collectIncludes.html], [title:convertToDocx, order:03, filename:null, uri:015_tasks/03_task_convertToDocx.html], [title:convertToEpub, order:03, filename:null, uri:015_tasks/03_task_convertToEpub.html], [title:copyThemes, order:03, filename:null, uri:015_tasks/03_task_copy_themes.html], [title:createReferenceDoc, order:03, filename:null, uri:015_tasks/03_task_createReferenceDoc.html], [title:dependencyUpdates, order:03, filename:null, uri:015_tasks/03_task_dependencyUpdates.html], [title:downloadTemplate, order:03, filename:null, uri:015_tasks/03_task_downloadTemplate.html], [title:exportChangeLog, order:03, filename:null, uri:015_tasks/03_task_exportChangeLog.html], [title:exportContributors, order:03, filename:null, uri:015_tasks/03_task_exportContributors.html], [title:exportDrawIo, order:03, filename:null, uri:015_tasks/03_task_exportDrawIo.html], [title:exportEA, order:03, filename:null, uri:015_tasks/03_task_exportEA.html], [title:exportExcel, order:03, filename:null, uri:015_tasks/03_task_exportExcel.html], [title:exportJiraIssues, order:03, filename:null, uri:015_tasks/03_task_exportJiraIssues.html], [title:exportJiraSprintChangelogIssues, order:03, filename:null, uri:015_tasks/03_task_exportJiraSprintChangelog.html], [title:exportMarkdown, order:03, filename:null, uri:015_tasks/03_task_exportMarkdown.html], [title:exportMetrics, order:03, filename:null, uri:015_tasks/03_task_exportMetrics.html], [title:exportOpenAPI, order:03, filename:null, uri:015_tasks/03_task_exportOpenApi.html], [title:exportPPT, order:03, filename:null, uri:015_tasks/03_task_exportPPT.html], [title:exportVisio, order:03, filename:null, uri:015_tasks/03_task_exportVisio.html], [title:fixEncoding, order:03, filename:null, uri:015_tasks/03_task_fixencoding.html], [title:generateDeck, order:03, filename:null, uri:015_tasks/03_task_generateDeck.html], [title:generateDocbook, order:03, filename:null, uri:015_tasks/03_task_generateDocBook.html], [title:generateHTML, order:03, filename:null, uri:015_tasks/03_task_generateHTML.html], [title:generatePDF, order:03, filename:null, uri:015_tasks/03_task_generatePDF.html], [title:generateSite, order:03, filename:null, uri:015_tasks/03_task_generateSite.html], [title:htmlSanityCheck, order:03, filename:null, uri:015_tasks/03_task_htmlSanityCheck.html], [title:prependFilename, order:03, filename:null, uri:015_tasks/03_task_prependFilename.html], [title:previewSite, order:03, filename:null, uri:015_tasks/03_task_previewSite.html], [title:publishToConfluence, order:03, filename:null, uri:015_tasks/03_task_publishToConfluence.html]], tutorial:[[title:generateSite, order:040, filename:null, uri:020_tutorial/040_generateSite.html], [title:How to generate docs from multiple repositories, order:060, filename:null, uri:020_tutorial/060_CI-CD-Deployment.html], [title:generateHTML &amp; generatePDF, order:030, filename:null, uri:020_tutorial/030_generateHTML.html], [title:arc42 Template, order:020, filename:null, uri:020_tutorial/020_arc42.html], [title:How to generate docs from multiple repositories, order:050, filename:null, uri:020_tutorial/050_multipleRepositories.html], [title:Diagrams: Diagrams.net, order:100, filename:null, uri:020_tutorial/100_diagrams.net.html], [title:Install docToolchain, order:010, filename:null, uri:020_tutorial/010_Install.html]], -:[[title:search, order:0, filename:null, uri:search.html]]]
@@ -174,7 +174,7 @@
             -->
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../020_tutorial/010_Install.html"><span>Tutorial</span></a>
+                <a class="nav-link active" href="../020_tutorial/010_Install.html"><span>Tutorial</span></a>
             </li>
             <!--
             [news:[[title:Release v2.0.1, order:16334784, filename:null, uri:030_news/2021/2.0.1-release.html], [title:Release v2.0.0, order:16323552, filename:null, uri:030_news/2021/2.0.0-release.html], [title:Last Release Candidate, order:16322688, filename:null, uri:030_news/2021/last-release-candidate.html], [title:Overview, order:0, filename:null, uri:030_news/index.html]], ea:[[title:readme.ad, order:-1, filename:null, uri:ea/readme.html], [title:issue2.ad, order:-1, filename:null, uri:ea/issue2.html], [title:issue1.ad, order:-1, filename:null, uri:ea/issue1.html], [title:Use_Cases_links.ad, order:-1, filename:null, uri:ea/Use_Cases_links.html], [title:UseCases.ad, order:-1, filename:null, uri:ea/UseCases.html], [title:Architect_notes_issue2.ad, order:-1, filename:null, uri:ea/Architect_notes_issue2.html], [title:Architect_notes.ad, order:-1, filename:null, uri:ea/Architect_notes.html], [title:Activity_notes_issue1.ad, order:-1, filename:null, uri:ea/Activity_notes_issue1.html], [title:Activity_notes.ad, order:-1, filename:null, uri:ea/Activity_notes.html], [title:Use_Cases_notes_UseCases.ad, order:-1, filename:null, uri:ea/Use_Cases_notes_UseCases.html], [title:Use_Cases_notes.ad, order:-1, filename:null, uri:ea/Use_Cases_notes.html], [title:Use_Cases_links_issue2.ad, order:-1, filename:null, uri:ea/Use_Cases_links_issue2.html]], manual:[[title:Introduction and Goals, order:010, filename:null, uri:010_manual/010_introduction_and_goals.html], [title:How to install docToolchain, order:020, filename:null, uri:010_manual/020_install.html], [title:Features, order:025, filename:null, uri:010_manual/025_features.html], [title:Further Reading, order:030, filename:null, uri:010_manual/030_further_reading.html], [title:Acknowledgements and Contributors, order:040, filename:null, uri:010_manual/040_contributors.html], [title:FAQ: Frequently asked Questions, order:050, filename:null, uri:010_manual/050_Frequently_asked_Questions.html], [title:Appendix A: Configuration, order:100, filename:null, uri:010_manual/100_config.html]], ADRs:[[title:ADR-2-anotherTest.ad, order:-1, filename:null, uri:050_ADRs/ADR-2-anotherTest.html], [title:ADR-1-firstTest.adoc, order:-1, filename:null, uri:050_ADRs/ADR-1-firstTest.html]], development:[[title:Setup Development Environment, order:010, filename:null, uri:025_development/010_setup_dev_env.html], [title:Debugging, order:040, filename:null, uri:025_development/040_debugging.html], [title:Create new Release, order:030, filename:null, uri:025_development/030_create_new_release.html], [title:How to run Tests, order:020, filename:null, uri:025_development/020_run_tests.html]], tasks:[[title:Overview of available Tasks, order:03, filename:null, uri:015_tasks/03_tasks.html], [title:autobuildSite, order:03, filename:null, uri:015_tasks/03_task_autobuildSite.html], [title:collectIncludes, order:03, filename:null, uri:015_tasks/03_task_collectIncludes.html], [title:convertToDocx, order:03, filename:null, uri:015_tasks/03_task_convertToDocx.html], [title:convertToEpub, order:03, filename:null, uri:015_tasks/03_task_convertToEpub.html], [title:copyThemes, order:03, filename:null, uri:015_tasks/03_task_copy_themes.html], [title:createReferenceDoc, order:03, filename:null, uri:015_tasks/03_task_createReferenceDoc.html], [title:dependencyUpdates, order:03, filename:null, uri:015_tasks/03_task_dependencyUpdates.html], [title:downloadTemplate, order:03, filename:null, uri:015_tasks/03_task_downloadTemplate.html], [title:exportChangeLog, order:03, filename:null, uri:015_tasks/03_task_exportChangeLog.html], [title:exportContributors, order:03, filename:null, uri:015_tasks/03_task_exportContributors.html], [title:exportDrawIo, order:03, filename:null, uri:015_tasks/03_task_exportDrawIo.html], [title:exportEA, order:03, filename:null, uri:015_tasks/03_task_exportEA.html], [title:exportExcel, order:03, filename:null, uri:015_tasks/03_task_exportExcel.html], [title:exportJiraIssues, order:03, filename:null, uri:015_tasks/03_task_exportJiraIssues.html], [title:exportJiraSprintChangelogIssues, order:03, filename:null, uri:015_tasks/03_task_exportJiraSprintChangelog.html], [title:exportMarkdown, order:03, filename:null, uri:015_tasks/03_task_exportMarkdown.html], [title:exportMetrics, order:03, filename:null, uri:015_tasks/03_task_exportMetrics.html], [title:exportOpenAPI, order:03, filename:null, uri:015_tasks/03_task_exportOpenApi.html], [title:exportPPT, order:03, filename:null, uri:015_tasks/03_task_exportPPT.html], [title:exportVisio, order:03, filename:null, uri:015_tasks/03_task_exportVisio.html], [title:fixEncoding, order:03, filename:null, uri:015_tasks/03_task_fixencoding.html], [title:generateDeck, order:03, filename:null, uri:015_tasks/03_task_generateDeck.html], [title:generateDocbook, order:03, filename:null, uri:015_tasks/03_task_generateDocBook.html], [title:generateHTML, order:03, filename:null, uri:015_tasks/03_task_generateHTML.html], [title:generatePDF, order:03, filename:null, uri:015_tasks/03_task_generatePDF.html], [title:generateSite, order:03, filename:null, uri:015_tasks/03_task_generateSite.html], [title:htmlSanityCheck, order:03, filename:null, uri:015_tasks/03_task_htmlSanityCheck.html], [title:prependFilename, order:03, filename:null, uri:015_tasks/03_task_prependFilename.html], [title:previewSite, order:03, filename:null, uri:015_tasks/03_task_previewSite.html], [title:publishToConfluence, order:03, filename:null, uri:015_tasks/03_task_publishToConfluence.html]], tutorial:[[title:Install docToolchain, order:010, filename:null, uri:020_tutorial/010_Install.html], [title:arc42 Template, order:020, filename:null, uri:020_tutorial/020_arc42.html], [title:generateHTML &amp; generatePDF, order:030, filename:null, uri:020_tutorial/030_generateHTML.html], [title:generateSite, order:040, filename:null, uri:020_tutorial/040_generateSite.html], [title:How to generate docs from multiple repositories, order:050, filename:null, uri:020_tutorial/050_multipleRepositories.html], [title:How to generate docs from multiple repositories, order:060, filename:null, uri:020_tutorial/060_CI-CD-Deployment.html], [title:Diagrams: Diagrams.net, order:100, filename:null, uri:020_tutorial/100_diagrams.net.html]], -:[[title:search, order:0, filename:null, uri:search.html]]]
@@ -233,7 +233,7 @@
 
             <ul class="td-sidebar-nav__section pr-md-3">
                 <li class="td-sidebar-nav__section-title">
-                    <span class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Tasks</span>
+                    <span class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Tutorial</span>
                 </li>
                 <ul>
                     <li class="collapse show" id="docs">
@@ -242,187 +242,43 @@
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_tasks.html">Overview of available Tasks</a>
+                                   href="../020_tutorial/010_Install.html">Install docToolchain</a>
                             </li>
                             
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_autobuildSite.html">autobuildSite</a>
+                                   href="../020_tutorial/020_arc42.html">arc42 Template</a>
                             </li>
                             
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_collectIncludes.html">collectIncludes</a>
+                                   href="../020_tutorial/030_generateHTML.html">generateHTML &amp; generatePDF</a>
                             </li>
                             
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_convertToDocx.html">convertToDocx</a>
+                                   href="../020_tutorial/040_generateSite.html">generateSite</a>
                             </li>
                             
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_convertToEpub.html">convertToEpub</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_copy_themes.html">copyThemes</a>
+                                   href="../020_tutorial/050_multipleRepositories.html">How to generate docs from multiple repositories</a>
                             </li>
                             
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../015_tasks/03_task_createReferenceDoc.html">createReferenceDoc</a>
+                                   href="../020_tutorial/060_CI-CD-Deployment.html">How to generate docs from multiple repositories</a>
                             </li>
                             
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_dependencyUpdates.html">dependencyUpdates</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_downloadTemplate.html">downloadTemplate</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportChangeLog.html">exportChangeLog</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportContributors.html">exportContributors</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportDrawIo.html">exportDrawIo</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportEA.html">exportEA</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportExcel.html">exportExcel</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportJiraIssues.html">exportJiraIssues</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportJiraSprintChangelog.html">exportJiraSprintChangelogIssues</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportMarkdown.html">exportMarkdown</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportMetrics.html">exportMetrics</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportOpenApi.html">exportOpenAPI</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportPPT.html">exportPPT</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportVisio.html">exportVisio</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_fixencoding.html">fixEncoding</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_generateDeck.html">generateDeck</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_generateDocBook.html">generateDocbook</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_generateHTML.html">generateHTML</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_generatePDF.html">generatePDF</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_generateSite.html">generateSite</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_htmlSanityCheck.html">htmlSanityCheck</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_prependFilename.html">prependFilename</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_previewSite.html">previewSite</a>
-                            </li>
-                            
-                            
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_publishToConfluence.html">publishToConfluence</a>
+                                   href="../020_tutorial/100_diagrams.net.html">Diagrams: Diagrams.net</a>
                             </li>
                             
                             <!--li class="td-sidebar-nav__section-title">
@@ -442,11 +298,11 @@
 			<div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_task_createReferenceDoc.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/060_CI-CD-Deployment.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
         <!--a href="https://github.com/google/docsy-example/new/master/content/en/docs/_index.md?filename=change-me.md&amp;value=---%0Atitle%3A+%22Long+Page+Title%22%0AlinkTitle%3A+%22Short+Nav+Title%22%0Aweight%3A+100%0Adescription%3A+%3E-%0A+++++Page+description+for+heading+and+indexes.%0A---%0A%0A%23%23+Heading%0A%0AEdit+this+template+to+create+your+new+page.%0A%0A%2A+Give+it+a+good+name%2C+ending+in+%60.md%60+-+e.g.+%60getting-started.md%60%0A%2A+Edit+the+%22front+matter%22+section+at+the+top+of+the+page+%28weight+controls+how+its+ordered+amongst+other+pages+in+the+same+directory%3B+lowest+number+first%29.%0A%2A+Add+a+good+commit+message+at+the+bottom+of+the+page+%28%3C80+characters%3B+use+the+extended+description+field+for+more+detail%29.%0A%2A+Create+a+new+branch+so+you+can+preview+your+new+file+and+request+a+review+via+Pull+Request.%0A"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a-->
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27createReferenceDoc%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_createReferenceDoc.adoc" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27How+to+generate+docs+from+multiple+repositories%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/060_CI-CD-Deployment.adoc" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
         <!--a href="https://github.com/google/docsy/issues/new" target="_blank"><i
                 class="fas fa-tasks fa-fw"></i> Create project issue</a-->
@@ -457,9 +313,11 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_createreferencedoc">createReferenceDoc</a>
+<li><a href="#_how_to_generate_docs_from_multiple_repositories">How to generate docs from multiple repositories</a>
 <ul class="sectlevel2">
-<li><a href="#_source">Source</a></li>
+<li><a href="#_git_clone_solution">git clone solution</a></li>
+<li><a href="#_git_submodule_solution">git submodule solution</a></li>
+<li><a href="#_artifact_solution">artifact solution</a></li>
 </ul>
 </li>
 </ul>
@@ -482,89 +340,130 @@
     <div class="td-content">
         <p>
             
-<style>
-.gravatar img {
-    margin-left: 3px;
-    border-radius: 4px;
-}
-</style>
 <div class="sect1">
-<h2 id="_createreferencedoc">createReferenceDoc</h2>
+<h2 id="_how_to_generate_docs_from_multiple_repositories">How to generate docs from multiple repositories</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Needs <a href="https://pandoc.org">pandoc</a> installed</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>Some static site generators sell multi-repository functionality as a feature.
+This feature is mainly achieved through a build in git client.</p>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5107bc93f3e4d103ca06f4e68a64b38?d=identicon" alt="Heiko Stehli" width="32" height="32" title="Heiko Stehli"></span></p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>1 minute to read</pre>
-</div>
+<p>Since we almost always work on systems which already have git installed, docToolchain does not come with its own git client.</p>
 </div>
 <div class="paragraph">
-<p>Creates a reference docx file used by <a href="https://pandoc.org">pandoc</a> during conversion from docbook to docx.
-You can edit this file to use your prefered styles in task <a href="#convertToDocx">[convertToDocx]</a>.</p>
+<p>The solution we propose instead is just a simple bash script which does the magic for you.
+Here is how.</p>
 </div>
 <div class="paragraph">
-<p>Please make sure that 'referenceDocFile' property is set to your custom reference file in Config.groovy</p>
-</div>
-<div class="listingblock">
-<div class="title">Excerpt of Config.groovy with property 'referenceDocFile'</div>
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">inputPath = '.'
-
-// use a style reference file in the input path for conversion from docbook to docx
-referenceDocFile = "${inputPath}/my-ref-file.docx"</code></pre>
-</div>
-</div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>The contents of the reference docx are ignored, but its stylesheets and document properties (including margins, page size, header, and footer) are used in the new docx.</p>
-</div>
-<div class="paragraph">
-<p>See Pandoc User&#8217;s Guide: <a href="https://pandoc.org/MANUAL.html#options-affecting-specific-writers">Options affecting specific writers (--reference-doc)</a></p>
-</div>
-<div class="paragraph">
-<p>If you have problems with changing the default table style: see <a href="https://github.com/jgm/pandoc/issues/3275" class="bare">https://github.com/jgm/pandoc/issues/3275</a>.</p>
-</div>
-</td>
-</tr>
-</table>
+<p>Imagine you have a documentation repository set up with the docToolchain wrapper <code>dtcw</code> and some code documents.
+Now you would like to include the documents from another repository.</p>
 </div>
 <div class="sect2">
-<h3 id="_source">Source</h3>
-<div class="listingblock">
-<div class="title">pandoc.gradle</div>
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">task createReferenceDoc (
-        group: 'docToolchain helper',
-        description: 'creates a docx file to be used as a format style reference in task convertToDocx. Needs pandoc installed.',
-        type: Exec
-) {
-    workingDir "$docDir"
-    executable = "pandoc"
-    args = ["-o", "${docDir}/${referenceDocFile}",
-            "--print-default-data-file",
-            "reference.docx"]
-    
-    doFirst {
-        if(!(referenceDocFile?.trim())) {
-            throw new GradleException("Option `referenceDocFile` is not defined in config.groovy or has an empty value.")
-        }
-    }   
-}</code></pre>
+<h3 id="_git_clone_solution">git clone solution</h3>
+<div class="paragraph">
+<p>To get the contents of the other repository, one way is to do a <code>git clone</code> of it right to the <code>build</code> folder of your own repository.
+Let&#8217;s call the script in which we store this command <code>clonerefs.sh</code>, because we clone a reference to the remote documentation.</p>
 </div>
+<div class="listingblock">
+<div class="title">clonerefs.sh</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">#!/usr/bin/env bash
+git clone git@github.com:docToolchain/docToolchain.git build/refs/docToolchain</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>this works fine if you execute it once, but the second time it will complain that the folder <code>build/refs/docToolchain</code> is not empty.
+So let&#8217;s create a <code>cloneOrPull</code> function which tries first to clone the repo and pulls an update if the clone fails.</p>
+</div>
+<div class="listingblock">
+<div class="title">clonerefs.sh</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">#!/usr/bin/env bash
+function cloneOrPull {
+  echo ""
+  echo $1
+  (git clone "$1" "$2" 2&gt; /dev/null &amp;&amp; echo "cloned repo" )|| git -C "$2" pull
+}
+
+cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>That&#8217;s better.
+We can now include the docs from our main docs.
+But what if we don&#8217;t want to include them but just let them render?
+We could clone the repository directly to our <code>src/docs</code> folder.
+But that would require that it only contains docs and no <code>src/docs</code> folder itself.
+So we have to copy it over to our <code>src/docs</code> folder.</p>
+</div>
+<div class="listingblock">
+<div class="title">clonerefs.sh</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">#!/usr/bin/env bash
+function cloneOrPull {
+  echo ""
+  echo $1
+  (git clone "$1" "$2" 2&gt; /dev/null &amp;&amp; echo "cloned repo" )|| git -C "$2" pull
+}
+
+cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain
+cp build/refs/docToolchain/src/docs/manual src/docs/.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>But we don&#8217;t want to add these folders to our main repository, so let&#8217;s add it to the <code>.gitignore</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="title">.gitignore</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="gitignore">[...]
+src/docs/manual
+[...]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>There is one more thing we can optimize.
+Currently, the script clones the repository with the full history.
+This is far to much traffic if you only want to use the latest version of your docs.
+Let&#8217;s add <code>--depth 1</code> to the `git clone`command to only fetch the latest version.</p>
+</div>
+<div class="listingblock">
+<div class="title">clonerefs.sh</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">#!/usr/bin/env bash
+function cloneOrPull {
+  echo ""
+  echo $1
+  (git clone "$1" "$2" 2&gt; /dev/null &amp;&amp; echo "cloned repo" )|| git -C "$2" pull
+}
+
+cloneOrPull --depth 1 git@github.com:docToolchain/docToolchain.git build/refs/docToolchain
+cp build/refs/docToolchain/src/docs/manual src/docs/.</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This script will now let you clone remote repositories and merge them with your main documentation before building.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_git_submodule_solution">git submodule solution</h3>
+<div class="paragraph">
+<p>Another solution is to refrence your sub-repositories as <a href="https://git-scm.com/book/de/v2/Git-Tools-Submodule">git submodules</a>.
+Git submodules are pointers in your main repository to a certain version of another repository.
+Most CI systems clone your repository together will als configured submodules.
+This makes this approach quite convenient.</p>
+</div>
+<div class="paragraph">
+<p>A draw back is that submodules are not often used and thus developers are not used to them.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_artifact_solution">artifact solution</h3>
+<div class="paragraph">
+<p>A third solution could be that sub-repositories publish their docs as zip file somewhere.
+Maybe to an artifactory instance.
+Yout main repository could fetch the published artifacts and use them in the build process.
+That would be exactly what you do with code.</p>
 </div>
 </div>
 </div>
@@ -596,11 +495,11 @@ referenceDocFile = "${inputPath}/my-ref-file.docx"</code></pre>
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27createReferenceDoc%27%20👍&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_createReferenceDoc.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27How+to+generate+docs+from+multiple+repositories%27%20👍&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/060_CI-CD-Deployment.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27createReferenceDoc%27%20👎&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_createReferenceDoc.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27How+to+generate+docs+from+multiple+repositories%27%20👎&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/060_CI-CD-Deployment.adoc">tell
     us how we can improve</a>.
     </p>
 </div>
