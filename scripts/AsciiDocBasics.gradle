@@ -133,7 +133,7 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
             'sectanchors'         : 'true@',
             'targetDir'           : targetDir,
             'docDir'              : docDir,
-            'projectRootDir'          : "${projectDir}@",
+            'projectRootDir'      : "${docDir}@",
     )
     // Here we can add the code for extensions we write.
     extensions {

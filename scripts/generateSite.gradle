@@ -42,7 +42,7 @@ jbake {
         "imagesDir=${config.microsite.contextPath}/images@",
         "targetDir=${targetDir}",
         "docDir=${docDir}",
-        "projectRootDir=${projectDir}@",
+        "projectRootDir=${docDir}@",
     ]
 
 }
@@ -58,7 +58,7 @@ gretty {
 
 task generateSite(
     group: 'docToolchain',
-    description: 'generate a microsite using jBake') {
+    description: 'generate a microsite using jBake.') {
     doLast {
         new File("${targetDir}/microsite/tmp").mkdirs()
         println "created"
