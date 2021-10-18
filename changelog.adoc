@@ -16,6 +16,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 2021-10-18::
 * Fix https://github.com/docToolchain/docToolchain/issues/664[#664 - doctoolchain.org link and typos]
+* Upgrade to Gradle (Wrapper) 7.2, cf. https://github.com/docToolchain/docToolchain/issues/662[#662]
 
 === fixed
 
