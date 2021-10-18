@@ -6,6 +6,7 @@ jdk:
 #  - openjdk12
 #  - openjdk13
   - openjdk14
+  - openjdk17
 
 git:
   depth: false
