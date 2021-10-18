@@ -14,6 +14,8 @@ MAIN_CONFIG_FILE=docToolchainConfig.groovy
 VERSION=2.0.1
 DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/releases/download/v${VERSION}/docToolchain-${VERSION}.zip
 
+min_java_version=8
+max_java_version=17
 
 DTC_OPTS="$DTC_OPTS -PmainConfigFile=$MAIN_CONFIG_FILE --warning-mode=none"
 
@@ -44,7 +46,7 @@ java_help_and_die() {
     echo "$ curl -s "https://get.sdkman.io" | bash"
     echo "$ sdk install java"
     echo ""
-    echo "make sure that your java version is between 8 and 14"
+    echo "make sure that your java version is between ${min_java_version} and ${max_java_version}"
     exit 1
 
 }
@@ -93,13 +95,13 @@ if [ "$java" = false ] ; then
 fi
 javaversion=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed '/^1\./s///' | cut -d'.' -f1)
 echo "Java Version $javaversion"
-if (( $javaversion < 8 )); then
-    echo "your java version $javaversion is too old (<8): $(which java)"
+if (( $javaversion < ${min_java_version} )); then
+    echo "your java version $javaversion is too old (<${min_java_version}): $(which java)"
     echo "please update your java installation and try again"
     java_help_and_die
 else
-  if (( $javaversion > 14 )); then
-    echo "your java version $javaversion is too new (>14): $(which java)"
+  if (( $javaversion > ${max_java_version} )); then
+    echo "your java version $javaversion is too new (>${max_java_version}): $(which java)"
     echo "please update your java installation and try again"
     java_help_and_die
   fi
