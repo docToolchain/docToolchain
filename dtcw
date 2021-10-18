@@ -30,7 +30,7 @@ homefolder=false
 java=false
 wsl=false
 
-if [[ $(grep -i 'microsoft' /proc/version) ]]; then
+if test -r /proc/version && [[ $(grep -i 'microsoft' /proc/version) ]]; then
   echo " "
   echo "Bash is running on WSL"
   echo "this might cause problems with plantUML"
