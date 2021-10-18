@@ -19,7 +19,7 @@ footerGithub = '##Github-url##'
 footerSlack = '##Slack-url##'
 //
 // Footer Text
-// example: <small class="text-white">build with docToolchain and jBake <br /> theme: docsy</small>
+// example: <small class="text-white">built with docToolchain and jBake <br /> theme: docsy</small>
 footerText = '##Footer-Text##'
 // site title if no other title is given
 title = 'docToolchain'
