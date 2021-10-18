@@ -25,6 +25,9 @@ dependency-reduced-pom.xml
 buildNumber.properties
 .mvn/timing.properties
 
+# Generated docs/
+docs/
+
 .plantuml/
 .asciidoctor/
 .gradle/
