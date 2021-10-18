@@ -35,7 +35,7 @@ cleaning () {
   echo "#        Cleaning                          #"
   echo "#                                          #"
   echo "############################################"
-  ./gradlew clean
+  ./gradlew --no-daemon clean
 }
 
 dependency_info() {
@@ -44,8 +44,8 @@ dependency_info() {
   echo "#        Check for dependency updates      #"
   echo "#                                          #"
   echo "############################################"
-  ./gradlew -b init.gradle dependencyUpdates
-  ./gradlew dependencyUpdates
+  ./gradlew --no-daemon -b init.gradle dependencyUpdates
+  ./gradlew --no-daemon dependencyUpdates
 }
 
 unit_tests () {
@@ -57,7 +57,7 @@ unit_tests () {
   if [ "${BRANCH}" == "ng" ] || [ "${BRANCH}" == "main-2.x" ] ; then
     echo "skipping tests for now"
   else
-    ./gradlew test --info
+    ./gradlew --no-daemon test --info
   fi
 }
 
@@ -75,7 +75,7 @@ integration_tests () {
         echo "### ${TEMPLATE}"
         TEST_DIR="build/${TEMPLATE}_test"
 
-        ./gradlew -b init.gradle "init${TEMPLATE}" -PnewDocDir="${TEST_DIR}"
+        ./gradlew --no-daemon -b init.gradle "init${TEMPLATE}" -PnewDocDir="${TEST_DIR}"
         ./bin/doctoolchain "${TEST_DIR}" generatePDF
         ./bin/doctoolchain "${TEST_DIR}" generateHTML
         # ./bin/doctoolchain "${TEST_DIR}" publishToConfluence
@@ -127,7 +127,7 @@ create_doc () {
 #    cp -r build/docs/report/htmlchecks/. docs/htmlchecks/.
 
   else
-    ./gradlew exportMarkdown exportChangeLog exportContributors generateHTML htmlSanityCheck --stacktrace && ./copyDocs.sh
+    ./gradlew --no-daemon exportMarkdown exportChangeLog exportContributors generateHTML htmlSanityCheck --stacktrace && ./copyDocs.sh
   fi
 }
 
