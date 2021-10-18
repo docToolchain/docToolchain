@@ -29,6 +29,15 @@ set -u
 # Goto directory of this script
 cd "$(dirname "${BASH_SOURCE[0]}")"
 
+version_info () {
+  echo "############################################"
+  echo "#                                          #"
+  echo "#        Version Check                     #"
+  echo "#                                          #"
+  echo "############################################"
+  ./gradlew --no-daemon --version
+}
+
 cleaning () {
   echo "############################################"
   echo "#                                          #"
@@ -173,6 +182,7 @@ publish_doc () {
   fi
 }
 
+version_info
 cleaning
 dependency_info
 #unit_tests
