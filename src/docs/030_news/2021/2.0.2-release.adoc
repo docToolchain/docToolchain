@@ -1,0 +1,46 @@
+:filename: 030_news/2021/2.0.2-release.adoc
+:jbake-title: Release v2.0.2
+:jbake-date: 2021-10-19
+:jbake-type: post
+:jbake-tags: docToolchain
+:jbake-status: published
+:jbake-menu: news
+:jbake-author: Ralf D. Müller
+:icons: font
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+== v2.0.2 of docToolchain has been released!
+
+This is a bugfix release.
+
+=== added
+
+2021-10-19::
+* use :jbake-rightcolumnhtml: to add some html to the right column
+
+=== changed
+
+2021-10-19::
+* Add https://github.com/docToolchain/docToolchain/issues/667[#667 - GH Actions Default Build]
+
+2021-10-18::
+* Fix https://github.com/docToolchain/docToolchain/issues/664[#664 - doctoolchain.org link and typos]
+
+=== fixed
+
+2021-10-19::
+* fix example for gitRepoUrl in config
+* fix projectRootDir
+* fix status.png and siteTitle
+
+2021-10-17::
+* fix https://github.com/docToolchain/docToolchain/issues/660[#660 - generateSite: projectRootDir wrong]
+
+2021-10-11::
+* fix https://github.com/docToolchain/docToolchain/issues/651[#651 - powershell: broken install when space in user path]
+
+2021-10-15::
+* fix https://github.com/docToolchain/docToolchain/issues/658[#658 - generateSite - subsequent runs won't fail with an invalid or missing site theme]
+
+thanx to all contributors!
