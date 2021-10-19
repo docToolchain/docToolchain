@@ -1,111 +1,13 @@
-:filename: 020_tutorial/050_multipleRepositories.adoc
+:jbake-title: CI/CD-Build
+:jbake-status: draft
+:filename: 020_tutorial/060_CI-CD-Deployment.adoc
 include::_config.adoc[]
 
-== How to generate docs from multiple repositories
 
-Some static site generators sell multi-repository functionality as a feature.
-This feature is mainly achieved through a build in git client.
+== How to automatically build your Microsite with various CI/CD Systems
 
-Since we almost always work on systems which already have git installed, docToolchain does not come with its own git client.
+You probably don't want to keep your docs secret.
+So you need a way to publish your static site.
 
-The solution we propose instead is just a simple bash script which does the magic for you.
-Here is how.
+In this tutorial, I will show you three ways how to do it with the three main systems: GitLab, GitHub and Netlify
 
-Imagine you have a documentation repository set up with the docToolchain wrapper `dtcw` and some code documents.
-Now you would like to include the documents from another repository.
-
-=== git clone solution
-
-To get the contents of the other repository, one way is to do a `git clone` of it right to the `build` folder of your own repository.
-Let's call the script in which we store this command `clonerefs.sh`, because we clone a reference to the remote documentation.
-
-.clonerefs.sh
-[source, bash]
-----
-#!/usr/bin/env bash
-git clone git@github.com:docToolchain/docToolchain.git build/refs/docToolchain
-----
-
-this works fine if you execute it once, but the second time it will complain that the folder `build/refs/docToolchain` is not empty.
-So let's create a `cloneOrPull` function which tries first to clone the repo and pulls an update if the clone fails.
-
-.clonerefs.sh
-[source, bash]
-----
-#!/usr/bin/env bash
-function cloneOrPull {
-  echo ""
-  echo $1
-  (git clone "$1" "$2" 2> /dev/null && echo "cloned repo" )|| git -C "$2" pull
-}
-
-cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain
-----
-
-That's better.
-We can now include the docs from our main docs.
-But what if we don't want to include them but just let them render?
-We could clone the repository directly to our `src/docs` folder.
-But that would require that it only contains docs and no `src/docs` folder itself.
-So we have to copy it over to our `src/docs` folder.
-
-.clonerefs.sh
-[source, bash]
-----
-#!/usr/bin/env bash
-function cloneOrPull {
-  echo ""
-  echo $1
-  (git clone "$1" "$2" 2> /dev/null && echo "cloned repo" )|| git -C "$2" pull
-}
-
-cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain
-cp build/refs/docToolchain/src/docs/manual src/docs/.
-----
-
-But we don't want to add these folders to our main repository, so let's add it to the `.gitignore` file.
-
-..gitignore
-[source, gitignore]
-----
-[...]
-src/docs/manual
-[...]
-----
-
-There is one more thing we can optimize.
-Currently, the script clones the repository with the full history.
-This is far to much traffic if you only want to use the latest version of your docs.
-Let's add `--depth 1` to the `git clone`command to only fetch the latest version.
-
-.clonerefs.sh
-[source, bash]
-----
-#!/usr/bin/env bash
-function cloneOrPull {
-  echo ""
-  echo $1
-  (git clone "$1" "$2" 2> /dev/null && echo "cloned repo" )|| git -C "$2" pull
-}
-
-cloneOrPull --depth 1 git@github.com:docToolchain/docToolchain.git build/refs/docToolchain
-cp build/refs/docToolchain/src/docs/manual src/docs/.
-----
-
-This script will now let you clone remote repositories and merge them with your main documentation before building.
-
-=== git submodule solution
-
-Another solution is to refrence your sub-repositories as https://git-scm.com/book/de/v2/Git-Tools-Submodule[git submodules].
-Git submodules are pointers in your main repository to a certain version of another repository.
-Most CI systems clone your repository together will als configured submodules.
-This makes this approach quite convenient.
-
-A draw back is that submodules are not often used and thus developers are not used to them.
-
-=== artifact solution
-
-A third solution could be that sub-repositories publish their docs as zip file somewhere.
-Maybe to an artifactory instance.
-Yout main repository could fetch the published artifacts and use them in the build process.
-That would be exactly what you do with code.

@@ -9,15 +9,23 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === added
 
+2021-10-19::
+* use :jbake-rightcolumnhtml: to add some html to the right column
+
 === changed
 
 2021-10-19::
-* Add https://github.com/docToolchain/docToolchain/issues/667[#667 - GH Actions Default Build]
+* Add https://github.com/docToolchain/docToolchain/issues/667[#667 - GH Actions Default Build]g
 
 2021-10-18::
 * Fix https://github.com/docToolchain/docToolchain/issues/664[#664 - doctoolchain.org link and typos]
 
 === fixed
+
+2021-10-19::
+* fix example for gitRepoUrl in config
+* fix projectRootDir
+* fix status.png and siteTitle
 
 2021-10-17::
 * fix https://github.com/docToolchain/docToolchain/issues/660[#660 - generateSite: projectRootDir wrong]

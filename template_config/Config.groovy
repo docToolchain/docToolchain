@@ -94,7 +94,7 @@ microsite.with {
     issueUrl = '##issue-url##'
     //
     // the base url for code files in github
-    // Example: https://github.com/doctoolchain/doctoolchain/edit/master/content/src/docs/
+    // Example: https://github.com/doctoolchain/doctoolchain/edit/master/src/docs
     gitRepoUrl = '##git-repo-url##'
 
     //
