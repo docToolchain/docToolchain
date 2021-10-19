@@ -11,6 +11,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 
+2021-10-19::
+* Add https://github.com/docToolchain/docToolchain/issues/667[#667 - GH Actions Default Build]
+
 2021-10-18::
 * Fix https://github.com/docToolchain/docToolchain/issues/664[#664 - doctoolchain.org link and typos]
 
