@@ -22,6 +22,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+2021-10-19::
+* fix example for gitRepoUrl in config
+
 2021-10-17::
 * fix https://github.com/docToolchain/docToolchain/issues/660[#660 - generateSite: projectRootDir wrong]
 
