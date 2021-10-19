@@ -1,0 +1,42 @@
+name: Build Project (Default)
+
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+  pull_request:
+    branches: [ master, ng ]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        os: [ubuntu-latest]
+        # TODO: Will it really run on one of these? , windows-latest, macOS-latest]
+        java: [8, 11, 14] # , 17]
+        jdk: [adopt]
+        # , temurin]
+      fail-fast: false
+    name: Java ${{ matrix.jdk }}-${{ matrix.java }} Build
+
+    runs-on: ${{ matrix.os }}
+
+    steps:
+      - name: Install used packages
+        run: sudo apt-get install -y graphviz shellcheck
+
+      - uses: actions/checkout@v2
+
+      - name: Set up JDK
+        uses: actions/setup-java@v2
+        with:
+          distribution: ${{ matrix.jdk }}
+          java-version: ${{ matrix.java }}
+          cache: 'gradle'
+
+      - name: Build (and deploy) with Gradle Wrapper
+        env:
+          GH_TOKEN: ${{ github.token }}
+          JDK_VERSION: "${{ matrix.jdk }}-${{ matrix.java }}"
+        run: ./.ci.sh && find . -type f -exec grep -l '^#!/bin/bash' {} + | xargs shellcheck
