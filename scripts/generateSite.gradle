@@ -42,7 +42,7 @@ jbake {
         "imagesDir=${config.microsite.contextPath}/images@",
         "targetDir=${targetDir}",
         "docDir=${docDir}",
-        "projectRootDir=${docDir}@",
+        "projectRootDir=${new File(docDir).canonicalPath}@",
     ]
 
 }
