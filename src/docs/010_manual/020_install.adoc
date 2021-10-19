@@ -135,42 +135,48 @@ Run the following command to ask docToolchain to download the template of your c
 
 == Build
 
-By now, docToolchain is installed as command line tool and the path to its `bin` folder should be on your path, the docToolchain wrapper `dtcw` resides in your project folder and the arc42 template is installed.
+By now, the docToolchain wrapper `dtcw` resides in your project folder and the arc42 template is installed.
 Now let's render it as HTML and PDF.
 
-If you now switch to your freshly initialized <newDocDir>, you should be able to execute the following commands:
+You should be able to execute the following commands:
 
 .Linux / WSL2 with bash
+[.primary]
+--
 [source,bash]
 ----
-doctoolchain <docDir> generateHTML
-doctoolchain <docDir> generatePDF
+./dtcw generateHTML
+./dtcw generatePDF
 ----
+--
 
 .Windows
-[source]
+[.secondary]
+--
+[source,powershell]
 ----
-doctoolchain.bat <docDir> generateHTML
-doctoolchain.bat <docDir> generatePDF
+./dtcw.ps1 generateHTML
+./dtcw.ps1 generatePDF
 ----
-
-<docDir> may be relative, e.g. ".", or absolute.
+--
 
 As a result, you will see the progress of your build together with some warnings which you can just ignore for the moment.
 
-The first build generated some files within the `<docDir>/build`:
+The first build generated some files within the `build`:
 
 [source]
 ----
 build
 |-- html5
-|   |-- arc42-template.html
+|   |-- arc42
+|   |   `-- arc42.html
 |   `-- images
 |       |-- 05_building_blocks-EN.png
 |       |-- 08-Crosscutting-Concepts-Structure-EN.png
 |       `-- arc42-logo.png
 `-- pdf
-    |-- arc42-template.pdf
+    |-- arc42
+    |   `-- arc42.pdf
     `-- images
         |-- 05_building_blocks-EN.png
         |-- 08-Crosscutting-Concepts-Structure-EN.png
