@@ -25,6 +25,7 @@ else
     echo "Cannot determine CI Server (Travis or Github)" >&2
     exit 1
 fi
+echo "${TRAVIS_REPO_SLUG}"
 set -u
 
 # Goto directory of this script
@@ -169,6 +170,7 @@ publish_doc () {
     #add, commit and push files
     git add -f .
     git commit -m "${CI_SERVER} build '${BUILD_NUMBER}' pushed to gh-pages"
+    echo "push"
     git push -fq origin gh-pages > /dev/null
 
     echo -e "Done publishing to gh-pages.\n"
