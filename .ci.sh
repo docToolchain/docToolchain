@@ -152,7 +152,7 @@ publish_doc () {
     git config --global user.name "Travis"
 
     #using token clone gh-pages branch
-    git clone --quiet --branch=gh-pages "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" gh-pages > /dev/null
+    git clone --quiet --branch=gh-pages "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/${TRAVIS_REPO_SLUG}.git" gh-pages > /dev/null
 
     if [ "${BRANCH}" == "master" ] || [ "${BRANCH}" == "main-1.x" ] ; then
       #go into directory and copy data we're interested in to that directory
