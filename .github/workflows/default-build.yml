@@ -37,6 +37,6 @@ jobs:
 
       - name: Build (and deploy) with Gradle Wrapper
         env:
-        $GITHUB_ACTOR:$GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JDK_VERSION: "${{ matrix.jdk }}-${{ matrix.java }}"
         run: ./.ci.sh && find . -type f -exec grep -l '^#!/bin/bash' {} + | xargs shellcheck
