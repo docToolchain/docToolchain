@@ -25,6 +25,7 @@ else
     echo "Cannot determine CI Server (Travis or Github)" >&2
     exit 1
 fi
+GH_TOKEN=${GITHUB_TOKEN}
 echo "${TRAVIS_REPO_SLUG}"
 set -u
 
