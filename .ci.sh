@@ -5,7 +5,7 @@ set -o errtrace -o nounset -o pipefail -o errexit
 # Enable build on Travis as well as on GH Actions
 set +u
 if test "${GITHUB_WORKFLOW}"; then
-    BRANCH=${GITHUB_HEAD_REF}
+    BRANCH=${GITHUB_REF##*/}
     BUILD_DIR=${GITHUB_WORKSPACE}
     BUILD_NUMBER="${GITHUB_WORKFLOW}-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}"
     CI_SERVER="Github"
