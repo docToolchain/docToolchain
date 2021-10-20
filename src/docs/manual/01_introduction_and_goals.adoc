@@ -4,7 +4,9 @@
 
 include::feedback.adoc[]
 
-NOTE: Jump directly to the https://github.com/docToolchain/docToolchain[github repository]
+NOTE: Jump directly to the https://github.com/docToolchain/docToolchain/tree/master[github repository (master branch)]
+
+WARNING: This is the legacy version `1.3.x`. If you are looking for a fresh version and are willing to accept changes in the configuration, the https://doctoolchain.org/docToolchain/v2.0.x/[version 2.0.x] is the right thing for you.
 
 == Create awesome docs!
 
