@@ -27,7 +27,6 @@ cache:
 install: skip
 
 script:
-  - ./.ci.sh
   - find . -type f -exec grep -l '^#!/bin/bash' {} + | xargs shellcheck
 
 # use `travis env set GH_TOKEN XXX` to set token to publish contents to GitHub pages

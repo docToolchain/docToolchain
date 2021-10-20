@@ -133,9 +133,10 @@ create_doc () {
 
 publish_doc () {
   echo "publish_doc"
+  echo "${PULL_REQUEST} | ${JDK_VERSION}"
   # Take from and modified http://sleepycoders.blogspot.de/2013/03/sharing-travis-ci-generated-files.html
   # ensure publishing doesn't run on pull requests, only when token is available and only on JDK11 matrix build and on master or a travisci test branch
-  if [ "${PULL_REQUEST}" == "false" ] && [ -n "${GH_TOKEN}" ] && { [ "${JDK_VERSION}" == "openjdk11" ] || { [ "${JDK_VERSION}" == "11-adopt" ] && [ "${RUNNER_OS}" == "ubuntu-latest" ]; }; } && { [ "${BRANCH}" == "travisci" ] || [ "${BRANCH}" == "master" ] || [ "${BRANCH}" == "ng" ] || [ "${BRANCH}" == "main-1.x" ] || [ "${BRANCH}" == "main-2.x" ]; } ; then
+  if [ "${PULL_REQUEST}" == "false" ] && [ -n "${GH_TOKEN}" ] && { [ "${JDK_VERSION}" == "adopt-11" ] || [ "${JDK_VERSION}" == "openjdk11" ] || { [ "${JDK_VERSION}" == "11-adopt" ] && [ "${RUNNER_OS}" == "ubuntu-latest" ]; }; } && { [ "${BRANCH}" == "travisci" ] || [ "${BRANCH}" == "master" ] || [ "${BRANCH}" == "ng" ] || [ "${BRANCH}" == "main-1.x" ] || [ "${BRANCH}" == "main-2.x" ]; } ; then
     echo "############################################"
     echo "#                                          #"
     echo "#        Publish documentation             #"
