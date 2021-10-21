@@ -43,8 +43,8 @@ DiagramBlock <|-- PlantUmlBlock
 <1> The element of this list specifies the diagram tool `plantuml` to be used. +
 The second element is the name of the image to be created and the third specifies the image type.
 
-NOTE: The `\{plantUMLDir}` ensures that PlantUML also works for the <<generatePDF>> task.
-Without it, <<generateHTML>> works fine, but the PDF will not contain the generated images.
+NOTE: The `\{plantUMLDir}` ensures that PlantUML also works for the xref:03_task_generatePDF.adoc[`generatePDF`] task.
+Without it, xref:03_task_generateHTML.adoc[`generateHTML`] works fine, but the PDF will not contain the generated images.
 
 IMPORTANT: Make sure to specify a unique image name for each diagram, otherwise they will overwrite each other.
 

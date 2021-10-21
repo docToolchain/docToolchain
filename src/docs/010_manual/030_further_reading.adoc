@@ -22,7 +22,7 @@ AsciiDoc is our preferred markup language for technical docs
 * *Markdown* +
 Since we use jBake as Static-Site-Generator, you can also use Markdown to write your docs.
 ** https://github.com/vsch/flexmark-java[flexmark-java] is the Markdown parser and flavour used by jBake
-** if you prefer to use the <<task_exportMarkdown, `exportMarkdown`>>-Task, then https://github.com/bodiam/markdown-to-asciidoc[markdown-to-asciidoc] library is used. The IntelliJ-Plugin also uses this library.
+** if you prefer to use the xref:../015_tasks/03_task_exportMarkdown.adoc[`exportMarkdown`]-Task, then https://github.com/bodiam/markdown-to-asciidoc[markdown-to-asciidoc] library is used. The IntelliJ-Plugin also uses this library.
 
 === Templates
 
@@ -42,7 +42,7 @@ We've create a little microsite with some additional resources.
 
 === Static Site Generator
 
-* https://jbake.org[jBake] is the underlying static site generator for the <<task_generatesite, `generateSite`>>-Task
+* https://jbake.org[jBake] is the underlying static site generator for the xref:../015_tasks/03_task_generateSite.adoc[`generateSite`]-Task
 * https://www.docsy.dev/[docsy] is the standard theme we use
 * https://getbootstrap.com/docs/4.6/getting-started/introduction/[twitter bootstrap] is the CSS framework
 

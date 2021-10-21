@@ -38,9 +38,10 @@ The basis of docToolchain is the philosophy that software documentation should b
 
 https://docToolchain.github.io/docToolchain[read more...]
 
-image::https://doctoolchain.github.io/docToolchain/images/ea/Manual/Overview2.png[]
+image::https://doctoolchain.github.io/docToolchain/v2.0.x/images/ea/Manual/Overview2.png[]
 
-https://doctoolchain.github.io/docToolchain/tests/[Integration Test Results], https://doctoolchain.github.io/docToolchain/htmlchecks/[htmlSanityCheck Test Results]
+//TODO: this is the v1.3.x report:
+https://doctoolchain.github.io/docToolchain/v1.3.x/htmlchecks/[htmlSanityCheck Test Results]
 
 === Contributors
 
@@ -48,7 +49,7 @@ This project exists thanks to all the people who contribute!
 
 image::https://opencollective.com/doctoolchain/contributors.svg?width=600&button=false[]
 
-See also the https://doctoolchain.github.io/docToolchain/#_acknowledgements_and_contributors[list of contributors] from the docs.
+See also the https://doctoolchain.github.io/docToolchain/v2.0.x/010_manual/040_contributors.html[list of contributors] from the docs.
 
 Each contribution is highly valuable and appreciated, no matter how big it is - there are no small contributions.
 Even just fixing a typo or starring the project helps to promote it.
@@ -96,4 +97,4 @@ A script called asciidoc2confluence and some scripts to export diagrams from ent
 
 The first one is linked in the tweet above and the first commit dates back to mid of 2015.
 Since then, many contributors have joined!
-Thanx for all of your contributions!
+Thank for all of your contributions!

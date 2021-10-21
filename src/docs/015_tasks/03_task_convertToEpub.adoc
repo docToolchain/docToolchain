@@ -7,7 +7,7 @@ include::../_feedback.adoc[]
 
 image::ea/Manual/convertToEpub.png[]
 
-Dependency: <<_generatedocbook>>
+Dependency: xref:03_task_generateDocBook.adoc[`generateDocBook`]
 
 This task uses https://pandoc.org[pandoc] to convert the DocBook output from AsciiDoctor to ePub.
 This way, you can read your documentation in a convenient way on an eBook-reader.

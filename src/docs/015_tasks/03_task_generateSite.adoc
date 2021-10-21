@@ -64,7 +64,7 @@ NOTE: Start your pages with a `==` level headline. You can fix the level offset 
 The jBake templates and CSS etc. is hidden away from you for convenience.
 The basic template use http://getbootstrap.com/[twitter Bootstrap 5] as CSS framework.
 
-Use the <<task-copyThemes,`copyThemes`>> task to copy all hidden jBake resources to your project.
+Use the xref:03_task_copy_themes.adoc[`copyThemes`] task to copy all hidden jBake resources to your project.
 You can then remove the ones you don't need and change those you want to change.
 
 NOTE: `copyThemes` overwrites existing files, but your code is under version control, isn't it?
@@ -74,7 +74,7 @@ NOTE: `copyThemes` overwrites existing files, but your code is under version con
 Put a `index.gsp` page as landing page in `src/site/templates`.
 This landing page is plain HTML5 styled with twitter bootstrap.
 Header and footer is added by docToolchain.
-An example can be found through <<task-copyThemes,`copyThemes`>> or https://github.com/docToolchain/docToolchain/blob/ng/src/site/templates/index.gsp[on github].
+An example can be found through xref:03_task_copy_themes.adoc[`copyThemes`] or https://github.com/docToolchain/docToolchain/blob/ng/src/site/templates/index.gsp[on github].
 
 == Blog
 
@@ -116,7 +116,7 @@ To avoid the download of the theme with every build, you can copy the themes fol
 
 == See also
 
-<<task_previewsite>>
+xref:03_task_previewSite.adoc[`previewSite`]
 
 == Source
 

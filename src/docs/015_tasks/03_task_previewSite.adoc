@@ -6,7 +6,7 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
-When you use the build in static site generator through <<task_generatesite>>, you sometimes need a real static server locally running to preview the results.
+When you use the build in static site generator through xref:03_task_generateSite.adoc[`generateSite`], you sometimes need a real static server locally running to preview the results.
 
 This task will start a jetty with your generated site.
 
