@@ -7,7 +7,7 @@ include::../_feedback.adoc[]
 
 image::ea/Manual/generateDocBook.png[]
 
-This is only a helper task - it generates the intermediate format for <<convertToDocx>> and <<convertToEpub>>.
+This is only a helper task - it generates the intermediate format for xref:03_task_convertToDocx.adoc[`convertToDocx`]<<>> and xref:03_task_convertToEpub.adoc[`convertToEpub`].
 
 == Source
 

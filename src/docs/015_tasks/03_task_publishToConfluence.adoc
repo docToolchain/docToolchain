@@ -71,7 +71,7 @@ In case you enable this feature, and use a folder which starts with "attachment*
 
 jiraServerId::
 the jira server id your confluence instance is connected to. If value is set, all anchors pointing to a jira ticket will be replaced by the confluence jira macro.
-To function properly jiraRoot has to be configured (see <<exportJiraIssues>>).
+To function properly jiraRoot has to be configured (see xref:03_task_exportJiraIssues.adoc[`exportJiraIssues`]).
 
 Example:
 
