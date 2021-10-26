@@ -1,3 +1,4 @@
+:jbake-title: Multi-Repo
 :filename: 020_tutorial/050_multipleRepositories.adoc
 include::_config.adoc[]
 
@@ -28,6 +29,7 @@ git clone git@github.com:docToolchain/docToolchain.git build/refs/docToolchain
 
 this works fine if you execute it once, but the second time it will complain that the folder `build/refs/docToolchain` is not empty.
 So let's create a `cloneOrPull` function which tries first to clone the repo and pulls an update if the clone fails.
+
 
 .clonerefs.sh
 [source, bash]
@@ -85,10 +87,10 @@ Let's add `--depth 1` to the `git clone`command to only fetch the latest version
 function cloneOrPull {
   echo ""
   echo $1
-  (git clone "$1" "$2" 2> /dev/null && echo "cloned repo" )|| git -C "$2" pull
+  (git clone --depth 1 "$1" "$2" 2> /dev/null && echo "cloned repo" )|| git -C "$2" pull
 }
 
-cloneOrPull --depth 1 git@github.com:docToolchain/docToolchain.git build/refs/docToolchain
+cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain
 cp build/refs/docToolchain/src/docs/manual src/docs/.
 ----
 
@@ -98,7 +100,7 @@ This script will now let you clone remote repositories and merge them with your 
 
 Another solution is to refrence your sub-repositories as https://git-scm.com/book/de/v2/Git-Tools-Submodule[git submodules].
 Git submodules are pointers in your main repository to a certain version of another repository.
-Most CI systems clone your repository together will als configured submodules.
+Most CI/CD systems clone your repository together will als configured submodules.
 This makes this approach quite convenient.
 
 A draw back is that submodules are not often used and thus developers are not used to them.
