@@ -78,7 +78,7 @@
                     </div>
                     <div class="card-body">
                         Want to do Docs-as-Code but your team agreed on having all docs in a Wiki? <br />
-                        Publish your AsciiDoc documents to Confluence!
+                        Publish your AsciiDoc documents to Confluence!<br /><br />
                         <a class="btn btn-primary" href="015_tasks/03_task_publishToConfluence.html" role="button">learn more</a>
                     </div>
                 </div>
