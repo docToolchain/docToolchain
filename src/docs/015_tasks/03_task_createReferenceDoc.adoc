@@ -8,7 +8,7 @@ include::_config.adoc[]
 include::../_feedback.adoc[]
 
 Creates a reference docx file used by https://pandoc.org[pandoc] during conversion from docbook to docx.
-You can edit this file to use your prefered styles in task <<convertToDocx>>.
+You can edit this file to use your preferred styles in task xref:03_task_convertToDocx.adoc[`convertToDocx`].
 
 Please make sure that 'referenceDocFile' property is set to your custom reference file in Config.groovy
 

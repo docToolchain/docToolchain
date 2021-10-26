@@ -109,5 +109,5 @@ A draw back is that submodules are not often used and thus developers are not us
 
 A third solution could be that sub-repositories publish their docs as zip file somewhere.
 Maybe to an artifactory instance.
-Yout main repository could fetch the published artifacts and use them in the build process.
+Your main repository could fetch the published artifacts and use them in the build process.
 That would be exactly what you do with code.

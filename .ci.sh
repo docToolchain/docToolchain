@@ -5,13 +5,14 @@ set -o errtrace -o nounset -o pipefail -o errexit
 # Enable build on Travis as well as on GH Actions
 set +u
 if test "${GITHUB_WORKFLOW}"; then
-    BRANCH=${GITHUB_HEAD_REF}
+    BRANCH=${GITHUB_REF##*/}
     BUILD_DIR=${GITHUB_WORKSPACE}
     BUILD_NUMBER="${GITHUB_WORKFLOW}-${GITHUB_RUN_ID}-${GITHUB_RUN_NUMBER}"
     CI_SERVER="Github"
     PULL_REQUEST=$(test "${GITHUB_HEAD_REF}" && echo "true" || echo "false")
     # JDK_VERSION is set by GH Action
     # RUNNER_OS is set by GH Action
+    TRAVIS_REPO_SLUG=${GITHUB_REPOSITORY}
 elif test "${TRAVIS_BRANCH}"; then
     BRANCH=${TRAVIS_BRANCH}
     BUILD_NUMBER=${TRAVIS_BUILD_NUMBER}
@@ -24,6 +25,8 @@ else
     echo "Cannot determine CI Server (Travis or Github)" >&2
     exit 1
 fi
+GH_TOKEN=${GITHUB_TOKEN}
+echo "${TRAVIS_REPO_SLUG}"
 set -u
 
 # Goto directory of this script
@@ -133,9 +136,10 @@ create_doc () {
 
 publish_doc () {
   echo "publish_doc"
+  echo "${PULL_REQUEST} | ${JDK_VERSION} | ${BRANCH}"
   # Take from and modified http://sleepycoders.blogspot.de/2013/03/sharing-travis-ci-generated-files.html
   # ensure publishing doesn't run on pull requests, only when token is available and only on JDK11 matrix build and on master or a travisci test branch
-  if [ "${PULL_REQUEST}" == "false" ] && [ -n "${GH_TOKEN}" ] && { [ "${JDK_VERSION}" == "openjdk11" ] || { [ "${JDK_VERSION}" == "11-adopt" ] && [ "${RUNNER_OS}" == "ubuntu-latest" ]; }; } && { [ "${BRANCH}" == "travisci" ] || [ "${BRANCH}" == "master" ] || [ "${BRANCH}" == "ng" ] || [ "${BRANCH}" == "main-1.x" ] || [ "${BRANCH}" == "main-2.x" ]; } ; then
+  if [ "${PULL_REQUEST}" == "false" ] && [ -n "${GH_TOKEN}" ] && { [ "${JDK_VERSION}" == "adopt-11" ] || [ "${JDK_VERSION}" == "openjdk11" ] || { [ "${JDK_VERSION}" == "11-adopt" ] && [ "${RUNNER_OS}" == "ubuntu-latest" ]; }; } && { [ "${BRANCH}" == "travisci" ] || [ "${BRANCH}" == "master" ] || [ "${BRANCH}" == "ng" ] || [ "${BRANCH}" == "main-1.x" ] || [ "${BRANCH}" == "main-2.x" ]; } ; then
     echo "############################################"
     echo "#                                          #"
     echo "#        Publish documentation             #"
@@ -149,7 +153,7 @@ publish_doc () {
     git config --global user.name "Travis"
 
     #using token clone gh-pages branch
-    git clone --quiet --branch=gh-pages "https://${GH_TOKEN}@github.com/${TRAVIS_REPO_SLUG}.git" gh-pages > /dev/null
+    git clone --quiet --branch=gh-pages "https://$GITHUB_ACTOR:$GITHUB_TOKEN@github.com/${TRAVIS_REPO_SLUG}.git" gh-pages > /dev/null
 
     if [ "${BRANCH}" == "master" ] || [ "${BRANCH}" == "main-1.x" ] ; then
       #go into directory and copy data we're interested in to that directory
@@ -167,6 +171,7 @@ publish_doc () {
     #add, commit and push files
     git add -f .
     git commit -m "${CI_SERVER} build '${BUILD_NUMBER}' pushed to gh-pages"
+    echo "push"
     git push -fq origin gh-pages > /dev/null
 
     echo -e "Done publishing to gh-pages.\n"

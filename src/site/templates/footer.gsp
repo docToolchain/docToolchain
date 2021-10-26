@@ -15,7 +15,7 @@
                         <% if (config.site_footerMail) { %>
                         <li aria-label="User mailing list" class="list-inline-item mx-2 h3" data-original-title="User mailing list" data-placement="top"
                             data-toggle="tooltip" title="">
-                            <a class="text-white" href="${config.site_footerMail}" rel="noopener noreferrer"
+                            <a class="text-white" href="mailto:${config.site_footerMail}" rel="noopener noreferrer"
                                target="_blank">
                                 <i class="fa fa-envelope"></i>
                             </a>
