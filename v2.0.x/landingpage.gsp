@@ -72,6 +72,20 @@
                 </div>
             </div>
         </div>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">publishToConfluence</h4>
+                    </div>
+                    <div class="card-body">
+                        Want to do Docs-as-Code but your team agreed on having all docs in a Wiki? <br />
+                        Publish your AsciiDoc documents to Confluence!
+                        <a class="btn btn-primary" href="015_tasks/03_task_publishToConfluence.html" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--div class="row row-cols-1">
             <div class="col">
                 <div class="card mb-12 shadow-sm">
