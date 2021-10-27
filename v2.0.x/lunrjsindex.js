@@ -42,6 +42,14 @@ var documents = [
 
 {
     "id": 5,
+    "uri": "025_development/020_run_tests.html",
+    "menu": "development",
+    "title": "How to run Tests",
+    "text": " Table of Contents How to run Tests Prerequisites Prepare the Project Execute Tests Proxy Setting for Tests How to run Tests 2 minutes to read Prerequisites make sure that Git and Graphviz are installed make sure that your Gradle setup is able to work with proxies use Java 8 Prepare the Project git clone git@github.com:docToolchain/docToolchain.git cd docToolchain/ git checkout V1.0.0 # (1) git submodule update -i the version to test. Not needed if you work on the HEAD revision on Master Execute Tests rm -r build &amp;&amp; ./gradlew test --info The rm command ensures that you really have a clean test running. Otherwise you might get false positives because Gradle will skip steps ('Up-to-date') because artifacts of an older test run still exist. Proxy Setting for Tests The docToolchain test setup is based on the Gradle-Test-Kit and makes use of the Spock test execution framework . The gradle test runner is started in its own test environment and its own JVM instance. As a result the global proxy settings are ignored. As workarund to execute the test with the correct proxy settings it is necessary to copy the proxy setting normally done in the in gradle.properties located in the user directory to the gradle.properties file located in the docToolchain folder itself. Note The files downloaded by the Gradle test Runner are placed in a different folder than the default gradle cache. You&#8217;ll find them in the Tmp folder: C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches "
+},
+
+{
+    "id": 6,
     "uri": "025_development/040_debugging.html",
     "menu": "development",
     "title": "Debugging",
@@ -49,19 +57,11 @@ var documents = [
 },
 
 {
-    "id": 6,
+    "id": 7,
     "uri": "025_development/030_create_new_release.html",
     "menu": "development",
     "title": "Create new Release",
     "text": " Table of Contents Create new Release Github docToolchain-Wrapper (dtcw) Dockerhub sdkman Create new Release 2 minutes to read We use semantic versioning and keep a changelog . Bot on a best effort base. A release consists of four parts: Github update version in gradle.properties update the changelog create a section for the version copy all unreleased features which will be in the release to the created section commit and push the new version Draft a new release copy the content of the changelog for this version to the description and submit set version as v X.Y.Z run ./gradlew createDist this creates a zip of the source in build which is the distribution file add this zip and submit the new release docToolchain-Wrapper (dtcw) update the version used in the wrapper dtcw dtcw.ps1 dtcw.bat Dockerhub The image build for rdmueller/doctoolchain depends on the github repository docToolchain/docker-image update the Dockerfile to reflect the new version create a new release reference the github release for changelog the build on dockerhub will be automatically triggered Important currently, the autobuild only works for paying customers. To manually build and upload the image, download the repository, switch to branch ng-beta , cd to the alpine folder and execute docker build -t rdmueller/doctoolchain:v2.0.0-rc15 . . Afterwards use docker desktop to push the resulting image to the hub. sdkman A github action has been created to deploy to sdkman: sdkman deploy . set version to the same as for the other relases but without the pre-pended v : X.Y.Z use as download link the link to the docToolchain-dist.zip from the github release (hint: looks like https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip ) "
-},
-
-{
-    "id": 7,
-    "uri": "025_development/020_run_tests.html",
-    "menu": "development",
-    "title": "How to run Tests",
-    "text": " Table of Contents How to run Tests Prerequisites Prepare the Project Execute Tests Proxy Setting for Tests How to run Tests 2 minutes to read Prerequisites make sure that Git and Graphviz are installed make sure that your Gradle setup is able to work with proxies use Java 8 Prepare the Project git clone git@github.com:docToolchain/docToolchain.git cd docToolchain/ git checkout V1.0.0 # (1) git submodule update -i the version to test. Not needed if you work on the HEAD revision on Master Execute Tests rm -r build &amp;&amp; ./gradlew test --info The rm command ensures that you really have a clean test running. Otherwise you might get false positives because Gradle will skip steps ('Up-to-date') because artifacts of an older test run still exist. Proxy Setting for Tests The docToolchain test setup is based on the Gradle-Test-Kit and makes use of the Spock test execution framework . The gradle test runner is started in its own test environment and its own JVM instance. As a result the global proxy settings are ignored. As workarund to execute the test with the correct proxy settings it is necessary to copy the proxy setting normally done in the in gradle.properties located in the user directory to the gradle.properties file located in the docToolchain folder itself. Note The files downloaded by the Gradle test Runner are placed in a different folder than the default gradle cache. You&#8217;ll find them in the Tmp folder: C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches "
 },
 
 {
@@ -74,6 +74,14 @@ var documents = [
 
 {
     "id": 9,
+    "uri": "020_tutorial/010_Install.html",
+    "menu": "tutorial",
+    "title": "Install docToolchain",
+    "text": " Table of Contents Welcome! How to install docToolchain Get the Wrapper run a first command Problems &amp; Solutions Welcome! Nice to meet you. Glad that you want to learn more about how to use docToolchain. Let&#8217;s start with the installation. The following steps are the same as described in the manual. Please follow them step by step. If you encounter problems, please create a github issue and the community will help you. How to install docToolchain 5 minutes to read Get the Wrapper The basic strategy on how to install docToolchain has changed with V2.x. You now install a small wrapper scripts to your project which does the rest for you: Linux / WSL2 with bash cd &lt;your project&gt; wget doctoolchain.github.io/dtcw chmod +x dtcw if you don&#8217;t have wget installed, you can also use curl : cd &lt;your project&gt; curl -Lo dtcw doctoolchain.github.io/dtcw chmod +x dtcw Windows with Powershell cd &lt;your project&gt; Invoke-WebRequest doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1 Windows with cmd.exe cd &lt;your project&gt; curl -Lo dtcw.bat doctoolchain.github.io/dtcw.bat dtcw.bat wraps the dtcw.ps1 script and executes it in powershell. This might be easier to use if you haven&#8217;t yet configured your powershell as a developer. In order to support development for your project on both, Linux and Windows, it makes sense to download all three scripts to your project. if you use cmd.exe , please follow the instructions for powershell in the manual. We will not further differentiate between both. dtcw uses bash as shell and thus tries to find java from within bash. Chances are that when you use dtcw from another shell like zsh, you shell knows about the right java version but your bash doesn&#8217;t. In that case, please switch to bash and make sure that the right java version is known. Afterwards, you can switch back to your shell. The wrapper helps you in several ways: it ensures that everyone who uses your repository, uses the same version of docToolchain it keeps all the technology out of your repository it wraps all your commands and directs them to your local docToolchain installation even more, it checks the way you have docToolchain installed and if it hasn&#8217;t been installed, it will install it for you via direct download or docker run a first command To get started, you can run tasks as a first command: Linux / WSL2 with bash ./dtcw tasks --group=doctoolchain Windows with Powershell ./dtcw.ps1 tasks --group=doctoolchain This command will show you all tasks available through docToolchain, but first it will make sure that docToolchain is installed: it checks for a configuration file and creates a default one if none is available. it prefers a local installation if docker is available and no local installation, it will use docker. The download of the images might take a while when run for the first time if docker is not available, it will download and install docToolchain to your home folder it will then run a gradle build through the gradle wrapper. This will download and install gradle when run for the first time. the gradle build will also fetch some dependencies. This will also take some time when run for the first time. As you can see, the installation is an incremental process and will take some time because of additional downloads. After the first few commands, you will have all the needed dependencies installed and things will be faster. Problems &amp; Solutions dtcw does not run When you get an error similiar to this one&#8230;&#8203; ./dtcw local tasks --group=doctoolchain ./dtcw: line 1: syntax error near unexpected token `newline' ./dtcw: line 1: `&lt;!DOCTYPE html&gt;' it is likely that the download of the wrapper didn&#8217;t work. Your will see that an HTML page has been downloaded instead of the wrapper. Please try to re-download it. wrong java version When docToolchain starts but crashes with a stacktrace that starts like this&#8230;&#8203; * What went wrong: Could not compile settings file '/Users/falk/.doctoolchain/docToolchain-2.0.0/settings.gradle'. &gt; startup failed: General error during semantic analysis: Unsupported class file major version 61 java.lang.IllegalArgumentException: Unsupported class file major version 61 then you&#8217;ve got a wrong java version. dtcw tries to check the java version upfront by doing a java --version but gradle sometimes picks up a different version. In that case, please try to re-install a correct java version. "
+},
+
+{
+    "id": 10,
     "uri": "020_tutorial/050_multipleRepositories.html",
     "menu": "tutorial",
     "title": "Multi-Repo",
@@ -81,7 +89,7 @@ var documents = [
 },
 
 {
-    "id": 10,
+    "id": 11,
     "uri": "020_tutorial/040_generateSite.html",
     "menu": "tutorial",
     "title": "generateSite",
@@ -89,7 +97,7 @@ var documents = [
 },
 
 {
-    "id": 11,
+    "id": 12,
     "uri": "020_tutorial/030_generateHTML.html",
     "menu": "tutorial",
     "title": "generateHTML &amp; generatePDF",
@@ -97,19 +105,11 @@ var documents = [
 },
 
 {
-    "id": 12,
+    "id": 13,
     "uri": "020_tutorial/020_arc42.html",
     "menu": "tutorial",
     "title": "arc42 Template",
     "text": " Table of Contents Get the arc42 Template Get the arc42 Template 2 minutes to read To work with docToolchain, you first need some documents. So let&#8217;s fetch the arc42 template for software architecture documentation. docToolchain comes with a task called downloadTemplate . Let&#8217;s invoke it and see what happens. Linux / WSL2 with bash ./dtcw downloadTemplate Windows with Powershell ./dtcw.ps1 downloadTemplate There is an interesting bug with the german version of the arc42 template in conjunction with running docToolchain in powershell: The encoding of the files will be wrong. To fix that, just run ./dtcw.ps1 fixEncoding . Result of downloadTemplate-Task $ ./dtcw downloadTemplate dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists use local homefolder install /home/rdmueller/.doctoolchain/ &gt; Configure project : arc42/arc42.adoc &gt; Task :downloadTemplate Install arc42 documentation template. For more information about arc42 see https://arc42.org [ant:input] Which language do you want to install? (EN, DE, ES, RU) &lt;-------------&gt; 0% EXECUTING [6s] [ant:input] Do you want the template with or without help? (withhelp, plain) &lt;-----&lt;-------------&gt; 0% EXECUTING [10s] Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-DE-withhelp-asciidoc.zip arc42 template unpacked into /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42 added template to docToolchainConfig.groovy use 'generateHTML', 'generatePDF' or 'generateSite' to convert the template BUILD SUCCESSFUL in 15s 1 actionable task: 1 executed Out of the box, docToolchain only knows the open source arc42 template for software architecture. That&#8217;s why it doesn&#8217;t ask which template to install. Since the template exists in four different languages and with or without help on how to use it, docToolchain asks you for these two parameters. It then downloads the template right from the source, unzips it and reformats it a little bit to fit the needs of docToolchain. It also adds the template to your configuration file. That&#8217;s it. You have now docToolchain with the arc42 template installed. Let&#8217;s render is as HTML, PDF or Microsite in the next steps. "
-},
-
-{
-    "id": 13,
-    "uri": "020_tutorial/010_Install.html",
-    "menu": "tutorial",
-    "title": "Install docToolchain",
-    "text": " Table of Contents Welcome! How to install docToolchain Get the Wrapper run a first command Problems &amp; Solutions Welcome! Nice to meet you. Glad that you want to learn more about how to use docToolchain. Let&#8217;s start with the installation. The following steps are the same as described in the manual. Please follow them step by step. If you encounter problems, please create a github issue and the community will help you. How to install docToolchain 5 minutes to read Get the Wrapper The basic strategy on how to install docToolchain has changed with V2.x. You now install a small wrapper scripts to your project which does the rest for you: Linux / WSL2 with bash cd &lt;your project&gt; wget doctoolchain.github.io/dtcw chmod +x dtcw if you don&#8217;t have wget installed, you can also use curl : cd &lt;your project&gt; curl -Lo dtcw doctoolchain.github.io/dtcw chmod +x dtcw Windows with Powershell cd &lt;your project&gt; Invoke-WebRequest doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1 Windows with cmd.exe cd &lt;your project&gt; curl -Lo dtcw.bat doctoolchain.github.io/dtcw.bat dtcw.bat wraps the dtcw.ps1 script and executes it in powershell. This might be easier to use if you haven&#8217;t yet configured your powershell as a developer. In order to support development for your project on both, Linux and Windows, it makes sense to download all three scripts to your project. if you use cmd.exe , please follow the instructions for powershell in the manual. We will not further differentiate between both. dtcw uses bash as shell and thus tries to find java from within bash. Chances are that when you use dtcw from another shell like zsh, you shell knows about the right java version but your bash doesn&#8217;t. In that case, please switch to bash and make sure that the right java version is known. Afterwards, you can switch back to your shell. The wrapper helps you in several ways: it ensures that everyone who uses your repository, uses the same version of docToolchain it keeps all the technology out of your repository it wraps all your commands and directs them to your local docToolchain installation even more, it checks the way you have docToolchain installed and if it hasn&#8217;t been installed, it will install it for you via direct download or docker run a first command To get started, you can run tasks as a first command: Linux / WSL2 with bash ./dtcw tasks --group=doctoolchain Windows with Powershell ./dtcw.ps1 tasks --group=doctoolchain This command will show you all tasks available through docToolchain, but first it will make sure that docToolchain is installed: it checks for a configuration file and creates a default one if none is available. it prefers a local installation if docker is available and no local installation, it will use docker. The download of the images might take a while when run for the first time if docker is not available, it will download and install docToolchain to your home folder it will then run a gradle build through the gradle wrapper. This will download and install gradle when run for the first time. the gradle build will also fetch some dependencies. This will also take some time when run for the first time. As you can see, the installation is an incremental process and will take some time because of additional downloads. After the first few commands, you will have all the needed dependencies installed and things will be faster. Problems &amp; Solutions dtcw does not run When you get an error similiar to this one&#8230;&#8203; ./dtcw local tasks --group=doctoolchain ./dtcw: line 1: syntax error near unexpected token `newline' ./dtcw: line 1: `&lt;!DOCTYPE html&gt;' it is likely that the download of the wrapper didn&#8217;t work. Your will see that an HTML page has been downloaded instead of the wrapper. Please try to re-download it. wrong java version When docToolchain starts but crashes with a stacktrace that starts like this&#8230;&#8203; * What went wrong: Could not compile settings file '/Users/falk/.doctoolchain/docToolchain-2.0.0/settings.gradle'. &gt; startup failed: General error during semantic analysis: Unsupported class file major version 61 java.lang.IllegalArgumentException: Unsupported class file major version 61 then you&#8217;ve got a wrong java version. dtcw tries to check the java version upfront by doing a java --version but gradle sometimes picks up a different version. In that case, please try to re-install a correct java version. "
 },
 
 {
@@ -234,14 +234,6 @@ var documents = [
 
 {
     "id": 29,
-    "uri": "015_tasks/03_task_fixencoding.html",
-    "menu": "tasks",
-    "title": "fixEncoding",
-    "text": " Table of Contents fixEncoding .gravatar img { margin-left: 3px; border-radius: 4px; } fixEncoding 1 minute to read Whenever Asciidoctor has to process a file which is not UTF-8 encoded, the underlying Ruby tries to read it and throws an error like this: asciidoctor: FAILED: /home/demo/test.adoc: Failed to load AsciiDoc document - invalid byte sequence in UTF-8 Unfortunately, it is hard to find the wrong encoded file if a lot of includes:: are used - Asciidoctor only shows the name of the main document. Note This is not a problem of Asciidoctor, but of the underlying ruby interpreter. This target crawls through all *.ad and *.adoc files and checks their encoding. If it encounters a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding. scripts/fixEncoding.gradle import groovy.util.* import static groovy.io.FileType.* task fixEncoding( description: 'finds and converts non UTF-8 adoc files to UTF-8', group: 'docToolchain helper', ) { doLast { File sourceFolder = new File(${docDir}/${inputPath}) println(sourceFolder:  + sourceFolder.canonicalPath) sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^.*(ad|adoc|asciidoc)$') { CharsetToolkit toolkit = new CharsetToolkit(file); // guess the encoding def guessedCharset = toolkit.getCharset().toString().toUpperCase(); if (guessedCharset!='UTF-8') { def text = file.text file.write(text, utf-8) println( converted ${file.name} from '${guessedCharset}' to 'UFT-8') } } } } } "
-},
-
-{
-    "id": 30,
     "uri": "015_tasks/03_task_publishToConfluence.html",
     "menu": "tasks",
     "title": "publishToConfluence",
@@ -249,23 +241,15 @@ var documents = [
 },
 
 {
+    "id": 30,
+    "uri": "015_tasks/03_task_fixencoding.html",
+    "menu": "tasks",
+    "title": "fixEncoding",
+    "text": " Table of Contents fixEncoding .gravatar img { margin-left: 3px; border-radius: 4px; } fixEncoding 1 minute to read Whenever Asciidoctor has to process a file which is not UTF-8 encoded, the underlying Ruby tries to read it and throws an error like this: asciidoctor: FAILED: /home/demo/test.adoc: Failed to load AsciiDoc document - invalid byte sequence in UTF-8 Unfortunately, it is hard to find the wrong encoded file if a lot of includes:: are used - Asciidoctor only shows the name of the main document. Note This is not a problem of Asciidoctor, but of the underlying ruby interpreter. This target crawls through all *.ad and *.adoc files and checks their encoding. If it encounters a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding. scripts/fixEncoding.gradle import groovy.util.* import static groovy.io.FileType.* task fixEncoding( description: 'finds and converts non UTF-8 adoc files to UTF-8', group: 'docToolchain helper', ) { doLast { File sourceFolder = new File(${docDir}/${inputPath}) println(sourceFolder:  + sourceFolder.canonicalPath) sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^.*(ad|adoc|asciidoc)$') { CharsetToolkit toolkit = new CharsetToolkit(file); // guess the encoding def guessedCharset = toolkit.getCharset().toString().toUpperCase(); if (guessedCharset!='UTF-8') { def text = file.text file.write(text, utf-8) println( converted ${file.name} from '${guessedCharset}' to 'UFT-8') } } } } } "
+},
+
+{
     "id": 31,
-    "uri": "015_tasks/03_task_dependencyUpdates.html",
-    "menu": "tasks",
-    "title": "dependencyUpdates",
-    "text": " Table of Contents dependencyUpdates .gravatar img { margin-left: 3px; border-radius: 4px; } dependencyUpdates 1 minute to read This task uses the Gradle versions plugin created by Ben Manes to check for outdated build dependencies. It is quite helpful to keep all dependencies up-to-date. Warning if you discover newer version, this does not mean that they will play nicely together. If you want to make sure that everything works, rely on the versions which the docToolchain contributors have selected. Tip Blog-Post: Handle Dependency Updates the easy Way "
-},
-
-{
-    "id": 32,
-    "uri": "015_tasks/03_task_convertToEpub.html",
-    "menu": "tasks",
-    "title": "convertToEpub",
-    "text": " Table of Contents convertToEpub Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToEpub 1 minute to read Dependency: generateDocBook This task uses pandoc to convert the DocBook output from AsciiDoctor to ePub. This way, you can read your documentation in a convenient way on an eBook-reader. The resulting file can be found in build/docs/epub Tip Blog-Post: Turn your Document into an Audio-Book Source pandoc.gradle task convertToEpub ( group: 'docToolchain', description: 'converts file to .epub via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `epub` in config.groovy is converted to docbook and then to epub. def sourceFilesEpub = sourceFiles.findAll { 'epub' in it.formats } sourceFilesEpub.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.epub') workingDir $targetDir/docbook executable = pandoc args = ['-r','docbook', '-t','epub', '-o',../epub/$targetFile, sourceFile] } doFirst { new File($targetDir/epub/).mkdirs() } } "
-},
-
-{
-    "id": 33,
     "uri": "015_tasks/03_task_generateDeck.html",
     "menu": "tasks",
     "title": "generateDeck",
@@ -273,15 +257,7 @@ var documents = [
 },
 
 {
-    "id": 34,
-    "uri": "015_tasks/03_task_exportPPT.html",
-    "menu": "tasks",
-    "title": "exportPPT",
-    "text": " Table of Contents exportPPT Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportPPT Important Currently this feature is WINDOWS-only. See related issue 1 minute to read Tip Blog-Post: Do more with Slides Note see asciidoctorj-office-extension for another way how you can use PPT slides in your docs. Source exportPPT.gradle task exportPPT( dependsOn: [streamingExecute], description: 'exports all slides and some texts from PPT files', group: 'docToolchain' ) { doLast { //make sure path for notes exists //and remove old notes new File(projectDir, 'src/docs/ppt').deleteDir() //also remove old diagrams new File(projectDir, 'src/docs/images/ppt').deleteDir() //create a readme to clarify things def readme = This folder contains exported slides or notes from .ppt presentations. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportPPT` to re-export files  new File(projectDir, 'src/docs/images/ppt/.').mkdirs() new File(projectDir, 'src/docs/images/ppt/readme.ad').write(readme) new File(projectDir, 'src/docs/ppt/.').mkdirs() new File(projectDir, 'src/docs/ppt/readme.ad').write(readme) //execute through cscript in order to make sure that we get WScript.echo right %SystemRoot%\\System32\\cscript.exe //nologo ${projectDir}/scripts/exportPPT.vbs.executeCmd() } } exportPPT.vbs Const ForAppending = 8 Const ppPlaceholderBody = 2 ' Helper ' http://windowsitpro.com/windows/jsi-tip-10441-how-can-vbscript-create-multiple-folders-path-mkdir-command Function MakeDir (strPath) Dim strParentPath, objFSO Set objFSO = CreateObject(Scripting.FileSystemObject) On Error Resume Next strParentPath = objFSO.GetParentFolderName(strPath) If Not objFSO.FolderExists(strParentPath) Then MakeDir strParentPath If Not objFSO.FolderExists(strPath) Then objFSO.CreateFolder strPath On Error Goto 0 MakeDir = objFSO.FolderExists(strPath) End Function Function SearchPresentations(path) For Each folder In path.SubFolders SearchPresentations folder Next For Each file In path.Files If (Left(fso.GetExtensionName (file.Path), 3) = ppt) OR (Left(fso.GetExtensionName (file.Path), 3) = pps) Then WScript.echo found &amp;file.path ExportSlides(file.Path) End If Next End Function Sub ExportSlides(sFile) Set objRegEx = CreateObject(VBScript.RegExp) objRegEx.Global = True objRegEx.IgnoreCase = True objRegEx.MultiLine = True ' . doesn't work for multiline in vbs, [\s,\S] does... objRegEx.Pattern = [\s,\S]*{adoc} ' http://www.pptfaq.com/FAQ00481_Export_the_notes_text_of_a_presentation.htm strFileName = fso.GetFIle(sFile).Name Set oPPT = CreateObject(PowerPoint.Application) Set oPres = oPPT.Presentations.Open(sFile, True, False, False) ' Read Only, No Title, No Window Set oSlides = oPres.Slides strNotesText =  strImagePath = /src/docs/images/ppt/ &amp; strFileName &amp; / MakeDir(. &amp; strImagePath) strNotesPath = /src/docs/ppt/ MakeDir(. &amp; strNotesPath) For Each oSl In oSlides strSlideName = oSl.Name ' WScript.echo fso.GetAbsolutePathName(.) &amp; strImagePath &amp; strSlideName &amp; .jpg oSl.Export fso.GetAbsolutePathName(.) &amp; strImagePath &amp; strSlideName &amp; .jpg, .jpg For Each oSh In oSl.NotesPage.Shapes If oSh.PlaceholderFormat.Type = ppPlaceholderBody Then If oSh.HasTextFrame Then If oSh.TextFrame.HasText Then strCurrentNotes = oSh.TextFrame.TextRange.Text strCurrentNotes = Replace(strCurrentNotes,vbVerticalTab, vbCrLf) strCurrentNotes = Replace(strCurrentNotes,{slide},image::ppt/&amp;strFileName&amp;/&amp;strSlideName&amp;.jpg[]) ' remove speaker notes before marker {adoc} strCurrentNotes = objRegEx.Replace(strCurrentNotes,) strNotesText = strNotesText &amp; vbCrLf &amp; strCurrentNotes &amp; vbCrLf &amp; vbCrLf End If End If End If Next Next ' WScript.echo fso.GetAbsolutePathName(.) &amp; strNotesPath&amp;&amp;strFileName&amp;.ad ' http://stackoverflow.com/questions/2524703/save-text-file-utf-8-encoded-with-vba Set fsT = CreateObject(ADODB.Stream) fsT.Type = 2 'Specify stream type - we want To save text/string data. fsT.Charset = utf-8 'Specify charset For the source text data. fsT.Open 'Open the stream And write binary data To the object fsT.WriteText ifndef::imagesdir[:imagesdir: ../../images]&amp;vbCrLf&amp;CStr(strNotesText) fsT.SaveToFile fso.GetAbsolutePathName(.) &amp; strNotesPath&amp;&amp;strFileName&amp;.ad, 2 'Save binary data To disk oPres.Close() oPPT.Quit() End Sub set fso = CreateObject(Scripting.fileSystemObject) WScript.echo Slide extractor WScript.echo looking for .ppt files in  &amp; fso.GetAbsolutePathName(.) &amp; /src SearchPresentations fso.GetFolder(./src) WScript.echo finished exporting slides "
-},
-
-{
-    "id": 35,
+    "id": 32,
     "uri": "015_tasks/03_task_exportContributors.html",
     "menu": "tasks",
     "title": "exportContributors",
@@ -289,23 +265,15 @@ var documents = [
 },
 
 {
-    "id": 36,
-    "uri": "015_tasks/03_task_downloadTemplate.html",
+    "id": 33,
+    "uri": "015_tasks/03_task_dependencyUpdates.html",
     "menu": "tasks",
-    "title": "downloadTemplate",
-    "text": " Table of Contents downloadTemplate .gravatar img { margin-left: 3px; border-radius: 4px; } downloadTemplate 1 minute to read "
+    "title": "dependencyUpdates",
+    "text": " Table of Contents dependencyUpdates .gravatar img { margin-left: 3px; border-radius: 4px; } dependencyUpdates 1 minute to read This task uses the Gradle versions plugin created by Ben Manes to check for outdated build dependencies. It is quite helpful to keep all dependencies up-to-date. Warning if you discover newer version, this does not mean that they will play nicely together. If you want to make sure that everything works, rely on the versions which the docToolchain contributors have selected. Tip Blog-Post: Handle Dependency Updates the easy Way "
 },
 
 {
-    "id": 37,
-    "uri": "015_tasks/03_task_createReferenceDoc.html",
-    "menu": "tasks",
-    "title": "createReferenceDoc",
-    "text": " Table of Contents createReferenceDoc Source .gravatar img { margin-left: 3px; border-radius: 4px; } createReferenceDoc Needs pandoc installed 1 minute to read Creates a reference docx file used by pandoc during conversion from docbook to docx. You can edit this file to use your preferred styles in task convertToDocx . Please make sure that 'referenceDocFile' property is set to your custom reference file in Config.groovy Excerpt of Config.groovy with property 'referenceDocFile' inputPath = '.' // use a style reference file in the input path for conversion from docbook to docx referenceDocFile = ${inputPath}/my-ref-file.docx Important The contents of the reference docx are ignored, but its stylesheets and document properties (including margins, page size, header, and footer) are used in the new docx. See Pandoc User&#8217;s Guide: Options affecting specific writers (--reference-doc) If you have problems with changing the default table style: see https://github.com/jgm/pandoc/issues/3275 . Source pandoc.gradle task createReferenceDoc ( group: 'docToolchain helper', description: 'creates a docx file to be used as a format style reference in task convertToDocx. Needs pandoc installed.', type: Exec ) { workingDir $docDir executable = pandoc args = [-o, ${docDir}/${referenceDocFile}, --print-default-data-file, reference.docx] doFirst { if(!(referenceDocFile?.trim())) { throw new GradleException(Option `referenceDocFile` is not defined in config.groovy or has an empty value.) } } } "
-},
-
-{
-    "id": 38,
+    "id": 34,
     "uri": "015_tasks/03_task_copy_themes.html",
     "menu": "tasks",
     "title": "copyThemes",
@@ -313,7 +281,23 @@ var documents = [
 },
 
 {
-    "id": 39,
+    "id": 35,
+    "uri": "015_tasks/03_task_convertToEpub.html",
+    "menu": "tasks",
+    "title": "convertToEpub",
+    "text": " Table of Contents convertToEpub Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToEpub 1 minute to read Dependency: generateDocBook This task uses pandoc to convert the DocBook output from AsciiDoctor to ePub. This way, you can read your documentation in a convenient way on an eBook-reader. The resulting file can be found in build/docs/epub Tip Blog-Post: Turn your Document into an Audio-Book Source pandoc.gradle task convertToEpub ( group: 'docToolchain', description: 'converts file to .epub via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `epub` in config.groovy is converted to docbook and then to epub. def sourceFilesEpub = sourceFiles.findAll { 'epub' in it.formats } sourceFilesEpub.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.epub') workingDir $targetDir/docbook executable = pandoc args = ['-r','docbook', '-t','epub', '-o',../epub/$targetFile, sourceFile] } doFirst { new File($targetDir/epub/).mkdirs() } } "
+},
+
+{
+    "id": 36,
+    "uri": "015_tasks/03_task_exportPPT.html",
+    "menu": "tasks",
+    "title": "exportPPT",
+    "text": " Table of Contents exportPPT Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportPPT Important Currently this feature is WINDOWS-only. See related issue 1 minute to read Tip Blog-Post: Do more with Slides Note see asciidoctorj-office-extension for another way how you can use PPT slides in your docs. Source exportPPT.gradle task exportPPT( dependsOn: [streamingExecute], description: 'exports all slides and some texts from PPT files', group: 'docToolchain' ) { doLast { //make sure path for notes exists //and remove old notes new File(projectDir, 'src/docs/ppt').deleteDir() //also remove old diagrams new File(projectDir, 'src/docs/images/ppt').deleteDir() //create a readme to clarify things def readme = This folder contains exported slides or notes from .ppt presentations. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportPPT` to re-export files  new File(projectDir, 'src/docs/images/ppt/.').mkdirs() new File(projectDir, 'src/docs/images/ppt/readme.ad').write(readme) new File(projectDir, 'src/docs/ppt/.').mkdirs() new File(projectDir, 'src/docs/ppt/readme.ad').write(readme) //execute through cscript in order to make sure that we get WScript.echo right %SystemRoot%\\System32\\cscript.exe //nologo ${projectDir}/scripts/exportPPT.vbs.executeCmd() } } exportPPT.vbs Const ForAppending = 8 Const ppPlaceholderBody = 2 ' Helper ' http://windowsitpro.com/windows/jsi-tip-10441-how-can-vbscript-create-multiple-folders-path-mkdir-command Function MakeDir (strPath) Dim strParentPath, objFSO Set objFSO = CreateObject(Scripting.FileSystemObject) On Error Resume Next strParentPath = objFSO.GetParentFolderName(strPath) If Not objFSO.FolderExists(strParentPath) Then MakeDir strParentPath If Not objFSO.FolderExists(strPath) Then objFSO.CreateFolder strPath On Error Goto 0 MakeDir = objFSO.FolderExists(strPath) End Function Function SearchPresentations(path) For Each folder In path.SubFolders SearchPresentations folder Next For Each file In path.Files If (Left(fso.GetExtensionName (file.Path), 3) = ppt) OR (Left(fso.GetExtensionName (file.Path), 3) = pps) Then WScript.echo found &amp;file.path ExportSlides(file.Path) End If Next End Function Sub ExportSlides(sFile) Set objRegEx = CreateObject(VBScript.RegExp) objRegEx.Global = True objRegEx.IgnoreCase = True objRegEx.MultiLine = True ' . doesn't work for multiline in vbs, [\s,\S] does... objRegEx.Pattern = [\s,\S]*{adoc} ' http://www.pptfaq.com/FAQ00481_Export_the_notes_text_of_a_presentation.htm strFileName = fso.GetFIle(sFile).Name Set oPPT = CreateObject(PowerPoint.Application) Set oPres = oPPT.Presentations.Open(sFile, True, False, False) ' Read Only, No Title, No Window Set oSlides = oPres.Slides strNotesText =  strImagePath = /src/docs/images/ppt/ &amp; strFileName &amp; / MakeDir(. &amp; strImagePath) strNotesPath = /src/docs/ppt/ MakeDir(. &amp; strNotesPath) For Each oSl In oSlides strSlideName = oSl.Name ' WScript.echo fso.GetAbsolutePathName(.) &amp; strImagePath &amp; strSlideName &amp; .jpg oSl.Export fso.GetAbsolutePathName(.) &amp; strImagePath &amp; strSlideName &amp; .jpg, .jpg For Each oSh In oSl.NotesPage.Shapes If oSh.PlaceholderFormat.Type = ppPlaceholderBody Then If oSh.HasTextFrame Then If oSh.TextFrame.HasText Then strCurrentNotes = oSh.TextFrame.TextRange.Text strCurrentNotes = Replace(strCurrentNotes,vbVerticalTab, vbCrLf) strCurrentNotes = Replace(strCurrentNotes,{slide},image::ppt/&amp;strFileName&amp;/&amp;strSlideName&amp;.jpg[]) ' remove speaker notes before marker {adoc} strCurrentNotes = objRegEx.Replace(strCurrentNotes,) strNotesText = strNotesText &amp; vbCrLf &amp; strCurrentNotes &amp; vbCrLf &amp; vbCrLf End If End If End If Next Next ' WScript.echo fso.GetAbsolutePathName(.) &amp; strNotesPath&amp;&amp;strFileName&amp;.ad ' http://stackoverflow.com/questions/2524703/save-text-file-utf-8-encoded-with-vba Set fsT = CreateObject(ADODB.Stream) fsT.Type = 2 'Specify stream type - we want To save text/string data. fsT.Charset = utf-8 'Specify charset For the source text data. fsT.Open 'Open the stream And write binary data To the object fsT.WriteText ifndef::imagesdir[:imagesdir: ../../images]&amp;vbCrLf&amp;CStr(strNotesText) fsT.SaveToFile fso.GetAbsolutePathName(.) &amp; strNotesPath&amp;&amp;strFileName&amp;.ad, 2 'Save binary data To disk oPres.Close() oPPT.Quit() End Sub set fso = CreateObject(Scripting.fileSystemObject) WScript.echo Slide extractor WScript.echo looking for .ppt files in  &amp; fso.GetAbsolutePathName(.) &amp; /src SearchPresentations fso.GetFolder(./src) WScript.echo finished exporting slides "
+},
+
+{
+    "id": 37,
     "uri": "015_tasks/03_task_exportOpenApi.html",
     "menu": "tasks",
     "title": "exportOpenAPI",
@@ -321,23 +305,7 @@ var documents = [
 },
 
 {
-    "id": 40,
-    "uri": "015_tasks/03_task_exportMetrics.html",
-    "menu": "tasks",
-    "title": "exportMetrics",
-    "text": " Table of Contents exportMetrics .gravatar img { margin-left: 3px; border-radius: 4px; } exportMetrics 1 minute to read This tasks crawls through all Asciidoctor source files and extracts the number of words in each file. At the end, it displays the number of words overall. This task ist currently only intended to give you an output on the commandline to measure your writing progress. "
-},
-
-{
-    "id": 41,
-    "uri": "015_tasks/03_task_exportJiraIssues.html",
-    "menu": "tasks",
-    "title": "exportJiraIssues",
-    "text": " Table of Contents exportJiraIssues Configuration Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportJiraIssues 1 minute to read This task exports all issues for a given query(s) from Jira as AsciiDoc table or Excel file. The configuration for this task can be found within Config.gradle ( gradle.properties can be used as a fallback configuration). Username/Password is deprecated, so you have to use username/API-token instead. An API-Token can be created through https://id.atlassian.com/manage/api-tokens . It is encouraged to keep username and API token out of git repository and to pass it as environment variables to the docToolchain. Tip Blog-Post: Living Documents for Agile Projects Configuration Jira configuration support list requests to Jira where results of each requests will be saved in a file with specifies filename. Flags saveAsciidoc &amp; saveExcel allow users to easily configure in which format results should be saved. Important Old configuration based on single Jira query is deprecated (single 'jql' parameter). Support for it will be removed in the near future. Please migrate to the new configuration that allows multiple Jira queries. Config.groovy Unresolved directive in &lt;stdin&gt; - include::/home/runner/.doctoolchain/docToolchain-2.0.1/Config.groovy[tags=jiraConfig] Source exportJiraIssues.gradle task exportJiraIssues( description: 'exports all jira issues from a given search', group: 'docToolchain' ) { doLast { final String taskSubfolderName = config.jira.resultsFolder final File targetFolder = new File(targetDir + File.separator + taskSubfolderName) if (!targetFolder.exists()) targetFolder.mkdirs() logger.debug(Output folder for 'exportJiraIssues' task is: '${targetFolder}') // map configuration from Config.groovy to existing variables for compatibility with naming of Jira settings in gradle.properties def jiraRoot = config.jira.api def jiraProject = config.jira.project def jiraLabel = config.jira.label def jiraResultsFilename = config.jira.resultsFilename def jiraDateTimeFormatParse = config.jira.dateTimeFormatParse def jiraDateTimeOutput = config.jira.dateTimeFormatOutput def defaultFields = 'priority,created,resolutiondate,summary,assignee,status' def jira = new groovyx.net.http.RESTClient(jiraRoot + '/rest/api/2/') jira.encoderRegistry = new groovyx.net.http.EncoderRegistry(charset: 'utf-8') def headers = [ 'Authorization': Basic  + config.jira.credentials, 'Content-Type' : 'application/json; charset=utf-8' ] def jiraRequests = config.jira.requests if (config.jira.jql) { logger.warn(&gt;&gt;&gt;Found legacy Jira requests. Please migrate to the new Jira configuration ASAP. Old config with jql will be removed soon) writeAsciiDocFileForLegacyConfiguration(targetFolder, jira, headers, config.jira) } jiraRequests.each {rq -&gt; logger.quiet(Request to Jira API for '${rq.filename}' with query: '${rq.jql}') def allHeaders = ${defaultFields},${rq.customfields.values().join(,)} def allFieldIds = ${defaultFields},${rq.customfields.keySet().join(,)} logger.quiet(Preparing headers for default &amp; custom fields: ${allHeaders}) logger.quiet(Preparing field IDs for default &amp; custom fields: ${allFieldIds}) // Save AsciiDoc file if (config.jira.saveAsciidoc) { def extension = 'adoc' jiraResultsFilename = ${rq.filename}.${extension} logger.info(Results will be saved in '${rq.filename}.${extension}' file) def jiraDataAsciidoc = new File(targetFolder, ${rq.filename}.${extension}) jiraDataAsciidoc.write(.${rq.filename}\n, 'utf-8') jiraDataAsciidoc.append(|=== \n) // AsciiDoc table headers (custom fields map needs values here) jiraDataAsciidoc.append(|Key , 'utf-8') allHeaders.split(,).each {field -&gt; jiraDataAsciidoc.append(|${field.capitalize()} , 'utf-8') } jiraDataAsciidoc.append(\n, 'utf-8') jira.get(path: 'search', query: ['jql' : rq.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel), 'maxResults': 1000, fields: ${allFieldIds} ], headers: headers ).data.issues.each { issue -&gt; //logger.quiet(&gt;&gt; Whole issue ${issue.key}:\n ${issue.fields}) jiraDataAsciidoc.append(| ${jiraRoot}/browse/${issue.key}[${issue.key}] , 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.priority.name} , 'utf-8') jiraDataAsciidoc.append(| ${Date.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)} , 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''} , 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.summary} , 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}, 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.status.name} , 'utf-8') rq.customfields.each { field -&gt; def foundCustom = issue.fields.find {it.key == field.key} //logger.quiet(Examining issue '${issue.key}' for custom field '${field.key}' has found: '${foundCustom}') jiraDataAsciidoc.append(| ${foundCustom ? foundCustom.value : '-'}\n, 'utf-8') } } jiraDataAsciidoc.append(|=== \n) } else { logger.quiet(Set saveAsciidoc=true in '${mainConfigFile}' to save results in AsciiDoc file) } // Save Excel file if (config.jira.saveExcel) { def extension = 'xlsx' jiraResultsFilename = ${rq.filename}.${extension} logger.quiet(&gt;&gt; Results will be saved in '${rq.filename}.${extension}' file) //def jiraDataAsciidoc = new File(targetFolder, ${rq.filename}.${extension}) def jiraDataXls = new File(targetFolder, jiraResultsFilename) def jiraFos = new FileOutputStream(jiraDataXls) Workbook wb = new XSSFWorkbook(); CreationHelper hyperlinkHelper = wb.getCreationHelper(); def sheetName = ${rq.filename} def ws = wb.createSheet(sheetName) String rgbS = A7A7A7 byte[] rgbB = Hex.decodeHex(rgbS) XSSFColor color = new XSSFColor(rgbB, null) //IndexedColorMap has no usage until now. So it can be set null. XSSFCellStyle headerCellStyle = (XSSFCellStyle) wb.createCellStyle() headerCellStyle.setFillForegroundColor(color) headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND) def titleRow = ws.createRow(0); int cellNumber = 0; titleRow.createCell(cellNumber).setCellValue(Key) allHeaders.split(,).each {field -&gt; titleRow.createCell(++cellNumber).setCellValue(${field.capitalize()}) } def lastRow = titleRow.getRowNum() titleRow.setRowStyle(headerCellStyle) jira.get(path: 'search', query: ['jql' : rq.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel), 'maxResults': 1000, fields: ${allFieldIds} ], headers: headers ).data.issues.each { issue -&gt; int cellPosition = 0 def row = ws.createRow(++lastRow) Hyperlink link = hyperlinkHelper.createHyperlink(HyperlinkType.URL) link.setAddress(${jiraRoot}/browse/${issue.key}) Cell cellWithUrl = row.createCell(cellPosition) cellWithUrl.setCellValue(${issue.key}) cellWithUrl.setHyperlink(link) row.createCell(++cellPosition).setCellValue(${issue.fields.priority.name}) row.createCell(++cellPosition).setCellValue(${Date.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)}) row.createCell(++cellPosition).setCellValue(${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''}) row.createCell(++cellPosition).setCellValue(${issue.fields.summary}) row.createCell(++cellPosition).setCellValue(${issue.fields.assignee ? issue.fields.assignee.displayName : ''}) row.createCell(++cellPosition).setCellValue(${issue.fields.status.name}) // Custom fields rq.customfields.each { field -&gt; def position = ++cellPosition def foundCustom = issue.fields.find {it.key == field.key} row.createCell(position).setCellValue(${foundCustom ? foundCustom.value : '-'}) } } // set jira issue key column fits the content width for(int colNum = 0; colNum&lt;allHeaders.size()+1;colNum++) { ws.autoSizeColumn(colNum) } // Set summary column width slightly wider but fixed size, so it doesn't change with every summary update ws.setColumnWidth(4, 25*384) wb.write(jiraFos) } else { logger.quiet(Set saveExcel=true in '${mainConfigFile}' to save results in Excel file) } } } } // This method can be removed when support for legacy Jira configuration is gone def writeAsciiDocFileForLegacyConfiguration(def targetFolder, def restClient, def headers, def jiraConfig) { def resultsFilename = ${jiraConfig.resultsFilename}_legacy.adoc def openIssues = new File(targetFolder, ${resultsFilename}) openIssues.write(.Table {Title}\n, 'utf-8') openIssues.append(|=== \n) openIssues.append(|Key |Priority |Created | Assignee | Summary\n, 'utf-8') def legacyJql = jiraConfig.jql.replaceAll('%jiraProject%', config.jira.project).replaceAll('%jiraLabel%', config.jira.label) println (Results for legacy query '${legacyJql}' will be saved in '${resultsFilename}' file) restClient.get(path: 'search', query: ['jql' : legacyJql, 'maxResults': 1000, 'fields' : 'created,resolutiondate,priority,summary,timeoriginalestimate, assignee' ], headers: headers ).data.issues.each { issue -&gt; openIssues.append(| ${jiraRoot}/browse/${issue.key}[${issue.key}] , 'utf-8') openIssues.append(| ${issue.fields.priority.name} , 'utf-8') openIssues.append(| ${Date.parse(jiraConfig.dateTimeFormatParse, issue.fields.created).format(jiraConfig.dateTimeFormatOutput)} , 'utf-8') openIssues.append(| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}, 'utf-8') openIssues.append(| ${issue.fields.summary} , 'utf-8') } openIssues.append(|=== \n) } "
-},
-
-{
-    "id": 42,
+    "id": 38,
     "uri": "015_tasks/03_task_exportEA.html",
     "menu": "tasks",
     "title": "exportEA",
@@ -345,23 +313,23 @@ var documents = [
 },
 
 {
-    "id": 43,
-    "uri": "015_tasks/03_task_htmlSanityCheck.html",
+    "id": 39,
+    "uri": "015_tasks/03_task_downloadTemplate.html",
     "menu": "tasks",
-    "title": "htmlSanityCheck",
-    "text": " Table of Contents htmlSanityCheck Source .gravatar img { margin-left: 3px; border-radius: 4px; } htmlSanityCheck 1 minute to read This task invokes the htmlSanityCheck gradle plugin. It is a standalone (batch- and command-line) html sanity checker - it detects missing images, dead links, and duplicate bookmarks. In docToolchain, this task is used to ensure that the generated HTML contains no missing links or other problems. This task is the last default task and creates a report in build/report/htmlchecks/index.html Figure 1. sample report Further information can be found on GitHub: https://github.com/aim42/htmlSanityCheck Tip Blog-Post: Automated Quality-Checks Source htmlSanityCheck.gradle htmlSanityCheck { sourceDir = new File(config.htmlSanityCheck.sourceDir?:$targetDir/html5) // files to check - in Set-notation //sourceDocuments = [ one-file.html, another-file.html, index.html] // where to put results of sanityChecks... checkingResultsDir = new File(config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath) // directory where the results written to in JUnit XML format junitResultsDir = new File(config.htmlSanityCheck.junitResultsDir?:$targetDir/test-results/htmlchecks) // which statuscodes shall be interpreted as warning, error or success defaults to standard httpSuccessCodes = config.htmlSanityCheck.httpSuccessCodes?:[] httpWarningCodes = config.htmlSanityCheck.httpWarningCodes?:[] httpErrorCodes = config.htmlSanityCheck.httpErrorCodes?:[] // fail build on errors? failOnErrors = config.htmlSanityCheck.failOnErrors?:false logger.info docToolchain&gt; HSC sourceDir: ${sourceDir} logger.info docToolchain&gt; HSC checkingResultsDir: ${checkingResultsDir} } "
+    "title": "downloadTemplate",
+    "text": " Table of Contents downloadTemplate .gravatar img { margin-left: 3px; border-radius: 4px; } downloadTemplate 1 minute to read "
 },
 
 {
-    "id": 44,
-    "uri": "015_tasks/03_task_generatePDF.html",
+    "id": 40,
+    "uri": "015_tasks/03_task_createReferenceDoc.html",
     "menu": "tasks",
-    "title": "generatePDF",
-    "text": " Table of Contents generatePDF Source .gravatar img { margin-left: 3px; border-radius: 4px; } generatePDF 2 minutes to read This task makes use of the asciidoctor-pdf plugin to render your documents as a pretty PDF file. The file will be written to build/pdf . Note The used plugin is still in alpha status, but the results are already quite good. If you want to use another way to create a PDF, use PhantomJS for instance and script it. The PDF is generated directly from your AsciiDoc sources without the need of an intermediate format or other tools. The result looks more like a nicely rendered book than a print-to-pdf HTML page. It is very likely that you need to theme you PDF - change colors, fonts, page header, and footer. This can be done by creating a custom-theme.yml file. As a starting point, copy the file src/docs/pdfTheme/custom-theme.yml from docToolchain to your project and reference it from your main .adoc`file via setting the `:pdf-stylesdir: . For instance, insert :pdf-stylesdir: ../pdfTheme at the top of your document to reference the custom-theme.yml from the /pdfTheme folder. Documentation on how to modify a theme can be found in the asciidoctor-pdf theming guide . Tip Blog-Post: Beyond HTML Source AsciiDocBasics.gradle task generatePDF ( type: AsciidoctorTask, group: 'docToolchain', description: 'use pdf as asciidoc backend') { attributes ( 'plantUMLDir' : file(${docDir}/${config.outputPath}/pdf/images/plantUML/).path, ) attributes ( 'data-uri': 'true', 'plantUMLDir' : file(${docDir}/${config.outputPath}/images/).path, 'imagesoutdir' : file(${docDir}/${config.outputPath}/images/).path ) def sourceFilesPDF = sourceFiles.findAll { 'pdf' in it.formats } // onlyIf { // sourceFilesPDF // } sources { sourceFilesPDF.each { include it.file } } backends = ['pdf'] /** //check if a remote pdfTheme is defined def pdfTheme = System.getenv('DTC_PDFTHEME') def themeFolder = pdfTheme.md5() if (pdfTheme) { //check if it is already installed //TODO: finish this... } **/ doFirst { if (sourceFilesPDF.size()==0) { throw new Exception ( &gt;&gt; No source files defined for type PDF. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy ) } } } "
+    "title": "createReferenceDoc",
+    "text": " Table of Contents createReferenceDoc Source .gravatar img { margin-left: 3px; border-radius: 4px; } createReferenceDoc Needs pandoc installed 1 minute to read Creates a reference docx file used by pandoc during conversion from docbook to docx. You can edit this file to use your preferred styles in task convertToDocx . Please make sure that 'referenceDocFile' property is set to your custom reference file in Config.groovy Excerpt of Config.groovy with property 'referenceDocFile' inputPath = '.' // use a style reference file in the input path for conversion from docbook to docx referenceDocFile = ${inputPath}/my-ref-file.docx Important The contents of the reference docx are ignored, but its stylesheets and document properties (including margins, page size, header, and footer) are used in the new docx. See Pandoc User&#8217;s Guide: Options affecting specific writers (--reference-doc) If you have problems with changing the default table style: see https://github.com/jgm/pandoc/issues/3275 . Source pandoc.gradle task createReferenceDoc ( group: 'docToolchain helper', description: 'creates a docx file to be used as a format style reference in task convertToDocx. Needs pandoc installed.', type: Exec ) { workingDir $docDir executable = pandoc args = [-o, ${docDir}/${referenceDocFile}, --print-default-data-file, reference.docx] doFirst { if(!(referenceDocFile?.trim())) { throw new GradleException(Option `referenceDocFile` is not defined in config.groovy or has an empty value.) } } } "
 },
 
 {
-    "id": 45,
+    "id": 41,
     "uri": "015_tasks/03_task_generateHTML.html",
     "menu": "tasks",
     "title": "generateHTML",
@@ -369,7 +337,23 @@ var documents = [
 },
 
 {
-    "id": 46,
+    "id": 42,
+    "uri": "015_tasks/03_task_exportMetrics.html",
+    "menu": "tasks",
+    "title": "exportMetrics",
+    "text": " Table of Contents exportMetrics .gravatar img { margin-left: 3px; border-radius: 4px; } exportMetrics 1 minute to read This tasks crawls through all Asciidoctor source files and extracts the number of words in each file. At the end, it displays the number of words overall. This task ist currently only intended to give you an output on the commandline to measure your writing progress. "
+},
+
+{
+    "id": 43,
+    "uri": "015_tasks/03_task_exportJiraIssues.html",
+    "menu": "tasks",
+    "title": "exportJiraIssues",
+    "text": " Table of Contents exportJiraIssues Configuration Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportJiraIssues 1 minute to read This task exports all issues for a given query(s) from Jira as AsciiDoc table or Excel file. The configuration for this task can be found within Config.gradle ( gradle.properties can be used as a fallback configuration). Username/Password is deprecated, so you have to use username/API-token instead. An API-Token can be created through https://id.atlassian.com/manage/api-tokens . It is encouraged to keep username and API token out of git repository and to pass it as environment variables to the docToolchain. Tip Blog-Post: Living Documents for Agile Projects Configuration Jira configuration support list requests to Jira where results of each requests will be saved in a file with specifies filename. Flags saveAsciidoc &amp; saveExcel allow users to easily configure in which format results should be saved. Important Old configuration based on single Jira query is deprecated (single 'jql' parameter). Support for it will be removed in the near future. Please migrate to the new configuration that allows multiple Jira queries. Config.groovy Unresolved directive in &lt;stdin&gt; - include::/home/runner/.doctoolchain/docToolchain-2.0.1/Config.groovy[tags=jiraConfig] Source exportJiraIssues.gradle task exportJiraIssues( description: 'exports all jira issues from a given search', group: 'docToolchain' ) { doLast { final String taskSubfolderName = config.jira.resultsFolder final File targetFolder = new File(targetDir + File.separator + taskSubfolderName) if (!targetFolder.exists()) targetFolder.mkdirs() logger.debug(Output folder for 'exportJiraIssues' task is: '${targetFolder}') // map configuration from Config.groovy to existing variables for compatibility with naming of Jira settings in gradle.properties def jiraRoot = config.jira.api def jiraProject = config.jira.project def jiraLabel = config.jira.label def jiraResultsFilename = config.jira.resultsFilename def jiraDateTimeFormatParse = config.jira.dateTimeFormatParse def jiraDateTimeOutput = config.jira.dateTimeFormatOutput def defaultFields = 'priority,created,resolutiondate,summary,assignee,status' def jira = new groovyx.net.http.RESTClient(jiraRoot + '/rest/api/2/') jira.encoderRegistry = new groovyx.net.http.EncoderRegistry(charset: 'utf-8') def headers = [ 'Authorization': Basic  + config.jira.credentials, 'Content-Type' : 'application/json; charset=utf-8' ] def jiraRequests = config.jira.requests if (config.jira.jql) { logger.warn(&gt;&gt;&gt;Found legacy Jira requests. Please migrate to the new Jira configuration ASAP. Old config with jql will be removed soon) writeAsciiDocFileForLegacyConfiguration(targetFolder, jira, headers, config.jira) } jiraRequests.each {rq -&gt; logger.quiet(Request to Jira API for '${rq.filename}' with query: '${rq.jql}') def allHeaders = ${defaultFields},${rq.customfields.values().join(,)} def allFieldIds = ${defaultFields},${rq.customfields.keySet().join(,)} logger.quiet(Preparing headers for default &amp; custom fields: ${allHeaders}) logger.quiet(Preparing field IDs for default &amp; custom fields: ${allFieldIds}) // Save AsciiDoc file if (config.jira.saveAsciidoc) { def extension = 'adoc' jiraResultsFilename = ${rq.filename}.${extension} logger.info(Results will be saved in '${rq.filename}.${extension}' file) def jiraDataAsciidoc = new File(targetFolder, ${rq.filename}.${extension}) jiraDataAsciidoc.write(.${rq.filename}\n, 'utf-8') jiraDataAsciidoc.append(|=== \n) // AsciiDoc table headers (custom fields map needs values here) jiraDataAsciidoc.append(|Key , 'utf-8') allHeaders.split(,).each {field -&gt; jiraDataAsciidoc.append(|${field.capitalize()} , 'utf-8') } jiraDataAsciidoc.append(\n, 'utf-8') jira.get(path: 'search', query: ['jql' : rq.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel), 'maxResults': 1000, fields: ${allFieldIds} ], headers: headers ).data.issues.each { issue -&gt; //logger.quiet(&gt;&gt; Whole issue ${issue.key}:\n ${issue.fields}) jiraDataAsciidoc.append(| ${jiraRoot}/browse/${issue.key}[${issue.key}] , 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.priority.name} , 'utf-8') jiraDataAsciidoc.append(| ${Date.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)} , 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''} , 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.summary} , 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}, 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.status.name} , 'utf-8') rq.customfields.each { field -&gt; def foundCustom = issue.fields.find {it.key == field.key} //logger.quiet(Examining issue '${issue.key}' for custom field '${field.key}' has found: '${foundCustom}') jiraDataAsciidoc.append(| ${foundCustom ? foundCustom.value : '-'}\n, 'utf-8') } } jiraDataAsciidoc.append(|=== \n) } else { logger.quiet(Set saveAsciidoc=true in '${mainConfigFile}' to save results in AsciiDoc file) } // Save Excel file if (config.jira.saveExcel) { def extension = 'xlsx' jiraResultsFilename = ${rq.filename}.${extension} logger.quiet(&gt;&gt; Results will be saved in '${rq.filename}.${extension}' file) //def jiraDataAsciidoc = new File(targetFolder, ${rq.filename}.${extension}) def jiraDataXls = new File(targetFolder, jiraResultsFilename) def jiraFos = new FileOutputStream(jiraDataXls) Workbook wb = new XSSFWorkbook(); CreationHelper hyperlinkHelper = wb.getCreationHelper(); def sheetName = ${rq.filename} def ws = wb.createSheet(sheetName) String rgbS = A7A7A7 byte[] rgbB = Hex.decodeHex(rgbS) XSSFColor color = new XSSFColor(rgbB, null) //IndexedColorMap has no usage until now. So it can be set null. XSSFCellStyle headerCellStyle = (XSSFCellStyle) wb.createCellStyle() headerCellStyle.setFillForegroundColor(color) headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND) def titleRow = ws.createRow(0); int cellNumber = 0; titleRow.createCell(cellNumber).setCellValue(Key) allHeaders.split(,).each {field -&gt; titleRow.createCell(++cellNumber).setCellValue(${field.capitalize()}) } def lastRow = titleRow.getRowNum() titleRow.setRowStyle(headerCellStyle) jira.get(path: 'search', query: ['jql' : rq.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel), 'maxResults': 1000, fields: ${allFieldIds} ], headers: headers ).data.issues.each { issue -&gt; int cellPosition = 0 def row = ws.createRow(++lastRow) Hyperlink link = hyperlinkHelper.createHyperlink(HyperlinkType.URL) link.setAddress(${jiraRoot}/browse/${issue.key}) Cell cellWithUrl = row.createCell(cellPosition) cellWithUrl.setCellValue(${issue.key}) cellWithUrl.setHyperlink(link) row.createCell(++cellPosition).setCellValue(${issue.fields.priority.name}) row.createCell(++cellPosition).setCellValue(${Date.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)}) row.createCell(++cellPosition).setCellValue(${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''}) row.createCell(++cellPosition).setCellValue(${issue.fields.summary}) row.createCell(++cellPosition).setCellValue(${issue.fields.assignee ? issue.fields.assignee.displayName : ''}) row.createCell(++cellPosition).setCellValue(${issue.fields.status.name}) // Custom fields rq.customfields.each { field -&gt; def position = ++cellPosition def foundCustom = issue.fields.find {it.key == field.key} row.createCell(position).setCellValue(${foundCustom ? foundCustom.value : '-'}) } } // set jira issue key column fits the content width for(int colNum = 0; colNum&lt;allHeaders.size()+1;colNum++) { ws.autoSizeColumn(colNum) } // Set summary column width slightly wider but fixed size, so it doesn't change with every summary update ws.setColumnWidth(4, 25*384) wb.write(jiraFos) } else { logger.quiet(Set saveExcel=true in '${mainConfigFile}' to save results in Excel file) } } } } // This method can be removed when support for legacy Jira configuration is gone def writeAsciiDocFileForLegacyConfiguration(def targetFolder, def restClient, def headers, def jiraConfig) { def resultsFilename = ${jiraConfig.resultsFilename}_legacy.adoc def openIssues = new File(targetFolder, ${resultsFilename}) openIssues.write(.Table {Title}\n, 'utf-8') openIssues.append(|=== \n) openIssues.append(|Key |Priority |Created | Assignee | Summary\n, 'utf-8') def legacyJql = jiraConfig.jql.replaceAll('%jiraProject%', config.jira.project).replaceAll('%jiraLabel%', config.jira.label) println (Results for legacy query '${legacyJql}' will be saved in '${resultsFilename}' file) restClient.get(path: 'search', query: ['jql' : legacyJql, 'maxResults': 1000, 'fields' : 'created,resolutiondate,priority,summary,timeoriginalestimate, assignee' ], headers: headers ).data.issues.each { issue -&gt; openIssues.append(| ${jiraRoot}/browse/${issue.key}[${issue.key}] , 'utf-8') openIssues.append(| ${issue.fields.priority.name} , 'utf-8') openIssues.append(| ${Date.parse(jiraConfig.dateTimeFormatParse, issue.fields.created).format(jiraConfig.dateTimeFormatOutput)} , 'utf-8') openIssues.append(| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}, 'utf-8') openIssues.append(| ${issue.fields.summary} , 'utf-8') } openIssues.append(|=== \n) } "
+},
+
+{
+    "id": 44,
     "uri": "015_tasks/03_task_autobuildSite.html",
     "menu": "tasks",
     "title": "autobuildSite",
@@ -377,7 +361,7 @@ var documents = [
 },
 
 {
-    "id": 47,
+    "id": 45,
     "uri": "015_tasks/03_task_prependFilename.html",
     "menu": "tasks",
     "title": "prependFilename",
@@ -385,23 +369,23 @@ var documents = [
 },
 
 {
+    "id": 46,
+    "uri": "015_tasks/03_task_htmlSanityCheck.html",
+    "menu": "tasks",
+    "title": "htmlSanityCheck",
+    "text": " Table of Contents htmlSanityCheck Source .gravatar img { margin-left: 3px; border-radius: 4px; } htmlSanityCheck 1 minute to read This task invokes the htmlSanityCheck gradle plugin. It is a standalone (batch- and command-line) html sanity checker - it detects missing images, dead links, and duplicate bookmarks. In docToolchain, this task is used to ensure that the generated HTML contains no missing links or other problems. This task is the last default task and creates a report in build/report/htmlchecks/index.html Figure 1. sample report Further information can be found on GitHub: https://github.com/aim42/htmlSanityCheck Tip Blog-Post: Automated Quality-Checks Source htmlSanityCheck.gradle htmlSanityCheck { sourceDir = new File(config.htmlSanityCheck.sourceDir?:$targetDir/html5) // files to check - in Set-notation //sourceDocuments = [ one-file.html, another-file.html, index.html] // where to put results of sanityChecks... checkingResultsDir = new File(config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath) // directory where the results written to in JUnit XML format junitResultsDir = new File(config.htmlSanityCheck.junitResultsDir?:$targetDir/test-results/htmlchecks) // which statuscodes shall be interpreted as warning, error or success defaults to standard httpSuccessCodes = config.htmlSanityCheck.httpSuccessCodes?:[] httpWarningCodes = config.htmlSanityCheck.httpWarningCodes?:[] httpErrorCodes = config.htmlSanityCheck.httpErrorCodes?:[] // fail build on errors? failOnErrors = config.htmlSanityCheck.failOnErrors?:false logger.info docToolchain&gt; HSC sourceDir: ${sourceDir} logger.info docToolchain&gt; HSC checkingResultsDir: ${checkingResultsDir} } "
+},
+
+{
+    "id": 47,
+    "uri": "015_tasks/03_task_generatePDF.html",
+    "menu": "tasks",
+    "title": "generatePDF",
+    "text": " Table of Contents generatePDF Source .gravatar img { margin-left: 3px; border-radius: 4px; } generatePDF 2 minutes to read This task makes use of the asciidoctor-pdf plugin to render your documents as a pretty PDF file. The file will be written to build/pdf . Note The used plugin is still in alpha status, but the results are already quite good. If you want to use another way to create a PDF, use PhantomJS for instance and script it. The PDF is generated directly from your AsciiDoc sources without the need of an intermediate format or other tools. The result looks more like a nicely rendered book than a print-to-pdf HTML page. It is very likely that you need to theme you PDF - change colors, fonts, page header, and footer. This can be done by creating a custom-theme.yml file. As a starting point, copy the file src/docs/pdfTheme/custom-theme.yml from docToolchain to your project and reference it from your main .adoc`file via setting the `:pdf-stylesdir: . For instance, insert :pdf-stylesdir: ../pdfTheme at the top of your document to reference the custom-theme.yml from the /pdfTheme folder. Documentation on how to modify a theme can be found in the asciidoctor-pdf theming guide . Tip Blog-Post: Beyond HTML Source AsciiDocBasics.gradle task generatePDF ( type: AsciidoctorTask, group: 'docToolchain', description: 'use pdf as asciidoc backend') { attributes ( 'plantUMLDir' : file(${docDir}/${config.outputPath}/pdf/images/plantUML/).path, ) attributes ( 'data-uri': 'true', 'plantUMLDir' : file(${docDir}/${config.outputPath}/images/).path, 'imagesoutdir' : file(${docDir}/${config.outputPath}/images/).path ) def sourceFilesPDF = sourceFiles.findAll { 'pdf' in it.formats } // onlyIf { // sourceFilesPDF // } sources { sourceFilesPDF.each { include it.file } } backends = ['pdf'] /** //check if a remote pdfTheme is defined def pdfTheme = System.getenv('DTC_PDFTHEME') def themeFolder = pdfTheme.md5() if (pdfTheme) { //check if it is already installed //TODO: finish this... } **/ doFirst { if (sourceFilesPDF.size()==0) { throw new Exception ( &gt;&gt; No source files defined for type PDF. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy ) } } } "
+},
+
+{
     "id": 48,
-    "uri": "015_tasks/03_task_exportVisio.html",
-    "menu": "tasks",
-    "title": "exportVisio",
-    "text": " Table of Contents exportVisio Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportVisio 1 minute to read This tasks searches for Visio files in the /src/docs folder. It then exports all diagrams and element notes to /src/docs/images/visio and /src/docs/visio . Images are stored as /images/visio/[filename]-[pagename].png Notes are stored as /visio/[filename]-[pagename].adoc You can specify a file name to which the notes of a diagram are exported by starting any comment with {adoc:[filename].adoc} . It will then be written to /visio/[filename].adoc . Warning Currently, only Visio files stored directly in /src/docs are supported. For all others, the exported files will be in the wrong location. Note Please close any running Visio instance before starting this task. Note Todos: issue #112 Source exportVisio.gradle task exportVisio( dependsOn: [streamingExecute], description: 'exports all diagrams and notes from visio files', group: 'docToolchain' ) { doLast { //make sure path for notes exists //and remove old notes new File(docDir, 'src/docs/visio').deleteDir() //also remove old diagrams new File(docDir, 'src/docs/images/visio').deleteDir() //create a readme to clarify things def readme = This folder contains exported diagrams and notes from visio files. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportVisio` to re-export files  new File(docDir, 'src/docs/images/visio/.').mkdirs() new File(docDir, 'src/docs/images/visio/readme.ad').write(readme) new File(docDir, 'src/docs/visio/.').mkdirs() new File(docDir, 'src/docs/visio/readme.ad').write(readme) def sourcePath = new File(docDir, 'src/docs/.').canonicalPath def scriptPath = new File(projectDir, 'scripts/VisioPageToPngConverter.ps1').canonicalPath powershell ${scriptPath} -SourcePath ${sourcePath}.executeCmd() } } scripts/VisioPageToPngConverter.ps1 # Convert all pages in all visio files in the given directory to png files. # A Visio windows might flash shortly. # The converted png files are stored in the same directory # The name of the png file is concatenated from the Visio file name and the page name. # In addtion all the comments are stored in adoc files. # If the Viso file is named MyVisio.vsdx and the page is called FirstPage # the name of the png file will be MyVisio-FirstPage.png and the comment will # be stored in MyVisio-FirstPage.adoc. # But for the name of the adoc files there is an alternative. It can be given in the first # line of the comment. If it is given in the comment it has to be given in curly brackes # with the prefix adoc:, e.g. {adoc:MyCommentFile.adoc} # Prerequisites: Viso and PowerShell has to be installed on the computer. # Parameter: SourcePath where visio files can be found # Example powershell VisoPageToPngConverter.ps1 -SourcePath c:\convertertest\ Param ( [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=0)] [Alias('p')][String]$SourcePath ) Write-Output starting to export visio If (!(Test-Path -Path $SourcePath)) { Write-Warning The path $SourcePath does not exist or is not accessible, please input the correct path. Exit } # Extend the source path to get only Visio files of the given directory and not in subdircetories If ($SourcePath.EndsWith(\)) { $SourcePath = $SourcePath } Else { $SourcePath = $SourcePath\ } $VisioFiles = Get-ChildItem -Path $SourcePath* -Recurse -Include *.vsdx,*.vssx,*.vstx,*.vxdm,*.vssm,*.vstm,*.vsd,*.vdw,*.vss,*.vst If(!($VisioFiles)) { Write-Warning There are no Visio files in the path $SourcePath. Exit } $VisioApp = New-Object -ComObject Visio.Application $VisioApp.Visible = $false # Extract the png from all the files in the folder Foreach($File in $VisioFiles) { $FilePath = $File.FullName Write-Output found $FilePath . $FileDirectory = $File.DirectoryName # Get the folder containing the Visio file. Will be used to store the png and adoc files $FileBaseName = $File.BaseName -replace '[ :/\\*?|&lt;&gt;]','-' # Get the filename to be used as part of the name of the png and adoc files Try { $Document = $VisioApp.Documents.Open($FilePath) $Pages = $VisioApp.ActiveDocument.Pages Foreach($Page in $Pages) { # Create valid filenames for the png and adoc files $PngFileName = $Page.Name -replace '[ :/\\*?|&lt;&gt;]','-' $PngFileName = $FileBaseName-$PngFileName.png $AdocFileName = $PngFileName.Replace(.png, .adoc) #TODO: this needs better logic Write-Output($SourcePath\images\visio\$PngFileName) $Page.Export($SourcePath\images\visio\$PngFileName) $AllPageComments =  ForEach($PageComment in $Page.Comments) { # Extract adoc filename from comment text if the syntax is valid # Remove the filename from the text and save the comment in a file with a valid name $EofStringIndex = $PageComment.Text.IndexOf(.adoc}) if ($PageComment.Text.StartsWith({adoc) -And ($EofStringIndex -gt 6)) { $AdocFileName = $PageComment.Text.Substring(6, $EofStringIndex -1) $AllPageComments += $PageComment.Text.Substring($EofStringIndex + 6) } else { $AllPageComments += $PageComment.Text+`n } } If ($AllPageComments) { $AdocFileName = $AdocFileName -replace '[:/\\*?|&lt;&gt;]','-' #TODO: this needs better logic $stream = [System.IO.StreamWriter] $SourcePath\visio\$AdocFileName $stream.WriteLine($AllPageComments) $stream.close() } } $Document.Close() } Catch { if ($Document) { $Document.Close() } Write-Warning One or more visio page(s) in file $FilePath have been lost in this converting. Write-Warning Error was: $_ } } $VisioApp.Quit() "
-},
-
-{
-    "id": 49,
-    "uri": "015_tasks/03_task_exportJiraSprintChangelog.html",
-    "menu": "tasks",
-    "title": "exportJiraSprintChangelogIssues",
-    "text": " Table of Contents exportJiraSprintChangelogIssues Configuration Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportJiraSprintChangelogIssues 1 minute to read This task exports simplified (Key &amp; summary) list of Jira issues for specific Sprint. Few additional fields (i.e. assignee etc..) can be switched using configuration flags. Users can define one specific sprint in which they are interested. This will result in generating Asciidoc and Excel file. In case sprint defined in users configuration isn&#8217;t found, changelogs for all sprints that match configuration will be saved in separate Asciidoc files and in a different tabs of an Excel file. The configuration for this task can be found within Config.gradle . In addition to the below listed configuration snippet, it is important to configure Jira API and credentials in Jira section of the configuration inside same file. Configuration Config.groovy Unresolved directive in &lt;stdin&gt; - include::/home/runner/.doctoolchain/docToolchain-2.0.1/Config.groovy[tags=sprintChangelogConfig] Source exportJiraSprintChangelog.gradle task exportJiraSprintChangelog( description: 'exports all jira issues from Sprint for release notes', group: 'docToolchain' ) { doLast { // Pre defined ticket fields for Changelog based on Jira Sprints def defaultTicketFields = 'summary,status,assignee,issuetype' // retrieving sprints for a given board def sprints = { apiSprints, headers, boardId, sprintState -&gt; apiSprints.get(path: agile/latest/board/${boardId}/sprint, query:[state: ${sprintState}], headers: headers ).data } // retrieving issues for given sprint def issues = { apiIssues, headers, boardId, sprintId, status -&gt; apiIssues.get(path: agile/latest/board/${boardId}/sprint/${sprintId}/issue, query: ['jql' : status in (${status}) ORDER BY type DESC, status ASC, 'maxResults': 1000, fields: defaultTicketFields ], headers: headers ).data } // preparing target folder for generated files final String taskSubfolderName = config.sprintChangelog.resultsFolder final File targetFolder = new File(targetDir + File.separator + taskSubfolderName) if (!targetFolder.exists()) targetFolder.mkdirs() logger.debug(Output folder for 'exportJiraSprintChangelog' task is: '${targetFolder}') // Getting configuration def jiraRoot = config.jira.api def jiraProject = config.jira.project def sprintState = config.sprintChangelog.sprintState def ticketStatusForReleaseNotes = config.sprintChangelog.ticketStatus def sprintBoardId = config.sprintChangelog.sprintBoardId def showAssignee = config.sprintChangelog.showAssignee def showTicketStatus = config.sprintChangelog.showTicketStatus def showTicketType = config.sprintChangelog.showTicketType def sprintName = config.sprintChangelog.sprintName def allSprintsFilename = config.sprintChangelog.allSprintsFilename logger.info(\n==========================\nJira Release notes config\n==========================) logger.info(Spring Board ID: ${sprintBoardId}) logger.info(Show assignees: ${showAssignee}. Show ticket status: ${showTicketStatus}. Show ticket type: ${showTicketType}) logger.info(Filtering for sprints with configured state: '${sprintState}') logger.info(Filtering for issues with configured statuses: ${ticketStatusForReleaseNotes}) logger.info(Attempt to generate release notes for sprint with a name: '${sprintName}') logger.info(Filename used for all sprints: '${allSprintsFilename}') def api = new groovyx.net.http.RESTClient(jiraRoot + '/rest/') api.encoderRegistry = new groovyx.net.http.EncoderRegistry(charset: 'utf-8') def headers = [ 'Authorization': Basic  + config.jira.credentials, 'Content-Type' : 'application/json; charset=utf-8' ] def allChangelogsFilename = ${allSprintsFilename}.xlsx logger.quiet(Changelogs of all sprints will be saved in '${allChangelogsFilename}' file) def changelogsXls = new File(targetFolder, allChangelogsFilename) def changelogsXlsFos = new FileOutputStream(changelogsXls) Workbook wb = new XSSFWorkbook(); CreationHelper hyperlinkHelper = wb.getCreationHelper(); String rgbS = A7A7A7 byte[] rgbB = Hex.decodeHex(rgbS) // get byte array from hex string XSSFColor color = new XSSFColor(rgbB, null) //IndexedColorMap has no usage until now. So it can be set null. XSSFCellStyle headerCellStyle = (XSSFCellStyle) wb.createCellStyle() headerCellStyle.setFillForegroundColor(color) headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND) // prepare tickets according to configuration def columns = ['key'].plus(defaultTicketFields.split(',').collect()) if (!showAssignee) { columns = columns.minus('assignee')} if (!showTicketStatus) { columns = columns.minus('status')} if (!showTicketType) { columns = columns.minus('issuetype')} logger.info(Release notes will contain following info: ${columns}) logger.info(\n=====================\n Sprints\n=====================) // def allMatchedSprints = sprints(api, headers, sprintBoardId, sprintState).values def foundExactSprint = allMatchedSprints.any {it.name == sprintName} logger.info(All sprints that matched configuration: ${allMatchedSprints.size()}) def sprintsForChangelog = foundExactSprint ? allMatchedSprints.stream().filter() {it.name == sprintName} : allMatchedSprints logger.info(Found exact Sprint with name '${sprintName}': ${foundExactSprint}.) sprintsForChangelog.each { sprint -&gt; logger.quiet(\nSprint: $sprint.name [id: $sprint.id] state &lt;$sprint.state&gt;) /* ================================================ Create new worksheet inside existing excel file ================================================ */ String safeSprintName = WorkbookUtil.createSafeSheetName(${sprint.name}) def ws = wb.createSheet(safeSprintName) // Add titles (typically key &amp; summary, but assignee, ticket status, ticket type can be configured in Config.groovy too) def titleRow = ws.createRow(0); int cellNumber = 0; columns.each {columnTitle -&gt; titleRow.createCell(cellNumber++).setCellValue(${columnTitle.capitalize()})} def lastRow = titleRow.getRowNum() titleRow.setRowStyle(headerCellStyle) // set summary (at position 1) column wider than other columns ws.setColumnWidth(1, 35*256) /* ========================================= AsciiDoc file for each sprint ========================================= */ def asciidocFilename = ${sprint.name.replaceAll( , _)}.adoc logger.info(Results will be saved in '${asciidocFilename}' file) def changeLogAdoc = new File(targetFolder, ${asciidocFilename}) changeLogAdoc.write(.Table ${sprint.name} Changelog\n, 'utf-8') changeLogAdoc.append(|=== \n) // AsciiDoc table columns columns.each {columnTitle -&gt; changeLogAdoc.append(|${columnTitle} , 'utf-8')} /* ========================================= Add tickets for the sprint ========================================= */ issues(api, headers, sprintBoardId, sprint.id, ticketStatusForReleaseNotes).issues.each {issue -&gt; def assignee = ${issue.fields.assignee ? issue.fields.assignee.displayName : 'unassigned'}  def message = showAssignee ? by ${assignee} :  logger.quiet(Issue: [$issue.key] '$issue.fields.summary' ${message}&lt;$issue.fields.status.name&gt;) /* =========================== Write ticket to Excel =========================== */ int cellPosition = 0 def row = ws.createRow(++lastRow) Hyperlink link = hyperlinkHelper.createHyperlink(HyperlinkType.URL) link.setAddress(${jiraRoot}/browse/${issue.key}) Cell cellWithUrl = row.createCell(cellPosition) cellWithUrl.setCellValue(${issue.key}) cellWithUrl.setHyperlink(link) row.createCell(++cellPosition).setCellValue(${issue.fields.summary}) /* ============================= Write ticket to Asciidoc ============================= */ changeLogAdoc.append(\n, 'utf-8') changeLogAdoc.append(| ${jiraRoot}/browse/${issue.key}[${issue.key}] , 'utf-8') changeLogAdoc.append(| ${issue.fields.summary} , 'utf-8') /* === Write ticket status, assignee, ticket typee if configured to both Asciidoc &amp; Excel files === */ if (showTicketStatus) { row.createCell(++cellPosition).setCellValue(${issue.fields.status.name}) changeLogAdoc.append(| ${issue.fields.status.name} , 'utf-8') } if (showAssignee) { row.createCell(++cellPosition).setCellValue(${assignee}) changeLogAdoc.append(| ${assignee}, 'utf-8') } if (showTicketType) { row.createCell(++cellPosition).setCellValue(${issue.fields.issuetype.name}) changeLogAdoc.append(| ${issue.fields.issuetype.name} , 'utf-8') } } // Close the asciidoc table changeLogAdoc.append(\n|=== \n,'utf-8') // Set auto-width to KEY column ws.autoSizeColumn(0); } // Write to Excel file wb.write(changelogsXlsFos) } } "
-},
-
-{
-    "id": 50,
     "uri": "015_tasks/03_task_exportChangeLog.html",
     "menu": "tasks",
     "title": "exportChangeLog",
@@ -409,7 +393,7 @@ var documents = [
 },
 
 {
-    "id": 51,
+    "id": 49,
     "uri": "015_tasks/03_task_generateDocBook.html",
     "menu": "tasks",
     "title": "generateDocbook",
@@ -417,15 +401,23 @@ var documents = [
 },
 
 {
-    "id": 52,
-    "uri": "015_tasks/03_task_exportDrawIo.html",
+    "id": 50,
+    "uri": "015_tasks/03_task_exportVisio.html",
     "menu": "tasks",
-    "title": "exportDrawIo",
-    "text": " Table of Contents exportDrawIo .gravatar img { margin-left: 3px; border-radius: 4px; } exportDrawIo 2 minutes to read There is no exportDrawIo task because it is not required. You can continue to use draw.io as an editor for your diagrams by making a change to your diagram authoring workflow. Export your draw.io diagrams as a PNG with the source embedded in the file metadata. Using this approach allows you to embed your diagrams into AsciiDoc source as you normally do with the image:: macro, with the added advantage of storing the diagram source with the image itself. Note If you are converting a Confluence page with embedded draw.io diagrams to AsciiDoc, you can use this export workflow to continue to enjoy the draw.io editing experience. Export an editable PNG diagram from Confluence Load the diagram you want to export from Confluence. Click File &#160; &#8250; Export as &#160; &#8250; PNG&#8230;&#8203; In the Image modal, make sure that Include a copy of my diagram is selected. Click Export to save the PNG file with the pattern [file].dio.png . Note Specifying .dio (short for  d raw io ) in the name will help you identify PNG files containing embedded XML diagram source. Commit the exported PNG file to source control. You now have a diagram that can be managed in source control, added to your documentation source, and edited using a draw.io Desktop version. Note Draw.io offers free and open source desktop editors for all major operating system platforms. See https://about.draw.io/integrations/ to find a desktop editor application compatible with your operating system. When you use the desktop version, just create your diagram with the .png or even better .dio.png extension and draw.io will always save your diagam as PNG with the source as meta data. NEW! Draw.io is now called diagrams.net and there is a free plugin for VS Code and IntelliJ to edit your diagrams even offline! // Please, replace #yourelement with a real element id on your webpage MarketplaceWidget.setupMarketplaceWidget('card', 15635, #myelement); "
+    "title": "exportVisio",
+    "text": " Table of Contents exportVisio Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportVisio 1 minute to read This tasks searches for Visio files in the /src/docs folder. It then exports all diagrams and element notes to /src/docs/images/visio and /src/docs/visio . Images are stored as /images/visio/[filename]-[pagename].png Notes are stored as /visio/[filename]-[pagename].adoc You can specify a file name to which the notes of a diagram are exported by starting any comment with {adoc:[filename].adoc} . It will then be written to /visio/[filename].adoc . Warning Currently, only Visio files stored directly in /src/docs are supported. For all others, the exported files will be in the wrong location. Note Please close any running Visio instance before starting this task. Note Todos: issue #112 Source exportVisio.gradle task exportVisio( dependsOn: [streamingExecute], description: 'exports all diagrams and notes from visio files', group: 'docToolchain' ) { doLast { //make sure path for notes exists //and remove old notes new File(docDir, 'src/docs/visio').deleteDir() //also remove old diagrams new File(docDir, 'src/docs/images/visio').deleteDir() //create a readme to clarify things def readme = This folder contains exported diagrams and notes from visio files. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportVisio` to re-export files  new File(docDir, 'src/docs/images/visio/.').mkdirs() new File(docDir, 'src/docs/images/visio/readme.ad').write(readme) new File(docDir, 'src/docs/visio/.').mkdirs() new File(docDir, 'src/docs/visio/readme.ad').write(readme) def sourcePath = new File(docDir, 'src/docs/.').canonicalPath def scriptPath = new File(projectDir, 'scripts/VisioPageToPngConverter.ps1').canonicalPath powershell ${scriptPath} -SourcePath ${sourcePath}.executeCmd() } } scripts/VisioPageToPngConverter.ps1 # Convert all pages in all visio files in the given directory to png files. # A Visio windows might flash shortly. # The converted png files are stored in the same directory # The name of the png file is concatenated from the Visio file name and the page name. # In addtion all the comments are stored in adoc files. # If the Viso file is named MyVisio.vsdx and the page is called FirstPage # the name of the png file will be MyVisio-FirstPage.png and the comment will # be stored in MyVisio-FirstPage.adoc. # But for the name of the adoc files there is an alternative. It can be given in the first # line of the comment. If it is given in the comment it has to be given in curly brackes # with the prefix adoc:, e.g. {adoc:MyCommentFile.adoc} # Prerequisites: Viso and PowerShell has to be installed on the computer. # Parameter: SourcePath where visio files can be found # Example powershell VisoPageToPngConverter.ps1 -SourcePath c:\convertertest\ Param ( [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=0)] [Alias('p')][String]$SourcePath ) Write-Output starting to export visio If (!(Test-Path -Path $SourcePath)) { Write-Warning The path $SourcePath does not exist or is not accessible, please input the correct path. Exit } # Extend the source path to get only Visio files of the given directory and not in subdircetories If ($SourcePath.EndsWith(\)) { $SourcePath = $SourcePath } Else { $SourcePath = $SourcePath\ } $VisioFiles = Get-ChildItem -Path $SourcePath* -Recurse -Include *.vsdx,*.vssx,*.vstx,*.vxdm,*.vssm,*.vstm,*.vsd,*.vdw,*.vss,*.vst If(!($VisioFiles)) { Write-Warning There are no Visio files in the path $SourcePath. Exit } $VisioApp = New-Object -ComObject Visio.Application $VisioApp.Visible = $false # Extract the png from all the files in the folder Foreach($File in $VisioFiles) { $FilePath = $File.FullName Write-Output found $FilePath . $FileDirectory = $File.DirectoryName # Get the folder containing the Visio file. Will be used to store the png and adoc files $FileBaseName = $File.BaseName -replace '[ :/\\*?|&lt;&gt;]','-' # Get the filename to be used as part of the name of the png and adoc files Try { $Document = $VisioApp.Documents.Open($FilePath) $Pages = $VisioApp.ActiveDocument.Pages Foreach($Page in $Pages) { # Create valid filenames for the png and adoc files $PngFileName = $Page.Name -replace '[ :/\\*?|&lt;&gt;]','-' $PngFileName = $FileBaseName-$PngFileName.png $AdocFileName = $PngFileName.Replace(.png, .adoc) #TODO: this needs better logic Write-Output($SourcePath\images\visio\$PngFileName) $Page.Export($SourcePath\images\visio\$PngFileName) $AllPageComments =  ForEach($PageComment in $Page.Comments) { # Extract adoc filename from comment text if the syntax is valid # Remove the filename from the text and save the comment in a file with a valid name $EofStringIndex = $PageComment.Text.IndexOf(.adoc}) if ($PageComment.Text.StartsWith({adoc) -And ($EofStringIndex -gt 6)) { $AdocFileName = $PageComment.Text.Substring(6, $EofStringIndex -1) $AllPageComments += $PageComment.Text.Substring($EofStringIndex + 6) } else { $AllPageComments += $PageComment.Text+`n } } If ($AllPageComments) { $AdocFileName = $AdocFileName -replace '[:/\\*?|&lt;&gt;]','-' #TODO: this needs better logic $stream = [System.IO.StreamWriter] $SourcePath\visio\$AdocFileName $stream.WriteLine($AllPageComments) $stream.close() } } $Document.Close() } Catch { if ($Document) { $Document.Close() } Write-Warning One or more visio page(s) in file $FilePath have been lost in this converting. Write-Warning Error was: $_ } } $VisioApp.Quit() "
 },
 
 {
-    "id": 53,
+    "id": 51,
+    "uri": "015_tasks/03_task_exportJiraSprintChangelog.html",
+    "menu": "tasks",
+    "title": "exportJiraSprintChangelogIssues",
+    "text": " Table of Contents exportJiraSprintChangelogIssues Configuration Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportJiraSprintChangelogIssues 1 minute to read This task exports simplified (Key &amp; summary) list of Jira issues for specific Sprint. Few additional fields (i.e. assignee etc..) can be switched using configuration flags. Users can define one specific sprint in which they are interested. This will result in generating Asciidoc and Excel file. In case sprint defined in users configuration isn&#8217;t found, changelogs for all sprints that match configuration will be saved in separate Asciidoc files and in a different tabs of an Excel file. The configuration for this task can be found within Config.gradle . In addition to the below listed configuration snippet, it is important to configure Jira API and credentials in Jira section of the configuration inside same file. Configuration Config.groovy Unresolved directive in &lt;stdin&gt; - include::/home/runner/.doctoolchain/docToolchain-2.0.1/Config.groovy[tags=sprintChangelogConfig] Source exportJiraSprintChangelog.gradle task exportJiraSprintChangelog( description: 'exports all jira issues from Sprint for release notes', group: 'docToolchain' ) { doLast { // Pre defined ticket fields for Changelog based on Jira Sprints def defaultTicketFields = 'summary,status,assignee,issuetype' // retrieving sprints for a given board def sprints = { apiSprints, headers, boardId, sprintState -&gt; apiSprints.get(path: agile/latest/board/${boardId}/sprint, query:[state: ${sprintState}], headers: headers ).data } // retrieving issues for given sprint def issues = { apiIssues, headers, boardId, sprintId, status -&gt; apiIssues.get(path: agile/latest/board/${boardId}/sprint/${sprintId}/issue, query: ['jql' : status in (${status}) ORDER BY type DESC, status ASC, 'maxResults': 1000, fields: defaultTicketFields ], headers: headers ).data } // preparing target folder for generated files final String taskSubfolderName = config.sprintChangelog.resultsFolder final File targetFolder = new File(targetDir + File.separator + taskSubfolderName) if (!targetFolder.exists()) targetFolder.mkdirs() logger.debug(Output folder for 'exportJiraSprintChangelog' task is: '${targetFolder}') // Getting configuration def jiraRoot = config.jira.api def jiraProject = config.jira.project def sprintState = config.sprintChangelog.sprintState def ticketStatusForReleaseNotes = config.sprintChangelog.ticketStatus def sprintBoardId = config.sprintChangelog.sprintBoardId def showAssignee = config.sprintChangelog.showAssignee def showTicketStatus = config.sprintChangelog.showTicketStatus def showTicketType = config.sprintChangelog.showTicketType def sprintName = config.sprintChangelog.sprintName def allSprintsFilename = config.sprintChangelog.allSprintsFilename logger.info(\n==========================\nJira Release notes config\n==========================) logger.info(Spring Board ID: ${sprintBoardId}) logger.info(Show assignees: ${showAssignee}. Show ticket status: ${showTicketStatus}. Show ticket type: ${showTicketType}) logger.info(Filtering for sprints with configured state: '${sprintState}') logger.info(Filtering for issues with configured statuses: ${ticketStatusForReleaseNotes}) logger.info(Attempt to generate release notes for sprint with a name: '${sprintName}') logger.info(Filename used for all sprints: '${allSprintsFilename}') def api = new groovyx.net.http.RESTClient(jiraRoot + '/rest/') api.encoderRegistry = new groovyx.net.http.EncoderRegistry(charset: 'utf-8') def headers = [ 'Authorization': Basic  + config.jira.credentials, 'Content-Type' : 'application/json; charset=utf-8' ] def allChangelogsFilename = ${allSprintsFilename}.xlsx logger.quiet(Changelogs of all sprints will be saved in '${allChangelogsFilename}' file) def changelogsXls = new File(targetFolder, allChangelogsFilename) def changelogsXlsFos = new FileOutputStream(changelogsXls) Workbook wb = new XSSFWorkbook(); CreationHelper hyperlinkHelper = wb.getCreationHelper(); String rgbS = A7A7A7 byte[] rgbB = Hex.decodeHex(rgbS) // get byte array from hex string XSSFColor color = new XSSFColor(rgbB, null) //IndexedColorMap has no usage until now. So it can be set null. XSSFCellStyle headerCellStyle = (XSSFCellStyle) wb.createCellStyle() headerCellStyle.setFillForegroundColor(color) headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND) // prepare tickets according to configuration def columns = ['key'].plus(defaultTicketFields.split(',').collect()) if (!showAssignee) { columns = columns.minus('assignee')} if (!showTicketStatus) { columns = columns.minus('status')} if (!showTicketType) { columns = columns.minus('issuetype')} logger.info(Release notes will contain following info: ${columns}) logger.info(\n=====================\n Sprints\n=====================) // def allMatchedSprints = sprints(api, headers, sprintBoardId, sprintState).values def foundExactSprint = allMatchedSprints.any {it.name == sprintName} logger.info(All sprints that matched configuration: ${allMatchedSprints.size()}) def sprintsForChangelog = foundExactSprint ? allMatchedSprints.stream().filter() {it.name == sprintName} : allMatchedSprints logger.info(Found exact Sprint with name '${sprintName}': ${foundExactSprint}.) sprintsForChangelog.each { sprint -&gt; logger.quiet(\nSprint: $sprint.name [id: $sprint.id] state &lt;$sprint.state&gt;) /* ================================================ Create new worksheet inside existing excel file ================================================ */ String safeSprintName = WorkbookUtil.createSafeSheetName(${sprint.name}) def ws = wb.createSheet(safeSprintName) // Add titles (typically key &amp; summary, but assignee, ticket status, ticket type can be configured in Config.groovy too) def titleRow = ws.createRow(0); int cellNumber = 0; columns.each {columnTitle -&gt; titleRow.createCell(cellNumber++).setCellValue(${columnTitle.capitalize()})} def lastRow = titleRow.getRowNum() titleRow.setRowStyle(headerCellStyle) // set summary (at position 1) column wider than other columns ws.setColumnWidth(1, 35*256) /* ========================================= AsciiDoc file for each sprint ========================================= */ def asciidocFilename = ${sprint.name.replaceAll( , _)}.adoc logger.info(Results will be saved in '${asciidocFilename}' file) def changeLogAdoc = new File(targetFolder, ${asciidocFilename}) changeLogAdoc.write(.Table ${sprint.name} Changelog\n, 'utf-8') changeLogAdoc.append(|=== \n) // AsciiDoc table columns columns.each {columnTitle -&gt; changeLogAdoc.append(|${columnTitle} , 'utf-8')} /* ========================================= Add tickets for the sprint ========================================= */ issues(api, headers, sprintBoardId, sprint.id, ticketStatusForReleaseNotes).issues.each {issue -&gt; def assignee = ${issue.fields.assignee ? issue.fields.assignee.displayName : 'unassigned'}  def message = showAssignee ? by ${assignee} :  logger.quiet(Issue: [$issue.key] '$issue.fields.summary' ${message}&lt;$issue.fields.status.name&gt;) /* =========================== Write ticket to Excel =========================== */ int cellPosition = 0 def row = ws.createRow(++lastRow) Hyperlink link = hyperlinkHelper.createHyperlink(HyperlinkType.URL) link.setAddress(${jiraRoot}/browse/${issue.key}) Cell cellWithUrl = row.createCell(cellPosition) cellWithUrl.setCellValue(${issue.key}) cellWithUrl.setHyperlink(link) row.createCell(++cellPosition).setCellValue(${issue.fields.summary}) /* ============================= Write ticket to Asciidoc ============================= */ changeLogAdoc.append(\n, 'utf-8') changeLogAdoc.append(| ${jiraRoot}/browse/${issue.key}[${issue.key}] , 'utf-8') changeLogAdoc.append(| ${issue.fields.summary} , 'utf-8') /* === Write ticket status, assignee, ticket typee if configured to both Asciidoc &amp; Excel files === */ if (showTicketStatus) { row.createCell(++cellPosition).setCellValue(${issue.fields.status.name}) changeLogAdoc.append(| ${issue.fields.status.name} , 'utf-8') } if (showAssignee) { row.createCell(++cellPosition).setCellValue(${assignee}) changeLogAdoc.append(| ${assignee}, 'utf-8') } if (showTicketType) { row.createCell(++cellPosition).setCellValue(${issue.fields.issuetype.name}) changeLogAdoc.append(| ${issue.fields.issuetype.name} , 'utf-8') } } // Close the asciidoc table changeLogAdoc.append(\n|=== \n,'utf-8') // Set auto-width to KEY column ws.autoSizeColumn(0); } // Write to Excel file wb.write(changelogsXlsFos) } } "
+},
+
+{
+    "id": 52,
     "uri": "015_tasks/03_task_convertToDocx.html",
     "menu": "tasks",
     "title": "convertToDocx",
@@ -433,7 +425,7 @@ var documents = [
 },
 
 {
-    "id": 54,
+    "id": 53,
     "uri": "ea/readme.html",
     "menu": "ea",
     "title": "readme.ad",
@@ -441,47 +433,7 @@ var documents = [
 },
 
 {
-    "id": 55,
-    "uri": "ea/issue1.html",
-    "menu": "ea",
-    "title": "issue1.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 56,
-    "uri": "ea/Use_Cases_links_issue2.html",
-    "menu": "ea",
-    "title": "Use_Cases_links_issue2.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
-},
-
-{
-    "id": 57,
-    "uri": "ea/Architect_notes_issue2.html",
-    "menu": "ea",
-    "title": "Architect_notes_issue2.ad",
-    "text": " "
-},
-
-{
-    "id": 58,
-    "uri": "ea/Architect_notes.html",
-    "menu": "ea",
-    "title": "Architect_notes.ad",
-    "text": " "
-},
-
-{
-    "id": 59,
-    "uri": "ea/Activity_notes_issue1.html",
-    "menu": "ea",
-    "title": "Activity_notes_issue1.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 60,
+    "id": 54,
     "uri": "015_tasks/03_task_exportMarkdown.html",
     "menu": "tasks",
     "title": "exportMarkdown",
@@ -489,7 +441,15 @@ var documents = [
 },
 
 {
-    "id": 61,
+    "id": 55,
+    "uri": "015_tasks/03_task_exportDrawIo.html",
+    "menu": "tasks",
+    "title": "exportDrawIo",
+    "text": " Table of Contents exportDrawIo .gravatar img { margin-left: 3px; border-radius: 4px; } exportDrawIo 2 minutes to read There is no exportDrawIo task because it is not required. You can continue to use draw.io as an editor for your diagrams by making a change to your diagram authoring workflow. Export your draw.io diagrams as a PNG with the source embedded in the file metadata. Using this approach allows you to embed your diagrams into AsciiDoc source as you normally do with the image:: macro, with the added advantage of storing the diagram source with the image itself. Note If you are converting a Confluence page with embedded draw.io diagrams to AsciiDoc, you can use this export workflow to continue to enjoy the draw.io editing experience. Export an editable PNG diagram from Confluence Load the diagram you want to export from Confluence. Click File &#160; &#8250; Export as &#160; &#8250; PNG&#8230;&#8203; In the Image modal, make sure that Include a copy of my diagram is selected. Click Export to save the PNG file with the pattern [file].dio.png . Note Specifying .dio (short for  d raw io ) in the name will help you identify PNG files containing embedded XML diagram source. Commit the exported PNG file to source control. You now have a diagram that can be managed in source control, added to your documentation source, and edited using a draw.io Desktop version. Note Draw.io offers free and open source desktop editors for all major operating system platforms. See https://about.draw.io/integrations/ to find a desktop editor application compatible with your operating system. When you use the desktop version, just create your diagram with the .png or even better .dio.png extension and draw.io will always save your diagam as PNG with the source as meta data. NEW! Draw.io is now called diagrams.net and there is a free plugin for VS Code and IntelliJ to edit your diagrams even offline! // Please, replace #yourelement with a real element id on your webpage MarketplaceWidget.setupMarketplaceWidget('card', 15635, #myelement); "
+},
+
+{
+    "id": 56,
     "uri": "ea/issue2.html",
     "menu": "ea",
     "title": "issue2.ad",
@@ -497,7 +457,15 @@ var documents = [
 },
 
 {
-    "id": 62,
+    "id": 57,
+    "uri": "ea/issue1.html",
+    "menu": "ea",
+    "title": "issue1.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
+    "id": 58,
     "uri": "ea/Use_Cases_notes_UseCases.html",
     "menu": "ea",
     "title": "Use_Cases_notes_UseCases.ad",
@@ -505,7 +473,47 @@ var documents = [
 },
 
 {
+    "id": 59,
+    "uri": "ea/Use_Cases_links_issue2.html",
+    "menu": "ea",
+    "title": "Use_Cases_links_issue2.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+},
+
+{
+    "id": 60,
+    "uri": "ea/Architect_notes_issue2.html",
+    "menu": "ea",
+    "title": "Architect_notes_issue2.ad",
+    "text": " "
+},
+
+{
+    "id": 61,
+    "uri": "ea/Architect_notes.html",
+    "menu": "ea",
+    "title": "Architect_notes.ad",
+    "text": " "
+},
+
+{
+    "id": 62,
+    "uri": "ea/Activity_notes_issue1.html",
+    "menu": "ea",
+    "title": "Activity_notes_issue1.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
     "id": 63,
+    "uri": "ea/Activity_notes.html",
+    "menu": "ea",
+    "title": "Activity_notes.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
+    "id": 64,
     "uri": "ea/Use_Cases_notes.html",
     "menu": "ea",
     "title": "Use_Cases_notes.ad",
@@ -513,7 +521,7 @@ var documents = [
 },
 
 {
-    "id": 64,
+    "id": 65,
     "uri": "ea/Use_Cases_links.html",
     "menu": "ea",
     "title": "Use_Cases_links.ad",
@@ -521,19 +529,11 @@ var documents = [
 },
 
 {
-    "id": 65,
+    "id": 66,
     "uri": "ea/UseCases.html",
     "menu": "ea",
     "title": "UseCases.ad",
     "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
-},
-
-{
-    "id": 66,
-    "uri": "ea/Activity_notes.html",
-    "menu": "ea",
-    "title": "Activity_notes.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
 },
 
 {
