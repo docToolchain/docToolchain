@@ -84,9 +84,9 @@ integration_tests () {
         # ./bin/doctoolchain "${TEST_DIR}" publishToConfluence
 
         echo "#### check for html result"
-        # if [ ! -f "${TEST_DIR}"/build/html5/arc42-template.html ]; then exit 1; fi
+        if [ ! -f "${TEST_DIR}"/build/html5/arc42-template.html ]; then exit 1; fi
         echo "#### check for pdf result"
-        # if [ ! -f "${TEST_DIR}"/build/pdf/arc42-template.pdf ]; then exit 1; fi
+        if [ ! -f "${TEST_DIR}"/build/pdf/arc42-template.pdf ]; then exit 1; fi
       done
   fi
 }
@@ -181,7 +181,7 @@ publish_doc () {
 cleaning
 dependency_info
 #unit_tests
-#integration_tests
+integration_tests
 check_for_clean_worktree
 create_doc
 publish_doc
