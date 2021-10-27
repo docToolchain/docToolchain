@@ -27,11 +27,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/020_run_tests.html</loc>
-    	<lastmod>2021-10-27</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/025_development/040_debugging.html</loc>
     	<lastmod>2021-10-27</lastmod>
     </url>
@@ -42,12 +37,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/025_development/020_run_tests.html</loc>
+    	<lastmod>2021-10-27</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/025_development/010_setup_dev_env.html</loc>
     	<lastmod>2021-10-27</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/010_Install.html</loc>
+    	<loc>https://localhost/020_tutorial/100_diagrams.net.html</loc>
     	<lastmod>2021-10-27</lastmod>
     </url>
 
@@ -72,7 +72,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/100_diagrams.net.html</loc>
+    	<loc>https://localhost/020_tutorial/010_Install.html</loc>
     	<lastmod>2021-10-27</lastmod>
     </url>
 
@@ -112,12 +112,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/025_features.html</loc>
+    	<loc>https://localhost/010_manual/100_config.html</loc>
     	<lastmod>2021-10-27</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/100_config.html</loc>
+    	<loc>https://localhost/010_manual/025_features.html</loc>
     	<lastmod>2021-10-27</lastmod>
     </url>
 
@@ -137,11 +137,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_collectIncludes.html</loc>
-    	<lastmod>2021-10-27</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_tasks.html</loc>
     	<lastmod>2021-10-27</lastmod>
     </url>
@@ -153,6 +148,11 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_fixencoding.html</loc>
+    	<lastmod>2021-10-27</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_collectIncludes.html</loc>
     	<lastmod>2021-10-27</lastmod>
     </url>
 
@@ -207,6 +207,11 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
+    	<lastmod>2021-10-27</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_generateHTML.html</loc>
     	<lastmod>2021-10-27</lastmod>
     </url>
@@ -232,22 +237,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
-    	<lastmod>2021-10-27</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_generatePDF.html</loc>
-    	<lastmod>2021-10-27</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
-    	<lastmod>2021-10-27</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
     	<lastmod>2021-10-27</lastmod>
     </url>
 
@@ -262,12 +252,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_convertToDocx.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
     	<lastmod>2021-10-27</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/ea/readme.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
     	<lastmod>2021-10-27</lastmod>
     </url>
 
@@ -278,6 +268,16 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportDrawIo.html</loc>
+    	<lastmod>2021-10-27</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_convertToDocx.html</loc>
+    	<lastmod>2021-10-27</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/readme.html</loc>
     	<lastmod>2021-10-27</lastmod>
     </url>
 

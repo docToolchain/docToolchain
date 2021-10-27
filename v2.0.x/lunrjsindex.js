@@ -42,14 +42,6 @@ var documents = [
 
 {
     "id": 5,
-    "uri": "025_development/020_run_tests.html",
-    "menu": "development",
-    "title": "How to run Tests",
-    "text": " Table of Contents How to run Tests Prerequisites Prepare the Project Execute Tests Proxy Setting for Tests How to run Tests 2 minutes to read Prerequisites make sure that Git and Graphviz are installed make sure that your Gradle setup is able to work with proxies use Java 8 Prepare the Project git clone git@github.com:docToolchain/docToolchain.git cd docToolchain/ git checkout V1.0.0 # (1) git submodule update -i the version to test. Not needed if you work on the HEAD revision on Master Execute Tests rm -r build &amp;&amp; ./gradlew test --info The rm command ensures that you really have a clean test running. Otherwise you might get false positives because Gradle will skip steps ('Up-to-date') because artifacts of an older test run still exist. Proxy Setting for Tests The docToolchain test setup is based on the Gradle-Test-Kit and makes use of the Spock test execution framework . The gradle test runner is started in its own test environment and its own JVM instance. As a result the global proxy settings are ignored. As workarund to execute the test with the correct proxy settings it is necessary to copy the proxy setting normally done in the in gradle.properties located in the user directory to the gradle.properties file located in the docToolchain folder itself. Note The files downloaded by the Gradle test Runner are placed in a different folder than the default gradle cache. You&#8217;ll find them in the Tmp folder: C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches "
-},
-
-{
-    "id": 6,
     "uri": "025_development/040_debugging.html",
     "menu": "development",
     "title": "Debugging",
@@ -57,11 +49,19 @@ var documents = [
 },
 
 {
-    "id": 7,
+    "id": 6,
     "uri": "025_development/030_create_new_release.html",
     "menu": "development",
     "title": "Create new Release",
     "text": " Table of Contents Create new Release Github docToolchain-Wrapper (dtcw) Dockerhub sdkman Create new Release 2 minutes to read We use semantic versioning and keep a changelog . Bot on a best effort base. A release consists of four parts: Github update version in gradle.properties update the changelog create a section for the version copy all unreleased features which will be in the release to the created section commit and push the new version Draft a new release copy the content of the changelog for this version to the description and submit set version as v X.Y.Z run ./gradlew createDist this creates a zip of the source in build which is the distribution file add this zip and submit the new release docToolchain-Wrapper (dtcw) update the version used in the wrapper dtcw dtcw.ps1 dtcw.bat Dockerhub The image build for rdmueller/doctoolchain depends on the github repository docToolchain/docker-image update the Dockerfile to reflect the new version create a new release reference the github release for changelog the build on dockerhub will be automatically triggered Important currently, the autobuild only works for paying customers. To manually build and upload the image, download the repository, switch to branch ng-beta , cd to the alpine folder and execute docker build -t rdmueller/doctoolchain:v2.0.0-rc15 . . Afterwards use docker desktop to push the resulting image to the hub. sdkman A github action has been created to deploy to sdkman: sdkman deploy . set version to the same as for the other relases but without the pre-pended v : X.Y.Z use as download link the link to the docToolchain-dist.zip from the github release (hint: looks like https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip ) "
+},
+
+{
+    "id": 7,
+    "uri": "025_development/020_run_tests.html",
+    "menu": "development",
+    "title": "How to run Tests",
+    "text": " Table of Contents How to run Tests Prerequisites Prepare the Project Execute Tests Proxy Setting for Tests How to run Tests 2 minutes to read Prerequisites make sure that Git and Graphviz are installed make sure that your Gradle setup is able to work with proxies use Java 8 Prepare the Project git clone git@github.com:docToolchain/docToolchain.git cd docToolchain/ git checkout V1.0.0 # (1) git submodule update -i the version to test. Not needed if you work on the HEAD revision on Master Execute Tests rm -r build &amp;&amp; ./gradlew test --info The rm command ensures that you really have a clean test running. Otherwise you might get false positives because Gradle will skip steps ('Up-to-date') because artifacts of an older test run still exist. Proxy Setting for Tests The docToolchain test setup is based on the Gradle-Test-Kit and makes use of the Spock test execution framework . The gradle test runner is started in its own test environment and its own JVM instance. As a result the global proxy settings are ignored. As workarund to execute the test with the correct proxy settings it is necessary to copy the proxy setting normally done in the in gradle.properties located in the user directory to the gradle.properties file located in the docToolchain folder itself. Note The files downloaded by the Gradle test Runner are placed in a different folder than the default gradle cache. You&#8217;ll find them in the Tmp folder: C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches "
 },
 
 {
@@ -74,10 +74,10 @@ var documents = [
 
 {
     "id": 9,
-    "uri": "020_tutorial/010_Install.html",
+    "uri": "020_tutorial/100_diagrams.net.html",
     "menu": "tutorial",
-    "title": "Install docToolchain",
-    "text": " Table of Contents Welcome! How to install docToolchain Get the Wrapper run a first command Problems &amp; Solutions Welcome! Nice to meet you. Glad that you want to learn more about how to use docToolchain. Let&#8217;s start with the installation. The following steps are the same as described in the manual. Please follow them step by step. If you encounter problems, please create a github issue and the community will help you. How to install docToolchain 5 minutes to read Get the Wrapper The basic strategy on how to install docToolchain has changed with V2.x. You now install a small wrapper scripts to your project which does the rest for you: Linux / WSL2 with bash cd &lt;your project&gt; wget doctoolchain.github.io/dtcw chmod +x dtcw if you don&#8217;t have wget installed, you can also use curl : cd &lt;your project&gt; curl -Lo dtcw doctoolchain.github.io/dtcw chmod +x dtcw Windows with Powershell cd &lt;your project&gt; Invoke-WebRequest doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1 Windows with cmd.exe cd &lt;your project&gt; curl -Lo dtcw.bat doctoolchain.github.io/dtcw.bat dtcw.bat wraps the dtcw.ps1 script and executes it in powershell. This might be easier to use if you haven&#8217;t yet configured your powershell as a developer. In order to support development for your project on both, Linux and Windows, it makes sense to download all three scripts to your project. if you use cmd.exe , please follow the instructions for powershell in the manual. We will not further differentiate between both. dtcw uses bash as shell and thus tries to find java from within bash. Chances are that when you use dtcw from another shell like zsh, you shell knows about the right java version but your bash doesn&#8217;t. In that case, please switch to bash and make sure that the right java version is known. Afterwards, you can switch back to your shell. The wrapper helps you in several ways: it ensures that everyone who uses your repository, uses the same version of docToolchain it keeps all the technology out of your repository it wraps all your commands and directs them to your local docToolchain installation even more, it checks the way you have docToolchain installed and if it hasn&#8217;t been installed, it will install it for you via direct download or docker run a first command To get started, you can run tasks as a first command: Linux / WSL2 with bash ./dtcw tasks --group=doctoolchain Windows with Powershell ./dtcw.ps1 tasks --group=doctoolchain This command will show you all tasks available through docToolchain, but first it will make sure that docToolchain is installed: it checks for a configuration file and creates a default one if none is available. it prefers a local installation if docker is available and no local installation, it will use docker. The download of the images might take a while when run for the first time if docker is not available, it will download and install docToolchain to your home folder it will then run a gradle build through the gradle wrapper. This will download and install gradle when run for the first time. the gradle build will also fetch some dependencies. This will also take some time when run for the first time. As you can see, the installation is an incremental process and will take some time because of additional downloads. After the first few commands, you will have all the needed dependencies installed and things will be faster. Problems &amp; Solutions dtcw does not run When you get an error similiar to this one&#8230;&#8203; ./dtcw local tasks --group=doctoolchain ./dtcw: line 1: syntax error near unexpected token `newline' ./dtcw: line 1: `&lt;!DOCTYPE html&gt;' it is likely that the download of the wrapper didn&#8217;t work. Your will see that an HTML page has been downloaded instead of the wrapper. Please try to re-download it. wrong java version When docToolchain starts but crashes with a stacktrace that starts like this&#8230;&#8203; * What went wrong: Could not compile settings file '/Users/falk/.doctoolchain/docToolchain-2.0.0/settings.gradle'. &gt; startup failed: General error during semantic analysis: Unsupported class file major version 61 java.lang.IllegalArgumentException: Unsupported class file major version 61 then you&#8217;ve got a wrong java version. dtcw tries to check the java version upfront by doing a java --version but gradle sometimes picks up a different version. In that case, please try to re-install a correct java version. "
+    "title": "Diagrams: Diagrams.net",
+    "text": " Table of Contents Diagrams: Diagrams.net Diagrams: Diagrams.net There is no exportDiagramsnet or exportDrawio task, because working with these diagrams is more convenient than with the other diagramming tools. Diagrams.net (formerly known as Draw.io) is a neat little tool which is able to store the source of your diagrams in the meta-data of your .png or .svg files. To recognize these files as diagrams.net files, give them the extension myfile .dio.png or myfile .dio.svg . In IntelliJ, with the asciidoctor and diagrams.net plugin installed, type something like image::mynewdiagram.dio.png[] IntelliJ will show you that the file doesn&#8217;t exist. Press alt + shift + enter to create the file. IntelliJ will then launch a local copy of the diagrams.net editor. Every change in the diagram will be directly reflected in your document. Figure 1. just a demo image "
 },
 
 {
@@ -114,10 +114,10 @@ var documents = [
 
 {
     "id": 14,
-    "uri": "020_tutorial/100_diagrams.net.html",
+    "uri": "020_tutorial/010_Install.html",
     "menu": "tutorial",
-    "title": "Diagrams: Diagrams.net",
-    "text": " Table of Contents Diagrams: Diagrams.net Diagrams: Diagrams.net There is no exportDiagramsnet or exportDrawio task, because working with these diagrams is more convenient than with the other diagramming tools. Diagrams.net (formerly known as Draw.io) is a neat little tool which is able to store the source of your diagrams in the meta-data of your .png or .svg files. To recognize these files as diagrams.net files, give them the extension myfile .dio.png or myfile .dio.svg . In IntelliJ, with the asciidoctor and diagrams.net plugin installed, type something like image::mynewdiagram.dio.png[] IntelliJ will show you that the file doesn&#8217;t exist. Press alt + shift + enter to create the file. IntelliJ will then launch a local copy of the diagrams.net editor. Every change in the diagram will be directly reflected in your document. Figure 1. just a demo image "
+    "title": "Install docToolchain",
+    "text": " Table of Contents Welcome! How to install docToolchain Get the Wrapper run a first command Problems &amp; Solutions Welcome! Nice to meet you. Glad that you want to learn more about how to use docToolchain. Let&#8217;s start with the installation. The following steps are the same as described in the manual. Please follow them step by step. If you encounter problems, please create a github issue and the community will help you. How to install docToolchain 5 minutes to read Get the Wrapper The basic strategy on how to install docToolchain has changed with V2.x. You now install a small wrapper scripts to your project which does the rest for you: Linux / WSL2 with bash cd &lt;your project&gt; wget doctoolchain.github.io/dtcw chmod +x dtcw if you don&#8217;t have wget installed, you can also use curl : cd &lt;your project&gt; curl -Lo dtcw doctoolchain.github.io/dtcw chmod +x dtcw Windows with Powershell cd &lt;your project&gt; Invoke-WebRequest doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1 Windows with cmd.exe cd &lt;your project&gt; curl -Lo dtcw.bat doctoolchain.github.io/dtcw.bat dtcw.bat wraps the dtcw.ps1 script and executes it in powershell. This might be easier to use if you haven&#8217;t yet configured your powershell as a developer. In order to support development for your project on both, Linux and Windows, it makes sense to download all three scripts to your project. if you use cmd.exe , please follow the instructions for powershell in the manual. We will not further differentiate between both. dtcw uses bash as shell and thus tries to find java from within bash. Chances are that when you use dtcw from another shell like zsh, you shell knows about the right java version but your bash doesn&#8217;t. In that case, please switch to bash and make sure that the right java version is known. Afterwards, you can switch back to your shell. The wrapper helps you in several ways: it ensures that everyone who uses your repository, uses the same version of docToolchain it keeps all the technology out of your repository it wraps all your commands and directs them to your local docToolchain installation even more, it checks the way you have docToolchain installed and if it hasn&#8217;t been installed, it will install it for you via direct download or docker run a first command To get started, you can run tasks as a first command: Linux / WSL2 with bash ./dtcw tasks --group=doctoolchain Windows with Powershell ./dtcw.ps1 tasks --group=doctoolchain This command will show you all tasks available through docToolchain, but first it will make sure that docToolchain is installed: it checks for a configuration file and creates a default one if none is available. it prefers a local installation if docker is available and no local installation, it will use docker. The download of the images might take a while when run for the first time if docker is not available, it will download and install docToolchain to your home folder it will then run a gradle build through the gradle wrapper. This will download and install gradle when run for the first time. the gradle build will also fetch some dependencies. This will also take some time when run for the first time. As you can see, the installation is an incremental process and will take some time because of additional downloads. After the first few commands, you will have all the needed dependencies installed and things will be faster. Problems &amp; Solutions dtcw does not run When you get an error similiar to this one&#8230;&#8203; ./dtcw local tasks --group=doctoolchain ./dtcw: line 1: syntax error near unexpected token `newline' ./dtcw: line 1: `&lt;!DOCTYPE html&gt;' it is likely that the download of the wrapper didn&#8217;t work. Your will see that an HTML page has been downloaded instead of the wrapper. Please try to re-download it. wrong java version When docToolchain starts but crashes with a stacktrace that starts like this&#8230;&#8203; * What went wrong: Could not compile settings file '/Users/falk/.doctoolchain/docToolchain-2.0.0/settings.gradle'. &gt; startup failed: General error during semantic analysis: Unsupported class file major version 61 java.lang.IllegalArgumentException: Unsupported class file major version 61 then you&#8217;ve got a wrong java version. dtcw tries to check the java version upfront by doing a java --version but gradle sometimes picks up a different version. In that case, please try to re-install a correct java version. "
 },
 
 {
@@ -178,18 +178,18 @@ var documents = [
 
 {
     "id": 22,
-    "uri": "010_manual/025_features.html",
-    "menu": "manual",
-    "title": "Features",
-    "text": " Table of Contents Features Features 1 minute to read docToolchain implements quite a lot of features via scripts which you call through the command line. We call these tasks and they are listed under the top-level menu Tasks in this documentation. "
-},
-
-{
-    "id": 23,
     "uri": "010_manual/100_config.html",
     "menu": "manual",
     "title": "Appendix A: Configuration",
     "text": " Table of Contents Appendix A: Appendix A: Configuration mainConfigFile and docDir AsciiDoc config Command Line Parameters Appendix A: Appendix A: Configuration 2 minutes to read This appendix covers all configuration introduced by docToolchain. AsciiDoc, AsciiDoctor, Gradle and other tools and libraries used know of more configuration settings and you can read about those in the corresponding documentation. mainConfigFile and docDir docToolchain should be easy to use. That&#8217;s why the goal is to have one config file with all settings for each project. But first of all, docToolchain has to know where your documentation project is located. If docDir is defined, the default for mainConfigFile is Config.groovy in the root folder of your docDir . You have several options to specify the location of your documentation project ( docDir ) and the location of your config file ( mainConfigFile ). Commandline Specify the property on the commandline ./dtcw generateHTML -PmainConfigFile=Config.groovy Tip you can verify the location of your Config.groovy by executing docToolchain with the --info parameter which sets the loglevel to info . It will print the location on the command line (among other settings) dynamic configuration properties Sometime you need a more dynamic configuration. Since the configuration file is an executable .groovy file, you can not only configure static values but also fetch dynamic once. For example, example = System.properties.myProperty You can then specify the property with the -D parameter like this ./dtcw docker generateHTML -DmyProperty=myValue In the same way, you can use environment variables example = System.getenv(myEnvVariable) But in this case, you have to ensure that the environment varaible can be accessed. It will not work for docker based execution of dtcw Content of the mainConfigFile Unresolved directive in &lt;stdin&gt; - include::../../../Config.groovy[tags=**] AsciiDoc config Command Line Parameters "
+},
+
+{
+    "id": 23,
+    "uri": "010_manual/025_features.html",
+    "menu": "manual",
+    "title": "Features",
+    "text": " Table of Contents Features Features 1 minute to read docToolchain implements quite a lot of features via scripts which you call through the command line. We call these tasks and they are listed under the top-level menu Tasks in this documentation. "
 },
 
 {
@@ -218,14 +218,6 @@ var documents = [
 
 {
     "id": 27,
-    "uri": "015_tasks/03_task_collectIncludes.html",
-    "menu": "tasks",
-    "title": "collectIncludes",
-    "text": " Table of Contents collectIncludes .gravatar img { margin-left: 3px; border-radius: 4px; } collectIncludes 2 minutes to read This tasks crawls through your whole project looking for AsciiDoc files with a certain name pattern. It then creates an AsciiDoc file which just includes all files found. When you create modular documentation, most includes are static. For example, the arc42-template has 12 chapters and a master template in which those 12 chapters are included. But when you work with dynamic modules like ADRs - Architecture Decision Records - you create those files on the fly. Maybe not even within your /src/docs folder but right beside the code file for which you wrote the ADR. In order to include these files in your documentation, you now would have to add the file with its whole relative path to one of your AsciiDoc files. This task will handle it for you! Just stick with your files names to the pattern ^[A-Z]{3,}[-\_].\* (it begins with at last three upper case letters and a dash/underscore) and this task will collect this file and write it to your build folder. You only have to include this generated file from within your documentation. If you provide templates for the documents these templates are skipped if the name matches the pattern ^.*[-_][tT]emplate[-\_].* . Example: You have a file called /src/java/yourCompany/domain/books/ADR-1-whyWeUseTheAISINInsteadOFISBN.adoc The task will collect this file and write another file called /build/docs/_includes/ADR_includes.adoc Which will look like this: include::../../../src/java/yourCompany/domain/books/ADR-1-whyWeUseTheAISINInsteadOFISBN.adoc[] Obviously, you get the most benefit if you not only have one ADR file, but several ones which get collected. 😎 You then include these files in your main documentation by using a single include: include::{targetDir}/docs/_includes/ADR_includes.adoc[] scripts/collectIncludes.gradle import static groovy.io.FileType.* import java.security.MessageDigest task collectIncludes( description: 'collect all ADRs as includes in one file', group: 'docToolchain' ) { doFirst { new File(targetDir, '_includes').mkdirs() } doLast { //let's search the whole project for files, not only the docs folder //could be a problem with node projects :-) //running as subproject? set scandir to main project if (project.name!=rootProject.name &amp;&amp; scanDir=='.') { scanDir = project(':').projectDir.path } if (docDir.startsWith('.')) { docDir = file(new File(projectDir, docDir).canonicalPath) } logger.info docToolchain&gt; docDir: ${docDir} logger.info docToolchain&gt; scanDir: ${scanDir} if (scanDir.startsWith('.')) { scanDir = file(new File(docDir, scanDir).canonicalPath) } else { scanDir = file(new File(scanDir, ).canonicalPath) } logger.info docToolchain&gt; scanDir: ${scanDir} logger.info docToolchain&gt; includeRoot: ${includeRoot} if (includeRoot.startsWith('.')) { includeRoot = file(new File(docDir, includeRoot).canonicalPath) } logger.info docToolchain&gt; includeRoot: ${includeRoot} File sourceFolder = scanDir println sourceFolder:  + sourceFolder.canonicalPath def collections = [:] sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^[A-Z]{3,}[-_].*[.](ad|adoc|asciidoc)$') { def type = file.name.replaceAll('^([A-Z]{3,})[-_].*$','\$1') if (!collections[type]) { collections[type] = [] } println file:  + file.canonicalPath def fileName = (file.canonicalPath - scanDir.canonicalPath)[1..-1] if (file.name ==~ '^.*[Tt]emplate.*$') { println ignore template file:  + fileName } else { if (file.name ==~ '^.*[A-Z]{3,}_includes.adoc$') { println ignore generated _includes files:  + fileName } else { if ( fileName.startsWith('docToolchain') || fileName.replace(\\, /).matches('^.*/docToolchain/.*$')) { //ignore docToolchain as submodule } else { println include corrected file:  + fileName collections[type] &lt;&lt; fileName } } } } } println targetDir - docDir:  + (targetDir - docDir) println targetDir - includeRoot:  + (targetDir - includeRoot) def pathDiff = '../' * ((targetDir - docDir) .replaceAll('^/','') .replaceAll('/$','') .replaceAll([^/],'').size()+1) println pathDiff:  + pathDiff collections.each { type, fileNames -&gt; if (fileNames) { def outFile = new File(targetDir+'/_includes', type + '_includes.adoc') println outFile.canonicalPath-sourceFolder.canonicalPath outFile.write(// this is autogenerated\n) fileNames.sort().each { fileName -&gt; outFile.append (include::../+pathDiff+fileName.replace(\\, /)+[]\n\n) } } } } } "
-},
-
-{
-    "id": 28,
     "uri": "015_tasks/03_tasks.html",
     "menu": "tasks",
     "title": "Overview of available Tasks",
@@ -233,7 +225,7 @@ var documents = [
 },
 
 {
-    "id": 29,
+    "id": 28,
     "uri": "015_tasks/03_task_publishToConfluence.html",
     "menu": "tasks",
     "title": "publishToConfluence",
@@ -241,11 +233,19 @@ var documents = [
 },
 
 {
-    "id": 30,
+    "id": 29,
     "uri": "015_tasks/03_task_fixencoding.html",
     "menu": "tasks",
     "title": "fixEncoding",
     "text": " Table of Contents fixEncoding .gravatar img { margin-left: 3px; border-radius: 4px; } fixEncoding 1 minute to read Whenever Asciidoctor has to process a file which is not UTF-8 encoded, the underlying Ruby tries to read it and throws an error like this: asciidoctor: FAILED: /home/demo/test.adoc: Failed to load AsciiDoc document - invalid byte sequence in UTF-8 Unfortunately, it is hard to find the wrong encoded file if a lot of includes:: are used - Asciidoctor only shows the name of the main document. Note This is not a problem of Asciidoctor, but of the underlying ruby interpreter. This target crawls through all *.ad and *.adoc files and checks their encoding. If it encounters a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding. scripts/fixEncoding.gradle import groovy.util.* import static groovy.io.FileType.* task fixEncoding( description: 'finds and converts non UTF-8 adoc files to UTF-8', group: 'docToolchain helper', ) { doLast { File sourceFolder = new File(${docDir}/${inputPath}) println(sourceFolder:  + sourceFolder.canonicalPath) sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^.*(ad|adoc|asciidoc)$') { CharsetToolkit toolkit = new CharsetToolkit(file); // guess the encoding def guessedCharset = toolkit.getCharset().toString().toUpperCase(); if (guessedCharset!='UTF-8') { def text = file.text file.write(text, utf-8) println( converted ${file.name} from '${guessedCharset}' to 'UFT-8') } } } } } "
+},
+
+{
+    "id": 30,
+    "uri": "015_tasks/03_task_collectIncludes.html",
+    "menu": "tasks",
+    "title": "collectIncludes",
+    "text": " Table of Contents collectIncludes .gravatar img { margin-left: 3px; border-radius: 4px; } collectIncludes 2 minutes to read This tasks crawls through your whole project looking for AsciiDoc files with a certain name pattern. It then creates an AsciiDoc file which just includes all files found. When you create modular documentation, most includes are static. For example, the arc42-template has 12 chapters and a master template in which those 12 chapters are included. But when you work with dynamic modules like ADRs - Architecture Decision Records - you create those files on the fly. Maybe not even within your /src/docs folder but right beside the code file for which you wrote the ADR. In order to include these files in your documentation, you now would have to add the file with its whole relative path to one of your AsciiDoc files. This task will handle it for you! Just stick with your files names to the pattern ^[A-Z]{3,}[-\_].\* (it begins with at last three upper case letters and a dash/underscore) and this task will collect this file and write it to your build folder. You only have to include this generated file from within your documentation. If you provide templates for the documents these templates are skipped if the name matches the pattern ^.*[-_][tT]emplate[-\_].* . Example: You have a file called /src/java/yourCompany/domain/books/ADR-1-whyWeUseTheAISINInsteadOFISBN.adoc The task will collect this file and write another file called /build/docs/_includes/ADR_includes.adoc Which will look like this: include::../../../src/java/yourCompany/domain/books/ADR-1-whyWeUseTheAISINInsteadOFISBN.adoc[] Obviously, you get the most benefit if you not only have one ADR file, but several ones which get collected. 😎 You then include these files in your main documentation by using a single include: include::{targetDir}/docs/_includes/ADR_includes.adoc[] scripts/collectIncludes.gradle import static groovy.io.FileType.* import java.security.MessageDigest task collectIncludes( description: 'collect all ADRs as includes in one file', group: 'docToolchain' ) { doFirst { new File(targetDir, '_includes').mkdirs() } doLast { //let's search the whole project for files, not only the docs folder //could be a problem with node projects :-) //running as subproject? set scandir to main project if (project.name!=rootProject.name &amp;&amp; scanDir=='.') { scanDir = project(':').projectDir.path } if (docDir.startsWith('.')) { docDir = file(new File(projectDir, docDir).canonicalPath) } logger.info docToolchain&gt; docDir: ${docDir} logger.info docToolchain&gt; scanDir: ${scanDir} if (scanDir.startsWith('.')) { scanDir = file(new File(docDir, scanDir).canonicalPath) } else { scanDir = file(new File(scanDir, ).canonicalPath) } logger.info docToolchain&gt; scanDir: ${scanDir} logger.info docToolchain&gt; includeRoot: ${includeRoot} if (includeRoot.startsWith('.')) { includeRoot = file(new File(docDir, includeRoot).canonicalPath) } logger.info docToolchain&gt; includeRoot: ${includeRoot} File sourceFolder = scanDir println sourceFolder:  + sourceFolder.canonicalPath def collections = [:] sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^[A-Z]{3,}[-_].*[.](ad|adoc|asciidoc)$') { def type = file.name.replaceAll('^([A-Z]{3,})[-_].*$','\$1') if (!collections[type]) { collections[type] = [] } println file:  + file.canonicalPath def fileName = (file.canonicalPath - scanDir.canonicalPath)[1..-1] if (file.name ==~ '^.*[Tt]emplate.*$') { println ignore template file:  + fileName } else { if (file.name ==~ '^.*[A-Z]{3,}_includes.adoc$') { println ignore generated _includes files:  + fileName } else { if ( fileName.startsWith('docToolchain') || fileName.replace(\\, /).matches('^.*/docToolchain/.*$')) { //ignore docToolchain as submodule } else { println include corrected file:  + fileName collections[type] &lt;&lt; fileName } } } } } println targetDir - docDir:  + (targetDir - docDir) println targetDir - includeRoot:  + (targetDir - includeRoot) def pathDiff = '../' * ((targetDir - docDir) .replaceAll('^/','') .replaceAll('/$','') .replaceAll([^/],'').size()+1) println pathDiff:  + pathDiff collections.each { type, fileNames -&gt; if (fileNames) { def outFile = new File(targetDir+'/_includes', type + '_includes.adoc') println outFile.canonicalPath-sourceFolder.canonicalPath outFile.write(// this is autogenerated\n) fileNames.sort().each { fileName -&gt; outFile.append (include::../+pathDiff+fileName.replace(\\, /)+[]\n\n) } } } } } "
 },
 
 {
@@ -330,6 +330,14 @@ var documents = [
 
 {
     "id": 41,
+    "uri": "015_tasks/03_task_htmlSanityCheck.html",
+    "menu": "tasks",
+    "title": "htmlSanityCheck",
+    "text": " Table of Contents htmlSanityCheck Source .gravatar img { margin-left: 3px; border-radius: 4px; } htmlSanityCheck 1 minute to read This task invokes the htmlSanityCheck gradle plugin. It is a standalone (batch- and command-line) html sanity checker - it detects missing images, dead links, and duplicate bookmarks. In docToolchain, this task is used to ensure that the generated HTML contains no missing links or other problems. This task is the last default task and creates a report in build/report/htmlchecks/index.html Figure 1. sample report Further information can be found on GitHub: https://github.com/aim42/htmlSanityCheck Tip Blog-Post: Automated Quality-Checks Source htmlSanityCheck.gradle htmlSanityCheck { sourceDir = new File(config.htmlSanityCheck.sourceDir?:$targetDir/html5) // files to check - in Set-notation //sourceDocuments = [ one-file.html, another-file.html, index.html] // where to put results of sanityChecks... checkingResultsDir = new File(config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath) // directory where the results written to in JUnit XML format junitResultsDir = new File(config.htmlSanityCheck.junitResultsDir?:$targetDir/test-results/htmlchecks) // which statuscodes shall be interpreted as warning, error or success defaults to standard httpSuccessCodes = config.htmlSanityCheck.httpSuccessCodes?:[] httpWarningCodes = config.htmlSanityCheck.httpWarningCodes?:[] httpErrorCodes = config.htmlSanityCheck.httpErrorCodes?:[] // fail build on errors? failOnErrors = config.htmlSanityCheck.failOnErrors?:false logger.info docToolchain&gt; HSC sourceDir: ${sourceDir} logger.info docToolchain&gt; HSC checkingResultsDir: ${checkingResultsDir} } "
+},
+
+{
+    "id": 42,
     "uri": "015_tasks/03_task_generateHTML.html",
     "menu": "tasks",
     "title": "generateHTML",
@@ -337,7 +345,7 @@ var documents = [
 },
 
 {
-    "id": 42,
+    "id": 43,
     "uri": "015_tasks/03_task_exportMetrics.html",
     "menu": "tasks",
     "title": "exportMetrics",
@@ -345,7 +353,7 @@ var documents = [
 },
 
 {
-    "id": 43,
+    "id": 44,
     "uri": "015_tasks/03_task_exportJiraIssues.html",
     "menu": "tasks",
     "title": "exportJiraIssues",
@@ -353,7 +361,7 @@ var documents = [
 },
 
 {
-    "id": 44,
+    "id": 45,
     "uri": "015_tasks/03_task_autobuildSite.html",
     "menu": "tasks",
     "title": "autobuildSite",
@@ -361,19 +369,11 @@ var documents = [
 },
 
 {
-    "id": 45,
+    "id": 46,
     "uri": "015_tasks/03_task_prependFilename.html",
     "menu": "tasks",
     "title": "prependFilename",
     "text": " Table of Contents prependFilename .gravatar img { margin-left: 3px; border-radius: 4px; } prependFilename 1 minute to read When Asciidoctor renders a file, the file context only knows the name of the top-level AsciiDoc file but an include file doesn&#8217;t know that it is being included. It will simply get the name of the master file and has no chance to get his own names as attribute. This task simply crawls through all AsciiDoc files and prepends the name of the current file like this: :filename: 015_tasks/03_task_prependFilename.adoc This way, each file can get its own file name. This enables features like the inclusion of file contributors (see exportContributors-task). Note The task skips all files named config.* , _config.* , feedback.* and _feedback.* . scripts/prependFilename.gradle import static groovy.io.FileType.* task prependFilename( description: 'crawls through all AsciiDoc files and prepends the name of the current file', group: 'docToolchain helper', ) { doLast { File sourceFolder = new File(${docDir}/${inputPath}) println(sourceFolder:  + sourceFolder.canonicalPath) sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^.*(ad|adoc|asciidoc)$') { if (file.name.split('[.]')[0] in [feedback, _feedback, config, _config]) { println skipped +file.name } else { def text = file.getText('utf-8') def name = file.canonicalPath - sourceFolder.canonicalPath name = name.replace(\\, /).replaceAll(^/, ) if (text.contains(:filename:)) { text = text.replaceAll(:filename:.*, :filename: $name) println updated +name } else { text = :filename: $name\n + text println added +name } file.write(text,'utf-8') } } } } } "
-},
-
-{
-    "id": 46,
-    "uri": "015_tasks/03_task_htmlSanityCheck.html",
-    "menu": "tasks",
-    "title": "htmlSanityCheck",
-    "text": " Table of Contents htmlSanityCheck Source .gravatar img { margin-left: 3px; border-radius: 4px; } htmlSanityCheck 1 minute to read This task invokes the htmlSanityCheck gradle plugin. It is a standalone (batch- and command-line) html sanity checker - it detects missing images, dead links, and duplicate bookmarks. In docToolchain, this task is used to ensure that the generated HTML contains no missing links or other problems. This task is the last default task and creates a report in build/report/htmlchecks/index.html Figure 1. sample report Further information can be found on GitHub: https://github.com/aim42/htmlSanityCheck Tip Blog-Post: Automated Quality-Checks Source htmlSanityCheck.gradle htmlSanityCheck { sourceDir = new File(config.htmlSanityCheck.sourceDir?:$targetDir/html5) // files to check - in Set-notation //sourceDocuments = [ one-file.html, another-file.html, index.html] // where to put results of sanityChecks... checkingResultsDir = new File(config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath) // directory where the results written to in JUnit XML format junitResultsDir = new File(config.htmlSanityCheck.junitResultsDir?:$targetDir/test-results/htmlchecks) // which statuscodes shall be interpreted as warning, error or success defaults to standard httpSuccessCodes = config.htmlSanityCheck.httpSuccessCodes?:[] httpWarningCodes = config.htmlSanityCheck.httpWarningCodes?:[] httpErrorCodes = config.htmlSanityCheck.httpErrorCodes?:[] // fail build on errors? failOnErrors = config.htmlSanityCheck.failOnErrors?:false logger.info docToolchain&gt; HSC sourceDir: ${sourceDir} logger.info docToolchain&gt; HSC checkingResultsDir: ${checkingResultsDir} } "
 },
 
 {
@@ -386,22 +386,6 @@ var documents = [
 
 {
     "id": 48,
-    "uri": "015_tasks/03_task_exportChangeLog.html",
-    "menu": "tasks",
-    "title": "exportChangeLog",
-    "text": " Table of Contents exportChangeLog Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportChangeLog 2 minutes to read As the name says, this task exports the changelog to be referenced from within your documentation - if needed. The changelog is written to build/docs/changelog.adoc . This task can be configured to use different source control system or different directory. To configure the task, copy template_config/scripts/ChangelogConfig.groovy to your directory and modify to your needs. Then give the path to your configuration file to the task using -PchangelogConfigFile=&lt;your config file&gt;. See the description inside the template for more details. By default, the source is the Git changelog for the path src/docs - it only contains the commit messages for changes on the documentation. All changes on the build or other sources from the repository will not show up. By default, the changelog contains the changes with date , author and commit message already formatted as AsciiDoc table content: | 09.04.2017 | Ralf D. Mueller | fix #24 template updated to V7.0 | 08.04.2017 | Ralf D. Mueller | fixed typo You simply include it like this: .Changes [options=header,cols=1,2,6] |==== | Date | Author | Comment include::../../build/docs/changelog.adoc[] |==== By excluding the table definition, you can easily translate the table headings through different text snippets. Note it might make sense to only include certain commit messages from the change log or exclude others (starting with # or // ?). But this isn&#8217;t implemented yet. Tip Blog-Post: The only constant in life is change Source exportChangelog.gradle task exportChangeLog( description: 'exports the change log from a git subpath', group: 'docToolchain' ) { doFirst { new File(targetDir).mkdirs() } doLast { logger.info(docToolchain&gt; docDir: +docDir) logger.info(docToolchain&gt; mainConfigFile: +mainConfigFile) def config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text) def cmd = ${config.changelog.cmd} . def changes = cmd.execute(null, new File(docDir, config.changelog.dir)).text def changelog = new File(targetDir, 'changelog.adoc') logger.info &gt; changelog exported ${changelog.canonicalPath} changelog.write(changes) } } "
-},
-
-{
-    "id": 49,
-    "uri": "015_tasks/03_task_generateDocBook.html",
-    "menu": "tasks",
-    "title": "generateDocbook",
-    "text": " Table of Contents generateDocbook Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateDocbook 1 minute to read This is only a helper task - it generates the intermediate format for convertToDocx &lt;&lt;&gt;&gt; and convertToEpub . Source AsciiDocBasics.gradle task generateDocbook ( type: AsciidoctorTask, group: 'docToolchain', description: 'use docbook as asciidoc backend') { def sourceFilesDOCBOOK = sourceFiles.findAll { 'docbook' in it.formats } // onlyIf { // sourceFilesDOCBOOK // } sources { sourceFilesDOCBOOK.each { include it.file } } backends = ['docbook'] doFirst { if (sourceFilesDOCBOOK.size()==0) { throw new Exception ( &gt;&gt; No source files defined for type docbook. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy ) } } } "
-},
-
-{
-    "id": 50,
     "uri": "015_tasks/03_task_exportVisio.html",
     "menu": "tasks",
     "title": "exportVisio",
@@ -409,7 +393,7 @@ var documents = [
 },
 
 {
-    "id": 51,
+    "id": 49,
     "uri": "015_tasks/03_task_exportJiraSprintChangelog.html",
     "menu": "tasks",
     "title": "exportJiraSprintChangelogIssues",
@@ -417,23 +401,23 @@ var documents = [
 },
 
 {
-    "id": 52,
-    "uri": "015_tasks/03_task_convertToDocx.html",
+    "id": 50,
+    "uri": "015_tasks/03_task_exportChangeLog.html",
     "menu": "tasks",
-    "title": "convertToDocx",
-    "text": " Table of Contents convertToDocx Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToDocx Needs pandoc installed Please make sure that 'docbook' and 'docx' are added to the inputFiles formats in Config.groovy Optional: you can specify a reference doc file with custom stylesheets (see task createReferenceDoc ) 1 minute to read Tip Blog-Post: Render AsciiDoc to docx (MS Word) Source pandoc.gradle task convertToDocx ( group: 'docToolchain', description: 'converts file to .docx via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `docx` in config.groovy is converted to docbook and then to docx. def sourceFilesDocx = sourceFiles.findAll { 'docx' in it.formats } sourceFilesDocx.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.docx') workingDir $targetDir/docbook executable = pandoc if(referenceDocFile?.trim()) { args = [-r,docbook, -t,docx, -o,../docx/$targetFile, --reference-doc=${docDir}/${referenceDocFile}, sourceFile] } else { args = [-r,docbook, -t,docx, -o,../docx/$targetFile, sourceFile] } } doFirst { new File($targetDir/docx/).mkdirs() } } "
+    "title": "exportChangeLog",
+    "text": " Table of Contents exportChangeLog Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportChangeLog 2 minutes to read As the name says, this task exports the changelog to be referenced from within your documentation - if needed. The changelog is written to build/docs/changelog.adoc . This task can be configured to use different source control system or different directory. To configure the task, copy template_config/scripts/ChangelogConfig.groovy to your directory and modify to your needs. Then give the path to your configuration file to the task using -PchangelogConfigFile=&lt;your config file&gt;. See the description inside the template for more details. By default, the source is the Git changelog for the path src/docs - it only contains the commit messages for changes on the documentation. All changes on the build or other sources from the repository will not show up. By default, the changelog contains the changes with date , author and commit message already formatted as AsciiDoc table content: | 09.04.2017 | Ralf D. Mueller | fix #24 template updated to V7.0 | 08.04.2017 | Ralf D. Mueller | fixed typo You simply include it like this: .Changes [options=header,cols=1,2,6] |==== | Date | Author | Comment include::../../build/docs/changelog.adoc[] |==== By excluding the table definition, you can easily translate the table headings through different text snippets. Note it might make sense to only include certain commit messages from the change log or exclude others (starting with # or // ?). But this isn&#8217;t implemented yet. Tip Blog-Post: The only constant in life is change Source exportChangelog.gradle task exportChangeLog( description: 'exports the change log from a git subpath', group: 'docToolchain' ) { doFirst { new File(targetDir).mkdirs() } doLast { logger.info(docToolchain&gt; docDir: +docDir) logger.info(docToolchain&gt; mainConfigFile: +mainConfigFile) def config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text) def cmd = ${config.changelog.cmd} . def changes = cmd.execute(null, new File(docDir, config.changelog.dir)).text def changelog = new File(targetDir, 'changelog.adoc') logger.info &gt; changelog exported ${changelog.canonicalPath} changelog.write(changes) } } "
 },
 
 {
-    "id": 53,
-    "uri": "ea/readme.html",
-    "menu": "ea",
-    "title": "readme.ad",
-    "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
+    "id": 51,
+    "uri": "015_tasks/03_task_generateDocBook.html",
+    "menu": "tasks",
+    "title": "generateDocbook",
+    "text": " Table of Contents generateDocbook Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateDocbook 1 minute to read This is only a helper task - it generates the intermediate format for convertToDocx &lt;&lt;&gt;&gt; and convertToEpub . Source AsciiDocBasics.gradle task generateDocbook ( type: AsciidoctorTask, group: 'docToolchain', description: 'use docbook as asciidoc backend') { def sourceFilesDOCBOOK = sourceFiles.findAll { 'docbook' in it.formats } // onlyIf { // sourceFilesDOCBOOK // } sources { sourceFilesDOCBOOK.each { include it.file } } backends = ['docbook'] doFirst { if (sourceFilesDOCBOOK.size()==0) { throw new Exception ( &gt;&gt; No source files defined for type docbook. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy ) } } } "
 },
 
 {
-    "id": 54,
+    "id": 52,
     "uri": "015_tasks/03_task_exportMarkdown.html",
     "menu": "tasks",
     "title": "exportMarkdown",
@@ -441,11 +425,27 @@ var documents = [
 },
 
 {
-    "id": 55,
+    "id": 53,
     "uri": "015_tasks/03_task_exportDrawIo.html",
     "menu": "tasks",
     "title": "exportDrawIo",
     "text": " Table of Contents exportDrawIo .gravatar img { margin-left: 3px; border-radius: 4px; } exportDrawIo 2 minutes to read There is no exportDrawIo task because it is not required. You can continue to use draw.io as an editor for your diagrams by making a change to your diagram authoring workflow. Export your draw.io diagrams as a PNG with the source embedded in the file metadata. Using this approach allows you to embed your diagrams into AsciiDoc source as you normally do with the image:: macro, with the added advantage of storing the diagram source with the image itself. Note If you are converting a Confluence page with embedded draw.io diagrams to AsciiDoc, you can use this export workflow to continue to enjoy the draw.io editing experience. Export an editable PNG diagram from Confluence Load the diagram you want to export from Confluence. Click File &#160; &#8250; Export as &#160; &#8250; PNG&#8230;&#8203; In the Image modal, make sure that Include a copy of my diagram is selected. Click Export to save the PNG file with the pattern [file].dio.png . Note Specifying .dio (short for  d raw io ) in the name will help you identify PNG files containing embedded XML diagram source. Commit the exported PNG file to source control. You now have a diagram that can be managed in source control, added to your documentation source, and edited using a draw.io Desktop version. Note Draw.io offers free and open source desktop editors for all major operating system platforms. See https://about.draw.io/integrations/ to find a desktop editor application compatible with your operating system. When you use the desktop version, just create your diagram with the .png or even better .dio.png extension and draw.io will always save your diagam as PNG with the source as meta data. NEW! Draw.io is now called diagrams.net and there is a free plugin for VS Code and IntelliJ to edit your diagrams even offline! // Please, replace #yourelement with a real element id on your webpage MarketplaceWidget.setupMarketplaceWidget('card', 15635, #myelement); "
+},
+
+{
+    "id": 54,
+    "uri": "015_tasks/03_task_convertToDocx.html",
+    "menu": "tasks",
+    "title": "convertToDocx",
+    "text": " Table of Contents convertToDocx Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToDocx Needs pandoc installed Please make sure that 'docbook' and 'docx' are added to the inputFiles formats in Config.groovy Optional: you can specify a reference doc file with custom stylesheets (see task createReferenceDoc ) 1 minute to read Tip Blog-Post: Render AsciiDoc to docx (MS Word) Source pandoc.gradle task convertToDocx ( group: 'docToolchain', description: 'converts file to .docx via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `docx` in config.groovy is converted to docbook and then to docx. def sourceFilesDocx = sourceFiles.findAll { 'docx' in it.formats } sourceFilesDocx.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.docx') workingDir $targetDir/docbook executable = pandoc if(referenceDocFile?.trim()) { args = [-r,docbook, -t,docx, -o,../docx/$targetFile, --reference-doc=${docDir}/${referenceDocFile}, sourceFile] } else { args = [-r,docbook, -t,docx, -o,../docx/$targetFile, sourceFile] } } doFirst { new File($targetDir/docx/).mkdirs() } } "
+},
+
+{
+    "id": 55,
+    "uri": "ea/readme.html",
+    "menu": "ea",
+    "title": "readme.ad",
+    "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
 },
 
 {
