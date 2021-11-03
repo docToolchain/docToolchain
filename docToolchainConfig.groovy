@@ -22,6 +22,14 @@ imageDirs = [
 	/** imageDirs **/
 ]
 
+// folders in which asciidoc will find other resources with corrosponding target directory
+// works with generateHTML (target is prepended with build/html5/) 
+// and generateSite (target ist prepended with build/microsite/output/)
+resourceDirs = [
+    //[source: 'some/ohter/resource', target: 'target/directory']
+	/** resourceDirs **/
+]
+
 // these are directories (dirs) and files which Gradle monitors for a change
 // in order to decide if the docs have to be re-build
 taskInputsDirs = [

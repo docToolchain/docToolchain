@@ -327,8 +327,13 @@ task copyImages(type: Copy) {
     config.imageDirs.each { imageDir ->
         from(new File (new File(docDir, inputPath),imageDir)) {}
         logger.info ('imageDir: '+imageDir)
+        into("${targetDir}/microsite/output/images")
     }
-    into("${targetDir}/microsite/images")
+    config.resourceDirs.each { resource ->
+        from(new File(file(srcDir),resource.source))
+        logger.info ('resource: '+resource.source)
+        into("${targetDir}/microsite/output/" + resource.target)
+    }
 }
 
 bake.dependsOn copyImages
