@@ -65,17 +65,19 @@
       div.bg-light {
           background-color: rgba(127, 180, 224, 0.3) !important;
       }
-  span.tag {
+      //for blog posts
+
+  span.blogtag {
       border-radius: 10px;
       background-color: #30638E;
       color: white;
       padding: 5px 10px;
   }
-  span.tag a {
+  span.blogblogtag a {
       color: white;
       padding: 0
   }
-  span.tag span {
+  span.blogtag span {
       margin-left: 10px;
       border-radius: 10px;
       background-color: white;
