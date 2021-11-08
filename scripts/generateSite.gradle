@@ -181,7 +181,7 @@ ${color 'green', 'for you?'}\n""",
             println color('red', e.message)
             if (e.message.startsWith("Not Found")) {
                 themeFolder.deleteDir()
-                throw new GradleException("Couldn't find theme. Did you specify the right URL?\n"+e.message)                
+                throw new GradleException("Couldn't find theme. Did you specify the right URL?\n"+e.message)
             } else {
                 throw new GradleException(e.message)
             }
@@ -328,7 +328,7 @@ task copyImages(type: Copy) {
         from(new File (new File(docDir, inputPath),imageDir)) {}
         logger.info ('imageDir: '+imageDir)
     }
-    into("${targetDir}/microsite/images")
+    into("${targetDir}/microsite/output/images")
 }
 
 bake.dependsOn copyImages
