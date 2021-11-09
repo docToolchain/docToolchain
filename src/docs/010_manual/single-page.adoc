@@ -1,4 +1,5 @@
-:filename: manual.adoc
+include::_config.adoc[]
+:filename: single-page.adoc
 :imagesdir: images
 :allow-uri-read:
 

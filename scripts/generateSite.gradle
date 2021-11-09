@@ -319,9 +319,20 @@ ${color 'green', 'for you?'}\n""",
 task previewSite(
     group: 'docToolchain',
     dependsOn: [],
-    description: 'start a little webserver to preview your microsite',
+    description: 'start a little webserver to preview your Microsite',
 ) {
-
+        if (new File("${targetDir}/microsite/output").exists()) {
+            finalizedBy 'jettyRun'
+        }
+    doLast {
+        if (new File("${targetDir}/microsite/output").exists()) {
+            // everything is fine
+        } else {
+            throw new GradleException(""">
+> Microsite not built yet, please run './dtcw generateSite' first
+>""")
+        }
+    }
 }
 task copyImages(type: Copy) {
     config.imageDirs.each { imageDir ->
@@ -333,4 +344,3 @@ task copyImages(type: Copy) {
 
 bake.dependsOn copyImages
 generateSite.finalizedBy bake
-previewSite.finalizedBy 'jettyRun'
