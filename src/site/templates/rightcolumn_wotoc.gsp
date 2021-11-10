@@ -15,5 +15,3 @@
         <!--a href="https://example.docsy.dev/docs/_print/" id="print"><i class="fa fa-print fa-fw"></i> Print
         entire section</a-->
         ${content?.rightcolumnhtml?.replaceAll("&lt;","<")?.replaceAll("&gt;",">")?:''}
-        <hr />
-        ${content?.body?.split("(?ms)<!-- endtoc -->",2)[0]}

@@ -1,16 +1,18 @@
 :jbake-menu: -
-:jbake-type: page_toc
+:jbake-type: page_tocl
 :jbake-status: published
 include::_config.adoc[]
 :filename: 010_manual/single-page.adoc
 :imagesdir: images
 :allow-uri-read:
 :doctype: book
-
+:toc-title: toc-title
+:toclevels: 3
 :projectRootDir: {projectRootDir}
 
 :manualdir: https://github.com/docToolchain/docToolchain/edit/master/src/docs/
 
+[discrete]
 = docToolchain Manual
 
 
