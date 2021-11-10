@@ -79,7 +79,7 @@ apply from: 'scripts/exportOpenApi.gradle'
 apply from: 'scripts/downloadTemplate.gradle'
 apply from: 'scripts/generateSite.gradle'
 apply from: 'scripts/copyThemes.gradle'
-apply from: 'scripts/globalReferences.gradle'
+apply from: 'scripts/fixGlobalReferences.gradle'
 
 task autobuildSite(
     group: 'docToolchain',
