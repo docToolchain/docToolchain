@@ -218,6 +218,7 @@ ${color 'green', 'for you?'}\n""",
                         type: 'page_toc'
                     ]
                     def parseAttribs = true
+                    def beforeToc = ""
                     origText.eachLine { line ->
                         if (parseAttribs && line.startsWith(":jbake")) {
                             line = (line - ":jbake-").split(": +", 2)
@@ -228,6 +229,10 @@ ${color 'green', 'for you?'}\n""",
                                 parseAttribs = false
                             }
                             text += line+"\n"
+                            //there are some attributes which have to be set before the toc
+                            if (line.startsWith(":toc") ) {
+                                beforeToc += line+"\n"
+                            }
                         }
                     }
                     def name = file.canonicalPath - (sourceFolder.canonicalPath+File.separator)
@@ -297,9 +302,13 @@ ${color 'green', 'for you?'}\n""",
                         }
                         def header = ''
                         jbake.each { key, value ->
-                            header += ":jbake-${key}: ${value}\n"
+                            if (key=='order') {
+                                header += ":jbake-${key}: ${value as Integer}\n"
+                            } else {
+                                header += ":jbake-${key}: ${value}\n"
+                            }
                         }
-                        file.write(header + "\n:toc: left\n\n++++\n<!-- endtoc -->\n++++\n" + text, "utf-8")
+                        file.write(header + "\n$beforeToc\n\n:toc: left\n\n++++\n<!-- endtoc -->\n++++\n" + text, "utf-8")
                     }
                 }
             }
