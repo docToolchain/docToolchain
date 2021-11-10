@@ -13,6 +13,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+2021-11-10::
+* fix https://github.com/docToolchain/docToolchain/issues/690[#691 - on windows powershell, targetDir is set wrong]
 2021-11-09::
 * fix https://github.com/docToolchain/docToolchain/issues/690[#690 - previewSite: exception if folder does not exist]
 2021-11-08::
