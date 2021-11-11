@@ -1,0 +1,35 @@
+:filename: 030_news/2021/2.0.3-release.adoc
+:jbake-title: Release v2.0.3
+:jbake-date: 2021-11-11
+:jbake-type: post
+:jbake-tags: docToolchain
+:jbake-status: published
+:jbake-menu: news
+:jbake-author: Ralf D. Müller
+:icons: font
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+== v2.0.3 of docToolchain has been released!
+
+This is a bugfix release.
+
+=== added
+
+* https://github.com/docToolchain/docToolchain/issues/681[#681 - Please reactivate single page manual on v2.0.x site]
+
+=== fixed
+
+2021-11-10::
+* fix https://github.com/docToolchain/docToolchain/issues/693[#693 - on windows powershell, targetDir is set wrong]
+* fix https://github.com/docToolchain/docToolchain/issues/695[#695 - generateSite: toc attributes]
+2021-11-09::
+* fix https://github.com/docToolchain/docToolchain/issues/690[#690 - previewSite: exception if folder does not exist]
+2021-11-08::
+* fix https://github.com/docToolchain/docToolchain/issues/687[#687 - wrong encoding of emojis]
+* fix https://github.com/docToolchain/docToolchain/issues/688[#688 - htmlSanityCheck: config of sourceDir is wrong]
+* fix https://github.com/docToolchain/docToolchain/issues/689[#689 - code highlight: css clash with blog post tags]
+* fix https://github.com/docToolchain/docToolchain/issues/682[#682 - generateSite: copyImages uses the wrong target]
+
+
+thanx to all contributors!
