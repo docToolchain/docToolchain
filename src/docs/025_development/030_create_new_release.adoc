@@ -3,9 +3,9 @@
 
 include::../_feedback.adoc[]
 
-We use https://semver.org/[semantic versioning] and https://keepachangelog.com/[keep a changelog]. Bot on a best effort base.
+We use https://semver.org/[semantic versioning] and https://keepachangelog.com/[keep a changelog]. Both on a best effort base.
 
-A release consists of four parts:
+A release consists of five parts:
 
 === Github
 
