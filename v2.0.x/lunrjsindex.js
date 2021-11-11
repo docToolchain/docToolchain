@@ -42,6 +42,14 @@ var documents = [
 
 {
     "id": 5,
+    "uri": "025_development/040_debugging.html",
+    "menu": "development",
+    "title": "Debugging",
+    "text": " Table of Contents Debugging General Advice Gradle jBake Templates Theming / Menu / Images Debugging 2 minutes to read Sometimes things go are different than expected and you need to find out what&#8217;s wrong. Here are some tips that might help you. General Advice To dig deeper into the workings of docToolchain, it makes sense that you setup yourself a development environment. This gives you the chance to add extra debug output to the tasks which you want to inspect. Gradle You get most hints on what is going on in regards to gradle when you add the --info flag to your command. ./dtcw generateSite --info This will output all configuration settings as seen by docToolchain and many more internal bits. jBake Templates If something goes wrong within a template, you often get not much information. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem occurs, you need to use poor mans debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println . Otherwise, you will see no output. Theming / Menu / Images It might seem a bit like magic how the system creates the menu entries. Sometimes you don&#8217;t find the reason why an image is not shown. Remember, that you can check out the generated files. Check the build/microsite/tmp folder to see the folder which is fed into jBake. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Check the build/microsite/output folder to see the generated result. This often helps to check where an image actually is located. "
+},
+
+{
+    "id": 6,
     "uri": "025_development/030_create_new_release.html",
     "menu": "development",
     "title": "Create new Release",
@@ -49,7 +57,7 @@ var documents = [
 },
 
 {
-    "id": 6,
+    "id": 7,
     "uri": "025_development/020_run_tests.html",
     "menu": "development",
     "title": "How to run Tests",
@@ -57,19 +65,11 @@ var documents = [
 },
 
 {
-    "id": 7,
+    "id": 8,
     "uri": "025_development/010_setup_dev_env.html",
     "menu": "development",
     "title": "Setup Development Environment",
     "text": " Table of Contents Setup Development Environment local install, docker, sdkman Create Gradle independent tasks Create or Change a Theme Setup Development Environment 4 minutes to read Since v2.0, all the code is hidden from curious eyes when you install docToolchain. To access and change the code, you first have to know some details about the inner workings. local install, docker, sdkman Development is based on the local installation of docToolchain. Docker simply contains a local install and sdkman install docToolchain locally, but the location is controller by sdkman and not docToolchain. This is why you need a local installation for development. Docker and sdkman are derived from it. The docToolchain-Wrapper installs docToolchain locally to $HOME/.doctoolchain/docToolchain-$v2.6.7/ . All task invokations through the docToolchain wrapper dtcw are redirected to $HOME/.doctoolchain/docToolchain-$v2.6.7/bin/doctoolchain . This is another shell script which calls the gradle wrapper for most tasks. So create a local install which is connected to your github fork of docToolchain, create a folder called $HOME/.doctoolchain/docToolchain-2.0.0-dev/ and checkout the ng-branch of your fork to this folder. To use this version in your test project, edit the version configured at the start of your dtcw script to 2.0.0-dev . Note you have now the full repository locally cloned. To save memory, only some parts of this repository are zipped for distribution. Check out the prepareDist-Task if you run into problems. Create Gradle independent tasks Currently, all tasks use Gradle to run. To make docToolchain faster, it makes sense to circumvent Gradle for tasks where it doesn&#8217;t add any benefits. To do so, you can use the bin/doctoolchain scripts and create a switch. Create or Change a Theme Not only the docToolchain code but also the themes for the static site generator jBake are hidden. Overwrite Theme for a Project When docToolchain builds the static website, it first copies an internal theme to a temp-folder, then copies an external theme (if defined) over it and as a last step, it copies the project theme over it. This gives you the chance to overwrite some parts of the theme on a per project basis. To make it easier, run the copyThemes task. It will copy the internal and external theme to microsite.siteFolder . You can then check those files (take a look at jbake.org to get a better understanding), modify the ones you wish to change and delete all others. Create a new Theme An external theme is in fact just a zipped copy of the microsite.siteFolder as mentioned in the previous chapter. All themes are once downloaded when referenced from a dtcw configuration and are stored in $HOME/.doctoolchain/themes/[hash of url] . If you want to modify an existing theme, go to its folder and checkout the theme&#8217;s project instead of the downloaded copy. This will give you the connection back to the github repository and you can modify the theme directly in $HOME/.doctoolchain/themes/[hash of url] . If you want to create a new theme from scratch, the hash is a simple md5 hash. So, for example, if you configure your new theme as myTheme , then myTheme.md5() will be the hash. Special functionality for Themes Config Fragments It is quite likely that you need a new config item for your self generated theme. And wouldn&#8217;t it be nice if the user would be asked to set a value for this new config item when she installs the theme for the first time? Create a file configFragment.groovy in the site folder of your theme. Here is an example for what to put in this file: // the title of the microsite, displayed in the upper left corner // Example: my new site title = '##site-title##' The first line is some explanation displayed to the user. You can have several lines of explanations. The second line, starting with Example: is used as default value for the prompt. The third line is the config item itself. If the value is surrounded by ## , the user will be prompted for this value and it will be replaced with the user&#8217;s input. Otherwise, the config item will be added without a prompt to the users current docToochainConfig.groovy . "
-},
-
-{
-    "id": 8,
-    "uri": "025_development/040_debugging.html",
-    "menu": "development",
-    "title": "Debugging",
-    "text": " Table of Contents Debugging General Advice Gradle jBake Templates Theming / Menu / Images Debugging 2 minutes to read Sometimes things go are different than expected and you need to find out what&#8217;s wrong. Here are some tips that might help you. General Advice To dig deeper into the workings of docToolchain, it makes sense that you setup yourself a development environment. This gives you the chance to add extra debug output to the tasks which you want to inspect. Gradle You get most hints on what is going on in regards to gradle when you add the --info flag to your command. ./dtcw generateSite --info This will output all configuration settings as seen by docToolchain and many more internal bits. jBake Templates If something goes wrong within a template, you often get not much information. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem occurs, you need to use poor mans debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println . Otherwise, you will see no output. Theming / Menu / Images It might seem a bit like magic how the system creates the menu entries. Sometimes you don&#8217;t find the reason why an image is not shown. Remember, that you can check out the generated files. Check the build/microsite/tmp folder to see the folder which is fed into jBake. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Check the build/microsite/output folder to see the generated result. This often helps to check where an image actually is located. "
 },
 
 {
@@ -130,6 +130,14 @@ var documents = [
 
 {
     "id": 16,
+    "uri": "020_tutorial/040_generateSite.html",
+    "menu": "tutorial",
+    "title": "generateSite",
+    "text": " Table of Contents generateSite generateSite The generateSite task is more advanced. In many cases, your goal will not be to create a single HTML document but a whole documentation website. This is where generateSite shines. It uses a static site generator to turn your document into a nice looking microsite with landing-page, local search and edit links. Linux / WSL2 with bash ./dtcw generateSite Windows with Powershell ./dtcw.ps1 generateSite output of generateHTML $ ./dtcw docker generateSite dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists force use of docker /usr/bin/docker use docker installation Starting a Gradle Daemon (subsequent builds will be faster) &gt; Configure project : arc42/arc42.adoc &gt; Task :generateSite created /project/build/microsite/tmp copy internal theme /home/dtcuser/docToolchain/src/site copy project theme /project/src/site &gt; Task :copyImages &gt; Task :bake Warning: Nashorn engine is planned to be removed from a future JDK release BUILD SUCCESSFUL in 1m 15s 3 actionable tasks: 3 executed The output is written to build/microsite/output/index.html . You can open this file in your browser and view the results. But you will notice that some features which rely on javascript will be broken. To avoid this, use the task previewSite to start a little webserver which presents you the site without flaws. Figure 1. generated output of generateHTML task "
+},
+
+{
+    "id": 17,
     "uri": "020_tutorial/030_generateHTML.html",
     "menu": "tutorial",
     "title": "generateHTML &amp; generatePDF",
@@ -137,7 +145,7 @@ var documents = [
 },
 
 {
-    "id": 17,
+    "id": 18,
     "uri": "020_tutorial/010_Install.html",
     "menu": "tutorial",
     "title": "Install docToolchain",
@@ -145,19 +153,11 @@ var documents = [
 },
 
 {
-    "id": 18,
+    "id": 19,
     "uri": "020_tutorial/050_multipleRepositories.html",
     "menu": "tutorial",
     "title": "Multi-Repo",
     "text": " Table of Contents How to generate docs from multiple repositories git clone solution git submodule solution artifact solution How to generate docs from multiple repositories Some static site generators sell multi-repository functionality as a feature. This feature is mainly achieved through a build in git client. Since we almost always work on systems which already have git installed, docToolchain does not come with its own git client. The solution we propose instead is just a simple bash script which does the magic for you. Here is how. Imagine you have a documentation repository set up with the docToolchain wrapper dtcw and some code documents. Now you would like to include the documents from another repository. git clone solution To get the contents of the other repository, one way is to do a git clone of it right to the build folder of your own repository. Let&#8217;s call the script in which we store this command clonerefs.sh , because we clone a reference to the remote documentation. clonerefs.sh #!/usr/bin/env bash git clone git@github.com:docToolchain/docToolchain.git build/refs/docToolchain this works fine if you execute it once, but the second time it will complain that the folder build/refs/docToolchain is not empty. So let&#8217;s create a cloneOrPull function which tries first to clone the repo and pulls an update if the clone fails. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo  echo $1 (git clone $1 $2 2&gt; /dev/null &amp;&amp; echo cloned repo )|| git -C $2 pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain That&#8217;s better. We can now include the docs from our main docs. But what if we don&#8217;t want to include them but just let them render? We could clone the repository directly to our src/docs folder. But that would require that it only contains docs and no src/docs folder itself. So we have to copy it over to our src/docs folder. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo  echo $1 (git clone $1 $2 2&gt; /dev/null &amp;&amp; echo cloned repo )|| git -C $2 pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain cp build/refs/docToolchain/src/docs/manual src/docs/. But we don&#8217;t want to add these folders to our main repository, so let&#8217;s add it to the .gitignore file. .gitignore [...] src/docs/manual [...] There is one more thing we can optimize. Currently, the script clones the repository with the full history. This is far to much traffic if you only want to use the latest version of your docs. Let&#8217;s add --depth 1 to the `git clone`command to only fetch the latest version. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo  echo $1 (git clone --depth 1 $1 $2 2&gt; /dev/null &amp;&amp; echo cloned repo )|| git -C $2 pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain cp build/refs/docToolchain/src/docs/manual src/docs/. This script will now let you clone remote repositories and merge them with your main documentation before building. git submodule solution Another solution is to refrence your sub-repositories as git submodules . Git submodules are pointers in your main repository to a certain version of another repository. Most CI/CD systems clone your repository together will als configured submodules. This makes this approach quite convenient. A draw back is that submodules are not often used and thus developers are not used to them. artifact solution A third solution could be that sub-repositories publish their docs as zip file somewhere. Maybe to an artifactory instance. Your main repository could fetch the published artifacts and use them in the build process. That would be exactly what you do with code. "
-},
-
-{
-    "id": 19,
-    "uri": "020_tutorial/040_generateSite.html",
-    "menu": "tutorial",
-    "title": "generateSite",
-    "text": " Table of Contents generateSite generateSite The generateSite task is more advanced. In many cases, your goal will not be to create a single HTML document but a whole documentation website. This is where generateSite shines. It uses a static site generator to turn your document into a nice looking microsite with landing-page, local search and edit links. Linux / WSL2 with bash ./dtcw generateSite Windows with Powershell ./dtcw.ps1 generateSite output of generateHTML $ ./dtcw docker generateSite dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists force use of docker /usr/bin/docker use docker installation Starting a Gradle Daemon (subsequent builds will be faster) &gt; Configure project : arc42/arc42.adoc &gt; Task :generateSite created /project/build/microsite/tmp copy internal theme /home/dtcuser/docToolchain/src/site copy project theme /project/src/site &gt; Task :copyImages &gt; Task :bake Warning: Nashorn engine is planned to be removed from a future JDK release BUILD SUCCESSFUL in 1m 15s 3 actionable tasks: 3 executed The output is written to build/microsite/output/index.html . You can open this file in your browser and view the results. But you will notice that some features which rely on javascript will be broken. To avoid this, use the task previewSite to start a little webserver which presents you the site without flaws. Figure 1. generated output of generateHTML task "
 },
 
 {
@@ -186,54 +186,6 @@ var documents = [
 
 {
     "id": 23,
-    "uri": "015_tasks/03_task_downloadTemplate.html",
-    "menu": "tasks",
-    "title": "downloadTemplate",
-    "text": " Table of Contents downloadTemplate .gravatar img { margin-left: 3px; border-radius: 4px; } downloadTemplate 1 minute to read "
-},
-
-{
-    "id": 24,
-    "uri": "015_tasks/03_task_dependencyUpdates.html",
-    "menu": "tasks",
-    "title": "dependencyUpdates",
-    "text": " Table of Contents dependencyUpdates .gravatar img { margin-left: 3px; border-radius: 4px; } dependencyUpdates 1 minute to read This task uses the Gradle versions plugin created by Ben Manes to check for outdated build dependencies. It is quite helpful to keep all dependencies up-to-date. Warning if you discover newer version, this does not mean that they will play nicely together. If you want to make sure that everything works, rely on the versions which the docToolchain contributors have selected. Tip Blog-Post: Handle Dependency Updates the easy Way "
-},
-
-{
-    "id": 25,
-    "uri": "015_tasks/03_task_convertToEpub.html",
-    "menu": "tasks",
-    "title": "convertToEpub",
-    "text": " Table of Contents convertToEpub Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToEpub 1 minute to read Dependency: generateDocBook This task uses pandoc to convert the DocBook output from AsciiDoctor to ePub. This way, you can read your documentation in a convenient way on an eBook-reader. The resulting file can be found in build/docs/epub Tip Blog-Post: Turn your Document into an Audio-Book Source pandoc.gradle task convertToEpub ( group: 'docToolchain', description: 'converts file to .epub via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `epub` in config.groovy is converted to docbook and then to epub. def sourceFilesEpub = sourceFiles.findAll { 'epub' in it.formats } sourceFilesEpub.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.epub') workingDir $targetDir/docbook executable = pandoc args = ['-r','docbook', '-t','epub', '-o',../epub/$targetFile, sourceFile] } doFirst { new File($targetDir/epub/).mkdirs() } } "
-},
-
-{
-    "id": 26,
-    "uri": "015_tasks/03_task_autobuildSite.html",
-    "menu": "tasks",
-    "title": "autobuildSite",
-    "text": " Table of Contents autobuildSite .gravatar img { margin-left: 3px; border-radius: 4px; } autobuildSite 1 minute to read This script starts an endless loop which checks for changes in your docs source and re-runs the generateSite -task whenever it detects changes. Output will be logged to build/generateSite.log . bin/autobuildSite.bash "
-},
-
-{
-    "id": 27,
-    "uri": "015_tasks/03_task_previewSite.html",
-    "menu": "tasks",
-    "title": "previewSite",
-    "text": " Table of Contents previewSite .gravatar img { margin-left: 3px; border-radius: 4px; } previewSite 1 minute to read When you use the build in static site generator through generateSite , you sometimes need a real static server locally running to preview the results. This task will start a jetty with your generated site. Note When you use WSL to execute this command, you will need the IP V6 address of localhost [::1] to access the server. 127.0.0.1 or localhost will not work. Note Most site themes don&#8217;t need the static site server for general content. You can just preview the site by opening it right from the filesystem in your browser. But some javascript features will not work because of CORS restrictions. "
-},
-
-{
-    "id": 28,
-    "uri": "015_tasks/03_task_htmlSanityCheck.html",
-    "menu": "tasks",
-    "title": "htmlSanityCheck",
-    "text": " Table of Contents htmlSanityCheck Source .gravatar img { margin-left: 3px; border-radius: 4px; } htmlSanityCheck 1 minute to read This task invokes the htmlSanityCheck gradle plugin. It is a standalone (batch- and command-line) html sanity checker - it detects missing images, dead links, and duplicate bookmarks. In docToolchain, this task is used to ensure that the generated HTML contains no missing links or other problems. This task is the last default task and creates a report in build/report/htmlchecks/index.html Figure 1. sample report Further information can be found on GitHub: https://github.com/aim42/htmlSanityCheck Tip Blog-Post: Automated Quality-Checks Source htmlSanityCheck.gradle htmlSanityCheck { sourceDir = new File(config.htmlSanityCheck.sourceDir?:$targetDir/html5) // files to check - in Set-notation //sourceDocuments = [ one-file.html, another-file.html, index.html] // where to put results of sanityChecks... checkingResultsDir = new File(config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath) // directory where the results written to in JUnit XML format junitResultsDir = new File(config.htmlSanityCheck.junitResultsDir?:$targetDir/test-results/htmlchecks) // which statuscodes shall be interpreted as warning, error or success defaults to standard httpSuccessCodes = config.htmlSanityCheck.httpSuccessCodes?:[] httpWarningCodes = config.htmlSanityCheck.httpWarningCodes?:[] httpErrorCodes = config.htmlSanityCheck.httpErrorCodes?:[] // fail build on errors? failOnErrors = config.htmlSanityCheck.failOnErrors?:false logger.info docToolchain&gt; HSC sourceDir: ${sourceDir} logger.info docToolchain&gt; HSC checkingResultsDir: ${checkingResultsDir} } "
-},
-
-{
-    "id": 29,
     "uri": "015_tasks/03_task_generateDocBook.html",
     "menu": "tasks",
     "title": "generateDocbook",
@@ -241,7 +193,7 @@ var documents = [
 },
 
 {
-    "id": 30,
+    "id": 24,
     "uri": "015_tasks/03_task_exportJiraSprintChangelog.html",
     "menu": "tasks",
     "title": "exportJiraSprintChangelogIssues",
@@ -249,15 +201,39 @@ var documents = [
 },
 
 {
-    "id": 31,
-    "uri": "015_tasks/03_task_createReferenceDoc.html",
+    "id": 25,
+    "uri": "015_tasks/03_task_downloadTemplate.html",
     "menu": "tasks",
-    "title": "createReferenceDoc",
-    "text": " Table of Contents createReferenceDoc Source .gravatar img { margin-left: 3px; border-radius: 4px; } createReferenceDoc Needs pandoc installed 1 minute to read Creates a reference docx file used by pandoc during conversion from docbook to docx. You can edit this file to use your preferred styles in task convertToDocx . Please make sure that 'referenceDocFile' property is set to your custom reference file in Config.groovy Excerpt of Config.groovy with property 'referenceDocFile' inputPath = '.' // use a style reference file in the input path for conversion from docbook to docx referenceDocFile = ${inputPath}/my-ref-file.docx Important The contents of the reference docx are ignored, but its stylesheets and document properties (including margins, page size, header, and footer) are used in the new docx. See Pandoc User&#8217;s Guide: Options affecting specific writers (--reference-doc) If you have problems with changing the default table style: see https://github.com/jgm/pandoc/issues/3275 . Source pandoc.gradle task createReferenceDoc ( group: 'docToolchain helper', description: 'creates a docx file to be used as a format style reference in task convertToDocx. Needs pandoc installed.', type: Exec ) { workingDir $docDir executable = pandoc args = [-o, ${docDir}/${referenceDocFile}, --print-default-data-file, reference.docx] doFirst { if(!(referenceDocFile?.trim())) { throw new GradleException(Option `referenceDocFile` is not defined in config.groovy or has an empty value.) } } } "
+    "title": "downloadTemplate",
+    "text": " Table of Contents downloadTemplate .gravatar img { margin-left: 3px; border-radius: 4px; } downloadTemplate 1 minute to read "
 },
 
 {
-    "id": 32,
+    "id": 26,
+    "uri": "015_tasks/03_task_dependencyUpdates.html",
+    "menu": "tasks",
+    "title": "dependencyUpdates",
+    "text": " Table of Contents dependencyUpdates .gravatar img { margin-left: 3px; border-radius: 4px; } dependencyUpdates 1 minute to read This task uses the Gradle versions plugin created by Ben Manes to check for outdated build dependencies. It is quite helpful to keep all dependencies up-to-date. Warning if you discover newer version, this does not mean that they will play nicely together. If you want to make sure that everything works, rely on the versions which the docToolchain contributors have selected. Tip Blog-Post: Handle Dependency Updates the easy Way "
+},
+
+{
+    "id": 27,
+    "uri": "015_tasks/03_task_convertToEpub.html",
+    "menu": "tasks",
+    "title": "convertToEpub",
+    "text": " Table of Contents convertToEpub Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToEpub 1 minute to read Dependency: generateDocBook This task uses pandoc to convert the DocBook output from AsciiDoctor to ePub. This way, you can read your documentation in a convenient way on an eBook-reader. The resulting file can be found in build/docs/epub Tip Blog-Post: Turn your Document into an Audio-Book Source pandoc.gradle task convertToEpub ( group: 'docToolchain', description: 'converts file to .epub via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `epub` in config.groovy is converted to docbook and then to epub. def sourceFilesEpub = sourceFiles.findAll { 'epub' in it.formats } sourceFilesEpub.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.epub') workingDir $targetDir/docbook executable = pandoc args = ['-r','docbook', '-t','epub', '-o',../epub/$targetFile, sourceFile] } doFirst { new File($targetDir/epub/).mkdirs() } } "
+},
+
+{
+    "id": 28,
+    "uri": "015_tasks/03_task_autobuildSite.html",
+    "menu": "tasks",
+    "title": "autobuildSite",
+    "text": " Table of Contents autobuildSite .gravatar img { margin-left: 3px; border-radius: 4px; } autobuildSite 1 minute to read This script starts an endless loop which checks for changes in your docs source and re-runs the generateSite -task whenever it detects changes. Output will be logged to build/generateSite.log . bin/autobuildSite.bash "
+},
+
+{
+    "id": 29,
     "uri": "015_tasks/03_task_publishToConfluence.html",
     "menu": "tasks",
     "title": "publishToConfluence",
@@ -265,11 +241,35 @@ var documents = [
 },
 
 {
-    "id": 33,
+    "id": 30,
+    "uri": "015_tasks/03_task_previewSite.html",
+    "menu": "tasks",
+    "title": "previewSite",
+    "text": " Table of Contents previewSite .gravatar img { margin-left: 3px; border-radius: 4px; } previewSite 1 minute to read When you use the build in static site generator through generateSite , you sometimes need a real static server locally running to preview the results. This task will start a jetty with your generated site. Note When you use WSL to execute this command, you will need the IP V6 address of localhost [::1] to access the server. 127.0.0.1 or localhost will not work. Note Most site themes don&#8217;t need the static site server for general content. You can just preview the site by opening it right from the filesystem in your browser. But some javascript features will not work because of CORS restrictions. "
+},
+
+{
+    "id": 31,
+    "uri": "015_tasks/03_task_htmlSanityCheck.html",
+    "menu": "tasks",
+    "title": "htmlSanityCheck",
+    "text": " Table of Contents htmlSanityCheck Source .gravatar img { margin-left: 3px; border-radius: 4px; } htmlSanityCheck 1 minute to read This task invokes the htmlSanityCheck gradle plugin. It is a standalone (batch- and command-line) html sanity checker - it detects missing images, dead links, and duplicate bookmarks. In docToolchain, this task is used to ensure that the generated HTML contains no missing links or other problems. This task is the last default task and creates a report in build/report/htmlchecks/index.html Figure 1. sample report Further information can be found on GitHub: https://github.com/aim42/htmlSanityCheck Tip Blog-Post: Automated Quality-Checks Source htmlSanityCheck.gradle htmlSanityCheck { sourceDir = new File(config.htmlSanityCheck.sourceDir?:$targetDir/html5) // files to check - in Set-notation //sourceDocuments = [ one-file.html, another-file.html, index.html] // where to put results of sanityChecks... checkingResultsDir = new File(config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath) // directory where the results written to in JUnit XML format junitResultsDir = new File(config.htmlSanityCheck.junitResultsDir?:$targetDir/test-results/htmlchecks) // which statuscodes shall be interpreted as warning, error or success defaults to standard httpSuccessCodes = config.htmlSanityCheck.httpSuccessCodes?:[] httpWarningCodes = config.htmlSanityCheck.httpWarningCodes?:[] httpErrorCodes = config.htmlSanityCheck.httpErrorCodes?:[] // fail build on errors? failOnErrors = config.htmlSanityCheck.failOnErrors?:false logger.info docToolchain&gt; HSC sourceDir: ${sourceDir} logger.info docToolchain&gt; HSC checkingResultsDir: ${checkingResultsDir} } "
+},
+
+{
+    "id": 32,
     "uri": "015_tasks/03_task_exportVisio.html",
     "menu": "tasks",
     "title": "exportVisio",
     "text": " Table of Contents exportVisio Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportVisio 1 minute to read This tasks searches for Visio files in the /src/docs folder. It then exports all diagrams and element notes to /src/docs/images/visio and /src/docs/visio . Images are stored as /images/visio/[filename]-[pagename].png Notes are stored as /visio/[filename]-[pagename].adoc You can specify a file name to which the notes of a diagram are exported by starting any comment with {adoc:[filename].adoc} . It will then be written to /visio/[filename].adoc . Warning Currently, only Visio files stored directly in /src/docs are supported. For all others, the exported files will be in the wrong location. Note Please close any running Visio instance before starting this task. Note Todos: issue #112 Source exportVisio.gradle task exportVisio( dependsOn: [streamingExecute], description: 'exports all diagrams and notes from visio files', group: 'docToolchain' ) { doLast { //make sure path for notes exists //and remove old notes new File(docDir, 'src/docs/visio').deleteDir() //also remove old diagrams new File(docDir, 'src/docs/images/visio').deleteDir() //create a readme to clarify things def readme = This folder contains exported diagrams and notes from visio files. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportVisio` to re-export files  new File(docDir, 'src/docs/images/visio/.').mkdirs() new File(docDir, 'src/docs/images/visio/readme.ad').write(readme) new File(docDir, 'src/docs/visio/.').mkdirs() new File(docDir, 'src/docs/visio/readme.ad').write(readme) def sourcePath = new File(docDir, 'src/docs/.').canonicalPath def scriptPath = new File(projectDir, 'scripts/VisioPageToPngConverter.ps1').canonicalPath powershell ${scriptPath} -SourcePath ${sourcePath}.executeCmd() } } scripts/VisioPageToPngConverter.ps1 # Convert all pages in all visio files in the given directory to png files. # A Visio windows might flash shortly. # The converted png files are stored in the same directory # The name of the png file is concatenated from the Visio file name and the page name. # In addtion all the comments are stored in adoc files. # If the Viso file is named MyVisio.vsdx and the page is called FirstPage # the name of the png file will be MyVisio-FirstPage.png and the comment will # be stored in MyVisio-FirstPage.adoc. # But for the name of the adoc files there is an alternative. It can be given in the first # line of the comment. If it is given in the comment it has to be given in curly brackes # with the prefix adoc:, e.g. {adoc:MyCommentFile.adoc} # Prerequisites: Viso and PowerShell has to be installed on the computer. # Parameter: SourcePath where visio files can be found # Example powershell VisoPageToPngConverter.ps1 -SourcePath c:\convertertest\ Param ( [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=0)] [Alias('p')][String]$SourcePath ) Write-Output starting to export visio If (!(Test-Path -Path $SourcePath)) { Write-Warning The path $SourcePath does not exist or is not accessible, please input the correct path. Exit } # Extend the source path to get only Visio files of the given directory and not in subdircetories If ($SourcePath.EndsWith(\)) { $SourcePath = $SourcePath } Else { $SourcePath = $SourcePath\ } $VisioFiles = Get-ChildItem -Path $SourcePath* -Recurse -Include *.vsdx,*.vssx,*.vstx,*.vxdm,*.vssm,*.vstm,*.vsd,*.vdw,*.vss,*.vst If(!($VisioFiles)) { Write-Warning There are no Visio files in the path $SourcePath. Exit } $VisioApp = New-Object -ComObject Visio.Application $VisioApp.Visible = $false # Extract the png from all the files in the folder Foreach($File in $VisioFiles) { $FilePath = $File.FullName Write-Output found $FilePath . $FileDirectory = $File.DirectoryName # Get the folder containing the Visio file. Will be used to store the png and adoc files $FileBaseName = $File.BaseName -replace '[ :/\\*?|&lt;&gt;]','-' # Get the filename to be used as part of the name of the png and adoc files Try { $Document = $VisioApp.Documents.Open($FilePath) $Pages = $VisioApp.ActiveDocument.Pages Foreach($Page in $Pages) { # Create valid filenames for the png and adoc files $PngFileName = $Page.Name -replace '[ :/\\*?|&lt;&gt;]','-' $PngFileName = $FileBaseName-$PngFileName.png $AdocFileName = $PngFileName.Replace(.png, .adoc) #TODO: this needs better logic Write-Output($SourcePath\images\visio\$PngFileName) $Page.Export($SourcePath\images\visio\$PngFileName) $AllPageComments =  ForEach($PageComment in $Page.Comments) { # Extract adoc filename from comment text if the syntax is valid # Remove the filename from the text and save the comment in a file with a valid name $EofStringIndex = $PageComment.Text.IndexOf(.adoc}) if ($PageComment.Text.StartsWith({adoc) -And ($EofStringIndex -gt 6)) { $AdocFileName = $PageComment.Text.Substring(6, $EofStringIndex -1) $AllPageComments += $PageComment.Text.Substring($EofStringIndex + 6) } else { $AllPageComments += $PageComment.Text+`n } } If ($AllPageComments) { $AdocFileName = $AdocFileName -replace '[:/\\*?|&lt;&gt;]','-' #TODO: this needs better logic $stream = [System.IO.StreamWriter] $SourcePath\visio\$AdocFileName $stream.WriteLine($AllPageComments) $stream.close() } } $Document.Close() } Catch { if ($Document) { $Document.Close() } Write-Warning One or more visio page(s) in file $FilePath have been lost in this converting. Write-Warning Error was: $_ } } $VisioApp.Quit() "
+},
+
+{
+    "id": 33,
+    "uri": "015_tasks/03_task_createReferenceDoc.html",
+    "menu": "tasks",
+    "title": "createReferenceDoc",
+    "text": " Table of Contents createReferenceDoc Source .gravatar img { margin-left: 3px; border-radius: 4px; } createReferenceDoc Needs pandoc installed 1 minute to read Creates a reference docx file used by pandoc during conversion from docbook to docx. You can edit this file to use your preferred styles in task convertToDocx . Please make sure that 'referenceDocFile' property is set to your custom reference file in Config.groovy Excerpt of Config.groovy with property 'referenceDocFile' inputPath = '.' // use a style reference file in the input path for conversion from docbook to docx referenceDocFile = ${inputPath}/my-ref-file.docx Important The contents of the reference docx are ignored, but its stylesheets and document properties (including margins, page size, header, and footer) are used in the new docx. See Pandoc User&#8217;s Guide: Options affecting specific writers (--reference-doc) If you have problems with changing the default table style: see https://github.com/jgm/pandoc/issues/3275 . Source pandoc.gradle task createReferenceDoc ( group: 'docToolchain helper', description: 'creates a docx file to be used as a format style reference in task convertToDocx. Needs pandoc installed.', type: Exec ) { workingDir $docDir executable = pandoc args = [-o, ${docDir}/${referenceDocFile}, --print-default-data-file, reference.docx] doFirst { if(!(referenceDocFile?.trim())) { throw new GradleException(Option `referenceDocFile` is not defined in config.groovy or has an empty value.) } } } "
 },
 
 {
@@ -298,6 +298,14 @@ var documents = [
 
 {
     "id": 37,
+    "uri": "015_tasks/03_task_exportOpenApi.html",
+    "menu": "tasks",
+    "title": "exportOpenAPI",
+    "text": " Table of Contents exportOpenAPI Configuration Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportOpenAPI 1 minute to read This task exports OpenAPI specification defined in a yaml file to AsciiDoc document. Currently it relies on OpenAPI Generator (v4.3.1) and its gradle plugin . Configuration Config.groovy Unresolved directive in &lt;stdin&gt; - include::/home/runner/.doctoolchain/docToolchain-2.0.1/Config.groovy[tags=openApiConfig] Source exportOpenApi.gradle task exportOpenApi ( type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask, group: 'docToolchain', description: 'exports OpenAPI specification to the asciidoc file') { if (!specFile) { logger.info(\n---&gt; OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)) return } else { logger.info(Found OpenAPI specification in Config.groovy) } outputs.upToDateWhen { false } outputs.cacheIf { false } generatorName = 'asciidoc' outputDir = ${targetDir}/OpenAPI.toString() inputSpec = ${docDir}/${specFile} // plugin is not able to find file if inputPath is defined as '.' logger.debug(\n=====================\nProject Config:\n=====================) logger.debug(Docdir: ${docDir}) logger.debug(Target: ${targetDir}) logger.info(\n=====================\nOpenAPI Config:\n=====================) logger.info(Specification file: ${specFile}) logger.info(inputSpec: ${inputSpec}) logger.info(outputDir: ${outputDir}\n) additionalProperties = [ infoEmail:${config.openApi.infoEmail}, infoUrl:${config.openApi.infoUrl} ] } "
+},
+
+{
+    "id": 38,
     "uri": "015_tasks/03_task_collectIncludes.html",
     "menu": "tasks",
     "title": "collectIncludes",
@@ -305,7 +313,7 @@ var documents = [
 },
 
 {
-    "id": 38,
+    "id": 39,
     "uri": "015_tasks/03_task_generateSite.html",
     "menu": "tasks",
     "title": "generateSite",
@@ -313,19 +321,11 @@ var documents = [
 },
 
 {
-    "id": 39,
+    "id": 40,
     "uri": "015_tasks/03_task_generateDeck.html",
     "menu": "tasks",
     "title": "generateDeck",
     "text": " Table of Contents generateDeck Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateDeck 1 minute to read This task makes use of the asciidoctor-reveal.js backend to render your documents into a HTML based presentation. This task is best used together with the exportPPT task. It creates a PowerPoint presentation and enriches it with reveal.js slide definitions in AsciiDoc within the speaker notes. Source AsciiDocBasics.gradle task generateDeck ( type: AsciidoctorTask, group: 'docToolchain', description: 'use revealJs as asciidoc backend to create a presentation') { attributes ( 'idprefix': 'slide-', 'idseparator': '-', 'docinfo1': '', 'revealjs_theme': 'black', 'revealjs_progress': 'true', 'revealjs_touch': 'true', 'revealjs_hideAddressBar': 'true', 'revealjs_transition': 'linear', 'revealjs_history': 'true', 'revealjs_slideNumber': 'true' ) options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates').absolutePath ] def sourceFilesREVEAL = sourceFiles.findAll { 'revealjs' in it.formats } // onlyIf { // sourceFilesREVEAL // } sources { sourceFilesREVEAL.each { include it.file } } outputDir = file(targetDir+'/decks/') resources { from('resources') { include 'reveal.js/**' } from(sourceDir) { include 'images/**' } into() logger.info ${docDir}/${config.outputPath}/images } doFirst { if (sourceFilesREVEAL.size()==0) { throw new Exception ( &gt;&gt; No source files defined for type 'revealjs'. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy ) } } } "
-},
-
-{
-    "id": 40,
-    "uri": "015_tasks/03_task_exportOpenApi.html",
-    "menu": "tasks",
-    "title": "exportOpenAPI",
-    "text": " Table of Contents exportOpenAPI Configuration Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportOpenAPI 1 minute to read This task exports OpenAPI specification defined in a yaml file to AsciiDoc document. Currently it relies on OpenAPI Generator (v4.3.1) and its gradle plugin . Configuration Config.groovy Unresolved directive in &lt;stdin&gt; - include::/home/runner/.doctoolchain/docToolchain-2.0.1/Config.groovy[tags=openApiConfig] Source exportOpenApi.gradle task exportOpenApi ( type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask, group: 'docToolchain', description: 'exports OpenAPI specification to the asciidoc file') { if (!specFile) { logger.info(\n---&gt; OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)) return } else { logger.info(Found OpenAPI specification in Config.groovy) } outputs.upToDateWhen { false } outputs.cacheIf { false } generatorName = 'asciidoc' outputDir = ${targetDir}/OpenAPI.toString() inputSpec = ${docDir}/${specFile} // plugin is not able to find file if inputPath is defined as '.' logger.debug(\n=====================\nProject Config:\n=====================) logger.debug(Docdir: ${docDir}) logger.debug(Target: ${targetDir}) logger.info(\n=====================\nOpenAPI Config:\n=====================) logger.info(Specification file: ${specFile}) logger.info(inputSpec: ${inputSpec}) logger.info(outputDir: ${outputDir}\n) additionalProperties = [ infoEmail:${config.openApi.infoEmail}, infoUrl:${config.openApi.infoUrl} ] } "
 },
 
 {
@@ -346,18 +346,18 @@ var documents = [
 
 {
     "id": 43,
-    "uri": "015_tasks/03_task_exportMetrics.html",
-    "menu": "tasks",
-    "title": "exportMetrics",
-    "text": " Table of Contents exportMetrics .gravatar img { margin-left: 3px; border-radius: 4px; } exportMetrics 1 minute to read This tasks crawls through all Asciidoctor source files and extracts the number of words in each file. At the end, it displays the number of words overall. This task ist currently only intended to give you an output on the commandline to measure your writing progress. "
-},
-
-{
-    "id": 44,
     "uri": "015_tasks/03_task_fixencoding.html",
     "menu": "tasks",
     "title": "fixEncoding",
     "text": " Table of Contents fixEncoding .gravatar img { margin-left: 3px; border-radius: 4px; } fixEncoding 1 minute to read Whenever Asciidoctor has to process a file which is not UTF-8 encoded, the underlying Ruby tries to read it and throws an error like this: asciidoctor: FAILED: /home/demo/test.adoc: Failed to load AsciiDoc document - invalid byte sequence in UTF-8 Unfortunately, it is hard to find the wrong encoded file if a lot of includes:: are used - Asciidoctor only shows the name of the main document. Note This is not a problem of Asciidoctor, but of the underlying ruby interpreter. This target crawls through all *.ad and *.adoc files and checks their encoding. If it encounters a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding. scripts/fixEncoding.gradle import groovy.util.* import static groovy.io.FileType.* task fixEncoding( description: 'finds and converts non UTF-8 adoc files to UTF-8', group: 'docToolchain helper', ) { doLast { File sourceFolder = new File(${docDir}/${inputPath}) println(sourceFolder:  + sourceFolder.canonicalPath) sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^.*(ad|adoc|asciidoc)$') { CharsetToolkit toolkit = new CharsetToolkit(file); // guess the encoding def guessedCharset = toolkit.getCharset().toString().toUpperCase(); if (guessedCharset!='UTF-8') { def text = file.text file.write(text, utf-8) println( converted ${file.name} from '${guessedCharset}' to 'UFT-8') } } } } } "
+},
+
+{
+    "id": 44,
+    "uri": "015_tasks/03_task_exportMetrics.html",
+    "menu": "tasks",
+    "title": "exportMetrics",
+    "text": " Table of Contents exportMetrics .gravatar img { margin-left: 3px; border-radius: 4px; } exportMetrics 1 minute to read This tasks crawls through all Asciidoctor source files and extracts the number of words in each file. At the end, it displays the number of words overall. This task ist currently only intended to give you an output on the commandline to measure your writing progress. "
 },
 
 {
@@ -370,14 +370,6 @@ var documents = [
 
 {
     "id": 46,
-    "uri": "015_tasks/03_task_exportChangeLog.html",
-    "menu": "tasks",
-    "title": "exportChangeLog",
-    "text": " Table of Contents exportChangeLog Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportChangeLog 2 minutes to read As the name says, this task exports the changelog to be referenced from within your documentation - if needed. The changelog is written to build/docs/changelog.adoc . This task can be configured to use different source control system or different directory. To configure the task, copy template_config/scripts/ChangelogConfig.groovy to your directory and modify to your needs. Then give the path to your configuration file to the task using -PchangelogConfigFile=&lt;your config file&gt;. See the description inside the template for more details. By default, the source is the Git changelog for the path src/docs - it only contains the commit messages for changes on the documentation. All changes on the build or other sources from the repository will not show up. By default, the changelog contains the changes with date , author and commit message already formatted as AsciiDoc table content: | 09.04.2017 | Ralf D. Mueller | fix #24 template updated to V7.0 | 08.04.2017 | Ralf D. Mueller | fixed typo You simply include it like this: .Changes [options=header,cols=1,2,6] |==== | Date | Author | Comment include::../../build/docs/changelog.adoc[] |==== By excluding the table definition, you can easily translate the table headings through different text snippets. Note it might make sense to only include certain commit messages from the change log or exclude others (starting with # or // ?). But this isn&#8217;t implemented yet. Tip Blog-Post: The only constant in life is change Source exportChangelog.gradle task exportChangeLog( description: 'exports the change log from a git subpath', group: 'docToolchain' ) { doFirst { new File(targetDir).mkdirs() } doLast { logger.info(docToolchain&gt; docDir: +docDir) logger.info(docToolchain&gt; mainConfigFile: +mainConfigFile) def config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text) def cmd = ${config.changelog.cmd} . def changes = cmd.execute(null, new File(docDir, config.changelog.dir)).text def changelog = new File(targetDir, 'changelog.adoc') logger.info &gt; changelog exported ${changelog.canonicalPath} changelog.write(changes) } } "
-},
-
-{
-    "id": 47,
     "uri": "015_tasks/03_task_copy_themes.html",
     "menu": "tasks",
     "title": "copyThemes",
@@ -385,7 +377,7 @@ var documents = [
 },
 
 {
-    "id": 48,
+    "id": 47,
     "uri": "015_tasks/03_task_exportPPT.html",
     "menu": "tasks",
     "title": "exportPPT",
@@ -393,11 +385,19 @@ var documents = [
 },
 
 {
-    "id": 49,
+    "id": 48,
     "uri": "015_tasks/03_task_exportContributors.html",
     "menu": "tasks",
     "title": "exportContributors",
     "text": " Table of Contents exportContributors Reading Time File Attributes .gravatar img { margin-left: 3px; border-radius: 4px; } exportContributors 2 minutes to read This tasks crawls through all Asciidoctor source files and extracts a list of contributors. This list is then rendered as AsciiDoc images of the contributor&#8217;s gravatar picture. The extracted lists are stored in /home/runner/work/docToolchain/docToolchain/build/contributors/015_tasks/03_task_exportContributors.adoc to be easily included in your documents. Best way to use this feature is to create a feedback.adoc file which might look like this: feedback.adoc ifndef::backend-pdf[] // (1) image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}{filename}, float=right] // (2) image::https://img.shields.io/badge/create-an%20issue-blue.svg[link=https://github.com/docToolchain/documentation/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:{filename}, float=right] // (3) endif::[] include::{targetDir}/contributors/{filename}[] // (4) do not show this section when rendered as PDF create an improve this doc button which links to the git sources create a create-an-issue button which links to your issue tracker include the list of contributors created by this task Reading Time The task also appends to the list of contributors the estimated reading time. File Attributes The task now also exports some attributes of the git files. The extracted attributes are stored in /home/runner/work/docToolchain/docToolchain/build/fileattribs/015_tasks/03_task_exportContributors.adoc . :lastUpdated: 16.05.2019 06:22 :lastAuthorName: Ralf D. Müller :lastAuthorEmail: ralf.d.mueller@gmail.com :lastAuthorAvatar: http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon[32,32,role='gravatar',alt='Ralf D. Müller',title='Ralf D. Müller'] :lastMessage: #310 started to document config options This enables you to import these attributes the same way you import the contributors list and use these attributes. Here is an example: feedback.adoc include::{targetDir}/fileattribs/{filename}[] Last updated {lastUpdated} by {lastAuthorName} "
+},
+
+{
+    "id": 49,
+    "uri": "015_tasks/03_task_exportChangeLog.html",
+    "menu": "tasks",
+    "title": "exportChangeLog",
+    "text": " Table of Contents exportChangeLog Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportChangeLog 2 minutes to read As the name says, this task exports the changelog to be referenced from within your documentation - if needed. The changelog is written to build/docs/changelog.adoc . This task can be configured to use different source control system or different directory. To configure the task, copy template_config/scripts/ChangelogConfig.groovy to your directory and modify to your needs. Then give the path to your configuration file to the task using -PchangelogConfigFile=&lt;your config file&gt;. See the description inside the template for more details. By default, the source is the Git changelog for the path src/docs - it only contains the commit messages for changes on the documentation. All changes on the build or other sources from the repository will not show up. By default, the changelog contains the changes with date , author and commit message already formatted as AsciiDoc table content: | 09.04.2017 | Ralf D. Mueller | fix #24 template updated to V7.0 | 08.04.2017 | Ralf D. Mueller | fixed typo You simply include it like this: .Changes [options=header,cols=1,2,6] |==== | Date | Author | Comment include::../../build/docs/changelog.adoc[] |==== By excluding the table definition, you can easily translate the table headings through different text snippets. Note it might make sense to only include certain commit messages from the change log or exclude others (starting with # or // ?). But this isn&#8217;t implemented yet. Tip Blog-Post: The only constant in life is change Source exportChangelog.gradle task exportChangeLog( description: 'exports the change log from a git subpath', group: 'docToolchain' ) { doFirst { new File(targetDir).mkdirs() } doLast { logger.info(docToolchain&gt; docDir: +docDir) logger.info(docToolchain&gt; mainConfigFile: +mainConfigFile) def config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text) def cmd = ${config.changelog.cmd} . def changes = cmd.execute(null, new File(docDir, config.changelog.dir)).text def changelog = new File(targetDir, 'changelog.adoc') logger.info &gt; changelog exported ${changelog.canonicalPath} changelog.write(changes) } } "
 },
 
 {
@@ -442,14 +442,6 @@ var documents = [
 
 {
     "id": 55,
-    "uri": "ea/Use_Cases_notes.html",
-    "menu": "ea",
-    "title": "Use_Cases_notes.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
-},
-
-{
-    "id": 56,
     "uri": "ea/issue1.html",
     "menu": "ea",
     "title": "issue1.ad",
@@ -457,7 +449,7 @@ var documents = [
 },
 
 {
-    "id": 57,
+    "id": 56,
     "uri": "ea/Use_Cases_notes_UseCases.html",
     "menu": "ea",
     "title": "Use_Cases_notes_UseCases.ad",
@@ -465,23 +457,15 @@ var documents = [
 },
 
 {
+    "id": 57,
+    "uri": "ea/Use_Cases_notes.html",
+    "menu": "ea",
+    "title": "Use_Cases_notes.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
+},
+
+{
     "id": 58,
-    "uri": "ea/issue2.html",
-    "menu": "ea",
-    "title": "issue2.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
-},
-
-{
-    "id": 59,
-    "uri": "ea/Use_Cases_links_issue2.html",
-    "menu": "ea",
-    "title": "Use_Cases_links_issue2.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
-},
-
-{
-    "id": 60,
     "uri": "ea/Use_Cases_links.html",
     "menu": "ea",
     "title": "Use_Cases_links.ad",
@@ -489,7 +473,7 @@ var documents = [
 },
 
 {
-    "id": 61,
+    "id": 59,
     "uri": "ea/UseCases.html",
     "menu": "ea",
     "title": "UseCases.ad",
@@ -497,15 +481,7 @@ var documents = [
 },
 
 {
-    "id": 62,
-    "uri": "ea/Architect_notes_issue2.html",
-    "menu": "ea",
-    "title": "Architect_notes_issue2.ad",
-    "text": " "
-},
-
-{
-    "id": 63,
+    "id": 60,
     "uri": "ea/Architect_notes.html",
     "menu": "ea",
     "title": "Architect_notes.ad",
@@ -513,19 +489,43 @@ var documents = [
 },
 
 {
-    "id": 64,
-    "uri": "ea/Activity_notes_issue1.html",
-    "menu": "ea",
-    "title": "Activity_notes_issue1.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 65,
+    "id": 61,
     "uri": "ea/readme.html",
     "menu": "ea",
     "title": "readme.ad",
     "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
+},
+
+{
+    "id": 62,
+    "uri": "ea/issue2.html",
+    "menu": "ea",
+    "title": "issue2.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+},
+
+{
+    "id": 63,
+    "uri": "ea/Use_Cases_links_issue2.html",
+    "menu": "ea",
+    "title": "Use_Cases_links_issue2.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+},
+
+{
+    "id": 64,
+    "uri": "ea/Architect_notes_issue2.html",
+    "menu": "ea",
+    "title": "Architect_notes_issue2.ad",
+    "text": " "
+},
+
+{
+    "id": 65,
+    "uri": "ea/Activity_notes_issue1.html",
+    "menu": "ea",
+    "title": "Activity_notes_issue1.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
 },
 
 {
