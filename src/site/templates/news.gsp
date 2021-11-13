@@ -34,7 +34,7 @@
                             post.status == "published" && post.tags?.contains(tag)
                         }.size()
                 %>
-                <span class="tag"><a href="${content.rootpath}tags/${tag.replace(' ', '-')}.html">${tag}&nbsp;<span class="badge">${postsCount}</span></a></span>
+                <span class="blogtag"><a href="${content.rootpath}tags/${tag.replace(' ', '-')}.html">${tag}&nbsp;<span class="badge">${postsCount}</span></a></span>
                 <%
                     }
                 %>

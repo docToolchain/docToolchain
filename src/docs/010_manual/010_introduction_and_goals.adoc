@@ -1,4 +1,6 @@
+:jbake-rightColumnHtml: <a href="single-page.html"><i class="fa fa-file fa-fw"></i> View single page</a>
 :filename: 010_manual/010_introduction_and_goals.adoc
+include::_config.adoc[]
 
 = Introduction and Goals
 
@@ -93,10 +95,10 @@ But you are not restricted to one master -- you can create master docs for diffe
 If you can dream it, you can script it.
 
 * Want to include a list of open issues from Jira?
-*✓* Check.
+*✔️* Check.
 * Want to include a changelog from Git?
-*✓* Check.
+*✔️* Check.
 * Want to use inline, text based diagrams?
-*✓* Check.
+*✔️* Check.
 * and many more...
 

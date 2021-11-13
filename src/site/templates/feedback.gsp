@@ -28,11 +28,11 @@
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="${config.site_issueUrl}?title=${subject}%20👍&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:${sourceFileName}">tell us
+        Glad to hear it! Please <a href="${config.site_issueUrl}?title=${subject}%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:${sourceFileName}">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="${config.site_issueUrl}?title=${subject}%20👎&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:${sourceFileName}">tell
+        Sorry to hear that. Please <a href="${config.site_issueUrl}?title=${subject}%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:${sourceFileName}">tell
     us how we can improve</a>.
     </p>
 </div>

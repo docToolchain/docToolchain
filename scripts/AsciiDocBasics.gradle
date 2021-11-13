@@ -80,7 +80,7 @@ config.flatten().each {key, value ->
 
 ext {
     srcDir  = "${docDir}/${inputPath}"
-    if (config.outputPath.startsWith('/')) {
+    if (config.outputPath.startsWith('/') || config.outputPath.matches('^[A-Za-z]:.*$')) {
         targetDir = config.outputPath
     } else {
         targetDir = "${docDir}/${config.outputPath}"

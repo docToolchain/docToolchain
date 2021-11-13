@@ -181,7 +181,7 @@ ${color 'green', 'for you?'}\n""",
             println color('red', e.message)
             if (e.message.startsWith("Not Found")) {
                 themeFolder.deleteDir()
-                throw new GradleException("Couldn't find theme. Did you specify the right URL?\n"+e.message)                
+                throw new GradleException("Couldn't find theme. Did you specify the right URL?\n"+e.message)
             } else {
                 throw new GradleException(e.message)
             }
@@ -218,6 +218,7 @@ ${color 'green', 'for you?'}\n""",
                         type: 'page_toc'
                     ]
                     def parseAttribs = true
+                    def beforeToc = ""
                     origText.eachLine { line ->
                         if (parseAttribs && line.startsWith(":jbake")) {
                             line = (line - ":jbake-").split(": +", 2)
@@ -228,6 +229,10 @@ ${color 'green', 'for you?'}\n""",
                                 parseAttribs = false
                             }
                             text += line+"\n"
+                            //there are some attributes which have to be set before the toc
+                            if (line.startsWith(":toc") ) {
+                                beforeToc += line+"\n"
+                            }
                         }
                     }
                     def name = file.canonicalPath - (sourceFolder.canonicalPath+File.separator)
@@ -297,9 +302,13 @@ ${color 'green', 'for you?'}\n""",
                         }
                         def header = ''
                         jbake.each { key, value ->
-                            header += ":jbake-${key}: ${value}\n"
+                            if (key=='order') {
+                                header += ":jbake-${key}: ${value as Integer}\n"
+                            } else {
+                                header += ":jbake-${key}: ${value}\n"
+                            }
                         }
-                        file.write(header + "\n:toc: left\n\n++++\n<!-- endtoc -->\n++++\n" + text, "utf-8")
+                        file.write(header + "\n$beforeToc\n\n:toc: left\n\n++++\n<!-- endtoc -->\n++++\n" + text, "utf-8")
                     }
                 }
             }
@@ -319,9 +328,20 @@ ${color 'green', 'for you?'}\n""",
 task previewSite(
     group: 'docToolchain',
     dependsOn: [],
-    description: 'start a little webserver to preview your microsite',
+    description: 'start a little webserver to preview your Microsite',
 ) {
-
+        if (new File("${targetDir}/microsite/output").exists()) {
+            finalizedBy 'jettyRun'
+        }
+    doLast {
+        if (new File("${targetDir}/microsite/output").exists()) {
+            // everything is fine
+        } else {
+            throw new GradleException(""">
+> Microsite not built yet, please run './dtcw generateSite' first
+>""")
+        }
+    }
 }
 task copyImages(type: Copy) {
     config.imageDirs.each { imageDir ->
@@ -338,4 +358,3 @@ task copyImages(type: Copy) {
 
 bake.dependsOn copyImages
 generateSite.finalizedBy bake
-previewSite.finalizedBy 'jettyRun'

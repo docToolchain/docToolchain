@@ -25,7 +25,7 @@ config = configSlurper.parse(new File(docDir, mainConfigFile).text)
 
 //tag::htmlSanityCheck[]
 htmlSanityCheck {
-    sourceDir = new File(config.htmlSanityCheck.sourceDir?:"$targetDir/html5")
+    sourceDir = new File(config.htmlSanityCheck.sourceDir?targetDir+"/"+config.htmlSanityCheck.sourceDir:"$targetDir/html5")
     // files to check - in Set-notation
     //sourceDocuments = [ "one-file.html", "another-file.html", "index.html"]
 
