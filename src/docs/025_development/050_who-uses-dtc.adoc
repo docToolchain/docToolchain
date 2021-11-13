@@ -1,0 +1,33 @@
+:filename: 025_development/050_who-uses-dtc.adoc
+== Who uses docToolchain?
+
+include::../_feedback.adoc[]
+
+docToolchain is used by many people.
+Since the main focus of docToolchain is technical documentation, it is mainly used for internal projects not visible to the public.
+
+Up until version 2.0.0, docToolchain had no static site generator and thus was used behind the scenes.
+This has changed now and open source projects which use docToolchain start to be visible.
+
+=== Companies who use docToolchain
+
+Here is a List of companies who use docToolchain.
+If you use docToolchain in your company, please let us know.
+This will support the project and help us to keep the project alive.
+
+:imagesdir: ../../../images
+
+[link=https://www.tomtom.com]
+image::TomTomLogo.png[TomTom]
+
+Deutsche Bahn - https://www.dbsystel.de/[DB Systel]
+
+[link=https://www.codecentric.de]
+image::cclogo.png[codcentric]
+
+=== Open Source Projects who use docToolchain
+
+If you use docToolchain for open source projects, please let us know by sending a pull request.
+
+* https://doctoolchain.org/[docToolchain] (https://github.com/docToolchain/docToolchain[source])
+* https://aim42.github.io/htmlSanityCheck[Html Sanity Check] (https://github.com/aim42/htmlSanityCheck/[source])
