@@ -190,8 +190,13 @@ task generateHTML (
         config.imageDirs.each { imageDir ->
             from(new File(file(srcDir),imageDir))
             logger.info ('imageDir: '+imageDir)
+            into './images'
         }
-        into './images'
+        config.resourceDirs.each { resource ->
+            from(new File(file(srcDir),resource.source))
+            logger.info ('resource: '+resource.source)
+            into resource.target
+        }
     }
     backends = ['html5']
 doFirst {
