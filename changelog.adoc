@@ -9,7 +9,13 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === added
 
+2021-11-13::
+* https://github.com/docToolchain/docToolchain/pull/686[#686 - Add resourceDirs option]
+
 === changed
+
+2021:11-14::
+* refactored jbake template "menu.gsp"
 
 === fixed
 
