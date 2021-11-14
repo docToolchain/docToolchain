@@ -102,12 +102,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/020_arc42.html</loc>
+    	<loc>https://localhost/020_tutorial/010_Install.html</loc>
     	<lastmod>2021-11-14</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/010_Install.html</loc>
+    	<loc>https://localhost/020_tutorial/020_arc42.html</loc>
     	<lastmod>2021-11-14</lastmod>
     </url>
 
@@ -137,22 +137,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
-    	<lastmod>2021-11-14</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
-    	<lastmod>2021-11-14</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
-    	<lastmod>2021-11-14</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_publishToConfluence.html</loc>
     	<lastmod>2021-11-14</lastmod>
     </url>
 
@@ -167,12 +152,27 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportVisio.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
     	<lastmod>2021-11-14</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportJiraSprintChangelog.html</loc>
+    	<lastmod>2021-11-14</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
+    	<lastmod>2021-11-14</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_publishToConfluence.html</loc>
+    	<lastmod>2021-11-14</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportVisio.html</loc>
     	<lastmod>2021-11-14</lastmod>
     </url>
 
@@ -197,6 +197,11 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_collectIncludes.html</loc>
+    	<lastmod>2021-11-14</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_generateSite.html</loc>
     	<lastmod>2021-11-14</lastmod>
     </url>
@@ -213,11 +218,6 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_convertToDocx.html</loc>
-    	<lastmod>2021-11-14</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_collectIncludes.html</loc>
     	<lastmod>2021-11-14</lastmod>
     </url>
 
@@ -302,27 +302,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
-    	<lastmod>2021-11-14</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/Use_Cases_links.html</loc>
     	<lastmod>2021-11-14</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/ea/UseCases.html</loc>
-    	<lastmod>2021-11-14</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Architect_notes.html</loc>
-    	<lastmod>2021-11-14</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Activity_notes_issue1.html</loc>
     	<lastmod>2021-11-14</lastmod>
     </url>
 
@@ -337,7 +322,22 @@
     </url>
 
     <url>
+    	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
+    	<lastmod>2021-11-14</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/Architect_notes_issue2.html</loc>
+    	<lastmod>2021-11-14</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Architect_notes.html</loc>
+    	<lastmod>2021-11-14</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Activity_notes_issue1.html</loc>
     	<lastmod>2021-11-14</lastmod>
     </url>
 

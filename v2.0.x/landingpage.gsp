@@ -83,6 +83,18 @@
                     </div>
                 </div>
             </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Start using it!</h4>
+                    </div>
+                    <div class="card-body">
+                        People already start to use docToolchain 2.0 with dtcw.<br />
+                        Here is a curated list of companies and open source projects.<br /><br />
+                        <a class="btn btn-primary" href="025_development/050_who-uses-dtc.html" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
         </div>
         <!--div class="row row-cols-1">
             <div class="col">
