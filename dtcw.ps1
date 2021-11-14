@@ -3,7 +3,7 @@ $main_config_file = "docToolchainConfig.groovy"
 # $version=ng
 $version = "2.0.3"
 $dockerVersion = "2.0.3"
-$distribution_url = "DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/releases/download/V$version/docToolchain-$version.zip"
+$distribution_url = "https://github.com/docToolchain/docToolchain/releases/download/v$version/docToolchain-$version.zip"
 
 $dtc_opts="$dtc_opts -PmainConfigFile='$main_config_file' --warning-mode=none"
 
@@ -11,8 +11,8 @@ $dtc_opts="$dtc_opts -PmainConfigFile='$main_config_file' --warning-mode=none"
 $home_path = $env:USERPROFILE
 $folder_name = ".doctoolchain"
 $dtcw_path = "$home_path\$folder_name"
-
-Write-Host "dtcw - docToolchain wrapper V0.18 (PS)"
+ 
+Write-Host "dtcw - docToolchain wrapper V0.21 (PS)"
 
 if ($args.Count -lt 1) {
     # Help text adapted to Win/PS: /<command>.ps1
@@ -36,7 +36,7 @@ Examples:
 
     Publish HTML to Confluence:
     ./dtcw.ps1 publishToConfluence
-
+    
     get more documentation at https://doctoolchain.github.io
 '@
     exit 1
@@ -45,24 +45,24 @@ Examples:
 # check if CLI or docker are installed:
 $cli = $docker = $exist_home =  $False
 
-if (Get-Command java -ErrorAction SilentlyContinue) {
+if (Get-Command java -ErrorAction SilentlyContinue) {    
     $java = $True
-} else {
+} else {    
     # Text adapted
     Write-Warning @'
-docToolchain depends on java, but the java command couldn't be found to install java.
+docToolchain depends on java, but the java command couldn't be found to install java. 
 Please, follow the next link and install java:
 https://www.java.com/en/download/help/windows_manual_download.html
 '@
     exit 1
 }
 
-if (Get-Command dooctoolchain -ErrorAction SilentlyContinue) {
+if (Get-Command dooctoolchain -ErrorAction SilentlyContinue) {        
     Write-Host "docToolchain as CLI available"
     $cli = $True
 }
 
-if (Get-Command docker -ErrorAction SilentlyContinue) {
+if (Get-Command docker -ErrorAction SilentlyContinue) {        
     Write-Host "docker available"
     $docker = $True
 }
@@ -76,7 +76,7 @@ switch ($args[0]) {
     "local" {
         Write-Host "force use of local install"
         $docker = $False
-        $firstArgsIndex = 1   # << Shift first param
+        $firstArgsIndex = 1   # << Shift first param        
     }
     "docker" {
         Write-Host "force use of docker"
@@ -84,7 +84,7 @@ switch ($args[0]) {
         $firstArgsIndex = 1   # << Shift first param
     }
     default {
-        $firstArgsIndex = 0   # << Use all params
+        $firstArgsIndex = 0   # << Use all params        
     }
 }
 #if bakePreview is called, deactivate deamon
@@ -98,8 +98,8 @@ if ($cli) {
     # Execute local
     $command = "doctoolchain . $commandArgs $DTC_OPTS"
 }
-elseif ($exist_home) {
-    $command = "$dtcw_path\docToolchain-$version\bin\doctoolchain.bat . $commandArgs $DTC_OPTS"
+elseif ($exist_home) {        
+    $command = "&'$dtcw_path\docToolchain-$version\bin\doctoolchain.bat' . $commandArgs $DTC_OPTS"
 }
 elseif ($docker) {
     # Check Docker is running...
@@ -110,22 +110,22 @@ elseif ($docker) {
     # Write-Host "Docker is running :)"
     $docker_cmd = Get-Command docker
     Write-Host $docker_cmd
-    $command = "$docker_cmd run -u $(id -u):$(id -g) --name doctoolchain${dockerVersion} -e DTC_HEADLESS=1 -e DTC_SITETHEME -p 8042:8042 --rm -it --entrypoint /bin/bash -v ${PWD}:/project 'rdmueller/doctoolchain:v$dockerVersion' -c ""doctoolchain . $commandArgs $DTC_OPTS && exit"""
+    $command = "$docker_cmd run --name doctoolchain${dockerVersion} -e DTC_HEADLESS=1 -e DTC_SITETHEME -p 8042:8042 --rm -it --entrypoint /bin/bash -v '${PWD}:/project' 'rdmueller/doctoolchain:v$dockerVersion' -c ""doctoolchain . $commandArgs $DTC_OPTS && exit"""
 
 }
 else {
-    Write-Host "docToolchain not installed."
+    Write-Host "docToolchain $version is not installed."
 
     $confirmation = Read-Host "Do you wish to install doctoolchain to '$dtcw_path\'? [Y/N]"
     if ($confirmation -eq 'y') {
-        New-Item -Path $home_path -Name $folder_name -ItemType "directory" | Out-Null
+        New-Item -Path $home_path -Name $folder_name -ItemType "directory" -Force | Out-Null
         Invoke-WebRequest $distribution_url -OutFile "$dtcw_path\source.zip"
         Expand-Archive -LiteralPath "$dtcw_path\source.zip" -DestinationPath "$dtcw_path\"
         # Remove-Item "$dtcw_path\source.zip"     #  << Remove .zip ?
-        $command = "$dtcw_path\docToolchain-$version\bin\doctoolchain.bat . $commandArgs $DTC_OPTS"
+        $command = "&'$dtcw_path\docToolchain-$version\bin\doctoolchain.bat' . $commandArgs $DTC_OPTS"
     } else {
         Write-Warning @'
-you need docToolchain as CLI-Tool installed or docker."
+you need docToolchain as CLI-Tool installed or docker.
 
 '@
         exit 1
