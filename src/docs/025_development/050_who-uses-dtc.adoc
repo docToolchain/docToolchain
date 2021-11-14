@@ -15,7 +15,7 @@ Here is a List of companies who use docToolchain.
 If you use docToolchain in your company, please let us know.
 This will support the project and help us to keep the project alive.
 
-:imagesdir: ../../../images
+ifndef::imagesdir[:imagesdir: ../../../images]
 
 [link=https://www.tomtom.com]
 image::TomTomLogo.png[TomTom]
