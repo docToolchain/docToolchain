@@ -250,9 +250,10 @@
 <li><a href="#_exportjirasprintchangelogissues">4.19. exportJiraSprintChangelogIssues</a></li>
 <li><a href="#_exportppt">4.20. exportPPT</a></li>
 <li><a href="#_exportexcel">4.21. exportExcel</a></li>
-<li><a href="#_exportopenapi">4.22. exportOpenAPI</a></li>
-<li><a href="#_htmlsanitycheck">4.23. htmlSanityCheck</a></li>
-<li><a href="#_dependencyupdates">4.24. dependencyUpdates</a></li>
+<li><a href="#_source_17">4.22. Source</a></li>
+<li><a href="#_exportopenapi">4.23. exportOpenAPI</a></li>
+<li><a href="#_htmlsanitycheck">4.24. htmlSanityCheck</a></li>
+<li><a href="#_dependencyupdates">4.25. dependencyUpdates</a></li>
 </ul>
 </li>
 <li><a href="#_faq_frequently_asked_questions">5. FAQ: Frequently asked Questions</a>
@@ -6102,8 +6103,52 @@ use `gradle exportExcel` to re-export files
 </div>
 <hr>
 <div style="page-break-after: always;"></div>
+<!-- endtoc -->
+<style>
+.gravatar img {
+    margin-left: 3px;
+    border-radius: 4px;
+}
+</style>
 <div class="paragraph">
-<p>Unresolved directive in &lt;stdin&gt; - include::../015_tasks/03_task_exportMarkdown.adoc[leveloffset=+2]</p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>1 minute to read</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Unresolved directive in ../015_tasks/03_task_exportMarkdown.adoc - include::/home/runner/work/docToolchain/docToolchain/build/exportMarkdownDocs.adoc[]</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_source_17">4.22. Source</h4>
+<div class="listingblock">
+<div class="title">exportMarkdown.gradle</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">task exportMarkdown(
+        description: 'exports all markdown files to AsciiDoc',
+        group: 'docToolchain',
+        type: Copy
+) {
+    from srcDir
+
+    include("**/*.md") //include only markdown files
+    includeEmptyDirs = false
+    rename(/(.+).md/, '$1.adoc') //rename all files from *.md to *.adoc
+    filter(Markdown2AdocFilter) // convert the content of the files
+
+    into targetDir
+}
+
+class Markdown2AdocFilter extends FilterReader {
+    Markdown2AdocFilter(Reader input) {
+        super(new StringReader(nl.jworks.markdown_to_asciidoc.Converter.convertMarkdownToAsciiDoc(input.text)))
+    }
+}</code></pre>
+</div>
 </div>
 <hr>
 <div style="page-break-after: always;"></div>
@@ -6115,9 +6160,8 @@ use `gradle exportExcel` to re-export files
 }
 </style>
 </div>
-</div>
 <div class="sect3">
-<h4 id="_exportopenapi">4.22. exportOpenAPI</h4>
+<h4 id="_exportopenapi">4.23. exportOpenAPI</h4>
 <div class="paragraph">
 <p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
@@ -6156,7 +6200,7 @@ openApi.with {
 </div>
 </div>
 <div class="sect4">
-<h5 id="_source_17">Source</h5>
+<h5 id="_source_18">Source</h5>
 <div class="listingblock">
 <div class="title">exportOpenApi.gradle</div>
 <div class="content">
@@ -6205,7 +6249,7 @@ openApi.with {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_htmlsanitycheck">4.23. htmlSanityCheck</h4>
+<h4 id="_htmlsanitycheck">4.24. htmlSanityCheck</h4>
 <div class="paragraph">
 <p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
@@ -6251,7 +6295,7 @@ Blog-Post: <a href="https://rdmueller.github.io/htmlSanityCheck/">Automated Qual
 </table>
 </div>
 <div class="sect4">
-<h5 id="_source_18">Source</h5>
+<h5 id="_source_19">Source</h5>
 <div class="listingblock">
 <div class="title">htmlSanityCheck.gradle</div>
 <div class="content">
@@ -6290,7 +6334,7 @@ Blog-Post: <a href="https://rdmueller.github.io/htmlSanityCheck/">Automated Qual
 </div>
 </div>
 <div class="sect3">
-<h4 id="_dependencyupdates">4.24. dependencyUpdates</h4>
+<h4 id="_dependencyupdates">4.25. dependencyUpdates</h4>
 <div class="paragraph">
 <p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
