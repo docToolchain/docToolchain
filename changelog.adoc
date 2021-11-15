@@ -14,10 +14,14 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 
-2021:11-14::
+2021-11-14::
 * refactored jbake template "menu.gsp"
 
 === fixed
+
+2921-11-15::
+* https://github.com/docToolchain/docToolchain/pull/696[#696 - exportContributors - not everybody is rendered]
+* https://github.com/docToolchain/docToolchain/pull/697[#697 - exportToMarkdown docs are not referenced correctly]
 
 == 2.0.3 - 2021-11-11
 
