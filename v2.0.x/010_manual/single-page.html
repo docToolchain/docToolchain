@@ -250,21 +250,25 @@
 <li><a href="#_exportjirasprintchangelogissues">4.19. exportJiraSprintChangelogIssues</a></li>
 <li><a href="#_exportppt">4.20. exportPPT</a></li>
 <li><a href="#_exportexcel">4.21. exportExcel</a></li>
-<li><a href="#_source_17">4.22. Source</a></li>
-<li><a href="#_exportopenapi">4.23. exportOpenAPI</a></li>
-<li><a href="#_htmlsanitycheck">4.24. htmlSanityCheck</a></li>
-<li><a href="#_dependencyupdates">4.25. dependencyUpdates</a></li>
 </ul>
 </li>
-<li><a href="#_faq_frequently_asked_questions">5. FAQ: Frequently asked Questions</a>
+<li><a href="#_exportmarkdown">5. exportMarkdown</a>
 <ul class="sectlevel3">
-<li><a href="#_images">5.1. Images</a></li>
-<li><a href="#_exportvisio_2">5.2. exportVisio</a></li>
-<li><a href="#_sparx_enterprise_architect">5.3. Sparx Enterprise Architect</a></li>
-<li><a href="#_known_error_messages">5.4. Known error Messages</a></li>
+<li><a href="#_source_17">5.1. Source</a></li>
+<li><a href="#_exportopenapi">5.2. exportOpenAPI</a></li>
+<li><a href="#_htmlsanitycheck">5.3. htmlSanityCheck</a></li>
+<li><a href="#_dependencyupdates">5.4. dependencyUpdates</a></li>
 </ul>
 </li>
-<li><a href="#_acknowledgements_and_contributors">6. Acknowledgements and Contributors</a></li>
+<li><a href="#_faq_frequently_asked_questions">6. FAQ: Frequently asked Questions</a>
+<ul class="sectlevel3">
+<li><a href="#_images">6.1. Images</a></li>
+<li><a href="#_exportvisio_2">6.2. exportVisio</a></li>
+<li><a href="#_sparx_enterprise_architect">6.3. Sparx Enterprise Architect</a></li>
+<li><a href="#_known_error_messages">6.4. Known error Messages</a></li>
+</ul>
+</li>
+<li><a href="#_acknowledgements_and_contributors">7. Acknowledgements and Contributors</a></li>
 <li><a href="#_appendix_a_configuration">Appendix A: Appendix A: Configuration</a>
 <ul class="sectlevel3">
 <li><a href="#_mainconfigfile_and_docdir">A.1. <code>mainConfigFile</code> and <code>docDir</code></a></li>
@@ -6118,13 +6122,19 @@ use `gradle exportExcel` to re-export files
 <pre>1 minute to read</pre>
 </div>
 </div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exportmarkdown">5. exportMarkdown</h3>
 <div class="paragraph">
-<p>Unresolved directive in ../015_tasks/03_task_exportMarkdown.adoc - include::/home/runner/work/docToolchain/docToolchain/build/exportMarkdownDocs.adoc[]</p>
+<p>The <em>exportMarkdown</em> task can be used to include <a href="https://markdown.de">markdown</a> files into the documentation.</p>
 </div>
-</div>
+<div class="paragraph">
+<p>The task is scanning the directory <code>/src/docs</code> for markdown files (<code>*.md</code>) and converts them into AsciiDoc files. The converted files can then be referenced from within the <code>/build</code>-folder.</p>
 </div>
 <div class="sect3">
-<h4 id="_source_17">4.22. Source</h4>
+<h4 id="_source_17">5.1. Source</h4>
 <div class="listingblock">
 <div class="title">exportMarkdown.gradle</div>
 <div class="content">
@@ -6161,7 +6171,7 @@ class Markdown2AdocFilter extends FilterReader {
 </style>
 </div>
 <div class="sect3">
-<h4 id="_exportopenapi">4.23. exportOpenAPI</h4>
+<h4 id="_exportopenapi">5.2. exportOpenAPI</h4>
 <div class="paragraph">
 <p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
@@ -6249,7 +6259,7 @@ openApi.with {
 </div>
 </div>
 <div class="sect3">
-<h4 id="_htmlsanitycheck">4.24. htmlSanityCheck</h4>
+<h4 id="_htmlsanitycheck">5.3. htmlSanityCheck</h4>
 <div class="paragraph">
 <p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
@@ -6334,7 +6344,7 @@ Blog-Post: <a href="https://rdmueller.github.io/htmlSanityCheck/">Automated Qual
 </div>
 </div>
 <div class="sect3">
-<h4 id="_dependencyupdates">4.25. dependencyUpdates</h4>
+<h4 id="_dependencyupdates">5.4. dependencyUpdates</h4>
 <div class="paragraph">
 <p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
@@ -6383,7 +6393,7 @@ Blog-Post: <a href="https://rdmueller.github.io/dependency-update/">Handle Depen
 </div>
 </div>
 <div class="sect2">
-<h3 id="_faq_frequently_asked_questions">5. FAQ: Frequently asked Questions</h3>
+<h3 id="_faq_frequently_asked_questions">6. FAQ: Frequently asked Questions</h3>
 <div class="paragraph">
 <p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
@@ -6422,7 +6432,7 @@ It will also contain questions relevant to the tools used to build docToolchain,
 </ul>
 </div>
 <div class="sect3">
-<h4 id="_images">5.1. Images</h4>
+<h4 id="_images">6.1. Images</h4>
 <div class="ulist">
 <ul>
 <li>
@@ -6496,7 +6506,7 @@ You can also try to just open the image in your favourite editor and re-save it.
 </div>
 </div>
 <div class="sect3">
-<h4 id="_exportvisio_2">5.2. exportVisio</h4>
+<h4 id="_exportvisio_2">6.2. exportVisio</h4>
 <div class="sect4">
 <h5 id="_q_i_get_an_error_message_saying_that_a_library_is_not_registered_when_i_try_to_run_the_exportvisio_task">Q: I get an error message saying that a library is not registered when I try to run the <code>exportVisio</code>-task.</h5>
 <div class="listingblock">
@@ -6521,7 +6531,7 @@ You can fix this by visiting the windows system settings &#8594; install or unin
 </div>
 </div>
 <div class="sect3">
-<h4 id="_sparx_enterprise_architect">5.3. Sparx Enterprise Architect</h4>
+<h4 id="_sparx_enterprise_architect">6.3. Sparx Enterprise Architect</h4>
 <div class="sect4">
 <h5 id="_q_sparx_enterprise_architect_is_a_windows_tool_isnt_it">Q: Sparx Enterprise Architect is a Windows tool, isn&#8217;t it?</h5>
 <div class="paragraph">
@@ -6537,7 +6547,7 @@ Wine, the open source branch of CrossOver, seems to work as well.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_known_error_messages">5.4. Known error Messages</h4>
+<h4 id="_known_error_messages">6.4. Known error Messages</h4>
 <div class="sect4">
 <h5 id="_q_i_get_the_error_saying_failed_to_create_md5_hash_for_file_content">Q: I get the error saying 'Failed to create MD5 hash for file content'.</h5>
 <div class="listingblock">
@@ -6647,7 +6657,7 @@ An easy way to test you configuration is to run <code>xeyes</code> in WSL.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_acknowledgements_and_contributors">6. Acknowledgements and Contributors</h3>
+<h3 id="_acknowledgements_and_contributors">7. Acknowledgements and Contributors</h3>
 <div class="paragraph">
 <p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>

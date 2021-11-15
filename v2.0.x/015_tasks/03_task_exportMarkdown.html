@@ -429,8 +429,12 @@
         <hr />
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
+<ul class="sectlevel0">
+<li><a href="#_exportmarkdown">exportMarkdown</a>
 <ul class="sectlevel1">
 <li><a href="#_source">Source</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -465,8 +469,12 @@
 <pre>1 minute to read</pre>
 </div>
 </div>
+<h1 id="_exportmarkdown" class="sect0">exportMarkdown</h1>
 <div class="paragraph">
-<p>Unresolved directive in &lt;stdin&gt; - include::/home/runner/work/docToolchain/docToolchain/build/exportMarkdownDocs.adoc[]</p>
+<p>The <em>exportMarkdown</em> task can be used to include <a href="https://markdown.de">markdown</a> files into the documentation.</p>
+</div>
+<div class="paragraph">
+<p>The task is scanning the directory <code>/src/docs</code> for markdown files (<code>*.md</code>) and converts them into AsciiDoc files. The converted files can then be referenced from within the <code>/build</code>-folder.</p>
 </div>
 <div class="sect1">
 <h2 id="_source">Source</h2>
