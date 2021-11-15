@@ -90,6 +90,8 @@ create_doc () {
   echo "############################################"
   echo "TRAVIS_BRANCH=${BRANCH}"
   if [ "${BRANCH}" == "ng" ] || [ "${BRANCH}" == "main-2.x" ] ; then
+    echo ">>> tasks"
+    ./dtcw local tasks
     echo ">>> exportMarkdown"
     ./dtcw local exportMarkdown
     echo ">>> exportChangelog"
