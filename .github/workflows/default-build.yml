@@ -27,6 +27,8 @@ jobs:
         run: sudo apt-get install -y graphviz shellcheck
 
       - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
 
       - name: Set up JDK
         uses: actions/setup-java@v2
