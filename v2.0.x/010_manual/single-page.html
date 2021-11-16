@@ -1875,7 +1875,7 @@ ${color 'green', 'for you?'}\n""",
                         if (configFragment.exists()) {
                             println "${color 'green', """
     It seems that this theme is used for the first time in this project.
-    Let's confige it!
+    Let's configure it!
     If you are unsure, change these settings later in your config file
     $configFile.canonicalPath
     """}"
@@ -2050,7 +2050,7 @@ ${color 'green', 'for you?'}\n""",
                         }
                         if (leveloffset==1) {
                             //leveloffset needed
-                            // we always start wit "==" not with "="
+                            // we always start with "==" not with "="
                             text = text.replaceAll("(?ms)^(=+) ", '$1= ')
                         }
                         def header = ''
