@@ -12,5 +12,5 @@ Output will be logged to `build/generateSite.log`.
 .bin/autobuildSite.bash
 [source,bash]
 ----
-include::{projectRootDir}/bin/autobuildSite.bash[tags=collectIncludes]
+include::{projectRootDir}/bin/autobuildSite.bash[]
 ----
