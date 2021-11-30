@@ -21,6 +21,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 
+2021-11-30::
+* refactored config file
 2021-11-14::
 * refactored jbake template "menu.gsp"
 
