@@ -51,7 +51,7 @@ To avoid having your password or api-token versioned through git, you can store 
 e.g. you can do things like `credentials = "user:${new File("/home/me/apitoken").text}".bytes.encodeBase64().toString()`
 
 To simplify the injection of credentials from external sources there is a fallback. Should you leave the credentials field empty,
-the variables `confluenceUser` and `confluencePassword` from the build environment will be used for authentication. You can set these through any means
+the variables `confluenceUser` and `confluencePass` from the build environment will be used for authentication. You can set these through any means
 allowed by gradle like the `gradle.properties` file in the project or your home directory, environment variables or command-line flags.
 For all ways to set these variables, have a look at the https://docs.gradle.org/current/userguide/build_environment.html[gradle manual].
 
