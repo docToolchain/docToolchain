@@ -87,23 +87,6 @@ if command -v java &> /dev/null; then
       java=false
     fi
 fi
-if [ "$java" = false ] ; then
-    echo "docToolchain depends on java, but the java command couldn't be found"
-    java_help_and_die
-fi
-javaversion=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed '/^1\./s///' | cut -d'.' -f1)
-echo "Java Version $javaversion"
-if (( $javaversion < 8 )); then
-    echo "your java version $javaversion is too old (<8): $(which java)"
-    echo "please update your java installation and try again"
-    java_help_and_die
-else
-  if (( $javaversion > 14 )); then
-    echo "your java version $javaversion is too new (>14): $(which java)"
-    echo "please update your java installation and try again"
-    java_help_and_die
-  fi
-fi
 if command -v doctoolchain &> /dev/null; then
     echo "docToolchain as CLI available"
     cli=true
@@ -170,6 +153,26 @@ Examples:
   get more documentation at https://doctoolchain.github.io
 '
     exit 1
+fi
+
+if [ "$docker" = false ] ; then
+    if [ "$java" = false ] ; then
+        echo "docToolchain depends on java, but the java command couldn't be found"
+        java_help_and_die
+    fi
+    javaversion=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed '/^1\./s///' | cut -d'.' -f1)
+    echo "Java Version $javaversion"
+    if (( $javaversion < 8 )); then
+        echo "your java version $javaversion is too old (<8): $(which java)"
+        echo "please update your java installation and try again"
+        java_help_and_die
+    else
+      if (( $javaversion > 14 )); then
+        echo "your java version $javaversion is too new (>14): $(which java)"
+        echo "please update your java installation and try again"
+        java_help_and_die
+      fi
+    fi
 fi
 
 if [ "$cli" = true ] ; then
