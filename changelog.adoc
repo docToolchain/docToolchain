@@ -7,6 +7,10 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 == Unreleased
 
+=== fixes
+2021-12-06::
+* https://github.com/docToolchain/docToolchain/pull/711[#712 - publishToConfluence fails when no hash is available for an uploaded image]
+
 === added
 
 2021-11-30::
@@ -22,7 +26,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
-2921-11-15::
+2021-11-15::
 * https://github.com/docToolchain/docToolchain/pull/696[#696 - exportContributors - not everybody is rendered]
 * https://github.com/docToolchain/docToolchain/pull/697[#697 - exportToMarkdown docs are not referenced correctly]
 
