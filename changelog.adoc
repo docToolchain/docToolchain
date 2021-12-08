@@ -21,6 +21,10 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 
+2021-12-08::
+* changed wording of landing page
+2021-12-04::
+* changed java download hint from oracle to https://adoptium.net/
 2021-11-30::
 * refactored config file
 2021-11-14::
@@ -28,6 +32,11 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+2021-12-06::
+* https://github.com/docToolchain/doctoolchain.github.io/issues/20[#20 some wget versions throw errors]
+* https://github.com/docToolchain/doctoolchain.github.io/issues/19[#19 the wrapper stops if no java installed but you want to use docker]
+2021-11-26::
+* https://github.com/docToolchain/doctoolchain.github.io/issues/18[#18 gradle daemon has memory problems]
 2021-11-15::
 * https://github.com/docToolchain/docToolchain/pull/696[#696 - exportContributors - not everybody is rendered]
 * https://github.com/docToolchain/docToolchain/pull/697[#697 - exportToMarkdown docs are not referenced correctly]

@@ -25,7 +25,7 @@ def color = { color, text ->
 }
 
 jbake {
-    version = '2.6.7'
+    version = '2.7.0-rc.2'
     srcDirName = "${targetDir}/microsite/tmp/site"
     destDirName = "${targetDir}/microsite/output"
     configuration['asciidoctor.option.requires'] = "asciidoctor-diagram"
