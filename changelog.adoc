@@ -21,6 +21,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 
+2021-12-09::
+* make build output less noisy - use logger instead of println
 2021-12-08::
 * changed wording of landing page (thanx to Jody Winter)
 2021-12-04::
