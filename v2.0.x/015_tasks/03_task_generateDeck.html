@@ -518,6 +518,7 @@ It creates a PowerPoint presentation and enriches it with reveal.js slide defini
     sources {
         sourceFilesREVEAL.each {
             include it.file
+            logger.info it.file
         }
     }
 

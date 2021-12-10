@@ -653,7 +653,7 @@ Blog-Posts: <a href="https://rdmueller.github.io/plantuml-gradle/">PlantUML with
     sources {
         sourceFilesHTML.each {
             include it.file
-            println it.file
+            logger.info it.file
         }
     }
     resources {
