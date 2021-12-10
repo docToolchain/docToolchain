@@ -183,7 +183,7 @@ task generateHTML (
     sources {
         sourceFilesHTML.each {
             include it.file
-            println it.file
+            logger.info it.file
         }
     }
     resources {
@@ -238,6 +238,7 @@ task generatePDF (
     sources {
         sourceFilesPDF.each {
             include it.file
+            logger.info it.file
         }
     }
 
@@ -280,6 +281,7 @@ task generateDocbook (
     sources {
         sourceFilesDOCBOOK.each {
             include it.file
+            logger.info it.file
         }
     }
 
@@ -327,6 +329,7 @@ task generateDeck (
     sources {
         sourceFilesREVEAL.each {
             include it.file
+            logger.info it.file
         }
     }
 
