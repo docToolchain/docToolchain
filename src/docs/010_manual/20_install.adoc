@@ -1,7 +1,7 @@
 :jbake-rightColumnHtml: <a href="single-page.html"><i class="fa fa-file fa-fw"></i> View single page</a>
 //tag::install[]
 
-:filename: 010_manual/020_install.adoc
+:filename: 010_manual/20_install.adoc
 :icons: font
 
 = Installing docToolchain
