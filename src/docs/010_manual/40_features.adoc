@@ -1,9 +1,9 @@
 :jbake-rightColumnHtml: <a href="single-page.html"><i class="fa fa-file fa-fw"></i> View single page</a>
 //tag::install[]
 
-:filename: 010_manual/025_features.adoc
+:filename: 010_manual/40_features.adoc
 
-== Features
+== Using docToolchain to Build Docs
 
 include::../_feedback.adoc[]
 

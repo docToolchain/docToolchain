@@ -1,8 +1,8 @@
 :jbake-rightColumnHtml: <a href="single-page.html"><i class="fa fa-file fa-fw"></i> View single page</a>
-:filename: 010_manual/050_Frequently_asked_Questions.adoc
+:filename: 010_manual/50_Frequently_asked_Questions.adoc
 ifndef::imagesdir[:imagesdir: ../images]
 
-= FAQ: Frequently asked Questions
+= Solutions to Common Problems
 
 include::../_feedback.adoc[]
 
