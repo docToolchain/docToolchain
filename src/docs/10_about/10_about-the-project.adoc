@@ -4,9 +4,9 @@
 include::../_feedback.adoc[]
 
 === History
-My name is Ralf Mueller. I'm a developer based in Germany. docToolchain is an open source project that I founded in XXXX.
+docToolchain is an open source project dedicated to automating the creation of technical documentation.
 
-Before I started the project, I'd never heard of the term 'docs as code'. All I knew what that I was sick of keeping my architecture diagrams up to date by copying them from my UML tool to my word processor. As a lazy developer, I thought to myself "There must be a better way to do this!". So I automated the diagram export, ditched my word processor, and started using a markup renderer. This enabled me to reference the diagrams from within the text and update them before rendering the document.
+Before the project started, the founders had never heard of the term 'docs as code'. All they knew was that they were sick of keeping their architecture diagrams up to date by copying them from a UML tool to a word processor. Being lazy developers, they thought "There must be a better way to do this!". So they automated the diagram export, ditched their word processors, and started using a markup renderer. This enabled them to reference the diagrams from within the text and update them before rendering the document.
 
 And so, docToolchain was born.
 
