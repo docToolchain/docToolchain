@@ -3,17 +3,19 @@
 
 include::../_feedback.adoc[]
 
-docToolchain is used by many people.
-Since the main focus of docToolchain is technical documentation, it is mainly used for internal projects not visible to the public.
+=== History
+My name is Ralf Mueller. I'm a developer based in Germany. docToolchain is an open source project that I founded in XXXX.
 
-Up until version 2.0.0, docToolchain had no static site generator and thus was used behind the scenes.
-This has changed now and open source projects which use docToolchain start to be visible.
+Before I started the project, I'd never heard of the term 'docs as code'. All I knew what that I was sick of keeping my architecture diagrams up to date by copying them from my UML tool to my word processor. As a lazy developer, I thought to myself "There must be a better way to do this!". So I automated the diagram export, ditched my word processor, and started using a markup renderer. This enabled me to reference the diagrams from within the text and update them before rendering the document.
 
-=== Companies who use docToolchain
+And so, docToolchain was born.
 
-Here is a List of companies who use docToolchain.
-If you use docToolchain in your company, please let us know.
-This will support the project and help us to keep the project alive.
+=== How docToolchain Is Used
+
+The main focus of docToolchain is technical documentation. It was traditionally used only for internal docs projects that were not visible to the public. From v2.0.0 we included a static site generator which means that open source projects and other organisations with public-facing docs can use it.
+
+=== Organisations Using It
+docToolchain is currently being used by the following organisations. If you're also using it, please let us know! We love watching our user community grow, and your support keeps the project alive to fight the good docs fight!
 
 ifndef::imagesdir[:imagesdir: ../../../images]
 
@@ -25,9 +27,8 @@ Deutsche Bahn - https://www.dbsystel.de/[DB Systel]
 [link=https://www.codecentric.de]
 image::cclogo.png[codcentric]
 
-=== Open Source Projects who use docToolchain
-
-If you use docToolchain for open source projects, please let us know by sending a pull request.
+=== Open Source Projects Using It
+If your open source project is using docToochain, please let us know by sending a pull request:
 
 * https://doctoolchain.org/[docToolchain] (https://github.com/docToolchain/docToolchain[source])
 * https://aim42.github.io/htmlSanityCheck[Html Sanity Check] (https://github.com/aim42/htmlSanityCheck/[source])
