@@ -1,3 +1,4 @@
+:jbake-order: 10
 :filename: 020_tutorial/010_Install.adoc
 :jbake-title: Install docToolchain
 include::_config.adoc[]
