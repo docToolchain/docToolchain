@@ -10,21 +10,24 @@
 
 ifndef::imagesdir[:imagesdir: ../../../images]
 
-== v2.0.1 of docToolchain has been released!
+== docToolchain v2.0.1 has been released!
 
-This is a first bugfix release.
+=== About This Release
+This is our first bug-fix release. Thanks to everyone who contributed!
 
-=== added
+=== Changelog v2.0.1
+
+==== Added
 
 2021-10-06::
 * experimental: globalReferences
 
-=== changed
+==== Changed
 
 2021-10-04::
 * fix https://github.com/docToolchain/docToolchain/issues/616[#616 - exportOpenAPI: Enhance the Confluence Open-API Documentation API to refer to URLs]
 
-=== fixed
+==== Fixed
 
 2021-10-06::
 * fix https://github.com/docToolchain/docToolchain/issues/636[#636 - theme: larger admonition icons]
