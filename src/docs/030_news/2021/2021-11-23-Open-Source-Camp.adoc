@@ -22,19 +22,12 @@
 [.center]
 image::https://cyberland.ijug.eu/assets/logo/camp-logo.png[]
 
-The next https://cyberland.ijug.eu/2021-12-open-source-camp/[Cyberland Open Source Camp] is just around the corner.
-This time, https://doctoolchain.org[docToolchain] will be one of the featured open source projects for this event.
+The next https://cyberland.ijug.eu/2021-12-open-source-camp/[Cyberland Open Source Camp] is just around the corner. This time, https://doctoolchain.org/[docToolchain] will be one of the featured open source projects! Calling all contributors and supporters of the project to think about the tasks we could realistically solve in those few hours. Here are some ideas from our https://github.com/docToolchain/docToolchain/issues[list of open issues] to get your brains into gear:
 
-So, let's be prepared and think about what are realistic tasks which we could solve during those few ours.
+* https://github.com/docToolchain/docToolchain/issues/578[Autocompletion for the CLI].
+* https://github.com/docToolchain/docToolchain/issues/692[generateSite – additional navigation level on the left].
+* https://github.com/docToolchain/docToolchain/issues/699[Create multi-branch GitHub pages example].
+* https://github.com/docToolchain/docToolchain/issues/679[Investigations with Gitpod].
+* https://github.com/docToolchain/docToolchain/issues/700[A new InitRepo task].
 
-Here are some handpicked issues from the https://github.com/docToolchain/docToolchain/issues[list of open issues]:
-
-* https://github.com/docToolchain/docToolchain/issues/578[Autocompletion for the CLI]
-* https://github.com/docToolchain/docToolchain/issues/692[generateSite: additional navigation level on the left]
-* https://github.com/docToolchain/docToolchain/issues/699[create multi-branch github pages example]
-* https://github.com/docToolchain/docToolchain/issues/679[Investigations with Gitpod?]
-* or even create a new https://github.com/docToolchain/docToolchain/issues/700[InitRepo task]
-
-If you have your own idea, mailto:ralf.d.mueller@gmail.com[please let me know].
-
-To vote for a task, please https://github.com/docToolchain/docToolchain/issues?q=is%3Aopen+label%3AHackergarten+sort%3Areactions-heart-desc[go to github] and add a ❤️ reaction to the issue.
+If you have another idea, please mailto:ralf.d.mueller@gmail.com[let me know]. To vote for a task, go to  https://github.com/docToolchain/docToolchain/issues?q=is%3Aopen+label%3AHackergarten+sort%3Areactions-heart-desc[GitHub] and ❤️ the issue.
