@@ -1,0 +1,5 @@
+*.sh         eol=lf
+*.bat        eol=crlf
+gradlew      eol=lf
+doctoolchain eol=lf
+dtcw         eol=lf
