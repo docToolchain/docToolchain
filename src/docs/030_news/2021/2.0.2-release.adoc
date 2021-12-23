@@ -10,16 +10,19 @@
 
 ifndef::imagesdir[:imagesdir: ../../../images]
 
-== v2.0.2 of docToolchain has been released!
+== docToolchain v2.0.2 has been released!
 
-This is a bugfix release.
+=== About This Release
+This is a bug-fix release. Thanks to everyone who contributed!
 
-=== added
+=== Changelog v2.0.2
+
+==== Added
 
 2021-10-19::
 * use :jbake-rightcolumnhtml: to add some html to the right column
 
-=== changed
+==== Changed
 
 2021-10-19::
 * Add https://github.com/docToolchain/docToolchain/issues/667[#667 - GH Actions Default Build]
@@ -27,7 +30,7 @@ This is a bugfix release.
 2021-10-18::
 * Fix https://github.com/docToolchain/docToolchain/issues/664[#664 - doctoolchain.org link and typos]
 
-=== fixed
+==== Fixed
 
 2021-10-19::
 * fix example for gitRepoUrl in config
@@ -42,5 +45,3 @@ This is a bugfix release.
 
 2021-10-15::
 * fix https://github.com/docToolchain/docToolchain/issues/658[#658 - generateSite - subsequent runs won't fail with an invalid or missing site theme]
-
-thanx to all contributors!

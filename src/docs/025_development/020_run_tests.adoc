@@ -3,11 +3,11 @@
 
 include::../_feedback.adoc[]
 
-=== Prerequisites
+=== Before You Begin
 
-- make sure that Git and Graphviz are installed
-- make sure that your Gradle setup is able to work with proxies
-- use Java 8
+- Git and Graphviz must both be installed.
+- Your Gradle setup must be able to work with proxies.
+- You must be using Java 8.
 
 === Prepare the Project
 
@@ -19,8 +19,7 @@ git checkout V1.0.0         # <1>
 git submodule update -i
 ----
 
-<1> the version to test.
-Not needed if you work on the HEAD revision on Master
+(1) The version to test. Not required if you work on the HEAD revision on Master.
 
 === Execute Tests
 
@@ -29,16 +28,12 @@ Not needed if you work on the HEAD revision on Master
 rm -r build && ./gradlew test --info
 ----
 
-The `rm` command ensures that you really have a clean test running.
-Otherwise you might get false positives because Gradle will skip steps ('Up-to-date') because artifacts of an older test run still exist.
+The `rm` command ensures that you have a clean test running. This is vital because if artifacts of an older test run still exist, Gradle will skip steps (‘Up-to-date’) and you might get false positives.
 
-=== Proxy Setting for Tests
+=== Workaround to Ensure Correct Proxy Settings for Tests
 
-The docToolchain test setup is based on the https://docs.gradle.org/current/userguide/test_kit.html[Gradle-Test-Kit] and makes use of the  https://code.google.com/archive/p/spock/[Spock test execution framework].
+The docToolchain setup is based on the https://docs.gradle.org/current/userguide/test_kit.html[Gradle-Test-Kit] and makes use of the https://code.google.com/archive/p/spock/[Spock test execution framework].
 
-The gradle test runner is started in its own test environment and its own JVM instance.
-As a result the global proxy settings are ignored.
+The Gradle test runner is started in its own test environment and its own JVM instance. As a result, the global proxy settings are ignored. To execute the test with the correct proxy settings, you must use a workaround. Copy the proxy settings from the gradle.properties file located in the user directory to the gradle.properties file located in the docToolchain folder itself.
 
-As workarund to execute the test with the correct proxy settings it is necessary to copy the proxy setting normally done in the in gradle.properties located in the user directory to the gradle.properties file located in the docToolchain folder itself.
-
-NOTE: The files downloaded by the Gradle test Runner are placed in a different folder than the default gradle cache. You'll find them in the Tmp folder: C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches
+Note: The files downloaded by the Gradle test runner are placed in a different folder than the default Gradle cache. You will find them in the Tmp folder C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches.
