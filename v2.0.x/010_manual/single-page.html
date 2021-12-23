@@ -6145,7 +6145,7 @@ use `gradle exportExcel` to re-export files
 
 
         tree.each { File excel -&gt;
-            println excel
+            println "file: " + excel
             def excelDir = new File(exportFileDir, excel.getName())
             excelDir.mkdirs()
             InputStream inp
@@ -6154,7 +6154,7 @@ use `gradle exportExcel` to re-export files
             def evaluator = wb.getCreationHelper().createFormulaEvaluator();
             for (int wbi = 0; wbi &lt; wb.getNumberOfSheets(); wbi++) {
                 def sheetName = wb.getSheetAt(wbi).getSheetName()
-                println sheetName
+                println " -- sheet: " + sheetName
                 def targetFile = new File(excelDir, sheetName)
                 export(wb.getSheetAt(wbi), evaluator, targetFile.getAbsolutePath())
             }
