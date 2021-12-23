@@ -97,7 +97,8 @@ microsite.with {
     issueUrl = 'https://github.com/docToolchain/docToolchain/issues/new'
     //
     // the base url for code files in github
-    gitRepoUrl = 'https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs'
+    branch = System.getenv("DTC_PROJECT_BRANCH")
+    gitRepoUrl = "https://github.com/doctoolchain/doctoolchain/edit/${branch}/src/docs"
 
     /** end:microsite **/
 }

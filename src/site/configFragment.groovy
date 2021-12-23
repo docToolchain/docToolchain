@@ -1,3 +1,4 @@
+branch = System.getenv("DTC_PROJECT_BRANCH")
 // the title of the microsite, displayed in the upper left corner
 title = '##site-title##'
 // the next items configure some links in the footer
@@ -29,7 +30,7 @@ title = 'docToolchain'
 issueUrl = '##issue-url##'
 //
 // the base url for code files in github
-// Example: https://github.com/doctoolchain/doctoolchain/edit/master/content/src/docs/
+// Example: https://github.com/doctoolchain/doctoolchain/edit/${branch}/content/src/docs/
 gitRepoUrl = '##git-repo-url##'
 //
 // the location of the landing page

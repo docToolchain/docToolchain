@@ -8,6 +8,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 == Unreleased
 
 === fixes
+
+2021-12-20::
+* brushed up docs
 2021-12-06::
 * https://github.com/docToolchain/docToolchain/pull/711[#712 - publishToConfluence fails when no hash is available for an uploaded image]
 
@@ -21,6 +24,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 
+2021-12-23::
+* https://github.com/docToolchain/docToolchain/issues/730[#730 "improve this doc" and "create and issue" links]
 2021-12-09::
 * make build output less noisy - use logger instead of println
 2021-12-08::
