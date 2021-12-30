@@ -1,44 +1,32 @@
 :filename: 015_tasks/03_tasks.adoc
 include::_config.adoc[]
 
-= Introduction
+== What Is a Task?
 
 include::../_feedback.adoc[]
 
-This chapter explains all docToolchain specific tasks.
-
-The following picture gives an overview of the whole build system:
+A 'task' is another name for a script which triggers the build actions which compile and publish your docs. This diagram gives you an overview of the entire build process:
 
 .docToolchain
 image::ea/Manual/Overview2.png[]
 
-== Conventions
 
-There are some simple naming conventions for the tasks.
-They might be confusing at first and that's why they are explained here.
+== How Tasks Are Named
+
+Tasks are given a naming prefix which indicates their role in the build process. There are currently 4 groups.
 
 === generateX
 
-_render_ would have been another good prefix, since these tasks use the plain AsciiDoctor functionality to render the source to a given format.
+These tasks use plain old AsciiDoctor functionality to render the source to a given format.
 
 === exportX
 
-These tasks export images and AsciiDoc snippets from other systems or file formats.
-The resulting artifacts can then be included from your main sources.
-
-What's different from the _generateX_ tasks is that you don't need to export with each build.
-
-It is also likely that you have to put the resulting artifacts under version control because the tools needed for the export (like Sparx Enterprise Architect or MS PowerPoint) are likely to be not available on a build server or on another contributor's machine.
+These tasks export images and AsciiDoc snippets from other systems or file formats. The resulting artifacts can then be included from your main sources. _export_ tasks differ from _generate_ tasks because with _export_ tasks, you don't have to export with each build. Also, with _export_ tasks, it's likely that you will already store the resulting artifacts under version control because the tools needed for the export (such as Sparx Enterprise Architect or MS PowerPoint) are typically not available on your build server or another contributor's machine.
 
 === convertToX
 
-These tasks take the output from AsciiDoctor and convert it (through other tools) to the target format.
-This results in a dependency on a _generateX_ task and another external tool (currently https://pandoc.org[pandoc]).
+These tasks take the output from AsciiDoctor and convert it (through other tools) to the target format. This results in a dependency on a _generateX_ task and another external tool (currently https://pandoc.org[pandoc]).
 
 === publishToX
 
-These tasks not only convert your documents but also deploy/publish/move them to a remote system -- currently Confluence.
-This means that the result is likely to be visible immediately to others.
-
-
-
+These tasks not only convert your documents but also deploy, publish and move them to a remote system (currently Confluence), meaning the result is immediately visible to others.
