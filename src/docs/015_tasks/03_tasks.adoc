@@ -5,7 +5,7 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
-A 'task' is another name for a script which triggers the build actions which compile and publish your docs. This diagram gives you an overview of the entire build process:
+A task is another name for a script which triggers the build actions which compile and publish your docs. This diagram gives you an overview of the entire build process:
 
 .docToolchain
 image::ea/Manual/Overview2.png[]
