@@ -16,6 +16,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === added
 
+2021-12-09::
+* https://github.com/docToolchain/docToolchain/pull/714[#714 - Update exportExcel.gradle]
+
 2021-11-30::
 * https://github.com/docToolchain/docToolchain/pull/706[#706 - exportEA: Add check if diagrams shall be overwritten]
 
