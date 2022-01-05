@@ -1,0 +1,11 @@
+
+ifndef::backend-pdf[]
+++++
+<style>
+.gravatar img {
+    margin-left: 3px;
+    border-radius: 4px;
+}
+</style>
+++++
+endif::backend-pdf[]

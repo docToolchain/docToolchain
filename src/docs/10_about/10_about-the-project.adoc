@@ -1,0 +1,34 @@
+:filename: 10_about/10_about-the-project.adoc
+== About the Project
+
+include::../_feedback.adoc[]
+
+=== History
+docToolchain is an open source project dedicated to automating the creation of technical documentation.
+
+Before the project started, the founders had never heard of the term 'docs as code'. All they knew was that they were sick of keeping their architecture diagrams up to date by copying them from a UML tool to a word processor. Being lazy developers, they thought "There must be a better way to do this!". So they automated the diagram export, ditched their word processors, and started using a markup renderer. This enabled them to reference the diagrams from within the text and update them before rendering the document.
+
+And so, docToolchain was born.
+
+=== How docToolchain Is Used
+
+The main focus of docToolchain is technical documentation. It was traditionally used only for internal docs projects that were not visible to the public. From v2.0.0 we included a static site generator which means that open source projects and other organisations with public-facing docs can use it.
+
+=== Organisations Using It
+docToolchain is currently being used by the following organisations. If you're also using it, please let us know! We love watching our user community grow, and your support keeps the project alive to fight the good docs fight!
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+[link=https://www.tomtom.com]
+image::TomTomLogo.png[TomTom]
+
+Deutsche Bahn - https://www.dbsystel.de/[DB Systel]
+
+[link=https://www.codecentric.de]
+image::cclogo.png[codcentric]
+
+=== Open Source Projects Using It
+If your open source project is using docToochain, please let us know by sending a pull request:
+
+* https://doctoolchain.org/[docToolchain] (https://github.com/docToolchain/docToolchain[source])
+* https://aim42.github.io/htmlSanityCheck[Html Sanity Check] (https://github.com/aim42/htmlSanityCheck/[source])

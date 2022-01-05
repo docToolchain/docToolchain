@@ -5,13 +5,13 @@ $version = "2.0.3"
 $dockerVersion = "2.0.3"
 $distribution_url = "https://github.com/docToolchain/docToolchain/releases/download/v$version/docToolchain-$version.zip"
 
-$dtc_opts="$dtc_opts -PmainConfigFile='$main_config_file' --warning-mode=none"
+$dtc_opts="$dtc_opts -PmainConfigFile='$main_config_file' --warning-mode=none --no-daemon"
 
 # https://docs.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables
 $home_path = $env:USERPROFILE
 $folder_name = ".doctoolchain"
 $dtcw_path = "$home_path\$folder_name"
- 
+
 Write-Host "dtcw - docToolchain wrapper V0.21 (PS)"
 
 if ($args.Count -lt 1) {
@@ -36,7 +36,7 @@ Examples:
 
     Publish HTML to Confluence:
     ./dtcw.ps1 publishToConfluence
-    
+
     get more documentation at https://doctoolchain.github.io
 '@
     exit 1
@@ -45,24 +45,24 @@ Examples:
 # check if CLI or docker are installed:
 $cli = $docker = $exist_home =  $False
 
-if (Get-Command java -ErrorAction SilentlyContinue) {    
+if (Get-Command java -ErrorAction SilentlyContinue) {
     $java = $True
-} else {    
+} else {
     # Text adapted
     Write-Warning @'
-docToolchain depends on java, but the java command couldn't be found to install java. 
+docToolchain depends on java, but the java command couldn't be found to install java.
 Please, follow the next link and install java:
 https://www.java.com/en/download/help/windows_manual_download.html
 '@
     exit 1
 }
 
-if (Get-Command dooctoolchain -ErrorAction SilentlyContinue) {        
+if (Get-Command dooctoolchain -ErrorAction SilentlyContinue) {
     Write-Host "docToolchain as CLI available"
     $cli = $True
 }
 
-if (Get-Command docker -ErrorAction SilentlyContinue) {        
+if (Get-Command docker -ErrorAction SilentlyContinue) {
     Write-Host "docker available"
     $docker = $True
 }
@@ -76,7 +76,7 @@ switch ($args[0]) {
     "local" {
         Write-Host "force use of local install"
         $docker = $False
-        $firstArgsIndex = 1   # << Shift first param        
+        $firstArgsIndex = 1   # << Shift first param
     }
     "docker" {
         Write-Host "force use of docker"
@@ -84,7 +84,7 @@ switch ($args[0]) {
         $firstArgsIndex = 1   # << Shift first param
     }
     default {
-        $firstArgsIndex = 0   # << Use all params        
+        $firstArgsIndex = 0   # << Use all params
     }
 }
 #if bakePreview is called, deactivate deamon
@@ -98,7 +98,7 @@ if ($cli) {
     # Execute local
     $command = "doctoolchain . $commandArgs $DTC_OPTS"
 }
-elseif ($exist_home) {        
+elseif ($exist_home) {
     $command = "&'$dtcw_path\docToolchain-$version\bin\doctoolchain.bat' . $commandArgs $DTC_OPTS"
 }
 elseif ($docker) {

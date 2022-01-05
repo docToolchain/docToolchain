@@ -10,77 +10,79 @@
 
 ifndef::imagesdir[:imagesdir: ../../../images]
 
-== v2.0.0 of docToolchain has been released!
+== docToolchain v2.0.0 has been released!
 
-Today docToolchain reached an important milestone - the release of version 2.0.0 aka ng or next-generation.
+Today marks an important milestone for docToolchain: the release of v2.0.0, aka ‘ng’ or next generation! The focus of this huge release is simplified setup, better usability and distraction-free writing.
 
-The focus of this huge release is simplified setup, better usability and distraction free writing.
+=== Changes and New Features
 
-=== Which new features can you expect?
+The most important change is the *switch-to-a-command-line based approach*. You can now fully focus on your documentation without crowding your repo with lots of other files like scripts and themes.
 
-The most important change is the *switch to a command-line based approach*.
-You can now fully focus on your documentation without having lots of other files like scripts or themes in your repository.
+This is made possible by the new *docToolchain wrapper* (or dtcw for short). dtcw is a little script that resides together with a config file in your repository. It ensures that the right docToolchain version is in use, ensures that all prerequisites are met, and it even checks whether Docker or a local installation should be used to execute docToolchain. And, if docToolchain is not currently installed, dtcw will install it for you.
 
-This is possible through the introduction of the *docToolchain-wrapper* or short dtcw.
-A little script that resides together with a config file in your repository.
-It takes care to use the right version of docToolchain, all pre-requisites are met, and it even checks if it should use docker or a local installation to execute docToolchain.
-If docToolchain is not installed, it will install it for you.
+In this release, we have tried very hard to *avoid error messages*. Where we can’t avoid them, we’ve tried to make them as meaningful as possible.
 
-Another change is that we tried very hard to *avoid error messages*.
-Where we can't avoid errors, we tried to convert them to helpful hints.
-This should make the use of docToolchain a better experience.
+Another huge feature is the link:../../015_tasks/03_task_generateSite.html[`generateSite`]-Task which includes jBake as *static site generator* to help you to create awesome docs. You can now create a full documentation website with a few commands. We chose the beautiful docsy theme from hugo, and it even contains a link:../../search.html[*local search*] implemented with lunr.
 
-Another huge added feature is the link:../../015_tasks/03_task_generateSite.html[`generateSite`]-Task which includes jBake as *static site generator* to help you even more to create awesome docs.
-You can now create a full documentation website with less than a handful commands.
-It uses the beautiful docsy theme known from hugo, and it even contains a link:../../search.html[*local search*] implemented with lunr.
+To get you started with your solution architecture docs, we’ve added the link:../../015_tasks/03_task_downloadTemplate.html[`downloadTemplate`]-task which delivers the famous *arc42 template* in four languages.
 
-To get you started with your solution architecture documentation, we've added the link:../../015_tasks/03_task_downloadTemplate.html[`downloadTemplate`]-task to provide you with the famous *arc42 template* in four languages.
+And last but not least, we have used the new link:../../015_tasks/03_task_generateSite.html[`generateSite`]-Feature to restructure docToolchain’s very own documentation!
 
-Last but not least, we used the new link:../../015_tasks/03_task_generateSite.html[`generateSite`]-Feature to restructure the documentation of docToolchain itself.
+=== Coming Soon
 
-The goal for the next weeks is now to provide you with tutorials over the next few weeks to demonstrate all new features.
+Our goal for the coming weeks is to provide tutorials that demonstrate all of the new features.
 
-IMPORTANT: Thanx to all contributors, sponsors, and users of docToolchain for your efforts!
-Without you, this project would not exist 💯
+=== A Personal Thank You from Ralf
+
+Thank you to all docToolchain contributors, sponsors and users for your efforts in getting this major release out the door. I wouldn’t have made it this far without you.
 
 Happy writing!
 
 Ralf
 
-=== Changelog for v2.0.0
+=== Changelog v2.0.0
 
-==== added
+==== Added
+
 2021-09-21::
 * added lunrjs as local search engine
+
 2021-09-06::
 * added warning when running on WSL
 * added dtcw.bat to avoid execution restrictions
 * updated developer docs
 * added docsy as theme
+
 2021-05-21::
 * if the outputPath from the config starts with a '/', it will be considered as absolute path. +
-This way, you can move the build fodler outside of your repository. +
+This way, you can move the build folder outside of your repository. +
 `outputPath = System.getenv('HOME')+'/.doctoolchain/build/'+(new File('.')).canonicalPath.md5()`
 * repository theme gets only copied to build if it is defined in `siteFolder`
 * generateSite will now add meta-data to all asciidoc files which have no meta-data defined. The menu name and order will be created corresponding to the folder and file name. The title will be extracted as first headline from the file itself.
+
 2021-05-18::
 * Headless mode for themes
 * fix landing page (only gets copied once when microsite config isn't set yet.)
 
 2021-04-07::
 * generateSite can now handle themes
+
 2021-04-09::
 * downloadTemplate can now handle further templates
 
 2021-02-26::
 * copyThemes task
 * generateSite task
+
 2021-02-23::
 * first version of powershell wrapper
+
 2021-02-22::
 * manual test script
+
 2021-01-05::
 * dtc wrapper
+
 2021-01-08::
 * first definition of a static site taken from arc42-template-project
 * updated gradle wrapper (6.6.1)
@@ -88,14 +90,13 @@ This way, you can move the build fodler outside of your repository. +
 * added feature to automatically create a Config file if it doesn't exist
 * configured gradle to run without daemon
 
-==== changed
+==== Changed
 
 2021-09-22::
 * streamingExecute (exportPPT, exportEA) now emits a note instead ot an error when running on linux
 * brushed up powershell wrapper
 
-
-==== fixed
+==== Fixed
 
 2021-09-21::
 * updated exportContributors to follow moved files
@@ -104,10 +105,13 @@ This way, you can move the build fodler outside of your repository. +
 2021-09-18::
 * fixed favicons
 * fixed blog
+
 2021-05-22::
 * fix copyThemes to also copy the external theme
+
 2021-05-06::
 * fix #574: publishToConfluence: Problem with wrong ancestorId
+
 2021-04-28::
 * fix copyImages for generateSite
 
@@ -128,7 +132,6 @@ This way, you can move the build fodler outside of your repository. +
 
 2021-02-24::
 * [543] dtcw: added pre-requisites check and alternative curl instead of wget
+
 2021-02-22::
 * handling of images for generateHTML
-
-

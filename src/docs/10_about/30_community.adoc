@@ -1,19 +1,19 @@
 :jbake-rightColumnHtml: <a href="single-page.html"><i class="fa fa-file fa-fw"></i> View single page</a>
-:filename: 010_manual/040_contributors.adoc
+:filename: 10_about/30_community.adoc
 ifndef::imagesdir[:imagesdir: ../images]
 
-= Acknowledgements and Contributors
+== Acknowledgements and Contributors
 
 include::../_feedback.adoc[]
 
-This project is an open source project which is based on community efforts.
+=== Why Contributions Matter
+Without our amazing community of contributors, the docToolchain project wouldn’t exist in its current form. As an open source project, we depend on the skills and expertise of many to deliver a quality outcome. From developers to technical writers, many people have made valuable contributions to the code and the docs. We’re so grateful to them. We are also thankful for those in our community who take the time to give feedback, create issues, answer questions and send pull requests.
 
-Many people are involved in the underlying technologies like AsciiDoc, AsciiDoctor, Gradle, arc42 etc.
-This project depends and builds on them.
+=== Get Involved!
+There are so many technologies that support docToolchain, including AsciiDoc, AsciiDoctor, Gradle and arc42. We need all the help we can get to make improvements and keep our project humming. Simply create an issue and send a pull request.
 
-But it even more depends on the direct contributions made through giving feedback, creating issues, answering questions, or sending pull requests.
-
-Here is an incomplete and unordered list of contributors:
+=== Our Contributors
+Please get in touch to update your entry or let us know if you have contributed in some way and we will add you to the list.
 
 - https://github.com/bodewig[Stefan Bodewig]
 - MoePad
@@ -62,7 +62,6 @@ Here is an incomplete and unordered list of contributors:
 - https://github.com/danielkocot[Daniel Kocot]
 - https://github.com/ac-schmitt[Alexander Schmitt]
 - https://github.com/jmini[Jérémie Bresson]
-
-(please update your entry to match your preferences! :-)
+- https://github.com/JodyWinter[Jody Winter]
 
 image::https://img.shields.io/github/contributors/doctoolchain/doctoolchain.svg[link=https://github.com/docToolchain/docToolchain/graphs/contributors]

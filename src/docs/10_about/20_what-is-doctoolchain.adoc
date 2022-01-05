@@ -1,0 +1,54 @@
+:jbake-rightColumnHtml: <a href="single-page.html"><i class="fa fa-file fa-fw"></i> View single page</a>
+:filename: 10_about/20_what-is-doctoolchain.adoc
+include::_config.adoc[]
+
+== What Is docToolchain?
+
+include::../_feedback.adoc[]
+
+=== Introduction
+https://github.com/docToolchain/docToolchain[docToolchain] is a documentation generation tool that uses the https://www.writethedocs.org/guide/docs-as-code/[Docs as Code] approach as a basis for its architecture, plus some additional automation provided by the https://arc42.org[arc42 template]. Learn all about the project <link to About the Project page>[here].
+
+=== Docs as Code
+‘Docs as code’ refers to a philosophy that you should write documentation using the same tools as you use to write code. If you need to write technical docs for your software project, why not use the same tools and processes as you use for your source code? There are so many benefits:
+
+* You don’t have to learn a complicated docs management system.
+* Developers feel more at home in the docs because they look and feel like code.
+* You can manage docs using standard version control like GitHub.
+
+=== arc42
+arc42 has been a part of docToolchain since the earliest version. But what is arc42?
+
+Dr. Gernot Starke and Peter Hruschka created the arc42 template as a standard for software architecture documentation. They used their experience of software architectures both in the template structure and the explanations that appear in each chapter to guide you when you’re writing your documentation.
+
+arc42 is available in well-known formats including MS Word, textile, and Confluence. All of these formats are automatically generated from a single golden master which is formatted in https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc].
+
+=== How docToolchain Brings Everything Together
+To follow a docs as code approach, you need a build script that automates steps like exporting diagrams and rendering Markdown (or AsciiDoc in the case of docToolchain) to the target format.
+
+Creating this type of build script is not easy (and even harder to maintain). There are also lots of questions to answer: “How do I create .docx?” and “Why doesn’t lib x work with lib y?”
+
+docToolchain is the result of https://rdmeuller.github.io[one developer’s journey] through the docs as code universe. The goal of docToolchain is to automate the creation of technical docs through an easy-to-use build script that only needs to be configured not modified, and that is nurtured and cared for by a <link to Community page>[diverse open source community].
+
+=== What You Get with docToolchain
+
+==== A Ready-Made Document Management System
+By using a version control system like https://git-scm.com/[Git], you get a perfect document management system for free. Git allows you to version your docs, branch them, and also leaves an audit trail. You can even check who wrote which part of the docs. Isn’t that great?
+
+And because your docs are simple plain text, it’s easy to do a diff and see exactly what has changed. Bonus: storing your docs in the same repo as your code means they’re always in sync!
+
+==== Built-In Collaboration and Review
+As a distributed version control system, Git comes with doc collaboration and review processes built in. People can fork the docs and send pull requests for the changes they make. You review the changes. Done!
+
+Most Git frontends like https://www.bitbucket.org[Bitbucket], https://gitlab.com[GitLab] and https://github.com[GitHub] also allow you to reject pull requests with comments.
+
+==== Image References and Code Snippets
+Instead of pasting images into a binary document format, docToolchain lets you reference images. This ensures that your imagery is always up to date every time you rebuild your documents.
+
+You can also reference code snippets directly from your source code. You'll save so much time because your docs and code will always be in sync and completely up to date!
+
+==== Compound and Stakeholder-Tailored Docs
+As if image refs and code snippets weren't enough, docToolchain also lets you split docs into several sub-documents plus a master for greater cohesion. And you're not restricted to one master. You can create master docs for different stakeholders that only contain the chapters they need.
+
+==== And So Much More...
+If you can dream it, you can script it! Want to include a list of open issues from Jira? You can! Want to include a changelog from Git? Go for it! Want to use inline text-based diagrams? Knock yourself out!

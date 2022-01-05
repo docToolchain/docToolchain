@@ -1,56 +1,51 @@
 :filename: 025_development/030_create_new_release.adoc
-== Create new Release
+== Creating a New Release
 
 include::../_feedback.adoc[]
 
-We use https://semver.org/[semantic versioning] and https://keepachangelog.com/[keep a changelog]. Both on a best effort base.
+=== Before You Begin
 
-A release consists of five parts:
+- We use https://semver.org/[semantic versioning] and we also keep a https://keepachangelog.com/[changelog]. All of this is done on a best-efforts basis.
+- A release consists of five parts, each explained below.
 
-=== Github
+=== GitHub
 
-* update version in `gradle.properties`
-* update the changelog
-** create a section for the version
-** copy all unreleased features which will be in the release to the created section
-** commit and push the new version
-* https://github.com/docToolchain/docToolchain/releases/new[Draft a new release]
-* copy the content of the changelog for this version to the description and submit
-* set version as **v**X.Y.Z
-* run `./gradlew createDist`
-* this creates a zip of the source in `build` which is the distribution file
-* add this zip and submit the new release
+* Update the version in `gradle.properties`.
+* Update the changelog.
+	** Create a section for the version.
+	** Copy to the new section all unreleased features which will be in the release.
+	** Commit and push the new version.
+* https://github.com/docToolchain/docToolchain/releases/new[Draft a new release].
+* Copy the contents of the changelog for this version to the description then submit.
+* Set the version as **v**X.Y.Z.
+* Run `./gradlew createDist` to zip the source in build (the distribution file).
+* Add the zipped file and submit the new release.
 
-=== Dockerhub
+=== Docker Hub
 
-The image build for https://hub.docker.com/repository/docker/rdmueller/doctoolchain[rdmueller/doctoolchain] depends on the github repository https://github.com/docToolchain/docker-image[docToolchain/docker-image]
+The image build for https://hub.docker.com/repository/docker/rdmueller/doctoolchain[rdmueller/doctoolchain] depends on the GitHub repo https://github.com/docToolchain/docker-image[docToolchain/docker-image].
 
-* update the https://github.com/docToolchain/docker-image/tree/master/alpine[Dockerfile] to reflect the new version
-* create a https://github.com/docToolchain/docker-image/releases/new[new release]
-* reference the github release for changelog
-* the build on dockerhub will be automatically triggered
+* Update the https://github.com/docToolchain/docker-image/tree/master/alpine[Dockerfile] to reflect the new version.
+* Create a https://github.com/docToolchain/docker-image/releases/new[new release].
+* Reference the GitHub release in the changelog (the build on Dockerhub will be automatically triggered).
 
-IMPORTANT: currently, the autobuild only works for paying customers. +
-To manually build and upload the image, download the repository, switch to branch `ng-beta`, cd to the `alpine` folder and execute `docker build -t rdmueller/doctoolchain:v2.0.0-rc15 .`. Afterwards use docker desktop to push the resulting image to the hub.
+Important! Currently, the autobuild only works for paying customers. To manually build and upload the image, download the repo, switch to branch `ng-beta`, cd to the `alpine` folder and execute `docker build -t rdmueller/doctoolchain:v2.0.0-rc15 .`. After that, use Docker Desktop to push the resulting image to Docker Hub.
 
 === Blog Post
 
-Now it is time to create a blog post which announces the new release.
-The sdkman announcement will reference it.
+Create a blog post to announce the new release. The SDKMAN! announcement will reference it.
 
 === docToolchain-Wrapper (dtcw)
 
-everything went fine? Good! Now let's setup the wrapper to use the new version.
+Everything went well? Great! Now let’s update the version used in the wrapper:
 
-* update the version used in the wrapper
-** https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw[dtcw]
-** https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw.ps1[dtcw.ps1]
-** https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw.bat[dtcw.bat]
+* https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw[dtcw]
+* https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw.ps1[dtcw.ps1]
+* https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw.bat[dtcw.bat]
 
-=== sdkman
+=== SDKMAN!
 
-A github action has been created to deploy to sdkman: https://github.com/docToolchain/docToolchain/actions?query=workflow%3A%22sdkman+deploy%22[sdkman deploy].
+A GitHub action https://github.com/docToolchain/docToolchain/actions?query=workflow%3A%22sdkman+deploy%22[sdkman deploy] has been created to deploy to SDKMAN!
 
-* set version to the same as for the other relases but without the pre-pended _v_: X.Y.Z
-* use as download link the link to the `docToolchain-dist.zip` from the github release (hint: looks like  https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip)
-
+* Set the version to the same as for the other releases, but without the prepended v: X.Y.Z.
+* Use as a download link the link to the `docToolchain-dist.zip` from the GitHub release. Tip: the link looks like https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip[https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip].

@@ -3,40 +3,26 @@
 
 include::../_feedback.adoc[]
 
-Sometimes things go are different than expected and you need to find out what's wrong.
-Here are some tips that might help you.
+Things not working as you expected? Here are some tips that might help you.
 
-=== General Advice
+=== Environment
 
-To dig deeper into the workings of docToolchain, it makes sense that you setup yourself a development environment.
-This gives you the chance to add extra debug output to the tasks which you want to inspect.
+To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect.
 
 === Gradle
 
-You get most hints on what is going on in regards to gradle when you add the `--info` flag to your command.
+You get more hints about what is going on with Gradle when you add the `--info` flag to your `./dtcw generateSite` command:
 
 `./dtcw generateSite --info`
 
-This will output all configuration settings as seen by docToolchain and many more internal bits.
+This outputs all config settings as seen by docToolchain along with many other internal settings.
 
 === jBake Templates
 
-If something goes wrong within a template, you often get not much information.
-Take a look at `menu.gsp` to see how you can use `try/catch` blocks to get an error message.
-But to find out _where_ the problem occurs, you need to use poor mans debugger and add some `System.out.println` statements.
-Make sure that you use the full `System.out.println` statement and not only `println`.
-Otherwise, you will see no output.
+If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at `menu.gsp` to see how you can use `try/catch` blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some `System.out.println` statements. Make sure that you use the full `System.out.println` statement and not only `println` otherwise you won’t see any output.
 
-=== Theming / Menu / Images
+=== Theming, Menu and Images
 
-It might seem a bit like magic how the system creates the menu entries.
-Sometimes you don't find the reason why an image is not shown.
-Remember, that you can check out the generated files.
+How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files.
 
-Check the `build/microsite/tmp` folder to see the folder which is fed into jBake.
-In this folder, all files will have additional `jbake` attributes which are used to build the menu.
-They are generated from the original attributes of the file and folder/filename information.
-
-Check the `build/microsite/output` folder to see the generated result.
-This often helps to check where an image actually is located.
-
+Check the `build/microsite/tmp` folder to see the folder that is fed into jBake. In this folder, all files will have additional `jbake` attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the `build/microsite/output` folder to see the generated result. This often helps you to find out where an image actually is located.
