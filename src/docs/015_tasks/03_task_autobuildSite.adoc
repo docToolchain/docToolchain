@@ -6,7 +6,8 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
-This script starts an endless loop which checks for changes to your docs source then re-runs the `generateSite`-task whenever it detects changes. The output will be logged to `build/generateSite.log`.
+This script starts an endless loop which checks for changes to your docs source then re-runs the `generateSite`-task whenever it detects changes.
+The output will be logged to `build/generateSite.log`.
 
 .bin/autobuildSite.bash
 [source,bash]
