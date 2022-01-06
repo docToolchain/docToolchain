@@ -154,7 +154,11 @@
     <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../010_manual/010_introduction_and_goals.html"><span>User Docs</span></a>
+                <a class="nav-link " href="../10_about/10_about-the-project.html"><span>About</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../010_manual/20_install.html"><span>User Docs</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -215,7 +219,7 @@
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_tasks.html">Overview of available Tasks</a>
+                                   href="../015_tasks/03_tasks.html">What Is a Task?</a>
                             </li>
                             
                             
@@ -419,7 +423,7 @@
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
         <!--a href="https://github.com/google/docsy-example/new/master/content/en/docs/_index.md?filename=change-me.md&amp;value=---%0Atitle%3A+%22Long+Page+Title%22%0AlinkTitle%3A+%22Short+Nav+Title%22%0Aweight%3A+100%0Adescription%3A+%3E-%0A+++++Page+description+for+heading+and+indexes.%0A---%0A%0A%23%23+Heading%0A%0AEdit+this+template+to+create+your+new+page.%0A%0A%2A+Give+it+a+good+name%2C+ending+in+%60.md%60+-+e.g.+%60getting-started.md%60%0A%2A+Edit+the+%22front+matter%22+section+at+the+top+of+the+page+%28weight+controls+how+its+ordered+amongst+other+pages+in+the+same+directory%3B+lowest+number+first%29.%0A%2A+Add+a+good+commit+message+at+the+bottom+of+the+page+%28%3C80+characters%3B+use+the+extended+description+field+for+more+detail%29.%0A%2A+Create+a+new+branch+so+you+can+preview+your+new+file+and+request+a+review+via+Pull+Request.%0A"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a-->
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27convertToEpub%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_convertToEpub.adoc" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27convertToEpub%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page: https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_task_convertToEpub.adoc%0A%23branch: ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
         <!--a href="https://github.com/google/docsy/issues/new" target="_blank"><i
                 class="fas fa-tasks fa-fw"></i> Create project issue</a-->
@@ -432,6 +436,10 @@
 <ul class="sectlevel1">
 <li><a href="#_converttoepub">convertToEpub</a>
 <ul class="sectlevel2">
+<li><a href="#_at_a_glance">At a Glance</a></li>
+<li><a href="#_dependency">Dependency</a></li>
+<li><a href="#_about_this_task">About This Task</a></li>
+<li><a href="#_further_reading">Further Reading</a></li>
 <li><a href="#_source">Source</a></li>
 </ul>
 </li>
@@ -465,39 +473,40 @@
 <h2 id="_converttoepub">convertToEpub</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>1 minute to read</pre>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_at_a_glance">At a Glance</h3>
 <div class="imageblock">
 <div class="content">
 <img src="../images/ea/Manual/convertToEpub.png" alt="convertToEpub">
 </div>
 </div>
-<div class="paragraph">
-<p>Dependency: <a href="03_task_generateDocBook.html"><code>generateDocBook</code></a></p>
 </div>
+<div class="sect2">
+<h3 id="_dependency">Dependency</h3>
+<div class="paragraph">
+<p><a href="03_task_generateDocBook.html"><code>generateDocBook</code></a></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_about_this_task">About This Task</h3>
 <div class="paragraph">
 <p>This task uses <a href="https://pandoc.org">pandoc</a> to convert the DocBook output from AsciiDoctor to ePub.
-This way, you can read your documentation in a convenient way on an eBook-reader.</p>
+This publishes the output as an eBook which can be read using any eBook reader.
+The resulting file can be found in <code>build/docs/epub</code>.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_further_reading">Further Reading</h3>
 <div class="paragraph">
-<p>The resulting file can be found in <code>build/docs/epub</code></p>
+<p><a href="https://rdmueller.github.io/create-epub/">Turn your Document into an Audio-Book</a> blog post.</p>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-Blog-Post: <a href="https://rdmueller.github.io/create-epub/">Turn your Document into an Audio-Book</a>
-</td>
-</tr>
-</table>
 </div>
 <div class="sect2">
 <h3 id="_source">Source</h3>

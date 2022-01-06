@@ -154,7 +154,11 @@
     <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../010_manual/010_introduction_and_goals.html"><span>User Docs</span></a>
+                <a class="nav-link " href="../10_about/10_about-the-project.html"><span>About</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../010_manual/20_install.html"><span>User Docs</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -215,7 +219,7 @@
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_tasks.html">Overview of available Tasks</a>
+                                   href="../015_tasks/03_tasks.html">What Is a Task?</a>
                             </li>
                             
                             
@@ -419,7 +423,7 @@
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
         <!--a href="https://github.com/google/docsy-example/new/master/content/en/docs/_index.md?filename=change-me.md&amp;value=---%0Atitle%3A+%22Long+Page+Title%22%0AlinkTitle%3A+%22Short+Nav+Title%22%0Aweight%3A+100%0Adescription%3A+%3E-%0A+++++Page+description+for+heading+and+indexes.%0A---%0A%0A%23%23+Heading%0A%0AEdit+this+template+to+create+your+new+page.%0A%0A%2A+Give+it+a+good+name%2C+ending+in+%60.md%60+-+e.g.+%60getting-started.md%60%0A%2A+Edit+the+%22front+matter%22+section+at+the+top+of+the+page+%28weight+controls+how+its+ordered+amongst+other+pages+in+the+same+directory%3B+lowest+number+first%29.%0A%2A+Add+a+good+commit+message+at+the+bottom+of+the+page+%28%3C80+characters%3B+use+the+extended+description+field+for+more+detail%29.%0A%2A+Create+a+new+branch+so+you+can+preview+your+new+file+and+request+a+review+via+Pull+Request.%0A"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a-->
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27createReferenceDoc%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_createReferenceDoc.adoc" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27createReferenceDoc%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page: https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_task_createReferenceDoc.adoc%0A%23branch: ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
         <!--a href="https://github.com/google/docsy/issues/new" target="_blank"><i
                 class="fas fa-tasks fa-fw"></i> Create project issue</a-->
@@ -432,6 +436,9 @@
 <ul class="sectlevel1">
 <li><a href="#_createreferencedoc">createReferenceDoc</a>
 <ul class="sectlevel2">
+<li><a href="#_before_you_begin">Before You Begin</a></li>
+<li><a href="#_about_this_task">About This Task</a></li>
+<li><a href="#_config_groovy_notes">Config.groovy Notes</a></li>
 <li><a href="#_source">Source</a></li>
 </ul>
 </li>
@@ -464,36 +471,25 @@
 <div class="sect1">
 <h2 id="_createreferencedoc">createReferenceDoc</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Needs <a href="https://pandoc.org">pandoc</a> installed</p>
-</li>
-</ul>
+<div class="sect2">
+<h3 id="_before_you_begin">Before You Begin</h3>
+<div class="paragraph">
+<p>Install <a href="https://pandoc.org">pandoc</a>.</p>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5107bc93f3e4d103ca06f4e68a64b38?d=identicon" alt="Heiko Stehli" width="32" height="32" title="Heiko Stehli"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5107bc93f3e4d103ca06f4e68a64b38?d=identicon" alt="Heiko Stehli" width="32" height="32" title="Heiko Stehli"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>1 minute to read</pre>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_about_this_task">About This Task</h3>
 <div class="paragraph">
-<p>Creates a reference docx file used by <a href="https://pandoc.org">pandoc</a> during conversion from docbook to docx.
-You can edit this file to use your preferred styles in task <a href="03_task_convertToDocx.html"><code>convertToDocx</code></a>.</p>
-</div>
-<div class="paragraph">
-<p>Please make sure that 'referenceDocFile' property is set to your custom reference file in Config.groovy</p>
-</div>
-<div class="listingblock">
-<div class="title">Excerpt of Config.groovy with property 'referenceDocFile'</div>
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">inputPath = '.'
-
-// use a style reference file in the input path for conversion from docbook to docx
-referenceDocFile = "${inputPath}/my-ref-file.docx"</code></pre>
-</div>
+<p>This task creates a reference docx file used by <a href="https://pandoc.org">pandoc</a> during docbook-to-docx conversion.
+Use task <a href="03_task_convertToDocx.html"><code>convertToDocx</code></a> to edit this file so it uses your preferred styles.</p>
 </div>
 <div class="admonitionblock important">
 <table>
@@ -503,17 +499,28 @@ referenceDocFile = "${inputPath}/my-ref-file.docx"</code></pre>
 </td>
 <td class="content">
 <div class="paragraph">
-<p>The contents of the reference docx are ignored, but its stylesheets and document properties (including margins, page size, header, and footer) are used in the new docx.</p>
-</div>
-<div class="paragraph">
-<p>See Pandoc User&#8217;s Guide: <a href="https://pandoc.org/MANUAL.html#options-affecting-specific-writers">Options affecting specific writers (--reference-doc)</a></p>
-</div>
-<div class="paragraph">
-<p>If you have problems with changing the default table style: see <a href="https://github.com/jgm/pandoc/issues/3275" class="bare">https://github.com/jgm/pandoc/issues/3275</a>.</p>
+<p>The contents of the reference docx are ignored, but its stylesheets and document properties (including margins, page size, header and footer) are used in the new docx.
+For more information, see Pandoc User&#8217;s Guide: <a href="https://pandoc.org/MANUAL.html#options-affecting-specific-writers">Options affecting specific writers (--reference-doc)</a>
+And if you have problems with changing the default table style: see <a href="https://github.com/jgm/pandoc/issues/3275" class="bare">https://github.com/jgm/pandoc/issues/3275</a>.</p>
 </div>
 </td>
 </tr>
 </table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_config_groovy_notes">Config.groovy Notes</h3>
+<div class="paragraph">
+<p>The 'referenceDocFile' property must be set to your custom reference file in Config.groovy:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">inputPath = '.'
+
+// use a style reference file in the input path for conversion from docbook to docx
+referenceDocFile = "${inputPath}/my-ref-file.docx"</code></pre>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_source">Source</h3>

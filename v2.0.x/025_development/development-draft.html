@@ -154,7 +154,11 @@
     <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../010_manual/010_introduction_and_goals.html"><span>User Docs</span></a>
+                <a class="nav-link " href="../10_about/10_about-the-project.html"><span>About</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../010_manual/20_install.html"><span>User Docs</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -215,19 +219,19 @@
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../025_development/010_setup_dev_env.html">Setup Development Environment</a>
+                                   href="../025_development/010_setup_dev_env.html">Setting Up a Dev Environment</a>
                             </li>
                             
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../025_development/020_run_tests.html">How to run Tests</a>
+                                   href="../025_development/020_run_tests.html">Running Tests</a>
                             </li>
                             
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../025_development/030_create_new_release.html">Create new Release</a>
+                                   href="../025_development/030_create_new_release.html">Creating a New Release</a>
                             </li>
                             
                             
@@ -239,7 +243,7 @@
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../025_development/050_who-uses-dtc.html">Who uses docToolchain?</a>
+                                   href="../025_development/005_contributing_to_docs.html">Contributing to Docs</a>
                             </li>
                             
                             <!--li class="td-sidebar-nav__section-title">
@@ -263,7 +267,7 @@
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
         <!--a href="https://github.com/google/docsy-example/new/master/content/en/docs/_index.md?filename=change-me.md&amp;value=---%0Atitle%3A+%22Long+Page+Title%22%0AlinkTitle%3A+%22Short+Nav+Title%22%0Aweight%3A+100%0Adescription%3A+%3E-%0A+++++Page+description+for+heading+and+indexes.%0A---%0A%0A%23%23+Heading%0A%0AEdit+this+template+to+create+your+new+page.%0A%0A%2A+Give+it+a+good+name%2C+ending+in+%60.md%60+-+e.g.+%60getting-started.md%60%0A%2A+Edit+the+%22front+matter%22+section+at+the+top+of+the+page+%28weight+controls+how+its+ordered+amongst+other+pages+in+the+same+directory%3B+lowest+number+first%29.%0A%2A+Add+a+good+commit+message+at+the+bottom+of+the+page+%28%3C80+characters%3B+use+the+extended+description+field+for+more+detail%29.%0A%2A+Create+a+new+branch+so+you+can+preview+your+new+file+and+request+a+review+via+Pull+Request.%0A"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a-->
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Development%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:025_development/development.adoc" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Development%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page: https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/025_development/development.adoc%0A%23branch: ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
         <!--a href="https://github.com/google/docsy/issues/new" target="_blank"><i
                 class="fas fa-tasks fa-fw"></i> Create project issue</a-->
@@ -275,36 +279,39 @@
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_development">Development</a></li>
-<li><a href="#_setup_development_environment">Setup Development Environment</a>
+<li><a href="#_setting_up_a_dev_environment">Setting Up a Dev Environment</a>
 <ul class="sectlevel2">
-<li><a href="#_local_install_docker_sdkman">local install, docker, sdkman</a></li>
-<li><a href="#_create_gradle_independent_tasks">Create Gradle independent tasks</a></li>
+<li><a href="#_before_you_begin">Before You Begin</a></li>
+<li><a href="#_do_a_local_install_for_docker_and_sdkman">Do a Local Install for Docker and SDKMAN!</a></li>
+<li><a href="#_create_gradle_independent_tasks">Create Gradle-Independent Tasks</a></li>
 <li><a href="#_create_or_change_a_theme">Create or Change a Theme</a></li>
+<li><a href="#_special_functionality_for_themes_config_fragments">Special Functionality for Themes (Config Fragments)</a></li>
 </ul>
 </li>
-<li><a href="#_how_to_run_tests">How to run Tests</a>
+<li><a href="#_running_tests">Running Tests</a>
 <ul class="sectlevel2">
-<li><a href="#_prerequisites">Prerequisites</a></li>
+<li><a href="#_before_you_begin_2">Before You Begin</a></li>
 <li><a href="#_prepare_the_project">Prepare the Project</a></li>
 <li><a href="#_execute_tests">Execute Tests</a></li>
-<li><a href="#_proxy_setting_for_tests">Proxy Setting for Tests</a></li>
+<li><a href="#_workaround_to_ensure_correct_proxy_settings_for_tests">Workaround to Ensure Correct Proxy Settings for Tests</a></li>
 </ul>
 </li>
-<li><a href="#_create_new_release">Create new Release</a>
+<li><a href="#_creating_a_new_release">Creating a New Release</a>
 <ul class="sectlevel2">
-<li><a href="#_github">Github</a></li>
-<li><a href="#_dockerhub">Dockerhub</a></li>
+<li><a href="#_before_you_begin_3">Before You Begin</a></li>
+<li><a href="#_github">GitHub</a></li>
+<li><a href="#_docker_hub">Docker Hub</a></li>
 <li><a href="#_blog_post">Blog Post</a></li>
 <li><a href="#_doctoolchain_wrapper_dtcw">docToolchain-Wrapper (dtcw)</a></li>
-<li><a href="#_sdkman">sdkman</a></li>
+<li><a href="#_sdkman">SDKMAN!</a></li>
 </ul>
 </li>
 <li><a href="#_debugging">Debugging</a>
 <ul class="sectlevel2">
-<li><a href="#_general_advice">General Advice</a></li>
+<li><a href="#_environment">Environment</a></li>
 <li><a href="#_gradle">Gradle</a></li>
 <li><a href="#_jbake_templates">jBake Templates</a></li>
-<li><a href="#_theming_menu_images">Theming / Menu / Images</a></li>
+<li><a href="#_theming_menu_and_images">Theming, Menu and Images</a></li>
 </ul>
 </li>
 </ul>
@@ -345,149 +352,135 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="_setup_development_environment">Setup Development Environment</h2>
+<h2 id="_setting_up_a_dev_environment">Setting Up a Dev Environment</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>4 minutes to read</pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Since v2.0, all the code is hidden from curious eyes when you install docToolchain.
-To access and change the code, you first have to know some details about the inner workings.</p>
-</div>
 <div class="sect2">
-<h3 id="_local_install_docker_sdkman">local install, docker, sdkman</h3>
+<h3 id="_before_you_begin">Before You Begin</h3>
 <div class="paragraph">
-<p>Development is based on the local installation of docToolchain.
-Docker simply contains a local install and sdkman install docToolchain locally, but the location is controller by sdkman and not docToolchain.
-This is why you need a local installation for development.
-Docker and sdkman are derived from it.</p>
-</div>
-<div class="paragraph">
-<p>The docToolchain-Wrapper installs docToolchain locally to <code>$HOME/.doctoolchain/docToolchain-$v2.6.7/</code>.</p>
-</div>
-<div class="paragraph">
-<p>All task invokations through the docToolchain wrapper <code>dtcw</code> are redirected to <code>$HOME/.doctoolchain/docToolchain-$v2.6.7/bin/doctoolchain</code>.
-This is another shell script which calls the gradle wrapper for most tasks.</p>
-</div>
-<div class="paragraph">
-<p>So create a local install which is connected to your github fork of docToolchain, create a folder called</p>
-</div>
-<div class="paragraph">
-<p><code>$HOME/.doctoolchain/docToolchain-2.0.0-dev/</code></p>
-</div>
-<div class="paragraph">
-<p>and checkout the ng-branch of your fork to this folder.</p>
-</div>
-<div class="paragraph">
-<p>To use this version in your test project, edit the version configured at the start of your <code>dtcw</code> script to <code>2.0.0-dev</code>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-you have now the full repository locally cloned.
-To save memory, only some parts of this repository are zipped for distribution.
-Check out the <a href="https://github.com/docToolchain/docToolchain/blob/master/build.gradle#L79">prepareDist-Task</a> if you run into problems.
-</td>
-</tr>
-</table>
+<p>When you install docToolchain, all of the code is hidden. The information on this page explains how to get access to the code so you can customise the setup in your dev environment.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_create_gradle_independent_tasks">Create Gradle independent tasks</h3>
+<h3 id="_do_a_local_install_for_docker_and_sdkman">Do a Local Install for Docker and SDKMAN!</h3>
 <div class="paragraph">
-<p>Currently, all tasks use Gradle to run.
-To make docToolchain faster, it makes sense to circumvent Gradle for tasks where it doesn&#8217;t add any benefits.
-To do so, you can use the <code>bin/doctoolchain</code> scripts and create a switch.</p>
+<p>You need a local installation of docToolchain for development. Docker and SDKMAN! are derived from it. Docker simply contains a local install, and SDKMAN! installs docToolchain locally, but the location is controlled by SDKMAN! not docToolchain.</p>
+</div>
+<div class="paragraph">
+<p>The docToolchain-Wrapper installs docToolchain locally to <code>$HOME/.doctoolchain/docToolchain-$v2.6.7/</code>. All task invokations through the docToolchain-Wrapper <code>dtcw</code> are redirected to <code>$HOME/.doctoolchain/docToolchain-$v2.6.7/bin/doctoolchain</code>. This shell script calls the Gradle-Wrapper for most tasks.</p>
+</div>
+<div class="paragraph">
+<p>What you need to do is:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Create a local install which is connected to your GitHub fork of docToolchain.</p>
+</li>
+<li>
+<p>Create a folder called <code>$HOME/.doctoolchain/docToolchain-2.0.0-dev/</code>.</p>
+</li>
+<li>
+<p>Check out the ng-branch of your fork to this folder.</p>
+</li>
+<li>
+<p>To use this version in your test project, edit the version at the start of your <code>dtcw</code> script to <code>2.0.0-dev</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You now have the full repo locally cloned. To save memory, some parts of the repo are zipped. If you have problems, check out the <a href="https://github.com/docToolchain/docToolchain/blob/master/build.gradle#L79">prepareDist-Task</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_gradle_independent_tasks">Create Gradle-Independent Tasks</h3>
+<div class="paragraph">
+<p>All tasks currently use Gradle to run. You can bypass Gradle for tasks where it doesn’t add any value (and make docToolchain run faster as a result!). To do this, use the <code>bin/doctoolchain</code> scripts and create a switch.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_create_or_change_a_theme">Create or Change a Theme</h3>
 <div class="paragraph">
-<p>Not only the docToolchain code but also the themes for the static site generator jBake are hidden.</p>
+<p>It’s not just the docToolchain code that is hidden. The themes for the static site generator jBake are also hidden. Follow these procedures to customise themes.</p>
 </div>
 <div class="sect3">
-<h4 id="_overwrite_theme_for_a_project">Overwrite Theme for a Project</h4>
+<h4 id="_how_to_overwrite_a_project_theme">How to Overwrite a Project Theme</h4>
 <div class="paragraph">
-<p>When docToolchain builds the static website, it first copies an internal theme to a temp-folder, then copies an external theme (if defined) over it and as a last step, it copies the project theme over it.</p>
+<p>When docToolchain builds a static website, it first copies an internal theme to a temp folder, then copies an external theme (if defined) over it. Finally, it copies the project theme over the top. This gives you the opportunity to overwrite some parts of the theme on a per-project basis. To do this:</p>
 </div>
-<div class="paragraph">
-<p>This gives you the chance to overwrite some parts of the theme on a per project basis.
-To make it easier, run the <code>copyThemes</code> task.
-It will copy the internal and external theme to <code>microsite.siteFolder</code>.
-You can then check those files (take a look at <a href="https://jbake.org">jbake.org</a> to get a better understanding), modify the ones you wish to change and delete all others.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_create_a_new_theme">Create a new Theme</h4>
-<div class="paragraph">
-<p>An external theme is in fact just a zipped copy of the <code>microsite.siteFolder</code> as mentioned in the previous chapter.
-All themes are once downloaded when referenced from a <code>dtcw</code> configuration and are stored in <code>$HOME/.doctoolchain/themes/[hash of url]</code>.</p>
-</div>
-<div class="paragraph">
-<p>If you want to modify an existing theme, go to its folder and checkout the theme&#8217;s project instead of the downloaded copy.
-This will give you the connection back to the github repository and you can modify the theme directly in <code>$HOME/.doctoolchain/themes/[hash of url]</code>.</p>
-</div>
-<div class="paragraph">
-<p>If you want to create a new theme from scratch, the hash is a simple md5 hash.
-So, for example, if you configure your new theme as <code>"myTheme"</code>, then <code>"myTheme".md5()</code> will be the hash.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run the <code>copyThemes</code> task to copy the internal and external themes to the <code>microsite.siteFolder</code>.</p>
+</li>
+<li>
+<p>Check the files (take a look at <a href="https://jbake.org/">jbake.org</a> to get a better understanding).</p>
+</li>
+<li>
+<p>Modify the relevant files and delete all of the other files.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_special_functionality_for_themes">Special functionality for Themes</h4>
-<div class="sect4">
-<h5 id="_config_fragments">Config Fragments</h5>
+<h4 id="_how_to_modify_an_existing_theme_or_create_a_theme_from_scratch">How to Modify an Existing Theme or Create a Theme from Scratch</h4>
 <div class="paragraph">
-<p>It is quite likely that you need a new config item for your self generated theme.
-And wouldn&#8217;t it be nice if the user would be asked to set a value for this new config item when she installs the theme for the first time?</p>
+<p>As we have already mentioned, an external theme is simply a zipped copy of the 'microsite.siteFolder'. All themes are downloaded when referenced from a <code>dtcw</code> configuration, and are stored in <code>$HOME/.doctoolchain/themes/[hash of url]</code>.</p>
 </div>
 <div class="paragraph">
-<p>Create a file <code>configFragment.groovy</code> in the <code>site</code> folder of your theme.
-Here is an example for what to put in this file:</p>
+<p>To modify an existing theme, go to its folder and check out the theme’s project instead of the downloaded copy. This will create a connection back to the GitHub repo so that you can modify the theme directly in <code>$HOME/.doctoolchain/themes/[hash of url]</code>.</p>
+</div>
+<div class="paragraph">
+<p>To create a new theme from scratch, use a simple md5 hash. For example, if you configure your new theme as <code>"myTheme"</code> then <code>"myTheme".md5()</code> will be the hash.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_special_functionality_for_themes_config_fragments">Special Functionality for Themes (Config Fragments)</h3>
+<div class="paragraph">
+<p>It’s likely that you will need a new config item for your self-generated theme. And you can also prompt users to set a value for this new config item when they install the theme for the first time. To do this, create a file called <code>configFragment.groovy</code> in the <code>site</code> folder of your theme. For example:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">// the title of the microsite, displayed in the upper left corner
+<pre class="prettyprint highlight"><code data-lang="groovy">// the title of the microsite, displayed in the upper-left corner
 // Example: my new site
 title = '##site-title##'</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>The first line is some explanation displayed to the user.
-You can have several lines of explanations.</p>
-</div>
-<div class="paragraph">
-<p>The second line, starting with <code>Example:</code> is used as default value for the prompt.</p>
-</div>
-<div class="paragraph">
-<p>The third line is the config item itself.
-If the value is surrounded by <code>##</code>, the user will be prompted for this value and it will be replaced with the user&#8217;s input.
-Otherwise, the config item will be added without a prompt to the users current <code>docToochainConfig.groovy</code>.
+<div class="ulist">
+<ul>
+<li>
+<p>The first line is the message that will be shown to the user (can be over several lines).</p>
+</li>
+<li>
+<p>The second line (starting with <code>Example</code>:) is the default value for the prompt.</p>
+</li>
+<li>
+<p>The third line is the config item itself. If the value is surrounded by <code>##</code>, the user will be prompted for this value and it will be replaced with the user’s input. Otherwise the config item will be added without a prompt to the user’s current <code>docToochainConfig.groovy</code>.
 :jbake-status: published
 :jbake-order: 20
 :jbake-type: page_toc
 :jbake-menu: development
-:jbake-title: How to run Tests</p>
+:jbake-title: Running Tests</p>
+</li>
+</ul>
 </div>
 <!-- endtoc -->
 </div>
 </div>
 </div>
-</div>
-</div>
 <div class="sect1">
-<h2 id="_how_to_run_tests">How to run Tests</h2>
+<h2 id="_running_tests">Running Tests</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -495,17 +488,17 @@ Otherwise, the config item will be added without a prompt to the users current <
 </div>
 </div>
 <div class="sect2">
-<h3 id="_prerequisites">Prerequisites</h3>
+<h3 id="_before_you_begin_2">Before You Begin</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>make sure that Git and Graphviz are installed</p>
+<p>Git and Graphviz must both be installed.</p>
 </li>
 <li>
-<p>make sure that your Gradle setup is able to work with proxies</p>
+<p>Your Gradle setup must be able to work with proxies.</p>
 </li>
 <li>
-<p>use Java 8</p>
+<p>You must be using Java 8.</p>
 </li>
 </ul>
 </div>
@@ -520,13 +513,8 @@ git checkout V1.0.0         # <b class="conum">(1)</b>
 git submodule update -i</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<ol>
-<li>
-<p>the version to test.
-Not needed if you work on the HEAD revision on Master</p>
-</li>
-</ol>
+<div class="paragraph">
+<p>(1) The version to test. Not required if you work on the HEAD revision on Master.</p>
 </div>
 </div>
 <div class="sect2">
@@ -537,155 +525,127 @@ Not needed if you work on the HEAD revision on Master</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>rm</code> command ensures that you really have a clean test running.
-Otherwise you might get false positives because Gradle will skip steps ('Up-to-date') because artifacts of an older test run still exist.</p>
+<p>The <code>rm</code> command ensures that you have a clean test running. This is vital because if artifacts of an older test run still exist, Gradle will skip steps (‘Up-to-date’) and you might get false positives.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_proxy_setting_for_tests">Proxy Setting for Tests</h3>
+<h3 id="_workaround_to_ensure_correct_proxy_settings_for_tests">Workaround to Ensure Correct Proxy Settings for Tests</h3>
 <div class="paragraph">
-<p>The docToolchain test setup is based on the <a href="https://docs.gradle.org/current/userguide/test_kit.html">Gradle-Test-Kit</a> and makes use of the  <a href="https://code.google.com/archive/p/spock/">Spock test execution framework</a>.</p>
+<p>The docToolchain setup is based on the <a href="https://docs.gradle.org/current/userguide/test_kit.html">Gradle-Test-Kit</a> and makes use of the <a href="https://code.google.com/archive/p/spock/">Spock test execution framework</a>.</p>
 </div>
 <div class="paragraph">
-<p>The gradle test runner is started in its own test environment and its own JVM instance.
-As a result the global proxy settings are ignored.</p>
+<p>The Gradle test runner is started in its own test environment and its own JVM instance. As a result, the global proxy settings are ignored. To execute the test with the correct proxy settings, you must use a workaround. Copy the proxy settings from the gradle.properties file located in the user directory to the gradle.properties file located in the docToolchain folder itself.</p>
 </div>
 <div class="paragraph">
-<p>As workarund to execute the test with the correct proxy settings it is necessary to copy the proxy setting normally done in the in gradle.properties located in the user directory to the gradle.properties file located in the docToolchain folder itself.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-The files downloaded by the Gradle test Runner are placed in a different folder than the default gradle cache. You&#8217;ll find them in the Tmp folder: C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches
+<p>Note: The files downloaded by the Gradle test runner are placed in a different folder than the default Gradle cache. You will find them in the Tmp folder C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches.
 :jbake-status: published
 :jbake-order: 30
 :jbake-type: page_toc
 :jbake-menu: development
-:jbake-title: Create new Release
-</td>
-</tr>
-</table>
+:jbake-title: Creating a New Release</p>
 </div>
 <!-- endtoc -->
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_create_new_release">Create new Release</h2>
+<h2 id="_creating_a_new_release">Creating a New Release</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>2 minutes to read</pre>
 </div>
 </div>
-<div class="paragraph">
-<p>We use <a href="https://semver.org/">semantic versioning</a> and <a href="https://keepachangelog.com/">keep a changelog</a>. Both on a best effort base.</p>
-</div>
-<div class="paragraph">
-<p>A release consists of five parts:</p>
-</div>
 <div class="sect2">
-<h3 id="_github">Github</h3>
+<h3 id="_before_you_begin_3">Before You Begin</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>update version in <code>gradle.properties</code></p>
+<p>We use <a href="https://semver.org/">semantic versioning</a> and we also keep a <a href="https://keepachangelog.com/">changelog</a>. All of this is done on a best-efforts basis.</p>
 </li>
 <li>
-<p>update the changelog</p>
-<div class="ulist">
-<ul>
-<li>
-<p>create a section for the version</p>
-</li>
-<li>
-<p>copy all unreleased features which will be in the release to the created section</p>
-</li>
-<li>
-<p>commit and push the new version</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><a href="https://github.com/docToolchain/docToolchain/releases/new">Draft a new release</a></p>
-</li>
-<li>
-<p>copy the content of the changelog for this version to the description and submit</p>
-</li>
-<li>
-<p>set version as <strong>v</strong>X.Y.Z</p>
-</li>
-<li>
-<p>run <code>./gradlew createDist</code></p>
-</li>
-<li>
-<p>this creates a zip of the source in <code>build</code> which is the distribution file</p>
-</li>
-<li>
-<p>add this zip and submit the new release</p>
+<p>A release consists of five parts, each explained below.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_dockerhub">Dockerhub</h3>
+<h3 id="_github">GitHub</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Update the version in <code>gradle.properties</code>.</p>
+</li>
+<li>
+<p>Update the changelog.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a section for the version.</p>
+</li>
+<li>
+<p>Copy to the new section all unreleased features which will be in the release.</p>
+</li>
+<li>
+<p>Commit and push the new version.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/releases/new">Draft a new release</a>.</p>
+</li>
+<li>
+<p>Copy the contents of the changelog for this version to the description then submit.</p>
+</li>
+<li>
+<p>Set the version as <strong>v</strong>X.Y.Z.</p>
+</li>
+<li>
+<p>Run <code>./gradlew createDist</code> to zip the source in build (the distribution file).</p>
+</li>
+<li>
+<p>Add the zipped file and submit the new release.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_docker_hub">Docker Hub</h3>
 <div class="paragraph">
-<p>The image build for <a href="https://hub.docker.com/repository/docker/rdmueller/doctoolchain">rdmueller/doctoolchain</a> depends on the github repository <a href="https://github.com/docToolchain/docker-image">docToolchain/docker-image</a></p>
+<p>The image build for <a href="https://hub.docker.com/repository/docker/rdmueller/doctoolchain">rdmueller/doctoolchain</a> depends on the GitHub repo <a href="https://github.com/docToolchain/docker-image">docToolchain/docker-image</a>.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>update the <a href="https://github.com/docToolchain/docker-image/tree/master/alpine">Dockerfile</a> to reflect the new version</p>
+<p>Update the <a href="https://github.com/docToolchain/docker-image/tree/master/alpine">Dockerfile</a> to reflect the new version.</p>
 </li>
 <li>
-<p>create a <a href="https://github.com/docToolchain/docker-image/releases/new">new release</a></p>
+<p>Create a <a href="https://github.com/docToolchain/docker-image/releases/new">new release</a>.</p>
 </li>
 <li>
-<p>reference the github release for changelog</p>
-</li>
-<li>
-<p>the build on dockerhub will be automatically triggered</p>
+<p>Reference the GitHub release in the changelog (the build on Dockerhub will be automatically triggered).</p>
 </li>
 </ul>
 </div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
-currently, the autobuild only works for paying customers.<br>
-To manually build and upload the image, download the repository, switch to branch <code>ng-beta</code>, cd to the <code>alpine</code> folder and execute <code>docker build -t rdmueller/doctoolchain:v2.0.0-rc15 .</code>. Afterwards use docker desktop to push the resulting image to the hub.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Important! Currently, the autobuild only works for paying customers. To manually build and upload the image, download the repo, switch to branch <code>ng-beta</code>, cd to the <code>alpine</code> folder and execute <code>docker build -t rdmueller/doctoolchain:v2.0.0-rc15 .</code>. After that, use Docker Desktop to push the resulting image to Docker Hub.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_blog_post">Blog Post</h3>
 <div class="paragraph">
-<p>Now it is time to create a blog post which announces the new release.
-The sdkman announcement will reference it.</p>
+<p>Create a blog post to announce the new release. The SDKMAN! announcement will reference it.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_doctoolchain_wrapper_dtcw">docToolchain-Wrapper (dtcw)</h3>
 <div class="paragraph">
-<p>everything went fine? Good! Now let&#8217;s setup the wrapper to use the new version.</p>
+<p>Everything went well? Great! Now let’s update the version used in the wrapper:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>update the version used in the wrapper</p>
 <div class="ulist">
 <ul>
 <li>
@@ -699,22 +659,19 @@ The sdkman announcement will reference it.</p>
 </li>
 </ul>
 </div>
-</li>
-</ul>
-</div>
 </div>
 <div class="sect2">
-<h3 id="_sdkman">sdkman</h3>
+<h3 id="_sdkman">SDKMAN!</h3>
 <div class="paragraph">
-<p>A github action has been created to deploy to sdkman: <a href="https://github.com/docToolchain/docToolchain/actions?query=workflow%3A%22sdkman+deploy%22">sdkman deploy</a>.</p>
+<p>A GitHub action <a href="https://github.com/docToolchain/docToolchain/actions?query=workflow%3A%22sdkman+deploy%22">sdkman deploy</a> has been created to deploy to SDKMAN!</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>set version to the same as for the other relases but without the pre-pended <em>v</em>: X.Y.Z</p>
+<p>Set the version to the same as for the other releases, but without the prepended v: X.Y.Z.</p>
 </li>
 <li>
-<p>use as download link the link to the <code>docToolchain-dist.zip</code> from the github release (hint: looks like  <a href="https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip" class="bare">https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip</a>)
+<p>Use as a download link the link to the <code>docToolchain-dist.zip</code> from the GitHub release. Tip: the link looks like <a href="https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip">https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip</a>.
 :jbake-status: published
 :jbake-order: 40
 :jbake-type: page_toc
@@ -731,7 +688,7 @@ The sdkman announcement will reference it.</p>
 <h2 id="_debugging">Debugging</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -739,53 +696,39 @@ The sdkman announcement will reference it.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Sometimes things go are different than expected and you need to find out what&#8217;s wrong.
-Here are some tips that might help you.</p>
+<p>Things not working as you expected? Here are some tips that might help you.</p>
 </div>
 <div class="sect2">
-<h3 id="_general_advice">General Advice</h3>
+<h3 id="_environment">Environment</h3>
 <div class="paragraph">
-<p>To dig deeper into the workings of docToolchain, it makes sense that you setup yourself a development environment.
-This gives you the chance to add extra debug output to the tasks which you want to inspect.</p>
+<p>To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_gradle">Gradle</h3>
 <div class="paragraph">
-<p>You get most hints on what is going on in regards to gradle when you add the <code>--info</code> flag to your command.</p>
+<p>You get more hints about what is going on with Gradle when you add the <code>--info</code> flag to your <code>./dtcw generateSite</code> command:</p>
 </div>
 <div class="paragraph">
 <p><code>./dtcw generateSite --info</code></p>
 </div>
 <div class="paragraph">
-<p>This will output all configuration settings as seen by docToolchain and many more internal bits.</p>
+<p>This outputs all config settings as seen by docToolchain along with many other internal settings.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_jbake_templates">jBake Templates</h3>
 <div class="paragraph">
-<p>If something goes wrong within a template, you often get not much information.
-Take a look at <code>menu.gsp</code> to see how you can use <code>try/catch</code> blocks to get an error message.
-But to find out <em>where</em> the problem occurs, you need to use poor mans debugger and add some <code>System.out.println</code> statements.
-Make sure that you use the full <code>System.out.println</code> statement and not only <code>println</code>.
-Otherwise, you will see no output.</p>
+<p>If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at <code>menu.gsp</code> to see how you can use <code>try/catch</code> blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some <code>System.out.println</code> statements. Make sure that you use the full <code>System.out.println</code> statement and not only <code>println</code> otherwise you won’t see any output.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_theming_menu_images">Theming / Menu / Images</h3>
+<h3 id="_theming_menu_and_images">Theming, Menu and Images</h3>
 <div class="paragraph">
-<p>It might seem a bit like magic how the system creates the menu entries.
-Sometimes you don&#8217;t find the reason why an image is not shown.
-Remember, that you can check out the generated files.</p>
+<p>How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files.</p>
 </div>
 <div class="paragraph">
-<p>Check the <code>build/microsite/tmp</code> folder to see the folder which is fed into jBake.
-In this folder, all files will have additional <code>jbake</code> attributes which are used to build the menu.
-They are generated from the original attributes of the file and folder/filename information.</p>
-</div>
-<div class="paragraph">
-<p>Check the <code>build/microsite/output</code> folder to see the generated result.
-This often helps to check where an image actually is located.</p>
+<p>Check the <code>build/microsite/tmp</code> folder to see the folder that is fed into jBake. In this folder, all files will have additional <code>jbake</code> attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the <code>build/microsite/output</code> folder to see the generated result. This often helps you to find out where an image actually is located.</p>
 </div>
 </div>
 </div>

@@ -9,7 +9,7 @@
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>Overview of available Tasks</title>
+  <title>What Is a Task?</title>
   <meta content="docToolchain" property="og:title">
   <meta content="build your dev docs the easy way..." property="og:description">
   <meta content="website" property="og:type">
@@ -154,7 +154,11 @@
     <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../010_manual/010_introduction_and_goals.html"><span>User Docs</span></a>
+                <a class="nav-link " href="../10_about/10_about-the-project.html"><span>About</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../010_manual/20_install.html"><span>User Docs</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -215,7 +219,7 @@
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../015_tasks/03_tasks.html">Overview of available Tasks</a>
+                                   href="../015_tasks/03_tasks.html">What Is a Task?</a>
                             </li>
                             
                             
@@ -419,7 +423,7 @@
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
         <!--a href="https://github.com/google/docsy-example/new/master/content/en/docs/_index.md?filename=change-me.md&amp;value=---%0Atitle%3A+%22Long+Page+Title%22%0AlinkTitle%3A+%22Short+Nav+Title%22%0Aweight%3A+100%0Adescription%3A+%3E-%0A+++++Page+description+for+heading+and+indexes.%0A---%0A%0A%23%23+Heading%0A%0AEdit+this+template+to+create+your+new+page.%0A%0A%2A+Give+it+a+good+name%2C+ending+in+%60.md%60+-+e.g.+%60getting-started.md%60%0A%2A+Edit+the+%22front+matter%22+section+at+the+top+of+the+page+%28weight+controls+how+its+ordered+amongst+other+pages+in+the+same+directory%3B+lowest+number+first%29.%0A%2A+Add+a+good+commit+message+at+the+bottom+of+the+page+%28%3C80+characters%3B+use+the+extended+description+field+for+more+detail%29.%0A%2A+Create+a+new+branch+so+you+can+preview+your+new+file+and+request+a+review+via+Pull+Request.%0A"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a-->
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Overview+of+available+Tasks%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_tasks.adoc" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27What+Is+a+Task%3F%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page: https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_tasks.adoc%0A%23branch: ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
         <!--a href="https://github.com/google/docsy/issues/new" target="_blank"><i
                 class="fas fa-tasks fa-fw"></i> Create project issue</a-->
@@ -430,9 +434,13 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_overview_of_available_tasks">Overview of available Tasks</a>
+<li><a href="#_what_is_a_task">What Is a Task?</a></li>
+<li><a href="#_how_tasks_are_named">How Tasks Are Named</a>
 <ul class="sectlevel2">
-<li><a href="#_conventions">Conventions</a></li>
+<li><a href="#_generatex">generateX</a></li>
+<li><a href="#_exportx">exportX</a></li>
+<li><a href="#_converttox">convertToX</a></li>
+<li><a href="#_publishtox">publishToX</a></li>
 </ul>
 </li>
 </ul>
@@ -462,10 +470,10 @@
 }
 </style>
 <div class="sect1">
-<h2 id="_overview_of_available_tasks">Overview of available Tasks</h2>
+<h2 id="_what_is_a_task">What Is a Task?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -473,10 +481,8 @@
 </div>
 </div>
 <div class="paragraph">
-<p>This chapter explains all docToolchain specific tasks.</p>
-</div>
-<div class="paragraph">
-<p>The following picture gives an overview of the whole build system:</p>
+<p>A task is another name for a script which triggers the build actions which compile and publish your docs.
+This diagram gives you an overview of the entire build process:</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -484,44 +490,43 @@
 </div>
 <div class="title">Figure 1. docToolchain</div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_how_tasks_are_named">How Tasks Are Named</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Tasks are given a naming prefix which indicates their role in the build process.
+There are currently 4 groups.</p>
+</div>
 <div class="sect2">
-<h3 id="_conventions">Conventions</h3>
+<h3 id="_generatex">generateX</h3>
 <div class="paragraph">
-<p>There are some simple naming conventions for the tasks.
-They might be confusing at first and that&#8217;s why they are explained here.</p>
-</div>
-<div class="sect3">
-<h4 id="_generatex">generateX</h4>
-<div class="paragraph">
-<p><em>render</em> would have been another good prefix, since these tasks use the plain AsciiDoctor functionality to render the source to a given format.</p>
+<p>These tasks use plain old AsciiDoctor functionality to render the source to a given format.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_exportx">exportX</h4>
+<div class="sect2">
+<h3 id="_exportx">exportX</h3>
 <div class="paragraph">
 <p>These tasks export images and AsciiDoc snippets from other systems or file formats.
-The resulting artifacts can then be included from your main sources.</p>
-</div>
-<div class="paragraph">
-<p>What&#8217;s different from the <em>generateX</em> tasks is that you don&#8217;t need to export with each build.</p>
-</div>
-<div class="paragraph">
-<p>It is also likely that you have to put the resulting artifacts under version control because the tools needed for the export (like Sparx Enterprise Architect or MS PowerPoint) are likely to be not available on a build server or on another contributor&#8217;s machine.</p>
+The resulting artifacts can then be included from your main sources.
+<em>export</em> tasks differ from <em>generate</em> tasks because with <em>export</em> tasks, you don&#8217;t have to export with each build.
+Also, with <em>export</em> tasks, it&#8217;s likely that you will already store the resulting artifacts under version control
+because the tools needed for the export (such as Sparx Enterprise Architect or MS PowerPoint) are typically not available on your build server or another contributor&#8217;s machine.</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_converttox">convertToX</h4>
+<div class="sect2">
+<h3 id="_converttox">convertToX</h3>
 <div class="paragraph">
 <p>These tasks take the output from AsciiDoctor and convert it (through other tools) to the target format.
 This results in a dependency on a <em>generateX</em> task and another external tool (currently <a href="https://pandoc.org">pandoc</a>).</p>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_publishtox">publishToX</h4>
+<div class="sect2">
+<h3 id="_publishtox">publishToX</h3>
 <div class="paragraph">
-<p>These tasks not only convert your documents but also deploy/publish/move them to a remote system&#8201;&#8212;&#8201;currently Confluence.
-This means that the result is likely to be visible immediately to others.</p>
-</div>
+<p>These tasks not only convert your documents but also deploy, publish and move them to a remote system (currently Confluence),
+meaning the result is immediately visible to others.</p>
 </div>
 </div>
 </div>
@@ -553,11 +558,11 @@ This means that the result is likely to be visible immediately to others.</p>
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Overview+of+available+Tasks%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_tasks.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27What+Is+a+Task%3F%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_tasks.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Overview+of+available+Tasks%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_tasks.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27What+Is+a+Task%3F%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_tasks.adoc">tell
     us how we can improve</a>.
     </p>
 </div>

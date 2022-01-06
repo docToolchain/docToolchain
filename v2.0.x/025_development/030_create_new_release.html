@@ -9,7 +9,7 @@
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>Create new Release</title>
+  <title>Creating a New Release</title>
   <meta content="docToolchain" property="og:title">
   <meta content="build your dev docs the easy way..." property="og:description">
   <meta content="website" property="og:type">
@@ -154,7 +154,11 @@
     <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../010_manual/010_introduction_and_goals.html"><span>User Docs</span></a>
+                <a class="nav-link " href="../10_about/10_about-the-project.html"><span>About</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../010_manual/20_install.html"><span>User Docs</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -215,19 +219,19 @@
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../025_development/010_setup_dev_env.html">Setup Development Environment</a>
+                                   href="../025_development/010_setup_dev_env.html">Setting Up a Dev Environment</a>
                             </li>
                             
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../025_development/020_run_tests.html">How to run Tests</a>
+                                   href="../025_development/020_run_tests.html">Running Tests</a>
                             </li>
                             
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../025_development/030_create_new_release.html">Create new Release</a>
+                                   href="../025_development/030_create_new_release.html">Creating a New Release</a>
                             </li>
                             
                             
@@ -239,7 +243,7 @@
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../025_development/050_who-uses-dtc.html">Who uses docToolchain?</a>
+                                   href="../025_development/005_contributing_to_docs.html">Contributing to Docs</a>
                             </li>
                             
                             <!--li class="td-sidebar-nav__section-title">
@@ -263,7 +267,7 @@
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
         <!--a href="https://github.com/google/docsy-example/new/master/content/en/docs/_index.md?filename=change-me.md&amp;value=---%0Atitle%3A+%22Long+Page+Title%22%0AlinkTitle%3A+%22Short+Nav+Title%22%0Aweight%3A+100%0Adescription%3A+%3E-%0A+++++Page+description+for+heading+and+indexes.%0A---%0A%0A%23%23+Heading%0A%0AEdit+this+template+to+create+your+new+page.%0A%0A%2A+Give+it+a+good+name%2C+ending+in+%60.md%60+-+e.g.+%60getting-started.md%60%0A%2A+Edit+the+%22front+matter%22+section+at+the+top+of+the+page+%28weight+controls+how+its+ordered+amongst+other+pages+in+the+same+directory%3B+lowest+number+first%29.%0A%2A+Add+a+good+commit+message+at+the+bottom+of+the+page+%28%3C80+characters%3B+use+the+extended+description+field+for+more+detail%29.%0A%2A+Create+a+new+branch+so+you+can+preview+your+new+file+and+request+a+review+via+Pull+Request.%0A"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a-->
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Create+new+Release%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:025_development/030_create_new_release.adoc" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Creating+a+New+Release%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page: https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/025_development/030_create_new_release.adoc%0A%23branch: ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
         <!--a href="https://github.com/google/docsy/issues/new" target="_blank"><i
                 class="fas fa-tasks fa-fw"></i> Create project issue</a-->
@@ -274,13 +278,14 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_create_new_release">Create new Release</a>
+<li><a href="#_creating_a_new_release">Creating a New Release</a>
 <ul class="sectlevel2">
-<li><a href="#_github">Github</a></li>
-<li><a href="#_dockerhub">Dockerhub</a></li>
+<li><a href="#_before_you_begin">Before You Begin</a></li>
+<li><a href="#_github">GitHub</a></li>
+<li><a href="#_docker_hub">Docker Hub</a></li>
 <li><a href="#_blog_post">Blog Post</a></li>
 <li><a href="#_doctoolchain_wrapper_dtcw">docToolchain-Wrapper (dtcw)</a></li>
-<li><a href="#_sdkman">sdkman</a></li>
+<li><a href="#_sdkman">SDKMAN!</a></li>
 </ul>
 </li>
 </ul>
@@ -304,117 +309,103 @@
         <p>
             
 <div class="sect1">
-<h2 id="_create_new_release">Create new Release</h2>
+<h2 id="_creating_a_new_release">Creating a New Release</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>2 minutes to read</pre>
 </div>
 </div>
-<div class="paragraph">
-<p>We use <a href="https://semver.org/">semantic versioning</a> and <a href="https://keepachangelog.com/">keep a changelog</a>. Both on a best effort base.</p>
-</div>
-<div class="paragraph">
-<p>A release consists of five parts:</p>
-</div>
 <div class="sect2">
-<h3 id="_github">Github</h3>
+<h3 id="_before_you_begin">Before You Begin</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>update version in <code>gradle.properties</code></p>
+<p>We use <a href="https://semver.org/">semantic versioning</a> and we also keep a <a href="https://keepachangelog.com/">changelog</a>. All of this is done on a best-efforts basis.</p>
 </li>
 <li>
-<p>update the changelog</p>
-<div class="ulist">
-<ul>
-<li>
-<p>create a section for the version</p>
-</li>
-<li>
-<p>copy all unreleased features which will be in the release to the created section</p>
-</li>
-<li>
-<p>commit and push the new version</p>
-</li>
-</ul>
-</div>
-</li>
-<li>
-<p><a href="https://github.com/docToolchain/docToolchain/releases/new">Draft a new release</a></p>
-</li>
-<li>
-<p>copy the content of the changelog for this version to the description and submit</p>
-</li>
-<li>
-<p>set version as <strong>v</strong>X.Y.Z</p>
-</li>
-<li>
-<p>run <code>./gradlew createDist</code></p>
-</li>
-<li>
-<p>this creates a zip of the source in <code>build</code> which is the distribution file</p>
-</li>
-<li>
-<p>add this zip and submit the new release</p>
+<p>A release consists of five parts, each explained below.</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_dockerhub">Dockerhub</h3>
+<h3 id="_github">GitHub</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Update the version in <code>gradle.properties</code>.</p>
+</li>
+<li>
+<p>Update the changelog.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a section for the version.</p>
+</li>
+<li>
+<p>Copy to the new section all unreleased features which will be in the release.</p>
+</li>
+<li>
+<p>Commit and push the new version.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/releases/new">Draft a new release</a>.</p>
+</li>
+<li>
+<p>Copy the contents of the changelog for this version to the description then submit.</p>
+</li>
+<li>
+<p>Set the version as <strong>v</strong>X.Y.Z.</p>
+</li>
+<li>
+<p>Run <code>./gradlew createDist</code> to zip the source in build (the distribution file).</p>
+</li>
+<li>
+<p>Add the zipped file and submit the new release.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_docker_hub">Docker Hub</h3>
 <div class="paragraph">
-<p>The image build for <a href="https://hub.docker.com/repository/docker/rdmueller/doctoolchain">rdmueller/doctoolchain</a> depends on the github repository <a href="https://github.com/docToolchain/docker-image">docToolchain/docker-image</a></p>
+<p>The image build for <a href="https://hub.docker.com/repository/docker/rdmueller/doctoolchain">rdmueller/doctoolchain</a> depends on the GitHub repo <a href="https://github.com/docToolchain/docker-image">docToolchain/docker-image</a>.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>update the <a href="https://github.com/docToolchain/docker-image/tree/master/alpine">Dockerfile</a> to reflect the new version</p>
+<p>Update the <a href="https://github.com/docToolchain/docker-image/tree/master/alpine">Dockerfile</a> to reflect the new version.</p>
 </li>
 <li>
-<p>create a <a href="https://github.com/docToolchain/docker-image/releases/new">new release</a></p>
+<p>Create a <a href="https://github.com/docToolchain/docker-image/releases/new">new release</a>.</p>
 </li>
 <li>
-<p>reference the github release for changelog</p>
-</li>
-<li>
-<p>the build on dockerhub will be automatically triggered</p>
+<p>Reference the GitHub release in the changelog (the build on Dockerhub will be automatically triggered).</p>
 </li>
 </ul>
 </div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Important</div>
-</td>
-<td class="content">
-currently, the autobuild only works for paying customers.<br>
-To manually build and upload the image, download the repository, switch to branch <code>ng-beta</code>, cd to the <code>alpine</code> folder and execute <code>docker build -t rdmueller/doctoolchain:v2.0.0-rc15 .</code>. Afterwards use docker desktop to push the resulting image to the hub.
-</td>
-</tr>
-</table>
+<div class="paragraph">
+<p>Important! Currently, the autobuild only works for paying customers. To manually build and upload the image, download the repo, switch to branch <code>ng-beta</code>, cd to the <code>alpine</code> folder and execute <code>docker build -t rdmueller/doctoolchain:v2.0.0-rc15 .</code>. After that, use Docker Desktop to push the resulting image to Docker Hub.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_blog_post">Blog Post</h3>
 <div class="paragraph">
-<p>Now it is time to create a blog post which announces the new release.
-The sdkman announcement will reference it.</p>
+<p>Create a blog post to announce the new release. The SDKMAN! announcement will reference it.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_doctoolchain_wrapper_dtcw">docToolchain-Wrapper (dtcw)</h3>
 <div class="paragraph">
-<p>everything went fine? Good! Now let&#8217;s setup the wrapper to use the new version.</p>
+<p>Everything went well? Great! Now let’s update the version used in the wrapper:</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>update the version used in the wrapper</p>
 <div class="ulist">
 <ul>
 <li>
@@ -428,22 +419,19 @@ The sdkman announcement will reference it.</p>
 </li>
 </ul>
 </div>
-</li>
-</ul>
-</div>
 </div>
 <div class="sect2">
-<h3 id="_sdkman">sdkman</h3>
+<h3 id="_sdkman">SDKMAN!</h3>
 <div class="paragraph">
-<p>A github action has been created to deploy to sdkman: <a href="https://github.com/docToolchain/docToolchain/actions?query=workflow%3A%22sdkman+deploy%22">sdkman deploy</a>.</p>
+<p>A GitHub action <a href="https://github.com/docToolchain/docToolchain/actions?query=workflow%3A%22sdkman+deploy%22">sdkman deploy</a> has been created to deploy to SDKMAN!</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>set version to the same as for the other relases but without the pre-pended <em>v</em>: X.Y.Z</p>
+<p>Set the version to the same as for the other releases, but without the prepended v: X.Y.Z.</p>
 </li>
 <li>
-<p>use as download link the link to the <code>docToolchain-dist.zip</code> from the github release (hint: looks like  <a href="https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip" class="bare">https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip</a>)</p>
+<p>Use as a download link the link to the <code>docToolchain-dist.zip</code> from the GitHub release. Tip: the link looks like <a href="https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip">https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip</a>.</p>
 </li>
 </ul>
 </div>
@@ -477,11 +465,11 @@ The sdkman announcement will reference it.</p>
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Create+new+Release%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:025_development/030_create_new_release.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Creating+a+New+Release%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:025_development/030_create_new_release.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Create+new+Release%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:025_development/030_create_new_release.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Creating+a+New+Release%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:025_development/030_create_new_release.adoc">tell
     us how we can improve</a>.
     </p>
 </div>

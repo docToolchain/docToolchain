@@ -154,7 +154,11 @@
     <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../../010_manual/010_introduction_and_goals.html"><span>User Docs</span></a>
+                <a class="nav-link " href="../../10_about/10_about-the-project.html"><span>About</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../010_manual/20_install.html"><span>User Docs</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -275,7 +279,7 @@
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
         <!--a href="https://github.com/google/docsy-example/new/master/content/en/docs/_index.md?filename=change-me.md&amp;value=---%0Atitle%3A+%22Long+Page+Title%22%0AlinkTitle%3A+%22Short+Nav+Title%22%0Aweight%3A+100%0Adescription%3A+%3E-%0A+++++Page+description+for+heading+and+indexes.%0A---%0A%0A%23%23+Heading%0A%0AEdit+this+template+to+create+your+new+page.%0A%0A%2A+Give+it+a+good+name%2C+ending+in+%60.md%60+-+e.g.+%60getting-started.md%60%0A%2A+Edit+the+%22front+matter%22+section+at+the+top+of+the+page+%28weight+controls+how+its+ordered+amongst+other+pages+in+the+same+directory%3B+lowest+number+first%29.%0A%2A+Add+a+good+commit+message+at+the+bottom+of+the+page+%28%3C80+characters%3B+use+the+extended+description+field+for+more+detail%29.%0A%2A+Create+a+new+branch+so+you+can+preview+your+new+file+and+request+a+review+via+Pull+Request.%0A"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a-->
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Release+v2.0.0%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:030_news/2021/2.0.0-release.adoc" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Release+v2.0.0%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page: https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2021/2.0.0-release.adoc%0A%23branch: ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
         <!--a href="https://github.com/google/docsy/issues/new" target="_blank"><i
                 class="fas fa-tasks fa-fw"></i> Create project issue</a-->
@@ -286,10 +290,12 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_v2_0_0_of_doctoolchain_has_been_released">v2.0.0 of docToolchain has been released!</a>
+<li><a href="#_doctoolchain_v2_0_0_has_been_released">docToolchain v2.0.0 has been released!</a>
 <ul class="sectlevel2">
-<li><a href="#_which_new_features_can_you_expect">Which new features can you expect?</a></li>
-<li><a href="#_changelog_for_v2_0_0">Changelog for v2.0.0</a></li>
+<li><a href="#_changes_and_new_features">Changes and New Features</a></li>
+<li><a href="#_coming_soon">Coming Soon</a></li>
+<li><a href="#_a_personal_thank_you_from_ralf">A Personal Thank You from Ralf</a></li>
+<li><a href="#_changelog_v2_0_0">Changelog v2.0.0</a></li>
 </ul>
 </li>
 </ul>
@@ -303,57 +309,42 @@
 				<p>
                     
 <div class="sect1">
-<h2 id="_v2_0_0_of_doctoolchain_has_been_released">v2.0.0 of docToolchain has been released!</h2>
+<h2 id="_doctoolchain_v2_0_0_has_been_released">docToolchain v2.0.0 has been released!</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Today docToolchain reached an important milestone - the release of version 2.0.0 aka ng or next-generation.</p>
-</div>
-<div class="paragraph">
-<p>The focus of this huge release is simplified setup, better usability and distraction free writing.</p>
+<p>Today marks an important milestone for docToolchain: the release of v2.0.0, aka ‘ng’ or next generation! The focus of this huge release is simplified setup, better usability and distraction-free writing.</p>
 </div>
 <div class="sect2">
-<h3 id="_which_new_features_can_you_expect">Which new features can you expect?</h3>
+<h3 id="_changes_and_new_features">Changes and New Features</h3>
 <div class="paragraph">
-<p>The most important change is the <strong>switch to a command-line based approach</strong>.
-You can now fully focus on your documentation without having lots of other files like scripts or themes in your repository.</p>
+<p>The most important change is the <strong>switch-to-a-command-line based approach</strong>. You can now fully focus on your documentation without crowding your repo with lots of other files like scripts and themes.</p>
 </div>
 <div class="paragraph">
-<p>This is possible through the introduction of the <strong>docToolchain-wrapper</strong> or short dtcw.
-A little script that resides together with a config file in your repository.
-It takes care to use the right version of docToolchain, all pre-requisites are met, and it even checks if it should use docker or a local installation to execute docToolchain.
-If docToolchain is not installed, it will install it for you.</p>
+<p>This is made possible by the new <strong>docToolchain wrapper</strong> (or dtcw for short). dtcw is a little script that resides together with a config file in your repository. It ensures that the right docToolchain version is in use, ensures that all prerequisites are met, and it even checks whether Docker or a local installation should be used to execute docToolchain. And, if docToolchain is not currently installed, dtcw will install it for you.</p>
 </div>
 <div class="paragraph">
-<p>Another change is that we tried very hard to <strong>avoid error messages</strong>.
-Where we can&#8217;t avoid errors, we tried to convert them to helpful hints.
-This should make the use of docToolchain a better experience.</p>
+<p>In this release, we have tried very hard to <strong>avoid error messages</strong>. Where we can’t avoid them, we’ve tried to make them as meaningful as possible.</p>
 </div>
 <div class="paragraph">
-<p>Another huge added feature is the <a href="../../015_tasks/03_task_generateSite.html"><code>generateSite</code></a>-Task which includes jBake as <strong>static site generator</strong> to help you even more to create awesome docs.
-You can now create a full documentation website with less than a handful commands.
-It uses the beautiful docsy theme known from hugo, and it even contains a <a href="../../search.html"><strong>local search</strong></a> implemented with lunr.</p>
+<p>Another huge feature is the <a href="../../015_tasks/03_task_generateSite.html"><code>generateSite</code></a>-Task which includes jBake as <strong>static site generator</strong> to help you to create awesome docs. You can now create a full documentation website with a few commands. We chose the beautiful docsy theme from hugo, and it even contains a <a href="../../search.html"><strong>local search</strong></a> implemented with lunr.</p>
 </div>
 <div class="paragraph">
-<p>To get you started with your solution architecture documentation, we&#8217;ve added the <a href="../../015_tasks/03_task_downloadTemplate.html"><code>downloadTemplate</code></a>-task to provide you with the famous <strong>arc42 template</strong> in four languages.</p>
+<p>To get you started with your solution architecture docs, we’ve added the <a href="../../015_tasks/03_task_downloadTemplate.html"><code>downloadTemplate</code></a>-task which delivers the famous <strong>arc42 template</strong> in four languages.</p>
 </div>
 <div class="paragraph">
-<p>Last but not least, we used the new <a href="../../015_tasks/03_task_generateSite.html"><code>generateSite</code></a>-Feature to restructure the documentation of docToolchain itself.</p>
+<p>And last but not least, we have used the new <a href="../../015_tasks/03_task_generateSite.html"><code>generateSite</code></a>-Feature to restructure docToolchain’s very own documentation!</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_coming_soon">Coming Soon</h3>
 <div class="paragraph">
-<p>The goal for the next weeks is now to provide you with tutorials over the next few weeks to demonstrate all new features.</p>
+<p>Our goal for the coming weeks is to provide tutorials that demonstrate all of the new features.</p>
 </div>
-<div class="admonitionblock important">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-important" title="Important"></i>
-</td>
-<td class="content">
-Thanx to all contributors, sponsors, and users of docToolchain for your efforts!
-Without you, this project would not exist 💯
-</td>
-</tr>
-</table>
+</div>
+<div class="sect2">
+<h3 id="_a_personal_thank_you_from_ralf">A Personal Thank You from Ralf</h3>
+<div class="paragraph">
+<p>Thank you to all docToolchain contributors, sponsors and users for your efforts in getting this major release out the door. I wouldn’t have made it this far without you.</p>
 </div>
 <div class="paragraph">
 <p>Happy writing!</p>
@@ -363,9 +354,9 @@ Without you, this project would not exist 💯
 </div>
 </div>
 <div class="sect2">
-<h3 id="_changelog_for_v2_0_0">Changelog for v2.0.0</h3>
+<h3 id="_changelog_v2_0_0">Changelog v2.0.0</h3>
 <div class="sect3">
-<h4 id="_added">added</h4>
+<h4 id="_added">Added</h4>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">2021-09-21</dt>
@@ -403,7 +394,7 @@ Without you, this project would not exist 💯
 <ul>
 <li>
 <p>if the outputPath from the config starts with a '/', it will be considered as absolute path.<br>
-This way, you can move the build fodler outside of your repository.<br>
+This way, you can move the build folder outside of your repository.<br>
 <code>outputPath = System.getenv('HOME')+'/.doctoolchain/build/'+(new File('.')).canonicalPath.md5()</code></p>
 </li>
 <li>
@@ -517,7 +508,7 @@ This way, you can move the build fodler outside of your repository.<br>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_changed">changed</h4>
+<h4 id="_changed">Changed</h4>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">2021-09-22</dt>
@@ -537,7 +528,7 @@ This way, you can move the build fodler outside of your repository.<br>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_fixed">fixed</h4>
+<h4 id="_fixed">Fixed</h4>
 <div class="dlist">
 <dl>
 <dt class="hdlist1">2021-09-21</dt>

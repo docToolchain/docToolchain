@@ -9,7 +9,7 @@
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>How to run Tests</title>
+  <title>Running Tests</title>
   <meta content="docToolchain" property="og:title">
   <meta content="build your dev docs the easy way..." property="og:description">
   <meta content="website" property="og:type">
@@ -154,7 +154,11 @@
     <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../010_manual/010_introduction_and_goals.html"><span>User Docs</span></a>
+                <a class="nav-link " href="../10_about/10_about-the-project.html"><span>About</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../010_manual/20_install.html"><span>User Docs</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -215,19 +219,19 @@
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../025_development/010_setup_dev_env.html">Setup Development Environment</a>
+                                   href="../025_development/010_setup_dev_env.html">Setting Up a Dev Environment</a>
                             </li>
                             
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../025_development/020_run_tests.html">How to run Tests</a>
+                                   href="../025_development/020_run_tests.html">Running Tests</a>
                             </li>
                             
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../025_development/030_create_new_release.html">Create new Release</a>
+                                   href="../025_development/030_create_new_release.html">Creating a New Release</a>
                             </li>
                             
                             
@@ -239,7 +243,7 @@
                             
                             <li class="td-sidebar-nav__section-title">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../025_development/050_who-uses-dtc.html">Who uses docToolchain?</a>
+                                   href="../025_development/005_contributing_to_docs.html">Contributing to Docs</a>
                             </li>
                             
                             <!--li class="td-sidebar-nav__section-title">
@@ -263,7 +267,7 @@
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
         <!--a href="https://github.com/google/docsy-example/new/master/content/en/docs/_index.md?filename=change-me.md&amp;value=---%0Atitle%3A+%22Long+Page+Title%22%0AlinkTitle%3A+%22Short+Nav+Title%22%0Aweight%3A+100%0Adescription%3A+%3E-%0A+++++Page+description+for+heading+and+indexes.%0A---%0A%0A%23%23+Heading%0A%0AEdit+this+template+to+create+your+new+page.%0A%0A%2A+Give+it+a+good+name%2C+ending+in+%60.md%60+-+e.g.+%60getting-started.md%60%0A%2A+Edit+the+%22front+matter%22+section+at+the+top+of+the+page+%28weight+controls+how+its+ordered+amongst+other+pages+in+the+same+directory%3B+lowest+number+first%29.%0A%2A+Add+a+good+commit+message+at+the+bottom+of+the+page+%28%3C80+characters%3B+use+the+extended+description+field+for+more+detail%29.%0A%2A+Create+a+new+branch+so+you+can+preview+your+new+file+and+request+a+review+via+Pull+Request.%0A"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a-->
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27How+to+run+Tests%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:025_development/020_run_tests.adoc" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Running+Tests%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page: https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/025_development/020_run_tests.adoc%0A%23branch: ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
         <!--a href="https://github.com/google/docsy/issues/new" target="_blank"><i
                 class="fas fa-tasks fa-fw"></i> Create project issue</a-->
@@ -274,12 +278,12 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_how_to_run_tests">How to run Tests</a>
+<li><a href="#_running_tests">Running Tests</a>
 <ul class="sectlevel2">
-<li><a href="#_prerequisites">Prerequisites</a></li>
+<li><a href="#_before_you_begin">Before You Begin</a></li>
 <li><a href="#_prepare_the_project">Prepare the Project</a></li>
 <li><a href="#_execute_tests">Execute Tests</a></li>
-<li><a href="#_proxy_setting_for_tests">Proxy Setting for Tests</a></li>
+<li><a href="#_workaround_to_ensure_correct_proxy_settings_for_tests">Workaround to Ensure Correct Proxy Settings for Tests</a></li>
 </ul>
 </li>
 </ul>
@@ -303,10 +307,10 @@
         <p>
             
 <div class="sect1">
-<h2 id="_how_to_run_tests">How to run Tests</h2>
+<h2 id="_running_tests">Running Tests</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -314,17 +318,17 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="_prerequisites">Prerequisites</h3>
+<h3 id="_before_you_begin">Before You Begin</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>make sure that Git and Graphviz are installed</p>
+<p>Git and Graphviz must both be installed.</p>
 </li>
 <li>
-<p>make sure that your Gradle setup is able to work with proxies</p>
+<p>Your Gradle setup must be able to work with proxies.</p>
 </li>
 <li>
-<p>use Java 8</p>
+<p>You must be using Java 8.</p>
 </li>
 </ul>
 </div>
@@ -339,13 +343,8 @@ git checkout V1.0.0         # <b class="conum">(1)</b>
 git submodule update -i</code></pre>
 </div>
 </div>
-<div class="colist arabic">
-<ol>
-<li>
-<p>the version to test.
-Not needed if you work on the HEAD revision on Master</p>
-</li>
-</ol>
+<div class="paragraph">
+<p>(1) The version to test. Not required if you work on the HEAD revision on Master.</p>
 </div>
 </div>
 <div class="sect2">
@@ -356,33 +355,19 @@ Not needed if you work on the HEAD revision on Master</p>
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>rm</code> command ensures that you really have a clean test running.
-Otherwise you might get false positives because Gradle will skip steps ('Up-to-date') because artifacts of an older test run still exist.</p>
+<p>The <code>rm</code> command ensures that you have a clean test running. This is vital because if artifacts of an older test run still exist, Gradle will skip steps (‘Up-to-date’) and you might get false positives.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_proxy_setting_for_tests">Proxy Setting for Tests</h3>
+<h3 id="_workaround_to_ensure_correct_proxy_settings_for_tests">Workaround to Ensure Correct Proxy Settings for Tests</h3>
 <div class="paragraph">
-<p>The docToolchain test setup is based on the <a href="https://docs.gradle.org/current/userguide/test_kit.html">Gradle-Test-Kit</a> and makes use of the  <a href="https://code.google.com/archive/p/spock/">Spock test execution framework</a>.</p>
+<p>The docToolchain setup is based on the <a href="https://docs.gradle.org/current/userguide/test_kit.html">Gradle-Test-Kit</a> and makes use of the <a href="https://code.google.com/archive/p/spock/">Spock test execution framework</a>.</p>
 </div>
 <div class="paragraph">
-<p>The gradle test runner is started in its own test environment and its own JVM instance.
-As a result the global proxy settings are ignored.</p>
+<p>The Gradle test runner is started in its own test environment and its own JVM instance. As a result, the global proxy settings are ignored. To execute the test with the correct proxy settings, you must use a workaround. Copy the proxy settings from the gradle.properties file located in the user directory to the gradle.properties file located in the docToolchain folder itself.</p>
 </div>
 <div class="paragraph">
-<p>As workarund to execute the test with the correct proxy settings it is necessary to copy the proxy setting normally done in the in gradle.properties located in the user directory to the gradle.properties file located in the docToolchain folder itself.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-The files downloaded by the Gradle test Runner are placed in a different folder than the default gradle cache. You&#8217;ll find them in the Tmp folder: C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches
-</td>
-</tr>
-</table>
+<p>Note: The files downloaded by the Gradle test runner are placed in a different folder than the default Gradle cache. You will find them in the Tmp folder C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches.</p>
 </div>
 </div>
 </div>
@@ -414,11 +399,11 @@ The files downloaded by the Gradle test Runner are placed in a different folder 
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27How+to+run+Tests%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:025_development/020_run_tests.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Running+Tests%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:025_development/020_run_tests.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27How+to+run+Tests%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:025_development/020_run_tests.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Running+Tests%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:025_development/020_run_tests.adoc">tell
     us how we can improve</a>.
     </p>
 </div>

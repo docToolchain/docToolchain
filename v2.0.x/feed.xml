@@ -6,8 +6,8 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Thu, 23 Dec 2021 11:08:36 +0000</pubDate>
-    <lastBuildDate>Thu, 23 Dec 2021 11:08:36 +0000</lastBuildDate>
+    <pubDate>Thu, 6 Jan 2022 12:52:50 +0000</pubDate>
+    <lastBuildDate>Thu, 6 Jan 2022 12:52:50 +0000</lastBuildDate>
 
     
     <item>
@@ -37,39 +37,29 @@
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The next &lt;a href=&quot;https://cyberland.ijug.eu/2021-12-open-source-camp/&quot;&gt;Cyberland Open Source Camp&lt;/a&gt; is just around the corner.
-This time, &lt;a href=&quot;https://doctoolchain.org&quot;&gt;docToolchain&lt;/a&gt; will be one of the featured open source projects for this event.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;So, let&amp;#8217;s be prepared and think about what are realistic tasks which we could solve during those few ours.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Here are some handpicked issues from the &lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues&quot;&gt;list of open issues&lt;/a&gt;:&lt;/p&gt;
+&lt;p&gt;The next &lt;a href=&quot;https://cyberland.ijug.eu/2021-12-open-source-camp/&quot;&gt;Cyberland Open Source Camp&lt;/a&gt; is just around the corner. This time, &lt;a href=&quot;https://doctoolchain.org/&quot;&gt;docToolchain&lt;/a&gt; will be one of the featured open source projects! Calling all contributors and supporters of the project to think about the tasks we could realistically solve in those few hours. Here are some ideas from our &lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues&quot;&gt;list of open issues&lt;/a&gt; to get your brains into gear:&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;ulist&quot;&gt;
 &lt;ul&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/578&quot;&gt;Autocompletion for the CLI&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/578&quot;&gt;Autocompletion for the CLI&lt;/a&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/692&quot;&gt;generateSite: additional navigation level on the left&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/692&quot;&gt;generateSite – additional navigation level on the left&lt;/a&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/699&quot;&gt;create multi-branch github pages example&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/699&quot;&gt;Create multi-branch GitHub pages example&lt;/a&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/679&quot;&gt;Investigations with Gitpod?&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/679&quot;&gt;Investigations with Gitpod&lt;/a&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;or even create a new &lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/700&quot;&gt;InitRepo task&lt;/a&gt;&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/700&quot;&gt;A new InitRepo task&lt;/a&gt;.&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;If you have your own idea, &lt;a href=&quot;mailto:ralf.d.mueller@gmail.com&quot;&gt;please let me know&lt;/a&gt;.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To vote for a task, please &lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues?q=is%3Aopen+label%3AHackergarten+sort%3Areactions-heart-desc&quot;&gt;go to github&lt;/a&gt; and add a ❤️ reaction to the issue.&lt;/p&gt;
+&lt;p&gt;If you have another idea, please &lt;a href=&quot;mailto:ralf.d.mueller@gmail.com&quot;&gt;let me know&lt;/a&gt;. To vote for a task, go to  &lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues?q=is%3Aopen+label%3AHackergarten+sort%3Areactions-heart-desc&quot;&gt;GitHub&lt;/a&gt; and ❤️ the issue.&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -85,23 +75,28 @@ This time, &lt;a href=&quot;https://doctoolchain.org&quot;&gt;docToolchain&lt;/a
       &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
 &lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
 &lt;ul class=&quot;sectlevel1&quot;&gt;
-&lt;li&gt;&lt;a href=&quot;#_v2_0_3_of_doctoolchain_has_been_released&quot;&gt;v2.0.3 of docToolchain has been released!&lt;/a&gt;
+&lt;li&gt;&lt;a href=&quot;#_doctoolchain_v2_0_3_has_been_released&quot;&gt;docToolchain v2.0.3 Has Been Released!&lt;/a&gt;
 &lt;ul class=&quot;sectlevel2&quot;&gt;
-&lt;li&gt;&lt;a href=&quot;#_added&quot;&gt;added&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#_fixed&quot;&gt;fixed&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_about_this_release&quot;&gt;About This Release&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_changelog_v2_0_3&quot;&gt;Changelog v2.0.3&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;!-- endtoc --&gt;
 &lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;_v2_0_3_of_doctoolchain_has_been_released&quot;&gt;v2.0.3 of docToolchain has been released!&lt;/h2&gt;
+&lt;h2 id=&quot;_doctoolchain_v2_0_3_has_been_released&quot;&gt;docToolchain v2.0.3 Has Been Released!&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_about_this_release&quot;&gt;About This Release&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This is a bugfix release.&lt;/p&gt;
+&lt;p&gt;This is a bug-fix release. Thanks to everyone who contributed!&lt;/p&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;_added&quot;&gt;added&lt;/h3&gt;
+&lt;h3 id=&quot;_changelog_v2_0_3&quot;&gt;Changelog v2.0.3&lt;/h3&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_added&quot;&gt;Added&lt;/h4&gt;
 &lt;div class=&quot;ulist&quot;&gt;
 &lt;ul&gt;
 &lt;li&gt;
@@ -110,8 +105,8 @@ This time, &lt;a href=&quot;https://doctoolchain.org&quot;&gt;docToolchain&lt;/a
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;_fixed&quot;&gt;fixed&lt;/h3&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_fixed&quot;&gt;Fixed&lt;/h4&gt;
 &lt;div class=&quot;dlist&quot;&gt;
 &lt;dl&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;2021-11-10&lt;/dt&gt;
@@ -158,8 +153,6 @@ This time, &lt;a href=&quot;https://doctoolchain.org&quot;&gt;docToolchain&lt;/a
 &lt;/dd&gt;
 &lt;/dl&gt;
 &lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;thanx to all contributors!&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -176,24 +169,28 @@ This time, &lt;a href=&quot;https://doctoolchain.org&quot;&gt;docToolchain&lt;/a
       &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
 &lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
 &lt;ul class=&quot;sectlevel1&quot;&gt;
-&lt;li&gt;&lt;a href=&quot;#_v2_0_2_of_doctoolchain_has_been_released&quot;&gt;v2.0.2 of docToolchain has been released!&lt;/a&gt;
+&lt;li&gt;&lt;a href=&quot;#_doctoolchain_v2_0_2_has_been_released&quot;&gt;docToolchain v2.0.2 has been released!&lt;/a&gt;
 &lt;ul class=&quot;sectlevel2&quot;&gt;
-&lt;li&gt;&lt;a href=&quot;#_added&quot;&gt;added&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#_changed&quot;&gt;changed&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#_fixed&quot;&gt;fixed&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_about_this_release&quot;&gt;About This Release&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_changelog_v2_0_2&quot;&gt;Changelog v2.0.2&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;!-- endtoc --&gt;
 &lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;_v2_0_2_of_doctoolchain_has_been_released&quot;&gt;v2.0.2 of docToolchain has been released!&lt;/h2&gt;
+&lt;h2 id=&quot;_doctoolchain_v2_0_2_has_been_released&quot;&gt;docToolchain v2.0.2 has been released!&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_about_this_release&quot;&gt;About This Release&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This is a bugfix release.&lt;/p&gt;
+&lt;p&gt;This is a bug-fix release. Thanks to everyone who contributed!&lt;/p&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;_added&quot;&gt;added&lt;/h3&gt;
+&lt;h3 id=&quot;_changelog_v2_0_2&quot;&gt;Changelog v2.0.2&lt;/h3&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_added&quot;&gt;Added&lt;/h4&gt;
 &lt;div class=&quot;dlist&quot;&gt;
 &lt;dl&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;2021-10-19&lt;/dt&gt;
@@ -209,8 +206,8 @@ This time, &lt;a href=&quot;https://doctoolchain.org&quot;&gt;docToolchain&lt;/a
 &lt;/dl&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;_changed&quot;&gt;changed&lt;/h3&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_changed&quot;&gt;Changed&lt;/h4&gt;
 &lt;div class=&quot;dlist&quot;&gt;
 &lt;dl&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;2021-10-19&lt;/dt&gt;
@@ -236,8 +233,8 @@ This time, &lt;a href=&quot;https://doctoolchain.org&quot;&gt;docToolchain&lt;/a
 &lt;/dl&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;_fixed&quot;&gt;fixed&lt;/h3&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_fixed&quot;&gt;Fixed&lt;/h4&gt;
 &lt;div class=&quot;dlist&quot;&gt;
 &lt;dl&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;2021-10-19&lt;/dt&gt;
@@ -288,8 +285,6 @@ This time, &lt;a href=&quot;https://doctoolchain.org&quot;&gt;docToolchain&lt;/a
 &lt;/dd&gt;
 &lt;/dl&gt;
 &lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;thanx to all contributors!&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
@@ -306,24 +301,28 @@ This time, &lt;a href=&quot;https://doctoolchain.org&quot;&gt;docToolchain&lt;/a
       &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
 &lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
 &lt;ul class=&quot;sectlevel1&quot;&gt;
-&lt;li&gt;&lt;a href=&quot;#_v2_0_1_of_doctoolchain_has_been_released&quot;&gt;v2.0.1 of docToolchain has been released!&lt;/a&gt;
+&lt;li&gt;&lt;a href=&quot;#_doctoolchain_v2_0_1_has_been_released&quot;&gt;docToolchain v2.0.1 has been released!&lt;/a&gt;
 &lt;ul class=&quot;sectlevel2&quot;&gt;
-&lt;li&gt;&lt;a href=&quot;#_added&quot;&gt;added&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#_changed&quot;&gt;changed&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#_fixed&quot;&gt;fixed&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_about_this_release&quot;&gt;About This Release&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_changelog_v2_0_1&quot;&gt;Changelog v2.0.1&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;!-- endtoc --&gt;
 &lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;_v2_0_1_of_doctoolchain_has_been_released&quot;&gt;v2.0.1 of docToolchain has been released!&lt;/h2&gt;
+&lt;h2 id=&quot;_doctoolchain_v2_0_1_has_been_released&quot;&gt;docToolchain v2.0.1 has been released!&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_about_this_release&quot;&gt;About This Release&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This is a first bugfix release.&lt;/p&gt;
+&lt;p&gt;This is our first bug-fix release. Thanks to everyone who contributed!&lt;/p&gt;
+&lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;_added&quot;&gt;added&lt;/h3&gt;
+&lt;h3 id=&quot;_changelog_v2_0_1&quot;&gt;Changelog v2.0.1&lt;/h3&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_added&quot;&gt;Added&lt;/h4&gt;
 &lt;div class=&quot;dlist&quot;&gt;
 &lt;dl&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;2021-10-06&lt;/dt&gt;
@@ -339,8 +338,8 @@ This time, &lt;a href=&quot;https://doctoolchain.org&quot;&gt;docToolchain&lt;/a
 &lt;/dl&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;_changed&quot;&gt;changed&lt;/h3&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_changed&quot;&gt;Changed&lt;/h4&gt;
 &lt;div class=&quot;dlist&quot;&gt;
 &lt;dl&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;2021-10-04&lt;/dt&gt;
@@ -356,8 +355,8 @@ This time, &lt;a href=&quot;https://doctoolchain.org&quot;&gt;docToolchain&lt;/a
 &lt;/dl&gt;
 &lt;/div&gt;
 &lt;/div&gt;
-&lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;_fixed&quot;&gt;fixed&lt;/h3&gt;
+&lt;div class=&quot;sect3&quot;&gt;
+&lt;h4 id=&quot;_fixed&quot;&gt;Fixed&lt;/h4&gt;
 &lt;div class=&quot;dlist&quot;&gt;
 &lt;dl&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;2021-10-06&lt;/dt&gt;
@@ -398,6 +397,7 @@ This time, &lt;a href=&quot;https://doctoolchain.org&quot;&gt;docToolchain&lt;/a
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
+&lt;/div&gt;
 	  </description>
     </item>
     
@@ -410,67 +410,54 @@ This time, &lt;a href=&quot;https://doctoolchain.org&quot;&gt;docToolchain&lt;/a
       &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
 &lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
 &lt;ul class=&quot;sectlevel1&quot;&gt;
-&lt;li&gt;&lt;a href=&quot;#_v2_0_0_of_doctoolchain_has_been_released&quot;&gt;v2.0.0 of docToolchain has been released!&lt;/a&gt;
+&lt;li&gt;&lt;a href=&quot;#_doctoolchain_v2_0_0_has_been_released&quot;&gt;docToolchain v2.0.0 has been released!&lt;/a&gt;
 &lt;ul class=&quot;sectlevel2&quot;&gt;
-&lt;li&gt;&lt;a href=&quot;#_which_new_features_can_you_expect&quot;&gt;Which new features can you expect?&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#_changelog_for_v2_0_0&quot;&gt;Changelog for v2.0.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_changes_and_new_features&quot;&gt;Changes and New Features&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_coming_soon&quot;&gt;Coming Soon&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_a_personal_thank_you_from_ralf&quot;&gt;A Personal Thank You from Ralf&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_changelog_v2_0_0&quot;&gt;Changelog v2.0.0&lt;/a&gt;&lt;/li&gt;
 &lt;/ul&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
 &lt;!-- endtoc --&gt;
 &lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;_v2_0_0_of_doctoolchain_has_been_released&quot;&gt;v2.0.0 of docToolchain has been released!&lt;/h2&gt;
+&lt;h2 id=&quot;_doctoolchain_v2_0_0_has_been_released&quot;&gt;docToolchain v2.0.0 has been released!&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Today docToolchain reached an important milestone - the release of version 2.0.0 aka ng or next-generation.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The focus of this huge release is simplified setup, better usability and distraction free writing.&lt;/p&gt;
+&lt;p&gt;Today marks an important milestone for docToolchain: the release of v2.0.0, aka ‘ng’ or next generation! The focus of this huge release is simplified setup, better usability and distraction-free writing.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;_which_new_features_can_you_expect&quot;&gt;Which new features can you expect?&lt;/h3&gt;
+&lt;h3 id=&quot;_changes_and_new_features&quot;&gt;Changes and New Features&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The most important change is the &lt;strong&gt;switch to a command-line based approach&lt;/strong&gt;.
-You can now fully focus on your documentation without having lots of other files like scripts or themes in your repository.&lt;/p&gt;
+&lt;p&gt;The most important change is the &lt;strong&gt;switch-to-a-command-line based approach&lt;/strong&gt;. You can now fully focus on your documentation without crowding your repo with lots of other files like scripts and themes.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;This is possible through the introduction of the &lt;strong&gt;docToolchain-wrapper&lt;/strong&gt; or short dtcw.
-A little script that resides together with a config file in your repository.
-It takes care to use the right version of docToolchain, all pre-requisites are met, and it even checks if it should use docker or a local installation to execute docToolchain.
-If docToolchain is not installed, it will install it for you.&lt;/p&gt;
+&lt;p&gt;This is made possible by the new &lt;strong&gt;docToolchain wrapper&lt;/strong&gt; (or dtcw for short). dtcw is a little script that resides together with a config file in your repository. It ensures that the right docToolchain version is in use, ensures that all prerequisites are met, and it even checks whether Docker or a local installation should be used to execute docToolchain. And, if docToolchain is not currently installed, dtcw will install it for you.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Another change is that we tried very hard to &lt;strong&gt;avoid error messages&lt;/strong&gt;.
-Where we can&amp;#8217;t avoid errors, we tried to convert them to helpful hints.
-This should make the use of docToolchain a better experience.&lt;/p&gt;
+&lt;p&gt;In this release, we have tried very hard to &lt;strong&gt;avoid error messages&lt;/strong&gt;. Where we can’t avoid them, we’ve tried to make them as meaningful as possible.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Another huge added feature is the &lt;a href=&quot;../../015_tasks/03_task_generateSite.html&quot;&gt;&lt;code&gt;generateSite&lt;/code&gt;&lt;/a&gt;-Task which includes jBake as &lt;strong&gt;static site generator&lt;/strong&gt; to help you even more to create awesome docs.
-You can now create a full documentation website with less than a handful commands.
-It uses the beautiful docsy theme known from hugo, and it even contains a &lt;a href=&quot;../../search.html&quot;&gt;&lt;strong&gt;local search&lt;/strong&gt;&lt;/a&gt; implemented with lunr.&lt;/p&gt;
+&lt;p&gt;Another huge feature is the &lt;a href=&quot;../../015_tasks/03_task_generateSite.html&quot;&gt;&lt;code&gt;generateSite&lt;/code&gt;&lt;/a&gt;-Task which includes jBake as &lt;strong&gt;static site generator&lt;/strong&gt; to help you to create awesome docs. You can now create a full documentation website with a few commands. We chose the beautiful docsy theme from hugo, and it even contains a &lt;a href=&quot;../../search.html&quot;&gt;&lt;strong&gt;local search&lt;/strong&gt;&lt;/a&gt; implemented with lunr.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;To get you started with your solution architecture documentation, we&amp;#8217;ve added the &lt;a href=&quot;../../015_tasks/03_task_downloadTemplate.html&quot;&gt;&lt;code&gt;downloadTemplate&lt;/code&gt;&lt;/a&gt;-task to provide you with the famous &lt;strong&gt;arc42 template&lt;/strong&gt; in four languages.&lt;/p&gt;
+&lt;p&gt;To get you started with your solution architecture docs, we’ve added the &lt;a href=&quot;../../015_tasks/03_task_downloadTemplate.html&quot;&gt;&lt;code&gt;downloadTemplate&lt;/code&gt;&lt;/a&gt;-task which delivers the famous &lt;strong&gt;arc42 template&lt;/strong&gt; in four languages.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Last but not least, we used the new &lt;a href=&quot;../../015_tasks/03_task_generateSite.html&quot;&gt;&lt;code&gt;generateSite&lt;/code&gt;&lt;/a&gt;-Feature to restructure the documentation of docToolchain itself.&lt;/p&gt;
+&lt;p&gt;And last but not least, we have used the new &lt;a href=&quot;../../015_tasks/03_task_generateSite.html&quot;&gt;&lt;code&gt;generateSite&lt;/code&gt;&lt;/a&gt;-Feature to restructure docToolchain’s very own documentation!&lt;/p&gt;
 &lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_coming_soon&quot;&gt;Coming Soon&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;The goal for the next weeks is now to provide you with tutorials over the next few weeks to demonstrate all new features.&lt;/p&gt;
+&lt;p&gt;Our goal for the coming weeks is to provide tutorials that demonstrate all of the new features.&lt;/p&gt;
 &lt;/div&gt;
-&lt;div class=&quot;admonitionblock important&quot;&gt;
-&lt;table&gt;
-&lt;tr&gt;
-&lt;td class=&quot;icon&quot;&gt;
-&lt;i class=&quot;fa icon-important&quot; title=&quot;Important&quot;&gt;&lt;/i&gt;
-&lt;/td&gt;
-&lt;td class=&quot;content&quot;&gt;
-Thanx to all contributors, sponsors, and users of docToolchain for your efforts!
-Without you, this project would not exist 💯
-&lt;/td&gt;
-&lt;/tr&gt;
-&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_a_personal_thank_you_from_ralf&quot;&gt;A Personal Thank You from Ralf&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Thank you to all docToolchain contributors, sponsors and users for your efforts in getting this major release out the door. I wouldn’t have made it this far without you.&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;Happy writing!&lt;/p&gt;
@@ -480,9 +467,9 @@ Without you, this project would not exist 💯
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;_changelog_for_v2_0_0&quot;&gt;Changelog for v2.0.0&lt;/h3&gt;
+&lt;h3 id=&quot;_changelog_v2_0_0&quot;&gt;Changelog v2.0.0&lt;/h3&gt;
 &lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;_added&quot;&gt;added&lt;/h4&gt;
+&lt;h4 id=&quot;_added&quot;&gt;Added&lt;/h4&gt;
 &lt;div class=&quot;dlist&quot;&gt;
 &lt;dl&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;2021-09-21&lt;/dt&gt;
@@ -520,7 +507,7 @@ Without you, this project would not exist 💯
 &lt;ul&gt;
 &lt;li&gt;
 &lt;p&gt;if the outputPath from the config starts with a &apos;/&apos;, it will be considered as absolute path.&lt;br&gt;
-This way, you can move the build fodler outside of your repository.&lt;br&gt;
+This way, you can move the build folder outside of your repository.&lt;br&gt;
 &lt;code&gt;outputPath = System.getenv(&apos;HOME&apos;)+&apos;/.doctoolchain/build/&apos;+(new File(&apos;.&apos;)).canonicalPath.md5()&lt;/code&gt;&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
@@ -634,7 +621,7 @@ This way, you can move the build fodler outside of your repository.&lt;br&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;_changed&quot;&gt;changed&lt;/h4&gt;
+&lt;h4 id=&quot;_changed&quot;&gt;Changed&lt;/h4&gt;
 &lt;div class=&quot;dlist&quot;&gt;
 &lt;dl&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;2021-09-22&lt;/dt&gt;
@@ -654,7 +641,7 @@ This way, you can move the build fodler outside of your repository.&lt;br&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect3&quot;&gt;
-&lt;h4 id=&quot;_fixed&quot;&gt;fixed&lt;/h4&gt;
+&lt;h4 id=&quot;_fixed&quot;&gt;Fixed&lt;/h4&gt;
 &lt;div class=&quot;dlist&quot;&gt;
 &lt;dl&gt;
 &lt;dt class=&quot;hdlist1&quot;&gt;2021-09-21&lt;/dt&gt;
@@ -806,12 +793,7 @@ This way, you can move the build fodler outside of your repository.&lt;br&gt;
 &lt;!-- endtoc --&gt;
 &lt;h1 id=&quot;_last_release_candidate&quot; class=&quot;sect0&quot;&gt;Last Release Candidate&lt;/h1&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Good news: we&amp;#8217;ve just released the (hopefully) last release candidate.
-All known major issues have been fixed and many cool features have been added.
-All remaining and currently unknown issues will be fixed in 2.0.x versions.&lt;/p&gt;
-&lt;/div&gt;
-&lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;But first, let&amp;#8217;s create some tutorials for you to try out all features of docToolchain.&lt;/p&gt;
+&lt;p&gt;Good news! We’ve just (we hope!) released the final last release candidate. All known major issues have been fixed and lots of cool features have been added. All remaining and unknown issues will be fixed in 2.0.x versions.&lt;/p&gt;
 &lt;/div&gt;
 	  </description>
     </item>
