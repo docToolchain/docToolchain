@@ -154,8 +154,12 @@ publish_doc () {
   fi
 }
 
+echo ">>> $(git status --porcelain)"
 cleaning
+echo ">>> $(git status --porcelain)"
 dependency_info
+echo ">>> $(git status --porcelain)"
+echo ">>> $(git diff gradlew.bat)"
 #unit_tests
 check_for_clean_worktree
 create_doc
