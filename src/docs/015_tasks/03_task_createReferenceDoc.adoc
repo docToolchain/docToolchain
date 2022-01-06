@@ -3,16 +3,26 @@ include::_config.adoc[]
 
 = createReferenceDoc
 
-* Needs https://pandoc.org[pandoc] installed
+== Before You Begin
+
+Install https://pandoc.org[pandoc].
 
 include::../_feedback.adoc[]
 
-Creates a reference docx file used by https://pandoc.org[pandoc] during conversion from docbook to docx.
-You can edit this file to use your preferred styles in task xref:03_task_convertToDocx.adoc[`convertToDocx`].
+== About This Task
+This task creates a reference docx file used by https://pandoc.org[pandoc] during docbook-to-docx conversion.
+Use task xref:03_task_convertToDocx.adoc[`convertToDocx`] to edit this file so it uses your preferred styles.
 
-Please make sure that 'referenceDocFile' property is set to your custom reference file in Config.groovy
+[IMPORTANT]
+====
+The contents of the reference docx are ignored, but its stylesheets and document properties (including margins, page size, header and footer) are used in the new docx.
+For more information, see Pandoc User's Guide: https://pandoc.org/MANUAL.html#options-affecting-specific-writers[Options affecting specific writers (--reference-doc)]
+And if you have problems with changing the default table style: see https://github.com/jgm/pandoc/issues/3275.
+====
 
-.Excerpt of Config.groovy with property 'referenceDocFile'
+== Config.groovy Notes
+The 'referenceDocFile' property must be set to your custom reference file in Config.groovy:
+
 [source,groovy]
 ----
 inputPath = '.'
@@ -20,15 +30,6 @@ inputPath = '.'
 // use a style reference file in the input path for conversion from docbook to docx
 referenceDocFile = "${inputPath}/my-ref-file.docx"
 ----
-
-[IMPORTANT]
-====
-The contents of the reference docx are ignored, but its stylesheets and document properties (including margins, page size, header, and footer) are used in the new docx.
-
-See Pandoc User's Guide: https://pandoc.org/MANUAL.html#options-affecting-specific-writers[Options affecting specific writers (--reference-doc)]
-
-If you have problems with changing the default table style: see https://github.com/jgm/pandoc/issues/3275.
-====
 
 == Source
 
