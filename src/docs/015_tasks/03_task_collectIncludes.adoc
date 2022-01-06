@@ -8,42 +8,40 @@ include::../_feedback.adoc[]
 
 // image::ea/Manual/collectIncludes.png[]
 
-This tasks crawls through your whole project looking for AsciiDoc files with a certain name pattern.
-It then creates an AsciiDoc file which just includes all files found.
+== About This Task
+This task crawls through your entire project looking for AsciiDoc files with a specific name pattern, then creates a single AsciiDoc file which includes only those files.
 
 When you create modular documentation, most includes are static.
-For example, the arc42-template has 12 chapters and a master template in which those 12 chapters are included.
+For example, the arc42-template has 12 chapters and a master template that includes those 12 chapters.
 
-But when you work with dynamic modules like ADRs - Architecture Decision Records - you create those files on the fly.
-Maybe not even within your `/src/docs` folder but right beside the code file for which you wrote the ADR.
-
-In order to include these files in your documentation, you now would have to add the file with its whole relative path to one of your AsciiDoc files.
+Normally when you work with dynamic modules like ADRs (Architecture Decision Records) you create those files on the fly.
+Maybe not within your `/src/docs` folder, but alongside the code file for which you wrote the ADR.
+In order to include these files in your documentation, you have to add the file with its whole relative path to one of your AsciiDoc files.
 
 This task will handle it for you!
 
-Just stick with your files names to the pattern `^[A-Z]{3,}[-\_].\*` (it begins with at last three upper case letters and a dash/underscore) and this task will collect this file and write it to your build folder.
+Just stick to this file-naming pattern `^[A-Z]{3,}[-\_].\*` (begin with at least three uppercase letters and a dash/underscore) and this task will collect the file and write it to your build folder.
 You only have to include this generated file from within your documentation.
+If you provide templates for the documents, those templates are skipped if the name matches the pattern `^.\*[-\_][tT]emplate[-\_].*`.
 
-If you provide templates for the documents these templates are skipped if the name matches the pattern `^.\*[-\_][tT]emplate[-\_].*`.
+== Example
 
-Example:
-
-You have a file called
+You have a file called:
 
     /src/java/yourCompany/domain/books/ADR-1-whyWeUseTheAISINInsteadOFISBN.adoc
 
-The task will collect this file and write another file called
+The task will collect this file and write another file called:
 
     /build/docs/_includes/ADR_includes.adoc
 
-Which will look like this:
+...which will look like this:
 
     include::../../../src/java/yourCompany/domain/books/ADR-1-whyWeUseTheAISINInsteadOFISBN.adoc[]
 
-Obviously, you get the most benefit if you not only have one ADR file, but several ones which get collected.
+Obviously, you'll reap the most benefits if the task has several ADR files to collect.
 😎
 
-You then include these files in your main documentation by using a single include:
+You can then include these files in your main documentation by using a single include:
 
     include::{targetDir}/docs/_includes/ADR_includes.adoc[]
 
