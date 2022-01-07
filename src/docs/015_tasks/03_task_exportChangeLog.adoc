@@ -7,17 +7,19 @@ include::../_feedback.adoc[]
 
 image::ea/Manual/exportChangeLog.png[]
 
-As the name says, this task exports the changelog to be referenced from within your documentation - if needed.
+== About This Task
+
+As the name suggests, this task exports the changelog to be referenced from within your documentation, if needed.
 The changelog is written to `build/docs/changelog.adoc`.
 
-This task can be configured to use different source control system or different directory.
-To configure the task, copy `template_config/scripts/ChangelogConfig.groovy` to your directory and modify to your needs.
-Then give the path to your configuration file to the task using -PchangelogConfigFile=<your config file>.
+This task can be configured to use a different source control system or a different directory.
+To configure this task, copy `template_config/scripts/ChangelogConfig.groovy` to your directory and modify to suit your needs.
+Then use -PchangelogConfigFile=<your config file> to add the path to your configuration file to the task.
 See the description inside the template for more details.
 
-By default, the source is the Git changelog for the path `src/docs` - it only contains the commit messages for changes on the documentation.
-All changes on the build or other sources from the repository will not show up.
-By default, the changelog contains the changes with _date_, _author_ and _commit message_ already formatted as AsciiDoc table content:
+By default, the source is the Git changelog for the path `src/docs` and only contains the commit messages for changes made to the documentation.
+All changes to the build or other sources in the repository will not show up.
+By default, the changelog contains changes made to _date_, _author_ and _commit message_ already formatted as AsciiDoc table content:
 
 ----
 | 09.04.2017
@@ -46,10 +48,12 @@ You simply include it like this:
 
 By excluding the table definition, you can easily translate the table headings through different text snippets.
 
-NOTE: it might make sense to only include certain commit messages from the change log or exclude others (starting with `#` or `//`?).
-But this isn't implemented yet.
+NOTE: In a future docToolchain release, you will have the ability to include only certain commit messages from the changelog and exclude others (starting with `#` or `//`?).
+This feature is not available just yet.
 
-TIP: Blog-Post: https://rdmueller.github.io/changelog/[The only constant in life is change]
+== Further Reading
+
+https://rdmueller.github.io/changelog/[The only constant in life is change] blog post.
 
 == Source
 
