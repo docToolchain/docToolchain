@@ -5,12 +5,14 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
-This tasks crawls through all Asciidoctor source files and extracts a list of contributors.
-This list is then rendered as AsciiDoc images of the contributor's gravatar picture.
+== About This Task
 
-The extracted lists are stored in `{targetDir}/contributors/{filename}` to be easily included in your documents.
+This task crawls through all Asciidoctor source files and extracts a list of contributors, which is then rendered as AsciiDoc images of each contributor's gravatar picture.
+The extracted list is stored in `{targetDir}/contributors/{filename}` so it can be easily included in your documents.
 
-Best way to use this feature is to create a `feedback.adoc` file which might look like this:
+== How to Use This Task
+
+The best way to use this task is to create a `feedback.adoc` file similar to this:
 
 .feedback.adoc
 [source,asciidoc,indent=0]
@@ -25,19 +27,17 @@ Best way to use this feature is to create a `feedback.adoc` file which might loo
 
     include::{targetDir}/contributors/{filename}[] // <4>
 ----
+.Key:
+<1> Do not show this section when docs are rendered as PDF.
+<2> Create an **Improve This Doc** button which links to your GitHub sources.
+<3> Create a **Create an Issue** button which links to your issue tracker.
+<4> Include the list of contributors created by this task.
 
-<1> do not show this section when rendered as PDF
-<2> create an "improve this doc" button which links to the git sources
-<3> create a "create-an-issue" button which links to your issue tracker
-<4> include the list of contributors created by this task
-
-== Reading Time
-
-The task also appends to the list of contributors the estimated reading time.
+_(The task automatically adds the estimated reading time to the list of contributors.)_
 
 == File Attributes
 
-The task now also exports some attributes of the git files.
+This task also exports some GitHub file attributes.
 The extracted attributes are stored in `{targetDir}/fileattribs/{filename}`.
 
 [source,asciidoc]
@@ -49,9 +49,8 @@ The extracted attributes are stored in `{targetDir}/fileattribs/{filename}`.
 :lastMessage: #310 started to document config options
 ----
 
-This enables you to import these attributes the same way you import the contributors list and use these attributes.
-
-Here is an example:
+You can import and use these attributes in the same way as you import the contributors list.
+For example:
 
 .feedback.adoc
 [source,asciidoc,indent=0]
