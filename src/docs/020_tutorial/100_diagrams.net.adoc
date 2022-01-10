@@ -30,6 +30,7 @@ Every change in the diagram will be directly reflected in your document.
 .just a demo image
 image::mynewdiagram.dio.png[]
 
+[cols="2"]
 |===
 a|[.button1]
 https://plugins.jetbrains.com/plugin/7391-asciidoc[asciidoctor plugin]
