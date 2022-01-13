@@ -5,8 +5,10 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
-This task exports OpenAPI specification defined in a yaml file to AsciiDoc document.
-Currently it relies on https://github.com/OpenAPITools/openapi-generator[OpenAPI Generator (v4.3.1)] and its https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin[gradle plugin].
+== About This Task
+
+This task exports an OpenAPI Specification definition yaml file to a AsciiDoc document.
+Currently this task depends on https://github.com/OpenAPITools/openapi-generator[OpenAPI Generator (v4.3.1)] and its https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin[gradle plugin].
 
 image::manual/openAPI.png[]
 
