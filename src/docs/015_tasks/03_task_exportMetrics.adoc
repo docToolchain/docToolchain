@@ -5,7 +5,5 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
-This tasks crawls through all Asciidoctor source files and extracts the number of words in each file.
-At the end, it displays the number of words overall.
-
-This task ist currently only intended to give you an output on the commandline to measure your writing progress.
+This task crawls through all Asciidoctor source files and extracts the total number of words in each file (word count) so you can check your writing progress.
+The output is displayed on the command line.
