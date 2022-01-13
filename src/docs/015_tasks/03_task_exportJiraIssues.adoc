@@ -7,27 +7,33 @@ include::../_feedback.adoc[]
 
 image::ea/Manual/exportJiraIssues.png[]
 
-This task exports all issues for a given query(s) from Jira as AsciiDoc table or Excel file.
+== About This Task
 
-The configuration for this task can be found within `Config.gradle` (`gradle.properties` can be used as a fallback configuration).
-Username/Password is deprecated, so you have to use username/API-token instead.
-An API-Token can be created through https://id.atlassian.com/manage/api-tokens[].
-It is encouraged to keep username and API token out of git repository and to pass it as environment variables to the docToolchain.
+This task exports all issues for a given query or queries from Jira as either an AsciiDoc table or an Excel file.
 
-TIP: Blog-Post: https://rdmueller.github.io/Jira/[Living Documents for Agile Projects]
+The configuration for this task can be found within `Config.gradle` (`gradle.properties` can be used as a fallback).
+Username/password is deprecated, so you need to use username/API-token instead.
+
+An API-token can be created through https://id.atlassian.com/manage/api-tokens[].
+We recommend that you keep username and API-token out of your GitHub repository, and instead pass them as environment variables to docToolchain.
 
 == Configuration
 
 Jira configuration support list requests to Jira where results of each requests will be saved in a file with specifies filename. Flags
-_saveAsciidoc_ & _saveExcel_ allow users to easily configure in which format results should be saved.
+_saveAsciidoc_ & _saveExcel_ allow you to easily configure the format in which results should be saved.
 
-IMPORTANT: Old configuration based on *single Jira query is deprecated* (single 'jql' parameter). Support for it will be removed in the near future. Please migrate to the new configuration that allows multiple Jira queries.
+IMPORTANT: The old configuration was based on the *single Jira query is deprecated* (single 'jql' parameter). Support for it will be removed in the near future. Please migrate to the new configuration which allows multiple Jira queries.
 
 .Config.groovy
 [source,groovy]
 ----
 include::{projectRootDir}/Config.groovy[tags=jiraConfig]
 ----
+
+== Further Reading
+
+Read the https://rdmueller.github.io/Jira/[Living Documents for Agile Projects] blog post.
+
 
 == Source
 
