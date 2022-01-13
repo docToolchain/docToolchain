@@ -3,16 +3,19 @@ include::_config.adoc[]
 
 = exportPPT
 
-IMPORTANT: Currently this feature is WINDOWS-only. https://github.com/docToolchain/docToolchain/issues/231[See related issue]
+== About This Task
+This task lets you export AsciiDoc content to a series of PowerPoint slides.
+It is currently a Windows-only task.
 
 
 include::../_feedback.adoc[]
 
 image::ea/Manual/exportPPT.png[]
 
-TIP: Blog-Post: https://rdmueller.github.io/PPT-as-asciidoc-editor/[Do more with Slides]
-
-NOTE: see https://github.com/uniqueck/asciidoctorj-office-extension[asciidoctorj-office-extension] for another way how you can use PPT slides in your docs.
+== Further Reading and Resources
+* Read the https://rdmueller.github.io/PPT-as-asciidoc-editor/[Do More with Slides] blog post.
+* Find more information about the Windows-only aspect of this task in https://github.com/docToolchain/docToolchain/issues/231[this issue].
+* Check out https://github.com/uniqueck/asciidoctorj-office-extension[asciidoctorj-office-extension] for another way to use PPT slides in your docs.
 
 == Source
 
