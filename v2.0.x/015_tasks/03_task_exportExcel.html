@@ -436,6 +436,8 @@
 <ul class="sectlevel1">
 <li><a href="#_exportexcel">exportExcel</a>
 <ul class="sectlevel2">
+<li><a href="#_about_this_task">About This Task</a></li>
+<li><a href="#_further_reading">Further Reading</a></li>
 <li><a href="#_source">Source</a></li>
 </ul>
 </li>
@@ -469,7 +471,7 @@
 <h2 id="_exportexcel">exportExcel</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -481,34 +483,21 @@
 <img src="../images/ea/Manual/exportExcel.png" alt="exportExcel">
 </div>
 </div>
+<div class="sect2">
+<h3 id="_about_this_task">About This Task</h3>
 <div class="paragraph">
-<p>Sometimes you have tabular data to be included in your documentation.
-Then it is likely that the data is available as Excel sheet or you would like to use MS Excel to create and edit it.</p>
+<p>Sometimes you need to include tabular data in your documentation.
+Most likely, this data will be stored as a MS Excel spreadsheet, or you may like to use Excel to create and edit it.
+Either way, this task lets you export an Excel spreadsheet and include it directly in your docs.
+It searches for <code>.xlsx</code> files and exports each contained worksheet as <code>.csv</code> and as <code>.adoc</code>.
+Note that formulas contained in your spreadsheet are evaluated and exported statically.</p>
 </div>
 <div class="paragraph">
-<p>Either way, this task lets you export your Excel sheet and include it directly in your docs.</p>
+<p>The generated files are written to <code>src/excel/[filename]/[worksheet].(adoc|cvs)</code>.
+The <code>src</code> folder is used instead of the <code>build</code> folder because a better history of worksheet changes is captured.</p>
 </div>
 <div class="paragraph">
-<p>The task searches for <code>.xlsx</code> files and exports each contained worksheet as <code>.csv</code> and as <code>.adoc</code>.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-Formulas contained in your worksheet are evaluated and exported statically.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The generated files are written to <code>src/excel/[filename]/[worksheet].(adoc|cvs)</code> .
-The <code>src</code> folder is chosen over the <code>build</code> folder to get a better history for all changes on the worksheets.</p>
-</div>
-<div class="paragraph">
-<p>The files can be included either as AsciiDoc</p>
+<p>The files can be included either as AsciiDoc:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -516,7 +505,7 @@ The <code>src</code> folder is chosen over the <code>build</code> folder to get 
 </div>
 </div>
 <div class="paragraph">
-<p>or as a CSV file</p>
+<p>&#8230;&#8203;or as a CSV file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -527,38 +516,33 @@ include::excel/Sample.xlsx/Numerisch.csv[]
 </div>
 </div>
 <div class="paragraph">
-<p>The AsciiDoc version gives you a bit more control:</p>
+<p>The AsciiDoc version gives you a bit more control because the following are preserved:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p>horizontal and vertical alignment is preserved</p>
+<p>Horizontal and vertical alignment.</p>
 </li>
 <li>
-<p>col- and row-spans are preserved</p>
+<p>col-span and row-span.</p>
 </li>
 <li>
-<p>line breaks are preserved</p>
+<p>Line breaks.</p>
 </li>
 <li>
-<p>column width relative to other columns is preserved</p>
+<p>Column width relative to other columns.</p>
 </li>
 <li>
-<p>background colors are preserved.</p>
+<p>Background colors.</p>
 </li>
 </ul>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-see <a href="https://github.com/uniqueck/asciidoctorj-office-extension">asciidoctorj-office-extension</a> for another way how you can use Excel sheets in your docs.
-</td>
-</tr>
-</table>
+</div>
+<div class="sect2">
+<h3 id="_further_reading">Further Reading</h3>
+<div class="paragraph">
+<p>See <a href="https://github.com/uniqueck/asciidoctorj-office-extension">asciidoctorj-office-extension</a> to learn another way to use Excel spreadsheets in your docs.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_source">Source</h3>

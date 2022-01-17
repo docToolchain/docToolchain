@@ -436,6 +436,7 @@
 <ul class="sectlevel1">
 <li><a href="#_exportjirasprintchangelogissues">exportJiraSprintChangelogIssues</a>
 <ul class="sectlevel2">
+<li><a href="#_about_this_task">About This Task</a></li>
 <li><a href="#_configuration">Configuration</a></li>
 <li><a href="#_source">Source</a></li>
 </ul>
@@ -470,22 +471,25 @@
 <h2 id="_exportjirasprintchangelogissues">exportJiraSprintChangelogIssues</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/b55e260be513eedfb745afb36248b8ec?d=identicon" alt="Vladi" width="32" height="32" title="Vladi"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/b55e260be513eedfb745afb36248b8ec?d=identicon" alt="Vladi" width="32" height="32" title="Vladi"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>1 minute to read</pre>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_about_this_task">About This Task</h3>
 <div class="paragraph">
-<p>This task exports simplified (Key &amp; summary) list of Jira issues for specific Sprint. Few additional fields (i.e. assignee etc..) can be switched using configuration flags.</p>
+<p>This task exports a simplified (key and summary) list of Jira issues for a specific sprint defined in the task configuration. Only a few additional fields (such as assignee) can be switched using configuration flags.</p>
 </div>
 <div class="paragraph">
-<p>Users can define one specific sprint in which they are interested. This will result in generating Asciidoc and Excel file.
-In case sprint defined in users configuration isn&#8217;t found, changelogs for all sprints that match configuration will be saved in separate Asciidoc files and in a different tabs of an Excel file.</p>
+<p>Once you define the sprint, the relevant AsciiDoc and Excel files will be generated.
+If a sprint is not defined in the configuration, changelogs for all sprints that match the configuration will be saved in separate AsciiDoc files and in different tabs within an Excel file.</p>
 </div>
 <div class="paragraph">
-<p>The configuration for this task can be found within <code>Config.gradle</code>. In addition to the below listed configuration snippet, it is important to configure Jira API and credentials in Jira section of the configuration inside same file.</p>
+<p>The task configuration can be found within <code>Config.gradle</code>. In addition to the configuration snippet below, it is important to configure the Jira API and credentials in the Jira section of the configuration inside the same file.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_configuration">Configuration</h3>

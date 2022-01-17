@@ -436,8 +436,10 @@
 <ul class="sectlevel1">
 <li><a href="#_exportea">exportEA</a>
 <ul class="sectlevel2">
-<li><a href="#_configuration">Configuration</a></li>
+<li><a href="#_about_this_task">About This Task</a></li>
+<li><a href="#_the_optional_parameter_configurations">The Optional Parameter Configurations</a></li>
 <li><a href="#_glossary_export">Glossary export</a></li>
+<li><a href="#_further_reading">Further Reading</a></li>
 <li><a href="#_source">Source</a></li>
 </ul>
 </li>
@@ -483,7 +485,7 @@ Currently this feature is WINDOWS-only. <a href="https://github.com/docToolchain
 </table>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Michael Rossner" width="32" height="32" title="Michael Rossner"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange" width="32" height="32" title="Peter Stange"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange" width="32" height="32" title="Peter Stange"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev" width="32" height="32" title="ghp-dev"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Michael Rossner" width="32" height="32" title="Michael Rossner"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange" width="32" height="32" title="Peter Stange"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange" width="32" height="32" title="Peter Stange"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev" width="32" height="32" title="ghp-dev"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -495,69 +497,65 @@ Currently this feature is WINDOWS-only. <a href="https://github.com/docToolchain
 <img src="../images/ea/Manual/exportEA.png" alt="exportEA">
 </div>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-Blog-Posts: <a href="https://rdmueller.github.io/jria2eac/">JIRA to Sparx EA</a>, <a href="https://rdmueller.github.io/sparx-ea/">Did you ever wish you had better Diagrams?</a>
-</td>
-</tr>
-</table>
+<div class="sect2">
+<h3 id="_about_this_task">About This Task</h3>
+<div class="paragraph">
+<p>By default, no special configuration is necessary.
+However, several optional parameter configurations are available to support a project and packages to be used for export.
+These parameters can be used independently from one another.
+A sample of how to edit your projects' Config.groovy is provided in the 'Config.groovy' of the docToolchain project itself.</p>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_configuration">Configuration</h3>
+<h3 id="_the_optional_parameter_configurations">The Optional Parameter Configurations</h3>
+<div class="sect3">
+<h4 id="_connection">connection</h4>
 <div class="paragraph">
-<p>By default no special configuration is necessary.
-But, to be more specific on the project and its packages to be used for export,
-six optional parameter configurations are available.
-The parameters can be used independently from each other.
-A sample how to edit your projects Config.groovy is given in the 'Config.groovy'
-of the docToolchain project itself.</p>
+<p>Either set the connection to a certain project, or comment it out to use all project files inside the src folder or its child folder.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">connection</dt>
-<dd>
-<p>Set the connection to a certain project or comment it out to use all project files inside the src folder or its child folder.</p>
-</dd>
-<dt class="hdlist1">packageFilter</dt>
-<dd>
+</div>
+<div class="sect3">
+<h4 id="_packagefilter">packageFilter</h4>
+<div class="paragraph">
 <p>Add one or multiple packageGUIDs to be used for export. All packages are analysed, if no packageFilter is set.</p>
-</dd>
-<dt class="hdlist1">exportPath</dt>
-<dd>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_exportpath">exportPath</h4>
+<div class="paragraph">
 <p>Relative path to base 'docDir' to which the diagrams and notes are to be exported.
 Default: "src/docs".
 Example: docDir = 'D:\work\mydoc\' ; exportPath = 'src/pdocs' ;
 Images will be exported to 'D:\work\mydoc\src\pdocs\images\ea',
-Notes  will be exported to 'D:\work\mydoc\src\pdocs\ea',</p>
-</dd>
-<dt class="hdlist1">searchPath</dt>
-<dd>
+Notes will be exported to 'D:\work\mydoc\src\pdocs\ea',</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_searchpath">searchPath</h4>
+<div class="paragraph">
 <p>Relative path to base 'docDir', in which Enterprise Architect project files are searched
 Default: "src/docs".
 Example: docDir = 'D:\work\mydoc\' ; exportPath = 'src/projects' ;
 Lookup for eap and eapx files starts in 'D:\work\mydoc\src\projects' and goes down the folder structure.
-<strong>Note</strong>: In case parameter 'connection' is already defined, the searchPath value is used, too.
-exportEA starts opening the database parameter 'connection' first and looks afterwards for
+<strong>Note</strong>: In case parameter 'connection' is already defined, the searchPath value is also used.
+exportEA starts opening the database parameter 'connection' first then looks for
 further project files either in the searchPath (if set) or in the docDir folder of the project.</p>
-</dd>
-<dt class="hdlist1">glossaryAsciiDocFormat</dt>
-<dd>
-<p>Depending on this configuration option, the EA project glossary is exported.
-If it is not set or an empty string, no glossary is exported.
+</div>
+</div>
+<div class="sect3">
+<h4 id="_glossaryasciidocformat">glossaryAsciiDocFormat</h4>
+<div class="paragraph">
+<p>Whether or not the EA project glossary is exported depends on this parameter.
+If not set or an empty string, no glossary is exported.
 The glossaryAsciiDocFormat string is used to format each glossary entry in a
-certain asciidoc format.
-Following placeholder for the format string are defined: ID, TERM, MEANING, TYPE.
-One or many of these placeholder can be used by the output format.</p>
-</dd>
-</dl>
+certain AsciiDoc format.</p>
 </div>
 <div class="paragraph">
-<p>Example: A valid output format to include the glossary as a flat list.
+<p>The following placeholders are defined for the format string: ID, TERM, MEANING, TYPE.
+One or more can be used by the output format. For example:</p>
+</div>
+<div class="paragraph">
+<p>A valid output format is to include the glossary as a flat list.
 The file can be included where needed in the documentation.</p>
 </div>
 <div class="literalblock">
@@ -567,57 +565,79 @@ The file can be included where needed in the documentation.</p>
 </div>
 <div class="paragraph">
 <p>Other format strings can be used to include it as a table row.
-The glossary is sorted by terms in alphabetical order.</p>
+The glossary terms are sorted in alphabetical order.</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">glossaryTypes</dt>
-<dd>
+</div>
+<div class="sect3">
+<h4 id="_glossarytypes">glossaryTypes</h4>
+<div class="paragraph">
 <p>This parameter is used in case a glossaryAsciiDocFormat is defined, otherwise it
-is not evaluated. It is used to filter for certain types. If the glossaryTypes
-list is empty, all entries will be used.
-Example: glossaryTypes = ["Business", "Technical"]</p>
-</dd>
-<dt class="hdlist1">diagramAttributes</dt>
-<dd>
-<p>Beside the diagram image, an EA diagram offers several useful attributes which
-could be required in the resulting document. If set, the string is used to create
-and store the diagram attributes to be included in the document.
-These placeholders are defined and filled with the diagram attributes, if used in the
-diagramAttributes string:<br>
-<code>%DIAGRAM_AUTHOR%</code>,<br>
+is not evaluated. It&#8217;s used to filter for certain types.
+If the glossaryTypes list is empty, all entries will be used.
+For example:</p>
+</div>
+<div class="paragraph">
+<p>glossaryTypes = ["Business", "Technical"]</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_diagramattributes">diagramAttributes</h4>
+<div class="paragraph">
+<p>If set, the string is used to create and store diagram attributes to be included in the document alongside a diagram.
+These placeholders are defined and populated with the diagram attributes, if used in the
+diagramAttributes string:</p>
+</div>
+<div class="paragraph">
+<p><code>%DIAGRAM_AUTHOR%</code>,<br>
 <code>%DIAGRAM_CREATED%</code>,<br>
 <code>%DIAGRAM_GUID%</code>,<br>
 <code>%DIAGRAM_MODIFIED%</code>,<br>
 <code>%DIAGRAM_NAME%</code>,<br>
 <code>%DIAGRAM_NOTES%</code>,<br>
-<code>%NEWLINE%</code><br>
-Example: diagramAttributes = "Last modification: %DIAGRAM_MODIFIED%"<br>
-You can add the string %NEWLINE% where a line break shall be added.<br>
-The resulting text is stored beside the diagram image using same path and file named,
-but different file extension (.ad). This can included in the document if required.
-If diagramAttributes is not set or string is empty, no file is written.</p>
-</dd>
-<dt class="hdlist1">additionalOptions</dt>
-<dd>
-<p>This parameter is used to define specific behavior of the export. Currently these options are supported:<br>
-<code>KeepFirstDiagram</code> - in case a diagrams are not names uniquely, the last diagram will be saved. If you want to prevent that diagrams are overwritten, add this parameter to additionalOptions.</p>
-</dd>
-</dl>
+<code>%NEWLINE%</code><br></p>
+</div>
+<div class="paragraph">
+<p>Example: diagramAttributes = "Last modification: %DIAGRAM_MODIFIED%"</p>
+</div>
+<div class="paragraph">
+<p>You can add the string %NEWLINE% where a line break will be added.
+The resulting text is stored next to the diagram image using the same path and file name, but a different file extension (.ad). This can be included in the document if required.
+If diagramAttributes is not set or an empty string, no file is written.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_additionaloptions">additionalOptions</h4>
+<div class="paragraph">
+<p>This parameter is used to define the specific behavior of the export. Currently these options are supported:</p>
+</div>
+<div class="paragraph">
+<p><code>KeepFirstDiagram</code></p>
+</div>
+<div class="paragraph">
+<p>If diagrams are not uniquely named, the last diagram will be saved. If you want to prevent diagrams from being overwritten, add this parameter to additionalOptions.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_glossary_export">Glossary export</h3>
 <div class="paragraph">
-<p>By setting the glossaryAsciiDocFormat the glossary terms stored in the EA project
-is exported into a folder named 'glossary' below the configured exportPath.
-In case multiple EA projects were found for export, one glossary per project is
-exported. Each named with the projects GUID plus extension '.ad'.
-Each single file will be filtered (see glossaryTypes) and sorted in alphabetical order.
+<p>By setting the glossaryAsciiDocFormat, the glossary terms stored in the EA project
+will be exported into a folder named 'glossary' below the configured exportPath.
+In case multiple EA projects are found for export, one glossary per project is
+exported - each named using the project&#8217;s GUID plus extension '.ad'.</p>
+</div>
+<div class="paragraph">
+<p>Each individual file will be filtered (see glossaryTypes) and sorted in alphabetical order.
 In addition, a global glossary is created by using all single glossary files.
 This global file is named 'glossary.ad' and is also placed in the glossary folder.
 The global glossary is also filtered and sorted.
-In case there is one EA project only, the global glossary is written only.</p>
+If there is only one EA project, only the global glossary is written.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_further_reading">Further Reading</h3>
+<div class="paragraph">
+<p>Read the <a href="https://rdmueller.github.io/jria2eac/">JIRA to Sparx EA</a> and <a href="https://rdmueller.github.io/sparx-ea/">Did you Ever Wish you Had Better Diagrams?</a> blog posts.</p>
 </div>
 </div>
 <div class="sect2">

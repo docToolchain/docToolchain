@@ -436,6 +436,8 @@
 <ul class="sectlevel1">
 <li><a href="#_exportchangelog">exportChangeLog</a>
 <ul class="sectlevel2">
+<li><a href="#_about_this_task">About This Task</a></li>
+<li><a href="#_further_reading">Further Reading</a></li>
 <li><a href="#_source">Source</a></li>
 </ul>
 </li>
@@ -469,7 +471,7 @@
 <h2 id="_exportchangelog">exportChangeLog</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/d2c684ec9e55edec506308356b67016?d=identicon" alt="Jakub J Jablonski" width="32" height="32" title="Jakub J Jablonski"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/d2c684ec9e55edec506308356b67016?d=identicon" alt="Jakub J Jablonski" width="32" height="32" title="Jakub J Jablonski"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -481,20 +483,22 @@
 <img src="../images/ea/Manual/exportChangeLog.png" alt="exportChangeLog">
 </div>
 </div>
+<div class="sect2">
+<h3 id="_about_this_task">About This Task</h3>
 <div class="paragraph">
-<p>As the name says, this task exports the changelog to be referenced from within your documentation - if needed.
+<p>As the name suggests, this task exports the changelog to be referenced from within your documentation, if needed.
 The changelog is written to <code>build/docs/changelog.adoc</code>.</p>
 </div>
 <div class="paragraph">
-<p>This task can be configured to use different source control system or different directory.
-To configure the task, copy <code>template_config/scripts/ChangelogConfig.groovy</code> to your directory and modify to your needs.
-Then give the path to your configuration file to the task using -PchangelogConfigFile=&lt;your config file&gt;.
+<p>This task can be configured to use a different source control system or a different directory.
+To configure this task, copy <code>template_config/scripts/ChangelogConfig.groovy</code> to your directory and modify to suit your needs.
+Then use -PchangelogConfigFile=&lt;your config file&gt; to add the path to your configuration file to the task.
 See the description inside the template for more details.</p>
 </div>
 <div class="paragraph">
-<p>By default, the source is the Git changelog for the path <code>src/docs</code> - it only contains the commit messages for changes on the documentation.
-All changes on the build or other sources from the repository will not show up.
-By default, the changelog contains the changes with <em>date</em>, <em>author</em> and <em>commit message</em> already formatted as AsciiDoc table content:</p>
+<p>By default, the source is the Git changelog for the path <code>src/docs</code> and only contains the commit messages for changes made to the documentation.
+All changes to the build or other sources in the repository will not show up.
+By default, the changelog contains changes made to <em>date</em>, <em>author</em> and <em>commit message</em> already formatted as AsciiDoc table content:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -534,23 +538,18 @@ include::../../build/docs/changelog.adoc[]
 <div class="title">Note</div>
 </td>
 <td class="content">
-it might make sense to only include certain commit messages from the change log or exclude others (starting with <code>#</code> or <code>//</code>?).
-But this isn&#8217;t implemented yet.
+In a future docToolchain release, you will have the ability to include only certain commit messages from the changelog and exclude others (starting with <code>#</code> or <code>//</code>?).
+This feature is not available just yet.
 </td>
 </tr>
 </table>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-Blog-Post: <a href="https://rdmueller.github.io/changelog/">The only constant in life is change</a>
-</td>
-</tr>
-</table>
+</div>
+<div class="sect2">
+<h3 id="_further_reading">Further Reading</h3>
+<div class="paragraph">
+<p><a href="https://rdmueller.github.io/changelog/">The only constant in life is change</a> blog post.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_source">Source</h3>

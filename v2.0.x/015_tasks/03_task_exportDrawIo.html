@@ -434,7 +434,14 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_exportdrawio">exportDrawIo</a></li>
+<li><a href="#_exportdrawio">exportDrawIo</a>
+<ul class="sectlevel2">
+<li><a href="#_about_this_task">About This Task</a></li>
+<li><a href="#_about_diagrams_net">About diagrams.net</a></li>
+<li><a href="#_how_to_change_your_workflow_to_use_diagrams_net">How to Change Your Workflow to Use diagrams.net</a></li>
+<li><a href="#_how_to_convert_a_confluence_page_to_asciidoc">How to Convert a Confluence Page to AsciiDoc</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -465,59 +472,59 @@
 <h2 id="_exportdrawio">exportDrawIo</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/3f7fa472f24ae9ea4caaefd3a669f6ea?d=identicon" alt="Jared Morgan" width="32" height="32" title="Jared Morgan"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/3f7fa472f24ae9ea4caaefd3a669f6ea?d=identicon" alt="Jared Morgan" width="32" height="32" title="Jared Morgan"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>2 minutes to read</pre>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_about_this_task">About This Task</h3>
 <div class="paragraph">
-<p>There is no <code>exportDrawIo</code> task because it is not required.
-You can continue to use <a href="https://draw.io">draw.io</a> as an editor for your diagrams by making a change to your diagram authoring workflow.</p>
+<p>There is no <code>exportDrawIo</code> task available in docToolchain because such a task is not required.
+You can continue to use <a href="https://app.diagrams.net/">diagrams.net</a> (formerly known as draw.io) to edit your diagrams simply by making a change to your diagram-authoring workflow.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_about_diagrams_net">About diagrams.net</h3>
+<div class="paragraph">
+<p>diagrams.net offers free and open source desktop editors for all major operating system platforms.
+Visit <a href="https://www.diagrams.net/integrations" class="bare">https://www.diagrams.net/integrations</a> to find a desktop editor application compatible with your operating system.
+When you use the desktop version, just create your diagram with the <code>.png</code> (or even better, <code>.dio.png</code>) extension and diagrams.net will always save your diagram as a PNG with the source as metadata.</p>
 </div>
 <div class="paragraph">
-<p>Export your draw.io diagrams as a PNG with the source embedded in the file metadata.
-Using this approach allows you to embed your diagrams into AsciiDoc source as you normally do with the <code>image::</code> macro, with the added advantage of storing the diagram source with the image itself.</p>
+<p>They have also launched a free plugin for VS Code and IntelliJ so you can edit your diagrams offline!</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-If you are converting a Confluence page with embedded draw.io diagrams to AsciiDoc, you can use this export workflow to continue to enjoy the draw.io editing experience.
-</td>
-</tr>
-</table>
+</div>
+<div class="sect2">
+<h3 id="_how_to_change_your_workflow_to_use_diagrams_net">How to Change Your Workflow to Use diagrams.net</h3>
+<div class="paragraph">
+<p>Export your diagrams.net/draw.io diagrams as a PNG with the source embedded in the file metadata.
+This allows you to embed your diagrams into AsciiDoc source as you normally would (using the <code>image::</code> macro) with the added advantage of storing the diagram source with the image itself.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_to_convert_a_confluence_page_to_asciidoc">How to Convert a Confluence Page to AsciiDoc</h3>
+<div class="paragraph">
+<p>If you are converting a Confluence page with embedded draw.io diagrams to AsciiDoc, use this export workflow to continue using diagrams.net:</p>
 </div>
 <div class="olist arabic">
-<div class="title">Export an editable PNG diagram from Confluence</div>
 <ol class="arabic">
+<li>
+<p>Export an editable PNG diagram from Confluence.</p>
+</li>
 <li>
 <p>Load the diagram you want to export from Confluence.</p>
 </li>
 <li>
-<p>Click <span class="menuseq"><b class="menu">File</b>&#160;<b class="caret">&#8250;</b> <b class="submenu">Export as</b>&#160;<b class="caret">&#8250;</b> <b class="menuitem">PNG&#8230;&#8203;</b></span></p>
+<p>Click <span class="menuseq"><b class="menu">File</b>&#160;<b class="caret">&#8250;</b> <b class="submenu">Export as</b>&#160;<b class="caret">&#8250;</b> <b class="menuitem">PNG&#8230;&#8203;</b></span>.</p>
 </li>
 <li>
-<p>In the Image modal, make sure that "Include a copy of my diagram" is selected.</p>
+<p>In the Image modal, make sure that <strong>Include a copy of my diagram</strong> is selected.</p>
 </li>
 <li>
-<p>Click Export to save the PNG file with the pattern <code>[file].dio.png</code>.</p>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-Specifying <code>.dio</code> (short for "<strong>d</strong>raw<strong>io</strong>") in the name will help you identify PNG files containing embedded XML diagram source.
-</td>
-</tr>
-</table>
-</div>
+<p>Click <strong>Export</strong> to save the PNG file with the pattern <code>[file].dio.png</code>.</p>
 </li>
 <li>
 <p>Commit the exported PNG file to source control.</p>
@@ -525,7 +532,7 @@ Specifying <code>.dio</code> (short for "<strong>d</strong>raw<strong>io</strong
 </ol>
 </div>
 <div class="paragraph">
-<p>You now have a diagram that can be managed in source control, added to your documentation source, and edited using a draw.io Desktop version.</p>
+<p>Your diagram can now be managed in source control, added to your documentation source and edited using a diagrams.net desktop version.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -534,15 +541,10 @@ Specifying <code>.dio</code> (short for "<strong>d</strong>raw<strong>io</strong
 <div class="title">Note</div>
 </td>
 <td class="content">
-Draw.io offers free and open source desktop editors for all major operating system platforms.
-See <a href="https://about.draw.io/integrations/" class="bare">https://about.draw.io/integrations/</a> to find a desktop editor application compatible with your operating system.
-When you use the desktop version, just create your diagram with the <code>.png</code> or even better <code>.dio.png</code> extension and draw.io will always save your diagam as PNG with the source as meta data.
+Specifying <code>.dio</code> (short for "<strong>d</strong>raw<strong>io</strong>") in the name will help you identify PNG files containing an embedded XML diagram source.
 </td>
 </tr>
 </table>
-</div>
-<div class="paragraph">
-<p>NEW! Draw.io is now called diagrams.net and there is a free plugin for VS Code and IntelliJ to edit your diagrams even offline!</p>
 </div>
 <script src="https://plugins.jetbrains.com/assets/scripts/mp-widget.js"></script>
 <script>
@@ -550,6 +552,7 @@ When you use the desktop version, just create your diagram with the <code>.png</
   MarketplaceWidget.setupMarketplaceWidget('card', 15635, "#myelement");
 </script>
 <div id="myelement"></div>
+</div>
 </div>
 </div>
         </p>
