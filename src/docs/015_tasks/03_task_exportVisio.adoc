@@ -7,21 +7,21 @@ include::../_feedback.adoc[]
 
 image::ea/Manual/exportVisio.png[]
 
-This tasks searches for Visio files in the `/src/docs` folder.
-It then exports all diagrams and element notes to `/src/docs/images/visio` and `/src/docs/visio`.
+== About This Task
+This task searches for Visio files in the `/src/docs` folder then exports all diagrams and element notes to `/src/docs/images/visio` and `/src/docs/visio`.
 
-* Images are stored as `/images/visio/[filename]-[pagename].png`
-* Notes are stored as `/visio/[filename]-[pagename].adoc`
+Images are stored as `/images/visio/[filename]-[pagename].png`. Notes are stored as `/visio/[filename]-[pagename].adoc`
 
-You can specify a file name to which the notes of a diagram are exported by starting any comment with `+++{adoc:[filename].adoc}+++`.
+You can specify a filename to export notes to by starting any comment with `+++{adoc:[filename].adoc}+++`.
 It will then be written to `/visio/[filename].adoc`.
 
-WARNING: Currently, only Visio files stored directly in `/src/docs` are supported.
-For all others, the exported files will be in the wrong location.
+== Important Information About This Task
 
-NOTE: Please close any running Visio instance before starting this task.
+* Currently, only Visio files stored directly in `/src/docs` are supported. All others will export to the wrong location.
+* Before running this task, close any open Visio instance.
 
-NOTE: Todos: https://github.com/docToolchain/docToolchain/issues/112[issue #112]
+== Further Reading and Resources
+https://github.com/docToolchain/docToolchain/issues/112[Issue #112].
 
 == Source
 

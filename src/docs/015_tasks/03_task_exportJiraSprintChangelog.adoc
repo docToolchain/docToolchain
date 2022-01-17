@@ -5,12 +5,14 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
-This task exports simplified (Key & summary) list of Jira issues for specific Sprint. Few additional fields (i.e. assignee etc..) can be switched using configuration flags.
+== About This Task
 
-Users can define one specific sprint in which they are interested. This will result in generating Asciidoc and Excel file.
-In case sprint defined in users configuration isn't found, changelogs for all sprints that match configuration will be saved in separate Asciidoc files and in a different tabs of an Excel file.
+This task exports a simplified (key and summary) list of Jira issues for a specific sprint defined in the task configuration. Only a few additional fields (such as assignee) can be switched using configuration flags.
 
-The configuration for this task can be found within `Config.gradle`. In addition to the below listed configuration snippet, it is important to configure Jira API and credentials in Jira section of the configuration inside same file.
+Once you define the sprint, the relevant AsciiDoc and Excel files will be generated.
+If a sprint is not defined in the configuration, changelogs for all sprints that match the configuration will be saved in separate AsciiDoc files and in different tabs within an Excel file.
+
+The task configuration can be found within `Config.gradle`. In addition to the configuration snippet below, it is important to configure the Jira API and credentials in the Jira section of the configuration inside the same file.
 
 == Configuration
 
