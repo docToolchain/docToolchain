@@ -35,6 +35,20 @@ The best way to use this task is to create a `feedback.adoc` file similar to thi
 
 _(The task automatically adds the estimated reading time to the list of contributors.)_
 
+== About the Avatar-Icons
+
+It seems not to be possible to extract a link to the github avatar icons from the log.
+So, the solution is to use https://gravatar.com[Gravatar] icons.
+For this to work, the contributors email address is hashed and an icon link is generated from that hash.
+
+    http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon
+    
+This result at least in an icon which has a distinct color.
+
+Contributors can setup their own image through https://gravatar.com[Gravatar.com]. 
+For this to work, the git commits need to use an email address which can be verified by Gravatar.com.
+Infortunately, this is not the case if a contributor decided to make his email address private in the email settions of her github account.
+
 == File Attributes
 
 This task also exports some GitHub file attributes.
@@ -50,6 +64,9 @@ The extracted attributes are stored in `{targetDir}/fileattribs/{filename}`.
 ----
 
 You can import and use these attributes in the same way as you import the contributors list.
+
+IMPORTANT: please make sure that you do not accidentally publish the email address if your contributors do not want it.
+
 For example:
 
 .feedback.adoc
