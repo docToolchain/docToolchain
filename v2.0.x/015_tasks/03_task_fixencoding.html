@@ -434,7 +434,12 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_fixencoding">fixEncoding</a></li>
+<li><a href="#_fixencoding">fixEncoding</a>
+<ul class="sectlevel2">
+<li><a href="#_about_this_task">About This Task</a></li>
+<li><a href="#_source">Source</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -465,15 +470,17 @@
 <h2 id="_fixencoding">fixEncoding</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>1 minute to read</pre>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_about_this_task">About This Task</h3>
 <div class="paragraph">
-<p>Whenever Asciidoctor has to process a file which is not UTF-8 encoded, the underlying Ruby tries to read it and throws an error like this:</p>
+<p>Whenever Asciidoctor has to process a file that is not UTF-8 encoded, Ruby tries to read it, then throws an error similar to this one:</p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -481,24 +488,15 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Unfortunately, it is hard to find the wrong encoded file if a lot of <code>includes::</code> are used - Asciidoctor only shows the name of the main document.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-This is not a problem of Asciidoctor, but of the underlying ruby interpreter.
-</td>
-</tr>
-</table>
+<p>Unfortunately, finding the incorrectly encoded file is difficult if a lot of <code>includes::</code> are used, and Asciidoctor will only show the name of the main document. This is not Asciidoctor&#8217;s fault. The fault lies with the Ruby interpreter that sits underneath.</p>
 </div>
 <div class="paragraph">
-<p>This target crawls through all <code>*.ad</code> and <code>*.adoc</code> files and checks their encoding.
-If it encounters a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding.</p>
+<p>The fixEncoding task crawls through all <code>*.ad</code> and <code>*.adoc</code> files and checks their encoding.
+If it comes across a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding.</p>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_source">Source</h3>
 <div class="listingblock">
 <div class="title">scripts/fixEncoding.gradle</div>
 <div class="content">
@@ -526,6 +524,7 @@ task fixEncoding(
         }
     }
 }</code></pre>
+</div>
 </div>
 </div>
 </div>
