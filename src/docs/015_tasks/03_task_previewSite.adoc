@@ -6,13 +6,15 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
-When you use the build in static site generator through xref:03_task_generateSite.adoc[`generateSite`], you sometimes need a real static server locally running to preview the results.
+== Before You Begin
 
-This task will start a jetty with your generated site.
-
-NOTE: When you use WSL to execute this command, you will need the IP V6 address of localhost `[::1]` to access the server.
+* If you use WSL to execute this task, you must use the IP V6 address of localhost `[::1]` to access the server.
 `127.0.0.1` or `localhost` will not work.
 
-NOTE: Most site themes don't need the static site server for general content.
-You can just preview the site by opening it right from the filesystem in your browser.
-But some javascript features will not work because of CORS restrictions.
+* Most site themes don't need the static site server for general content, you can just preview the site by opening from the file system in your browser.
+However, some JavaScript features will not work because of CORS restrictions.
+
+== About This Task
+
+When you use a build in a static site generator through xref:03_task_generateSite.adoc[`generateSite`], you sometimes need a real locally running static server to preview the results. This task will start a https://www.eclipse.org/jetty/[jetty] for your generated site.
+
