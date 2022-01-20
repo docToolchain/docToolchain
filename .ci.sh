@@ -106,7 +106,7 @@ create_doc () {
 #    cp -r build/docs/report/htmlchecks/. docs/htmlchecks/.
 
   else
-    ./gradlew exportMarkdown exportChangeLog exportContributors generateHTML htmlSanityCheck --stacktrace && ./copyDocs.sh
+#    ./gradlew exportMarkdown exportChangeLog exportContributors generateHTML htmlSanityCheck --stacktrace && ./copyDocs.sh
   fi
 }
 
