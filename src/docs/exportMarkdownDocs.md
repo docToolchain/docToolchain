@@ -1,5 +1,4 @@
-# exportMarkdown
+== About This Task
 
 The *exportMarkdown* task can be used to include [markdown](https://markdown.de) files into the documentation.
-
-The task is scanning the directory `/src/docs` for markdown files (`*.md`) and converts them into AsciiDoc files. The converted files can then be referenced from within the `/build`-folder.
+It scans the `/src/docs` directory for markdown (`*.md`) files and converts them into Asciidoc files. The converted files can then be referenced from within the `/build`-folder.
