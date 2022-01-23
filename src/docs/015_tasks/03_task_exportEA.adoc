@@ -76,9 +76,11 @@ diagramAttributes string:
 `%DIAGRAM_MODIFIED%`, +
 `%DIAGRAM_NAME%`, +
 `%DIAGRAM_NOTES%`, +
+`%DIAGRAM_DIAGRAM_TYPE%`, +
+`%DIAGRAM_VERSION%`, +
 `%NEWLINE%` +
 
-Example: diagramAttributes = "Last modification: %DIAGRAM_MODIFIED%"
+Example: diagramAttributes = "Last modification: %DIAGRAM_MODIFIED%%NEWLINE%Version: %DIAGRAM_VERSION%"
 
 You can add the string %NEWLINE% where a line break will be added.
 The resulting text is stored next to the diagram image using the same path and file name, but a different file extension (.ad). This can be included in the document if required.

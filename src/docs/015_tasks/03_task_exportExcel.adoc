@@ -21,7 +21,7 @@ The `src` folder is used instead of the `build` folder because a better history 
 The files can be included either as AsciiDoc:
 
 ----
-\include::excel/Sample.xlsx/Numerisch.adoc[]
+\include::excel/Sample.xlsx/Numerical.adoc[]
 ----
 
 ...or as a CSV file:
@@ -29,7 +29,7 @@ The files can be included either as AsciiDoc:
 ----
 [options="header",format="csv"]
 |===
-\include::excel/Sample.xlsx/Numerisch.csv[]
+\include::excel/Sample.xlsx/Numerical.csv[]
 |===
 ----
 
