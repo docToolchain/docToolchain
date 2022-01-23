@@ -27,6 +27,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 
+2022-01-23::
+* https://github.com/docToolchain/docToolchain/pull/756[#756  exportEA: Add two more items for export]
 2021-12-23::
 * https://github.com/docToolchain/docToolchain/issues/730[#730 "improve this doc" and "create and issue" links]
 2021-12-09::
