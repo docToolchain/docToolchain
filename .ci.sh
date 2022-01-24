@@ -106,7 +106,9 @@ create_doc () {
 #    cp -r build/docs/report/htmlchecks/. docs/htmlchecks/.
 
   else
+    echo ">>> exportMarkdown"
 #    ./gradlew exportMarkdown exportChangeLog exportContributors generateHTML htmlSanityCheck --stacktrace && ./copyDocs.sh
+    echo ">>> currently disabled"
   fi
 }
 

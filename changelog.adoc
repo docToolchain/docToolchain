@@ -44,6 +44,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+2022-01-23::
+* https://github.com/docToolchain/docToolchain/pull/757[#757 - CI: Fix problem in ci-scrip]
 2021-12-06::
 * https://github.com/docToolchain/doctoolchain.github.io/issues/20[#20 some wget versions throw errors]
 * https://github.com/docToolchain/doctoolchain.github.io/issues/19[#19 the wrapper stops if no java installed but you want to use docker]
