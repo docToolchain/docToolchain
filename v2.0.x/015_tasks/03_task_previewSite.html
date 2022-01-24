@@ -434,7 +434,12 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#task_previewsite">previewSite</a></li>
+<li><a href="#task_previewsite">previewSite</a>
+<ul class="sectlevel2">
+<li><a href="#_before_you_begin">Before You Begin</a></li>
+<li><a href="#_about_this_task">About This Task</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -465,45 +470,33 @@
 <h2 id="task_previewsite">previewSite</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>1 minute to read</pre>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_before_you_begin">Before You Begin</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>If you use WSL to execute this task, you must use the IP V6 address of localhost <code>[::1]</code> to access the server.
+<code>127.0.0.1</code> or <code>localhost</code> will not work.</p>
+</li>
+<li>
+<p>Most site themes don&#8217;t need the static site server for general content, you can just preview the site by opening from the file system in your browser.
+However, some JavaScript features will not work because of CORS restrictions.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_about_this_task">About This Task</h3>
 <div class="paragraph">
-<p>When you use the build in static site generator through <a href="03_task_generateSite.html"><code>generateSite</code></a>, you sometimes need a real static server locally running to preview the results.</p>
+<p>When you use a build in a static site generator through <a href="03_task_generateSite.html"><code>generateSite</code></a>, you sometimes need a real locally running static server to preview the results. This task will start a <a href="https://www.eclipse.org/jetty/">jetty</a> for your generated site.</p>
 </div>
-<div class="paragraph">
-<p>This task will start a jetty with your generated site.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-When you use WSL to execute this command, you will need the IP V6 address of localhost <code>[::1]</code> to access the server.
-<code>127.0.0.1</code> or <code>localhost</code> will not work.
-</td>
-</tr>
-</table>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-Most site themes don&#8217;t need the static site server for general content.
-You can just preview the site by opening it right from the filesystem in your browser.
-But some javascript features will not work because of CORS restrictions.
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>

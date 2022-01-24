@@ -485,7 +485,7 @@ Currently this feature is WINDOWS-only. <a href="https://github.com/docToolchain
 </table>
 </div>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Michael Rossner" width="32" height="32" title="Michael Rossner"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange" width="32" height="32" title="Peter Stange"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange" width="32" height="32" title="Peter Stange"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev" width="32" height="32" title="ghp-dev"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Schrotti" width="32" height="32" title="Schrotti"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange" width="32" height="32" title="Peter Stange"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange" width="32" height="32" title="Peter Stange"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev" width="32" height="32" title="ghp-dev"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -594,10 +594,12 @@ diagramAttributes string:</p>
 <code>%DIAGRAM_MODIFIED%</code>,<br>
 <code>%DIAGRAM_NAME%</code>,<br>
 <code>%DIAGRAM_NOTES%</code>,<br>
+<code>%DIAGRAM_DIAGRAM_TYPE%</code>,<br>
+<code>%DIAGRAM_VERSION%</code>,<br>
 <code>%NEWLINE%</code><br></p>
 </div>
 <div class="paragraph">
-<p>Example: diagramAttributes = "Last modification: %DIAGRAM_MODIFIED%"</p>
+<p>Example: diagramAttributes = "Last modification: %DIAGRAM_MODIFIED%%NEWLINE%Version: %DIAGRAM_VERSION%"</p>
 </div>
 <div class="paragraph">
 <p>You can add the string %NEWLINE% where a line break will be added.
@@ -899,7 +901,7 @@ use `gradle exportEA` to re-export files
     ' This sub routine checks if the format string defined in diagramAttributes
     ' does contain any characters. It replaces the known placeholders:
     ' %DIAGRAM_AUTHOR%, %DIAGRAM_CREATED%, %DIAGRAM_GUID%, %DIAGRAM_MODIFIED%,
-    ' %DIAGRAM_NAME%, %DIAGRAM_NOTES%
+    ' %DIAGRAM_NAME%, %DIAGRAM_NOTES%, %DIAGRAM_DIAGRAM_TYPE%, %DIAGRAM_VERSION%
     ' with the attribute values read from the EA diagram object.
     ' None, one or multiple number of placeholders can be used to create a diagram attribute
     ' to be added to the document. The attribute string is stored as a file with the same
@@ -911,13 +913,15 @@ use `gradle exportEA` to re-export files
             set objFSO = CreateObject("Scripting.FileSystemObject")
             filename = objFSO.BuildPath(path, diagramName &amp; ".ad")
             set objFile = objFSO.OpenTextFile(filename, ForWriting, True)
-            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_AUTHOR%",   currentDiagram.Author)
-            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_CREATED%",  currentDiagram.CreatedDate)
-            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_GUID%",     currentDiagram.DiagramGUID)
-            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_MODIFIED%", currentDiagram.ModifiedDate)
-            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NAME%",     currentDiagram.Name)
-            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NOTES%",    currentDiagram.Notes)
-            filledDiagAttr = Replace(filledDiagAttr, "%NEWLINE%",          vbCrLf)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_AUTHOR%",       currentDiagram.Author)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_CREATED%",      currentDiagram.CreatedDate)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_GUID%",         currentDiagram.DiagramGUID)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_MODIFIED%",     currentDiagram.ModifiedDate)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NAME%",         currentDiagram.Name)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NOTES%",        currentDiagram.Notes)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_DIAGRAM_TYPE%", currentDiagram.Type)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_VERSION%",      currentDiagram.Version)
+            filledDiagAttr = Replace(filledDiagAttr, "%NEWLINE%",              vbCrLf)
             objFile.WriteLine(filledDiagAttr)
             objFile.Close
         End If
