@@ -289,7 +289,7 @@
 <ul class="sectlevel2">
 <li><a href="#_get_the_wrapper">Get the Wrapper</a></li>
 <li><a href="#_run_a_first_command">run a first command</a></li>
-<li><a href="#_problems_solutions">Problems &amp; Solutions</a></li>
+<li><a href="#_problems_solutions">Problems &amp; solutions</a></li>
 </ul>
 </li>
 </ul>
@@ -317,15 +317,16 @@
 <div class="sectionbody">
 <div class="paragraph">
 <p>Nice to meet you.
-Glad that you want to learn more about how to use docToolchain.
-Let&#8217;s start with the installation.</p>
+Glad that you want to learn more about using docToolchain.
+Start by installing what you need.</p>
 </div>
 <div class="paragraph">
-<p>The following steps are the same as described in the manual.
-Please follow them step by step.</p>
+<p>The following steps are the same as described in the User Docs.
+Please follow them step by step.
+You are prompted to install everything you need for each step.</p>
 </div>
 <div class="paragraph">
-<p>If you encounter problems, please create a github issue and the community will help you.</p>
+<p>If you encounter problems, create a GitHub issue and the community will help you.</p>
 </div>
 </div>
 </div>
@@ -518,11 +519,11 @@ After the first few commands, you will have all the needed dependencies installe
 </div>
 </div>
 <div class="sect2">
-<h3 id="_problems_solutions">Problems &amp; Solutions</h3>
+<h3 id="_problems_solutions">Problems &amp; solutions</h3>
 <div class="sect3">
-<h4 id="_dtcw_does_not_run">dtcw does not run</h4>
+<h4 id="_dtcw_doesnt_run"><code>dtcw</code> doesn&#8217;t run</h4>
 <div class="paragraph">
-<p>When you get an error similiar to this one&#8230;&#8203;</p>
+<p>You might get an error similiar to this one:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -532,15 +533,15 @@ After the first few commands, you will have all the needed dependencies installe
 </div>
 </div>
 <div class="paragraph">
-<p>it is likely that the download of the wrapper didn&#8217;t work.
-Your will see that an HTML page has been downloaded instead of the wrapper.
-Please try to re-download it.</p>
+<p>If you see that, it&#8217;s likely that the wrapper didn&#8217;t download correctly.
+You can that an HTML page was downloaded instead of the wrapper.
+Please try to redownload the wrapper.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_wrong_java_version">wrong java version</h4>
+<h4 id="_incompatible_java_version">Incompatible Java version</h4>
 <div class="paragraph">
-<p>When docToolchain starts but crashes with a stacktrace that starts like this&#8230;&#8203;</p>
+<p>You may see that docToolchain starts but crashes with a stacktrace that starts like this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -553,9 +554,9 @@ Could not compile settings file '/Users/falk/.doctoolchain/docToolchain-2.0.0/se
 </div>
 </div>
 <div class="paragraph">
-<p>then you&#8217;ve got a wrong java version.
-dtcw tries to check the java version upfront by doing a  <code>java --version</code> but gradle sometimes picks up a different version.
-In that case, please try to re-install a correct java version.</p>
+<p>In this case, you&#8217;ve got an incompatible version of Java.
+<code>dtcw</code> tries to check the Java version up front by running  <code>java --version</code>, but Gradle sometimes picks up a different version.
+If you get a similar error, try reinstalling a compatible Java version.</p>
 </div>
 </div>
 </div>
