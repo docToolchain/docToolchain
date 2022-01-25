@@ -8,7 +8,7 @@
 
 include::../_feedback.adoc[]
 
-== Getting the Wrapper
+== Getting the wrapper
 
 The way docToolchain is installed has changed since the v2.x release. It now uses a simple wrapper script which takes care of everything.
 
@@ -78,7 +78,7 @@ IMPORTANT: `dtcw` uses bash as shell and thus tries to find java from within bas
 
 
 
-== Running your First Command
+== Running your first command
 
 To get started with docToolchain, run `tasks` as the first command:
 
@@ -120,13 +120,13 @@ After the first few commands, you'll have all the required dependencies installe
 
 //end::install[]
 
-== Existing Documents
+== Existing documents
 
 If your project already has documents in AsciiDoc format, you'll need to tell docToolchain where to find them.
 
 To do so, take a look at the created `docToolchainConfig.groovy` and update it.
 
-== arc42 from Scratch
+== arc42 from scratch
 
 If you don't have existing documents yet, or if you need a fresh start, you can get the https://arc42.org[arc42] template in AsciiDoc format.
 
@@ -150,7 +150,7 @@ Run the command below to tell docToolchain to download the template of your choi
 ----
 --
 
-== Building and Creating Templates.
+== Building and creating templates.
 
 By now, the docToolchain wrapper `dtcw` should be in your project folder along with the arc42 template.
 
