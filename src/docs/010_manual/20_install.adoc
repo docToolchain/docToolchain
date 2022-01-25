@@ -10,19 +10,19 @@ include::../_feedback.adoc[]
 
 == Getting the Wrapper
 
-There have been a few changes to the way docToolchain can be installed since its V2.x release. We built a simple wrapper script to takes care of the everything for you.
+The way docToolchain is installed has changed since the v2.x release. It now uses a simple wrapper script which takes care of everything.
 
-This wrapper helps you in the following ways:
+This wrapper helps by:
 
-- it ensures that everyone who uses your repository is using the same version of docToolchain.
-- it keeps all the docToolchain technology out of your repository.
-- it wraps all of your commands and directs them to your local docToolchain installation.
-- furthermore, it checks how you installed docToolchain. If it hasn't been installed yet, it will do so for you via direct download or docker.
+- Ensuring that everyone using your repository uses the same docToolchain version.
+- Keeping all docToolchain technology out of your repository.
+- Wrapping your commands and directing them to your local installation.
+- Checking your docToolchain installation (if not installed, the wrapper will do it for you via direct download or Docker).
 
-This installation guide will show you how to set up docToolchain in the following environments:
+This guide explains how to set up docToolchain in the following environments:
 
 - A Linux/WSL2 with bash
-- Windows with PowerShell and
+- Windows with PowerShell
 - Windows with cmd.exe
 
 Please select the appropriate setup and follow these instructions to install docToolchain step by step.
@@ -72,15 +72,15 @@ NOTE: `dtcw.bat` wraps the `dtcw.ps1` script and executes it in powershell. This
 
 NOTE: In order to support development for your project on both, Linux and Windows, it makes sense to download all three scripts to your project.
 
-NOTE: if you use `cmd.exe`, please refer and follow the instructions for powershell. We will not further differentiate between both. You should however replace `.ps1` with `.bat`.
+NOTE: if you use cmd.exe, follow the PowerShell instructions but replace `.ps1` with `.bat`.
 
 IMPORTANT: `dtcw` uses bash as shell and thus tries to find java from within bash. Chances are that when you use `dtcw` from another shell like zsh, you shell knows about the right java version but your bash doesn't. In that case, please switch to bash and make sure that the right java version is known. Afterwards, you can switch back to your shell.
 
 
 
-== Running your first command
+== Running your First Command
 
-To get started with docToolchain, you can run `tasks` as a first command:
+To get started with docToolchain, run `tasks` as the first command:
 
 .Linux / WSL2 with bash
 [role='primary']
@@ -99,32 +99,34 @@ To get started with docToolchain, you can run `tasks` as a first command:
 ./dtcw.ps1 tasks --group=doctoolchain
 ----
 
-NOTE: if you're making use of cmd.exe, please replace `.ps1` with `.bat`. Do this for subsequent commands.
+NOTE: if using cmd.exe replace `.ps1` with `.bat` for all subsequent commands.
 
 --
 
-This 'tasks' command display you all of the tasks available on docToolchain. It also verify that docToolchain is installed by:
+This command shows all docToolchain tasks and verifies that docToolchain is installed by doing the following:
 
-* Checking for a configuration file. It will creates a default one if none is available. It prefers a local installation. 
+* Checking for a configuration file (and create one if none exist). Prefers a local installation. 
 
-* Making use of docker if it is available and there is no local installation. Please keep in mind that if this is your first time running docToolchain, the images download could take a while.
+* Making use of Docker (if available) where there is no local installation.
+
+NOTE: If this is your first time installing docToolchain, the images download might take a while.
 
 * if docker is not available, it will download and install docToolchain to your home folder
-** it will then run a gradle build through the gradle wrapper. If this is your first time, It will download and install gradle.
-** the gradle build will also fetch some dependencies. This will also take a while if ran for the first time.
+** it will then run a gradle build through the gradle wrapper. If this is your first time, it will download and install gradle.
+** the gradle build will also fetch some dependencies. This will also take a while if run for the first time..
 
 You'll notice the installation is an incremental process and will take a while because of all the additional dependencies needed.
-After the first few commands, you'll have all the needed dependencies installed and things will run more quickly.
+After the first few commands, you'll have all the required dependencies installed and things will run faster.
 
 //end::install[]
 
-== Existing documents
+== Existing Documents
 
-If your project already has some existing documents in AsciiDoc format, you'll need to tell docToolchain where it can find it.
+If your project already has documents in AsciiDoc format, you'll need to tell docToolchain where to find them.
 
 To do so, take a look at the created `docToolchainConfig.groovy` and update it.
 
-== arc42 from scratch
+== arc42 from Scratch
 
 If you don't have existing documents yet, or if you need a fresh start, you can get the https://arc42.org[arc42] template in AsciiDoc format.
 
@@ -148,11 +150,11 @@ Run the command below to tell docToolchain to download the template of your choi
 ----
 --
 
-== Build: Creating Templates.
+== Building and Creating Templates.
 
 By now, the docToolchain wrapper `dtcw` should be in your project folder along with the arc42 template.
 
-Let's now render it as HTML and PDF. Run the commands below to execute this:
+Now Let's render it to HTML and PDF. To do so, run the commands below:
 
 .Linux / WSL2 with bash
 [.primary]
@@ -197,7 +199,7 @@ build
         `-- arc42-logo.png
 ----
 
-*Congratulations!* If you see the same folder structure, you've just render the standard arc42 template as html and pdf!
+*Congratulations!* If you see the same folder structure, you've just rendered the standard arc42 template as HTML and PDF!
 
 Please raise an issue on https://github.com/docToolchain/docToolchain/issues[github] if you didn't get the right output.
 
