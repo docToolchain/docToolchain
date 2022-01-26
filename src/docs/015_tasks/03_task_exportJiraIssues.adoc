@@ -5,6 +5,8 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
+== At a Glance
+
 image::ea/Manual/exportJiraIssues.png[]
 
 == About This Task
@@ -30,7 +32,7 @@ IMPORTANT: The old configuration was based on the *single Jira query is deprecat
 include::{projectRootDir}/Config.groovy[tags=jiraConfig]
 ----
 
-== Further Reading
+== Further Reading and Resources
 
 Read the https://rdmueller.github.io/Jira/[Living Documents for Agile Projects] blog post.
 
