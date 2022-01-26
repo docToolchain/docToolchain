@@ -5,6 +5,8 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
+== At a Glance
+
 image::ea/Manual/exportExcel.png[]
 
 == About This Task
@@ -41,7 +43,7 @@ The AsciiDoc version gives you a bit more control because the following are pres
 - Column width relative to other columns.
 - Background colors.
 
-== Further Reading
+== Further Reading and Resources
 
 See https://github.com/uniqueck/asciidoctorj-office-extension[asciidoctorj-office-extension] to learn another way to use Excel spreadsheets in your docs.
 
