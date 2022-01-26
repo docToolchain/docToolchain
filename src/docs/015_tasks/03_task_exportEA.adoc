@@ -3,9 +3,9 @@ include::_config.adoc[]
 
 = exportEA
 
-IMPORTANT: Currently this feature is WINDOWS-only. https://github.com/docToolchain/docToolchain/issues/231[See related issue]
-
 include::../_feedback.adoc[]
+
+== At a Glance
 
 image::ea/Manual/exportEA.png[]
 
@@ -15,6 +15,10 @@ By default, no special configuration is necessary.
 However, several optional parameter configurations are available to support a project and packages to be used for export.
 These parameters can be used independently from one another.
 A sample of how to edit your projects' Config.groovy is provided in the 'Config.groovy' of the docToolchain project itself.
+
+== Important
+
+Currently this feature is WINDOWS-only. See https://github.com/docToolchain/docToolchain/issues/231[this related issue].
 
 == The Optional Parameter Configurations
 
@@ -105,9 +109,9 @@ This global file is named 'glossary.ad' and is also placed in the glossary folde
 The global glossary is also filtered and sorted.
 If there is only one EA project, only the global glossary is written.
 
-== Further Reading
-
-Read the https://rdmueller.github.io/jria2eac/[JIRA to Sparx EA] and https://rdmueller.github.io/sparx-ea/[Did you Ever Wish you Had Better Diagrams?] blog posts.
+== Further Reading and Resources
+* https://rdmueller.github.io/jria2eac/[JIRA to Sparx EA] blog post.
+* https://rdmueller.github.io/sparx-ea/[Did you Ever Wish you Had Better Diagrams?] blog post.
 
 == Source
 
