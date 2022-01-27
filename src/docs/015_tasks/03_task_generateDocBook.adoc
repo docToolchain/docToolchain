@@ -5,9 +5,13 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
+== At a Glance
+
 image::ea/Manual/generateDocBook.png[]
 
-This is only a helper task - it generates the intermediate format for xref:03_task_convertToDocx.adoc[`convertToDocx`]<<>> and xref:03_task_convertToEpub.adoc[`convertToEpub`].
+== About This Task
+
+A helper task, generateDocbook generates the intermediate format for xref:03_task_convertToDocx.adoc[`convertToDocx`]<<>> and xref:03_task_convertToEpub.adoc[`convertToEpub`].
 
 == Source
 

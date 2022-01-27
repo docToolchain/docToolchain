@@ -3,16 +3,22 @@ include::_config.adoc[]
 
 = convertToDocx
 
+include::../_feedback.adoc[]
+
+== At a Glance
+
+image::ea/Manual/convertToDocx.png[]
+
 == Before You Begin
+
+Before using this task:
+
 * Install https://pandoc.org[pandoc].
 * Ensure that 'docbook' and 'docx' are added to the inputFiles formats in Config.groovy.
 * As an optional step, specify a reference doc file with custom stylesheets (see task xref:03_task_createReferenceDoc.adoc[`createReferenceDoc`]).
 
-include::../_feedback.adoc[]
-
-image::ea/Manual/convertToDocx.png[]
-
-TIP: Blog-Post: https://rdmueller.github.io/create-docx/[Render AsciiDoc to docx (MS Word)]
+== Further Reading and Resources
+Read the https://rdmueller.github.io/create-docx/[Render AsciiDoc to docx (MS Word)] blog post.
 
 == Source
 

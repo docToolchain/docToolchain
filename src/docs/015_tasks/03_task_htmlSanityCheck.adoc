@@ -5,21 +5,24 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
+== At a Glance
+
 image::ea/Manual/htmlSanityCheck.png[]
 
+== About This Task
+
 This task invokes the https://github.com/aim42/htmlSanityCheck[htmlSanityCheck] gradle plugin.
-It is a standalone (batch- and command-line) html sanity checker - it detects missing images, dead links, and duplicate bookmarks.
-
-In docToolchain, this task is used to ensure that the generated HTML contains no missing links or other problems.
-
-This task is the last default task and creates a report in `build/report/htmlchecks/index.html`
+It is a standalone (batch- and command-line) HTML sanity checker whose role is to detect missing images, dead links and duplicated bookmarks.
+In docToolchain, the htmlSanityCheck task ensures that generated HTML contains no missing links or other problems.
+It is the last default task, and creates a report in `build/report/htmlchecks/index.html` (see example below).
 
 .sample report
 image::manual/htmlSanityCheck.png[align="center"]
 
-Further information can be found on GitHub: https://github.com/aim42/htmlSanityCheck
+== Further Reading and Resources
 
-TIP: Blog-Post: https://rdmueller.github.io/htmlSanityCheck/[Automated Quality-Checks]
+* Read the https://rdmueller.github.io/htmlSanityCheck/[Automated Quality-Checks] blog post.
+* Visit https://github.com/aim42/htmlSanityCheck for more information about this task.
 
 == Source
 

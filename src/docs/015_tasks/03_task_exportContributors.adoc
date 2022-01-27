@@ -42,12 +42,12 @@ So, the solution is to use https://gravatar.com[Gravatar] icons.
 For this to work, the contributors email address is hashed and an icon link is generated from that hash.
 
     http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon
-    
+
 This result at least in an icon which has a distinct color.
 
-Contributors can setup their own image through https://gravatar.com[Gravatar.com]. 
+Contributors can setup their own image through https://gravatar.com[Gravatar.com].
 For this to work, the git commits need to use an email address which can be verified by Gravatar.com.
-Infortunately, this is not the case if a contributor decided to make his email address private in the email settions of her github account.
+Unfortunately, this is not the case if a contributor decided to make his email address private in the email sections of her github account.
 
 == File Attributes
 

@@ -5,6 +5,8 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
+== At a Glance
+
 image::ea/Manual/exportChangeLog.png[]
 
 == About This Task
@@ -51,7 +53,7 @@ By excluding the table definition, you can easily translate the table headings t
 NOTE: In a future docToolchain release, you will have the ability to include only certain commit messages from the changelog and exclude others (starting with `#` or `//`?).
 This feature is not available just yet.
 
-== Further Reading
+== Further Reading and Resources
 
 https://rdmueller.github.io/changelog/[The only constant in life is change] blog post.
 

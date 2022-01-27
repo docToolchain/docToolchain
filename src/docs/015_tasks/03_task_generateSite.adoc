@@ -30,7 +30,7 @@ In order to include a page in the microsite, add a meta-data header to it.
 :jbake-type: page_toc
 :jbake-status: published
 :filename: 015_tasks/03_task_generateSite.adoc
-ifndef::immagesdir[:imagesdir: ../../images]
+ifndef::imagesdir[:imagesdir: ../../images]
 
 :toc:
 

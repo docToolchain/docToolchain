@@ -5,6 +5,8 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
+== At a Glance
+
 image::ea/Manual/exportExcel.png[]
 
 == About This Task
@@ -21,7 +23,7 @@ The `src` folder is used instead of the `build` folder because a better history 
 The files can be included either as AsciiDoc:
 
 ----
-\include::excel/Sample.xlsx/Numerisch.adoc[]
+\include::excel/Sample.xlsx/Numerical.adoc[]
 ----
 
 ...or as a CSV file:
@@ -29,7 +31,7 @@ The files can be included either as AsciiDoc:
 ----
 [options="header",format="csv"]
 |===
-\include::excel/Sample.xlsx/Numerisch.csv[]
+\include::excel/Sample.xlsx/Numerical.csv[]
 |===
 ----
 
@@ -41,7 +43,7 @@ The AsciiDoc version gives you a bit more control because the following are pres
 - Column width relative to other columns.
 - Background colors.
 
-== Further Reading
+== Further Reading and Resources
 
 See https://github.com/uniqueck/asciidoctorj-office-extension[asciidoctorj-office-extension] to learn another way to use Excel spreadsheets in your docs.
 
