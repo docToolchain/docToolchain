@@ -19,7 +19,7 @@ This task uses https://pandoc.org[pandoc] to convert the DocBook output from Asc
 This publishes the output as an eBook which can be read using any eBook reader.
 The resulting file can be found in `build/docs/epub`.
 
-== Further Reading
+== Further Reading and Resources
 
 https://rdmueller.github.io/create-epub/[Turn your Document into an Audio-Book] blog post.
 
