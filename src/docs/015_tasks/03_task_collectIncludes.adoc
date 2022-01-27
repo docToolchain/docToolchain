@@ -9,6 +9,7 @@ include::../_feedback.adoc[]
 // image::ea/Manual/collectIncludes.png[]
 
 == About This Task
+
 This task crawls through your entire project looking for AsciiDoc files with a specific name pattern, then creates a single AsciiDoc file which includes only those files.
 
 When you create modular documentation, most includes are static.
@@ -44,6 +45,8 @@ Obviously, you'll reap the most benefits if the task has several ADR files to co
 You can then include these files in your main documentation by using a single include:
 
     include::{targetDir}/docs/_includes/ADR_includes.adoc[]
+
+== Source
 
 .scripts/collectIncludes.gradle
 [source,groovy]
