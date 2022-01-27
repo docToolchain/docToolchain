@@ -5,11 +5,15 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
+== About This Task
+
 This task uses the https://github.com/ben-manes/gradle-versions-plugin[Gradle versions plugin] created by Ben Manes to check for outdated build dependencies.
 Use this task to keep all dependencies up to date.
 
 WARNING: If you discover newer version, it doesn't mean that versions and dependencies will play nicely together.
 To ensure that everything works, we recommend the versions selected by docToolchain contributors.
 
-TIP: For more information, read the https://rdmueller.github.io/dependency-update/[Handle Dependency Updates the easy Way] blog post.
+== Further Reading and Resources
+
+Read the https://rdmueller.github.io/dependency-update/[Handle Dependency Updates the Easy Way] blog post.
 
