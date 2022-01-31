@@ -6,29 +6,28 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 include::../_feedback.adoc[]
 
-This chapter lists some additional references to interesting resources.
+Here is a list of useful resources to help you.
 
 == Underlying Technologies
 
-This project relies on many underlying technologies.
-Here is a lists and some explaining words
+DocToolchain uses many underlying technologies. Explore the list with some resources.
 
 === Markup
 
 * *AsciiDoc* +
-AsciiDoc is our preferred markup language for technical docs
+AsciiDoc is our preferred markup language for technical docs.
 ** https://asciidoctor.org/docs/user-manual/[Asciidoctor User-Manual]
 ** https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Syntax Quick Reference]
-** Video: https://www.ahus1.de/post/asciidoctor-intro-and-deep-dive["Asciidoctor Deep Dive"] by Alexander Schwartz
+** https://www.ahus1.de/post/asciidoctor-intro-and-deep-dive["Asciidoctor Deep Dive Video"] by Alexander Schwartz
 * *Markdown* +
-Since we use jBake as Static-Site-Generator, you can also use Markdown to write your docs.
-** https://github.com/vsch/flexmark-java[flexmark-java] is the Markdown parser and flavour used by jBake
-** if you prefer to use the xref:../015_tasks/03_task_exportMarkdown.adoc[`exportMarkdown`]-Task, then https://github.com/bodiam/markdown-to-asciidoc[markdown-to-asciidoc] library is used. The IntelliJ-Plugin also uses this library.
+you can write your docs in Markdown since we use jBake as Static-Site-Generator.
+** The Markdown parser and flavor used by jBake is https://github.com/vsch/flexmark-java[flexmark-java].
+** https://github.com/bodiam/markdown-to-asciidoc[markdown-to-asciidoc] library is used if you prefer to use xref:../015_tasks/03_task_exportMarkdown.adoc[`exportMarkdown`]-Task. The IntelliJ-Plugin also uses this library.
 
 === Templates
 
 * *arc42* +
-is the perfect documentation template for your softare solution architecture documentation.
+is perfect for documenting your sofwtare solution architecture.
 ** https://arc42.org/[arc42]
 ** https://docs.arc42.org/home/[arc42 Tips & Tricks]
 ** https://faq.arc42.org/home/[arc42 FAQ]
@@ -36,10 +35,9 @@ is the perfect documentation template for your softare solution architecture doc
 === Docs-as-Code
 
 * *docs-as-code* +
-is the approach you use when you treat your docs the same as your code.
-We've create a little microsite with some additional resources.
+Treat your docs as if they were code by using this approach. 
 ** https://docs-as-co.de/[Docs-as-Code]
-** https://www.writethedocs.org/guide/docs-as-code/[write the docs: docs-as-code] is another independent resource.
+** https://www.writethedocs.org/guide/docs-as-code/[write the docs: docs-as-code]
 
 === Static Site Generator
 
@@ -49,7 +47,7 @@ We've create a little microsite with some additional resources.
 
 == Books
 
-NOTE: links to Amazon are affiliate links
+NOTE: These are Amazon affiliate links.
 
 === English Books
 
