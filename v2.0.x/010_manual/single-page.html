@@ -242,7 +242,7 @@
 <li><a href="#_exportexcel">1.23. exportExcel</a></li>
 </ul>
 </li>
-<li><a href="#_about_this_task_19">2. About This Task</a>
+<li><a href="#_about_this_task_20">2. About This Task</a>
 <ul class="sectlevel3">
 <li><a href="#_source_21">2.1. Source</a></li>
 <li><a href="#_exportopenapi">2.2. exportOpenAPI</a></li>
@@ -955,23 +955,28 @@ task collectIncludes(
 <div class="sect3">
 <h4 id="_generatepdf">1.7. generatePDF</h4>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5107bc93f3e4d103ca06f4e68a64b38?d=identicon" alt="stehlih" width="32" height="32" title="stehlih"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5107bc93f3e4d103ca06f4e68a64b38?d=identicon" alt="stehlih" width="32" height="32" title="stehlih"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>2 minutes to read</pre>
 </div>
 </div>
+<div class="sect4">
+<h5 id="_at_a_glance">At a Glance</h5>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/generatePDF.png" alt="generatePDF">
 </div>
 </div>
-<div class="paragraph">
-<p>This task makes use of the <a href="https://asciidoctor.org/docs/convert-asciidoc-to-pdf/">asciidoctor-pdf</a> plugin to render your documents as a pretty PDF file.</p>
 </div>
+<div class="sect4">
+<h5 id="_about_this_task_6">About This Task</h5>
 <div class="paragraph">
-<p>The file will be written to <code>build/pdf</code>.</p>
+<p>This task makes use of the <a href="https://asciidoctor.org/docs/convert-asciidoc-to-pdf/">asciidoctor-pdf</a> plugin to render your documents as pretty PDF files.
+Files are written to <code>build/pdf</code>.
+The PDF is generated directly from your AsciiDoc sources. There is no need for an intermediate format or other tools.
+The result looks more like a nicely rendered book than a print-to-PDF HTML page.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -980,44 +985,38 @@ task collectIncludes(
 <div class="title">Note</div>
 </td>
 <td class="content">
-The used plugin is still in alpha status, but the results are already quite good.
-If you want to use another way to create a PDF, use <a href="https://phantomjs.org/">PhantomJS</a> for instance and script it.
+The asciidoctor-pdf plugin is still in alpha status, but the results are already quite good.
+If you want an alternative, use <a href="https://phantomjs.org/">PhantomJS</a> for your instance and script it.
 </td>
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>The PDF is generated directly from your AsciiDoc sources without the need of an intermediate format or other tools.
-The result looks more like a nicely rendered book than a print-to-pdf HTML page.</p>
 </div>
+<div class="sect4">
+<h5 id="_creating_a_custom_pdf_theme">Creating a Custom PDF Theme</h5>
 <div class="paragraph">
-<p>It is very likely that you need to "theme" you PDF - change colors, fonts, page header, and footer.
-This can be done by creating a <code>custom-theme.yml</code> file.
-As a starting point, copy the file <code>src/docs/pdfTheme/custom-theme.yml</code> from docToolchain to your project and reference it from your main <code>.adoc`file via setting the `:pdf-stylesdir:</code>.
-For instance, insert</p>
+<p>If you want to change colors, fonts or page headers and footers, you can do so by creating a <code>custom-theme.yml</code> file.
+Copy the file <code>src/docs/pdfTheme/custom-theme.yml</code> from docToolchain to your project and reference it from your main <code>.adoc`file by setting the `:pdf-stylesdir:</code>.
+For example, insert the following at the top of your document to reference <code>custom-theme.yml</code> from the <code>/pdfTheme</code> folder.</p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>:pdf-stylesdir: ../pdfTheme</pre>
 </div>
 </div>
-<div class="paragraph">
-<p>at the top of your document to reference the <code>custom-theme.yml</code> from the <code>/pdfTheme</code> folder.</p>
 </div>
-<div class="paragraph">
-<p>Documentation on how to modify a theme can be found in the <a href="https://github.com/asciidoctor/asciidoctor-pdf/blob/master/docs/theming-guide.adoc">asciidoctor-pdf theming guide</a>.</p>
+<div class="sect4">
+<h5 id="_further_reading_and_resources_2">Further Reading and Resources</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Learn how to modify a theme by reading <a href="https://github.com/asciidoctor/asciidoctor-pdf/blob/master/docs/theming-guide.adoc">asciidoctor-pdf theming guide</a>.</p>
+</li>
+<li>
+<p>The <a href="https://rdmueller.github.io/pdf-output/">Beyond HTML</a> blog post is also an excellent resource if you want to dig a little deeper.</p>
+</li>
+</ul>
 </div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
-Blog-Post: <a href="https://rdmueller.github.io/pdf-output/">Beyond HTML</a>
-</td>
-</tr>
-</table>
 </div>
 <div class="sect4">
 <h5 id="_source_6">Source</h5>
@@ -1664,7 +1663,7 @@ generateSite.finalizedBy bake</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_at_a_glance">At a Glance</h5>
+<h5 id="_at_a_glance_2">At a Glance</h5>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/generateDocBook.png" alt="generateDocBook">
@@ -1672,7 +1671,7 @@ generateSite.finalizedBy bake</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_about_this_task_6">About This Task</h5>
+<h5 id="_about_this_task_7">About This Task</h5>
 <div class="paragraph">
 <p>A helper task, generateDocbook generates the intermediate format for <a href="03_task_convertToDocx.html"><code>convertToDocx</code></a>&lt;&lt;&gt;&gt; and <a href="03_task_convertToEpub.html"><code>convertToEpub</code></a>.</p>
 </div>
@@ -1737,7 +1736,7 @@ generateSite.finalizedBy bake</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_at_a_glance_2">At a Glance</h5>
+<h5 id="_at_a_glance_3">At a Glance</h5>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/generateDeck.png" alt="generateDeck">
@@ -1745,7 +1744,7 @@ generateSite.finalizedBy bake</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_about_this_task_7">About This Task</h5>
+<h5 id="_about_this_task_8">About This Task</h5>
 <div class="paragraph">
 <p>This task makes use of the <a href="https://github.com/asciidoctor/asciidoctor-reveal.js/">asciidoctor-reveal.js</a> backend to render your documents into a HTML-based presentation.
 It creates a PowerPoint presentation, then enriches it by adding reveal.js slide definitions in AsciiDoc to the speaker notes.
@@ -3097,7 +3096,7 @@ config.confluence.input.each { input -&gt;
 </div>
 </div>
 <div class="sect4">
-<h5 id="_at_a_glance_3">At a Glance</h5>
+<h5 id="_at_a_glance_4">At a Glance</h5>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/convertToDocx.png" alt="convertToDocx">
@@ -3124,7 +3123,7 @@ config.confluence.input.each { input -&gt;
 </div>
 </div>
 <div class="sect4">
-<h5 id="_further_reading_and_resources_2">Further Reading and Resources</h5>
+<h5 id="_further_reading_and_resources_3">Further Reading and Resources</h5>
 <div class="paragraph">
 <p>Read the <a href="https://rdmueller.github.io/create-docx/">Render AsciiDoc to docx (MS Word)</a> blog post.</p>
 </div>
@@ -3195,7 +3194,7 @@ config.confluence.input.each { input -&gt;
 </div>
 </div>
 <div class="sect4">
-<h5 id="_about_this_task_8">About This Task</h5>
+<h5 id="_about_this_task_9">About This Task</h5>
 <div class="paragraph">
 <p>This task creates a reference docx file used by <a href="https://pandoc.org">pandoc</a> during docbook-to-docx conversion.
 Use task <a href="03_task_convertToDocx.html"><code>convertToDocx</code></a> to edit this file so it uses your preferred styles.</p>
@@ -3277,7 +3276,7 @@ referenceDocFile = "${inputPath}/my-ref-file.docx"</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_at_a_glance_4">At a Glance</h5>
+<h5 id="_at_a_glance_5">At a Glance</h5>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/convertToEpub.png" alt="convertToEpub">
@@ -3291,7 +3290,7 @@ referenceDocFile = "${inputPath}/my-ref-file.docx"</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_about_this_task_9">About This Task</h5>
+<h5 id="_about_this_task_10">About This Task</h5>
 <div class="paragraph">
 <p>This task uses <a href="https://pandoc.org">pandoc</a> to convert the DocBook output from AsciiDoctor to ePub.
 This publishes the output as an eBook which can be read using any eBook reader.
@@ -3299,7 +3298,7 @@ The resulting file can be found in <code>build/docs/epub</code>.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_further_reading_and_resources_3">Further Reading and Resources</h5>
+<h5 id="_further_reading_and_resources_4">Further Reading and Resources</h5>
 <div class="paragraph">
 <p><a href="https://rdmueller.github.io/create-epub/">Turn your Document into an Audio-Book</a> blog post.</p>
 </div>
@@ -3355,7 +3354,7 @@ The resulting file can be found in <code>build/docs/epub</code>.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_at_a_glance_5">At a Glance</h5>
+<h5 id="_at_a_glance_6">At a Glance</h5>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/exportEA.png" alt="exportEA">
@@ -3363,7 +3362,7 @@ The resulting file can be found in <code>build/docs/epub</code>.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_about_this_task_10">About This Task</h5>
+<h5 id="_about_this_task_11">About This Task</h5>
 <div class="paragraph">
 <p>By default, no special configuration is necessary.
 However, several optional parameter configurations are available to support a project and packages to be used for export.
@@ -3508,7 +3507,7 @@ If there is only one EA project, only the global glossary is written.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_further_reading_and_resources_4">Further Reading and Resources</h5>
+<h5 id="_further_reading_and_resources_5">Further Reading and Resources</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -4103,7 +4102,7 @@ use `gradle exportEA` to re-export files
 </div>
 </div>
 <div class="sect4">
-<h5 id="_at_a_glance_6">At a Glance</h5>
+<h5 id="_at_a_glance_7">At a Glance</h5>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/exportVisio.png" alt="exportVisio">
@@ -4111,7 +4110,7 @@ use `gradle exportEA` to re-export files
 </div>
 </div>
 <div class="sect4">
-<h5 id="_about_this_task_11">About This Task</h5>
+<h5 id="_about_this_task_12">About This Task</h5>
 <div class="paragraph">
 <p>This task searches for Visio files in the <code>/src/docs</code> folder then exports all diagrams and element notes to <code>/src/docs/images/visio</code> and <code>/src/docs/visio</code>.</p>
 </div>
@@ -4137,7 +4136,7 @@ It will then be written to <code>/visio/[filename].adoc</code>.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_further_reading_and_resources_5">Further Reading and Resources</h5>
+<h5 id="_further_reading_and_resources_6">Further Reading and Resources</h5>
 <div class="paragraph">
 <p><a href="https://github.com/docToolchain/docToolchain/issues/112">Issue #112</a>.</p>
 </div>
@@ -4321,7 +4320,7 @@ $VisioApp.Quit()</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_about_this_task_12">About This Task</h5>
+<h5 id="_about_this_task_13">About This Task</h5>
 <div class="paragraph">
 <p>There is no <code>exportDrawIo</code> task available in docToolchain because such a task is not required.
 You can continue to use <a href="https://app.diagrams.net/">diagrams.net</a> (formerly known as draw.io) to edit your diagrams simply by making a change to your diagram-authoring workflow.</p>
@@ -4415,7 +4414,7 @@ Specifying <code>.dio</code> (short for "<strong>d</strong>raw<strong>io</strong
 </div>
 </div>
 <div class="sect4">
-<h5 id="_at_a_glance_7">At a Glance</h5>
+<h5 id="_at_a_glance_8">At a Glance</h5>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/exportChangeLog.png" alt="exportChangeLog">
@@ -4423,7 +4422,7 @@ Specifying <code>.dio</code> (short for "<strong>d</strong>raw<strong>io</strong
 </div>
 </div>
 <div class="sect4">
-<h5 id="_about_this_task_13">About This Task</h5>
+<h5 id="_about_this_task_14">About This Task</h5>
 <div class="paragraph">
 <p>As the name suggests, this task exports the changelog to be referenced from within your documentation, if needed.
 The changelog is written to <code>build/docs/changelog.adoc</code>.</p>
@@ -4485,7 +4484,7 @@ This feature is not available just yet.
 </div>
 </div>
 <div class="sect4">
-<h5 id="_further_reading_and_resources_6">Further Reading and Resources</h5>
+<h5 id="_further_reading_and_resources_7">Further Reading and Resources</h5>
 <div class="paragraph">
 <p><a href="https://rdmueller.github.io/changelog/">The only constant in life is change</a> blog post.</p>
 </div>
@@ -4538,7 +4537,7 @@ This feature is not available just yet.
 </div>
 </div>
 <div class="sect4">
-<h5 id="_about_this_task_14">About This Task</h5>
+<h5 id="_about_this_task_15">About This Task</h5>
 <div class="paragraph">
 <p>This task crawls through all Asciidoctor source files and extracts a list of contributors, which is then rendered as AsciiDoc images of each contributor&#8217;s gravatar picture.
 The extracted list is stored in <code>/home/runner/work/docToolchain/docToolchain/build/contributors/015_tasks/03_task_exportContributors.adoc</code> so it can be easily included in your documents.</p>
@@ -4667,7 +4666,7 @@ Last updated {lastUpdated} by {lastAuthorName}</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_at_a_glance_8">At a Glance</h5>
+<h5 id="_at_a_glance_9">At a Glance</h5>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/exportJiraIssues.png" alt="exportJiraIssues">
@@ -4675,7 +4674,7 @@ Last updated {lastUpdated} by {lastAuthorName}</code></pre>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_about_this_task_15">About This Task</h5>
+<h5 id="_about_this_task_16">About This Task</h5>
 <div class="paragraph">
 <p>This task exports all issues for a given query or queries from Jira as either an AsciiDoc table or an Excel file.</p>
 </div>
@@ -4782,7 +4781,7 @@ class JiraRequest {
 </div>
 </div>
 <div class="sect4">
-<h5 id="_further_reading_and_resources_7">Further Reading and Resources</h5>
+<h5 id="_further_reading_and_resources_8">Further Reading and Resources</h5>
 <div class="paragraph">
 <p>Read the <a href="https://rdmueller.github.io/Jira/">Living Documents for Agile Projects</a> blog post.</p>
 </div>
@@ -5006,7 +5005,7 @@ def writeAsciiDocFileForLegacyConfiguration(def targetFolder, def restClient, de
 </div>
 </div>
 <div class="sect4">
-<h5 id="_about_this_task_16">About This Task</h5>
+<h5 id="_about_this_task_17">About This Task</h5>
 <div class="paragraph">
 <p>This task exports a simplified (key and summary) list of Jira issues for a specific sprint defined in the task configuration. Only a few additional fields (such as assignee) can be switched using configuration flags.</p>
 </div>
@@ -5253,7 +5252,7 @@ sprintChangelog.with {
 </div>
 </div>
 <div class="sect4">
-<h5 id="_at_a_glance_9">At a Glance</h5>
+<h5 id="_at_a_glance_10">At a Glance</h5>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/exportPPT.png" alt="exportPPT">
@@ -5261,14 +5260,14 @@ sprintChangelog.with {
 </div>
 </div>
 <div class="sect4">
-<h5 id="_about_this_task_17">About This Task</h5>
+<h5 id="_about_this_task_18">About This Task</h5>
 <div class="paragraph">
 <p>This task lets you export AsciiDoc content to a series of PowerPoint slides.
 It is currently a Windows-only task.</p>
 </div>
 </div>
 <div class="sect4">
-<h5 id="_further_reading_and_resources_8">Further Reading and Resources</h5>
+<h5 id="_further_reading_and_resources_9">Further Reading and Resources</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -5436,7 +5435,7 @@ use `gradle exportPPT` to re-export files
 </div>
 </div>
 <div class="sect4">
-<h5 id="_at_a_glance_10">At a Glance</h5>
+<h5 id="_at_a_glance_11">At a Glance</h5>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/exportExcel.png" alt="exportExcel">
@@ -5444,7 +5443,7 @@ use `gradle exportPPT` to re-export files
 </div>
 </div>
 <div class="sect4">
-<h5 id="_about_this_task_18">About This Task</h5>
+<h5 id="_about_this_task_19">About This Task</h5>
 <div class="paragraph">
 <p>Sometimes you need to include tabular data in your documentation.
 Most likely, this data will be stored as a MS Excel spreadsheet, or you may like to use Excel to create and edit it.
@@ -5499,7 +5498,7 @@ include::excel/Sample.xlsx/Numerical.csv[]
 </div>
 </div>
 <div class="sect4">
-<h5 id="_further_reading_and_resources_9">Further Reading and Resources</h5>
+<h5 id="_further_reading_and_resources_10">Further Reading and Resources</h5>
 <div class="paragraph">
 <p>See <a href="https://github.com/uniqueck/asciidoctorj-office-extension">asciidoctorj-office-extension</a> to learn another way to use Excel spreadsheets in your docs.</p>
 </div>
@@ -5724,7 +5723,7 @@ use `gradle exportExcel` to re-export files
 </div>
 </div>
 <div class="sect2">
-<h3 id="_about_this_task_19">2. About This Task</h3>
+<h3 id="_about_this_task_20">2. About This Task</h3>
 <div class="paragraph">
 <p>The <em>exportMarkdown</em> task can be used to include <a href="https://markdown.de">markdown</a> files into the documentation.
 It scans the <code>/src/docs</code> directory for markdown (<code>*.md</code>) files and converts them into Asciidoc files. The converted files can then be referenced from within the <code>/build</code>-folder.</p>
@@ -5777,7 +5776,7 @@ class Markdown2AdocFilter extends FilterReader {
 </div>
 </div>
 <div class="sect4">
-<h5 id="_about_this_task_20">About This Task</h5>
+<h5 id="_about_this_task_21">About This Task</h5>
 <div class="paragraph">
 <p>This task exports an OpenAPI Specification definition yaml file to a AsciiDoc document.
 Currently this task depends on <a href="https://github.com/OpenAPITools/openapi-generator">OpenAPI Generator (v4.3.1)</a> and its <a href="https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin">gradle plugin</a>.</p>
@@ -5868,7 +5867,7 @@ openApi.with {
 </div>
 </div>
 <div class="sect4">
-<h5 id="_at_a_glance_11">At a Glance</h5>
+<h5 id="_at_a_glance_12">At a Glance</h5>
 <div class="imageblock">
 <div class="content">
 <img src="images/ea/Manual/htmlSanityCheck.png" alt="htmlSanityCheck">
@@ -5876,7 +5875,7 @@ openApi.with {
 </div>
 </div>
 <div class="sect4">
-<h5 id="_about_this_task_21">About This Task</h5>
+<h5 id="_about_this_task_22">About This Task</h5>
 <div class="paragraph">
 <p>This task invokes the <a href="https://github.com/aim42/htmlSanityCheck">htmlSanityCheck</a> gradle plugin.
 It is a standalone (batch- and command-line) HTML sanity checker whose role is to detect missing images, dead links and duplicated bookmarks.
@@ -5891,7 +5890,7 @@ It is the last default task, and creates a report in <code>build/report/htmlchec
 </div>
 </div>
 <div class="sect4">
-<h5 id="_further_reading_and_resources_10">Further Reading and Resources</h5>
+<h5 id="_further_reading_and_resources_11">Further Reading and Resources</h5>
 <div class="ulist">
 <ul>
 <li>
@@ -5953,7 +5952,7 @@ It is the last default task, and creates a report in <code>build/report/htmlchec
 </div>
 </div>
 <div class="sect4">
-<h5 id="_about_this_task_22">About This Task</h5>
+<h5 id="_about_this_task_23">About This Task</h5>
 <div class="paragraph">
 <p>This task uses the <a href="https://github.com/ben-manes/gradle-versions-plugin">Gradle versions plugin</a> created by Ben Manes to check for outdated build dependencies.
 Use this task to keep all dependencies up to date.</p>
@@ -5973,7 +5972,7 @@ To ensure that everything works, we recommend the versions selected by docToolch
 </div>
 </div>
 <div class="sect4">
-<h5 id="_further_reading_and_resources_11">Further Reading and Resources</h5>
+<h5 id="_further_reading_and_resources_12">Further Reading and Resources</h5>
 <div class="paragraph">
 <p>Read the <a href="https://rdmueller.github.io/dependency-update/">Handle Dependency Updates the Easy Way</a> blog post.</p>
 </div>
