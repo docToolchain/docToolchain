@@ -5,7 +5,9 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
-A task is another name for a script which triggers the build actions which compile and publish your docs.
+== At a Glance
+
+A task is another name for a script which triggers the build actions that compile and publish your docs.
 This diagram gives you an overview of the entire build process:
 
 .docToolchain
@@ -19,7 +21,7 @@ There are currently 4 groups.
 
 === generateX
 
-These tasks use plain old AsciiDoctor functionality to render the source to a given format.
+These tasks use plain old Asciidoctor functionality to render the source to a given format.
 
 === exportX
 
@@ -31,7 +33,7 @@ because the tools needed for the export (such as Sparx Enterprise Architect or M
 
 === convertToX
 
-These tasks take the output from AsciiDoctor and convert it (through other tools) to the target format.
+These tasks take the output from Asciidoctor and convert it (through other tools) to the target format.
 This results in a dependency on a _generateX_ task and another external tool (currently https://pandoc.org[pandoc]).
 
 === publishToX
