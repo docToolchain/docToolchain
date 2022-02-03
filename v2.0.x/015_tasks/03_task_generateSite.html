@@ -436,13 +436,14 @@
 <ul class="sectlevel1">
 <li><a href="#task_generatesite">generateSite</a>
 <ul class="sectlevel2">
+<li><a href="#_about_this_task">About This Task</a></li>
 <li><a href="#_pages">Pages</a></li>
 <li><a href="#_templates_and_style">Templates and Style</a></li>
 <li><a href="#_landing_page">Landing Page</a></li>
 <li><a href="#_blog">Blog</a></li>
 <li><a href="#_search">Search</a></li>
 <li><a href="#_cicd">CI/CD</a></li>
-<li><a href="#_see_also">See also</a></li>
+<li><a href="#_further_reading_and_resources">Further Reading and Resources</a></li>
 <li><a href="#_source">Source</a></li>
 </ul>
 </li>
@@ -476,35 +477,33 @@
 <h2 id="task_generatesite">generateSite</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Schrotti" width="32" height="32" title="Schrotti"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Schrotti" width="32" height="32" title="Schrotti"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>4 minutes to read</pre>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_about_this_task">About This Task</h3>
 <div class="paragraph">
-<p>When you have <em>one</em> document, the output of <code>generateHTML</code> might fit your needs.
-When your documentation grows, and you have <em>several</em> documents, you need a microsite which bundles all the information.</p>
+<p>When you have only one document, the output of <code>generateHTML</code> might meet your requirements.
+But as your documentation grows, and you have multiple documents, you will need a microsite which bundles all of the information.
+The <code>generateSite</code> task uses <a href="https://jbake.org">jBake</a> to create a static site with a landing page, a blog and search.</p>
 </div>
-<div class="paragraph">
-<p>The <code>generateSite</code> task uses <a href="https://jbake.org">jBake</a> to create a static site with a Landingpage, Blog and Search.</p>
 </div>
 <div class="sect2">
 <h3 id="_pages">Pages</h3>
 <div class="paragraph">
-<p>The microsite is page oriented instead of document oriented.
-It is likely that you already organized your documents by chapter.
-Use these chapters as pages to create a great user experience.</p>
+<p>The microsite is page-oriented, not document-oriented.
+If you have already organized your documents by chapter, use them as pages to create a great user experience.
+The arc42-template sources are a good example.</p>
 </div>
 <div class="paragraph">
-<p>The arc42-template sources are a good example.</p>
-</div>
-<div class="paragraph">
-<p>In order to include a page in the microsite, add a meta-data header to it.</p>
+<p>To include a page in the microsite, add a metadata header to it.</p>
 </div>
 <div class="listingblock">
-<div class="title">page meta-data</div>
+<div class="title">page metadata</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="asciidoc">:jbake-menu: arc42
 :jbake-title: Solution Strategy
@@ -519,51 +518,66 @@ Use these chapters as pages to create a great user experience.</p>
 === Solution Strategy</code></pre>
 </div>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">jbake-menu</dt>
-<dd>
-<p>the top-level menu for this page.
-Defaults to the top-level folder name of the adoc file within the <code>docDir</code>.</p>
-</dd>
-<dt class="hdlist1">jbake-title</dt>
-<dd>
-<p>the title to be displayed in the drop-down top-level menu.
+<div class="paragraph">
+<p>Here is an overview of each element:</p>
+</div>
+<div class="paragraph">
+<p><strong>jbake-menu</strong></p>
+</div>
+<div class="paragraph">
+<p>The top-level menu for this page.
+Defaults to the top-level folder name of the .adoc file within the <code>docDir</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>jbake-title</strong></p>
+</div>
+<div class="paragraph">
+<p>The title to be displayed in the drop-down top-level menu.
 Defaults to the first headline of the file.</p>
-</dd>
-<dt class="hdlist1">jbake-order</dt>
-<dd>
-<p>give the drop-down entries a sort order.
-Defaults to a prefixed number of the file like <code><strong>04</strong>_filename.adoc</code> or to the prefixed number of the second level folder name.</p>
-</dd>
-<dt class="hdlist1">jbake-type</dt>
-<dd>
-<p>the page type.
-This controls which template is used to render the page.
+</div>
+<div class="paragraph">
+<p><strong>jbake-order</strong></p>
+</div>
+<div class="paragraph">
+<p>Applies a sort order to drop-down entries.
+Defaults to a prefixed file number, such as <code><strong>04</strong>_filename.adoc</code> or to the prefixed number of the second-level folder name.</p>
+</div>
+<div class="paragraph">
+<p><strong>jbake-type</strong></p>
+</div>
+<div class="paragraph">
+<p>The page type.
+Controls which template is used to render the page.
 You will mostly use <code>page</code> for a full-width page or <code>page_toc</code> for a page with a table of contents (toc) rendered on the left.
 Defaults to <code>page_toc</code>.</p>
-</dd>
-<dt class="hdlist1">jbake-status</dt>
-<dd>
-<p><code>draft</code> or <code>published</code>.
+</div>
+<div class="paragraph">
+<p><strong>jbake-status</strong></p>
+</div>
+<div class="paragraph">
+<p>Either <code>draft</code> or <code>published</code>.
 Only <code>published</code> pages will be rendered.
-Defaults to <code>published</code> for files with a <code>jbake-order</code> and <code>draft</code> for files without order or files prefixed with <code>_</code>.</p>
-</dd>
-<dt class="hdlist1">filename</dt>
-<dd>
-<p>needed for edit and feedback-links (coming soon).
-Defaults to the filename :-)</p>
-</dd>
-<dt class="hdlist1">ifndef</dt>
-<dd>
-<p>this fixes the imagesdir according to the nesting level of your docs folder
-Defaults to the main <code>docDir/images</code></p>
-</dd>
-<dt class="hdlist1">toc</dt>
-<dd>
-<p>for <code>:jbake-type: page_toc</code>, you need this line to generate the toc.</p>
-</dd>
-</dl>
+Defaults to <code>published</code> for files with a <code>jbake-order</code> and <code>draft</code> for files without <code>jbake-order</code> or files prefixed with <code>_</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>filename</strong></p>
+</div>
+<div class="paragraph">
+<p>Required for edit and feedback links (coming soon).
+Defaults to the filename :-).</p>
+</div>
+<div class="paragraph">
+<p><strong>ifndef</strong></p>
+</div>
+<div class="paragraph">
+<p>Fixes the imagesdir according to the nesting level of your docs folder.
+Defaults to the main <code>docDir/images</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>toc</strong></p>
+</div>
+<div class="paragraph">
+<p>For <code>:jbake-type: page_toc</code>, you need this line to generate the toc.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -572,7 +586,8 @@ Defaults to the main <code>docDir/images</code></p>
 <div class="title">Note</div>
 </td>
 <td class="content">
-Start your pages with a <code>==</code> level headline. You can fix the level offset when you include the page in a larger document with <code>include::chapter.adoc[leveloffset=+1]</code>
+Start your pages with a <code>==</code> level headline.
+You can fix the level offset when you include the page in a larger document with <code>include::chapter.adoc[leveloffset=+1]</code>.
 </td>
 </tr>
 </table>
@@ -581,12 +596,12 @@ Start your pages with a <code>==</code> level headline. You can fix the level of
 <div class="sect2">
 <h3 id="_templates_and_style">Templates and Style</h3>
 <div class="paragraph">
-<p>The jBake templates and CSS etc. is hidden away from you for convenience.
-The basic template use <a href="http://getbootstrap.com/">twitter Bootstrap 5</a> as CSS framework.</p>
+<p>The jBake templates and CSS are hidden for convenience.</p>
 </div>
 <div class="paragraph">
-<p>Use the <a href="03_task_copy_themes.html"><code>copyThemes</code></a> task to copy all hidden jBake resources to your project.
-You can then remove the ones you don&#8217;t need and change those you want to change.</p>
+<p>The basic template uses <a href="http://getbootstrap.com/">Twitter Bootstrap 5</a> as its CSS framework.
+Use the <a href="03_task_copy_themes.html"><code>copyThemes</code></a> task to copy all hidden jBake resources to your project.
+You can then remove the resources you don&#8217;t need, and change those you want to change.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -595,7 +610,7 @@ You can then remove the ones you don&#8217;t need and change those you want to c
 <div class="title">Note</div>
 </td>
 <td class="content">
-<code>copyThemes</code> overwrites existing files, but your code is under version control, isn&#8217;t it?
+<code>copyThemes</code> overwrites existing files, but because your code is safely managed using version control, this shouldn&#8217;t be a problem.
 </td>
 </tr>
 </table>
@@ -604,17 +619,17 @@ You can then remove the ones you don&#8217;t need and change those you want to c
 <div class="sect2">
 <h3 id="_landing_page">Landing Page</h3>
 <div class="paragraph">
-<p>Put a <code>index.gsp</code> page as landing page in <code>src/site/templates</code>.
-This landing page is plain HTML5 styled with twitter bootstrap.
-Header and footer is added by docToolchain.
-An example can be found through <a href="03_task_copy_themes.html"><code>copyThemes</code></a> or <a href="https://github.com/docToolchain/docToolchain/blob/ng/src/site/templates/index.gsp">on github</a>.</p>
+<p>Place an <code>index.gsp</code> page as your landing page in <code>src/site/templates</code>.
+This landing page is plain HTML5 styled with Twitter Bootstrap.
+The page header and footer are added by docToolchain.
+An example can be found at <a href="03_task_copy_themes.html"><code>copyThemes</code></a> or <a href="https://github.com/docToolchain/docToolchain/blob/ng/src/site/templates/index.gsp">on GitHub</a>.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_blog">Blog</h3>
 <div class="paragraph">
 <p>The microsite also contains a simple but powerful blog.
-Use it to inform your team about changes and architecture decision records (ADRs).</p>
+Use it to inform your team about changes, as well as architecture decision records (ADRs).</p>
 </div>
 <div class="paragraph">
 <p>To create a new blog post, create a new file in <code>src/docs/blog/&lt;year&gt;/&lt;post-name&gt;.adoc</code> with the following template:</p>
@@ -641,24 +656,21 @@ Use it to inform your team about changes and architecture decision records (ADRs
 <div class="sect2">
 <h3 id="_search">Search</h3>
 <div class="paragraph">
-<p>The microsite does not bring its own local search.
-Instead, it only has a search input-field which can be used to link to another search engine.</p>
+<p>The microsite does not have its own local search.
+But it does have a search input field which can be used to link to another search engine.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_cicd">CI/CD</h3>
 <div class="paragraph">
-<p>When run in an automated build, you should set the environment variable <code>DTC_HEADLESS</code> to <code>true</code> or <code>1</code> to ensure that docToolchain will not ask to install the configured theme.
-It will simply assume that you do want to install it.</p>
-</div>
-<div class="paragraph">
-<p>To avoid the download of the theme with every build, you can copy the themes folder from <code>$HOME/.doctoolchain/themes</code> to the corresponding folder in your build container.</p>
+<p>When running in an automated build, set the environment variable <code>DTC_HEADLESS</code> to <code>true</code> or <code>1</code>. This stops docToolchain from asking to install the configured theme, and it will simply assume that you do want to install it.
+You can also avoid the theme downloading with every build by copying the themes folder from <code>$HOME/.doctoolchain/themes</code> to the corresponding folder in your build container.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_see_also">See also</h3>
+<h3 id="_further_reading_and_resources">Further Reading and Resources</h3>
 <div class="paragraph">
-<p><a href="03_task_previewSite.html"><code>previewSite</code></a></p>
+<p>Read about the <code>previewSite</code> task <a href="03_task_previewSite.html">here.</a></p>
 </div>
 </div>
 <div class="sect2">

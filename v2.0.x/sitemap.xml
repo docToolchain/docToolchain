@@ -47,6 +47,11 @@
     </url>
 
     <url>
+    	<loc>https://localhost/025_development/005_contributing_to_docs.html</loc>
+    	<lastmod>2022-02-03</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/025_development/050_who-uses-dtc.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
@@ -57,12 +62,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/005_contributing_to_docs.html</loc>
-    	<lastmod>2022-02-03</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/10_about/30_community.html</loc>
+    	<loc>https://localhost/025_development/020_run_tests.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
 
@@ -77,7 +77,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/020_run_tests.html</loc>
+    	<loc>https://localhost/10_about/30_community.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
 
@@ -87,7 +87,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
+    	<lastmod>2022-02-03</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/UseCases.html</loc>
+    	<lastmod>2022-02-03</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Architect_notes_issue2.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
 
@@ -102,22 +112,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
-    	<lastmod>2022-02-03</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
-    	<lastmod>2022-02-03</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Architect_notes_issue2.html</loc>
-    	<lastmod>2022-02-03</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Activity_notes_issue1.html</loc>
+    	<loc>https://localhost/ea/readme.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
 
@@ -132,11 +127,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/readme.html</loc>
-    	<lastmod>2022-02-03</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/issue2.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
@@ -147,7 +137,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
+    	<lastmod>2022-02-03</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
+    	<lastmod>2022-02-03</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Activity_notes_issue1.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
 
@@ -172,12 +172,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/020_tutorial/100_diagrams.net.html</loc>
+    	<lastmod>2022-02-03</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/020_tutorial/040_generateSite.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/100_diagrams.net.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_copy_themes.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
 
@@ -192,17 +197,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportJiraIssues.html</loc>
-    	<lastmod>2022-02-03</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_copy_themes.html</loc>
-    	<lastmod>2022-02-03</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_exportMetrics.html</loc>
+    	<lastmod>2022-02-03</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportJiraIssues.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
 
@@ -242,17 +242,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
-    	<lastmod>2022-02-03</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_convertToDocx.html</loc>
+    	<lastmod>2022-02-03</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
 
@@ -272,11 +272,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
-    	<lastmod>2022-02-03</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_fixencoding.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
@@ -292,12 +287,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportOpenApi.html</loc>
+    	<lastmod>2022-02-03</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
 
@@ -337,12 +337,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/40_features.html</loc>
+    	<loc>https://localhost/010_manual/50_Frequently_asked_Questions.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/50_Frequently_asked_Questions.html</loc>
+    	<loc>https://localhost/010_manual/40_features.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
 
@@ -357,12 +357,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/20_install.html</loc>
+    	<loc>https://localhost/010_manual/040_contributors.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/040_contributors.html</loc>
+    	<loc>https://localhost/010_manual/20_install.html</loc>
     	<lastmod>2022-02-03</lastmod>
     </url>
 

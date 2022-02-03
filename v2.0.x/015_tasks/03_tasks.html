@@ -435,6 +435,7 @@
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
 <li><a href="#_what_is_a_task">What Is a Task?</a></li>
+<li><a href="#_at_a_glance">At a Glance</a></li>
 <li><a href="#_how_tasks_are_named">How Tasks Are Named</a>
 <ul class="sectlevel2">
 <li><a href="#_generatex">generateX</a></li>
@@ -473,15 +474,20 @@
 <h2 id="_what_is_a_task">What Is a Task?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>2 minutes to read</pre>
 </div>
 </div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_at_a_glance">At a Glance</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>A task is another name for a script which triggers the build actions which compile and publish your docs.
+<p>A task is another name for a script which triggers the build actions that compile and publish your docs.
 This diagram gives you an overview of the entire build process:</p>
 </div>
 <div class="imageblock">
@@ -502,7 +508,7 @@ There are currently 4 groups.</p>
 <div class="sect2">
 <h3 id="_generatex">generateX</h3>
 <div class="paragraph">
-<p>These tasks use plain old AsciiDoctor functionality to render the source to a given format.</p>
+<p>These tasks use plain old Asciidoctor functionality to render the source to a given format.</p>
 </div>
 </div>
 <div class="sect2">
@@ -518,7 +524,7 @@ because the tools needed for the export (such as Sparx Enterprise Architect or M
 <div class="sect2">
 <h3 id="_converttox">convertToX</h3>
 <div class="paragraph">
-<p>These tasks take the output from AsciiDoctor and convert it (through other tools) to the target format.
+<p>These tasks take the output from Asciidoctor and convert it (through other tools) to the target format.
 This results in a dependency on a <em>generateX</em> task and another external tool (currently <a href="https://pandoc.org">pandoc</a>).</p>
 </div>
 </div>
