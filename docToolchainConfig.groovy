@@ -1,3 +1,5 @@
+
+
 outputPath = 'build'
 
 // Path where the docToolchain will search for the input files.
@@ -196,10 +198,12 @@ confluence.with {
      - gradle variables set through gradle properties (uses the 'confluenceUser' and 'confluencePass' keys)
     Often, same credentials are used for Jira & Confluence, in which case it is recommended to pass CLI parameters for both entities as
     -Pusername=myUser -Ppassword=myPassword
+    - in case using bearer authentication set token value to the bearerToken
     */
 
     //optional API-token to be added in case the credentials are needed for user and password exchange.
     //apikey = "[API-token]"
+    bearerToken = ''
 
     // HTML Content that will be included with every page published
     // directly after the TOC. If left empty no additional content will be

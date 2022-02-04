@@ -131,11 +131,7 @@ def addLabels = { def pageId, def labelsArray ->
     def api = new RESTClient(config.confluence.api)
     //this fixes the encoding (dierk42: Is this needed here? Don't know)
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
-
-    def headers = [
-            'Authorization': 'Basic ' + config.confluence.credentials,
-            'X-Atlassian-Token':'no-check'
-    ]
+    def headers = getHeaders()
     // Attach each label in a API call of its own. The only prefix possible
     // in our own Confluence is 'global'
     labelsArray.each { label ->
@@ -174,16 +170,7 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
     if (config.confluence.proxy) {
         api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
     }
-
-    def headers = [
-            'Authorization': 'Basic ' + config.confluence.credentials,
-            'X-Atlassian-Token':'no-check'
-    ]
-    //Add api key and value to REST API request header if configured - required for authentification.
-    if (config.confluence.apikey)
-    {
-       headers.keyid = config.confluence.apikey
-    }
+   def headers = getHeaders()
     //check if attachment already exists
     def result = "nothing"
     def attachment = api.get(path: 'content/' + pageId + '/child/attachment',
@@ -193,10 +180,7 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
     def http
     if (attachment.size==1) {
         // attachment exists. need an update?
-        def remoteHash = 0
-        if (attachment.results[0].extensions.comment != null) {
-            remoteHash = attachment.results[0].extensions.comment.replaceAll("(?sm).*#([^#]+)#.*",'$1')
-        }
+        def remoteHash = attachment.results[0].extensions.comment.replaceAll("(?sm).*#([^#]+)#.*",'$1')
         if (remoteHash!=localHash) {
             //hash is different -> attachment needs to be updated
             http = new HTTPBuilder(config.confluence.api + 'content/' + pageId + '/child/attachment/' + attachment.results[0].id + '/data')
@@ -204,12 +188,12 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
         }
     } else {
         http = new HTTPBuilder(config.confluence.api + 'content/' + pageId + '/child/attachment')
-
+        
     }
-    if (http) {
+    if (http) {																												
 		if (config.confluence.proxy) {
             http.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
-        }
+        } 
 		
         http.request(Method.POST) { req ->
             requestContentType: "multipart/form-data"
@@ -389,7 +373,7 @@ def rewriteJiraLinks = { body ->
     // find links to jira tickets and replace them with jira macros
     body.select('a[href]').each { a ->
         def href = a.attr('href')
-        if (href.startsWith(config.jira.api + "/browse/")) {
+        if (href.startsWith(config.jira.api + "/browse/")) { 
                 def ticketId = a.text()
                 a.before("""<ac:structured-macro ac:name=\"jira\" ac:schema-version=\"1\">
                      <ac:parameter ac:name=\"key\">${ticketId}</ac:parameter>
@@ -584,15 +568,7 @@ def parseBody =  { body, anchors, pageAnchors ->
 // #342-dierk42: added parameter 'keywords'
 def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnchors, keywords ->
     def api = new RESTClient(config.confluence.api)
-    def headers = [
-            'Authorization': 'Basic ' + config.confluence.credentials,
-            'Content-Type':'application/json; charset=utf-8'
-    ]
-    //Add api key and value to REST API request header if configured - required for authentification.
-    if (config.confluence.apikey)
-    {
-       headers.keyid = config.confluence.apikey
-    }
+    def headers = getHeaders()
     String realTitleLC = realTitle(pageTitle).toLowerCase()
 
     //this fixes the encoding
@@ -765,11 +741,9 @@ def promoteHeaders = { tree, start, offset ->
 }
 
 def retrievePageIdByName = { String name ->
-        def api = new RESTClient(config.confluence.api)
-        def headers = [
-            'Authorization': 'Basic ' + config.confluence.credentials,
-            'Content-Type':'application/json; charset=utf-8'
-        ]
+    def api = new RESTClient(config.confluence.api)
+    def headers = getHeaders()
+
         trythis {
             def request = [
                 'title'    : name,
@@ -783,6 +757,28 @@ def retrievePageIdByName = { String name ->
                 ]
             ).data.results?.getAt(0)?.id
         } ?: null
+}
+
+def getHeaders(){
+    println 'Start getting headers'
+    def headers
+    if(config.confluence.bearerToken){
+        headers = [
+                'Authorization': 'Bearer ' + config.confluence.bearerToken,
+                'X-Atlassian-Token':'no-check'            
+        ]         
+         println 'Start using bearer auth'     
+    } else {
+        headers = [
+                'Authorization': 'Basic ' + config.confluence.credentials,
+                'X-Atlassian-Token':'no-check'
+        ]     
+        //Add api key and value to REST API request header if configured - required for authentification.
+        if (config.confluence.apikey){
+            headers.keyid = config.confluence.apikey
+        }
+    }
+    return headers
 }
 
 config.confluence.input.each { input ->
