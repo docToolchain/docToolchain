@@ -119,7 +119,13 @@ else {
     $confirmation = Read-Host "Do you wish to install doctoolchain to '$dtcw_path\'? [Y/N]"
     if ($confirmation -eq 'y') {
         New-Item -Path $home_path -Name $folder_name -ItemType "directory" -Force | Out-Null
-        Invoke-WebRequest $distribution_url -OutFile "$dtcw_path\source.zip"
+        # Use System Proxy Settings
+        $proxy = ([System.Net.WebRequest]::GetSystemWebproxy()).GetProxy($distribution_url)
+        if ($proxy) {
+            Invoke-WebRequest $distribution_url -OutFile "$dtcw_path\source.zip" -Proxy $proxy -ProxyUseDefaultCredentials
+        } else {
+            Invoke-WebRequest $distribution_url -OutFile "$dtcw_path\source.zip"
+        }
         Expand-Archive -LiteralPath "$dtcw_path\source.zip" -DestinationPath "$dtcw_path\"
         # Remove-Item "$dtcw_path\source.zip"     #  << Remove .zip ?
         $command = "&'$dtcw_path\docToolchain-$version\bin\doctoolchain.bat' . $commandArgs $DTC_OPTS"
