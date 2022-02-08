@@ -6,7 +6,7 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 include::../_feedback.adoc[]
 
-Explore resources and technologies to help you with your docToolchain.
+Everything you need to know about docToolchain, from the underlying technology to useful resources.
 
 == Underlying Technologies
 
@@ -14,36 +14,61 @@ DocToolchain uses many underlying technologies. Explore the list with some resou
 
 === Markup
 
-* *AsciiDoc* +
-AsciiDoc is our preferred markup language for technical docs.
+.AsciiDoc
+[%collapsible]
+==== 
+This is our preferred markup language for technical docs.
+
 ** https://asciidoctor.org/docs/user-manual/[Asciidoctor User-Manual]
 ** https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Syntax Quick Reference]
 ** https://www.ahus1.de/post/asciidoctor-intro-and-deep-dive["Asciidoctor Deep Dive Video"] by Alexander Schwartz
-* *Markdown* +
-you can write your docs in Markdown since we use jBake as Static-Site-Generator.
-** The Markdown parser and flavor used by jBake is https://github.com/vsch/flexmark-java[flexmark-java].
-** https://github.com/bodiam/markdown-to-asciidoc[markdown-to-asciidoc] library is used if you prefer to use xref:../015_tasks/03_task_exportMarkdown.adoc[`exportMarkdown`]-Task. The IntelliJ-Plugin also uses this library.
+
+====
+
+
+.Markdown
+[%collapsible]
+==== 
+Since we use jBake as Static-Site-Generator, you can write your docs in Markdown too.
+
+** https://github.com/vsch/flexmark-java[flexmark-java] is the Markdown parser and flavor jBake uses
+** https://github.com/bodiam/markdown-to-asciidoc[markdown-to-asciidoc] library can be used if you prefer to use xref:../015_tasks/03_task_exportMarkdown.adoc[`exportMarkdown`]-Task. 
+
+====
 
 === Templates
+.arc42
+[%collapsible]
+==== 
 
-* *arc42* +
-is perfect for documenting your sofwtare solution architecture.
+The perfect template for your software solution architecture documentation.
+
 ** https://arc42.org/[arc42]
 ** https://docs.arc42.org/home/[arc42 Tips & Tricks]
 ** https://faq.arc42.org/home/[arc42 FAQ]
+==== 
 
 === Docs-as-Code
+.docs-as-code
+[%collapsible]
+==== 
 
-* *docs-as-code* +
-Treat your docs as if they were code by using this approach. 
+Treat your docs as if they were code.
+
 ** https://docs-as-co.de/[Docs-as-Code]
 ** https://www.writethedocs.org/guide/docs-as-code/[write the docs: docs-as-code]
+==== 
 
 === Static Site Generator
+.Static site Generator
+[%collapsible]
+==== 
 
-* https://jbake.org[jBake] is the underlying static site generator for the xref:../015_tasks/03_task_generateSite.adoc[`generateSite`]-Task
-* https://www.docsy.dev/[docsy] is the standard theme we use
-* https://getbootstrap.com/docs/4.6/getting-started/introduction/[twitter bootstrap] is the CSS framework
+* The underlying static site generator for the xref:../015_tasks/03_task_generateSite.adoc[`generateSite`]-Task: https://jbake.org[jBake]
+* Our standard theme: https://www.docsy.dev/[docsy] 
+* Our CSS framework: https://getbootstrap.com/docs/4.6/getting-started/introduction/[twitter bootstrap] 
+
+==== 
 
 == Books
 
