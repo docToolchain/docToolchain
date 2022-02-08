@@ -74,21 +74,32 @@ Treat your docs as if they were code.
 
 NOTE: These are Amazon affiliate links.
 
-=== English Books
 
-* https://www.amazon.de/dp/B0784ZJWSR[DOCS-LIKE-CODE] by Anne Gentle
-* https://amzn.to/2sn0kyx[Modern technical writing:
-An Introduction to Software Documentation] by Andrew Etter
-* https://leanpub.com/arc42byexample[arc42 by Example] by Gernot Starke, Stefan Zörner, Michael Simons, Ralf D. Müller
-* https://leanpub.com/arc42inpractice[Communicating Software Architectures with arc42] by Gernot Starke und Peter Hruschka
-* https://leanpub.com/visualising-software-architecture[Visualise, document and explore your software architecture] by Simon Brown
+[width="80%",cols="2,^2,^10",options="header"]
+|=========================================================
+|Title |Author |Language
 
-=== German Books
+|https://www.amazon.de/dp/B0784ZJWSR[DOCS-LIKE-CODE] | Anne Gentle | English 
+ 
+|https://amzn.to/2sn0kyx[Modern technical writing:
+An Introduction to Software Documentation] |Andrew Etter | English 
 
-* https://amzn.to/2smM5Kp[arc42 in Aktion:
-Praktische Tipps zur Architekturdokumentation] von Gernot Starke und Peter Hruschka
-* https://amzn.to/2ru9Yvr[Softwarearchitekturen dokumentieren und kommunizieren:
-Entwürfe, Entscheidungen und Lösungen nachvollziehbar und wirkungsvoll festhalten] von Stefan Zörner
+|https://leanpub.com/arc42byexample[arc42 by Example] | Gernot Starke, Stefan Zörner, Michael Simons, Ralf D. Müller | English
+
+
+|https://leanpub.com/arc42inpractice[Communicating Software Architectures with arc42] | Gernot Starke und Peter Hruschka | English 
+
+|https://leanpub.com/visualising-software-architecture[Visualise, document and explore your software architecture] | Simon Brown | English 
+
+|https://amzn.to/2smM5Kp[arc42 in Aktion:
+Praktische Tipps zur Architekturdokumentation] |von Gernot Starke and Peter Hruschka40:00 | German
+
+|https://amzn.to/2ru9Yvr[Softwarearchitekturen dokumentieren und kommunizieren:
+Entwürfe, Entscheidungen und Lösungen nachvollziehbar und wirkungsvoll festhalten] |von Stefan Zörner | German
+
+|=========================================================
+
+
 
 == Past and upcoming Talks
 
