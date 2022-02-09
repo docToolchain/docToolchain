@@ -788,10 +788,10 @@ config.confluence.input.each { input ->
     println "publish ${input.file}"
 
     if (input.file ==~ /.*[.](ad|adoc|asciidoc)$/) {
-        println "convert ${input.file}"
-        "groovy asciidoc2html.groovy ${input.file}".execute()
-        input.file = input.file.replaceAll(/[.](ad|adoc|asciidoc)$/, '.html')
-        println "to ${input.file}"
+        println "HINT:"
+        println "please first convert ${input.file} to html by executing generateHTML"
+        println "the generated file will be found in build/html5/. and has to be referenced instead of the .adoc file"
+        throw new RuntimeException("config problem")
     }
 //  assignend, but never used in pushToConfluence(...) (fixed here)
     confluenceSpaceKey = input.spaceKey ?: config.confluence.spaceKey
