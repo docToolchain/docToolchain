@@ -76,21 +76,20 @@ Treat your docs as if they were code.
 NOTE: These are Amazon affiliate links.
 
 
-[width="80%",cols="2,^2,^10",options="header"]
+[width="80%",cols="<,<,<",options="header"]
 |=========================================================
-|Title |Author |Language
+<|Title <|Author <|Language
 
-|https://www.amazon.de/dp/B0784ZJWSR[DOCS-LIKE-CODE] | Anne Gentle | English 
+|https://www.amazon.de/dp/B0784ZJWSR[Docs Like Code] | Anne Gentle | English 
  
-|https://amzn.to/2sn0kyx[Modern technical writing:
-An Introduction to Software Documentation] |Andrew Etter | English 
+|https://amzn.to/2sn0kyx[Modern Technical Writing: An Introduction to Software Documentation] |Andrew Etter | English 
 
 |https://leanpub.com/arc42byexample[arc42 by Example] | Gernot Starke, Stefan Zörner, Michael Simons, Ralf D. Müller | English
 
 
 |https://leanpub.com/arc42inpractice[Communicating Software Architectures with arc42] | Gernot Starke und Peter Hruschka | English 
 
-|https://leanpub.com/visualising-software-architecture[Visualise, document and explore your software architecture] | Simon Brown | English 
+|https://leanpub.com/visualising-software-architecture[Software Architecture for Developers, Volume 2] | Simon Brown | English 
 
 |https://amzn.to/2smM5Kp[arc42 in Aktion:
 Praktische Tipps zur Architekturdokumentation] |von Gernot Starke and Peter Hruschka40:00 | German
@@ -99,8 +98,3 @@ Praktische Tipps zur Architekturdokumentation] |von Gernot Starke and Peter Hrus
 Entwürfe, Entscheidungen und Lösungen nachvollziehbar und wirkungsvoll festhalten] |von Stefan Zörner | German
 
 |=========================================================
-
-
-== Interested in learning more? 
-Browse some of our favorite blog, articles, tutorials and talks about https://docs-as-co.de/furtherreading[docToolchain]   
-image:https://github.com/docToolchain/docs-as-co.de/blob/master/images/docToolchain.png[Linux,25,35]
