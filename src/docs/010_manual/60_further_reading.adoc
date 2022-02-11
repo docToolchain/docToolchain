@@ -10,7 +10,7 @@ Everything you need to know about docToolchain, from the underlying technology t
 
 == Underlying Technologies
 
-DocToolchain uses many underlying technologies. Explore the list with some resources.
+Learn more about the technologies that support docToolchain, as well as some useful resources.
 
 === Markup
 
@@ -29,10 +29,11 @@ This is our preferred markup language for technical docs.
 .Markdown
 [%collapsible]
 ==== 
-Since we use jBake as Static-Site-Generator, you can write your docs in Markdown too.
+Since we use JBake as a static site generator, you can write your docs in Markdown too.
 
-** https://github.com/vsch/flexmark-java[flexmark-java] is the Markdown parser and flavor jBake uses
-** https://github.com/bodiam/markdown-to-asciidoc[markdown-to-asciidoc] library can be used if you prefer to use xref:../015_tasks/03_task_exportMarkdown.adoc[`exportMarkdown`]-Task. 
+** https://github.com/vsch/flexmark-java[flexmark-java] is the Markdown parser and flavor jBake uses.
+** https://github.com/bodiam/markdown-to-asciidoc[markdown-to-asciidoc] library can be used if you prefer to use the xref:../015_tasks/03_task_exportMarkdown.adoc[`exportMarkdown`]-Task. 
+
 
 ====
 
@@ -48,8 +49,8 @@ The perfect template for your software solution architecture documentation.
 ** https://faq.arc42.org/home/[arc42 FAQ]
 ==== 
 
-=== Docs-as-Code
-.docs-as-code
+=== Docs as Code
+.Docs as Code
 [%collapsible]
 ==== 
 
@@ -60,13 +61,13 @@ Treat your docs as if they were code.
 ==== 
 
 === Static Site Generator
-.Static site Generator
+.Static Site Generator
 [%collapsible]
 ==== 
 
-* The underlying static site generator for the xref:../015_tasks/03_task_generateSite.adoc[`generateSite`]-Task: https://jbake.org[jBake]
-* Our standard theme: https://www.docsy.dev/[docsy] 
-* Our CSS framework: https://getbootstrap.com/docs/4.6/getting-started/introduction/[twitter bootstrap] 
+* The underlying static site generator for the xref:../015_tasks/03_task_generateSite.adoc[`generateSite`]-Task is https://jbake.org[jBake]
+* Our standard theme is https://www.docsy.dev/[docsy] 
+* Our CSS framework is https://getbootstrap.com/docs/4.6/getting-started/introduction/[Twitter Bootstrap] 
 
 ==== 
 
