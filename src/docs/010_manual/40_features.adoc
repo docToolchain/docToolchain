@@ -7,5 +7,6 @@
 
 include::../_feedback.adoc[]
 
-docToolchain implements quite a lot of features via scripts which you call through the command line.
-We call these `tasks` and they are listed under the top-level menu xref:../015_tasks/03_tasks.adoc[Tasks] in this documentation.
+docToolchain implements many features via scripts, which you call through the command line. These scripts are called `tasks` in this documentation.
+
+Learn more about these scripts in the xref:../015_tasks/03_tasks.adoc[Tasks] menu.
