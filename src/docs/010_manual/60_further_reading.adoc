@@ -6,6 +6,8 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 include::../_feedback.adoc[]
 
+== Introduction
+
 Everything you need to know about docToolchain, from the underlying technology to useful resources.
 
 == Underlying Technologies
