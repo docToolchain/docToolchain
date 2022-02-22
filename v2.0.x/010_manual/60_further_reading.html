@@ -280,9 +280,8 @@
 <ul class="sectlevel1">
 <li><a href="#_useful_resources">Useful Resources</a>
 <ul class="sectlevel2">
+<li><a href="#_introduction">Introduction</a></li>
 <li><a href="#_underlying_technologies">Underlying Technologies</a></li>
-<li><a href="#_books">Books</a></li>
-<li><a href="#_past_and_upcoming_talks">Past and upcoming Talks</a></li>
 </ul>
 </li>
 </ul>
@@ -309,29 +308,32 @@
 <h2 id="_useful_resources">Useful Resources</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Stefan Pfeiffer" width="32" height="32" title="Stefan Pfeiffer"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/af2ddd81694aba35cd520f469ab0c42?d=identicon" alt="Bennykillua" width="32" height="32" title="Bennykillua"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Stefan Pfeiffer" width="32" height="32" title="Stefan Pfeiffer"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>4 minutes to read</pre>
+<pre>2 minutes to read</pre>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_introduction">Introduction</h3>
 <div class="paragraph">
-<p>This chapter lists some additional references to interesting resources.</p>
+<p>Everything you need to know about docToolchain, from the underlying technology to useful resources.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_underlying_technologies">Underlying Technologies</h3>
 <div class="paragraph">
-<p>This project relies on many underlying technologies.
-Here is a lists and some explaining words</p>
+<p>Learn more about the technologies that support docToolchain, as well as some useful resources.</p>
 </div>
 <div class="sect3">
 <h4 id="_markup">Markup</h4>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>AsciiDoc</strong><br>
-AsciiDoc is our preferred markup language for technical docs</p>
+<details>
+<summary class="title">AsciiDoc</summary>
+<div class="content">
+<div class="paragraph">
+<p>This is our preferred markup language for technical docs.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -341,35 +343,42 @@ AsciiDoc is our preferred markup language for technical docs</p>
 <p><a href="https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/">AsciiDoc Syntax Quick Reference</a></p>
 </li>
 <li>
-<p>Video: <a href="https://www.ahus1.de/post/asciidoctor-intro-and-deep-dive">"Asciidoctor Deep Dive"</a> by Alexander Schwartz</p>
+<p><a href="https://www.ahus1.de/post/asciidoctor-intro-and-deep-dive">"Asciidoctor Deep Dive Video"</a> by Alexander Schwartz</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p><strong>Markdown</strong><br>
-Since we use jBake as Static-Site-Generator, you can also use Markdown to write your docs.</p>
+<div class="exampleblock">
+<div class="content">
+
+</div>
+</div>
+</div>
+</details>
+<div class="paragraph">
+<p>Since we use JBake as a static site generator, you can write your docs in Markdown too.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/vsch/flexmark-java">flexmark-java</a> is the Markdown parser and flavour used by jBake</p>
+<p><a href="https://github.com/vsch/flexmark-java">flexmark-java</a> is the Markdown parser and flavor jBake uses.</p>
 </li>
 <li>
-<p>if you prefer to use the <a href="../015_tasks/03_task_exportMarkdown.html"><code>exportMarkdown</code></a>-Task, then <a href="https://github.com/bodiam/markdown-to-asciidoc">markdown-to-asciidoc</a> library is used. The IntelliJ-Plugin also uses this library.</p>
+<p><a href="https://github.com/bodiam/markdown-to-asciidoc">markdown-to-asciidoc</a> library can be used if you prefer to use the <a href="../015_tasks/03_task_exportMarkdown.html"><code>exportMarkdown</code></a>-Task.</p>
 </li>
 </ul>
 </div>
-</li>
-</ul>
+<div class="exampleblock">
+<div class="content">
+<div class="paragraph">
+<p>==== Templates
+.arc42</p>
 </div>
+<details>
+<summary class="title">Details</summary>
+<div class="content">
+<div class="paragraph">
+<p>The perfect template for your software solution architecture documentation.</p>
 </div>
-<div class="sect3">
-<h4 id="_templates">Templates</h4>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>arc42</strong><br>
-is the perfect documentation template for your softare solution architecture documentation.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -383,51 +392,55 @@ is the perfect documentation template for your softare solution architecture doc
 </li>
 </ul>
 </div>
-</li>
-</ul>
 </div>
+</details>
+<div class="paragraph">
+<p>==== Docs as Code
+.Docs as Code</p>
 </div>
-<div class="sect3">
-<h4 id="_docs_as_code">Docs-as-Code</h4>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>docs-as-code</strong><br>
-is the approach you use when you treat your docs the same as your code.
-We&#8217;ve create a little microsite with some additional resources.</p>
+<details>
+<summary class="title">Details</summary>
+<div class="content">
+<div class="paragraph">
+<p>Treat your docs as if they were code.</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
 <p><a href="https://docs-as-co.de/">Docs-as-Code</a></p>
 </li>
 <li>
-<p><a href="https://www.writethedocs.org/guide/docs-as-code/">write the docs: docs-as-code</a> is another independent resource.</p>
+<p><a href="https://www.writethedocs.org/guide/docs-as-code/">write the docs: docs-as-code</a></p>
 </li>
 </ul>
 </div>
-</li>
-</ul>
 </div>
+</details>
+<div class="paragraph">
+<p>==== Static Site Generator
+.Static Site Generator</p>
 </div>
-<div class="sect3">
-<h4 id="_static_site_generator">Static Site Generator</h4>
+<details>
+<summary class="title">Details</summary>
+<div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://jbake.org">jBake</a> is the underlying static site generator for the <a href="../015_tasks/03_task_generateSite.html"><code>generateSite</code></a>-Task</p>
+<p>The underlying static site generator for the <a href="../015_tasks/03_task_generateSite.html"><code>generateSite</code></a>-Task is <a href="https://jbake.org">jBake</a></p>
 </li>
 <li>
-<p><a href="https://www.docsy.dev/">docsy</a> is the standard theme we use</p>
+<p>Our standard theme is <a href="https://www.docsy.dev/">docsy</a></p>
 </li>
 <li>
-<p><a href="https://getbootstrap.com/docs/4.6/getting-started/introduction/">twitter bootstrap</a> is the CSS framework</p>
+<p>Our CSS framework is <a href="https://getbootstrap.com/docs/4.6/getting-started/introduction/">Twitter Bootstrap</a></p>
 </li>
 </ul>
 </div>
 </div>
+</details>
+<div class="paragraph">
+<p>=== Books</p>
 </div>
-<div class="sect2">
-<h3 id="_books">Books</h3>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -435,104 +448,64 @@ We&#8217;ve create a little microsite with some additional resources.</p>
 <div class="title">Note</div>
 </td>
 <td class="content">
-links to Amazon are affiliate links
+These are Amazon affiliate links.
 </td>
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="_english_books">English Books</h4>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://www.amazon.de/dp/B0784ZJWSR">DOCS-LIKE-CODE</a> by Anne Gentle</p>
-</li>
-<li>
-<p><a href="https://amzn.to/2sn0kyx">Modern technical writing:
-An Introduction to Software Documentation</a> by Andrew Etter</p>
-</li>
-<li>
-<p><a href="https://leanpub.com/arc42byexample">arc42 by Example</a> by Gernot Starke, Stefan Zörner, Michael Simons, Ralf D. Müller</p>
-</li>
-<li>
-<p><a href="https://leanpub.com/arc42inpractice">Communicating Software Architectures with arc42</a> by Gernot Starke und Peter Hruschka</p>
-</li>
-<li>
-<p><a href="https://leanpub.com/visualising-software-architecture">Visualise, document and explore your software architecture</a> by Simon Brown</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_german_books">German Books</h4>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://amzn.to/2smM5Kp">arc42 in Aktion:
-Praktische Tipps zur Architekturdokumentation</a> von Gernot Starke und Peter Hruschka</p>
-</li>
-<li>
-<p><a href="https://amzn.to/2ru9Yvr">Softwarearchitekturen dokumentieren und kommunizieren:
-Entwürfe, Entscheidungen und Lösungen nachvollziehbar und wirkungsvoll festhalten</a> von Stefan Zörner</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_past_and_upcoming_talks">Past and upcoming Talks</h3>
-<div class="sect3">
-<h4 id="_dokumentation_am_riesen_beispiel_arc42_asciidoc_und_co_in_aktion">Dokumentation am (Riesen-)Beispiel – arc42, AsciiDoc und Co. in Aktion</h4>
-<div class="paragraph">
-<p><a href="https://twitter.com/gernotstarke">Gernot Starke</a> and <a href="https://twitter.com/ralfdmueller">Ralf D.
-Müller</a></p>
-</div>
-<div class="paragraph">
-<p>Anhand eines großen Systems zeigen Gernot und Ralf, wie Sie mit ziemlich wenig Aufwand angemessene und vernünftige Dokumentation für unterschiedliche Stakeholder produzieren – sodass Entwicklungsteams dabei auch noch Spaß haben.</p>
-</div>
-<div class="paragraph">
-<p>Unser Rezept:
-AsciiDoc mit arc42 mischen, Automatisierung mit Gradle und Maven hinzufügen und mit Diagramm- oder Modellierungstools Ihrer Wahl kombinieren.
-Schon sind schicke HTML- und reviewfähige PDF-Dokumente fertig.
-Auf Wunsch gibts DOCX und Confluence als Zugabe.</p>
-</div>
-<div class="paragraph">
-<p>Wir zeigen, wie Sie Doku genau wie Quellcode verwalten können, stakeholderspezifische Dokumente erzeugen und Diagramme automatisiert integrieren können.
-Einige Teile dieser Doku können Sie sogar automatisiert testen.</p>
-</div>
-<div class="paragraph">
-<p>Zwischendurch bekommen Sie zahlreiche Tipps, wie und wo Sie systematisch den Aufwand für Dokumentation reduzieren können und trotzdem lesbare, verständliche und praxistaugliche Ergebnisse produzieren.</p>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<a class="image" href="https://speakerdeck.com/rdmueller/dokumentation-am-riesen-beispiel-arc42-asciidoc-und-co-in-aktion"><img src="../images/manual/speakerdeck1.png" alt="speakerdeck1"></a>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_gesunde_dokumentation_mit_asciidoctor">Gesunde Dokumentation mit AsciiDoctor</h4>
-<div class="paragraph">
-<p><a href="https://twitter.com/ahus1de">Alexander Schwartz</a></p>
-</div>
-<div class="paragraph">
-<p>Autoren möchten Inhalte effizient dokumentieren und vorhandene Inhalte wiederverwenden.
-Ein Leser möchte das Dokument in einem ansprechenden Layout präsentiert bekommen.</p>
-</div>
-<div class="paragraph">
-<p>Das textbasierte AsciiDoc-Format bietet für einen Entwickler oder technischen Redakteur alle notwendigen Auszeichungselemente, um auch anspruchsvolle Dokumente zu schreiben.
-So werden unter anderem Tabellen, Fußnoten und annotierte Quellcodes unterstützt.
-Gleichzeitig ist es ähnlich leichtgewichtig wie z.B. das Markdown Format.
-Für die Leser wird HTML, PDF oder EPUB generiert.</p>
-</div>
-<div class="paragraph">
-<p>Da AsciiDoc wie Programmcode eingecheckt wird und Merge-Operationen einfach möglich sind, können Programmcode und Dokumentation zusammen versioniert und auf einem einheitlichen Stand gehalten werden.</p>
-</div>
-<div class="paragraph">
-<p>Der Vortrag gibt eine kurze Einführung in AsciiDoc und die dazugehörigen Werkzeuge.</p>
-</div>
-<div class="imageblock text-center">
-<div class="content">
-<a class="image" href="https://speakerdeck.com/ahus1/gesunde-dokumentation-mit-asciidoctor"><img src="../images/manual/speakerdeck2.png" alt="speakerdeck2"></a>
+<table class="tableblock frame-all grid-all" style="width: 80%;">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Title</th>
+<th class="tableblock halign-left valign-top">Author</th>
+<th class="tableblock halign-left valign-top">Language</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://www.amazon.com/dp/1387081322">Docs Like Code</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anne Gentle</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">English</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://amzn.to/2sn0kyx">Modern Technical Writing: An Introduction to Software Documentation</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Andrew Etter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">English</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://leanpub.com/arc42byexample">arc42 by Example</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gernot Starke, Stefan Zörner, Michael Simons, Ralf D. Müller</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">English</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://leanpub.com/arc42inpractice">Communicating Software Architectures with arc42</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gernot Starke und Peter Hruschka</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">English</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://leanpub.com/visualising-software-architecture">Software Architecture for Developers, Volume 2</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Simon Brown</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">English</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://amzn.to/2smM5Kp">arc42 in Aktion:
+Praktische Tipps zur Architekturdokumentation</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">von Gernot Starke and Peter Hruschka40:00</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">German</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://amzn.to/2ru9Yvr">Softwarearchitekturen dokumentieren und kommunizieren:
+Entwürfe, Entscheidungen und Lösungen nachvollziehbar und wirkungsvoll festhalten</a></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">von Stefan Zörner</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">German</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 </div>
