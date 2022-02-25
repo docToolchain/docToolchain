@@ -9,6 +9,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+2022-02-25::
+* https://github.com/docToolchain/docToolchain/pull/803[#764 order :jbake-order: numerical]
 2021-12-20::
 * brushed up docs
 2021-12-06::
