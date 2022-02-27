@@ -193,3 +193,24 @@ An easy way to test you configuration is to run `xeyes` in WSL.
 
 NOTE:: Please make sure that you wsl is up-to-date bei executing `wsl --update` - this is not part of your regular windows update!
 ====
+
+=== I get an error 'Failed to create parent directory /project/.gradle'
+
+----
+> Gradle could not start your build.
+> Could not create service of type CrossBuildFileHashCache using BuildSessionServices.createCrossBuildFileHashCache().
+   > Failed to create parent directory '/project/.gradle' when creating directory '/project/.gradle/6.7.1/fileHashes'
+----
+
+.Answer
+[%collapsible]
+====
+This issue might occure in CI enviroments (e.g. Bamboo) with resticted permissions in the working folder where files or directories created outside the container might not be accessible inside the container. Therefore before starting the container you can set e.g. the working directory with max permissions for allowing access from the user inside the docker container.
+
+
+```
+chmod -R o+rwx ${bamboo.working.directory}
+./dtcw generateSite
+
+```
+====
