@@ -189,7 +189,7 @@ Another solution is to avoid PlantUML and generate Diagrams through a https://kr
 
 Another variant of this is `Can't connect to X11 window server using '192.168.189.153:0' as the value of the DISPLAY variable.`.
 In this case, it might help to install an X-Server (x410 for example) and configure the `DISPLAY` variable correctly.
-An easy way to test you configuration is to run `xeyes` in WSL.
+An easy way to test your configuration is to run `xeyes` in WSL.
 
-NOTE:: Please make sure that you wsl is up-to-date bei executing `wsl --update` - this is not part of your regular windows update!
+Make sure that your WSL is up to date by running `wsl --update`. This is not part of your regular Windows update!
 ====
