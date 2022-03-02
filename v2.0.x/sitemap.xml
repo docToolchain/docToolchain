@@ -87,11 +87,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/10_about/10_about-the-project.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/Use_Cases_links.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
@@ -108,6 +103,26 @@
 
     <url>
     	<loc>https://localhost/ea/Architect_notes.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Activity_notes.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/10_about/10_about-the-project.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/issue1.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/readme.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -132,27 +147,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Activity_notes.html</loc>
+    	<loc>https://localhost/ea/issue2.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/020_tutorial/030_generateHTML.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/issue1.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/readme.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/issue2.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -167,11 +167,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/100_diagrams.net.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/020_tutorial/050_multipleRepositories.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
@@ -182,7 +177,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateHTML.html</loc>
+    	<loc>https://localhost/020_tutorial/100_diagrams.net.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -202,7 +197,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_publishToConfluence.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_generateHTML.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -213,6 +208,11 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportDrawIo.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_publishToConfluence.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -242,12 +242,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -267,17 +267,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_fixencoding.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_createReferenceDoc.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_tasks.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -287,17 +277,27 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_fixencoding.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportOpenApi.html</loc>
+    	<loc>https://localhost/015_tasks/03_tasks.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportOpenApi.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -308,16 +308,6 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_collectIncludes.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_generatePDF.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -333,6 +323,16 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_generateSite.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_generatePDF.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
