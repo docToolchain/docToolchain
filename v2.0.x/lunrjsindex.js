@@ -66,22 +66,6 @@ var documents = [
 
 {
     "id": 8,
-    "uri": "025_development/050_who-uses-dtc.html",
-    "menu": "-",
-    "title": "moved",
-    "text": " document.location.href = '../10_about/10_about-the-project.html'; "
-},
-
-{
-    "id": 9,
-    "uri": "025_development/040_debugging.html",
-    "menu": "development",
-    "title": "Debugging",
-    "text": " Table of Contents Debugging Environment Gradle jBake Templates Theming, Menu and Images Debugging 2 minutes to read Things not working as you expected? Here are some tips that might help you. Environment To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect. Gradle You get more hints about what is going on with Gradle when you add the --info flag to your ./dtcw generateSite command: ./dtcw generateSite --info This outputs all config settings as seen by docToolchain along with many other internal settings. jBake Templates If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println otherwise you won’t see any output. Theming, Menu and Images How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files. Check the build/microsite/tmp folder to see the folder that is fed into jBake. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the build/microsite/output folder to see the generated result. This often helps you to find out where an image actually is located. "
-},
-
-{
-    "id": 10,
     "uri": "025_development/030_create_new_release.html",
     "menu": "development",
     "title": "Creating a New Release",
@@ -89,7 +73,7 @@ var documents = [
 },
 
 {
-    "id": 11,
+    "id": 9,
     "uri": "025_development/005_contributing_to_docs.html",
     "menu": "development",
     "title": "Contributing to Docs",
@@ -97,23 +81,23 @@ var documents = [
 },
 
 {
+    "id": 10,
+    "uri": "025_development/050_who-uses-dtc.html",
+    "menu": "-",
+    "title": "moved",
+    "text": " document.location.href = '../10_about/10_about-the-project.html'; "
+},
+
+{
+    "id": 11,
+    "uri": "025_development/040_debugging.html",
+    "menu": "development",
+    "title": "Debugging",
+    "text": " Table of Contents Debugging Environment Gradle jBake Templates Theming, Menu and Images Debugging 2 minutes to read Things not working as you expected? Here are some tips that might help you. Environment To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect. Gradle You get more hints about what is going on with Gradle when you add the --info flag to your ./dtcw generateSite command: ./dtcw generateSite --info This outputs all config settings as seen by docToolchain along with many other internal settings. jBake Templates If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println otherwise you won’t see any output. Theming, Menu and Images How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files. Check the build/microsite/tmp folder to see the folder that is fed into jBake. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the build/microsite/output folder to see the generated result. This often helps you to find out where an image actually is located. "
+},
+
+{
     "id": 12,
-    "uri": "10_about/30_community.html",
-    "menu": "about",
-    "title": "Acknowledgements and Contributors",
-    "text": " Table of Contents Acknowledgements and Contributors Why Contributions Matter Get Involved! Our Contributors Acknowledgements and Contributors 2 minutes to read Why Contributions Matter Without our amazing community of contributors, the docToolchain project wouldn’t exist in its current form. As an open source project, we depend on the skills and expertise of many to deliver a quality outcome. From developers to technical writers, many people have made valuable contributions to the code and the docs. We’re so grateful to them. We are also thankful for those in our community who take the time to give feedback, create issues, answer questions and send pull requests. Get Involved! There are so many technologies that support docToolchain, including AsciiDoc, AsciiDoctor, Gradle and arc42. We need all the help we can get to make improvements and keep our project humming. Simply create an issue and send a pull request. Our Contributors Please get in touch to update your entry or let us know if you have contributed in some way and we will add you to the list. Stefan Bodewig MoePad Niels wschaef Gernot Starke Jan Matèrne Alexander Schwartz Alexander Heusingfeld Dan Allen Stefan Pfeiffer isidorotrevino Jakub Jablonski Frank Pohl Ixchel Ruiz Schalk Cronjé Mario García Joe David M. Carr Fabian Nonnenmacher Christoph Stoettner Roman Funk ghp-dev Christoph Raaflaub Jorge Aguilera Stefan Bohn Jochen Kraushaar Luis Muniz Andreas Offenhaeuser Daniel Bast Sabatmonk Maarten Gribnau Michael Prieß Heiko Stehli Peter Stange Nils Mahlstädt @ hmmh Kevin Werner J. Staub Vladi Bjelakovic Daniel Kessel Björn Seebeck Txemanu Nikolay Orozov Andrea Macaluso Michael Roßner Jan Hendriks Daniel Kocot Alexander Schmitt Jérémie Bresson Jody Winter Aaron Collier Ifeanyi Benedict Iheagwara "
-},
-
-{
-    "id": 13,
-    "uri": "050_ADRs/ADR-2-anotherTest.html",
-    "menu": "ADRs",
-    "title": "ADR-2-anotherTest.ad",
-    "text": " Table of Contents second ADR second ADR another Test "
-},
-
-{
-    "id": 14,
     "uri": "050_ADRs/ADR-1-firstTest.html",
     "menu": "ADRs",
     "title": "ADR-1-firstTest.adoc",
@@ -121,7 +105,7 @@ var documents = [
 },
 
 {
-    "id": 15,
+    "id": 13,
     "uri": "025_development/020_run_tests.html",
     "menu": "development",
     "title": "Running Tests",
@@ -129,7 +113,15 @@ var documents = [
 },
 
 {
-    "id": 16,
+    "id": 14,
+    "uri": "10_about/30_community.html",
+    "menu": "about",
+    "title": "Acknowledgements and Contributors",
+    "text": " Table of Contents Acknowledgements and Contributors Why Contributions Matter Get Involved! Our Contributors Acknowledgements and Contributors 2 minutes to read Why Contributions Matter Without our amazing community of contributors, the docToolchain project wouldn’t exist in its current form. As an open source project, we depend on the skills and expertise of many to deliver a quality outcome. From developers to technical writers, many people have made valuable contributions to the code and the docs. We’re so grateful to them. We are also thankful for those in our community who take the time to give feedback, create issues, answer questions and send pull requests. Get Involved! There are so many technologies that support docToolchain, including AsciiDoc, AsciiDoctor, Gradle and arc42. We need all the help we can get to make improvements and keep our project humming. Simply create an issue and send a pull request. Our Contributors Please get in touch to update your entry or let us know if you have contributed in some way and we will add you to the list. Stefan Bodewig MoePad Niels wschaef Gernot Starke Jan Matèrne Alexander Schwartz Alexander Heusingfeld Dan Allen Stefan Pfeiffer isidorotrevino Jakub Jablonski Frank Pohl Ixchel Ruiz Schalk Cronjé Mario García Joe David M. Carr Fabian Nonnenmacher Christoph Stoettner Roman Funk ghp-dev Christoph Raaflaub Jorge Aguilera Stefan Bohn Jochen Kraushaar Luis Muniz Andreas Offenhaeuser Daniel Bast Sabatmonk Maarten Gribnau Michael Prieß Heiko Stehli Peter Stange Nils Mahlstädt @ hmmh Kevin Werner J. Staub Vladi Bjelakovic Daniel Kessel Björn Seebeck Txemanu Nikolay Orozov Andrea Macaluso Michael Roßner Jan Hendriks Daniel Kocot Alexander Schmitt Jérémie Bresson Jody Winter Aaron Collier Ifeanyi Benedict Iheagwara "
+},
+
+{
+    "id": 15,
     "uri": "10_about/20_what-is-doctoolchain.html",
     "menu": "about",
     "title": "What Is docToolchain?",
@@ -137,47 +129,15 @@ var documents = [
 },
 
 {
+    "id": 16,
+    "uri": "050_ADRs/ADR-2-anotherTest.html",
+    "menu": "ADRs",
+    "title": "ADR-2-anotherTest.ad",
+    "text": " Table of Contents second ADR second ADR another Test "
+},
+
+{
     "id": 17,
-    "uri": "ea/Use_Cases_links.html",
-    "menu": "ea",
-    "title": "Use_Cases_links.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
-},
-
-{
-    "id": 18,
-    "uri": "ea/UseCases.html",
-    "menu": "ea",
-    "title": "UseCases.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
-},
-
-{
-    "id": 19,
-    "uri": "ea/Architect_notes_issue2.html",
-    "menu": "ea",
-    "title": "Architect_notes_issue2.ad",
-    "text": " "
-},
-
-{
-    "id": 20,
-    "uri": "ea/Architect_notes.html",
-    "menu": "ea",
-    "title": "Architect_notes.ad",
-    "text": " "
-},
-
-{
-    "id": 21,
-    "uri": "ea/Activity_notes.html",
-    "menu": "ea",
-    "title": "Activity_notes.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 22,
     "uri": "10_about/10_about-the-project.html",
     "menu": "about",
     "title": "About the Project",
@@ -185,47 +145,39 @@ var documents = [
 },
 
 {
-    "id": 23,
-    "uri": "ea/issue1.html",
+    "id": 18,
+    "uri": "ea/Use_Cases_links.html",
     "menu": "ea",
-    "title": "issue1.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 24,
-    "uri": "ea/readme.html",
-    "menu": "ea",
-    "title": "readme.ad",
-    "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
-},
-
-{
-    "id": 25,
-    "uri": "ea/Use_Cases_notes_UseCases.html",
-    "menu": "ea",
-    "title": "Use_Cases_notes_UseCases.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
-},
-
-{
-    "id": 26,
-    "uri": "ea/Use_Cases_notes.html",
-    "menu": "ea",
-    "title": "Use_Cases_notes.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
-},
-
-{
-    "id": 27,
-    "uri": "ea/Use_Cases_links_issue2.html",
-    "menu": "ea",
-    "title": "Use_Cases_links_issue2.ad",
+    "title": "Use_Cases_links.ad",
     "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
 },
 
 {
-    "id": 28,
+    "id": 19,
+    "uri": "ea/UseCases.html",
+    "menu": "ea",
+    "title": "UseCases.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
+},
+
+{
+    "id": 20,
+    "uri": "ea/Architect_notes_issue2.html",
+    "menu": "ea",
+    "title": "Architect_notes_issue2.ad",
+    "text": " "
+},
+
+{
+    "id": 21,
+    "uri": "ea/Architect_notes.html",
+    "menu": "ea",
+    "title": "Architect_notes.ad",
+    "text": " "
+},
+
+{
+    "id": 22,
     "uri": "ea/Activity_notes_issue1.html",
     "menu": "ea",
     "title": "Activity_notes_issue1.ad",
@@ -233,10 +185,58 @@ var documents = [
 },
 
 {
-    "id": 29,
+    "id": 23,
+    "uri": "ea/Activity_notes.html",
+    "menu": "ea",
+    "title": "Activity_notes.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
+    "id": 24,
+    "uri": "ea/issue1.html",
+    "menu": "ea",
+    "title": "issue1.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
+    "id": 25,
+    "uri": "ea/readme.html",
+    "menu": "ea",
+    "title": "readme.ad",
+    "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
+},
+
+{
+    "id": 26,
     "uri": "ea/issue2.html",
     "menu": "ea",
     "title": "issue2.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+},
+
+{
+    "id": 27,
+    "uri": "ea/Use_Cases_notes_UseCases.html",
+    "menu": "ea",
+    "title": "Use_Cases_notes_UseCases.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
+},
+
+{
+    "id": 28,
+    "uri": "ea/Use_Cases_notes.html",
+    "menu": "ea",
+    "title": "Use_Cases_notes.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
+},
+
+{
+    "id": 29,
+    "uri": "ea/Use_Cases_links_issue2.html",
+    "menu": "ea",
+    "title": "Use_Cases_links_issue2.ad",
     "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
 },
 
@@ -250,18 +250,18 @@ var documents = [
 
 {
     "id": 31,
-    "uri": "020_tutorial/020_arc42.html",
-    "menu": "tutorial",
-    "title": "arc42 Template",
-    "text": " Table of Contents Get the arc42 Template Get the arc42 Template 2 minutes to read To work with docToolchain, you first need some documents. So let&#8217;s fetch the arc42 template for software architecture documentation. docToolchain comes with a task called downloadTemplate . Let&#8217;s invoke it and see what happens. Linux / WSL2 with bash ./dtcw downloadTemplate Windows with Powershell ./dtcw.ps1 downloadTemplate There is an interesting bug with the german version of the arc42 template in conjunction with running docToolchain in powershell: The encoding of the files will be wrong. To fix that, just run ./dtcw.ps1 fixEncoding . Result of downloadTemplate-Task $ ./dtcw downloadTemplate dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists use local homefolder install /home/rdmueller/.doctoolchain/ &gt; Configure project : arc42/arc42.adoc &gt; Task :downloadTemplate Install arc42 documentation template. For more information about arc42 see https://arc42.org [ant:input] Which language do you want to install? (EN, DE, ES, RU) &lt;-------------&gt; 0% EXECUTING [6s] [ant:input] Do you want the template with or without help? (withhelp, plain) &lt;-----&lt;-------------&gt; 0% EXECUTING [10s] Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-DE-withhelp-asciidoc.zip arc42 template unpacked into /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42 added template to docToolchainConfig.groovy use 'generateHTML', 'generatePDF' or 'generateSite' to convert the template BUILD SUCCESSFUL in 15s 1 actionable task: 1 executed Out of the box, docToolchain only knows the open source arc42 template for software architecture. That&#8217;s why it doesn&#8217;t ask which template to install. Since the template exists in four different languages and with or without help on how to use it, docToolchain asks you for these two parameters. It then downloads the template right from the source, unzips it and reformats it a little bit to fit the needs of docToolchain. It also adds the template to your configuration file. That&#8217;s it. You have now docToolchain with the arc42 template installed. Let&#8217;s render is as HTML, PDF or Microsite in the next steps. "
-},
-
-{
-    "id": 32,
     "uri": "020_tutorial/010_Install.html",
     "menu": "tutorial",
     "title": "Install docToolchain",
     "text": " Table of Contents Welcome! Installing docToolchain Getting the Wrapper Running your First Command Problems &amp; solutions Welcome! Nice to meet you. Glad that you want to learn more about using docToolchain. Start by installing what you need. The following steps are the same as described in the User Docs. Please follow them step by step. You are prompted to install everything you need for each step. If you encounter problems, create a GitHub issue and the community will help you. Installing docToolchain 5 minutes to read Getting the Wrapper The way docToolchain is installed has changed since the v2.x release. It now uses a simple wrapper script which takes care of everything. This wrapper helps by: Ensuring that everyone using your repository uses the same docToolchain version. Keeping all docToolchain technology out of your repository. Wrapping your commands and directing them to your local installation. Checking your docToolchain installation (if not installed, the wrapper will do it for you via direct download or Docker). This guide explains how to set up docToolchain in the following environments: A Linux/WSL2 with bash Windows with PowerShell Windows with cmd.exe Please select the appropriate setup and follow these instructions to install docToolchain step by step. Linux / WSL2 with bash cd &lt;your project&gt; wget doctoolchain.github.io/dtcw chmod +x dtcw if you don&#8217;t have wget installed, you can also use curl : cd &lt;your project&gt; curl -Lo dtcw doctoolchain.github.io/dtcw chmod +x dtcw Windows with Powershell cd &lt;your project&gt; Invoke-WebRequest doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1 Windows with cmd.exe cd &lt;your project&gt; curl -Lo dtcw.bat doctoolchain.github.io/dtcw.bat dtcw.bat wraps the dtcw.ps1 script and executes it in powershell. This might be easier to use if you haven&#8217;t yet configured your powershell as a developer. In order to support development for your project on both, Linux and Windows, it makes sense to download all three scripts to your project. if you use cmd.exe, follow the PowerShell instructions but replace .ps1 with .bat . dtcw uses bash as shell and thus tries to find java from within bash. Chances are that when you use dtcw from another shell like zsh, you shell knows about the right java version but your bash doesn&#8217;t. In that case, please switch to bash and make sure that the right java version is known. Afterwards, you can switch back to your shell. Running your First Command To get started with docToolchain, run tasks as the first command: Linux / WSL2 with bash ./dtcw tasks --group=doctoolchain Windows with Powershell ./dtcw.ps1 tasks --group=doctoolchain if using cmd.exe replace .ps1 with .bat for all subsequent commands. This command shows all docToolchain tasks and verifies that docToolchain is installed by doing the following: Checking for a configuration file (and create one if none exist). Prefers a local installation. Making use of Docker (if available) where there is no local installation. If this is your first time installing docToolchain, the images download might take a while. if docker is not available, it will download and install docToolchain to your home folder it will then run a gradle build through the gradle wrapper. If this is your first time, it will download and install gradle. the gradle build will also fetch some dependencies. This will also take a while if run for the first time.. You&#8217;ll notice the installation is an incremental process and will take a while because of all the additional dependencies needed. After the first few commands, you&#8217;ll have all the required dependencies installed and things will run faster. Problems &amp; solutions dtcw doesn&#8217;t run You might get an error similiar to this one: ./dtcw local tasks --group=doctoolchain ./dtcw: line 1: syntax error near unexpected token `newline' ./dtcw: line 1: `&lt;!DOCTYPE html&gt;' If you see that, it&#8217;s likely that the wrapper didn&#8217;t download correctly. You can that an HTML page was downloaded instead of the wrapper. Please try to redownload the wrapper. Incompatible Java version You may see that docToolchain starts but crashes with a stacktrace that starts like this: * What went wrong: Could not compile settings file '/Users/falk/.doctoolchain/docToolchain-2.0.0/settings.gradle'. &gt; startup failed: General error during semantic analysis: Unsupported class file major version 61 java.lang.IllegalArgumentException: Unsupported class file major version 61 In this case, you&#8217;ve got an incompatible version of Java. dtcw tries to check the Java version up front by running java --version , but Gradle sometimes picks up a different version. If you get a similar error, try reinstalling a compatible Java version. "
+},
+
+{
+    "id": 32,
+    "uri": "020_tutorial/020_arc42.html",
+    "menu": "tutorial",
+    "title": "arc42 Template",
+    "text": " Table of Contents Get the arc42 Template Get the arc42 Template 2 minutes to read To work with docToolchain, you first need some documents. So let&#8217;s fetch the arc42 template for software architecture documentation. docToolchain comes with a task called downloadTemplate . Let&#8217;s invoke it and see what happens. Linux / WSL2 with bash ./dtcw downloadTemplate Windows with Powershell ./dtcw.ps1 downloadTemplate There is an interesting bug with the german version of the arc42 template in conjunction with running docToolchain in powershell: The encoding of the files will be wrong. To fix that, just run ./dtcw.ps1 fixEncoding . Result of downloadTemplate-Task $ ./dtcw downloadTemplate dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists use local homefolder install /home/rdmueller/.doctoolchain/ &gt; Configure project : arc42/arc42.adoc &gt; Task :downloadTemplate Install arc42 documentation template. For more information about arc42 see https://arc42.org [ant:input] Which language do you want to install? (EN, DE, ES, RU) &lt;-------------&gt; 0% EXECUTING [6s] [ant:input] Do you want the template with or without help? (withhelp, plain) &lt;-----&lt;-------------&gt; 0% EXECUTING [10s] Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-DE-withhelp-asciidoc.zip arc42 template unpacked into /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42 added template to docToolchainConfig.groovy use 'generateHTML', 'generatePDF' or 'generateSite' to convert the template BUILD SUCCESSFUL in 15s 1 actionable task: 1 executed Out of the box, docToolchain only knows the open source arc42 template for software architecture. That&#8217;s why it doesn&#8217;t ask which template to install. Since the template exists in four different languages and with or without help on how to use it, docToolchain asks you for these two parameters. It then downloads the template right from the source, unzips it and reformats it a little bit to fit the needs of docToolchain. It also adds the template to your configuration file. That&#8217;s it. You have now docToolchain with the arc42 template installed. Let&#8217;s render is as HTML, PDF or Microsite in the next steps. "
 },
 
 {
@@ -274,14 +274,6 @@ var documents = [
 
 {
     "id": 34,
-    "uri": "020_tutorial/040_generateSite.html",
-    "menu": "tutorial",
-    "title": "generateSite",
-    "text": " Table of Contents generateSite generateSite The generateSite task is more advanced. In many cases, your goal will not be to create a single HTML document but a whole documentation website. This is where generateSite shines. It uses a static site generator to turn your document into a nice looking microsite with landing-page, local search and edit links. Linux / WSL2 with bash ./dtcw generateSite Windows with Powershell ./dtcw.ps1 generateSite output of generateHTML $ ./dtcw docker generateSite dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists force use of docker /usr/bin/docker use docker installation Starting a Gradle Daemon (subsequent builds will be faster) &gt; Configure project : arc42/arc42.adoc &gt; Task :generateSite created /project/build/microsite/tmp copy internal theme /home/dtcuser/docToolchain/src/site copy project theme /project/src/site &gt; Task :copyImages &gt; Task :bake Warning: Nashorn engine is planned to be removed from a future JDK release BUILD SUCCESSFUL in 1m 15s 3 actionable tasks: 3 executed The output is written to build/microsite/output/index.html . You can open this file in your browser and view the results. But you will notice that some features which rely on javascript will be broken. To avoid this, use the task previewSite to start a little webserver which presents you the site without flaws. Figure 1. generated output of generateHTML task "
-},
-
-{
-    "id": 35,
     "uri": "020_tutorial/100_diagrams.net.html",
     "menu": "tutorial",
     "title": "Diagrams: Diagrams.net",
@@ -289,23 +281,15 @@ var documents = [
 },
 
 {
+    "id": 35,
+    "uri": "020_tutorial/040_generateSite.html",
+    "menu": "tutorial",
+    "title": "generateSite",
+    "text": " Table of Contents generateSite generateSite The generateSite task is more advanced. In many cases, your goal will not be to create a single HTML document but a whole documentation website. This is where generateSite shines. It uses a static site generator to turn your document into a nice looking microsite with landing-page, local search and edit links. Linux / WSL2 with bash ./dtcw generateSite Windows with Powershell ./dtcw.ps1 generateSite output of generateHTML $ ./dtcw docker generateSite dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists force use of docker /usr/bin/docker use docker installation Starting a Gradle Daemon (subsequent builds will be faster) &gt; Configure project : arc42/arc42.adoc &gt; Task :generateSite created /project/build/microsite/tmp copy internal theme /home/dtcuser/docToolchain/src/site copy project theme /project/src/site &gt; Task :copyImages &gt; Task :bake Warning: Nashorn engine is planned to be removed from a future JDK release BUILD SUCCESSFUL in 1m 15s 3 actionable tasks: 3 executed The output is written to build/microsite/output/index.html . You can open this file in your browser and view the results. But you will notice that some features which rely on javascript will be broken. To avoid this, use the task previewSite to start a little webserver which presents you the site without flaws. Figure 1. generated output of generateHTML task "
+},
+
+{
     "id": 36,
-    "uri": "015_tasks/03_task_exportJiraIssues.html",
-    "menu": "tasks",
-    "title": "exportJiraIssues",
-    "text": " Table of Contents exportJiraIssues At a Glance About This Task Configuration Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportJiraIssues 2 minutes to read At a Glance About This Task This task exports all issues for a given query or queries from Jira as either an AsciiDoc table or an Excel file. The configuration for this task can be found within Config.gradle ( gradle.properties can be used as a fallback). Username/password is deprecated, so you need to use username/API-token instead. An API-token can be created through https://id.atlassian.com/manage/api-tokens . We recommend that you keep username and API-token out of your GitHub repository, and instead pass them as environment variables to docToolchain. Configuration Jira configuration support list requests to Jira where results of each requests will be saved in a file with specifies filename. Flags saveAsciidoc &amp; saveExcel allow you to easily configure the format in which results should be saved. Important The old configuration was based on the single Jira query is deprecated (single 'jql' parameter). Support for it will be removed in the near future. Please migrate to the new configuration which allows multiple Jira queries. Config.groovy // Configuration for Jira related tasks jira = [:] jira.with { // endpoint of the JiraAPI (REST) to be used api = 'https://your-jira-instance' /* WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!! Tool expects credentials that belong to an account which has the right permissions to read the JIRA issues for a given project. Credentials can be used in a form of: - passed parameters when calling script (-PjiraUser=myUsername -PjiraPass=myPassword) which can be fetched as a secrets on CI/CD or - gradle variables set through gradle properties (uses the 'jiraUser' and 'jiraPass' keys) Often, Jira &amp; Confluence credentials are the same, in which case it is recommended to pass CLI parameters for both entities as -Pusername=myUser -Ppassword=myPassword */ // the key of the Jira project project = 'PROJECTKEY' // the format of the received date time values to parse dateTimeFormatParse = yyyy-MM-dd'T'H:m:s.SSSz // i.e. 2020-07-24'T'9:12:40.999 CEST // the format in which the date time should be saved to output dateTimeFormatOutput = dd.MM.yyyy HH:mm:ss z // i.e. 24.07.2020 09:02:40 CEST // the label to restrict search to label = 'label1' // Legacy settings for Jira query. This setting is deprecated &amp; support for it will soon be completely removed. Please use JiraRequests settings jql = project='%jiraProject%' AND labels='%jiraLabel%' ORDER BY priority DESC, duedate ASC // Base filename in which Jira query results should be stored resultsFilename = 'JiraTicketsContent' saveAsciidoc = true // if true, asciidoc file will be created with *.adoc extension saveExcel = true // if true, Excel file will be created with *.xlsx extension // Output folder for this task inside main outputPath resultsFolder = 'JiraRequests' /* List of requests to Jira API: These are basically JQL expressions bundled with a filename in which results will be saved. User can configure custom fields IDs and name those for column header, i.e. customfield_10026:'Story Points' for Jira instance that has custom field with that name and will be saved in a coloumn named Story Points */ requests = [ new JiraRequest( filename:File1_Done_issues, jql:project='%jiraProject%' AND status='Done' ORDER BY duedate ASC, customfields: [customfield_10026:'Story Points'] ), new JiraRequest( filename:'CurrentSprint', jql:project='%jiraProject%' AND Sprint in openSprints() ORDER BY priority DESC, duedate ASC, customfields: [customfield_10026:'Story Points'] ), ] } @groovy.transform.Immutable class JiraRequest { String filename //filename (without extension) of the file in which JQL results will be saved. Extension will be determined automatically for Asciidoc or Excel file String jql // Jira Query Language syntax Map&lt;String,String&gt; customfields // map of customFieldId:displayName values for Jira fields which don't have default names, i.e. customfield_10026:StoryPoints } Further Reading and Resources Read the Living Documents for Agile Projects blog post. Source exportJiraIssues.gradle task exportJiraIssues( description: 'exports all jira issues from a given search', group: 'docToolchain' ) { doLast { final String taskSubfolderName = config.jira.resultsFolder final File targetFolder = new File(targetDir + File.separator + taskSubfolderName) if (!targetFolder.exists()) targetFolder.mkdirs() logger.debug(Output folder for 'exportJiraIssues' task is: '${targetFolder}') // map configuration from Config.groovy to existing variables for compatibility with naming of Jira settings in gradle.properties def jiraRoot = config.jira.api def jiraProject = config.jira.project def jiraLabel = config.jira.label def jiraResultsFilename = config.jira.resultsFilename def jiraDateTimeFormatParse = config.jira.dateTimeFormatParse def jiraDateTimeOutput = config.jira.dateTimeFormatOutput def defaultFields = 'priority,created,resolutiondate,summary,assignee,status' def jira = new groovyx.net.http.RESTClient(jiraRoot + '/rest/api/2/') jira.encoderRegistry = new groovyx.net.http.EncoderRegistry(charset: 'utf-8') def headers = [ 'Authorization': Basic  + config.jira.credentials, 'Content-Type' : 'application/json; charset=utf-8' ] def jiraRequests = config.jira.requests if (config.jira.jql) { logger.warn(&gt;&gt;&gt;Found legacy Jira requests. Please migrate to the new Jira configuration ASAP. Old config with jql will be removed soon) writeAsciiDocFileForLegacyConfiguration(targetFolder, jira, headers, config.jira) } jiraRequests.each {rq -&gt; logger.quiet(Request to Jira API for '${rq.filename}' with query: '${rq.jql}') def allHeaders = ${defaultFields},${rq.customfields.values().join(,)} def allFieldIds = ${defaultFields},${rq.customfields.keySet().join(,)} logger.quiet(Preparing headers for default &amp; custom fields: ${allHeaders}) logger.quiet(Preparing field IDs for default &amp; custom fields: ${allFieldIds}) // Save AsciiDoc file if (config.jira.saveAsciidoc) { def extension = 'adoc' jiraResultsFilename = ${rq.filename}.${extension} logger.info(Results will be saved in '${rq.filename}.${extension}' file) def jiraDataAsciidoc = new File(targetFolder, ${rq.filename}.${extension}) jiraDataAsciidoc.write(.${rq.filename}\n, 'utf-8') jiraDataAsciidoc.append(|=== \n) // AsciiDoc table headers (custom fields map needs values here) jiraDataAsciidoc.append(|Key , 'utf-8') allHeaders.split(,).each {field -&gt; jiraDataAsciidoc.append(|${field.capitalize()} , 'utf-8') } jiraDataAsciidoc.append(\n, 'utf-8') jira.get(path: 'search', query: ['jql' : rq.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel), 'maxResults': 1000, fields: ${allFieldIds} ], headers: headers ).data.issues.each { issue -&gt; //logger.quiet(&gt;&gt; Whole issue ${issue.key}:\n ${issue.fields}) jiraDataAsciidoc.append(| ${jiraRoot}/browse/${issue.key}[${issue.key}] , 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.priority.name} , 'utf-8') jiraDataAsciidoc.append(| ${Date.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)} , 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''} , 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.summary} , 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}, 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.status.name} , 'utf-8') rq.customfields.each { field -&gt; def foundCustom = issue.fields.find {it.key == field.key} //logger.quiet(Examining issue '${issue.key}' for custom field '${field.key}' has found: '${foundCustom}') jiraDataAsciidoc.append(| ${foundCustom ? foundCustom.value : '-'}\n, 'utf-8') } } jiraDataAsciidoc.append(|=== \n) } else { logger.quiet(Set saveAsciidoc=true in '${mainConfigFile}' to save results in AsciiDoc file) } // Save Excel file if (config.jira.saveExcel) { def extension = 'xlsx' jiraResultsFilename = ${rq.filename}.${extension} logger.quiet(&gt;&gt; Results will be saved in '${rq.filename}.${extension}' file) //def jiraDataAsciidoc = new File(targetFolder, ${rq.filename}.${extension}) def jiraDataXls = new File(targetFolder, jiraResultsFilename) def jiraFos = new FileOutputStream(jiraDataXls) Workbook wb = new XSSFWorkbook(); CreationHelper hyperlinkHelper = wb.getCreationHelper(); def sheetName = ${rq.filename} def ws = wb.createSheet(sheetName) String rgbS = A7A7A7 byte[] rgbB = Hex.decodeHex(rgbS) XSSFColor color = new XSSFColor(rgbB, null) //IndexedColorMap has no usage until now. So it can be set null. XSSFCellStyle headerCellStyle = (XSSFCellStyle) wb.createCellStyle() headerCellStyle.setFillForegroundColor(color) headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND) def titleRow = ws.createRow(0); int cellNumber = 0; titleRow.createCell(cellNumber).setCellValue(Key) allHeaders.split(,).each {field -&gt; titleRow.createCell(++cellNumber).setCellValue(${field.capitalize()}) } def lastRow = titleRow.getRowNum() titleRow.setRowStyle(headerCellStyle) jira.get(path: 'search', query: ['jql' : rq.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel), 'maxResults': 1000, fields: ${allFieldIds} ], headers: headers ).data.issues.each { issue -&gt; int cellPosition = 0 def row = ws.createRow(++lastRow) Hyperlink link = hyperlinkHelper.createHyperlink(HyperlinkType.URL) link.setAddress(${jiraRoot}/browse/${issue.key}) Cell cellWithUrl = row.createCell(cellPosition) cellWithUrl.setCellValue(${issue.key}) cellWithUrl.setHyperlink(link) row.createCell(++cellPosition).setCellValue(${issue.fields.priority.name}) row.createCell(++cellPosition).setCellValue(${Date.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)}) row.createCell(++cellPosition).setCellValue(${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''}) row.createCell(++cellPosition).setCellValue(${issue.fields.summary}) row.createCell(++cellPosition).setCellValue(${issue.fields.assignee ? issue.fields.assignee.displayName : ''}) row.createCell(++cellPosition).setCellValue(${issue.fields.status.name}) // Custom fields rq.customfields.each { field -&gt; def position = ++cellPosition def foundCustom = issue.fields.find {it.key == field.key} row.createCell(position).setCellValue(${foundCustom ? foundCustom.value : '-'}) } } // set jira issue key column fits the content width for(int colNum = 0; colNum&lt;allHeaders.size()+1;colNum++) { ws.autoSizeColumn(colNum) } // Set summary column width slightly wider but fixed size, so it doesn't change with every summary update ws.setColumnWidth(4, 25*384) wb.write(jiraFos) } else { logger.quiet(Set saveExcel=true in '${mainConfigFile}' to save results in Excel file) } } } } // This method can be removed when support for legacy Jira configuration is gone def writeAsciiDocFileForLegacyConfiguration(def targetFolder, def restClient, def headers, def jiraConfig) { def resultsFilename = ${jiraConfig.resultsFilename}_legacy.adoc def openIssues = new File(targetFolder, ${resultsFilename}) openIssues.write(.Table {Title}\n, 'utf-8') openIssues.append(|=== \n) openIssues.append(|Key |Priority |Created | Assignee | Summary\n, 'utf-8') def legacyJql = jiraConfig.jql.replaceAll('%jiraProject%', config.jira.project).replaceAll('%jiraLabel%', config.jira.label) println (Results for legacy query '${legacyJql}' will be saved in '${resultsFilename}' file) restClient.get(path: 'search', query: ['jql' : legacyJql, 'maxResults': 1000, 'fields' : 'created,resolutiondate,priority,summary,timeoriginalestimate, assignee' ], headers: headers ).data.issues.each { issue -&gt; openIssues.append(| ${jiraRoot}/browse/${issue.key}[${issue.key}] , 'utf-8') openIssues.append(| ${issue.fields.priority.name} , 'utf-8') openIssues.append(| ${Date.parse(jiraConfig.dateTimeFormatParse, issue.fields.created).format(jiraConfig.dateTimeFormatOutput)} , 'utf-8') openIssues.append(| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}, 'utf-8') openIssues.append(| ${issue.fields.summary} , 'utf-8') } openIssues.append(|=== \n) } "
-},
-
-{
-    "id": 37,
-    "uri": "015_tasks/03_task_copy_themes.html",
-    "menu": "tasks",
-    "title": "copyThemes",
-    "text": " Table of Contents copyThemes About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } copyThemes 1 minute to read About This Task docToolchain provides you with a simple Twitter bootstrap default theme to get you started. You can use the copyThemes task to apply a different theme (either jBakeTheme or pdfTheme) to your project. Feel free to remove all files which should remain as the default and change all others. When you next run docToolchain, your theme files will be laid over the default theme in order to generate the PDF or site. Source scripts/copyThemes.gradle //tag::copyThemes[] task copyThemes( description: 'copy some default files to your project for you to modify', group: 'docToolchain helper' ) { doFirst { } doLast { def color = { color, text -&gt; def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37] return new String((char) 27) + [${colors[color]}m${text} + new String((char) 27) + [0m } def lang = ant.input(message: ${color 'green', 'What do you want me to copy?'}, validargs: 'pdfTheme,jBakeTheme', addproperty: 'what') switch (ant.what) { case 'pdfTheme': def targetDir = new File(pdfThemeDir) /** if (targetDir.exists()) { println ${targetDir.canonicalPath} already exists println in order to re-install the theme, please remove the folder first and re-run the script throw new RuntimeException(pdfTheme folder already exists) } **/ targetDir.mkdirs() def source = new File(projectDir, 'template_config/pdfTheme') println source.canonicalPath println targetDir.canonicalPath copy { from new File(projectDir, 'template_config/pdfTheme') into targetDir } println pdfTheme copied into ${targetDir} break case 'jBakeTheme': def targetDir = new File(new File(docDir, inputPath), config.microsite.siteFolder?:'../site') /** if (targetDir.exists()) { println ${targetDir.canonicalPath} already exists println in order to re-install the theme, please remove the folder first and re-run the script throw new RuntimeException(jBakeTheme folder already exists) } **/ targetDir.mkdirs() copy { from new File(projectDir, 'src/site') into targetDir } def siteTheme = System.getenv('DTC_SITETHEME')?: def themeFolder = new File(projectDir, ../themes/ + siteTheme.md5()) copy { from(themeFolder) {} into targetDir } println jBakeTheme copied into ${targetDir.canonicalPath} break } } } //end::copyThemes[] "
-},
-
-{
-    "id": 38,
     "uri": "015_tasks/03_task_autobuildSite.html",
     "menu": "tasks",
     "title": "autobuildSite",
@@ -313,7 +297,7 @@ var documents = [
 },
 
 {
-    "id": 39,
+    "id": 37,
     "uri": "015_tasks/03_task_generateHTML.html",
     "menu": "tasks",
     "title": "generateHTML",
@@ -321,11 +305,27 @@ var documents = [
 },
 
 {
-    "id": 40,
+    "id": 38,
     "uri": "015_tasks/03_task_exportMetrics.html",
     "menu": "tasks",
     "title": "exportMetrics",
     "text": " Table of Contents exportMetrics .gravatar img { margin-left: 3px; border-radius: 4px; } exportMetrics 1 minute to read This task crawls through all Asciidoctor source files and extracts the total number of words in each file (word count) so you can check your writing progress. The output is displayed on the command line. "
+},
+
+{
+    "id": 39,
+    "uri": "015_tasks/03_task_exportJiraIssues.html",
+    "menu": "tasks",
+    "title": "exportJiraIssues",
+    "text": " Table of Contents exportJiraIssues At a Glance About This Task Configuration Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportJiraIssues 2 minutes to read At a Glance About This Task This task exports all issues for a given query or queries from Jira as either an AsciiDoc table or an Excel file. The configuration for this task can be found within Config.gradle ( gradle.properties can be used as a fallback). Username/password is deprecated, so you need to use username/API-token instead. An API-token can be created through https://id.atlassian.com/manage/api-tokens . We recommend that you keep username and API-token out of your GitHub repository, and instead pass them as environment variables to docToolchain. Configuration Jira configuration support list requests to Jira where results of each requests will be saved in a file with specifies filename. Flags saveAsciidoc &amp; saveExcel allow you to easily configure the format in which results should be saved. Important The old configuration was based on the single Jira query is deprecated (single 'jql' parameter). Support for it will be removed in the near future. Please migrate to the new configuration which allows multiple Jira queries. Config.groovy // Configuration for Jira related tasks jira = [:] jira.with { // endpoint of the JiraAPI (REST) to be used api = 'https://your-jira-instance' /* WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!! Tool expects credentials that belong to an account which has the right permissions to read the JIRA issues for a given project. Credentials can be used in a form of: - passed parameters when calling script (-PjiraUser=myUsername -PjiraPass=myPassword) which can be fetched as a secrets on CI/CD or - gradle variables set through gradle properties (uses the 'jiraUser' and 'jiraPass' keys) Often, Jira &amp; Confluence credentials are the same, in which case it is recommended to pass CLI parameters for both entities as -Pusername=myUser -Ppassword=myPassword */ // the key of the Jira project project = 'PROJECTKEY' // the format of the received date time values to parse dateTimeFormatParse = yyyy-MM-dd'T'H:m:s.SSSz // i.e. 2020-07-24'T'9:12:40.999 CEST // the format in which the date time should be saved to output dateTimeFormatOutput = dd.MM.yyyy HH:mm:ss z // i.e. 24.07.2020 09:02:40 CEST // the label to restrict search to label = 'label1' // Legacy settings for Jira query. This setting is deprecated &amp; support for it will soon be completely removed. Please use JiraRequests settings jql = project='%jiraProject%' AND labels='%jiraLabel%' ORDER BY priority DESC, duedate ASC // Base filename in which Jira query results should be stored resultsFilename = 'JiraTicketsContent' saveAsciidoc = true // if true, asciidoc file will be created with *.adoc extension saveExcel = true // if true, Excel file will be created with *.xlsx extension // Output folder for this task inside main outputPath resultsFolder = 'JiraRequests' /* List of requests to Jira API: These are basically JQL expressions bundled with a filename in which results will be saved. User can configure custom fields IDs and name those for column header, i.e. customfield_10026:'Story Points' for Jira instance that has custom field with that name and will be saved in a coloumn named Story Points */ requests = [ new JiraRequest( filename:File1_Done_issues, jql:project='%jiraProject%' AND status='Done' ORDER BY duedate ASC, customfields: [customfield_10026:'Story Points'] ), new JiraRequest( filename:'CurrentSprint', jql:project='%jiraProject%' AND Sprint in openSprints() ORDER BY priority DESC, duedate ASC, customfields: [customfield_10026:'Story Points'] ), ] } @groovy.transform.Immutable class JiraRequest { String filename //filename (without extension) of the file in which JQL results will be saved. Extension will be determined automatically for Asciidoc or Excel file String jql // Jira Query Language syntax Map&lt;String,String&gt; customfields // map of customFieldId:displayName values for Jira fields which don't have default names, i.e. customfield_10026:StoryPoints } Further Reading and Resources Read the Living Documents for Agile Projects blog post. Source exportJiraIssues.gradle task exportJiraIssues( description: 'exports all jira issues from a given search', group: 'docToolchain' ) { doLast { final String taskSubfolderName = config.jira.resultsFolder final File targetFolder = new File(targetDir + File.separator + taskSubfolderName) if (!targetFolder.exists()) targetFolder.mkdirs() logger.debug(Output folder for 'exportJiraIssues' task is: '${targetFolder}') // map configuration from Config.groovy to existing variables for compatibility with naming of Jira settings in gradle.properties def jiraRoot = config.jira.api def jiraProject = config.jira.project def jiraLabel = config.jira.label def jiraResultsFilename = config.jira.resultsFilename def jiraDateTimeFormatParse = config.jira.dateTimeFormatParse def jiraDateTimeOutput = config.jira.dateTimeFormatOutput def defaultFields = 'priority,created,resolutiondate,summary,assignee,status' def jira = new groovyx.net.http.RESTClient(jiraRoot + '/rest/api/2/') jira.encoderRegistry = new groovyx.net.http.EncoderRegistry(charset: 'utf-8') def headers = [ 'Authorization': Basic  + config.jira.credentials, 'Content-Type' : 'application/json; charset=utf-8' ] def jiraRequests = config.jira.requests if (config.jira.jql) { logger.warn(&gt;&gt;&gt;Found legacy Jira requests. Please migrate to the new Jira configuration ASAP. Old config with jql will be removed soon) writeAsciiDocFileForLegacyConfiguration(targetFolder, jira, headers, config.jira) } jiraRequests.each {rq -&gt; logger.quiet(Request to Jira API for '${rq.filename}' with query: '${rq.jql}') def allHeaders = ${defaultFields},${rq.customfields.values().join(,)} def allFieldIds = ${defaultFields},${rq.customfields.keySet().join(,)} logger.quiet(Preparing headers for default &amp; custom fields: ${allHeaders}) logger.quiet(Preparing field IDs for default &amp; custom fields: ${allFieldIds}) // Save AsciiDoc file if (config.jira.saveAsciidoc) { def extension = 'adoc' jiraResultsFilename = ${rq.filename}.${extension} logger.info(Results will be saved in '${rq.filename}.${extension}' file) def jiraDataAsciidoc = new File(targetFolder, ${rq.filename}.${extension}) jiraDataAsciidoc.write(.${rq.filename}\n, 'utf-8') jiraDataAsciidoc.append(|=== \n) // AsciiDoc table headers (custom fields map needs values here) jiraDataAsciidoc.append(|Key , 'utf-8') allHeaders.split(,).each {field -&gt; jiraDataAsciidoc.append(|${field.capitalize()} , 'utf-8') } jiraDataAsciidoc.append(\n, 'utf-8') jira.get(path: 'search', query: ['jql' : rq.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel), 'maxResults': 1000, fields: ${allFieldIds} ], headers: headers ).data.issues.each { issue -&gt; //logger.quiet(&gt;&gt; Whole issue ${issue.key}:\n ${issue.fields}) jiraDataAsciidoc.append(| ${jiraRoot}/browse/${issue.key}[${issue.key}] , 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.priority.name} , 'utf-8') jiraDataAsciidoc.append(| ${Date.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)} , 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''} , 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.summary} , 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}, 'utf-8') jiraDataAsciidoc.append(| ${issue.fields.status.name} , 'utf-8') rq.customfields.each { field -&gt; def foundCustom = issue.fields.find {it.key == field.key} //logger.quiet(Examining issue '${issue.key}' for custom field '${field.key}' has found: '${foundCustom}') jiraDataAsciidoc.append(| ${foundCustom ? foundCustom.value : '-'}\n, 'utf-8') } } jiraDataAsciidoc.append(|=== \n) } else { logger.quiet(Set saveAsciidoc=true in '${mainConfigFile}' to save results in AsciiDoc file) } // Save Excel file if (config.jira.saveExcel) { def extension = 'xlsx' jiraResultsFilename = ${rq.filename}.${extension} logger.quiet(&gt;&gt; Results will be saved in '${rq.filename}.${extension}' file) //def jiraDataAsciidoc = new File(targetFolder, ${rq.filename}.${extension}) def jiraDataXls = new File(targetFolder, jiraResultsFilename) def jiraFos = new FileOutputStream(jiraDataXls) Workbook wb = new XSSFWorkbook(); CreationHelper hyperlinkHelper = wb.getCreationHelper(); def sheetName = ${rq.filename} def ws = wb.createSheet(sheetName) String rgbS = A7A7A7 byte[] rgbB = Hex.decodeHex(rgbS) XSSFColor color = new XSSFColor(rgbB, null) //IndexedColorMap has no usage until now. So it can be set null. XSSFCellStyle headerCellStyle = (XSSFCellStyle) wb.createCellStyle() headerCellStyle.setFillForegroundColor(color) headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND) def titleRow = ws.createRow(0); int cellNumber = 0; titleRow.createCell(cellNumber).setCellValue(Key) allHeaders.split(,).each {field -&gt; titleRow.createCell(++cellNumber).setCellValue(${field.capitalize()}) } def lastRow = titleRow.getRowNum() titleRow.setRowStyle(headerCellStyle) jira.get(path: 'search', query: ['jql' : rq.jql.replaceAll('%jiraProject%', jiraProject).replaceAll('%jiraLabel%', jiraLabel), 'maxResults': 1000, fields: ${allFieldIds} ], headers: headers ).data.issues.each { issue -&gt; int cellPosition = 0 def row = ws.createRow(++lastRow) Hyperlink link = hyperlinkHelper.createHyperlink(HyperlinkType.URL) link.setAddress(${jiraRoot}/browse/${issue.key}) Cell cellWithUrl = row.createCell(cellPosition) cellWithUrl.setCellValue(${issue.key}) cellWithUrl.setHyperlink(link) row.createCell(++cellPosition).setCellValue(${issue.fields.priority.name}) row.createCell(++cellPosition).setCellValue(${Date.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)}) row.createCell(++cellPosition).setCellValue(${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''}) row.createCell(++cellPosition).setCellValue(${issue.fields.summary}) row.createCell(++cellPosition).setCellValue(${issue.fields.assignee ? issue.fields.assignee.displayName : ''}) row.createCell(++cellPosition).setCellValue(${issue.fields.status.name}) // Custom fields rq.customfields.each { field -&gt; def position = ++cellPosition def foundCustom = issue.fields.find {it.key == field.key} row.createCell(position).setCellValue(${foundCustom ? foundCustom.value : '-'}) } } // set jira issue key column fits the content width for(int colNum = 0; colNum&lt;allHeaders.size()+1;colNum++) { ws.autoSizeColumn(colNum) } // Set summary column width slightly wider but fixed size, so it doesn't change with every summary update ws.setColumnWidth(4, 25*384) wb.write(jiraFos) } else { logger.quiet(Set saveExcel=true in '${mainConfigFile}' to save results in Excel file) } } } } // This method can be removed when support for legacy Jira configuration is gone def writeAsciiDocFileForLegacyConfiguration(def targetFolder, def restClient, def headers, def jiraConfig) { def resultsFilename = ${jiraConfig.resultsFilename}_legacy.adoc def openIssues = new File(targetFolder, ${resultsFilename}) openIssues.write(.Table {Title}\n, 'utf-8') openIssues.append(|=== \n) openIssues.append(|Key |Priority |Created | Assignee | Summary\n, 'utf-8') def legacyJql = jiraConfig.jql.replaceAll('%jiraProject%', config.jira.project).replaceAll('%jiraLabel%', config.jira.label) println (Results for legacy query '${legacyJql}' will be saved in '${resultsFilename}' file) restClient.get(path: 'search', query: ['jql' : legacyJql, 'maxResults': 1000, 'fields' : 'created,resolutiondate,priority,summary,timeoriginalestimate, assignee' ], headers: headers ).data.issues.each { issue -&gt; openIssues.append(| ${jiraRoot}/browse/${issue.key}[${issue.key}] , 'utf-8') openIssues.append(| ${issue.fields.priority.name} , 'utf-8') openIssues.append(| ${Date.parse(jiraConfig.dateTimeFormatParse, issue.fields.created).format(jiraConfig.dateTimeFormatOutput)} , 'utf-8') openIssues.append(| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}, 'utf-8') openIssues.append(| ${issue.fields.summary} , 'utf-8') } openIssues.append(|=== \n) } "
+},
+
+{
+    "id": 40,
+    "uri": "015_tasks/03_task_copy_themes.html",
+    "menu": "tasks",
+    "title": "copyThemes",
+    "text": " Table of Contents copyThemes About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } copyThemes 1 minute to read About This Task docToolchain provides you with a simple Twitter bootstrap default theme to get you started. You can use the copyThemes task to apply a different theme (either jBakeTheme or pdfTheme) to your project. Feel free to remove all files which should remain as the default and change all others. When you next run docToolchain, your theme files will be laid over the default theme in order to generate the PDF or site. Source scripts/copyThemes.gradle //tag::copyThemes[] task copyThemes( description: 'copy some default files to your project for you to modify', group: 'docToolchain helper' ) { doFirst { } doLast { def color = { color, text -&gt; def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37] return new String((char) 27) + [${colors[color]}m${text} + new String((char) 27) + [0m } def lang = ant.input(message: ${color 'green', 'What do you want me to copy?'}, validargs: 'pdfTheme,jBakeTheme', addproperty: 'what') switch (ant.what) { case 'pdfTheme': def targetDir = new File(pdfThemeDir) /** if (targetDir.exists()) { println ${targetDir.canonicalPath} already exists println in order to re-install the theme, please remove the folder first and re-run the script throw new RuntimeException(pdfTheme folder already exists) } **/ targetDir.mkdirs() def source = new File(projectDir, 'template_config/pdfTheme') println source.canonicalPath println targetDir.canonicalPath copy { from new File(projectDir, 'template_config/pdfTheme') into targetDir } println pdfTheme copied into ${targetDir} break case 'jBakeTheme': def targetDir = new File(new File(docDir, inputPath), config.microsite.siteFolder?:'../site') /** if (targetDir.exists()) { println ${targetDir.canonicalPath} already exists println in order to re-install the theme, please remove the folder first and re-run the script throw new RuntimeException(jBakeTheme folder already exists) } **/ targetDir.mkdirs() copy { from new File(projectDir, 'src/site') into targetDir } def siteTheme = System.getenv('DTC_SITETHEME')?: def themeFolder = new File(projectDir, ../themes/ + siteTheme.md5()) copy { from(themeFolder) {} into targetDir } println jBakeTheme copied into ${targetDir.canonicalPath} break } } } //end::copyThemes[] "
 },
 
 {
@@ -498,22 +498,6 @@ var documents = [
 
 {
     "id": 62,
-    "uri": "015_tasks/03_task_exportMarkdown.html",
-    "menu": "tasks",
-    "title": "exportMarkdown",
-    "text": " Table of Contents About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } 1 minute to read About This Task The exportMarkdown task can be used to include markdown files into the documentation. It scans the /src/docs directory for markdown ( *.md ) files and converts them into Asciidoc files. The converted files can then be referenced from within the /build -folder. Source exportMarkdown.gradle task exportMarkdown( description: 'exports all markdown files to AsciiDoc', group: 'docToolchain', type: Copy ) { from srcDir include(**/*.md) //include only markdown files includeEmptyDirs = false rename(/(.+).md/, '$1.adoc') //rename all files from *.md to *.adoc filter(Markdown2AdocFilter) // convert the content of the files into targetDir } class Markdown2AdocFilter extends FilterReader { Markdown2AdocFilter(Reader input) { super(new StringReader(nl.jworks.markdown_to_asciidoc.Converter.convertMarkdownToAsciiDoc(input.text))) } } "
-},
-
-{
-    "id": 63,
-    "uri": "015_tasks/03_task_convertToEpub.html",
-    "menu": "tasks",
-    "title": "convertToEpub",
-    "text": " Table of Contents convertToEpub At a Glance Dependency About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToEpub 1 minute to read At a Glance Dependency generateDocBook About This Task This task uses pandoc to convert the DocBook output from AsciiDoctor to ePub. This publishes the output as an eBook which can be read using any eBook reader. The resulting file can be found in build/docs/epub . Further Reading and Resources Turn your Document into an Audio-Book blog post. Source pandoc.gradle task convertToEpub ( group: 'docToolchain', description: 'converts file to .epub via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `epub` in config.groovy is converted to docbook and then to epub. def sourceFilesEpub = sourceFiles.findAll { 'epub' in it.formats } sourceFilesEpub.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.epub') workingDir $targetDir/docbook executable = pandoc args = ['-r','docbook', '-t','epub', '-o',../epub/$targetFile, sourceFile] } doFirst { new File($targetDir/epub/).mkdirs() } } "
-},
-
-{
-    "id": 64,
     "uri": "015_tasks/03_task_generateSite.html",
     "menu": "tasks",
     "title": "generateSite",
@@ -521,7 +505,7 @@ var documents = [
 },
 
 {
-    "id": 65,
+    "id": 63,
     "uri": "015_tasks/03_task_generatePDF.html",
     "menu": "tasks",
     "title": "generatePDF",
@@ -529,11 +513,27 @@ var documents = [
 },
 
 {
-    "id": 66,
+    "id": 64,
     "uri": "015_tasks/03_task_generateDeck.html",
     "menu": "tasks",
     "title": "generateDeck",
     "text": " Table of Contents generateDeck At a Glance About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateDeck 1 minute to read At a Glance About This Task This task makes use of the asciidoctor-reveal.js backend to render your documents into a HTML-based presentation. It creates a PowerPoint presentation, then enriches it by adding reveal.js slide definitions in AsciiDoc to the speaker notes. For best results, use this task with the exportPPT task. Source AsciiDocBasics.gradle task generateDeck ( type: AsciidoctorTask, group: 'docToolchain', description: 'use revealJs as asciidoc backend to create a presentation') { attributes ( 'idprefix': 'slide-', 'idseparator': '-', 'docinfo1': '', 'revealjs_theme': 'black', 'revealjs_progress': 'true', 'revealjs_touch': 'true', 'revealjs_hideAddressBar': 'true', 'revealjs_transition': 'linear', 'revealjs_history': 'true', 'revealjs_slideNumber': 'true' ) options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates').absolutePath ] def sourceFilesREVEAL = sourceFiles.findAll { 'revealjs' in it.formats } // onlyIf { // sourceFilesREVEAL // } sources { sourceFilesREVEAL.each { include it.file logger.info it.file } } outputDir = file(targetDir+'/decks/') resources { from('resources') { include 'reveal.js/**' } from(sourceDir) { include 'images/**' } into() logger.info ${docDir}/${config.outputPath}/images } doFirst { if (sourceFilesREVEAL.size()==0) { throw new Exception ( &gt;&gt; No source files defined for type 'revealjs'. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy ) } } } "
+},
+
+{
+    "id": 65,
+    "uri": "015_tasks/03_task_exportMarkdown.html",
+    "menu": "tasks",
+    "title": "exportMarkdown",
+    "text": " Table of Contents About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } 1 minute to read About This Task The exportMarkdown task can be used to include markdown files into the documentation. It scans the /src/docs directory for markdown ( *.md ) files and converts them into Asciidoc files. The converted files can then be referenced from within the /build -folder. Source exportMarkdown.gradle task exportMarkdown( description: 'exports all markdown files to AsciiDoc', group: 'docToolchain', type: Copy ) { from srcDir include(**/*.md) //include only markdown files includeEmptyDirs = false rename(/(.+).md/, '$1.adoc') //rename all files from *.md to *.adoc filter(Markdown2AdocFilter) // convert the content of the files into targetDir } class Markdown2AdocFilter extends FilterReader { Markdown2AdocFilter(Reader input) { super(new StringReader(nl.jworks.markdown_to_asciidoc.Converter.convertMarkdownToAsciiDoc(input.text))) } } "
+},
+
+{
+    "id": 66,
+    "uri": "015_tasks/03_task_convertToEpub.html",
+    "menu": "tasks",
+    "title": "convertToEpub",
+    "text": " Table of Contents convertToEpub At a Glance Dependency About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToEpub 1 minute to read At a Glance Dependency generateDocBook About This Task This task uses pandoc to convert the DocBook output from AsciiDoctor to ePub. This publishes the output as an eBook which can be read using any eBook reader. The resulting file can be found in build/docs/epub . Further Reading and Resources Turn your Document into an Audio-Book blog post. Source pandoc.gradle task convertToEpub ( group: 'docToolchain', description: 'converts file to .epub via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `epub` in config.groovy is converted to docbook and then to epub. def sourceFilesEpub = sourceFiles.findAll { 'epub' in it.formats } sourceFilesEpub.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.epub') workingDir $targetDir/docbook executable = pandoc args = ['-r','docbook', '-t','epub', '-o',../epub/$targetFile, sourceFile] } doFirst { new File($targetDir/epub/).mkdirs() } } "
 },
 
 {

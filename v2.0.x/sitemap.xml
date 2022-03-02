@@ -42,16 +42,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/050_who-uses-dtc.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/025_development/040_debugging.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/025_development/030_create_new_release.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
@@ -62,12 +52,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/10_about/30_community.html</loc>
+    	<loc>https://localhost/025_development/050_who-uses-dtc.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/050_ADRs/ADR-2-anotherTest.html</loc>
+    	<loc>https://localhost/025_development/040_debugging.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -82,7 +72,22 @@
     </url>
 
     <url>
+    	<loc>https://localhost/10_about/30_community.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/10_about/20_what-is-doctoolchain.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/050_ADRs/ADR-2-anotherTest.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/10_about/10_about-the-project.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -107,12 +112,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Activity_notes.html</loc>
+    	<loc>https://localhost/ea/Activity_notes_issue1.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/10_about/10_about-the-project.html</loc>
+    	<loc>https://localhost/ea/Activity_notes.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -123,6 +128,11 @@
 
     <url>
     	<loc>https://localhost/ea/readme.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/issue2.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -142,22 +152,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Activity_notes_issue1.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/issue2.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/020_tutorial/030_generateHTML.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/020_tutorial/020_arc42.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -167,12 +162,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/050_multipleRepositories.html</loc>
+    	<loc>https://localhost/020_tutorial/020_arc42.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/040_generateSite.html</loc>
+    	<loc>https://localhost/020_tutorial/050_multipleRepositories.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -182,12 +177,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportJiraIssues.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_copy_themes.html</loc>
+    	<loc>https://localhost/020_tutorial/040_generateSite.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -203,6 +193,16 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportMetrics.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportJiraIssues.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_copy_themes.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
@@ -312,16 +312,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportMarkdown.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
-    	<lastmod>2022-03-02</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_generateSite.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
@@ -333,6 +323,16 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportMarkdown.html</loc>
+    	<lastmod>2022-03-02</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
     	<lastmod>2022-03-02</lastmod>
     </url>
 
