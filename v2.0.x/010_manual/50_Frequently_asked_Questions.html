@@ -309,7 +309,7 @@
 <h2 id="_solutions_to_common_problems">Solutions to Common Problems</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/9e7160732f1b0b86fba51a814d5b32b7?d=identicon" alt="Aaron Collier" width="32" height="32" title="Aaron Collier"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5107bc93f3e4d103ca06f4e68a64b38?d=identicon" alt="stehlih" width="32" height="32" title="stehlih"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/fdbd46a8418be834d8ab743ca4b52455?d=identicon" alt="funkr" width="32" height="32" title="funkr"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2e3af23bd872d2b971788a4519e3bf46?d=identicon" alt="jakubjab" width="32" height="32" title="jakubjab"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/1936641b4122f826bbcfdb9b55b71a56?d=identicon" alt="faltfe" width="32" height="32" title="faltfe"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/9e7160732f1b0b86fba51a814d5b32b7?d=identicon" alt="Aaron Collier" width="32" height="32" title="Aaron Collier"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5107bc93f3e4d103ca06f4e68a64b38?d=identicon" alt="stehlih" width="32" height="32" title="stehlih"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/fdbd46a8418be834d8ab743ca4b52455?d=identicon" alt="funkr" width="32" height="32" title="funkr"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2e3af23bd872d2b971788a4519e3bf46?d=identicon" alt="jakubjab" width="32" height="32" title="jakubjab"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -594,6 +594,32 @@ An easy way to test your configuration is to run <code>xeyes</code> in WSL.</p>
 </div>
 <div class="paragraph">
 <p>Make sure that your WSL is up to date by running <code>wsl --update</code>. This is not part of your regular Windows update!</p>
+</div>
+</div>
+</details>
+</div>
+<div class="sect3">
+<h4 id="_q_i_get_an_error_that_gradle_dependencies_cannot_be_downloaded_because_a_proxy_is_restricting_internet_access">Q: I get an error that Gradle dependencies cannot be downloaded because a proxy is restricting internet access.</h4>
+<details>
+<summary class="title">Answer</summary>
+<div class="content">
+<div class="paragraph">
+<p>Remember that dtcw is a wrapper around Gradle. So instead of calling this:</p>
+</div>
+<div class="paragraph">
+<p><code>./dtcw generateSite</code></p>
+</div>
+<div class="paragraph">
+<p>You could call this instead (remember to replace the values used in our example):</p>
+</div>
+<div class="paragraph">
+<p><code>./dtcw generateSite -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=3128 "-http.nonProxyHosts=*.nonproxyrepos.com|localhost"</code></p>
+</div>
+<div class="paragraph">
+<p>(IP, port, etc just an example)</p>
+</div>
+<div class="paragraph">
+<p>For more information about Gradle proxy configuration, read <a href="https://stackoverflow.com/questions/5991194/gradle-proxy-configuration">this article</a>.</p>
 </div>
 </div>
 </details>
