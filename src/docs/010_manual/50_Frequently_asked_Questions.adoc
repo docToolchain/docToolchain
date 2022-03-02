@@ -194,23 +194,23 @@ An easy way to test you configuration is to run `xeyes` in WSL.
 NOTE:: Please make sure that you wsl is up-to-date bei executing `wsl --update` - this is not part of your regular windows update!
 ====
 
-=== Q: I get an error that gradle dependencies cannot be downloaded because the internet access is resticted by a proxy.
+=== Q: I get an error that Gradle dependencies cannot be downloaded because a proxy is restricting internet access.
 
 .Answer
 [%collapsible]
 
 ====
-If you just need a proxy configuration, remember that dtcw is a wrapper around gradle. So instead of calling
+Remember that dtcw is a wrapper around Gradle. So instead of calling this:
 
 `./dtcw generateSite`
 
-you could call
+You could call this instead (remember to replace the values used in our example):
 
 `./dtcw generateSite -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=3128 "-http.nonProxyHosts=*.nonproxyrepos.com|localhost"`
 
 (IP, port, etc just an example)
 
-see also https://stackoverflow.com/questions/5991194/gradle-proxy-configuration
+For more information about Gradle proxy configuration, read https://stackoverflow.com/questions/5991194/gradle-proxy-configuration[this article].
 ====
 
 
