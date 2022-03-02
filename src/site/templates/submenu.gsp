@@ -23,7 +23,7 @@
                 <ul>
                     <li class="collapse show" id="docs">
                         <ul class="td-sidebar-nav__section pr-md-3">
-                            <% menu?.sort{a, b ->a.order <=> b.order ?: a.title <=> b.title }.each { entry -> %>
+                            <% menu?.sort{a, b ->a.order as Integer <=> b.order as Integer ?: a.title <=> b.title }.each { entry -> %>
                             <%
                                         def isActive = ""
                                         if (content.uri==entry.uri) {
