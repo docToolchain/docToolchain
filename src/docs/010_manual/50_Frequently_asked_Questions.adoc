@@ -189,9 +189,9 @@ Another solution is to avoid PlantUML and generate Diagrams through a https://kr
 
 Another variant of this is `Can't connect to X11 window server using '192.168.189.153:0' as the value of the DISPLAY variable.`.
 In this case, it might help to install an X-Server (x410 for example) and configure the `DISPLAY` variable correctly.
-An easy way to test you configuration is to run `xeyes` in WSL.
+An easy way to test your configuration is to run `xeyes` in WSL.
 
-NOTE:: Please make sure that you wsl is up-to-date bei executing `wsl --update` - this is not part of your regular windows update!
+Make sure that your WSL is up to date by running `wsl --update`. This is not part of your regular Windows update!
 ====
 
 === I get an error 'Failed to create parent directory /project/.gradle'
@@ -214,3 +214,25 @@ chmod -R o+rwx ${bamboo.working.directory}
 
 ```
 ====
+
+=== Q: I get an error that Gradle dependencies cannot be downloaded because a proxy is restricting internet access.
+
+.Answer
+[%collapsible]
+
+====
+Remember that dtcw is a wrapper around Gradle. So instead of calling this:
+
+`./dtcw generateSite`
+
+You could call this instead (remember to replace the values used in our example):
+
+`./dtcw generateSite -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=3128 "-http.nonProxyHosts=*.nonproxyrepos.com|localhost"`
+
+(IP, port, etc just an example)
+
+For more information about Gradle proxy configuration, read https://stackoverflow.com/questions/5991194/gradle-proxy-configuration[this article].
+====
+
+
+
