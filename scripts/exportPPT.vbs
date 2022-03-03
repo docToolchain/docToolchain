@@ -82,6 +82,18 @@
 
   set fso = CreateObject("Scripting.fileSystemObject")
   WScript.echo "Slide extractor"
-  WScript.echo "looking for .ppt files in " & fso.GetAbsolutePathName(".") & "/src"
-  SearchPresentations fso.GetFolder("./src")
+    Set objArguments = WScript.Arguments
+
+    Dim argCount
+    argCount = 0
+    While objArguments.Count > argCount+1
+      Select Case objArguments(argCount)
+        Case "-s"
+          searchPath = objArguments(argCount+1)
+      End Select
+      argCount = argCount + 2
+    WEnd
+
+  WScript.echo "looking for .ppt files in " & fso.GetAbsolutePathName(searchPath)
+  SearchPresentations fso.GetFolder(searchPath)
   WScript.echo "finished exporting slides"
