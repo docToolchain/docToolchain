@@ -769,9 +769,10 @@ ${color 'green', 'for you?'}\n""",
                     }
                     if (ant.yesno == "y") {
                         themeFolder.mkdirs()
-                        download {
+                        download.run {
                             src siteTheme
                             dest new File(themeFolder, 'siteTheme.zip')
+                            overwrite true
                         }
                         copy {
                             from zipTree(new File(themeFolder, 'siteTheme.zip'))
