@@ -5332,12 +5332,12 @@ It is currently a Windows-only task.</p>
 ) {
     doLast {
         File sourceDir = file(srcDir)
-        log.info("sourceDir: ${sourceDir}")
+        logger.info("sourceDir: ${sourceDir}")
         //make sure path for notes exists
         //and remove old notes
-        new File(sourceDir, 'src/docs/ppt').deleteDir()
+        new File(sourceDir, 'ppt').deleteDir()
         //also remove old diagrams
-        new File(sourceDir, 'src/docs/images/ppt').deleteDir()
+        new File(sourceDir, 'images/ppt').deleteDir()
         //create a readme to clarify things
         def readme = """This folder contains exported slides or notes from .ppt presentations.
 
@@ -5351,11 +5351,11 @@ This is to make sure that they can be used from environments other than windows.
 
 use `gradle exportPPT` to re-export files
 """
-        new File(sourceDir, 'src/docs/images/ppt/.').mkdirs()
-        new File(sourceDir, 'src/docs/images/ppt/readme.ad').write(readme)
-        new File(sourceDir, 'src/docs/ppt/.').mkdirs()
-        new File(sourceDir, 'src/docs/ppt/readme.ad').write(readme)
-        def searchPath = new File(sourceDir, 'src/docs/ppt')
+        new File(sourceDir, 'images/ppt/.').mkdirs()
+        new File(sourceDir, 'images/ppt/readme.ad').write(readme)
+        new File(sourceDir, 'ppt/.').mkdirs()
+        new File(sourceDir, 'ppt/readme.ad').write(readme)
+        def searchPath = new File(sourceDir, 'ppt')
         //execute through cscript in order to make sure that we get WScript.echo right
         "%SystemRoot%\\System32\\cscript.exe //nologo ${projectDir}/scripts/exportPPT.vbs -s ${sourceDir.absolutePath}".executeCmd()
     }
@@ -5407,18 +5407,22 @@ use `gradle exportPPT` to re-export files
         objRegEx.Pattern = "[\s,\S]*{adoc}"
         ' http://www.pptfaq.com/FAQ00481_Export_the_notes_text_of_a_presentation.htm
         strFileName = fso.GetFIle(sFile).Name
+        Err.Clear
         Set oPPT = CreateObject("PowerPoint.Application")
         Set oPres = oPPT.Presentations.Open(sFile, True, False, False) ' Read Only, No Title, No Window
+        On Error resume next
         Set oSlides = oPres.Slides
+        WScript.echo "number slides: "&amp;oSlides.Count
         strNotesText = ""
-        strImagePath = "/src/docs/images/ppt/" &amp; strFileName &amp; "/"
-        MakeDir("." &amp; strImagePath)
-        strNotesPath = "/src/docs/ppt/"
-        MakeDir("." &amp; strNotesPath)
+        strImagePath = "/images/ppt/" &amp; strFileName &amp; "/"
+        MakeDir(searchPath &amp; strImagePath)
+        strNotesPath = "/ppt/"
+        MakeDir(searchPath &amp; strNotesPath)
         For Each oSl In oSlides
            strSlideName = oSl.Name
-           ' WScript.echo fso.GetAbsolutePathName(".") &amp; strImagePath &amp; strSlideName &amp; ".jpg"
-           oSl.Export fso.GetAbsolutePathName(".") &amp; strImagePath &amp; strSlideName &amp; ".jpg", ".jpg"
+           'WScript.echo fso.GetAbsolutePathName(searchPath) &amp; strImagePath &amp; strSlideName &amp; ".jpg"
+           oSl.Export fso.GetAbsolutePathName(searchPath) &amp; strImagePath &amp; strSlideName &amp; ".jpg", ".jpg"
+
             For Each oSh In oSl.NotesPage.Shapes
                 If oSh.PlaceholderFormat.Type = ppPlaceholderBody  Then
                     If oSh.HasTextFrame Then
@@ -5442,9 +5446,17 @@ use `gradle exportPPT` to re-export files
         fsT.Charset = "utf-8" 'Specify charset For the source text data.
         fsT.Open 'Open the stream And write binary data To the object
         fsT.WriteText "ifndef::imagesdir[:imagesdir: ../../images]"&amp;vbCrLf&amp;CStr(strNotesText)
-        fsT.SaveToFile fso.GetAbsolutePathName(".") &amp; strNotesPath&amp;""&amp;strFileName&amp;".ad", 2 'Save binary data To disk
+        fsT.SaveToFile fso.GetAbsolutePathName(searchPath) &amp; strNotesPath&amp;""&amp;strFileName&amp;".ad", 2 'Save binary data To disk
         oPres.Close()
         oPPT.Quit()
+
+        If Err.Number &lt;&gt; 0 Then
+            WScript.Echo "Error: " &amp; Err.Number
+            WScript.Echo "Error (Hex): " &amp; Hex(Err.Number)
+            WScript.Echo "Source: " &amp;  Err.Source
+            WScript.Echo "Description: " &amp;  Err.Description
+            Err.Clear             ' Clear the Error
+        End If
     End Sub
 
   set fso = CreateObject("Scripting.fileSystemObject")
