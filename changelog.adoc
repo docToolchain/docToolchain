@@ -9,6 +9,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+2022-03-08::
+* downloadTemplate: fix encoding for working with powershell
 2022-02-25::
 * https://github.com/docToolchain/docToolchain/pull/803[#764 order :jbake-order: numerical]
 2021-12-20::
@@ -30,7 +32,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === changed
 
 2022-03-08::
-* upgraded download plugin
+* downloadTemplate: upgraded download plugin
 2022-02-09::
 * https://github.com/docToolchain/docToolchain/issue/795[#795 publishToConfluence: added hint for wrong configuration]
 2022-01-23::
