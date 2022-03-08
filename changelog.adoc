@@ -29,6 +29,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 
+2022-03-08::
+* upgraded download plugin
 2022-02-09::
 * https://github.com/docToolchain/docToolchain/issue/795[#795 publishToConfluence: added hint for wrong configuration]
 2022-01-23::
