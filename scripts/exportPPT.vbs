@@ -40,18 +40,22 @@
         objRegEx.Pattern = "[\s,\S]*{adoc}"
         ' http://www.pptfaq.com/FAQ00481_Export_the_notes_text_of_a_presentation.htm
         strFileName = fso.GetFIle(sFile).Name
+        Err.Clear
         Set oPPT = CreateObject("PowerPoint.Application")
         Set oPres = oPPT.Presentations.Open(sFile, True, False, False) ' Read Only, No Title, No Window
+        On Error resume next
         Set oSlides = oPres.Slides
+        WScript.echo "number slides: "&oSlides.Count
         strNotesText = ""
-        strImagePath = "/src/docs/images/ppt/" & strFileName & "/"
-        MakeDir("." & strImagePath)
-        strNotesPath = "/src/docs/ppt/"
-        MakeDir("." & strNotesPath)
+        strImagePath = "/images/ppt/" & strFileName & "/"
+        MakeDir(searchPath & strImagePath)
+        strNotesPath = "/ppt/"
+        MakeDir(searchPath & strNotesPath)
         For Each oSl In oSlides
            strSlideName = oSl.Name
-           ' WScript.echo fso.GetAbsolutePathName(".") & strImagePath & strSlideName & ".jpg"
-           oSl.Export fso.GetAbsolutePathName(".") & strImagePath & strSlideName & ".jpg", ".jpg"
+           'WScript.echo fso.GetAbsolutePathName(searchPath) & strImagePath & strSlideName & ".jpg"
+           oSl.Export fso.GetAbsolutePathName(searchPath) & strImagePath & strSlideName & ".jpg", ".jpg"
+
             For Each oSh In oSl.NotesPage.Shapes
                 If oSh.PlaceholderFormat.Type = ppPlaceholderBody  Then
                     If oSh.HasTextFrame Then
@@ -75,9 +79,17 @@
         fsT.Charset = "utf-8" 'Specify charset For the source text data.
         fsT.Open 'Open the stream And write binary data To the object
         fsT.WriteText "ifndef::imagesdir[:imagesdir: ../../images]"&vbCrLf&CStr(strNotesText)
-        fsT.SaveToFile fso.GetAbsolutePathName(".") & strNotesPath&""&strFileName&".ad", 2 'Save binary data To disk
+        fsT.SaveToFile fso.GetAbsolutePathName(searchPath) & strNotesPath&""&strFileName&".ad", 2 'Save binary data To disk
         oPres.Close()
         oPPT.Quit()
+
+        If Err.Number <> 0 Then
+            WScript.Echo "Error: " & Err.Number
+            WScript.Echo "Error (Hex): " & Hex(Err.Number)
+            WScript.Echo "Source: " &  Err.Source
+            WScript.Echo "Description: " &  Err.Description
+            Err.Clear             ' Clear the Error
+        End If
     End Sub
 
   set fso = CreateObject("Scripting.fileSystemObject")

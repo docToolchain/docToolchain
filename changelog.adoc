@@ -11,6 +11,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 2022-03-08::
 * downloadTemplate: fix encoding for working with powershell
+* https://github.com/docToolchain/docToolchain/pull/821[#821 exportPPT is broken since 2.x]
 2022-02-25::
 * https://github.com/docToolchain/docToolchain/pull/803[#764 order :jbake-order: numerical]
 2021-12-20::
