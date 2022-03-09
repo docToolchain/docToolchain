@@ -32,8 +32,12 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 
+2022-03-09::
+* upgraded underlying gradle from 6.7.1 to 6.9.2
+
 2022-03-08::
 * downloadTemplate: upgraded download plugin
+* https://github.com/docToolchain/docToolchain/issue/817[#817 htmlSanityCheck remove dependency to generateHTML]
 2022-02-09::
 * https://github.com/docToolchain/docToolchain/issue/795[#795 publishToConfluence: added hint for wrong configuration]
 2022-01-23::
