@@ -7,8 +7,6 @@ include::../_feedback.adoc[]
 
 == At a Glance
 
-image::ea/Manual/generatePDF.png[]
-
 == About This Task
 
 This task makes use of the https://asciidoctor.org/docs/convert-asciidoc-to-pdf/[asciidoctor-pdf] plugin to render your documents as pretty PDF files.
@@ -16,8 +14,28 @@ Files are written to `build/pdf`.
 The PDF is generated directly from your AsciiDoc sources. There is no need for an intermediate format or other tools.
 The result looks more like a nicely rendered book than a print-to-PDF HTML page.
 
-NOTE: The asciidoctor-pdf plugin is still in alpha status, but the results are already quite good.
-If you want an alternative, use https://phantomjs.org/[PhantomJS] for your instance and script it.
+For a file to be rendered, it has to be configured in the `doctoolchainConfig.groovy` file.
+There you will find a section that looks like this:
+
+```
+inputFiles = [
+        [file: 'manual.adoc',       formats: ['html','pdf']],
+        /** inputFiles **/
+]
+```
+
+Add the files that you want to be rendered, along with the desired format.
+In this case `pdf`.
+
+.Hint
+[%collapsible]
+====
+Why do you need to configure the files to be rendered?
+
+Asciidoctor renders all `.adoc` files by default. It doesn't matter if they are the main documents or chapters you want to include.
+Most people only want to convert selected files to PDF, so that's why you need to configure which ones.
+
+====
 
 == Creating a Custom PDF Theme
 
