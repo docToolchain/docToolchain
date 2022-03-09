@@ -2,7 +2,6 @@ def menu = [:]
 def entriesMap = [:]
 try {
     published_content.each { page ->
-
         if (page['jbake-menu']) {
             //initialize entry if it doesn't exist yet
             if (menu[page['jbake-menu']] == null) {
@@ -18,6 +17,15 @@ try {
         }
     }
     // first, use all menu codes which are defined in the config
+    if (config.site_menu==null) {
+        config.site_menu = [:]
+        System.out.println("""
+warning: No menu defined in your config
+menu = [code1: 'title1', code2: 'title2']
+see http://doctoolchain.org/docToolchain/v2.0.x/015_tasks/03_task_generateSite.html#config
+for more details
+""")
+    }
     config.site_menu.eachWithIndex { code, title, i ->
         def entries = menu[code] ?: []
         entriesMap[code] = [title, entries]
@@ -36,6 +44,7 @@ try {
 >>> menu.gsp: (1) ${e.message}
 
 """
+    dsfg
 }
 def newEntries = []
 try {
