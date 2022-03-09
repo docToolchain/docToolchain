@@ -710,7 +710,7 @@ jbake {
     destDirName = "${targetDir}/microsite/output"
     configuration['asciidoctor.option.requires'] = "asciidoctor-diagram"
     config.microsite.each { key, value -&gt;
-        configuration['site.'+key-'config.microsite.'] = value
+        configuration['site.'+key-'config.microsite.'] = value?:''
         //println 'site.'+key-'config.microsite.' +" = "+ value
     }
 
