@@ -15,7 +15,7 @@ The PDF is generated directly from your AsciiDoc sources. There is no need for a
 The result looks more like a nicely rendered book than a print-to-PDF HTML page.
 
 For a file to be rendered, it has to be configured in the `doctoolchainConfig.groovy` file.
-There you will find a section like the following:
+There you will find a section that looks like this:
 
 ```
 inputFiles = [
@@ -24,7 +24,7 @@ inputFiles = [
 ]
 ```
 
-Add the files which you want to be rendered along with the format. 
+Add the files that you want to be rendered, along with the desired format.
 In this case `pdf`.
 
 .Hint
@@ -32,9 +32,9 @@ In this case `pdf`.
 ====
 Why do you need to configure the files to be rendered?
 
-Asciidoctor renders all `.adoc` files by default, no matter if these are the main documents or just chapters you want to include.
-In addition, it is quite likely that you only want to convert a few files to PDF.
-Hence, you have to configure which ones.
+Asciidoctor renders all `.adoc` files by default. It doesn't matter if they are the main documents or chapters you want to include.
+Most people only want to convert selected files to PDF, so that's why you need to configure which ones.
+
 ====
 
 == Creating a Custom PDF Theme
