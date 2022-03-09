@@ -50,7 +50,7 @@ try {
                 if ((content.rootpath + content.uri)?.startsWith(basePath)) {
                     isActive = "active"
                 }
-                System.out.println "   $title"
+                //System.out.println "   $title"
                 newEntries << [isActive: isActive, href: "${content.rootpath}${entries.find { it.order == 0 }?.uri ?: entries[0].uri}", title: title]
             }
         }
