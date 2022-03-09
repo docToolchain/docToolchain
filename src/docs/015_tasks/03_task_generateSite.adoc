@@ -84,6 +84,7 @@ For `:jbake-type: page_toc`, you need this line to generate the toc.
 NOTE: Start your pages with a `==` level headline.
 You can fix the level offset when you include the page in a larger document with `include::chapter.adoc[leveloffset=+1]`.
 
+[[config]]
 == Configuration
 
 The configuration follows the __convention over configuration__ approach. 
