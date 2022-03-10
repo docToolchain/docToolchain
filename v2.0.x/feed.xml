@@ -6,8 +6,8 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Thu, 10 Mar 2022 21:09:18 +0000</pubDate>
-    <lastBuildDate>Thu, 10 Mar 2022 21:09:18 +0000</lastBuildDate>
+    <pubDate>Thu, 10 Mar 2022 21:32:33 +0000</pubDate>
+    <lastBuildDate>Thu, 10 Mar 2022 21:32:33 +0000</lastBuildDate>
 
     
     <item>
@@ -38,6 +38,19 @@
 &lt;h3 id=&quot;_about_this_release&quot;&gt;About This Release&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;This is a bug-fix release. Thanks to everyone who contributed!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+the docker image is a bit bigger now.
+If everything works out, this is because it now contains hopefully all dependencies.
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect2&quot;&gt;
