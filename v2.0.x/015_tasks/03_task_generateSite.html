@@ -705,7 +705,7 @@ def color = { color, text -&gt;
 }
 
 jbake {
-    version = '2.7.0-rc.2'
+    version = '2.6.7'
     srcDirName = "${targetDir}/microsite/tmp/site"
     destDirName = "${targetDir}/microsite/output"
     configuration['asciidoctor.option.requires'] = "asciidoctor-diagram"
@@ -887,7 +887,7 @@ ${color 'green', 'for you?'}\n""",
         logger.info("sourceFolder: " + sourceFolder.canonicalPath)
         sourceFolder.traverse(type: FILES) { file -&gt;
             if (file.name ==~ '^.*(ad|adoc|asciidoc)$') {
-                if (file.name.startsWith("_")) {
+                if (file.name.startsWith("_") || file.name.startsWith(".")) {
                     //ignore
                 } else {
                     def origText = file.text

@@ -6,27 +6,23 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Thu, 10 Mar 2022 13:39:40 +0000</pubDate>
-    <lastBuildDate>Thu, 10 Mar 2022 13:39:40 +0000</lastBuildDate>
+    <pubDate>Thu, 10 Mar 2022 21:09:18 +0000</pubDate>
+    <lastBuildDate>Thu, 10 Mar 2022 21:09:18 +0000</lastBuildDate>
 
     
     <item>
-      <title>Release v2.0.4</title>
-      <link>https://localhost/030_news/2022/2.0.4-release.html</link>
+      <title>Release v2.0.5</title>
+      <link>https://localhost/030_news/2022/2.0.5-release.html</link>
       <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
-      <guid isPermaLink="false">030_news/2022/2.0.4-release.html</guid>
+      <guid isPermaLink="false">030_news/2022/2.0.5-release.html</guid>
       <description>
       &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
 &lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
 &lt;ul class=&quot;sectlevel1&quot;&gt;
-&lt;li&gt;&lt;a href=&quot;#_doctoolchain_v2_0_4_has_been_released&quot;&gt;docToolchain v2.0.4 Has Been Released!&lt;/a&gt;
+&lt;li&gt;&lt;a href=&quot;#_doctoolchain_v2_0_5_has_been_released&quot;&gt;docToolchain v2.0.5 Has Been Released!&lt;/a&gt;
 &lt;ul class=&quot;sectlevel2&quot;&gt;
 &lt;li&gt;&lt;a href=&quot;#_about_this_release&quot;&gt;About This Release&lt;/a&gt;&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#_changelog_v2_0_4&quot;&gt;Changelog v2.0.4&lt;/a&gt;&lt;/li&gt;
-&lt;/ul&gt;
-&lt;/li&gt;
-&lt;li&gt;&lt;a href=&quot;#_2_0_4_2022_03_09&quot;&gt;2.0.4 - 2022-03-09&lt;/a&gt;
-&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_changelog_v2_0_5&quot;&gt;Changelog v2.0.5&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#_fixes&quot;&gt;fixes&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#_added&quot;&gt;added&lt;/a&gt;&lt;/li&gt;
 &lt;li&gt;&lt;a href=&quot;#_changed&quot;&gt;changed&lt;/a&gt;&lt;/li&gt;
@@ -36,7 +32,7 @@
 &lt;/div&gt;
 &lt;!-- endtoc --&gt;
 &lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;_doctoolchain_v2_0_4_has_been_released&quot;&gt;docToolchain v2.0.4 Has Been Released!&lt;/h2&gt;
+&lt;h2 id=&quot;_doctoolchain_v2_0_5_has_been_released&quot;&gt;docToolchain v2.0.5 Has Been Released!&lt;/h2&gt;
 &lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;sect2&quot;&gt;
 &lt;h3 id=&quot;_about_this_release&quot;&gt;About This Release&lt;/h3&gt;
@@ -45,14 +41,9 @@
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect2&quot;&gt;
-&lt;h3 id=&quot;_changelog_v2_0_4&quot;&gt;Changelog v2.0.4&lt;/h3&gt;
+&lt;h3 id=&quot;_changelog_v2_0_5&quot;&gt;Changelog v2.0.5&lt;/h3&gt;
 
 &lt;/div&gt;
-&lt;/div&gt;
-&lt;/div&gt;
-&lt;div class=&quot;sect1&quot;&gt;
-&lt;h2 id=&quot;_2_0_4_2022_03_09&quot;&gt;2.0.4 - 2022-03-09&lt;/h2&gt;
-&lt;div class=&quot;sectionbody&quot;&gt;
 &lt;div class=&quot;sect2&quot;&gt;
 &lt;h3 id=&quot;_fixes&quot;&gt;fixes&lt;/h3&gt;
 &lt;div class=&quot;dlist&quot;&gt;
@@ -294,6 +285,37 @@
 &lt;/div&gt;
 &lt;/dd&gt;
 &lt;/dl&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	  </description>
+    </item>
+    
+    <item>
+      <title>(Release v2.0.4)</title>
+      <link>https://localhost/030_news/2022/2.0.4-release.html</link>
+      <pubDate>Thu, 10 Mar 2022 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">030_news/2022/2.0.4-release.html</guid>
+      <description>
+      &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
+&lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
+&lt;ul class=&quot;sectlevel1&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_doctoolchain_v2_0_4&quot;&gt;docToolchain v2.0.4&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_about_this_release&quot;&gt;About This Release&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- endtoc --&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_doctoolchain_v2_0_4&quot;&gt;docToolchain v2.0.4&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_about_this_release&quot;&gt;About This Release&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;there was a major bug in this release, so please ignore&lt;/p&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
