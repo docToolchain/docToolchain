@@ -15,6 +15,9 @@ ifndef::imagesdir[:imagesdir: ../../../images]
 === About This Release
 This is a bug-fix release. Thanks to everyone who contributed!
 
+NOTE: the docker image is a bit bigger now.
+If everything works out, this is because it now contains hopefully all dependencies.
+
 === Changelog v2.0.5
 
 === fixes
