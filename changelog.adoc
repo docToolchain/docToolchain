@@ -13,7 +13,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 
-== 2.0.4 - 2022-03-09
+== 2.0.5 - 2022-03-10
 
 === fixes
 
@@ -72,6 +72,10 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * refactored config file
 2021-11-14::
 * refactored jbake template "menu.gsp"
+
+== 2.0.4 - 2022-03-09
+
+there was a major bug in this release, please ignore
 
 == 2.0.3 - 2021-11-11
 

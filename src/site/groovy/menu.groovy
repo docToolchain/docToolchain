@@ -21,10 +21,13 @@ try {
         config.site_menu = [:]
         System.out.println("""
 warning: No menu defined in your config
-menu = [code1: 'title1', code2: 'title2']
+example: menu = [code1: 'title1', code2: 'title2']
 see http://doctoolchain.org/docToolchain/v2.0.x/015_tasks/03_task_generateSite.html#config
 for more details
 """)
+    }
+    if (config.site_menu=="") {
+        config.site_menu = [:]
     }
     config.site_menu.eachWithIndex { code, title, i ->
         def entries = menu[code] ?: []
@@ -44,7 +47,6 @@ for more details
 >>> menu.gsp: (1) ${e.message}
 
 """
-    dsfg
 }
 def newEntries = []
 try {

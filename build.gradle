@@ -155,6 +155,12 @@ task createDist(type: Zip, dependsOn: prepareDist) {
 
 }
 
+task downloadDependencies {
+    doLast {
+        configurations.findAll{it.canBeResolved}.each{it.resolve()}
+    }
+}
+
 // let's set a defaultTask for convenience
 //defaultTasks 'exportChangeLog','exportJiraIssues','asciidoctor'
 //defaultTasks 'generateHTML', 'htmlSanityCheck'

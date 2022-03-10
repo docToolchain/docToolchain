@@ -1,4 +1,7 @@
 <%
+    if (config.site_menu=="") {
+        config.site_menu=[:]
+    }
     def menu = content.menu[content['jbake-menu']]
 
 %>
