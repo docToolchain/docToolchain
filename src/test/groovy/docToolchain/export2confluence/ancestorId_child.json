@@ -1,0 +1,96 @@
+{
+    "results": [
+        {
+            "id": "71210367",
+            "type": "page",
+            "status": "current",
+            "title": "page 5",
+            "extensions": {
+                "position": "none"
+            },
+            "_links": {
+                "webui": "/display/xxx/page+5",
+                "edit": "/pages/resumedraft.action?draftId=71210367",
+                "tinyui": "/x/f5U_B",
+                "self": "https://confluence.de/rest/api/content/71210367"
+            },
+            "_expandable": {
+                "container": "/rest/api/space/xxx",
+                "metadata": "",
+                "operations": "",
+                "children": "/rest/api/content/71210367/child",
+                "restrictions": "/rest/api/content/71210367/restriction/byOperation",
+                "history": "/rest/api/content/71210367/history",
+                "ancestors": "",
+                "body": "",
+                "version": "",
+                "descendants": "/rest/api/content/71210367/descendant",
+                "space": "/rest/api/space/xxx"
+            }
+        },
+        {
+            "id": "76418864",
+            "type": "page",
+            "status": "current",
+            "title": "page 6",
+            "extensions": {
+                "position": "none"
+            },
+            "_links": {
+                "webui": "/pages/viewpage.action?pageId=76418864",
+                "edit": "/pages/resumedraft.action?draftId=76418864",
+                "tinyui": "/x/MA_OB",
+                "self": "https://confluence.de/rest/api/content/76418864"
+            },
+            "_expandable": {
+                "container": "/rest/api/space/xxx",
+                "metadata": "",
+                "operations": "",
+                "children": "/rest/api/content/76418864/child",
+                "restrictions": "/rest/api/content/76418864/restriction/byOperation",
+                "history": "/rest/api/content/76418864/history",
+                "ancestors": "",
+                "body": "",
+                "version": "",
+                "descendants": "/rest/api/content/76418864/descendant",
+                "space": "/rest/api/space/xxx"
+            }
+        },
+        {
+            "id": "71208921",
+            "type": "page",
+            "status": "current",
+            "title": "page 7",
+            "extensions": {
+                "position": "none"
+            },
+            "_links": {
+                "webui": "/display/xxx/page+7",
+                "edit": "/pages/resumedraft.action?draftId=71208921",
+                "tinyui": "/x/2Y8_B",
+                "self": "https://confluence.de/rest/api/content/71208921"
+            },
+            "_expandable": {
+                "container": "/rest/api/space/xxx",
+                "metadata": "",
+                "operations": "",
+                "children": "/rest/api/content/71208921/child",
+                "restrictions": "/rest/api/content/71208921/restriction/byOperation",
+                "history": "/rest/api/content/71208921/history",
+                "ancestors": "",
+                "body": "",
+                "version": "",
+                "descendants": "/rest/api/content/71208921/descendant",
+                "space": "/rest/api/space/xxx"
+            }
+        }
+    ],
+    "start": 0,
+    "limit": 100,
+    "size": 3,
+    "_links": {
+        "self": "https://confluence.de/rest/api/content/90480288/child/page?type=page",
+        "base": "https://confluence.de",
+        "context": ""
+    }
+}
