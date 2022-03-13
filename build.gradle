@@ -18,13 +18,32 @@ plugins {
 apply plugin:'groovy'
 
 dependencies {
+    repositories {
+        maven {
+            credentials {
+                username mavenUsername
+                password mavenPassword
+            }
+            url mavenRepository
+        }
+    }
     testImplementation(
             ('junit:junit:4.13.2'),
             ('org.spockframework:spock-core:1.3-groovy-2.5'),
             ('com.athaydes:spock-reports:1.6.2'),
             //('org.slf4j:slf4j-api:1.7.13'),
             //('org.slf4j:slf4j-simple:1.7.13'),
-            gradleTestKit()
+            gradleTestKit(),
+            //for the renderToConfluence Task
+            ('org.apache.httpcomponents:httpmime:4.5.10'),
+            ('org.jsoup:jsoup:1.12.1'),
+            ('org.codehaus.groovy.modules.http-builder:http-builder:0.7.2')
+    )
+    testCompile(
+        ('org.codehaus.groovy.modules.http-builder:http-builder:0.7.2')
+    )
+    testRuntime(
+        "net.bytebuddy:byte-buddy:1.12.8"
     )
 }
 if (project.name!=rootProject.name) {
