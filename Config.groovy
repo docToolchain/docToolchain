@@ -68,6 +68,7 @@ confluence = [:]
 //                             ancestorId will be used as a fallback
 // - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty
 //                            if a new parent shall be created in the space
+//                            Set it for every file so the page scanning is done only for the given ancestor page trees.
 // - 'preambleTitle' (optional): the title of the page containing the preamble (everything
 //                            before the first second level heading). Default is 'arc42'
 //
