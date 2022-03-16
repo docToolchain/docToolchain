@@ -39,6 +39,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === added
 
+2022-03-16::
+* https://github.com/docToolchain/docToolchain/pull/825[#825 - publishToConfluence: support swagger-open-api]
+
 2021-12-09::
 * https://github.com/docToolchain/docToolchain/pull/714[#714 - Update exportExcel.gradle]
 
