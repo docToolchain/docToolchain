@@ -5,14 +5,16 @@ task exportPPT(
         group: 'docToolchain'
 ) {
     doLast {
+        File sourceDir = file(srcDir)
+        logger.info("sourceDir: ${sourceDir}")
         //make sure path for notes exists
         //and remove old notes
-        new File(projectDir, 'src/docs/ppt').deleteDir()
+        new File(sourceDir, 'ppt').deleteDir()
         //also remove old diagrams
-        new File(projectDir, 'src/docs/images/ppt').deleteDir()
+        new File(sourceDir, 'images/ppt').deleteDir()
         //create a readme to clarify things
         def readme = """This folder contains exported slides or notes from .ppt presentations.
-		
+
 Please note that these are generated files but reside in the `src`-folder in order to be versioned.
 
 This is to make sure that they can be used from environments other than windows.
@@ -23,12 +25,13 @@ This is to make sure that they can be used from environments other than windows.
 
 use `gradle exportPPT` to re-export files
 """
-        new File(projectDir, 'src/docs/images/ppt/.').mkdirs()
-        new File(projectDir, 'src/docs/images/ppt/readme.ad').write(readme)
-        new File(projectDir, 'src/docs/ppt/.').mkdirs()
-        new File(projectDir, 'src/docs/ppt/readme.ad').write(readme)
+        new File(sourceDir, 'images/ppt/.').mkdirs()
+        new File(sourceDir, 'images/ppt/readme.ad').write(readme)
+        new File(sourceDir, 'ppt/.').mkdirs()
+        new File(sourceDir, 'ppt/readme.ad').write(readme)
+        def searchPath = new File(sourceDir, 'ppt')
         //execute through cscript in order to make sure that we get WScript.echo right
-        "%SystemRoot%\\System32\\cscript.exe //nologo ${projectDir}/scripts/exportPPT.vbs".executeCmd()
+        "%SystemRoot%\\System32\\cscript.exe //nologo ${projectDir}/scripts/exportPPT.vbs -s ${sourceDir.absolutePath}".executeCmd()
     }
 }
 //end::exportPPT[]

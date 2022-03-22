@@ -1,0 +1,17 @@
+:filename: 030_news/2022/2.0.4-release.adoc
+:jbake-title: (Release v2.0.4)
+:jbake-date: 2022-03-10
+:jbake-type: post
+:jbake-tags: docToolchain
+:jbake-status: published
+:jbake-menu: news
+:jbake-author: Ralf D. Müller
+:icons: font
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+== docToolchain v2.0.4
+
+=== About This Release
+
+there was a major bug in this release, so please ignore

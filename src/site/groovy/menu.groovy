@@ -2,7 +2,6 @@ def menu = [:]
 def entriesMap = [:]
 try {
     published_content.each { page ->
-
         if (page['jbake-menu']) {
             //initialize entry if it doesn't exist yet
             if (menu[page['jbake-menu']] == null) {
@@ -18,6 +17,18 @@ try {
         }
     }
     // first, use all menu codes which are defined in the config
+    if (config.site_menu==null) {
+        config.site_menu = [:]
+        System.out.println("""
+warning: No menu defined in your config
+example: menu = [code1: 'title1', code2: 'title2']
+see http://doctoolchain.org/docToolchain/v2.0.x/015_tasks/03_task_generateSite.html#config
+for more details
+""")
+    }
+    if (config.site_menu=="") {
+        config.site_menu = [:]
+    }
     config.site_menu.eachWithIndex { code, title, i ->
         def entries = menu[code] ?: []
         entriesMap[code] = [title, entries]
@@ -50,7 +61,7 @@ try {
                 if ((content.rootpath + content.uri)?.startsWith(basePath)) {
                     isActive = "active"
                 }
-                System.out.println "   $title"
+                //System.out.println "   $title"
                 newEntries << [isActive: isActive, href: "${content.rootpath}${entries.find { it.order == 0 }?.uri ?: entries[0].uri}", title: title]
             }
         }

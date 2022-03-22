@@ -43,9 +43,10 @@ task downloadTemplate(
             lang = ant.lang
             help = ant.help
         }
-        download {
+        download.run {
             src templates[template]
             dest new File(targetDir, 'template.zip')
+            overwrite true
         }
         copy {
             from zipTree(new File(targetDir, 'template.zip'))
@@ -91,12 +92,12 @@ ifndef::imagesdir[:imagesdir: ../../images]
         }
         new File(targetDir, 'arc42-template.adoc').renameTo(new File(targetDir, 'arc42.adoc'))
         def configAdoc = new File(targetDir,'chapters/config.adoc')
-        configAdoc.write(configAdoc.text.replaceAll("[.]/images","../images"))
+        configAdoc.write(configAdoc.text.replaceAll("[.]/images","../images"),'utf-8')
         def mainDoc = new File(targetDir,'arc42.adoc')
-        mainDoc.write(":imagesdir: ../images\n:jbake-menu: -\n"+mainDoc.text.replaceAll('src/','chapters/'))
+        mainDoc.write(":imagesdir: ../images\n:jbake-menu: -\n"+mainDoc.text.replaceAll('src/','chapters/'),'utf-8')
         //write asciidoctorconfig for editor preview
-        new File(targetDir,'/chapters/.asciidoctorconfig.adoc').write(':imagesdir: ../../images\n\n')
-        new File(targetDir,'/.asciidoctorconfig.adoc').write(':imagesdir: ../images\n\n')
+        new File(targetDir,'/chapters/.asciidoctorconfig.adoc').write(':imagesdir: ../../images\n\n', 'utf-8')
+        new File(targetDir,'/.asciidoctorconfig.adoc').write(':imagesdir: ../images\n\n', 'utf-8')
         //add arc42.doc to config
         def configFile = new File(docDir, mainConfigFile)
         configFile.write(
@@ -104,7 +105,8 @@ ifndef::imagesdir[:imagesdir: ../../images]
                 .replaceAll('/[*]{2} inputFiles [*]{2}/',
                             "[file: 'arc42/arc42.adoc', formats: ['html','pdf']],\n\t/** inputFiles **/")
                 .replaceAll('/[*]{2} imageDirs [*]{2}/',
-                            "'images/.',\n\t/** imageDirs **/")
+                            "'images/.',\n\t/** imageDirs **/"),
+            'utf-8'
         )
         println "added template to ${mainConfigFile}"
         println "use 'generateHTML', 'generatePDF' or  'generateSite' to convert the template"

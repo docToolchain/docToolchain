@@ -28,17 +28,23 @@ If you have a question or problem for which you can't find a solution, you can
 
 === Q: Why are images not shown in the preview of my editor?
 
-A: this is most likely because your editor doesn't know where they are stored.
+.Answer
+[%collapsible]
+====
+Ahis is most likely because your editor doesn't know where they are stored.
 If you follow the default settings, you probably store your images in a subfolder `images`.
 The build script knows about it, because the attribute `imagesdir` has been set to `./images`, but your editor doesn't care about the build script - it only checks the currently opened AsciiDoc file.
 
 The solution is to add a line to each file which checks if the `imagesdir` is set and if not, sets it to a valid value:
 
 `ifndef::imagesdir[:imagesdir: ../images]`
+====
 
 === Q: Which image format should I use?
 
-A:
+.Answer
+[%collapsible]
+====
 AsciiDoc and AsciiDoctor support several formats like GIF, PNG, JPG and SVG.
 However, if you want to use most features, some formats are better to use than others:
 
@@ -54,10 +60,13 @@ PDF output might display a warning that newer SVG versions are not supported (ha
 
 PNG:: this is the preferred format for images used with docToolchain.
 All output formats support it and if diagrams are rendered with a resolution high enough to display all details, it will also be scaled well with all output formats.
+====
 
 === Q: Why are my images rotated in the output?
 
-A:
+.Answer
+[%collapsible]
+====
 This most likely happens when you've taken photos with a mobile device and include them in you docs.
 A mobile device does not rotate the image itself, it only stores the orientation of the device in the meta data of the photo.
 Your operating system will show you the image as expected, but the rendered AsciiDoc will not.
@@ -65,6 +74,7 @@ This can be „fixed“ with Imagemagick, by using `convert -auto-orient` or `mo
 You can also try to just open the image in your favourite editor and re-save it.
 
 == exportVisio
+====
 
 === Q: I get an error message saying that a library is not registered when I try to run the `exportVisio`-task.
 
@@ -80,21 +90,28 @@ In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
     + FullyQualifiedErrorId : ExceptionWhenSetting
 ----
 
-A:
+.Answer
+[%collapsible]
+====
 When Visio is installed, it registers itself as a com library.
 It seems that this registration can break.
 You can fix this by visiting the windows system settings -> install or uninstall a program, select `visio`, select `change` and then `repair`.
+====
 
 == Sparx Enterprise Architect
 
 === Q: Sparx Enterprise Architect is a Windows tool, isn't it?
 
+.Answer
+[%collapsible]
+====
 Yes, it is, but it is written to support CrossOver in order to run on Linux based systems.
 Wine, the open source branch of CrossOver, seems to work as well.
 
 Take a look at this page to see how to install it on a linux based system: https://www.sparxsystems.com/support/faq/ea_on_linux.html
 
 I (Ralf) once gave it a try and even managed to get remote control over EA via VBS and COM up and running (which is the pre-requisite for docToolchain).
+====
 
 == Known error Messages
 
@@ -106,6 +123,9 @@ Failed to capture snapshot of input files for task ':generateHTML' property 'sou
 > Failed to create MD5 hash for file content.`
 ----
 
+.Answer
+[%collapsible]
+====
 There are two known reasons for this error.
 
 1. One of the .adoc files is opened in an editor, so that windows can't get the lock for that file.
@@ -114,12 +134,17 @@ There are two known reasons for this error.
 2. You use the Bash script `doctoolchain` on a windows system.
 -> Use `doctoolchain.bat` instead.
 It works even in a Bash Shell.
+====
 
 === Q: I get the error saying 'Unsupported major.minor version 52.0'
 
+.Answer
+[%collapsible]
+====
 This is a sign that you use an outdated version of Java.
 Please upgrade to Java 8 at least and 14 max.
 The docToolchain-wrapper (dtcw) in v2.0 will check the java version for you so that you will not see this error message in the future.
+====
 
 === Q: I get an error message saying 'Error occurred during initialization of VM'
 
@@ -135,12 +160,19 @@ Error occurred during initialization of VM
 Could not reserve enough space for 2097152KB object heap
 ```
 
+.Answer
+[%collapsible]
+====
 Somehow docToolchain can't allocate the memory which is configured out of the box.
 Try to free up some memory or comment out the line `org.gradle.jvmargs=-Xmx2048m` in `gradle.properties`
+====
 
 [[wsl]]
 === Q: I get the error saying `Could not initialize class java.awt.GraphicsEnvironment$LocaleGE`
 
+.Answer
+[%collapsible]
+====
 This seems to be a problem with WSL on Windows.
 Some sources mention to run Java in headless mode, but in this case, it doesn't solve the problem.
 The root cause seems to be plantUML trying to get some font information.
@@ -157,7 +189,28 @@ Another solution is to avoid PlantUML and generate Diagrams through a https://kr
 
 Another variant of this is `Can't connect to X11 window server using '192.168.189.153:0' as the value of the DISPLAY variable.`.
 In this case, it might help to install an X-Server (x410 for example) and configure the `DISPLAY` variable correctly.
-An easy way to test you configuration is to run `xeyes` in WSL.
+An easy way to test your configuration is to run `xeyes` in WSL.
 
-NOTE:: Please make sure that you wsl is up-to-date bei executing `wsl --update` - this is not part of your regular windows update!
+Make sure that your WSL is up to date by running `wsl --update`. This is not part of your regular Windows update!
+====
+
+=== Q: I get an error that Gradle dependencies cannot be downloaded because a proxy is restricting internet access.
+
+.Answer
+[%collapsible]
+
+====
+Remember that dtcw is a wrapper around Gradle. So instead of calling this:
+
+`./dtcw generateSite`
+
+You could call this instead (remember to replace the values used in our example):
+
+`./dtcw generateSite -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=3128 "-http.nonProxyHosts=*.nonproxyrepos.com|localhost"`
+
+(IP, port, etc just an example)
+
+For more information about Gradle proxy configuration, read https://stackoverflow.com/questions/5991194/gradle-proxy-configuration[this article].
+====
+
 

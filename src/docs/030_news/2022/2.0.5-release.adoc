@@ -1,0 +1,79 @@
+:filename: 030_news/2022/2.0.5-release.adoc
+:jbake-title: Release v2.0.5
+:jbake-date: 2022-03-10
+:jbake-type: post
+:jbake-tags: docToolchain
+:jbake-status: published
+:jbake-menu: news
+:jbake-author: Ralf D. Müller
+:icons: font
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+== docToolchain v2.0.5 has Been Released!
+
+=== About This Release
+This is a bug-fix release. Thanks to everyone who contributed!
+
+NOTE: the docker image is a bit bigger now.
+If everything works out, this is because it now contains hopefully all dependencies.
+
+=== Changelog v2.0.5
+
+=== fixes
+
+2022-03-08::
+* downloadTemplate: fix encoding for working with powershell
+* https://github.com/docToolchain/docToolchain/pull/821[#821 exportPPT is broken since 2.x]
+2022-02-25::
+* https://github.com/docToolchain/docToolchain/pull/803[#764 order :jbake-order: numerical]
+2021-12-20::
+* brushed up docs
+2021-12-06::
+* https://github.com/docToolchain/docToolchain/pull/711[#712 - publishToConfluence fails when no hash is available for an uploaded image]
+2022-01-23::
+* https://github.com/docToolchain/docToolchain/pull/757[#757 - CI: Fix problem in ci-scrip]
+2021-12-06::
+* https://github.com/docToolchain/doctoolchain.github.io/issues/20[#20 some wget versions throw errors]
+* https://github.com/docToolchain/doctoolchain.github.io/issues/19[#19 the wrapper stops if no java installed but you want to use docker]
+2021-11-26::
+* https://github.com/docToolchain/doctoolchain.github.io/issues/18[#18 gradle daemon has memory problems]
+2021-11-15::
+* https://github.com/docToolchain/docToolchain/pull/696[#696 - exportContributors - not everybody is rendered]
+* https://github.com/docToolchain/docToolchain/pull/697[#697 - exportToMarkdown docs are not referenced correctly]
+
+=== added
+
+2021-12-09::
+* https://github.com/docToolchain/docToolchain/pull/714[#714 - Update exportExcel.gradle]
+
+2021-11-30::
+* https://github.com/docToolchain/docToolchain/pull/706[#706 - exportEA: Add check if diagrams shall be overwritten]
+
+2021-11-13::
+* https://github.com/docToolchain/docToolchain/pull/686[#686 - Add resourceDirs option]
+
+=== changed
+
+2022-03-09::
+* upgraded underlying gradle from 6.7.1 to 6.9.2
+
+2022-03-08::
+* downloadTemplate: upgraded download plugin
+* https://github.com/docToolchain/docToolchain/issue/817[#817 htmlSanityCheck remove dependency to generateHTML]
+2022-02-09::
+* https://github.com/docToolchain/docToolchain/issue/795[#795 publishToConfluence: added hint for wrong configuration]
+2022-01-23::
+* https://github.com/docToolchain/docToolchain/pull/756[#756  exportEA: Add two more items for export]
+2021-12-23::
+* https://github.com/docToolchain/docToolchain/issues/730[#730 "improve this doc" and "create and issue" links]
+2021-12-09::
+* make build output less noisy - use logger instead of println
+2021-12-08::
+* changed wording of landing page (thanx to Jody Winter)
+2021-12-04::
+* changed java download hint from oracle to https://adoptium.net/
+2021-11-30::
+* refactored config file
+2021-11-14::
+* refactored jbake template "menu.gsp"

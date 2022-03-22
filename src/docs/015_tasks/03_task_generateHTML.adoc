@@ -7,23 +7,22 @@ include::../_feedback.adoc[]
 
 image::ea/Manual/generateHTML.png[]
 
-This is the standard AsciiDoctor generator which is supported out of the box.
 
-The result is written to `build/html5`.
-The HTML files need the images folder to be in the same directory to display correctly.
+== About This Task
 
-NOTE: If you would like to have a single-file HTML as result, you can configure AsciiDoctor to store the images inline as `data-uri`. +
-Just set `:data-uri:` in the config of your AsciiDoc file. +
-But be warned - such a file can become very big easily and some browsers might get into trouble rendering them. +
-https://rdmueller.github.io/single-file-html/
+This is the standard Asciidoctor generator which is supported out of the box.
+The result is written to `build/html5` (the HTML files need the images folder to be in the same directory to display correctly).
 
-== Text based Diagrams
+== Generating Single-File HTML Output
 
-For docToolchain, it is configured to use the https://asciidoctor.org/docs/asciidoctor-diagram/[asciidoctor-diagram] plugin which is used to create PlantUML diagrams.
+If you would like the generator to produce a single-file HTML, you can configure Asciidoctor to store the images inline as `data-uri` by setting `:data-uri:` in the config of your AsciiDoc file.
+But be warned. The file can quickly become very large and some browsers might struggle to render it.
 
-The plugin also supports a bunch of other text based diagrams, but http://plantuml.com/[PlantUML] is the most used.
+== Creating Text-Based Diagrams
 
-To use it, just specify your PlantUML code like this:
+docToolchain is configured to use the https://asciidoctor.org/docs/asciidoctor-diagram/[asciidoctor-diagram] plugin to create PlantUML diagrams.
+The plugin also supports many other text-based diagrams, but http://plantuml.com/[PlantUML] is the most common.
+To use the plugin, specify your PlantUML code like this:
 
 ....
 .example diagram
@@ -40,15 +39,15 @@ DiagramBlock <|-- PlantUmlBlock
 ----
 ....
 
-<1> The element of this list specifies the diagram tool `plantuml` to be used. +
-The second element is the name of the image to be created and the third specifies the image type.
+<1> The element of this list specifies the diagram tool `plantuml` to be used.
+The second element is the name of the image to be created, and the third specifies the image type.
 
-NOTE: The `\{plantUMLDir}` ensures that PlantUML also works for the xref:03_task_generatePDF.adoc[`generatePDF`] task.
+NOTE: `\{plantUMLDir}` ensures that PlantUML also works for the xref:03_task_generatePDF.adoc[`generatePDF`] task.
 Without it, xref:03_task_generateHTML.adoc[`generateHTML`] works fine, but the PDF will not contain the generated images.
 
-IMPORTANT: Make sure to specify a unique image name for each diagram, otherwise they will overwrite each other.
+IMPORTANT: Be sure to specify a unique image name for each diagram, otherwise they will overwrite each other.
 
-The above example renders as
+The above example renders as:
 
 .example diagram
 [plantuml,"{plantUMLDir}demoPlantUML",png]
@@ -64,8 +63,10 @@ DiagramBlock <|-- DitaaBlock
 DiagramBlock <|-- PlantUmlBlock
 ----
 
-If you want to control the size of the generated diagram in the output, you can configure the "width" attribute (in pixels) or "scale" attribute (floating point ratio) passed to https://asciidoctor.org/docs/asciidoctor-diagram/[asciidoctor-diagram].
-For example, if you take the example diagram above and change the declaration to one of the below versions
+== Controlling Diagram Size
+
+If you want to control the size of the diagram in the output, configure the "width" attribute (in pixels) or the "scale" attribute (floating point ratio) passed to https://asciidoctor.org/docs/asciidoctor-diagram/[asciidoctor-diagram].
+The following example updates the diagram above by changing the declaration to one of the versions below:
 
 ....
 [plantuml, target="{plantUMLDir}demoPlantUMLWidth", format=png, width=250]
@@ -75,7 +76,7 @@ For example, if you take the example diagram above and change the declaration to
 # rest of the diagram definition
 ....
 
-it will render like this:
+The output will render like this:
 
 .example diagram (with specified width)
 [plantuml,target="{plantUMLDir}demoPlantUMLWidth",format=png,width=250]
@@ -105,13 +106,18 @@ DiagramBlock <|-- DitaaBlock
 DiagramBlock <|-- PlantUmlBlock
 ----
 
-NOTE: PlantUML needs Graphviz dot installed to work.
-If you can't install it, you can use the Java based version of the dot library.
+NOTE: To work correctly, PlantUML needs Graphviz dot installed.
+If you can't install it, use the Java-based version of the dot library instead.
 Just add `!pragma graphviz_dot smetana` as the first line of your diagram definition.
-This is still an experimental feature, but already works quite well! +
-https://rdmueller.github.io/plantuml-without-graphviz/
+This is still an experimental feature, but already works well!
 
-TIP: Blog-Posts: https://rdmueller.github.io/plantuml-gradle/[PlantUML with Gradle], https://rdmueller.github.io/plantUML-and-pdf/[plantUML with Asciidoctor-pdf], https://rdmueller.github.io/plantUML-revisited/[plantUML revisited], https://rdmueller.github.io/plantuml-without-graphviz/[How to use PlantUML without Graphviz]
+== Further Reading and Resources
+* https://rdmueller.github.io/single-file-html/[This blog post] explains more about single-file HTML.
+* Read https://rdmueller.github.io/plantuml-without-graphviz/[this blog post] to understand how to use PlantUML without Graphviz dot.
+* Other helpful posts related to the `generateHTML` task:
+    - https://rdmueller.github.io/plantuml-gradle/[PlantUML with Gradle]
+    - https://rdmueller.github.io/plantUML-and-pdf/[PlantUML with Asciidoctor-pdf]
+    - https://rdmueller.github.io/plantUML-revisited/[PlantUML Revisited] 
 
 == Source
 

@@ -25,12 +25,12 @@ def color = { color, text ->
 }
 
 jbake {
-    version = '2.7.0-rc.2'
+    version = '2.6.7'
     srcDirName = "${targetDir}/microsite/tmp/site"
     destDirName = "${targetDir}/microsite/output"
     configuration['asciidoctor.option.requires'] = "asciidoctor-diagram"
     config.microsite.each { key, value ->
-        configuration['site.'+key-'config.microsite.'] = value
+        configuration['site.'+key-'config.microsite.'] = value?:''
         //println 'site.'+key-'config.microsite.' +" = "+ value
     }
 
@@ -89,9 +89,10 @@ ${color 'green', 'for you?'}\n""",
                     }
                     if (ant.yesno == "y") {
                         themeFolder.mkdirs()
-                        download {
+                        download.run {
                             src siteTheme
                             dest new File(themeFolder, 'siteTheme.zip')
+                            overwrite true
                         }
                         copy {
                             from zipTree(new File(themeFolder, 'siteTheme.zip'))
@@ -206,7 +207,7 @@ ${color 'green', 'for you?'}\n""",
         logger.info("sourceFolder: " + sourceFolder.canonicalPath)
         sourceFolder.traverse(type: FILES) { file ->
             if (file.name ==~ '^.*(ad|adoc|asciidoc)$') {
-                if (file.name.startsWith("_")) {
+                if (file.name.startsWith("_") || file.name.startsWith(".")) {
                     //ignore
                 } else {
                     def origText = file.text

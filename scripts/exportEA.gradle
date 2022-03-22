@@ -100,11 +100,12 @@ task streamingExecute(
             }
             def p
             try {
-                p = "cmd.exe /c ${command}".execute()
+                String commandUTF8 = new String(command.value, 'utf-8');
+                p = "cmd.exe /c ${commandUTF8}".execute()
             } catch (Exception e) {
                 throw new Exception ("""
 sorry, this task currently needs needs windows as operation system
-println "if you started this task from WSL, please switch to powershell
+if you started this task from WSL, please switch to powershell
 """)
 
             }

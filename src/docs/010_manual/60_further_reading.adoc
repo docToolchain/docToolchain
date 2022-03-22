@@ -6,102 +6,97 @@ ifndef::imagesdir[:imagesdir: ../images]
 
 include::../_feedback.adoc[]
 
-This chapter lists some additional references to interesting resources.
+== Introduction
+
+Everything you need to know about docToolchain, from the underlying technology to useful resources.
 
 == Underlying Technologies
 
-This project relies on many underlying technologies.
-Here is a lists and some explaining words
+Learn more about the technologies that support docToolchain, as well as some useful resources.
 
 === Markup
 
-* *AsciiDoc* +
-AsciiDoc is our preferred markup language for technical docs
+.AsciiDoc
+[%collapsible]
+====
+This is our preferred markup language for technical docs.
+
 ** https://asciidoctor.org/docs/user-manual/[Asciidoctor User-Manual]
 ** https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc Syntax Quick Reference]
-** Video: https://www.ahus1.de/post/asciidoctor-intro-and-deep-dive["Asciidoctor Deep Dive"] by Alexander Schwartz
-* *Markdown* +
-Since we use jBake as Static-Site-Generator, you can also use Markdown to write your docs.
-** https://github.com/vsch/flexmark-java[flexmark-java] is the Markdown parser and flavour used by jBake
-** if you prefer to use the xref:../015_tasks/03_task_exportMarkdown.adoc[`exportMarkdown`]-Task, then https://github.com/bodiam/markdown-to-asciidoc[markdown-to-asciidoc] library is used. The IntelliJ-Plugin also uses this library.
+** https://www.ahus1.de/post/asciidoctor-intro-and-deep-dive["Asciidoctor Deep Dive Video"] by Alexander Schwartz
+
+====
+
+
+.Markdown
+[%collapsible]
+====
+Since we use JBake as a static site generator, you can write your docs in Markdown too.
+
+** https://github.com/vsch/flexmark-java[flexmark-java] is the Markdown parser and flavor jBake uses.
+** https://github.com/bodiam/markdown-to-asciidoc[markdown-to-asciidoc] library can be used if you prefer to use the xref:../015_tasks/03_task_exportMarkdown.adoc[`exportMarkdown`]-Task. 
+
+
+====
 
 === Templates
+.arc42
+[%collapsible]
+====
 
-* *arc42* +
-is the perfect documentation template for your softare solution architecture documentation.
+The perfect template for your software solution architecture documentation.
+
 ** https://arc42.org/[arc42]
 ** https://docs.arc42.org/home/[arc42 Tips & Tricks]
 ** https://faq.arc42.org/home/[arc42 FAQ]
+====
 
-=== Docs-as-Code
+=== Docs as Code
+.Docs as Code
+[%collapsible]
+====
 
-* *docs-as-code* +
-is the approach you use when you treat your docs the same as your code.
-We've create a little microsite with some additional resources.
+Treat your docs as if they were code.
+
 ** https://docs-as-co.de/[Docs-as-Code]
-** https://www.writethedocs.org/guide/docs-as-code/[write the docs: docs-as-code] is another independent resource.
+** https://www.writethedocs.org/guide/docs-as-code/[write the docs: docs-as-code]
+====
 
 === Static Site Generator
+.Static Site Generator
+[%collapsible]
+====
 
-* https://jbake.org[jBake] is the underlying static site generator for the xref:../015_tasks/03_task_generateSite.adoc[`generateSite`]-Task
-* https://www.docsy.dev/[docsy] is the standard theme we use
-* https://getbootstrap.com/docs/4.6/getting-started/introduction/[twitter bootstrap] is the CSS framework
+* The underlying static site generator for the xref:../015_tasks/03_task_generateSite.adoc[`generateSite`]-Task is https://jbake.org[jBake]
+* Our standard theme is https://www.docsy.dev/[docsy] 
+* Our CSS framework is https://getbootstrap.com/docs/4.6/getting-started/introduction/[Twitter Bootstrap] 
+
+====
 
 == Books
 
-NOTE: links to Amazon are affiliate links
+NOTE: These are Amazon affiliate links.
 
-=== English Books
 
-* https://www.amazon.de/dp/B0784ZJWSR[DOCS-LIKE-CODE] by Anne Gentle
-* https://amzn.to/2sn0kyx[Modern technical writing:
-An Introduction to Software Documentation] by Andrew Etter
-* https://leanpub.com/arc42byexample[arc42 by Example] by Gernot Starke, Stefan Zörner, Michael Simons, Ralf D. Müller
-* https://leanpub.com/arc42inpractice[Communicating Software Architectures with arc42] by Gernot Starke und Peter Hruschka
-* https://leanpub.com/visualising-software-architecture[Visualise, document and explore your software architecture] by Simon Brown
+[width="80%",options="header"]
+|=========================================================
+|Title |Author |Language
 
-=== German Books
+|https://www.amazon.com/dp/1387081322[Docs Like Code] | Anne Gentle | English 
+ 
+|https://amzn.to/2sn0kyx[Modern Technical Writing: An Introduction to Software Documentation] |Andrew Etter | English 
 
-* https://amzn.to/2smM5Kp[arc42 in Aktion:
-Praktische Tipps zur Architekturdokumentation] von Gernot Starke und Peter Hruschka
-* https://amzn.to/2ru9Yvr[Softwarearchitekturen dokumentieren und kommunizieren:
-Entwürfe, Entscheidungen und Lösungen nachvollziehbar und wirkungsvoll festhalten] von Stefan Zörner
+|https://leanpub.com/arc42byexample[arc42 by Example] | Gernot Starke, Stefan Zörner, Michael Simons, Ralf D. Müller | English
 
-== Past and upcoming Talks
 
-=== Dokumentation am (Riesen-)Beispiel – arc42, AsciiDoc und Co. in Aktion
+|https://leanpub.com/arc42inpractice[Communicating Software Architectures with arc42] | Gernot Starke und Peter Hruschka | English 
 
-https://twitter.com/gernotstarke[Gernot Starke] and https://twitter.com/ralfdmueller[Ralf D.
-Müller]
+|https://leanpub.com/visualising-software-architecture[Software Architecture for Developers, Volume 2] | Simon Brown | English 
 
-Anhand eines großen Systems zeigen Gernot und Ralf, wie Sie mit ziemlich wenig Aufwand angemessene und vernünftige Dokumentation für unterschiedliche Stakeholder produzieren – sodass Entwicklungsteams dabei auch noch Spaß haben.
+|https://amzn.to/2smM5Kp[arc42 in Aktion:
+Praktische Tipps zur Architekturdokumentation] |von Gernot Starke and Peter Hruschka40:00 | German
 
-Unser Rezept:
-AsciiDoc mit arc42 mischen, Automatisierung mit Gradle und Maven hinzufügen und mit Diagramm- oder Modellierungstools Ihrer Wahl kombinieren.
-Schon sind schicke HTML- und reviewfähige PDF-Dokumente fertig.
-Auf Wunsch gibts DOCX und Confluence als Zugabe.
+|https://amzn.to/2ru9Yvr[Softwarearchitekturen dokumentieren und kommunizieren:
+Entwürfe, Entscheidungen und Lösungen nachvollziehbar und wirkungsvoll festhalten] |von Stefan Zörner | German
 
-Wir zeigen, wie Sie Doku genau wie Quellcode verwalten können, stakeholderspezifische Dokumente erzeugen und Diagramme automatisiert integrieren können.
-Einige Teile dieser Doku können Sie sogar automatisiert testen.
-
-Zwischendurch bekommen Sie zahlreiche Tipps, wie und wo Sie systematisch den Aufwand für Dokumentation reduzieren können und trotzdem lesbare, verständliche und praxistaugliche Ergebnisse produzieren.
-
-image::manual/speakerdeck1.png[align="center",link=https://speakerdeck.com/rdmueller/dokumentation-am-riesen-beispiel-arc42-asciidoc-und-co-in-aktion]
-
-=== Gesunde Dokumentation mit AsciiDoctor
-
-https://twitter.com/ahus1de[Alexander Schwartz]
-
-Autoren möchten Inhalte effizient dokumentieren und vorhandene Inhalte wiederverwenden.
-Ein Leser möchte das Dokument in einem ansprechenden Layout präsentiert bekommen.
-
-Das textbasierte AsciiDoc-Format bietet für einen Entwickler oder technischen Redakteur alle notwendigen Auszeichungselemente, um auch anspruchsvolle Dokumente zu schreiben.
-So werden unter anderem Tabellen, Fußnoten und annotierte Quellcodes unterstützt.
-Gleichzeitig ist es ähnlich leichtgewichtig wie z.B. das Markdown Format.
-Für die Leser wird HTML, PDF oder EPUB generiert.
-
-Da AsciiDoc wie Programmcode eingecheckt wird und Merge-Operationen einfach möglich sind, können Programmcode und Dokumentation zusammen versioniert und auf einem einheitlichen Stand gehalten werden.
-
-Der Vortrag gibt eine kurze Einführung in AsciiDoc und die dazugehörigen Werkzeuge.
-
-image::manual/speakerdeck2.png[align="center",link=https://speakerdeck.com/ahus1/gesunde-dokumentation-mit-asciidoctor]
+|=========================================================

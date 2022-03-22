@@ -47,4 +47,4 @@ htmlSanityCheck {
 }
 //end::htmlSanityCheck[]
 
-htmlSanityCheck.dependsOn generateHTML
+

@@ -6,22 +6,21 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
-When you have _one_ document, the output of `generateHTML` might fit your needs.
-When your documentation grows, and you have _several_ documents, you need a microsite which bundles all the information.
+== About This Task
 
-The `generateSite` task uses https://jbake.org[jBake] to create a static site with a Landingpage, Blog and Search.
+When you have only one document, the output of `generateHTML` might meet your requirements.
+But as your documentation grows, and you have multiple documents, you will need a microsite which bundles all of the information.
+The `generateSite` task uses https://jbake.org[jBake] to create a static site with a landing page, a blog and search.
 
 == Pages
 
-The microsite is page oriented instead of document oriented.
-It is likely that you already organized your documents by chapter.
-Use these chapters as pages to create a great user experience.
-
+The microsite is page-oriented, not document-oriented.
+If you have already organized your documents by chapter, use them as pages to create a great user experience.
 The arc42-template sources are a good example.
 
-In order to include a page in the microsite, add a meta-data header to it.
+To include a page in the microsite, add a metadata header to it.
 
-.page meta-data
+.page metadata
 [source, asciidoc]
 ----
 :jbake-menu: arc42
@@ -38,48 +37,74 @@ ifndef::imagesdir[:imagesdir: ../../images]
 == Solution Strategy
 ----
 
-jbake-menu:: the top-level menu for this page.
-Defaults to the top-level folder name of the adoc file within the `docDir`.
-jbake-title:: the title to be displayed in the drop-down top-level menu.
+Here is an overview of each element:
+
+*jbake-menu*
+
+The top-level menu for this page.
+Defaults to the top-level folder name of the .adoc file within the `docDir`.
+
+*jbake-title*
+
+The title to be displayed in the drop-down top-level menu.
 Defaults to the first headline of the file.
-jbake-order:: give the drop-down entries a sort order.
-Defaults to a prefixed number of the file like `**04**_filename.adoc` or to the prefixed number of the second level folder name.
-jbake-type:: the page type.
-This controls which template is used to render the page.
+
+*jbake-order*
+
+Applies a sort order to drop-down entries.
+Defaults to a prefixed file number, such as `**04**_filename.adoc` or to the prefixed number of the second-level folder name.
+
+*jbake-type*
+
+The page type.
+Controls which template is used to render the page.
 You will mostly use `page` for a full-width page or `page_toc` for a page with a table of contents (toc) rendered on the left.
 Defaults to `page_toc`.
-jbake-status:: `draft` or `published`.
-Only `published` pages will be rendered.
-Defaults to `published` for files with a `jbake-order` and `draft` for files without order or files prefixed with `_`.
-filename:: needed for edit and feedback-links (coming soon).
-Defaults to the filename :-)
-ifndef:: this fixes the imagesdir according to the nesting level of your docs folder
-Defaults to the main `docDir/images`
-toc:: for `:jbake-type: page_toc`, you need this line to generate the toc.
 
-NOTE: Start your pages with a `==` level headline. You can fix the level offset when you include the page in a larger document with `include::chapter.adoc[leveloffset=+1]`
+*jbake-status*
+
+Either `draft` or `published`.
+Only `published` pages will be rendered.
+Defaults to `published` for files with a `jbake-order` and `draft` for files without `jbake-order` or files prefixed with `_`.
+
+*filename*
+
+Required for edit and feedback links (coming soon).
+Defaults to the filename :-).
+
+*ifndef*
+
+Fixes the imagesdir according to the nesting level of your docs folder.
+Defaults to the main `docDir/images`.
+
+*toc*
+
+For `:jbake-type: page_toc`, you need this line to generate the toc.
+
+NOTE: Start your pages with a `==` level headline.
+You can fix the level offset when you include the page in a larger document with `include::chapter.adoc[leveloffset=+1]`.
 
 == Templates and Style
 
-The jBake templates and CSS etc. is hidden away from you for convenience.
-The basic template use http://getbootstrap.com/[twitter Bootstrap 5] as CSS framework.
+The jBake templates and CSS are hidden for convenience.
 
+The basic template uses http://getbootstrap.com/[Twitter Bootstrap 5] as its CSS framework.
 Use the xref:03_task_copy_themes.adoc[`copyThemes`] task to copy all hidden jBake resources to your project.
-You can then remove the ones you don't need and change those you want to change.
+You can then remove the resources you don't need, and change those you want to change.
 
-NOTE: `copyThemes` overwrites existing files, but your code is under version control, isn't it?
+NOTE: `copyThemes` overwrites existing files, but because your code is safely managed using version control, this shouldn't be a problem.
 
 == Landing Page
 
-Put a `index.gsp` page as landing page in `src/site/templates`.
-This landing page is plain HTML5 styled with twitter bootstrap.
-Header and footer is added by docToolchain.
-An example can be found through xref:03_task_copy_themes.adoc[`copyThemes`] or https://github.com/docToolchain/docToolchain/blob/ng/src/site/templates/index.gsp[on github].
+Place an `index.gsp` page as your landing page in `src/site/templates`.
+This landing page is plain HTML5 styled with Twitter Bootstrap.
+The page header and footer are added by docToolchain.
+An example can be found at xref:03_task_copy_themes.adoc[`copyThemes`] or https://github.com/docToolchain/docToolchain/blob/ng/src/site/templates/index.gsp[on GitHub].
 
 == Blog
 
 The microsite also contains a simple but powerful blog.
-Use it to inform your team about changes and architecture decision records (ADRs).
+Use it to inform your team about changes, as well as architecture decision records (ADRs).
 
 To create a new blog post, create a new file in `src/docs/blog/<year>/<post-name>.adoc` with the following template:
 
@@ -104,19 +129,17 @@ To create a new blog post, create a new file in `src/docs/blog/<year>/<post-name
 
 == Search
 
-The microsite does not bring its own local search.
-Instead, it only has a search input-field which can be used to link to another search engine.
+The microsite does not have its own local search.
+But it does have a search input field which can be used to link to another search engine.
 
 == CI/CD
 
-When run in an automated build, you should set the environment variable `DTC_HEADLESS` to `true` or `1` to ensure that docToolchain will not ask to install the configured theme.
-It will simply assume that you do want to install it.
+When running in an automated build, set the environment variable `DTC_HEADLESS` to `true` or `1`. This stops docToolchain from asking to install the configured theme, and it will simply assume that you do want to install it.
+You can also avoid the theme downloading with every build by copying the themes folder from `$HOME/.doctoolchain/themes` to the corresponding folder in your build container.
 
-To avoid the download of the theme with every build, you can copy the themes folder from `$HOME/.doctoolchain/themes` to the corresponding folder in your build container.
+== Further Reading and Resources
 
-== See also
-
-xref:03_task_previewSite.adoc[`previewSite`]
+Read about the `previewSite` task xref:03_task_previewSite.adoc[here.]
 
 == Source
 
