@@ -438,6 +438,7 @@
 <ul class="sectlevel2">
 <li><a href="#_about_this_task">About This Task</a></li>
 <li><a href="#_pages">Pages</a></li>
+<li><a href="#config">Configuration</a></li>
 <li><a href="#_templates_and_style">Templates and Style</a></li>
 <li><a href="#_landing_page">Landing Page</a></li>
 <li><a href="#_blog">Blog</a></li>
@@ -477,11 +478,11 @@
 <h2 id="task_generatesite">generateSite</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Schrotti" width="32" height="32" title="Schrotti"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Schrotti" width="32" height="32" title="Schrotti"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>4 minutes to read</pre>
+<pre>5 minutes to read</pre>
 </div>
 </div>
 <div class="sect2">
@@ -591,6 +592,62 @@ You can fix the level offset when you include the page in a larger document with
 </td>
 </tr>
 </table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="config">Configuration</h3>
+<div class="paragraph">
+<p>The configuration follows the <em>convention-over-configuration</em> approach.
+If you follow the conventions, you don&#8217;t have to configure anything.
+But if you want to, you can override the convention behaviour with a configuration.</p>
+</div>
+<div class="sect3">
+<h4 id="_menu">Menu</h4>
+<div class="paragraph">
+<p>The <code>:jbake-menu:</code> is only the code for the menu entry to be created.
+You can map these codes to menu entries through the configuration (<code>microsite</code>-Section) in the following way:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">menu = [code1: 'title1', code2: 'title2', code3: '-']</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you have four files:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>src/docs/code1/demo1.adoc
+src/docs/code1/demo2.adoc
+src/docs/code3/demo3.adoc
+src/docs/code3/_demo4.adoc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Where <code>demo1.adoc</code> and <code>demo3.adoc</code> contain no <code>:jbake-menu:</code> header, <code>demo2.adoc</code> contains <code>:jbake-menu: code2</code>, then:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>demo1.adoc</code> will have a menu-code of <code>code1</code> because it is located in the folder <code>code1</code>.
+This code is translated through the configuration to the menu named <code>title1</code>.</p>
+</li>
+<li>
+<p><code>demo2.adoc</code> is in the same folder, but the <code>:jbake-menu:</code> attribute has a higher precedence which results in menu-code <code>code2</code>.
+This code is translated through the configuration to the menu named <code>title2</code>.</p>
+</li>
+<li>
+<p><code>demo3.adoc</code> will have a menu-code <code>code1</code> because it is located in the folder <code>code3</code>.
+This code is translated through the configuration to the special menu <code>-</code> which will not be displayed.
+This is an easy way to hide a menu in the rendered microsite.</p>
+</li>
+<li>
+<p><code><em>demo4.adoc</code> starts with an underscore <code></em></code> and thus will be handled as <code>draft</code> (<code>:jbake-status: draft</code>).
+It will not be rendered as part of any menu, but it will be available in the microsite as "hidden" <code>_demo4-draft.html</code>.
+Feel free to remove these draft rendereings before you publish your microsite.</p>
+</li>
+</ul>
+</div>
 </div>
 </div>
 <div class="sect2">
