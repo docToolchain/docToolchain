@@ -84,6 +84,45 @@ For `:jbake-type: page_toc`, you need this line to generate the toc.
 NOTE: Start your pages with a `==` level headline.
 You can fix the level offset when you include the page in a larger document with `include::chapter.adoc[leveloffset=+1]`.
 
+[[config]]
+== Configuration
+
+The configuration follows the __convention-over-configuration__ approach.
+If you follow the conventions, you don't have to configure anything.
+But if you want to, you can override the convention behaviour with a configuration.
+
+=== Menu
+
+The `:jbake-menu:` is only the code for the menu entry to be created.
+You can map these codes to menu entries through the configuration (`microsite`-Section) in the following way:
+
+[source, groovy]
+----
+menu = [code1: 'title1', code2: 'title2', code3: '-']
+----
+
+If you have four files:
+
+```
+src/docs/code1/demo1.adoc
+src/docs/code1/demo2.adoc
+src/docs/code3/demo3.adoc
+src/docs/code3/_demo4.adoc
+```
+
+Where `demo1.adoc` and `demo3.adoc` contain no `:jbake-menu:` header, `demo2.adoc` contains `:jbake-menu: code2`, then:
+
+* `demo1.adoc` will have a menu-code of `code1` because it is located in the folder `code1`. 
+This code is translated through the configuration to the menu named `title1`.
+* `demo2.adoc` is in the same folder, but the `:jbake-menu:` attribute has a higher precedence which results in menu-code `code2`.
+This code is translated through the configuration to the menu named `title2`.
+* `demo3.adoc` will have a menu-code `code1` because it is located in the folder `code3`.
+This code is translated through the configuration to the special menu `-` which will not be displayed.
+This is an easy way to hide a menu in the rendered microsite.
+* `_demo4.adoc` starts with an underscore `_` and thus will be handled as `draft` (`:jbake-status: draft`).
+It will not be rendered as part of any menu, but it will be available in the microsite as "hidden" `_demo4-draft.html`.
+Feel free to remove these draft rendereings before you publish your microsite.
+
 == Templates and Style
 
 The jBake templates and CSS are hidden for convenience.
