@@ -141,7 +141,7 @@ confluence.with {
     // proxy = [host: 'my.proxy.com', port: 1234, schema: 'http']
 
     // Optional: specify which Confluence OpenAPI Macro should be used to render OpenAPI definitions
-    // possible values: ["confluence-open-api", "open-api", true]. true is the same as "confluence-open-api" for backward compatibility
+    // possible values: ["confluence-open-api", "open-api", "swagger-open-api", true]. true is the same as "confluence-open-api" for backward compatibility
     // useOpenapiMacro = "confluence-open-api"
 }
 //end::confluenceConfig[]

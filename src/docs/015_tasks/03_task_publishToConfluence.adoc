@@ -108,7 +108,7 @@ If you need to provide proxy to access Confluence, you can set a map with the ke
 
 *useOpenapiMacro*
 
-If this option is present and equal to `confluence-open-api` then any source block marked with `class openapi` will be wrapped in the Elitesoft Swagger Editor macro (see https://marketplace.atlassian.com/apps/1218914/open-api-swagger-editor-for-confluence[Elitesoft Swagger Editor]).
+If this option is present and equal to `confluence-open-api` or `swagger-open-api` then any source block marked with `class openapi` will be wrapped in the Elitesoft Swagger Editor macro (see https://marketplace.atlassian.com/apps/1218914/open-api-swagger-editor-for-confluence[Elitesoft Swagger Editor]). The key depends on the version of the macro.
 
 For backward compatibility, if this option is present and equal to `true`, then again the Elitesoft Swagger Editor macro will be used.
 
