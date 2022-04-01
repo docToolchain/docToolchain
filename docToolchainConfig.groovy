@@ -153,6 +153,7 @@ confluence = [:]
 // - 'preambleTitle' (optional): the title of the page containing the preamble (everything
 //                            before the first second level heading). Default is 'arc42'
 //
+// inputHtmlFolder is a folder for bulk process html files
 // The following four keys can also be used in the global section below
 // - 'spaceKey' (optional): page specific variable for the key of the confluence space to write to
 // - 'createSubpages' (optional): page specific variable to determine whether ".sect2" sections shall be split from the current page into subpages
@@ -166,6 +167,7 @@ confluence.with {
             [ file: "build/html5/arc42-template-de.html" ],
     ]
 
+    inputHtmlFolder = ''
     // endpoint of the confluenceAPI (REST) to be used
     // to verify the endpoint, add user/current and pate it into your browser
     // you should get a json about your own user
@@ -203,7 +205,7 @@ confluence.with {
 
     //optional API-token to be added in case the credentials are needed for user and password exchange.
     //apikey = "[API-token]"
-    bearerToken = ''
+    bearerToken = '' 
 
     // HTML Content that will be included with every page published
     // directly after the TOC. If left empty no additional content will be
