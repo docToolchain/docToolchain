@@ -37,7 +37,7 @@ Labels (keywords) must not contain a space character. Use either '_' or '-'.
 
 We tried to make the configuration self-explanatory, but below is some more information about each config option.
 
-include::{projectRootDir}template_config/Config.groovy[tags=input-config]
+include::{projectRootDir}/template_config/Config.groovy[tags=input-config]
 
 *ancestorId*
 
