@@ -138,28 +138,38 @@ changelog.with {
 
 confluence = [:]
 
-// 'input' is an array of files to upload to Confluence with the ability
-//          to configure a different parent page for each file.
-//
-// Attributes
-// - 'file': absolute or relative path to the asciidoc generated html file to be exported
-// - 'url': absolute URL to an asciidoc generated html file to be exported
-// - 'ancestorName' (optional): the name of the parent page in Confluence as string;
-//                             this attribute has priority over ancestorId, but if page with given name doesn't exist,
-//                             ancestorId will be used as a fallback
-// - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty
-//                            if a new parent shall be created in the space
-// - 'preambleTitle' (optional): the title of the page containing the preamble (everything
-//                            before the first second level heading). Default is 'arc42'
-//
-// The following four keys can also be used in the global section below
-// - 'spaceKey' (optional): page specific variable for the key of the confluence space to write to
-// - 'createSubpages' (optional): page specific variable to determine whether ".sect2" sections shall be split from the current page into subpages
-// - 'pagePrefix' (optional): page specific variable, the pagePrefix will be a prefix for the page title and it's sub-pages
-//                            use this if you only have access to one confluence space but need to store several
-//                            pages with the same title - a different pagePrefix will make them unique
-// - 'pageSuffix' (optional): same usage as prefix but appended to the title and it's subpages
-// only 'file' or 'url' is allowed. If both are given, 'url' is ignored
+/**
+//tag::input-config[]
+
+`input` is an array of files to upload to Confluence with the ability
+      to configure a different parent page for each file.
+
+=== Attributes
+
+- `file`: absolute or relative path to the asciidoc generated html file to be exported
+- `url`: absolute URL to an asciidoc generated html file to be exported
+- `ancestorName` (optional): the name of the parent page in Confluence as string;
+                             this attribute has priority over ancestorId, but if page with given name doesn't exist,
+                             ancestorId will be used as a fallback
+- `ancestorId` (optional): the id of the parent page in Confluence as string; leave this empty
+                           if a new parent shall be created in the space
+- `preambleTitle` (optional): the title of the page containing the preamble (everything
+                              before the first second level heading). Default is 'arc42'
+
+The following four keys can also be used in the global section below
+
+- `spaceKey` (optional): page specific variable for the key of the confluence space to write to
+- `createSubpages` (optional): page specific variable to determine whether ".sect2" sections shall be split from the current page into subpages
+- `pagePrefix` (optional): page specific variable, the pagePrefix will be a prefix for the page title and it's sub-pages
+                           use this if you only have access to one confluence space but need to store several
+                           pages with the same title - a different pagePrefix will make them unique
+- `pageSuffix` (optional): same usage as prefix but appended to the title and it's subpages
+
+only 'file' or 'url' is allowed. If both are given, 'url' is ignored
+
+//end::input-config[]
+**/
+
 confluence.with {
     input = [
             [ file: "build/html5/arc42-template-de.html" ],
