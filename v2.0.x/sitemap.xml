@@ -47,12 +47,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/020_tutorial/050_multipleRepositories.html</loc>
+    	<lastmod>2022-04-29</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/020_tutorial/100_diagrams.net.html</loc>
     	<lastmod>2022-04-29</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/050_multipleRepositories.html</loc>
+    	<loc>https://localhost/020_tutorial/030_generateHTML.html</loc>
     	<lastmod>2022-04-29</lastmod>
     </url>
 
@@ -67,11 +72,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/030_generateHTML.html</loc>
-    	<lastmod>2022-04-29</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/020_tutorial/010_Install.html</loc>
     	<lastmod>2022-04-29</lastmod>
     </url>
@@ -82,17 +82,22 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_prependFilename.html</loc>
-    	<lastmod>2022-04-29</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_generatePDF.html</loc>
     	<lastmod>2022-04-29</lastmod>
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_prependFilename.html</loc>
+    	<lastmod>2022-04-29</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_exportEA.html</loc>
+    	<lastmod>2022-04-29</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_collectIncludes.html</loc>
     	<lastmod>2022-04-29</lastmod>
     </url>
 
@@ -108,11 +113,6 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportJiraIssues.html</loc>
-    	<lastmod>2022-04-29</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_collectIncludes.html</loc>
     	<lastmod>2022-04-29</lastmod>
     </url>
 
@@ -142,6 +142,16 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_exportDrawIo.html</loc>
+    	<lastmod>2022-04-29</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
+    	<lastmod>2022-04-29</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
     	<lastmod>2022-04-29</lastmod>
     </url>
@@ -157,27 +167,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportDrawIo.html</loc>
-    	<lastmod>2022-04-29</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
-    	<lastmod>2022-04-29</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_fixencoding.html</loc>
     	<lastmod>2022-04-29</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
-    	<lastmod>2022-04-29</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportMetrics.html</loc>
     	<lastmod>2022-04-29</lastmod>
     </url>
 
@@ -197,11 +192,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_publishToConfluence.html</loc>
-    	<lastmod>2022-04-29</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
     	<lastmod>2022-04-29</lastmod>
     </url>
@@ -212,7 +202,27 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_exportMetrics.html</loc>
+    	<lastmod>2022-04-29</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_exportContributors.html</loc>
+    	<lastmod>2022-04-29</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_publishToConfluence.html</loc>
+    	<lastmod>2022-04-29</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_convertToDocx.html</loc>
+    	<lastmod>2022-04-29</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/050_ADRs/ADR-2-anotherTest.html</loc>
     	<lastmod>2022-04-29</lastmod>
     </url>
 
@@ -223,11 +233,6 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
-    	<lastmod>2022-04-29</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_convertToDocx.html</loc>
     	<lastmod>2022-04-29</lastmod>
     </url>
 
@@ -243,11 +248,6 @@
 
     <url>
     	<loc>https://localhost/ea/Activity_notes.html</loc>
-    	<lastmod>2022-04-29</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/050_ADRs/ADR-2-anotherTest.html</loc>
     	<lastmod>2022-04-29</lastmod>
     </url>
 

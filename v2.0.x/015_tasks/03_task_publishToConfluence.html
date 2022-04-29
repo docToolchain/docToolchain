@@ -440,6 +440,7 @@
 <li><a href="#_about_this_task">About This Task</a></li>
 <li><a href="#_special_features">Special Features</a></li>
 <li><a href="#_configuration">Configuration</a></li>
+<li><a href="#_attributes">Attributes</a></li>
 <li><a href="#_css_styling">CSS Styling</a></li>
 <li><a href="#_source">Source</a></li>
 </ul>
@@ -539,7 +540,61 @@ Labels (keywords) must not contain a space character. Use either '_' or '-'.</p>
 <p>We tried to make the configuration self-explanatory, but below is some more information about each config option.</p>
 </div>
 <div class="paragraph">
-<p>Unresolved directive in &lt;stdin&gt; - include::/home/runner/work/docToolchain/docToolchaintemplate_config/Config.groovy[tags=input-config]</p>
+<p><strong>input</strong></p>
+</div>
+<div class="paragraph">
+<p>is an array of files to upload to Confluence with the ability
+to configure a different parent page for each file.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_attributes">Attributes</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>file</code>: absolute or relative path to the asciidoc generated html file to be exported</p>
+</li>
+<li>
+<p><code>url</code>: absolute URL to an asciidoc generated html file to be exported</p>
+</li>
+<li>
+<p><code>ancestorName</code> (optional): the name of the parent page in Confluence as string;
+this attribute has priority over ancestorId, but if page with given name doesn&#8217;t exist,
+ancestorId will be used as a fallback</p>
+</li>
+<li>
+<p><code>ancestorId</code> (optional): the id of the parent page in Confluence as string; leave this empty
+if a new parent shall be created in the space</p>
+</li>
+<li>
+<p><code>preambleTitle</code> (optional): the title of the page containing the preamble (everything
+before the first second level heading). Default is 'arc42'</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The following four keys can also be used in the global section below</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>spaceKey</code> (optional): page specific variable for the key of the confluence space to write to</p>
+</li>
+<li>
+<p><code>createSubpages</code> (optional): page specific variable to determine whether ".sect2" sections shall be split from the current page into subpages</p>
+</li>
+<li>
+<p><code>pagePrefix</code> (optional): page specific variable, the pagePrefix will be a prefix for the page title and it&#8217;s sub-pages
+use this if you only have access to one confluence space but need to store several
+pages with the same title - a different pagePrefix will make them unique</p>
+</li>
+<li>
+<p><code>pageSuffix</code> (optional): same usage as prefix but appended to the title and it&#8217;s subpages</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>only 'file' or 'url' is allowed. If both are given, 'url' is ignored</p>
 </div>
 <div class="paragraph">
 <p><strong>ancestorId</strong></p>
