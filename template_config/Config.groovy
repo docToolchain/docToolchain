@@ -5,7 +5,10 @@ outputPath = 'build'
 // or in the command line, and therefore must be relative to it.
 
 inputPath = 'src/docs';
-pdfThemeDir = './src/docs/pdfTheme'
+
+// the pdfThemeDir config in this file is outdated.
+// please check http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/030_generateHTML.html#_pdf_style for further details
+// pdfThemeDir = './src/docs/pdfTheme'
 
 inputFiles = [
         //[file: 'doctoolchain_demo.adoc',       formats: ['html','pdf']],
