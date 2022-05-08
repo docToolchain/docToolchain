@@ -76,6 +76,8 @@ Both, the HTML and PDF output can be styled to fit your needs.
 
 === Configuration
 
+==== Files to convert
+
 For both tasks, the most important configuration is the `inputFiles`-list at the start of your `docToolchainConfig.groovy`
 
 [source, groovy]
@@ -96,3 +98,64 @@ This way, you can specify that certain files should be converted to HTML but not
 
 You need to configure this list manually.
 So if docToolchain converts an unexpected list of files, this is the first location where you should look for a problem.
+
+==== PDF Style
+
+To get started, you should execute `./dtcw copyTheme` in order to copy a simple `pdfTheme` to your own project.
+You will find it in `/src/docs/pdfTheme`.
+
+Currently, docToolchain uses the https://asciidoctor.org/docs/asciidoctor-pdf/[asciidoctor-pdf] library.
+The documentation contains a good https://github.com/asciidoctor/asciidoctor-pdf/blob/v1.6.0/docs/theming-guide.adoc[theming guide].
+
+To activate the new style, you have to tell asciidoctor where to find it.
+For maximum flexibility, you specify the location and other pdf related attributes in the file you want to convert.
+
+The most important ones are
+
+[source, asciidoc]
+----
+:pdf-stylesdir: ../pdfTheme
+:pdf-style: custom
+// only needed when you specify your own fonts
+:pdf-fontsdir: ../pdfTheme/fonts
+----
+
+For this tutorial, navigate to `src/docs/arc42/arc42.adoc and add
+
+[source, asciidoc]
+----
+:pdf-stylesdir: ../pdfTheme
+:pdf-style: custom
+----
+
+to the top of the document.
+This will specify that asciidoc will find the the pdfTheme relative to the document location in `../pdfTheme` which will result in `src/docs/arc42/../pdfTheme` which is equal to `src/docs/pdfTheme`.
+
+You can also make use of the attribute `\{projectRootDir}` which will contain the absolute path to your project directory.
+So, `:pdf-stylesdir: \{projectRootDir}/src/docs/pdfTheme` will search in my case in `**/home/rdmueller/projects/demo**/src/docs/pdfTheme` for the theme.
+
+NOTE: in order to use the `\{projectRootDir}` also in your editor preview, define is as relative path, only if it is not already defined:
+
+[source, asciidoc]
+----
+ifndef:projectRootDir[:projectRootDir: ../../..]
+----
+
+This example, added to the top of your `arc42.adoc` tutorial file, will set the `projectRootDir` to the correct folder.
+
+==== HTML Style
+
+The easiest way to modify the HTML style is to add a https://docs.asciidoctor.org/asciidoc/latest/pass/pass-block/[pass-through block] with the needed CSS styles.
+
+[source, asciidoctor]
+----
+++++
+<style>
+  h2 {
+    color: green;
+  }
+</style>
+++++
+----
+
+NOTE: for the `generate**Site**` task, there is a different mechanism to change the styles if the generated microsite.
