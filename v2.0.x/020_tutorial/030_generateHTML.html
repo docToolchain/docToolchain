@@ -284,7 +284,11 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_generatehtml_generatepdf">generateHTML &amp; generatePDF</a></li>
+<li><a href="#_generatehtml_generatepdf">generateHTML &amp; generatePDF</a>
+<ul class="sectlevel2">
+<li><a href="#_configuration">Configuration</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -385,6 +389,34 @@ It also contains a TOC on the first pages and your PDF reader will also show the
 </div>
 <div class="paragraph">
 <p>Both, the HTML and PDF output can be styled to fit your needs.</p>
+</div>
+<div class="sect2">
+<h3 id="_configuration">Configuration</h3>
+<div class="paragraph">
+<p>For both tasks, the most important configuration is the <code>inputFiles</code>-list at the start of your <code>docToolchainConfig.groovy</code></p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">inputFiles = [
+        //[file: 'doctoolchain_demo.adoc',       formats: ['html','pdf']],
+        //[file: 'arc42-template.adoc',    formats: ['html','pdf']],
+        /** inputFiles **/
+]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Normally, Asciidoctor converts all files it can find.
+But when you structure your documents with includes, you don&#8217;t want each and every chapter to be converted in its own pdf.
+So, you need a main AsciiDoc file which includes all chapters in order to create a full document.</p>
+</div>
+<div class="paragraph">
+<p>The <code>inputFiles</code>-map provides a list of all these main files and a list of formats for which the file should be used.
+This way, you can specify that certain files should be converted to HTML but not to PDF for example.</p>
+</div>
+<div class="paragraph">
+<p>You need to configure this list manually.
+So if docToolchain converts an unexpected list of files, this is the first location where you should look for a problem.</p>
+</div>
 </div>
 </div>
 </div>
