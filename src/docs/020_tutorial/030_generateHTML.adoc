@@ -73,3 +73,26 @@ image::generatePDF.png[]
 It also contains a TOC on the first pages and your PDF reader will also show the TOC on the left for you to navigate through the document.
 
 Both, the HTML and PDF output can be styled to fit your needs.
+
+=== Configuration
+
+For both tasks, the most important configuration is the `inputFiles`-list at the start of your `docToolchainConfig.groovy`
+
+[source, groovy]
+----
+inputFiles = [
+        //[file: 'doctoolchain_demo.adoc',       formats: ['html','pdf']],
+        //[file: 'arc42-template.adoc',    formats: ['html','pdf']],
+        /** inputFiles **/
+]
+----
+
+Normally, Asciidoctor converts all files it can find.
+But when you structure your documents with includes, you don't want each and every chapter to be converted in its own pdf.
+So, you need a main AsciiDoc file which includes all chapters in order to create a full document.
+
+The `inputFiles`-map provides a list of all these main files and a list of formats for which the file should be used.
+This way, you can specify that certain files should be converted to HTML but not to PDF for example.
+
+You need to configure this list manually.
+So if docToolchain converts an unexpected list of files, this is the first location where you should look for a problem.
