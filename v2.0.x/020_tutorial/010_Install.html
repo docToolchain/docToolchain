@@ -577,8 +577,23 @@ After the first few commands, you&#8217;ll have all the required dependencies in
 </div>
 <div class="paragraph">
 <p>If you see that, it&#8217;s likely that the wrapper didn&#8217;t download correctly.
-You can that an HTML page was downloaded instead of the wrapper.
+You can expect that an HTML page was downloaded instead of the wrapper.
 Please try to redownload the wrapper.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_docker_throws_and_error_with_dtcw">docker throws and error with <code>dtcw</code></h4>
+<div class="paragraph">
+<p>On windows you might get the following error</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>Error response from daemon: user declined directory sharing C:\Users\path_to_my_folder</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This means that docker wanted to share the named folder (possibly the repo) but didn&#8217;t have the rights. This means you have to share the folder yourself on docker.
+Go to docker dashboard &#8594; settings &#8594; Resources &#8594; FileSharing. Add required folder and hit Apply &amp; Restart.</p>
 </div>
 </div>
 <div class="sect3">
