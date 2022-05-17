@@ -5430,7 +5430,7 @@ sprintChangelog.with {
 <div class="sect3">
 <h4 id="_exportppt">1.22. exportPPT</h4>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev" width="32" height="32" title="ghp-dev"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/61c257b76a94d988f747a87850b7e114?d=identicon" alt="ghp-dev" width="32" height="32" title="ghp-dev"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -5448,8 +5448,16 @@ sprintChangelog.with {
 <div class="sect4">
 <h5 id="_about_this_task_20">About This Task</h5>
 <div class="paragraph">
-<p>This task lets you export AsciiDoc content to a series of PowerPoint slides.
+<p>This task lets you export a series of PowerPoint slides to be used within your AsciiDoc documentation.
 It is currently a Windows-only task.</p>
+</div>
+<div class="paragraph">
+<p>It exports the slides as <code>.jpg</code> files and the speaker notes as one <code>.adoc</code> file.
+The tag <code>{slide}</code> within the speaker notes will be replaced with the corresponding image reference.
+This will help you to get a stable result, even when you insert or delete slides.</p>
+</div>
+<div class="paragraph">
+<p>Use the <a href="https://docs.asciidoctor.org/asciidoc/latest/directives/include-tagged-regions/">tagged regions (<code>//tag::[</a></code>) feature of asciidoctor] to include only certain slides or parts of your speaker notes.</p>
 </div>
 </div>
 <div class="sect4">
