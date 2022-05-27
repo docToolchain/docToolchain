@@ -57,7 +57,7 @@ https://www.java.com/en/download/help/windows_manual_download.html
     exit 1
 }
 
-if (Get-Command dooctoolchain -ErrorAction SilentlyContinue) {
+if (Get-Command doctoolchain -ErrorAction SilentlyContinue) {
     Write-Host "docToolchain as CLI available"
     $cli = $True
 }
