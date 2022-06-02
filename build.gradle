@@ -12,7 +12,7 @@ plugins {
     id "de.undercouch.download" version "5.0.2"
     id 'org.jbake.site' version '5.5.0'
     //gretty 4.0.0 does not work with java 8
-    id 'org.gretty' version '3.0.6'
+    id 'org.gretty' version '3.0.8'
 }
 
 apply plugin:'groovy'
