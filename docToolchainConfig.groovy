@@ -95,10 +95,10 @@ microsite.with {
     // site title if no other title is given
     title = 'docToolchain'
     //
-    // the url to create an issue in github
+    // the url to create an issue in github (set to 'null' to hide the "Create an issue" link)
     issueUrl = 'https://github.com/docToolchain/docToolchain/issues/new'
     //
-    // the base url for code files in github
+    // the base url for code files in github (set to 'null' to hide the "Improve this doc" link)
     branch = System.getenv("DTC_PROJECT_BRANCH")
     gitRepoUrl = "https://github.com/doctoolchain/doctoolchain/edit/${branch}/src/docs"
 
