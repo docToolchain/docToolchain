@@ -123,6 +123,13 @@ This is an easy way to hide a menu in the rendered microsite.
 It will not be rendered as part of any menu, but it will be available in the microsite as "hidden" `_demo4-draft.html`.
 Feel free to remove these draft rendereings before you publish your microsite.
 
+=== Links
+
+In the column on the right, links are driven by the values defined in `docToolchainConfig.groovy`.
+
+* "Improve this doc": displayed when `gitRepoUrl` is set.
+* "Create an issue": displayed when `issueUrl` is set.
+
 == Templates and Style
 
 The jBake templates and CSS are hidden for convenience.
