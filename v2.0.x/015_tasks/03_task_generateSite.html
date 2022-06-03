@@ -419,16 +419,14 @@
 			<div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
+
         <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_task_generateSite.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
-        <!--a href="https://github.com/google/docsy-example/new/master/content/en/docs/_index.md?filename=change-me.md&amp;value=---%0Atitle%3A+%22Long+Page+Title%22%0AlinkTitle%3A+%22Short+Nav+Title%22%0Aweight%3A+100%0Adescription%3A+%3E-%0A+++++Page+description+for+heading+and+indexes.%0A---%0A%0A%23%23+Heading%0A%0AEdit+this+template+to+create+your+new+page.%0A%0A%2A+Give+it+a+good+name%2C+ending+in+%60.md%60+-+e.g.+%60getting-started.md%60%0A%2A+Edit+the+%22front+matter%22+section+at+the+top+of+the+page+%28weight+controls+how+its+ordered+amongst+other+pages+in+the+same+directory%3B+lowest+number+first%29.%0A%2A+Add+a+good+commit+message+at+the+bottom+of+the+page+%28%3C80+characters%3B+use+the+extended+description+field+for+more+detail%29.%0A%2A+Create+a+new+branch+so+you+can+preview+your+new+file+and+request+a+review+via+Pull+Request.%0A"
-           target="_blank"><i class="fa fa-edit fa-fw"></i> Create child page</a-->
+
+
         <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27generateSite%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page: https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_task_generateSite.adoc%0A%23branch: ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
-        <!--a href="https://github.com/google/docsy/issues/new" target="_blank"><i
-                class="fas fa-tasks fa-fw"></i> Create project issue</a-->
-        <!--a href="https://example.docsy.dev/docs/_print/" id="print"><i class="fa fa-print fa-fw"></i> Print
-        entire section</a-->
+
         
         <hr />
         <div id="toc" class="toc">
@@ -478,7 +476,7 @@
 <h2 id="task_generatesite">generateSite</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Schrotti" width="32" height="32" title="Schrotti"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Schrotti" width="32" height="32" title="Schrotti"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -645,6 +643,22 @@ This is an easy way to hide a menu in the rendered microsite.</p>
 <p><code><em>demo4.adoc</code> starts with an underscore <code></em></code> and thus will be handled as <code>draft</code> (<code>:jbake-status: draft</code>).
 It will not be rendered as part of any menu, but it will be available in the microsite as "hidden" <code>_demo4-draft.html</code>.
 Feel free to remove these draft rendereings before you publish your microsite.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_links">Links</h4>
+<div class="paragraph">
+<p>In the column on the right, links are driven by the values defined in <code>docToolchainConfig.groovy</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>"Improve this doc": displayed when <code>gitRepoUrl</code> is set.</p>
+</li>
+<li>
+<p>"Create an issue": displayed when <code>issueUrl</code> is set.</p>
 </li>
 </ul>
 </div>

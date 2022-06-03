@@ -1100,7 +1100,7 @@ For example, insert the following at the top of your document to reference <code
 <div class="sect3">
 <h4 id="task_generatesite">1.8. generateSite</h4>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Schrotti" width="32" height="32" title="Schrotti"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Schrotti" width="32" height="32" title="Schrotti"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -1267,6 +1267,22 @@ This is an easy way to hide a menu in the rendered microsite.</p>
 <p><code><em>demo4.adoc</code> starts with an underscore <code></em></code> and thus will be handled as <code>draft</code> (<code>:jbake-status: draft</code>).
 It will not be rendered as part of any menu, but it will be available in the microsite as "hidden" <code>_demo4-draft.html</code>.
 Feel free to remove these draft rendereings before you publish your microsite.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect5">
+<h6 id="_links">Links</h6>
+<div class="paragraph">
+<p>In the column on the right, links are driven by the values defined in <code>docToolchainConfig.groovy</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>"Improve this doc": displayed when <code>gitRepoUrl</code> is set.</p>
+</li>
+<li>
+<p>"Create an issue": displayed when <code>issueUrl</code> is set.</p>
 </li>
 </ul>
 </div>
