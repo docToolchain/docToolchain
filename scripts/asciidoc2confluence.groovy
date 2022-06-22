@@ -431,17 +431,37 @@ def rewriteOpenAPI = { org.jsoup.nodes.Element body ->
                     .replaceWith(new TextNode(rawYaml))
         }
     } else if (config.confluence.useOpenapiMacro == 'open-api') {
-        body.select('div.openapi  pre > code').each { code ->
-            def parent=code.parent()
-            def rawYaml=code.wholeText()
-            code.parent()
-                    .wrap('<ac:structured-macro ac:name="open-api" ac:schema-version="1" data-layout="default" ac:macro-id="4302c9d8-fca4-4f14-99a9-9885128870fa"></ac:structured-macro>')
-                    .unwrap()
-            // default: show download button
-            code.before('<ac:parameter ac:name="showDownloadButton">true</ac:parameter>')
-            code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
-                    .replaceWith(new TextNode(rawYaml))
-        }
+
+              def includeURL=null
+
+              for (Element e : body.select('div .listingblock.openapi')) {
+                  for (String s : e.className().split(" ")) {
+                      if (s.startsWith("url")) {
+                          //include the link to the URL for the macro
+                          includeURL = s.replace('url:', '')
+                     }
+                  }
+              }
+
+              body.select('div.openapi  pre > code').each { code ->
+                  def parent=code.parent()
+                  def rawYaml=code.wholeText()
+
+                  code.parent()
+                      .wrap('<ac:structured-macro ac:name="open-api" ac:schema-version="1" data-layout="default" ac:macro-id="4302c9d8-fca4-4f14-99a9-9885128870fa"></ac:structured-macro>')
+                      .unwrap()
+
+                  if (includeURL!=null)
+                  {
+                      code.before('<ac:parameter ac:name="url">'+includeURL+'</ac:parameter>')
+                  }
+                  else {
+                      //default: show download button
+                      code.before('<ac:parameter ac:name="showDownloadButton">true</ac:parameter>')
+                      code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
+                          .replaceWith(new TextNode(rawYaml))
+                  }
+              }
     }
 }
 
