@@ -118,4 +118,5 @@ BUG! exception in phase 'semantic analysis' in source unit 'script16562611848591
 Unsupported class file major version 61
 ```
 
-you are likely using newer version of Java and / or Gradle than supported by the tool. Please make sure you have configured https://sdkman.io[sdkman] to use the correct versions of Java and Gradle (see above).
+you are probably using a newer version of Java and / or Gradle than supported by the tool. Please make sure you have
+configured https://sdkman.io[sdkman] to use the correct versions of Java and Gradle (see above).
