@@ -119,7 +119,7 @@ This code is translated through the configuration to the menu named `title2`.
 * `demo3.adoc` will have a menu-code `code1` because it is located in the folder `code3`.
 This code is translated through the configuration to the special menu `-` which will not be displayed.
 This is an easy way to hide a menu in the rendered microsite.
-* `_demo4.adoc` starts with an underscore `_` and thus will be handled as `draft` (`:jbake-status: draft`).
+* `\_demo4.adoc` starts with an underscore `_` and thus will be handled as `draft` (`:jbake-status: draft`).
 It will not be rendered as part of any menu, but it will be available in the microsite as "hidden" `_demo4-draft.html`.
 Feel free to remove these draft rendereings before you publish your microsite.
 
