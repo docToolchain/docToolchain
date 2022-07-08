@@ -57,11 +57,7 @@ unit_tests () {
   echo "#        Unit testing                      #"
   echo "#                                          #"
   echo "############################################"
-  if [ "${BRANCH}" == "ng" ] || [ "${BRANCH}" == "main-2.x" ] ; then
-    echo "skipping tests for now"
-  else
-    ./gradlew test --info
-  fi
+  ./gradlew test --info
 }
 
 
@@ -158,7 +154,7 @@ publish_doc () {
 
 cleaning
 dependency_info
-#unit_tests
+unit_tests
 #check_for_clean_worktree fails because of a modified gradlew.bat
 #but we work on a clean checkout, so how can this be?
 #let's remove this check for now
