@@ -9,6 +9,7 @@ include::_config.adoc[]
 :toc-title: toc-title
 :toclevels: 3
 :projectRootDir: {projectRootDir}
+:disableredirects:
 
 :manualdir: https://github.com/docToolchain/docToolchain/edit/master/src/docs/
 
@@ -38,12 +39,12 @@ include::010_introduction_and_goals.adoc[leveloffset=+1]
 '''
 
 <<<
-include::020_install.adoc[leveloffset=+1]
+include::20_install.adoc[leveloffset=+1]
 
 '''
 
 <<<
-include::025_features.adoc[leveloffset=+1]
+include::40_features.adoc[leveloffset=+1]
 
 '''
 
