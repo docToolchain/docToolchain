@@ -476,11 +476,11 @@
 <h2 id="task_generatesite">generateSite</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jérémie Bresson" width="32" height="32" title="Jérémie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Schrotti" width="32" height="32" title="Schrotti"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Schrotti" width="32" height="32" title="Schrotti"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>5 minutes to read</pre>
+<pre>7 minutes to read</pre>
 </div>
 </div>
 <div class="sect2">
@@ -524,8 +524,12 @@ The arc42-template sources are a good example.</p>
 <p><strong>jbake-menu</strong></p>
 </div>
 <div class="paragraph">
-<p>The top-level menu for this page.
-Defaults to the top-level folder name of the .adoc file within the <code>docDir</code>.</p>
+<p>The top-level menu&#8217;s code for this page.
+Defaults to the top-level folder name (without the order prefix) of the .adoc file within the <code>docDir</code>.
+Example: if the top-level folder name is <code>10_news</code> it will default to the value <code>news</code>.</p>
+</div>
+<div class="paragraph">
+<p>For each code, the display text and the order in the top-level menu can be <a href="#top-menu-config">configured</a>.</p>
 </div>
 <div class="paragraph">
 <p><strong>jbake-title</strong></p>
@@ -601,24 +605,88 @@ But if you want to, you can override the convention behaviour with a configurati
 </div>
 <div class="sect3">
 <h4 id="_menu">Menu</h4>
+<div class="sect4">
+<h5 id="_navigation_elements">Navigation elements</h5>
+<div class="paragraph">
+<p>The navigation is organized with following elements:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>A top level menu.</p>
+</li>
+<li>
+<p>For each item of this top level menu, a section sidebar on the left.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The location of a page in the top-level menu and in the section sidebar depends from:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Its location in the folder structure</p>
+</li>
+<li>
+<p>Page attributes</p>
+</li>
+<li>
+<p>Site configurations</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Example:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>src/docs/
+├── 10_foo
+│   ├── 10_first.adoc
+│   └── 20_second.adoc
+└── 20_bar
+    ├── 10_lorem.adoc
+    ├── 20_ipsum.adoc
+    └── 30_delis.doc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The top level folders (<code>10_foo</code> and <code>20_bar</code>) are used to determine to which menu-code the page belongs (unless overridden by the <code>:jbake-menu:</code> inside each page).</p>
+</div>
+<div class="paragraph">
+<p>In the section sidebar, the order is controlled by the prefix of the file name  (unless overridden by the <code>:jbake-order:</code> inside each page).</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="top-menu-config">Configuring the top level menu</h5>
 <div class="paragraph">
 <p>The <code>:jbake-menu:</code> is only the code for the menu entry to be created.
 You can map these codes to menu entries through the configuration (<code>microsite</code>-Section) in the following way:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">menu = [code1: 'title1', code2: 'title2', code3: '-']</code></pre>
+<pre class="prettyprint highlight"><code data-lang="groovy">menu = [code1: 'Some Title 1', code2: 'Other Title 2', code3: '-']</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If you have four files:</p>
+<p>When no mapping is defined in the configuration file, the code is used as title.</p>
+</div>
+<div class="paragraph">
+<p>The menu configuration is also impacting the display order.</p>
+</div>
+<div class="paragraph">
+<p>If you have four files, located in following folder structure:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code>src/docs/code1/demo1.adoc
-src/docs/code1/demo2.adoc
-src/docs/code3/demo3.adoc
-src/docs/code3/_demo4.adoc</code></pre>
+<pre class="prettyprint highlight"><code>src/docs
+├── code1
+│   ├── demo1.adoc
+│   └── demo2.adoc
+└── code3
+    ├── demo3.adoc
+    └── _demo4.adoc</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -628,23 +696,24 @@ src/docs/code3/_demo4.adoc</code></pre>
 <ul>
 <li>
 <p><code>demo1.adoc</code> will have a menu-code of <code>code1</code> because it is located in the folder <code>code1</code>.
-This code is translated through the configuration to the menu named <code>title1</code>.</p>
+This code is translated through the configuration to the menu named <code>Some Title 1</code>.</p>
 </li>
 <li>
 <p><code>demo2.adoc</code> is in the same folder, but the <code>:jbake-menu:</code> attribute has a higher precedence which results in menu-code <code>code2</code>.
-This code is translated through the configuration to the menu named <code>title2</code>.</p>
+This code is translated through the configuration to the menu named <code>Other Title 2</code>.</p>
 </li>
 <li>
-<p><code>demo3.adoc</code> will have a menu-code <code>code1</code> because it is located in the folder <code>code3</code>.
+<p><code>demo3.adoc</code> will have a menu-code <code>code3</code> because it is located in the folder <code>code3</code>.
 This code is translated through the configuration to the special menu <code>-</code> which will not be displayed.
 This is an easy way to hide a menu in the rendered microsite.</p>
 </li>
 <li>
 <p><code>_demo4.adoc</code> starts with an underscore <code>_</code> and thus will be handled as <code>draft</code> (<code>:jbake-status: draft</code>).
 It will not be rendered as part of any menu, but it will be available in the microsite as "hidden" <code>_demo4-draft.html</code>.
-Feel free to remove these draft rendereings before you publish your microsite.</p>
+Feel free to remove these draft renderings before you publish your microsite.</p>
 </li>
 </ul>
+</div>
 </div>
 </div>
 <div class="sect3">
