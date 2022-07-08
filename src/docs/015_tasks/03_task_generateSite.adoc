@@ -101,11 +101,11 @@ But if you want to, you can override the convention behaviour with a configurati
 The navigation is organized with following elements:
 
 * A top level menu.
-* For each item of this top level menu, a navigation list on the left.
+* For each item of this top level menu, a section sidebar on the left.
 
-The location of a page in the menu depends from:
+The location of a page in the top-level menu and in the section sidebar depends from:
 
-* Its location in the folder
+* Its location in the folder structure
 * Page attributes
 * Site configurations
 
@@ -125,7 +125,7 @@ src/docs/
 
 The top level folders (`10_foo` and `20_bar`) are used to determine to which menu-code the page belongs (unless overridden by the `:jbake-menu:` inside each page).
 
-In the navigation menu, the order is controlled by the prefix of the file name  (unless overridden by the `:jbake-order:` inside each page).
+In the section sidebar, the order is controlled by the prefix of the file name  (unless overridden by the `:jbake-order:` inside each page).
 
 [[top-menu-config]]
 ==== Configuring the top level menu
