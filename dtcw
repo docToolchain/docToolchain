@@ -13,7 +13,7 @@ VERSION=2.0.5
 DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/releases/download/v${VERSION}/docToolchain-${VERSION}.zip
 export DTC_PROJECT_BRANCH=$(git branch --show-current)
 
-: ${DTC_HEADLESS:="false"}
+DTC_HEADLESS=${DTC_HEADLESS:="false"}
 if tty -s; then
   echo "Using headless mode since there is no (terminal) interaction possible"
   DTC_HEADLESS=true
@@ -49,10 +49,10 @@ fi
 if [ -d "$HOME/.doctoolchain/jdk/." ]; then
     echo "local java JDK found"
     java=true
-    
+
     if [ -d "$HOME/.doctoolchain/jdk/Contents/." ]; then
       javaHome="$HOME/.doctoolchain/jdk/Contents/Home"
-    else 
+    else
       javaHome="$HOME/.doctoolchain/jdk"
     fi
     echo "use $javaHome as JDK"
@@ -202,12 +202,12 @@ if [ "$1" == "getJava" ] ; then
         releasetype=ga
         case "$arch" in
           x86_64 ) arch=x64 ;;
-          arm64 )  arch=aarch64 ;;  
+          arm64 )  arch=aarch64 ;;
         esac
         case "$os" in
           Linux )  os=linux ;;
           Darwin ) os=mac ;;
-          Cygwin ) os=linux ;;  
+          Cygwin ) os=linux ;;
         esac
         echo "this script assumes that you have linux as operating system ($arch / $os)"
         echo "it now tries to install Java for you"
@@ -245,7 +245,7 @@ Examples:
 
   Publish HTML to Confluence:
     ./dtcw publishToConfluence
-    
+
   get more documentation at https://doctoolchain.github.io
 '
     exit 1
