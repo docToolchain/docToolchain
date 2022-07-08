@@ -41,8 +41,11 @@ Here is an overview of each element:
 
 *jbake-menu*
 
-The top-level menu for this page.
-Defaults to the top-level folder name of the .adoc file within the `docDir`.
+The top-level menu's code for this page.
+Defaults to the top-level folder name (without the order prefix) of the .adoc file within the `docDir`.
+Example: if the top-level folder name is `10_news` it will default to the value `news`.
+
+For each code, the display text and the order in the top-level menu can be <<#top-menu-config, configured>>.
 
 *jbake-title*
 
@@ -93,35 +96,77 @@ But if you want to, you can override the convention behaviour with a configurati
 
 === Menu
 
+==== Navigation elements
+
+The navigation is organized with following elements:
+
+* A top level menu.
+* For each item of this top level menu, a section sidebar on the left.
+
+The location of a page in the top-level menu and in the section sidebar depends from:
+
+* Its location in the folder structure
+* Page attributes
+* Site configurations
+
+Example:
+
+[source]
+----
+src/docs/
+├── 10_foo
+│   ├── 10_first.adoc
+│   └── 20_second.adoc
+└── 20_bar
+    ├── 10_lorem.adoc
+    ├── 20_ipsum.adoc
+    └── 30_delis.doc
+----
+
+The top level folders (`10_foo` and `20_bar`) are used to determine to which menu-code the page belongs (unless overridden by the `:jbake-menu:` inside each page).
+
+In the section sidebar, the order is controlled by the prefix of the file name  (unless overridden by the `:jbake-order:` inside each page).
+
+[[top-menu-config]]
+==== Configuring the top level menu
+
 The `:jbake-menu:` is only the code for the menu entry to be created.
 You can map these codes to menu entries through the configuration (`microsite`-Section) in the following way:
 
 [source, groovy]
 ----
-menu = [code1: 'title1', code2: 'title2', code3: '-']
+menu = [code1: 'Some Title 1', code2: 'Other Title 2', code3: '-']
 ----
 
-If you have four files:
+When no mapping is defined in the configuration file, the code is used as title.
 
-```
-src/docs/code1/demo1.adoc
-src/docs/code1/demo2.adoc
-src/docs/code3/demo3.adoc
-src/docs/code3/_demo4.adoc
-```
+The menu configuration is also impacting the display order.
+
+If you have four files, located in following folder structure:
+
+[source]
+----
+src/docs
+├── code1
+│   ├── demo1.adoc
+│   └── demo2.adoc
+└── code3
+    ├── demo3.adoc
+    └── _demo4.adoc
+----
 
 Where `demo1.adoc` and `demo3.adoc` contain no `:jbake-menu:` header, `demo2.adoc` contains `:jbake-menu: code2`, then:
 
 * `demo1.adoc` will have a menu-code of `code1` because it is located in the folder `code1`. 
-This code is translated through the configuration to the menu named `title1`.
+This code is translated through the configuration to the menu named `Some Title 1`.
 * `demo2.adoc` is in the same folder, but the `:jbake-menu:` attribute has a higher precedence which results in menu-code `code2`.
-This code is translated through the configuration to the menu named `title2`.
-* `demo3.adoc` will have a menu-code `code1` because it is located in the folder `code3`.
+This code is translated through the configuration to the menu named `Other Title 2`.
+* `demo3.adoc` will have a menu-code `code3` because it is located in the folder `code3`.
 This code is translated through the configuration to the special menu `-` which will not be displayed.
 This is an easy way to hide a menu in the rendered microsite.
 * `\_demo4.adoc` starts with an underscore `_` and thus will be handled as `draft` (`:jbake-status: draft`).
 It will not be rendered as part of any menu, but it will be available in the microsite as "hidden" `_demo4-draft.html`.
-Feel free to remove these draft rendereings before you publish your microsite.
+Feel free to remove these draft renderings before you publish your microsite.
 
 === Links
 
