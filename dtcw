@@ -14,7 +14,10 @@ DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/releases/download/
 export DTC_PROJECT_BRANCH=$(git branch --show-current)
 
 DTC_HEADLESS=${DTC_HEADLESS:="false"}
-if tty -s; then
+if [ -t 0 ]; then
+  # do nothing - we have a tty
+  echo ""
+else
   echo "Using headless mode since there is no (terminal) interaction possible"
   DTC_HEADLESS=true
 fi
