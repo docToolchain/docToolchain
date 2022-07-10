@@ -117,7 +117,7 @@ The most important ones are:
 :pdf-fontsdir: ../pdfTheme/fonts
 ----
 
-For this tutorial, navigate to `src/docs/arc42/arc42.adoc then add the following to the top of the document:
+For this tutorial, navigate to `src/docs/arc42/arc42.adoc` then add the following to the top of the document:
 
 [source, asciidoc]
 ----
