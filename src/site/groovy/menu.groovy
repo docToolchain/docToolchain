@@ -103,7 +103,7 @@ def processMap(def originalEntries, String prefix, def map, boolean skipIndex) {
                 def index = originalEntries.find {it.uri == prefix + entry.key + '/index.html'}
                 if(index != null) {
                     candidate = index;
-                    if(candidate.order == 0) {
+                    if(candidate.order == -987654321) {
                         String t = entry.key;
                         def matcher = t =~ /^([0-9]+)_(.*)$/
                         if(matcher.matches()) {
@@ -113,7 +113,7 @@ def processMap(def originalEntries, String prefix, def map, boolean skipIndex) {
                     }
                 } else {
                     String t = entry.key;
-                    Integer o = null
+                    Integer o = -1
                     def matcher = t =~ /^([0-9]+)_(.*)$/
                     if(matcher.matches()) {
                         o = matcher.group(1) as Integer
@@ -146,7 +146,7 @@ def Map<String, ?> asTree(List<List<String>> list) {
 }
 
 def String findFirstUri(def entries) {
-    def indexEntry = entries.find { it.order == 0 }
+    def indexEntry = entries.find { it.order == -987654321 }
     if(indexEntry && indexEntry.uri) {
         return indexEntry.uri
     }
