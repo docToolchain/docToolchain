@@ -10,7 +10,7 @@ try {
             //push all page info to the menu map
             menu[page['jbake-menu']] << [
                 title: page['jbake-title'],
-                order: page['jbake-order'],
+                order: page['jbake-order'] as Integer,
                 filename: page['filename'],
                 uri: page['uri'],
                 children: []
@@ -103,20 +103,20 @@ def processMap(def originalEntries, String prefix, def map, boolean skipIndex) {
                 def index = originalEntries.find {it.uri == prefix + entry.key + '/index.html'}
                 if(index != null) {
                     candidate = index;
-                    if(candidate.order == '0') {
-                        def t = entry.key;
+                    if(candidate.order == 0) {
+                        String t = entry.key;
                         def matcher = t =~ /^([0-9]+)_(.*)$/
                         if(matcher.matches()) {
-                            def o = matcher.group(1)
+                            Integer o = matcher.group(1) as Integer
                             candidate.order = o
                         }
                     }
                 } else {
-                    def t = entry.key;
-                    def o = null
+                    String t = entry.key;
+                    Integer o = null
                     def matcher = t =~ /^([0-9]+)_(.*)$/
                     if(matcher.matches()) {
-                        o = matcher.group(1)
+                        o = matcher.group(1) as Integer
                         t = matcher.group(2)
                     }
                     candidate = [
@@ -146,11 +146,11 @@ def Map<String, ?> asTree(List<List<String>> list) {
 }
 
 def String findFirstUri(def entries) {
-    def indexEntry = entries.find { it.order == '0' }
+    def indexEntry = entries.find { it.order == 0 }
     if(indexEntry && indexEntry.uri) {
         return indexEntry.uri
     }
-    def firstEntry = entries.sort { a, b -> a.order as Integer <=> b.order as Integer ?: a.title <=> b.title }[0]
+    def firstEntry = entries.sort { a, b -> a.order <=> b.order ?: a.title <=> b.title }[0]
     if (firstEntry) {
         if(firstEntry.uri) {
             return firstEntry.uri

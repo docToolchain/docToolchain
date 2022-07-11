@@ -40,21 +40,21 @@ class MenuSpec extends Specification {
         then: 'arrays are computed'
             binding.content.menu == [
                 foo:[
-                    [title: 'Lorem Ipsum', order: '10', filename: null, uri: 'foo/10_lorem-ipsum.html', children:[]],
-                    [title: 'Dolor sit amet', order: '20', filename: null, uri: 'foo/20_dolor_sit_amet.html', children:[]]
+                    [title: 'Lorem Ipsum', order: 10, filename: null, uri: 'foo/10_lorem-ipsum.html', children:[]],
+                    [title: 'Dolor sit amet', order: 20, filename: null, uri: 'foo/20_dolor_sit_amet.html', children:[]]
                 ],
                 bar:[
-                    [title: 'Adipiscing elit', order: '10', filename: null, uri: 'bar/10_adipiscing_elit.html', children:[]]
+                    [title: 'Adipiscing elit', order: 10, filename: null, uri: 'bar/10_adipiscing_elit.html', children:[]]
                 ]
             ]
             binding.content.entriesMap ==  [
                 foo:[ 'foo', [
-                        [title: 'Lorem Ipsum', order: '10', filename: null, uri: 'foo/10_lorem-ipsum.html', children:[]],
-                        [title: 'Dolor sit amet', order: '20', filename: null, uri: 'foo/20_dolor_sit_amet.html', children:[]]
+                        [title: 'Lorem Ipsum', order: 10, filename: null, uri: 'foo/10_lorem-ipsum.html', children:[]],
+                        [title: 'Dolor sit amet', order: 20, filename: null, uri: 'foo/20_dolor_sit_amet.html', children:[]]
                     ]
                 ],
                 bar:[ 'bar', [
-                        [title: 'Adipiscing elit', order: '10', filename: null, uri: 'bar/10_adipiscing_elit.html', children:[]]
+                        [title: 'Adipiscing elit', order: 10, filename: null, uri: 'bar/10_adipiscing_elit.html', children:[]]
                     ]
                 ]
             ]
@@ -78,21 +78,21 @@ class MenuSpec extends Specification {
         then: 'arrays are computed'
             binding.content.menu == [
                 code1:[
-                    [title: 'Lorem Ipsum', order: '10', filename: null, uri: 'pages/10_lorem-ipsum.html', children:[]],
-                    [title: 'Dolor sit amet', order: '20', filename: null, uri: 'pages/20_dolor_sit_amet.html', children:[]]
+                    [title: 'Lorem Ipsum', order: 10, filename: null, uri: 'pages/10_lorem-ipsum.html', children:[]],
+                    [title: 'Dolor sit amet', order: 20, filename: null, uri: 'pages/20_dolor_sit_amet.html', children:[]]
                 ],
                 code2:[
-                    [title: 'Adipiscing elit', order: '30', filename: null, uri: 'pages/30_adipiscing_elit.html', children:[]]
+                    [title: 'Adipiscing elit', order: 30, filename: null, uri: 'pages/30_adipiscing_elit.html', children:[]]
                 ]
             ]
             binding.content.entriesMap ==  [
                 code1:[ 'title1', [
-                        [title: 'Lorem Ipsum', order: '10', filename: null, uri: 'pages/10_lorem-ipsum.html', children:[]],
-                        [title: 'Dolor sit amet', order: '20', filename: null, uri: 'pages/20_dolor_sit_amet.html', children:[]]
+                        [title: 'Lorem Ipsum', order: 10, filename: null, uri: 'pages/10_lorem-ipsum.html', children:[]],
+                        [title: 'Dolor sit amet', order: 20, filename: null, uri: 'pages/20_dolor_sit_amet.html', children:[]]
                     ]
                 ],
                 code2:[ 'title2', [
-                        [title: 'Adipiscing elit', order: '30', filename: null, uri: 'pages/30_adipiscing_elit.html', children:[]]
+                        [title: 'Adipiscing elit', order: 30, filename: null, uri: 'pages/30_adipiscing_elit.html', children:[]]
                     ]
                 ]
             ]
@@ -119,28 +119,28 @@ class MenuSpec extends Specification {
         then: 'arrays are computed'
             binding.content.menu == [
                 foo:[
-                    [title: 'Lorem Ipsum', order: '10', filename: null, uri: 'foo/10_lorem-ipsum.html', children:[]],
-                    [title: 'Section bar', order: '22', filename: null, uri: 'foo/22_bar/index.html', children: [
-                            [title: 'Adipiscing elit', order: '10', filename: null, uri: 'foo/22_bar/10_adipiscing_elit.html', children:[]],
-                            [title: 'Dolor sit amet', order: '20', filename: null, uri: 'foo/22_bar/20_dolor_sit_amet.html', children:[]]
+                    [title: 'Lorem Ipsum', order: 10, filename: null, uri: 'foo/10_lorem-ipsum.html', children:[]],
+                    [title: 'Section bar', order: 22, filename: null, uri: 'foo/22_bar/index.html', children: [
+                            [title: 'Adipiscing elit', order: 10, filename: null, uri: 'foo/22_bar/10_adipiscing_elit.html', children:[]],
+                            [title: 'Dolor sit amet', order: 20, filename: null, uri: 'foo/22_bar/20_dolor_sit_amet.html', children:[]]
                         ]
                     ],
-                    [title: 'Section kaz', order: '35', filename: null, uri: 'foo/kaz/index.html', children: [
-                            [title: 'Kaz Page', order: '100', filename: null, uri: 'foo/kaz/100_page.html', children:[]]
+                    [title: 'Section kaz', order: 35, filename: null, uri: 'foo/kaz/index.html', children: [
+                            [title: 'Kaz Page', order: 100, filename: null, uri: 'foo/kaz/100_page.html', children:[]]
                         ]
                     ]
                 ]
             ]
             binding.content.entriesMap ==  [
                 foo:[ 'foo', [
-                        [title: 'Lorem Ipsum', order: '10', filename: null, uri: 'foo/10_lorem-ipsum.html', children:[]],
-                        [title: 'Section bar', order: '22', filename: null, uri: 'foo/22_bar/index.html', children: [
-                                [title: 'Adipiscing elit', order: '10', filename: null, uri: 'foo/22_bar/10_adipiscing_elit.html', children:[]],
-                                [title: 'Dolor sit amet', order: '20', filename: null, uri: 'foo/22_bar/20_dolor_sit_amet.html', children:[]]
+                        [title: 'Lorem Ipsum', order: 10, filename: null, uri: 'foo/10_lorem-ipsum.html', children:[]],
+                        [title: 'Section bar', order: 22, filename: null, uri: 'foo/22_bar/index.html', children: [
+                                [title: 'Adipiscing elit', order: 10, filename: null, uri: 'foo/22_bar/10_adipiscing_elit.html', children:[]],
+                                [title: 'Dolor sit amet', order: 20, filename: null, uri: 'foo/22_bar/20_dolor_sit_amet.html', children:[]]
                             ]
                         ],
-                        [title: 'Section kaz', order: '35', filename: null, uri: 'foo/kaz/index.html', children: [
-                                [title: 'Kaz Page', order: '100', filename: null, uri: 'foo/kaz/100_page.html', children:[]]
+                        [title: 'Section kaz', order: 35, filename: null, uri: 'foo/kaz/index.html', children: [
+                                [title: 'Kaz Page', order: 100, filename: null, uri: 'foo/kaz/100_page.html', children:[]]
                             ]
                         ]
                     ]
@@ -166,18 +166,19 @@ class MenuSpec extends Specification {
         when: 'run the `menu.groovy` script'
             runMenuScript(binding)
         then: 'arrays are computed'
+
             binding.content.menu == [
                 foo:[
                     [title: 'bar', order: null, filename: null, uri: null, children: [
-                            [title: 'Adipiscing elit', order: '10', filename: null, uri: 'foo/bar/10_adipiscing_elit.html', children:[]],
-                            [title: 'Dolor sit amet', order: '100', filename: null, uri: 'foo/bar/100_dolor_sit_amet.html', children:[]]
+                            [title: 'Adipiscing elit', order: 10, filename: null, uri: 'foo/bar/10_adipiscing_elit.html', children:[]],
+                            [title: 'Dolor sit amet', order: 100, filename: null, uri: 'foo/bar/100_dolor_sit_amet.html', children:[]]
                         ]
                     ],
-                    [title: 'Lorem Ipsum', order: '10', filename: null, uri: 'foo/10_lorem-ipsum.html', children:[]],
-                    [title: 'baz', order: '30', filename: null, uri: null, children: [
-                            [title: 'One', order: '10', filename: null, uri: 'foo/30_baz/10_one.html', children:[]],
-                            [title: 'Two', order: '20', filename: null, uri: 'foo/30_baz/20_two.html', children:[]],
-                            [title: 'Three', order: '30', filename: null, uri: 'foo/30_baz/30_three.html', children:[]]
+                    [title: 'Lorem Ipsum', order: 10, filename: null, uri: 'foo/10_lorem-ipsum.html', children:[]],
+                    [title: 'baz', order: 30, filename: null, uri: null, children: [
+                            [title: 'One', order: 10, filename: null, uri: 'foo/30_baz/10_one.html', children:[]],
+                            [title: 'Two', order: 20, filename: null, uri: 'foo/30_baz/20_two.html', children:[]],
+                            [title: 'Three', order: 30, filename: null, uri: 'foo/30_baz/30_three.html', children:[]]
                         ]
                     ]
                 ]
@@ -186,15 +187,15 @@ class MenuSpec extends Specification {
             binding.content.entriesMap ==  [
                 foo:[ 'My Title', [
                         [title: 'bar', order: null, filename: null, uri: null, children: [
-                                [title: 'Adipiscing elit', order: '10', filename: null, uri: 'foo/bar/10_adipiscing_elit.html', children:[]],
-                                [title: 'Dolor sit amet', order: '100', filename: null, uri: 'foo/bar/100_dolor_sit_amet.html', children:[]]
+                                [title: 'Adipiscing elit', order: 10, filename: null, uri: 'foo/bar/10_adipiscing_elit.html', children:[]],
+                                [title: 'Dolor sit amet', order: 100, filename: null, uri: 'foo/bar/100_dolor_sit_amet.html', children:[]]
                             ]
                         ],
-                        [title: 'Lorem Ipsum', order: '10', filename: null, uri: 'foo/10_lorem-ipsum.html', children:[]],
-                        [title: 'baz', order: '30', filename: null, uri: null, children: [
-                                [title: 'One', order: '10', filename: null, uri: 'foo/30_baz/10_one.html', children:[]],
-                                [title: 'Two', order: '20', filename: null, uri: 'foo/30_baz/20_two.html', children:[]],
-                                [title: 'Three', order: '30', filename: null, uri: 'foo/30_baz/30_three.html', children:[]]
+                        [title: 'Lorem Ipsum', order: 10, filename: null, uri: 'foo/10_lorem-ipsum.html', children:[]],
+                        [title: 'baz', order: 30, filename: null, uri: null, children: [
+                                [title: 'One', order: 10, filename: null, uri: 'foo/30_baz/10_one.html', children:[]],
+                                [title: 'Two', order: 20, filename: null, uri: 'foo/30_baz/20_two.html', children:[]],
+                                [title: 'Three', order: 30, filename: null, uri: 'foo/30_baz/30_three.html', children:[]]
                             ]
                         ]
                     ]
@@ -220,14 +221,14 @@ class MenuSpec extends Specification {
         then: 'arrays are computed'
             binding.content.menu == [
                 foo:[
-                    [title: 'Lorem Ipsum', order: '0', filename: null, uri: 'foo/index.html', children:[]],
-                    [title: 'Dolor sit amet', order: '-1', filename: null, uri: 'foo/page.html', children:[]]
+                    [title: 'Lorem Ipsum', order: 0, filename: null, uri: 'foo/index.html', children:[]],
+                    [title: 'Dolor sit amet', order: -1, filename: null, uri: 'foo/page.html', children:[]]
                 ]
             ]
             binding.content.entriesMap ==  [
                 foo:[ 'Some FOO', [
-                        [title: 'Lorem Ipsum', order: '0', filename: null, uri: 'foo/index.html', children:[]],
-                        [title: 'Dolor sit amet', order: '-1', filename: null, uri: 'foo/page.html', children:[]]
+                        [title: 'Lorem Ipsum', order: 0, filename: null, uri: 'foo/index.html', children:[]],
+                        [title: 'Dolor sit amet', order: -1, filename: null, uri: 'foo/page.html', children:[]]
                     ]
                 ]
             ]
@@ -252,13 +253,13 @@ class MenuSpec extends Specification {
             binding.content.menu == [
                 p:[
                     [title: 'x', order: null, filename: null, uri: null, children: [
-                            [title: 'A', order: '10', filename: null, uri: 'p/x/a.html', children:[]],
-                            [title: 'B', order: '10', filename: null, uri: 'p/x/b.html', children:[]]
+                            [title: 'A', order: 10, filename: null, uri: 'p/x/a.html', children:[]],
+                            [title: 'B', order: 10, filename: null, uri: 'p/x/b.html', children:[]]
                         ]
                     ],
                     [title: 'y', order: null, filename: null, uri: null, children: [
-                            [title: 'C', order: '10', filename: null, uri: 'p/y/c.html', children:[]],
-                            [title: 'D', order: '10', filename: null, uri: 'p/y/d.html', children:[]]
+                            [title: 'C', order: 10, filename: null, uri: 'p/y/c.html', children:[]],
+                            [title: 'D', order: 10, filename: null, uri: 'p/y/d.html', children:[]]
                         ]
                     ]
                 ]
@@ -266,13 +267,13 @@ class MenuSpec extends Specification {
             binding.content.entriesMap ==  [
                 p:[ 'My pages', [
                         [title: 'x', order: null, filename: null, uri: null, children: [
-                                [title: 'A', order: '10', filename: null, uri: 'p/x/a.html', children:[]],
-                                [title: 'B', order: '10', filename: null, uri: 'p/x/b.html', children:[]]
+                                [title: 'A', order: 10, filename: null, uri: 'p/x/a.html', children:[]],
+                                [title: 'B', order: 10, filename: null, uri: 'p/x/b.html', children:[]]
                             ]
                         ],
                         [title: 'y', order: null, filename: null, uri: null, children: [
-                                [title: 'C', order: '10', filename: null, uri: 'p/y/c.html', children:[]],
-                                [title: 'D', order: '10', filename: null, uri: 'p/y/d.html', children:[]]
+                                [title: 'C', order: 10, filename: null, uri: 'p/y/c.html', children:[]],
+                                [title: 'D', order: 10, filename: null, uri: 'p/y/d.html', children:[]]
                             ]
                         ]
                     ]

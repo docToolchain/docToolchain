@@ -10,7 +10,7 @@
             String htmlClass = (index == 0) ? 'td-sidebar-nav__section pr-md-3 ' : '';
             result = result + """
                         <ul class="${htmlClass}ul-$index">"""
-            entries?.sort{a, b ->a.order as Integer <=> b.order as Integer ?: a.title <=> b.title }.each { entry ->
+            entries?.sort{a, b ->a.order <=> b.order ?: a.title <=> b.title }.each { entry ->
                 def hasChild = (entry.children) ? 'with-child' : 'without-child'
                 def isActive = (c.uri==entry.uri) ? 'active' : ''
                 result = result + """
