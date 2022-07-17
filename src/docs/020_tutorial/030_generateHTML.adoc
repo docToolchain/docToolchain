@@ -4,7 +4,7 @@ include::_config.adoc[]
 
 == generateHTML & generatePDF
 
-The xref:../015_tasks/03_task_generateHTML.adoc[`generateHTML`] and xref:../015_tasks/03_task_generatePDF.adoc[`generatePDF`] tasks are the most basic tasks which just invoke asciidoctor to generate the output you want.
+xref:../015_tasks/03_task_generateHTML.adoc[`generateHTML`] and xref:../015_tasks/03_task_generatePDF.adoc[`generatePDF`] are basic tasks which invoke Asciidoctor to generate the output you want.
 
 .Linux / WSL2 with bash
 [role='primary']
@@ -60,25 +60,24 @@ The output is written to `build/html5/arc42/arc42.html` and `build/pdf/arc42/Arc
 .generated output of generateHTML task
 image::generateHTML.dio.png[]
 
-As you can see in <<html_out>>, the HTML output is rendered as a single page with a table of contents (TOC) on the left.
-If you have chosen the `withhelp` version, you will notice some little question marks on the right.
-Hover over these with your mouse and you will see the full help text for each paragraph.
-This way, you can leave these help texts in your docs without annoying your readers.
+As you can see in <<html_out>>, HTML output is rendered as a single page with a table of contents (TOC) on the left.
+If using the `withhelp` version, help appears behind question mark icons on the right side of the page.
+When readers hold their mouse over each icon, help appears.
 
 [[pdf_out]]
 .generated output of generatePDF task
 image::generatePDF.png[]
 
-<<pdf_out>> shows you the generated PDF.
-It also contains a TOC on the first pages and your PDF reader will also show the TOC on the left for you to navigate through the document.
+<<pdf_out>> shows you the PDF output.
+There is a TOC available on the first pages, and a TOC also appears on the left, helping readers navigate the document.
 
-Both, the HTML and PDF output can be styled to fit your needs.
+Both HTML and PDF outputs can be styled to suit your needs.
 
 === Configuration
 
 ==== Files to convert
 
-For both tasks, the most important configuration is the `inputFiles`-list at the start of your `docToolchainConfig.groovy`
+For both tasks, the most important configuration is `inputFiles`-list at the start of your `docToolchainConfig.groovy`
 
 [source, groovy]
 ----
@@ -90,27 +89,25 @@ inputFiles = [
 ----
 
 Normally, Asciidoctor converts all files it can find.
-But when you structure your documents with includes, you don't want each and every chapter to be converted in its own pdf.
-So, you need a main AsciiDoc file which includes all chapters in order to create a full document.
+For documents structured using includes, to create a full document (and avoid each chapter being converted to an individual PDF) you'll need a main AsciiDoc file that includes all chapters.
 
-The `inputFiles`-map provides a list of all these main files and a list of formats for which the file should be used.
-This way, you can specify that certain files should be converted to HTML but not to PDF for example.
+The `inputFiles`-map lists all of the main files as well as a list of formats applicable to each.
+For example, this lets you specify which files should be converted to HTML but not to PDF.
+You will need to configure this list manually.
 
-You need to configure this list manually.
-So if docToolchain converts an unexpected list of files, this is the first location where you should look for a problem.
+If docToolchain converts an unexpected list of files, this is the first place to look when troubleshooting problems.
 
-==== PDF Style
+==== Working with the PDF style
 
-To get started, you should execute `./dtcw copyTheme` in order to copy a simple `pdfTheme` to your own project.
-You will find it in `/src/docs/pdfTheme`.
+First, execute `./dtcw copyTheme` to copy a simple `pdfTheme` to your own project.
+Find it in `/src/docs/pdfTheme`.
 
 Currently, docToolchain uses the https://asciidoctor.org/docs/asciidoctor-pdf/[asciidoctor-pdf] library.
 The documentation contains a good https://github.com/asciidoctor/asciidoctor-pdf/blob/v1.6.0/docs/theming-guide.adoc[theming guide].
 
-To activate the new style, you have to tell asciidoctor where to find it.
-For maximum flexibility, you specify the location and other pdf related attributes in the file you want to convert.
-
-The most important ones are
+To activate the new style, you have to tell Asciidoctor where to find it.
+For maximum flexibility, specify the location and other PDF-related attributes in the file that you want to convert.
+The most important ones are:
 
 [source, asciidoc]
 ----
@@ -120,7 +117,7 @@ The most important ones are
 :pdf-fontsdir: ../pdfTheme/fonts
 ----
 
-For this tutorial, navigate to `src/docs/arc42/arc42.adoc and add
+For this tutorial, navigate to `src/docs/arc42/arc42.adoc` then add the following to the top of the document:
 
 [source, asciidoc]
 ----
@@ -128,24 +125,23 @@ For this tutorial, navigate to `src/docs/arc42/arc42.adoc and add
 :pdf-style: custom
 ----
 
-to the top of the document.
-This will specify that asciidoc will find the the pdfTheme relative to the document location in `../pdfTheme` which will result in `src/docs/arc42/../pdfTheme` which is equal to `src/docs/pdfTheme`.
+This will specify that AsciiDoc will find the `pdfTheme` relative to the document location in `../pdfTheme` which will result in `src/docs/arc42/../pdfTheme` which is equal to `src/docs/pdfTheme`.
 
 You can also make use of the attribute `\{projectRootDir}` which will contain the absolute path to your project directory.
-So, `:pdf-stylesdir: \{projectRootDir}/src/docs/pdfTheme` will search in my case in `**/home/rdmueller/projects/demo**/src/docs/pdfTheme` for the theme.
+For example `:pdf-stylesdir: \{projectRootDir}/src/docs/pdfTheme` will search in `**/home/myname/projects/demo**/src/docs/pdfTheme` for the theme.
 
-NOTE: in order to use the `\{projectRootDir}` also in your editor preview, define is as relative path, only if it is not already defined:
+NOTE: If you want to use the `\{projectRootDir}` in your editor preview, you must define it as a relative path:
 
 [source, asciidoc]
 ----
 ifndef:projectRootDir[:projectRootDir: ../../..]
 ----
 
-This example, added to the top of your `arc42.adoc` tutorial file, will set the `projectRootDir` to the correct folder.
+When added to the top of your `arc42.adoc` tutorial file, this will set the `projectRootDir` to the correct folder.
 
-==== HTML Style
+==== Working with the HTML style
 
-The easiest way to modify the HTML style is to add a https://docs.asciidoctor.org/asciidoc/latest/pass/pass-block/[pass-through block] with the needed CSS styles.
+The easiest way to modify the HTML style is to add a https://docs.asciidoctor.org/asciidoc/latest/pass/pass-block/[pass-through block] with the required CSS styles.
 
 [source, asciidoctor]
 ----
@@ -158,4 +154,4 @@ The easiest way to modify the HTML style is to add a https://docs.asciidoctor.or
 ++++
 ----
 
-NOTE: for the `generate**Site**` task, there is a different mechanism to change the styles if the generated microsite.
+NOTE: For the `generate**Site**` task, there is a different mechanism to change the styles if the generated microsite.
