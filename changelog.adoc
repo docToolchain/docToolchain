@@ -9,7 +9,11 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 * https://github.com/docToolchain/docToolchain/issues/720[#720 Fix gradlew.bat]
+* Fixes typo in dtcw.bat for finding the correct local cli command.
 * https://github.com/docToolchain/docToolchain/pull/847[#847 generateHTML & generatePDF documentation improvements]
+* https://github.com/docToolchain/docToolchain/issues/851[#851 fix duplicate TOC marker]
+* https://github.com/docToolchain/docToolchain/issues/853[#853 Hide site links when not configured]
+
 
 === added
 
