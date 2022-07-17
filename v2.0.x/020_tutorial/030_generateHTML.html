@@ -317,7 +317,7 @@
 <h2 id="_generatehtml_generatepdf">generateHTML &amp; generatePDF</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <a href="../015_tasks/03_task_generateHTML.html"><code>generateHTML</code></a> and <a href="../015_tasks/03_task_generatePDF.html"><code>generatePDF</code></a> tasks are the most basic tasks which just invoke asciidoctor to generate the output you want.</p>
+<p><a href="../015_tasks/03_task_generateHTML.html"><code>generateHTML</code></a> and <a href="../015_tasks/03_task_generatePDF.html"><code>generatePDF</code></a> are basic tasks which invoke Asciidoctor to generate the output you want.</p>
 </div>
 <div class="openblock primary">
 <div class="title">Linux / WSL2 with bash</div>
@@ -376,10 +376,9 @@ BUILD SUCCESSFUL in 26s
 <div class="title">Figure 1. generated output of generateHTML task</div>
 </div>
 <div class="paragraph">
-<p>As you can see in <a href="#html_out">Figure 1</a>, the HTML output is rendered as a single page with a table of contents (TOC) on the left.
-If you have chosen the <code>withhelp</code> version, you will notice some little question marks on the right.
-Hover over these with your mouse and you will see the full help text for each paragraph.
-This way, you can leave these help texts in your docs without annoying your readers.</p>
+<p>As you can see in <a href="#html_out">Figure 1</a>, HTML output is rendered as a single page with a table of contents (TOC) on the left.
+If using the <code>withhelp</code> version, help appears behind question mark icons on the right side of the page.
+When readers hold their mouse over each icon, help appears.</p>
 </div>
 <div id="pdf_out" class="imageblock">
 <div class="content">
@@ -388,18 +387,18 @@ This way, you can leave these help texts in your docs without annoying your read
 <div class="title">Figure 2. generated output of generatePDF task</div>
 </div>
 <div class="paragraph">
-<p><a href="#pdf_out">Figure 2</a> shows you the generated PDF.
-It also contains a TOC on the first pages and your PDF reader will also show the TOC on the left for you to navigate through the document.</p>
+<p><a href="#pdf_out">Figure 2</a> shows you the PDF output.
+There is a TOC available on the first pages, and a TOC also appears on the left, helping readers navigate the document.</p>
 </div>
 <div class="paragraph">
-<p>Both, the HTML and PDF output can be styled to fit your needs.</p>
+<p>Both HTML and PDF outputs can be styled to suit your needs.</p>
 </div>
 <div class="sect2">
 <h3 id="_configuration">Configuration</h3>
 <div class="sect3">
 <h4 id="_files_to_convert">Files to convert</h4>
 <div class="paragraph">
-<p>For both tasks, the most important configuration is the <code>inputFiles</code>-list at the start of your <code>docToolchainConfig.groovy</code></p>
+<p>For both tasks, the most important configuration is <code>inputFiles</code>-list at the start of your <code>docToolchainConfig.groovy</code></p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -412,34 +411,31 @@ It also contains a TOC on the first pages and your PDF reader will also show the
 </div>
 <div class="paragraph">
 <p>Normally, Asciidoctor converts all files it can find.
-But when you structure your documents with includes, you don&#8217;t want each and every chapter to be converted in its own pdf.
-So, you need a main AsciiDoc file which includes all chapters in order to create a full document.</p>
+For documents structured using includes, to create a full document (and avoid each chapter being converted to an individual PDF) you&#8217;ll need a main AsciiDoc file that includes all chapters.</p>
 </div>
 <div class="paragraph">
-<p>The <code>inputFiles</code>-map provides a list of all these main files and a list of formats for which the file should be used.
-This way, you can specify that certain files should be converted to HTML but not to PDF for example.</p>
+<p>The <code>inputFiles</code>-map lists all of the main files as well as a list of formats applicable to each.
+For example, this lets you specify which files should be converted to HTML but not to PDF.
+You will need to configure this list manually.</p>
 </div>
 <div class="paragraph">
-<p>You need to configure this list manually.
-So if docToolchain converts an unexpected list of files, this is the first location where you should look for a problem.</p>
+<p>If docToolchain converts an unexpected list of files, this is the first place to look when troubleshooting problems.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_pdf_style">PDF Style</h4>
+<h4 id="_working_with_the_pdf_style">Working with the PDF style</h4>
 <div class="paragraph">
-<p>To get started, you should execute <code>./dtcw copyTheme</code> in order to copy a simple <code>pdfTheme</code> to your own project.
-You will find it in <code>/src/docs/pdfTheme</code>.</p>
+<p>First, execute <code>./dtcw copyTheme</code> to copy a simple <code>pdfTheme</code> to your own project.
+Find it in <code>/src/docs/pdfTheme</code>.</p>
 </div>
 <div class="paragraph">
 <p>Currently, docToolchain uses the <a href="https://asciidoctor.org/docs/asciidoctor-pdf/">asciidoctor-pdf</a> library.
 The documentation contains a good <a href="https://github.com/asciidoctor/asciidoctor-pdf/blob/v1.6.0/docs/theming-guide.adoc">theming guide</a>.</p>
 </div>
 <div class="paragraph">
-<p>To activate the new style, you have to tell asciidoctor where to find it.
-For maximum flexibility, you specify the location and other pdf related attributes in the file you want to convert.</p>
-</div>
-<div class="paragraph">
-<p>The most important ones are</p>
+<p>To activate the new style, you have to tell Asciidoctor where to find it.
+For maximum flexibility, specify the location and other PDF-related attributes in the file that you want to convert.
+The most important ones are:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -450,7 +446,7 @@ For maximum flexibility, you specify the location and other pdf related attribut
 </div>
 </div>
 <div class="paragraph">
-<p>For this tutorial, navigate to `src/docs/arc42/arc42.adoc and add</p>
+<p>For this tutorial, navigate to <code>src/docs/arc42/arc42.adoc</code> then add the following to the top of the document:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -459,12 +455,11 @@ For maximum flexibility, you specify the location and other pdf related attribut
 </div>
 </div>
 <div class="paragraph">
-<p>to the top of the document.
-This will specify that asciidoc will find the the pdfTheme relative to the document location in <code>../pdfTheme</code> which will result in <code>src/docs/arc42/../pdfTheme</code> which is equal to <code>src/docs/pdfTheme</code>.</p>
+<p>This will specify that AsciiDoc will find the <code>pdfTheme</code> relative to the document location in <code>../pdfTheme</code> which will result in <code>src/docs/arc42/../pdfTheme</code> which is equal to <code>src/docs/pdfTheme</code>.</p>
 </div>
 <div class="paragraph">
 <p>You can also make use of the attribute <code>{projectRootDir}</code> which will contain the absolute path to your project directory.
-So, <code>:pdf-stylesdir: {projectRootDir}/src/docs/pdfTheme</code> will search in my case in <code><strong>/home/rdmueller/projects/demo</strong>/src/docs/pdfTheme</code> for the theme.</p>
+For example <code>:pdf-stylesdir: {projectRootDir}/src/docs/pdfTheme</code> will search in <code><strong>/home/myname/projects/demo</strong>/src/docs/pdfTheme</code> for the theme.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -473,7 +468,7 @@ So, <code>:pdf-stylesdir: {projectRootDir}/src/docs/pdfTheme</code> will search 
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-in order to use the <code>{projectRootDir}</code> also in your editor preview, define is as relative path, only if it is not already defined:
+If you want to use the <code>{projectRootDir}</code> in your editor preview, you must define it as a relative path:
 </td>
 </tr>
 </table>
@@ -484,13 +479,13 @@ in order to use the <code>{projectRootDir}</code> also in your editor preview, d
 </div>
 </div>
 <div class="paragraph">
-<p>This example, added to the top of your <code>arc42.adoc</code> tutorial file, will set the <code>projectRootDir</code> to the correct folder.</p>
+<p>When added to the top of your <code>arc42.adoc</code> tutorial file, this will set the <code>projectRootDir</code> to the correct folder.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_html_style">HTML Style</h4>
+<h4 id="_working_with_the_html_style">Working with the HTML style</h4>
 <div class="paragraph">
-<p>The easiest way to modify the HTML style is to add a <a href="https://docs.asciidoctor.org/asciidoc/latest/pass/pass-block/">pass-through block</a> with the needed CSS styles.</p>
+<p>The easiest way to modify the HTML style is to add a <a href="https://docs.asciidoctor.org/asciidoc/latest/pass/pass-block/">pass-through block</a> with the required CSS styles.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -510,7 +505,7 @@ in order to use the <code>{projectRootDir}</code> also in your editor preview, d
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-for the <code>generate<strong>Site</strong></code> task, there is a different mechanism to change the styles if the generated microsite.
+For the <code>generate<strong>Site</strong></code> task, there is a different mechanism to change the styles if the generated microsite.
 </td>
 </tr>
 </table>
