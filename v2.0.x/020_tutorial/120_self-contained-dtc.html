@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
   
-  <!-- 020_tutorial/040_generateSite.html -->
+  <!-- 020_tutorial/120_self-contained-dtc.html -->
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>generateSite</title>
+  <title>Self-Contained docToolchain</title>
   <meta content="docToolchain" property="og:title">
   <meta content="build your dev docs the easy way..." property="og:description">
   <meta content="website" property="og:type">
@@ -236,7 +236,7 @@
                             
                             
                             <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../020_tutorial/040_generateSite.html">generateSite</a>
                             </li>
                             
@@ -260,7 +260,7 @@
                             
                             
                             <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../020_tutorial/120_self-contained-dtc.html">Self-Contained docToolchain</a>
                             </li>
                             
@@ -282,11 +282,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/040_generateSite.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/120_self-contained-dtc.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27generateSite%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page: https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/040_generateSite.adoc%0A%23branch: ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Self-Contained+docToolchain%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page: https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/120_self-contained-dtc.adoc%0A%23branch: ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -294,7 +294,12 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_generatesite">generateSite</a></li>
+<li><a href="#_self_contained_doctoolchain">Self-Contained docToolchain</a>
+<ul class="sectlevel2">
+<li><a href="#_docker_solution">Docker Solution</a></li>
+<li><a href="#_local_solution">Local Solution</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -316,81 +321,97 @@
         <p>
             
 <div class="sect1">
-<h2 id="_generatesite">generateSite</h2>
+<h2 id="_self_contained_doctoolchain">Self-Contained docToolchain</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The <a href="../015_tasks/03_task_generateSite.html"><code>generateSite</code></a> task is more advanced.
-In many cases, your goal will not be to create a single HTML document but a whole documentation website.
-This is where <code>generateSite</code> shines.
-It uses a static site generator to turn your document into a nice looking microsite with landing-page, local search and edit links.</p>
+<p>When you work in a restricted environment where you don&#8217;t have direct access to the internet, you might need a self-contained version of docToolchain.
+A version which does not need to download dependencies but already has them on board.</p>
 </div>
-<div class="openblock primary">
-<div class="title">Linux / WSL2 with bash</div>
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw generateSite</code></pre>
+<div class="sect2">
+<h3 id="_docker_solution">Docker Solution</h3>
+<div class="paragraph">
+<p>If you have docker available, then this might already be the solution.
+The docker image already contains all dependencies and the docToolchain wrapper (<code>dtcw</code>) already checks if docker is available and running and thus will use docker in this case.
+In order to fetch the docker image from your local docker proxy, please check the source of <code>dtcw</code> and update <a href="https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw#L280">the docker image reference</a>.</p>
 </div>
 </div>
+<div class="sect2">
+<h3 id="_local_solution">Local Solution</h3>
+<div class="paragraph">
+<p>If you don&#8217;t have Docker available, you need a local, self-contained install.</p>
 </div>
-</div>
-<div class="openblock secondary">
-<div class="title">Windows with Powershell</div>
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="powershell">./dtcw.ps1 generateSite</code></pre>
-</div>
-</div>
-</div>
+<div class="paragraph">
+<p>Start on an unrestricted system and download the docToolchain wrapper:</p>
 </div>
 <div class="listingblock">
-<div class="title">output of generateHTML</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell session">$ ./dtcw docker generateSite
-dtcw - docToolchain wrapper V0.24
-docToolchain V2.0.0
-
-Bash is running on WSL
-this might cause problems with plantUML
-see https://doctoolchain.github.io/docToolchain/#wsl for more details
-
-Java Version 11
-docker available
-home folder exists
-force use of docker
-/usr/bin/docker
-use docker installation
-Starting a Gradle Daemon (subsequent builds will be faster)
-
-&gt; Configure project :
-arc42/arc42.adoc
-
-&gt; Task :generateSite
-created
-/project/build/microsite/tmp
-copy internal theme /home/dtcuser/docToolchain/src/site
-copy project theme /project/src/site
-
-&gt; Task :copyImages
-&gt; Task :bake
-Warning: Nashorn engine is planned to be removed from a future JDK release
-
-BUILD SUCCESSFUL in 1m 15s
-3 actionable tasks: 3 executed</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">mkdir dtc-self-contained
+cd dtc-self-contained
+curl -Lo dtcw doctoolchain.github.io/dtcw
+chmod +x dtcw</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The output is written to <code>build/microsite/output/index.html</code>.
-You can open this file in your browser and view the results.
-But you will notice that some features which rely on javascript will be broken.
-To avoid this, use the task <a href="../015_tasks/03_task_previewSite.html"><code>previewSite</code></a> to start a little webserver which presents you the site without flaws.</p>
+<p>We start wit ensuring that we have the correct Java Development Kit (JDK) installed.
+Execute</p>
 </div>
-<div id="html_out" class="imageblock">
+<div class="listingblock">
 <div class="content">
-<img src="images/generateSite.png" alt="generateSite">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw local getJava</code></pre>
 </div>
-<div class="title">Figure 1. generated output of generateHTML task</div>
+</div>
+<div class="paragraph">
+<p>to fetch and install the correct JDK.
+It will be installed to <code>$HOME/.doctoolchain/jdk</code>.</p>
+</div>
+<div class="paragraph">
+<p>Now, let&#8217;s start a simple task to download and install docToolchain locally:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw local tasks</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>local</code> will ensure that docker is ignored, even when docker is up and running.<br>
+<code>tasks</code> is a simple task which just shows all available tasks.</p>
+</div>
+<div class="paragraph">
+<p>When you run this command, docToolchain will ask if it is allowed to install itself to <code>$HOME/.doctoolchain</code> and if it should create a simple config file.
+It will also fetch some first dependencies in order to execute the task.
+These dependencies will be downloaded to <code>$HOME/.doctoolchain/.gradle</code>.</p>
+</div>
+<div class="paragraph">
+<p>To fetch the remaining dependencies, execute</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw downloadDependencies</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>this will fetch the remaining dependencies and download them to <code>$HOME/.doctoolchain/.gradle</code></p>
+</div>
+<div class="paragraph">
+<p>As a result, we now have docToolchain, a JDK and all dependencies installed to <code>$HOME/.doctoolchain</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can now zip this folder and copy it to your restricted environment to the <code>$HOME/.doctoolchain</code> folder.
+The wrapper of your project will recognize it as local installation and use it.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+the installed JDK is for one specific PU architecture.
+So, if your team works with different Systems (Windows, Mac, Linux), you have to create several versions.
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>
@@ -421,11 +442,11 @@ To avoid this, use the task <a href="../015_tasks/03_task_previewSite.html"><cod
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27generateSite%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/040_generateSite.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Self-Contained+docToolchain%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/120_self-contained-dtc.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27generateSite%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/040_generateSite.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Self-Contained+docToolchain%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/120_self-contained-dtc.adoc">tell
     us how we can improve</a>.
     </p>
 </div>
