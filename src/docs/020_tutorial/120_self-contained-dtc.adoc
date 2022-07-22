@@ -1,0 +1,73 @@
+:jbake-order: 40
+:filename: 020_tutorial/120_slf-contained.adoc
+include::_config.adoc[]
+
+== Self-Contained docToolchain
+
+When you work in a restricted environment where you don't have direct access to the internet, you might need a self-contained version of docToolchain.
+A version which does not need to download dependencies but already has them on board.
+
+=== Docker Solution
+
+If you have docker available, then this might already be the solution.
+The docker image already contains all dependencies and the docToolchain wrapper (`dtcw`) already checks if docker is available and running and thus will use docker in this case.
+In order to fetch the docker image from your local docker proxy, please check the source of `dtcw` and update https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw#L280[the docker image reference].
+
+=== Local Solution
+
+If you don't have Docker available, you need a local, self-contained install.
+
+Start on an unrestricted system and download the docToolchain wrapper:
+
+[source, bash]
+----
+mkdir dtc-self-contained
+cd dtc-self-contained
+curl -Lo dtcw doctoolchain.github.io/dtcw
+chmod +x dtcw
+----
+
+We start wit ensuring that we have the correct Java Development Kit (JDK) installed.
+Execute
+
+[source, bash]
+----
+./dtcw local getJava
+----
+
+to fetch and install the correct JDK.
+It will be installed to `$HOME/.doctoolchain/jdk`.
+
+Now, let's start a simple task to download and install docToolchain locally:
+
+[source, bash]
+----
+./dtcw local tasks
+----
+
+`local` will ensure that docker is ignored, even when docker is up and running. +
+`tasks` is a simple task which just shows all available tasks.
+
+When you run this command, docToolchain will ask if it is allowed to install itself to `$HOME/.doctoolchain` and if it should create a simple config file.
+It will also fetch some first dependencies in order to execute the task.
+These dependencies will be downloaded to `$HOME/.doctoolchain/.gradle`.
+
+To fetch the remaining dependencies, execute
+
+[source, bash]
+----
+./dtcw downloadDependencies
+----
+
+this will fetch the remaining dependencies and download them to `$HOME/.doctoolchain/.gradle`
+
+
+As a result, we now have docToolchain, a JDK and all dependencies installed to `$HOME/.doctoolchain`.
+
+You can now zip this folder and copy it to your restricted environment to the `$HOME/.doctoolchain` folder.
+The wrapper of your project will recognize it as local installation and use it.
+
+NOTE: the installed JDK is for one specific PU architecture.
+So, if your team works with different Systems (Windows, Mac, Linux), you have to create several versions.
+
+
