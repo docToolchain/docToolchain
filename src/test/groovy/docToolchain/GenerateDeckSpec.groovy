@@ -11,7 +11,7 @@ class GenerateDeckSpec extends Specification {
 
     def gradleCommand
     
-    @Ignore(reason = "TODO")
+    @Ignore("TODO")
     void 'test correct generation of slide deck'() {
         when: 'the gradle task is invoked'
             def result = GradleRunner.create()
