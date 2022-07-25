@@ -170,7 +170,7 @@
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../025_development/010_setup_dev_env.html"><span>For Devs</span></a>
+                <a class="nav-link " href="../025_development/005_contributing_to_docs.html"><span>For Devs</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -1468,7 +1468,7 @@ For example, insert the following at the top of your document to reference <code
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>7 minutes to read</pre>
+<pre>8 minutes to read</pre>
 </div>
 </div>
 <div class="sect4">
@@ -1635,15 +1635,46 @@ But if you want to, you can override the convention behaviour with a configurati
 │   └── 20_second.adoc
 └── 20_bar
     ├── 10_lorem.adoc
-    ├── 20_ipsum.adoc
-    └── 30_delis.doc</code></pre>
+    ├── 20_ipsum
+    │   ├── 10_topic-A.adoc
+    │   └── 20_topic-B.adoc
+    └── 30_delis
+        ├── 10_one.adoc
+        ├── 20_two.adoc
+        └── index.adoc</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>The top level folders (<code>10_foo</code> and <code>20_bar</code>) are used to determine to which menu-code the page belongs (unless overridden by the <code>:jbake-menu:</code> inside each page).</p>
+<p>The top level folders (<code>10_foo</code> and <code>20_bar</code>) are used to determine to which menu-code the page belongs (<code>foo</code> and <code>bar</code>, unless overridden by the <code>:jbake-menu:</code> inside each page).</p>
 </div>
 <div class="paragraph">
-<p>In the section sidebar, the order is controlled by the prefix of the file name  (unless overridden by the <code>:jbake-order:</code> inside each page).</p>
+<p>In the section sidebar, the navigation tree is determined by the folder structure.
+Folders are nodes in the sidebar tree.
+Each node can contains pages (leafs) or other folders (child nodes).
+The order is controlled by the prefix of the file or folder name (unless overridden by the <code>:jbake-order:</code> inside each page).</p>
+</div>
+<div class="paragraph">
+<p>When an index page is present (like <code>20_bar/30_delis/index.adoc</code> in the example) then the navigation tree node corresponds to this index page (you can click on it and the title is taken from the page).
+When this <code>index.adoc</code> does not declare a specific order with <code>:jbake-order:</code> then the order of the parent folder (for the example: <code>30</code> because the folder is named <code>30_delis</code>).</p>
+</div>
+<div class="paragraph">
+<p>When the index page is absent (like there is no <code>20_bar/20_ipsum/index.adoc</code> in the example) then the name of the folder is used to create the node, and you can not click on the node because no pages is associated with this node.
+You can still define the order with the name (for the example <code>20</code> because the folder is named <code>20_ipsum</code>).</p>
+</div>
+<div class="paragraph">
+<p>When there is no sub-folder, only a flat list of pages is created.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+When an <code>index.adoc</code> page is defined inside the top level folder (like: <code>10_foo/index.adoc</code> or <code>20_bar/index.adoc</code>) then the page will listed in the section navigation tree in the sidebar as any other regular page.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect6">
