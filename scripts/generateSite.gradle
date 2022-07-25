@@ -270,7 +270,7 @@ ${color 'green', 'for you?'}\n""",
                             }
                         }
                         if (jbake.order==-1 && docname.startsWith('index')) {
-                            jbake.order = 0
+                            jbake.order = -987654321 // special 'magic value' given to index pages.
                             jbake.status = "published"
                         }
                         // news blog

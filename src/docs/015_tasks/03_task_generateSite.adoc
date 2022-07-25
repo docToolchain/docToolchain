@@ -56,6 +56,7 @@ Defaults to the first headline of the file.
 
 Applies a sort order to drop-down entries.
 Defaults to a prefixed file number, such as `**04**_filename.adoc` or to the prefixed number of the second-level folder name.
+When nothing is defined the default value is `-1` or `-987654321` for `index` pages.
 
 *jbake-type*
 
@@ -143,7 +144,7 @@ You can still define the order with the name (for the example `20` because the f
 
 When there is no sub-folder, only a flat list of pages is created.
 
-NOTE: When an `index.adoc` page is defined inside the top level folder (like: `10_foo/index.adoc` or `20_bar/index.adoc`) then the page will listed in the section navigation tree in the sidebar as any other regular page.
+NOTE: When an `index.adoc` page is defined inside the top level folder (like: `10_foo/index.adoc` or `20_bar/index.adoc`) then the page will listed in the section navigation tree in the sidebar as any other regular page. By default it will be the first element of the tree, unless the value is overridden by a `:jbake-order:` attribute.
 
 [[top-menu-config]]
 ==== Configuring the top level menu
