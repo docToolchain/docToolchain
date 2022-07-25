@@ -119,13 +119,31 @@ src/docs/
 │   └── 20_second.adoc
 └── 20_bar
     ├── 10_lorem.adoc
-    ├── 20_ipsum.adoc
-    └── 30_delis.doc
+    ├── 20_ipsum
+    │   ├── 10_topic-A.adoc
+    │   └── 20_topic-B.adoc
+    └── 30_delis
+        ├── 10_one.adoc
+        ├── 20_two.adoc
+        └── index.adoc
 ----
 
-The top level folders (`10_foo` and `20_bar`) are used to determine to which menu-code the page belongs (unless overridden by the `:jbake-menu:` inside each page).
+The top level folders (`10_foo` and `20_bar`) are used to determine to which menu-code the page belongs (`foo` and `bar`, unless overridden by the `:jbake-menu:` inside each page).
 
-In the section sidebar, the order is controlled by the prefix of the file name  (unless overridden by the `:jbake-order:` inside each page).
+In the section sidebar, the navigation tree is determined by the folder structure.
+Folders are nodes in the sidebar tree.
+Each node can contains pages (leafs) or other folders (child nodes).
+The order is controlled by the prefix of the file or folder name (unless overridden by the `:jbake-order:` inside each page).
+
+When an index page is present (like `20_bar/30_delis/index.adoc` in the example) then the navigation tree node corresponds to this index page (you can click on it and the title is taken from the page).
+When this `index.adoc` does not declare a specific order with `:jbake-order:` then the order of the parent folder (for the example: `30` because the folder is named `30_delis`).
+
+When the index page is absent (like there is no `20_bar/20_ipsum/index.adoc` in the example) then the name of the folder is used to create the node, and you can not click on the node because no pages is associated with this node.
+You can still define the order with the name (for the example `20` because the folder is named `20_ipsum`).
+
+When there is no sub-folder, only a flat list of pages is created.
+
+NOTE: When an `index.adoc` page is defined inside the top level folder (like: `10_foo/index.adoc` or `20_bar/index.adoc`) then the page will listed in the section navigation tree in the sidebar as any other regular page.
 
 [[top-menu-config]]
 ==== Configuring the top level menu

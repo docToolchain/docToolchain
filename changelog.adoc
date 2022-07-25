@@ -16,6 +16,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 
 === added
+* https://github.com/docToolchain/docToolchain/issue/692[#692 generateSite: navigation tree instead of a list on the left]
 
 === changed
 2022-05-08::
