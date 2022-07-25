@@ -61,7 +61,7 @@ task generateSite(
     description: 'generate a microsite using jBake.') {
     doLast {
         new File("${targetDir}/microsite/tmp").mkdirs()
-        println "created XXX"
+        println "created XXXx"
         println new File("${targetDir}/microsite/tmp/").canonicalPath
         //copy internal theme
         println "copy internal theme ${new File(projectDir, 'src/site').canonicalPath}"
