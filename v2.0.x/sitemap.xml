@@ -52,6 +52,16 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
+    	<lastmod>2022-07-25</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportVisio.html</loc>
+    	<lastmod>2022-07-25</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_exportContributors.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
@@ -67,17 +77,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
-    	<lastmod>2022-07-25</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_fixencoding.html</loc>
-    	<lastmod>2022-07-25</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportVisio.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
@@ -97,12 +97,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateHTML.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_generateHTML.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
@@ -127,6 +127,11 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
+    	<lastmod>2022-07-25</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_downloadTemplate.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
@@ -137,22 +142,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_copy_themes.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportEA.html</loc>
-    	<lastmod>2022-07-25</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
-    	<lastmod>2022-07-25</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_copy_themes.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
@@ -167,7 +162,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportJiraSprintChangelog.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
@@ -187,7 +182,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportDrawIo.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportJiraSprintChangelog.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
@@ -202,12 +197,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
-    	<lastmod>2022-07-25</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportDrawIo.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
@@ -217,22 +207,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/UseCases.html</loc>
+    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Architect_notes_issue2.html</loc>
+    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/ea/Activity_notes_issue1.html</loc>
-    	<lastmod>2022-07-25</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Activity_notes.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
@@ -247,12 +232,22 @@
     </url>
 
     <url>
+    	<loc>https://localhost/ea/UseCases.html</loc>
+    	<lastmod>2022-07-25</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Architect_notes_issue2.html</loc>
+    	<lastmod>2022-07-25</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/Architect_notes.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/020_run_tests.html</loc>
+    	<loc>https://localhost/ea/Activity_notes.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
@@ -267,6 +262,11 @@
     </url>
 
     <url>
+    	<loc>https://localhost/025_development/020_run_tests.html</loc>
+    	<lastmod>2022-07-25</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/025_development/005_contributing_to_docs.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
@@ -277,22 +277,22 @@
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/030_create_new_release.html</loc>
-    	<lastmod>2022-07-25</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/025_development/050_who-uses-dtc.html</loc>
-    	<lastmod>2022-07-25</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/025_development/040_debugging.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
     <url>
+    	<loc>https://localhost/025_development/030_create_new_release.html</loc>
+    	<lastmod>2022-07-25</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/10_about/30_community.html</loc>
+    	<lastmod>2022-07-25</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/025_development/050_who-uses-dtc.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
@@ -327,12 +327,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/110_revealjs_and_arc42_from_scratch.html</loc>
+    	<loc>https://localhost/020_tutorial/050_multipleRepositories.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/050_multipleRepositories.html</loc>
+    	<loc>https://localhost/020_tutorial/110_revealjs_and_arc42_from_scratch.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
@@ -362,17 +362,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/010_manual/30_config.html</loc>
+    	<lastmod>2022-07-25</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/010_manual/040_contributors.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/010_manual/60_further_reading.html</loc>
-    	<lastmod>2022-07-25</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/010_manual/30_config.html</loc>
     	<lastmod>2022-07-25</lastmod>
     </url>
 
