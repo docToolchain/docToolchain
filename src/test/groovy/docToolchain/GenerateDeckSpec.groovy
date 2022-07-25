@@ -10,7 +10,8 @@ import static org.gradle.testkit.runner.TaskOutcome.SKIPPED
 class GenerateDeckSpec extends Specification {
 
     def gradleCommand
-
+    
+    @Ignore(reason = "TODO")
     void 'test correct generation of slide deck'() {
         when: 'the gradle task is invoked'
             def result = GradleRunner.create()
