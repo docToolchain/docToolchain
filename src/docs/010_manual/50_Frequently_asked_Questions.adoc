@@ -194,7 +194,7 @@ An easy way to test your configuration is to run `xeyes` in WSL.
 Make sure that your WSL is up to date by running `wsl --update`. This is not part of your regular Windows update!
 ====
 
-=== I get an error 'Failed to create parent directory /project/.gradle'
+=== I get a `Failed to create parent directory /project/.gradle` error
 
 ----
 > Gradle could not start your build.
@@ -205,8 +205,7 @@ Make sure that your WSL is up to date by running `wsl --update`. This is not par
 .Answer
 [%collapsible]
 ====
-This issue might occure in CI enviroments (e.g. Bamboo) with resticted permissions in the working folder where files or directories created outside the container might not be accessible inside the container. Therefore before starting the container you can set e.g. the working directory with max permissions for allowing access from the user inside the docker container.
-
+This issue can occur in CI enviroments (such as Bamboo) that have resticted permissions in the working folder where files or directories created outside the container might not be accessible inside the container. Before starting the container, give the working directory maximum permissions for allowing access to the user inside the Docker container.
 
 ```
 chmod -R o+rwx ${bamboo.working.directory}
@@ -215,7 +214,7 @@ chmod -R o+rwx ${bamboo.working.directory}
 ```
 ====
 
-=== Q: I get an error that Gradle dependencies cannot be downloaded because a proxy is restricting internet access.
+=== Q: I get an error stating that Gradle dependencies cannot be downloaded because a proxy is restricting internet access
 
 .Answer
 [%collapsible]
