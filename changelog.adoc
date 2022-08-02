@@ -8,11 +8,23 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 == Unreleased
 
 === fixes
+* https://github.com/docToolchain/docToolchain/issues/720[#720 Fix gradlew.bat]
+* Fixes typo in dtcw.bat for finding the correct local cli command.
+* https://github.com/docToolchain/docToolchain/pull/847[#847 generateHTML & generatePDF documentation improvements]
+* https://github.com/docToolchain/docToolchain/issues/851[#851 fix duplicate TOC marker]
+* https://github.com/docToolchain/docToolchain/issues/853[#853 Hide site links when not configured]
+* https://github.com/docToolchain/docToolchain/issues/873[#873 generateSite: Fix index page location]
+
 
 === added
+* https://github.com/docToolchain/docToolchain/issue/692[#692 generateSite: navigation tree instead of a list on the left]
+* https://github.com/docToolchain/docToolchain/pull/886[#886 Add the possibility to set maven credentials]
 
 === changed
 * Merge master into ng
+
+2022-05-08::
+* updated available languages for arc42 template
 
 == 2.0.5 - 2022-03-10
 
@@ -39,6 +51,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/pull/697[#697 - exportToMarkdown docs are not referenced correctly]
 
 === added
+
+2022-03-16::
+* https://github.com/docToolchain/docToolchain/pull/825[#825 - publishToConfluence: support swagger-open-api]
 
 2021-12-09::
 * https://github.com/docToolchain/docToolchain/pull/714[#714 - Update exportExcel.gradle]

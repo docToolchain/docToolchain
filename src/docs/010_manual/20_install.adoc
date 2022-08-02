@@ -114,6 +114,13 @@ NOTE: If this is your first time installing docToolchain, the images download mi
 * if docker is not available, it will download and install docToolchain to your home folder
 ** it will then run a gradle build through the gradle wrapper. If this is your first time, it will download and install gradle.
 ** the gradle build will also fetch some dependencies. This will also take a while if run for the first time..
+** build-script dependencies are fetched from a repository referenced by the property `mavenRepository`. By default the value `https://plugins.gradle.org/m2/` is used. When a repository requiring credentials is used the properties `mavenUsername` and `mavenPassword` can be set as well.
+
+[source, sh]
+.Example command passing a custom maven repository with credentials from the command line
+----
+./gradlew generateHTML -PmavenRepository=your_maven_repo -PmavenUsername=your_username -PmavenPassword=your_pw --info
+----
 
 You'll notice the installation is an incremental process and will take a while because of all the additional dependencies needed.
 After the first few commands, you'll have all the required dependencies installed and things will run faster.

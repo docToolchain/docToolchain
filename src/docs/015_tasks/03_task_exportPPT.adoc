@@ -1,6 +1,8 @@
 :filename: 015_tasks/03_task_exportPPT.adoc
 include::_config.adoc[]
 
+:url1: https://docs.asciidoctor.org/asciidoc/latest/directives/include-tagged-regions/
+
 = exportPPT
 
 include::../_feedback.adoc[]
@@ -11,8 +13,14 @@ image::ea/Manual/exportPPT.png[]
 
 == About This Task
 
-This task lets you export AsciiDoc content to a series of PowerPoint slides.
+This task lets you export a series of PowerPoint slides to be used within your AsciiDoc documentation.
 It is currently a Windows-only task.
+
+It exports the slides as `.jpg` files and the speaker notes as one `.adoc` file.
+The tag `{slide}` within the speaker notes will be replaced with the corresponding image reference.
+This will help you to get a stable result, even when you insert or delete slides.
+
+Use the {url1}[tagged regions (`//tag::[]`) feature of asciidoctor] to include only certain slides or parts of your speaker notes.
 
 == Further Reading and Resources
 

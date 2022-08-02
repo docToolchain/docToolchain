@@ -49,6 +49,7 @@ import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.EncoderRegistry
 import groovyx.net.http.ContentType
 import java.security.MessageDigest
+import static groovy.io.FileType.FILES
 //to upload attachments:
 import org.apache.http.entity.mime.MultipartEntity
 import org.apache.http.entity.mime.content.StringBody
@@ -409,49 +410,58 @@ def rewriteCodeblocks = { body ->
 }
 
 def rewriteOpenAPI = { org.jsoup.nodes.Element body ->
-         if (config.confluence.useOpenapiMacro == true || config.confluence.useOpenapiMacro == 'confluence-open-api') {
-            body.select('div.openapi  pre > code').each { code ->
-                def parent=code.parent()
-                def rawYaml=code.wholeText()
-                code.parent()
-                        .wrap('<ac:structured-macro ac:name="confluence-open-api" ac:schema-version="1" ac:macro-id="1dfde21b-6111-4535-928a-470fa8ae3e7d"></ac:structured-macro>')
-                        .unwrap()
-                code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
-                        .replaceWith(new TextNode(rawYaml))
-            }
-         }
-         else if (config.confluence.useOpenapiMacro == 'open-api') {
+    if (config.confluence.useOpenapiMacro == true || config.confluence.useOpenapiMacro == 'confluence-open-api') {
+        body.select('div.openapi  pre > code').each { code ->
+            def parent=code.parent()
+            def rawYaml=code.wholeText()
+            code.parent()
+                    .wrap('<ac:structured-macro ac:name="confluence-open-api" ac:schema-version="1" ac:macro-id="1dfde21b-6111-4535-928a-470fa8ae3e7d"></ac:structured-macro>')
+                    .unwrap()
+            code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
+                    .replaceWith(new TextNode(rawYaml))
+        }
+    } else if (config.confluence.useOpenapiMacro == 'swagger-open-api') {
+        body.select('div.openapi  pre > code').each { code ->
+            def parent=code.parent()
+            def rawYaml=code.wholeText()
+            code.parent()
+                    .wrap('<ac:structured-macro ac:name="swagger-open-api" ac:schema-version="1" ac:macro-id="f9deda8a-1375-4488-8ca5-3e10e2e4ee70"></ac:structured-macro>')
+                    .unwrap()
+            code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
+                    .replaceWith(new TextNode(rawYaml))
+        }
+    } else if (config.confluence.useOpenapiMacro == 'open-api') {
 
-             def includeURL=null
+              def includeURL=null
 
-             for (Element e : body.select('div .listingblock.openapi')) {
-                 for (String s : e.className().split(" ")) {
-                     if (s.startsWith("url")) {
-                         //include the link to the URL for the macro
-                         includeURL = s.replace('url:', '')
-                    }
-                 }
-             }
+              for (Element e : body.select('div .listingblock.openapi')) {
+                  for (String s : e.className().split(" ")) {
+                      if (s.startsWith("url")) {
+                          //include the link to the URL for the macro
+                          includeURL = s.replace('url:', '')
+                     }
+                  }
+              }
 
-             body.select('div.openapi  pre > code').each { code ->
-                 def parent=code.parent()
-                 def rawYaml=code.wholeText()
+              body.select('div.openapi  pre > code').each { code ->
+                  def parent=code.parent()
+                  def rawYaml=code.wholeText()
 
-                 code.parent()
-                     .wrap('<ac:structured-macro ac:name="open-api" ac:schema-version="1" data-layout="default" ac:macro-id="4302c9d8-fca4-4f14-99a9-9885128870fa"></ac:structured-macro>')
-                     .unwrap()
+                  code.parent()
+                      .wrap('<ac:structured-macro ac:name="open-api" ac:schema-version="1" data-layout="default" ac:macro-id="4302c9d8-fca4-4f14-99a9-9885128870fa"></ac:structured-macro>')
+                      .unwrap()
 
-                 if (includeURL!=null)
-                 {
-                     code.before('<ac:parameter ac:name="url">'+includeURL+'</ac:parameter>')
-                 }
-                 else {
-                     //default: show download button
-                     code.before('<ac:parameter ac:name="showDownloadButton">true</ac:parameter>')
-                     code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
-                         .replaceWith(new TextNode(rawYaml))
-                 }
-             }
+                  if (includeURL!=null)
+                  {
+                      code.before('<ac:parameter ac:name="url">'+includeURL+'</ac:parameter>')
+                  }
+                  else {
+                      //default: show download button
+                      code.before('<ac:parameter ac:name="showDownloadButton">true</ac:parameter>')
+                      code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
+                          .replaceWith(new TextNode(rawYaml))
+                  }
+              }
     }
 }
 
@@ -801,116 +811,130 @@ def getHeaders(){
     return headers
 }
 
+if(config.confluence.inputHtmlFolder) {
+    htmlFolder = "${docDir}/${config.confluence.inputHtmlFolder}"
+    println "Starting processing files in folder: " + config.confluence.inputHtmlFolder
+    def dir = new File(htmlFolder)
+    
+    dir.eachFileRecurse (FILES) { fileName ->
+        if (fileName.isFile()){
+            def map = [file: config.confluence.inputHtmlFolder+fileName.getName()]
+            config.confluence.input.add(map)
+         }
+    }
+}
+
 config.confluence.input.each { input ->
+    if(input.file) {
+        input.file = "${docDir}/${input.file}"
 
-    input.file = "${docDir}/${input.file}"
+        println "publish ${input.file}"
 
-    println "publish ${input.file}"
-
-    if (input.file ==~ /.*[.](ad|adoc|asciidoc)$/) {
-        println "HINT:"
-        println "please first convert ${input.file} to html by executing generateHTML"
-        println "the generated file will be found in build/html5/. and has to be referenced instead of the .adoc file"
-        throw new RuntimeException("config problem")
-    }
-//  assignend, but never used in pushToConfluence(...) (fixed here)
-    confluenceSpaceKey = input.spaceKey ?: config.confluence.spaceKey
-    confluenceCreateSubpages = (input.createSubpages != null) ? input.createSubpages : config.confluence.createSubpages
-//  hard to read in case of using :sectnums: -> so we add a suffix
-    confluencePagePrefix = input.pagePrefix ?: config.confluence.pagePrefix
-//  added
-    confluencePageSuffix = input.pageSuffix ?: config.confluence.pageSuffix
-    confluencePreambleTitle = input.preambleTitle ?: config.confluence.preambleTitle
-
-    def html = input.file ? new File(input.file).getText('utf-8') : new URL(input.url).getText()
-    baseUrl = input.file ? new File(input.file) : new URL(input.url)
-    Document dom = Jsoup.parse(html, 'utf-8', Parser.xmlParser())
-    dom.outputSettings().prettyPrint(false);//makes html() preserve linebreaks and spacing
-    dom.outputSettings().escapeMode(org.jsoup.nodes.Entities.EscapeMode.xhtml); //This will ensure xhtml validity regarding entities
-    dom.outputSettings().charset("UTF-8"); //does no harm :-)
-
-    // if ancestorName is defined try to find machingAncestorId in confluence
-    def retrievedAncestorId
-    if (input.ancestorName) {
-        // Retrieve a page id by name
-        retrievedAncestorId = retrievePageIdByName(input.ancestorName)
-        println("Retrieved pageId for given ancestorName '${input.ancestorName}' is ${retrievedAncestorId}")
-    }
-
-    // if input does not contain an ancestorName, check if there is ancestorId, otherwise check if there is a global one
-    def parentId = retrievedAncestorId ?: input.ancestorId ?: config.confluence.ancestorId
-
-    // if parentId is still not set, create a new parent page (parentId = null)
-    parentId = parentId ?: null
-    //println("ancestorName: '${input.ancestorName}', ancestorId: ${input.ancestorId} ---> final parentId: ${parentId}")
-
-    def anchors = [:]
-    def pageAnchors = [:]
-    def sections = pages = []
-    // #342-dierk42: get the keywords from the meta tags
-    def keywords = []
-    dom.select('meta[name=keywords]').each { kw ->
-        kws = kw.attr('content').split(',')
-        kws.each { skw ->
-            keywords << skw.trim()
+        if (input.file ==~ /.*[.](ad|adoc|asciidoc)$/) {
+            println "HINT:"
+            println "please first convert ${input.file} to html by executing generateHTML"
+            println "the generated file will be found in build/html5/. and has to be referenced instead of the .adoc file"
+            throw new RuntimeException("config problem")
         }
-        println "Keywords:" + keywords
-    }
-    // let's try to select the "first page" and push it to confluence
-    dom.select('div#preamble div.sectionbody').each { pageBody ->
-        pageBody.select('div.sect2').unwrap()
-        def preamble = [
-            title: confluencePreambleTitle ?: "arc42",
-            body: pageBody,
-            children: [],
-            parent: parentId
-        ]
-        pages << preamble
-        sections = preamble.children
-        parentId = null
-        anchors.putAll(parseAnchors(preamble))
-    }
-    // <div class="sect1"> are the main headings
-    // let's extract these
-    dom.select('div.sect1').each { sect1 ->
-        Elements pageBody = sect1.select('div.sectionbody')
-        def currentPage = [
-            title: sect1.select('h2').text(),
-            body: pageBody,
-            children: [],
-            parent: parentId
-        ]
-        pageAnchors.putAll(recordPageAnchor(sect1.select('h2')))
+    //  assignend, but never used in pushToConfluence(...) (fixed here)
+        confluenceSpaceKey = input.spaceKey ?: config.confluence.spaceKey
+        confluenceCreateSubpages = (input.createSubpages != null) ? input.createSubpages : config.confluence.createSubpages
+    //  hard to read in case of using :sectnums: -> so we add a suffix
+        confluencePagePrefix = input.pagePrefix ?: config.confluence.pagePrefix
+    //  added
+        confluencePageSuffix = input.pageSuffix ?: config.confluence.pageSuffix
+        confluencePreambleTitle = input.preambleTitle ?: config.confluence.preambleTitle
 
-        if (confluenceCreateSubpages) {
-            pageBody.select('div.sect2').each { sect2 ->
-                def title = sect2.select('h3').text()
-                pageAnchors.putAll(recordPageAnchor(sect2.select('h3')))
-                sect2.select('h3').remove()
-                def body = Jsoup.parse(sect2.toString(),'utf-8', Parser.xmlParser())
-                body.outputSettings(new Document.OutputSettings().prettyPrint(false))
-                def subPage = [
-                    title: title,
-                    body: body
-                ]
-                currentPage.children << subPage
-                promoteHeaders sect2, 4, 3
-                anchors.putAll(parseAnchors(subPage))
+        def html = input.file ? new File(input.file).getText('utf-8') : new URL(input.url).getText()
+        baseUrl = input.file ? new File(input.file) : new URL(input.url)
+        Document dom = Jsoup.parse(html, 'utf-8', Parser.xmlParser())
+        dom.outputSettings().prettyPrint(false);//makes html() preserve linebreaks and spacing
+        dom.outputSettings().escapeMode(org.jsoup.nodes.Entities.EscapeMode.xhtml); //This will ensure xhtml validity regarding entities
+        dom.outputSettings().charset("UTF-8"); //does no harm :-)
+
+        // if ancestorName is defined try to find machingAncestorId in confluence
+        def retrievedAncestorId
+        if (input.ancestorName) {
+            // Retrieve a page id by name
+            retrievedAncestorId = retrievePageIdByName(input.ancestorName)
+            println("Retrieved pageId for given ancestorName '${input.ancestorName}' is ${retrievedAncestorId}")
+        }
+
+        // if input does not contain an ancestorName, check if there is ancestorId, otherwise check if there is a global one
+        def parentId = retrievedAncestorId ?: input.ancestorId ?: config.confluence.ancestorId
+
+        // if parentId is still not set, create a new parent page (parentId = null)
+        parentId = parentId ?: null
+        //println("ancestorName: '${input.ancestorName}', ancestorId: ${input.ancestorId} ---> final parentId: ${parentId}")
+
+        def anchors = [:]
+        def pageAnchors = [:]
+        def sections = pages = []
+        // #342-dierk42: get the keywords from the meta tags
+        def keywords = []
+        dom.select('meta[name=keywords]').each { kw ->
+            kws = kw.attr('content').split(',')
+            kws.each { skw ->
+                keywords << skw.trim()
             }
-            pageBody.select('div.sect2').remove()
-        } else {
-            pageBody.select('div.sect2').unwrap()
-            promoteHeaders sect1, 3, 2
+            println "Keywords:" + keywords
         }
-        sections << currentPage
-        anchors.putAll(parseAnchors(currentPage))
-    }
+        // let's try to select the "first page" and push it to confluence
+        dom.select('div#preamble div.sectionbody').each { pageBody ->
+            pageBody.select('div.sect2').unwrap()
+            def preamble = [
+                title: confluencePreambleTitle ?: "arc42",
+                body: pageBody,
+                children: [],
+                parent: parentId
+            ]
+            pages << preamble
+            sections = preamble.children
+            parentId = null
+            anchors.putAll(parseAnchors(preamble))
+        }
+        // <div class="sect1"> are the main headings
+        // let's extract these
+        dom.select('div.sect1').each { sect1 ->
+            Elements pageBody = sect1.select('div.sectionbody')
+            def currentPage = [
+                title: sect1.select('h2').text(),
+                body: pageBody,
+                children: [],
+                parent: parentId
+            ]
+            pageAnchors.putAll(recordPageAnchor(sect1.select('h2')))
 
-    pushPages pages, anchors, pageAnchors, keywords
-    if (parentId) {
-        println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}/pages/${parentId}"
-    } else {
-        println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}"
+            if (confluenceCreateSubpages) {
+                pageBody.select('div.sect2').each { sect2 ->
+                    def title = sect2.select('h3').text()
+                    pageAnchors.putAll(recordPageAnchor(sect2.select('h3')))
+                    sect2.select('h3').remove()
+                    def body = Jsoup.parse(sect2.toString(),'utf-8', Parser.xmlParser())
+                    body.outputSettings(new Document.OutputSettings().prettyPrint(false))
+                    def subPage = [
+                        title: title,
+                        body: body
+                    ]
+                    currentPage.children << subPage
+                    promoteHeaders sect2, 4, 3
+                    anchors.putAll(parseAnchors(subPage))
+                }
+                pageBody.select('div.sect2').remove()
+            } else {
+                pageBody.select('div.sect2').unwrap()
+                promoteHeaders sect1, 3, 2
+            }
+            sections << currentPage
+            anchors.putAll(parseAnchors(currentPage))
+        }
+
+        pushPages pages, anchors, pageAnchors, keywords
+        if (parentId) {
+            println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}/pages/${parentId}"
+        } else {
+            println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}"
+        }
     }
 }
 ""

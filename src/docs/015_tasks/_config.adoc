@@ -1,4 +1,4 @@
-ifndef::imagesdir[:imagesdir: ../../images]
+ifndef::imagesdir[:imagesdir: ../images]
 ifndef::projectRootDir[:projectRootDir: ../../../]
 
 ifndef::backend-pdf[]

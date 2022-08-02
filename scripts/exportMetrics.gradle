@@ -11,6 +11,7 @@ task exportMetrics(
         def targetFile = new File(targetDir, "metrics.csv")
         targetFile.write("date, numWords, file\n")
         def sumWords = 0
+        def sumFiles = 0
         sourceFolder.traverse(type: FILES) { file ->
             if (file.name ==~ '^.*[.](ad|adoc|asciidoc)$') {
                 def currentFileName = file.canonicalPath.replace("\\", "\\\\")
@@ -19,10 +20,11 @@ task exportMetrics(
                 def currentDate = new Date().format('YYYY.MM.dd')
                 targetFile.append("${currentDate}, ${numWords.toString().padLeft(6)}, ${currentFileName-sourceFolder}\n")
                 sumWords += numWords
+                sumFiles += 1
             }
         }
         println "======"
-        println "${sumWords.toString().padLeft(6)} words overall"
+        println "${sumWords.toString().padLeft(6)} words overall in ${sumFiles} files."
         println ""
         println sourceFolder
     }

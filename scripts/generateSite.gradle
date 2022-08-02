@@ -4,6 +4,10 @@ import static groovy.io.FileType.*
 buildscript {
     repositories {
         maven {
+            credentials {
+                username mavenUsername
+                password mavenPassword
+            }
             url mavenRepository
         }
     }
@@ -262,7 +266,7 @@ ${color 'green', 'for you?'}\n""",
                                     jbake.order = secondLevel.split("[-_]",2)[0]
                                 }
                             } else {
-                                if ((jbake.order as Integer) > 0) {
+                                if (((jbake.order?:'1') as Integer) > 0) {
                                     //
                                 } else {
                                     jbake.status = "draft"
@@ -270,7 +274,7 @@ ${color 'green', 'for you?'}\n""",
                             }
                         }
                         if (jbake.order==-1 && docname.startsWith('index')) {
-                            jbake.order = 0
+                            jbake.order = -987654321 // special 'magic value' given to index pages.
                             jbake.status = "published"
                         }
                         // news blog
@@ -304,12 +308,12 @@ ${color 'green', 'for you?'}\n""",
                         def header = ''
                         jbake.each { key, value ->
                             if (key=='order') {
-                                header += ":jbake-${key}: ${value as Integer}\n"
+                                header += ":jbake-${key}: ${(value?:'1') as Integer}\n"
                             } else {
                                 header += ":jbake-${key}: ${value}\n"
                             }
                         }
-                        file.write(header + "\n$beforeToc\n\n:toc: left\n\n++++\n<!-- endtoc -->\n++++\n" + text, "utf-8")
+                        file.write(header + "\nifndef::dtc-magic-toc[]\n:dtc-magic-toc:\n$beforeToc\n\n:toc: left\n\n++++\n<!-- endtoc -->\n++++\nendif::[]\n" + text, "utf-8")
                     }
                 }
             }

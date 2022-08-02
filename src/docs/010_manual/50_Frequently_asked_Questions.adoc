@@ -20,6 +20,25 @@ If you have a question or problem for which you can't find a solution, you can
 * ask your question on https://stackoverflow.com/questions/tagged/doctoolchain?sort=active&pageSize=50[Stack Overflow]
 * discuss the problem on https://t.co/lnqrUc1YMM[Slack]
 
+== References
+
+=== Q: How can I reference source code from my documentation?
+
+.Answer
+[%collapsible]
+====
+As long, as you stay within your documents folder (default `src/docs`), you can simply reference other files with a relative `include::filename.adoc[]`-statement. +
+If you need to reference files outside of the documents folder, you need to reference them with an absolute path.
+
+`include::{projectRootDir}filename.adoc[]` +
+
+The `{projectRootDir}` will point to the folder where your `dtcw` file resides.
+In order make this also work in your editor preview, specify a line like the following in your documents:
+
+`ifndef::projectRootDir[:projectRootDir: ../../../]`
+
+====
+
 == Images
 
 * https://asciidoctor.org/docs/user-manual/#images[Asciidoctor User Manual on images]

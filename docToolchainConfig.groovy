@@ -63,7 +63,7 @@ microsite.with {
     // used in the template for absolute uris
     host='https://localhost'
     // configure a port on which your preview server will run
-    previewPort = 8881
+    previewPort = 8042
 
     //project theme
     //site folder relative to the docs folder
@@ -95,10 +95,10 @@ microsite.with {
     // site title if no other title is given
     title = 'docToolchain'
     //
-    // the url to create an issue in github
+    // the url to create an issue in github (set to 'null' to hide the "Create an issue" link)
     issueUrl = 'https://github.com/docToolchain/docToolchain/issues/new'
     //
-    // the base url for code files in github
+    // the base url for code files in github (set to 'null' to hide the "Improve this doc" link)
     branch = System.getenv("DTC_PROJECT_BRANCH")
     gitRepoUrl = "https://github.com/doctoolchain/doctoolchain/edit/${branch}/src/docs"
 
@@ -153,6 +153,7 @@ confluence = [:]
 // - 'preambleTitle' (optional): the title of the page containing the preamble (everything
 //                            before the first second level heading). Default is 'arc42'
 //
+// inputHtmlFolder is a folder for bulk process html files
 // The following four keys can also be used in the global section below
 // - 'spaceKey' (optional): page specific variable for the key of the confluence space to write to
 // - 'createSubpages' (optional): page specific variable to determine whether ".sect2" sections shall be split from the current page into subpages
@@ -166,6 +167,7 @@ confluence.with {
             [ file: "build/html5/arc42-template-de.html" ],
     ]
 
+    inputHtmlFolder = ''
     // endpoint of the confluenceAPI (REST) to be used
     // to verify the endpoint, add user/current and pate it into your browser
     // you should get a json about your own user
@@ -203,7 +205,7 @@ confluence.with {
 
     //optional API-token to be added in case the credentials are needed for user and password exchange.
     //apikey = "[API-token]"
-    bearerToken = ''
+    bearerToken = '' 
 
     // HTML Content that will be included with every page published
     // directly after the TOC. If left empty no additional content will be

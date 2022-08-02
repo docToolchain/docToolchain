@@ -4,6 +4,36 @@
     }
     def menu = content.menu[content['jbake-menu']]
 
+    def printMenu(def c, int index, def entries) {
+        String result = ''
+        if(entries) {
+            String htmlClass = (index == 0) ? 'td-sidebar-nav__section pr-md-3 ' : '';
+            result = result + """
+                        <ul class="${htmlClass}ul-$index">"""
+            entries?.sort{a, b ->a.order <=> b.order ?: a.title <=> b.title }.each { entry ->
+                def hasChild = (entry.children) ? 'with-child' : 'without-child'
+                def isActive = (c.uri==entry.uri) ? 'active' : ''
+                result = result + """
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section $hasChild">"""
+                if (entry.uri) {
+                    result = result + """
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section $isActive"
+                                   href="${c.rootpath}${entry.uri}">${entry.title?:entry}</a>"""
+                } else {
+                    result = result + """
+                                ${entry.title?:entry}"""
+                }
+                if (entry.children) {
+                    result = result + printMenu(c, index + 1, entry.children)
+                }
+                result = result + '''
+                            </li>'''
+            }
+            result = result + '''
+                        </ul>'''
+        }
+        return result
+    }
 %>
         <form class="td-sidebar__search d-flex align-items-center d-lg-none" action="${content.rootpath}search.html">
 
@@ -25,27 +55,7 @@
                 </li>
                 <ul>
                     <li class="collapse show" id="docs">
-                        <ul class="td-sidebar-nav__section pr-md-3">
-                            <% menu?.sort{a, b ->a.order as Integer <=> b.order as Integer ?: a.title <=> b.title }.each { entry -> %>
-                            <%
-                                        def isActive = ""
-                                        if (content.uri==entry.uri) {
-                                            isActive = "active"
-                                        }
-                            %>
-                            <li class="td-sidebar-nav__section-title">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section $isActive"
-                                   href="${content.rootpath}${entry.uri}">${entry.title?:entry}</a>
-                            </li>
-                            <% } %>
-                            <!--li class="td-sidebar-nav__section-title">
-                                <a  href="/docs/overview/" class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section">Overview</a>
-                            </li>
-                            <ul>
-                                <li class="collapse show">
-                                    <a class="td-sidebar-link td-sidebar-link__page " id="m-docsgetting-startedexample-page" href="/docs/getting-started/example-page/">Example Page</a>
-                                </li>
-                            </ul-->
-                        </ul>
-
+                        <%= printMenu(content, 0, menu) %>
+                    </li>
+                </ul>
         </nav>

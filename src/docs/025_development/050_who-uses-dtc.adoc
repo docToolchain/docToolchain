@@ -1,7 +1,9 @@
 :jbake-title: moved
 :jbake-menu: -
+ifndef::disableredirects[]
 ++++
 <script>
 document.location.href = '../10_about/10_about-the-project.html';
 </script>
 ++++
+endif::[]

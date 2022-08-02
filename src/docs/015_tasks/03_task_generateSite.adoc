@@ -41,8 +41,11 @@ Here is an overview of each element:
 
 *jbake-menu*
 
-The top-level menu for this page.
-Defaults to the top-level folder name of the .adoc file within the `docDir`.
+The top-level menu's code for this page.
+Defaults to the top-level folder name (without the order prefix) of the .adoc file within the `docDir`.
+Example: if the top-level folder name is `10_news` it will default to the value `news`.
+
+For each code, the display text and the order in the top-level menu can be <<#top-menu-config, configured>>.
 
 *jbake-title*
 
@@ -53,6 +56,7 @@ Defaults to the first headline of the file.
 
 Applies a sort order to drop-down entries.
 Defaults to a prefixed file number, such as `**04**_filename.adoc` or to the prefixed number of the second-level folder name.
+When nothing is defined the default value is `-1` or `-987654321` for `index` pages.
 
 *jbake-type*
 
@@ -83,6 +87,112 @@ For `:jbake-type: page_toc`, you need this line to generate the toc.
 
 NOTE: Start your pages with a `==` level headline.
 You can fix the level offset when you include the page in a larger document with `include::chapter.adoc[leveloffset=+1]`.
+
+[[config]]
+== Configuration
+
+The configuration follows the __convention-over-configuration__ approach.
+If you follow the conventions, you don't have to configure anything.
+But if you want to, you can override the convention behaviour with a configuration.
+
+=== Menu
+
+==== Navigation elements
+
+The navigation is organized with following elements:
+
+* A top level menu.
+* For each item of this top level menu, a section sidebar on the left.
+
+The location of a page in the top-level menu and in the section sidebar depends from:
+
+* Its location in the folder structure
+* Page attributes
+* Site configurations
+
+Example:
+
+[source]
+----
+src/docs/
+├── 10_foo
+│   ├── 10_first.adoc
+│   └── 20_second.adoc
+└── 20_bar
+    ├── 10_lorem.adoc
+    ├── 20_ipsum
+    │   ├── 10_topic-A.adoc
+    │   └── 20_topic-B.adoc
+    └── 30_delis
+        ├── 10_one.adoc
+        ├── 20_two.adoc
+        └── index.adoc
+----
+
+The top level folders (`10_foo` and `20_bar`) are used to determine to which menu-code the page belongs (`foo` and `bar`, unless overridden by the `:jbake-menu:` inside each page).
+
+In the section sidebar, the navigation tree is determined by the folder structure.
+Folders are nodes in the sidebar tree.
+Each node can contains pages (leafs) or other folders (child nodes).
+The order is controlled by the prefix of the file or folder name (unless overridden by the `:jbake-order:` inside each page).
+
+When an index page is present (like `20_bar/30_delis/index.adoc` in the example) then the navigation tree node corresponds to this index page (you can click on it and the title is taken from the page).
+When this `index.adoc` does not declare a specific order with `:jbake-order:` then the order of the parent folder (for the example: `30` because the folder is named `30_delis`).
+
+When the index page is absent (like there is no `20_bar/20_ipsum/index.adoc` in the example) then the name of the folder is used to create the node, and you can not click on the node because no pages is associated with this node.
+You can still define the order with the name (for the example `20` because the folder is named `20_ipsum`).
+
+When there is no sub-folder, only a flat list of pages is created.
+
+NOTE: When an `index.adoc` page is defined inside the top level folder (like: `10_foo/index.adoc` or `20_bar/index.adoc`) then the page will listed in the section navigation tree in the sidebar as any other regular page. By default it will be the first element of the tree, unless the value is overridden by a `:jbake-order:` attribute.
+
+[[top-menu-config]]
+==== Configuring the top level menu
+
+The `:jbake-menu:` is only the code for the menu entry to be created.
+You can map these codes to menu entries through the configuration (`microsite`-Section) in the following way:
+
+[source, groovy]
+----
+menu = [code1: 'Some Title 1', code2: 'Other Title 2', code3: '-']
+----
+
+When no mapping is defined in the configuration file, the code is used as title.
+
+The menu configuration is also impacting the display order.
+
+If you have four files, located in following folder structure:
+
+[source]
+----
+src/docs
+├── code1
+│   ├── demo1.adoc
+│   └── demo2.adoc
+└── code3
+    ├── demo3.adoc
+    └── _demo4.adoc
+----
+
+Where `demo1.adoc` and `demo3.adoc` contain no `:jbake-menu:` header, `demo2.adoc` contains `:jbake-menu: code2`, then:
+
+* `demo1.adoc` will have a menu-code of `code1` because it is located in the folder `code1`. 
+This code is translated through the configuration to the menu named `Some Title 1`.
+* `demo2.adoc` is in the same folder, but the `:jbake-menu:` attribute has a higher precedence which results in menu-code `code2`.
+This code is translated through the configuration to the menu named `Other Title 2`.
+* `demo3.adoc` will have a menu-code `code3` because it is located in the folder `code3`.
+This code is translated through the configuration to the special menu `-` which will not be displayed.
+This is an easy way to hide a menu in the rendered microsite.
+* `\_demo4.adoc` starts with an underscore `_` and thus will be handled as `draft` (`:jbake-status: draft`).
+It will not be rendered as part of any menu, but it will be available in the microsite as "hidden" `_demo4-draft.html`.
+Feel free to remove these draft renderings before you publish your microsite.
+
+=== Links
+
+In the column on the right, links are driven by the values defined in `docToolchainConfig.groovy`.
+
+* "Improve this doc": displayed when `gitRepoUrl` is set.
+* "Create an issue": displayed when `issueUrl` is set.
 
 == Templates and Style
 
