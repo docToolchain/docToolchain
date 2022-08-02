@@ -787,6 +787,10 @@ import static groovy.io.FileType.*
 buildscript {
     repositories {
         maven {
+            credentials {
+                username mavenUsername
+                password mavenPassword
+            }
             url mavenRepository
         }
     }
