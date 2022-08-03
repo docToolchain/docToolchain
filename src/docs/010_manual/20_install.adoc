@@ -30,18 +30,20 @@ Please select the appropriate setup and follow these instructions to install doc
 .Linux / WSL2 with bash
 [role='primary']
 --
-[source, bash]
-----
-cd <your project>
-wget doctoolchain.github.io/dtcw
-chmod +x dtcw
-----
 
-if you don't have `wget` installed, you can also use `curl`:
 [source, bash]
 ----
 cd <your project>
 curl -Lo dtcw doctoolchain.github.io/dtcw
+chmod +x dtcw
+----
+
+if you don't have `curl` installed, you can also use `wget`:
+
+[source, bash]
+----
+cd <your project>
+wget doctoolchain.github.io/dtcw
 chmod +x dtcw
 ----
 
