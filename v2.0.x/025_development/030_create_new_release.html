@@ -293,7 +293,7 @@
 <h2 id="_creating_a_new_release">Creating a New Release</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -356,6 +356,8 @@
 </div>
 <div class="sect2">
 <h3 id="_docker_hub">Docker Hub</h3>
+<div class="sect3">
+<h4 id="_standard_image">Standard Image</h4>
 <div class="paragraph">
 <p>The image build for <a href="https://hub.docker.com/repository/docker/rdmueller/doctoolchain">rdmueller/doctoolchain</a> depends on the GitHub repo <a href="https://github.com/docToolchain/docker-image">docToolchain/docker-image</a>.</p>
 </div>
@@ -376,6 +378,13 @@
 <p>Important! Currently, the autobuild only works for paying customers. To manually build and upload the image, download the repo, switch to branch <code>ng-beta</code>, cd to the <code>alpine</code> folder and execute <code>docker build -t rdmueller/doctoolchain:v2.0.0-rc15 .</code>. After that, use Docker Desktop to push the resulting image to Docker Hub.</p>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_jenkins_ci_image">Jenkins CI Image</h4>
+<div class="paragraph">
+<p>update the version in the <a href="https://github.com/docToolchain/docker-image/actions/runs/2787848816/workflow">github action definition</a> and run the action.</p>
+</div>
+</div>
+</div>
 <div class="sect2">
 <h3 id="_blog_post">Blog Post</h3>
 <div class="paragraph">
@@ -385,20 +394,25 @@
 <div class="sect2">
 <h3 id="_doctoolchain_wrapper_dtcw">docToolchain-Wrapper (dtcw)</h3>
 <div class="paragraph">
-<p>Everything went well? Great! Now let’s update the version used in the wrapper:</p>
+<p>Everything went well? Great! Now let’s update the wrapper.
+The source of the rapper is now the main repository and we need to copy it over to the github pages.
+To do so, make sure that dtcw references the right version.</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw">dtcw</a></p>
+<p><a href="https://github.com/docToolchain/doctoolchain/blob/master/dtcw">dtcw</a></p>
 </li>
 <li>
-<p><a href="https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw.ps1">dtcw.ps1</a></p>
+<p><a href="https://github.com/docToolchain/doctoolchain/blob/master/dtcw.ps1">dtcw.ps1</a></p>
 </li>
 <li>
-<p><a href="https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw.bat">dtcw.bat</a></p>
+<p>the dtcw.bat will be generated</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>then navigate to <a href="https://github.com/docToolchain/doctoolchain.github.io/actions/workflows/update-dtcw.yml" class="bare">https://github.com/docToolchain/doctoolchain.github.io/actions/workflows/update-dtcw.yml</a> and trigger the action.</p>
 </div>
 </div>
 <div class="sect2">
