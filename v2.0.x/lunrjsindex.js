@@ -170,38 +170,6 @@ var documents = [
 
 {
     "id": 21,
-    "uri": "015_tasks/03_task_htmlSanityCheck.html",
-    "menu": "tasks",
-    "title": "htmlSanityCheck",
-    "text": " Table of Contents htmlSanityCheck At a Glance About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } htmlSanityCheck 1 minute to read At a Glance About This Task This task invokes the htmlSanityCheck gradle plugin. It is a standalone (batch- and command-line) HTML sanity checker whose role is to detect missing images, dead links and duplicated bookmarks. In docToolchain, the htmlSanityCheck task ensures that generated HTML contains no missing links or other problems. It is the last default task, and creates a report in build/report/htmlchecks/index.html (see example below). Figure 1. sample report Further Reading and Resources Read the Automated Quality-Checks blog post. Visit https://github.com/aim42/htmlSanityCheck for more information about this task. Source htmlSanityCheck.gradle htmlSanityCheck { sourceDir = new File(config.htmlSanityCheck.sourceDir?targetDir+/+config.htmlSanityCheck.sourceDir:$targetDir/html5) // files to check - in Set-notation //sourceDocuments = [ one-file.html, another-file.html, index.html] // where to put results of sanityChecks... checkingResultsDir = new File(config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath) // directory where the results written to in JUnit XML format junitResultsDir = new File(config.htmlSanityCheck.junitResultsDir?:$targetDir/test-results/htmlchecks) // which statuscodes shall be interpreted as warning, error or success defaults to standard httpSuccessCodes = config.htmlSanityCheck.httpSuccessCodes?:[] httpWarningCodes = config.htmlSanityCheck.httpWarningCodes?:[] httpErrorCodes = config.htmlSanityCheck.httpErrorCodes?:[] // fail build on errors? failOnErrors = config.htmlSanityCheck.failOnErrors?:false logger.info docToolchain&gt; HSC sourceDir: ${sourceDir} logger.info docToolchain&gt; HSC checkingResultsDir: ${checkingResultsDir} } "
-},
-
-{
-    "id": 22,
-    "uri": "015_tasks/03_task_exportPPT.html",
-    "menu": "tasks",
-    "title": "exportPPT",
-    "text": " Table of Contents exportPPT At a Glance About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportPPT 1 minute to read At a Glance About This Task This task lets you export a series of PowerPoint slides to be used within your AsciiDoc documentation. It is currently a Windows-only task. It exports the slides as .jpg files and the speaker notes as one .adoc file. The tag {slide} within the speaker notes will be replaced with the corresponding image reference. This will help you to get a stable result, even when you insert or delete slides. Use the tagged regions ( //tag::[ ) feature of asciidoctor] to include only certain slides or parts of your speaker notes. Further Reading and Resources Read the Do More with Slides blog post. Find more information about the Windows-only aspect of this task in this issue . Check out asciidoctorj-office-extension for another way to use PPT slides in your docs. Source exportPPT.gradle task exportPPT( dependsOn: [streamingExecute], description: 'exports all slides and some texts from PPT files', group: 'docToolchain' ) { doLast { File sourceDir = file(srcDir) logger.info(sourceDir: ${sourceDir}) //make sure path for notes exists //and remove old notes new File(sourceDir, 'ppt').deleteDir() //also remove old diagrams new File(sourceDir, 'images/ppt').deleteDir() //create a readme to clarify things def readme = This folder contains exported slides or notes from .ppt presentations. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportPPT` to re-export files  new File(sourceDir, 'images/ppt/.').mkdirs() new File(sourceDir, 'images/ppt/readme.ad').write(readme) new File(sourceDir, 'ppt/.').mkdirs() new File(sourceDir, 'ppt/readme.ad').write(readme) def searchPath = new File(sourceDir, 'ppt') //execute through cscript in order to make sure that we get WScript.echo right %SystemRoot%\\System32\\cscript.exe //nologo ${projectDir}/scripts/exportPPT.vbs -s ${sourceDir.absolutePath}.executeCmd() } } exportPPT.vbs Const ForAppending = 8 Const ppPlaceholderBody = 2 ' Helper ' http://windowsitpro.com/windows/jsi-tip-10441-how-can-vbscript-create-multiple-folders-path-mkdir-command Function MakeDir (strPath) Dim strParentPath, objFSO Set objFSO = CreateObject(Scripting.FileSystemObject) On Error Resume Next strParentPath = objFSO.GetParentFolderName(strPath) If Not objFSO.FolderExists(strParentPath) Then MakeDir strParentPath If Not objFSO.FolderExists(strPath) Then objFSO.CreateFolder strPath On Error Goto 0 MakeDir = objFSO.FolderExists(strPath) End Function Function SearchPresentations(path) For Each folder In path.SubFolders SearchPresentations folder Next For Each file In path.Files If (Left(fso.GetExtensionName (file.Path), 3) = ppt) OR (Left(fso.GetExtensionName (file.Path), 3) = pps) Then WScript.echo found &amp;file.path ExportSlides(file.Path) End If Next End Function Sub ExportSlides(sFile) Set objRegEx = CreateObject(VBScript.RegExp) objRegEx.Global = True objRegEx.IgnoreCase = True objRegEx.MultiLine = True ' . doesn't work for multiline in vbs, [\s,\S] does... objRegEx.Pattern = [\s,\S]*{adoc} ' http://www.pptfaq.com/FAQ00481_Export_the_notes_text_of_a_presentation.htm strFileName = fso.GetFIle(sFile).Name Err.Clear Set oPPT = CreateObject(PowerPoint.Application) Set oPres = oPPT.Presentations.Open(sFile, True, False, False) ' Read Only, No Title, No Window On Error resume next Set oSlides = oPres.Slides WScript.echo number slides: &amp;oSlides.Count strNotesText =  strImagePath = /images/ppt/ &amp; strFileName &amp; / MakeDir(searchPath &amp; strImagePath) strNotesPath = /ppt/ MakeDir(searchPath &amp; strNotesPath) For Each oSl In oSlides strSlideName = oSl.Name 'WScript.echo fso.GetAbsolutePathName(searchPath) &amp; strImagePath &amp; strSlideName &amp; .jpg oSl.Export fso.GetAbsolutePathName(searchPath) &amp; strImagePath &amp; strSlideName &amp; .jpg, .jpg For Each oSh In oSl.NotesPage.Shapes If oSh.PlaceholderFormat.Type = ppPlaceholderBody Then If oSh.HasTextFrame Then If oSh.TextFrame.HasText Then strCurrentNotes = oSh.TextFrame.TextRange.Text strCurrentNotes = Replace(strCurrentNotes,vbVerticalTab, vbCrLf) strCurrentNotes = Replace(strCurrentNotes,{slide},image::ppt/&amp;strFileName&amp;/&amp;strSlideName&amp;.jpg[]) ' remove speaker notes before marker {adoc} strCurrentNotes = objRegEx.Replace(strCurrentNotes,) strNotesText = strNotesText &amp; vbCrLf &amp; strCurrentNotes &amp; vbCrLf &amp; vbCrLf End If End If End If Next Next ' WScript.echo fso.GetAbsolutePathName(.) &amp; strNotesPath&amp;&amp;strFileName&amp;.ad ' http://stackoverflow.com/questions/2524703/save-text-file-utf-8-encoded-with-vba Set fsT = CreateObject(ADODB.Stream) fsT.Type = 2 'Specify stream type - we want To save text/string data. fsT.Charset = utf-8 'Specify charset For the source text data. fsT.Open 'Open the stream And write binary data To the object fsT.WriteText ifndef::imagesdir[:imagesdir: ../../images]&amp;vbCrLf&amp;CStr(strNotesText) fsT.SaveToFile fso.GetAbsolutePathName(searchPath) &amp; strNotesPath&amp;&amp;strFileName&amp;.ad, 2 'Save binary data To disk oPres.Close() oPPT.Quit() If Err.Number &lt;&gt; 0 Then WScript.Echo Error:  &amp; Err.Number WScript.Echo Error (Hex):  &amp; Hex(Err.Number) WScript.Echo Source:  &amp; Err.Source WScript.Echo Description:  &amp; Err.Description Err.Clear ' Clear the Error End If End Sub set fso = CreateObject(Scripting.fileSystemObject) WScript.echo Slide extractor Set objArguments = WScript.Arguments Dim argCount argCount = 0 While objArguments.Count &gt; argCount+1 Select Case objArguments(argCount) Case -s searchPath = objArguments(argCount+1) End Select argCount = argCount + 2 WEnd WScript.echo looking for .ppt files in  &amp; fso.GetAbsolutePathName(searchPath) SearchPresentations fso.GetFolder(searchPath) WScript.echo finished exporting slides "
-},
-
-{
-    "id": 23,
-    "uri": "015_tasks/03_task_exportMarkdown.html",
-    "menu": "tasks",
-    "title": "exportMarkdown",
-    "text": " Table of Contents About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } 1 minute to read About This Task The exportMarkdown task can be used to include markdown files into the documentation. It scans the /src/docs directory for markdown ( *.md ) files and converts them into Asciidoc files. The converted files can then be referenced from within the /build -folder. Source exportMarkdown.gradle task exportMarkdown( description: 'exports all markdown files to AsciiDoc', group: 'docToolchain', type: Copy ) { from srcDir include(**/*.md) //include only markdown files includeEmptyDirs = false rename(/(.+).md/, '$1.adoc') //rename all files from *.md to *.adoc filter(Markdown2AdocFilter) // convert the content of the files into targetDir } class Markdown2AdocFilter extends FilterReader { Markdown2AdocFilter(Reader input) { super(new StringReader(nl.jworks.markdown_to_asciidoc.Converter.convertMarkdownToAsciiDoc(input.text))) } } "
-},
-
-{
-    "id": 24,
-    "uri": "015_tasks/03_task_downloadTemplate.html",
-    "menu": "tasks",
-    "title": "downloadTemplate",
-    "text": " Table of Contents downloadTemplate .gravatar img { margin-left: 3px; border-radius: 4px; } downloadTemplate 1 minute to read "
-},
-
-{
-    "id": 25,
     "uri": "015_tasks/03_task_collectIncludes.html",
     "menu": "tasks",
     "title": "collectIncludes",
@@ -209,7 +177,31 @@ var documents = [
 },
 
 {
-    "id": 26,
+    "id": 22,
+    "uri": "015_tasks/03_task_htmlSanityCheck.html",
+    "menu": "tasks",
+    "title": "htmlSanityCheck",
+    "text": " Table of Contents htmlSanityCheck At a Glance About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } htmlSanityCheck 1 minute to read At a Glance About This Task This task invokes the htmlSanityCheck gradle plugin. It is a standalone (batch- and command-line) HTML sanity checker whose role is to detect missing images, dead links and duplicated bookmarks. In docToolchain, the htmlSanityCheck task ensures that generated HTML contains no missing links or other problems. It is the last default task, and creates a report in build/report/htmlchecks/index.html (see example below). Figure 1. sample report Further Reading and Resources Read the Automated Quality-Checks blog post. Visit https://github.com/aim42/htmlSanityCheck for more information about this task. Source htmlSanityCheck.gradle htmlSanityCheck { sourceDir = new File(config.htmlSanityCheck.sourceDir?targetDir+/+config.htmlSanityCheck.sourceDir:$targetDir/html5) // files to check - in Set-notation //sourceDocuments = [ one-file.html, another-file.html, index.html] // where to put results of sanityChecks... checkingResultsDir = new File(config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath) // directory where the results written to in JUnit XML format junitResultsDir = new File(config.htmlSanityCheck.junitResultsDir?:$targetDir/test-results/htmlchecks) // which statuscodes shall be interpreted as warning, error or success defaults to standard httpSuccessCodes = config.htmlSanityCheck.httpSuccessCodes?:[] httpWarningCodes = config.htmlSanityCheck.httpWarningCodes?:[] httpErrorCodes = config.htmlSanityCheck.httpErrorCodes?:[] // fail build on errors? failOnErrors = config.htmlSanityCheck.failOnErrors?:false logger.info docToolchain&gt; HSC sourceDir: ${sourceDir} logger.info docToolchain&gt; HSC checkingResultsDir: ${checkingResultsDir} } "
+},
+
+{
+    "id": 23,
+    "uri": "015_tasks/03_task_exportPPT.html",
+    "menu": "tasks",
+    "title": "exportPPT",
+    "text": " Table of Contents exportPPT At a Glance About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportPPT 1 minute to read At a Glance About This Task This task lets you export a series of PowerPoint slides to be used within your AsciiDoc documentation. It is currently a Windows-only task. It exports the slides as .jpg files and the speaker notes as one .adoc file. The tag {slide} within the speaker notes will be replaced with the corresponding image reference. This will help you to get a stable result, even when you insert or delete slides. Use the tagged regions ( //tag::[ ) feature of asciidoctor] to include only certain slides or parts of your speaker notes. Further Reading and Resources Read the Do More with Slides blog post. Find more information about the Windows-only aspect of this task in this issue . Check out asciidoctorj-office-extension for another way to use PPT slides in your docs. Source exportPPT.gradle task exportPPT( dependsOn: [streamingExecute], description: 'exports all slides and some texts from PPT files', group: 'docToolchain' ) { doLast { File sourceDir = file(srcDir) logger.info(sourceDir: ${sourceDir}) //make sure path for notes exists //and remove old notes new File(sourceDir, 'ppt').deleteDir() //also remove old diagrams new File(sourceDir, 'images/ppt').deleteDir() //create a readme to clarify things def readme = This folder contains exported slides or notes from .ppt presentations. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportPPT` to re-export files  new File(sourceDir, 'images/ppt/.').mkdirs() new File(sourceDir, 'images/ppt/readme.ad').write(readme) new File(sourceDir, 'ppt/.').mkdirs() new File(sourceDir, 'ppt/readme.ad').write(readme) def searchPath = new File(sourceDir, 'ppt') //execute through cscript in order to make sure that we get WScript.echo right %SystemRoot%\\System32\\cscript.exe //nologo ${projectDir}/scripts/exportPPT.vbs -s ${sourceDir.absolutePath}.executeCmd() } } exportPPT.vbs Const ForAppending = 8 Const ppPlaceholderBody = 2 ' Helper ' http://windowsitpro.com/windows/jsi-tip-10441-how-can-vbscript-create-multiple-folders-path-mkdir-command Function MakeDir (strPath) Dim strParentPath, objFSO Set objFSO = CreateObject(Scripting.FileSystemObject) On Error Resume Next strParentPath = objFSO.GetParentFolderName(strPath) If Not objFSO.FolderExists(strParentPath) Then MakeDir strParentPath If Not objFSO.FolderExists(strPath) Then objFSO.CreateFolder strPath On Error Goto 0 MakeDir = objFSO.FolderExists(strPath) End Function Function SearchPresentations(path) For Each folder In path.SubFolders SearchPresentations folder Next For Each file In path.Files If (Left(fso.GetExtensionName (file.Path), 3) = ppt) OR (Left(fso.GetExtensionName (file.Path), 3) = pps) Then WScript.echo found &amp;file.path ExportSlides(file.Path) End If Next End Function Sub ExportSlides(sFile) Set objRegEx = CreateObject(VBScript.RegExp) objRegEx.Global = True objRegEx.IgnoreCase = True objRegEx.MultiLine = True ' . doesn't work for multiline in vbs, [\s,\S] does... objRegEx.Pattern = [\s,\S]*{adoc} ' http://www.pptfaq.com/FAQ00481_Export_the_notes_text_of_a_presentation.htm strFileName = fso.GetFIle(sFile).Name Err.Clear Set oPPT = CreateObject(PowerPoint.Application) Set oPres = oPPT.Presentations.Open(sFile, True, False, False) ' Read Only, No Title, No Window On Error resume next Set oSlides = oPres.Slides WScript.echo number slides: &amp;oSlides.Count strNotesText =  strImagePath = /images/ppt/ &amp; strFileName &amp; / MakeDir(searchPath &amp; strImagePath) strNotesPath = /ppt/ MakeDir(searchPath &amp; strNotesPath) For Each oSl In oSlides strSlideName = oSl.Name 'WScript.echo fso.GetAbsolutePathName(searchPath) &amp; strImagePath &amp; strSlideName &amp; .jpg oSl.Export fso.GetAbsolutePathName(searchPath) &amp; strImagePath &amp; strSlideName &amp; .jpg, .jpg For Each oSh In oSl.NotesPage.Shapes If oSh.PlaceholderFormat.Type = ppPlaceholderBody Then If oSh.HasTextFrame Then If oSh.TextFrame.HasText Then strCurrentNotes = oSh.TextFrame.TextRange.Text strCurrentNotes = Replace(strCurrentNotes,vbVerticalTab, vbCrLf) strCurrentNotes = Replace(strCurrentNotes,{slide},image::ppt/&amp;strFileName&amp;/&amp;strSlideName&amp;.jpg[]) ' remove speaker notes before marker {adoc} strCurrentNotes = objRegEx.Replace(strCurrentNotes,) strNotesText = strNotesText &amp; vbCrLf &amp; strCurrentNotes &amp; vbCrLf &amp; vbCrLf End If End If End If Next Next ' WScript.echo fso.GetAbsolutePathName(.) &amp; strNotesPath&amp;&amp;strFileName&amp;.ad ' http://stackoverflow.com/questions/2524703/save-text-file-utf-8-encoded-with-vba Set fsT = CreateObject(ADODB.Stream) fsT.Type = 2 'Specify stream type - we want To save text/string data. fsT.Charset = utf-8 'Specify charset For the source text data. fsT.Open 'Open the stream And write binary data To the object fsT.WriteText ifndef::imagesdir[:imagesdir: ../../images]&amp;vbCrLf&amp;CStr(strNotesText) fsT.SaveToFile fso.GetAbsolutePathName(searchPath) &amp; strNotesPath&amp;&amp;strFileName&amp;.ad, 2 'Save binary data To disk oPres.Close() oPPT.Quit() If Err.Number &lt;&gt; 0 Then WScript.Echo Error:  &amp; Err.Number WScript.Echo Error (Hex):  &amp; Hex(Err.Number) WScript.Echo Source:  &amp; Err.Source WScript.Echo Description:  &amp; Err.Description Err.Clear ' Clear the Error End If End Sub set fso = CreateObject(Scripting.fileSystemObject) WScript.echo Slide extractor Set objArguments = WScript.Arguments Dim argCount argCount = 0 While objArguments.Count &gt; argCount+1 Select Case objArguments(argCount) Case -s searchPath = objArguments(argCount+1) End Select argCount = argCount + 2 WEnd WScript.echo looking for .ppt files in  &amp; fso.GetAbsolutePathName(searchPath) SearchPresentations fso.GetFolder(searchPath) WScript.echo finished exporting slides "
+},
+
+{
+    "id": 24,
+    "uri": "015_tasks/03_task_exportMarkdown.html",
+    "menu": "tasks",
+    "title": "exportMarkdown",
+    "text": " Table of Contents About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } 1 minute to read About This Task The exportMarkdown task can be used to include markdown files into the documentation. It scans the /src/docs directory for markdown ( *.md ) files and converts them into Asciidoc files. The converted files can then be referenced from within the /build -folder. Source exportMarkdown.gradle task exportMarkdown( description: 'exports all markdown files to AsciiDoc', group: 'docToolchain', type: Copy ) { from srcDir include(**/*.md) //include only markdown files includeEmptyDirs = false rename(/(.+).md/, '$1.adoc') //rename all files from *.md to *.adoc filter(Markdown2AdocFilter) // convert the content of the files into targetDir } class Markdown2AdocFilter extends FilterReader { Markdown2AdocFilter(Reader input) { super(new StringReader(nl.jworks.markdown_to_asciidoc.Converter.convertMarkdownToAsciiDoc(input.text))) } } "
+},
+
+{
+    "id": 25,
     "uri": "015_tasks/03_task_autobuildSite.html",
     "menu": "tasks",
     "title": "autobuildSite",
@@ -217,7 +209,7 @@ var documents = [
 },
 
 {
-    "id": 27,
+    "id": 26,
     "uri": "015_tasks/03_task_exportExcel.html",
     "menu": "tasks",
     "title": "exportExcel",
@@ -225,7 +217,7 @@ var documents = [
 },
 
 {
-    "id": 28,
+    "id": 27,
     "uri": "015_tasks/03_task_exportEA.html",
     "menu": "tasks",
     "title": "exportEA",
@@ -233,15 +225,15 @@ var documents = [
 },
 
 {
-    "id": 29,
-    "uri": "015_tasks/03_task_exportChangeLog.html",
+    "id": 28,
+    "uri": "015_tasks/03_task_downloadTemplate.html",
     "menu": "tasks",
-    "title": "exportChangeLog",
-    "text": " Table of Contents exportChangeLog At a Glance About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportChangeLog 2 minutes to read At a Glance About This Task As the name suggests, this task exports the changelog to be referenced from within your documentation, if needed. The changelog is written to build/docs/changelog.adoc . This task can be configured to use a different source control system or a different directory. To configure this task, copy template_config/scripts/ChangelogConfig.groovy to your directory and modify to suit your needs. Then use -PchangelogConfigFile=&lt;your config file&gt; to add the path to your configuration file to the task. See the description inside the template for more details. By default, the source is the Git changelog for the path src/docs and only contains the commit messages for changes made to the documentation. All changes to the build or other sources in the repository will not show up. By default, the changelog contains changes made to date , author and commit message already formatted as AsciiDoc table content: | 09.04.2017 | Ralf D. Mueller | fix #24 template updated to V7.0 | 08.04.2017 | Ralf D. Mueller | fixed typo You simply include it like this: .Changes [options=header,cols=1,2,6] |==== | Date | Author | Comment include::../../build/docs/changelog.adoc[] |==== By excluding the table definition, you can easily translate the table headings through different text snippets. Note In a future docToolchain release, you will have the ability to include only certain commit messages from the changelog and exclude others (starting with # or // ?). This feature is not available just yet. Further Reading and Resources The only constant in life is change blog post. Source exportChangelog.gradle task exportChangeLog( description: 'exports the change log from a git subpath', group: 'docToolchain' ) { doFirst { new File(targetDir).mkdirs() } doLast { logger.info(docToolchain&gt; docDir: +docDir) logger.info(docToolchain&gt; mainConfigFile: +mainConfigFile) def config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text) def cmd = ${config.changelog.cmd} . def changes = cmd.execute(null, new File(docDir, config.changelog.dir)).text def changelog = new File(targetDir, 'changelog.adoc') logger.info &gt; changelog exported ${changelog.canonicalPath} changelog.write(changes) } } "
+    "title": "downloadTemplate",
+    "text": " Table of Contents downloadTemplate .gravatar img { margin-left: 3px; border-radius: 4px; } downloadTemplate 1 minute to read "
 },
 
 {
-    "id": 30,
+    "id": 29,
     "uri": "015_tasks/03_task_copy_themes.html",
     "menu": "tasks",
     "title": "copyThemes",
@@ -249,7 +241,7 @@ var documents = [
 },
 
 {
-    "id": 31,
+    "id": 30,
     "uri": "015_tasks/03_tasks.html",
     "menu": "tasks",
     "title": "What Is a Task?",
@@ -257,11 +249,19 @@ var documents = [
 },
 
 {
-    "id": 32,
+    "id": 31,
     "uri": "015_tasks/03_task_generatePDF.html",
     "menu": "tasks",
     "title": "generatePDF",
     "text": " Table of Contents generatePDF At a Glance About This Task Creating a Custom PDF Theme Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } generatePDF 2 minutes to read At a Glance About This Task This task makes use of the asciidoctor-pdf plugin to render your documents as pretty PDF files. Files are written to build/pdf . The PDF is generated directly from your AsciiDoc sources. There is no need for an intermediate format or other tools. The result looks more like a nicely rendered book than a print-to-PDF HTML page. For a file to be rendered, it has to be configured in the doctoolchainConfig.groovy file. There you will find a section that looks like this: inputFiles = [ [file: 'manual.adoc', formats: ['html','pdf']], /** inputFiles **/ ] Add the files that you want to be rendered, along with the desired format. In this case pdf . Hint Why do you need to configure the files to be rendered? Asciidoctor renders all .adoc files by default. It doesn&#8217;t matter if they are the main documents or chapters you want to include. Most people only want to convert selected files to PDF, so that&#8217;s why you need to configure which ones. Creating a Custom PDF Theme If you want to change colors, fonts or page headers and footers, you can do so by creating a custom-theme.yml file. Copy the file src/docs/pdfTheme/custom-theme.yml from docToolchain to your project and reference it from your main .adoc`file by setting the `:pdf-stylesdir: . For example, insert the following at the top of your document to reference custom-theme.yml from the /pdfTheme folder. :pdf-stylesdir: ../pdfTheme Further Reading and Resources Learn how to modify a theme by reading asciidoctor-pdf theming guide . The Beyond HTML blog post is also an excellent resource if you want to dig a little deeper. Source AsciiDocBasics.gradle task generatePDF ( type: AsciidoctorTask, group: 'docToolchain', description: 'use pdf as asciidoc backend') { attributes ( 'plantUMLDir' : file(${docDir}/${config.outputPath}/pdf/images/plantUML/).path, ) attributes ( 'data-uri': 'true', 'plantUMLDir' : file(${docDir}/${config.outputPath}/images/).path, 'imagesoutdir' : file(${docDir}/${config.outputPath}/images/).path ) def sourceFilesPDF = sourceFiles.findAll { 'pdf' in it.formats } // onlyIf { // sourceFilesPDF // } sources { sourceFilesPDF.each { include it.file logger.info it.file } } backends = ['pdf'] /** //check if a remote pdfTheme is defined def pdfTheme = System.getenv('DTC_PDFTHEME') def themeFolder = pdfTheme.md5() if (pdfTheme) { //check if it is already installed //TODO: finish this... } **/ doFirst { if (sourceFilesPDF.size()==0) { throw new Exception ( &gt;&gt; No source files defined for type PDF. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy ) } } } "
+},
+
+{
+    "id": 32,
+    "uri": "015_tasks/03_task_exportMetrics.html",
+    "menu": "tasks",
+    "title": "exportMetrics",
+    "text": " Table of Contents exportMetrics .gravatar img { margin-left: 3px; border-radius: 4px; } exportMetrics 1 minute to read This task crawls through all Asciidoctor source files and extracts the total number of words in each file (word count) so you can check your writing progress. The output is displayed on the command line. "
 },
 
 {
@@ -274,6 +274,14 @@ var documents = [
 
 {
     "id": 34,
+    "uri": "015_tasks/03_task_exportChangeLog.html",
+    "menu": "tasks",
+    "title": "exportChangeLog",
+    "text": " Table of Contents exportChangeLog At a Glance About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportChangeLog 2 minutes to read At a Glance About This Task As the name suggests, this task exports the changelog to be referenced from within your documentation, if needed. The changelog is written to build/docs/changelog.adoc . This task can be configured to use a different source control system or a different directory. To configure this task, copy template_config/scripts/ChangelogConfig.groovy to your directory and modify to suit your needs. Then use -PchangelogConfigFile=&lt;your config file&gt; to add the path to your configuration file to the task. See the description inside the template for more details. By default, the source is the Git changelog for the path src/docs and only contains the commit messages for changes made to the documentation. All changes to the build or other sources in the repository will not show up. By default, the changelog contains changes made to date , author and commit message already formatted as AsciiDoc table content: | 09.04.2017 | Ralf D. Mueller | fix #24 template updated to V7.0 | 08.04.2017 | Ralf D. Mueller | fixed typo You simply include it like this: .Changes [options=header,cols=1,2,6] |==== | Date | Author | Comment include::../../build/docs/changelog.adoc[] |==== By excluding the table definition, you can easily translate the table headings through different text snippets. Note In a future docToolchain release, you will have the ability to include only certain commit messages from the changelog and exclude others (starting with # or // ?). This feature is not available just yet. Further Reading and Resources The only constant in life is change blog post. Source exportChangelog.gradle task exportChangeLog( description: 'exports the change log from a git subpath', group: 'docToolchain' ) { doFirst { new File(targetDir).mkdirs() } doLast { logger.info(docToolchain&gt; docDir: +docDir) logger.info(docToolchain&gt; mainConfigFile: +mainConfigFile) def config = new ConfigSlurper().parse(new File(docDir, mainConfigFile).text) def cmd = ${config.changelog.cmd} . def changes = cmd.execute(null, new File(docDir, config.changelog.dir)).text def changelog = new File(targetDir, 'changelog.adoc') logger.info &gt; changelog exported ${changelog.canonicalPath} changelog.write(changes) } } "
+},
+
+{
+    "id": 35,
     "uri": "015_tasks/03_task_generateDeck.html",
     "menu": "tasks",
     "title": "generateDeck",
@@ -281,7 +289,7 @@ var documents = [
 },
 
 {
-    "id": 35,
+    "id": 36,
     "uri": "015_tasks/03_task_exportOpenApi.html",
     "menu": "tasks",
     "title": "exportOpenAPI",
@@ -289,27 +297,19 @@ var documents = [
 },
 
 {
-    "id": 36,
-    "uri": "015_tasks/03_task_exportMetrics.html",
-    "menu": "tasks",
-    "title": "exportMetrics",
-    "text": " Table of Contents exportMetrics .gravatar img { margin-left: 3px; border-radius: 4px; } exportMetrics 1 minute to read This task crawls through all Asciidoctor source files and extracts the total number of words in each file (word count) so you can check your writing progress. The output is displayed on the command line. "
-},
-
-{
     "id": 37,
-    "uri": "015_tasks/03_task_convertToDocx.html",
-    "menu": "tasks",
-    "title": "convertToDocx",
-    "text": " Table of Contents convertToDocx At a Glance Before You Begin Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToDocx 1 minute to read At a Glance Before You Begin Before using this task: Install pandoc . Ensure that 'docbook' and 'docx' are added to the inputFiles formats in Config.groovy. As an optional step, specify a reference doc file with custom stylesheets (see task createReferenceDoc ). Further Reading and Resources Read the Render AsciiDoc to docx (MS Word) blog post. Source pandoc.gradle task convertToDocx ( group: 'docToolchain', description: 'converts file to .docx via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `docx` in config.groovy is converted to docbook and then to docx. def sourceFilesDocx = sourceFiles.findAll { 'docx' in it.formats } sourceFilesDocx.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.docx') workingDir $targetDir/docbook executable = pandoc if(referenceDocFile?.trim()) { args = [-r,docbook, -t,docx, -o,../docx/$targetFile, --reference-doc=${docDir}/${referenceDocFile}, sourceFile] } else { args = [-r,docbook, -t,docx, -o,../docx/$targetFile, sourceFile] } } doFirst { new File($targetDir/docx/).mkdirs() } } "
-},
-
-{
-    "id": 38,
     "uri": "015_tasks/03_task_exportDrawIo.html",
     "menu": "tasks",
     "title": "exportDrawIo",
     "text": " Table of Contents exportDrawIo About This Task About diagrams.net How to Change Your Workflow to Use diagrams.net How to Convert a Confluence Page to AsciiDoc .gravatar img { margin-left: 3px; border-radius: 4px; } exportDrawIo 2 minutes to read About This Task There is no exportDrawIo task available in docToolchain because such a task is not required. You can continue to use diagrams.net (formerly known as draw.io) to edit your diagrams simply by making a change to your diagram-authoring workflow. About diagrams.net diagrams.net offers free and open source desktop editors for all major operating system platforms. Visit https://www.diagrams.net/integrations to find a desktop editor application compatible with your operating system. When you use the desktop version, just create your diagram with the .png (or even better, .dio.png ) extension and diagrams.net will always save your diagram as a PNG with the source as metadata. They have also launched a free plugin for VS Code and IntelliJ so you can edit your diagrams offline! How to Change Your Workflow to Use diagrams.net Export your diagrams.net/draw.io diagrams as a PNG with the source embedded in the file metadata. This allows you to embed your diagrams into AsciiDoc source as you normally would (using the image:: macro) with the added advantage of storing the diagram source with the image itself. How to Convert a Confluence Page to AsciiDoc If you are converting a Confluence page with embedded draw.io diagrams to AsciiDoc, use this export workflow to continue using diagrams.net: Export an editable PNG diagram from Confluence. Load the diagram you want to export from Confluence. Click File &#160; &#8250; Export as &#160; &#8250; PNG&#8230;&#8203; . In the Image modal, make sure that Include a copy of my diagram is selected. Click Export to save the PNG file with the pattern [file].dio.png . Commit the exported PNG file to source control. Your diagram can now be managed in source control, added to your documentation source and edited using a diagrams.net desktop version. Note Specifying .dio (short for  d raw io ) in the name will help you identify PNG files containing an embedded XML diagram source. // Please, replace #yourelement with a real element id on your webpage MarketplaceWidget.setupMarketplaceWidget('card', 15635, #myelement); "
+},
+
+{
+    "id": 38,
+    "uri": "015_tasks/03_task_convertToDocx.html",
+    "menu": "tasks",
+    "title": "convertToDocx",
+    "text": " Table of Contents convertToDocx At a Glance Before You Begin Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToDocx 1 minute to read At a Glance Before You Begin Before using this task: Install pandoc . Ensure that 'docbook' and 'docx' are added to the inputFiles formats in Config.groovy. As an optional step, specify a reference doc file with custom stylesheets (see task createReferenceDoc ). Further Reading and Resources Read the Render AsciiDoc to docx (MS Word) blog post. Source pandoc.gradle task convertToDocx ( group: 'docToolchain', description: 'converts file to .docx via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `docx` in config.groovy is converted to docbook and then to docx. def sourceFilesDocx = sourceFiles.findAll { 'docx' in it.formats } sourceFilesDocx.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.docx') workingDir $targetDir/docbook executable = pandoc if(referenceDocFile?.trim()) { args = [-r,docbook, -t,docx, -o,../docx/$targetFile, --reference-doc=${docDir}/${referenceDocFile}, sourceFile] } else { args = [-r,docbook, -t,docx, -o,../docx/$targetFile, sourceFile] } } doFirst { new File($targetDir/docx/).mkdirs() } } "
 },
 
 {
@@ -330,38 +330,6 @@ var documents = [
 
 {
     "id": 41,
-    "uri": "ea/UseCases.html",
-    "menu": "ea",
-    "title": "UseCases.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
-},
-
-{
-    "id": 42,
-    "uri": "ea/Architect_notes_issue2.html",
-    "menu": "ea",
-    "title": "Architect_notes_issue2.ad",
-    "text": " "
-},
-
-{
-    "id": 43,
-    "uri": "ea/Activity_notes_issue1.html",
-    "menu": "ea",
-    "title": "Activity_notes_issue1.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 44,
-    "uri": "ea/Activity_notes.html",
-    "menu": "ea",
-    "title": "Activity_notes.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 45,
     "uri": "015_tasks/03_task_previewSite.html",
     "menu": "tasks",
     "title": "previewSite",
@@ -369,23 +337,7 @@ var documents = [
 },
 
 {
-    "id": 46,
-    "uri": "ea/Use_Cases_notes.html",
-    "menu": "ea",
-    "title": "Use_Cases_notes.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
-},
-
-{
-    "id": 47,
-    "uri": "ea/readme.html",
-    "menu": "ea",
-    "title": "readme.ad",
-    "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
-},
-
-{
-    "id": 48,
+    "id": 42,
     "uri": "ea/Use_Cases_notes_UseCases.html",
     "menu": "ea",
     "title": "Use_Cases_notes_UseCases.ad",
@@ -393,7 +345,7 @@ var documents = [
 },
 
 {
-    "id": 49,
+    "id": 43,
     "uri": "ea/issue2.html",
     "menu": "ea",
     "title": "issue2.ad",
@@ -401,7 +353,23 @@ var documents = [
 },
 
 {
-    "id": 50,
+    "id": 44,
+    "uri": "ea/UseCases.html",
+    "menu": "ea",
+    "title": "UseCases.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
+},
+
+{
+    "id": 45,
+    "uri": "ea/Architect_notes_issue2.html",
+    "menu": "ea",
+    "title": "Architect_notes_issue2.ad",
+    "text": " "
+},
+
+{
+    "id": 46,
     "uri": "ea/Architect_notes.html",
     "menu": "ea",
     "title": "Architect_notes.ad",
@@ -409,7 +377,23 @@ var documents = [
 },
 
 {
-    "id": 51,
+    "id": 47,
+    "uri": "ea/Activity_notes_issue1.html",
+    "menu": "ea",
+    "title": "Activity_notes_issue1.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
+    "id": 48,
+    "uri": "ea/Activity_notes.html",
+    "menu": "ea",
+    "title": "Activity_notes.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
+    "id": 49,
     "uri": "025_development/020_run_tests.html",
     "menu": "development",
     "title": "Running Tests",
@@ -417,15 +401,15 @@ var documents = [
 },
 
 {
-    "id": 52,
-    "uri": "025_development/005_contributing_to_docs.html",
-    "menu": "development",
-    "title": "Contributing to Docs",
-    "text": " Table of Contents Contributing to Docs Prerequisites Go to page you want to edit or fix Fork the Repository Edit the Page Commit the Changes Comparing changes Contributing to Docs 5 minutes to read The easiest way to contribute to this project is to contribute to the documentation. Hier is a quick step-by-step guide on how to fix something on a documentation page. Prerequisites You need a github.com account. If you don&#8217;t have one, you can create one here: https://github.com/signup It might help if you go through the Github Hello World tutorial before you continue but it is not necessary. Go to page you want to edit or fix You already found this tutorial, so you already know how to go to the page you want to edit or fix. All documentation can be found at http://doctoolchain.org/ . The source code of each page is available at https://github.com/doctoolchain/doctoolchain/ in the /src/docs/ folder. But there is an easier way to find the exact source. The documentation pages all look something like this: In the upper right corner you can see the Improve this doc link: This will take you directly to the source of the page, already in edit mode. If you are not logged in, GitHub will ask you to do so. The Create an issue link will be helpful if you want to report a bug or request a feature for a page. It takes you directly to the issue tracker with a pre-filled issue. For now, let&#8217;s click on the Improve this doc link. Fork the Repository If you click the link for the first time, you will be asked to fork the repository. A fork is a copy of the repository. Maybe you are used to working on the main repository or a branch within the main repository. This is not possible in this case, because you don&#8217;t have write access, only read access. The solution is to fork the repository. This way, you create a copy in your own space, and you will have write access to it. Edit the Page You will now be taken to the page you want to edit already in edit mode. What you see is asciidoctor markup. Check out the {url-asciidoc-quick-reference}[AsciiDoc quick reference] for more information. The blue box on top tells you what you already know: a copy has been created for you and you are editing it. Important since you work on your own copy of the docs, you can&#8217;t break anything. You even don&#8217;t have write access to the main repository. So feel free to edit the page as you like. Use the Preview button to see what your edits will look like. Since this is only a preview and GitHub doesn&#8217;t know about docToolchain, this preview will only show you if your AsciiDoc syntax is correct. Some other features like the TOC or include statements will not be available in the preview. Do your edit and then Commit the Changes Below the editor, there is a small Propose Changes form. Enter a headline and a description of the changes you made and click Propose changes . This will save your changes to your fork of the repository. Note Git works with diffs - it only saves the changes you made, not a full copy of the new page. This is important to know if you want to understand the inner workings of Git. After you&#8217;ve clicked the button, you will be taken to a page which shows you what you changed. Comparing changes This view lets you review your changes. These diffs are not easy to read, but I promise that over time you get used to it. Red lines are deletions, green lines are additions. As you can see in the screenshot, I added an empty space in line 17. Line 17 has been deleted (red line) and replaced with a new line (green line). Line 1 looks mysterious, because it seems that is has been replaced with an identical copy. This is because the line ending changed but is not visible in the diff. The grey box on top shows you It is quite likely that you still know what you did a minute ago, so let&#8217;s click on the Create pull request button. "
+    "id": 50,
+    "uri": "ea/Use_Cases_notes.html",
+    "menu": "ea",
+    "title": "Use_Cases_notes.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
 },
 
 {
-    "id": 53,
+    "id": 51,
     "uri": "ea/issue1.html",
     "menu": "ea",
     "title": "issue1.ad",
@@ -433,15 +417,23 @@ var documents = [
 },
 
 {
-    "id": 54,
-    "uri": "025_development/010_setup_dev_env.html",
-    "menu": "development",
-    "title": "Setting Up a Dev Environment",
-    "text": " Table of Contents Setting Up a Dev Environment Before You Begin Do a Local Install for Docker and SDKMAN! Create Gradle-Independent Tasks Create or Change a Theme Special Functionality for Themes (Config Fragments) Setting Up a Dev Environment 4 minutes to read Before You Begin When you install docToolchain, all of the code is hidden. The information on this page explains how to get access to the code so you can customise the setup in your dev environment. Do a Local Install for Docker and SDKMAN! You need a local installation of docToolchain for development. Docker and SDKMAN! are derived from it. Docker simply contains a local install, and SDKMAN! installs docToolchain locally, but the location is controlled by SDKMAN! not docToolchain. The docToolchain-Wrapper installs docToolchain locally to $HOME/.doctoolchain/docToolchain-$v2.6.7/ . All task invokations through the docToolchain-Wrapper dtcw are redirected to $HOME/.doctoolchain/docToolchain-$v2.6.7/bin/doctoolchain . This shell script calls the Gradle-Wrapper for most tasks. What you need to do is: Create a local install which is connected to your GitHub fork of docToolchain. Create a folder called $HOME/.doctoolchain/docToolchain-2.0.0-dev/ . Check out the ng-branch of your fork to this folder. To use this version in your test project, edit the version at the start of your dtcw script to 2.0.0-dev . You now have the full repo locally cloned. To save memory, some parts of the repo are zipped. If you have problems, check out the prepareDist-Task . Create Gradle-Independent Tasks All tasks currently use Gradle to run. You can bypass Gradle for tasks where it doesn’t add any value (and make docToolchain run faster as a result!). To do this, use the bin/doctoolchain scripts and create a switch. Create or Change a Theme It’s not just the docToolchain code that is hidden. The themes for the static site generator jBake are also hidden. Follow these procedures to customise themes. How to Overwrite a Project Theme When docToolchain builds a static website, it first copies an internal theme to a temp folder, then copies an external theme (if defined) over it. Finally, it copies the project theme over the top. This gives you the opportunity to overwrite some parts of the theme on a per-project basis. To do this: Run the copyThemes task to copy the internal and external themes to the microsite.siteFolder . Check the files (take a look at jbake.org to get a better understanding). Modify the relevant files and delete all of the other files. How to Modify an Existing Theme or Create a Theme from Scratch As we have already mentioned, an external theme is simply a zipped copy of the 'microsite.siteFolder'. All themes are downloaded when referenced from a dtcw configuration, and are stored in $HOME/.doctoolchain/themes/[hash of url] . To modify an existing theme, go to its folder and check out the theme’s project instead of the downloaded copy. This will create a connection back to the GitHub repo so that you can modify the theme directly in $HOME/.doctoolchain/themes/[hash of url] . To create a new theme from scratch, use a simple md5 hash. For example, if you configure your new theme as myTheme then myTheme.md5() will be the hash. Special Functionality for Themes (Config Fragments) It’s likely that you will need a new config item for your self-generated theme. And you can also prompt users to set a value for this new config item when they install the theme for the first time. To do this, create a file called configFragment.groovy in the site folder of your theme. For example: // the title of the microsite, displayed in the upper-left corner // Example: my new site title = '##site-title##' The first line is the message that will be shown to the user (can be over several lines). The second line (starting with Example :) is the default value for the prompt. The third line is the config item itself. If the value is surrounded by ## , the user will be prompted for this value and it will be replaced with the user’s input. Otherwise the config item will be added without a prompt to the user’s current docToochainConfig.groovy . "
+    "id": 52,
+    "uri": "ea/readme.html",
+    "menu": "ea",
+    "title": "readme.ad",
+    "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
 },
 
 {
-    "id": 55,
+    "id": 53,
+    "uri": "025_development/005_contributing_to_docs.html",
+    "menu": "development",
+    "title": "Contributing to Docs",
+    "text": " Table of Contents Contributing to Docs Prerequisites Go to page you want to edit or fix Fork the Repository Edit the Page Commit the Changes Comparing changes Contributing to Docs 5 minutes to read The easiest way to contribute to this project is to contribute to the documentation. Hier is a quick step-by-step guide on how to fix something on a documentation page. Prerequisites You need a github.com account. If you don&#8217;t have one, you can create one here: https://github.com/signup It might help if you go through the Github Hello World tutorial before you continue but it is not necessary. Go to page you want to edit or fix You already found this tutorial, so you already know how to go to the page you want to edit or fix. All documentation can be found at http://doctoolchain.org/ . The source code of each page is available at https://github.com/doctoolchain/doctoolchain/ in the /src/docs/ folder. But there is an easier way to find the exact source. The documentation pages all look something like this: In the upper right corner you can see the Improve this doc link: This will take you directly to the source of the page, already in edit mode. If you are not logged in, GitHub will ask you to do so. The Create an issue link will be helpful if you want to report a bug or request a feature for a page. It takes you directly to the issue tracker with a pre-filled issue. For now, let&#8217;s click on the Improve this doc link. Fork the Repository If you click the link for the first time, you will be asked to fork the repository. A fork is a copy of the repository. Maybe you are used to working on the main repository or a branch within the main repository. This is not possible in this case, because you don&#8217;t have write access, only read access. The solution is to fork the repository. This way, you create a copy in your own space, and you will have write access to it. Edit the Page You will now be taken to the page you want to edit already in edit mode. What you see is asciidoctor markup. Check out the {url-asciidoc-quick-reference}[AsciiDoc quick reference] for more information. The blue box on top tells you what you already know: a copy has been created for you and you are editing it. Important since you work on your own copy of the docs, you can&#8217;t break anything. You even don&#8217;t have write access to the main repository. So feel free to edit the page as you like. Use the Preview button to see what your edits will look like. Since this is only a preview and GitHub doesn&#8217;t know about docToolchain, this preview will only show you if your AsciiDoc syntax is correct. Some other features like the TOC or include statements will not be available in the preview. Do your edit and then Commit the Changes Below the editor, there is a small Propose Changes form. Enter a headline and a description of the changes you made and click Propose changes . This will save your changes to your fork of the repository. Note Git works with diffs - it only saves the changes you made, not a full copy of the new page. This is important to know if you want to understand the inner workings of Git. After you&#8217;ve clicked the button, you will be taken to a page which shows you what you changed. Comparing changes This view lets you review your changes. These diffs are not easy to read, but I promise that over time you get used to it. Red lines are deletions, green lines are additions. As you can see in the screenshot, I added an empty space in line 17. Line 17 has been deleted (red line) and replaced with a new line (green line). Line 1 looks mysterious, because it seems that is has been replaced with an identical copy. This is because the line ending changed but is not visible in the diff. The grey box on top shows you It is quite likely that you still know what you did a minute ago, so let&#8217;s click on the Create pull request button. "
+},
+
+{
+    "id": 54,
     "uri": "025_development/030_create_new_release.html",
     "menu": "development",
     "title": "Creating a New Release",
@@ -449,15 +441,15 @@ var documents = [
 },
 
 {
-    "id": 56,
-    "uri": "025_development/040_debugging.html",
+    "id": 55,
+    "uri": "025_development/010_setup_dev_env.html",
     "menu": "development",
-    "title": "Debugging",
-    "text": " Table of Contents Debugging Environment Gradle jBake Templates Theming, Menu and Images Debugging 2 minutes to read Things not working as you expected? Here are some tips that might help you. Environment To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect. Gradle You get more hints about what is going on with Gradle when you add the --info flag to your ./dtcw generateSite command: ./dtcw generateSite --info This outputs all config settings as seen by docToolchain along with many other internal settings. jBake Templates If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println otherwise you won’t see any output. Theming, Menu and Images How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files. Check the build/microsite/tmp folder to see the folder that is fed into jBake. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the build/microsite/output folder to see the generated result. This often helps you to find out where an image actually is located. "
+    "title": "Setting Up a Dev Environment",
+    "text": " Table of Contents Setting Up a Dev Environment Before You Begin Do a Local Install for Docker and SDKMAN! Create Gradle-Independent Tasks Create or Change a Theme Special Functionality for Themes (Config Fragments) Setting Up a Dev Environment 4 minutes to read Before You Begin When you install docToolchain, all of the code is hidden. The information on this page explains how to get access to the code so you can customise the setup in your dev environment. Do a Local Install for Docker and SDKMAN! You need a local installation of docToolchain for development. Docker and SDKMAN! are derived from it. Docker simply contains a local install, and SDKMAN! installs docToolchain locally, but the location is controlled by SDKMAN! not docToolchain. The docToolchain-Wrapper installs docToolchain locally to $HOME/.doctoolchain/docToolchain-$v2.6.7/ . All task invokations through the docToolchain-Wrapper dtcw are redirected to $HOME/.doctoolchain/docToolchain-$v2.6.7/bin/doctoolchain . This shell script calls the Gradle-Wrapper for most tasks. What you need to do is: Create a local install which is connected to your GitHub fork of docToolchain. Create a folder called $HOME/.doctoolchain/docToolchain-2.0.0-dev/ . Check out the ng-branch of your fork to this folder. To use this version in your test project, edit the version at the start of your dtcw script to 2.0.0-dev . You now have the full repo locally cloned. To save memory, some parts of the repo are zipped. If you have problems, check out the prepareDist-Task . Create Gradle-Independent Tasks All tasks currently use Gradle to run. You can bypass Gradle for tasks where it doesn’t add any value (and make docToolchain run faster as a result!). To do this, use the bin/doctoolchain scripts and create a switch. Create or Change a Theme It’s not just the docToolchain code that is hidden. The themes for the static site generator jBake are also hidden. Follow these procedures to customise themes. How to Overwrite a Project Theme When docToolchain builds a static website, it first copies an internal theme to a temp folder, then copies an external theme (if defined) over it. Finally, it copies the project theme over the top. This gives you the opportunity to overwrite some parts of the theme on a per-project basis. To do this: Run the copyThemes task to copy the internal and external themes to the microsite.siteFolder . Check the files (take a look at jbake.org to get a better understanding). Modify the relevant files and delete all of the other files. How to Modify an Existing Theme or Create a Theme from Scratch As we have already mentioned, an external theme is simply a zipped copy of the 'microsite.siteFolder'. All themes are downloaded when referenced from a dtcw configuration, and are stored in $HOME/.doctoolchain/themes/[hash of url] . To modify an existing theme, go to its folder and check out the theme’s project instead of the downloaded copy. This will create a connection back to the GitHub repo so that you can modify the theme directly in $HOME/.doctoolchain/themes/[hash of url] . To create a new theme from scratch, use a simple md5 hash. For example, if you configure your new theme as myTheme then myTheme.md5() will be the hash. Special Functionality for Themes (Config Fragments) It’s likely that you will need a new config item for your self-generated theme. And you can also prompt users to set a value for this new config item when they install the theme for the first time. To do this, create a file called configFragment.groovy in the site folder of your theme. For example: // the title of the microsite, displayed in the upper-left corner // Example: my new site title = '##site-title##' The first line is the message that will be shown to the user (can be over several lines). The second line (starting with Example :) is the default value for the prompt. The third line is the config item itself. If the value is surrounded by ## , the user will be prompted for this value and it will be replaced with the user’s input. Otherwise the config item will be added without a prompt to the user’s current docToochainConfig.groovy . "
 },
 
 {
-    "id": 57,
+    "id": 56,
     "uri": "10_about/30_community.html",
     "menu": "about",
     "title": "Acknowledgements and Contributors",
@@ -465,11 +457,19 @@ var documents = [
 },
 
 {
-    "id": 58,
+    "id": 57,
     "uri": "025_development/050_who-uses-dtc.html",
     "menu": "-",
     "title": "moved",
     "text": " document.location.href = '../10_about/10_about-the-project.html'; "
+},
+
+{
+    "id": 58,
+    "uri": "025_development/040_debugging.html",
+    "menu": "development",
+    "title": "Debugging",
+    "text": " Table of Contents Debugging Environment Gradle jBake Templates Theming, Menu and Images Debugging 2 minutes to read Things not working as you expected? Here are some tips that might help you. Environment To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect. Gradle You get more hints about what is going on with Gradle when you add the --info flag to your ./dtcw generateSite command: ./dtcw generateSite --info This outputs all config settings as seen by docToolchain along with many other internal settings. jBake Templates If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println otherwise you won’t see any output. Theming, Menu and Images How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files. Check the build/microsite/tmp folder to see the folder that is fed into jBake. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the build/microsite/output folder to see the generated result. This often helps you to find out where an image actually is located. "
 },
 
 {
@@ -506,14 +506,6 @@ var documents = [
 
 {
     "id": 63,
-    "uri": "020_tutorial/050_multipleRepositories.html",
-    "menu": "tutorial",
-    "title": "Multi-Repo",
-    "text": " Table of Contents How to generate docs from multiple repositories git clone solution git submodule solution artifact solution How to generate docs from multiple repositories Some static site generators sell multi-repository functionality as a feature. This feature is mainly achieved through a build in git client. Since we almost always work on systems which already have git installed, docToolchain does not come with its own git client. The solution we propose instead is just a simple bash script which does the magic for you. Here is how. Imagine you have a documentation repository set up with the docToolchain wrapper dtcw and some code documents. Now you would like to include the documents from another repository. git clone solution To get the contents of the other repository, one way is to do a git clone of it right to the build folder of your own repository. Let&#8217;s call the script in which we store this command clonerefs.sh , because we clone a reference to the remote documentation. clonerefs.sh #!/usr/bin/env bash git clone git@github.com:docToolchain/docToolchain.git build/refs/docToolchain this works fine if you execute it once, but the second time it will complain that the folder build/refs/docToolchain is not empty. So let&#8217;s create a cloneOrPull function which tries first to clone the repo and pulls an update if the clone fails. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo  echo $1 (git clone $1 $2 2&gt; /dev/null &amp;&amp; echo cloned repo )|| git -C $2 pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain That&#8217;s better. We can now include the docs from our main docs. But what if we don&#8217;t want to include them but just let them render? We could clone the repository directly to our src/docs folder. But that would require that it only contains docs and no src/docs folder itself. So we have to copy it over to our src/docs folder. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo  echo $1 (git clone $1 $2 2&gt; /dev/null &amp;&amp; echo cloned repo )|| git -C $2 pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain cp build/refs/docToolchain/src/docs/manual src/docs/. But we don&#8217;t want to add these folders to our main repository, so let&#8217;s add it to the .gitignore file. .gitignore [...] src/docs/manual [...] There is one more thing we can optimize. Currently, the script clones the repository with the full history. This is far to much traffic if you only want to use the latest version of your docs. Let&#8217;s add --depth 1 to the `git clone`command to only fetch the latest version. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo  echo $1 (git clone --depth 1 $1 $2 2&gt; /dev/null &amp;&amp; echo cloned repo )|| git -C $2 pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain cp build/refs/docToolchain/src/docs/manual src/docs/. This script will now let you clone remote repositories and merge them with your main documentation before building. git submodule solution Another solution is to refrence your sub-repositories as git submodules . Git submodules are pointers in your main repository to a certain version of another repository. Most CI/CD systems clone your repository together will als configured submodules. This makes this approach quite convenient. A draw back is that submodules are not often used and thus developers are not used to them. artifact solution A third solution could be that sub-repositories publish their docs as zip file somewhere. Maybe to an artifactory instance. Your main repository could fetch the published artifacts and use them in the build process. That would be exactly what you do with code. "
-},
-
-{
-    "id": 64,
     "uri": "020_tutorial/020_arc42.html",
     "menu": "tutorial",
     "title": "arc42 Template",
@@ -521,7 +513,7 @@ var documents = [
 },
 
 {
-    "id": 65,
+    "id": 64,
     "uri": "020_tutorial/120_self-contained-dtc.html",
     "menu": "tutorial",
     "title": "Self-Contained docToolchain",
@@ -529,11 +521,19 @@ var documents = [
 },
 
 {
-    "id": 66,
+    "id": 65,
     "uri": "020_tutorial/110_revealjs_and_arc42_from_scratch.html",
     "menu": "tutorial",
     "title": "Reveal.js &amp; Arc42 from Scratch",
     "text": " Table of Contents Reveal.js &amp; Arc42 from Scratch 1 Clone docToolchain and Git Submodules 2 Create an arc42 Based Documentation Repository 3 Create the AsciiDoctor Reveal.js Presentation Troubleshooting Reveal.js &amp; Arc42 from Scratch The following procedure describes how to set up the arc42 template and a sample Asciidoctor reveal.js presentation from scratch. It uses the docToolchain as suggested by docs-as-co.de . This tutorial has been tested with an Apple Silicon based mac. This architecture is not yet supported by the docker based docToolchain . Instead the docToolchain repository branch ng is used. 1 Clone docToolchain and Git Submodules git clone https://github.com/docToolchain/docToolchain.git cd docToolchain git submodule init git submodule update The default branch ng should be used. Now add the bin folder to your PATH . You might need to restart your shell. 2 Create an arc42 Based Documentation Repository mkdir &lt;your-doc-folder&gt; cd &lt;your-doc-folder&gt; # Setup the correct Java and Gradle versions in .sdkmanrc # For more information, see https://sdkman.io cat &lt;&lt; EOF &gt; .sdkmanrc # Enable auto-env through the sdkman_auto_env config # Add key=value pairs of SDKs to use below java=11.0.14-ms gradle=6.9.2 EOF # Activate the configured Java and Gradle versions for the current shell sdk env # Initialize arc42 in your current directory docToolchain . downloadTemplate Now answer all the questions, the tool prints. Make sure to read the highlighted lines - they are printed in between the other output of the docToolchain command. Config file '.../Config.groovy' does not exist do you want me to create a default one for you? (y, n) Install arc42 documentation template. Which language do you want to install? (EN, DE, ES, IT, NL) Do you want the template with or without help? Finally, generate the HTML version of the template docToolchain . generateHTML open open build/html5/arc42/arc42.html 3 Create the AsciiDoctor Reveal.js Presentation Create a presentation.adoc file cat &lt;&lt; EOF &gt;&gt; src/docs/presentation.adoc = Title Slide == Slide 1 * This is the first slide == Slide 2 * This is the second slide EOF Add the following entry into the inputFiles section of Config.groovy (note the , at the end of the line): [file: 'presentation.adoc', formats: ['revealjs']], Generate the slide deck docToolchain . generateDeck Host the slides in a server, e.g. using browsersync : browser-sync start --server --files build/**/*.html --startPath /build/decks/html5/presentation.html Troubleshooting If docToolchain reports an error like BUG! exception in phase 'semantic analysis' in source unit 'script16562611848591859871238.groovy' Unsupported class file major version 61 you are probably using a newer version of Java and / or Gradle than supported by the tool. Please make sure you have configured sdkman to use the correct versions of Java and Gradle (see above). "
+},
+
+{
+    "id": 66,
+    "uri": "020_tutorial/050_multipleRepositories.html",
+    "menu": "tutorial",
+    "title": "Multi-Repo",
+    "text": " Table of Contents How to generate docs from multiple repositories git clone solution git submodule solution artifact solution How to generate docs from multiple repositories Some static site generators sell multi-repository functionality as a feature. This feature is mainly achieved through a build in git client. Since we almost always work on systems which already have git installed, docToolchain does not come with its own git client. The solution we propose instead is just a simple bash script which does the magic for you. Here is how. Imagine you have a documentation repository set up with the docToolchain wrapper dtcw and some code documents. Now you would like to include the documents from another repository. git clone solution To get the contents of the other repository, one way is to do a git clone of it right to the build folder of your own repository. Let&#8217;s call the script in which we store this command clonerefs.sh , because we clone a reference to the remote documentation. clonerefs.sh #!/usr/bin/env bash git clone git@github.com:docToolchain/docToolchain.git build/refs/docToolchain this works fine if you execute it once, but the second time it will complain that the folder build/refs/docToolchain is not empty. So let&#8217;s create a cloneOrPull function which tries first to clone the repo and pulls an update if the clone fails. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo  echo $1 (git clone $1 $2 2&gt; /dev/null &amp;&amp; echo cloned repo )|| git -C $2 pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain That&#8217;s better. We can now include the docs from our main docs. But what if we don&#8217;t want to include them but just let them render? We could clone the repository directly to our src/docs folder. But that would require that it only contains docs and no src/docs folder itself. So we have to copy it over to our src/docs folder. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo  echo $1 (git clone $1 $2 2&gt; /dev/null &amp;&amp; echo cloned repo )|| git -C $2 pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain cp build/refs/docToolchain/src/docs/manual src/docs/. But we don&#8217;t want to add these folders to our main repository, so let&#8217;s add it to the .gitignore file. .gitignore [...] src/docs/manual [...] There is one more thing we can optimize. Currently, the script clones the repository with the full history. This is far to much traffic if you only want to use the latest version of your docs. Let&#8217;s add --depth 1 to the `git clone`command to only fetch the latest version. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo  echo $1 (git clone --depth 1 $1 $2 2&gt; /dev/null &amp;&amp; echo cloned repo )|| git -C $2 pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain cp build/refs/docToolchain/src/docs/manual src/docs/. This script will now let you clone remote repositories and merge them with your main documentation before building. git submodule solution Another solution is to refrence your sub-repositories as git submodules . Git submodules are pointers in your main repository to a certain version of another repository. Most CI/CD systems clone your repository together will als configured submodules. This makes this approach quite convenient. A draw back is that submodules are not often used and thus developers are not used to them. artifact solution A third solution could be that sub-repositories publish their docs as zip file somewhere. Maybe to an artifactory instance. Your main repository could fetch the published artifacts and use them in the build process. That would be exactly what you do with code. "
 },
 
 {
@@ -613,7 +613,7 @@ var documents = [
     "uri": "010_manual/50_Frequently_asked_Questions.html",
     "menu": "manual",
     "title": "Solutions to Common Problems",
-    "text": " Table of Contents Solutions to Common Problems References Images Sparx Enterprise Architect Known error Messages Solutions to Common Problems 8 minutes to read This section tries to answer the most common and frequently asked questions about how to work with docToolchain. It will also contain questions relevant to the tools used to build docToolchain, but the main focus is docToolchain itself. If you are stuck, make sure that you also check other sources like Stack Overflow . There is also a great FAQ for all your arc42 questions: https://faq.arc42.org/home/ If you have a question or problem for which you can&#8217;t find a solution, you can for this repo, add your question and create a pull request raise the issue through the GitHub issue tracker ask your question on Stack Overflow discuss the problem on Slack References Q: How can I reference source code from my documentation? Answer As long, as you stay within your documents folder (default src/docs ), you can simply reference other files with a relative include::filename.adoc[] -statement. If you need to reference files outside of the documents folder, you need to reference them with an absolute path. include::/home/runner/work/docToolchain/docToolchainfilename.adoc[] The /home/runner/work/docToolchain/docToolchain will point to the folder where your dtcw file resides. In order make this also work in your editor preview, specify a line like the following in your documents: ifndef::projectRootDir[:projectRootDir: ../../../] Images Asciidoctor User Manual on images Asciidoctor Quick Reference on images AsciiDoctor Writer Guide on images Q: Why are images not shown in the preview of my editor? Answer Ahis is most likely because your editor doesn&#8217;t know where they are stored. If you follow the default settings, you probably store your images in a subfolder images . The build script knows about it, because the attribute imagesdir has been set to ./images , but your editor doesn&#8217;t care about the build script - it only checks the currently opened AsciiDoc file. The solution is to add a line to each file which checks if the imagesdir is set and if not, sets it to a valid value: ifndef::imagesdir[:imagesdir: ../images] Q: Which image format should I use? Answer AsciiDoc and AsciiDoctor support several formats like GIF, PNG, JPG and SVG. However, if you want to use most features, some formats are better to use than others: GIF is not supported by the PDF renderer. Use JPG or PNG instead. JPG is great for photos but not for diagrams (you might get compression artifacts). So, if you want to use photos from your flipcharts - JPG might work for you. SVG great for high resolution diagrams, but not good supported by DOCX as output format. OpenOffice Writer might display the image a bit stretched, MS Word didn&#8217;t display it at all in some experiments. PDF output might display a warning that newer SVG versions are not supported (happends especially with diagrams.net images). PNG this is the preferred format for images used with docToolchain. All output formats support it and if diagrams are rendered with a resolution high enough to display all details, it will also be scaled well with all output formats. Q: Why are my images rotated in the output? Answer This most likely happens when you&#8217;ve taken photos with a mobile device and include them in you docs. A mobile device does not rotate the image itself, it only stores the orientation of the device in the meta data of the photo. Your operating system will show you the image as expected, but the rendered AsciiDoc will not. This can be „fixed“ with Imagemagick, by using convert -auto-orient or mogrify -auto-orient (thanx to @rotnroll666 for this tip). You can also try to just open the image in your favourite editor and re-save it. === exportVisio Q: I get an error message saying that a library is not registered when I try to run the exportVisio -task. Ausnahme beim Festlegen von Visible: Das COM-Objekt des Typs Microsoft.Office.Interop.Visio.ApplicationClass kann nicht in den Schnittstellentyp Microsoft.Office.Interop.Visio.IVApplication umgewandelt werden. Dieser Vorgang konnte nicht durchgeführt werden, da der QueryInterface-Aufruf an die COM-Komponente für die Schnittstelle mit der IID {000D0700-0000-0000-C000-000000000046} aufgrund des folgenden Fehlers nicht durchgeführt werden konnte: Bibliothek nicht registriert. (Ausnahme von HRESULT: 0x8002801D (TYPE_E_LIBNOTREGISTERED)). In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1 + $VisioApp.Visible = $false + ~~~~~~~~~~~~~~~~~~~~~~~~~~ + CategoryInfo : NotSpecified: (:) [], SetValueInvocationException + FullyQualifiedErrorId : ExceptionWhenSetting Answer When Visio is installed, it registers itself as a com library. It seems that this registration can break. You can fix this by visiting the windows system settings &#8594; install or uninstall a program, select visio , select change and then repair . Sparx Enterprise Architect Q: Sparx Enterprise Architect is a Windows tool, isn&#8217;t it? Answer Yes, it is, but it is written to support CrossOver in order to run on Linux based systems. Wine, the open source branch of CrossOver, seems to work as well. Take a look at this page to see how to install it on a linux based system: https://www.sparxsystems.com/support/faq/ea_on_linux.html I (Ralf) once gave it a try and even managed to get remote control over EA via VBS and COM up and running (which is the pre-requisite for docToolchain). Known error Messages Q: I get the error saying 'Failed to create MD5 hash for file content'. * What went wrong: Failed to capture snapshot of input files for task ':generateHTML' property 'sourceDir' during up-to-date check. &gt; Failed to create MD5 hash for file content.` Answer There are two known reasons for this error. One of the .adoc files is opened in an editor, so that windows can&#8217;t get the lock for that file. &#8594; Close all .adoc files. You use the Bash script doctoolchain on a windows system. &#8594; Use doctoolchain.bat instead. It works even in a Bash Shell. Q: I get the error saying 'Unsupported major.minor version 52.0' Answer This is a sign that you use an outdated version of Java. Please upgrade to Java 8 at least and 14 max. The docToolchain-wrapper (dtcw) in v2.0 will check the java version for you so that you will not see this error message in the future. Q: I get an error message saying 'Error occurred during initialization of VM' Starting a Gradle Daemon, 1 incompatible Daemon could not be reused, use --status for details FAILURE: Build failed with an exception. * What went wrong: Unable to start the daemon process. … Error occurred during initialization of VM Could not reserve enough space for 2097152KB object heap Answer Somehow docToolchain can&#8217;t allocate the memory which is configured out of the box. Try to free up some memory or comment out the line org.gradle.jvmargs=-Xmx2048m in gradle.properties Q: I get the error saying Could not initialize class java.awt.GraphicsEnvironment$LocaleGE Answer This seems to be a problem with WSL on Windows. Some sources mention to run Java in headless mode, but in this case, it doesn&#8217;t solve the problem. The root cause seems to be plantUML trying to get some font information. Only real solution seems to be to shutdown WSL from a powershell window wiht wsl --shutdown and retry. Warning this will kill all your WSL terminals without warning. Another solution seems to be to install a fresh version of your java runtime (I thought it is immutable, but it really helps). Best Solution is to switch to powershell. Another solution is to avoid PlantUML and generate Diagrams through a kroki.io server. Another variant of this is Can&#8217;t connect to X11 window server using '192.168.189.153:0' as the value of the DISPLAY variable. . In this case, it might help to install an X-Server (x410 for example) and configure the DISPLAY variable correctly. An easy way to test your configuration is to run xeyes in WSL. Make sure that your WSL is up to date by running wsl --update . This is not part of your regular Windows update! Q: I get an error that Gradle dependencies cannot be downloaded because a proxy is restricting internet access. Answer Remember that dtcw is a wrapper around Gradle. So instead of calling this: ./dtcw generateSite You could call this instead (remember to replace the values used in our example): ./dtcw generateSite -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=3128 -http.nonProxyHosts=*.nonproxyrepos.com|localhost (IP, port, etc just an example) For more information about Gradle proxy configuration, read this article . "
+    "text": " Table of Contents Solutions to Common Problems References Images Sparx Enterprise Architect Known error Messages Solutions to Common Problems 9 minutes to read This section tries to answer the most common and frequently asked questions about how to work with docToolchain. It will also contain questions relevant to the tools used to build docToolchain, but the main focus is docToolchain itself. If you are stuck, make sure that you also check other sources like Stack Overflow . There is also a great FAQ for all your arc42 questions: https://faq.arc42.org/home/ If you have a question or problem for which you can&#8217;t find a solution, you can for this repo, add your question and create a pull request raise the issue through the GitHub issue tracker ask your question on Stack Overflow discuss the problem on Slack References Q: How can I reference source code from my documentation? Answer As long, as you stay within your documents folder (default src/docs ), you can simply reference other files with a relative include::filename.adoc[] -statement. If you need to reference files outside of the documents folder, you need to reference them with an absolute path. include::/home/runner/work/docToolchain/docToolchainfilename.adoc[] The /home/runner/work/docToolchain/docToolchain will point to the folder where your dtcw file resides. In order make this also work in your editor preview, specify a line like the following in your documents: ifndef::projectRootDir[:projectRootDir: ../../../] Images Asciidoctor User Manual on images Asciidoctor Quick Reference on images AsciiDoctor Writer Guide on images Q: Why are images not shown in the preview of my editor? Answer Ahis is most likely because your editor doesn&#8217;t know where they are stored. If you follow the default settings, you probably store your images in a subfolder images . The build script knows about it, because the attribute imagesdir has been set to ./images , but your editor doesn&#8217;t care about the build script - it only checks the currently opened AsciiDoc file. The solution is to add a line to each file which checks if the imagesdir is set and if not, sets it to a valid value: ifndef::imagesdir[:imagesdir: ../images] Q: Which image format should I use? Answer AsciiDoc and AsciiDoctor support several formats like GIF, PNG, JPG and SVG. However, if you want to use most features, some formats are better to use than others: GIF is not supported by the PDF renderer. Use JPG or PNG instead. JPG is great for photos but not for diagrams (you might get compression artifacts). So, if you want to use photos from your flipcharts - JPG might work for you. SVG great for high resolution diagrams, but not good supported by DOCX as output format. OpenOffice Writer might display the image a bit stretched, MS Word didn&#8217;t display it at all in some experiments. PDF output might display a warning that newer SVG versions are not supported (happends especially with diagrams.net images). PNG this is the preferred format for images used with docToolchain. All output formats support it and if diagrams are rendered with a resolution high enough to display all details, it will also be scaled well with all output formats. Q: Why are my images rotated in the output? Answer This most likely happens when you&#8217;ve taken photos with a mobile device and include them in you docs. A mobile device does not rotate the image itself, it only stores the orientation of the device in the meta data of the photo. Your operating system will show you the image as expected, but the rendered AsciiDoc will not. This can be „fixed“ with Imagemagick, by using convert -auto-orient or mogrify -auto-orient (thanx to @rotnroll666 for this tip). You can also try to just open the image in your favourite editor and re-save it. === exportVisio Q: I get an error message saying that a library is not registered when I try to run the exportVisio -task. Ausnahme beim Festlegen von Visible: Das COM-Objekt des Typs Microsoft.Office.Interop.Visio.ApplicationClass kann nicht in den Schnittstellentyp Microsoft.Office.Interop.Visio.IVApplication umgewandelt werden. Dieser Vorgang konnte nicht durchgeführt werden, da der QueryInterface-Aufruf an die COM-Komponente für die Schnittstelle mit der IID {000D0700-0000-0000-C000-000000000046} aufgrund des folgenden Fehlers nicht durchgeführt werden konnte: Bibliothek nicht registriert. (Ausnahme von HRESULT: 0x8002801D (TYPE_E_LIBNOTREGISTERED)). In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1 + $VisioApp.Visible = $false + ~~~~~~~~~~~~~~~~~~~~~~~~~~ + CategoryInfo : NotSpecified: (:) [], SetValueInvocationException + FullyQualifiedErrorId : ExceptionWhenSetting Answer When Visio is installed, it registers itself as a com library. It seems that this registration can break. You can fix this by visiting the windows system settings &#8594; install or uninstall a program, select visio , select change and then repair . Sparx Enterprise Architect Q: Sparx Enterprise Architect is a Windows tool, isn&#8217;t it? Answer Yes, it is, but it is written to support CrossOver in order to run on Linux based systems. Wine, the open source branch of CrossOver, seems to work as well. Take a look at this page to see how to install it on a linux based system: https://www.sparxsystems.com/support/faq/ea_on_linux.html I (Ralf) once gave it a try and even managed to get remote control over EA via VBS and COM up and running (which is the pre-requisite for docToolchain). Known error Messages Q: I get the error saying 'Failed to create MD5 hash for file content'. * What went wrong: Failed to capture snapshot of input files for task ':generateHTML' property 'sourceDir' during up-to-date check. &gt; Failed to create MD5 hash for file content.` Answer There are two known reasons for this error. One of the .adoc files is opened in an editor, so that windows can&#8217;t get the lock for that file. &#8594; Close all .adoc files. You use the Bash script doctoolchain on a windows system. &#8594; Use doctoolchain.bat instead. It works even in a Bash Shell. Q: I get the error saying 'Unsupported major.minor version 52.0' Answer This is a sign that you use an outdated version of Java. Please upgrade to Java 8 at least and 14 max. The docToolchain-wrapper (dtcw) in v2.0 will check the java version for you so that you will not see this error message in the future. Q: I get an error message saying 'Error occurred during initialization of VM' Starting a Gradle Daemon, 1 incompatible Daemon could not be reused, use --status for details FAILURE: Build failed with an exception. * What went wrong: Unable to start the daemon process. … Error occurred during initialization of VM Could not reserve enough space for 2097152KB object heap Answer Somehow docToolchain can&#8217;t allocate the memory which is configured out of the box. Try to free up some memory or comment out the line org.gradle.jvmargs=-Xmx2048m in gradle.properties Q: I get the error saying Could not initialize class java.awt.GraphicsEnvironment$LocaleGE Answer This seems to be a problem with WSL on Windows. Some sources mention to run Java in headless mode, but in this case, it doesn&#8217;t solve the problem. The root cause seems to be plantUML trying to get some font information. Only real solution seems to be to shutdown WSL from a powershell window wiht wsl --shutdown and retry. Warning this will kill all your WSL terminals without warning. Another solution seems to be to install a fresh version of your java runtime (I thought it is immutable, but it really helps). Best Solution is to switch to powershell. Another solution is to avoid PlantUML and generate Diagrams through a kroki.io server. Another variant of this is Can&#8217;t connect to X11 window server using '192.168.189.153:0' as the value of the DISPLAY variable. . In this case, it might help to install an X-Server (x410 for example) and configure the DISPLAY variable correctly. An easy way to test your configuration is to run xeyes in WSL. Make sure that your WSL is up to date by running wsl --update . This is not part of your regular Windows update! Q: I get a Failed to create parent directory /project/.gradle error &gt; Gradle could not start your build. &gt; Could not create service of type CrossBuildFileHashCache using BuildSessionServices.createCrossBuildFileHashCache(). &gt; Failed to create parent directory '/project/.gradle' when creating directory '/project/.gradle/6.7.1/fileHashes' Answer This issue can occur in CI enviroments (such as Bamboo) that have resticted permissions in the working folder where files or directories created outside the container might not be accessible inside the container. Before starting the container, give the working directory maximum permissions for allowing access to the user inside the Docker container. chmod -R o+rwx ${bamboo.working.directory} ./dtcw generateSite Q: I get an error stating that Gradle dependencies cannot be downloaded because a proxy is restricting internet access Answer Remember that dtcw is a wrapper around Gradle. So instead of calling this: ./dtcw generateSite You could call this instead (remember to replace the values used in our example): ./dtcw generateSite -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=3128 -http.nonProxyHosts=*.nonproxyrepos.com|localhost (IP, port, etc just an example) For more information about Gradle proxy configuration, read this article . "
 },
 
 {
