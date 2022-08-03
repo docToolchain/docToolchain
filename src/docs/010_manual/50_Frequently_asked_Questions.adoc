@@ -194,7 +194,7 @@ An easy way to test your configuration is to run `xeyes` in WSL.
 Make sure that your WSL is up to date by running `wsl --update`. This is not part of your regular Windows update!
 ====
 
-=== I get a `Failed to create parent directory /project/.gradle` error
+=== Q: I get a `Failed to create parent directory /project/.gradle` error
 
 ----
 > Gradle could not start your build.
