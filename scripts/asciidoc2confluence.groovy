@@ -129,28 +129,29 @@ def parseAdmonitionBlock(block, String type) {
 def addLabels = { def pageId, def labelsArray ->
     //https://docs.atlassian.com/confluence/REST/latest/
     def api = new RESTClient(config.confluence.api)
-    //this fixes the encoding (dierk42: Is this needed here? Don't know)
+    //this fixes the encoding
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
 
     def headers = [
             'Authorization': 'Basic ' + config.confluence.credentials,
             'X-Atlassian-Token':'no-check'
     ]
-    // Attach each label in a API call of its own. The only prefix possible
-    // in our own Confluence is 'global'
+    // all labels to Confluence. Step 1: prepare the data array
+    def allLabels = []
     labelsArray.each { label ->
-        label_data = [
+        allLabels << [
             prefix : 'global',
             name : label
         ]
-        trythis {
-            // attach label to page pageId
-            // https://developer.atlassian.com/display/CONFDEV/Confluence+REST+API+Examples#ConfluenceRESTAPIExamples-Updatingapage
-            def res = api.post(contentType: ContentType.JSON,
-                              path: 'content/' + pageId + "/label", body: label_data, headers: headers)
-            }
-        println "added label " + label + " to page ID " + pageId
     }
+    // Step2: Attach labels to page
+    trythis {
+        // attach label to page pageId
+        // https://developer.atlassian.com/display/CONFDEV/Confluence+REST+API+Examples#ConfluenceRESTAPIExamples-Updatingapage
+        def res = api.post(contentType: ContentType.JSON,
+                          path: 'content/' + pageId + "/label", body: allLabels, headers: headers)
+        }
+    println "added labels " + labelsArray + " to page ID " + pageId
 }
 
 
@@ -382,6 +383,49 @@ def rewriteInternalLinks = { body, anchors, pageAnchors ->
     }
 }
 
+// dierk42 Test for using internal Confluence links in asciidoc docs
+def rewriteConfluenceLinks = { body, anchors, pageAnchors ->
+    // find arbitrary Confluence links cross-references and replace them with link macros
+    body.select('a[href]').each { a ->
+        def href = a.attr('href')
+        if (href.startsWith('confl://')) {
+            def confl_link = href.replace('confl://', '')
+            def space = ''
+            def page_title = ''
+            def page_anchor = ''
+            if (confl_link.find('::')) {
+                def splitted = confl_link.split('::')
+                space = splitted[0]
+                page_title = splitted[1]
+            }
+            else {
+                page_title = confl_link
+            }
+            // does page_title contain an anchor
+            if (page_title.find('#')) {
+                def splitted = page_title.split('#')
+                page_title = splitted[0]
+                page_anchor = splitted[1]
+            }
+            page_title = page_title.replace('+', ' ')
+// println "a.text: " + a.text()
+// println "space: " + space
+// println "page_title: " + page_title
+// println "page_anchor: " + page_anchor
+            if (page_title && a.text()) {
+                // as Confluence insists on link texts to be contained
+                // inside CDATA, we have to strip all HTML and
+                // potentially loose styling that way.
+                a.html(a.text())
+                a.wrap("<ac:link${page_anchor ? ' ac:anchor="' + page_anchor + '"' : ''}></ac:link>")
+                   .before("<ri:page ri:content-title=\"${page_title}\"${space ? 'ri:space-key="' + space + '"' : ''}/>")
+                   .wrap("<ac:plain-text-link-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-link-body>")
+                   .unwrap()
+            }
+        }
+    }
+}
+
 def rewriteJiraLinks = { body ->
     // find links to jira tickets and replace them with jira macros
     body.select('a[href]').each { a ->
@@ -520,31 +564,58 @@ def parseBody =  { body, anchors, pageAnchors ->
     // <ac:image ac:align="center" ac:width="500">
     // <ri:attachment ri:filename="deployment-context.png"/>
     // </ac:image>
-    body.select('img').each { img ->
-        img.attributes().each { attribute ->
-            //println attribute.dump()
+    // dierk42: Images are embedded in imageblocks. imageblocks irritate Confluence
+    //          Therefore: Extract image and some information from imageblock, wrap image correctly,
+    //          put it after imageblock and delete imageblock
+    //          Additional: Try to retrieve a title and placement infos to transport
+    //          this information to Confluence. Defaults are width=500 and center
+    body.select('div.imageblock').each { imageblock ->
+        // for testing purposes
+        // println "imageblock found"
+        def image_title_text = ''
+        try { 
+            image_title_text = imageblock.select('div.title').first().text()
+        } catch (Exception ex) {
+            // for testing purposes
+            println "no image title found"
         }
-        def src = img.attr('src')
-        def imgWidth = img.attr('width')?:500
-        def imgAlign = img.attr('align')?:"center"
-        println "    image: "+src
+        // for testing purposes
+        // println "Image-Title: " + image_title_text
+        if (image_title_text.length() > 0) {
+            image_title_text = "<b>" + image_title_text + "</b>"
+        }
+        // now treat the image that is contained in the imageblock as before
+        // add title if present.
+        imageblock.select('img').each { img ->
+            // for testing purposes
+            img.attributes().each { attribute ->
+                // println attribute.dump()
+            }
+            def src = img.attr('src')
+            def imgWidth = img.attr('width')?:500
+            def imgAlign = img.attr('align')?:"center"
+            def imgAltText = img.attr('alt')?:""
+            println "    image: "+src
 
-        //it is not an online image, so upload it to confluence and use the ri:attachment tag
-        if(!src.startsWith("http")) {
-          def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')+src
-          def fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")
-          newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")
+            //it is not an online image, so upload it to confluence and use the ri:attachment tag
+            if(!src.startsWith("http")) {
+              def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')+src
+              def fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")
+              newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")
 
-          trythis {
-              deferredUpload <<  [0,newUrl,fileName,"automatically uploaded"]
-          }
-          img.after("<ac:image ac:align=\"${imgAlign}\" ac:width=\"${imgWidth}\"><ri:attachment ri:filename=\"${fileName}\"/></ac:image>")
+              trythis {
+                  deferredUpload <<  [0,newUrl,fileName,"automatically uploaded"]
+              }
+              // put the image with title, alignment, border etc. after the existing imageblock
+              imageblock.after("<p style=\"text-align: center;\"><ac:image ac:border=\"true\" ac:align=\"${imgAlign}\" ac:width=\"${imgWidth}\" ac:alt=\"${imgAltText}\"><ri:attachment ri:filename=\"${fileName}\"/></ac:image><br/>${image_title_text}</p>")
+            }
+            // it is an online image, so we have to use the ri:url tag
+            else {
+              imageblock.after("<ac:image ac:align=\"${imgAlign}\" ac:width=\"${imgWidth}\"><ri:url ri:value=\"${src}\"/></ac:image>")
+            }
+            // last action: remove now obsolete imageblock
+            imageblock.remove()
         }
-        // it is an online image, so we have to use the ri:url tag
-        else {
-          img.after("<ac:image ac:align=\"imgAlign\" ac:width=\"${imgWidth}\"><ri:url ri:value=\"${src}\"/></ac:image>")
-        }
-        img.remove()
     }
 
 
@@ -582,6 +653,7 @@ def parseBody =  { body, anchors, pageAnchors ->
     rewriteMarks body
     rewriteDescriptionLists body
     rewriteInternalLinks body, anchors, pageAnchors
+    rewriteConfluenceLinks body, anchors, pageAnchors
     //sanitize code inside code tags
     rewriteCodeblocks body
     def pageString = unescapeCDATASections body.html().trim()
@@ -613,7 +685,7 @@ def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnch
     String realTitleLC = realTitle(pageTitle).toLowerCase()
 
     //this fixes the encoding
-    api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
+    api.encoderRegistry = new EncoderRegistry(charset: 'utf-8')
     if (config.confluence.proxy) {
         api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
     }
@@ -682,8 +754,8 @@ def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnch
         def remoteHash = remotePage =~ /(?ms)hash: #([^#]+)#/
         remoteHash = remoteHash.size()==0?"":remoteHash[0][1]
 
-        // println "remoteHash: " + remoteHash
-        // println "localHash:  " + localHash
+        println "remoteHash: " + remoteHash
+        println "localHash:  " + localHash
 
         if (remoteHash == localHash) {
             println "page hasn't changed!"
@@ -691,7 +763,6 @@ def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnch
                 uploadAttachment(page?.id, it[1], it[2], it[3])
             }
             deferredUpload = []
-            // #324-dierk42: Add keywords as labels to page.
             if (keywords) {
                 addLabels(page.id, keywords)
             }
@@ -706,12 +777,11 @@ def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnch
                                   requestContentType : ContentType.JSON,
                                   path: 'content/' + page.id, body: request, headers: headers)
             }
-            println "> updated page "+page.id
+            println "> updated page " + page.id
             deferredUpload.each {
                 uploadAttachment(page.id, it[1], it[2], it[3])
             }
             deferredUpload = []
-            // #324-dierk42: Add keywords as labels to page.
             if (keywords) {
                 addLabels(page.id, keywords)
             }
@@ -737,7 +807,6 @@ def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnch
             uploadAttachment(page?.data?.id, it[1], it[2], it[3])
         }
         deferredUpload = []
-        // #324-dierk42: Add keywords as labels to page.
         if (keywords) {
             addLabels(page?.data?.id, keywords)
         }
@@ -817,6 +886,7 @@ config.confluence.input.each { input ->
 //  assignend, but never used in pushToConfluence(...) (fixed here)
     confluenceSpaceKey = input.spaceKey ?: config.confluence.spaceKey
     confluenceCreateSubpages = (input.createSubpages != null) ? input.createSubpages : config.confluence.createSubpages
+println "confluenceCreateSubpages: " + confluenceCreateSubpages
 //  hard to read in case of using :sectnums: -> so we add a suffix
     confluencePagePrefix = input.pagePrefix ?: config.confluence.pagePrefix
 //  added
@@ -848,7 +918,7 @@ config.confluence.input.each { input ->
     def anchors = [:]
     def pageAnchors = [:]
     def sections = pages = []
-    // #342-dierk42: get the keywords from the meta tags
+    // get the keywords
     def keywords = []
     dom.select('meta[name=keywords]').each { kw ->
         kws = kw.attr('content').split(',')
