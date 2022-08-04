@@ -3,20 +3,20 @@ import groovy.json.JsonSlurper
 
 
 //The GlossaryHandler reads all files from a given folder path url.
-//It expects the files are JSON formatted glossary exports from EA. 
+//It expects the files are JSON formatted glossary exports from EA.
 //There is one single glossary file per EA project expected.
 //All entries not being part of the glossaryTypes list will be removed from the glossaries.
 //If the glossaryTypes list is empty, all entries will be used.
 //Each glossary is sorted by terms in alphabetical order.
-//Using the outputFormat the json formatted file is overwritten with 
+//Using the outputFormat the json formatted file is overwritten with
 //the sorted and filtered list to be included in asciidoc files.
 //An additional file is written to the folder containing the entries of all
-//single glossaries in an alphabetical sorted order. 
+//single glossaries in an alphabetical sorted order.
 //This global glossary is stored as glossary.ad.
-class GlossaryHandler 
+class GlossaryHandler
 {
     private List<List<Object>> globalGlossaryList = []
-    
+
     //Collect all files inside the glossary folder (jsonFilePath)
     //Each file is processed individually,
     //finally a merged glossary of all single glossaries is written
@@ -29,9 +29,9 @@ class GlossaryHandler
                 reformatJsonFile(glossaryFile, outputFormat, glossaryTypes)
                 count = count+1
             }
-        }  
+        }
         if (!globalGlossaryList.isEmpty()) {
-            if (count == 1) { 
+            if (count == 1) {
                 //use the already sorted and stored file, but rename it
                 new File(glossaryFile).renameTo(new File(jsonFilePath+"/glossary.ad"))
             }
@@ -39,13 +39,13 @@ class GlossaryHandler
                 //sort and store the global glossary (summary of all single glossaries)
                 sortAndWriteToFile(jsonFilePath+"/glossary.ad", globalGlossaryList, outputFormat)
             }
-        }        
+        }
     }
-    
+
     //Reads the json file if available, other terminates silently.
-    //the glossary list read is filtered by the glossaryTypes list and 
+    //the glossary list read is filtered by the glossaryTypes list and
     //sorted by term in alphabetical order.
-    //The resulting glossary list is handed over to a 
+    //The resulting glossary list is handed over to a
     //file handler to be sorted and written to file system
     void reformatJsonFile(jsonFilePath, outputFormat, glossaryTypes) {
         if (new File(jsonFilePath).isFile()) {
@@ -58,17 +58,17 @@ class GlossaryHandler
             sortAndWriteToFile(jsonFilePath, glossaryList, outputFormat)
         }
     }
-    
+
     //Sorts the given glossaryList in alphabetical order and calls the output formatter
     //to create the new output format and write the file.
     void sortAndWriteToFile(jsonFilePath, glossaryList, outputFormat) {
         glossaryList.sort{a, b -> a['term'].compareTo(b['term'])}
         writeFormattedGlossaryToFile(jsonFilePath, glossaryList, outputFormat)
     }
-    
+
     //Filehandler to write a glossary list to a new file.
     //An output format is used to format each glossary entry in a certain output format.
-    //Following placeholder are defined: ID, TERM, MEANING, TYPE. One or many of these placeholder can 
+    //Following placeholder are defined: ID, TERM, MEANING, TYPE. One or many of these placeholder can
     //be used by the output format. A valid output format: "TERM:: MEANING" to include the glossary
     //as a flat list. Other formats can be used to include it as a table row.
     void writeFormattedGlossaryToFile(jsonFilePath, glossaryList, outputFormat) {
@@ -185,7 +185,7 @@ use `gradle exportEA` to re-export files
         scriptParameterString = scriptParameterString + " -d \"$exportPath\""
         scriptParameterString = scriptParameterString + " -s \"$searchPath\""
         logger.info("docToolchain > exportEA: exportPath: "+exportPath)
-        
+
         //remove old glossary files/folder if exist
         new File(exportPath , 'glossary').deleteDir()
         //set the glossary file path in case an output format is configured, other no glossary is written
@@ -198,6 +198,10 @@ use `gradle exportEA` to re-export files
         //configure additional diagram attributes to be exported
         if (!config.exportEA.diagramAttributes.isEmpty()) {
             scriptParameterString = scriptParameterString + " -da \"$config.exportEA.diagramAttributes\""
+        }
+        //configure additional diagram attributes to be exported
+        if (!config.exportEA.additionalOptions.isEmpty()) {
+            scriptParameterString = scriptParameterString + " -ao \"$config.exportEA.additionalOptions\""
         }
         //make sure path for notes exists
         //and remove old notes
@@ -212,6 +216,7 @@ use `gradle exportEA` to re-export files
         new File(exportPath , 'ea/readme.ad').write(readme)
 
         //execute through cscript in order to make sure that we get WScript.echo right
+        logger.info("docToolchain > exportEA: parameters: " + scriptParameterString)
         "%SystemRoot%\\System32\\cscript.exe //nologo ${projectDir}/scripts/exportEAP.vbs ${scriptParameterString}".executeCmd()
         //the VB Script is only capable of writing iso-8859-1-Files.
         //we now have to convert them to UTF-8
@@ -221,7 +226,7 @@ use `gradle exportEA` to re-export files
                 file.write(file.getText('iso-8859-1'), 'utf-8')
             }
         }
-        
+
         //sort, filter and reformat a glossary if an output format is configured
         if (!config.exportEA.glossaryAsciiDocFormat.isEmpty()) {
             def glossaryTypes

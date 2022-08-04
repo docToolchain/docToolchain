@@ -26,9 +26,5 @@ If you didn't find the time to update docs, please create an issue as reminder t
 * [ ] Have you written new tests for your core changes, as applicable?
 * [ ] Have you successfully ran tests with your changes locally?
 
-### Change to Documentation:
-
-* [ ] Did you build the docs and copy them to the `/docs` folder?
-* [ ] If not, did you create an issue for doing so?
 
 inspiration: https://github.com/stevemao/github-issue-templates
