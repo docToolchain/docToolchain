@@ -8,13 +8,13 @@ $dockerVersion = "2.0.5"
 $distribution_url = "https://github.com/docToolchain/docToolchain/releases/download/v$version/docToolchain-$version.zip"
 $env:DTCW_PROJECT_BRANCH = (git branch --show-current)
 
-$dtc_opts="$env:dtc_opts -PmainConfigFile='$main_config_file' --warning-mode=none --no-daemon"
-
 # https://docs.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables
 $home_path = $env:USERPROFILE
 $folder_name = ".doctoolchain"
 $dtcw_path = "$home_path\$folder_name"
 $doJavaCheck = $True
+
+$dtc_opts="$env:dtc_opts -PmainConfigFile='$main_config_file' --warning-mode=none --no-daemon '--gradle-user-home=$dtcw_path\.gradle'"
 
 function checkJava()
 {
