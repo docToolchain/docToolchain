@@ -164,6 +164,8 @@ to configure a different parent page for each file.
 The following four keys can also be used in the global section below
 
 - `spaceKey` (optional): page specific variable for the key of the confluence space to write to
+- 'allInOnePage' (optional): page specific variable to determine whether documentation is written to just one
+                             Confluence page or separate ones per chapter (default)
 - `createSubpages` (optional): page specific variable to determine whether ".sect2" sections shall be split from the current page into subpages
 - `pagePrefix` (optional): page specific variable, the pagePrefix will be a prefix for the page title and it's sub-pages
                            use this if you only have access to one confluence space but need to store several
@@ -194,6 +196,10 @@ confluence.with {
 
     // the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
     preambleTitle = ''
+
+    // variable to determine whether the whole document should be uploaded as just one page or split into separate
+    // pages per chapter
+    allInOnePage = false
 
     // variable to determine whether ".sect2" sections shall be split from the current page into subpages
     createSubpages = false
