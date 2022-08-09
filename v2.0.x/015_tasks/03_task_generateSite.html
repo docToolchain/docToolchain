@@ -695,6 +695,42 @@ Feel free to remove these draft renderings before you publish your microsite.</p
 </ul>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_configuring_the_jbake_plugin">Configuring the JBake plugin</h4>
+<div class="paragraph">
+<p>Behind the scene the <code>generateSite</code> task is relying on Jbake.</p>
+</div>
+<div class="paragraph">
+<p>In the <code>docToolchainConfig.groovy</code> it is possible to amend the configuration of the jbake gradle plugin:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Add additional asciidoctorj plugins (add dependencies to the <code>jbake</code> configuration)</p>
+</li>
+<li>
+<p>Add additional asciidoctor attributes</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">jbake configuration</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">//customization of the Jbake gradle plugin used by the generateSite task
+jbake.with {
+    // possibility to configure additional asciidoctorj plugins used by jbake
+    plugins = [ ]
+
+    // possibiltiy to configure additional asciidoctor attributes passed to the jbake task
+    asciidoctorAttributes = [ ]
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The plugins are retrieved from a repository (by default maven-central) configured with project property <code>depsMavenRepository</code>.
+When a repository requiring credentials is used the properties <code>depsMavenUsername</code> and <code>depsMavenPassword</code> can be set as well.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_templates_and_style">Templates and Style</h3>
@@ -798,9 +834,21 @@ buildscript {
         classpath 'org.asciidoctor:asciidoctorj-diagram:2.0.2'
     }
 }
+repositories {
+    maven {
+        credentials {
+            username depsMavenUsername
+            password depsMavenPassword
+        }
+        url depsMavenRepository
+    }
+}
 dependencies {
     jbake 'org.asciidoctor:asciidoctorj-diagram:2.0.2'
     jbake 'io.pebbletemplates:pebble:3.1.2'
+    config.jbake.plugins.each { plugin -&gt;
+        jbake plugin
+    }
 }
 
 apply plugin: 'org.jbake.site'
@@ -831,6 +879,11 @@ jbake {
         "docDir=${docDir}",
         "projectRootDir=${new File(docDir).canonicalPath}@",
     ]
+    if(config.jbake.asciidoctorAttributes) {
+        config.jbake.asciidoctorAttributes.each { entry -&gt;
+            configuration['asciidoctor.attributes'] &lt;&lt; entry
+        }
+    }
 
 }
 bakePreview {
