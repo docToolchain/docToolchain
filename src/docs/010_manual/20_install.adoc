@@ -78,7 +78,37 @@ NOTE: if you use cmd.exe, follow the PowerShell instructions but replace `.ps1` 
 
 IMPORTANT: `dtcw` uses bash as shell and thus tries to find java from within bash. Chances are that when you use `dtcw` from another shell like zsh, you shell knows about the right java version but your bash doesn't. In that case, please switch to bash and make sure that the right java version is known. Afterwards, you can switch back to your shell.
 
+== Configure the Wrapper
 
+There is no need to configure the wrapper itself if you have just downloaded it.
+But from time to time you should check github to see if there are https://github.com/docToolchain/docToolchain/releases[new releases] you want to use.
+
+In this case, open dtcw in your favourite editor and look for the `VERSION`-line at the start of the file:
+
+[source, bash]
+----
+# find official release versions on github:
+# https://github.com/docToolchain/docToolchain/releases
+# set VERSION to "latest" to get the unreleased latest version
+VERSION=2.0.5
+----
+
+Update it to match the latest release and and everything will be updated with the next run.
+
+NOTE: this will not update the wrapper (dtcw) itself.
+If you think you should update the wrapper, please re-install it.
+
+There are some situation where you want to test a not-yet-released feature.
+In such a case, you can set the `VERSION` to `latest` and `dtcw` will `clone` or `pull` the current default branch of the project.
+
+This only works with a local copy, not with a docker install. 
+
+You can also use `latestdev` as version.
+In this case, `dtcw` will try to clone the repository with the ssh-git protocoll.
+This way, you can easily point it to your fork and develop new features for docToolchain.
+You will find the fork in `$HOME/.doctoolchain/docToolchain-latest`.
+
+NOTE: `latest` and `latestdev` currently only work with the bash version of the wrapper.
 
 == Running your First Command
 
