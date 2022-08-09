@@ -15,9 +15,21 @@ buildscript {
         classpath 'org.asciidoctor:asciidoctorj-diagram:2.0.2'
     }
 }
+repositories {
+    maven {
+        credentials {
+            username depsMavenUsername
+            password depsMavenPassword
+        }
+        url depsMavenRepository
+    }
+}
 dependencies {
     jbake 'org.asciidoctor:asciidoctorj-diagram:2.0.2'
     jbake 'io.pebbletemplates:pebble:3.1.2'
+    config.jbake.plugins.each { plugin ->
+        jbake plugin
+    }
 }
 
 apply plugin: 'org.jbake.site'
@@ -48,6 +60,11 @@ jbake {
         "docDir=${docDir}",
         "projectRootDir=${new File(docDir).canonicalPath}@",
     ]
+    if(config.jbake.asciidoctorAttributes) {
+        config.jbake.asciidoctorAttributes.each { entry ->
+            configuration['asciidoctor.attributes'] << entry
+        }
+    }
 
 }
 bakePreview {

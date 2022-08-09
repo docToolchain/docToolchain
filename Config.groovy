@@ -25,6 +25,18 @@ taskInputsFiles = []
 
 //*****************************************************************************************
 
+//tag::jbakeConfig[]
+
+//customization of the Jbake gradle plugin used by the generateSite task
+jbake.with {
+    // possibility to configure additional asciidoctorj plugins used by jbake
+    plugins = [ ]
+
+    // possibiltiy to configure additional asciidoctor attributes passed to the jbake task
+    asciidoctorAttributes = [ ]
+}
+//end::jbakeConfig[]
+
 //Configuration for exportChangelog
 
 exportChangelog = [:]

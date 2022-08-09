@@ -194,6 +194,24 @@ In the column on the right, links are driven by the values defined in `docToolch
 * "Improve this doc": displayed when `gitRepoUrl` is set.
 * "Create an issue": displayed when `issueUrl` is set.
 
+=== Configuring the JBake plugin
+
+Behind the scene the `generateSite` task is relying on Jbake.
+
+In the `docToolchainConfig.groovy` it is possible to amend the configuration of the jbake gradle plugin:
+
+* Add additional asciidoctorj plugins (add dependencies to the `jbake` configuration)
+* Add additional asciidoctor attributes
+
+[source,groovy]
+.jbake configuration
+----
+include::{projectRootDir}/Config.groovy[tags=jbakeConfig]
+----
+
+The plugins are retrieved from a repository (by default maven-central) configured with project property `depsMavenRepository`.
+When a repository requiring credentials is used the properties `depsMavenUsername` and `depsMavenPassword` can be set as well.
+
 == Templates and Style
 
 The jBake templates and CSS are hidden for convenience.
