@@ -9,8 +9,12 @@
 #...
 
 MAIN_CONFIG_FILE=docToolchainConfig.groovy
+
+# find official release versions on github:
+# https://github.com/docToolchain/docToolchain/releases
+# set VERSION to "latest" to get the unreleased latest version
 VERSION=2.0.5
-VERSION=latest
+
 DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/releases/download/v${VERSION}/docToolchain-${VERSION}.zip
 export DTC_PROJECT_BRANCH=$(git branch --show-current)
 
@@ -31,7 +35,7 @@ if ! $DTC_HEADLESS ; then
   DTC_OPTS="$DTC_OPTS '-Dgradle.user.home=$HOME/.doctoolchain/.gradle'"
 fi
 
-echo "dtcw - docToolchain wrapper V0.31"
+echo "dtcw - docToolchain wrapper V0.32"
 echo "docToolchain V${VERSION}"
 
 # check if CLI, docker or sdkman are installed
