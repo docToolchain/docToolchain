@@ -1,0 +1,39 @@
+//tag::customTasks[]
+
+config.customTasks?.each { task ->
+    println "include custom task $task"
+    apply from: docDir+'/'+task
+}
+
+task createTask(
+        description: 'create a new Task as quick start',
+        group: 'docToolchain'
+) {
+    doLast {
+        def file = new File(docDir+'/scripts/customTask.gradle')
+        new File(docDir+"/scripts").mkdirs()
+        file.write("""\
+task customTask (
+        description: 'a custom task',
+        group: 'docToolchain'
+) {
+    doLast {
+        println "your own custom task"
+    }
+}
+""")
+        def config = new File(docDir+'/'+mainConfigFile)
+        config.write(config.text.replaceAll(
+            "/[*][*] customTasks [*][*]/",
+            "'scripts/customTask.gradle',\n\t\t/** customTasks **/"
+        ))
+        println """
+custom task
+${file.canonicalPath}
+created and configured
+"""
+    }
+}
+
+//end::customTasks[]
+
