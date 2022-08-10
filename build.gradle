@@ -80,6 +80,7 @@ apply from: 'scripts/downloadTemplate.gradle'
 apply from: 'scripts/generateSite.gradle'
 apply from: 'scripts/copyThemes.gradle'
 apply from: 'scripts/fixGlobalReferences.gradle'
+apply from: 'scripts/customTasks.gradle'
 
 task autobuildSite(
     group: 'docToolchain',
