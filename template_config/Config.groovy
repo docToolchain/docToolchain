@@ -35,6 +35,15 @@ taskInputsFiles = []
 
 //*****************************************************************************************
 
+// Configuration for customTasks
+// create a new Task with ./dtcw createTask
+customTasks = [
+    /** customTasks **/
+]
+
+
+//*****************************************************************************************
+
 //Configuration for microsite: generateSite + previewSite
 
 microsite = [:]
