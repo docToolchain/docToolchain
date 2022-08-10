@@ -332,3 +332,21 @@ sprintChangelog.with {
     allSprintsFilename = 'Sprints_Changelogs' // Extension will be automatically added.
 }
 //end::sprintChangelogConfig[]
+
+
+//tag::collectIncludesConfig[]
+collectIncludes = [:]
+
+collectIncludes.with {
+
+//    fileFilter = "adoc" // define which files are considered. default: "ad|adoc|asciidoc"
+
+//    minPrefixLength = "3" // define what minimum length the prefix. default: "3"
+
+//    maxPrefixLength = "3" // define what maximum length the prefix. default: ""
+
+//    separatorChar = "_" // define the allowed separators after prefix. default: "-_"
+
+//    cleanOutputFolder = true // should the output folder be emptied before generation? defailt: false
+}
+//end::collectIncludesConfig[]

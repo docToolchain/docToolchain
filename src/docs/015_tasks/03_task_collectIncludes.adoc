@@ -23,7 +23,14 @@ This task will handle it for you!
 
 Just stick to this file-naming pattern `^[A-Z]{3,}[-\_].\*` (begin with at least three uppercase letters and a dash/underscore) and this task will collect the file and write it to your build folder.
 You only have to include this generated file from within your documentation.
-If you provide templates for the documents, those templates are skipped if the name matches the pattern `^.\*[-\_][tT]emplate[-\_].*`.
+If you provide templates for the documents, those templates are skipped if the name matches the pattern `^.\*[-\_][tT]emplate
+[-\_].*`.
+
+== The Optional Parameter Configurations
+
+You can configure which files are found by the script be setting the paramters in the Config.groovy file.
+
+include::{projectRootDir}/template_config/Config.groovy[tags=collectIncludesConfig]
 
 == Example
 

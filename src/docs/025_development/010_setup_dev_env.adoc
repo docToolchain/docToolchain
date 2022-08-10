@@ -11,7 +11,7 @@ When you install docToolchain, all of the code is hidden. The information on thi
 
 You need a local installation of docToolchain for development. Docker and SDKMAN! are derived from it. Docker simply contains a local install, and SDKMAN! installs docToolchain locally, but the location is controlled by SDKMAN! not docToolchain.
 
-The docToolchain-Wrapper installs docToolchain locally to `$HOME/.doctoolchain/docToolchain-${VERSION}/`. All task invokations through the docToolchain-Wrapper `dtcw` are redirected to `$HOME/.doctoolchain/docToolchain-${VERSION}/bin/doctoolchain`. This shell script calls the Gradle-Wrapper for most tasks.
+The docToolchain-Wrapper installs docToolchain locally to `$HOME/.doctoolchain/docToolchain-${VERSION}/`. All task invocations through the docToolchain-Wrapper `dtcw` are redirected to `$HOME/.doctoolchain/docToolchain-${VERSION}/bin/doctoolchain`. This shell script calls the Gradle-Wrapper for most tasks.
 
 What you need to do is:
 
