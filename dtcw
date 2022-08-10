@@ -219,14 +219,14 @@ if [ "$VERSION" == "latest" ] || [ "$VERSION" == "latestdev" ] ; then
     mkdir -p $HOME/.doctoolchain/docToolchain-latest
     # check if we have to clone or just pull
     if [ -d "$HOME/.doctoolchain/docToolchain-${VERSION}/." ]; then
-      cd $HOME/.doctoolchain/docToolchain-latest
+      cd $HOME/.doctoolchain/docToolchain-$VERSION
       git pull
       cd -
     else
       if [ "$VERSION" == "latest" ] ; then
-        git clone https://github.com/docToolchain/docToolchain.git $HOME/.doctoolchain/docToolchain-latest
+        git clone https://github.com/docToolchain/docToolchain.git $HOME/.doctoolchain/docToolchain-$VERSION
       else
-        git clone git@github.com:docToolchain/docToolchain.git $HOME/.doctoolchain/docToolchain-latest
+        git clone git@github.com:docToolchain/docToolchain.git $HOME/.doctoolchain/docToolchain-$VERSION
       fi
     fi
     homefolder=true
