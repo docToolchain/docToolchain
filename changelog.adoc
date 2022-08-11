@@ -14,7 +14,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/issues/851[#851 fix duplicate TOC marker]
 * https://github.com/docToolchain/docToolchain/issues/853[#853 Hide site links when not configured]
 * https://github.com/docToolchain/docToolchain/issues/873[#873 generateSite: Fix index page location]
-
+* https://github.com/docToolchain/docToolchain/issues/899[#899 dtcw local <any-task> (bash) executes :help instead of <any-task>]
 
 === added
 * https://github.com/docToolchain/docToolchain/issue/692[#692 generateSite: navigation tree instead of a list on the left]

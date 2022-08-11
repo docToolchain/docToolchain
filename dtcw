@@ -25,7 +25,7 @@ export DTC_HEADLESS
 
 DTC_OPTS="$DTC_OPTS -PmainConfigFile=$MAIN_CONFIG_FILE --warning-mode=none --no-daemon "
 
-if !$DTC_HEADLESS ; then
+if ! $DTC_HEADLESS ; then
   # important for the docker file to find dependencies
   DTC_OPTS="$DTC_OPTS '-Dgradle.user.home=$HOME/.doctoolchain/.gradle'"
 fi
@@ -171,8 +171,6 @@ install_local() {
       fi
     fi
     unzip $HOME/.doctoolchain/source.zip -d $HOME/.doctoolchain/.
-    command="$HOME/.doctoolchain/docToolchain-${VERSION}/bin/doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS"
-
 }
 
 if command -v doctoolchain &> /dev/null; then
@@ -324,6 +322,7 @@ else
                     esac
                   done
              fi
+		     command="$HOME/.doctoolchain/docToolchain-${VERSION}/bin/doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS"
          fi
        fi
     fi
