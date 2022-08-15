@@ -186,8 +186,6 @@ install_local() {
     mkdir $HOME/.doctoolchain
     download $DISTRIBUTION_URL $HOME/.doctoolchain/source.zip
     unzip $HOME/.doctoolchain/source.zip -d $HOME/.doctoolchain/.
-    command="$HOME/.doctoolchain/docToolchain-${VERSION}/bin/doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS"
-
 }
 
 if command -v doctoolchain &> /dev/null; then
@@ -366,6 +364,7 @@ else
                     esac
                   done
              fi
+		     command="$HOME/.doctoolchain/docToolchain-${VERSION}/bin/doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS"
          fi
        fi
     fi
