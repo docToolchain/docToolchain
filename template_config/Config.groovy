@@ -38,7 +38,7 @@ taskInputsFiles = []
 // Configuration for customTasks
 // create a new Task with ./dtcw createTask
 customTasks = [
-    /** customTasks **/
+/** customTasks **/
 ]
 
 
@@ -114,6 +114,40 @@ microsite.with {
     // set a title to '-' in order to remove this menu entry.
     menu = [:]
 
+/**
+tag::additionalConverters[]
+
+if you need support for additional markup converters, you can configure them here
+you have three different types of script you can define:
+
+- groovy: just groovy code as string
+- groovyFile: path to a groovy script
+- bash: a bash command. It will receive the name of the file to be converted as first argument
+
+`groovy` and `groovyFile` will have access to the file and config object
+
+`dtcw:rstToHtml.py` is an internal script to convert restructuredText.
+Needs `python3` and `docutils` installed.
+
+end::additionalConverters[]
+**/
+    additionalConverters = [
+        //'.one': [command: 'println "test"+file.canonicalPath', type: 'groovy'],
+        //'.two': [command: 'scripts/convert-md.groovy', type: 'groovyFile'],
+        //'.rst': [command: 'dtcw:rstToHtml.py', type: 'bash'],
+    ]
+    // if you prefere another convention regarding the automatic generation
+    // of jBake headers, you can configure a script to modify them here
+    // the script has access to
+    // - file: the current object
+    // - config: the config object (this file, but parsed)
+    // - headers: already parsed headers to be modified
+    /**
+    customConvention = """
+        System.out.println file.canonicalPath
+        headers.title += " - from CustomConvention"
+    """.stripIndent()
+    **/
 }
 
 //*****************************************************************************************
