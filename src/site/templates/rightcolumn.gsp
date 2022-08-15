@@ -1,10 +1,10 @@
 <%
     //let's build some urls.
     //what's the correct source file name with path?
-    def sourceFileName = content?.uri?.replaceAll("[.]"+content.outfilesuffix[1..-1],content.docfilesuffix)
+    def sourceFileName = content?.uri?.replaceAll("[.]html", (content.file =~ /[.][^.]+$/)[0])
     def subject = java.net.URLEncoder.encode("Docs: Feedback for '${content?.title}'", "UTF-8")
 %>
-<% if (config.site_gitRepoUrl) {%>
+<% if (config.site_gitRepoUrl) { %>
         <a href="${config.site_gitRepoUrl}/${sourceFileName}"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 <% } %>
@@ -14,4 +14,6 @@
 <% } %>
         ${content?.rightcolumnhtml?.replaceAll("&lt;","<")?.replaceAll("&gt;",">")?:''}
         <hr />
+<% if (content?.body.contains('<!-- endtoc -->')) { %>
         ${content?.body?.split("(?ms)<!-- endtoc -->",2)[0]}
+<% } %>
