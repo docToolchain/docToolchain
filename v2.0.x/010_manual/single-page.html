@@ -2081,274 +2081,416 @@ gretty {
 }
 
 
-task generateSite(
-    group: 'docToolchain',
-    description: 'generate a microsite using jBake.') {
-    doLast {
-        new File("${targetDir}/microsite/tmp").mkdirs()
-        println "created"
-        println new File("${targetDir}/microsite/tmp/").canonicalPath
-        //copy internal theme
-        println "copy internal theme ${new File(projectDir, 'src/site').canonicalPath}"
-        copy {
-            from('src/site')
-            into("${targetDir}/microsite/tmp/site")
-        }
-        //check if a remote pdfTheme is defined
-        def siteTheme = System.getenv('DTC_SITETHEME')?:""
-        def themeFolder = new File(projectDir, "../themes/" + siteTheme.md5())
-        try {
-            if (siteTheme) {
-                println "use siteTheme $siteTheme"
-                //check if it is already installed
-                if (!themeFolder.exists()) {
-                    if (System.getenv('DTC_HEADLESS')) {
-                        ant.yesno = "y"
-                    } else {
-                        println "${color 'green', """\nTheme '$siteTheme' is not installed yet. """}"
-                        def input = ant.input(message: """
+def prepareAndCopyTheme = {
+    //copy internal theme
+    println "copy internal theme ${new File(projectDir, 'src/site').canonicalPath}"
+    copy {
+        from('src/site')
+        into("${targetDir}/microsite/tmp/site")
+    }
+    //check if a remote pdfTheme is defined
+    def siteTheme = System.getenv('DTC_SITETHEME')?:""
+    def themeFolder = new File(projectDir, "../themes/" + siteTheme.md5())
+    try {
+        if (siteTheme) {
+            println "use siteTheme $siteTheme"
+            //check if it is already installed
+            if (!themeFolder.exists()) {
+                if (System.getenv('DTC_HEADLESS')) {
+                    ant.yesno = "y"
+                } else {
+                    println "${color 'green', """\nTheme '$siteTheme' is not installed yet. """}"
+                    def input = ant.input(message: """
 ${color 'green', 'do you want me to download and install it to '}
 ${color 'green', '   ' + themeFolder.canonicalPath}
 ${color 'green', 'for you?'}\n""",
-                            validargs: 'y,n', addproperty: 'yesno')
-                    }
-                    if (ant.yesno == "y") {
-                        themeFolder.mkdirs()
-                        download.run {
-                            src siteTheme
-                            dest new File(themeFolder, 'siteTheme.zip')
-                            overwrite true
-                        }
-                        copy {
-                            from zipTree(new File(themeFolder, 'siteTheme.zip'))
-                            into themeFolder
-                        }
-                        delete {
-                            delete new File(themeFolder, 'siteTheme.zip')
-                        }
-
-                    } else {
-                        println "${color 'green', """\nI will continue without the theme for now... """}"
-                        siteTheme = ""
-                    }
-
+                        validargs: 'y,n', addproperty: 'yesno')
                 }
-                 //copy external theme
-                if (siteTheme) {
-                    copy {
-                        from(themeFolder) {}
-                        into("${targetDir}/microsite/tmp/")
+                if (ant.yesno == "y") {
+                    themeFolder.mkdirs()
+                    download.run {
+                        src siteTheme
+                        dest new File(themeFolder, 'siteTheme.zip')
+                        overwrite true
                     }
-                    //check if the config has to be updated
-                    // check if config still contains /** microsite **/
-                    def configFile = new File(docDir, mainConfigFile)
-                    def configFileText = configFile.text
-                    if (configFileText.contains("/** start:microsite **/")) {
-                        def configFragment = new File(targetDir,'/microsite/tmp/site/configFragment.groovy')
-                        if (configFragment.exists()) {
-                            println "${color 'green', """
+                    copy {
+                        from zipTree(new File(themeFolder, 'siteTheme.zip'))
+                        into themeFolder
+                    }
+                    delete {
+                        delete new File(themeFolder, 'siteTheme.zip')
+                    }
+
+                } else {
+                    println "${color 'green', """\nI will continue without the theme for now... """}"
+                    siteTheme = ""
+                }
+
+            }
+            //copy external theme
+            if (siteTheme) {
+                copy {
+                    from(themeFolder) {}
+                    into("${targetDir}/microsite/tmp/")
+                }
+                //check if the config has to be updated
+                // check if config still contains /** microsite **/
+                def configFile = new File(docDir, mainConfigFile)
+                def configFileText = configFile.text
+                if (configFileText.contains("/** start:microsite **/")) {
+                    def configFragment = new File(targetDir,'/microsite/tmp/site/configFragment.groovy')
+                    if (configFragment.exists()) {
+                        println "${color 'green', """
     It seems that this theme is used for the first time in this project.
     Let's configure it!
     If you are unsure, change these settings later in your config file
     $configFile.canonicalPath
     """}"
-                            def comment = ""
-                            def conf = ""
-                            def example = ""
-                            def i = 0
-                            configFragment.eachLine { line -&gt;
-                                if (line.trim()) {
-                                    if (line.startsWith("//")) {
-                                        conf += "    " + line + "\n"
-                                        def tmp = line[2..-1].trim()
-                                        comment += color('green', tmp) + "\n"
-                                        if (tmp.toLowerCase().startsWith("example")) {
-                                            example = tmp.replaceAll("[^ ]* ", "")
-                                        }
-                                    } else {
-                                        //only prompt if there is something to prompt
-                                        if (line.contains("##")) {
-                                            def property = line.replaceAll("[ =].*", "")
-                                            if (!example) {
-                                                example = config.microsite[property]
-                                            }
-                                            comment = color('blue', "$property") + "\n" + comment
-                                            if (example) {
-                                                ant.input(message: comment,
-                                                    addproperty: 'res' + i, defaultvalue: example)
-                                            } else {
-                                                ant.input(message: comment,
-                                                    addproperty: 'res' + i)
-                                            }
-                                            (comment, example) = ["", ""]
-                                            line = line.replaceAll("##.+##", ant['res' + i])
-                                            conf += "    " + line + "\n"
-                                            i++
-                                        } else {
-                                            conf += "    " + line + "\n"
-                                        }
+                        def comment = ""
+                        def conf = ""
+                        def example = ""
+                        def i = 0
+                        configFragment.eachLine { line -&gt;
+                            if (line.trim()) {
+                                if (line.startsWith("//")) {
+                                    conf += "    " + line + "\n"
+                                    def tmp = line[2..-1].trim()
+                                    comment += color('green', tmp) + "\n"
+                                    if (tmp.toLowerCase().startsWith("example")) {
+                                        example = tmp.replaceAll("[^ ]* ", "")
                                     }
                                 } else {
-                                    conf += "\n"
+                                    //only prompt if there is something to prompt
+                                    if (line.contains("##")) {
+                                        def property = line.replaceAll("[ =].*", "")
+                                        if (!example) {
+                                            example = config.microsite[property]
+                                        }
+                                        comment = color('blue', "$property") + "\n" + comment
+                                        if (example) {
+                                            ant.input(message: comment,
+                                                addproperty: 'res' + i, defaultvalue: example)
+                                        } else {
+                                            ant.input(message: comment,
+                                                addproperty: 'res' + i)
+                                        }
+                                        (comment, example) = ["", ""]
+                                        line = line.replaceAll("##.+##", ant['res' + i])
+                                        conf += "    " + line + "\n"
+                                        i++
+                                    } else {
+                                        conf += "    " + line + "\n"
+                                    }
                                 }
+                            } else {
+                                conf += "\n"
                             }
-                            configFile.write(configFileText.replaceAll("(?sm)/[*][*] start:microsite [*][*]/.*/[*][*] end:microsite [*][*]/", "%%marker%%").replace("%%marker%%", conf))
-                            println color('green', "config written\ntry\n ./dtcw generateSite previewSite\nto see your microsite!")
                         }
-                        //copy the dummy docs (blog, landing page) to the project repository
-                        copy {
-                            from(new File(themeFolder, 'site/doc')) {}
-                            into(new File(docDir, inputPath))
-                        }
+                        configFile.write(configFileText.replaceAll("(?sm)/[*][*] start:microsite [*][*]/.*/[*][*] end:microsite [*][*]/", "%%marker%%").replace("%%marker%%", conf))
+                        println color('green', "config written\ntry\n ./dtcw generateSite previewSite\nto see your microsite!")
+                    }
+                    //copy the dummy docs (blog, landing page) to the project repository
+                    copy {
+                        from(new File(themeFolder, 'site/doc')) {}
+                        into(new File(docDir, inputPath))
                     }
                 }
             }
-        } catch (Exception e) {
-            println color('red', e.message)
-            if (e.message.startsWith("Not Found")) {
-                themeFolder.deleteDir()
-                throw new GradleException("Couldn't find theme. Did you specify the right URL?\n"+e.message)
+        }
+    } catch (Exception e) {
+        println color('red', e.message)
+        if (e.message.startsWith("Not Found")) {
+            themeFolder.deleteDir()
+            throw new GradleException("Couldn't find theme. Did you specify the right URL?\n"+e.message)
+        } else {
+            throw new GradleException(e.message)
+        }
+    }
+    //copy project theme
+    if (config.microsite.siteFolder) {
+        def projectTheme = new File(new File(docDir, inputPath), config.microsite.siteFolder)
+        println "copy project theme ${projectTheme.canonicalPath}"
+        copy {
+            from(projectTheme) {}
+            into("${targetDir}/microsite/tmp/site")
+        }
+    }
+
+}
+
+def convertAdditionalFormats = {
+    if (config.microsite.additionalConverters) {
+        File sourceFolder = new File(targetDir, '/microsite/tmp/site/doc')
+        sourceFolder.traverse(type: FILES) { file -&gt;
+            def extension = '.' + file.name.split("[.]")[-1]
+            if (config.microsite.additionalConverters[extension]) {
+                def command = config.microsite.additionalConverters[extension].command
+                def type = config.microsite.additionalConverters[extension].type
+                def binding = new Binding([
+                    file  : file,
+                    config: config
+                ])
+                def shell = new GroovyShell(getClass().getClassLoader(), binding)
+                switch (type) {
+                    case 'groovy':
+                        shell.evaluate(command)
+                        break
+                    case 'groovyFile':
+                        shell.evaluate(new File(docDir, command).text)
+                        break
+                    case 'bash':
+                        if (command=='dtcw:rstToHtml.py') {
+                            // this is an internal script
+                            command = projectDir.canonicalPath+'/scripts/rstToHtml.py'
+                        }
+                        command = ['bash', '-c', command + ' ' + file]
+                        def process = command.execute([], new File(docDir))
+                        process.waitFor()
+                        if (process.exitValue()) {
+                            def error = process.err.text
+                            throw new Exception("""
+can't convert '${file.canonicalPath-docDir-'/build/microsite/tmp/site/doc'}':
+${error}
+""")
+                        }
+                }
+            }
+        }
+    }
+
+}
+
+def parseAsciiDocAttribs = { beforeToc, origText, jbake -&gt;
+    def parseAttribs = true
+    def text = ""
+    origText.eachLine { line -&gt;
+        if (parseAttribs &amp;&amp; line.startsWith(":jbake")) {
+            line = (line - ":jbake-").split(": +", 2)
+            jbake[line[0]] = line[1]
+        } else {
+            if (line.startsWith("[")) {
+                // stop parsing jBake-attribs when a [source] - block starts which might contain those attribs as example
+                parseAttribs = false
+            }
+            text += line+"\n"
+            //there are some attributes which have to be set before the toc
+            if (line.startsWith(":toc") ) {
+                beforeToc += line+"\n"
+            }
+        }
+    }
+    return text
+}
+
+def parseOtherAttribs = { origText, jbake -&gt;
+    if (origText.contains('~~~~~~')) {
+        def parseAttribs = true
+        def text = ""
+        origText.eachLine { line -&gt;
+            if (parseAttribs &amp;&amp; line.contains("=")) {
+                line = (line - "jbake-").split("=", 2)
+                jbake[line[0]] = line[1]
             } else {
-                throw new GradleException(e.message)
+                if (line.startsWith("~~~~~~")) {
+                    // stop parsing jBake-attribs when delimiter shows up
+                    parseAttribs = false
+                } else {
+                    text += line + "\n"
+                }
             }
         }
-        //copy project theme
-        if (config.microsite.siteFolder) {
-            def projectTheme = new File(new File(docDir, inputPath), config.microsite.siteFolder)
-            println "copy project theme ${projectTheme.canonicalPath}"
-            copy {
-                from(projectTheme) {}
-                into("${targetDir}/microsite/tmp/site")
+        return text
+    } else {
+        return origText
+    }
+}
+
+def renderHeader = { fileName, jbake -&gt;
+    def header = ''
+    if (fileName.toLowerCase() ==~ '^.*(html|md)$') {
+        jbake.each { key, value -&gt;
+            if (key == 'order') {
+                header += "jbake-${key}=${(value ?: '1') as Integer}\n"
+            } else {
+                if (key in ['type', 'status']) {
+                    header += "${key}=${value}\n"
+                } else {
+                    header += "jbake-${key}=${value}\n"
+                }
             }
         }
+        header += "~~~~~~\n\n"
+
+    } else {
+        jbake.each { key, value -&gt;
+            if (key == 'order') {
+                header += ":jbake-${key}: ${(value ?: '1') as Integer}\n"
+            } else {
+                header += ":jbake-${key}: ${value}\n"
+            }
+        }
+    }
+    return header
+}
+def fixMetaDataHeader = {
+    //fix MetaData-Header
+    File sourceFolder = new File(targetDir, '/microsite/tmp/site/doc')
+    logger.info("sourceFolder: " + sourceFolder.canonicalPath)
+    sourceFolder.traverse(type: FILES) { file -&gt;
+        if (file.name.toLowerCase() ==~ '^.*(ad|adoc|asciidoc|html|md)$') {
+            if (file.name.startsWith("_") || file.name.startsWith(".")) {
+                //ignore
+            } else {
+                def origText = file.text
+                //parse jbake attributes
+                def text = ""
+                def jbake = [
+                    status: "published",
+                    order: -1,
+                    type: 'page_toc'
+                ]
+                if (file.name.toLowerCase() ==~ '^.*(md|html)$') {
+                    // we don't have a toc for md or html
+                    jbake.type = 'page'
+                }
+                def beforeToc = ""
+                if (file.name.toLowerCase() ==~ '^.*(ad|adoc|asciidoc)$') {
+                    text = parseAsciiDocAttribs(beforeToc, origText, jbake)
+                } else {
+                    text = parseOtherAttribs(origText, jbake)
+                }
+                def name = file.canonicalPath - (sourceFolder.canonicalPath+File.separator)
+                if (File.separator=='\\') {
+                    name = name.split("\\\\")
+                } else {
+                    name = name.split("/")
+                }
+                if (name.size()&gt;1) {
+                    if (!jbake.menu) {
+                        jbake.menu = name[0]
+                        if (jbake.menu ==~ /[0-9]+[-_].*/) {
+                            jbake.menu = jbake.menu.split("[-_]", 2)[1]
+                        }
+                    }
+                    def docname = name[-1]
+                    if (docname ==~ /[0-9]+[-_].*/) {
+                        jbake.order = docname.split("[-_]",2)[0]
+                        docname     = docname.split("[-_]",2)[1]
+                    }
+                    if (name.size() &gt; 2) {
+                        if ((jbake.order as Integer)==0) {
+                            // let's take the order from the second level dir or file and not the file
+                            def secondLevel = name[1]
+                            if (secondLevel ==~ /[0-9]+[-_].*/) {
+                                jbake.order = secondLevel.split("[-_]",2)[0]
+                            }
+                        } else {
+                            if (((jbake.order?:'1') as Integer) &gt; 0) {
+                                //
+                            } else {
+                                jbake.status = "draft"
+                            }
+                        }
+                    }
+                    if (jbake.order==-1 &amp;&amp; docname.startsWith('index')) {
+                        jbake.order = -987654321 // special 'magic value' given to index pages.
+                        jbake.status = "published"
+                    }
+                    // news blog
+                    if (jbake.order==-1 &amp;&amp; jbake.type=='post') {
+                        jbake.order = 0
+                        try {
+                            jbake.order = Date.parse("yyyy-MM-dd", jbake.date).time / 100000
+                        } catch ( Exception e) {
+                            System.out.println "unparsable date ${jbake.date} in $name"
+                        }
+                        jbake.status = "published"
+                    }
+                    def leveloffset = 0
+                    if (file.name.toLowerCase() ==~ '^.*(ad|adoc|asciidoc)$') {
+                        text.eachLine { line -&gt;
+                            if (!jbake.title &amp;&amp; line ==~ "^=+ .*") {
+                                jbake.title = (line =~ "^=+ (.*)")[0][1]
+                                def level = (line =~ "^(=+) .*")[0][1]
+                                if (level == "=") {
+                                    leveloffset = 1
+                                }
+                            }
+                        }
+                    } else {
+                        if (file.name.toLowerCase() ==~ '^.*(html)$') {
+                            if (!jbake.title) {
+                                text.eachLine { line -&gt;
+                                    if (!jbake.title &amp;&amp; line ==~ "^&lt;h[1-9]&gt;.*&lt;/h.*") {
+                                        jbake.title = (line =~ "^&lt;h[1-9]&gt;(.*)&lt;/h.*")[0][1]
+                                    }
+                                }
+                            }
+                        } else {
+                            // md
+                            if (!jbake.title) {
+                                text.eachLine { line -&gt;
+                                    if (!jbake.title &amp;&amp; line ==~ "^#+ .*") {
+                                        jbake.title = (line =~ "^#+ (.*)")[0][1]
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    if (!jbake.title) {
+                        jbake.title = docname
+                    }
+                    if (leveloffset==1) {
+                        //leveloffset needed
+                        // we always start with "==" not with "="
+                        // only used for adoc
+                        text = text.replaceAll("(?ms)^(=+) ", '$1= ')
+                    }
+                    if (config.microsite.customConvention) {
+                        def binding = new Binding([
+                            file  : file,
+                            config: config,
+                            headers : jbake
+                        ])
+                        def shell = new GroovyShell(getClass().getClassLoader(), binding)
+                        shell.evaluate(config.microsite.customConvention)
+                        System.out.println jbake
+
+                    }
+                    def header = renderHeader(file.name, jbake)
+                    if (file.name.toLowerCase() ==~ '^.*(ad|adoc|asciidoc)$') {
+                        file.write(header + "\nifndef::dtc-magic-toc[]\n:dtc-magic-toc:\n$beforeToc\n\n:toc: left\n\n++++\n&lt;!-- endtoc --&gt;\n++++\nendif::[]\n" + text, "utf-8")
+                    } else {
+                        file.write(header + "\n" + text, "utf-8")
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+task generateSite(
+    group: 'docToolchain',
+    description: 'generate a microsite using jBake.') {
+    doLast {
+        new File("${targetDir}/microsite/tmp").mkdirs()
+        println new File("${targetDir}/microsite/tmp/").canonicalPath
+
+        prepareAndCopyTheme()
+
         //copy docs
         copy {
             from(new File(docDir, inputPath)) {}
             into("${targetDir}/microsite/tmp/site/doc")
         }
 
-        //fix MetaData-Header
-        File sourceFolder = new File(targetDir, '/microsite/tmp/site/doc')
-        logger.info("sourceFolder: " + sourceFolder.canonicalPath)
-        sourceFolder.traverse(type: FILES) { file -&gt;
-            if (file.name ==~ '^.*(ad|adoc|asciidoc)$') {
-                if (file.name.startsWith("_") || file.name.startsWith(".")) {
-                    //ignore
-                } else {
-                    def origText = file.text
-                    //parse jbake attributes
-                    def text = ""
-                    def jbake = [
-                        status: "published",
-                        order: -1,
-                        type: 'page_toc'
-                    ]
-                    def parseAttribs = true
-                    def beforeToc = ""
-                    origText.eachLine { line -&gt;
-                        if (parseAttribs &amp;&amp; line.startsWith(":jbake")) {
-                            line = (line - ":jbake-").split(": +", 2)
-                            jbake[line[0]] = line[1]
-                        } else {
-                            if (line.startsWith("[")) {
-                                // stop parsing jBake-attribs when a [source] - block starts which might contain those attribs as example
-                                parseAttribs = false
-                            }
-                            text += line+"\n"
-                            //there are some attributes which have to be set before the toc
-                            if (line.startsWith(":toc") ) {
-                                beforeToc += line+"\n"
-                            }
-                        }
-                    }
-                    def name = file.canonicalPath - (sourceFolder.canonicalPath+File.separator)
-                    if (File.separator=='\\') {
-                        name = name.split("\\\\")
-                    } else {
-                        name = name.split("/")
-                    }
-                    if (name.size()&gt;1) {
-                        if (!jbake.menu) {
-                            jbake.menu = name[0]
-                            if (jbake.menu ==~ /[0-9]+[-_].*/) {
-                                jbake.menu = jbake.menu.split("[-_]", 2)[1]
-                            }
-                        }
-                        def docname = name[-1]
-                        if (docname ==~ /[0-9]+[-_].*/) {
-                            jbake.order = docname.split("[-_]",2)[0]
-                            docname     = docname.split("[-_]",2)[1]
-                        }
-                        if (name.size() &gt; 2) {
-                            if ((jbake.order as Integer)==0) {
-                                // let's take the order from the second level dir or file and not the file
-                                def secondLevel = name[1]
-                                if (secondLevel ==~ /[0-9]+[-_].*/) {
-                                    jbake.order = secondLevel.split("[-_]",2)[0]
-                                }
-                            } else {
-                                if (((jbake.order?:'1') as Integer) &gt; 0) {
-                                    //
-                                } else {
-                                    jbake.status = "draft"
-                                }
-                            }
-                        }
-                        if (jbake.order==-1 &amp;&amp; docname.startsWith('index')) {
-                            jbake.order = -987654321 // special 'magic value' given to index pages.
-                            jbake.status = "published"
-                        }
-                        // news blog
-                        if (jbake.order==-1 &amp;&amp; jbake.type=='post') {
-                            jbake.order = 0
-                            try {
-                                jbake.order = Date.parse("yyyy-MM-dd", jbake.date).time / 100000
-                            } catch ( Exception e) {
-                                System.out.println "unparsable date ${jbake.date} in $name"
-                            }
-                            jbake.status = "published"
-                        }
-                        def leveloffset = 0
-                        text.eachLine { line -&gt;
-                            if (!jbake.title &amp;&amp; line ==~ "^=+ .*") {
-                                jbake.title = (line =~ "^=+ (.*)")[0][1]
-                                def level = (line =~ "^(=+) .*")[0][1]
-                                if (level=="=") {
-                                    leveloffset = 1
-                                }
-                            }
-                        }
-                        if (!jbake.title) {
-                            jbake.title = docname
-                        }
-                        if (leveloffset==1) {
-                            //leveloffset needed
-                            // we always start with "==" not with "="
-                            text = text.replaceAll("(?ms)^(=+) ", '$1= ')
-                        }
-                        def header = ''
-                        jbake.each { key, value -&gt;
-                            if (key=='order') {
-                                header += ":jbake-${key}: ${(value?:'1') as Integer}\n"
-                            } else {
-                                header += ":jbake-${key}: ${value}\n"
-                            }
-                        }
-                        file.write(header + "\nifndef::dtc-magic-toc[]\n:dtc-magic-toc:\n$beforeToc\n\n:toc: left\n\n++++\n&lt;!-- endtoc --&gt;\n++++\nendif::[]\n" + text, "utf-8")
-                    }
-                }
-            }
-        }
+        // if configured, convert restructuredText or anything else
+        convertAdditionalFormats()
 
-        /**
-         println "="*80
-         println (new File("${targetDir}/microsite/tmp/site/doc").canonicalPath)
-         new File("${targetDir}/microsite/tmp/site/doc").eachFileRecurse { file -&gt;
-         if (file.name.endsWith('.adoc')) {
-         System.out.println "&gt;&gt; "+file.name
-         }
-         }
-         **/
+        // convention over configuration
+        fixMetaDataHeader()
+
     }
 }
 task previewSite(
@@ -2356,9 +2498,9 @@ task previewSite(
     dependsOn: [],
     description: 'start a little webserver to preview your Microsite',
 ) {
-        if (new File("${targetDir}/microsite/output").exists()) {
-            finalizedBy 'jettyRun'
-        }
+    if (new File("${targetDir}/microsite/output").exists()) {
+        finalizedBy 'jettyRun'
+    }
     doLast {
         if (new File("${targetDir}/microsite/output").exists()) {
             // everything is fine
