@@ -1214,7 +1214,7 @@ task prependFilename(
 <div class="sect3">
 <h4 id="_collectincludes">3.6. collectIncludes</h4>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Schrotti" width="32" height="32" title="Schrotti"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/3c015f3ee9960d842c195993cbb91cff?d=identicon" alt="Tim Riemer" width="32" height="32" title="Tim Riemer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c8d80df8d69ee21f98fc9a9bfa527897?d=identicon" alt="Julian Elve" width="32" height="32" title="Julian Elve"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Mueller" width="32" height="32" title="Ralf D. Mueller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/8a8d424110b84c60a6e502b582d78216?d=identicon" alt="rmi2hi" width="32" height="32" title="rmi2hi"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Schrotti" width="32" height="32" title="Schrotti"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/3c015f3ee9960d842c195993cbb91cff?d=identicon" alt="Tim Riemer" width="32" height="32" title="Tim Riemer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c8d80df8d69ee21f98fc9a9bfa527897?d=identicon" alt="Julian Elve" width="32" height="32" title="Julian Elve"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Mueller" width="32" height="32" title="Ralf D. Mueller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -1241,7 +1241,46 @@ In order to include these files in your documentation, you have to add the file 
 <div class="paragraph">
 <p>Just stick to this file-naming pattern <code>^[A-Z]{3,}[-_].*</code> (begin with at least three uppercase letters and a dash/underscore) and this task will collect the file and write it to your build folder.
 You only have to include this generated file from within your documentation.
-If you provide templates for the documents, those templates are skipped if the name matches the pattern <code>^.\*[-\_][tT]emplate[-\_].*</code>.</p>
+If you provide templates for the documents, those templates are skipped if the name matches the pattern <code>^.\*[-\_][tT]emplate
+[-\_].*</code>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_the_optional_parameter_configurations">The Optional Parameter Configurations</h5>
+<div class="paragraph">
+<p>You can configure which files are found by the script be setting the paramters in the Config.groovy file.</p>
+</div>
+<div class="paragraph">
+<p>collectIncludes = [:]</p>
+</div>
+<div class="paragraph">
+<p>collectIncludes.with {</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>fileFilter = "adoc" // define which files are considered. default: "ad|adoc|asciidoc"</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>minPrefixLength = "3" // define what minimum length the prefix. default: "3"</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>maxPrefixLength = "3" // define what maximum length the prefix. default: ""</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>separatorChar = "_" // define the allowed separators after prefix. default: "-_"</pre>
+</div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>    cleanOutputFolder = true // should the output folder be emptied before generation? defailt: false
+}</pre>
+</div>
 </div>
 </div>
 <div class="sect4">
@@ -1296,7 +1335,13 @@ task collectIncludes(
         group: 'docToolchain'
 ) {
     doFirst {
-        new File(targetDir, '_includes').mkdirs()
+        boolean cleanOutputFolder = config.collectIncludes.cleanOutputFolder?:false
+        String outputFolder = targetDir + '/_includes'
+        if (cleanOutputFolder){
+            delete fileTree(outputFolder)
+        }
+
+        new File(outputFolder).mkdirs()
     }
     doLast {
         //let's search the whole project for files, not only the docs folder
@@ -1328,9 +1373,22 @@ task collectIncludes(
         File sourceFolder = scanDir
         println "sourceFolder: " + sourceFolder.canonicalPath
         def collections = [:]
+
+        String fileFilter = config.collectIncludes.fileFilter?:"ad|adoc|asciidoc"
+        String minPrefixLength = config.collectIncludes.minPrefixLength?:"3"
+        String maxPrefixLength = config.collectIncludes.maxPrefixLength?:""
+        String separatorChar = config.collectIncludes.separatorChar?:"-_"
+
+        String prefixRegEx = "[A-Z]{" + minPrefixLength + "," + maxPrefixLength + "}"
+        String separatorCharRegEx = "[" + separatorChar + "]"
+        String fileFilterRegEx = "^" + prefixRegEx + separatorCharRegEx + ".*[.](" + fileFilter + ")\$"
+
+        logger.info "considering files with this pattern: " + fileFilterRegEx
+
         sourceFolder.traverse(type: FILES) { file -&gt;
-            if (file.name ==~ '^[A-Z]{3,}[-_].*[.](ad|adoc|asciidoc)$') {
-                def type = file.name.replaceAll('^([A-Z]{3,})[-_].*$','\$1')
+            if (file.name ==~ fileFilterRegEx) {
+                String typeRegEx = "^(" + prefixRegEx + ")" + separatorCharRegEx + ".*\$"
+                def type = file.name.replaceAll(typeRegEx,'\$1')
                 if (!collections[type]) {
                     collections[type] = []
                 }
@@ -1339,7 +1397,8 @@ task collectIncludes(
                 if (file.name ==~ '^.*[Tt]emplate.*$') {
                     logger.info "ignore template file: " + fileName
                 } else {
-                    if (file.name ==~ '^.*[A-Z]{3,}_includes.adoc$') {
+                    String includeFileRegEx = "^.*" + prefixRegEx + "_includes.adoc\$"
+                    if (file.name ==~ includeFileRegEx) {
                         logger.info "ignore generated _includes files: " + fileName
                     } else {
                         if ( fileName.startsWith('docToolchain') || fileName.replace("\\", "/").matches('^.*/docToolchain/.*$')) {
@@ -1362,11 +1421,11 @@ task collectIncludes(
         logger.info "pathDiff: " + pathDiff
         collections.each { type, fileNames -&gt;
             if (fileNames) {
-                def outFile = new File(targetDir+'/_includes', type + '_includes.adoc')
+                def outFile = new File(targetDir + '/_includes', type + '_includes.adoc')
                 logger.info outFile.canonicalPath-sourceFolder.canonicalPath
                 outFile.write("// this is autogenerated\n")
                 fileNames.sort().each { fileName -&gt;
-                    outFile.append ("include::../"+pathDiff+fileName.replace("\\", "/")+"[]\n\n")
+                    outFile.append ("include::../" + pathDiff + fileName.replace("\\", "/")+"[]\n\n")
                 }
             }
         }
@@ -4254,7 +4313,7 @@ A sample of how to edit your projects' Config.groovy is provided in the 'Config.
 </div>
 </div>
 <div class="sect4">
-<h5 id="_the_optional_parameter_configurations">The Optional Parameter Configurations</h5>
+<h5 id="_the_optional_parameter_configurations_2">The Optional Parameter Configurations</h5>
 <div class="sect5">
 <h6 id="_connection">connection</h6>
 <div class="paragraph">
