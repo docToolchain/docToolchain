@@ -47,8 +47,8 @@ Everything went well? Great! Now let’s update the wrapper.
 The source of the rapper is now the main repository and we need to copy it over to the github pages.
 To do so, make sure that dtcw references the right version.
 
-* https://github.com/docToolchain/doctoolchain/blob/master/dtcw[dtcw]
-* https://github.com/docToolchain/doctoolchain/blob/master/dtcw.ps1[dtcw.ps1]
+* https://github.com/docToolchain/doctoolchain/blob/ng/dtcw[dtcw]
+* https://github.com/docToolchain/doctoolchain/blob/ng/dtcw.ps1[dtcw.ps1]
 * the dtcw.bat will be generated
 
 then navigate to https://github.com/docToolchain/doctoolchain.github.io/actions/workflows/update-dtcw.yml and trigger the action.
