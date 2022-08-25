@@ -1,0 +1,236 @@
+:jbake-order: 70
+:jbake-title: publishToConfluence
+:jbake-status: published
+:filename: 020_tutorial/070_publishToConfluence.adoc
+include::_config.adoc[]
+
+
+== Publish your Docs to Confluence
+
+There are times when you want to publish your docs to confluence.
+
+One such situation is when you work in a team where not everybody wants to work with git.
+In such a situation, docToolchain enables you to publish your git based docs to confluence, side-by-side with manually edited confluence pages.
+
+Another (special) situation is when you want to work with the arc42 template in confluence.
+There are several ways to import the template, but most of them require admin access.
+A solution can be to set up docToolchain with a fresh copy of the arc42 template and publish it to your confluence instance.
+
+In this tutorial, I will show you how to publish the arc42 template to a confluence cloud instance.
+
+== Setup docToolchain
+
+NOTE: For this tutorial, I assume that you work with a linux based system.
+
+Let's follow the two base tutorials to http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/010_Install.html[install docToolchain] and http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/020_arc42.html[get the arc42 template].
+
+`{nbsp}{nbsp}{nbsp}mkdir publishToConfluenceDemo`
+`{nbsp}{nbsp}{nbsp}cd publishToConfluenceDemo`
+
+
+.`curl -Lo dtcw doctoolchain.github.io/dtcw`
+[%collapsible]
+====
+gitpod /workspace/publishToConfluenceDemo (main) $ curl -Lo dtcw doctoolchain.github.io/dtcw
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Dload  Upload   Total   Spent    Left  Speed
+100   162  100   162    0     0   1306      0 --:--:-- --:--:-- --:--:--  1317
+100 10724  100 10724    0     0  25903      0 --:--:-- --:--:-- --:--:-- 25903
+====
+
+`{nbsp}{nbsp}{nbsp}chmod +x dtcw` +
+
+.`./dtcw getJava`
+[%collapsible]
+====
+----
+./dtcw: line 28: !false: command not found
+dtcw - docToolchain wrapper V0.31
+docToolchain V2.0.5
+docker available
+this script assumes that you have linux as operating system (x64 / linux)
+it now tries to install Java for you
+downloading JDK Temurin 11 from adoptiom to /home/gitpod/.doctoolchain/jdk.tar.gz
+WARNING: combining -O with -r or -p will mean that all downloaded content
+will be placed in the single file you specified.
+
+--2022-08-25 20:07:11--  https://api.adoptium.net/v3/binary/latest/11/ga/linux/x64/jdk/hotspot/normal/eclipse?project=jdk
+Resolving api.adoptium.net (api.adoptium.net)... 20.62.244.126
+Connecting to api.adoptium.net (api.adoptium.net)|20.62.244.126|:443... connected.
+HTTP request sent, awaiting response... 307 Temporary Redirect
+Location: https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1%2B1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz [following]
+--2022-08-25 20:07:12--  https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1%2B1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz
+Resolving github.com (github.com)... 140.82.121.3
+Connecting to github.com (github.com)|140.82.121.3|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://objects.githubusercontent.com/github-production-release-asset-2e65be/372924883/70b80b22-3dc5-4824-bb2d-d0158a3b9b57?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220825%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220825T200712Z&X-Amz-Expires=300&X-Amz-Signature=887a715fcbd2e2d6bf24496f57b168ba2204f0f81794a66615ab53a7b153ed37&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=372924883&response-content-disposition=attachment%3B%20filename%3DOpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz&response-content-type=application%2Foctet-stream [following]
+--2022-08-25 20:07:12--  https://objects.githubusercontent.com/github-production-release-asset-2e65be/372924883/70b80b22-3dc5-4824-bb2d-d0158a3b9b57?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220825%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20220825T200712Z&X-Amz-Expires=300&X-Amz-Signature=887a715fcbd2e2d6bf24496f57b168ba2204f0f81794a66615ab53a7b153ed37&X-Amz-SignedHeaders=host&actor_id=0&key_id=0&repo_id=372924883&response-content-disposition=attachment%3B%20filename%3DOpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz&response-content-type=application%2Foctet-stream
+Resolving objects.githubusercontent.com (objects.githubusercontent.com)... 185.199.109.133, 185.199.111.133, 185.199.108.133, ...
+Connecting to objects.githubusercontent.com (objects.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 193754645 (185M) [application/octet-stream]
+Saving to: ‘/home/gitpod/.doctoolchain/jdk/jdk.tar.gz’
+
+/home/gitpod/.doctoolchain/jdk 100%[====================================================>] 184.78M   310MB/s    in 0.6s
+
+2022-08-25 20:07:13 (310 MB/s) - ‘/home/gitpod/.doctoolchain/jdk/jdk.tar.gz’ saved [193754645/193754645]
+
+FINISHED --2022-08-25 20:07:13--
+Total wall clock time: 1.7s
+Downloaded: 1 files, 185M in 0.6s (310 MB/s)
+expanding JDK
+----
+====
+
+NOTE: now comes the part where you have to answer some questions and lots of `.jar` files get downloaded.
+
+.`./dtcw tasks`
+[%collapsible]
+====
+----
+dtcw - docToolchain wrapper V0.31
+docToolchain V2.0.5
+local java JDK found
+use /home/gitpod/.doctoolchain/jdk as JDK
+
+docker available
+force use of local install
+docToolchain not installed.
+sdkman not found
+Do you wish to install doctoolchain to /home/gitpod/.doctoolchain?
+1) Yes
+2) No
+#? 1
+installing doctoolchain
+mkdir: cannot create directory ‘/home/gitpod/.doctoolchain’: File exists
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 1783k  100 1783k    0     0  2857k      0 --:--:-- --:--:-- --:--:-- 2857k
+Archive:  /home/gitpod/.doctoolchain/source.zip
+   creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/
+   creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/bin/
+  inflating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/bin/autobuildSite.bash
+  inflating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/bin/doctoolchain
+
+[152 lines omitted]
+
+  inflating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/template_config/pdfTheme/custom-theme.yml
+   creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/resources/
+   creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/resources/asciidoctor-reveal.js/
+   creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/resources/reveal.js/
+Picked up JAVA_TOOL_OPTIONS:  -Xmx3489m
+Downloading https://services.gradle.org/distributions/gradle-6.9.2-bin.zip
+..........10%..........20%..........30%...........40%..........50%..........60%..........70%...........80%..........90%..........100%
+
+Welcome to Gradle 6.9.2!
+
+Here are the highlights of this release:
+ - This is a small backport release.
+ - Java 16 can be used to compile when used with Java toolchains
+ - Dynamic versions can be used within plugin declarations
+ - Native support for Apple Silicon processors
+
+For more details see https://docs.gradle.org/6.9.2/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/6.9.2/userguide/gradle_daemon.html#sec:disabling_the_daemon.
+Daemon will be stopped at the end of the build
+
+> Configure project :
+
+Config file '/workspace/publishToConfluenceDemo/docToolchainConfig.groovy' does not exist'
+[ant:input]
+[ant:input] do you want me to create a default one for you? (y, n)
+<<-------------> 0% CONFIGURING [2m 55s]
+
+> Task :help
+
+Welcome to Gradle 6.9.2.
+
+To run a build, run gradlew <task> ...
+
+To see a list of available tasks, run gradlew tasks
+
+To see a list of command-line options, run gradlew --help
+
+To see more detail about a task, run gradlew help --task <task>
+
+For troubleshooting, visit https://help.gradle.org
+
+BUILD SUCCESSFUL in 3m 29s
+1 actionable task: 1 executed
+----
+====
+
+.`./dtcw downloadTemplate`
+[%collapsible]
+====
+----
+
+dtcw - docToolchain wrapper V0.31
+docToolchain V2.0.5
+local java JDK found
+use /home/gitpod/.doctoolchain/jdk as JDK
+
+docker available
+home folder exists
+use local homefolder install /home/gitpod/.doctoolchain/
+Picked up JAVA_TOOL_OPTIONS:  -Xmx3489m
+To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/6.9.2/userguide/gradle_daemon.html#sec:disabling_the_daemon.
+Daemon will be stopped at the end of the build
+
+> Task :downloadTemplate
+Install arc42 documentation template.
+For more information about arc42 see https://arc42.org
+[ant:input] Which language do you want to install? (EN, DE, ES, RU)
+<-<-------------> 0% EXECUTING [11s]
+[ant:input] Do you want the template with or without help? (withhelp, plain)
+<-<<-<--<-------------> 0% EXECUTING [17s]
+Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-EN-withhelp-asciidoc.zip
+arc42 template unpacked into /workspace/publishToConfluenceDemo/src/docs/arc42
+added template to docToolchainConfig.groovy
+use 'generateHTML', 'generatePDF' or  'generateSite' to convert the template
+
+BUILD SUCCESSFUL in 22s
+1 actionable task: 1 executed
+----
+====
+
+As a result, you should now have the following folder structure:
+
+.`tree`
+[%collapsible]
+====
+----
+.
+├── docToolchainConfig.groovy
+├── dtcw
+└── src
+└── docs
+├── arc42
+│   ├── arc42.adoc
+│   └── chapters
+│       ├── 01_introduction_and_goals.adoc
+│       ├── 02_architecture_constraints.adoc
+│       ├── 03_system_scope_and_context.adoc
+│       ├── 04_solution_strategy.adoc
+│       ├── 05_building_block_view.adoc
+│       ├── 06_runtime_view.adoc
+│       ├── 07_deployment_view.adoc
+│       ├── 08_concepts.adoc
+│       ├── 09_architecture_decisions.adoc
+│       ├── 10_quality_requirements.adoc
+│       ├── 11_technical_risks.adoc
+│       ├── 12_glossary.adoc
+│       ├── about-arc42.adoc
+│       └── config.adoc
+└── images
+├── 01_2_iso-25010-topics-EN.png
+├── 05_building_blocks-EN.png
+├── 08-Crosscutting-Concepts-Structure-EN.png
+└── arc42-logo.png
+
+5 directories, 21 files
+----
+====
+
