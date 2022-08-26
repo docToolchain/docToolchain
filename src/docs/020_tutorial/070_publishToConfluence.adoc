@@ -4,6 +4,13 @@
 :filename: 020_tutorial/070_publishToConfluence.adoc
 include::_config.adoc[]
 
+++++
+<style>
+div.center { text-align: center;}
+img { box-shadow: 5px 5px 5px grey;}
+</style>
+++++
+
 == Publish your Docs to Confluence
 
 There are times when you want to publish your docs to confluence.
@@ -23,18 +30,20 @@ NOTE: For this tutorial, I assume that you work with a linux based system.
 
 Let's follow the two base tutorials to http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/010_Install.html[install docToolchain] and http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/020_arc42.html[get the arc42 template].
 
-`{nbsp}{nbsp}{nbsp}mkdir publishToConfluenceDemo`
+`{nbsp}{nbsp}{nbsp}mkdir publishToConfluenceDemo` +
 `{nbsp}{nbsp}{nbsp}cd publishToConfluenceDemo`
 
 
 .`curl -Lo dtcw doctoolchain.github.io/dtcw`
 [%collapsible]
 ====
+```
 gitpod /workspace/publishToConfluenceDemo (main) $ curl -Lo dtcw doctoolchain.github.io/dtcw
 % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 Dload  Upload   Total   Spent    Left  Speed
 100   162  100   162    0     0   1306      0 --:--:-- --:--:-- --:--:--  1317
 100 10724  100 10724    0     0  25903      0 --:--:-- --:--:-- --:--:-- 25903
+```
 ====
 
 `{nbsp}{nbsp}{nbsp}chmod +x dtcw` +
@@ -42,7 +51,7 @@ Dload  Upload   Total   Spent    Left  Speed
 .`./dtcw getJava`
 [%collapsible]
 ====
-----
+```
 ./dtcw: line 28: !false: command not found
 dtcw - docToolchain wrapper V0.31
 docToolchain V2.0.5
@@ -78,7 +87,7 @@ FINISHED --2022-08-25 20:07:13--
 Total wall clock time: 1.7s
 Downloaded: 1 files, 185M in 0.6s (310 MB/s)
 expanding JDK
-----
+```
 ====
 
 NOTE: now comes the part where you have to answer some questions and lots of `.jar` files get downloaded.
@@ -86,7 +95,7 @@ NOTE: now comes the part where you have to answer some questions and lots of `.j
 .`./dtcw tasks`
 [%collapsible]
 ====
-----
+```
 dtcw - docToolchain wrapper V0.31
 docToolchain V2.0.5
 local java JDK found
@@ -158,13 +167,13 @@ For troubleshooting, visit https://help.gradle.org
 
 BUILD SUCCESSFUL in 3m 29s
 1 actionable task: 1 executed
-----
+```
 ====
 
 .`./dtcw downloadTemplate`
 [%collapsible]
 ====
-----
+```
 
 dtcw - docToolchain wrapper V0.31
 docToolchain V2.0.5
@@ -192,7 +201,7 @@ use 'generateHTML', 'generatePDF' or  'generateSite' to convert the template
 
 BUILD SUCCESSFUL in 22s
 1 actionable task: 1 executed
-----
+```
 ====
 
 As a result, you should now have the following folder structure:
@@ -200,7 +209,7 @@ As a result, you should now have the following folder structure:
 .`tree`
 [%collapsible]
 ====
-----
+```
 .
 ├── docToolchainConfig.groovy
 ├── dtcw
@@ -230,7 +239,7 @@ As a result, you should now have the following folder structure:
 └── arc42-logo.png
 
 5 directories, 21 files
-----
+```
 ====
 
 === Configure Confluence Access
@@ -265,6 +274,7 @@ https://arc42-template.atlassian.net/wiki/rest/api/user/current
 
 This results in the following output, which shows me that I got the right endpoint (no 404 or what so ever).
 
+[source, json]
 ----
 {
   "type":"anonymous",
@@ -301,15 +311,17 @@ This has to be generated from my central atlassian account.
 Navigate to your `Profile`
 
 [.center]
-image::070-first.png[width=50%]
+image::070-first.png[width=30%]
 
 `Manage your Account`
 
-image::070-second.png[width=50%]
+[.center]
+image::070-second.png[width=30%]
 
 `Security` > `API token` > `Create and manage API tokens`
 
-image::070-third.png[]
+[.center]
+image::070-third.png[width=80%]
 
 NOTE: here is the https://id.atlassian.com/manage-profile/security/api-tokens[shortcut] to this page.
 
@@ -323,7 +335,7 @@ In order not to store the credentials in the config file, we pass them with the 
 .`./dtcw publishToConfluence -PconfluenceUser=<your email> -PconfluencePass=<your api-token>`
 [%collapsible]
 ====
-----
+```
 dtcw - docToolchain wrapper V0.31
 docToolchain V2.0.5
 local java JDK found
@@ -385,9 +397,10 @@ allPages already retrieved
 > created page 2034040848
 10. Quality Requirements
 Start getting headers
-----
+```
 ====
 
 This command will first run the task `generateHTML` and then create for each arc42-chapter one Confluence page.
 
-image::070-fourth.png[]
+[.center]
+image::070-fourth.png[width=80%]
