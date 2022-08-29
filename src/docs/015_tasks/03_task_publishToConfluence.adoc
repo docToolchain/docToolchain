@@ -93,6 +93,10 @@ If you need to prefix your pages with a warning stating that 'this is generated 
 If value is set to `true`, any links to local file references will be uploaded as attachments. The current implementation only supports a single folder, the name of which will be used as a prefix to validate whether or not your file should be uploaded.
 If you enable this feature, and use a folder which starts with 'attachment', an adaption of this prefix is required.
 
+*pageLimit*
+
+Limits the number of pages retrieved from the server to check if a page with this name already exists.
+
 *jiraServerId*
 Stores the Jira server ID that your Confluence instance is connected to. If a value is set, all anchors pointing to a Jira ticket will be replaced by the Confluence Jira macro.
 To function properly, `jiraRoot` must be configured (see xref:03_task_exportJiraIssues.adoc[`exportJiraIssues`]). Here's an example:
