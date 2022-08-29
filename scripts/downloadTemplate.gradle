@@ -108,9 +108,9 @@ ifndef::imagesdir[:imagesdir: ../../images]
                             "'images/.',\n\t/** imageDirs **/")
                 .replaceAll('[, \\t\\r\\n]+/[*]{2} imageDirs [*]{2}/',
                             ",\n\t'images/.',\n\t/** imageDirs **/")
-                .replaceAll("\\[,","[")
+                .replaceAll("\\[,","["),
     
-            'utf-8'
+                'utf-8'
         )
         println "added template to ${mainConfigFile}"
         println "use 'generateHTML', 'generatePDF' or  'generateSite' to convert the template"
