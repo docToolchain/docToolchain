@@ -460,12 +460,14 @@ Most people only want to convert selected files to PDF, so that&#8217;s why you 
 <h3 id="_creating_a_custom_pdf_theme">Creating a Custom PDF Theme</h3>
 <div class="paragraph">
 <p>If you want to change colors, fonts or page headers and footers, you can do so by creating a <code>custom-theme.yml</code> file.
-Copy the file <code>src/docs/pdfTheme/custom-theme.yml</code> from docToolchain to your project and reference it from your main <code>.adoc`file by setting the `:pdf-stylesdir:</code>.
+Copy the file <code>src/docs/pdfTheme/custom-theme.yml</code> from docToolchain to your project and reference it from your main <code>.adoc`file by setting the `:pdf-themesdir:</code>.
+In addition, set the <code>:pdf-theme:</code> to the name of your theme. In this case <code>custom</code>.
 For example, insert the following at the top of your document to reference <code>custom-theme.yml</code> from the <code>/pdfTheme</code> folder.</p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>:pdf-stylesdir: ../pdfTheme</pre>
+<pre>:pdf-themesdir: ../pdfTheme
+:pdf-theme: custom</pre>
 </div>
 </div>
 </div>
