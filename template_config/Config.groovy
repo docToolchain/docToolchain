@@ -136,7 +136,8 @@ end::additionalConverters[]
         //'.two': [command: 'scripts/convert-md.groovy', type: 'groovyFile'],
         //'.rst': [command: 'dtcw:rstToHtml.py', type: 'bash'],
     ]
-    // if you prefere another convention regarding the automatic generation
+
+    // if you prefer another convention regarding the automatic generation
     // of jBake headers, you can configure a script to modify them here
     // the script has access to
     // - file: the current object
