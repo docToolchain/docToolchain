@@ -7,7 +7,7 @@ include::_config.adoc[]
 include::../_feedback.adoc[]
 
 === Introduction
-https://github.com/docToolchain/docToolchain[docToolchain] is a documentation generation tool that uses the https://www.writethedocs.org/guide/docs-as-code/[Docs as Code] approach as a basis for its architecture, plus some additional automation provided by the https://arc42.org[arc42 template]. Learn all about the project <link to About the Project page>[here].
+https://github.com/docToolchain/docToolchain[docToolchain] is a documentation generation tool that uses the https://www.writethedocs.org/guide/docs-as-code/[Docs as Code] approach as a basis for its architecture, plus some additional automation provided by the https://arc42.org[arc42 template].
 
 === Docs as Code
 ‘Docs as code’ refers to a philosophy that you should write documentation using the same tools as you use to write code. If you need to write technical docs for your software project, why not use the same tools and processes as you use for your source code? There are so many benefits:
