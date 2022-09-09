@@ -377,6 +377,6 @@ if [ "$doJavaCheck" = true ] ; then
     check_java
 fi
 
-echo "$command"
+# echo "Command to invoke: $command"
 
 exec bash -c "$command"

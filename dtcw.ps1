@@ -207,5 +207,5 @@ you need docToolchain as CLI-Tool installed or docker.
 if ($doJavaCheck) {
     checkJava
 }
-Write-Host "Command to invoke: '$command'" # << line for debugging
+# Write-Host "Command to invoke: '$command'" # << line for debugging
 Invoke-Expression "$command"
