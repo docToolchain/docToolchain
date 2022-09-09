@@ -2,7 +2,7 @@
 :filename: 010_manual/50_Frequently_asked_Questions.adoc
 ifndef::imagesdir[:imagesdir: ../images]
 
-= Solutions to Common Problems 
+= Solutions to Common Problems
 
 include::../_feedback.adoc[]
 
@@ -224,6 +224,7 @@ Make sure that your WSL is up to date by running `wsl --update`. This is not par
 .Answer
 [%collapsible]
 ====
+
 This issue can occur in CI enviroments (such as Bamboo) that have resticted permissions in the working folder where files or directories created outside the container might not be accessible inside the container. Before starting the container, give the working directory maximum permissions for allowing access to the user inside the Docker container.
 
 ```
@@ -231,6 +232,12 @@ chmod -R o+rwx ${bamboo.working.directory}
 ./dtcw generateSite
 
 ```
+
+Another solution could be that you work on the same project with WSL and Powershell.
+In such an environment, the WSL environment creates temporary files which can not be modified via powershell.
+
+In such a case, just delete the `.gradle` folder.
+
 ====
 
 === Q: I get an error stating that Gradle dependencies cannot be downloaded because a proxy is restricting internet access

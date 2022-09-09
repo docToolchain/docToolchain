@@ -13,7 +13,7 @@ MAIN_CONFIG_FILE=docToolchainConfig.groovy
 # find official release versions on github:
 # https://github.com/docToolchain/docToolchain/releases
 # set VERSION to "latest" to get the unreleased latest version
-VERSION=2.0.5
+VERSION=2.1.0
 
 DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/releases/download/v${VERSION}/docToolchain-${VERSION}.zip
 export DTC_PROJECT_BRANCH=$(git branch --show-current)
@@ -30,11 +30,6 @@ export DTC_HEADLESS
 
 DTC_OPTS="$DTC_OPTS -PmainConfigFile=$MAIN_CONFIG_FILE --warning-mode=none --no-daemon "
 
-if ! $DTC_HEADLESS ; then
-  # important for the docker file to find dependencies
-  DTC_OPTS="$DTC_OPTS '-Dgradle.user.home=$HOME/.doctoolchain/.gradle'"
-fi
-
 echo "dtcw - docToolchain wrapper V0.32"
 echo "docToolchain V${VERSION}"
 
@@ -49,6 +44,42 @@ doJavaCheck=true
 arch=`uname -m`
 os=`uname -s`
 
+if command -v doctoolchain &> /dev/null; then
+    echo "docToolchain as CLI available"
+    cli=true
+fi
+if command -v docker &> /dev/null; then
+    echo "docker available"
+    docker=true
+fi
+if command -v sdk &> /dev/null; then
+    echo "sdkman available"
+    sdkman=true
+fi
+if [ -d "$HOME/.doctoolchain/docToolchain-${VERSION}/." ]; then
+    echo "home folder exists"
+    homefolder=true
+fi
+if [ "$1" = "local" ] ; then
+    echo "force use of local install"
+    docker=false
+    cli=false
+    shift
+fi
+if [ "$1" = "docker" ] ; then
+    cli=false
+    homefolder=false
+    echo "force use of docker"
+    shift
+fi
+if [ "$1" = "sdk" ] ; then
+    cli=false
+    homefolder=false
+    docker=false
+    sdkman=true
+    echo "force use of sdkman"
+    shift
+fi
 # check for apple M1 silicon
 if [ "$os" = "Darwin" ]; then
   if [ "$arch" = "arm64" ]; then
@@ -59,32 +90,41 @@ if [ "$os" = "Darwin" ]; then
     echo ""
   fi
 fi
+if ! $DTC_HEADLESS ; then
+  if [ "$docker" = false ] ; then
+    # important for the docker file to find dependencies
+    DTC_OPTS="$DTC_OPTS '-Dgradle.user.home=$HOME/.doctoolchain/.gradle'"
+  fi
+fi
 
-# check for locally installed jdk
-if [ -d "$HOME/.doctoolchain/jdk/." ]; then
-    echo "local java JDK found"
-    java=true
+if [ "$docker" = false ] ; then
 
-    if [ -d "$HOME/.doctoolchain/jdk/Contents/." ]; then
-      javaHome="$HOME/.doctoolchain/jdk/Contents/Home"
-    else
-      javaHome="$HOME/.doctoolchain/jdk"
+    # check for locally installed jdk
+    if [ -d "$HOME/.doctoolchain/jdk/." ]; then
+        echo "local java JDK found"
+        java=true
+
+        if [ -d "$HOME/.doctoolchain/jdk/Contents/." ]; then
+          javaHome="$HOME/.doctoolchain/jdk/Contents/Home"
+        else
+          javaHome="$HOME/.doctoolchain/jdk"
+        fi
+        echo "use $javaHome as JDK"
+        DTC_OPTS="$DTC_OPTS '-Dorg.gradle.java.home=$javaHome'"
+        if [ -z "${JAVA_HOME}" ]; then
+          #if JAVA_HOME is not set, export it
+          export JAVA_HOME=$javaHome
+        else
+          if command -v $JAVA_HOME/bin/java &> /dev/null; then
+            #java is installed and JAVA_HOME is ok
+            echo ""
+          else
+            #set JAVA_HOME to our own JDK
+            export JAVA_HOME=$javaHome
+          fi
+        fi
+        doJavaCheck=false
     fi
-    echo "use $javaHome as JDK"
-    DTC_OPTS="$DTC_OPTS '-Dorg.gradle.java.home=$javaHome'"
-    if [ -z "${JAVA_HOME}" ]; then
-      #if JAVA_HOME is not set, export it
-      export JAVA_HOME=$javaHome
-    else
-      if command -v $JAVA_HOME/bin/java &> /dev/null; then
-        #java is installed and JAVA_HOME is ok
-        echo ""
-      else
-        #set JAVA_HOME to our own JDK
-        export JAVA_HOME=$javaHome
-      fi
-    fi
-    doJavaCheck=false
 fi
 
 # check if we are running on WSL
@@ -188,28 +228,6 @@ install_local() {
     unzip $HOME/.doctoolchain/source.zip -d $HOME/.doctoolchain/.
 }
 
-if command -v doctoolchain &> /dev/null; then
-    echo "docToolchain as CLI available"
-    cli=true
-fi
-if command -v docker &> /dev/null; then
-    echo "docker available"
-    docker=true
-fi
-if command -v sdk &> /dev/null; then
-    echo "sdkman available"
-    sdkman=true
-fi
-if [ -d "$HOME/.doctoolchain/docToolchain-${VERSION}/." ]; then
-    echo "home folder exists"
-    homefolder=true
-fi
-if [ "$1" = "local" ] ; then
-    echo "force use of local install"
-    docker=false
-    cli=false
-    shift
-fi
 if [ "$VERSION" == "latest" ] || [ "$VERSION" == "latestdev" ] ; then
     echo "force latest version with local install"
     docker=false
@@ -228,20 +246,6 @@ if [ "$VERSION" == "latest" ] || [ "$VERSION" == "latestdev" ] ; then
       fi
     fi
     homefolder=true
-fi
-if [ "$1" = "docker" ] ; then
-    cli=false
-    homefolder=false
-    echo "force use of docker"
-    shift
-fi
-if [ "$1" = "sdk" ] ; then
-    cli=false
-    homefolder=false
-    docker=false
-    sdkman=true
-    echo "force use of sdkman"
-    shift
 fi
 if [ "$1" == "getJava" ] ; then
         version=11
@@ -330,7 +334,7 @@ else
           else
               pwd=$PWD
           fi
-          command="'$docker_cmd' run -u $(id -u):$(id -g) --name doctoolchain${version} -e DTC_HEADLESS=1 -e DTC_SITETHEME -p 8042:8042 --rm -i --entrypoint //bin/bash -v '${pwd}:/project' rdmueller/doctoolchain:v${VERSION} -c \"doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS && exit\""
+          command="'$docker_cmd' run -u $(id -u):$(id -g) --name doctoolchain${version} -e DTC_HEADLESS=1 -e DTC_SITETHEME -p 8042:8042 --rm -i --entrypoint /bin/bash -v '${pwd}:/project' doctoolchain/doctoolchain:v${VERSION} -c \"doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS && exit\""
           doJavaCheck=false
 	  echo "use docker installation"
       else
@@ -372,5 +376,7 @@ fi
 if [ "$doJavaCheck" = true ] ; then
     check_java
 fi
+
+echo "$command"
 
 exec bash -c "$command"

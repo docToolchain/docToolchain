@@ -3,8 +3,8 @@
 #$env:DTC_SITETHEME = "https://....zip"
 
 $main_config_file = "docToolchainConfig.groovy"
-$version = "2.0.5"
-$dockerVersion = "2.0.5"
+$version = "2.1.0"
+$dockerVersion = "2.1.0"
 $distribution_url = "https://github.com/docToolchain/docToolchain/releases/download/v$version/docToolchain-$version.zip"
 $env:DTCW_PROJECT_BRANCH = (git branch --show-current)
 
@@ -14,7 +14,7 @@ $folder_name = ".doctoolchain"
 $dtcw_path = "$home_path\$folder_name"
 $doJavaCheck = $True
 
-$dtc_opts="$env:dtc_opts -PmainConfigFile='$main_config_file' --warning-mode=none --no-daemon '--gradle-user-home=$dtcw_path\.gradle'"
+$dtc_opts="$env:dtc_opts -PmainConfigFile='$main_config_file' --warning-mode=none --no-daemon "
 
 function checkJava()
 {
@@ -45,17 +45,6 @@ please choose Temurin 11
     }
 }
 
-if (Test-Path "$dtcw_path\jdk-11.0.15+10" ) {
-    Write-Host "local java JDK-11 found"
-    $java = $True
-    $dtc_opts="$dtc_opts '-Dorg.gradle.java.home=$dtcw_path\jdk-11.0.15+10' "
-    if (test-path env:JAVA_HOME) {
-    } else {
-        $env:JAVA_HOME="$dtcw_path\jdk-11.0.15+10"
-    }
-    $doJavaCheck = $False
-}
-
 Write-Host "dtcw - docToolchain wrapper V0.24 (PS)"
 
 if ($args.Count -lt 1) {
@@ -80,7 +69,7 @@ Examples:
 
     Publish HTML to Confluence:
     ./dtcw.ps1 publishToConfluence
-    
+
     get more documentation at https://doctoolchain.github.io
 '@
     exit 1
@@ -89,12 +78,12 @@ Examples:
 # check if CLI or docker are installed:
 $cli = $docker = $exist_home =  $False
 
-if (Get-Command dooctoolchain -ErrorAction SilentlyContinue) {        
+if (Get-Command dooctoolchain -ErrorAction SilentlyContinue) {
     Write-Host "docToolchain as CLI available"
     $cli = $True
 }
 
-if (Get-Command docker -ErrorAction SilentlyContinue) {        
+if (Get-Command docker -ErrorAction SilentlyContinue) {
     Write-Host "docker available"
     $docker = $True
 }
@@ -108,7 +97,7 @@ switch ($args[0]) {
     "local" {
         Write-Host "force use of local install"
         $docker = $False
-        $firstArgsIndex = 1   # << Shift first param        
+        $firstArgsIndex = 1   # << Shift first param
     }
     "docker" {
         Write-Host "force use of docker"
@@ -128,9 +117,32 @@ switch ($args[0]) {
         exit 1
     }
     default {
-        $firstArgsIndex = 0   # << Use all params        
+        $firstArgsIndex = 0   # << Use all params
     }
 }
+if ($docker)
+{
+  # nothing to do
+}
+else
+{
+    $dtc_opts = "$dtc_opts '--gradle-user-home=$dtcw_path\.gradle'"
+    if (Test-Path "$dtcw_path\jdk-11.0.15+10")
+    {
+        Write-Host "local java JDK-11 found"
+        $java = $True
+        $dtc_opts = "$dtc_opts '-Dorg.gradle.java.home=$dtcw_path\jdk-11.0.15+10' "
+        if (test-path env:JAVA_HOME)
+        {
+        }
+        else
+        {
+            $env:JAVA_HOME = "$dtcw_path\jdk-11.0.15+10"
+        }
+        $doJavaCheck = $False
+    }
+}
+
 #if bakePreview is called, deactivate deamon
 if ( $args[0] -eq "bakePreview" ) {
     $dtc_opts="$dtc_opts -Dorg.gradle.daemon=false"
@@ -142,7 +154,7 @@ if ($cli) {
     # Execute local
     $command = "doctoolchain . $commandArgs $DTC_OPTS"
 }
-elseif ($exist_home) {        
+elseif ($exist_home) {
     $command = "&'$dtcw_path\docToolchain-$version\bin\doctoolchain.bat' . $commandArgs $DTC_OPTS"
 }
 elseif ($docker) {
@@ -154,7 +166,7 @@ elseif ($docker) {
     # Write-Host "Docker is running :)"
     $docker_cmd = Get-Command docker
     Write-Host $docker_cmd
-    $command = "$docker_cmd run --name doctoolchain${dockerVersion} -e DTC_HEADLESS=1 -e DTC_SITETHEME -p 8042:8042 --rm -it --entrypoint /bin/bash -v '${PWD}:/project' 'rdmueller/doctoolchain:v$dockerVersion' -c ""doctoolchain . $commandArgs $DTC_OPTS && exit"""
+    $command = "$docker_cmd run --name doctoolchain${dockerVersion} -e DTC_HEADLESS=1 -e DTC_SITETHEME -p 8042:8042 --rm -it --entrypoint /bin/bash -v '${PWD}:/project' 'doctoolchain/doctoolchain:v$dockerVersion' -c ""doctoolchain . $commandArgs $DTC_OPTS && exit"""
     $doJavaCheck = $False
 }
 else {
