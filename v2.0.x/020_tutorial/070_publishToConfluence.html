@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
   
-  <!-- 020_tutorial/030_generateHTML.html -->
+  <!-- 020_tutorial/070_publishToConfluence.html -->
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>generateHTML &amp; generatePDF</title>
+  <title>publishToConfluence</title>
   <meta content="docToolchain" property="og:title">
   <meta content="build your dev docs the easy way..." property="og:description">
   <meta content="website" property="og:type">
@@ -225,7 +225,7 @@
                                    href="../020_tutorial/020_arc42.html">arc42 Template</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../020_tutorial/030_generateHTML.html">generateHTML &amp; generatePDF</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -237,7 +237,7 @@
                                    href="../020_tutorial/050_multipleRepositories.html">Multi-Repo</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../020_tutorial/070_publishToConfluence.html">publishToConfluence</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -263,11 +263,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/030_generateHTML.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/070_publishToConfluence.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27generateHTML+%26amp%3B+generatePDF%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page: https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/030_generateHTML.adoc%0A%23branch: ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27publishToConfluence%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page: https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/070_publishToConfluence.adoc%0A%23branch: ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -276,9 +276,10 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_generatehtml_generatepdf">generateHTML &amp; generatePDF</a>
+<li><a href="#_publish_your_docs_to_confluence">Publish Your Docs to Confluence</a>
 <ul class="sectlevel2">
-<li><a href="#_configuration">Configuration</a></li>
+<li><a href="#_step_1_set_up_doctoolchain">Step 1: Set Up docToolchain</a></li>
+<li><a href="#_step_2_configure_confluence_access">Step 2: Configure Confluence Access</a></li>
 </ul>
 </li>
 </ul>
@@ -302,189 +303,369 @@
     <div class="td-content">
         <p>
             
+<style>
+div.center { text-align: center;}
+img { box-shadow: 5px 5px 5px grey;}
+</style>
 <div class="sect1">
-<h2 id="_generatehtml_generatepdf">generateHTML &amp; generatePDF</h2>
+<h2 id="_publish_your_docs_to_confluence">Publish Your Docs to Confluence</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="../015_tasks/03_task_generateHTML.html"><code>generateHTML</code></a> and <a href="../015_tasks/03_task_generatePDF.html"><code>generatePDF</code></a> are basic tasks which invoke Asciidoctor to generate the output you want.</p>
+<p>There are times when you&#8217;ll want to publish your docs to Confluence, such as when you work in a team where not everyone wants to work with Git.
+docToolchain lets you publish your Git-based docs to Confluence alongside manually edited Confluence pages.</p>
 </div>
-<div class="openblock primary">
-<div class="title">Linux / WSL2 with bash</div>
+<div class="paragraph">
+<p>Another situation is when you want to work with the arc42 template in Confluence.
+There are several ways to import the template, but most of them require admin access.
+To get around this, you can set up a fresh copy of the arc42 template in docToolchain and publish it to your Confluence instance.</p>
+</div>
+<div class="paragraph">
+<p>In this tutorial, you&#8217;ll learn how to publish the arc42 template to a Confluence cloud instance.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For this tutorial, we will assume that you work with a Linux-based system.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_step_1_set_up_doctoolchain">Step 1: Set Up docToolchain</h3>
+<div class="paragraph">
+<p>To set up docToolchain, follow these two tutorials: <a href="http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/010_Install.html">install docToolchain</a> and <a href="http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/020_arc42.html">get the arc42 template</a>.</p>
+</div>
+<div class="paragraph">
+<p><code>&#160;&#160;&#160;mkdir publishToConfluenceDemo</code><br>
+<code>&#160;&#160;&#160;cd publishToConfluenceDemo</code></p>
+</div>
+<details>
+<summary class="title"><code>curl -Lo dtcw doctoolchain.github.io/dtcw</code></summary>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw generateHTML</code></pre>
+<pre class="prettyprint highlight"><code>gitpod /workspace/publishToConfluenceDemo (main) $ curl -Lo dtcw doctoolchain.github.io/dtcw
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Dload  Upload   Total   Spent    Left  Speed
+100   162  100   162    0     0   1306      0 --:--:-- --:--:-- --:--:--  1317
+100 10724  100 10724    0     0  25903      0 --:--:-- --:--:-- --:--:-- 25903</code></pre>
 </div>
 </div>
 </div>
+</details>
+<div class="paragraph">
+<p><code>&#160;&#160;&#160;chmod +x dtcw</code><br></p>
 </div>
-<div class="openblock secondary">
-<div class="title">Windows with Powershell</div>
+<details>
+<summary class="title"><code>./dtcw getJava</code></summary>
 <div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="powershell">./dtcw.ps1 generateHTML</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">output of generateHTML</div>
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell session">$ ./dtcw generateHTML
-dtcw - docToolchain wrapper V0.23
-docToolchain V2.0.0
-
-Bash is running on WSL
-this might cause problems with plantUML
-see https://doctoolchain.github.io/docToolchain/#wsl for more details
-
-Java Version 11
+<pre class="prettyprint highlight"><code>./dtcw: line 28: !false: command not found
+dtcw - docToolchain wrapper V0.31
+docToolchain V2.0.5
 docker available
-home folder exists
-use local homefolder install /home/rdmueller/.doctoolchain/
-Starting a Gradle Daemon, 22 busy Daemons could not be reused, use --status for details
+this script assumes that you have linux as operating system (x64 / linux)
+it now tries to install Java for you
+downloading JDK Temurin 11 from adoptiom to /home/gitpod/.doctoolchain/jdk.tar.gz
+WARNING: combining -O with -r or -p will mean that all downloaded content
+will be placed in the single file you specified.
+
+--2022-08-25 20:07:11--  https://api.adoptium.net/v3/binary/latest/11/ga/linux/x64/jdk/hotspot/normal/eclipse?project=jdk
+Resolving api.adoptium.net (api.adoptium.net)... 20.62.244.126
+Connecting to api.adoptium.net (api.adoptium.net)|20.62.244.126|:443... connected.
+HTTP request sent, awaiting response... 307 Temporary Redirect
+Location: https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1%2B1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz [following]
+--2022-08-25 20:07:12--  https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1%2B1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz
+Resolving github.com (github.com)... 140.82.121.3
+Connecting to github.com (github.com)|140.82.121.3|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://objects.githubusercontent.com/github-production-release-asset-2e65be/372924883/70b80b22-3dc5-4824-bb2d-d0158a3b9b57?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220825%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20220825T200712Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=887a715fcbd2e2d6bf24496f57b168ba2204f0f81794a66615ab53a7b153ed37&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;key_id=0&amp;repo_id=372924883&amp;response-content-disposition=attachment%3B%20filename%3DOpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz&amp;response-content-type=application%2Foctet-stream [following]
+--2022-08-25 20:07:12--  https://objects.githubusercontent.com/github-production-release-asset-2e65be/372924883/70b80b22-3dc5-4824-bb2d-d0158a3b9b57?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220825%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20220825T200712Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=887a715fcbd2e2d6bf24496f57b168ba2204f0f81794a66615ab53a7b153ed37&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;key_id=0&amp;repo_id=372924883&amp;response-content-disposition=attachment%3B%20filename%3DOpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz&amp;response-content-type=application%2Foctet-stream
+Resolving objects.githubusercontent.com (objects.githubusercontent.com)... 185.199.109.133, 185.199.111.133, 185.199.108.133, ...
+Connecting to objects.githubusercontent.com (objects.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 193754645 (185M) [application/octet-stream]
+Saving to: ‘/home/gitpod/.doctoolchain/jdk/jdk.tar.gz’
+
+/home/gitpod/.doctoolchain/jdk 100%[====================================================&gt;] 184.78M   310MB/s    in 0.6s
+
+2022-08-25 20:07:13 (310 MB/s) - ‘/home/gitpod/.doctoolchain/jdk/jdk.tar.gz’ saved [193754645/193754645]
+
+FINISHED --2022-08-25 20:07:13--
+Total wall clock time: 1.7s
+Downloaded: 1 files, 185M in 0.6s (310 MB/s)
+expanding JDK</code></pre>
+</div>
+</div>
+</div>
+</details>
+<div class="paragraph">
+<p>Now comes the part where you have to answer some questions, and lots of <code>.jar</code> files get downloaded.</p>
+</div>
+<details>
+<summary class="title"><code>./dtcw tasks</code></summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>dtcw - docToolchain wrapper V0.31
+docToolchain V2.0.5
+local java JDK found
+use /home/gitpod/.doctoolchain/jdk as JDK
+
+docker available
+force use of local install
+docToolchain not installed.
+sdkman not found
+Do you wish to install doctoolchain to /home/gitpod/.doctoolchain?
+1) Yes
+2) No
+#? 1
+installing doctoolchain
+mkdir: cannot create directory ‘/home/gitpod/.doctoolchain’: File exists
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 1783k  100 1783k    0     0  2857k      0 --:--:-- --:--:-- --:--:-- 2857k
+Archive:  /home/gitpod/.doctoolchain/source.zip
+   creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/
+   creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/bin/
+  inflating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/bin/autobuildSite.bash
+  inflating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/bin/doctoolchain
+
+[152 lines omitted]
+
+  inflating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/template_config/pdfTheme/custom-theme.yml
+   creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/resources/
+   creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/resources/asciidoctor-reveal.js/
+   creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/resources/reveal.js/
+Picked up JAVA_TOOL_OPTIONS:  -Xmx3489m
+Downloading https://services.gradle.org/distributions/gradle-6.9.2-bin.zip
+..........10%..........20%..........30%...........40%..........50%..........60%..........70%...........80%..........90%..........100%
+
+Welcome to Gradle 6.9.2!
+
+Here are the highlights of this release:
+ - This is a small backport release.
+ - Java 16 can be used to compile when used with Java toolchains
+ - Dynamic versions can be used within plugin declarations
+ - Native support for Apple Silicon processors
+
+For more details see https://docs.gradle.org/6.9.2/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/6.9.2/userguide/gradle_daemon.html#sec:disabling_the_daemon.
+Daemon will be stopped at the end of the build
 
 &gt; Configure project :
-arc42/arc42.adoc
 
-&gt; Task :generateHTML
-Converting /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42/arc42.adoc
+Config file '/workspace/publishToConfluenceDemo/docToolchainConfig.groovy' does not exist'
+[ant:input]
+[ant:input] do you want me to create a default one for you? (y, n)
+&lt;&lt;-------------&gt; 0% CONFIGURING [2m 55s]
 
-BUILD SUCCESSFUL in 26s
+&gt; Task :help
+
+Welcome to Gradle 6.9.2.
+
+To run a build, run gradlew &lt;task&gt; ...
+
+To see a list of available tasks, run gradlew tasks
+
+To see a list of command-line options, run gradlew --help
+
+To see more detail about a task, run gradlew help --task &lt;task&gt;
+
+For troubleshooting, visit https://help.gradle.org
+
+BUILD SUCCESSFUL in 3m 29s
 1 actionable task: 1 executed</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>The output is written to <code>build/html5/arc42/arc42.html</code> and <code>build/pdf/arc42/Arc42.pdf</code>.</p>
 </div>
-<div id="html_out" class="imageblock">
+</details>
+<details>
+<summary class="title"><code>./dtcw downloadTemplate</code></summary>
 <div class="content">
-<img src="images/generateHTML.dio.png" alt="generateHTML.dio">
-</div>
-<div class="title">Figure 1. generated output of generateHTML task</div>
-</div>
-<div class="paragraph">
-<p>As you can see in <a href="#html_out">Figure 1</a>, HTML output is rendered as a single page with a table of contents (TOC) on the left.
-If using the <code>withhelp</code> version, help appears behind question mark icons on the right side of the page.
-When readers hold their mouse over each icon, help appears.</p>
-</div>
-<div id="pdf_out" class="imageblock">
+<div class="listingblock">
 <div class="content">
-<img src="images/generatePDF.png" alt="generatePDF">
+<pre class="prettyprint highlight"><code>dtcw - docToolchain wrapper V0.31
+docToolchain V2.0.5
+local java JDK found
+use /home/gitpod/.doctoolchain/jdk as JDK
+
+docker available
+home folder exists
+use local homefolder install /home/gitpod/.doctoolchain/
+Picked up JAVA_TOOL_OPTIONS:  -Xmx3489m
+To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/6.9.2/userguide/gradle_daemon.html#sec:disabling_the_daemon.
+Daemon will be stopped at the end of the build
+
+&gt; Task :downloadTemplate
+Install arc42 documentation template.
+For more information about arc42 see https://arc42.org
+[ant:input] Which language do you want to install? (EN, DE, ES, RU)
+&lt;-&lt;-------------&gt; 0% EXECUTING [11s]
+[ant:input] Do you want the template with or without help? (withhelp, plain)
+&lt;-&lt;&lt;-&lt;--&lt;-------------&gt; 0% EXECUTING [17s]
+Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-EN-withhelp-asciidoc.zip
+arc42 template unpacked into /workspace/publishToConfluenceDemo/src/docs/arc42
+added template to docToolchainConfig.groovy
+use 'generateHTML', 'generatePDF' or  'generateSite' to convert the template
+
+BUILD SUCCESSFUL in 22s
+1 actionable task: 1 executed</code></pre>
 </div>
-<div class="title">Figure 2. generated output of generatePDF task</div>
 </div>
+</div>
+</details>
 <div class="paragraph">
-<p><a href="#pdf_out">Figure 2</a> shows you the PDF output.
-There is a TOC available on the first pages, and a TOC also appears on the left, helping readers navigate the document.</p>
+<p>You should have now the following folder structure in place:</p>
 </div>
-<div class="paragraph">
-<p>Both HTML and PDF outputs can be styled to suit your needs.</p>
+<details>
+<summary class="title"><code>tree</code></summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>.
+├── docToolchainConfig.groovy
+├── dtcw
+└── src
+└── docs
+├── arc42
+│   ├── arc42.adoc
+│   └── chapters
+│       ├── 01_introduction_and_goals.adoc
+│       ├── 02_architecture_constraints.adoc
+│       ├── 03_system_scope_and_context.adoc
+│       ├── 04_solution_strategy.adoc
+│       ├── 05_building_block_view.adoc
+│       ├── 06_runtime_view.adoc
+│       ├── 07_deployment_view.adoc
+│       ├── 08_concepts.adoc
+│       ├── 09_architecture_decisions.adoc
+│       ├── 10_quality_requirements.adoc
+│       ├── 11_technical_risks.adoc
+│       ├── 12_glossary.adoc
+│       ├── about-arc42.adoc
+│       └── config.adoc
+└── images
+├── 01_2_iso-25010-topics-EN.png
+├── 05_building_blocks-EN.png
+├── 08-Crosscutting-Concepts-Structure-EN.png
+└── arc42-logo.png
+
+5 directories, 21 files</code></pre>
+</div>
+</div>
+</div>
+</details>
 </div>
 <div class="sect2">
-<h3 id="_configuration">Configuration</h3>
-<div class="sect3">
-<h4 id="_files_to_convert">Files to convert</h4>
+<h3 id="_step_2_configure_confluence_access">Step 2: Configure Confluence Access</h3>
 <div class="paragraph">
-<p>For both tasks, the most important configuration is <code>inputFiles</code>-list at the start of your <code>docToolchainConfig.groovy</code></p>
+<p>Now I will show you how to configure access to the Confluence API.</p>
+</div>
+<div class="paragraph">
+<p>As an example, I&#8217;ll use the file <code>docToolchainConfig.groovy</code> and search for <code>confluence.with</code>.
+This is the start of the Confluence configuration section.</p>
+</div>
+<div class="paragraph">
+<p>As you can see, there is already an example configured as input for the <code>publishToConfluence</code>-Task.
+But since it&#8217;s only an example, I have to configure it to point to the file generated by <code>./dtcw generateHTML</code>.
+Here is the correct config:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">inputFiles = [
-        //[file: 'doctoolchain_demo.adoc',       formats: ['html','pdf']],
-        //[file: 'arc42-template.adoc',    formats: ['html','pdf']],
-        /** inputFiles **/
+<pre class="prettyprint highlight"><code data-lang="groovy">input = [
+    [ file: "build/html5/arc42/arc42.html" ],
 ]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Normally, Asciidoctor converts all files it can find.
-For documents structured using includes, to create a full document (and avoid each chapter being converted to an individual PDF) you&#8217;ll need a main AsciiDoc file that includes all chapters.</p>
-</div>
-<div class="paragraph">
-<p>The <code>inputFiles</code>-map lists all of the main files as well as a list of formats applicable to each.
-For example, this lets you specify which files should be converted to HTML but not to PDF.
-You will need to configure this list manually.</p>
-</div>
-<div class="paragraph">
-<p>If docToolchain converts an unexpected list of files, this is the first place to look when troubleshooting problems.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_working_with_the_pdf_style">Working with the PDF style</h4>
-<div class="paragraph">
-<p>First, execute <code>./dtcw copyTheme</code> to copy a simple <code>pdfTheme</code> to your own project.
-Find it in <code>/src/docs/pdfTheme</code>.</p>
-</div>
-<div class="paragraph">
-<p>Currently, docToolchain uses the <a href="https://asciidoctor.org/docs/asciidoctor-pdf/">asciidoctor-pdf</a> library.
-The documentation contains a good <a href="https://github.com/asciidoctor/asciidoctor-pdf/blob/v1.6.0/docs/theming-guide.adoc">theming guide</a>.</p>
-</div>
-<div class="paragraph">
-<p>To activate the new style, you have to tell Asciidoctor where to find it.
-For maximum flexibility, specify the location and other PDF-related attributes in the file that you want to convert.
-The most important ones are:</p>
+<p>Next, I&#8217;ll set up the API endpoint:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="asciidoc">:pdf-stylesdir: ../pdfTheme
-:pdf-style: custom
-// only needed when you specify your own fonts
-:pdf-fontsdir: ../pdfTheme/fonts</code></pre>
+<pre class="prettyprint highlight"><code data-lang="groovy">api = 'https://[yourServer]/[context]/rest/api/'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>For this tutorial, navigate to <code>src/docs/arc42/arc42.adoc</code> then add the following to the top of the document:</p>
+<p>In my case, I want to publish to <a href="https://arc42-template.atlassian.net" class="bare">https://arc42-template.atlassian.net</a>.
+My first guess is that the correct endpoint is <code><a href="https://arc42-template.atlassian.net/wiki/rest/api/" class="bare">https://arc42-template.atlassian.net/wiki/rest/api/</a></code> and I can verify this by appending <code>user/current</code> to this URL.</p>
+</div>
+<div class="paragraph">
+<p><a href="https://arc42-template.atlassian.net/wiki/rest/api/user/current" class="bare">https://arc42-template.atlassian.net/wiki/rest/api/user/current</a></p>
+</div>
+<div class="paragraph">
+<p>This results in the following output, and proves that I got the right endpoint (no 404).</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="asciidoc">:pdf-stylesdir: ../pdfTheme
-:pdf-style: custom</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This will specify that AsciiDoc will find the <code>pdfTheme</code> relative to the document location in <code>../pdfTheme</code> which will result in <code>src/docs/arc42/../pdfTheme</code> which is equal to <code>src/docs/pdfTheme</code>.</p>
-</div>
-<div class="paragraph">
-<p>You can also make use of the attribute <code>{projectRootDir}</code> which will contain the absolute path to your project directory.
-For example <code>:pdf-stylesdir: {projectRootDir}/src/docs/pdfTheme</code> will search in <code><strong>/home/myname/projects/demo</strong>/src/docs/pdfTheme</code> for the theme.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If you want to use the <code>{projectRootDir}</code> in your editor preview, you must define it as a relative path:
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="asciidoc">ifndef:projectRootDir[:projectRootDir: ../../..]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>When added to the top of your <code>arc42.adoc</code> tutorial file, this will set the <code>projectRootDir</code> to the correct folder.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_working_with_the_html_style">Working with the HTML style</h4>
-<div class="paragraph">
-<p>The easiest way to modify the HTML style is to add a <a href="https://docs.asciidoctor.org/asciidoc/latest/pass/pass-block/">pass-through block</a> with the required CSS styles.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="asciidoctor">++++
-&lt;style&gt;
-  h2 {
-    color: green;
+<pre class="prettyprint highlight"><code data-lang="json">{
+  "type":"anonymous",
+  "profilePicture":{
+    "path":"/wiki/s/-93606273/6452/1a34f7853d41f548e0ef8f60a80cc50468126739/_/images/icons/profilepics/anonymous.png",
+    "width":48,
+    "height":48,
+    "isDefault":true
+  },
+  "displayName":"Anonymous",
+  "isExternalCollaborator":false,
+  "_expandable":{"operations":""},
+  "_links":{
+    "base":"https://arc42-template.atlassian.net/wiki",
+    "context":"/wiki"
   }
-&lt;/style&gt;
-++++</code></pre>
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>As you can see, this API endpoint works as a GET request without being logged in!</p>
+</div>
+<div class="paragraph">
+<p>I created a space called <code>arc42 V8 flat English</code> with the space-key <code>8FE</code>.
+So I configure it accordingly:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>// the key of the confluence space to write to
+spaceKey = '8FE'</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now comes the hardest part.
+The configuration of the credentials.</p>
+</div>
+<div class="paragraph">
+<p>Since I use a cloud instance, I can use an access token.
+This has to be generated from my central Atlassian account.</p>
+</div>
+<div class="paragraph">
+<p>Navigate to your <code>Profile</code></p>
+</div>
+<div class="imageblock center">
+<div class="content">
+<img src="images/070-first.png" alt="070 first" width="30%">
+</div>
+</div>
+<div class="paragraph">
+<p><code>Manage your Account</code></p>
+</div>
+<div class="imageblock center">
+<div class="content">
+<img src="images/070-second.png" alt="070 second" width="30%">
+</div>
+</div>
+<div class="paragraph">
+<p><code>Security</code> &gt; <code>API token</code> &gt; <code>Create and manage API tokens</code></p>
+</div>
+<div class="imageblock center">
+<div class="content">
+<img src="images/070-third.png" alt="070 third" width="80%">
 </div>
 </div>
 <div class="admonitionblock note">
@@ -494,10 +675,97 @@ If you want to use the <code>{projectRootDir}</code> in your editor preview, you
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-For the <code>generate<strong>Site</strong></code> task, there is a different mechanism to change the styles if the generated microsite.
+Here is the <a href="https://id.atlassian.com/manage-profile/security/api-tokens">shortcut</a> to this page.
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p>Now, click on <strong>Create API token</strong>.
+To keep things simple, I will copy this token to the config.</p>
+</div>
+<div class="paragraph">
+<p>(When you use the API token, you have to use your email as your username and the token as the password.)</p>
+</div>
+<div class="paragraph">
+<p>So we don&#8217;t store the credentials in the config file, we pass them with the <code>./dtcw</code> command:</p>
+</div>
+<details>
+<summary class="title"><code>./dtcw publishToConfluence -PconfluenceUser=&lt;your email&gt; -PconfluencePass=&lt;your api-token&gt;</code></summary>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>dtcw - docToolchain wrapper V0.31
+docToolchain V2.0.5
+local java JDK found
+use /home/gitpod/.doctoolchain/jdk as JDK
+
+docker available
+home folder exists
+use local homefolder install /home/gitpod/.doctoolchain/
+Picked up JAVA_TOOL_OPTIONS:  -Xmx3489m
+To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/6.9.2/userguide/gradle_daemon.html#sec:disabling_the_daemon.
+Daemon will be stopped at the end of the build
+
+&gt; Task :publishToConfluence
+publish /workspace/publishToConfluenceDemo/build/html5/arc42/arc42.html
+arc42
+Start getting headers
+&gt; created page 2033844225
+1. Introduction and Goals
+Start getting headers
+    image: ../images/01_2_iso-25010-topics-EN.png
+allPages already retrieved
+&gt; created page 2033909761
+Start getting headers
+2. Architecture Constraints
+Start getting headers
+allPages already retrieved
+&gt; created page 2033975297
+3. System Scope and Context
+Start getting headers
+allPages already retrieved
+&gt; created page 2034008065
+4. Solution Strategy
+Start getting headers
+allPages already retrieved
+&gt; created page 2034040833
+5. Building Block View
+Start getting headers
+    image: ../images/05_building_blocks-EN.png
+allPages already retrieved
+&gt; created page 2034073601
+Start getting headers
+6. Runtime View
+Start getting headers
+allPages already retrieved
+&gt; created page 2034139137
+7. Deployment View
+Start getting headers
+allPages already retrieved
+&gt; created page 2034106374
+8. Cross-cutting Concepts
+Start getting headers
+    image: ../images/08-Crosscutting-Concepts-Structure-EN.png
+allPages already retrieved
+&gt; created page 2034139152
+Start getting headers
+9. Architecture Decisions
+Start getting headers
+allPages already retrieved
+&gt; created page 2034040848
+10. Quality Requirements
+Start getting headers</code></pre>
+</div>
+</div>
+</div>
+</details>
+<div class="paragraph">
+<p>This command will first run the task <code>generateHTML</code> and then create one Confluence page for each arc42-chapter.</p>
+</div>
+<div class="imageblock center">
+<div class="content">
+<img src="images/070-fourth.png" alt="070 fourth" width="80%">
 </div>
 </div>
 </div>
@@ -530,11 +798,11 @@ For the <code>generate<strong>Site</strong></code> task, there is a different me
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27generateHTML+%26amp%3B+generatePDF%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/030_generateHTML.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27publishToConfluence%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/070_publishToConfluence.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27generateHTML+%26amp%3B+generatePDF%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/030_generateHTML.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27publishToConfluence%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/070_publishToConfluence.adoc">tell
     us how we can improve</a>.
     </p>
 </div>
