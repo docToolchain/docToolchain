@@ -140,6 +140,8 @@ end::additionalConverters[]
     // of jBake headers, you can configure a script to modify them here
     // the script has access to
     // - file: the current object
+    // - sourceFolder: the copy of the docs-source on which the build operates
+    //                 default `/microsite/tmp/site/doc`
     // - config: the config object (this file, but parsed)
     // - headers: already parsed headers to be modified
     /**

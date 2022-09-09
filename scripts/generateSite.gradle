@@ -445,6 +445,7 @@ def fixMetaDataHeader = {
                     if (config.microsite.customConvention) {
                         def binding = new Binding([
                             file  : file,
+                            sourceFolder : sourceFolder,
                             config: config,
                             headers : jbake
                         ])
