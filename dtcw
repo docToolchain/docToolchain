@@ -30,7 +30,7 @@ export DTC_HEADLESS
 
 DTC_OPTS="$DTC_OPTS -PmainConfigFile=$MAIN_CONFIG_FILE --warning-mode=none --no-daemon "
 
-echo "dtcw - docToolchain wrapper V0.33"
+echo "dtcw - docToolchain wrapper V0.34"
 echo "docToolchain V${VERSION}"
 
 # check if CLI, docker or sdkman are installed
