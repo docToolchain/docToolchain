@@ -80,6 +80,15 @@ if [ "$1" = "sdk" ] ; then
     echo "force use of sdkman"
     shift
 fi
+if [ "$1" = "generateDeck" ]; then
+    if [ -d "$HOME/.doctoolchain/docToolchain-${VERSION}/resources/reveal.js" ]; then
+        # reveal.js already installed
+        echo ""
+    else
+        echo "cloning reveal.js"
+        exec bash -c "cd $HOME/.doctoolchain/docToolchain-${VERSION}/resources/reveal.js && ./clone.sh && cd -"
+    fi
+fi
 # check for apple M1 silicon
 if [ "$os" = "Darwin" ]; then
   if [ "$arch" = "arm64" ]; then
