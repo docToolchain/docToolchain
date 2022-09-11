@@ -45,7 +45,7 @@ please choose Temurin 11
     }
 }
 
-Write-Host "dtcw - docToolchain wrapper V0.33 (PS)"
+Write-Host "dtcw - docToolchain wrapper V0.35(PS)"
 
 if ($args.Count -lt 1) {
     # Help text adapted to Win/PS: /<command>.ps1
@@ -120,9 +120,19 @@ switch ($args[0]) {
         $firstArgsIndex = 0   # << Use all params
     }
 }
+if ($args[0]="generateDeck") {
+    if (Test-Path "$dtcw_path\docToolchain-$version\resources\reveal.js" ) {
+        # reveal.js already exists
+        Write-Host ""
+    } else {
+        # clone reveal.js
+        Write-Host "cloning reveal.js"
+        Invoke-Expression "Push-Location $dtcw_path/docToolchain-$version/resources/. ; ./clone.ps1 ; Pop-Location"
+    }
+}
 if ($docker)
 {
-  # nothing to do
+    # nothing to do
 }
 else
 {
