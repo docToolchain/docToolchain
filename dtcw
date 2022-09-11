@@ -30,7 +30,7 @@ export DTC_HEADLESS
 
 DTC_OPTS="$DTC_OPTS -PmainConfigFile=$MAIN_CONFIG_FILE --warning-mode=none --no-daemon "
 
-echo "dtcw - docToolchain wrapper V0.34"
+echo "dtcw - docToolchain wrapper V0.35"
 echo "docToolchain V${VERSION}"
 
 # check if CLI, docker or sdkman are installed
@@ -214,7 +214,7 @@ check_java() {
       echo ""
       java_help_and_die
   fi
-  javaversion=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed '/^1\./s///' | cut -d'.' -f1)
+  javaversion=$(java -version 2>&1 | awk -F '"' '/version/ {print $0}' | head -1 | cut -d'"' -f2 | sed '/^1\./s///' | cut -d'.' -f1)
   echo "Java Version $javaversion"
   if (( $javaversion < 8 )); then
       echo "your java version $javaversion is too old (<8): $(which java)"
