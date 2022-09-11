@@ -47,12 +47,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/10_about/20_what-is-doctoolchain.html</loc>
+    	<loc>https://localhost/10_about/30_community.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/10_about/30_community.html</loc>
+    	<loc>https://localhost/10_about/20_what-is-doctoolchain.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
@@ -82,17 +82,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/010_introduction_and_goals.html</loc>
-    	<lastmod>2022-09-11</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/010_manual/60_further_reading.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/010_manual/40_features.html</loc>
+    	<lastmod>2022-09-11</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/010_manual/010_introduction_and_goals.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
@@ -122,12 +122,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/025_development/030_create_new_release.html</loc>
+    	<lastmod>2022-09-11</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/025_development/040_debugging.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/030_create_new_release.html</loc>
+    	<loc>https://localhost/ea/Architect_notes_issue2.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
@@ -137,12 +142,22 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/UseCases.html</loc>
+    	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Architect_notes_issue2.html</loc>
+    	<loc>https://localhost/ea/readme.html</loc>
+    	<lastmod>2022-09-11</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
+    	<lastmod>2022-09-11</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/UseCases.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
@@ -157,47 +172,22 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
-    	<lastmod>2022-09-11</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/readme.html</loc>
-    	<lastmod>2022-09-11</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
-    	<lastmod>2022-09-11</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
-    	<lastmod>2022-09-11</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/issue2.html</loc>
-    	<lastmod>2022-09-11</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/Activity_notes.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
-    	<lastmod>2022-09-11</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
+    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
+    	<lastmod>2022-09-11</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/issue2.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
@@ -212,17 +202,27 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
+    	<lastmod>2022-09-11</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
+    	<lastmod>2022-09-11</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
+    	<lastmod>2022-09-11</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_generateHTML.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportOpenApi.html</loc>
-    	<lastmod>2022-09-11</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
@@ -252,12 +252,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateSite.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_convertToDocx.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_convertToDocx.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_generateSite.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
@@ -302,12 +302,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
+    	<lastmod>2022-09-11</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_exportContributors.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
@@ -327,22 +332,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
-    	<lastmod>2022-09-11</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_copy_themes.html</loc>
-    	<lastmod>2022-09-11</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_collectIncludes.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportEA.html</loc>
+    	<lastmod>2022-09-11</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_copy_themes.html</loc>
     	<lastmod>2022-09-11</lastmod>
     </url>
 
