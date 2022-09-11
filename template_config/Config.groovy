@@ -280,6 +280,9 @@ confluence.with {
     // enable or disable attachment uploads for local file references
     enableAttachments = false
 
+    // variable to limit number of pages retreived per REST-API call
+    pageLimit = 100
+
     // default attachmentPrefix = attachment - All files to attach will require to be linked inside the document.
     // attachmentPrefix = "attachment"
 

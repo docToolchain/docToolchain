@@ -233,15 +233,17 @@ def retrieveAllPages = { RESTClient api, Map headers, String spaceKey ->
 
         boolean morePages=true
         int start=0
+        int pageLimit = config.confluence.pageLimit ? config.confluence.pageLimit : 100
         def request = [
                 'type'    : 'page',
                 'spaceKey': spaceKey,
                 'expand'  : 'ancestors',
-                'limit'   : 100
+                'limit'   : pageLimit
         ]
 
         allPages =[:]
         while(morePages) {
+            print (".")
             def results = trythis {
                 request.start=start
                 def args = [
@@ -270,6 +272,7 @@ def retrieveAllPages = { RESTClient api, Map headers, String spaceKey ->
                 acc
             }
         }
+        println (".")
 
         allPages
     }

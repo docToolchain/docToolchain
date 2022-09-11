@@ -30,6 +30,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/issue/848[#848 generateSite: add customisation possibilities for the jbake gradle plugin]
 * http://doctoolchain.org/docToolchain/v2.0.x/015_tasks/150_task_createTask.html[#894 custom, project specific Tasks]
 * https://github.com/docToolchain/docToolchain/pull/897[#897 collectIncludes: Add options to configure search]
+* https://github.com/docToolchain/docToolchain/pull/911[#911 Add confluence page limit]
 
 === changed
 2022-05-08::
