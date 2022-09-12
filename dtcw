@@ -81,13 +81,21 @@ if [ "$1" = "sdk" ] ; then
     shift
 fi
 if [ "$1" = "generateDeck" ]; then
-    if [ -d "$HOME/.doctoolchain/docToolchain-${VERSION}/resources/reveal.js/." ]; then
-        # reveal.js already installed
-        echo ""
-    else
-        echo "cloning reveal.js"
-        exec bash -c "cd $HOME/.doctoolchain/docToolchain-${VERSION}/resources/. && ./clone.sh && cd -"
-    fi
+    if [ "$homefolder" = false ]; then
+        echo "generateDeck currently only works with a local installed docToolchain"
+        echo "please run './dtcw local install' to install it locally"
+        exit 1
+    else    
+      if [ -d "$HOME/.doctoolchain/docToolchain-${VERSION}/resources/reveal.js/." ]; then
+          # reveal.js already installed
+          echo ""
+      else
+          echo "cloning reveal.js"
+          cd $HOME/.doctoolchain/docToolchain-${VERSION}/resources/. 
+          ./clone.sh 
+          cd - 
+      fi
+    fi  
 fi
 # check for apple M1 silicon
 if [ "$os" = "Darwin" ]; then
