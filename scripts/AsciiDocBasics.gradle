@@ -360,3 +360,12 @@ task generateDeck (
     }
 }
 //end::generateDeck[]
+
+task install (
+    group: 'docToolchain',
+    description: 'just a dummy task') {
+    doLast {
+
+    }
+}
+
