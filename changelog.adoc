@@ -9,7 +9,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
-* fixed exportMarkdownSpec
+* fixed ExportMarkdownSpec
+* fixed GenerateDeckSpec
 
 === added
 
