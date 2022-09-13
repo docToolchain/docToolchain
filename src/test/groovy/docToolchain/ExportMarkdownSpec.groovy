@@ -3,18 +3,21 @@ package docToolchain
 import org.gradle.testkit.runner.GradleRunner
 import spock.lang.Specification
 import spock.lang.Ignore
+import spock.lang.IgnoreRest
 
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
 
 class ExportMarkdownSpec extends Specification {
 
-    public static final File exportedMarkdownFile = new File('./src/test/build/docs/src/docs/exportMarkdownDocs.adoc')
+    public static final File exportedMarkdownFile = new File('./build/test/docs/exportMarkdownDocs.adoc')
 
-    @Ignore("somehow this test is currently broken (no, not the functionality :-)")
+    
     void 'test conversion of sample markdown file'() {
 
         given: 'a clean the environment'
         exportedMarkdownFile.delete()
+        println new File(".").canonicalPath
+        println exportedMarkdownFile.exists()
 
         when: 'executing the gradle task `exportMarkdown`'
         def result = GradleRunner.create()
