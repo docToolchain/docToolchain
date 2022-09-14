@@ -20,7 +20,7 @@ class Export2ConfluenceSpec extends Specification {
             // no more results
             [data: [results: []]]
         when: 'run retrieveAllPagesBySpace'
-        def result = script.retrieveAllPagesBySpace(restClient, Map.of(), 'spaceKey', 'xxx')
+        def result = script.retrieveAllPagesBySpace(restClient, [:], 'spaceKey', 'xxx')
         then: 'the pages are given'
         result.size() == 10
         result == ['page old 1': [title: 'page old 1', id: '688183', parentId: '47456033'],
@@ -51,7 +51,7 @@ class Export2ConfluenceSpec extends Specification {
             // all other child loops
             [data: [results: []]]
         when: 'run retrieveAllPagesByAncestorId'
-        def result = script.retrieveAllPagesByAncestorId(restClient, Map.of(), ['123'], 'xxx')
+        def result = script.retrieveAllPagesByAncestorId(restClient, [:], ['123'], 'xxx')
         then: 'the pages are given'
         result.size() == 7
         result == ['page 1': [title: 'page 1', id: '183954870', parentId: '123'],
