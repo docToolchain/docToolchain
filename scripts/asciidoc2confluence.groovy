@@ -226,7 +226,7 @@ def retrieveAllPagesByAncestorId(RESTClient api, Map headers, List<String> pageI
     def allPages = [:]
     def request = [
         'type' : 'page',
-        'limit': config.confluence.pageLimit ? config.confluence.pageLimit : 100
+        'limit': config?.confluence?.pageLimit ? config.confluence.pageLimit : 100
     ]
 
     int start = 0
@@ -281,7 +281,7 @@ def retrieveAllPagesBySpace(RESTClient api, Map headers, String spaceKey, String
         'type'    : 'page',
         'spaceKey': spaceKey,
         'expand'  : 'ancestors',
-        'limit'   : config.confluence.pageLimit ? config.confluence.pageLimit : 100
+        'limit'   : config?.confluence?.pageLimit ? config.confluence.pageLimit : 100
     ]
 
     def allPages = [:]
