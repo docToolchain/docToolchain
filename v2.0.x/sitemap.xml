@@ -82,17 +82,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/010_manual/010_introduction_and_goals.html</loc>
+    	<lastmod>2022-09-14</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/010_manual/60_further_reading.html</loc>
     	<lastmod>2022-09-14</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/010_manual/40_features.html</loc>
-    	<lastmod>2022-09-14</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/010_manual/010_introduction_and_goals.html</loc>
     	<lastmod>2022-09-14</lastmod>
     </url>
 
@@ -147,11 +147,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/readme.html</loc>
-    	<lastmod>2022-09-14</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/UseCases.html</loc>
     	<lastmod>2022-09-14</lastmod>
     </url>
@@ -172,12 +167,27 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
+    	<lastmod>2022-09-14</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/Use_Cases_links.html</loc>
     	<lastmod>2022-09-14</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
+    	<lastmod>2022-09-14</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/issue1.html</loc>
+    	<lastmod>2022-09-14</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/readme.html</loc>
     	<lastmod>2022-09-14</lastmod>
     </url>
 
@@ -192,27 +202,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/issue1.html</loc>
-    	<lastmod>2022-09-14</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
-    	<lastmod>2022-09-14</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
-    	<lastmod>2022-09-14</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_prependFilename.html</loc>
-    	<lastmod>2022-09-14</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
     	<lastmod>2022-09-14</lastmod>
     </url>
 
@@ -227,12 +217,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
     	<lastmod>2022-09-14</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_createReferenceDoc.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
     	<lastmod>2022-09-14</lastmod>
     </url>
 
@@ -248,6 +238,16 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
+    	<lastmod>2022-09-14</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
+    	<lastmod>2022-09-14</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_createReferenceDoc.html</loc>
     	<lastmod>2022-09-14</lastmod>
     </url>
 
@@ -287,12 +287,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportJiraSprintChangelog.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportVisio.html</loc>
     	<lastmod>2022-09-14</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportVisio.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportJiraSprintChangelog.html</loc>
     	<lastmod>2022-09-14</lastmod>
     </url>
 
@@ -302,22 +302,22 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
-    	<lastmod>2022-09-14</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_exportContributors.html</loc>
     	<lastmod>2022-09-14</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_downloadTemplate.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
     	<lastmod>2022-09-14</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
+    	<lastmod>2022-09-14</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_downloadTemplate.html</loc>
     	<lastmod>2022-09-14</lastmod>
     </url>
 
@@ -362,12 +362,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/120_self-contained-dtc.html</loc>
+    	<loc>https://localhost/020_tutorial/020_arc42.html</loc>
     	<lastmod>2022-09-14</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/020_arc42.html</loc>
+    	<loc>https://localhost/020_tutorial/120_self-contained-dtc.html</loc>
     	<lastmod>2022-09-14</lastmod>
     </url>
 

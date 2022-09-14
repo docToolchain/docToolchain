@@ -130,6 +130,14 @@ var documents = [
 
 {
     "id": 16,
+    "uri": "010_manual/010_introduction_and_goals.html",
+    "menu": "-",
+    "title": "moved",
+    "text": " document.location.href = '../10_about/20_what-is-doctoolchain.html'; "
+},
+
+{
+    "id": 17,
     "uri": "010_manual/60_further_reading.html",
     "menu": "manual",
     "title": "Useful Resources",
@@ -137,19 +145,11 @@ var documents = [
 },
 
 {
-    "id": 17,
+    "id": 18,
     "uri": "010_manual/40_features.html",
     "menu": "manual",
     "title": "Using docToolchain to Build Docs",
     "text": " Table of Contents Using docToolchain to Build Docs Using docToolchain to Build Docs 1 minute to read docToolchain implements many features via scripts, which you call through the command line. These scripts are called tasks in this documentation. Learn more about these scripts in the Tasks menu. "
-},
-
-{
-    "id": 18,
-    "uri": "010_manual/010_introduction_and_goals.html",
-    "menu": "-",
-    "title": "moved",
-    "text": " document.location.href = '../10_about/20_what-is-doctoolchain.html'; "
 },
 
 {
@@ -234,14 +234,6 @@ var documents = [
 
 {
     "id": 29,
-    "uri": "ea/readme.html",
-    "menu": "ea",
-    "title": "readme.ad",
-    "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
-},
-
-{
-    "id": 30,
     "uri": "ea/UseCases.html",
     "menu": "ea",
     "title": "UseCases.ad",
@@ -249,7 +241,7 @@ var documents = [
 },
 
 {
-    "id": 31,
+    "id": 30,
     "uri": "ea/Architect_notes.html",
     "menu": "ea",
     "title": "Architect_notes.ad",
@@ -257,7 +249,7 @@ var documents = [
 },
 
 {
-    "id": 32,
+    "id": 31,
     "uri": "ea/Activity_notes_issue1.html",
     "menu": "ea",
     "title": "Activity_notes_issue1.ad",
@@ -265,11 +257,19 @@ var documents = [
 },
 
 {
-    "id": 33,
+    "id": 32,
     "uri": "ea/Activity_notes.html",
     "menu": "ea",
     "title": "Activity_notes.ad",
     "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
+    "id": 33,
+    "uri": "015_tasks/03_task_generateDeck.html",
+    "menu": "tasks",
+    "title": "generateDeck",
+    "text": " Table of Contents generateDeck At a Glance About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateDeck 1 minute to read At a Glance About This Task This task makes use of the asciidoctor-reveal.js backend to render your documents into a HTML-based presentation. It creates a PowerPoint presentation, then enriches it by adding reveal.js slide definitions in AsciiDoc to the speaker notes. For best results, use this task with the exportPPT task. Source AsciiDocBasics.gradle task generateDeck ( type: AsciidoctorTask, group: 'docToolchain', description: 'use revealJs as asciidoc backend to create a presentation') { attributes ( 'idprefix': 'slide-', 'idseparator': '-', 'docinfo1': '', 'revealjs_theme': 'black@', 'revealjs_progress': 'true@', 'revealjs_touch': 'true@', 'revealjs_hideAddressBar': 'true@', 'revealjs_transition': 'linear@', 'revealjs_history': 'true@', 'revealjs_slideNumber': 'true@' ) options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates').absolutePath ] def sourceFilesREVEAL = sourceFiles.findAll { 'revealjs' in it.formats } // onlyIf { // sourceFilesREVEAL // } sources { sourceFilesREVEAL.each { include it.file logger.info it.file } } outputDir = file(targetDir+'/decks/') resources { from('resources') { include 'reveal.js/**' } from(sourceDir) { include 'images/**' } into() logger.info ${docDir}/${config.outputPath}/images } doFirst { if (sourceFilesREVEAL.size()==0) { throw new Exception ( &gt;&gt; No source files defined for type 'revealjs'. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy ) } } } "
 },
 
 {
@@ -290,22 +290,6 @@ var documents = [
 
 {
     "id": 36,
-    "uri": "ea/Use_Cases_notes_UseCases.html",
-    "menu": "ea",
-    "title": "Use_Cases_notes_UseCases.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
-},
-
-{
-    "id": 37,
-    "uri": "ea/issue2.html",
-    "menu": "ea",
-    "title": "issue2.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
-},
-
-{
-    "id": 38,
     "uri": "ea/issue1.html",
     "menu": "ea",
     "title": "issue1.ad",
@@ -313,23 +297,31 @@ var documents = [
 },
 
 {
+    "id": 37,
+    "uri": "ea/readme.html",
+    "menu": "ea",
+    "title": "readme.ad",
+    "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
+},
+
+{
+    "id": 38,
+    "uri": "ea/Use_Cases_notes_UseCases.html",
+    "menu": "ea",
+    "title": "Use_Cases_notes_UseCases.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
+},
+
+{
     "id": 39,
-    "uri": "015_tasks/03_task_generateDeck.html",
-    "menu": "tasks",
-    "title": "generateDeck",
-    "text": " Table of Contents generateDeck At a Glance About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateDeck 1 minute to read At a Glance About This Task This task makes use of the asciidoctor-reveal.js backend to render your documents into a HTML-based presentation. It creates a PowerPoint presentation, then enriches it by adding reveal.js slide definitions in AsciiDoc to the speaker notes. For best results, use this task with the exportPPT task. Source AsciiDocBasics.gradle task generateDeck ( type: AsciidoctorTask, group: 'docToolchain', description: 'use revealJs as asciidoc backend to create a presentation') { attributes ( 'idprefix': 'slide-', 'idseparator': '-', 'docinfo1': '', 'revealjs_theme': 'black@', 'revealjs_progress': 'true@', 'revealjs_touch': 'true@', 'revealjs_hideAddressBar': 'true@', 'revealjs_transition': 'linear@', 'revealjs_history': 'true@', 'revealjs_slideNumber': 'true@' ) options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates').absolutePath ] def sourceFilesREVEAL = sourceFiles.findAll { 'revealjs' in it.formats } // onlyIf { // sourceFilesREVEAL // } sources { sourceFilesREVEAL.each { include it.file logger.info it.file } } outputDir = file(targetDir+'/decks/') resources { from('resources') { include 'reveal.js/**' } from(sourceDir) { include 'images/**' } into() logger.info ${docDir}/${config.outputPath}/images } doFirst { if (sourceFilesREVEAL.size()==0) { throw new Exception ( &gt;&gt; No source files defined for type 'revealjs'. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy ) } } } "
+    "uri": "ea/issue2.html",
+    "menu": "ea",
+    "title": "issue2.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
 },
 
 {
     "id": 40,
-    "uri": "015_tasks/03_task_exportExcel.html",
-    "menu": "tasks",
-    "title": "exportExcel",
-    "text": " Table of Contents exportExcel At a Glance About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportExcel 2 minutes to read At a Glance About This Task Sometimes you need to include tabular data in your documentation. Most likely, this data will be stored as a MS Excel spreadsheet, or you may like to use Excel to create and edit it. Either way, this task lets you export an Excel spreadsheet and include it directly in your docs. It searches for .xlsx files and exports each contained worksheet as .csv and as .adoc . Note that formulas contained in your spreadsheet are evaluated and exported statically. The generated files are written to src/excel/[filename]/[worksheet].(adoc|cvs) . The src folder is used instead of the build folder because a better history of worksheet changes is captured. The files can be included either as AsciiDoc: include::excel/Sample.xlsx/Numerical.adoc[] &#8230;&#8203;or as a CSV file: [options=header,format=csv] |=== include::excel/Sample.xlsx/Numerical.csv[] |=== The AsciiDoc version gives you a bit more control because the following are preserved: Horizontal and vertical alignment. col-span and row-span. Line breaks. Column width relative to other columns. Background colors. Further Reading and Resources See asciidoctorj-office-extension to learn another way to use Excel spreadsheets in your docs. Source build.gradle task exportExcel( description: 'exports all excelsheets to csv and AsciiDoc', group: 'docToolchain' ) { doFirst { File sourceDir = file(srcDir) def tree = fileTree(srcDir).include('**/*.xlsx').exclude('**/~*') def exportFileDir = new File(sourceDir, 'excel') //make sure path for notes exists exportFileDir.deleteDir() //create a readme to clarify things def readme = This folder contains exported workbooks from Excel. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportExcel` to re-export files  exportFileDir.mkdirs() new File(exportFileDir, '/readme.ad').write(readme) } doLast { File sourceDir = file(srcDir) def exportFileDir = new File(sourceDir, 'excel') def tree = fileTree(srcDir).include('**/*.xlsx').exclude('**/~*') def nl = System.getProperty(line.separator) def export = { sheet, evaluator, targetFileName -&gt; def targetFileCSV = new File(targetFileName + '.csv') def targetFileAD = new File(targetFileName + '.adoc') def df = new org.apache.poi.ss.usermodel.DataFormatter(); def regions = [] sheet.numMergedRegions.times { regions &lt;&lt; sheet.getMergedRegion(it) } logger.debug sheet contains ${regions.size()} regions def color = '' def resetColor = false def numCols = 0 def headerCreated = false def emptyRows = 0 for (int rowNum=0; rowNum&lt;=sheet.lastRowNum; rowNum++) { def row = sheet.getRow(rowNum) if (row &amp;&amp; !headerCreated) { headerCreated = true // create AsciiDoc table header def width = [] numCols = row.lastCellNum numCols.times { columnIndex -&gt; width &lt;&lt; sheet.getColumnWidth((int) columnIndex) } //lets make those numbers nicer: width = width.collect { Math.round(100 * it / width.sum()) } targetFileAD.append('[options=header,cols=' + width.join(',') + ']' + nl) targetFileAD.append('|===' + nl) } def data = [] def style = [] def colors = [] // For each row, iterate through each columns if (row &amp;&amp; (row?.lastCellNum!=-1)) { numCols.times { columnIndex -&gt; def cell = row.getCell(columnIndex) if (cell) { def cellValue = df.formatCellValue(cell, evaluator) if (cellValue.startsWith('*') &amp;&amp; cellValue.endsWith('\u20AC')) { // Remove special characters at currency cellValue = cellValue.substring(1).trim(); } def cellStyle = '' def region = regions.find { it.isInRange(cell.rowIndex, cell.columnIndex) } def skipCell = false if (region) { //check if we are in the upper left corner of the region if (region.firstRow == cell.rowIndex &amp;&amp; region.firstColumn == cell.columnIndex) { def colspan = 1 + region.lastRow - region.firstRow def rowspan = 1 + region.lastColumn - region.firstColumn if (rowspan &gt; 1) { cellStyle += ${rowspan} } if (colspan &gt; 1) { cellStyle += .${colspan} } cellStyle += + } else { skipCell = true } } if (!skipCell) { switch (cell.cellStyle.alignmentEnum.toString()) { case 'RIGHT': cellStyle += '&gt;' break case 'CENTER': cellStyle += '^' break } switch (cell.cellStyle.verticalAlignmentEnum.toString()) { case 'BOTTOM': cellStyle += '.&gt;' break case 'CENTER': cellStyle += '.^' break } color = cell.cellStyle.fillForegroundXSSFColor?.RGB?.encodeHex() color = color != null ? nl + {set:cellbgcolor:#${color}} : '' data &lt;&lt; cellValue if (color == '' &amp;&amp; resetColor) { colors &lt;&lt; nl + {set:cellbgcolor!} resetColor = false } else { colors &lt;&lt; color } if (color != '') { resetColor = true } style &lt;&lt; cellStyle } else { data &lt;&lt;  colors &lt;&lt;  style &lt;&lt; skip } } else { data &lt;&lt;  colors &lt;&lt;  style &lt;&lt;  } } emptyRows = 0 } else { if (emptyRows&lt;3) { //insert empty row numCols.times { data &lt;&lt;  colors &lt;&lt;  style &lt;&lt;  } emptyRows++ } else { break } } targetFileCSV.append(data .collect { \${it.replaceAll('', '')}\ } .join(',') + nl, 'UTF-8') targetFileAD.append(data .withIndex() .collect { value, index -&gt; if (style[index] == skip) {  } else { style[index] + | ${value.replaceAll('[|]', '{vbar}').replaceAll(\n, ' +$0') + colors[index]} } } .join(nl) + nl * 2, 'UTF-8') } targetFileAD.append('|===' + nl) } tree.each { File excel -&gt; println file:  + excel def excelDir = new File(exportFileDir, excel.getName()) excelDir.mkdirs() InputStream inp inp = new FileInputStream(excel) def wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(inp); def evaluator = wb.getCreationHelper().createFormulaEvaluator(); for (int wbi = 0; wbi &lt; wb.getNumberOfSheets(); wbi++) { def sheetName = wb.getSheetAt(wbi).getSheetName() println  -- sheet:  + sheetName def targetFile = new File(excelDir, sheetName) export(wb.getSheetAt(wbi), evaluator, targetFile.getAbsolutePath()) } inp.close(); } } } "
-},
-
-{
-    "id": 41,
     "uri": "015_tasks/03_task_prependFilename.html",
     "menu": "tasks",
     "title": "prependFilename",
@@ -337,15 +329,7 @@ var documents = [
 },
 
 {
-    "id": 42,
-    "uri": "015_tasks/03_task_autobuildSite.html",
-    "menu": "tasks",
-    "title": "autobuildSite",
-    "text": " Table of Contents autobuildSite About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } autobuildSite 1 minute to read About This Task This script starts an endless loop which checks for changes to your docs source then re-runs the generateSite -task whenever it detects changes. The output will be logged to build/generateSite.log . Source bin/autobuildSite.bash #!/bin/bash DIR_TO_WATCH='src/' #COMMAND='rm -r build || true &amp;&amp; mkdir -p build/microsite/output/images/ &amp;&amp; ./dtcw generateSite 2&gt;&amp;1 | tee build/generateSite.log' COMMAND='mkdir -p build/microsite/output/images/ &amp;&amp; ./dtcw generateSite 2&gt;&amp;1 | tee build/generateSite.log' #execute first time cp src/docs/images/ready.png build/microsite/output/images/status.png #eval $COMMAND #wait for changes and execute while true ; do watch --no-title --chgexit ls -lR ${DIR_TO_WATCH} | sha1sum cp src/docs/images/building.png build/microsite/output/images/status.png eval $COMMAND cp src/docs/images/ready.png build/microsite/output/images/status.png sleep 6 done "
-},
-
-{
-    "id": 43,
+    "id": 41,
     "uri": "015_tasks/03_task_generateHTML.html",
     "menu": "tasks",
     "title": "generateHTML",
@@ -353,7 +337,7 @@ var documents = [
 },
 
 {
-    "id": 44,
+    "id": 42,
     "uri": "015_tasks/03_task_exportOpenApi.html",
     "menu": "tasks",
     "title": "exportOpenAPI",
@@ -361,23 +345,23 @@ var documents = [
 },
 
 {
+    "id": 43,
+    "uri": "015_tasks/03_task_exportExcel.html",
+    "menu": "tasks",
+    "title": "exportExcel",
+    "text": " Table of Contents exportExcel At a Glance About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportExcel 2 minutes to read At a Glance About This Task Sometimes you need to include tabular data in your documentation. Most likely, this data will be stored as a MS Excel spreadsheet, or you may like to use Excel to create and edit it. Either way, this task lets you export an Excel spreadsheet and include it directly in your docs. It searches for .xlsx files and exports each contained worksheet as .csv and as .adoc . Note that formulas contained in your spreadsheet are evaluated and exported statically. The generated files are written to src/excel/[filename]/[worksheet].(adoc|cvs) . The src folder is used instead of the build folder because a better history of worksheet changes is captured. The files can be included either as AsciiDoc: include::excel/Sample.xlsx/Numerical.adoc[] &#8230;&#8203;or as a CSV file: [options=header,format=csv] |=== include::excel/Sample.xlsx/Numerical.csv[] |=== The AsciiDoc version gives you a bit more control because the following are preserved: Horizontal and vertical alignment. col-span and row-span. Line breaks. Column width relative to other columns. Background colors. Further Reading and Resources See asciidoctorj-office-extension to learn another way to use Excel spreadsheets in your docs. Source build.gradle task exportExcel( description: 'exports all excelsheets to csv and AsciiDoc', group: 'docToolchain' ) { doFirst { File sourceDir = file(srcDir) def tree = fileTree(srcDir).include('**/*.xlsx').exclude('**/~*') def exportFileDir = new File(sourceDir, 'excel') //make sure path for notes exists exportFileDir.deleteDir() //create a readme to clarify things def readme = This folder contains exported workbooks from Excel. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportExcel` to re-export files  exportFileDir.mkdirs() new File(exportFileDir, '/readme.ad').write(readme) } doLast { File sourceDir = file(srcDir) def exportFileDir = new File(sourceDir, 'excel') def tree = fileTree(srcDir).include('**/*.xlsx').exclude('**/~*') def nl = System.getProperty(line.separator) def export = { sheet, evaluator, targetFileName -&gt; def targetFileCSV = new File(targetFileName + '.csv') def targetFileAD = new File(targetFileName + '.adoc') def df = new org.apache.poi.ss.usermodel.DataFormatter(); def regions = [] sheet.numMergedRegions.times { regions &lt;&lt; sheet.getMergedRegion(it) } logger.debug sheet contains ${regions.size()} regions def color = '' def resetColor = false def numCols = 0 def headerCreated = false def emptyRows = 0 for (int rowNum=0; rowNum&lt;=sheet.lastRowNum; rowNum++) { def row = sheet.getRow(rowNum) if (row &amp;&amp; !headerCreated) { headerCreated = true // create AsciiDoc table header def width = [] numCols = row.lastCellNum numCols.times { columnIndex -&gt; width &lt;&lt; sheet.getColumnWidth((int) columnIndex) } //lets make those numbers nicer: width = width.collect { Math.round(100 * it / width.sum()) } targetFileAD.append('[options=header,cols=' + width.join(',') + ']' + nl) targetFileAD.append('|===' + nl) } def data = [] def style = [] def colors = [] // For each row, iterate through each columns if (row &amp;&amp; (row?.lastCellNum!=-1)) { numCols.times { columnIndex -&gt; def cell = row.getCell(columnIndex) if (cell) { def cellValue = df.formatCellValue(cell, evaluator) if (cellValue.startsWith('*') &amp;&amp; cellValue.endsWith('\u20AC')) { // Remove special characters at currency cellValue = cellValue.substring(1).trim(); } def cellStyle = '' def region = regions.find { it.isInRange(cell.rowIndex, cell.columnIndex) } def skipCell = false if (region) { //check if we are in the upper left corner of the region if (region.firstRow == cell.rowIndex &amp;&amp; region.firstColumn == cell.columnIndex) { def colspan = 1 + region.lastRow - region.firstRow def rowspan = 1 + region.lastColumn - region.firstColumn if (rowspan &gt; 1) { cellStyle += ${rowspan} } if (colspan &gt; 1) { cellStyle += .${colspan} } cellStyle += + } else { skipCell = true } } if (!skipCell) { switch (cell.cellStyle.alignmentEnum.toString()) { case 'RIGHT': cellStyle += '&gt;' break case 'CENTER': cellStyle += '^' break } switch (cell.cellStyle.verticalAlignmentEnum.toString()) { case 'BOTTOM': cellStyle += '.&gt;' break case 'CENTER': cellStyle += '.^' break } color = cell.cellStyle.fillForegroundXSSFColor?.RGB?.encodeHex() color = color != null ? nl + {set:cellbgcolor:#${color}} : '' data &lt;&lt; cellValue if (color == '' &amp;&amp; resetColor) { colors &lt;&lt; nl + {set:cellbgcolor!} resetColor = false } else { colors &lt;&lt; color } if (color != '') { resetColor = true } style &lt;&lt; cellStyle } else { data &lt;&lt;  colors &lt;&lt;  style &lt;&lt; skip } } else { data &lt;&lt;  colors &lt;&lt;  style &lt;&lt;  } } emptyRows = 0 } else { if (emptyRows&lt;3) { //insert empty row numCols.times { data &lt;&lt;  colors &lt;&lt;  style &lt;&lt;  } emptyRows++ } else { break } } targetFileCSV.append(data .collect { \${it.replaceAll('', '')}\ } .join(',') + nl, 'UTF-8') targetFileAD.append(data .withIndex() .collect { value, index -&gt; if (style[index] == skip) {  } else { style[index] + | ${value.replaceAll('[|]', '{vbar}').replaceAll(\n, ' +$0') + colors[index]} } } .join(nl) + nl * 2, 'UTF-8') } targetFileAD.append('|===' + nl) } tree.each { File excel -&gt; println file:  + excel def excelDir = new File(exportFileDir, excel.getName()) excelDir.mkdirs() InputStream inp inp = new FileInputStream(excel) def wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(inp); def evaluator = wb.getCreationHelper().createFormulaEvaluator(); for (int wbi = 0; wbi &lt; wb.getNumberOfSheets(); wbi++) { def sheetName = wb.getSheetAt(wbi).getSheetName() println  -- sheet:  + sheetName def targetFile = new File(excelDir, sheetName) export(wb.getSheetAt(wbi), evaluator, targetFile.getAbsolutePath()) } inp.close(); } } } "
+},
+
+{
+    "id": 44,
+    "uri": "015_tasks/03_task_autobuildSite.html",
+    "menu": "tasks",
+    "title": "autobuildSite",
+    "text": " Table of Contents autobuildSite About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } autobuildSite 1 minute to read About This Task This script starts an endless loop which checks for changes to your docs source then re-runs the generateSite -task whenever it detects changes. The output will be logged to build/generateSite.log . Source bin/autobuildSite.bash #!/bin/bash DIR_TO_WATCH='src/' #COMMAND='rm -r build || true &amp;&amp; mkdir -p build/microsite/output/images/ &amp;&amp; ./dtcw generateSite 2&gt;&amp;1 | tee build/generateSite.log' COMMAND='mkdir -p build/microsite/output/images/ &amp;&amp; ./dtcw generateSite 2&gt;&amp;1 | tee build/generateSite.log' #execute first time cp src/docs/images/ready.png build/microsite/output/images/status.png #eval $COMMAND #wait for changes and execute while true ; do watch --no-title --chgexit ls -lR ${DIR_TO_WATCH} | sha1sum cp src/docs/images/building.png build/microsite/output/images/status.png eval $COMMAND cp src/docs/images/ready.png build/microsite/output/images/status.png sleep 6 done "
+},
+
+{
     "id": 45,
-    "uri": "015_tasks/03_task_generateDocBook.html",
-    "menu": "tasks",
-    "title": "generateDocbook",
-    "text": " Table of Contents generateDocbook At a Glance About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateDocbook 1 minute to read At a Glance About This Task A helper task, generateDocbook generates the intermediate format for convertToDocx &lt;&lt;&gt;&gt; and convertToEpub . Source AsciiDocBasics.gradle task generateDocbook ( type: AsciidoctorTask, group: 'docToolchain', description: 'use docbook as asciidoc backend') { def sourceFilesDOCBOOK = sourceFiles.findAll { 'docbook' in it.formats } // onlyIf { // sourceFilesDOCBOOK // } sources { sourceFilesDOCBOOK.each { include it.file logger.info it.file } } backends = ['docbook'] doFirst { if (sourceFilesDOCBOOK.size()==0) { throw new Exception ( &gt;&gt; No source files defined for type docbook. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy ) } } } "
-},
-
-{
-    "id": 46,
-    "uri": "015_tasks/03_task_createReferenceDoc.html",
-    "menu": "tasks",
-    "title": "createReferenceDoc",
-    "text": " Table of Contents createReferenceDoc Before You Begin About This Task Config.groovy Notes Source .gravatar img { margin-left: 3px; border-radius: 4px; } createReferenceDoc Before You Begin Install pandoc . 1 minute to read About This Task This task creates a reference docx file used by pandoc during docbook-to-docx conversion. Use task convertToDocx to edit this file so it uses your preferred styles. Important The contents of the reference docx are ignored, but its stylesheets and document properties (including margins, page size, header and footer) are used in the new docx. For more information, see Pandoc User&#8217;s Guide: Options affecting specific writers (--reference-doc) And if you have problems with changing the default table style: see https://github.com/jgm/pandoc/issues/3275 . Config.groovy Notes The 'referenceDocFile' property must be set to your custom reference file in Config.groovy: inputPath = '.' // use a style reference file in the input path for conversion from docbook to docx referenceDocFile = ${inputPath}/my-ref-file.docx Source pandoc.gradle task createReferenceDoc ( group: 'docToolchain helper', description: 'creates a docx file to be used as a format style reference in task convertToDocx. Needs pandoc installed.', type: Exec ) { workingDir $docDir executable = pandoc args = [-o, ${docDir}/${referenceDocFile}, --print-default-data-file, reference.docx] doFirst { if(!(referenceDocFile?.trim())) { throw new GradleException(Option `referenceDocFile` is not defined in config.groovy or has an empty value.) } } } "
-},
-
-{
-    "id": 47,
     "uri": "015_tasks/150_task_creatTask.html",
     "menu": "tasks",
     "title": "createTask",
@@ -385,7 +369,7 @@ var documents = [
 },
 
 {
-    "id": 48,
+    "id": 46,
     "uri": "015_tasks/03_task_previewSite.html",
     "menu": "tasks",
     "title": "previewSite",
@@ -393,11 +377,27 @@ var documents = [
 },
 
 {
-    "id": 49,
+    "id": 47,
     "uri": "015_tasks/03_task_htmlSanityCheck.html",
     "menu": "tasks",
     "title": "htmlSanityCheck",
     "text": " Table of Contents htmlSanityCheck At a Glance About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } htmlSanityCheck 1 minute to read At a Glance About This Task This task invokes the htmlSanityCheck gradle plugin. It is a standalone (batch- and command-line) HTML sanity checker whose role is to detect missing images, dead links and duplicated bookmarks. In docToolchain, the htmlSanityCheck task ensures that generated HTML contains no missing links or other problems. It is the last default task, and creates a report in build/report/htmlchecks/index.html (see example below). Figure 1. sample report Further Reading and Resources Read the Automated Quality-Checks blog post. Visit https://github.com/aim42/htmlSanityCheck for more information about this task. Source htmlSanityCheck.gradle htmlSanityCheck { sourceDir = new File(config.htmlSanityCheck.sourceDir?targetDir+/+config.htmlSanityCheck.sourceDir:$targetDir/html5) // files to check - in Set-notation //sourceDocuments = [ one-file.html, another-file.html, index.html] // where to put results of sanityChecks... checkingResultsDir = new File(config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath) // directory where the results written to in JUnit XML format junitResultsDir = new File(config.htmlSanityCheck.junitResultsDir?:$targetDir/test-results/htmlchecks) // which statuscodes shall be interpreted as warning, error or success defaults to standard httpSuccessCodes = config.htmlSanityCheck.httpSuccessCodes?:[] httpWarningCodes = config.htmlSanityCheck.httpWarningCodes?:[] httpErrorCodes = config.htmlSanityCheck.httpErrorCodes?:[] // fail build on errors? failOnErrors = config.htmlSanityCheck.failOnErrors?:false logger.info docToolchain&gt; HSC sourceDir: ${sourceDir} logger.info docToolchain&gt; HSC checkingResultsDir: ${checkingResultsDir} } "
+},
+
+{
+    "id": 48,
+    "uri": "015_tasks/03_task_generateDocBook.html",
+    "menu": "tasks",
+    "title": "generateDocbook",
+    "text": " Table of Contents generateDocbook At a Glance About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateDocbook 1 minute to read At a Glance About This Task A helper task, generateDocbook generates the intermediate format for convertToDocx &lt;&lt;&gt;&gt; and convertToEpub . Source AsciiDocBasics.gradle task generateDocbook ( type: AsciidoctorTask, group: 'docToolchain', description: 'use docbook as asciidoc backend') { def sourceFilesDOCBOOK = sourceFiles.findAll { 'docbook' in it.formats } // onlyIf { // sourceFilesDOCBOOK // } sources { sourceFilesDOCBOOK.each { include it.file logger.info it.file } } backends = ['docbook'] doFirst { if (sourceFilesDOCBOOK.size()==0) { throw new Exception ( &gt;&gt; No source files defined for type docbook. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy ) } } } "
+},
+
+{
+    "id": 49,
+    "uri": "015_tasks/03_task_createReferenceDoc.html",
+    "menu": "tasks",
+    "title": "createReferenceDoc",
+    "text": " Table of Contents createReferenceDoc Before You Begin About This Task Config.groovy Notes Source .gravatar img { margin-left: 3px; border-radius: 4px; } createReferenceDoc Before You Begin Install pandoc . 1 minute to read About This Task This task creates a reference docx file used by pandoc during docbook-to-docx conversion. Use task convertToDocx to edit this file so it uses your preferred styles. Important The contents of the reference docx are ignored, but its stylesheets and document properties (including margins, page size, header and footer) are used in the new docx. For more information, see Pandoc User&#8217;s Guide: Options affecting specific writers (--reference-doc) And if you have problems with changing the default table style: see https://github.com/jgm/pandoc/issues/3275 . Config.groovy Notes The 'referenceDocFile' property must be set to your custom reference file in Config.groovy: inputPath = '.' // use a style reference file in the input path for conversion from docbook to docx referenceDocFile = ${inputPath}/my-ref-file.docx Source pandoc.gradle task createReferenceDoc ( group: 'docToolchain helper', description: 'creates a docx file to be used as a format style reference in task convertToDocx. Needs pandoc installed.', type: Exec ) { workingDir $docDir executable = pandoc args = [-o, ${docDir}/${referenceDocFile}, --print-default-data-file, reference.docx] doFirst { if(!(referenceDocFile?.trim())) { throw new GradleException(Option `referenceDocFile` is not defined in config.groovy or has an empty value.) } } } "
 },
 
 {
@@ -458,18 +458,18 @@ var documents = [
 
 {
     "id": 57,
-    "uri": "015_tasks/03_task_exportJiraSprintChangelog.html",
-    "menu": "tasks",
-    "title": "exportJiraSprintChangelogIssues",
-    "text": " Table of Contents exportJiraSprintChangelogIssues About This Task Configuration Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportJiraSprintChangelogIssues 1 minute to read About This Task This task exports a simplified (key and summary) list of Jira issues for a specific sprint defined in the task configuration. Only a few additional fields (such as assignee) can be switched using configuration flags. Once you define the sprint, the relevant AsciiDoc and Excel files will be generated. If a sprint is not defined in the configuration, changelogs for all sprints that match the configuration will be saved in separate AsciiDoc files and in different tabs within an Excel file. The task configuration can be found within Config.gradle . In addition to the configuration snippet below, it is important to configure the Jira API and credentials in the Jira section of the configuration inside the same file. Configuration Config.groovy // Sprint changelog configuration generate changelog lists based on tickets in sprints of an Jira instance. // This feature requires at least Jira API &amp; credentials to be properly set in Jira section of this configuration sprintChangelog = [:] sprintChangelog.with { sprintState = 'closed' // it is possible to define multiple states, i.e. 'closed, active, future' ticketStatus = Done, Closed // it is possible to define multiple ticket statuses, i.e. Done, Closed, 'in Progress' showAssignee = false showTicketStatus = false showTicketType = true sprintBoardId = 12345 // Jira instance probably have multiple boards; here it can be defined which board should be used // Output folder for this task inside main outputPath resultsFolder = 'Sprints' // if sprintName is not defined or sprint with that name isn't found, release notes will be created on for all sprints that match sprint state configuration sprintName = 'PRJ Sprint 1' // if sprint with a given sprintName is found, release notes will be created just for that sprint allSprintsFilename = 'Sprints_Changelogs' // Extension will be automatically added. } Source exportJiraSprintChangelog.gradle task exportJiraSprintChangelog( description: 'exports all jira issues from Sprint for release notes', group: 'docToolchain' ) { doLast { // Pre defined ticket fields for Changelog based on Jira Sprints def defaultTicketFields = 'summary,status,assignee,issuetype' // retrieving sprints for a given board def sprints = { apiSprints, headers, boardId, sprintState -&gt; apiSprints.get(path: agile/latest/board/${boardId}/sprint, query:[state: ${sprintState}], headers: headers ).data } // retrieving issues for given sprint def issues = { apiIssues, headers, boardId, sprintId, status -&gt; apiIssues.get(path: agile/latest/board/${boardId}/sprint/${sprintId}/issue, query: ['jql' : status in (${status}) ORDER BY type DESC, status ASC, 'maxResults': 1000, fields: defaultTicketFields ], headers: headers ).data } // preparing target folder for generated files final String taskSubfolderName = config.sprintChangelog.resultsFolder final File targetFolder = new File(targetDir + File.separator + taskSubfolderName) if (!targetFolder.exists()) targetFolder.mkdirs() logger.debug(Output folder for 'exportJiraSprintChangelog' task is: '${targetFolder}') // Getting configuration def jiraRoot = config.jira.api def jiraProject = config.jira.project def sprintState = config.sprintChangelog.sprintState def ticketStatusForReleaseNotes = config.sprintChangelog.ticketStatus def sprintBoardId = config.sprintChangelog.sprintBoardId def showAssignee = config.sprintChangelog.showAssignee def showTicketStatus = config.sprintChangelog.showTicketStatus def showTicketType = config.sprintChangelog.showTicketType def sprintName = config.sprintChangelog.sprintName def allSprintsFilename = config.sprintChangelog.allSprintsFilename logger.info(\n==========================\nJira Release notes config\n==========================) logger.info(Spring Board ID: ${sprintBoardId}) logger.info(Show assignees: ${showAssignee}. Show ticket status: ${showTicketStatus}. Show ticket type: ${showTicketType}) logger.info(Filtering for sprints with configured state: '${sprintState}') logger.info(Filtering for issues with configured statuses: ${ticketStatusForReleaseNotes}) logger.info(Attempt to generate release notes for sprint with a name: '${sprintName}') logger.info(Filename used for all sprints: '${allSprintsFilename}') def api = new groovyx.net.http.RESTClient(jiraRoot + '/rest/') api.encoderRegistry = new groovyx.net.http.EncoderRegistry(charset: 'utf-8') def headers = [ 'Authorization': Basic  + config.jira.credentials, 'Content-Type' : 'application/json; charset=utf-8' ] def allChangelogsFilename = ${allSprintsFilename}.xlsx logger.quiet(Changelogs of all sprints will be saved in '${allChangelogsFilename}' file) def changelogsXls = new File(targetFolder, allChangelogsFilename) def changelogsXlsFos = new FileOutputStream(changelogsXls) Workbook wb = new XSSFWorkbook(); CreationHelper hyperlinkHelper = wb.getCreationHelper(); String rgbS = A7A7A7 byte[] rgbB = Hex.decodeHex(rgbS) // get byte array from hex string XSSFColor color = new XSSFColor(rgbB, null) //IndexedColorMap has no usage until now. So it can be set null. XSSFCellStyle headerCellStyle = (XSSFCellStyle) wb.createCellStyle() headerCellStyle.setFillForegroundColor(color) headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND) // prepare tickets according to configuration def columns = ['key'].plus(defaultTicketFields.split(',').collect()) if (!showAssignee) { columns = columns.minus('assignee')} if (!showTicketStatus) { columns = columns.minus('status')} if (!showTicketType) { columns = columns.minus('issuetype')} logger.info(Release notes will contain following info: ${columns}) logger.info(\n=====================\n Sprints\n=====================) // def allMatchedSprints = sprints(api, headers, sprintBoardId, sprintState).values def foundExactSprint = allMatchedSprints.any {it.name == sprintName} logger.info(All sprints that matched configuration: ${allMatchedSprints.size()}) def sprintsForChangelog = foundExactSprint ? allMatchedSprints.stream().filter() {it.name == sprintName} : allMatchedSprints logger.info(Found exact Sprint with name '${sprintName}': ${foundExactSprint}.) sprintsForChangelog.each { sprint -&gt; logger.quiet(\nSprint: $sprint.name [id: $sprint.id] state &lt;$sprint.state&gt;) /* ================================================ Create new worksheet inside existing excel file ================================================ */ String safeSprintName = WorkbookUtil.createSafeSheetName(${sprint.name}) def ws = wb.createSheet(safeSprintName) // Add titles (typically key &amp; summary, but assignee, ticket status, ticket type can be configured in Config.groovy too) def titleRow = ws.createRow(0); int cellNumber = 0; columns.each {columnTitle -&gt; titleRow.createCell(cellNumber++).setCellValue(${columnTitle.capitalize()})} def lastRow = titleRow.getRowNum() titleRow.setRowStyle(headerCellStyle) // set summary (at position 1) column wider than other columns ws.setColumnWidth(1, 35*256) /* ========================================= AsciiDoc file for each sprint ========================================= */ def asciidocFilename = ${sprint.name.replaceAll( , _)}.adoc logger.info(Results will be saved in '${asciidocFilename}' file) def changeLogAdoc = new File(targetFolder, ${asciidocFilename}) changeLogAdoc.write(.Table ${sprint.name} Changelog\n, 'utf-8') changeLogAdoc.append(|=== \n) // AsciiDoc table columns columns.each {columnTitle -&gt; changeLogAdoc.append(|${columnTitle} , 'utf-8')} /* ========================================= Add tickets for the sprint ========================================= */ issues(api, headers, sprintBoardId, sprint.id, ticketStatusForReleaseNotes).issues.each {issue -&gt; def assignee = ${issue.fields.assignee ? issue.fields.assignee.displayName : 'unassigned'}  def message = showAssignee ? by ${assignee} :  logger.quiet(Issue: [$issue.key] '$issue.fields.summary' ${message}&lt;$issue.fields.status.name&gt;) /* =========================== Write ticket to Excel =========================== */ int cellPosition = 0 def row = ws.createRow(++lastRow) Hyperlink link = hyperlinkHelper.createHyperlink(HyperlinkType.URL) link.setAddress(${jiraRoot}/browse/${issue.key}) Cell cellWithUrl = row.createCell(cellPosition) cellWithUrl.setCellValue(${issue.key}) cellWithUrl.setHyperlink(link) row.createCell(++cellPosition).setCellValue(${issue.fields.summary}) /* ============================= Write ticket to Asciidoc ============================= */ changeLogAdoc.append(\n, 'utf-8') changeLogAdoc.append(| ${jiraRoot}/browse/${issue.key}[${issue.key}] , 'utf-8') changeLogAdoc.append(| ${issue.fields.summary} , 'utf-8') /* === Write ticket status, assignee, ticket typee if configured to both Asciidoc &amp; Excel files === */ if (showTicketStatus) { row.createCell(++cellPosition).setCellValue(${issue.fields.status.name}) changeLogAdoc.append(| ${issue.fields.status.name} , 'utf-8') } if (showAssignee) { row.createCell(++cellPosition).setCellValue(${assignee}) changeLogAdoc.append(| ${assignee}, 'utf-8') } if (showTicketType) { row.createCell(++cellPosition).setCellValue(${issue.fields.issuetype.name}) changeLogAdoc.append(| ${issue.fields.issuetype.name} , 'utf-8') } } // Close the asciidoc table changeLogAdoc.append(\n|=== \n,'utf-8') // Set auto-width to KEY column ws.autoSizeColumn(0); } // Write to Excel file wb.write(changelogsXlsFos) } } "
-},
-
-{
-    "id": 58,
     "uri": "015_tasks/03_task_exportVisio.html",
     "menu": "tasks",
     "title": "exportVisio",
     "text": " Table of Contents exportVisio At a Glance About This Task Important Information About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportVisio 1 minute to read At a Glance About This Task This task searches for Visio files in the /src/docs folder then exports all diagrams and element notes to /src/docs/images/visio and /src/docs/visio . Images are stored as /images/visio/[filename]-[pagename].png . Notes are stored as /visio/[filename]-[pagename].adoc You can specify a filename to export notes to by starting any comment with {adoc:[filename].adoc} . It will then be written to /visio/[filename].adoc . Important Information About This Task Currently, only Visio files stored directly in /src/docs are supported. All others will export to the wrong location. Before running this task, close any open Visio instance. Further Reading and Resources Issue #112 . Source exportVisio.gradle task exportVisio( dependsOn: [streamingExecute], description: 'exports all diagrams and notes from visio files', group: 'docToolchain' ) { doLast { //make sure path for notes exists //and remove old notes new File(docDir, 'src/docs/visio').deleteDir() //also remove old diagrams new File(docDir, 'src/docs/images/visio').deleteDir() //create a readme to clarify things def readme = This folder contains exported diagrams and notes from visio files. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportVisio` to re-export files  new File(docDir, 'src/docs/images/visio/.').mkdirs() new File(docDir, 'src/docs/images/visio/readme.ad').write(readme) new File(docDir, 'src/docs/visio/.').mkdirs() new File(docDir, 'src/docs/visio/readme.ad').write(readme) def sourcePath = new File(docDir, 'src/docs/.').canonicalPath def scriptPath = new File(projectDir, 'scripts/VisioPageToPngConverter.ps1').canonicalPath powershell ${scriptPath} -SourcePath ${sourcePath}.executeCmd() } } scripts/VisioPageToPngConverter.ps1 # Convert all pages in all visio files in the given directory to png files. # A Visio windows might flash shortly. # The converted png files are stored in the same directory # The name of the png file is concatenated from the Visio file name and the page name. # In addtion all the comments are stored in adoc files. # If the Viso file is named MyVisio.vsdx and the page is called FirstPage # the name of the png file will be MyVisio-FirstPage.png and the comment will # be stored in MyVisio-FirstPage.adoc. # But for the name of the adoc files there is an alternative. It can be given in the first # line of the comment. If it is given in the comment it has to be given in curly brackes # with the prefix adoc:, e.g. {adoc:MyCommentFile.adoc} # Prerequisites: Viso and PowerShell has to be installed on the computer. # Parameter: SourcePath where visio files can be found # Example powershell VisoPageToPngConverter.ps1 -SourcePath c:\convertertest\ Param ( [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=0)] [Alias('p')][String]$SourcePath ) Write-Output starting to export visio If (!(Test-Path -Path $SourcePath)) { Write-Warning The path $SourcePath does not exist or is not accessible, please input the correct path. Exit } # Extend the source path to get only Visio files of the given directory and not in subdircetories If ($SourcePath.EndsWith(\)) { $SourcePath = $SourcePath } Else { $SourcePath = $SourcePath\ } $VisioFiles = Get-ChildItem -Path $SourcePath* -Recurse -Include *.vsdx,*.vssx,*.vstx,*.vxdm,*.vssm,*.vstm,*.vsd,*.vdw,*.vss,*.vst If(!($VisioFiles)) { Write-Warning There are no Visio files in the path $SourcePath. Exit } $VisioApp = New-Object -ComObject Visio.Application $VisioApp.Visible = $false # Extract the png from all the files in the folder Foreach($File in $VisioFiles) { $FilePath = $File.FullName Write-Output found $FilePath . $FileDirectory = $File.DirectoryName # Get the folder containing the Visio file. Will be used to store the png and adoc files $FileBaseName = $File.BaseName -replace '[ :/\\*?|&lt;&gt;]','-' # Get the filename to be used as part of the name of the png and adoc files Try { $Document = $VisioApp.Documents.Open($FilePath) $Pages = $VisioApp.ActiveDocument.Pages Foreach($Page in $Pages) { # Create valid filenames for the png and adoc files $PngFileName = $Page.Name -replace '[ :/\\*?|&lt;&gt;]','-' $PngFileName = $FileBaseName-$PngFileName.png $AdocFileName = $PngFileName.Replace(.png, .adoc) #TODO: this needs better logic Write-Output($SourcePath\images\visio\$PngFileName) $Page.Export($SourcePath\images\visio\$PngFileName) $AllPageComments =  ForEach($PageComment in $Page.Comments) { # Extract adoc filename from comment text if the syntax is valid # Remove the filename from the text and save the comment in a file with a valid name $EofStringIndex = $PageComment.Text.IndexOf(.adoc}) if ($PageComment.Text.StartsWith({adoc) -And ($EofStringIndex -gt 6)) { $AdocFileName = $PageComment.Text.Substring(6, $EofStringIndex -1) $AllPageComments += $PageComment.Text.Substring($EofStringIndex + 6) } else { $AllPageComments += $PageComment.Text+`n } } If ($AllPageComments) { $AdocFileName = $AdocFileName -replace '[:/\\*?|&lt;&gt;]','-' #TODO: this needs better logic $stream = [System.IO.StreamWriter] $SourcePath\visio\$AdocFileName $stream.WriteLine($AllPageComments) $stream.close() } } $Document.Close() } Catch { if ($Document) { $Document.Close() } Write-Warning One or more visio page(s) in file $FilePath have been lost in this converting. Write-Warning Error was: $_ } } $VisioApp.Quit() "
+},
+
+{
+    "id": 58,
+    "uri": "015_tasks/03_task_exportJiraSprintChangelog.html",
+    "menu": "tasks",
+    "title": "exportJiraSprintChangelogIssues",
+    "text": " Table of Contents exportJiraSprintChangelogIssues About This Task Configuration Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportJiraSprintChangelogIssues 1 minute to read About This Task This task exports a simplified (key and summary) list of Jira issues for a specific sprint defined in the task configuration. Only a few additional fields (such as assignee) can be switched using configuration flags. Once you define the sprint, the relevant AsciiDoc and Excel files will be generated. If a sprint is not defined in the configuration, changelogs for all sprints that match the configuration will be saved in separate AsciiDoc files and in different tabs within an Excel file. The task configuration can be found within Config.gradle . In addition to the configuration snippet below, it is important to configure the Jira API and credentials in the Jira section of the configuration inside the same file. Configuration Config.groovy // Sprint changelog configuration generate changelog lists based on tickets in sprints of an Jira instance. // This feature requires at least Jira API &amp; credentials to be properly set in Jira section of this configuration sprintChangelog = [:] sprintChangelog.with { sprintState = 'closed' // it is possible to define multiple states, i.e. 'closed, active, future' ticketStatus = Done, Closed // it is possible to define multiple ticket statuses, i.e. Done, Closed, 'in Progress' showAssignee = false showTicketStatus = false showTicketType = true sprintBoardId = 12345 // Jira instance probably have multiple boards; here it can be defined which board should be used // Output folder for this task inside main outputPath resultsFolder = 'Sprints' // if sprintName is not defined or sprint with that name isn't found, release notes will be created on for all sprints that match sprint state configuration sprintName = 'PRJ Sprint 1' // if sprint with a given sprintName is found, release notes will be created just for that sprint allSprintsFilename = 'Sprints_Changelogs' // Extension will be automatically added. } Source exportJiraSprintChangelog.gradle task exportJiraSprintChangelog( description: 'exports all jira issues from Sprint for release notes', group: 'docToolchain' ) { doLast { // Pre defined ticket fields for Changelog based on Jira Sprints def defaultTicketFields = 'summary,status,assignee,issuetype' // retrieving sprints for a given board def sprints = { apiSprints, headers, boardId, sprintState -&gt; apiSprints.get(path: agile/latest/board/${boardId}/sprint, query:[state: ${sprintState}], headers: headers ).data } // retrieving issues for given sprint def issues = { apiIssues, headers, boardId, sprintId, status -&gt; apiIssues.get(path: agile/latest/board/${boardId}/sprint/${sprintId}/issue, query: ['jql' : status in (${status}) ORDER BY type DESC, status ASC, 'maxResults': 1000, fields: defaultTicketFields ], headers: headers ).data } // preparing target folder for generated files final String taskSubfolderName = config.sprintChangelog.resultsFolder final File targetFolder = new File(targetDir + File.separator + taskSubfolderName) if (!targetFolder.exists()) targetFolder.mkdirs() logger.debug(Output folder for 'exportJiraSprintChangelog' task is: '${targetFolder}') // Getting configuration def jiraRoot = config.jira.api def jiraProject = config.jira.project def sprintState = config.sprintChangelog.sprintState def ticketStatusForReleaseNotes = config.sprintChangelog.ticketStatus def sprintBoardId = config.sprintChangelog.sprintBoardId def showAssignee = config.sprintChangelog.showAssignee def showTicketStatus = config.sprintChangelog.showTicketStatus def showTicketType = config.sprintChangelog.showTicketType def sprintName = config.sprintChangelog.sprintName def allSprintsFilename = config.sprintChangelog.allSprintsFilename logger.info(\n==========================\nJira Release notes config\n==========================) logger.info(Spring Board ID: ${sprintBoardId}) logger.info(Show assignees: ${showAssignee}. Show ticket status: ${showTicketStatus}. Show ticket type: ${showTicketType}) logger.info(Filtering for sprints with configured state: '${sprintState}') logger.info(Filtering for issues with configured statuses: ${ticketStatusForReleaseNotes}) logger.info(Attempt to generate release notes for sprint with a name: '${sprintName}') logger.info(Filename used for all sprints: '${allSprintsFilename}') def api = new groovyx.net.http.RESTClient(jiraRoot + '/rest/') api.encoderRegistry = new groovyx.net.http.EncoderRegistry(charset: 'utf-8') def headers = [ 'Authorization': Basic  + config.jira.credentials, 'Content-Type' : 'application/json; charset=utf-8' ] def allChangelogsFilename = ${allSprintsFilename}.xlsx logger.quiet(Changelogs of all sprints will be saved in '${allChangelogsFilename}' file) def changelogsXls = new File(targetFolder, allChangelogsFilename) def changelogsXlsFos = new FileOutputStream(changelogsXls) Workbook wb = new XSSFWorkbook(); CreationHelper hyperlinkHelper = wb.getCreationHelper(); String rgbS = A7A7A7 byte[] rgbB = Hex.decodeHex(rgbS) // get byte array from hex string XSSFColor color = new XSSFColor(rgbB, null) //IndexedColorMap has no usage until now. So it can be set null. XSSFCellStyle headerCellStyle = (XSSFCellStyle) wb.createCellStyle() headerCellStyle.setFillForegroundColor(color) headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND) // prepare tickets according to configuration def columns = ['key'].plus(defaultTicketFields.split(',').collect()) if (!showAssignee) { columns = columns.minus('assignee')} if (!showTicketStatus) { columns = columns.minus('status')} if (!showTicketType) { columns = columns.minus('issuetype')} logger.info(Release notes will contain following info: ${columns}) logger.info(\n=====================\n Sprints\n=====================) // def allMatchedSprints = sprints(api, headers, sprintBoardId, sprintState).values def foundExactSprint = allMatchedSprints.any {it.name == sprintName} logger.info(All sprints that matched configuration: ${allMatchedSprints.size()}) def sprintsForChangelog = foundExactSprint ? allMatchedSprints.stream().filter() {it.name == sprintName} : allMatchedSprints logger.info(Found exact Sprint with name '${sprintName}': ${foundExactSprint}.) sprintsForChangelog.each { sprint -&gt; logger.quiet(\nSprint: $sprint.name [id: $sprint.id] state &lt;$sprint.state&gt;) /* ================================================ Create new worksheet inside existing excel file ================================================ */ String safeSprintName = WorkbookUtil.createSafeSheetName(${sprint.name}) def ws = wb.createSheet(safeSprintName) // Add titles (typically key &amp; summary, but assignee, ticket status, ticket type can be configured in Config.groovy too) def titleRow = ws.createRow(0); int cellNumber = 0; columns.each {columnTitle -&gt; titleRow.createCell(cellNumber++).setCellValue(${columnTitle.capitalize()})} def lastRow = titleRow.getRowNum() titleRow.setRowStyle(headerCellStyle) // set summary (at position 1) column wider than other columns ws.setColumnWidth(1, 35*256) /* ========================================= AsciiDoc file for each sprint ========================================= */ def asciidocFilename = ${sprint.name.replaceAll( , _)}.adoc logger.info(Results will be saved in '${asciidocFilename}' file) def changeLogAdoc = new File(targetFolder, ${asciidocFilename}) changeLogAdoc.write(.Table ${sprint.name} Changelog\n, 'utf-8') changeLogAdoc.append(|=== \n) // AsciiDoc table columns columns.each {columnTitle -&gt; changeLogAdoc.append(|${columnTitle} , 'utf-8')} /* ========================================= Add tickets for the sprint ========================================= */ issues(api, headers, sprintBoardId, sprint.id, ticketStatusForReleaseNotes).issues.each {issue -&gt; def assignee = ${issue.fields.assignee ? issue.fields.assignee.displayName : 'unassigned'}  def message = showAssignee ? by ${assignee} :  logger.quiet(Issue: [$issue.key] '$issue.fields.summary' ${message}&lt;$issue.fields.status.name&gt;) /* =========================== Write ticket to Excel =========================== */ int cellPosition = 0 def row = ws.createRow(++lastRow) Hyperlink link = hyperlinkHelper.createHyperlink(HyperlinkType.URL) link.setAddress(${jiraRoot}/browse/${issue.key}) Cell cellWithUrl = row.createCell(cellPosition) cellWithUrl.setCellValue(${issue.key}) cellWithUrl.setHyperlink(link) row.createCell(++cellPosition).setCellValue(${issue.fields.summary}) /* ============================= Write ticket to Asciidoc ============================= */ changeLogAdoc.append(\n, 'utf-8') changeLogAdoc.append(| ${jiraRoot}/browse/${issue.key}[${issue.key}] , 'utf-8') changeLogAdoc.append(| ${issue.fields.summary} , 'utf-8') /* === Write ticket status, assignee, ticket typee if configured to both Asciidoc &amp; Excel files === */ if (showTicketStatus) { row.createCell(++cellPosition).setCellValue(${issue.fields.status.name}) changeLogAdoc.append(| ${issue.fields.status.name} , 'utf-8') } if (showAssignee) { row.createCell(++cellPosition).setCellValue(${assignee}) changeLogAdoc.append(| ${assignee}, 'utf-8') } if (showTicketType) { row.createCell(++cellPosition).setCellValue(${issue.fields.issuetype.name}) changeLogAdoc.append(| ${issue.fields.issuetype.name} , 'utf-8') } } // Close the asciidoc table changeLogAdoc.append(\n|=== \n,'utf-8') // Set auto-width to KEY column ws.autoSizeColumn(0); } // Write to Excel file wb.write(changelogsXlsFos) } } "
 },
 
 {
@@ -482,14 +482,6 @@ var documents = [
 
 {
     "id": 60,
-    "uri": "015_tasks/03_task_dependencyUpdates.html",
-    "menu": "tasks",
-    "title": "dependencyUpdates",
-    "text": " Table of Contents dependencyUpdates About This Task Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } dependencyUpdates 1 minute to read About This Task This task uses the Gradle versions plugin created by Ben Manes to check for outdated build dependencies. Use this task to keep all dependencies up to date. Warning If you discover newer version, it doesn&#8217;t mean that versions and dependencies will play nicely together. To ensure that everything works, we recommend the versions selected by docToolchain contributors. Further Reading and Resources Read the Handle Dependency Updates the Easy Way blog post. "
-},
-
-{
-    "id": 61,
     "uri": "015_tasks/03_task_exportContributors.html",
     "menu": "tasks",
     "title": "exportContributors",
@@ -497,19 +489,27 @@ var documents = [
 },
 
 {
-    "id": 62,
-    "uri": "015_tasks/03_task_downloadTemplate.html",
+    "id": 61,
+    "uri": "015_tasks/03_task_dependencyUpdates.html",
     "menu": "tasks",
-    "title": "downloadTemplate",
-    "text": " Table of Contents downloadTemplate .gravatar img { margin-left: 3px; border-radius: 4px; } downloadTemplate 1 minute to read "
+    "title": "dependencyUpdates",
+    "text": " Table of Contents dependencyUpdates About This Task Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } dependencyUpdates 1 minute to read About This Task This task uses the Gradle versions plugin created by Ben Manes to check for outdated build dependencies. Use this task to keep all dependencies up to date. Warning If you discover newer version, it doesn&#8217;t mean that versions and dependencies will play nicely together. To ensure that everything works, we recommend the versions selected by docToolchain contributors. Further Reading and Resources Read the Handle Dependency Updates the Easy Way blog post. "
 },
 
 {
-    "id": 63,
+    "id": 62,
     "uri": "015_tasks/03_task_convertToEpub.html",
     "menu": "tasks",
     "title": "convertToEpub",
     "text": " Table of Contents convertToEpub At a Glance Dependency About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToEpub 1 minute to read At a Glance Dependency generateDocBook About This Task This task uses pandoc to convert the DocBook output from AsciiDoctor to ePub. This publishes the output as an eBook which can be read using any eBook reader. The resulting file can be found in build/docs/epub . Further Reading and Resources Turn your Document into an Audio-Book blog post. Source pandoc.gradle task convertToEpub ( group: 'docToolchain', description: 'converts file to .epub via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `epub` in config.groovy is converted to docbook and then to epub. def sourceFilesEpub = sourceFiles.findAll { 'epub' in it.formats } sourceFilesEpub.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.epub') workingDir $targetDir/docbook executable = pandoc args = ['-r','docbook', '-t','epub', '-o',../epub/$targetFile, sourceFile] } doFirst { new File($targetDir/epub/).mkdirs() } } "
+},
+
+{
+    "id": 63,
+    "uri": "015_tasks/03_task_downloadTemplate.html",
+    "menu": "tasks",
+    "title": "downloadTemplate",
+    "text": " Table of Contents downloadTemplate .gravatar img { margin-left: 3px; border-radius: 4px; } downloadTemplate 1 minute to read "
 },
 
 {
@@ -578,18 +578,18 @@ var documents = [
 
 {
     "id": 72,
-    "uri": "020_tutorial/120_self-contained-dtc.html",
-    "menu": "tutorial",
-    "title": "Self-Contained docToolchain",
-    "text": " Table of Contents Self-Contained docToolchain Docker Solution Local Solution Self-Contained docToolchain When you work in a restricted environment where you don&#8217;t have direct access to the internet, you might need a self-contained version of docToolchain. A version which does not need to download dependencies but already has them on board. Docker Solution If you have docker available, then this might already be the solution. The docker image already contains all dependencies and the docToolchain wrapper ( dtcw ) already checks if docker is available and running and thus will use docker in this case. In order to fetch the docker image from your local docker proxy, please check the source of dtcw and update the docker image reference . Local Solution If you don&#8217;t have Docker available, you need a local, self-contained install. Start on an unrestricted system and download the docToolchain wrapper: mkdir dtc-self-contained cd dtc-self-contained curl -Lo dtcw doctoolchain.github.io/dtcw chmod +x dtcw We start wit ensuring that we have the correct Java Development Kit (JDK) installed. Execute ./dtcw local getJava to fetch and install the correct JDK. It will be installed to $HOME/.doctoolchain/jdk . Now, let&#8217;s start a simple task to download and install docToolchain locally: ./dtcw local tasks local will ensure that docker is ignored, even when docker is up and running. tasks is a simple task which just shows all available tasks. When you run this command, docToolchain will ask if it is allowed to install itself to $HOME/.doctoolchain and if it should create a simple config file. It will also fetch some first dependencies in order to execute the task. These dependencies will be downloaded to $HOME/.doctoolchain/.gradle . To fetch the remaining dependencies, execute ./dtcw downloadDependencies this will fetch the remaining dependencies and download them to $HOME/.doctoolchain/.gradle As a result, we now have docToolchain, a JDK and all dependencies installed to $HOME/.doctoolchain . You can now zip this folder and copy it to your restricted environment to the $HOME/.doctoolchain folder. The wrapper of your project will recognize it as local installation and use it. the installed JDK is for one specific PU architecture. So, if your team works with different Systems (Windows, Mac, Linux), you have to create several versions. "
-},
-
-{
-    "id": 73,
     "uri": "020_tutorial/020_arc42.html",
     "menu": "tutorial",
     "title": "arc42 Template",
     "text": " Table of Contents Get the arc42 Template Get the arc42 Template 2 minutes to read To work with docToolchain, you first need some documents. So let&#8217;s fetch the arc42 template for software architecture documentation. docToolchain comes with a task called downloadTemplate . Let&#8217;s invoke it and see what happens. Linux / WSL2 with bash ./dtcw downloadTemplate Windows with Powershell ./dtcw.ps1 downloadTemplate There is an interesting bug with the german version of the arc42 template in conjunction with running docToolchain in powershell: The encoding of the files will be wrong. To fix that, just run ./dtcw.ps1 fixEncoding . Result of downloadTemplate-Task $ ./dtcw downloadTemplate dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists use local homefolder install /home/rdmueller/.doctoolchain/ &gt; Configure project : arc42/arc42.adoc &gt; Task :downloadTemplate Install arc42 documentation template. For more information about arc42 see https://arc42.org [ant:input] Which language do you want to install? (EN, DE, ES, RU) &lt;-------------&gt; 0% EXECUTING [6s] [ant:input] Do you want the template with or without help? (withhelp, plain) &lt;-----&lt;-------------&gt; 0% EXECUTING [10s] Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-DE-withhelp-asciidoc.zip arc42 template unpacked into /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42 added template to docToolchainConfig.groovy use 'generateHTML', 'generatePDF' or 'generateSite' to convert the template BUILD SUCCESSFUL in 15s 1 actionable task: 1 executed Out of the box, docToolchain only knows the open source arc42 template for software architecture. That&#8217;s why it doesn&#8217;t ask which template to install. Since the template exists in four different languages and with or without help on how to use it, docToolchain asks you for these two parameters. It then downloads the template right from the source, unzips it and reformats it a little bit to fit the needs of docToolchain. It also adds the template to your configuration file. That&#8217;s it. You have now docToolchain with the arc42 template installed. Let&#8217;s render is as HTML, PDF or Microsite in the next steps. "
+},
+
+{
+    "id": 73,
+    "uri": "020_tutorial/120_self-contained-dtc.html",
+    "menu": "tutorial",
+    "title": "Self-Contained docToolchain",
+    "text": " Table of Contents Self-Contained docToolchain Docker Solution Local Solution Self-Contained docToolchain When you work in a restricted environment where you don&#8217;t have direct access to the internet, you might need a self-contained version of docToolchain. A version which does not need to download dependencies but already has them on board. Docker Solution If you have docker available, then this might already be the solution. The docker image already contains all dependencies and the docToolchain wrapper ( dtcw ) already checks if docker is available and running and thus will use docker in this case. In order to fetch the docker image from your local docker proxy, please check the source of dtcw and update the docker image reference . Local Solution If you don&#8217;t have Docker available, you need a local, self-contained install. Start on an unrestricted system and download the docToolchain wrapper: mkdir dtc-self-contained cd dtc-self-contained curl -Lo dtcw doctoolchain.github.io/dtcw chmod +x dtcw We start wit ensuring that we have the correct Java Development Kit (JDK) installed. Execute ./dtcw local getJava to fetch and install the correct JDK. It will be installed to $HOME/.doctoolchain/jdk . Now, let&#8217;s start a simple task to download and install docToolchain locally: ./dtcw local tasks local will ensure that docker is ignored, even when docker is up and running. tasks is a simple task which just shows all available tasks. When you run this command, docToolchain will ask if it is allowed to install itself to $HOME/.doctoolchain and if it should create a simple config file. It will also fetch some first dependencies in order to execute the task. These dependencies will be downloaded to $HOME/.doctoolchain/.gradle . To fetch the remaining dependencies, execute ./dtcw downloadDependencies this will fetch the remaining dependencies and download them to $HOME/.doctoolchain/.gradle As a result, we now have docToolchain, a JDK and all dependencies installed to $HOME/.doctoolchain . You can now zip this folder and copy it to your restricted environment to the $HOME/.doctoolchain folder. The wrapper of your project will recognize it as local installation and use it. the installed JDK is for one specific PU architecture. So, if your team works with different Systems (Windows, Mac, Linux), you have to create several versions. "
 },
 
 {
