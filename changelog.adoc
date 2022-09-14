@@ -15,6 +15,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === added
 
 === changed
+* Improve confluence export performance when only ancestorIds are given
 
 == 2.1.0 - 2022-08-15
 
