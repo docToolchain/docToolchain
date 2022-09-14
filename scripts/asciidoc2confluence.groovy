@@ -281,7 +281,7 @@ def retrieveAllPagesBySpace(RESTClient api, Map headers, String spaceKey, String
         'type'    : 'page',
         'spaceKey': spaceKey,
         'expand'  : 'ancestors',
-        'limit'   : 100
+        'limit'   : config.confluence.pageLimit ? config.confluence.pageLimit : 100
     ]
 
     def allPages = [:]
