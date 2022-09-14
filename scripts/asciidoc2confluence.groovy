@@ -222,11 +222,11 @@ def rewriteMarks = { body ->
     body.select('mark').wrap('<span style="background:#ff0;color:#000"></style>').unwrap()
 }
 
-def retrieveAllPagesByAncestorId(RESTClient api, Map headers, List<String> pageIds, String baseApiPath) {
+def retrieveAllPagesByAncestorId(RESTClient api, Map headers, List<String> pageIds, String baseApiPath, int pageLimit) {
     def allPages = [:]
     def request = [
         'type' : 'page',
-        'limit': config?.confluence?.pageLimit ? config.confluence.pageLimit : 100
+        'limit': pageLimit
     ]
 
     int start = 0
@@ -274,14 +274,14 @@ def retrieveAllPagesByAncestorId(RESTClient api, Map headers, List<String> pageI
     allPages
 }
 
-def retrieveAllPagesBySpace(RESTClient api, Map headers, String spaceKey, String baseApiPath) {
+def retrieveAllPagesBySpace(RESTClient api, Map headers, String spaceKey, String baseApiPath, int pageLimit) {
     boolean morePages = true
     int start = 0
     def request = [
         'type'    : 'page',
         'spaceKey': spaceKey,
         'expand'  : 'ancestors',
-        'limit'   : config?.confluence?.pageLimit ? config.confluence.pageLimit : 100
+        'limit'   : pageLimit
     ]
 
     def allPages = [:]
@@ -324,7 +324,8 @@ def retrieveAllPages = { RESTClient api, Map headers, String spaceKey ->
         allPages
     } else {
         def pageIds = []
-        def checkSpace = false;
+        def checkSpace = false
+        int pageLimit = config.confluence.pageLimit ? config.confluence.pageLimit : 100
         config.confluence.input.each { input ->
             if (!input.ancestorId) {
                 // if one ancestorId is missing we should scan the whole space
@@ -336,9 +337,9 @@ def retrieveAllPages = { RESTClient api, Map headers, String spaceKey ->
         println (".")
 
         if(checkSpace) {
-            allPages = retrieveAllPagesBySpace(api, headers, spaceKey, baseApiPath)
+            allPages = retrieveAllPagesBySpace(api, headers, spaceKey, baseApiPath, pageLimit)
         } else {
-            allPages = retrieveAllPagesByAncestorId(api, headers, pageIds, baseApiPath)
+            allPages = retrieveAllPagesByAncestorId(api, headers, pageIds, baseApiPath, pageLimit)
         }
         allPages
     }
