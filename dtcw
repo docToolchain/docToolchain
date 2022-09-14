@@ -249,9 +249,9 @@ if [ "$VERSION" == "latest" ] || [ "$VERSION" == "latestdev" ] ; then
     echo "force latest version with local install"
     docker=false
     cli=false
-    mkdir -p $HOME/.doctoolchain/docToolchain-latest
+    mkdir -p $HOME/.doctoolchain
     # check if we have to clone or just pull
-    if [ -d "$HOME/.doctoolchain/docToolchain-${VERSION}/." ]; then
+    if [ -d "$HOME/.doctoolchain/docToolchain-${VERSION}/.git" ]; then
       cd $HOME/.doctoolchain/docToolchain-$VERSION
       git pull
       cd -
