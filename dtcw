@@ -8,15 +8,29 @@
 #export DTC_TEMPLATE2=https://....zip
 #...
 
-DTC_HEADLESS=true
-
 MAIN_CONFIG_FILE=docToolchainConfig.groovy
-VERSION=2.0.3
+
+# find official release versions on github:
+# https://github.com/docToolchain/docToolchain/releases
+# set VERSION to "latest" to get the unreleased latest version
+VERSION=2.1.0
+
 DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/releases/download/v${VERSION}/docToolchain-${VERSION}.zip
 export DTC_PROJECT_BRANCH=$(git branch --show-current)
-DTC_OPTS="$DTC_OPTS -PmainConfigFile=$MAIN_CONFIG_FILE --warning-mode=none --no-daemon"
 
-echo "dtcw - docToolchain wrapper V0.22"
+DTC_HEADLESS=${DTC_HEADLESS:="false"}
+if [ -t 0 ]; then
+  # do nothing - we have a tty
+  echo ""
+else
+  echo "Using headless mode since there is no (terminal) interaction possible"
+  DTC_HEADLESS=true
+fi
+export DTC_HEADLESS
+
+DTC_OPTS="$DTC_OPTS -PmainConfigFile=$MAIN_CONFIG_FILE --warning-mode=none --no-daemon "
+
+echo "dtcw - docToolchain wrapper V0.35"
 echo "docToolchain V${VERSION}"
 
 # check if CLI, docker or sdkman are installed
@@ -26,66 +40,10 @@ sdkman=false
 homefolder=false
 java=false
 wsl=false
+doJavaCheck=true
+arch=`uname -m`
+os=`uname -s`
 
-if [[ $(grep -i 'microsoft' /proc/version) ]]; then
-  echo " "
-  echo "Bash is running on WSL"
-  echo "this might cause problems with plantUML"
-  echo "see https://doctoolchain.github.io/docToolchain/#wsl for more details"
-  echo " "
-  wsl=true
-fi
-
-java_help_and_die() {
-    echo "one way to install or update java is to install"
-    echo "sdkman and then java via sdkman"
-    echo "https://sdkman.io/install"
-    echo "$ curl -s "https://get.sdkman.io" | bash"
-    echo "$ sdk install java"
-    echo ""
-    echo "make sure that your java version is between 8 and 14"
-    exit 1
-
-}
-install_local() {
-    #check that pre-requisites are met
-    if !(command -v wget &> /dev/null); then
-      if !(command -v curl &> /dev/null); then
-        echo "you need either wget or curl installed"
-        echo "please install it and re-run the command"
-        exit 1
-      fi
-    fi
-    if !(command -v unzip &> /dev/null); then
-        echo "you need unzip installed"
-        echo "please install it and re-run the command"
-        exit 1
-    fi
-    mkdir $HOME/.doctoolchain
-    wgetversion=$(wget --version | head -1 | sed -E 's/^.* 1.([0-9.]+) .*$/\1/')
-    echo $DISTRIBUTION_URL
-    if command -v curl &> /dev/null; then
-      curl -Lo $HOME/.doctoolchain/source.zip $DISTRIBUTION_URL
-    else
-      if (( $wgetversion > 13 )); then
-        wget $DISTRIBUTION_URL -O $HOME/.doctoolchain/source.zip
-      else
-        echo "you need curl or wget (version >= 1.14) installed"
-        echo "please install or update and re-run the command"
-        exit 1
-      fi
-    fi
-    unzip $HOME/.doctoolchain/source.zip -d $HOME/.doctoolchain/.
-    command="$HOME/.doctoolchain/docToolchain-${VERSION}/bin/doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS"
-
-}
-if command -v java &> /dev/null; then
-    java=true
-    if java -version 2>&1 >/dev/null | grep -q "Unable to locate a Java Runtime" ; then
-      ##we are on a mac and the java command is only a shim
-      java=false
-    fi
-fi
 if command -v doctoolchain &> /dev/null; then
     echo "docToolchain as CLI available"
     cli=true
@@ -122,6 +80,222 @@ if [ "$1" = "sdk" ] ; then
     echo "force use of sdkman"
     shift
 fi
+if [ "$1" = "generateDeck" ]; then
+    if [ "$homefolder" = false ]; then
+        echo "generateDeck currently only works with a local installed docToolchain"
+        echo "please run './dtcw local install' to install it locally"
+        exit 1
+    else    
+      if [ -d "$HOME/.doctoolchain/docToolchain-${VERSION}/resources/reveal.js/." ]; then
+          # reveal.js already installed
+          echo ""
+      else
+          echo "cloning reveal.js"
+          cd $HOME/.doctoolchain/docToolchain-${VERSION}/resources/. 
+          ./clone.sh 
+          cd - 
+      fi
+    fi  
+fi
+# check for apple M1 silicon
+if [ "$os" = "Darwin" ]; then
+  if [ "$arch" = "arm64" ]; then
+    echo "it seems that you try to run docToolchain on M1 silicon"
+    echo "please consider to switch to a x86 shell by executing"
+    echo "arch -x86_64 /bin/bash"
+    echo "in order to run docToolchain in x86 mode"
+    echo ""
+  fi
+fi
+if ! $DTC_HEADLESS ; then
+  if [ "$docker" = false ] ; then
+    # important for the docker file to find dependencies
+    DTC_OPTS="$DTC_OPTS '-Dgradle.user.home=$HOME/.doctoolchain/.gradle'"
+  fi
+fi
+
+if [ "$docker" = false ] ; then
+
+    # check for locally installed jdk
+    if [ -d "$HOME/.doctoolchain/jdk/." ]; then
+        echo "local java JDK found"
+        java=true
+
+        if [ -d "$HOME/.doctoolchain/jdk/Contents/." ]; then
+          javaHome="$HOME/.doctoolchain/jdk/Contents/Home"
+        else
+          javaHome="$HOME/.doctoolchain/jdk"
+        fi
+        echo "use $javaHome as JDK"
+        DTC_OPTS="$DTC_OPTS '-Dorg.gradle.java.home=$javaHome'"
+        if [ -z "${JAVA_HOME}" ]; then
+          #if JAVA_HOME is not set, export it
+          export JAVA_HOME=$javaHome
+        else
+          if command -v $JAVA_HOME/bin/java &> /dev/null; then
+            #java is installed and JAVA_HOME is ok
+            echo ""
+          else
+            #set JAVA_HOME to our own JDK
+            export JAVA_HOME=$javaHome
+          fi
+        fi
+        doJavaCheck=false
+    fi
+fi
+
+# check if we are running on WSL
+if [[ $(grep -i 'microsoft' /proc/version) ]]; then
+  echo " "
+  echo "Bash is running on WSL"
+  echo "this might cause problems with plantUML"
+  echo "see https://doctoolchain.github.io/docToolchain/#wsl for more details"
+  echo " "
+  wsl=true
+fi
+
+# url toLocation
+download ( ) {
+    url=$1
+    toLocation=$2
+    echo ">>> $1 $2"
+    #check that pre-requisites are met
+    if ! (command -v wget &> /dev/null); then
+      if ! (command -v curl &> /dev/null); then
+        echo "you need either wget or curl installed"
+        echo "please install it and re-run the command"
+        exit 1
+      fi
+    fi
+    if ! (command -v unzip &> /dev/null); then
+        echo "you need unzip installed"
+        echo "please install it and re-run the command"
+        exit 1
+    fi
+    if command -v curl &> /dev/null; then
+      curl -Lo $toLocation $url
+    else
+      wgetversion=$(wget --version && true | head -1 | sed -E 's/^.* 1.([0-9]+).*$/\1/')
+      if (( $wgetversion > 13 )); then
+        wget $url -O $toLocation
+      else
+        echo "you need curl or wget (version >= 1.14) installed"
+        echo "please install or update and re-run the command"
+        exit 1
+      fi
+    fi
+}
+
+java_help_and_die() {
+    echo "it might be that you have installed the needed version java in another shell from which you started dtcw"
+    echo "dtcw is running in bash and uses the PATH to find java"
+    echo ""
+    echo "to install a local java for docToolchain, you cann run"
+    echo "./dtcw getJava"
+    echo ""
+    echo "another way to install or update java is to install"
+    echo "sdkman and then java via sdkman"
+    echo "https://sdkman.io/install"
+    echo "$ curl -s "https://get.sdkman.io" | bash"
+    echo "$ sdk install java"
+    echo ""
+    echo "or you can download it from https://adoptium.net/"
+    echo ""
+    echo "make sure that your java version is between 8 and 14"
+    echo ""
+    echo "If you do not want to use a local java installtion, you can also use docToolchain as docker container."
+    echo "In that case, specify 'docker' as first parameter in your statement."
+    echo "example: ./dtcw docker generateSite"
+    exit 1
+
+}
+check_java() {
+  if command -v java &> /dev/null; then
+      java=true
+      if java -version 2>&1 >/dev/null | grep -q "Unable to locate a Java Runtime" ; then
+        ##we are on a mac and the java command is only a shim
+        java=false
+      fi
+  fi
+  if [ "$java" = false ] ; then
+      echo "docToolchain depends on java, but the java command couldn't be found in this shell (bash)"
+      echo ""
+      java_help_and_die
+  fi
+  javaversion=$(java -version 2>&1 | awk -F '"' '/version/ {print $0}' | head -1 | cut -d'"' -f2 | sed '/^1\./s///' | cut -d'.' -f1)
+  echo "Java Version $javaversion"
+  if (( $javaversion < 8 )); then
+      echo "your java version $javaversion is too old (<8): $(which java)"
+      echo "please update your java installation and try again"
+      echo ""
+      java_help_and_die
+  else
+    if (( $javaversion > 14 )); then
+      echo "your java version $javaversion is too new (>14): $(which java)"
+      echo "please update your java installation and try again"
+      echo ""
+      java_help_and_die
+    fi
+  fi
+
+}
+install_local() {
+    mkdir $HOME/.doctoolchain
+    download $DISTRIBUTION_URL $HOME/.doctoolchain/source.zip
+    unzip $HOME/.doctoolchain/source.zip -d $HOME/.doctoolchain/.
+}
+
+if [ "$VERSION" == "latest" ] || [ "$VERSION" == "latestdev" ] ; then
+    echo "force latest version with local install"
+    docker=false
+    cli=false
+    mkdir -p $HOME/.doctoolchain/docToolchain-latest
+    # check if we have to clone or just pull
+    if [ -d "$HOME/.doctoolchain/docToolchain-${VERSION}/." ]; then
+      cd $HOME/.doctoolchain/docToolchain-$VERSION
+      git pull
+      cd -
+    else
+      if [ "$VERSION" == "latest" ] ; then
+        git clone https://github.com/docToolchain/docToolchain.git $HOME/.doctoolchain/docToolchain-$VERSION
+      else
+        git clone git@github.com:docToolchain/docToolchain.git $HOME/.doctoolchain/docToolchain-$VERSION
+      fi
+    fi
+    homefolder=true
+fi
+if [ "$1" == "getJava" ] ; then
+        version=11
+        implementation=hotspot
+        heapsize=normal
+        imagetype=jdk
+        releasetype=ga
+        case "$arch" in
+          x86_64 ) arch=x64 ;;
+          arm64 )  arch=aarch64 ;;
+        esac
+        if [[ $os == MINGW* ]] ; then
+            echo ""
+            echo "Error: MINGW64 is not supported"
+            echo "please use powershell or wsl"
+            exit 1
+        fi
+        case "$os" in
+          Linux )  os=linux ;;
+          Darwin ) os=mac ;;
+          Cygwin ) os=linux ;;
+        esac
+        echo "this script assumes that you have linux as operating system ($arch / $os)"
+        echo "it now tries to install Java for you"
+        mkdir $HOME/.doctoolchain/jdk
+        echo "downloading JDK Temurin 11 from adoptiom to $HOME/.doctoolchain/jdk.tar.gz"
+        download https://api.adoptium.net/v3/binary/latest/$version/$releasetype/$os/$arch/$imagetype/$implementation/$heapsize/eclipse?project=jdk $HOME/.doctoolchain/jdk/jdk.tar.gz
+        #wget -r -O $HOME/.doctoolchain/jdk/jdk.tar.gz https://api.adoptium.net/v3/binary/latest/$version/$releasetype/$os/$arch/$imagetype/$implementation/$heapsize/eclipse?project=jdk
+        echo "expanding JDK"
+        tar -zxf $HOME/.doctoolchain/jdk/jdk.tar.gz --strip 1 -C $HOME/.doctoolchain/jdk/.
+        shift
+        exit 1
+fi
 #if bakePreview is called, deactivate deamon
 if [ "$1" = "bakePreview" ] ; then
     DTC_OPTS="$DTC_OPTS -Dorg.gradle.daemon=false"
@@ -154,26 +328,6 @@ Examples:
     exit 1
 fi
 
-if [ "$docker" = false ] ; then
-    if [ "$java" = false ] ; then
-        echo "docToolchain depends on java, but the java command couldn't be found"
-        java_help_and_die
-    fi
-    javaversion=$(java -version 2>&1 | head -1 | cut -d'"' -f2 | sed '/^1\./s///' | cut -d'.' -f1)
-    echo "Java Version $javaversion"
-    if (( $javaversion < 8 )); then
-        echo "your java version $javaversion is too old (<8): $(which java)"
-        echo "please update your java installation and try again"
-        java_help_and_die
-    else
-      if (( $javaversion > 14 )); then
-        echo "your java version $javaversion is too new (>14): $(which java)"
-        echo "please update your java installation and try again"
-        java_help_and_die
-      fi
-    fi
-fi
-
 if [ "$cli" = true ] ; then
     command="$(which doctoolchain) . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS"
     echo "use cli install $(which doctoolchain)"
@@ -185,11 +339,20 @@ else
       if [ "$docker" = true ] ; then
 	  if ! docker info >/dev/null 2>&1; then
 	      echo "Docker does not seem to be running, run it first and retry"
+	      echo "if you want to use a local installation of doctoolchain instead"
+	      echo "use 'local' as first argument to force the installation and use of a local install."
+
 	      exit 1
 	  fi
           docker_cmd=$(which docker)
           echo $docker_cmd
-          command="$docker_cmd run -u $(id -u):$(id -g) --name doctoolchain${version} -e DTC_HEADLESS=1 -e DTC_SITETHEME -p 8042:8042 --rm -it --entrypoint /bin/bash -v ${PWD}:/project rdmueller/doctoolchain:v${VERSION} -c \"doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS && exit\""
+          if command -v cygpath &>/dev/null; then
+              pwd=$(cygpath -w $PWD)
+          else
+              pwd=$PWD
+          fi
+          command="'$docker_cmd' run -u $(id -u):$(id -g) --name doctoolchain${version} -e DTC_HEADLESS=1 -e DTC_SITETHEME -p 8042:8042 --rm -i --entrypoint /bin/bash -v '${pwd}:/project' doctoolchain/doctoolchain:v${VERSION} -c \"doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS && exit\""
+          doJavaCheck=false
 	  echo "use docker installation"
       else
 
@@ -222,9 +385,15 @@ else
                     esac
                   done
              fi
-          fi
+		     command="$HOME/.doctoolchain/docToolchain-${VERSION}/bin/doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS"
+         fi
        fi
     fi
 fi
+if [ "$doJavaCheck" = true ] ; then
+    check_java
+fi
 
-bash -cl "$command"
+# echo "Command to invoke: $command"
+
+exec bash -c "$command"

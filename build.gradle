@@ -12,6 +12,7 @@ plugins {
     id "de.undercouch.download" version "5.0.2"
     id 'org.jbake.site' version '5.5.0'
     //gretty 4.0.0 does not work with java 8
+    //gretty 3.0.8 has another problem -> #920
     id 'org.gretty' version '3.0.6'
 }
 
@@ -99,6 +100,7 @@ apply from: 'scripts/downloadTemplate.gradle'
 apply from: 'scripts/generateSite.gradle'
 apply from: 'scripts/copyThemes.gradle'
 apply from: 'scripts/fixGlobalReferences.gradle'
+apply from: 'scripts/customTasks.gradle'
 
 task autobuildSite(
     group: 'docToolchain',

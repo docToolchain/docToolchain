@@ -30,7 +30,10 @@ class GeneratePdfSpecWithDefaultTheme extends Specification {
             println result.output
             result.output.contains('image to embed not found or not readable') == false
         and: 'it also does not contain any other error'
-            result.output.toLowerCase().contains('error') == false
+            // the output will contain some dependencies with "error" in the path name
+            // so let's first remove this and then check for other errors
+            // Downloading https://plugins.gradle.org/m2/com/google/errorprone/error_prone_annotations/2.3.4/error_prone_annotations-2.3.4.jar to /tmp/gradle_download4302981685249827904bin
+            result.output.toLowerCase().replaceAll("/error","").contains('error') == false
     }
 
 }
@@ -61,7 +64,10 @@ class GeneratePdfSpecWithSpecificTheme extends Specification {
             println result.output
             result.output.contains('image to embed not found or not readable') == false
         and: 'it also does not contain any other error'
-            result.output.toLowerCase().contains('error') == false
+            // the output will contain some dependencies with "error" in the path name
+            // so let's first remove this and then check for other errors
+            // Downloading https://plugins.gradle.org/m2/com/google/errorprone/error_prone_annotations/2.3.4/error_prone_annotations-2.3.4.jar to /tmp/gradle_download4302981685249827904bin
+            result.output.toLowerCase().replaceAll("/error","").contains('error') == false
     }
 
 }

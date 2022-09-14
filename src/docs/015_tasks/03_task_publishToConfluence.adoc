@@ -37,6 +37,8 @@ Labels (keywords) must not contain a space character. Use either '_' or '-'.
 
 We tried to make the configuration self-explanatory, but below is some more information about each config option.
 
+include::{projectRootDir}/template_config/Config.groovy[tags=input-config]
+
 *ancestorId*
 
 The page ID of the parent page where you want your docs to be published.
@@ -91,6 +93,10 @@ If you need to prefix your pages with a warning stating that 'this is generated 
 If value is set to `true`, any links to local file references will be uploaded as attachments. The current implementation only supports a single folder, the name of which will be used as a prefix to validate whether or not your file should be uploaded.
 If you enable this feature, and use a folder which starts with 'attachment', an adaption of this prefix is required.
 
+*pageLimit*
+
+Limits the number of pages retrieved from the server to check if a page with this name already exists.
+
 *jiraServerId*
 Stores the Jira server ID that your Confluence instance is connected to. If a value is set, all anchors pointing to a Jira ticket will be replaced by the Confluence Jira macro.
 To function properly, `jiraRoot` must be configured (see xref:03_task_exportJiraIssues.adoc[`exportJiraIssues`]). Here's an example:
@@ -108,21 +114,40 @@ If you need to provide proxy to access Confluence, you can set a map with the ke
 
 *useOpenapiMacro*
 
-If this option is present and equal to `confluence-open-api` then any source block marked with `class openapi` will be wrapped in the Elitesoft Swagger Editor macro (see https://marketplace.atlassian.com/apps/1218914/open-api-swagger-editor-for-confluence[Elitesoft Swagger Editor]).
+If this option is present and equal to `confluence-open-api` or `swagger-open-api` then any source block marked with `class openapi` will be wrapped in the Elitesoft Swagger Editor macro (see https://marketplace.atlassian.com/apps/1218914/open-api-swagger-editor-for-confluence[Elitesoft Swagger Editor]). The key depends on the version of the macro.
 
 For backward compatibility, if this option is present and equal to `true`, then again the Elitesoft Swagger Editor macro will be used.
 
-If this option is present and equal to `open-api` then any source block marked with `class openapi` will be wrapped in the OpenAPI Documentation for Confluence macro (see https://marketplace.atlassian.com/apps/1215176/open-api-documentation-for-confluence[OpenAPI Documentation for Confluence]). A download source (yaml) button is shown by default.
+If this option is present and equal to "open-api" then any source block marked with class openapi will be wrapped in Open API Documentation for Confluence macro:  (see https://marketplace.atlassian.com/apps/1215176/open-api-documentation-for-confluence[Open API Documentation for Confluence]). A download source (yaml) button is shown by default. +
+Using the plugin can be handled on different ways.
 
-Here is how to include your OpenAPI Spec YAML file:
+* copy/paste the content of the YAML file to the plugin without linking to the origin source by using the url to the YAML file 
 
 [source,asciidoc]
 --
-[source.openapi,yaml]
-----
-\include::myopeanapi.yaml[]
-----
+    [source.openapi,yaml]
+    ----
+    \include::https://my-domain.com/path-to-yaml[]
+    ----
+-- 
+* copy/paste the content of the YAML file to the plugin without linking to the origin source by using a YAML file in your project structure:
+
+[source,asciidoc]
 --
+    [source.openapi,yaml]
+    ----
+    \include::my-yaml-file.yaml[]
+    ----
+-- 
+* create a link between the plugin and the YAML file without copying the content into the plugin. The advantage following this way is that even in case the API specification is changed without re-generating the documentation, the new version of the configuration is used in Confluence.
+
+[source,asciidoc]
+--
+    [source.openapi,yaml,role="url:https://my-domain.com/path-to-yaml"]
+    ----
+    \include::https://my-domain.com/path-to-yaml[]
+    ----
+-- 
 
 .configuration
 .publishToConfluence.gradle

@@ -20,6 +20,25 @@ If you have a question or problem for which you can't find a solution, you can
 * ask your question on https://stackoverflow.com/questions/tagged/doctoolchain?sort=active&pageSize=50[Stack Overflow]
 * discuss the problem on https://t.co/lnqrUc1YMM[Slack]
 
+== References
+
+=== Q: How can I reference source code from my documentation?
+
+.Answer
+[%collapsible]
+====
+As long, as you stay within your documents folder (default `src/docs`), you can simply reference other files with a relative `include::filename.adoc[]`-statement. +
+If you need to reference files outside of the documents folder, you need to reference them with an absolute path.
+
+`include::{projectRootDir}filename.adoc[]` +
+
+The `{projectRootDir}` will point to the folder where your `dtcw` file resides.
+In order make this also work in your editor preview, specify a line like the following in your documents:
+
+`ifndef::projectRootDir[:projectRootDir: ../../../]`
+
+====
+
 == Images
 
 * https://asciidoctor.org/docs/user-manual/#images[Asciidoctor User Manual on images]
@@ -194,7 +213,34 @@ An easy way to test your configuration is to run `xeyes` in WSL.
 Make sure that your WSL is up to date by running `wsl --update`. This is not part of your regular Windows update!
 ====
 
-=== Q: I get an error that Gradle dependencies cannot be downloaded because a proxy is restricting internet access.
+=== Q: I get a `Failed to create parent directory /project/.gradle` error
+
+----
+> Gradle could not start your build.
+> Could not create service of type CrossBuildFileHashCache using BuildSessionServices.createCrossBuildFileHashCache().
+   > Failed to create parent directory '/project/.gradle' when creating directory '/project/.gradle/6.7.1/fileHashes'
+----
+
+.Answer
+[%collapsible]
+====
+
+This issue can occur in CI enviroments (such as Bamboo) that have resticted permissions in the working folder where files or directories created outside the container might not be accessible inside the container. Before starting the container, give the working directory maximum permissions for allowing access to the user inside the Docker container.
+
+```
+chmod -R o+rwx ${bamboo.working.directory}
+./dtcw generateSite
+
+```
+
+Another solution could be that you work on the same project with WSL and Powershell.
+In such an environment, the WSL environment creates temporary files which can not be modified via powershell.
+
+In such a case, just delete the `.gradle` folder.
+
+====
+
+=== Q: I get an error stating that Gradle dependencies cannot be downloaded because a proxy is restricting internet access
 
 .Answer
 [%collapsible]
@@ -212,5 +258,6 @@ You could call this instead (remember to replace the values used in our example)
 
 For more information about Gradle proxy configuration, read https://stackoverflow.com/questions/5991194/gradle-proxy-configuration[this article].
 ====
+
 
 

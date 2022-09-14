@@ -1,0 +1,29 @@
+:filename: 015_tasks/150_task_createTask.adoc
+include::_config.adoc[]
+
+= createTask
+
+include::../_feedback.adoc[]
+
+:uri-scripts: https://github.com/docToolchain/docToolchain/tree/ng/scripts
+
+== At a Glance
+
+== About This Task
+
+You miss a special task in the above list?
+Or maybe you want to change a task to better fit your needs?
+Why not create your own project specific task?
+
+Execute `./dtcw createTask` and docToolchain will create and configure a custom gradle task for you in a folder `scripts`.
+
+To get started, take a look at {uri-scripts}[all the other tasks] to see how they solve problems.
+Copy and modify the code to your own task and start hacking.
+
+== Source
+
+.customTasks.gradle
+[source,groovy]
+----
+include::{projectRootDir}/scripts/customTasks.gradle[tags=customTasks]
+----

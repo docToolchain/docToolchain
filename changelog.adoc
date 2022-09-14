@@ -9,10 +9,40 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+* fixed ExportMarkdownSpec
+* fixed GenerateDeckSpec
+
 === added
 
 === changed
 * Improve confluence export performance when only ancestorIds are given
+
+== 2.1.0 - 2022-08-15
+
+=== fixes
+* https://github.com/docToolchain/docToolchain/issues/720[#720 Fix gradlew.bat]
+* Fixes typo in dtcw.bat for finding the correct local cli command.
+* https://github.com/docToolchain/docToolchain/pull/847[#847 generateHTML & generatePDF documentation improvements]
+* https://github.com/docToolchain/docToolchain/issues/851[#851 fix duplicate TOC marker]
+* https://github.com/docToolchain/docToolchain/issues/853[#853 Hide site links when not configured]
+* https://github.com/docToolchain/docToolchain/issues/873[#873 generateSite: Fix index page location]
+* https://github.com/docToolchain/docToolchain/issues/899[#899 dtcw local <any-task> (bash) executes :help instead of <any-task>]
+
+=== added
+* https://github.com/docToolchain/docToolchain/issue/692[#692 generateSite: navigation tree instead of a list on the left]
+* https://github.com/docToolchain/docToolchain/pull/886[#886 Add the possibility to set maven credentials]
+* https://github.com/docToolchain/docToolchain/issue/848[#848 generateSite: add customisation possibilities for the jbake gradle plugin]
+* http://doctoolchain.org/docToolchain/v2.0.x/015_tasks/150_task_createTask.html[#894 custom, project specific Tasks]
+* https://github.com/docToolchain/docToolchain/pull/897[#897 collectIncludes: Add options to configure search]
+* https://github.com/docToolchain/docToolchain/pull/911[#911 Add confluence page limit]
+
+=== changed
+2022-05-08::
+* updated available languages for arc42 template
+2022-08-07::
+* updated asciidoctorj-diagram to 2.2.3
+2022-08-09::
+* added `latest` version to dtcw
 
 == 2.0.5 - 2022-03-10
 
@@ -39,6 +69,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/pull/697[#697 - exportToMarkdown docs are not referenced correctly]
 
 === added
+
+2022-03-16::
+* https://github.com/docToolchain/docToolchain/pull/825[#825 - publishToConfluence: support swagger-open-api]
 
 2021-12-09::
 * https://github.com/docToolchain/docToolchain/pull/714[#714 - Update exportExcel.gradle]

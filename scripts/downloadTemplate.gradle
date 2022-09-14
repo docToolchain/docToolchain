@@ -38,7 +38,7 @@ task downloadTemplate(
              if (targetDir.exists()) {println "${targetDir.canonicalPath} already exists"
              println "in order to re-install the template, please remove the folder first and re-run the script"
              throw new RuntimeException("Template folder already exists")}**/
-            ant.input(message: "${color 'green', 'Which language do you want to install?'}", validargs: 'EN,DE,ES,RU', addproperty: 'lang')
+            ant.input(message: "${color 'green', 'Which language do you want to install?'}", validargs: 'EN,DE,ES,IT,NL,UA', addproperty: 'lang')
             ant.input(message: "${color 'green', 'Do you want the template with or without help?'}", validargs: 'withhelp,plain', addproperty: 'help')
             lang = ant.lang
             help = ant.help
@@ -102,10 +102,13 @@ ifndef::imagesdir[:imagesdir: ../../images]
         def configFile = new File(docDir, mainConfigFile)
         configFile.write(
             configFile.text
-                .replaceAll('/[*]{2} inputFiles [*]{2}/',
-                            "[file: 'arc42/arc42.adoc', formats: ['html','pdf']],\n\t/** inputFiles **/")
+                .replaceAll('[, \\t\\r\\n]+/[*]{2} inputFiles [*]{2}/',
+                            ",\n\t[file: 'arc42/arc42.adoc', formats: ['html','pdf']],\n\t/** inputFiles **/")
                 .replaceAll('/[*]{2} imageDirs [*]{2}/',
-                            "'images/.',\n\t/** imageDirs **/"),
+                            "'images/.',\n\t/** imageDirs **/")
+                .replaceAll('[, \\t\\r\\n]+/[*]{2} imageDirs [*]{2}/',
+                            ",\n\t'images/.',\n\t/** imageDirs **/")
+                .replaceAll("\\[,","["),
             'utf-8'
         )
         println "added template to ${mainConfigFile}"

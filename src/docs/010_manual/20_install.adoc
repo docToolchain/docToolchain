@@ -30,18 +30,20 @@ Please select the appropriate setup and follow these instructions to install doc
 .Linux / WSL2 with bash
 [role='primary']
 --
-[source, bash]
-----
-cd <your project>
-wget doctoolchain.github.io/dtcw
-chmod +x dtcw
-----
 
-if you don't have `wget` installed, you can also use `curl`:
 [source, bash]
 ----
 cd <your project>
 curl -Lo dtcw doctoolchain.github.io/dtcw
+chmod +x dtcw
+----
+
+if you don't have `curl` installed, you can also use `wget`:
+
+[source, bash]
+----
+cd <your project>
+wget doctoolchain.github.io/dtcw
 chmod +x dtcw
 ----
 
@@ -76,7 +78,37 @@ NOTE: if you use cmd.exe, follow the PowerShell instructions but replace `.ps1` 
 
 IMPORTANT: `dtcw` uses bash as shell and thus tries to find java from within bash. Chances are that when you use `dtcw` from another shell like zsh, you shell knows about the right java version but your bash doesn't. In that case, please switch to bash and make sure that the right java version is known. Afterwards, you can switch back to your shell.
 
+== Configure the Wrapper
 
+There is no need to configure the wrapper itself if you have just downloaded it.
+But from time to time you should check github to see if there are https://github.com/docToolchain/docToolchain/releases[new releases] you want to use.
+
+In this case, open dtcw in your favourite editor and look for the `VERSION`-line at the start of the file:
+
+[source, bash]
+----
+# find official release versions on github:
+# https://github.com/docToolchain/docToolchain/releases
+# set VERSION to "latest" to get the unreleased latest version
+VERSION=2.0.5
+----
+
+Update it to match the latest release and and everything will be updated with the next run.
+
+NOTE: this will not update the wrapper (dtcw) itself.
+If you think you should update the wrapper, please re-install it.
+
+There are some situation where you want to test a not-yet-released feature.
+In such a case, you can set the `VERSION` to `latest` and `dtcw` will `clone` or `pull` the current default branch of the project.
+
+This only works with a local copy, not with a docker install. 
+
+You can also use `latestdev` as version.
+In this case, `dtcw` will try to clone the repository with the ssh-git protocoll.
+This way, you can easily point it to your fork and develop new features for docToolchain.
+You will find the fork in `$HOME/.doctoolchain/docToolchain-latest`.
+
+NOTE: `latest` and `latestdev` currently only work with the bash version of the wrapper.
 
 == Running your First Command
 
@@ -114,6 +146,13 @@ NOTE: If this is your first time installing docToolchain, the images download mi
 * if docker is not available, it will download and install docToolchain to your home folder
 ** it will then run a gradle build through the gradle wrapper. If this is your first time, it will download and install gradle.
 ** the gradle build will also fetch some dependencies. This will also take a while if run for the first time..
+** build-script dependencies are fetched from a repository referenced by the property `mavenRepository`. By default the value `https://plugins.gradle.org/m2/` is used. When a repository requiring credentials is used the properties `mavenUsername` and `mavenPassword` can be set as well.
+
+[source, sh]
+.Example command passing a custom maven repository with credentials from the command line
+----
+./gradlew generateHTML -PmavenRepository=your_maven_repo -PmavenUsername=your_username -PmavenPassword=your_pw --info
+----
 
 You'll notice the installation is an incremental process and will take a while because of all the additional dependencies needed.
 After the first few commands, you'll have all the required dependencies installed and things will run faster.

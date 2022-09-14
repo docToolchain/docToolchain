@@ -1,18 +1,51 @@
 
-$main_config_file = "docToolchainConfig.groovy"
-# $version=ng
-$version = "2.0.3"
-$dockerVersion = "2.0.3"
-$distribution_url = "https://github.com/docToolchain/docToolchain/releases/download/v$version/docToolchain-$version.zip"
+#here you can specify the URL of a theme to use with generateSite-task
+#$env:DTC_SITETHEME = "https://....zip"
 
-$dtc_opts="$dtc_opts -PmainConfigFile='$main_config_file' --warning-mode=none --no-daemon"
+$main_config_file = "docToolchainConfig.groovy"
+$version = "2.1.0"
+$dockerVersion = "2.1.0"
+$distribution_url = "https://github.com/docToolchain/docToolchain/releases/download/v$version/docToolchain-$version.zip"
+$env:DTCW_PROJECT_BRANCH = (git branch --show-current)
 
 # https://docs.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables
 $home_path = $env:USERPROFILE
 $folder_name = ".doctoolchain"
 $dtcw_path = "$home_path\$folder_name"
+$doJavaCheck = $True
 
-Write-Host "dtcw - docToolchain wrapper V0.21 (PS)"
+$dtc_opts="$env:dtc_opts -PmainConfigFile='$main_config_file' --warning-mode=none --no-daemon "
+
+function checkJava()
+{
+    if (Get-Command java -ErrorAction SilentlyContinue)
+    {
+        $java = $True
+        $javaversion = (Get-Command java | Select-Object -ExpandProperty Version).toString()
+        echo "Java Version $javaversion"
+    }
+    else
+    {
+        # Text adapted
+        Write-Warning @'
+docToolchain depends on java, but the java command couldn't be found.
+
+To install java, you can type
+
+./dtcw getJava
+
+to invoke an automatic installer. This will install JDK 11 only for docToolchain without interfering with your current Java installations.
+
+...or you could follow the next link and manually install JDK 11 on your system for global use:
+
+>> https://adoptium.net/
+please choose Temurin 11
+'@
+        exit 1
+    }
+}
+
+Write-Host "dtcw - docToolchain wrapper V0.35(PS)"
 
 if ($args.Count -lt 1) {
     # Help text adapted to Win/PS: /<command>.ps1
@@ -45,18 +78,6 @@ Examples:
 # check if CLI or docker are installed:
 $cli = $docker = $exist_home =  $False
 
-if (Get-Command java -ErrorAction SilentlyContinue) {
-    $java = $True
-} else {
-    # Text adapted
-    Write-Warning @'
-docToolchain depends on java, but the java command couldn't be found to install java.
-Please, follow the next link and install java:
-https://www.java.com/en/download/help/windows_manual_download.html
-'@
-    exit 1
-}
-
 if (Get-Command dooctoolchain -ErrorAction SilentlyContinue) {
     Write-Host "docToolchain as CLI available"
     $cli = $True
@@ -83,10 +104,55 @@ switch ($args[0]) {
         $cli = $exist_home = $False
         $firstArgsIndex = 1   # << Shift first param
     }
+    "getJava" {
+        Write-Host "this script assumes that you have a 64 bit Windows installation"
+        Write-Host "it now tries to install Java for you"
+        New-Item -Path $home_path -Name $folder_name -ItemType "directory" -Force | Out-Null
+        $jdkDistribution = "https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.15%2B10/OpenJDK11U-jdk_x64_windows_hotspot_11.0.15_10.zip"
+        Write-Host "downloadting JDK temurin11 from adoptiom to $dtcw_path/jdk.zip"
+        Invoke-WebRequest $jdkDistribution -OutFile "$dtcw_path\jdk.zip"
+        Write-Host "expanding JDK"
+        Expand-Archive -LiteralPath "$dtcw_path\jdk.zip" -DestinationPath "$dtcw_path\"
+        $firstArgsIndex = 1   # << Shift first param
+        exit 1
+    }
     default {
         $firstArgsIndex = 0   # << Use all params
     }
 }
+if ($args[0]="generateDeck") {
+    if (Test-Path "$dtcw_path\docToolchain-$version\resources\reveal.js" ) {
+        # reveal.js already exists
+        Write-Host ""
+    } else {
+        # clone reveal.js
+        Write-Host "cloning reveal.js"
+        Invoke-Expression "Push-Location $dtcw_path/docToolchain-$version/resources/. ; ./clone.ps1 ; Pop-Location"
+    }
+}
+if ($docker)
+{
+    # nothing to do
+}
+else
+{
+    $dtc_opts = "$dtc_opts '--gradle-user-home=$dtcw_path\.gradle'"
+    if (Test-Path "$dtcw_path\jdk-11.0.15+10")
+    {
+        Write-Host "local java JDK-11 found"
+        $java = $True
+        $dtc_opts = "$dtc_opts '-Dorg.gradle.java.home=$dtcw_path\jdk-11.0.15+10' "
+        if (test-path env:JAVA_HOME)
+        {
+        }
+        else
+        {
+            $env:JAVA_HOME = "$dtcw_path\jdk-11.0.15+10"
+        }
+        $doJavaCheck = $False
+    }
+}
+
 #if bakePreview is called, deactivate deamon
 if ( $args[0] -eq "bakePreview" ) {
     $dtc_opts="$dtc_opts -Dorg.gradle.daemon=false"
@@ -110,8 +176,8 @@ elseif ($docker) {
     # Write-Host "Docker is running :)"
     $docker_cmd = Get-Command docker
     Write-Host $docker_cmd
-    $command = "$docker_cmd run --name doctoolchain${dockerVersion} -e DTC_HEADLESS=1 -e DTC_SITETHEME -p 8042:8042 --rm -it --entrypoint /bin/bash -v '${PWD}:/project' 'rdmueller/doctoolchain:v$dockerVersion' -c ""doctoolchain . $commandArgs $DTC_OPTS && exit"""
-
+    $command = "$docker_cmd run --name doctoolchain${dockerVersion} -e DTC_HEADLESS=1 -e DTC_SITETHEME -p 8042:8042 --rm -it --entrypoint /bin/bash -v '${PWD}:/project' 'doctoolchain/doctoolchain:v$dockerVersion' -c ""doctoolchain . $commandArgs $DTC_OPTS && exit"""
+    $doJavaCheck = $False
 }
 else {
     Write-Host "docToolchain $version is not installed."
@@ -119,8 +185,6 @@ else {
     $confirmation = Read-Host "Do you wish to install doctoolchain to '$dtcw_path\'? [Y/N]"
     if ($confirmation -eq 'y') {
         New-Item -Path $home_path -Name $folder_name -ItemType "directory" -Force | Out-Null
-        # Use System Proxy Settings
-        $proxy = ([System.Net.WebRequest]::GetSystemWebproxy()).GetProxy($distribution_url)
         if ($proxy) {
             # Pass Proxy-Settings to Gradle
             $gradleFile = "gradle.properties"
@@ -150,5 +214,8 @@ you need docToolchain as CLI-Tool installed or docker.
     }
 }
 
+if ($doJavaCheck) {
+    checkJava
+}
 # Write-Host "Command to invoke: '$command'" # << line for debugging
 Invoke-Expression "$command"

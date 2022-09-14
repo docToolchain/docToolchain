@@ -4,6 +4,10 @@
 buildscript {
     repositories {
         maven {
+            credentials {
+                username mavenUsername
+                password mavenPassword
+            }
             url mavenRepository
         }
     }
@@ -96,7 +100,7 @@ ext {
 
 dependencies {
     asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.3'
-    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:2.1.2'
+    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:2.2.3'
 }
 
 asciidoctorj {
@@ -309,13 +313,13 @@ task generateDeck (
             'idprefix': 'slide-',
             'idseparator': '-',
             'docinfo1': '',
-            'revealjs_theme': 'black',
-            'revealjs_progress': 'true',
-            'revealjs_touch': 'true',
-            'revealjs_hideAddressBar': 'true',
-            'revealjs_transition': 'linear',
-            'revealjs_history': 'true',
-            'revealjs_slideNumber': 'true'
+            'revealjs_theme': 'black@',
+            'revealjs_progress': 'true@',
+            'revealjs_touch': 'true@',
+            'revealjs_hideAddressBar': 'true@',
+            'revealjs_transition': 'linear@',
+            'revealjs_history': 'true@',
+            'revealjs_slideNumber': 'true@'
     )
     options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates').absolutePath ]
 
@@ -356,3 +360,12 @@ task generateDeck (
     }
 }
 //end::generateDeck[]
+
+task install (
+    group: 'docToolchain',
+    description: 'just a dummy task') {
+    doLast {
+
+    }
+}
+
