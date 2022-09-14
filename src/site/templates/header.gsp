@@ -59,8 +59,7 @@
     <meta name="msapplication-TileImage" content="${content.rootpath}ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-  <script crossorigin="anonymous" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
-          src="${content.rootpath}js/jquery-3.5.1.min.js"></script>
+  <script src="${content.rootpath}js/jquery-3.5.1.min.js"></script>
   <style>
       div.bg-light {
           background-color: rgba(127, 180, 224, 0.3) !important;
