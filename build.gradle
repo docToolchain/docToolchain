@@ -44,7 +44,7 @@ dependencies {
         ('org.codehaus.groovy.modules.http-builder:http-builder:0.7.2')
     )
     testRuntime(
-        "net.bytebuddy:byte-buddy:1.12.8"
+        "net.bytebuddy:byte-buddy:1.12.17"
     )
 }
 if (project.name!=rootProject.name) {
