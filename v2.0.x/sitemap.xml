@@ -47,12 +47,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/010_manual/20_install.html</loc>
+    	<lastmod>2022-09-26</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/010_manual/60_further_reading.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/20_install.html</loc>
+    	<loc>https://localhost/010_manual/40_features.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
@@ -63,11 +68,6 @@
 
     <url>
     	<loc>https://localhost/010_manual/50_Frequently_asked_Questions.html</loc>
-    	<lastmod>2022-09-26</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/010_manual/40_features.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
@@ -92,6 +92,11 @@
     </url>
 
     <url>
+    	<loc>https://localhost/ea/Activity_notes.html</loc>
+    	<lastmod>2022-09-26</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/Use_Cases_links.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
@@ -107,17 +112,22 @@
     </url>
 
     <url>
+    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
+    	<lastmod>2022-09-26</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/issue2.html</loc>
+    	<lastmod>2022-09-26</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/Architect_notes_issue2.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/ea/Architect_notes.html</loc>
-    	<lastmod>2022-09-26</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Activity_notes.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
@@ -132,12 +142,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
-    	<lastmod>2022-09-26</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/issue2.html</loc>
+    	<loc>https://localhost/025_development/005_contributing_to_docs.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
@@ -157,7 +162,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/005_contributing_to_docs.html</loc>
+    	<loc>https://localhost/025_development/030_create_new_release.html</loc>
+    	<lastmod>2022-09-26</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/025_development/020_run_tests.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
@@ -172,22 +182,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/030_create_new_release.html</loc>
-    	<lastmod>2022-09-26</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/025_development/020_run_tests.html</loc>
-    	<lastmod>2022-09-26</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/020_tutorial/030_generateHTML.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/020_tutorial/120_self-contained-dtc.html</loc>
+    	<lastmod>2022-09-26</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/020_tutorial/020_arc42.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
@@ -202,7 +207,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/020_arc42.html</loc>
+    	<loc>https://localhost/020_tutorial/070_publishToConfluence.html</loc>
+    	<lastmod>2022-09-26</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/020_tutorial/040_generateSite.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
@@ -212,12 +222,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/070_publishToConfluence.html</loc>
-    	<lastmod>2022-09-26</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/020_tutorial/040_generateSite.html</loc>
+    	<loc>https://localhost/020_tutorial/110_revealjs_and_arc42_from_scratch.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
@@ -232,17 +237,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/110_revealjs_and_arc42_from_scratch.html</loc>
-    	<lastmod>2022-09-26</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/10_about/20_what-is-doctoolchain.html</loc>
-    	<lastmod>2022-09-26</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportOpenApi.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
@@ -257,17 +252,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateSite.html</loc>
-    	<lastmod>2022-09-26</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_generateHTML.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generatePDF.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportOpenApi.html</loc>
+    	<lastmod>2022-09-26</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_generateSite.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
@@ -277,7 +272,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_generatePDF.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
@@ -288,6 +283,11 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_downloadTemplate.html</loc>
+    	<lastmod>2022-09-26</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
@@ -322,17 +322,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
-    	<lastmod>2022-09-26</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_publishToConfluence.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
+    	<lastmod>2022-09-26</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
@@ -347,7 +347,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_publishToConfluence.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
@@ -362,12 +362,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
@@ -377,12 +377,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportDrawIo.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportDrawIo.html</loc>
     	<lastmod>2022-09-26</lastmod>
     </url>
 
