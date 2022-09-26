@@ -222,61 +222,129 @@ def rewriteMarks = { body ->
     body.select('mark').wrap('<span style="background:#ff0;color:#000"></style>').unwrap()
 }
 
+def retrieveAllPagesByAncestorId(RESTClient api, Map headers, List<String> pageIds, String baseApiPath, int pageLimit) {
+    def allPages = [:]
+    def request = [
+        'type' : 'page',
+        'limit': pageLimit
+    ]
+
+    int start = 0
+    def ids = []
+    def pageId = pageIds.remove(0)
+    boolean morePages = true
+    while (morePages) {
+        def results = trythis {
+            request.start = start
+            def args = [
+                'headers': headers,
+                'path'   : "${baseApiPath}content/${pageId}/child/page",
+                'query'  : request,
+            ]
+            api.get(args).data
+        } ?: []
+
+        results = results.results ?: []
+
+
+        results.inject(allPages) { Map acc, Map match ->
+            //unique page names in confluence, so we can get away with indexing by title
+            ids.add(match.id)
+            acc[match.title.toLowerCase()] = [
+                title   : match.title,
+                id      : match.id,
+                parentId: pageId
+            ]
+            acc
+        }
+
+        if (results.empty && ids.isEmpty()) {
+            if(pageIds.isEmpty()) {
+                morePages = false
+            } else {
+                pageId = pageIds.remove(0)
+            }
+        } else if (!results.empty) {
+            start += results.size
+        } else {
+            start = 0
+            pageId = ids.remove(0);
+        }
+    }
+    allPages
+}
+
+def retrieveAllPagesBySpace(RESTClient api, Map headers, String spaceKey, String baseApiPath, int pageLimit) {
+    boolean morePages = true
+    int start = 0
+    def request = [
+        'type'    : 'page',
+        'spaceKey': spaceKey,
+        'expand'  : 'ancestors',
+        'limit'   : pageLimit
+    ]
+
+    def allPages = [:]
+    while (morePages) {
+        def results = trythis {
+            request.start = start
+            def args = [
+                'headers': headers,
+                'path'   : "${baseApiPath}content",
+                'query'  : request,
+            ]
+            api.get(args).data
+        } ?: []
+        results = results.results ?: []
+        if (results.empty) {
+            morePages = false
+        } else {
+            start += results.size
+        }
+        results.inject(allPages) { Map acc, Map match ->
+            //unique page names in confluence, so we can get away with indexing by title
+            def ancestors = match.ancestors.collect { it.id }
+            acc[match.title.toLowerCase()] = [
+                title   : match.title,
+                id      : match.id,
+                parentId: ancestors.isEmpty() ? null : ancestors.last()
+            ]
+            acc
+        }
+    }
+    allPages
+}
+
 // #352-LuisMuniz: Helper methods
-// Fetch all pages of the space. Only keep relevant info in the pages Map
+// Fetch all pages of the defined config ancestorsIds. Only keep relevant info in the pages Map
 // The map is indexed by lower-case title
 def retrieveAllPages = { RESTClient api, Map headers, String spaceKey ->
     if (allPages != null) {
         println "allPages already retrieved"
         allPages
     } else {
-
-        boolean morePages=true
-        int start=0
+        def pageIds = []
+        def checkSpace = false
         int pageLimit = config.confluence.pageLimit ? config.confluence.pageLimit : 100
-        def request = [
-                'type'    : 'page',
-                'spaceKey': spaceKey,
-                'expand'  : 'ancestors',
-                'limit'   : pageLimit
-        ]
-
-        allPages =[:]
-        while(morePages) {
-            print (".")
-            def results = trythis {
-                request.start=start
-                def args = [
-                        'headers': headers,
-                        'path'   : "${baseApiPath}content",
-                        'query'  : request,
-                ]
-                api.get(args).data.results
-            } ?: []
-
-            if (results.empty) {
-                morePages=false
-            } else {
-                start += results.size
+        config.confluence.input.each { input ->
+            if (!input.ancestorId) {
+                // if one ancestorId is missing we should scan the whole space
+                checkSpace = true;
+                return
             }
-
-            results.inject(allPages) { Map acc, Map match ->
-                //unique page names in confluence, so we can get away with indexing by title
-                def ancestors = match.ancestors.collect { it.id }
-
-                acc[match.title.toLowerCase()] = [
-                        title   : match.title,
-                        id      : match.id,
-                        parentId: ancestors.isEmpty() ? null : ancestors.last()
-                ]
-                acc
-            }
+            pageIds.add(input.ancestorId)
         }
         println (".")
 
+        if(checkSpace) {
+            allPages = retrieveAllPagesBySpace(api, headers, spaceKey, baseApiPath, pageLimit)
+        } else {
+            allPages = retrieveAllPagesByAncestorId(api, headers, pageIds, baseApiPath, pageLimit)
+        }
         allPages
     }
 }
+
 
 // Retrieve a page by id with contents and version
 def retrieveFullPage = { RESTClient api, Map headers, String id ->

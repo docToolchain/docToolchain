@@ -42,3 +42,6 @@ src/test/docs/excel/
 
 # MAC DS_Store file
 .DS_Store
+
+resources/reveal.js 
+resources/asciidoctor-reveal.js

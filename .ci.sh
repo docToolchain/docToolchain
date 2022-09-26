@@ -57,6 +57,10 @@ unit_tests () {
   echo "#        Unit testing                      #"
   echo "#                                          #"
   echo "############################################"
+  # clone reveal.js
+  cd resources
+  ./clone.sh
+  cd -
   ./gradlew test --info
 }
 
