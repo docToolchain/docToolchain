@@ -16,6 +16,15 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 * Improve confluence export performance when only ancestorIds are given
+* https://github.com/docToolchain/docToolchain/issues/937[#937 Confluence publish nested pages by heading]
++
+This replaces the settings `allInOnePage` and `createSubPages`.
+Migrate as follows:
++
+** `allInOnePage = true` is the same as `subpagesForSections = 0`
+** `allInOnePage = false && createSubpages = false` is the same as `subpagesForSections = 1`
+** `allInOnePage = false && createSubpages = true` is the same as `subpagesForSections = 2`
+
 
 == 2.1.0 - 2022-08-15
 

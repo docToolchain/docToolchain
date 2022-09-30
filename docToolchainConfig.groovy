@@ -168,7 +168,12 @@ confluence = [:]
 // inputHtmlFolder is a folder for bulk process html files
 // The following four keys can also be used in the global section below
 // - 'spaceKey' (optional): page specific variable for the key of the confluence space to write to
-// - 'createSubpages' (optional): page specific variable to determine whether ".sect2" sections shall be split from the current page into subpages
+// - 'subpagesForSections' (optional): The number of nested sub-pages to create. Default is '1'.
+//                                     '0' means creating all on one page.
+//                                     The following migration for removed configuration can be used.
+//                                     'allInOnePage = true' is the same as 'subpagesForSections = 0'
+//                                     'allInOnePage = false && createSubpages = false' is the same as 'subpagesForSections = 1'
+//                                     'allInOnePage = false && createSubpages = true' is the same as 'subpagesForSections = 2'
 // - 'pagePrefix' (optional): page specific variable, the pagePrefix will be a prefix for the page title and it's sub-pages
 //                            use this if you only have access to one confluence space but need to store several
 //                            pages with the same title - a different pagePrefix will make them unique
@@ -185,7 +190,7 @@ confluence.with {
     // you should get a json about your own user
     api = 'https://[yourServer]/[context]/rest/api/'
 
-    //    Additionally, spaceKey, createSubpages, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
+    //    Additionally, spaceKey, subpagesForSections, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
 
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
@@ -193,8 +198,8 @@ confluence.with {
     // the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
     preambleTitle = ''
 
-    // variable to determine whether ".sect2" sections shall be split from the current page into subpages
-    createSubpages = false
+    // variable to determine how many layers of sub pages should be created
+    subpagesForSections = 1
 
     // the pagePrefix will be a prefix for each page title
     // use this if you only have access to one confluence space but need to store several
@@ -217,7 +222,7 @@ confluence.with {
 
     //optional API-token to be added in case the credentials are needed for user and password exchange.
     //apikey = "[API-token]"
-    bearerToken = '' 
+    bearerToken = ''
 
     // HTML Content that will be included with every page published
     // directly after the TOC. If left empty no additional content will be
