@@ -42,6 +42,9 @@ taskInputsDirs = [
 
 taskInputsFiles = []
 
+customTasks = [
+        /** customTasks **/
+]
 //*****************************************************************************************
 
 //Configuration for microsite: generateSite + previewSite
@@ -67,6 +70,7 @@ microsite.with {
 
     //project theme
     //site folder relative to the docs folder
+    //see 'copyTheme' for more details
     siteFolder = '../site'
 
     // the title of the microsite, displayed in the upper left corner
@@ -217,7 +221,7 @@ confluence.with {
 
     //optional API-token to be added in case the credentials are needed for user and password exchange.
     //apikey = "[API-token]"
-    bearerToken = '' 
+    bearerToken = ''
 
     // HTML Content that will be included with every page published
     // directly after the TOC. If left empty no additional content will be
@@ -235,6 +239,12 @@ confluence.with {
     // Optional proxy configuration, only used to access Confluence
     // schema supports http and https
     // proxy = [host: 'my.proxy.com', port: 1234, schema: 'http']
+
+    // for exportConfluence-Task
+    export = [
+            srcDir: 'sample_data',
+            destDir: 'src/docs'
+    ]
 }
 //end::confluenceConfig[]
 //*****************************************************************************************
