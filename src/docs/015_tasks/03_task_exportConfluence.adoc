@@ -104,5 +104,5 @@ You can also specify the needed parameters through the command line:
 .build.gradle
 [source,groovy]
 ----
-include::{projectRootDir}/scripts/confluenceToAsciiDoc.groovy.groovy[]
+include::{projectRootDir}/scripts/confluenceToAsciiDoc.groovy[]
 ----
