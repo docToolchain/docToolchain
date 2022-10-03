@@ -27,3 +27,13 @@ changelog.with {
     cmd = 'git log --pretty=format:%x7c%x20%ad%x20%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n --date=short'
 
 }
+
+confluence = [:]
+
+confluence.with {
+// for exportConfluence-Task
+    export = [
+        srcDir : 'src/test/testConfluenceSpace',
+        destDir: 'src/test/build/exportConfluenceSpec'
+    ]
+}

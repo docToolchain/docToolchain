@@ -23,13 +23,12 @@ task exportConfluence (
         group: 'docToolchain'
 ) {
     doLast {
-        //evaluate(new File(projectDir, 'scripts/confluenceToAsciiDoc.groovy'))
         def srcDir  = findProperty("confluence.export.srcDir")?:config.confluence.export.srcDir
         def destDir = findProperty("confluence.export.destDir")?:config.confluence.export.destDir
         String[] args = ["srcDir=${docDir}/$srcDir",
                          "destDir=${docDir}/$destDir"]
         logger.info ("args: "+args)
         binding.setProperty('args', args)
-        //evaluate(new File(docDir, 'scripts/confluenceToAsciiDoc.groovy'))
+        evaluate(new File(projectDir, 'scripts/confluenceToAsciiDoc.groovy'))
     }
 }
