@@ -1,7 +1,7 @@
 :filename: 015_tasks/03_task_exportConfluence.adoc
 include::_config.adoc[]
 
-= exportExcel
+= exportConfluence
 
 include::../_feedback.adoc[]
 
@@ -24,10 +24,6 @@ Since this conversion isn't perfect and pandoc doesn't even know about confluenc
 * docToolchain >= v2.2
 * you need to have https://pandoc.com[pandoc] installed.
 
-=== usage
-
-export the confluence space as XML and unzip it in the `sample_data` folder.
-Configure the right paths in the link:scripts/confluenceToAsciiDoc.groovy[`confluenceToAsciiDoc`] script.
 
 === usage
 
@@ -57,6 +53,10 @@ Then use the following steps to run the script and render the results as a micro
 ./dtcw exportConfluence
 ./dtcw generateSite
 ----
+
+You can also specify the needed parameters through the command line:
+
+    ./dtcw exportConfluence -Pconfluence.export.srcDir=sample_data -Pconfluence.export.destDir=src/docs
 
 === Supported Features
 
