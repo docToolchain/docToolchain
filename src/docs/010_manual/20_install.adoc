@@ -29,6 +29,7 @@ This guide explains how to set up docToolchain in the following environments:
 Please select the appropriate setup and follow these instructions to install docToolchain step by step.
 
 NOTE: If you are going to use docToolchain in different projects install the dtcw (docToolchainWrapper) for each one.
+docToolchain itself will only be installed once in your home folder.
 
 .Linux / WSL2 with bash
 [role='primary']
@@ -77,14 +78,14 @@ NOTE: `dtcw.bat` wraps the `dtcw.ps1` script and executes it in powershell. This
 --
 
 NOTE: In order to support development for your project on both, Linux and Windows, it makes sense to download all three scripts to your project. 
-//What do I have to do? What if I am on Windows bit my colleagues are on Linux? 
 
 IMPORTANT: `dtcw` uses bash as shell and thus tries to find java from within bash. Chances are that when you use `dtcw` from another shell like zsh, you shell knows about the right java version but your bash doesn't. In that case, please switch to bash and make sure that the right java version is known. Afterwards, you can switch back to your shell.
 
 == Configure the Wrapper
-//Do we need this information to get started the first time? Otherwise transfer it to the end of this file (or in another one altogether)
 
 There is no need to configure the wrapper itself if you have just downloaded it.
+In this case, just skip to <<first-command>>.
+
 But from time to time you should check github to see if there are https://github.com/docToolchain/docToolchain/releases[new releases] you want to use.
 
 In this case, open dtcw in your favourite editor and look for the `VERSION`-line at the start of the file:
@@ -114,6 +115,7 @@ You will find the fork in `$HOME/.doctoolchain/docToolchain-latest`.
 
 NOTE: `latest` and `latestdev` currently only work with the bash version of the wrapper.
 
+[[first-command]]
 == Running your First Command
 
 To get started with docToolchain, run `tasks` as the first command:
@@ -155,8 +157,8 @@ NOTE: If this is your first time installing docToolchain, the images download mi
 * if docker is not available, it will download and install docToolchain to your home folder
 ** it will then run a gradle build through the gradle wrapper. If this is your first time, it will download and install gradle.
 ** the gradle build will also fetch some dependencies. This will also take a while if run for the first time..
-// I have absolutely no idea what the next paragraph means and if the source-part belongs to this bullet point ;(
-** build-script dependencies are fetched from a repository referenced by the property `mavenRepository`. By default the value `https://plugins.gradle.org/m2/` is used. When a repository requiring credentials is used the properties `mavenUsername` and `mavenPassword` can be set as well.
+
+NOTE: if you are behind a corporate proxy, you might need to consider build-script dependencies are fetched from a repository referenced by the property `mavenRepository`. By default the value `https://plugins.gradle.org/m2/` is used. When a repository requiring credentials is used the properties `mavenUsername` and `mavenPassword` can be set as well.
 
 [source, sh]
 .Example command passing a custom maven repository with credentials from the command line
