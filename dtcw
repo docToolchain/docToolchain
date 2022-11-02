@@ -16,7 +16,9 @@ MAIN_CONFIG_FILE=docToolchainConfig.groovy
 VERSION=2.1.0
 
 DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/releases/download/v${VERSION}/docToolchain-${VERSION}.zip
-export DTC_PROJECT_BRANCH=$(git branch --show-current)
+if [ -z "$DTC_PROJECT_BRANCH" ]; then
+    export DTC_PROJECT_BRANCH=$(git branch --show-current)
+fi
 
 DTC_HEADLESS=${DTC_HEADLESS:="false"}
 if [ -t 0 ]; then
@@ -351,7 +353,7 @@ else
           else
               pwd=$PWD
           fi
-          command="'$docker_cmd' run -u $(id -u):$(id -g) --name doctoolchain${version} -e DTC_HEADLESS=1 -e DTC_SITETHEME -p 8042:8042 --rm -i --entrypoint /bin/bash -v '${pwd}:/project' doctoolchain/doctoolchain:v${VERSION} -c \"doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS && exit\""
+          command="'$docker_cmd' run -u $(id -u):$(id -g) --name doctoolchain${version} -e DTC_HEADLESS=1 -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=$DTC_PROJECT_BRANCH -p 8042:8042 --rm -i --entrypoint /bin/bash -v '${pwd}:/project' doctoolchain/doctoolchain:v${VERSION} -c \"doctoolchain . $1 $2 $3 $4 $5 $6 $7 $8 $9 $DTC_OPTS && exit\""
           doJavaCheck=false
 	  echo "use docker installation"
       else

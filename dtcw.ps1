@@ -120,7 +120,7 @@ switch ($args[0]) {
         $firstArgsIndex = 0   # << Use all params
     }
 }
-if ($args[0]="generateDeck") {
+if ($args[0] -eq "generateDeck") {
     if (Test-Path "$dtcw_path\docToolchain-$version\resources\reveal.js" ) {
         # reveal.js already exists
         Write-Host ""
