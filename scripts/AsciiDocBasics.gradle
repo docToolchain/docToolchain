@@ -159,6 +159,16 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
 
     requires = ['asciidoctor-diagram']
 
+    if (config.rubyExtensions) {
+        config.rubyExtensions.each { extension ->
+            def root= new File(projectDir.canonicalPath)
+            def full= new File(new File(docDir,extension).canonicalPath)
+            def relPath = root.toPath().relativize( full.toPath() ).toFile()
+            requires += [relPath.toString()]
+            logger.info ("added required ruby extension '$full'")
+        }
+    }
+
 }
 //end::AsciidoctorTask[]
 
@@ -365,7 +375,7 @@ task install (
     group: 'docToolchain',
     description: 'just a dummy task') {
     doLast {
-
+        System.out.println ("docToolchain is installed");
     }
 }
 
