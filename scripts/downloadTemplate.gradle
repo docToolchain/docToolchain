@@ -38,7 +38,7 @@ task downloadTemplate(
              if (targetDir.exists()) {println "${targetDir.canonicalPath} already exists"
              println "in order to re-install the template, please remove the folder first and re-run the script"
              throw new RuntimeException("Template folder already exists")}**/
-            ant.input(message: "${color 'green', 'Which language do you want to install?'}", validargs: 'EN,DE,ES,IT,NL,UA', addproperty: 'lang')
+            ant.input(message: "${color 'green', 'Which language do you want to install?'}", validargs: 'CZ,EN,DE,ES,IT,NL,UA', addproperty: 'lang')
             ant.input(message: "${color 'green', 'Do you want the template with or without help?'}", validargs: 'withhelp,plain', addproperty: 'help')
             lang = ant.lang
             help = ant.help

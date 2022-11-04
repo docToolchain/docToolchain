@@ -158,7 +158,7 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
     logDocuments = true
 
     requires = ['asciidoctor-diagram']
-
+//TODO: write docs
     if (config.rubyExtensions) {
         config.rubyExtensions.each { extension ->
             def root= new File(projectDir.canonicalPath)

@@ -11,10 +11,14 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 * fixed ExportMarkdownSpec
 * fixed GenerateDeckSpec
+* fixed GenerateDeck / Reveal.js
 * allow numeric ancestorIds for confluence export
 * https://github.com/docToolchain/docToolchain/pull/951[#951 Improve DTC_PROJECT_BRANCH management]
 
 === added
+
+* rubyExtensions configuration
+* CZ as language for downloadTemplate
 
 === changed
 * Improve confluence export performance when only ancestorIds are given
