@@ -36,7 +36,7 @@ dependencies {
             //('org.slf4j:slf4j-simple:1.7.13'),
             gradleTestKit(),
             //for the renderToConfluence Task
-            ('org.apache.httpcomponents:httpmime:4.5.10'),
+            ('org.apache.httpcomponents:httpmime:4.5.14'),
             ('org.jsoup:jsoup:1.12.1'),
             ('org.codehaus.groovy.modules.http-builder:http-builder:0.7.2')
     )
