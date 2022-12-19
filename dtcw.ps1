@@ -6,7 +6,13 @@ $main_config_file = "docToolchainConfig.groovy"
 $version = "2.1.0"
 $dockerVersion = "2.1.0"
 $distribution_url = "https://github.com/docToolchain/docToolchain/releases/download/v$version/docToolchain-$version.zip"
-$env:DTCW_PROJECT_BRANCH = (git branch --show-current)
+
+if (Test-Path ".git" ) {
+    $env:DTCW_PROJECT_BRANCH = (git branch --show-current)
+} else {
+    $env:DTCW_PROJECT_BRANCH = ""
+}
+  
 
 # https://docs.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables
 $home_path = $env:USERPROFILE

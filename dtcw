@@ -17,7 +17,12 @@ VERSION=2.1.0
 
 DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/releases/download/v${VERSION}/docToolchain-${VERSION}.zip
 if [ -z "$DTC_PROJECT_BRANCH" ]; then
-    export DTC_PROJECT_BRANCH=$(git branch --show-current)
+  if [ -d .git ]; then
+    DTC_PROJECT_BRANCH=$(git branch --show-current)
+  else
+    DTC_PROJECT_BRANCH="-"
+  fi;
+  export DTC_PROJECT_BRANCH
 fi
 
 DTC_HEADLESS=${DTC_HEADLESS:="false"}
