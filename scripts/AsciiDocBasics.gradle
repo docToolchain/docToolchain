@@ -220,6 +220,8 @@ doFirst {
 >> No source files defined for type HTML.
 >> Please specify at least one inputFile in your docToolchainConfig.groovy
 """)
+    } else {
+        generateHTML.finalizedBy showHintHTML
     }
 
 }
@@ -267,13 +269,16 @@ task generatePDF (
     }
     **/
     doFirst {
-            if (sourceFilesPDF.size()==0) {
-                throw new Exception ("""
+        if (sourceFilesPDF.size()==0) {
+            throw new Exception ("""
 
-    >> No source files defined for type PDF.
-    >> Please specify at least one inputFile in your docToolchainConfig.groovy
-    """)
-            }
+>> No source files defined for type PDF.
+>> Please specify at least one inputFile in your docToolchainConfig.groovy
+""")
+        } else {
+            generatePDF.finalizedBy showHintPDF
+
+        }
 
     }
 }
@@ -365,6 +370,8 @@ task generateDeck (
     >> No source files defined for type 'revealjs'.
     >> Please specify at least one inputFile in your docToolchainConfig.groovy
     """)
+        } else {
+            generateDeck.finalizedBy showHintDeck
         }
 
     }
@@ -379,3 +386,21 @@ task install (
     }
 }
 
+task showHintPDF() {
+    doLast {
+        println ("PDF document generated")
+        println ("open ${targetDir}/pdf/*.pdf to view it.")
+    }
+}
+task showHintHTML() {
+    doLast {
+        println ("single page HTML file generated")
+        println ("open ${targetDir}/html5/*.html to view it.")
+    }
+}
+task showHintDeck() {
+    doLast {
+        println ("reveal.js slide deck generated")
+        println ("open ${targetDir}/decks/*.html to view it.")
+    }
+}

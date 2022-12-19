@@ -520,6 +520,12 @@ task copyImages(type: Copy) {
         into("${targetDir}/microsite/output/" + resource.target)
     }
 }
-
+task showHintSite() {
+    doLast {
+        println ("Microsite generated")
+        println ("open ${targetDir}/microsite/output/index.html to view it.")
+    }
+}
 bake.dependsOn copyImages
 generateSite.finalizedBy bake
+bake.finalizedBy showHintSite
