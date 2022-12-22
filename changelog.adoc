@@ -16,6 +16,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/pull/951[#951 Improve DTC_PROJECT_BRANCH management]
 * https://github.com/docToolchain/docToolchain/issues/976[#976 dtcw shows a fatal error when not in git repository]
 * https://github.com/docToolchain/docToolchain/issues/978[#978 dtcw.ps1 does not correctly check for java version]
+* https://github.com/docToolchain/docToolchain/issues/890[#890 updated documentation on "Self-Contained docToolchain"]
 
 === added
 
