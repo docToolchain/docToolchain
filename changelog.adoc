@@ -9,6 +9,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+* fixed whitespace in GH issue template (which leads to errors in `htmlSanityCheck`)
 * fixed ExportMarkdownSpec
 * fixed GenerateDeckSpec
 * fixed GenerateDeck / Reveal.js
