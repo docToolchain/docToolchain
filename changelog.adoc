@@ -22,6 +22,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 * rubyExtensions configuration
 * CZ as language for downloadTemplate
+* Enable to use a particular version of DTC from the wrapper by setting the environment variable 'DTC_VERSION' accordingly.
 
 === changed
 * Improve confluence export performance when only ancestorIds are given
