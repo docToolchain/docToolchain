@@ -195,7 +195,7 @@ java_help_and_die() {
     echo "it might be that you have installed the needed version java in another shell from which you started dtcw"
     echo "dtcw is running in bash and uses the PATH to find java"
     echo ""
-    echo "to install a local java for docToolchain, you cann run"
+    echo "to install a local java for docToolchain, you can run"
     echo "./dtcw getJava"
     echo ""
     echo "another way to install or update java is to install"
@@ -208,7 +208,7 @@ java_help_and_die() {
     echo ""
     echo "make sure that your java version is between 8 and 14"
     echo ""
-    echo "If you do not want to use a local java installtion, you can also use docToolchain as docker container."
+    echo "If you do not want to use a local java installation, you can also use docToolchain as docker container."
     echo "In that case, specify 'docker' as first parameter in your statement."
     echo "example: ./dtcw docker generateSite"
     exit 1
