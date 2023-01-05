@@ -46,7 +46,6 @@ docker=false
 sdkman=false
 homefolder=false
 java=false
-wsl=false
 doJavaCheck=true
 arch=`uname -m`
 os=`uname -s`
@@ -158,7 +157,6 @@ if [[ $(grep -i 'microsoft' /proc/version) ]]; then
   echo "this might cause problems with plantUML"
   echo "see https://doctoolchain.github.io/docToolchain/#wsl for more details"
   echo " "
-  wsl=true
 fi
 
 # url toLocation
