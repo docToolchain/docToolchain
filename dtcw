@@ -364,7 +364,7 @@ else
           echo "docToolchain not installed."
           if [ "$sdkman" = true ] ; then
               echo "please use sdkman to install docToolchain"
-              echo "$ sdk install doctoolchain ${DTC_VERSION}-beta"
+              echo "$ sdk install doctoolchain ${DTC_VERSION}"
               exit
           else
               echo "sdkman not found"
