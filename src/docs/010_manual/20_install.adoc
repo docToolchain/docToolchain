@@ -62,6 +62,8 @@ cd <your project>
 Invoke-WebRequest doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1
 ----
 
+NOTE: do get an error message that you are not allowed to execute powershell scripts? 
+Try to switch to an unrestricted powershell by executing `powershell.exe -ExecutionPolicy Unrestricted`.
 --
 
 .Windows with cmd.exe
