@@ -6,7 +6,13 @@ $main_config_file = "docToolchainConfig.groovy"
 $version = "2.1.0"
 $dockerVersion = "2.1.0"
 $distribution_url = "https://github.com/docToolchain/docToolchain/releases/download/v$version/docToolchain-$version.zip"
-$env:DTCW_PROJECT_BRANCH = (git branch --show-current)
+
+if (Test-Path ".git" ) {
+    $env:DTCW_PROJECT_BRANCH = (git branch --show-current)
+} else {
+    $env:DTCW_PROJECT_BRANCH = ""
+}
+  
 
 # https://docs.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables
 $home_path = $env:USERPROFILE
@@ -16,13 +22,47 @@ $doJavaCheck = $True
 
 $dtc_opts="$env:dtc_opts -PmainConfigFile='$main_config_file' --warning-mode=none --no-daemon "
 
+function java_help_and_die()
+{
+    Write-Host @"
+to install a local java for docToolchain, you cann run
+
+./dtcw getJava
+
+or you can download it from https://adoptium.net/
+
+make sure that your java version is between 8 and 14
+
+If you do not want to use a local java installtion, you can also use docToolchain as docker container.
+In that case, specify 'docker' as first parameter in your statement.
+example: ./dtcw docker generateSite
+"@
+ 
+    exit 1
+}
+
 function checkJava()
 {
     if (Get-Command java -ErrorAction SilentlyContinue)
     {
         $java = $True
-        $javaversion = (Get-Command java | Select-Object -ExpandProperty Version).toString()
+        $javaversion = (Get-Command java | Select-Object -ExpandProperty Version).toString().split("[.]")[0]
         echo "Java Version $javaversion"
+
+        if ([int]$javaversion -lt 8 ) {
+            Write-Warning @"
+your java version $javaversion is too old (<8)
+"@
+            java_help_and_die
+        } else {
+            if ([int]$javaversion -gt 14 ) {
+                Write-Warning @"
+your java version $javaversion is too new (>14)
+please update your java installation and try again
+"@
+                java_help_and_die
+            }
+        }
     }
     else
     {
@@ -45,7 +85,7 @@ please choose Temurin 11
     }
 }
 
-Write-Host "dtcw - docToolchain wrapper V0.35(PS)"
+Write-Host "dtcw - docToolchain wrapper V0.36(PS)"
 
 if ($args.Count -lt 1) {
     # Help text adapted to Win/PS: /<command>.ps1

@@ -17,7 +17,12 @@ VERSION=2.1.0
 
 DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/releases/download/v${VERSION}/docToolchain-${VERSION}.zip
 if [ -z "$DTC_PROJECT_BRANCH" ]; then
-    export DTC_PROJECT_BRANCH=$(git branch --show-current)
+  if [ -d .git ]; then
+    DTC_PROJECT_BRANCH=$(git branch --show-current)
+  else
+    DTC_PROJECT_BRANCH="-"
+  fi;
+  export DTC_PROJECT_BRANCH
 fi
 
 DTC_HEADLESS=${DTC_HEADLESS:="false"}
@@ -32,7 +37,7 @@ export DTC_HEADLESS
 
 DTC_OPTS="$DTC_OPTS -PmainConfigFile=$MAIN_CONFIG_FILE --warning-mode=none --no-daemon "
 
-echo "dtcw - docToolchain wrapper V0.35"
+echo "dtcw - docToolchain wrapper V0.36"
 echo "docToolchain V${VERSION}"
 
 # check if CLI, docker or sdkman are installed
