@@ -70,17 +70,29 @@ if [ -d "${HOME}/.doctoolchain/docToolchain-${DTC_VERSION}/." ]; then
     echo "home folder exists"
     homefolder=true
 fi
+if [ $# -eq 0 ]; then
+    echo "No valid argument(s) supplied"
+    exit 1
+fi
 if [ "${1}" = "local" ] ; then
     echo "force use of local install"
     docker=false
     cli=false
     shift
 fi
+if [ $# -eq 0 ]; then
+    echo "No valid argument(s) supplied"
+    exit 1
+fi
 if [ "${1}" = "docker" ] ; then
     cli=false
     homefolder=false
     echo "force use of docker"
     shift
+fi
+if [ $# -eq 0 ]; then
+    echo "No valid argument(s) supplied"
+    exit 1
 fi
 if [ "${1}" = "sdk" ] ; then
     cli=false
@@ -89,6 +101,10 @@ if [ "${1}" = "sdk" ] ; then
     sdkman=true
     echo "force use of sdkman"
     shift
+fi
+if [ $# -eq 0 ]; then
+    echo "No valid argument(s) supplied"
+    exit 1
 fi
 if [ "${1}" = "generateDeck" ]; then
     if [ "${homefolder}" = false ]; then
