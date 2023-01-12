@@ -201,7 +201,9 @@ task generateHTML (
 
             File useFile = new File(srcDir, it.file)
             if (!useFile.exists()) {
-                throw new Exception ("file $useFile in HTML config does not exist!")
+                throw new Exception ("""
+                The file $useFile in HTML config does not exist!
+                Please check the configuration 'inputFiles' in $mainConfigFile.""")
             }
         }
     }
@@ -261,7 +263,9 @@ task generatePDF (
 
             File useFile = new File(srcDir, it.file)
             if (!useFile.exists()) {
-                throw new Exception ("file $useFile in PDf config does not exist!")
+                throw new Exception ("""
+                The file $useFile in PDF config does not exist!
+                Please check the configuration 'inputFiles' in $mainConfigFile.""")
             }
         }
     }
@@ -309,7 +313,9 @@ task generateDocbook (
 
             File useFile = new File(srcDir, it.file)
             if (!useFile.exists()) {
-                throw new Exception ("file $useFile in DOCBOOK config does not exist!")
+                throw new Exception ("""
+                The file $useFile in DOCBOOK config does not exist!
+                Please check the configuration 'inputFiles' in $mainConfigFile.""")
             }
         }
     }
@@ -362,7 +368,9 @@ task generateDeck (
 
             File useFile = new File(srcDir, it.file)
             if (!useFile.exists()) {
-                throw new Exception ("file $useFile in REVEAL config does not exist!")
+                throw new Exception ("""
+                The file $useFile in REVEAL config does not exist!
+                Please check the configuration 'inputFiles' in $mainConfigFile.""")
             }
         }
     }
