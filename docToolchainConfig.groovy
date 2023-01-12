@@ -12,7 +12,7 @@ pdfThemeDir = './src/docs/pdfTheme'
 inputFiles = [
         //[file: 'doctoolchain_demo.adoc',       formats: ['html','pdf']],
         //[file: 'arc42-template.adoc',    formats: ['html','pdf']],
-        [file: 'manual.adoc',    formats: ['html', 'pdf']],
+        [file: 'manual_test_script.adoc',    formats: ['html', 'pdf']],
 	/** inputFiles **/
 ]
 
@@ -217,7 +217,7 @@ confluence.with {
 
     //optional API-token to be added in case the credentials are needed for user and password exchange.
     //apikey = "[API-token]"
-    bearerToken = '' 
+    bearerToken = ''
 
     // HTML Content that will be included with every page published
     // directly after the TOC. If left empty no additional content will be

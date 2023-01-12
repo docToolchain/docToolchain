@@ -199,7 +199,7 @@ task generateHTML (
             include it.file
             logger.info it.file
 
-            File useFile = new File(inputPath, it.file)
+            File useFile = new File(srcDir, it.file)
             if (!useFile.exists()) {
                 throw new Exception ("file $useFile in HTML config does not exist!")
             }
@@ -259,7 +259,7 @@ task generatePDF (
             include it.file
             logger.info it.file
 
-            File useFile = new File(inputPath, it.file)
+            File useFile = new File(srcDir, it.file)
             if (!useFile.exists()) {
                 throw new Exception ("file $useFile in PDf config does not exist!")
             }
@@ -307,7 +307,7 @@ task generateDocbook (
             include it.file
             logger.info it.file
 
-            File useFile = new File(inputPath, it.file)
+            File useFile = new File(srcDir, it.file)
             if (!useFile.exists()) {
                 throw new Exception ("file $useFile in DOCBOOK config does not exist!")
             }
@@ -360,7 +360,7 @@ task generateDeck (
             include it.file
             logger.info it.file
 
-            File useFile = new File(inputPath, it.file)
+            File useFile = new File(srcDir, it.file)
             if (!useFile.exists()) {
                 throw new Exception ("file $useFile in REVEAL config does not exist!")
             }
