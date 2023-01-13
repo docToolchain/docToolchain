@@ -2,7 +2,9 @@
 #here you can specify the URL of a theme to use with generateSite-task
 #$env:DTC_SITETHEME = "https://....zip"
 
-if (!$main_config_file) {
+if ($env:main_config_file) {
+    $main_config_file = $env:main_config_file
+} else {
     $main_config_file = "docToolchainConfig.groovy"
 }
 $version = "2.1.0"

@@ -28,6 +28,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 * Improve confluence export performance when only ancestorIds are given
 * Make `dtcw` (and some other shell executables) https://www.shellcheck.net/[shellcheck] proof
+* Use external main_config_file environment variable in `dtcw` and `dtcw.ps1` if specified
 
 == 2.1.0 - 2022-08-15
 
