@@ -2,7 +2,9 @@
 #here you can specify the URL of a theme to use with generateSite-task
 #$env:DTC_SITETHEME = "https://....zip"
 
-$main_config_file = "docToolchainConfig.groovy"
+if (!$main_config_file) {
+    $main_config_file = "docToolchainConfig.groovy"
+}
 $version = "2.1.0"
 $dockerVersion = "2.1.0"
 $distribution_url = "https://github.com/docToolchain/docToolchain/releases/download/v$version/docToolchain-$version.zip"
