@@ -1,0 +1,163 @@
+#!/usr/bin/env bash
+# shellcheck disable=SC2166,SC2064
+
+: "${SDKMAN_DIR:=${HOME}/.sdkman}"
+: "${DTC_VERSION:=2.1.0}"
+: "${DTC_HEADLESS:=$(tty -s && echo true || echo false)}"
+
+if [ -z "${DTC_PROJECT_BRANCH:-}" ]; then
+  if [ -d .git ]; then
+    DTC_PROJECT_BRANCH="$(git branch --show-current)"
+  else
+    DTC_PROJECT_BRANCH="-"
+  fi;
+  export DTC_PROJECT_BRANCH
+fi
+
+dtc_home="${HOME}/.doctoolchain"
+local_home="${dtc_home}/docToolchain-${DTC_VERSION}"
+# Compatibility - in DTCW <= 2 you could select the runtime by the first parameter
+if [ "$#" -ge 1 -a \( "${1}" == "local" -o "${1}" == "docker" -o "${1}" == "cli" -o "${1}" == "sdk" \) ]; then
+    arg="${1}"; shift; set -- "--${arg}" "${@}"
+fi
+
+set -euo pipefail
+
+verbose() {
+    if "${DTCW_VERBOSE:-false}"; then
+        echo "${@}"
+    fi
+}
+
+die() {
+    exit_codd="${1}"
+    shift
+    echo "${@}" >&2
+    exit "${exit_codd}"
+}
+
+install_local() {
+    distribution_url=https://github.com/docToolchain/docToolchain/releases/download/v${DTC_VERSION}/docToolchain-${DTC_VERSION}.zip
+    zip_location="${dtc_home}/docToolchain-${DTC_VERSION}.zip"
+    trap "/bin/rm ${zip_location}" 0 1 2 15
+    if ! (command -v unzip &>-); then
+        die 1 "You need to install unzip"
+    fi
+    if command -v curl &>-; then
+        verbose "Downloading ${distribution_url} to ${zip_location} via curl"
+        curl -Lo "${zip_location}" "${distribution_url}"
+    elif command -v wget &>-; then
+        wget_version="$(wget --version && true | head -1 | sed -E 's/^.* 1.([0-9]+).*$/\1/')"
+        if [ "${wget_version}" -gt 13 ]; then
+            verbose "Downloading ${distribution_url} to ${zip_location} via curl"
+            wget "${distribution_url}" -O "${zip_location}"
+        else
+        die 1 "You need to install curl or wget (version >= 1.14)"
+      fi
+    else
+        die 1 "You need to install either wget or curl"
+    fi
+    (cd "${dtc_home}" && unzip -q "${zip_location}" && /bin/rm "${zip_location}")
+}
+
+run_cli() {
+    exec doctoolchain . "${@}"
+}
+
+run_local() {
+    test -x "${local_home}/bin/doctoolchain" || install_local
+    exec "${local_home}/bin/doctoolchain" . "${@}"
+}
+
+run_sdk() {
+    sdk_home="${SDKMAN_DIR}/candidates/doctoolchain/${DTC_VERSION}"
+    if test ! -d "${sdk_home}"; then
+        # shellcheck source=/dev/null
+        bash <<EOI
+        source "${SDKMAN_DIR}/bin/sdkman-init.sh"
+        sdk install doctoolchain "${DTC_VERSION}"
+EOI
+    fi
+    exec "${sdk_home}/bin/doctoolchain" . "${@}"
+}
+
+run_docker() {
+    exec docker run --rm -i \
+        -u "$(id -u):$(id -g)" \
+        --name "doctoolchain-${DTC_VERSION}-$$" \
+        -e DTC_HEADLESS=1 \
+        -e DTC_SITETHEME="${DTC_SITETHEME:-}" \
+        -e DTC_PROJECT_BRANCH="${DTC_PROJECT_BRANCH}" \
+        --entrypoint /bin/bash \
+        -v "${PWD}:/project" \
+        doctoolchain/doctoolchain:v"${DTC_VERSION}" \
+        -c "doctoolchain . ${*} ${DTC_OPTS:-} && exit"
+}
+
+
+# Main ###################################################################
+
+# Select the default runtime
+runtime=""
+if command -v doctoolchain &>-;                 then verbose "Found DTC on PATH"; runtime="cli";
+elif test -d "${local_home}";                   then verbose "Found DTC in HOME"; runtime="local";
+elif command -v docker &>- && docker info &>-;  then verbose "Found Docker";      runtime="docker";
+elif test -d "${SDKMAN_DIR}";                   then verbose "Found SdkMan";      runtime="sdk";
+fi
+
+current=""
+check_current() {
+    if test "${current}" -a "${1}" != "${current}"; then
+        echo "Previously selected '${current}' overriden by '${1}'" >&2
+    fi
+    current=${1}
+}
+
+set -- "${DTCW_OPTIONS:-}" "${@}"
+args=""
+for arg in "${@}" ; do
+    case "${arg}" in
+        "--cli" )
+            check_current "${arg}"
+            runtime="cli"
+            shift
+            ;;
+        "--docker" )
+            check_current "${arg}"
+            runtime="docker"
+            shift
+            ;;
+        "--local" )
+            check_current "${arg}"
+            runtime="local"
+            shift
+            ;;
+        "--sdk" )
+            check_current "${arg}"
+            runtime="sdk"
+            shift
+            ;;
+        * )
+            if test -z "${args}"; then
+                args="${arg}"
+            else
+                args="${args} ${arg}"
+            fi
+            shift
+            ;;
+    esac
+done
+
+verbose "Using ${runtime} -- ${args}"
+
+if test "cli" == "${runtime}" ; then
+    run_cli "${args}"
+elif test "local" == "${runtime}"; then
+    run_local "${args}"
+elif test "sdk" == "${runtime}"; then
+    run_sdk "${args}"
+elif test "docker" == "${runtime}"; then
+    run_docker "${args}"
+else
+    run_local "${args}"
+fi
