@@ -970,6 +970,13 @@ This is still an experimental feature, but already works well!
         sourceFilesHTML.each {
             include it.file
             logger.info it.file
+
+            File useFile = new File(srcDir, it.file)
+            if (!useFile.exists()) {
+                throw new Exception ("""
+                The file $useFile in HTML config does not exist!
+                Please check the configuration 'inputFiles' in $mainConfigFile.""")
+            }
         }
     }
     resources {
@@ -1509,6 +1516,13 @@ For example, insert the following at the top of your document to reference <code
         sourceFilesPDF.each {
             include it.file
             logger.info it.file
+
+            File useFile = new File(srcDir, it.file)
+            if (!useFile.exists()) {
+                throw new Exception ("""
+                The file $useFile in PDF config does not exist!
+                Please check the configuration 'inputFiles' in $mainConfigFile.""")
+            }
         }
     }
 
@@ -2544,6 +2558,13 @@ generateSite.finalizedBy bake</code></pre>
         sourceFilesDOCBOOK.each {
             include it.file
             logger.info it.file
+
+            File useFile = new File(srcDir, it.file)
+            if (!useFile.exists()) {
+                throw new Exception ("""
+                The file $useFile in DOCBOOK config does not exist!
+                Please check the configuration 'inputFiles' in $mainConfigFile.""")
+            }
         }
     }
 
@@ -2632,6 +2653,13 @@ For best results, use this task with the <a href="03_task_exportPPT.html"><code>
         sourceFilesREVEAL.each {
             include it.file
             logger.info it.file
+
+            File useFile = new File(srcDir, it.file)
+            if (!useFile.exists()) {
+                throw new Exception ("""
+                The file $useFile in REVEAL config does not exist!
+                Please check the configuration 'inputFiles' in $mainConfigFile.""")
+            }
         }
     }
 

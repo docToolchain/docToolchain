@@ -463,6 +463,13 @@ For best results, use this task with the <a href="03_task_exportPPT.html"><code>
         sourceFilesREVEAL.each {
             include it.file
             logger.info it.file
+
+            File useFile = new File(srcDir, it.file)
+            if (!useFile.exists()) {
+                throw new Exception ("""
+                The file $useFile in REVEAL config does not exist!
+                Please check the configuration 'inputFiles' in $mainConfigFile.""")
+            }
         }
     }
 
