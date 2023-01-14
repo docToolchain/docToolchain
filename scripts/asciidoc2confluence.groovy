@@ -62,6 +62,8 @@ def CDATA_PLACEHOLDER_END = '</cdata-placeholder>'
 
 def baseUrl
 def allPages
+// #938-mksiva: global variable to hold input spaceKey passed in the Config.groovy
+def spaceKeyInput
 // configuration
 
 def confluenceSpaceKey
@@ -318,7 +320,8 @@ def retrieveAllPagesBySpace(RESTClient api, Map headers, String spaceKey, String
 // Fetch all pages of the defined config ancestorsIds. Only keep relevant info in the pages Map
 // The map is indexed by lower-case title
 def retrieveAllPages = { RESTClient api, Map headers, String spaceKey ->
-    if (allPages != null) {
+    // #938-mksiva: added a condition spaceKeyInput is null, if it is null, it means that, space key is different, so re fetch all pages.
+    if (allPages != null && spaceKeyInput == null) {
         println "allPages already retrieved"
         allPages
     } else {
@@ -457,25 +460,71 @@ def rewriteJiraLinks = { body ->
 }
 
 
-def rewriteCodeblocks = { body ->
+def rewriteCodeblocks(Elements body, String cdataStart, String cdataEnd) {
+    Set<String> languages = [
+        'actionscript3',
+        'applescript',
+        'bash',
+        'c#',
+        'cpp',
+        'css',
+        'coldfusion',
+        'delphi',
+        'diff',
+        'erl',
+        'groovy',
+        'xml',
+        'java',
+        'jfx',
+        'js',
+        'php',
+        'perl',
+        'text',
+        'powershell',
+        'py',
+        'ruby',
+        'sql',
+        'sass',
+        'scala',
+        'vb',
+        'yml'
+    ]
+    def languageMapping = [
+        'json':'yml', // acceptable workaround
+        'shell':'bash',
+        'yaml':'yml'
+    ]
     body.select('pre > code').each { code ->
-        if (code.attr('data-lang')) {
-            code.select('span[class]').each { span ->
-                span.unwrap()
+        def language = code.attr('data-lang')
+        if (language) {
+            if (languageMapping.containsKey(language)) {
+                // fix some known languages using a mapping
+                language = languageMapping[language]
             }
-            code.select('i[class]').each { i ->
-                i.unwrap()
+            if (!(language in languages)) {
+                // fall back to plain text to avoid error messages when rendering
+                language = 'text'
             }
-            code.select('b').each { b ->
-                b.before(" // ")
-                b.unwrap()
-            }
-            code.before("<ac:parameter ac:name=\"language\">${code.attr('data-lang')}</ac:parameter>")
+        } else {
+            // Confluence default is Java, so prefer explicit plain text
+            language = 'text'
         }
+
+        code.select('span[class]').each { span ->
+            span.unwrap()
+        }
+        code.select('i[class]').each { i ->
+            i.unwrap()
+        }
+        code.select('b').each { b ->
+            b.before(" // ")
+            b.unwrap()
+        }
+        code.before("<ac:parameter ac:name=\"language\">${language}</ac:parameter>")
         code.parent() // pre now
             .wrap('<ac:structured-macro ac:name="code"></ac:structured-macro>')
             .unwrap()
-        code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
+        code.wrap("<ac:plain-text-body>${cdataStart}${cdataEnd}</ac:plain-text-body>")
             .unwrap()
     }
 }
@@ -651,7 +700,7 @@ def parseBody =  { body, anchors, pageAnchors ->
     rewriteDescriptionLists body
     rewriteInternalLinks body, anchors, pageAnchors
     //sanitize code inside code tags
-    rewriteCodeblocks body
+    rewriteCodeblocks body, CDATA_PLACEHOLDER_START, CDATA_PLACEHOLDER_END
     def pageString = unescapeCDATASections body.html().trim()
 
     //change some html elements through simple substitutions
@@ -667,7 +716,8 @@ def parseBody =  { body, anchors, pageAnchors ->
 
 // the create-or-update functionality for confluence pages
 // #342-dierk42: added parameter 'keywords'
-def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnchors, keywords ->
+def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, keywords ->
+    parentId = parentId.toString()
     def api = new RESTClient(config.confluence.api)
     def headers = getHeaders()
     String realTitleLC = realTitle(pageTitle).toLowerCase()
@@ -715,7 +765,9 @@ def pushToConfluence = { pageTitle, pageBody, String parentId, anchors, pageAnch
         ]
     }
 
-    def pages = retrieveAllPages(api, headers, config.confluence.spaceKey)
+    // #938-mksiva: Changed the 3rd parameter from 'config.confluence.spaceKey' to 'confluenceSpaceKey' as it was always taking the default spaceKey
+    // instead of the one passed in the input for each row.
+    def pages = retrieveAllPages(api, headers, confluenceSpaceKey)
 
     // println "Suche nach vorhandener Seite: " + pageTitle
     Map existingPage = pages[realTitleLC]
@@ -977,6 +1029,8 @@ config.confluence.input.each { input ->
             throw new RuntimeException("config problem")
         }
     //  assignend, but never used in pushToConfluence(...) (fixed here)
+        // #938-mksiva: assign spaceKey passed for each file in the input
+        spaceKeyInput = input.spaceKey
         confluenceSpaceKey = input.spaceKey ?: config.confluence.spaceKey
         confluenceCreateSubpages = (input.createSubpages != null) ? input.createSubpages : config.confluence.createSubpages
         confluenceAllInOnePage = (input.allInOnePage != null) ? input.allInOnePage : config.confluence.allInOnePage

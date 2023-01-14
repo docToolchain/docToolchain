@@ -151,6 +151,13 @@ end::additionalConverters[]
         headers.title += " - from CustomConvention"
     """.stripIndent()
     **/
+
+    // if you need to register custom Asciidoctor extensions, this is the right place
+    // configure the name and path to your extension, relative to the root of your project
+    // (relative to dtcw). For example: 'src/ruby/asciidoctor-lists.rb'.
+    // this is the same as the `requires`-list of the asciidoctor gradle plugin
+
+    // rubyExtensions = []
 }
 
 //*****************************************************************************************
