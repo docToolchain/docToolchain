@@ -8,7 +8,7 @@ inputPath = 'src/docs';
 
 
 inputFiles = [
-        [file: 'manual.adoc',       formats: ['html','pdf']],
+        [file: 'manual_test_script.adoc',       formats: ['html','pdf']],
         /** inputFiles **/
 ]
 

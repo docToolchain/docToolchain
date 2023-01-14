@@ -89,7 +89,7 @@ start build/docs/pdf/arc42.pdf
 * configure in Config.groovy that it has formats: ['revealjs']
 * run generateDeck
 * goto srcDir/build/decks/
-* you see presentation.html andpptDirectory
+* you see presentation.html and pptDirectory
 * open presentation in editor and you see that reveal.js is included reveal.js/lib/css/zenburn.css
 * the reveal.js directory is under ppt/ and not on the same level as presentation.adoc
 
