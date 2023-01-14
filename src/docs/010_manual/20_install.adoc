@@ -10,9 +10,10 @@ include::../_feedback.adoc[]
 
 == Getting the Wrapper
 
-The way docToolchain is installed has changed since the v2.x release. It now uses a simple wrapper script which takes care of everything.
+Basically all you need to work with docToolchain is a simple wrapper script taking care of everything. 
+(If you already worked with an older version of docToolchain please note that the way it is installed has changed since the v2.x release.)
 
-This wrapper helps by:
+=== This wrapper helps by:
 
 - Ensuring that everyone using your repository uses the same docToolchain version.
 - Keeping all docToolchain technology out of your repository.
@@ -26,6 +27,9 @@ This guide explains how to set up docToolchain in the following environments:
 - Windows with cmd.exe
 
 Please select the appropriate setup and follow these instructions to install docToolchain step by step.
+
+NOTE: If you are going to use docToolchain in different projects install the dtcw (docToolchainWrapper) for each one.
+docToolchain itself will only be installed once in your home folder.
 
 .Linux / WSL2 with bash
 [role='primary']
@@ -57,6 +61,9 @@ chmod +x dtcw
 cd <your project>
 Invoke-WebRequest doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1
 ----
+
+NOTE: Got an error message that you are not allowed to execute powershell scripts? 
+Try to switch to an unrestricted powershell by executing `powershell.exe -ExecutionPolicy Unrestricted`.
 --
 
 .Windows with cmd.exe
@@ -72,15 +79,15 @@ NOTE: `dtcw.bat` wraps the `dtcw.ps1` script and executes it in powershell. This
 
 --
 
-NOTE: In order to support development for your project on both, Linux and Windows, it makes sense to download all three scripts to your project.
-
-NOTE: if you use cmd.exe, follow the PowerShell instructions but replace `.ps1` with `.bat`.
+NOTE: In order to support development for your project on both, Linux and Windows, it makes sense to download all three scripts to your project. 
 
 IMPORTANT: `dtcw` uses bash as shell and thus tries to find java from within bash. Chances are that when you use `dtcw` from another shell like zsh, you shell knows about the right java version but your bash doesn't. In that case, please switch to bash and make sure that the right java version is known. Afterwards, you can switch back to your shell.
 
 == Configure the Wrapper
 
 There is no need to configure the wrapper itself if you have just downloaded it.
+In this case, just skip to <<first-command>>.
+
 But from time to time you should check github to see if there are https://github.com/docToolchain/docToolchain/releases[new releases] you want to use.
 
 In this case, open dtcw in your favourite editor and look for the `VERSION`-line at the start of the file:
@@ -110,6 +117,7 @@ You will find the fork in `$HOME/.doctoolchain/docToolchain-latest`.
 
 NOTE: `latest` and `latestdev` currently only work with the bash version of the wrapper.
 
+[[first-command]]
 == Running your First Command
 
 To get started with docToolchain, run `tasks` as the first command:
@@ -130,10 +138,15 @@ To get started with docToolchain, run `tasks` as the first command:
 ----
 ./dtcw.ps1 tasks --group=doctoolchain
 ----
-
-NOTE: if using cmd.exe replace `.ps1` with `.bat` for all subsequent commands.
-
 --
+
+.Windows with cmd.exe
+[role='secondary']
+--
+[source, cmd]
+----
+dtcw.bat tasks --group=doctoolchain
+----
 
 This command shows all docToolchain tasks and verifies that docToolchain is installed by doing the following:
 
@@ -146,7 +159,8 @@ NOTE: If this is your first time installing docToolchain, the images download mi
 * if docker is not available, it will download and install docToolchain to your home folder
 ** it will then run a gradle build through the gradle wrapper. If this is your first time, it will download and install gradle.
 ** the gradle build will also fetch some dependencies. This will also take a while if run for the first time..
-** build-script dependencies are fetched from a repository referenced by the property `mavenRepository`. By default the value `https://plugins.gradle.org/m2/` is used. When a repository requiring credentials is used the properties `mavenUsername` and `mavenPassword` can be set as well.
+
+NOTE: if you are behind a corporate proxy, you might need to consider build-script dependencies are fetched from a repository referenced by the property `mavenRepository`. By default the value `https://plugins.gradle.org/m2/` is used. When a repository requiring credentials is used the properties `mavenUsername` and `mavenPassword` can be set as well.
 
 [source, sh]
 .Example command passing a custom maven repository with credentials from the command line
@@ -167,9 +181,9 @@ To do so, take a look at the created `docToolchainConfig.groovy` and update it.
 
 == arc42 from Scratch
 
-If you don't have existing documents yet, or if you need a fresh start, you can get the https://arc42.org[arc42] template in AsciiDoc format.
+If you want to use the https://arc42.org[arc42] template in your project, you can get it in AsciiDoc format by using the following commands.
 
-Run the command below to tell docToolchain to download the template of your choice:
+NOTE: If you use cmd.exe, follow the Windows instructions but replace `.ps1` with `.bat`.
 
 .Linux / WSL2 with bash
 [.primary]
@@ -193,7 +207,8 @@ Run the command below to tell docToolchain to download the template of your choi
 
 By now, the docToolchain wrapper `dtcw` should be in your project folder along with the arc42 template.
 
-Now Let's render it to HTML and PDF. To do so, run the commands below:
+Now Let's render arc42 to HTML and PDF. To do so, run the commands below:
+//What if I have other documents?
 
 .Linux / WSL2 with bash
 [.primary]
