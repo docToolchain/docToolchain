@@ -30,6 +30,12 @@ jobs:
         with:
           fetch-depth: 0
 
+      # Provide fast feedback about quality of bash scripts
+      - name: ShellCheck
+        run: |
+          # Note that we only check executable shell scripts to avoid treating matching documentation files
+          find . -type f -perm 0755 -exec egrep -l '^#!(/bin/bash|/usr/bin/env bash)' {} + | xargs shellcheck
+
       - name: Set up JDK
         uses: actions/setup-java@v2
         with:
@@ -41,4 +47,5 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           JDK_VERSION: "${{ matrix.jdk }}-${{ matrix.java }}"
-        run: ./.ci.sh && find . -type f -exec grep -l '^#!/bin/bash' {} + | xargs shellcheck
+        run: |
+          ./.ci.sh

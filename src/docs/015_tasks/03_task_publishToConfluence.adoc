@@ -19,8 +19,34 @@ This lets you use the https://www.writethedocs.org/guide/docs-as-code/[docs-as-c
 
 `[source]`-blocks are converted to code-macro blocks in Confluence.
 
-NOTE: Code-macro blocks in Confluence throw an error if the language attribute contains an unknown language.
-Get a list of valid languages (and learn how to add others) https://confluence.atlassian.com/doc/code-block-macro-139390.html[here].
+Confluence supports a very limited list of languages supported for code block syntax highlighting.
+When specifying an unknown language, it would even display an error.
+Therefore, some transformation is applied.
+
+* If no language is given in the source block, it is explicitly set to plain text (because the default would be Java that might not always apply).
+* Some known and common AsciiDoc source languages are mapped to Confluence code block languages.
++
+[%header,cols="1,1,1"]
+|===
+|source
+|target
+|note
+
+|json
+|yml
+|produces an acceptable highlighting
+
+|shell
+|bash
+|only a specific shell is supported
+
+|yaml
+|yml
+|different name of language
+|===
+* If the language of the source block is not supported by Confluence, it is set to plain text as fallback to avoid the error.
+
+NOTE: Get a list of valid languages (and learn how to add others) https://confluence.atlassian.com/doc/code-block-macro-139390.html[here].
 
 === Minimal Impact on Non-Techie Confluence Users
 
@@ -121,7 +147,7 @@ For backward compatibility, if this option is present and equal to `true`, then 
 If this option is present and equal to "open-api" then any source block marked with class openapi will be wrapped in Open API Documentation for Confluence macro:  (see https://marketplace.atlassian.com/apps/1215176/open-api-documentation-for-confluence[Open API Documentation for Confluence]). A download source (yaml) button is shown by default. +
 Using the plugin can be handled on different ways.
 
-* copy/paste the content of the YAML file to the plugin without linking to the origin source by using the url to the YAML file 
+* copy/paste the content of the YAML file to the plugin without linking to the origin source by using the url to the YAML file
 
 [source,asciidoc]
 --
@@ -129,7 +155,7 @@ Using the plugin can be handled on different ways.
     ----
     \include::https://my-domain.com/path-to-yaml[]
     ----
--- 
+--
 * copy/paste the content of the YAML file to the plugin without linking to the origin source by using a YAML file in your project structure:
 
 [source,asciidoc]
@@ -138,7 +164,7 @@ Using the plugin can be handled on different ways.
     ----
     \include::my-yaml-file.yaml[]
     ----
--- 
+--
 * create a link between the plugin and the YAML file without copying the content into the plugin. The advantage following this way is that even in case the API specification is changed without re-generating the documentation, the new version of the configuration is used in Confluence.
 
 [source,asciidoc]
@@ -147,7 +173,7 @@ Using the plugin can be handled on different ways.
     ----
     \include::https://my-domain.com/path-to-yaml[]
     ----
--- 
+--
 
 .configuration
 .publishToConfluence.gradle

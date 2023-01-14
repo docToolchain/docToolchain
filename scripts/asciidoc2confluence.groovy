@@ -62,11 +62,12 @@ def CDATA_PLACEHOLDER_END = '</cdata-placeholder>'
 
 def baseUrl
 def allPages
+// #938-mksiva: global variable to hold input spaceKey passed in the Config.groovy
+def spaceKeyInput
 // configuration
 
 def confluenceSpaceKey
-def confluenceCreateSubpages
-def confluenceAllInOnePage
+def confluenceSubpagesForSections
 def confluencePagePrefix
 def baseApiPath = new URI(config.confluence.api).path
 // helper functions
@@ -319,7 +320,8 @@ def retrieveAllPagesBySpace(RESTClient api, Map headers, String spaceKey, String
 // Fetch all pages of the defined config ancestorsIds. Only keep relevant info in the pages Map
 // The map is indexed by lower-case title
 def retrieveAllPages = { RESTClient api, Map headers, String spaceKey ->
-    if (allPages != null) {
+    // #938-mksiva: added a condition spaceKeyInput is null, if it is null, it means that, space key is different, so re fetch all pages.
+    if (allPages != null && spaceKeyInput == null) {
         println "allPages already retrieved"
         allPages
     } else {
@@ -458,25 +460,71 @@ def rewriteJiraLinks = { body ->
 }
 
 
-def rewriteCodeblocks = { body ->
+def rewriteCodeblocks(Elements body, String cdataStart, String cdataEnd) {
+    Set<String> languages = [
+        'actionscript3',
+        'applescript',
+        'bash',
+        'c#',
+        'cpp',
+        'css',
+        'coldfusion',
+        'delphi',
+        'diff',
+        'erl',
+        'groovy',
+        'xml',
+        'java',
+        'jfx',
+        'js',
+        'php',
+        'perl',
+        'text',
+        'powershell',
+        'py',
+        'ruby',
+        'sql',
+        'sass',
+        'scala',
+        'vb',
+        'yml'
+    ]
+    def languageMapping = [
+        'json':'yml', // acceptable workaround
+        'shell':'bash',
+        'yaml':'yml'
+    ]
     body.select('pre > code').each { code ->
-        if (code.attr('data-lang')) {
-            code.select('span[class]').each { span ->
-                span.unwrap()
+        def language = code.attr('data-lang')
+        if (language) {
+            if (languageMapping.containsKey(language)) {
+                // fix some known languages using a mapping
+                language = languageMapping[language]
             }
-            code.select('i[class]').each { i ->
-                i.unwrap()
+            if (!(language in languages)) {
+                // fall back to plain text to avoid error messages when rendering
+                language = 'text'
             }
-            code.select('b').each { b ->
-                b.before(" // ")
-                b.unwrap()
-            }
-            code.before("<ac:parameter ac:name=\"language\">${code.attr('data-lang')}</ac:parameter>")
+        } else {
+            // Confluence default is Java, so prefer explicit plain text
+            language = 'text'
         }
+
+        code.select('span[class]').each { span ->
+            span.unwrap()
+        }
+        code.select('i[class]').each { i ->
+            i.unwrap()
+        }
+        code.select('b').each { b ->
+            b.before(" // ")
+            b.unwrap()
+        }
+        code.before("<ac:parameter ac:name=\"language\">${language}</ac:parameter>")
         code.parent() // pre now
             .wrap('<ac:structured-macro ac:name="code"></ac:structured-macro>')
             .unwrap()
-        code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
+        code.wrap("<ac:plain-text-body>${cdataStart}${cdataEnd}</ac:plain-text-body>")
             .unwrap()
     }
 }
@@ -563,7 +611,7 @@ def parseBody =  { body, anchors, pageAnchors ->
 
     body.select('div.paragraph').unwrap()
     body.select('div.ulist').unwrap()
-    body.select('div.sect3').unwrap()
+    //body.select('div.sect3').unwrap()
     [   'note':'info',
         'warning':'warning',
         'important':'warning',
@@ -652,7 +700,7 @@ def parseBody =  { body, anchors, pageAnchors ->
     rewriteDescriptionLists body
     rewriteInternalLinks body, anchors, pageAnchors
     //sanitize code inside code tags
-    rewriteCodeblocks body
+    rewriteCodeblocks body, CDATA_PLACEHOLDER_START, CDATA_PLACEHOLDER_END
     def pageString = unescapeCDATASections body.html().trim()
 
     //change some html elements through simple substitutions
@@ -717,7 +765,9 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
         ]
     }
 
-    def pages = retrieveAllPages(api, headers, config.confluence.spaceKey)
+    // #938-mksiva: Changed the 3rd parameter from 'config.confluence.spaceKey' to 'confluenceSpaceKey' as it was always taking the default spaceKey
+    // instead of the one passed in the input for each row.
+    def pages = retrieveAllPages(api, headers, confluenceSpaceKey)
 
     // println "Suche nach vorhandener Seite: " + pageTitle
     Map existingPage = pages[realTitleLC]
@@ -807,7 +857,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
     }
 }
 
-def parseAnchors = { page ->
+def parseAnchors(page) {
     def anchors = [:]
     page.body.select('[id]').each { anchor ->
         def name = anchor.attr('id')
@@ -829,7 +879,7 @@ pushPages = { pages, anchors, pageAnchors, labels ->
     }
 }
 
-def recordPageAnchor = { head ->
+def recordPageAnchor(head) {
     def a = [:]
     if (head.attr('id')) {
         a[head.attr('id')] = head.text()
@@ -837,7 +887,7 @@ def recordPageAnchor = { head ->
     a
 }
 
-def promoteHeaders = { tree, start, offset ->
+def promoteHeaders(tree, start, offset) {
     (start..7).each { i ->
         tree.select("h${i}").tagName("h${i-offset}").before('<br />')
     }
@@ -884,6 +934,75 @@ def getHeaders(){
     return headers
 }
 
+def getPagesRecursive(Element element, String parentId, Map anchors, Map pageAnchors, int level, int maxLevel) {
+    def pages = []
+    element.select("div.sect${level}").each { sect ->
+        def title = sect.select("h${level + 1}").text()
+        Elements pageBody
+        if (level == 1) {
+            pageBody = sect.select('div.sectionbody')
+        } else {
+            pageBody = new Elements(sect)
+            pageBody.select("h${level + 1}").remove()
+        }
+        def currentPage = [
+            title: title,
+            body: pageBody,
+            children: [],
+            parent: parentId
+        ]
+        pageAnchors.putAll(recordPageAnchor(sect.select("h${level + 1}")))
+
+        if (maxLevel > level) {
+            currentPage.children.addAll(getPagesRecursive(sect, null, anchors, pageAnchors, level + 1, maxLevel))
+            pageBody.select("div.sect${level + 1}").remove()
+        } else {
+            pageBody.select("div.sect${level + 1}").unwrap()
+        }
+        promoteHeaders sect, level + 2, level + 1
+        pages << currentPage
+        anchors.putAll(parseAnchors(currentPage))
+    }
+    return pages
+}
+
+def getPages(Document dom, String parentId, int maxLevel, String preambleTitle) {
+    def anchors = [:]
+    def pageAnchors = [:]
+    def sections = pages = []
+    if (maxLevel <= 0) {
+        dom.select('div#content').each { pageBody ->
+            pageBody.select('div.sect2').unwrap()
+            promoteHeaders pageBody, 2, 1
+            def page = [title   : preambleTitle ?: "arc42",
+                        body    : pageBody,
+                        children: [],
+                        parent  : parentId]
+            pages << page
+            sections = page.children
+            parentId = null
+            anchors.putAll(parseAnchors(page))
+        }
+    } else {
+        // let's try to select the "first page" and push it to confluence
+        dom.select('div#preamble div.sectionbody').each { pageBody ->
+            pageBody.select('div.sect2').unwrap()
+            def preamble = [
+                title: preambleTitle ?: "arc42",
+                body: pageBody,
+                children: [],
+                parent: parentId
+            ]
+            pages << preamble
+            sections = preamble.children
+            parentId = null
+            anchors.putAll(parseAnchors(preamble))
+        }
+        sections.addAll(getPagesRecursive(dom, parentId, anchors, pageAnchors, 1, maxLevel))
+    }
+    return [pages, anchors, pageAnchors]
+}
+
 if(config.confluence.inputHtmlFolder) {
     htmlFolder = "${docDir}/${config.confluence.inputHtmlFolder}"
     println "Starting processing files in folder: " + config.confluence.inputHtmlFolder
@@ -910,13 +1029,22 @@ config.confluence.input.each { input ->
             throw new RuntimeException("config problem")
         }
     //  assignend, but never used in pushToConfluence(...) (fixed here)
+        // #938-mksiva: assign spaceKey passed for each file in the input
+        spaceKeyInput = input.spaceKey
         confluenceSpaceKey = input.spaceKey ?: config.confluence.spaceKey
         confluenceCreateSubpages = (input.createSubpages != null) ? input.createSubpages : config.confluence.createSubpages
         confluenceAllInOnePage = (input.allInOnePage != null) ? input.allInOnePage : config.confluence.allInOnePage
-        if (confluenceAllInOnePage && confluenceCreateSubpages) {
+        if (!(confluenceCreateSubpages instanceof ConfigObject && confluenceAllInOnePage instanceof ConfigObject)) {
             println "ERROR:"
-            println "Conflicting config: One one of confluenceAllInOnePage or confluenceCreateSubpages can be true."
+            println "Deprecated configuration, migrate as follows:"
+            println "allInOnePage = true -> subpagesForSections = 0"
+            println "allInOnePage = false && createSubpages = false -> subpagesForSections = 1"
+            println "allInOnePage = false && createSubpages = true -> subpagesForSections = 2"
             throw new RuntimeException("config problem")
+        }
+        confluenceSubpagesForSections = (input.subpagesForSections != null) ? input.subpagesForSections : config.confluence.subpagesForSections
+        if (confluenceSubpagesForSections instanceof ConfigObject) {
+            confluenceSubpagesForSections = 1
         }
     //  hard to read in case of using :sectnums: -> so we add a suffix
         confluencePagePrefix = input.pagePrefix ?: config.confluence.pagePrefix
@@ -946,9 +1074,6 @@ config.confluence.input.each { input ->
         parentId = parentId ?: null
         //println("ancestorName: '${input.ancestorName}', ancestorId: ${input.ancestorId} ---> final parentId: ${parentId}")
 
-        def anchors = [:]
-        def pageAnchors = [:]
-        def sections = pages = []
         // #342-dierk42: get the keywords from the meta tags
         def keywords = []
         dom.select('meta[name=keywords]').each { kw ->
@@ -958,69 +1083,7 @@ config.confluence.input.each { input ->
             }
             println "Keywords:" + keywords
         }
-        if (confluenceAllInOnePage) {
-            dom.select('div#content').each { pageBody ->
-                pageBody.select('div.sect2').unwrap()
-                def page = [title   : confluencePreambleTitle ?: "arc42",
-                            body    : pageBody,
-                            children: [],
-                            parent  : parentId]
-                pages << page
-                sections = page.children
-                parentId = null
-                anchors.putAll(parseAnchors(page))
-            }
-        } else {
-            // let's try to select the "first page" and push it to confluence
-            dom.select('div#preamble div.sectionbody').each { pageBody ->
-                pageBody.select('div.sect2').unwrap()
-                def preamble = [
-                    title: confluencePreambleTitle ?: "arc42",
-                    body: pageBody,
-                    children: [],
-                    parent: parentId
-                ]
-                pages << preamble
-                sections = preamble.children
-                parentId = null
-                anchors.putAll(parseAnchors(preamble))
-            }
-            // <div class="sect1"> are the main headings
-            // let's extract these
-            dom.select('div.sect1').each { sect1 ->
-                Elements pageBody = sect1.select('div.sectionbody')
-                def currentPage = [
-                    title: sect1.select('h2').text(),
-                    body: pageBody,
-                    children: [],
-                    parent: parentId
-                ]
-                pageAnchors.putAll(recordPageAnchor(sect1.select('h2')))
-
-                if (confluenceCreateSubpages) {
-                    pageBody.select('div.sect2').each { sect2 ->
-                        def title = sect2.select('h3').text()
-                        pageAnchors.putAll(recordPageAnchor(sect2.select('h3')))
-                        sect2.select('h3').remove()
-                        def body = Jsoup.parse(sect2.toString(),'utf-8', Parser.xmlParser())
-                        body.outputSettings(new Document.OutputSettings().prettyPrint(false))
-                        def subPage = [
-                            title: title,
-                            body: body
-                        ]
-                        currentPage.children << subPage
-                        promoteHeaders sect2, 4, 3
-                        anchors.putAll(parseAnchors(subPage))
-                    }
-                    pageBody.select('div.sect2').remove()
-                } else {
-                    pageBody.select('div.sect2').unwrap()
-                    promoteHeaders sect1, 3, 2
-                }
-                sections << currentPage
-                anchors.putAll(parseAnchors(currentPage))
-            }
-        }
+        def (pages, anchors, pageAnchors) = getPages(dom, parentId, confluenceSubpagesForSections, confluencePreambleTitle)
 
         pushPages pages, anchors, pageAnchors, keywords
         if (parentId) {
