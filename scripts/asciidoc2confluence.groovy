@@ -62,6 +62,8 @@ def CDATA_PLACEHOLDER_END = '</cdata-placeholder>'
 
 def baseUrl
 def allPages
+// #938-mksiva: global variable to hold input spaceKey passed in the Config.groovy
+def spaceKeyInput
 // configuration
 
 def confluenceSpaceKey
@@ -319,7 +321,8 @@ def retrieveAllPagesBySpace(RESTClient api, Map headers, String spaceKey, String
 // Fetch all pages of the defined config ancestorsIds. Only keep relevant info in the pages Map
 // The map is indexed by lower-case title
 def retrieveAllPages = { RESTClient api, Map headers, String spaceKey ->
-    if (allPages != null) {
+    // #938-mksiva: added a condition spaceKeyInput is null, if it is null, it means that, space key is different, so re fetch all pages.
+    if (allPages != null && spaceKeyInput == null) {
         println "allPages already retrieved"
         allPages
     } else {
@@ -717,7 +720,9 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
         ]
     }
 
-    def pages = retrieveAllPages(api, headers, config.confluence.spaceKey)
+    // #938-mksiva: Changed the 3rd parameter from 'config.confluence.spaceKey' to 'confluenceSpaceKey' as it was always taking the default spaceKey
+    // instead of the one passed in the input for each row.
+    def pages = retrieveAllPages(api, headers, confluenceSpaceKey)
 
     // println "Suche nach vorhandener Seite: " + pageTitle
     Map existingPage = pages[realTitleLC]
@@ -910,6 +915,8 @@ config.confluence.input.each { input ->
             throw new RuntimeException("config problem")
         }
     //  assignend, but never used in pushToConfluence(...) (fixed here)
+        // #938-mksiva: assign spaceKey passed for each file in the input
+        spaceKeyInput = input.spaceKey
         confluenceSpaceKey = input.spaceKey ?: config.confluence.spaceKey
         confluenceCreateSubpages = (input.createSubpages != null) ? input.createSubpages : config.confluence.createSubpages
         confluenceAllInOnePage = (input.allInOnePage != null) ? input.allInOnePage : config.confluence.allInOnePage
