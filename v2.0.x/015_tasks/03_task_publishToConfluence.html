@@ -563,11 +563,22 @@ before the first second level heading). Default is 'arc42'</p>
 <p><code>spaceKey</code> (optional): page specific variable for the key of the confluence space to write to</p>
 </li>
 <li>
-<p>'allInOnePage' (optional): page specific variable to determine whether documentation is written to just one
-Confluence page or separate ones per chapter (default)</p>
+<p><code>subpagesForSections</code> (optional): The number of nested sub-pages to create. Default is '1'.
+'0' means creating all on one page.
+The following migration for removed configuration can be used.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>allInOnePage = true</code> is the same as <code>subpagesForSections = 0</code></p>
 </li>
 <li>
-<p><code>createSubpages</code> (optional): page specific variable to determine whether ".sect2" sections shall be split from the current page into subpages</p>
+<p><code>allInOnePage = false &amp;&amp; createSubpages = false</code> is the same as <code>subpagesForSections = 1</code></p>
+</li>
+<li>
+<p><code>allInOnePage = false &amp;&amp; createSubpages = true</code> is the same as <code>subpagesForSections = 2</code></p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><code>pagePrefix</code> (optional): page specific variable, the pagePrefix will be a prefix for the page title and it&#8217;s sub-pages
@@ -764,7 +775,12 @@ confluence = [:]
 //
 // The following four keys can also be used in the global section below
 // - 'spaceKey' (optional): page specific variable for the key of the confluence space to write to
-// - 'createSubpages' (optional): page specific variable to determine whether ".sect2" sections shall be split from the current page into subpages
+// - 'subpagesForSections' (optional): The number of nested sub-pages to create. Default is '1'.
+//                                     '0' means creating all on one page.
+//                                     The following migration for removed configuration can be used.
+//                                     'allInOnePage = true' is the same as 'subpagesForSections = 0'
+//                                     'allInOnePage = false &amp;&amp; createSubpages = false' is the same as 'subpagesForSections = 1'
+//                                     'allInOnePage = false &amp;&amp; createSubpages = true' is the same as 'subpagesForSections = 2'
 // - 'pagePrefix' (optional): page specific variable, the pagePrefix will be a prefix for the page title and it's sub-pages
 //                            use this if you only have access to one confluence space but need to store several
 //                            pages with the same title - a different pagePrefix will make them unique
@@ -782,7 +798,7 @@ confluence.with {
     // a working example is https://arc42-template.atlassian.net/wiki/rest/api/user/current
     api = 'https://[yourServer]/[context]/rest/api/'
 
-//    Additionally, spaceKey, createSubpages, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
+//    Additionally, spaceKey, subpagesForSections, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
 
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
@@ -790,12 +806,8 @@ confluence.with {
     // the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
     preambleTitle = ''
 
-    // variable to determine whether the whole document should be uploaded as just one page or split into separate
-    // pages per chapter
-    allInOnePage = false
-
-    // variable to determine whether ".sect2" sections shall be split from the current page into subpages
-    createSubpages = false
+    // variable to determine how many layers of sub pages should be created
+    subpagesForSections = 1
 
     // the pagePrefix will be a prefix for each page title
     // use this if you only have access to one confluence space but need to store several
@@ -1008,8 +1020,7 @@ def spaceKeyInput
 // configuration
 
 def confluenceSpaceKey
-def confluenceCreateSubpages
-def confluenceAllInOnePage
+def confluenceSubpagesForSections
 def confluencePagePrefix
 def baseApiPath = new URI(config.confluence.api).path
 // helper functions
@@ -1553,7 +1564,7 @@ def parseBody =  { body, anchors, pageAnchors -&gt;
 
     body.select('div.paragraph').unwrap()
     body.select('div.ulist').unwrap()
-    body.select('div.sect3').unwrap()
+    //body.select('div.sect3').unwrap()
     [   'note':'info',
         'warning':'warning',
         'important':'warning',
@@ -1799,7 +1810,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
     }
 }
 
-def parseAnchors = { page -&gt;
+def parseAnchors(page) {
     def anchors = [:]
     page.body.select('[id]').each { anchor -&gt;
         def name = anchor.attr('id')
@@ -1821,7 +1832,7 @@ pushPages = { pages, anchors, pageAnchors, labels -&gt;
     }
 }
 
-def recordPageAnchor = { head -&gt;
+def recordPageAnchor(head) {
     def a = [:]
     if (head.attr('id')) {
         a[head.attr('id')] = head.text()
@@ -1829,7 +1840,7 @@ def recordPageAnchor = { head -&gt;
     a
 }
 
-def promoteHeaders = { tree, start, offset -&gt;
+def promoteHeaders(tree, start, offset) {
     (start..7).each { i -&gt;
         tree.select("h${i}").tagName("h${i-offset}").before('&lt;br /&gt;')
     }
@@ -1876,6 +1887,75 @@ def getHeaders(){
     return headers
 }
 
+def getPagesRecursive(Element element, String parentId, Map anchors, Map pageAnchors, int level, int maxLevel) {
+    def pages = []
+    element.select("div.sect${level}").each { sect -&gt;
+        def title = sect.select("h${level + 1}").text()
+        Elements pageBody
+        if (level == 1) {
+            pageBody = sect.select('div.sectionbody')
+        } else {
+            pageBody = new Elements(sect)
+            pageBody.select("h${level + 1}").remove()
+        }
+        def currentPage = [
+            title: title,
+            body: pageBody,
+            children: [],
+            parent: parentId
+        ]
+        pageAnchors.putAll(recordPageAnchor(sect.select("h${level + 1}")))
+
+        if (maxLevel &gt; level) {
+            currentPage.children.addAll(getPagesRecursive(sect, null, anchors, pageAnchors, level + 1, maxLevel))
+            pageBody.select("div.sect${level + 1}").remove()
+        } else {
+            pageBody.select("div.sect${level + 1}").unwrap()
+        }
+        promoteHeaders sect, level + 2, level + 1
+        pages &lt;&lt; currentPage
+        anchors.putAll(parseAnchors(currentPage))
+    }
+    return pages
+}
+
+def getPages(Document dom, String parentId, int maxLevel, String preambleTitle) {
+    def anchors = [:]
+    def pageAnchors = [:]
+    def sections = pages = []
+    if (maxLevel &lt;= 0) {
+        dom.select('div#content').each { pageBody -&gt;
+            pageBody.select('div.sect2').unwrap()
+            promoteHeaders pageBody, 2, 1
+            def page = [title   : preambleTitle ?: "arc42",
+                        body    : pageBody,
+                        children: [],
+                        parent  : parentId]
+            pages &lt;&lt; page
+            sections = page.children
+            parentId = null
+            anchors.putAll(parseAnchors(page))
+        }
+    } else {
+        // let's try to select the "first page" and push it to confluence
+        dom.select('div#preamble div.sectionbody').each { pageBody -&gt;
+            pageBody.select('div.sect2').unwrap()
+            def preamble = [
+                title: preambleTitle ?: "arc42",
+                body: pageBody,
+                children: [],
+                parent: parentId
+            ]
+            pages &lt;&lt; preamble
+            sections = preamble.children
+            parentId = null
+            anchors.putAll(parseAnchors(preamble))
+        }
+        sections.addAll(getPagesRecursive(dom, parentId, anchors, pageAnchors, 1, maxLevel))
+    }
+    return [pages, anchors, pageAnchors]
+}
+
 if(config.confluence.inputHtmlFolder) {
     htmlFolder = "${docDir}/${config.confluence.inputHtmlFolder}"
     println "Starting processing files in folder: " + config.confluence.inputHtmlFolder
@@ -1907,10 +1987,17 @@ config.confluence.input.each { input -&gt;
         confluenceSpaceKey = input.spaceKey ?: config.confluence.spaceKey
         confluenceCreateSubpages = (input.createSubpages != null) ? input.createSubpages : config.confluence.createSubpages
         confluenceAllInOnePage = (input.allInOnePage != null) ? input.allInOnePage : config.confluence.allInOnePage
-        if (confluenceAllInOnePage &amp;&amp; confluenceCreateSubpages) {
+        if (!(confluenceCreateSubpages instanceof ConfigObject &amp;&amp; confluenceAllInOnePage instanceof ConfigObject)) {
             println "ERROR:"
-            println "Conflicting config: One one of confluenceAllInOnePage or confluenceCreateSubpages can be true."
+            println "Deprecated configuration, migrate as follows:"
+            println "allInOnePage = true -&gt; subpagesForSections = 0"
+            println "allInOnePage = false &amp;&amp; createSubpages = false -&gt; subpagesForSections = 1"
+            println "allInOnePage = false &amp;&amp; createSubpages = true -&gt; subpagesForSections = 2"
             throw new RuntimeException("config problem")
+        }
+        confluenceSubpagesForSections = (input.subpagesForSections != null) ? input.subpagesForSections : config.confluence.subpagesForSections
+        if (confluenceSubpagesForSections instanceof ConfigObject) {
+            confluenceSubpagesForSections = 1
         }
     //  hard to read in case of using :sectnums: -&gt; so we add a suffix
         confluencePagePrefix = input.pagePrefix ?: config.confluence.pagePrefix
@@ -1940,9 +2027,6 @@ config.confluence.input.each { input -&gt;
         parentId = parentId ?: null
         //println("ancestorName: '${input.ancestorName}', ancestorId: ${input.ancestorId} ---&gt; final parentId: ${parentId}")
 
-        def anchors = [:]
-        def pageAnchors = [:]
-        def sections = pages = []
         // #342-dierk42: get the keywords from the meta tags
         def keywords = []
         dom.select('meta[name=keywords]').each { kw -&gt;
@@ -1952,69 +2036,7 @@ config.confluence.input.each { input -&gt;
             }
             println "Keywords:" + keywords
         }
-        if (confluenceAllInOnePage) {
-            dom.select('div#content').each { pageBody -&gt;
-                pageBody.select('div.sect2').unwrap()
-                def page = [title   : confluencePreambleTitle ?: "arc42",
-                            body    : pageBody,
-                            children: [],
-                            parent  : parentId]
-                pages &lt;&lt; page
-                sections = page.children
-                parentId = null
-                anchors.putAll(parseAnchors(page))
-            }
-        } else {
-            // let's try to select the "first page" and push it to confluence
-            dom.select('div#preamble div.sectionbody').each { pageBody -&gt;
-                pageBody.select('div.sect2').unwrap()
-                def preamble = [
-                    title: confluencePreambleTitle ?: "arc42",
-                    body: pageBody,
-                    children: [],
-                    parent: parentId
-                ]
-                pages &lt;&lt; preamble
-                sections = preamble.children
-                parentId = null
-                anchors.putAll(parseAnchors(preamble))
-            }
-            // &lt;div class="sect1"&gt; are the main headings
-            // let's extract these
-            dom.select('div.sect1').each { sect1 -&gt;
-                Elements pageBody = sect1.select('div.sectionbody')
-                def currentPage = [
-                    title: sect1.select('h2').text(),
-                    body: pageBody,
-                    children: [],
-                    parent: parentId
-                ]
-                pageAnchors.putAll(recordPageAnchor(sect1.select('h2')))
-
-                if (confluenceCreateSubpages) {
-                    pageBody.select('div.sect2').each { sect2 -&gt;
-                        def title = sect2.select('h3').text()
-                        pageAnchors.putAll(recordPageAnchor(sect2.select('h3')))
-                        sect2.select('h3').remove()
-                        def body = Jsoup.parse(sect2.toString(),'utf-8', Parser.xmlParser())
-                        body.outputSettings(new Document.OutputSettings().prettyPrint(false))
-                        def subPage = [
-                            title: title,
-                            body: body
-                        ]
-                        currentPage.children &lt;&lt; subPage
-                        promoteHeaders sect2, 4, 3
-                        anchors.putAll(parseAnchors(subPage))
-                    }
-                    pageBody.select('div.sect2').remove()
-                } else {
-                    pageBody.select('div.sect2').unwrap()
-                    promoteHeaders sect1, 3, 2
-                }
-                sections &lt;&lt; currentPage
-                anchors.putAll(parseAnchors(currentPage))
-            }
-        }
+        def (pages, anchors, pageAnchors) = getPages(dom, parentId, confluenceSubpagesForSections, confluencePreambleTitle)
 
         pushPages pages, anchors, pageAnchors, keywords
         if (parentId) {
