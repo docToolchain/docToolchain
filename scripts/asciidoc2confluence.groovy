@@ -461,25 +461,71 @@ def rewriteJiraLinks = { body ->
 }
 
 
-def rewriteCodeblocks = { body ->
+def rewriteCodeblocks(Elements body, String cdataStart, String cdataEnd) {
+    Set<String> languages = [
+        'actionscript3',
+        'applescript',
+        'bash',
+        'c#',
+        'cpp',
+        'css',
+        'coldfusion',
+        'delphi',
+        'diff',
+        'erl',
+        'groovy',
+        'xml',
+        'java',
+        'jfx',
+        'js',
+        'php',
+        'perl',
+        'text',
+        'powershell',
+        'py',
+        'ruby',
+        'sql',
+        'sass',
+        'scala',
+        'vb',
+        'yml'
+    ]
+    def languageMapping = [
+        'json':'yml', // acceptable workaround
+        'shell':'bash',
+        'yaml':'yml'
+    ]
     body.select('pre > code').each { code ->
-        if (code.attr('data-lang')) {
-            code.select('span[class]').each { span ->
-                span.unwrap()
+        def language = code.attr('data-lang')
+        if (language) {
+            if (languageMapping.containsKey(language)) {
+                // fix some known languages using a mapping
+                language = languageMapping[language]
             }
-            code.select('i[class]').each { i ->
-                i.unwrap()
+            if (!(language in languages)) {
+                // fall back to plain text to avoid error messages when rendering
+                language = 'text'
             }
-            code.select('b').each { b ->
-                b.before(" // ")
-                b.unwrap()
-            }
-            code.before("<ac:parameter ac:name=\"language\">${code.attr('data-lang')}</ac:parameter>")
+        } else {
+            // Confluence default is Java, so prefer explicit plain text
+            language = 'text'
         }
+
+        code.select('span[class]').each { span ->
+            span.unwrap()
+        }
+        code.select('i[class]').each { i ->
+            i.unwrap()
+        }
+        code.select('b').each { b ->
+            b.before(" // ")
+            b.unwrap()
+        }
+        code.before("<ac:parameter ac:name=\"language\">${language}</ac:parameter>")
         code.parent() // pre now
             .wrap('<ac:structured-macro ac:name="code"></ac:structured-macro>')
             .unwrap()
-        code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
+        code.wrap("<ac:plain-text-body>${cdataStart}${cdataEnd}</ac:plain-text-body>")
             .unwrap()
     }
 }
@@ -655,7 +701,7 @@ def parseBody =  { body, anchors, pageAnchors ->
     rewriteDescriptionLists body
     rewriteInternalLinks body, anchors, pageAnchors
     //sanitize code inside code tags
-    rewriteCodeblocks body
+    rewriteCodeblocks body, CDATA_PLACEHOLDER_START, CDATA_PLACEHOLDER_END
     def pageString = unescapeCDATASections body.html().trim()
 
     //change some html elements through simple substitutions
