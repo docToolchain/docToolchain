@@ -239,11 +239,15 @@ def convertAdditionalFormats = {
                             // this is an internal script
                             command = projectDir.canonicalPath+'/scripts/rstToHtml.py'
                         }
-                        command = ['bash', '-c', command + ' ' + file]
+                        command = ['bash', '-c', command + ' "' + file + '"']
                         def process = command.execute([], new File(docDir))
                         process.waitFor()
                         if (process.exitValue()) {
                             def error = process.err.text
+                            println """
+can't convert '${file.canonicalPath-docDir-'/build/microsite/tmp/site/doc'}':
+${error}
+"""                            
                             throw new Exception("""
 can't convert '${file.canonicalPath-docDir-'/build/microsite/tmp/site/doc'}':
 ${error}
