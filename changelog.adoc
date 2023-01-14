@@ -9,13 +9,25 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+* fixed whitespace in GH issue template (which leads to errors in `htmlSanityCheck`)
 * fixed ExportMarkdownSpec
 * fixed GenerateDeckSpec
+* fixed GenerateDeck / Reveal.js
+* allow numeric ancestorIds for confluence export
+* https://github.com/docToolchain/docToolchain/pull/951[#951 Improve DTC_PROJECT_BRANCH management]
+* https://github.com/docToolchain/docToolchain/issues/976[#976 dtcw shows a fatal error when not in git repository]
+* https://github.com/docToolchain/docToolchain/issues/978[#978 dtcw.ps1 does not correctly check for java version]
 
 === added
 
+* rubyExtensions configuration
+* CZ as language for downloadTemplate
+* Enable to use a particular version of DTC from the wrapper by setting the environment variable 'DTC_VERSION' accordingly.
+
 === changed
+
 * Improve confluence export performance when only ancestorIds are given
+* Make `dtcw` (and some other shell executables) https://www.shellcheck.net/[shellcheck] proof
 
 == 2.1.0 - 2022-08-15
 
