@@ -38,6 +38,9 @@ Migrate as follows:
 ** `allInOnePage = false && createSubpages = true` is the same as `subpagesForSections = 2`
 
 * https://github.com/docToolchain/docToolchain/issues/683[#683 publishToConfluence with unknown source language]
+* https://github.com/docToolchain/docToolchain/issues/940[#940 simplify configuration to use preamble heading from h1 instead of configuration]
++
+Migrate by removing the setting `preambleTitle` and set the correct first level heading in the document.
 * Make `dtcw` (and some other shell executables) https://www.shellcheck.net/[shellcheck] proof
 
 == 2.1.0 - 2022-08-15
