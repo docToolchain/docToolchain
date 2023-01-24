@@ -13,6 +13,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * fixed ExportMarkdownSpec
 * fixed GenerateDeckSpec
 * fixed GenerateDeck / Reveal.js
+* fixed exportEA hangs by EA v16.1 
 * allow numeric ancestorIds for confluence export
 * https://github.com/docToolchain/docToolchain/pull/951[#951 Improve DTC_PROJECT_BRANCH management]
 * https://github.com/docToolchain/docToolchain/issues/976[#976 dtcw shows a fatal error when not in git repository]
