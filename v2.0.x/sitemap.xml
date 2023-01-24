@@ -92,12 +92,22 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
+    	<lastmod>2023-01-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
+    	<lastmod>2023-01-24</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportMetrics.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
 
@@ -107,7 +117,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
 
@@ -127,16 +137,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportMetrics.html</loc>
-    	<lastmod>2023-01-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
-    	<lastmod>2023-01-24</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_downloadTemplate.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
@@ -148,11 +148,6 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_publishToConfluence.html</loc>
-    	<lastmod>2023-01-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportVisio.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
 
@@ -172,12 +167,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
-    	<lastmod>2023-01-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportMarkdown.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportVisio.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
 
@@ -188,6 +178,21 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_copy_themes.html</loc>
+    	<lastmod>2023-01-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
+    	<lastmod>2023-01-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
+    	<lastmod>2023-01-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportMarkdown.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
 
@@ -203,11 +208,6 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_generateHTML.html</loc>
-    	<lastmod>2023-01-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
 
@@ -242,11 +242,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Activity_notes_issue1.html</loc>
-    	<lastmod>2023-01-24</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/010_manual/40_features.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
@@ -262,37 +257,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/UseCases.html</loc>
-    	<lastmod>2023-01-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Architect_notes_issue2.html</loc>
-    	<lastmod>2023-01-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Architect_notes.html</loc>
-    	<lastmod>2023-01-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Activity_notes.html</loc>
+    	<loc>https://localhost/ea/Activity_notes_issue1.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/ea/Use_Cases_links.html</loc>
-    	<lastmod>2023-01-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
-    	<lastmod>2023-01-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/issue1.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
 
@@ -307,7 +277,42 @@
     </url>
 
     <url>
+    	<loc>https://localhost/ea/Architect_notes_issue2.html</loc>
+    	<lastmod>2023-01-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Architect_notes.html</loc>
+    	<lastmod>2023-01-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
+    	<lastmod>2023-01-24</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/issue2.html</loc>
+    	<lastmod>2023-01-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/UseCases.html</loc>
+    	<lastmod>2023-01-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Activity_notes.html</loc>
+    	<lastmod>2023-01-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/025_development/005_contributing_to_docs.html</loc>
+    	<lastmod>2023-01-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/issue1.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
 
@@ -318,11 +323,6 @@
 
     <url>
     	<loc>https://localhost/025_development/010_setup_dev_env.html</loc>
-    	<lastmod>2023-01-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/025_development/005_contributing_to_docs.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
 
@@ -342,12 +342,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/030_generateHTML.html</loc>
+    	<loc>https://localhost/020_tutorial/070_publishToConfluence.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/070_publishToConfluence.html</loc>
+    	<loc>https://localhost/020_tutorial/030_generateHTML.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
 
@@ -367,6 +367,11 @@
     </url>
 
     <url>
+    	<loc>https://localhost/020_tutorial/040_generateSite.html</loc>
+    	<lastmod>2023-01-24</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/020_tutorial/010_Install.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
@@ -377,7 +382,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/040_generateSite.html</loc>
+    	<loc>https://localhost/10_about/30_community.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
 
@@ -387,17 +392,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/10_about/30_community.html</loc>
+    	<loc>https://localhost/10_about/10_about-the-project.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/10_about/20_what-is-doctoolchain.html</loc>
-    	<lastmod>2023-01-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/10_about/10_about-the-project.html</loc>
     	<lastmod>2023-01-24</lastmod>
     </url>
 
