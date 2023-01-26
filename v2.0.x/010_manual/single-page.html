@@ -2838,10 +2838,6 @@ ancestorId will be used as a fallback</p>
 <p><code>ancestorId</code> (optional): the id of the parent page in Confluence as string; leave this empty
 if a new parent shall be created in the space</p>
 </li>
-<li>
-<p><code>preambleTitle</code> (optional): the title of the page containing the preamble (everything
-before the first second level heading). Default is 'arc42'</p>
-</li>
 </ul>
 </div>
 <div class="paragraph">
@@ -2896,12 +2892,6 @@ Specify the ID as a string within the config file.</p>
 </div>
 <div class="paragraph">
 <p>For cloud instances, <code>[context]</code> is <code>wiki</code>.</p>
-</div>
-<div class="paragraph">
-<p><strong>preambleTitle</strong></p>
-</div>
-<div class="paragraph">
-<p>The page title. Contains the preamble (everything except the first second-level heading). Default is 'arc42'.</p>
 </div>
 <div class="paragraph">
 <p><strong>disableToC</strong></p>
@@ -3072,8 +3062,6 @@ confluence = [:]
 // - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty
 //                            if a new parent shall be created in the space
 //                            Set it for every file so the page scanning is done only for the given ancestor page trees.
-// - 'preambleTitle' (optional): the title of the page containing the preamble (everything
-//                            before the first second level heading). Default is 'arc42'
 //
 // The following four keys can also be used in the global section below
 // - 'spaceKey' (optional): page specific variable for the key of the confluence space to write to
@@ -3104,9 +3092,6 @@ confluence.with {
 
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
-
-    // the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
-    preambleTitle = ''
 
     // variable to determine how many layers of sub pages should be created
     subpagesForSections = 1
@@ -3955,7 +3940,7 @@ def parseBody =  { body, anchors, pageAnchors -&gt;
     rewriteDescriptionLists body
     rewriteInternalLinks body, anchors, pageAnchors
     //sanitize code inside code tags
-    rewriteCodeblocks body, CDATA_PLACEHOLDER_START, CDATA_PLACEHOLDER_END
+    rewriteCodeblocks body instanceof Element ? new Elements(body) : body, CDATA_PLACEHOLDER_START, CDATA_PLACEHOLDER_END
     def pageString = unescapeCDATASections body.html().trim()
 
     //change some html elements through simple substitutions
@@ -4221,15 +4206,16 @@ def getPagesRecursive(Element element, String parentId, Map anchors, Map pageAnc
     return pages
 }
 
-def getPages(Document dom, String parentId, int maxLevel, String preambleTitle) {
+def getPages(Document dom, String parentId, int maxLevel) {
     def anchors = [:]
     def pageAnchors = [:]
     def sections = pages = []
+    def title = dom.select('h1').text()
     if (maxLevel &lt;= 0) {
         dom.select('div#content').each { pageBody -&gt;
             pageBody.select('div.sect2').unwrap()
             promoteHeaders pageBody, 2, 1
-            def page = [title   : preambleTitle ?: "arc42",
+            def page = [title   : title,
                         body    : pageBody,
                         children: [],
                         parent  : parentId]
@@ -4243,7 +4229,7 @@ def getPages(Document dom, String parentId, int maxLevel, String preambleTitle) 
         dom.select('div#preamble div.sectionbody').each { pageBody -&gt;
             pageBody.select('div.sect2').unwrap()
             def preamble = [
-                title: preambleTitle ?: "arc42",
+                title: title,
                 body: pageBody,
                 children: [],
                 parent: parentId
@@ -4306,6 +4292,11 @@ config.confluence.input.each { input -&gt;
     //  added
         confluencePageSuffix = input.pageSuffix ?: config.confluence.pageSuffix
         confluencePreambleTitle = input.preambleTitle ?: config.confluence.preambleTitle
+        if (!(confluencePreambleTitle instanceof ConfigObject)) {
+            println "ERROR:"
+            println "Deprecated configuration, use first level heading in document instead of preambleTitle configuration"
+            throw new RuntimeException("config problem")
+        }
 
         def html = input.file ? new File(input.file).getText('utf-8') : new URL(input.url).getText()
         baseUrl = input.file ? new File(input.file) : new URL(input.url)
@@ -4338,7 +4329,7 @@ config.confluence.input.each { input -&gt;
             }
             println "Keywords:" + keywords
         }
-        def (pages, anchors, pageAnchors) = getPages(dom, parentId, confluenceSubpagesForSections, confluencePreambleTitle)
+        def (pages, anchors, pageAnchors) = getPages(dom, parentId, confluenceSubpagesForSections)
 
         pushPages pages, anchors, pageAnchors, keywords
         if (parentId) {
