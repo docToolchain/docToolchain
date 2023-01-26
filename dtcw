@@ -374,7 +374,7 @@ else
           else
               pwd=${PWD}
           fi
-          command="'${docker_cmd}' run -u $(id -u):$(id -g) --name doctoolchain${version} -e DTC_HEADLESS=1 -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} -p 8042:8042 --rm -i --entrypoint /bin/bash -v '${pwd}:/project' doctoolchain/doctoolchain:v${DTC_VERSION} -c \"doctoolchain . ${*} ${DTC_OPTS} && exit\""
+          command="'${docker_cmd}' run --platform linux/amd64 -u $(id -u):$(id -g) --name doctoolchain${version} -e DTC_HEADLESS=1 -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} -p 8042:8042 --rm -i --entrypoint /bin/bash -v '${pwd}:/project' doctoolchain/doctoolchain:v${DTC_VERSION} -c \"doctoolchain . ${*} ${DTC_OPTS} && exit\""
           doJavaCheck=false
 	  echo "use docker installation"
       else
