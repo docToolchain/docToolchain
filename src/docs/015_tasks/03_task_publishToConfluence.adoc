@@ -75,10 +75,6 @@ Specify the ID as a string within the config file.
 
 For cloud instances, `[context]` is `wiki`.
 
-*preambleTitle*
-
-The page title. Contains the preamble (everything except the first second-level heading). Default is 'arc42'.
-
 *disableToC*
 
 This boolean configuration determines whether or not the table of contents (ToC) is disabled on the page once uploaded to Confluence. `false` by default, so the ToC is active.

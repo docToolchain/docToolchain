@@ -162,8 +162,6 @@ confluence = [:]
 // - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty
 //                            if a new parent shall be created in the space
 //                            Set it for every file so the page scanning is done only for the given ancestor page trees.
-// - 'preambleTitle' (optional): the title of the page containing the preamble (everything
-//                            before the first second level heading). Default is 'arc42'
 //
 // inputHtmlFolder is a folder for bulk process html files
 // The following four keys can also be used in the global section below
@@ -194,9 +192,6 @@ confluence.with {
 
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
-
-    // the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
-    preambleTitle = ''
 
     // variable to determine how many layers of sub pages should be created
     subpagesForSections = 1
