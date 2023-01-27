@@ -203,6 +203,9 @@ confluence.with {
 
     pageSuffix = ''
 
+    // the comment used for the page version
+    pageVersionComment = ''
+
     /*
     WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!
 

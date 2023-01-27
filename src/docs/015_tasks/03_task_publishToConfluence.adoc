@@ -86,6 +86,10 @@ This script matches pages regardless of case and refuses to replace a page whose
 Ideally, you should create a new Confluence space for each piece of larger documentation.
 If you are restricted and can't create new spaces, you can use `pagePrefix`/`pageSuffix` to define a prefix/suffix for the doc so that it doesn't conflict with other page names.
 
+*pageVersionComment*
+
+Set an optional comment for the new page version in Confluence.
+
 *credentials*
 
 Use username and password, or even better - username and api-token.
