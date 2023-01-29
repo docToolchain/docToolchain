@@ -146,14 +146,6 @@ var documents = [
 
 {
     "id": 18,
-    "uri": "015_tasks/03_task_autobuildSite.html",
-    "menu": "tasks",
-    "title": "autobuildSite",
-    "text": " Table of Contents autobuildSite About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } autobuildSite 1 minute to read About This Task This script starts an endless loop which checks for changes to your docs source then re-runs the generateSite -task whenever it detects changes. The output will be logged to build/generateSite.log . Source bin/autobuildSite.bash #!/bin/bash DIR_TO_WATCH='src/' #COMMAND='rm -r build || true &amp;&amp; mkdir -p build/microsite/output/images/ &amp;&amp; ./dtcw generateSite 2&gt;&amp;1 | tee build/generateSite.log' COMMAND='mkdir -p build/microsite/output/images/ &amp;&amp; ./dtcw generateSite 2&gt;&amp;1 | tee build/generateSite.log' #execute first time cp src/docs/images/ready.png build/microsite/output/images/status.png #eval $COMMAND #wait for changes and execute while true ; do watch --no-title --chgexit ls -lR ${DIR_TO_WATCH} | sha1sum cp src/docs/images/building.png build/microsite/output/images/status.png eval $COMMAND cp src/docs/images/ready.png build/microsite/output/images/status.png sleep 6 done "
-},
-
-{
-    "id": 19,
     "uri": "015_tasks/03_task_exportPPT.html",
     "menu": "tasks",
     "title": "exportPPT",
@@ -161,7 +153,7 @@ var documents = [
 },
 
 {
-    "id": 20,
+    "id": 19,
     "uri": "015_tasks/03_task_dependencyUpdates.html",
     "menu": "tasks",
     "title": "dependencyUpdates",
@@ -169,7 +161,23 @@ var documents = [
 },
 
 {
+    "id": 20,
+    "uri": "015_tasks/03_task_autobuildSite.html",
+    "menu": "tasks",
+    "title": "autobuildSite",
+    "text": " Table of Contents autobuildSite About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } autobuildSite 1 minute to read About This Task This script starts an endless loop which checks for changes to your docs source then re-runs the generateSite -task whenever it detects changes. The output will be logged to build/generateSite.log . Source bin/autobuildSite.bash #!/bin/bash DIR_TO_WATCH='src/' #COMMAND='rm -r build || true &amp;&amp; mkdir -p build/microsite/output/images/ &amp;&amp; ./dtcw generateSite 2&gt;&amp;1 | tee build/generateSite.log' COMMAND='mkdir -p build/microsite/output/images/ &amp;&amp; ./dtcw generateSite 2&gt;&amp;1 | tee build/generateSite.log' #execute first time cp src/docs/images/ready.png build/microsite/output/images/status.png #eval $COMMAND #wait for changes and execute while true ; do watch --no-title --chgexit ls -lR ${DIR_TO_WATCH} | sha1sum cp src/docs/images/building.png build/microsite/output/images/status.png eval $COMMAND cp src/docs/images/ready.png build/microsite/output/images/status.png sleep 6 done "
+},
+
+{
     "id": 21,
+    "uri": "015_tasks/03_task_exportMetrics.html",
+    "menu": "tasks",
+    "title": "exportMetrics",
+    "text": " Table of Contents exportMetrics .gravatar img { margin-left: 3px; border-radius: 4px; } exportMetrics 1 minute to read This task crawls through all Asciidoctor source files and extracts the total number of words in each file (word count) so you can check your writing progress. The output is displayed on the command line. "
+},
+
+{
+    "id": 22,
     "uri": "015_tasks/03_task_exportEA.html",
     "menu": "tasks",
     "title": "exportEA",
@@ -177,7 +185,7 @@ var documents = [
 },
 
 {
-    "id": 22,
+    "id": 23,
     "uri": "015_tasks/03_task_collectIncludes.html",
     "menu": "tasks",
     "title": "collectIncludes",
@@ -185,7 +193,7 @@ var documents = [
 },
 
 {
-    "id": 23,
+    "id": 24,
     "uri": "015_tasks/150_task_creatTask.html",
     "menu": "tasks",
     "title": "createTask",
@@ -193,19 +201,11 @@ var documents = [
 },
 
 {
-    "id": 24,
+    "id": 25,
     "uri": "015_tasks/03_task_previewSite.html",
     "menu": "tasks",
     "title": "previewSite",
     "text": " Table of Contents previewSite Before You Begin About This Task .gravatar img { margin-left: 3px; border-radius: 4px; } previewSite 1 minute to read Before You Begin If you use WSL to execute this task, you must use the IP V6 address of localhost [::1] to access the server. 127.0.0.1 or localhost will not work. Most site themes don&#8217;t need the static site server for general content, you can just preview the site by opening from the file system in your browser. However, some JavaScript features will not work because of CORS restrictions. About This Task When you use a build in a static site generator through generateSite , you sometimes need a real locally running static server to preview the results. This task will start a jetty for your generated site. "
-},
-
-{
-    "id": 25,
-    "uri": "015_tasks/03_task_exportMetrics.html",
-    "menu": "tasks",
-    "title": "exportMetrics",
-    "text": " Table of Contents exportMetrics .gravatar img { margin-left: 3px; border-radius: 4px; } exportMetrics 1 minute to read This task crawls through all Asciidoctor source files and extracts the total number of words in each file (word count) so you can check your writing progress. The output is displayed on the command line. "
 },
 
 {
@@ -218,18 +218,18 @@ var documents = [
 
 {
     "id": 27,
-    "uri": "015_tasks/03_task_exportOpenApi.html",
-    "menu": "tasks",
-    "title": "exportOpenAPI",
-    "text": " Table of Contents exportOpenAPI About This Task Configuration Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportOpenAPI 1 minute to read About This Task This task exports an OpenAPI Specification definition yaml file to a AsciiDoc document. Currently this task depends on OpenAPI Generator (v4.3.1) and its gradle plugin . Configuration Config.groovy // Configuration for OpenAPI related task openApi = [:] // 'specFile' is the name of OpenAPI specification yaml file. Tool expects this file inside working dir (as a filename or relative path with filename) // 'infoUrl' and 'infoEmail' are specification metadata about further info related to the API. By default this values would be filled by openapi-generator plugin placeholders // openApi.with { specFile = 'src/docs/petstore-v2.0.yaml' // i.e. 'petstore.yaml', 'src/doc/petstore.yaml' infoUrl = 'https://my-api.company.com' infoEmail = 'info@company.com' } Source exportOpenApi.gradle task exportOpenApi ( type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask, group: 'docToolchain', description: 'exports OpenAPI specification to the asciidoc file') { if (!specFile) { logger.info(\n---&gt; OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)) return } else { logger.info(Found OpenAPI specification in Config.groovy) } outputs.upToDateWhen { false } outputs.cacheIf { false } generatorName = 'asciidoc' outputDir = ${targetDir}/OpenAPI.toString() inputSpec = ${docDir}/${specFile} // plugin is not able to find file if inputPath is defined as '.' logger.debug(\n=====================\nProject Config:\n=====================) logger.debug(Docdir: ${docDir}) logger.debug(Target: ${targetDir}) logger.info(\n=====================\nOpenAPI Config:\n=====================) logger.info(Specification file: ${specFile}) logger.info(inputSpec: ${inputSpec}) logger.info(outputDir: ${outputDir}\n) additionalProperties = [ infoEmail:${config.openApi.infoEmail}, infoUrl:${config.openApi.infoUrl} ] } "
-},
-
-{
-    "id": 28,
     "uri": "015_tasks/03_task_downloadTemplate.html",
     "menu": "tasks",
     "title": "downloadTemplate",
     "text": " Table of Contents downloadTemplate .gravatar img { margin-left: 3px; border-radius: 4px; } downloadTemplate 1 minute to read "
+},
+
+{
+    "id": 28,
+    "uri": "015_tasks/03_task_exportOpenApi.html",
+    "menu": "tasks",
+    "title": "exportOpenAPI",
+    "text": " Table of Contents exportOpenAPI About This Task Configuration Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportOpenAPI 1 minute to read About This Task This task exports an OpenAPI Specification definition yaml file to a AsciiDoc document. Currently this task depends on OpenAPI Generator (v4.3.1) and its gradle plugin . Configuration Config.groovy // Configuration for OpenAPI related task openApi = [:] // 'specFile' is the name of OpenAPI specification yaml file. Tool expects this file inside working dir (as a filename or relative path with filename) // 'infoUrl' and 'infoEmail' are specification metadata about further info related to the API. By default this values would be filled by openapi-generator plugin placeholders // openApi.with { specFile = 'src/docs/petstore-v2.0.yaml' // i.e. 'petstore.yaml', 'src/doc/petstore.yaml' infoUrl = 'https://my-api.company.com' infoEmail = 'info@company.com' } Source exportOpenApi.gradle task exportOpenApi ( type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask, group: 'docToolchain', description: 'exports OpenAPI specification to the asciidoc file') { if (!specFile) { logger.info(\n---&gt; OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)) return } else { logger.info(Found OpenAPI specification in Config.groovy) } outputs.upToDateWhen { false } outputs.cacheIf { false } generatorName = 'asciidoc' outputDir = ${targetDir}/OpenAPI.toString() inputSpec = ${docDir}/${specFile} // plugin is not able to find file if inputPath is defined as '.' logger.debug(\n=====================\nProject Config:\n=====================) logger.debug(Docdir: ${docDir}) logger.debug(Target: ${targetDir}) logger.info(\n=====================\nOpenAPI Config:\n=====================) logger.info(Specification file: ${specFile}) logger.info(inputSpec: ${inputSpec}) logger.info(outputDir: ${outputDir}\n) additionalProperties = [ infoEmail:${config.openApi.infoEmail}, infoUrl:${config.openApi.infoUrl} ] } "
 },
 
 {
@@ -258,14 +258,6 @@ var documents = [
 
 {
     "id": 32,
-    "uri": "015_tasks/03_task_htmlSanityCheck.html",
-    "menu": "tasks",
-    "title": "htmlSanityCheck",
-    "text": " Table of Contents htmlSanityCheck At a Glance About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } htmlSanityCheck 1 minute to read At a Glance About This Task This task invokes the htmlSanityCheck gradle plugin. It is a standalone (batch- and command-line) HTML sanity checker whose role is to detect missing images, dead links and duplicated bookmarks. In docToolchain, the htmlSanityCheck task ensures that generated HTML contains no missing links or other problems. It is the last default task, and creates a report in build/report/htmlchecks/index.html (see example below). Figure 1. sample report Further Reading and Resources Read the Automated Quality-Checks blog post. Visit https://github.com/aim42/htmlSanityCheck for more information about this task. Source htmlSanityCheck.gradle htmlSanityCheck { sourceDir = new File(config.htmlSanityCheck.sourceDir?targetDir+/+config.htmlSanityCheck.sourceDir:$targetDir/html5) // files to check - in Set-notation //sourceDocuments = [ one-file.html, another-file.html, index.html] // where to put results of sanityChecks... checkingResultsDir = new File(config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath) // directory where the results written to in JUnit XML format junitResultsDir = new File(config.htmlSanityCheck.junitResultsDir?:$targetDir/test-results/htmlchecks) // which statuscodes shall be interpreted as warning, error or success defaults to standard httpSuccessCodes = config.htmlSanityCheck.httpSuccessCodes?:[] httpWarningCodes = config.htmlSanityCheck.httpWarningCodes?:[] httpErrorCodes = config.htmlSanityCheck.httpErrorCodes?:[] // fail build on errors? failOnErrors = config.htmlSanityCheck.failOnErrors?:false logger.info docToolchain&gt; HSC sourceDir: ${sourceDir} logger.info docToolchain&gt; HSC checkingResultsDir: ${checkingResultsDir} } "
-},
-
-{
-    "id": 33,
     "uri": "015_tasks/03_task_exportVisio.html",
     "menu": "tasks",
     "title": "exportVisio",
@@ -273,15 +265,15 @@ var documents = [
 },
 
 {
-    "id": 34,
-    "uri": "015_tasks/03_task_copy_themes.html",
+    "id": 33,
+    "uri": "015_tasks/03_task_htmlSanityCheck.html",
     "menu": "tasks",
-    "title": "copyThemes",
-    "text": " Table of Contents copyThemes About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } copyThemes 1 minute to read About This Task docToolchain provides you with a simple Twitter bootstrap default theme to get you started. You can use the copyThemes task to apply a different theme (either jBakeTheme or pdfTheme) to your project. Feel free to remove all files which should remain as the default and change all others. When you next run docToolchain, your theme files will be laid over the default theme in order to generate the PDF or site. Source scripts/copyThemes.gradle //tag::copyThemes[] task copyThemes( description: 'copy some default files to your project for you to modify', group: 'docToolchain helper' ) { doFirst { } doLast { def color = { color, text -&gt; def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37] return new String((char) 27) + [${colors[color]}m${text} + new String((char) 27) + [0m } def lang = ant.input(message: ${color 'green', 'What do you want me to copy?'}, validargs: 'pdfTheme,jBakeTheme', addproperty: 'what') switch (ant.what) { case 'pdfTheme': def targetDir = new File(pdfThemeDir) /** if (targetDir.exists()) { println ${targetDir.canonicalPath} already exists println in order to re-install the theme, please remove the folder first and re-run the script throw new RuntimeException(pdfTheme folder already exists) } **/ targetDir.mkdirs() def source = new File(projectDir, 'template_config/pdfTheme') println source.canonicalPath println targetDir.canonicalPath copy { from new File(projectDir, 'template_config/pdfTheme') into targetDir } println pdfTheme copied into ${targetDir} break case 'jBakeTheme': def targetDir = new File(new File(docDir, inputPath), config.microsite.siteFolder?:'../site') /** if (targetDir.exists()) { println ${targetDir.canonicalPath} already exists println in order to re-install the theme, please remove the folder first and re-run the script throw new RuntimeException(jBakeTheme folder already exists) } **/ targetDir.mkdirs() copy { from new File(projectDir, 'src/site') into targetDir } def siteTheme = System.getenv('DTC_SITETHEME')?: def themeFolder = new File(projectDir, ../themes/ + siteTheme.md5()) copy { from(themeFolder) {} into targetDir } println jBakeTheme copied into ${targetDir.canonicalPath} break } } } //end::copyThemes[] "
+    "title": "htmlSanityCheck",
+    "text": " Table of Contents htmlSanityCheck At a Glance About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } htmlSanityCheck 1 minute to read At a Glance About This Task This task invokes the htmlSanityCheck gradle plugin. It is a standalone (batch- and command-line) HTML sanity checker whose role is to detect missing images, dead links and duplicated bookmarks. In docToolchain, the htmlSanityCheck task ensures that generated HTML contains no missing links or other problems. It is the last default task, and creates a report in build/report/htmlchecks/index.html (see example below). Figure 1. sample report Further Reading and Resources Read the Automated Quality-Checks blog post. Visit https://github.com/aim42/htmlSanityCheck for more information about this task. Source htmlSanityCheck.gradle htmlSanityCheck { sourceDir = new File(config.htmlSanityCheck.sourceDir?targetDir+/+config.htmlSanityCheck.sourceDir:$targetDir/html5) // files to check - in Set-notation //sourceDocuments = [ one-file.html, another-file.html, index.html] // where to put results of sanityChecks... checkingResultsDir = new File(config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath) // directory where the results written to in JUnit XML format junitResultsDir = new File(config.htmlSanityCheck.junitResultsDir?:$targetDir/test-results/htmlchecks) // which statuscodes shall be interpreted as warning, error or success defaults to standard httpSuccessCodes = config.htmlSanityCheck.httpSuccessCodes?:[] httpWarningCodes = config.htmlSanityCheck.httpWarningCodes?:[] httpErrorCodes = config.htmlSanityCheck.httpErrorCodes?:[] // fail build on errors? failOnErrors = config.htmlSanityCheck.failOnErrors?:false logger.info docToolchain&gt; HSC sourceDir: ${sourceDir} logger.info docToolchain&gt; HSC checkingResultsDir: ${checkingResultsDir} } "
 },
 
 {
-    "id": 35,
+    "id": 34,
     "uri": "015_tasks/03_task_generateDocBook.html",
     "menu": "tasks",
     "title": "generateDocbook",
@@ -289,7 +281,7 @@ var documents = [
 },
 
 {
-    "id": 36,
+    "id": 35,
     "uri": "015_tasks/03_task_exportJiraSprintChangelog.html",
     "menu": "tasks",
     "title": "exportJiraSprintChangelogIssues",
@@ -297,7 +289,23 @@ var documents = [
 },
 
 {
+    "id": 36,
+    "uri": "015_tasks/03_task_copy_themes.html",
+    "menu": "tasks",
+    "title": "copyThemes",
+    "text": " Table of Contents copyThemes About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } copyThemes 1 minute to read About This Task docToolchain provides you with a simple Twitter bootstrap default theme to get you started. You can use the copyThemes task to apply a different theme (either jBakeTheme or pdfTheme) to your project. Feel free to remove all files which should remain as the default and change all others. When you next run docToolchain, your theme files will be laid over the default theme in order to generate the PDF or site. Source scripts/copyThemes.gradle //tag::copyThemes[] task copyThemes( description: 'copy some default files to your project for you to modify', group: 'docToolchain helper' ) { doFirst { } doLast { def color = { color, text -&gt; def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37] return new String((char) 27) + [${colors[color]}m${text} + new String((char) 27) + [0m } def lang = ant.input(message: ${color 'green', 'What do you want me to copy?'}, validargs: 'pdfTheme,jBakeTheme', addproperty: 'what') switch (ant.what) { case 'pdfTheme': def targetDir = new File(pdfThemeDir) /** if (targetDir.exists()) { println ${targetDir.canonicalPath} already exists println in order to re-install the theme, please remove the folder first and re-run the script throw new RuntimeException(pdfTheme folder already exists) } **/ targetDir.mkdirs() def source = new File(projectDir, 'template_config/pdfTheme') println source.canonicalPath println targetDir.canonicalPath copy { from new File(projectDir, 'template_config/pdfTheme') into targetDir } println pdfTheme copied into ${targetDir} break case 'jBakeTheme': def targetDir = new File(new File(docDir, inputPath), config.microsite.siteFolder?:'../site') /** if (targetDir.exists()) { println ${targetDir.canonicalPath} already exists println in order to re-install the theme, please remove the folder first and re-run the script throw new RuntimeException(jBakeTheme folder already exists) } **/ targetDir.mkdirs() copy { from new File(projectDir, 'src/site') into targetDir } def siteTheme = System.getenv('DTC_SITETHEME')?: def themeFolder = new File(projectDir, ../themes/ + siteTheme.md5()) copy { from(themeFolder) {} into targetDir } println jBakeTheme copied into ${targetDir.canonicalPath} break } } } //end::copyThemes[] "
+},
+
+{
     "id": 37,
+    "uri": "015_tasks/03_task_exportMarkdown.html",
+    "menu": "tasks",
+    "title": "exportMarkdown",
+    "text": " Table of Contents About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } 1 minute to read About This Task The exportMarkdown task can be used to include markdown files into the documentation. It scans the /src/docs directory for markdown ( *.md ) files and converts them into Asciidoc files. The converted files can then be referenced from within the /build -folder. Source exportMarkdown.gradle task exportMarkdown( description: 'exports all markdown files to AsciiDoc', group: 'docToolchain', type: Copy ) { from srcDir include(**/*.md) //include only markdown files includeEmptyDirs = false rename(/(.+).md/, '$1.adoc') //rename all files from *.md to *.adoc filter(Markdown2AdocFilter) // convert the content of the files into targetDir } class Markdown2AdocFilter extends FilterReader { Markdown2AdocFilter(Reader input) { super(new StringReader(nl.jworks.markdown_to_asciidoc.Converter.convertMarkdownToAsciiDoc(input.text))) } } "
+},
+
+{
+    "id": 38,
     "uri": "015_tasks/03_task_convertToDocx.html",
     "menu": "tasks",
     "title": "convertToDocx",
@@ -305,7 +313,7 @@ var documents = [
 },
 
 {
-    "id": 38,
+    "id": 39,
     "uri": "015_tasks/03_tasks.html",
     "menu": "tasks",
     "title": "What Is a Task?",
@@ -313,19 +321,11 @@ var documents = [
 },
 
 {
-    "id": 39,
+    "id": 40,
     "uri": "015_tasks/03_task_generateDeck.html",
     "menu": "tasks",
     "title": "generateDeck",
     "text": " Table of Contents generateDeck At a Glance About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateDeck 1 minute to read At a Glance About This Task This task makes use of the asciidoctor-reveal.js backend to render your documents into a HTML-based presentation. It creates a PowerPoint presentation, then enriches it by adding reveal.js slide definitions in AsciiDoc to the speaker notes. For best results, use this task with the exportPPT task. Source AsciiDocBasics.gradle task generateDeck ( type: AsciidoctorTask, group: 'docToolchain', description: 'use revealJs as asciidoc backend to create a presentation') { attributes ( 'idprefix': 'slide-', 'idseparator': '-', 'docinfo1': '', 'revealjs_theme': 'black@', 'revealjs_progress': 'true@', 'revealjs_touch': 'true@', 'revealjs_hideAddressBar': 'true@', 'revealjs_transition': 'linear@', 'revealjs_history': 'true@', 'revealjs_slideNumber': 'true@' ) options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates').absolutePath ] def sourceFilesREVEAL = sourceFiles.findAll { 'revealjs' in it.formats } // onlyIf { // sourceFilesREVEAL // } sources { sourceFilesREVEAL.each { include it.file logger.info it.file File useFile = new File(srcDir, it.file) if (!useFile.exists()) { throw new Exception ( The file $useFile in REVEAL config does not exist! Please check the configuration 'inputFiles' in $mainConfigFile.) } } } outputDir = file(targetDir+'/decks/') resources { from('resources') { include 'reveal.js/**' } from(sourceDir) { include 'images/**' } into() logger.info ${docDir}/${config.outputPath}/images } doFirst { if (sourceFilesREVEAL.size()==0) { throw new Exception ( &gt;&gt; No source files defined for type 'revealjs'. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy ) } } } "
-},
-
-{
-    "id": 40,
-    "uri": "015_tasks/03_task_exportMarkdown.html",
-    "menu": "tasks",
-    "title": "exportMarkdown",
-    "text": " Table of Contents About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } 1 minute to read About This Task The exportMarkdown task can be used to include markdown files into the documentation. It scans the /src/docs directory for markdown ( *.md ) files and converts them into Asciidoc files. The converted files can then be referenced from within the /build -folder. Source exportMarkdown.gradle task exportMarkdown( description: 'exports all markdown files to AsciiDoc', group: 'docToolchain', type: Copy ) { from srcDir include(**/*.md) //include only markdown files includeEmptyDirs = false rename(/(.+).md/, '$1.adoc') //rename all files from *.md to *.adoc filter(Markdown2AdocFilter) // convert the content of the files into targetDir } class Markdown2AdocFilter extends FilterReader { Markdown2AdocFilter(Reader input) { super(new StringReader(nl.jworks.markdown_to_asciidoc.Converter.convertMarkdownToAsciiDoc(input.text))) } } "
 },
 
 {
@@ -370,14 +370,6 @@ var documents = [
 
 {
     "id": 46,
-    "uri": "010_manual/40_features.html",
-    "menu": "manual",
-    "title": "Using docToolchain to Build Docs",
-    "text": " Table of Contents Using docToolchain to Build Docs Using docToolchain to Build Docs 1 minute to read docToolchain implements many features via scripts, which you call through the command line. These scripts are called tasks in this documentation. Learn more about these scripts in the Tasks menu. "
-},
-
-{
-    "id": 47,
     "uri": "010_manual/20_install.html",
     "menu": "manual",
     "title": "Installing docToolchain",
@@ -385,19 +377,27 @@ var documents = [
 },
 
 {
+    "id": 47,
+    "uri": "010_manual/40_features.html",
+    "menu": "manual",
+    "title": "Using docToolchain to Build Docs",
+    "text": " Table of Contents Using docToolchain to Build Docs Using docToolchain to Build Docs 1 minute to read docToolchain implements many features via scripts, which you call through the command line. These scripts are called tasks in this documentation. Learn more about these scripts in the Tasks menu. "
+},
+
+{
     "id": 48,
-    "uri": "010_manual/010_introduction_and_goals.html",
+    "uri": "010_manual/040_contributors.html",
     "menu": "-",
     "title": "moved",
-    "text": " document.location.href = '../10_about/20_what-is-doctoolchain.html'; "
+    "text": " document.location.href = '../10_about/30_community.html'; "
 },
 
 {
     "id": 49,
-    "uri": "ea/Architect_notes.html",
-    "menu": "ea",
-    "title": "Architect_notes.ad",
-    "text": " "
+    "uri": "010_manual/010_introduction_and_goals.html",
+    "menu": "-",
+    "title": "moved",
+    "text": " document.location.href = '../10_about/20_what-is-doctoolchain.html'; "
 },
 
 {
@@ -410,14 +410,6 @@ var documents = [
 
 {
     "id": 51,
-    "uri": "010_manual/040_contributors.html",
-    "menu": "-",
-    "title": "moved",
-    "text": " document.location.href = '../10_about/30_community.html'; "
-},
-
-{
-    "id": 52,
     "uri": "ea/Use_Cases_links.html",
     "menu": "ea",
     "title": "Use_Cases_links.ad",
@@ -425,7 +417,7 @@ var documents = [
 },
 
 {
-    "id": 53,
+    "id": 52,
     "uri": "ea/readme.html",
     "menu": "ea",
     "title": "readme.ad",
@@ -433,31 +425,7 @@ var documents = [
 },
 
 {
-    "id": 54,
-    "uri": "ea/Use_Cases_links_issue2.html",
-    "menu": "ea",
-    "title": "Use_Cases_links_issue2.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
-},
-
-{
-    "id": 55,
-    "uri": "ea/Use_Cases_notes_UseCases.html",
-    "menu": "ea",
-    "title": "Use_Cases_notes_UseCases.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
-},
-
-{
-    "id": 56,
-    "uri": "ea/UseCases.html",
-    "menu": "ea",
-    "title": "UseCases.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
-},
-
-{
-    "id": 57,
+    "id": 53,
     "uri": "ea/Architect_notes_issue2.html",
     "menu": "ea",
     "title": "Architect_notes_issue2.ad",
@@ -465,23 +433,15 @@ var documents = [
 },
 
 {
-    "id": 58,
-    "uri": "ea/Activity_notes.html",
+    "id": 54,
+    "uri": "ea/Architect_notes.html",
     "menu": "ea",
-    "title": "Activity_notes.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+    "title": "Architect_notes.ad",
+    "text": " "
 },
 
 {
-    "id": 59,
-    "uri": "025_development/005_contributing_to_docs.html",
-    "menu": "development",
-    "title": "Contributing to Docs",
-    "text": " Table of Contents Contributing to Docs Prerequisites Go to page you want to edit or fix Fork the Repository Edit the Page Commit the Changes Comparing changes Contributing to Docs 5 minutes to read The easiest way to contribute to this project is to contribute to the documentation. Here is a quick step-by-step guide on how to fix something on a documentation page. Prerequisites You need a github.com account. If you don&#8217;t have one, you can create one here: https://github.com/signup It might help if you go through the Github Hello World tutorial before you continue but it is not necessary. Go to page you want to edit or fix You already found this tutorial, so you already know how to go to the page you want to edit or fix. All documentation can be found at http://doctoolchain.org/ . The source code of each page is available at https://github.com/doctoolchain/doctoolchain/ in the /src/docs/ folder. But there is an easier way to find the exact source. The documentation pages all look something like this: In the upper right corner you can see the Improve this doc link: This will take you directly to the source of the page, already in edit mode. If you are not logged in, GitHub will ask you to do so. The Create an issue link will be helpful if you want to report a bug or request a feature for a page. It takes you directly to the issue tracker with a pre-filled issue. For now, let&#8217;s click on the Improve this doc link. Fork the Repository If you click the link for the first time, you will be asked to fork the repository. A fork is a copy of the repository. Maybe you are used to working on the main repository or a branch within the main repository. This is not possible in this case, because you don&#8217;t have write access, only read access. The solution is to fork the repository. This way, you create a copy in your own space, and you will have write access to it. Edit the Page You will now be taken to the page you want to edit already in edit mode. What you see is asciidoctor markup. Check out the {url-asciidoc-quick-reference}[AsciiDoc quick reference] for more information. The blue box on top tells you what you already know: a copy has been created for you and you are editing it. Important since you work on your own copy of the docs, you can&#8217;t break anything. You even don&#8217;t have write access to the main repository. So feel free to edit the page as you like. Use the Preview button to see what your edits will look like. Since this is only a preview and GitHub doesn&#8217;t know about docToolchain, this preview will only show you if your AsciiDoc syntax is correct. Some other features like the TOC or include statements will not be available in the preview. Do your edit and then Commit the Changes Below the editor, there is a small Propose Changes form. Enter a headline and a description of the changes you made and click Propose changes . This will save your changes to your fork of the repository. Note Git works with diffs - it only saves the changes you made, not a full copy of the new page. This is important to know if you want to understand the inner workings of Git. After you&#8217;ve clicked the button, you will be taken to a page which shows you what you changed. Comparing changes This view lets you review your changes. These diffs are not easy to read, but I promise that over time you get used to it. Red lines are deletions, green lines are additions. As you can see in the screenshot, I added an empty space in line 17. Line 17 has been deleted (red line) and replaced with a new line (green line). Line 1 looks mysterious, because it seems that is has been replaced with an identical copy. This is because the line ending changed but is not visible in the diff. The grey box on top shows you It is quite likely that you still know what you did a minute ago, so let&#8217;s click on the Create pull request button. "
-},
-
-{
-    "id": 60,
+    "id": 55,
     "uri": "ea/Use_Cases_notes.html",
     "menu": "ea",
     "title": "Use_Cases_notes.ad",
@@ -489,15 +449,23 @@ var documents = [
 },
 
 {
-    "id": 61,
-    "uri": "ea/issue1.html",
+    "id": 56,
+    "uri": "ea/Use_Cases_links_issue2.html",
     "menu": "ea",
-    "title": "issue1.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+    "title": "Use_Cases_links_issue2.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
 },
 
 {
-    "id": 62,
+    "id": 57,
+    "uri": "ea/Use_Cases_notes_UseCases.html",
+    "menu": "ea",
+    "title": "Use_Cases_notes_UseCases.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
+},
+
+{
+    "id": 58,
     "uri": "ea/issue2.html",
     "menu": "ea",
     "title": "issue2.ad",
@@ -505,7 +473,47 @@ var documents = [
 },
 
 {
+    "id": 59,
+    "uri": "ea/UseCases.html",
+    "menu": "ea",
+    "title": "UseCases.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
+},
+
+{
+    "id": 60,
+    "uri": "ea/Activity_notes.html",
+    "menu": "ea",
+    "title": "Activity_notes.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
+    "id": 61,
+    "uri": "025_development/005_contributing_to_docs.html",
+    "menu": "development",
+    "title": "Contributing to Docs",
+    "text": " Table of Contents Contributing to Docs Prerequisites Go to page you want to edit or fix Fork the Repository Edit the Page Commit the Changes Comparing changes Contributing to Docs 5 minutes to read The easiest way to contribute to this project is to contribute to the documentation. Here is a quick step-by-step guide on how to fix something on a documentation page. Prerequisites You need a github.com account. If you don&#8217;t have one, you can create one here: https://github.com/signup It might help if you go through the Github Hello World tutorial before you continue but it is not necessary. Go to page you want to edit or fix You already found this tutorial, so you already know how to go to the page you want to edit or fix. All documentation can be found at http://doctoolchain.org/ . The source code of each page is available at https://github.com/doctoolchain/doctoolchain/ in the /src/docs/ folder. But there is an easier way to find the exact source. The documentation pages all look something like this: In the upper right corner you can see the Improve this doc link: This will take you directly to the source of the page, already in edit mode. If you are not logged in, GitHub will ask you to do so. The Create an issue link will be helpful if you want to report a bug or request a feature for a page. It takes you directly to the issue tracker with a pre-filled issue. For now, let&#8217;s click on the Improve this doc link. Fork the Repository If you click the link for the first time, you will be asked to fork the repository. A fork is a copy of the repository. Maybe you are used to working on the main repository or a branch within the main repository. This is not possible in this case, because you don&#8217;t have write access, only read access. The solution is to fork the repository. This way, you create a copy in your own space, and you will have write access to it. Edit the Page You will now be taken to the page you want to edit already in edit mode. What you see is asciidoctor markup. Check out the {url-asciidoc-quick-reference}[AsciiDoc quick reference] for more information. The blue box on top tells you what you already know: a copy has been created for you and you are editing it. Important since you work on your own copy of the docs, you can&#8217;t break anything. You even don&#8217;t have write access to the main repository. So feel free to edit the page as you like. Use the Preview button to see what your edits will look like. Since this is only a preview and GitHub doesn&#8217;t know about docToolchain, this preview will only show you if your AsciiDoc syntax is correct. Some other features like the TOC or include statements will not be available in the preview. Do your edit and then Commit the Changes Below the editor, there is a small Propose Changes form. Enter a headline and a description of the changes you made and click Propose changes . This will save your changes to your fork of the repository. Note Git works with diffs - it only saves the changes you made, not a full copy of the new page. This is important to know if you want to understand the inner workings of Git. After you&#8217;ve clicked the button, you will be taken to a page which shows you what you changed. Comparing changes This view lets you review your changes. These diffs are not easy to read, but I promise that over time you get used to it. Red lines are deletions, green lines are additions. As you can see in the screenshot, I added an empty space in line 17. Line 17 has been deleted (red line) and replaced with a new line (green line). Line 1 looks mysterious, because it seems that is has been replaced with an identical copy. This is because the line ending changed but is not visible in the diff. The grey box on top shows you It is quite likely that you still know what you did a minute ago, so let&#8217;s click on the Create pull request button. "
+},
+
+{
+    "id": 62,
+    "uri": "ea/issue1.html",
+    "menu": "ea",
+    "title": "issue1.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
     "id": 63,
+    "uri": "025_development/010_setup_dev_env.html",
+    "menu": "development",
+    "title": "Setting Up a Dev Environment",
+    "text": " Table of Contents Setting Up a Dev Environment Before You Begin Do a Local Install for Docker and SDKMAN! Create Gradle-Independent Tasks Create or Change a Theme Special Functionality for Themes (Config Fragments) Setting Up a Dev Environment 4 minutes to read Before You Begin When you install docToolchain, all of the code is hidden. The information on this page explains how to get access to the code so you can customise the setup in your dev environment. Do a Local Install for Docker and SDKMAN! You need a local installation of docToolchain for development. Docker and SDKMAN! are derived from it. Docker simply contains a local install, and SDKMAN! installs docToolchain locally, but the location is controlled by SDKMAN! not docToolchain. The docToolchain-Wrapper installs docToolchain locally to $HOME/.doctoolchain/docToolchain-$v2.6.7/ . All task invocations through the docToolchain-Wrapper dtcw are redirected to $HOME/.doctoolchain/docToolchain-$v2.6.7/bin/doctoolchain . This shell script calls the Gradle-Wrapper for most tasks. What you need to do is: Create a local install which is connected to your GitHub fork of docToolchain. Create a folder called $HOME/.doctoolchain/docToolchain-2.0.0-dev/ . Check out the ng-branch of your fork to this folder. To use this version in your test project, edit the version at the start of your dtcw script to 2.0.0-dev . You now have the full repo locally cloned. To save memory, some parts of the repo are zipped. If you have problems, check out the prepareDist-Task . Create Gradle-Independent Tasks All tasks currently use Gradle to run. You can bypass Gradle for tasks where it doesn’t add any value (and make docToolchain run faster as a result!). To do this, use the bin/doctoolchain scripts and create a switch. Create or Change a Theme It’s not just the docToolchain code that is hidden. The themes for the static site generator jBake are also hidden. Follow these procedures to customise themes. How to Overwrite a Project Theme When docToolchain builds a static website, it first copies an internal theme to a temp folder, then copies an external theme (if defined) over it. Finally, it copies the project theme over the top. This gives you the opportunity to overwrite some parts of the theme on a per-project basis. To do this: Run the copyThemes task to copy the internal and external themes to the microsite.siteFolder . Check the files (take a look at jbake.org to get a better understanding). Modify the relevant files and delete all of the other files. How to Modify an Existing Theme or Create a Theme from Scratch As we have already mentioned, an external theme is simply a zipped copy of the 'microsite.siteFolder'. All themes are downloaded when referenced from a dtcw configuration, and are stored in $HOME/.doctoolchain/themes/[hash of url] . To modify an existing theme, go to its folder and check out the theme’s project instead of the downloaded copy. This will create a connection back to the GitHub repo so that you can modify the theme directly in $HOME/.doctoolchain/themes/[hash of url] . To create a new theme from scratch, use a simple md5 hash. For example, if you configure your new theme as myTheme then myTheme.md5() will be the hash. Special Functionality for Themes (Config Fragments) It’s likely that you will need a new config item for your self-generated theme. And you can also prompt users to set a value for this new config item when they install the theme for the first time. To do this, create a file called configFragment.groovy in the site folder of your theme. For example: // the title of the microsite, displayed in the upper-left corner // Example: my new site title = '##site-title##' The first line is the message that will be shown to the user (can be over several lines). The second line (starting with Example :) is the default value for the prompt. The third line is the config item itself. If the value is surrounded by ## , the user will be prompted for this value and it will be replaced with the user’s input. Otherwise the config item will be added without a prompt to the user’s current docToochainConfig.groovy . "
+},
+
+{
+    "id": 64,
     "uri": "025_development/050_who-uses-dtc.html",
     "menu": "-",
     "title": "moved",
@@ -513,19 +521,11 @@ var documents = [
 },
 
 {
-    "id": 64,
+    "id": 65,
     "uri": "025_development/030_create_new_release.html",
     "menu": "development",
     "title": "Creating a New Release",
     "text": " Table of Contents Creating a New Release Before You Begin GitHub Docker Hub Blog Post docToolchain-Wrapper (dtcw) SDKMAN! Creating a New Release 2 minutes to read Before You Begin We use semantic versioning and we also keep a changelog . All of this is done on a best-efforts basis. A release consists of five parts, each explained below. GitHub Update the version in gradle.properties . Update the changelog. Create a section for the version. Copy to the new section all unreleased features which will be in the release. Commit and push the new version. Draft a new release . Copy the contents of the changelog for this version to the description then submit. Set the version as v X.Y.Z. Run ./gradlew createDist to zip the source in build (the distribution file). Add the zipped file and submit the new release. Docker Hub Standard Image The image build for rdmueller/doctoolchain depends on the GitHub repo docToolchain/docker-image . Update the Dockerfile to reflect the new version. Create a new release . Reference the GitHub release in the changelog (the build on Dockerhub will be automatically triggered). Important! Currently, the autobuild only works for paying customers. To manually build and upload the image, download the repo, switch to branch ng-beta , cd to the alpine folder and execute docker build -t rdmueller/doctoolchain:v2.0.0-rc15 . . After that, use Docker Desktop to push the resulting image to Docker Hub. Jenkins CI Image update the version in the github action definition and run the action. Blog Post Create a blog post to announce the new release. The SDKMAN! announcement will reference it. docToolchain-Wrapper (dtcw) Everything went well? Great! Now let’s update the wrapper. The source of the rapper is now the main repository and we need to copy it over to the github pages. To do so, make sure that dtcw references the right version. dtcw dtcw.ps1 the dtcw.bat will be generated then navigate to https://github.com/docToolchain/doctoolchain.github.io/actions/workflows/update-dtcw.yml and trigger the action. SDKMAN! A GitHub action sdkman deploy has been created to deploy to SDKMAN! Set the version to the same as for the other releases, but without the prepended v: X.Y.Z. Use as a download link the link to the docToolchain-dist.zip from the GitHub release. Tip: the link looks like https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip . "
-},
-
-{
-    "id": 65,
-    "uri": "025_development/010_setup_dev_env.html",
-    "menu": "development",
-    "title": "Setting Up a Dev Environment",
-    "text": " Table of Contents Setting Up a Dev Environment Before You Begin Do a Local Install for Docker and SDKMAN! Create Gradle-Independent Tasks Create or Change a Theme Special Functionality for Themes (Config Fragments) Setting Up a Dev Environment 4 minutes to read Before You Begin When you install docToolchain, all of the code is hidden. The information on this page explains how to get access to the code so you can customise the setup in your dev environment. Do a Local Install for Docker and SDKMAN! You need a local installation of docToolchain for development. Docker and SDKMAN! are derived from it. Docker simply contains a local install, and SDKMAN! installs docToolchain locally, but the location is controlled by SDKMAN! not docToolchain. The docToolchain-Wrapper installs docToolchain locally to $HOME/.doctoolchain/docToolchain-$v2.6.7/ . All task invocations through the docToolchain-Wrapper dtcw are redirected to $HOME/.doctoolchain/docToolchain-$v2.6.7/bin/doctoolchain . This shell script calls the Gradle-Wrapper for most tasks. What you need to do is: Create a local install which is connected to your GitHub fork of docToolchain. Create a folder called $HOME/.doctoolchain/docToolchain-2.0.0-dev/ . Check out the ng-branch of your fork to this folder. To use this version in your test project, edit the version at the start of your dtcw script to 2.0.0-dev . You now have the full repo locally cloned. To save memory, some parts of the repo are zipped. If you have problems, check out the prepareDist-Task . Create Gradle-Independent Tasks All tasks currently use Gradle to run. You can bypass Gradle for tasks where it doesn’t add any value (and make docToolchain run faster as a result!). To do this, use the bin/doctoolchain scripts and create a switch. Create or Change a Theme It’s not just the docToolchain code that is hidden. The themes for the static site generator jBake are also hidden. Follow these procedures to customise themes. How to Overwrite a Project Theme When docToolchain builds a static website, it first copies an internal theme to a temp folder, then copies an external theme (if defined) over it. Finally, it copies the project theme over the top. This gives you the opportunity to overwrite some parts of the theme on a per-project basis. To do this: Run the copyThemes task to copy the internal and external themes to the microsite.siteFolder . Check the files (take a look at jbake.org to get a better understanding). Modify the relevant files and delete all of the other files. How to Modify an Existing Theme or Create a Theme from Scratch As we have already mentioned, an external theme is simply a zipped copy of the 'microsite.siteFolder'. All themes are downloaded when referenced from a dtcw configuration, and are stored in $HOME/.doctoolchain/themes/[hash of url] . To modify an existing theme, go to its folder and check out the theme’s project instead of the downloaded copy. This will create a connection back to the GitHub repo so that you can modify the theme directly in $HOME/.doctoolchain/themes/[hash of url] . To create a new theme from scratch, use a simple md5 hash. For example, if you configure your new theme as myTheme then myTheme.md5() will be the hash. Special Functionality for Themes (Config Fragments) It’s likely that you will need a new config item for your self-generated theme. And you can also prompt users to set a value for this new config item when they install the theme for the first time. To do this, create a file called configFragment.groovy in the site folder of your theme. For example: // the title of the microsite, displayed in the upper-left corner // Example: my new site title = '##site-title##' The first line is the message that will be shown to the user (can be over several lines). The second line (starting with Example :) is the default value for the prompt. The third line is the config item itself. If the value is surrounded by ## , the user will be prompted for this value and it will be replaced with the user’s input. Otherwise the config item will be added without a prompt to the user’s current docToochainConfig.groovy . "
 },
 
 {
@@ -546,18 +546,18 @@ var documents = [
 
 {
     "id": 68,
-    "uri": "020_tutorial/070_publishToConfluence.html",
-    "menu": "tutorial",
-    "title": "publishToConfluence",
-    "text": " Table of Contents Publish Your Docs to Confluence Step 1: Set Up docToolchain Step 2: Configure Confluence Access div.center { text-align: center;} img { box-shadow: 5px 5px 5px grey;} Publish Your Docs to Confluence There are times when you&#8217;ll want to publish your docs to Confluence, such as when you work in a team where not everyone wants to work with Git. docToolchain lets you publish your Git-based docs to Confluence alongside manually edited Confluence pages. Another situation is when you want to work with the arc42 template in Confluence. There are several ways to import the template, but most of them require admin access. To get around this, you can set up a fresh copy of the arc42 template in docToolchain and publish it to your Confluence instance. In this tutorial, you&#8217;ll learn how to publish the arc42 template to a Confluence cloud instance. For this tutorial, we will assume that you work with a Linux-based system. Step 1: Set Up docToolchain To set up docToolchain, follow these two tutorials: install docToolchain and get the arc42 template . &#160;&#160;&#160;mkdir publishToConfluenceDemo &#160;&#160;&#160;cd publishToConfluenceDemo curl -Lo dtcw doctoolchain.github.io/dtcw gitpod /workspace/publishToConfluenceDemo (main) $ curl -Lo dtcw doctoolchain.github.io/dtcw % Total % Received % Xferd Average Speed Time Time Time Current Dload Upload Total Spent Left Speed 100 162 100 162 0 0 1306 0 --:--:-- --:--:-- --:--:-- 1317 100 10724 100 10724 0 0 25903 0 --:--:-- --:--:-- --:--:-- 25903 &#160;&#160;&#160;chmod +x dtcw ./dtcw getJava ./dtcw: line 28: !false: command not found dtcw - docToolchain wrapper V0.31 docToolchain V2.0.5 docker available this script assumes that you have linux as operating system (x64 / linux) it now tries to install Java for you downloading JDK Temurin 11 from adoptiom to /home/gitpod/.doctoolchain/jdk.tar.gz WARNING: combining -O with -r or -p will mean that all downloaded content will be placed in the single file you specified. --2022-08-25 20:07:11-- https://api.adoptium.net/v3/binary/latest/11/ga/linux/x64/jdk/hotspot/normal/eclipse?project=jdk Resolving api.adoptium.net (api.adoptium.net)... 20.62.244.126 Connecting to api.adoptium.net (api.adoptium.net)|20.62.244.126|:443... connected. HTTP request sent, awaiting response... 307 Temporary Redirect Location: https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1%2B1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz [following] --2022-08-25 20:07:12-- https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1%2B1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz Resolving github.com (github.com)... 140.82.121.3 Connecting to github.com (github.com)|140.82.121.3|:443... connected. HTTP request sent, awaiting response... 302 Found Location: https://objects.githubusercontent.com/github-production-release-asset-2e65be/372924883/70b80b22-3dc5-4824-bb2d-d0158a3b9b57?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220825%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20220825T200712Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=887a715fcbd2e2d6bf24496f57b168ba2204f0f81794a66615ab53a7b153ed37&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;key_id=0&amp;repo_id=372924883&amp;response-content-disposition=attachment%3B%20filename%3DOpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz&amp;response-content-type=application%2Foctet-stream [following] --2022-08-25 20:07:12-- https://objects.githubusercontent.com/github-production-release-asset-2e65be/372924883/70b80b22-3dc5-4824-bb2d-d0158a3b9b57?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220825%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20220825T200712Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=887a715fcbd2e2d6bf24496f57b168ba2204f0f81794a66615ab53a7b153ed37&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;key_id=0&amp;repo_id=372924883&amp;response-content-disposition=attachment%3B%20filename%3DOpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz&amp;response-content-type=application%2Foctet-stream Resolving objects.githubusercontent.com (objects.githubusercontent.com)... 185.199.109.133, 185.199.111.133, 185.199.108.133, ... Connecting to objects.githubusercontent.com (objects.githubusercontent.com)|185.199.109.133|:443... connected. HTTP request sent, awaiting response... 200 OK Length: 193754645 (185M) [application/octet-stream] Saving to: ‘/home/gitpod/.doctoolchain/jdk/jdk.tar.gz’ /home/gitpod/.doctoolchain/jdk 100%[====================================================&gt;] 184.78M 310MB/s in 0.6s 2022-08-25 20:07:13 (310 MB/s) - ‘/home/gitpod/.doctoolchain/jdk/jdk.tar.gz’ saved [193754645/193754645] FINISHED --2022-08-25 20:07:13-- Total wall clock time: 1.7s Downloaded: 1 files, 185M in 0.6s (310 MB/s) expanding JDK Now comes the part where you have to answer some questions, and lots of .jar files get downloaded. ./dtcw tasks dtcw - docToolchain wrapper V0.31 docToolchain V2.0.5 local java JDK found use /home/gitpod/.doctoolchain/jdk as JDK docker available force use of local install docToolchain not installed. sdkman not found Do you wish to install doctoolchain to /home/gitpod/.doctoolchain? 1) Yes 2) No #? 1 installing doctoolchain mkdir: cannot create directory ‘/home/gitpod/.doctoolchain’: File exists % Total % Received % Xferd Average Speed Time Time Time Current Dload Upload Total Spent Left Speed 0 0 0 0 0 0 0 0 --:--:-- --:--:-- --:--:-- 0 100 1783k 100 1783k 0 0 2857k 0 --:--:-- --:--:-- --:--:-- 2857k Archive: /home/gitpod/.doctoolchain/source.zip creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/ creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/bin/ inflating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/bin/autobuildSite.bash inflating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/bin/doctoolchain [152 lines omitted] inflating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/template_config/pdfTheme/custom-theme.yml creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/resources/ creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/resources/asciidoctor-reveal.js/ creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/resources/reveal.js/ Picked up JAVA_TOOL_OPTIONS: -Xmx3489m Downloading https://services.gradle.org/distributions/gradle-6.9.2-bin.zip ..........10%..........20%..........30%...........40%..........50%..........60%..........70%...........80%..........90%..........100% Welcome to Gradle 6.9.2! Here are the highlights of this release: - This is a small backport release. - Java 16 can be used to compile when used with Java toolchains - Dynamic versions can be used within plugin declarations - Native support for Apple Silicon processors For more details see https://docs.gradle.org/6.9.2/release-notes.html To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/6.9.2/userguide/gradle_daemon.html#sec:disabling_the_daemon. Daemon will be stopped at the end of the build &gt; Configure project : Config file '/workspace/publishToConfluenceDemo/docToolchainConfig.groovy' does not exist' [ant:input] [ant:input] do you want me to create a default one for you? (y, n) &lt;&lt;-------------&gt; 0% CONFIGURING [2m 55s] &gt; Task :help Welcome to Gradle 6.9.2. To run a build, run gradlew &lt;task&gt; ... To see a list of available tasks, run gradlew tasks To see a list of command-line options, run gradlew --help To see more detail about a task, run gradlew help --task &lt;task&gt; For troubleshooting, visit https://help.gradle.org BUILD SUCCESSFUL in 3m 29s 1 actionable task: 1 executed ./dtcw downloadTemplate dtcw - docToolchain wrapper V0.31 docToolchain V2.0.5 local java JDK found use /home/gitpod/.doctoolchain/jdk as JDK docker available home folder exists use local homefolder install /home/gitpod/.doctoolchain/ Picked up JAVA_TOOL_OPTIONS: -Xmx3489m To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/6.9.2/userguide/gradle_daemon.html#sec:disabling_the_daemon. Daemon will be stopped at the end of the build &gt; Task :downloadTemplate Install arc42 documentation template. For more information about arc42 see https://arc42.org [ant:input] Which language do you want to install? (EN, DE, ES, RU) &lt;-&lt;-------------&gt; 0% EXECUTING [11s] [ant:input] Do you want the template with or without help? (withhelp, plain) &lt;-&lt;&lt;-&lt;--&lt;-------------&gt; 0% EXECUTING [17s] Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-EN-withhelp-asciidoc.zip arc42 template unpacked into /workspace/publishToConfluenceDemo/src/docs/arc42 added template to docToolchainConfig.groovy use 'generateHTML', 'generatePDF' or 'generateSite' to convert the template BUILD SUCCESSFUL in 22s 1 actionable task: 1 executed You should have now the following folder structure in place: tree . ├── docToolchainConfig.groovy ├── dtcw └── src └── docs ├── arc42 │ ├── arc42.adoc │ └── chapters │ ├── 01_introduction_and_goals.adoc │ ├── 02_architecture_constraints.adoc │ ├── 03_system_scope_and_context.adoc │ ├── 04_solution_strategy.adoc │ ├── 05_building_block_view.adoc │ ├── 06_runtime_view.adoc │ ├── 07_deployment_view.adoc │ ├── 08_concepts.adoc │ ├── 09_architecture_decisions.adoc │ ├── 10_quality_requirements.adoc │ ├── 11_technical_risks.adoc │ ├── 12_glossary.adoc │ ├── about-arc42.adoc │ └── config.adoc └── images ├── 01_2_iso-25010-topics-EN.png ├── 05_building_blocks-EN.png ├── 08-Crosscutting-Concepts-Structure-EN.png └── arc42-logo.png 5 directories, 21 files Step 2: Configure Confluence Access Now I will show you how to configure access to the Confluence API. As an example, I&#8217;ll use the file docToolchainConfig.groovy and search for confluence.with . This is the start of the Confluence configuration section. As you can see, there is already an example configured as input for the publishToConfluence -Task. But since it&#8217;s only an example, I have to configure it to point to the file generated by ./dtcw generateHTML . Here is the correct config: input = [ [ file: build/html5/arc42/arc42.html ], ] Next, I&#8217;ll set up the API endpoint: api = 'https://[yourServer]/[context]/rest/api/' In my case, I want to publish to https://arc42-template.atlassian.net . My first guess is that the correct endpoint is https://arc42-template.atlassian.net/wiki/rest/api/ and I can verify this by appending user/current to this URL. https://arc42-template.atlassian.net/wiki/rest/api/user/current This results in the following output, and proves that I got the right endpoint (no 404). { type:anonymous, profilePicture:{ path:/wiki/s/-93606273/6452/1a34f7853d41f548e0ef8f60a80cc50468126739/_/images/icons/profilepics/anonymous.png, width:48, height:48, isDefault:true }, displayName:Anonymous, isExternalCollaborator:false, _expandable:{operations:}, _links:{ base:https://arc42-template.atlassian.net/wiki, context:/wiki } } As you can see, this API endpoint works as a GET request without being logged in! I created a space called arc42 V8 flat English with the space-key 8FE . So I configure it accordingly: // the key of the confluence space to write to spaceKey = '8FE' Now comes the hardest part. The configuration of the credentials. Since I use a cloud instance, I can use an access token. This has to be generated from my central Atlassian account. Navigate to your Profile Manage your Account Security &gt; API token &gt; Create and manage API tokens Here is the shortcut to this page. Now, click on Create API token . To keep things simple, I will copy this token to the config. (When you use the API token, you have to use your email as your username and the token as the password.) So we don&#8217;t store the credentials in the config file, we pass them with the ./dtcw command: ./dtcw publishToConfluence -PconfluenceUser=&lt;your email&gt; -PconfluencePass=&lt;your api-token&gt; dtcw - docToolchain wrapper V0.31 docToolchain V2.0.5 local java JDK found use /home/gitpod/.doctoolchain/jdk as JDK docker available home folder exists use local homefolder install /home/gitpod/.doctoolchain/ Picked up JAVA_TOOL_OPTIONS: -Xmx3489m To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/6.9.2/userguide/gradle_daemon.html#sec:disabling_the_daemon. Daemon will be stopped at the end of the build &gt; Task :publishToConfluence publish /workspace/publishToConfluenceDemo/build/html5/arc42/arc42.html arc42 Start getting headers &gt; created page 2033844225 1. Introduction and Goals Start getting headers image: ../images/01_2_iso-25010-topics-EN.png allPages already retrieved &gt; created page 2033909761 Start getting headers 2. Architecture Constraints Start getting headers allPages already retrieved &gt; created page 2033975297 3. System Scope and Context Start getting headers allPages already retrieved &gt; created page 2034008065 4. Solution Strategy Start getting headers allPages already retrieved &gt; created page 2034040833 5. Building Block View Start getting headers image: ../images/05_building_blocks-EN.png allPages already retrieved &gt; created page 2034073601 Start getting headers 6. Runtime View Start getting headers allPages already retrieved &gt; created page 2034139137 7. Deployment View Start getting headers allPages already retrieved &gt; created page 2034106374 8. Cross-cutting Concepts Start getting headers image: ../images/08-Crosscutting-Concepts-Structure-EN.png allPages already retrieved &gt; created page 2034139152 Start getting headers 9. Architecture Decisions Start getting headers allPages already retrieved &gt; created page 2034040848 10. Quality Requirements Start getting headers This command will first run the task generateHTML and then create one Confluence page for each arc42-chapter. "
-},
-
-{
-    "id": 69,
     "uri": "020_tutorial/030_generateHTML.html",
     "menu": "tutorial",
     "title": "generateHTML &amp; generatePDF",
     "text": " Table of Contents generateHTML &amp; generatePDF Configuration generateHTML &amp; generatePDF generateHTML and generatePDF are basic tasks which invoke Asciidoctor to generate the output you want. Linux / WSL2 with bash ./dtcw generateHTML Windows with Powershell ./dtcw.ps1 generateHTML output of generateHTML $ ./dtcw generateHTML dtcw - docToolchain wrapper V0.23 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists use local homefolder install /home/rdmueller/.doctoolchain/ Starting a Gradle Daemon, 22 busy Daemons could not be reused, use --status for details &gt; Configure project : arc42/arc42.adoc &gt; Task :generateHTML Converting /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42/arc42.adoc BUILD SUCCESSFUL in 26s 1 actionable task: 1 executed The output is written to build/html5/arc42/arc42.html and build/pdf/arc42/Arc42.pdf . Figure 1. generated output of generateHTML task As you can see in Figure 1 , HTML output is rendered as a single page with a table of contents (TOC) on the left. If using the withhelp version, help appears behind question mark icons on the right side of the page. When readers hold their mouse over each icon, help appears. Figure 2. generated output of generatePDF task Figure 2 shows you the PDF output. There is a TOC available on the first pages, and a TOC also appears on the left, helping readers navigate the document. Both HTML and PDF outputs can be styled to suit your needs. Configuration Files to convert For both tasks, the most important configuration is inputFiles -list at the start of your docToolchainConfig.groovy inputFiles = [ //[file: 'doctoolchain_demo.adoc', formats: ['html','pdf']], //[file: 'arc42-template.adoc', formats: ['html','pdf']], /** inputFiles **/ ] Normally, Asciidoctor converts all files it can find. For documents structured using includes, to create a full document (and avoid each chapter being converted to an individual PDF) you&#8217;ll need a main AsciiDoc file that includes all chapters. The inputFiles -map lists all of the main files as well as a list of formats applicable to each. For example, this lets you specify which files should be converted to HTML but not to PDF. You will need to configure this list manually. If docToolchain converts an unexpected list of files, this is the first place to look when troubleshooting problems. Working with the PDF style First, execute ./dtcw copyTheme to copy a simple pdfTheme to your own project. Find it in /src/docs/pdfTheme . Currently, docToolchain uses the asciidoctor-pdf library. The documentation contains a good theming guide . To activate the new style, you have to tell Asciidoctor where to find it. For maximum flexibility, specify the location and other PDF-related attributes in the file that you want to convert. The most important ones are: :pdf-stylesdir: ../pdfTheme :pdf-style: custom // only needed when you specify your own fonts :pdf-fontsdir: ../pdfTheme/fonts For this tutorial, navigate to src/docs/arc42/arc42.adoc then add the following to the top of the document: :pdf-stylesdir: ../pdfTheme :pdf-style: custom This will specify that AsciiDoc will find the pdfTheme relative to the document location in ../pdfTheme which will result in src/docs/arc42/../pdfTheme which is equal to src/docs/pdfTheme . You can also make use of the attribute {projectRootDir} which will contain the absolute path to your project directory. For example :pdf-stylesdir: {projectRootDir}/src/docs/pdfTheme will search in /home/myname/projects/demo /src/docs/pdfTheme for the theme. If you want to use the {projectRootDir} in your editor preview, you must define it as a relative path: ifndef:projectRootDir[:projectRootDir: ../../..] When added to the top of your arc42.adoc tutorial file, this will set the projectRootDir to the correct folder. Working with the HTML style The easiest way to modify the HTML style is to add a pass-through block with the required CSS styles. ++++ &lt;style&gt; h2 { color: green; } &lt;/style&gt; ++++ For the generate Site task, there is a different mechanism to change the styles if the generated microsite. "
+},
+
+{
+    "id": 69,
+    "uri": "020_tutorial/070_publishToConfluence.html",
+    "menu": "tutorial",
+    "title": "publishToConfluence",
+    "text": " Table of Contents Publish Your Docs to Confluence Step 1: Set Up docToolchain Step 2: Configure Confluence Access div.center { text-align: center;} img { box-shadow: 5px 5px 5px grey;} Publish Your Docs to Confluence There are times when you&#8217;ll want to publish your docs to Confluence, such as when you work in a team where not everyone wants to work with Git. docToolchain lets you publish your Git-based docs to Confluence alongside manually edited Confluence pages. Another situation is when you want to work with the arc42 template in Confluence. There are several ways to import the template, but most of them require admin access. To get around this, you can set up a fresh copy of the arc42 template in docToolchain and publish it to your Confluence instance. In this tutorial, you&#8217;ll learn how to publish the arc42 template to a Confluence cloud instance. For this tutorial, we will assume that you work with a Linux-based system. Step 1: Set Up docToolchain To set up docToolchain, follow these two tutorials: install docToolchain and get the arc42 template . &#160;&#160;&#160;mkdir publishToConfluenceDemo &#160;&#160;&#160;cd publishToConfluenceDemo curl -Lo dtcw doctoolchain.github.io/dtcw gitpod /workspace/publishToConfluenceDemo (main) $ curl -Lo dtcw doctoolchain.github.io/dtcw % Total % Received % Xferd Average Speed Time Time Time Current Dload Upload Total Spent Left Speed 100 162 100 162 0 0 1306 0 --:--:-- --:--:-- --:--:-- 1317 100 10724 100 10724 0 0 25903 0 --:--:-- --:--:-- --:--:-- 25903 &#160;&#160;&#160;chmod +x dtcw ./dtcw getJava ./dtcw: line 28: !false: command not found dtcw - docToolchain wrapper V0.31 docToolchain V2.0.5 docker available this script assumes that you have linux as operating system (x64 / linux) it now tries to install Java for you downloading JDK Temurin 11 from adoptiom to /home/gitpod/.doctoolchain/jdk.tar.gz WARNING: combining -O with -r or -p will mean that all downloaded content will be placed in the single file you specified. --2022-08-25 20:07:11-- https://api.adoptium.net/v3/binary/latest/11/ga/linux/x64/jdk/hotspot/normal/eclipse?project=jdk Resolving api.adoptium.net (api.adoptium.net)... 20.62.244.126 Connecting to api.adoptium.net (api.adoptium.net)|20.62.244.126|:443... connected. HTTP request sent, awaiting response... 307 Temporary Redirect Location: https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1%2B1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz [following] --2022-08-25 20:07:12-- https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1%2B1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz Resolving github.com (github.com)... 140.82.121.3 Connecting to github.com (github.com)|140.82.121.3|:443... connected. HTTP request sent, awaiting response... 302 Found Location: https://objects.githubusercontent.com/github-production-release-asset-2e65be/372924883/70b80b22-3dc5-4824-bb2d-d0158a3b9b57?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220825%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20220825T200712Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=887a715fcbd2e2d6bf24496f57b168ba2204f0f81794a66615ab53a7b153ed37&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;key_id=0&amp;repo_id=372924883&amp;response-content-disposition=attachment%3B%20filename%3DOpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz&amp;response-content-type=application%2Foctet-stream [following] --2022-08-25 20:07:12-- https://objects.githubusercontent.com/github-production-release-asset-2e65be/372924883/70b80b22-3dc5-4824-bb2d-d0158a3b9b57?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220825%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20220825T200712Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=887a715fcbd2e2d6bf24496f57b168ba2204f0f81794a66615ab53a7b153ed37&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;key_id=0&amp;repo_id=372924883&amp;response-content-disposition=attachment%3B%20filename%3DOpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz&amp;response-content-type=application%2Foctet-stream Resolving objects.githubusercontent.com (objects.githubusercontent.com)... 185.199.109.133, 185.199.111.133, 185.199.108.133, ... Connecting to objects.githubusercontent.com (objects.githubusercontent.com)|185.199.109.133|:443... connected. HTTP request sent, awaiting response... 200 OK Length: 193754645 (185M) [application/octet-stream] Saving to: ‘/home/gitpod/.doctoolchain/jdk/jdk.tar.gz’ /home/gitpod/.doctoolchain/jdk 100%[====================================================&gt;] 184.78M 310MB/s in 0.6s 2022-08-25 20:07:13 (310 MB/s) - ‘/home/gitpod/.doctoolchain/jdk/jdk.tar.gz’ saved [193754645/193754645] FINISHED --2022-08-25 20:07:13-- Total wall clock time: 1.7s Downloaded: 1 files, 185M in 0.6s (310 MB/s) expanding JDK Now comes the part where you have to answer some questions, and lots of .jar files get downloaded. ./dtcw tasks dtcw - docToolchain wrapper V0.31 docToolchain V2.0.5 local java JDK found use /home/gitpod/.doctoolchain/jdk as JDK docker available force use of local install docToolchain not installed. sdkman not found Do you wish to install doctoolchain to /home/gitpod/.doctoolchain? 1) Yes 2) No #? 1 installing doctoolchain mkdir: cannot create directory ‘/home/gitpod/.doctoolchain’: File exists % Total % Received % Xferd Average Speed Time Time Time Current Dload Upload Total Spent Left Speed 0 0 0 0 0 0 0 0 --:--:-- --:--:-- --:--:-- 0 100 1783k 100 1783k 0 0 2857k 0 --:--:-- --:--:-- --:--:-- 2857k Archive: /home/gitpod/.doctoolchain/source.zip creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/ creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/bin/ inflating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/bin/autobuildSite.bash inflating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/bin/doctoolchain [152 lines omitted] inflating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/template_config/pdfTheme/custom-theme.yml creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/resources/ creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/resources/asciidoctor-reveal.js/ creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/resources/reveal.js/ Picked up JAVA_TOOL_OPTIONS: -Xmx3489m Downloading https://services.gradle.org/distributions/gradle-6.9.2-bin.zip ..........10%..........20%..........30%...........40%..........50%..........60%..........70%...........80%..........90%..........100% Welcome to Gradle 6.9.2! Here are the highlights of this release: - This is a small backport release. - Java 16 can be used to compile when used with Java toolchains - Dynamic versions can be used within plugin declarations - Native support for Apple Silicon processors For more details see https://docs.gradle.org/6.9.2/release-notes.html To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/6.9.2/userguide/gradle_daemon.html#sec:disabling_the_daemon. Daemon will be stopped at the end of the build &gt; Configure project : Config file '/workspace/publishToConfluenceDemo/docToolchainConfig.groovy' does not exist' [ant:input] [ant:input] do you want me to create a default one for you? (y, n) &lt;&lt;-------------&gt; 0% CONFIGURING [2m 55s] &gt; Task :help Welcome to Gradle 6.9.2. To run a build, run gradlew &lt;task&gt; ... To see a list of available tasks, run gradlew tasks To see a list of command-line options, run gradlew --help To see more detail about a task, run gradlew help --task &lt;task&gt; For troubleshooting, visit https://help.gradle.org BUILD SUCCESSFUL in 3m 29s 1 actionable task: 1 executed ./dtcw downloadTemplate dtcw - docToolchain wrapper V0.31 docToolchain V2.0.5 local java JDK found use /home/gitpod/.doctoolchain/jdk as JDK docker available home folder exists use local homefolder install /home/gitpod/.doctoolchain/ Picked up JAVA_TOOL_OPTIONS: -Xmx3489m To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/6.9.2/userguide/gradle_daemon.html#sec:disabling_the_daemon. Daemon will be stopped at the end of the build &gt; Task :downloadTemplate Install arc42 documentation template. For more information about arc42 see https://arc42.org [ant:input] Which language do you want to install? (EN, DE, ES, RU) &lt;-&lt;-------------&gt; 0% EXECUTING [11s] [ant:input] Do you want the template with or without help? (withhelp, plain) &lt;-&lt;&lt;-&lt;--&lt;-------------&gt; 0% EXECUTING [17s] Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-EN-withhelp-asciidoc.zip arc42 template unpacked into /workspace/publishToConfluenceDemo/src/docs/arc42 added template to docToolchainConfig.groovy use 'generateHTML', 'generatePDF' or 'generateSite' to convert the template BUILD SUCCESSFUL in 22s 1 actionable task: 1 executed You should have now the following folder structure in place: tree . ├── docToolchainConfig.groovy ├── dtcw └── src └── docs ├── arc42 │ ├── arc42.adoc │ └── chapters │ ├── 01_introduction_and_goals.adoc │ ├── 02_architecture_constraints.adoc │ ├── 03_system_scope_and_context.adoc │ ├── 04_solution_strategy.adoc │ ├── 05_building_block_view.adoc │ ├── 06_runtime_view.adoc │ ├── 07_deployment_view.adoc │ ├── 08_concepts.adoc │ ├── 09_architecture_decisions.adoc │ ├── 10_quality_requirements.adoc │ ├── 11_technical_risks.adoc │ ├── 12_glossary.adoc │ ├── about-arc42.adoc │ └── config.adoc └── images ├── 01_2_iso-25010-topics-EN.png ├── 05_building_blocks-EN.png ├── 08-Crosscutting-Concepts-Structure-EN.png └── arc42-logo.png 5 directories, 21 files Step 2: Configure Confluence Access Now I will show you how to configure access to the Confluence API. As an example, I&#8217;ll use the file docToolchainConfig.groovy and search for confluence.with . This is the start of the Confluence configuration section. As you can see, there is already an example configured as input for the publishToConfluence -Task. But since it&#8217;s only an example, I have to configure it to point to the file generated by ./dtcw generateHTML . Here is the correct config: input = [ [ file: build/html5/arc42/arc42.html ], ] Next, I&#8217;ll set up the API endpoint: api = 'https://[yourServer]/[context]/rest/api/' In my case, I want to publish to https://arc42-template.atlassian.net . My first guess is that the correct endpoint is https://arc42-template.atlassian.net/wiki/rest/api/ and I can verify this by appending user/current to this URL. https://arc42-template.atlassian.net/wiki/rest/api/user/current This results in the following output, and proves that I got the right endpoint (no 404). { type:anonymous, profilePicture:{ path:/wiki/s/-93606273/6452/1a34f7853d41f548e0ef8f60a80cc50468126739/_/images/icons/profilepics/anonymous.png, width:48, height:48, isDefault:true }, displayName:Anonymous, isExternalCollaborator:false, _expandable:{operations:}, _links:{ base:https://arc42-template.atlassian.net/wiki, context:/wiki } } As you can see, this API endpoint works as a GET request without being logged in! I created a space called arc42 V8 flat English with the space-key 8FE . So I configure it accordingly: // the key of the confluence space to write to spaceKey = '8FE' Now comes the hardest part. The configuration of the credentials. Since I use a cloud instance, I can use an access token. This has to be generated from my central Atlassian account. Navigate to your Profile Manage your Account Security &gt; API token &gt; Create and manage API tokens Here is the shortcut to this page. Now, click on Create API token . To keep things simple, I will copy this token to the config. (When you use the API token, you have to use your email as your username and the token as the password.) So we don&#8217;t store the credentials in the config file, we pass them with the ./dtcw command: ./dtcw publishToConfluence -PconfluenceUser=&lt;your email&gt; -PconfluencePass=&lt;your api-token&gt; dtcw - docToolchain wrapper V0.31 docToolchain V2.0.5 local java JDK found use /home/gitpod/.doctoolchain/jdk as JDK docker available home folder exists use local homefolder install /home/gitpod/.doctoolchain/ Picked up JAVA_TOOL_OPTIONS: -Xmx3489m To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/6.9.2/userguide/gradle_daemon.html#sec:disabling_the_daemon. Daemon will be stopped at the end of the build &gt; Task :publishToConfluence publish /workspace/publishToConfluenceDemo/build/html5/arc42/arc42.html arc42 Start getting headers &gt; created page 2033844225 1. Introduction and Goals Start getting headers image: ../images/01_2_iso-25010-topics-EN.png allPages already retrieved &gt; created page 2033909761 Start getting headers 2. Architecture Constraints Start getting headers allPages already retrieved &gt; created page 2033975297 3. System Scope and Context Start getting headers allPages already retrieved &gt; created page 2034008065 4. Solution Strategy Start getting headers allPages already retrieved &gt; created page 2034040833 5. Building Block View Start getting headers image: ../images/05_building_blocks-EN.png allPages already retrieved &gt; created page 2034073601 Start getting headers 6. Runtime View Start getting headers allPages already retrieved &gt; created page 2034139137 7. Deployment View Start getting headers allPages already retrieved &gt; created page 2034106374 8. Cross-cutting Concepts Start getting headers image: ../images/08-Crosscutting-Concepts-Structure-EN.png allPages already retrieved &gt; created page 2034139152 Start getting headers 9. Architecture Decisions Start getting headers allPages already retrieved &gt; created page 2034040848 10. Quality Requirements Start getting headers This command will first run the task generateHTML and then create one Confluence page for each arc42-chapter. "
 },
 
 {
@@ -586,6 +586,14 @@ var documents = [
 
 {
     "id": 73,
+    "uri": "020_tutorial/010_Install.html",
+    "menu": "tutorial",
+    "title": "Install docToolchain",
+    "text": " Table of Contents Welcome! Installing docToolchain Getting the Wrapper Configure the Wrapper Running your First Command Welcome! Nice to meet you. Glad that you want to learn more about using docToolchain. Start by installing what you need. The following steps are the same as described in the User Docs. Please follow them step by step. You are prompted to install everything you need for each step. If you encounter problems, create a GitHub issue and the community will help you. Installing docToolchain 7 minutes to read Getting the Wrapper Basically all you need to work with docToolchain is a simple wrapper script taking care of everything. (If you already worked with an older version of docToolchain please note that the way it is installed has changed since the v2.x release.) This wrapper helps by: Ensuring that everyone using your repository uses the same docToolchain version. Keeping all docToolchain technology out of your repository. Wrapping your commands and directing them to your local installation. Checking your docToolchain installation (if not installed, the wrapper will do it for you via direct download or Docker). This guide explains how to set up docToolchain in the following environments: A Linux/WSL2 with bash Windows with PowerShell Windows with cmd.exe Please select the appropriate setup and follow these instructions to install docToolchain step by step. If you are going to use docToolchain in different projects install the dtcw (docToolchainWrapper) for each one. docToolchain itself will only be installed once in your home folder. Linux / WSL2 with bash cd &lt;your project&gt; curl -Lo dtcw doctoolchain.github.io/dtcw chmod +x dtcw if you don&#8217;t have curl installed, you can also use wget : cd &lt;your project&gt; wget doctoolchain.github.io/dtcw chmod +x dtcw Windows with Powershell cd &lt;your project&gt; Invoke-WebRequest doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1 Got an error message that you are not allowed to execute powershell scripts? Try to switch to an unrestricted powershell by executing powershell.exe -ExecutionPolicy Unrestricted . Windows with cmd.exe cd &lt;your project&gt; curl -Lo dtcw.bat doctoolchain.github.io/dtcw.bat dtcw.bat wraps the dtcw.ps1 script and executes it in powershell. This might be easier to use if you haven&#8217;t yet configured your powershell as a developer. In order to support development for your project on both, Linux and Windows, it makes sense to download all three scripts to your project. dtcw uses bash as shell and thus tries to find java from within bash. Chances are that when you use dtcw from another shell like zsh, you shell knows about the right java version but your bash doesn&#8217;t. In that case, please switch to bash and make sure that the right java version is known. Afterwards, you can switch back to your shell. Configure the Wrapper There is no need to configure the wrapper itself if you have just downloaded it. In this case, just skip to Running your First Command . But from time to time you should check github to see if there are new releases you want to use. In this case, open dtcw in your favourite editor and look for the VERSION -line at the start of the file: # find official release versions on github: # https://github.com/docToolchain/docToolchain/releases # set VERSION to latest to get the unreleased latest version VERSION=2.0.5 Update it to match the latest release and and everything will be updated with the next run. this will not update the wrapper (dtcw) itself. If you think you should update the wrapper, please re-install it. There are some situation where you want to test a not-yet-released feature. In such a case, you can set the VERSION to latest and dtcw will clone or pull the current default branch of the project. This only works with a local copy, not with a docker install. You can also use latestdev as version. In this case, dtcw will try to clone the repository with the ssh-git protocoll. This way, you can easily point it to your fork and develop new features for docToolchain. You will find the fork in $HOME/.doctoolchain/docToolchain-latest . latest and latestdev currently only work with the bash version of the wrapper. Running your First Command To get started with docToolchain, run tasks as the first command: Linux / WSL2 with bash ./dtcw tasks --group=doctoolchain Windows with Powershell ./dtcw.ps1 tasks --group=doctoolchain Windows with cmd.exe dtcw.bat tasks --group=doctoolchain This command shows all docToolchain tasks and verifies that docToolchain is installed by doing the following: Checking for a configuration file (and create one if none exist). Prefers a local installation. Making use of Docker (if available) where there is no local installation. If this is your first time installing docToolchain, the images download might take a while. if docker is not available, it will download and install docToolchain to your home folder it will then run a gradle build through the gradle wrapper. If this is your first time, it will download and install gradle. the gradle build will also fetch some dependencies. This will also take a while if run for the first time.. if you are behind a corporate proxy, you might need to consider build-script dependencies are fetched from a repository referenced by the property mavenRepository . By default the value https://plugins.gradle.org/m2/ is used. When a repository requiring credentials is used the properties mavenUsername and mavenPassword can be set as well. Example command passing a custom maven repository with credentials from the command line ./gradlew generateHTML -PmavenRepository=your_maven_repo -PmavenUsername=your_username -PmavenPassword=your_pw --info You&#8217;ll notice the installation is an incremental process and will take a while because of all the additional dependencies needed. After the first few commands, you&#8217;ll have all the required dependencies installed and things will run faster. === Problems &amp; solutions ==== dtcw doesn&#8217;t run You might get an error similiar to this one: ./dtcw local tasks --group=doctoolchain ./dtcw: line 1: syntax error near unexpected token `newline' ./dtcw: line 1: `&lt;!DOCTYPE html&gt;' If you see that, it&#8217;s likely that the wrapper didn&#8217;t download correctly. You can expect that an HTML page was downloaded instead of the wrapper. Please try to redownload the wrapper. ==== docker throws and error with dtcw On windows you might get the following error Error response from daemon: user declined directory sharing C:\Users\path_to_my_folder This means that docker wanted to share the named folder (possibly the repo) but didn&#8217;t have the rights. This means you have to share the folder yourself on docker. Go to docker dashboard &#8594; settings &#8594; Resources &#8594; FileSharing. Add required folder and hit Apply &amp; Restart. ==== Incompatible Java version You may see that docToolchain starts but crashes with a stacktrace that starts like this: * What went wrong: Could not compile settings file '/Users/falk/.doctoolchain/docToolchain-2.0.0/settings.gradle'. &gt; startup failed: General error during semantic analysis: Unsupported class file major version 61 java.lang.IllegalArgumentException: Unsupported class file major version 61 In this case, you&#8217;ve got an incompatible version of Java. dtcw tries to check the Java version up front by running java --version , but Gradle sometimes picks up a different version. If you get a similar error, try reinstalling a compatible Java version. "
+},
+
+{
+    "id": 74,
     "uri": "020_tutorial/120_self-contained-dtc.html",
     "menu": "tutorial",
     "title": "Self-Contained docToolchain",
@@ -593,19 +601,11 @@ var documents = [
 },
 
 {
-    "id": 74,
+    "id": 75,
     "uri": "020_tutorial/040_generateSite.html",
     "menu": "tutorial",
     "title": "generateSite",
     "text": " Table of Contents generateSite generateSite The generateSite task is more advanced. In many cases, your goal will not be to create a single HTML document but a whole documentation website. This is where generateSite shines. It uses a static site generator to turn your document into a nice looking microsite with landing-page, local search and edit links. Linux / WSL2 with bash ./dtcw generateSite Windows with Powershell ./dtcw.ps1 generateSite output of generateHTML $ ./dtcw docker generateSite dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists force use of docker /usr/bin/docker use docker installation Starting a Gradle Daemon (subsequent builds will be faster) &gt; Configure project : arc42/arc42.adoc &gt; Task :generateSite created /project/build/microsite/tmp copy internal theme /home/dtcuser/docToolchain/src/site copy project theme /project/src/site &gt; Task :copyImages &gt; Task :bake Warning: Nashorn engine is planned to be removed from a future JDK release BUILD SUCCESSFUL in 1m 15s 3 actionable tasks: 3 executed The output is written to build/microsite/output/index.html . You can open this file in your browser and view the results. But you will notice that some features which rely on javascript will be broken. To avoid this, use the task previewSite to start a little webserver which presents you the site without flaws. Figure 1. generated output of generateHTML task "
-},
-
-{
-    "id": 75,
-    "uri": "020_tutorial/010_Install.html",
-    "menu": "tutorial",
-    "title": "Install docToolchain",
-    "text": " Table of Contents Welcome! Installing docToolchain Getting the Wrapper Configure the Wrapper Running your First Command Welcome! Nice to meet you. Glad that you want to learn more about using docToolchain. Start by installing what you need. The following steps are the same as described in the User Docs. Please follow them step by step. You are prompted to install everything you need for each step. If you encounter problems, create a GitHub issue and the community will help you. Installing docToolchain 7 minutes to read Getting the Wrapper Basically all you need to work with docToolchain is a simple wrapper script taking care of everything. (If you already worked with an older version of docToolchain please note that the way it is installed has changed since the v2.x release.) This wrapper helps by: Ensuring that everyone using your repository uses the same docToolchain version. Keeping all docToolchain technology out of your repository. Wrapping your commands and directing them to your local installation. Checking your docToolchain installation (if not installed, the wrapper will do it for you via direct download or Docker). This guide explains how to set up docToolchain in the following environments: A Linux/WSL2 with bash Windows with PowerShell Windows with cmd.exe Please select the appropriate setup and follow these instructions to install docToolchain step by step. If you are going to use docToolchain in different projects install the dtcw (docToolchainWrapper) for each one. docToolchain itself will only be installed once in your home folder. Linux / WSL2 with bash cd &lt;your project&gt; curl -Lo dtcw doctoolchain.github.io/dtcw chmod +x dtcw if you don&#8217;t have curl installed, you can also use wget : cd &lt;your project&gt; wget doctoolchain.github.io/dtcw chmod +x dtcw Windows with Powershell cd &lt;your project&gt; Invoke-WebRequest doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1 Got an error message that you are not allowed to execute powershell scripts? Try to switch to an unrestricted powershell by executing powershell.exe -ExecutionPolicy Unrestricted . Windows with cmd.exe cd &lt;your project&gt; curl -Lo dtcw.bat doctoolchain.github.io/dtcw.bat dtcw.bat wraps the dtcw.ps1 script and executes it in powershell. This might be easier to use if you haven&#8217;t yet configured your powershell as a developer. In order to support development for your project on both, Linux and Windows, it makes sense to download all three scripts to your project. dtcw uses bash as shell and thus tries to find java from within bash. Chances are that when you use dtcw from another shell like zsh, you shell knows about the right java version but your bash doesn&#8217;t. In that case, please switch to bash and make sure that the right java version is known. Afterwards, you can switch back to your shell. Configure the Wrapper There is no need to configure the wrapper itself if you have just downloaded it. In this case, just skip to Running your First Command . But from time to time you should check github to see if there are new releases you want to use. In this case, open dtcw in your favourite editor and look for the VERSION -line at the start of the file: # find official release versions on github: # https://github.com/docToolchain/docToolchain/releases # set VERSION to latest to get the unreleased latest version VERSION=2.0.5 Update it to match the latest release and and everything will be updated with the next run. this will not update the wrapper (dtcw) itself. If you think you should update the wrapper, please re-install it. There are some situation where you want to test a not-yet-released feature. In such a case, you can set the VERSION to latest and dtcw will clone or pull the current default branch of the project. This only works with a local copy, not with a docker install. You can also use latestdev as version. In this case, dtcw will try to clone the repository with the ssh-git protocoll. This way, you can easily point it to your fork and develop new features for docToolchain. You will find the fork in $HOME/.doctoolchain/docToolchain-latest . latest and latestdev currently only work with the bash version of the wrapper. Running your First Command To get started with docToolchain, run tasks as the first command: Linux / WSL2 with bash ./dtcw tasks --group=doctoolchain Windows with Powershell ./dtcw.ps1 tasks --group=doctoolchain Windows with cmd.exe dtcw.bat tasks --group=doctoolchain This command shows all docToolchain tasks and verifies that docToolchain is installed by doing the following: Checking for a configuration file (and create one if none exist). Prefers a local installation. Making use of Docker (if available) where there is no local installation. If this is your first time installing docToolchain, the images download might take a while. if docker is not available, it will download and install docToolchain to your home folder it will then run a gradle build through the gradle wrapper. If this is your first time, it will download and install gradle. the gradle build will also fetch some dependencies. This will also take a while if run for the first time.. if you are behind a corporate proxy, you might need to consider build-script dependencies are fetched from a repository referenced by the property mavenRepository . By default the value https://plugins.gradle.org/m2/ is used. When a repository requiring credentials is used the properties mavenUsername and mavenPassword can be set as well. Example command passing a custom maven repository with credentials from the command line ./gradlew generateHTML -PmavenRepository=your_maven_repo -PmavenUsername=your_username -PmavenPassword=your_pw --info You&#8217;ll notice the installation is an incremental process and will take a while because of all the additional dependencies needed. After the first few commands, you&#8217;ll have all the required dependencies installed and things will run faster. === Problems &amp; solutions ==== dtcw doesn&#8217;t run You might get an error similiar to this one: ./dtcw local tasks --group=doctoolchain ./dtcw: line 1: syntax error near unexpected token `newline' ./dtcw: line 1: `&lt;!DOCTYPE html&gt;' If you see that, it&#8217;s likely that the wrapper didn&#8217;t download correctly. You can expect that an HTML page was downloaded instead of the wrapper. Please try to redownload the wrapper. ==== docker throws and error with dtcw On windows you might get the following error Error response from daemon: user declined directory sharing C:\Users\path_to_my_folder This means that docker wanted to share the named folder (possibly the repo) but didn&#8217;t have the rights. This means you have to share the folder yourself on docker. Go to docker dashboard &#8594; settings &#8594; Resources &#8594; FileSharing. Add required folder and hit Apply &amp; Restart. ==== Incompatible Java version You may see that docToolchain starts but crashes with a stacktrace that starts like this: * What went wrong: Could not compile settings file '/Users/falk/.doctoolchain/docToolchain-2.0.0/settings.gradle'. &gt; startup failed: General error during semantic analysis: Unsupported class file major version 61 java.lang.IllegalArgumentException: Unsupported class file major version 61 In this case, you&#8217;ve got an incompatible version of Java. dtcw tries to check the Java version up front by running java --version , but Gradle sometimes picks up a different version. If you get a similar error, try reinstalling a compatible Java version. "
 },
 
 {
