@@ -813,7 +813,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
                 // update page
                 // https://developer.atlassian.com/display/CONFDEV/Confluence+REST+API+Examples#ConfluenceRESTAPIExamples-Updatingapage
                 request.id      = page.id
-                request.version = [number: (page.version.number as Integer) + 1]
+                request.version = [number: (page.version.number as Integer) + 1, message: config.confluence.pageVersionComment]
                 def res = api.put(contentType: ContentType.JSON,
                                   requestContentType : ContentType.JSON,
                                   path: 'content/' + page.id, body: request, headers: headers)
@@ -840,6 +840,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
 
         //create a page
         trythis {
+            request.version = [message: config.confluence.pageVersionComment]
             page = api.post(contentType: ContentType.JSON,
                             requestContentType: ContentType.JSON,
                             path: 'content', body: request, headers: headers)
