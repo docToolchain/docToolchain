@@ -92,16 +92,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
-    	<lastmod>2023-01-31</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
-    	<lastmod>2023-01-31</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
@@ -112,12 +102,27 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
+    	<lastmod>2023-01-31</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_collectIncludes.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
+    	<lastmod>2023-01-31</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/150_task_creatTask.html</loc>
+    	<lastmod>2023-01-31</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
@@ -128,16 +133,6 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
-    	<lastmod>2023-01-31</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
-    	<lastmod>2023-01-31</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportOpenApi.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
@@ -157,12 +152,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
-    	<lastmod>2023-01-31</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportVisio.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportOpenApi.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
@@ -172,7 +162,22 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
+    	<lastmod>2023-01-31</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
+    	<lastmod>2023-01-31</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportVisio.html</loc>
+    	<lastmod>2023-01-31</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportMarkdown.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
@@ -183,16 +188,6 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_copy_themes.html</loc>
-    	<lastmod>2023-01-31</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
-    	<lastmod>2023-01-31</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportMarkdown.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
@@ -208,6 +203,11 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_generateHTML.html</loc>
+    	<lastmod>2023-01-31</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
@@ -237,17 +237,22 @@
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/010_introduction_and_goals.html</loc>
-    	<lastmod>2023-01-31</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/010_manual/40_features.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
     <url>
+    	<loc>https://localhost/010_manual/010_introduction_and_goals.html</loc>
+    	<lastmod>2023-01-31</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/010_manual/040_contributors.html</loc>
+    	<lastmod>2023-01-31</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/readme.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
@@ -262,7 +267,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/readme.html</loc>
+    	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
+    	<lastmod>2023-01-31</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
@@ -277,17 +287,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
-    	<lastmod>2023-01-31</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
-    	<lastmod>2023-01-31</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/issue2.html</loc>
+    	<loc>https://localhost/ea/UseCases.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
@@ -297,12 +297,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/UseCases.html</loc>
+    	<loc>https://localhost/ea/Activity_notes.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Activity_notes.html</loc>
+    	<loc>https://localhost/025_development/005_contributing_to_docs.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
@@ -312,7 +312,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/005_contributing_to_docs.html</loc>
+    	<loc>https://localhost/ea/issue2.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
@@ -342,12 +342,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/070_publishToConfluence.html</loc>
+    	<loc>https://localhost/020_tutorial/030_generateHTML.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/030_generateHTML.html</loc>
+    	<loc>https://localhost/020_tutorial/070_publishToConfluence.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
@@ -367,12 +367,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/040_generateSite.html</loc>
+    	<loc>https://localhost/020_tutorial/010_Install.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/010_Install.html</loc>
+    	<loc>https://localhost/020_tutorial/040_generateSite.html</loc>
     	<lastmod>2023-01-31</lastmod>
     </url>
 

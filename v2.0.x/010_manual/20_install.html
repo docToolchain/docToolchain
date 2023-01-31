@@ -355,7 +355,7 @@ docToolchain itself will only be installed once in your home folder.
 </table>
 </div>
 <div class="openblock primary">
-<div class="title">Linux / WSL2 with bash</div>
+<div class="title">Linux / MacOS / WSL2 with bash</div>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -373,6 +373,30 @@ chmod +x dtcw</code></pre>
 wget doctoolchain.github.io/dtcw
 chmod +x dtcw</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+if you run on apple silicon (M1/M2), make sure that you have docker up and running or enter a x86 shell by executing <code>arch -x86_64 /bin/bash</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+if you run docToolchain without docker, it makes sense to get the right Java-Runtime/JDK by executing <code>./dtcw getJava</code>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
