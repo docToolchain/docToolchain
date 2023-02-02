@@ -72,17 +72,29 @@ if [ -d "${HOME}/.doctoolchain/docToolchain-${DTC_VERSION}/." ]; then
     echo "home folder exists"
     homefolder=true
 fi
+if [ $# -eq 0 ]; then
+    echo "No valid argument(s) supplied"
+    exit 1
+fi
 if [ "${1}" = "local" ] ; then
     echo "force use of local install"
     docker=false
     cli=false
     shift
 fi
+if [ $# -eq 0 ]; then
+    echo "No valid argument(s) supplied"
+    exit 1
+fi
 if [ "${1}" = "docker" ] ; then
     cli=false
     homefolder=false
     echo "force use of docker"
     shift
+fi
+if [ $# -eq 0 ]; then
+    echo "No valid argument(s) supplied"
+    exit 1
 fi
 if [ "${1}" = "sdk" ] ; then
     cli=false
@@ -91,6 +103,10 @@ if [ "${1}" = "sdk" ] ; then
     sdkman=true
     echo "force use of sdkman"
     shift
+fi
+if [ $# -eq 0 ]; then
+    echo "No valid argument(s) supplied"
+    exit 1
 fi
 if [ "${1}" = "generateDeck" ]; then
     if [ "${homefolder}" = false ]; then
@@ -360,7 +376,7 @@ else
           else
               pwd=${PWD}
           fi
-          command="'${docker_cmd}' run -u $(id -u):$(id -g) --name doctoolchain${version} -e DTC_HEADLESS=1 -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} -p 8042:8042 --rm -i --entrypoint /bin/bash -v '${pwd}:/project' doctoolchain/doctoolchain:v${DTC_VERSION} -c \"doctoolchain . ${*} ${DTC_OPTS} && exit\""
+          command="'${docker_cmd}' run --platform linux/amd64 -u $(id -u):$(id -g) --name doctoolchain${version} -e DTC_HEADLESS=1 -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} -p 8042:8042 --rm -i --entrypoint /bin/bash -v '${pwd}:/project' doctoolchain/doctoolchain:v${DTC_VERSION} -c \"doctoolchain . ${*} ${DTC_OPTS} && exit\""
           doJavaCheck=false
 	  echo "use docker installation"
       else

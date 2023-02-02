@@ -21,7 +21,7 @@ This is to make sure that they can be used from environments other than windows.
 
 # Warning!
 
-**The contents of this folder	will be overwritten with each re-export!**
+**The contents of this folder will be overwritten with each re-export!**
 
 use `gradle exportPPT` to re-export files
 """
