@@ -110,6 +110,12 @@ The API-token cannot be added to the credentials because it's used for user and 
 Therefore the API-token can be added as parameter `apikey`, which makes the addition of the token a separate header field with key: `keyId` and value of `apikey`.
 An example (including storing of the real value outside this configuration) is: `apikey = "${new File("/home/me/apitoken").text}"`.
 
+*bearerToken*
+
+You can pass a https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html[Confluence
+Personal Access Token] as the `bearerToken`. It is an alternative to
+`credentials`. Do not confuse it with `apiKey`.
+
 *extraPageContent*
 
 If you need to prefix your pages with a warning stating that 'this is generated content', this is where you do it.
