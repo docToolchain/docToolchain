@@ -316,7 +316,7 @@ Simply pass your username (which can be your email address) and password to the 
 
 [source,shell]
 ----
-`./dtcw publishToConfluence -PconfluenceUser=<your username> -PconfluencePass=<your password>`
+./dtcw publishToConfluence -PconfluenceUser=<your username> -PconfluencePass=<your password>
 ----
 
 ===== Step 2.1b: Authentication with username and API key
