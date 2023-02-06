@@ -312,7 +312,7 @@ WARNING: Instead of passing your password, you can use a personal access token,
 which can easily be revoked on the event of a compromise. See
 xref:personal-access-token[Authentication using Personal Access Token].
 
-Simply pass your username and password to the dctw command:
+Simply pass your username (which can be your email address) and password to the dctw command:
 
 [source,shell]
 ----
