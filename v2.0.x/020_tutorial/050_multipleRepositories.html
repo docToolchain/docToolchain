@@ -353,8 +353,30 @@ cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain
 </div>
 <div class="paragraph">
 <p>That&#8217;s better.
-We can now include the docs from our main docs.
-But what if we don&#8217;t want to include them but just let them render?
+We can now include the docs from our main docs.</p>
+</div>
+<div class="paragraph">
+<p>Do do so, we still need a little Trick.
+We need to reference the docs in the build folder.</p>
+</div>
+<div class="paragraph">
+<p>We could do something like <code>include::../../../build/refs/docToolchain/somefile.adoc[]</code> but this will break.
+For this, docToolchain sets the attribute <code>projectRootDir</code>.
+With this, we can write the include as <code>include::/home/runner/work/docToolchain/docToolchain/build/refs/docToolchain/somefile.adoc[]</code>.</p>
+</div>
+<div class="paragraph">
+<p>In order to get <code>projectRootDir</code> also in your local preview, create a file called <a href="https://intellij-asciidoc-plugin.ahus1.de/docs/users-guide/features/advanced/asciidoctorconfig-file.html"><code>.asciidoctorconfig</code></a> in the root folder of your project and add</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>:projectRootDir: {asciidoctorconfigdir}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>as content.</p>
+</div>
+<div class="paragraph">
+<p>But what if we don&#8217;t want to include them but just let them render?
 We could clone the repository directly to our <code>src/docs</code> folder.
 But that would require that it only contains docs and no <code>src/docs</code> folder itself.
 So we have to copy it over to our <code>src/docs</code> folder.</p>
