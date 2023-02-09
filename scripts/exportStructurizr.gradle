@@ -1,0 +1,59 @@
+buildscript {
+    repositories {
+        maven {
+            credentials {
+                username mavenUsername
+                password mavenPassword
+            }
+            url mavenRepository
+        }
+    }
+    dependencies {
+        classpath "pl.zalas:gradle-structurizr-cli:1.3.2"
+    }
+}
+apply plugin: 'pl.zalas.structurizr-cli'
+
+// Question: how can we use the functionality provided by https://github.com/structurizr/cli?
+//
+// The current hack provided with the 'structurizrCli' task is just a proof of
+// concept to show how it can be done.
+
+
+//tag::exportStructurizr[]
+task exportStructurizr (
+        type: pl.zalas.gradle.structurizrcli.tasks.Export,
+        group: 'docToolchain',
+        description: 'exports the views of a Structurizr DSL file to diagramms'
+) {
+    format = "plantuml"
+    workspace = new File(docDir, 'src/docs/structurizr/workspace.dsl')
+    println "Call to exportStructurizr successful"
+}
+//end::exportStructurizr[]
+
+// task exportStructurizr (
+//         description: 'exports the views of a Structurizr DSL file to diagramms',
+//         group: 'docToolchain'
+// ) {
+//     doLast {
+//         //make sure to remove old diagrams
+//         new File(docDir, 'src/docs/structurizr').deleteDir()
+//         //create a readme to clarify things
+//         def readme = """This folder contains exported diagrams from Strcturizr DSL files.
+//
+// Please note that these are generated files but reside in the `src`-folder in order to be versioned.
+//
+// This is to make sure that they can be used from environments other than windows.
+//
+// # Warning!
+//
+// **The contents of this folder will be overwritten with each re-export!**
+//
+// use `gradle exportStructurizr` to re-export files
+// """
+//         new File(docDir, 'src/docs/structurizr/.').mkdirs()
+//         new File(docDir, 'src/docs/structurizr/README.adoc').write(readme)
+//         // def sourcePath = new File(docDir, 'src/docs/.').canonicalPath
+//     }
+// }
