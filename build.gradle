@@ -14,6 +14,7 @@ plugins {
     //gretty 4.0.0 does not work with java 8
     //gretty 3.0.8 has another problem -> #920
     id 'org.gretty' version '3.0.6'
+    id 'pl.zalas.structurizr-cli' version '1.3.2'
 }
 
 apply plugin:'groovy'
@@ -102,6 +103,20 @@ apply from: 'scripts/copyThemes.gradle'
 apply from: 'scripts/fixGlobalReferences.gradle'
 apply from: 'scripts/customTasks.gradle'
 apply from: 'scripts/exportConfluence.gradle'
+apply from: 'scripts/exportStructurizr.gradle'
+
+// Temporary hack to create a task to export diagrams from Structurizr DSL files
+//
+// We use the Structurizr gradle plugin from https://github.com/jakzal/gradle-structurizr-cli
+// Is this the right way?
+//
+// TODO: move the functionality into 'scripts/exportStructurizr'
+structurizrCli {
+    export {
+        format = "plantuml/structurizr"
+        workspace = new File(docDir, 'src/docs/structurizr/workspace.dsl')
+    }
+}
 
 task autobuildSite(
     group: 'docToolchain',
