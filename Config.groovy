@@ -8,7 +8,7 @@ inputPath = 'src/docs';
 
 
 inputFiles = [
-        [file: 'manual.adoc',       formats: ['html','pdf']],
+        [file: 'manual_test_script.adoc',       formats: ['html','pdf']],
         /** inputFiles **/
 ]
 
@@ -81,12 +81,15 @@ confluence = [:]
 // - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty
 //                            if a new parent shall be created in the space
 //                            Set it for every file so the page scanning is done only for the given ancestor page trees.
-// - 'preambleTitle' (optional): the title of the page containing the preamble (everything
-//                            before the first second level heading). Default is 'arc42'
 //
 // The following four keys can also be used in the global section below
 // - 'spaceKey' (optional): page specific variable for the key of the confluence space to write to
-// - 'createSubpages' (optional): page specific variable to determine whether ".sect2" sections shall be split from the current page into subpages
+// - 'subpagesForSections' (optional): The number of nested sub-pages to create. Default is '1'.
+//                                     '0' means creating all on one page.
+//                                     The following migration for removed configuration can be used.
+//                                     'allInOnePage = true' is the same as 'subpagesForSections = 0'
+//                                     'allInOnePage = false && createSubpages = false' is the same as 'subpagesForSections = 1'
+//                                     'allInOnePage = false && createSubpages = true' is the same as 'subpagesForSections = 2'
 // - 'pagePrefix' (optional): page specific variable, the pagePrefix will be a prefix for the page title and it's sub-pages
 //                            use this if you only have access to one confluence space but need to store several
 //                            pages with the same title - a different pagePrefix will make them unique
@@ -104,20 +107,13 @@ confluence.with {
     // a working example is https://arc42-template.atlassian.net/wiki/rest/api/user/current
     api = 'https://[yourServer]/[context]/rest/api/'
 
-//    Additionally, spaceKey, createSubpages, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
+//    Additionally, spaceKey, subpagesForSections, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
 
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
 
-    // the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
-    preambleTitle = ''
-
-    // variable to determine whether the whole document should be uploaded as just one page or split into separate
-    // pages per chapter
-    allInOnePage = false
-
-    // variable to determine whether ".sect2" sections shall be split from the current page into subpages
-    createSubpages = false
+    // variable to determine how many layers of sub pages should be created
+    subpagesForSections = 1
 
     // the pagePrefix will be a prefix for each page title
     // use this if you only have access to one confluence space but need to store several

@@ -198,6 +198,13 @@ task generateHTML (
         sourceFilesHTML.each {
             include it.file
             logger.info it.file
+
+            File useFile = new File(srcDir, it.file)
+            if (!useFile.exists()) {
+                throw new Exception ("""
+                The file $useFile in HTML config does not exist!
+                Please check the configuration 'inputFiles' in $mainConfigFile.""")
+            }
         }
     }
     resources {
@@ -253,6 +260,13 @@ task generatePDF (
         sourceFilesPDF.each {
             include it.file
             logger.info it.file
+
+            File useFile = new File(srcDir, it.file)
+            if (!useFile.exists()) {
+                throw new Exception ("""
+                The file $useFile in PDF config does not exist!
+                Please check the configuration 'inputFiles' in $mainConfigFile.""")
+            }
         }
     }
 
@@ -296,6 +310,13 @@ task generateDocbook (
         sourceFilesDOCBOOK.each {
             include it.file
             logger.info it.file
+
+            File useFile = new File(srcDir, it.file)
+            if (!useFile.exists()) {
+                throw new Exception ("""
+                The file $useFile in DOCBOOK config does not exist!
+                Please check the configuration 'inputFiles' in $mainConfigFile.""")
+            }
         }
     }
 
@@ -344,6 +365,13 @@ task generateDeck (
         sourceFilesREVEAL.each {
             include it.file
             logger.info it.file
+
+            File useFile = new File(srcDir, it.file)
+            if (!useFile.exists()) {
+                throw new Exception ("""
+                The file $useFile in REVEAL config does not exist!
+                Please check the configuration 'inputFiles' in $mainConfigFile.""")
+            }
         }
     }
 
@@ -378,4 +406,3 @@ task install (
         System.out.println ("docToolchain is installed");
     }
 }
-

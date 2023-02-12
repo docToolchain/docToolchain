@@ -9,7 +9,7 @@
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 <% } %>
 <% if (config.site_issueUrl) {%>
-        <a href="${config.site_issueUrl}?title=${subject}&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page: ${config.site_gitRepoUrl}/${sourceFileName}%0A%23branch: ${config.site_branch}" target="_blank"><i
+        <a href="${config.site_issueUrl}?title=${subject}&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20${config.site_gitRepoUrl}/${sourceFileName}%0A%23branch:%20${config.site_branch}" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 <% } %>
         ${content?.rightcolumnhtml?.replaceAll("&lt;","<")?.replaceAll("&gt;",">")?:''}

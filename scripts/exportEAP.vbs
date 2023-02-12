@@ -268,7 +268,7 @@
       Next
 
       For Each file In path.Files
-            If fso.GetExtensionName (file.Path) = "eap" OR fso.GetExtensionName (file.Path) = "eapx" Then
+            If fso.GetExtensionName (file.Path) = "eap" OR fso.GetExtensionName (file.Path) = "eapx" OR fso.GetExtensionName (file.Path) = "qea" OR fso.GetExtensionName (file.Path) = "qeax" Then
                 WScript.echo "found "&file.path
                 If (Left(file.name, 1) = "_") Then
                     WScript.echo "skipping, because it start with `_` (replication)"

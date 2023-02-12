@@ -31,7 +31,7 @@ Please select the appropriate setup and follow these instructions to install doc
 NOTE: If you are going to use docToolchain in different projects install the dtcw (docToolchainWrapper) for each one.
 docToolchain itself will only be installed once in your home folder.
 
-.Linux / WSL2 with bash
+.Linux / MacOS / WSL2 with bash
 [role='primary']
 --
 
@@ -51,6 +51,10 @@ wget doctoolchain.github.io/dtcw
 chmod +x dtcw
 ----
 
+NOTE: if you run on apple silicon (M1/M2), make sure that you have docker up and running or enter a x86 shell by executing `arch -x86_64 /bin/bash`.
+
+NOTE: if you run docToolchain without docker, it makes sense to get the right Java-Runtime/JDK by executing `./dtcw getJava`
+
 --
 
 .Windows with Powershell
@@ -62,6 +66,8 @@ cd <your project>
 Invoke-WebRequest doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1
 ----
 
+NOTE: Got an error message that you are not allowed to execute powershell scripts? 
+Try to switch to an unrestricted powershell by executing `powershell.exe -ExecutionPolicy Unrestricted`.
 --
 
 .Windows with cmd.exe
