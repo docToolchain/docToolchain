@@ -4941,7 +4941,7 @@ use `gradle exportEA` to re-export files
 
     Sub WriteNote(currentModel, currentElement, notes, prefix)
         If (Left(notes, 6) = "{adoc:") Then
-            strFileName = Mid(notes,7,InStr(notes,"}")-7)
+            strFileName = Trim(Mid(notes,7,InStr(notes,"}")-7))
             strNotes = Right(notes,Len(notes)-InStr(notes,"}"))
             set objFSO = CreateObject("Scripting.FileSystemObject")
             If (currentModel.Name="Model") Then
@@ -4958,20 +4958,27 @@ use `gradle exportEA` to re-export files
             End If
             MakeDir(path&amp;prefix&amp;post)
 
-            set objFile = objFSO.OpenTextFile(path&amp;prefix&amp;post&amp;strFileName&amp;".ad",ForAppending, True)
+            set objFile = objFSO.OpenTextFile(path&amp;prefix&amp;post&amp;"/"&amp;strFileName&amp;".ad",ForAppending, True)
             name = currentElement.Name
             name = Replace(name,vbCr,"")
             name = Replace(name,vbLf,"")
+        
+            strCombinedNotes = "_all_notes.ad"
+            set objCombinedNotesFile = objFSO.OpenTextFile(path&amp;prefix&amp;post&amp;"/"&amp;strCombinedNotes,ForAppending, True)
 
             if (Left(strNotes, 3) = vbCRLF&amp;"|") Then
                 ' content should be rendered as table - so don't interfere with it
                 objFile.WriteLine(vbCRLF)
+                objCombinedNotesFile.WriteLine(vbCRLF)
             else
                 'let's add the name of the object
                 objFile.WriteLine(vbCRLF&amp;vbCRLF&amp;"."&amp;name)
+                objCombinedNotesFile.WriteLine(vbCRLF&amp;vbCRLF&amp;"."&amp;name)
             End If
             objFile.WriteLine(vbCRLF&amp;strNotes)
             objFile.Close
+            objCombinedNotesFile.WriteLine(vbCRLF&amp;strNotes)
+            objCombinedNotesFile.Close
             if (prefix&lt;&gt;"") Then
                 ' write the same to a second file
                 set objFile = objFSO.OpenTextFile(path&amp;prefix&amp;".ad",ForAppending, True)
@@ -5291,7 +5298,11 @@ use `gradle exportEA` to re-export files
       End If
       EAapp.Repository.CloseFile()
       ' Since EA 15.2 the Enterprise Architect background process hangs without calling Exit explicitly
-      EAapp.Repository.Exit()
+      On Error Resume Next
+        EAapp.Repository.CloseFile()
+        EAapp.Repository.Exit()
+        EAapp.Repository = null
+      ' end fix EA
     End Sub
 
   Private connectionString
@@ -5336,7 +5347,7 @@ use `gradle exportEA` to re-export files
      WScript.echo "opening database connection now"
      OpenProject(connectionString)
   End If
-  WScript.echo "looking for .eap(x) files in " &amp; fso.GetAbsolutePathName(searchPath)
+  WScript.echo "looking for .eap(x) and .qea(x) files in " &amp; fso.GetAbsolutePathName(searchPath)
   ' Dim f As Scripting.Files
   SearchEAProjects fso.GetFolder(searchPath)
 
