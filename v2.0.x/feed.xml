@@ -6,8 +6,8 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Wed, 15 Feb 2023 07:49:38 +0000</pubDate>
-    <lastBuildDate>Wed, 15 Feb 2023 07:49:38 +0000</lastBuildDate>
+    <pubDate>Wed, 15 Feb 2023 07:54:29 +0000</pubDate>
+    <lastBuildDate>Wed, 15 Feb 2023 07:54:29 +0000</lastBuildDate>
 
     
     <item>
@@ -46,6 +46,18 @@ docToolchain is a community project, so be part of the community which drives th
 You don&amp;#8217;t have to code for doing so.
 It would even help to brush up the docs, write tutorials or groom the backlog
 (I guess many of the open issues are already fixed).&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock important&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-important&quot; title=&quot;Important&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+the docker image has been moved to &lt;strong&gt;doctoolchain&lt;/strong&gt;/doctoolchain:v2.1.0
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;div class=&quot;sect2&quot;&gt;
@@ -120,6 +132,9 @@ It would even help to brush up the docs, write tutorials or groom the backlog
 &lt;/li&gt;
 &lt;li&gt;
 &lt;p&gt;added &lt;code&gt;latest&lt;/code&gt; version to dtcw&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;the docker image has been moved to &lt;strong&gt;doctoolchain&lt;/strong&gt;/doctoolchain:v2.1.0&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
