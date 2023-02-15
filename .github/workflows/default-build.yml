@@ -24,12 +24,7 @@ jobs:
 
     steps:
       - name: Install used packages
-        run: sudo apt-get install -y graphviz shellcheck
-
-      - name: Install pandoc
-        uses: pandoc/actions/setup
-        with:
-          version: 2.19
+        run: sudo apt-get install -y graphviz shellcheck pandoc
 
       - uses: actions/checkout@v2
         with:
