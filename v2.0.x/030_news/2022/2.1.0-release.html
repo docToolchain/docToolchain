@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
   
-  <!-- 030_news/2022/2.0.4-release.html -->
+  <!-- 030_news/2022/2.1.0-release.html -->
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>(Release v2.0.4)</title>
+  <title>Release v2.1.0</title>
   <meta content="docToolchain" property="og:title">
   <meta content="build your dev docs the easy way..." property="og:description">
   <meta content="website" property="og:type">
@@ -252,7 +252,7 @@
                                 2022
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../../030_news/2022/2.0.4-release.html">(Release v2.0.4)</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -260,7 +260,7 @@
                                    href="../../030_news/2022/2.0.5-release.html">Release v2.0.5</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../../030_news/2022/2.1.0-release.html">Release v2.1.0</a>
                             </li>
                         </ul>
@@ -276,11 +276,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2022/2.0.4-release.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2022/2.1.0-release.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27%28Release+v2.0.4%29%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2022/2.0.4-release.adoc%0A%23branch:%20ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Release+v2.1.0%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2022/2.1.0-release.adoc%0A%23branch:%20ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -289,9 +289,13 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_doctoolchain_v2_0_4">docToolchain v2.0.4</a>
+<li><a href="#_doctoolchain_v2_1_0_has_been_released">docToolchain v2.1.0 has Been Released!</a>
 <ul class="sectlevel2">
 <li><a href="#_about_this_release">About This Release</a></li>
+<li><a href="#_changelog_v2_1_0">Changelog v2.1.0</a></li>
+<li><a href="#_fixes">fixes</a></li>
+<li><a href="#_added">added</a></li>
+<li><a href="#_changed">changed</a></li>
 </ul>
 </li>
 </ul>
@@ -302,16 +306,100 @@
 				</div>
 			</div>
 			<main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
-				<p><em>10 March 2022, Ralf D. Müller</em></p>
+				<p><em>15 August 2022, Ralf D. Müller</em></p>
 				<p>
                     
 <div class="sect1">
-<h2 id="_doctoolchain_v2_0_4">docToolchain v2.0.4</h2>
+<h2 id="_doctoolchain_v2_1_0_has_been_released">docToolchain v2.1.0 has Been Released!</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_about_this_release">About This Release</h3>
 <div class="paragraph">
-<p>there was a major bug in this release, so please ignore</p>
+<p>This is the long due announcement of the 2.1.0 release. It has been already released 2022-08-15, but it took me (Ralf) until now (2023-02-15) to create this new post.</p>
+</div>
+<div class="paragraph">
+<p>You like docToolchain?
+What about helping to make it even better?
+docToolchain is a community project, so be part of the community which drives the project.
+You don&#8217;t have to code for doing so.
+It would even help to brush up the docs, write tutorials or groom the backlog
+(I guess many of the open issues are already fixed).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_changelog_v2_1_0">Changelog v2.1.0</h3>
+
+</div>
+<div class="sect2">
+<h3 id="_fixes">fixes</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/938">#938 asciidoc2confluence.groovy retrieveAllPages is returning allPages eventhough different spacekey is passed to it. This is happening when i try to publish documents to confluence</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/720">#720 Fix gradlew.bat</a></p>
+</li>
+<li>
+<p>Fixes typo in dtcw.bat for finding the correct local cli command.</p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/pull/847">#847 generateHTML &amp; generatePDF documentation improvements</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/851">#851 fix duplicate TOC marker</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/853">#853 Hide site links when not configured</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/873">#873 generateSite: Fix index page location</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/899">#899 dtcw local &lt;any-task&gt; (bash) executes :help instead of &lt;any-task&gt;</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_added">added</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issue/692">#692 generateSite: navigation tree instead of a list on the left</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/pull/886">#886 Add the possibility to set maven credentials</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issue/848">#848 generateSite: add customisation possibilities for the jbake gradle plugin</a></p>
+</li>
+<li>
+<p><a href="http://doctoolchain.org/docToolchain/v2.0.x/015_tasks/150_task_createTask.html">#894 custom, project specific Tasks</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/pull/897">#897 collectIncludes: Add options to configure search</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/pull/911">#911 Add confluence page limit</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_changed">changed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>updated available languages for arc42 template</p>
+</li>
+<li>
+<p>updated asciidoctorj-diagram to 2.2.3</p>
+</li>
+<li>
+<p>added <code>latest</code> version to dtcw</p>
+</li>
+</ul>
 </div>
 </div>
 </div>

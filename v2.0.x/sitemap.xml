@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
     <url>
+    	<loc>https://localhost/030_news/2022/2.1.0-release.html</loc>
+    	<lastmod>2022-08-15</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/030_news/2022/2.0.5-release.html</loc>
     	<lastmod>2022-03-10</lastmod>
     </url>
@@ -72,17 +77,22 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportDrawIo.html</loc>
-    	<lastmod>2023-02-15</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_generatePDF.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportJiraIssues.html</loc>
+    	<lastmod>2023-02-15</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportDrawIo.html</loc>
+    	<lastmod>2023-02-15</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
 
@@ -102,11 +112,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
-    	<lastmod>2023-02-15</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_exportEA.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
@@ -122,6 +127,11 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
+    	<lastmod>2023-02-15</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_exportMetrics.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
@@ -132,7 +142,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportOpenApi.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
 
@@ -152,32 +162,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportOpenApi.html</loc>
-    	<lastmod>2023-02-15</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportVisio.html</loc>
-    	<lastmod>2023-02-15</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
-    	<lastmod>2023-02-15</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
-    	<lastmod>2023-02-15</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportMarkdown.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportVisio.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
 
@@ -192,12 +182,27 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_convertToDocx.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
+    	<lastmod>2023-02-15</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
+    	<lastmod>2023-02-15</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportMarkdown.html</loc>
+    	<lastmod>2023-02-15</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_convertToDocx.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
 
@@ -267,11 +272,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
-    	<lastmod>2023-02-15</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/UseCases.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
@@ -287,22 +287,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Activity_notes.html</loc>
-    	<lastmod>2023-02-15</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/025_development/005_contributing_to_docs.html</loc>
-    	<lastmod>2023-02-15</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
-    	<lastmod>2023-02-15</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/issue1.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
 
@@ -312,7 +297,22 @@
     </url>
 
     <url>
+    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
+    	<lastmod>2023-02-15</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/issue2.html</loc>
+    	<lastmod>2023-02-15</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Activity_notes.html</loc>
+    	<lastmod>2023-02-15</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/issue1.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
 
@@ -323,6 +323,11 @@
 
     <url>
     	<loc>https://localhost/025_development/010_setup_dev_env.html</loc>
+    	<lastmod>2023-02-15</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/025_development/005_contributing_to_docs.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
 
@@ -367,17 +372,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/040_generateSite.html</loc>
-    	<lastmod>2023-02-15</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/020_tutorial/010_Install.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/020_tutorial/120_self-contained-dtc.html</loc>
+    	<lastmod>2023-02-15</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/020_tutorial/040_generateSite.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
 
@@ -392,12 +397,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/10_about/20_what-is-doctoolchain.html</loc>
+    	<loc>https://localhost/10_about/10_about-the-project.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/10_about/10_about-the-project.html</loc>
+    	<loc>https://localhost/10_about/20_what-is-doctoolchain.html</loc>
     	<lastmod>2023-02-15</lastmod>
     </url>
 

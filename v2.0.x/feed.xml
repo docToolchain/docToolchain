@@ -6,9 +6,128 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Wed, 15 Feb 2023 07:30:10 +0000</pubDate>
-    <lastBuildDate>Wed, 15 Feb 2023 07:30:10 +0000</lastBuildDate>
+    <pubDate>Wed, 15 Feb 2023 07:49:38 +0000</pubDate>
+    <lastBuildDate>Wed, 15 Feb 2023 07:49:38 +0000</lastBuildDate>
 
+    
+    <item>
+      <title>Release v2.1.0</title>
+      <link>https://localhost/030_news/2022/2.1.0-release.html</link>
+      <pubDate>Mon, 15 Aug 2022 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">030_news/2022/2.1.0-release.html</guid>
+      <description>
+      &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
+&lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
+&lt;ul class=&quot;sectlevel1&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_doctoolchain_v2_1_0_has_been_released&quot;&gt;docToolchain v2.1.0 has Been Released!&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_about_this_release&quot;&gt;About This Release&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_changelog_v2_1_0&quot;&gt;Changelog v2.1.0&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_fixes&quot;&gt;fixes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_added&quot;&gt;added&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_changed&quot;&gt;changed&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- endtoc --&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_doctoolchain_v2_1_0_has_been_released&quot;&gt;docToolchain v2.1.0 has Been Released!&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_about_this_release&quot;&gt;About This Release&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This is the long due announcement of the 2.1.0 release. It has been already released 2022-08-15, but it took me (Ralf) until now (2023-02-15) to create this new post.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You like docToolchain?
+What about helping to make it even better?
+docToolchain is a community project, so be part of the community which drives the project.
+You don&amp;#8217;t have to code for doing so.
+It would even help to brush up the docs, write tutorials or groom the backlog
+(I guess many of the open issues are already fixed).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_changelog_v2_1_0&quot;&gt;Changelog v2.1.0&lt;/h3&gt;
+
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_fixes&quot;&gt;fixes&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/938&quot;&gt;#938 asciidoc2confluence.groovy retrieveAllPages is returning allPages eventhough different spacekey is passed to it. This is happening when i try to publish documents to confluence&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/720&quot;&gt;#720 Fix gradlew.bat&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Fixes typo in dtcw.bat for finding the correct local cli command.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/pull/847&quot;&gt;#847 generateHTML &amp;amp; generatePDF documentation improvements&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/851&quot;&gt;#851 fix duplicate TOC marker&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/853&quot;&gt;#853 Hide site links when not configured&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/873&quot;&gt;#873 generateSite: Fix index page location&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/899&quot;&gt;#899 dtcw local &amp;lt;any-task&amp;gt; (bash) executes :help instead of &amp;lt;any-task&amp;gt;&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_added&quot;&gt;added&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issue/692&quot;&gt;#692 generateSite: navigation tree instead of a list on the left&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/pull/886&quot;&gt;#886 Add the possibility to set maven credentials&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issue/848&quot;&gt;#848 generateSite: add customisation possibilities for the jbake gradle plugin&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;http://doctoolchain.org/docToolchain/v2.0.x/015_tasks/150_task_createTask.html&quot;&gt;#894 custom, project specific Tasks&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/pull/897&quot;&gt;#897 collectIncludes: Add options to configure search&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/pull/911&quot;&gt;#911 Add confluence page limit&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_changed&quot;&gt;changed&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;updated available languages for arc42 template&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;updated asciidoctorj-diagram to 2.2.3&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;added &lt;code&gt;latest&lt;/code&gt; version to dtcw&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	  </description>
+    </item>
     
     <item>
       <title>Release v2.0.5</title>
