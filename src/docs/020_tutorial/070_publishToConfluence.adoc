@@ -303,7 +303,25 @@ So I configure it accordingly:
 Now comes the hardest part.
 The configuration of the credentials.
 
-Since I use a cloud instance, I can use an access token.
+
+==== Step 2.1: Authentication
+
+===== Step 2.1a: Authentication with username and password (insecure)
+
+WARNING: Instead of passing your password, you can use a personal access token,
+which can easily be revoked on the event of a compromise. See
+xref:personal-access-token[Authentication using Personal Access Token].
+
+Simply pass your username (which can be your email address) and password to the dctw command:
+
+[source,shell]
+----
+./dtcw publishToConfluence -PconfluenceUser=<your username> -PconfluencePass=<your password>
+----
+
+===== Step 2.1b: Authentication with username and API key
+
+Since I use a cloud instance, I can use an API token.
 This has to be generated from my central Atlassian account.
 
 Navigate to your `Profile`
@@ -330,7 +348,32 @@ To keep things simple, I will copy this token to the config.
 
 So we don't store the credentials in the config file, we pass them with the `./dtcw` command:
 
-.`./dtcw publishToConfluence -PconfluenceUser=<your email> -PconfluencePass=<your api-token>`
+[source,shell]
+----
+./dtcw publishToConfluence -PconfluenceUser=<your email> -PconfluencePass=<your api-token>
+----
+
+
+[[personal-access-token]]
+
+===== Step 2.1c: Authentication using Personal Access Token
+
+If you neither want to pass your password to the command nor are you an admin in
+your Confluence instance, you can use a Personal Access Token. You can follow
+the
+https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html#UsingPersonalAccessTokens-CreatingPATsintheapplication[Confluence
+documentation] to generate one. Once you have it, you can pass it to
+DocToolchain as the following:
+
+[source,shell]
+----
+./dtcw publishToConfluence -PconfluenceBearerToken=<your personal access token>
+----
+
+
+=== Step 3: Publish all pages
+
+.`./dtcw publishToConfluence <extra arguments>`
 [%collapsible]
 ====
 ```
