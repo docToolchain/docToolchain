@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 # create a locally installed version of the current repo
-mkdir -p $HOME/.doctoolchain/docToolchain-dev
-cp -r * $HOME/.doctoolchain/docToolchain-dev/.
+mkdir -p "$HOME/.doctoolchain/docToolchain-dev"
+cp -r ./* "$HOME/.doctoolchain/docToolchain-dev"
 # set 'dev' as version in dtcw
 sed -i 's/VERSION=[-0-9.a-z]*/VERSION=dev/' dtcw
 # ensure that dtcw is installed
