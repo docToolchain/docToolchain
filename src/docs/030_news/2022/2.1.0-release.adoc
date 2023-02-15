@@ -23,6 +23,8 @@ You don't have to code for doing so.
 It would even help to brush up the docs, write tutorials or groom the backlog 
 (I guess many of the open issues are already fixed).
 
+IMPORTANT: the docker image has been moved to **doctoolchain**/doctoolchain:v2.1.0
+
 === Changelog v2.1.0
 
 === fixes
@@ -48,3 +50,4 @@ It would even help to brush up the docs, write tutorials or groom the backlog
 * updated available languages for arc42 template
 * updated asciidoctorj-diagram to 2.2.3
 * added `latest` version to dtcw
+* the docker image has been moved to **doctoolchain**/doctoolchain:v2.1.0
