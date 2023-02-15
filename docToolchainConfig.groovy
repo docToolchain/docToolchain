@@ -42,6 +42,9 @@ taskInputsDirs = [
 
 taskInputsFiles = []
 
+customTasks = [
+        /** customTasks **/
+]
 //*****************************************************************************************
 
 //Configuration for microsite: generateSite + previewSite
@@ -67,6 +70,7 @@ microsite.with {
 
     //project theme
     //site folder relative to the docs folder
+    //see 'copyTheme' for more details
     siteFolder = '../site'
 
     // the title of the microsite, displayed in the upper left corner
@@ -238,6 +242,12 @@ confluence.with {
     // Optional proxy configuration, only used to access Confluence
     // schema supports http and https
     // proxy = [host: 'my.proxy.com', port: 1234, schema: 'http']
+
+    // for exportConfluence-Task
+    export = [
+            srcDir: 'sample_data',
+            destDir: 'src/docs'
+    ]
 }
 //end::confluenceConfig[]
 //*****************************************************************************************
