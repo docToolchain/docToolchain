@@ -17,6 +17,7 @@ In order to fetch the docker image from your local docker proxy, please check th
 
 If you don't have Docker available, you need a local, self-contained install.
 
+==== Download wrapper
 Start on an unrestricted system and download the docToolchain wrapper:
 
 [source, bash]
@@ -27,7 +28,8 @@ curl -Lo dtcw doctoolchain.github.io/dtcw
 chmod +x dtcw
 ----
 
-We start wit ensuring that we have the correct Java Development Kit (JDK) installed.
+==== Check and install correct Java Development Kit (JDK)
+We start with ensuring that we have the correct Java Development Kit (JDK) installed.
 Execute
 
 [source, bash]
@@ -38,6 +40,7 @@ Execute
 to fetch and install the correct JDK.
 It will be installed to `$HOME/.doctoolchain/jdk`.
 
+==== Start first tasks to install docToolchain locally
 Now, let's start a simple task to download and install docToolchain locally:
 
 [source, bash]
@@ -52,6 +55,7 @@ When you run this command, docToolchain will ask if it is allowed to install its
 It will also fetch some first dependencies in order to execute the task.
 These dependencies will be downloaded to `$HOME/.doctoolchain/.gradle`.
 
+==== Fetch remaining dependencies
 To fetch the remaining dependencies, execute
 
 [source, bash]
@@ -61,8 +65,20 @@ To fetch the remaining dependencies, execute
 
 this will fetch the remaining dependencies and download them to `$HOME/.doctoolchain/.gradle`
 
+==== Get an offline gradle binary
+The last needed step is to download an offline version of `gradle` for docToolchain to use.  
+This was inspired by https://chengl.com/gradle-offline-build/.
 
-As a result, we now have docToolchain, a JDK and all dependencies installed to `$HOME/.doctoolchain`.
+.Steps
+. Download a `gradle` binary-zip from https://services.gradle.org/distributions/ 
+. Place it in the folder `.doctoolchain/docToolchain-$VERSION/gradle/wrapper` (replace $VERSION with current docToolchain version that you installed) 
+. Go to folder `.doctoolchain/docToolchain-$VERSION/gradle/wrapper` and open the file `gradle-wrapper.properties`
+.  change the `distributionUrl` to `distributionUrl=gradle-$GRADLEVERSION-bin.zip` (replace $GRADLEVERSION with the version of the binary-zip you just downloaded)
+
+docToolchain now uses an offline version of Gradle.
+
+==== Finalize
+As a result, we now have docToolchain, a JDK, gradle and all dependencies installed to `$HOME/.doctoolchain`.
 
 You can now zip this folder and copy it to your restricted environment to the `$HOME/.doctoolchain` folder.
 The wrapper of your project will recognize it as local installation and use it.

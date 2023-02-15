@@ -10,8 +10,8 @@ include::../_feedback.adoc[]
 image::ea/Manual/publishToConfluence.png[]
 
 == About This Task
-This task takes a generated HTML file, splits it by headline, and pushes it to https://www.atlassian.com/software/confluence[Confluence].
-This lets you use the https://www.writethedocs.org/guide/docs-as-code/[docs-as-code approach] even if your organisation insists on using Confluence as its main document repo.
+This task takes a generated HTML file, splits it by headline, and pushes it to your instance of https://www.atlassian.com/software/confluence[Confluence].
+This lets you use the https://www.writethedocs.org/guide/docs-as-code/[docs-as-code approach] even if your organisation insists on using Confluence as its main document repository.
 
 == Special Features
 
@@ -19,8 +19,34 @@ This lets you use the https://www.writethedocs.org/guide/docs-as-code/[docs-as-c
 
 `[source]`-blocks are converted to code-macro blocks in Confluence.
 
-NOTE: Code-macro blocks in Confluence throw an error if the language attribute contains an unknown language.
-Get a list of valid languages (and learn how to add others) https://confluence.atlassian.com/doc/code-block-macro-139390.html[here].
+Confluence supports a very limited list of languages supported for code block syntax highlighting.
+When specifying an unknown language, it would even display an error.
+Therefore, some transformation is applied.
+
+* If no language is given in the source block, it is explicitly set to plain text (because the default would be Java that might not always apply).
+* Some known and common AsciiDoc source languages are mapped to Confluence code block languages.
++
+[%header,cols="1,1,1"]
+|===
+|source
+|target
+|note
+
+|json
+|yml
+|produces an acceptable highlighting
+
+|shell
+|bash
+|only a specific shell is supported
+
+|yaml
+|yml
+|different name of language
+|===
+* If the language of the source block is not supported by Confluence, it is set to plain text as fallback to avoid the error.
+
+NOTE: Get a list of valid languages (and learn how to add others) https://confluence.atlassian.com/doc/code-block-macro-139390.html[here].
 
 === Minimal Impact on Non-Techie Confluence Users
 
@@ -35,7 +61,7 @@ Labels (keywords) must not contain a space character. Use either '_' or '-'.
 
 == Configuration
 
-We tried to make the configuration self-explanatory, but below is some more information about each config option.
+You configure the publishToConfluence task in the file docToolchainConfig.groovy. It is located in the root of your project folder. We try to make the configuration self-explanatory, but below is some more information about each config option.
 
 include::{projectRootDir}/template_config/Config.groovy[tags=input-config]
 
@@ -49,10 +75,6 @@ Specify the ID as a string within the config file.
 
 For cloud instances, `[context]` is `wiki`.
 
-*preambleTitle*
-
-The page title. Contains the preamble (everything except the first second-level heading). Default is 'arc42'.
-
 *disableToC*
 
 This boolean configuration determines whether or not the table of contents (ToC) is disabled on the page once uploaded to Confluence. `false` by default, so the ToC is active.
@@ -64,18 +86,35 @@ This script matches pages regardless of case and refuses to replace a page whose
 Ideally, you should create a new Confluence space for each piece of larger documentation.
 If you are restricted and can't create new spaces, you can use `pagePrefix`/`pageSuffix` to define a prefix/suffix for the doc so that it doesn't conflict with other page names.
 
+*pageVersionComment*
+
+Set an optional comment for the new page version in Confluence.
+
 *credentials*
 
-Use username and password, or even better - username and api-token.
-You can create new API-tokens in https://confluence.atlassian.com/cloud/api-tokens-938839638.html[your profile].
-To avoid having your password or API-token versioned through Git, you can store them outside of this configuration either as an environment variable or in another file.
-The key here is that the config file is a groovy script.
-For example, you can do things like `credentials = "user:${new File("/home/me/apitoken").text}".bytes.encodeBase64().toString()`
+For security reasons it is highly recommended to store your credentials in a separate file outside the Git repository, such as in your Home folder.
 
-There is a fallback if you need to simplify the injection of credentials from external sources.
-If you leave the credentials field empty, the variables `confluenceUser` and `confluencePass` from the build environment will be used for authentication.
-You can set these through any means allowed by gradle, such as the `gradle.properties` file in the project or your home directory, environment variables or command-line flags.
-For all the ways to set these variables, take a look at https://docs.gradle.org/current/userguide/build_environment.html[the gradle user guide].
+To authenticate with username and API token, use:
+    credentials = "user:${new File("/users/me/apitoken").text}" or 
+    credentials = "user:${new File("/users/me/apitoken").text}"`.bytes.encodeBase64().toString()` to ........
+You can create an API-token in https://confluence.atlassian.com/cloud/api-tokens-938839638.html[your profile].
+    
+To authenticate with username and password, use:
+    credentials = ......
+
+You can also set your username, password of apitoken as an environment variable. You then do the following:
+1. Open the file that contains the environment variables:
+    a. On a Mac, go to your Home folder and open the file .zpfrofile.
+2. ....
+
+
+If you wish to simplify the injection of credentials from external sources, do the following:
+1. In docToolchainConfig.groovy, do not enter the credentials. Make sure the credentials are escaped.
+2. Create a `gradle.properties` file in the project or home directory. See https://docs.gradle.org/current/userguide/build_environment.html[the gradle user guide].
+3. Open the file, and put the variables in it:
+    - confluenceUser=myusername, and on a new line
+    - confluencePass=myuserpassword
+    
 
 *apikey*
 
@@ -83,6 +122,12 @@ In situations where you have to use full user authorisation because of internal 
 The API-token cannot be added to the credentials because it's used for user and password exchange.
 Therefore the API-token can be added as parameter `apikey`, which makes the addition of the token a separate header field with key: `keyId` and value of `apikey`.
 An example (including storing of the real value outside this configuration) is: `apikey = "${new File("/home/me/apitoken").text}"`.
+
+*bearerToken*
+
+You can pass a https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html[Confluence
+Personal Access Token] as the `bearerToken`. It is an alternative to
+`credentials`. Do not confuse it with `apiKey`.
 
 *extraPageContent*
 
@@ -121,7 +166,7 @@ For backward compatibility, if this option is present and equal to `true`, then 
 If this option is present and equal to "open-api" then any source block marked with class openapi will be wrapped in Open API Documentation for Confluence macro:  (see https://marketplace.atlassian.com/apps/1215176/open-api-documentation-for-confluence[Open API Documentation for Confluence]). A download source (yaml) button is shown by default. +
 Using the plugin can be handled on different ways.
 
-* copy/paste the content of the YAML file to the plugin without linking to the origin source by using the url to the YAML file 
+* copy/paste the content of the YAML file to the plugin without linking to the origin source by using the url to the YAML file
 
 [source,asciidoc]
 --
@@ -129,7 +174,7 @@ Using the plugin can be handled on different ways.
     ----
     \include::https://my-domain.com/path-to-yaml[]
     ----
--- 
+--
 * copy/paste the content of the YAML file to the plugin without linking to the origin source by using a YAML file in your project structure:
 
 [source,asciidoc]
@@ -138,7 +183,7 @@ Using the plugin can be handled on different ways.
     ----
     \include::my-yaml-file.yaml[]
     ----
--- 
+--
 * create a link between the plugin and the YAML file without copying the content into the plugin. The advantage following this way is that even in case the API specification is changed without re-generating the documentation, the new version of the configuration is used in Confluence.
 
 [source,asciidoc]
@@ -147,7 +192,7 @@ Using the plugin can be handled on different ways.
     ----
     \include::https://my-domain.com/path-to-yaml[]
     ----
--- 
+--
 
 .configuration
 .publishToConfluence.gradle

@@ -1,0 +1,53 @@
+:filename: 030_news/2022/2.1.0-release.adoc
+:jbake-title: Release v2.1.0
+:jbake-date: 2022-08-15
+:jbake-type: post
+:jbake-tags: docToolchain
+:jbake-status: published
+:jbake-menu: news
+:jbake-author: Ralf D. Müller
+:icons: font
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+== docToolchain v2.1.0 has Been Released!
+
+=== About This Release
+
+This is the long due announcement of the 2.1.0 release. It has been already released 2022-08-15, but it took me (Ralf) until now (2023-02-15) to create this new post.
+
+You like docToolchain? 
+What about helping to make it even better? 
+docToolchain is a community project, so be part of the community which drives the project. 
+You don't have to code for doing so. 
+It would even help to brush up the docs, write tutorials or groom the backlog 
+(I guess many of the open issues are already fixed).
+
+IMPORTANT: the docker image has been moved to **doctoolchain**/doctoolchain:v2.1.0
+
+=== Changelog v2.1.0
+
+=== fixes
+
+* https://github.com/docToolchain/docToolchain/issues/938[#938 asciidoc2confluence.groovy retrieveAllPages is returning allPages eventhough different spacekey is passed to it. This is happening when i try to publish documents to confluence]
+* https://github.com/docToolchain/docToolchain/issues/720[#720 Fix gradlew.bat]
+* Fixes typo in dtcw.bat for finding the correct local cli command.
+* https://github.com/docToolchain/docToolchain/pull/847[#847 generateHTML & generatePDF documentation improvements]
+* https://github.com/docToolchain/docToolchain/issues/851[#851 fix duplicate TOC marker]
+* https://github.com/docToolchain/docToolchain/issues/853[#853 Hide site links when not configured]
+* https://github.com/docToolchain/docToolchain/issues/873[#873 generateSite: Fix index page location]
+* https://github.com/docToolchain/docToolchain/issues/899[#899 dtcw local <any-task> (bash) executes :help instead of <any-task>]
+
+=== added
+* https://github.com/docToolchain/docToolchain/issue/692[#692 generateSite: navigation tree instead of a list on the left]
+* https://github.com/docToolchain/docToolchain/pull/886[#886 Add the possibility to set maven credentials]
+* https://github.com/docToolchain/docToolchain/issue/848[#848 generateSite: add customisation possibilities for the jbake gradle plugin]
+* http://doctoolchain.org/docToolchain/v2.0.x/015_tasks/150_task_createTask.html[#894 custom, project specific Tasks]
+* https://github.com/docToolchain/docToolchain/pull/897[#897 collectIncludes: Add options to configure search]
+* https://github.com/docToolchain/docToolchain/pull/911[#911 Add confluence page limit]
+
+=== changed
+* updated available languages for arc42 template
+* updated asciidoctorj-diagram to 2.2.3
+* added `latest` version to dtcw
+* the docker image has been moved to **doctoolchain**/doctoolchain:v2.1.0

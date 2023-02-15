@@ -12,7 +12,7 @@ pdfThemeDir = './src/docs/pdfTheme'
 inputFiles = [
         //[file: 'doctoolchain_demo.adoc',       formats: ['html','pdf']],
         //[file: 'arc42-template.adoc',    formats: ['html','pdf']],
-        [file: 'manual.adoc',    formats: ['html', 'pdf']],
+        [file: 'manual_test_script.adoc',    formats: ['html', 'pdf']],
 	/** inputFiles **/
 ]
 
@@ -95,7 +95,7 @@ microsite.with {
     // Slack Channel
     footerSlack = ''
     // general text for the footer
-    footerText = '<small class="text-white">built with <a href="https://doctoolchain.org">docToolchain</a> and <a href="https://jbake.org">jBake</a> <br /> theme: <a href="https://www.docsy.dev/">docsy</a></small>'
+    footerText = '<script defer data-domain="doctoolchain.org" src="https://plausible.io/js/script.js"></script><small class="text-white">built with <a href="https://doctoolchain.org">docToolchain</a> and <a href="https://jbake.org">jBake</a> <br /> theme: <a href="https://www.docsy.dev/">docsy</a></small>'
     // site title if no other title is given
     title = 'docToolchain'
     //
@@ -103,7 +103,7 @@ microsite.with {
     issueUrl = 'https://github.com/docToolchain/docToolchain/issues/new'
     //
     // the base url for code files in github (set to 'null' to hide the "Improve this doc" link)
-    branch = System.getenv("DTC_PROJECT_BRANCH")
+    branch = System.getenv("DTC_PROJECT_BRANCH")?:'ng'
     gitRepoUrl = "https://github.com/doctoolchain/doctoolchain/edit/${branch}/src/docs"
 
     /** end:microsite **/
@@ -166,13 +166,16 @@ confluence = [:]
 // - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty
 //                            if a new parent shall be created in the space
 //                            Set it for every file so the page scanning is done only for the given ancestor page trees.
-// - 'preambleTitle' (optional): the title of the page containing the preamble (everything
-//                            before the first second level heading). Default is 'arc42'
 //
 // inputHtmlFolder is a folder for bulk process html files
 // The following four keys can also be used in the global section below
 // - 'spaceKey' (optional): page specific variable for the key of the confluence space to write to
-// - 'createSubpages' (optional): page specific variable to determine whether ".sect2" sections shall be split from the current page into subpages
+// - 'subpagesForSections' (optional): The number of nested sub-pages to create. Default is '1'.
+//                                     '0' means creating all on one page.
+//                                     The following migration for removed configuration can be used.
+//                                     'allInOnePage = true' is the same as 'subpagesForSections = 0'
+//                                     'allInOnePage = false && createSubpages = false' is the same as 'subpagesForSections = 1'
+//                                     'allInOnePage = false && createSubpages = true' is the same as 'subpagesForSections = 2'
 // - 'pagePrefix' (optional): page specific variable, the pagePrefix will be a prefix for the page title and it's sub-pages
 //                            use this if you only have access to one confluence space but need to store several
 //                            pages with the same title - a different pagePrefix will make them unique
@@ -189,16 +192,13 @@ confluence.with {
     // you should get a json about your own user
     api = 'https://[yourServer]/[context]/rest/api/'
 
-    //    Additionally, spaceKey, createSubpages, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
+    //    Additionally, spaceKey, subpagesForSections, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
 
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
 
-    // the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
-    preambleTitle = ''
-
-    // variable to determine whether ".sect2" sections shall be split from the current page into subpages
-    createSubpages = false
+    // variable to determine how many layers of sub pages should be created
+    subpagesForSections = 1
 
     // the pagePrefix will be a prefix for each page title
     // use this if you only have access to one confluence space but need to store several
@@ -206,6 +206,9 @@ confluence.with {
     pagePrefix = ''
 
     pageSuffix = ''
+
+    // the comment used for the page version
+    pageVersionComment = ''
 
     /*
     WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!
