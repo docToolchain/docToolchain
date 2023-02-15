@@ -279,6 +279,7 @@
 <ul class="sectlevel2">
 <li><a href="#_step_1_set_up_doctoolchain">Step 1: Set Up docToolchain</a></li>
 <li><a href="#_step_2_configure_confluence_access">Step 2: Configure Confluence Access</a></li>
+<li><a href="#_step_3_publish_all_pages">Step 3: Publish all pages</a></li>
 </ul>
 </li>
 </ul>
@@ -639,8 +640,37 @@ spaceKey = '8FE'</pre>
 <p>Now comes the hardest part.
 The configuration of the credentials.</p>
 </div>
+<div class="sect3">
+<h4 id="_step_2_1_authentication">Step 2.1: Authentication</h4>
+<div class="sect4">
+<h5 id="_step_2_1a_authentication_with_username_and_password_insecure">Step 2.1a: Authentication with username and password (insecure)</h5>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+Instead of passing your password, you can use a personal access token,
+which can easily be revoked on the event of a compromise. See
+<a href="#personal-access-token">Authentication using Personal Access Token</a>.
+</td>
+</tr>
+</table>
+</div>
 <div class="paragraph">
-<p>Since I use a cloud instance, I can use an access token.
+<p>Simply pass your username (which can be your email address) and password to the dctw command:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="shell">./dtcw publishToConfluence -PconfluenceUser=&lt;your username&gt; -PconfluencePass=&lt;your password&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_step_2_1b_authentication_with_username_and_api_key">Step 2.1b: Authentication with username and API key</h5>
+<div class="paragraph">
+<p>Since I use a cloud instance, I can use an API token.
 This has to be generated from my central Atlassian account.</p>
 </div>
 <div class="paragraph">
@@ -689,8 +719,34 @@ To keep things simple, I will copy this token to the config.</p>
 <div class="paragraph">
 <p>So we don&#8217;t store the credentials in the config file, we pass them with the <code>./dtcw</code> command:</p>
 </div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="shell">./dtcw publishToConfluence -PconfluenceUser=&lt;your email&gt; -PconfluencePass=&lt;your api-token&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="personal-access-token">Step 2.1c: Authentication using Personal Access Token</h5>
+<div class="paragraph">
+<p>If you neither want to pass your password to the command nor are you an admin in
+your Confluence instance, you can use a Personal Access Token. You can follow
+the
+<a href="https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html#UsingPersonalAccessTokens-CreatingPATsintheapplication">Confluence
+documentation</a> to generate one. Once you have it, you can pass it to
+DocToolchain as the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="shell">./dtcw publishToConfluence -PconfluenceBearerToken=&lt;your personal access token&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_publish_all_pages">Step 3: Publish all pages</h3>
 <details>
-<summary class="title"><code>./dtcw publishToConfluence -PconfluenceUser=&lt;your email&gt; -PconfluencePass=&lt;your api-token&gt;</code></summary>
+<summary class="title"><code>./dtcw publishToConfluence &lt;extra arguments&gt;</code></summary>
 <div class="content">
 <div class="listingblock">
 <div class="content">
