@@ -14,6 +14,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * fixed GenerateDeckSpec
 * fixed GenerateDeck / Reveal.js
 * fixed exportEA hangs by EA v16.1
+* fixed exportEA write model notes into models subfolder
 * allow numeric ancestorIds for confluence export
 * https://github.com/docToolchain/docToolchain/pull/951[#951 Improve DTC_PROJECT_BRANCH management]
 * https://github.com/docToolchain/docToolchain/issues/976[#976 dtcw shows a fatal error when not in git repository]
@@ -28,6 +29,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * CZ as language for downloadTemplate
 * Enable to use a particular version of DTC from the wrapper by setting the environment variable 'DTC_VERSION' accordingly.
 * https://github.com/docToolchain/docToolchain/issues/1002[publishToConfluence: Add possibility to set the page version comment]
+* exportEAP.vbs: trim notes filename
+* exportEAP.vbs: creates for each model a combined notes
+* exportEAP.vbs: msg "looking for..." extended for EA 16.1
 
 === changed
 
