@@ -4,45 +4,55 @@
 :filename: 010_manual/20_install.adoc
 :icons: font
 
-= Installing docToolchain
+= Install docToolchain
 
 include::../_feedback.adoc[]
 
-== Getting the Wrapper
-
-Basically all you need to work with docToolchain is a simple wrapper script taking care of everything. 
-(If you already worked with an older version of docToolchain please note that the way it is installed has changed since the v2.x release.)
-
-=== This wrapper helps by:
-
-- Ensuring that everyone using your repository uses the same docToolchain version.
-- Keeping all docToolchain technology out of your repository.
-- Wrapping your commands and directing them to your local installation.
-- Checking your docToolchain installation (if not installed, the wrapper will do it for you via direct download or Docker).
+== Purpose
 
 This guide explains how to set up docToolchain in the following environments:
 
-- A Linux/WSL2 with bash
+- A MacOS with bash
+- Linux/WSL2 with bash
 - Windows with PowerShell
 - Windows with cmd.exe
 
-Please select the appropriate setup and follow these instructions to install docToolchain step by step.
+All you need to work with docToolchain is a wrapper script taking care of everything. This wrapper:
 
-NOTE: If you are going to use docToolchain in different projects install the dtcw (docToolchainWrapper) for each one.
-docToolchain itself will only be installed once in your home folder.
+- Ensures that everyone using your repository uses the same docToolchain version.
+- Keeps all docToolchain technology out of your repository.
+- Wraps your commands and directs them to your local installation.
+- Checks your docToolchain installation. If not installed, the wrapper will do it for you via direct download or Docker.
 
-.Linux / MacOS / WSL2 with bash
+[NOTE]
+====
+Did you already work with an older version of docToolchain? Please note that the way it is installed has changed since the v2.x release.
+====
+
+.Steps for MacOS/Linux/WSL2 with bash
 [role='primary']
 --
+[NOTE] 
+If you are going to use docToolchain in different projects install the dtcw (docToolchainWrapper) for each one.
+docToolchain itself will only be installed once in your home folder.
+
+If you have an Apple silicon (M1/M2) Mac, make sure that you have docker up and running type the following commands in the Terminal:
+
+[source, bash]
+----
+`arch -x86_64 /bin/bash`
+----
+
+Now, type the following:
 
 [source, bash]
 ----
 cd <your project>
-curl -Lo dtcw doctoolchain.github.io/dtcw
+curl -Lo dtcw doctoolchain.github.io/dtcw of wget doctoolchain.github.io/dtcw
 chmod +x dtcw
 ----
 
-if you don't have `curl` installed, you can also use `wget`:
+If you don't have `curl` installed, you can also use `wget`:
 
 [source, bash]
 ----
@@ -51,9 +61,17 @@ wget doctoolchain.github.io/dtcw
 chmod +x dtcw
 ----
 
-NOTE: if you run on apple silicon (M1/M2), make sure that you have docker up and running or enter a x86 shell by executing `arch -x86_64 /bin/bash`.
+Since you run docToolchain without Docker, you must get the right Java-Runtime/JDK:
+[source, bash]
+----
+./dtcw getJava
+----
 
-NOTE: if you run docToolchain without docker, it makes sense to get the right Java-Runtime/JDK by executing `./dtcw getJava`
+Next, type the following:
+[source, bash]
+----
+./dtcw tasks --group=doctoolchain
+----
 
 --
 
