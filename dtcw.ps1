@@ -12,7 +12,7 @@ if (Test-Path ".git" ) {
 } else {
     $env:DTCW_PROJECT_BRANCH = ""
 }
-  
+
 
 # https://docs.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables
 $home_path = $env:USERPROFILE
@@ -37,7 +37,7 @@ If you do not want to use a local java installtion, you can also use docToolchai
 In that case, specify 'docker' as first parameter in your statement.
 example: ./dtcw docker generateSite
 "@
- 
+
     exit 1
 }
 
@@ -46,7 +46,7 @@ function checkJava()
     if (Get-Command java -ErrorAction SilentlyContinue)
     {
         $java = $True
-        $javaversion = (Get-Command java | Select-Object -ExpandProperty Version).toString().split("[.]")[0]
+        $javaversion = (Get-Command java | Select-Object -ExpandProperty Version).toString().split(".")[0]
         echo "Java Version $javaversion"
 
         if ([int]$javaversion -lt 8 ) {
