@@ -46,7 +46,7 @@ function checkJava()
     if (Get-Command java -ErrorAction SilentlyContinue)
     {
         $java = $True
-        $javaversion = (Get-Command java | Select-Object -ExpandProperty Version).toString().split(".")[0]
+        $javaversion = ((Get-Command java | Select-Object -ExpandProperty Version).toString() -split "[.]")[0]
         echo "Java Version $javaversion"
 
         if ([int]$javaversion -lt 8 ) {
