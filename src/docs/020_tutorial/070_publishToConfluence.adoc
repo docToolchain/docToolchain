@@ -22,11 +22,13 @@ To get around this, you can set up a fresh copy of the arc42 template in docTool
 
 In this tutorial, you'll learn how to publish the arc42 template to a Confluence cloud instance.
 
-NOTE: For this tutorial, we will assume that you work with a Linux-based system.
+=== Step 1. Set Up docToolchain 
 
-=== Step 1: Set Up docToolchain
+If you  have completed the following instructions: http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/010_Install.html[install docToolchain] and http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/020_arc42.html[get the arc42 template] you can skip this part.
 
-To set up docToolchain, follow these two tutorials: http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/010_Install.html[install docToolchain] and http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/020_arc42.html[get the arc42 template].
+NOTE: For this tutorial, we assume that you work with a MacOs/Linux-based system.
+
+
 
 `{nbsp}{nbsp}{nbsp}mkdir publishToConfluenceDemo` +
 `{nbsp}{nbsp}{nbsp}cd publishToConfluenceDemo`
