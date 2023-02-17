@@ -7,6 +7,10 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 == Unreleased
 
+=== Breaking
+
+* no support for JDK 8 anymore due to gretty 4.0.3
+
 === fixes
 
 === added
@@ -15,6 +19,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 * gradle 6.9.2 => 6.9.3
 * gretty 3.0.6 => 4.0.3
+* disable spring boot support for gretty
 
 == 2.2.0 - 2023-02-16
 

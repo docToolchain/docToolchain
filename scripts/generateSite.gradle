@@ -71,6 +71,7 @@ bakePreview {
     port = '8046'
 }
 gretty {
+    springBoot = false
     httpPort = "${config.microsite.previewPort?:8042}" as Integer
     contextPath = "${config.microsite.contextPath}"
     extraResourceBases = ["${targetDir}/microsite/output"]
@@ -247,7 +248,7 @@ def convertAdditionalFormats = {
                             println """
 can't convert '${file.canonicalPath-docDir-'/build/microsite/tmp/site/doc'}':
 ${error}
-"""                            
+"""
                             throw new Exception("""
 can't convert '${file.canonicalPath-docDir-'/build/microsite/tmp/site/doc'}':
 ${error}
