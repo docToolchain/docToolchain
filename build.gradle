@@ -47,6 +47,10 @@ dependencies {
         "net.bytebuddy:byte-buddy:1.12.8"
     )
 }
+configurations.all {
+    exclude group: 'org.springframework', module: 'springloaded'
+    exclude group: 'org.gretty', module: 'gretty-starter'
+}
 if (project.name!=rootProject.name) {
     // disable all tasks which are not docToolchain tasks
     // this avoids for example that task 'check' runs if invoked in main project
