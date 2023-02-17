@@ -44,6 +44,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 
+* switch docker base image from deprecated openJDK 14 to temurin 11
 * The `publishToConfluence` guide now contains 3 modes for authentication (username & password, username & API key, personal access token)
 * Improve confluence export performance when only ancestorIds are given
 * https://github.com/docToolchain/docToolchain/issues/937[#937 Confluence publish nested pages by heading]
