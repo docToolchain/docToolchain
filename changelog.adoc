@@ -12,6 +12,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === added
 
 === changed
+* automate the use of x86 emulator on apple silicon in dtcw
 
 == 2.2.0 - 2023-02-16
 
