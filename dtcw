@@ -121,16 +121,7 @@ if [ "${1}" = "generateDeck" ]; then
       fi
     fi
 fi
-# check for apple M1 silicon
-if [ "${os}" = "Darwin" ]; then
-  if [ "${arch}" = "arm64" ]; then
-    echo "it seems that you try to run docToolchain on M1 silicon"
-    echo "please consider to switch to a x86 shell by executing"
-    echo "arch -x86_64 /bin/bash"
-    echo "in order to run docToolchain in x86 mode"
-    echo ""
-  fi
-fi
+
 if ! ${DTC_HEADLESS} ; then
   if [ "${docker}" = false ] ; then
     # important for the docker file to find dependencies
@@ -417,6 +408,12 @@ if [ "${doJavaCheck}" = true ] ; then
     check_java
 fi
 
-# echo "Command to invoke: ${command}"
+# use x86 emulator on Apple M1/M2
+emu="" 
+if [ "$os" = "Darwin" ] && [ "$arch" = "arm64" ]; then
+  echo "Apple silicon detected, run in x86 mode"
+  emu="arch -x86_64"
+fi
 
-exec bash -c "${command}"
+# echo "Command to invoke: ${command}"
+exec ${emu} bash -c "$command"
