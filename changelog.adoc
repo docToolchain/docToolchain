@@ -1,3 +1,5 @@
+:icons: font
+
 == Changelog
 
 All notable changes to this project will be documented in this file.
@@ -21,6 +23,10 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * gretty 3.0.6 => 4.0.3
 * disable spring boot support for gretty
 * removed spring boot dependencies from gretty
+* drop support for JDK 8
+
+
+NOTE: Gradle 7.x requires update to asciidoctor plugin
 
 == 2.2.0 - 2023-02-16
 

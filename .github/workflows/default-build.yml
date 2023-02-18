@@ -14,7 +14,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         # TODO: Will it really run on one of these? , windows-latest, macOS-latest]
-        java: [8, 11, 14] # , 17]
+        java: [11, 14] # , 17]
         jdk: [adopt]
         # , temurin]
       fail-fast: false
