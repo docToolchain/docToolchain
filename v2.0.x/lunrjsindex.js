@@ -10,6 +10,14 @@ var documents = [
 
 {
     "id": 1,
+    "uri": "030_news/2022/2.2.0-release.html",
+    "menu": "news",
+    "title": "Release v2.2.0",
+    "text": " Table of Contents docToolchain v2.2.0 has Been Released! About This Release Changes which need migration 2.2.0 - 2023-02-16 fixes added changed docToolchain v2.2.0 has Been Released! About This Release This is a fresh release of many nice features. The best probably is the exportConfluence Task which lets you export a whole confluence space to AsciiDoc! To test the new release, the docToolchain wrapper dtcw will not be updated until the end of the week. To discuss the new features, a new discussion thread has been created. please take a close look at the changelog, because there are some breaking changes Changes which need migration #937 Confluence publish nested pages by heading This replaces the settings allInOnePage and createSubPages . Migrate as follows: allInOnePage = true is the same as subpagesForSections = 0 allInOnePage = false &amp;&amp; createSubpages = false is the same as subpagesForSections = 1 allInOnePage = false &amp;&amp; createSubpages = true is the same as subpagesForSections = 2 #940 simplify configuration to use preamble heading from h1 instead of configuration Migrate by removing the setting preambleTitle and set the correct first level heading in the document. Make dtcw (and some other shell executables) shellcheck proof the docker image has been moved to doctoolchain /doctoolchain:v2.2.0 a big THANK YOU to all Sponsors and Contributors who helped to support docToolchain! You like docToolchain? What about helping to make it even better? docToolchain is a community project, so be part of the community which drives the project. You don&#8217;t have to code for doing so. It would even help to brush up the docs, write tutorials or groom the backlog (I guess many of the open issues are already fixed). 2.2.0 - 2023-02-16 fixes fixed whitespace in GH issue template (which leads to errors in htmlSanityCheck ) fixed ExportMarkdownSpec fixed GenerateDeckSpec fixed GenerateDeck / Reveal.js fixed exportEA hangs by EA v16.1 fixed exportEA write model notes into models subfolder allow numeric ancestorIds for confluence export #951 Improve DTC_PROJECT_BRANCH management #976 dtcw shows a fatal error when not in git repository #978 dtcw.ps1 does not correctly check for java version #890 updated documentation on Self-Contained docToolchain Remove never used analytics.js file from docsy theme added new Task exportConfluence Add confluenceBearerToken property rubyExtensions configuration CZ as language for downloadTemplate Enable to use a particular version of DTC from the wrapper by setting the environment variable 'DTC_VERSION' accordingly. publishToConfluence: Add possibility to set the page version comment exportEAP.vbs: trim notes filename exportEAP.vbs: creates for each model a combined notes exportEAP.vbs: msg looking for&#8230;&#8203; extended for EA 16.1 changed switch docker base image from deprecated openJDK 14 to temurin 11 The publishToConfluence guide now contains 3 modes for authentication (username &amp; password, username &amp; API key, personal access token) Improve confluence export performance when only ancestorIds are given #937 Confluence publish nested pages by heading This replaces the settings allInOnePage and createSubPages . Migrate as follows: allInOnePage = true is the same as subpagesForSections = 0 allInOnePage = false &amp;&amp; createSubpages = false is the same as subpagesForSections = 1 allInOnePage = false &amp;&amp; createSubpages = true is the same as subpagesForSections = 2 #683 publishToConfluence with unknown source language #940 simplify configuration to use preamble heading from h1 instead of configuration Migrate by removing the setting preambleTitle and set the correct first level heading in the document. Make dtcw (and some other shell executables) shellcheck proof "
+},
+
+{
+    "id": 2,
     "uri": "030_news/2022/2.1.0-release.html",
     "menu": "news",
     "title": "Release v2.1.0",
@@ -17,7 +25,7 @@ var documents = [
 },
 
 {
-    "id": 2,
+    "id": 3,
     "uri": "030_news/2022/2.0.5-release.html",
     "menu": "news",
     "title": "Release v2.0.5",
@@ -25,7 +33,7 @@ var documents = [
 },
 
 {
-    "id": 3,
+    "id": 4,
     "uri": "030_news/2022/2.0.4-release.html",
     "menu": "news",
     "title": "(Release v2.0.4)",
@@ -33,7 +41,7 @@ var documents = [
 },
 
 {
-    "id": 4,
+    "id": 5,
     "uri": "030_news/2021/2021-11-23-Open-Source-Camp.html",
     "menu": "news",
     "title": "Open Source Camp",
@@ -41,7 +49,7 @@ var documents = [
 },
 
 {
-    "id": 5,
+    "id": 6,
     "uri": "030_news/2021/2.0.3-release.html",
     "menu": "news",
     "title": "Release v2.0.3",
@@ -49,7 +57,7 @@ var documents = [
 },
 
 {
-    "id": 6,
+    "id": 7,
     "uri": "030_news/2021/2.0.2-release.html",
     "menu": "news",
     "title": "Release v2.0.2",
@@ -57,7 +65,7 @@ var documents = [
 },
 
 {
-    "id": 7,
+    "id": 8,
     "uri": "030_news/2021/2.0.1-release.html",
     "menu": "news",
     "title": "Release v2.0.1",
@@ -65,7 +73,7 @@ var documents = [
 },
 
 {
-    "id": 8,
+    "id": 9,
     "uri": "030_news/2021/2.0.0-release.html",
     "menu": "news",
     "title": "Release v2.0.0",
@@ -73,7 +81,7 @@ var documents = [
 },
 
 {
-    "id": 9,
+    "id": 10,
     "uri": "030_news/2021/last-release-candidate.html",
     "menu": "news",
     "title": "Last Release Candidate",
@@ -81,19 +89,11 @@ var documents = [
 },
 
 {
-    "id": 10,
+    "id": 11,
     "uri": "030_news/index.html",
     "menu": "news",
     "title": "Overview",
     "text": " Table of Contents Overview Overview Find all published news on this page. "
-},
-
-{
-    "id": 11,
-    "uri": "ea/Activity_notes.html",
-    "menu": "ea",
-    "title": "Activity_notes.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
 },
 
 {
@@ -114,6 +114,14 @@ var documents = [
 
 {
     "id": 14,
+    "uri": "ea/Activity_notes.html",
+    "menu": "ea",
+    "title": "Activity_notes.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
+    "id": 15,
     "uri": "ea/Use_Cases_notes_UseCases.html",
     "menu": "ea",
     "title": "Use_Cases_notes_UseCases.ad",
@@ -121,7 +129,7 @@ var documents = [
 },
 
 {
-    "id": 15,
+    "id": 16,
     "uri": "ea/Architect_notes_issue2.html",
     "menu": "ea",
     "title": "Architect_notes_issue2.ad",
@@ -129,19 +137,11 @@ var documents = [
 },
 
 {
-    "id": 16,
+    "id": 17,
     "uri": "ea/UseCases.html",
     "menu": "ea",
     "title": "UseCases.ad",
     "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
-},
-
-{
-    "id": 17,
-    "uri": "ea/Use_Cases_links_issue2.html",
-    "menu": "ea",
-    "title": "Use_Cases_links_issue2.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
 },
 
 {
@@ -170,6 +170,14 @@ var documents = [
 
 {
     "id": 21,
+    "uri": "ea/Use_Cases_links_issue2.html",
+    "menu": "ea",
+    "title": "Use_Cases_links_issue2.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+},
+
+{
+    "id": 22,
     "uri": "ea/Use_Cases_notes.html",
     "menu": "ea",
     "title": "Use_Cases_notes.ad",
@@ -177,7 +185,7 @@ var documents = [
 },
 
 {
-    "id": 22,
+    "id": 23,
     "uri": "ea/issue1.html",
     "menu": "ea",
     "title": "issue1.ad",
@@ -185,19 +193,11 @@ var documents = [
 },
 
 {
-    "id": 23,
+    "id": 24,
     "uri": "ea/readme.html",
     "menu": "ea",
     "title": "readme.ad",
     "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
-},
-
-{
-    "id": 24,
-    "uri": "025_development/005_contributing_to_docs.html",
-    "menu": "development",
-    "title": "Contributing to Docs",
-    "text": " Table of Contents Contributing to Docs Prerequisites Go to page you want to edit or fix Fork the Repository Edit the Page Commit the Changes Comparing changes Contributing to Docs 5 minutes to read The easiest way to contribute to this project is to contribute to the documentation. Here is a quick step-by-step guide on how to fix something on a documentation page. Prerequisites You need a github.com account. If you don&#8217;t have one, you can create one here: https://github.com/signup It might help if you go through the Github Hello World tutorial before you continue but it is not necessary. Go to page you want to edit or fix You already found this tutorial, so you already know how to go to the page you want to edit or fix. All documentation can be found at http://doctoolchain.org/ . The source code of each page is available at https://github.com/doctoolchain/doctoolchain/ in the /src/docs/ folder. But there is an easier way to find the exact source. The documentation pages all look something like this: In the upper right corner you can see the Improve this doc link: This will take you directly to the source of the page, already in edit mode. If you are not logged in, GitHub will ask you to do so. The Create an issue link will be helpful if you want to report a bug or request a feature for a page. It takes you directly to the issue tracker with a pre-filled issue. For now, let&#8217;s click on the Improve this doc link. Fork the Repository If you click the link for the first time, you will be asked to fork the repository. A fork is a copy of the repository. Maybe you are used to working on the main repository or a branch within the main repository. This is not possible in this case, because you don&#8217;t have write access, only read access. The solution is to fork the repository. This way, you create a copy in your own space, and you will have write access to it. Edit the Page You will now be taken to the page you want to edit already in edit mode. What you see is asciidoctor markup. Check out the {url-asciidoc-quick-reference}[AsciiDoc quick reference] for more information. The blue box on top tells you what you already know: a copy has been created for you and you are editing it. Important since you work on your own copy of the docs, you can&#8217;t break anything. You even don&#8217;t have write access to the main repository. So feel free to edit the page as you like. Use the Preview button to see what your edits will look like. Since this is only a preview and GitHub doesn&#8217;t know about docToolchain, this preview will only show you if your AsciiDoc syntax is correct. Some other features like the TOC or include statements will not be available in the preview. Do your edit and then Commit the Changes Below the editor, there is a small Propose Changes form. Enter a headline and a description of the changes you made and click Propose changes . This will save your changes to your fork of the repository. Note Git works with diffs - it only saves the changes you made, not a full copy of the new page. This is important to know if you want to understand the inner workings of Git. After you&#8217;ve clicked the button, you will be taken to a page which shows you what you changed. Comparing changes This view lets you review your changes. These diffs are not easy to read, but I promise that over time you get used to it. Red lines are deletions, green lines are additions. As you can see in the screenshot, I added an empty space in line 17. Line 17 has been deleted (red line) and replaced with a new line (green line). Line 1 looks mysterious, because it seems that is has been replaced with an identical copy. This is because the line ending changed but is not visible in the diff. The grey box on top shows you It is quite likely that you still know what you did a minute ago, so let&#8217;s click on the Create pull request button. "
 },
 
 {
@@ -210,18 +210,18 @@ var documents = [
 
 {
     "id": 26,
-    "uri": "025_development/030_create_new_release.html",
-    "menu": "development",
-    "title": "Creating a New Release",
-    "text": " Table of Contents Creating a New Release Before You Begin GitHub Docker Hub Blog Post docToolchain-Wrapper (dtcw) SDKMAN! Creating a New Release 2 minutes to read Before You Begin We use semantic versioning and we also keep a changelog . All of this is done on a best-efforts basis. A release consists of five parts, each explained below. GitHub Update the version in gradle.properties . Update the changelog. Create a section for the version. Copy to the new section all unreleased features which will be in the release. Commit and push the new version. Draft a new release . Copy the contents of the changelog for this version to the description then submit. Set the version as v X.Y.Z. Run ./gradlew createDist to zip the source in build (the distribution file). Add the zipped file and submit the new release. Docker Hub Standard Image The image build for rdmueller/doctoolchain depends on the GitHub repo docToolchain/docker-image . Update the Dockerfile to reflect the new version. Create a new release . Reference the GitHub release in the changelog (the build on Dockerhub will be automatically triggered). Important! Currently, the autobuild only works for paying customers. To manually build and upload the image, download the repo, switch to branch ng-beta , cd to the alpine folder and execute docker build -t rdmueller/doctoolchain:v2.0.0-rc15 . . After that, use Docker Desktop to push the resulting image to Docker Hub. Jenkins CI Image update the version in the github action definition and run the action. Blog Post Create a blog post to announce the new release. The SDKMAN! announcement will reference it. docToolchain-Wrapper (dtcw) Everything went well? Great! Now let’s update the wrapper. The source of the rapper is now the main repository and we need to copy it over to the github pages. To do so, make sure that dtcw references the right version. dtcw dtcw.ps1 the dtcw.bat will be generated then navigate to https://github.com/docToolchain/doctoolchain.github.io/actions/workflows/update-dtcw.yml and trigger the action. SDKMAN! A GitHub action sdkman deploy has been created to deploy to SDKMAN! Set the version to the same as for the other releases, but without the prepended v: X.Y.Z. Use as a download link the link to the docToolchain-dist.zip from the GitHub release. Tip: the link looks like https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip . "
-},
-
-{
-    "id": 27,
     "uri": "025_development/020_run_tests.html",
     "menu": "development",
     "title": "Running Tests",
     "text": " Table of Contents Running Tests Before You Begin Prepare the Project Execute Tests Workaround to Ensure Correct Proxy Settings for Tests Running Tests 2 minutes to read Before You Begin Git and Graphviz must both be installed. Your Gradle setup must be able to work with proxies. You must be using Java 8. Prepare the Project git clone git@github.com:docToolchain/docToolchain.git cd docToolchain/ git checkout V1.0.0 # (1) git submodule update -i (1) The version to test. Not required if you work on the HEAD revision on Master. Execute Tests rm -r build &amp;&amp; ./gradlew test --info The rm command ensures that you have a clean test running. This is vital because if artifacts of an older test run still exist, Gradle will skip steps (‘Up-to-date’) and you might get false positives. Workaround to Ensure Correct Proxy Settings for Tests The docToolchain setup is based on the Gradle-Test-Kit and makes use of the Spock test execution framework . The Gradle test runner is started in its own test environment and its own JVM instance. As a result, the global proxy settings are ignored. To execute the test with the correct proxy settings, you must use a workaround. Copy the proxy settings from the gradle.properties file located in the user directory to the gradle.properties file located in the docToolchain folder itself. Note: The files downloaded by the Gradle test runner are placed in a different folder than the default Gradle cache. You will find them in the Tmp folder C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches. "
+},
+
+{
+    "id": 27,
+    "uri": "025_development/005_contributing_to_docs.html",
+    "menu": "development",
+    "title": "Contributing to Docs",
+    "text": " Table of Contents Contributing to Docs Prerequisites Go to page you want to edit or fix Fork the Repository Edit the Page Commit the Changes Comparing changes Contributing to Docs 5 minutes to read The easiest way to contribute to this project is to contribute to the documentation. Here is a quick step-by-step guide on how to fix something on a documentation page. Prerequisites You need a github.com account. If you don&#8217;t have one, you can create one here: https://github.com/signup It might help if you go through the Github Hello World tutorial before you continue but it is not necessary. Go to page you want to edit or fix You already found this tutorial, so you already know how to go to the page you want to edit or fix. All documentation can be found at http://doctoolchain.org/ . The source code of each page is available at https://github.com/doctoolchain/doctoolchain/ in the /src/docs/ folder. But there is an easier way to find the exact source. The documentation pages all look something like this: In the upper right corner you can see the Improve this doc link: This will take you directly to the source of the page, already in edit mode. If you are not logged in, GitHub will ask you to do so. The Create an issue link will be helpful if you want to report a bug or request a feature for a page. It takes you directly to the issue tracker with a pre-filled issue. For now, let&#8217;s click on the Improve this doc link. Fork the Repository If you click the link for the first time, you will be asked to fork the repository. A fork is a copy of the repository. Maybe you are used to working on the main repository or a branch within the main repository. This is not possible in this case, because you don&#8217;t have write access, only read access. The solution is to fork the repository. This way, you create a copy in your own space, and you will have write access to it. Edit the Page You will now be taken to the page you want to edit already in edit mode. What you see is asciidoctor markup. Check out the {url-asciidoc-quick-reference}[AsciiDoc quick reference] for more information. The blue box on top tells you what you already know: a copy has been created for you and you are editing it. Important since you work on your own copy of the docs, you can&#8217;t break anything. You even don&#8217;t have write access to the main repository. So feel free to edit the page as you like. Use the Preview button to see what your edits will look like. Since this is only a preview and GitHub doesn&#8217;t know about docToolchain, this preview will only show you if your AsciiDoc syntax is correct. Some other features like the TOC or include statements will not be available in the preview. Do your edit and then Commit the Changes Below the editor, there is a small Propose Changes form. Enter a headline and a description of the changes you made and click Propose changes . This will save your changes to your fork of the repository. Note Git works with diffs - it only saves the changes you made, not a full copy of the new page. This is important to know if you want to understand the inner workings of Git. After you&#8217;ve clicked the button, you will be taken to a page which shows you what you changed. Comparing changes This view lets you review your changes. These diffs are not easy to read, but I promise that over time you get used to it. Red lines are deletions, green lines are additions. As you can see in the screenshot, I added an empty space in line 17. Line 17 has been deleted (red line) and replaced with a new line (green line). Line 1 looks mysterious, because it seems that is has been replaced with an identical copy. This is because the line ending changed but is not visible in the diff. The grey box on top shows you It is quite likely that you still know what you did a minute ago, so let&#8217;s click on the Create pull request button. "
 },
 
 {
@@ -234,6 +234,14 @@ var documents = [
 
 {
     "id": 29,
+    "uri": "025_development/030_create_new_release.html",
+    "menu": "development",
+    "title": "Creating a New Release",
+    "text": " Table of Contents Creating a New Release Before You Begin GitHub Docker Hub Blog Post docToolchain-Wrapper (dtcw) SDKMAN! Creating a New Release 2 minutes to read Before You Begin We use semantic versioning and we also keep a changelog . All of this is done on a best-efforts basis. A release consists of five parts, each explained below. GitHub Update the version in gradle.properties . Update the changelog. Create a section for the version. Copy to the new section all unreleased features which will be in the release. Commit and push the new version. Draft a new release . Copy the contents of the changelog for this version to the description then submit. Set the version as v X.Y.Z. Run ./gradlew createDist to zip the source in build (the distribution file). Add the zipped file and submit the new release. Docker Hub Standard Image The image build for rdmueller/doctoolchain depends on the GitHub repo docToolchain/docker-image . Update the Dockerfile to reflect the new version. Create a new release . Reference the GitHub release in the changelog (the build on Dockerhub will be automatically triggered). Important! Currently, the autobuild only works for paying customers. To manually build and upload the image, download the repo, switch to branch ng-beta , cd to the alpine folder and execute docker build -t rdmueller/doctoolchain:v2.0.0-rc15 . . After that, use Docker Desktop to push the resulting image to Docker Hub. Jenkins CI Image update the version in the github action definition and run the action. Blog Post Create a blog post to announce the new release. The SDKMAN! announcement will reference it. docToolchain-Wrapper (dtcw) Everything went well? Great! Now let’s update the wrapper. The source of the rapper is now the main repository and we need to copy it over to the github pages. To do so, make sure that dtcw references the right version. dtcw dtcw.ps1 the dtcw.bat will be generated then navigate to https://github.com/docToolchain/doctoolchain.github.io/actions/workflows/update-dtcw.yml and trigger the action. SDKMAN! A GitHub action sdkman deploy has been created to deploy to SDKMAN! Set the version to the same as for the other releases, but without the prepended v: X.Y.Z. Use as a download link the link to the docToolchain-dist.zip from the GitHub release. Tip: the link looks like https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip . "
+},
+
+{
+    "id": 30,
     "uri": "020_tutorial/010_Install.html",
     "menu": "tutorial",
     "title": "Install docToolchain",
@@ -241,7 +249,7 @@ var documents = [
 },
 
 {
-    "id": 30,
+    "id": 31,
     "uri": "020_tutorial/120_self-contained-dtc.html",
     "menu": "tutorial",
     "title": "Self-Contained docToolchain",
@@ -249,7 +257,7 @@ var documents = [
 },
 
 {
-    "id": 31,
+    "id": 32,
     "uri": "020_tutorial/070_publishToConfluence.html",
     "menu": "tutorial",
     "title": "publishToConfluence",
@@ -257,7 +265,7 @@ var documents = [
 },
 
 {
-    "id": 32,
+    "id": 33,
     "uri": "020_tutorial/050_multipleRepositories.html",
     "menu": "tutorial",
     "title": "Multi-Repo",
@@ -265,23 +273,7 @@ var documents = [
 },
 
 {
-    "id": 33,
-    "uri": "020_tutorial/100_diagrams.net.html",
-    "menu": "tutorial",
-    "title": "Diagrams: Diagrams.net",
-    "text": " Table of Contents Diagrams: Diagrams.net Diagrams: Diagrams.net There is no exportDiagramsnet or exportDrawio task, because working with these diagrams is more convenient than with the other diagramming tools. Diagrams.net (formerly known as Draw.io) is a neat little tool which is able to store the source of your diagrams in the meta-data of your .png or .svg files. To recognize these files as diagrams.net files, give them the extension myfile .dio.png or myfile .dio.svg . In IntelliJ, with the asciidoctor plugin and the diagrams.net plugin installed, type something like image::mynewdiagram.dio.png[] IntelliJ will show you that the file doesn&#8217;t exist. Press alt + shift + enter to create the file. IntelliJ will then launch a local copy of the diagrams.net editor. Every change in the diagram will be directly reflected in your document. Figure 1. just a demo image asciidoctor plugin diagrams.net plugin // Please, replace #yourelement with a real element id on your webpage MarketplaceWidget.setupMarketplaceWidget('card', 7391, .button1); MarketplaceWidget.setupMarketplaceWidget('card', 15635, .button2); "
-},
-
-{
     "id": 34,
-    "uri": "020_tutorial/040_generateSite.html",
-    "menu": "tutorial",
-    "title": "generateSite",
-    "text": " Table of Contents generateSite generateSite The generateSite task is more advanced. In many cases, your goal will not be to create a single HTML document but a whole documentation website. This is where generateSite shines. It uses a static site generator to turn your document into a nice looking microsite with landing-page, local search and edit links. Linux / WSL2 with bash ./dtcw generateSite Windows with Powershell ./dtcw.ps1 generateSite output of generateHTML $ ./dtcw docker generateSite dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists force use of docker /usr/bin/docker use docker installation Starting a Gradle Daemon (subsequent builds will be faster) &gt; Configure project : arc42/arc42.adoc &gt; Task :generateSite created /project/build/microsite/tmp copy internal theme /home/dtcuser/docToolchain/src/site copy project theme /project/src/site &gt; Task :copyImages &gt; Task :bake Warning: Nashorn engine is planned to be removed from a future JDK release BUILD SUCCESSFUL in 1m 15s 3 actionable tasks: 3 executed The output is written to build/microsite/output/index.html . You can open this file in your browser and view the results. But you will notice that some features which rely on javascript will be broken. To avoid this, use the task previewSite to start a little webserver which presents you the site without flaws. Figure 1. generated output of generateHTML task "
-},
-
-{
-    "id": 35,
     "uri": "020_tutorial/030_generateHTML.html",
     "menu": "tutorial",
     "title": "generateHTML &amp; generatePDF",
@@ -289,7 +281,23 @@ var documents = [
 },
 
 {
+    "id": 35,
+    "uri": "020_tutorial/100_diagrams.net.html",
+    "menu": "tutorial",
+    "title": "Diagrams: Diagrams.net",
+    "text": " Table of Contents Diagrams: Diagrams.net Diagrams: Diagrams.net There is no exportDiagramsnet or exportDrawio task, because working with these diagrams is more convenient than with the other diagramming tools. Diagrams.net (formerly known as Draw.io) is a neat little tool which is able to store the source of your diagrams in the meta-data of your .png or .svg files. To recognize these files as diagrams.net files, give them the extension myfile .dio.png or myfile .dio.svg . In IntelliJ, with the asciidoctor plugin and the diagrams.net plugin installed, type something like image::mynewdiagram.dio.png[] IntelliJ will show you that the file doesn&#8217;t exist. Press alt + shift + enter to create the file. IntelliJ will then launch a local copy of the diagrams.net editor. Every change in the diagram will be directly reflected in your document. Figure 1. just a demo image asciidoctor plugin diagrams.net plugin // Please, replace #yourelement with a real element id on your webpage MarketplaceWidget.setupMarketplaceWidget('card', 7391, .button1); MarketplaceWidget.setupMarketplaceWidget('card', 15635, .button2); "
+},
+
+{
     "id": 36,
+    "uri": "020_tutorial/040_generateSite.html",
+    "menu": "tutorial",
+    "title": "generateSite",
+    "text": " Table of Contents generateSite generateSite The generateSite task is more advanced. In many cases, your goal will not be to create a single HTML document but a whole documentation website. This is where generateSite shines. It uses a static site generator to turn your document into a nice looking microsite with landing-page, local search and edit links. Linux / WSL2 with bash ./dtcw generateSite Windows with Powershell ./dtcw.ps1 generateSite output of generateHTML $ ./dtcw docker generateSite dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists force use of docker /usr/bin/docker use docker installation Starting a Gradle Daemon (subsequent builds will be faster) &gt; Configure project : arc42/arc42.adoc &gt; Task :generateSite created /project/build/microsite/tmp copy internal theme /home/dtcuser/docToolchain/src/site copy project theme /project/src/site &gt; Task :copyImages &gt; Task :bake Warning: Nashorn engine is planned to be removed from a future JDK release BUILD SUCCESSFUL in 1m 15s 3 actionable tasks: 3 executed The output is written to build/microsite/output/index.html . You can open this file in your browser and view the results. But you will notice that some features which rely on javascript will be broken. To avoid this, use the task previewSite to start a little webserver which presents you the site without flaws. Figure 1. generated output of generateHTML task "
+},
+
+{
+    "id": 37,
     "uri": "020_tutorial/110_revealjs_and_arc42_from_scratch.html",
     "menu": "tutorial",
     "title": "Reveal.js &amp; Arc42 from Scratch",
@@ -297,7 +305,7 @@ var documents = [
 },
 
 {
-    "id": 37,
+    "id": 38,
     "uri": "020_tutorial/020_arc42.html",
     "menu": "tutorial",
     "title": "arc42 Template",
@@ -305,7 +313,7 @@ var documents = [
 },
 
 {
-    "id": 38,
+    "id": 39,
     "uri": "10_about/30_community.html",
     "menu": "about",
     "title": "Acknowledgements and Contributors",
@@ -313,7 +321,7 @@ var documents = [
 },
 
 {
-    "id": 39,
+    "id": 40,
     "uri": "10_about/20_what-is-doctoolchain.html",
     "menu": "about",
     "title": "What Is docToolchain?",
@@ -321,7 +329,7 @@ var documents = [
 },
 
 {
-    "id": 40,
+    "id": 41,
     "uri": "10_about/10_about-the-project.html",
     "menu": "about",
     "title": "About the Project",
@@ -329,7 +337,7 @@ var documents = [
 },
 
 {
-    "id": 41,
+    "id": 42,
     "uri": "010_manual/50_Frequently_asked_Questions.html",
     "menu": "manual",
     "title": "Solutions to Common Problems",
@@ -337,7 +345,7 @@ var documents = [
 },
 
 {
-    "id": 42,
+    "id": 43,
     "uri": "010_manual/60_further_reading.html",
     "menu": "manual",
     "title": "Useful Resources",
@@ -345,7 +353,7 @@ var documents = [
 },
 
 {
-    "id": 43,
+    "id": 44,
     "uri": "010_manual/40_features.html",
     "menu": "manual",
     "title": "Using docToolchain to Build Docs",
@@ -353,7 +361,7 @@ var documents = [
 },
 
 {
-    "id": 44,
+    "id": 45,
     "uri": "010_manual/30_config.html",
     "menu": "manual",
     "title": "Configuration",
@@ -361,7 +369,7 @@ var documents = [
 },
 
 {
-    "id": 45,
+    "id": 46,
     "uri": "010_manual/20_install.html",
     "menu": "manual",
     "title": "Install docToolchain",
@@ -369,7 +377,7 @@ var documents = [
 },
 
 {
-    "id": 46,
+    "id": 47,
     "uri": "010_manual/040_contributors.html",
     "menu": "-",
     "title": "moved",
@@ -377,7 +385,7 @@ var documents = [
 },
 
 {
-    "id": 47,
+    "id": 48,
     "uri": "010_manual/010_introduction_and_goals.html",
     "menu": "-",
     "title": "moved",
@@ -385,7 +393,7 @@ var documents = [
 },
 
 {
-    "id": 48,
+    "id": 49,
     "uri": "015_tasks/03_task_exportEA.html",
     "menu": "tasks",
     "title": "exportEA",
@@ -393,7 +401,7 @@ var documents = [
 },
 
 {
-    "id": 49,
+    "id": 50,
     "uri": "015_tasks/03_task_downloadTemplate.html",
     "menu": "tasks",
     "title": "downloadTemplate",
@@ -401,19 +409,11 @@ var documents = [
 },
 
 {
-    "id": 50,
+    "id": 51,
     "uri": "015_tasks/150_task_creatTask.html",
     "menu": "tasks",
     "title": "createTask",
     "text": " Table of Contents createTask At a Glance About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } createTask Unresolved directive in ../_feedback.adoc - include::/home/runner/work/docToolchain/docToolchain/build/contributors/015_tasks/150_task_createTask.adoc[] At a Glance About This Task You miss a special task in the above list? Or maybe you want to change a task to better fit your needs? Why not create your own project specific task? Execute ./dtcw createTask and docToolchain will create and configure a custom gradle task for you in a folder scripts . To get started, take a look at all the other tasks to see how they solve problems. Copy and modify the code to your own task and start hacking. Source customTasks.gradle config.customTasks?.each { task -&gt; println include custom task $task apply from: docDir+'/'+task } task createTask( description: 'create a new Task as quick start', group: 'docToolchain' ) { doLast { def file = new File(docDir+'/scripts/customTask.gradle') new File(docDir+/scripts).mkdirs() file.write(\ task customTask ( description: 'a custom task', group: 'docToolchain' ) { doLast { println your own custom task } } ) def config = new File(docDir+'/'+mainConfigFile) config.write(config.text.replaceAll( /[*][*] customTasks [*][*]/, 'scripts/customTask.gradle',\n\t\t/** customTasks **/ )) println  custom task ${file.canonicalPath} created and configured  } } "
-},
-
-{
-    "id": 51,
-    "uri": "015_tasks/03_tasks.html",
-    "menu": "tasks",
-    "title": "What Is a Task?",
-    "text": " Table of Contents What Is a Task? At a Glance How Tasks Are Named generateX exportX convertToX publishToX .gravatar img { margin-left: 3px; border-radius: 4px; } What Is a Task? 2 minutes to read At a Glance A task is another name for a script which triggers the build actions that compile and publish your docs. This diagram gives you an overview of the entire build process: Figure 1. docToolchain How Tasks Are Named Tasks are given a naming prefix which indicates their role in the build process. There are currently 4 groups. generateX These tasks use plain old Asciidoctor functionality to render the source to a given format. exportX These tasks export images and AsciiDoc snippets from other systems or file formats. The resulting artifacts can then be included from your main sources. export tasks differ from generate tasks because with export tasks, you don&#8217;t have to export with each build. Also, with export tasks, it&#8217;s likely that you will already store the resulting artifacts under version control because the tools needed for the export (such as Sparx Enterprise Architect or MS PowerPoint) are typically not available on your build server or another contributor&#8217;s machine. convertToX These tasks take the output from Asciidoctor and convert it (through other tools) to the target format. This results in a dependency on a generateX task and another external tool (currently pandoc ). publishToX These tasks not only convert your documents but also deploy, publish and move them to a remote system (currently Confluence), meaning the result is immediately visible to others. "
 },
 
 {
@@ -426,6 +426,14 @@ var documents = [
 
 {
     "id": 53,
+    "uri": "015_tasks/03_tasks.html",
+    "menu": "tasks",
+    "title": "What Is a Task?",
+    "text": " Table of Contents What Is a Task? At a Glance How Tasks Are Named generateX exportX convertToX publishToX .gravatar img { margin-left: 3px; border-radius: 4px; } What Is a Task? 2 minutes to read At a Glance A task is another name for a script which triggers the build actions that compile and publish your docs. This diagram gives you an overview of the entire build process: Figure 1. docToolchain How Tasks Are Named Tasks are given a naming prefix which indicates their role in the build process. There are currently 4 groups. generateX These tasks use plain old Asciidoctor functionality to render the source to a given format. exportX These tasks export images and AsciiDoc snippets from other systems or file formats. The resulting artifacts can then be included from your main sources. export tasks differ from generate tasks because with export tasks, you don&#8217;t have to export with each build. Also, with export tasks, it&#8217;s likely that you will already store the resulting artifacts under version control because the tools needed for the export (such as Sparx Enterprise Architect or MS PowerPoint) are typically not available on your build server or another contributor&#8217;s machine. convertToX These tasks take the output from Asciidoctor and convert it (through other tools) to the target format. This results in a dependency on a generateX task and another external tool (currently pandoc ). publishToX These tasks not only convert your documents but also deploy, publish and move them to a remote system (currently Confluence), meaning the result is immediately visible to others. "
+},
+
+{
+    "id": 54,
     "uri": "015_tasks/03_task_autobuildSite.html",
     "menu": "tasks",
     "title": "autobuildSite",
@@ -433,7 +441,7 @@ var documents = [
 },
 
 {
-    "id": 54,
+    "id": 55,
     "uri": "015_tasks/03_task_generateSite.html",
     "menu": "tasks",
     "title": "generateSite",
@@ -441,19 +449,11 @@ var documents = [
 },
 
 {
-    "id": 55,
+    "id": 56,
     "uri": "015_tasks/03_task_exportContributors.html",
     "menu": "tasks",
     "title": "exportContributors",
     "text": " Table of Contents exportContributors About This Task How to Use This Task About the Avatar-Icons File Attributes .gravatar img { margin-left: 3px; border-radius: 4px; } exportContributors 3 minutes to read About This Task This task crawls through all Asciidoctor source files and extracts a list of contributors, which is then rendered as AsciiDoc images of each contributor&#8217;s gravatar picture. The extracted list is stored in /home/runner/work/docToolchain/docToolchain/build/contributors/015_tasks/03_task_exportContributors.adoc so it can be easily included in your documents. How to Use This Task The best way to use this task is to create a feedback.adoc file similar to this: feedback.adoc ifndef::backend-pdf[] // (1) image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}{filename}, float=right] // (2) image::https://img.shields.io/badge/create-an%20issue-blue.svg[link=https://github.com/docToolchain/documentation/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:{filename}, float=right] // (3) endif::[] include::{targetDir}/contributors/{filename}[] // (4) Key: Do not show this section when docs are rendered as PDF. Create an Improve This Doc button which links to your GitHub sources. Create a Create an Issue button which links to your issue tracker. Include the list of contributors created by this task. (The task automatically adds the estimated reading time to the list of contributors.) About the Avatar-Icons It seems not to be possible to extract a link to the github avatar icons from the log. So, the solution is to use Gravatar icons. For this to work, the contributors email address is hashed and an icon link is generated from that hash. http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon This result at least in an icon which has a distinct color. Contributors can setup their own image through Gravatar.com . For this to work, the git commits need to use an email address which can be verified by Gravatar.com. Unfortunately, this is not the case if a contributor decided to make his email address private in the email sections of her github account. File Attributes This task also exports some GitHub file attributes. The extracted attributes are stored in /home/runner/work/docToolchain/docToolchain/build/fileattribs/015_tasks/03_task_exportContributors.adoc . :lastUpdated: 16.05.2019 06:22 :lastAuthorName: Ralf D. Müller :lastAuthorEmail: ralf.d.mueller@gmail.com :lastAuthorAvatar: http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon[32,32,role='gravatar',alt='Ralf D. Müller',title='Ralf D. Müller'] :lastMessage: #310 started to document config options You can import and use these attributes in the same way as you import the contributors list. Important please make sure that you do not accidentally publish the email address if your contributors do not want it. For example: feedback.adoc include::{targetDir}/fileattribs/{filename}[] Last updated {lastUpdated} by {lastAuthorName} "
-},
-
-{
-    "id": 56,
-    "uri": "015_tasks/03_task_exportExcel.html",
-    "menu": "tasks",
-    "title": "exportExcel",
-    "text": " Table of Contents exportExcel At a Glance About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportExcel 2 minutes to read At a Glance About This Task Sometimes you need to include tabular data in your documentation. Most likely, this data will be stored as a MS Excel spreadsheet, or you may like to use Excel to create and edit it. Either way, this task lets you export an Excel spreadsheet and include it directly in your docs. It searches for .xlsx files and exports each contained worksheet as .csv and as .adoc . Note that formulas contained in your spreadsheet are evaluated and exported statically. The generated files are written to src/excel/[filename]/[worksheet].(adoc|cvs) . The src folder is used instead of the build folder because a better history of worksheet changes is captured. The files can be included either as AsciiDoc: include::excel/Sample.xlsx/Numerical.adoc[] &#8230;&#8203;or as a CSV file: [options=header,format=csv] |=== include::excel/Sample.xlsx/Numerical.csv[] |=== The AsciiDoc version gives you a bit more control because the following are preserved: Horizontal and vertical alignment. col-span and row-span. Line breaks. Column width relative to other columns. Background colors. Further Reading and Resources See asciidoctorj-office-extension to learn another way to use Excel spreadsheets in your docs. Source build.gradle task exportExcel( description: 'exports all excelsheets to csv and AsciiDoc', group: 'docToolchain' ) { doFirst { File sourceDir = file(srcDir) def tree = fileTree(srcDir).include('**/*.xlsx').exclude('**/~*') def exportFileDir = new File(sourceDir, 'excel') //make sure path for notes exists exportFileDir.deleteDir() //create a readme to clarify things def readme = This folder contains exported workbooks from Excel. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportExcel` to re-export files  exportFileDir.mkdirs() new File(exportFileDir, '/readme.ad').write(readme) } doLast { File sourceDir = file(srcDir) def exportFileDir = new File(sourceDir, 'excel') def tree = fileTree(srcDir).include('**/*.xlsx').exclude('**/~*') def nl = System.getProperty(line.separator) def export = { sheet, evaluator, targetFileName -&gt; def targetFileCSV = new File(targetFileName + '.csv') def targetFileAD = new File(targetFileName + '.adoc') def df = new org.apache.poi.ss.usermodel.DataFormatter(); def regions = [] sheet.numMergedRegions.times { regions &lt;&lt; sheet.getMergedRegion(it) } logger.debug sheet contains ${regions.size()} regions def color = '' def resetColor = false def numCols = 0 def headerCreated = false def emptyRows = 0 for (int rowNum=0; rowNum&lt;=sheet.lastRowNum; rowNum++) { def row = sheet.getRow(rowNum) if (row &amp;&amp; !headerCreated) { headerCreated = true // create AsciiDoc table header def width = [] numCols = row.lastCellNum numCols.times { columnIndex -&gt; width &lt;&lt; sheet.getColumnWidth((int) columnIndex) } //lets make those numbers nicer: width = width.collect { Math.round(100 * it / width.sum()) } targetFileAD.append('[options=header,cols=' + width.join(',') + ']' + nl) targetFileAD.append('|===' + nl) } def data = [] def style = [] def colors = [] // For each row, iterate through each columns if (row &amp;&amp; (row?.lastCellNum!=-1)) { numCols.times { columnIndex -&gt; def cell = row.getCell(columnIndex) if (cell) { def cellValue = df.formatCellValue(cell, evaluator) if (cellValue.startsWith('*') &amp;&amp; cellValue.endsWith('\u20AC')) { // Remove special characters at currency cellValue = cellValue.substring(1).trim(); } def cellStyle = '' def region = regions.find { it.isInRange(cell.rowIndex, cell.columnIndex) } def skipCell = false if (region) { //check if we are in the upper left corner of the region if (region.firstRow == cell.rowIndex &amp;&amp; region.firstColumn == cell.columnIndex) { def colspan = 1 + region.lastRow - region.firstRow def rowspan = 1 + region.lastColumn - region.firstColumn if (rowspan &gt; 1) { cellStyle += ${rowspan} } if (colspan &gt; 1) { cellStyle += .${colspan} } cellStyle += + } else { skipCell = true } } if (!skipCell) { switch (cell.cellStyle.alignmentEnum.toString()) { case 'RIGHT': cellStyle += '&gt;' break case 'CENTER': cellStyle += '^' break } switch (cell.cellStyle.verticalAlignmentEnum.toString()) { case 'BOTTOM': cellStyle += '.&gt;' break case 'CENTER': cellStyle += '.^' break } color = cell.cellStyle.fillForegroundXSSFColor?.RGB?.encodeHex() color = color != null ? nl + {set:cellbgcolor:#${color}} : '' data &lt;&lt; cellValue if (color == '' &amp;&amp; resetColor) { colors &lt;&lt; nl + {set:cellbgcolor!} resetColor = false } else { colors &lt;&lt; color } if (color != '') { resetColor = true } style &lt;&lt; cellStyle } else { data &lt;&lt;  colors &lt;&lt;  style &lt;&lt; skip } } else { data &lt;&lt;  colors &lt;&lt;  style &lt;&lt;  } } emptyRows = 0 } else { if (emptyRows&lt;3) { //insert empty row numCols.times { data &lt;&lt;  colors &lt;&lt;  style &lt;&lt;  } emptyRows++ } else { break } } targetFileCSV.append(data .collect { \${it.replaceAll('', '')}\ } .join(',') + nl, 'UTF-8') targetFileAD.append(data .withIndex() .collect { value, index -&gt; if (style[index] == skip) {  } else { style[index] + | ${value.replaceAll('[|]', '{vbar}').replaceAll(\n, ' +$0') + colors[index]} } } .join(nl) + nl * 2, 'UTF-8') } targetFileAD.append('|===' + nl) } tree.each { File excel -&gt; println file:  + excel def excelDir = new File(exportFileDir, excel.getName()) excelDir.mkdirs() InputStream inp inp = new FileInputStream(excel) def wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(inp); def evaluator = wb.getCreationHelper().createFormulaEvaluator(); for (int wbi = 0; wbi &lt; wb.getNumberOfSheets(); wbi++) { def sheetName = wb.getSheetAt(wbi).getSheetName() println  -- sheet:  + sheetName def targetFile = new File(excelDir, sheetName) export(wb.getSheetAt(wbi), evaluator, targetFile.getAbsolutePath()) } inp.close(); } } } "
 },
 
 {
@@ -466,6 +466,14 @@ var documents = [
 
 {
     "id": 58,
+    "uri": "015_tasks/03_task_exportExcel.html",
+    "menu": "tasks",
+    "title": "exportExcel",
+    "text": " Table of Contents exportExcel At a Glance About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportExcel 2 minutes to read At a Glance About This Task Sometimes you need to include tabular data in your documentation. Most likely, this data will be stored as a MS Excel spreadsheet, or you may like to use Excel to create and edit it. Either way, this task lets you export an Excel spreadsheet and include it directly in your docs. It searches for .xlsx files and exports each contained worksheet as .csv and as .adoc . Note that formulas contained in your spreadsheet are evaluated and exported statically. The generated files are written to src/excel/[filename]/[worksheet].(adoc|cvs) . The src folder is used instead of the build folder because a better history of worksheet changes is captured. The files can be included either as AsciiDoc: include::excel/Sample.xlsx/Numerical.adoc[] &#8230;&#8203;or as a CSV file: [options=header,format=csv] |=== include::excel/Sample.xlsx/Numerical.csv[] |=== The AsciiDoc version gives you a bit more control because the following are preserved: Horizontal and vertical alignment. col-span and row-span. Line breaks. Column width relative to other columns. Background colors. Further Reading and Resources See asciidoctorj-office-extension to learn another way to use Excel spreadsheets in your docs. Source build.gradle task exportExcel( description: 'exports all excelsheets to csv and AsciiDoc', group: 'docToolchain' ) { doFirst { File sourceDir = file(srcDir) def tree = fileTree(srcDir).include('**/*.xlsx').exclude('**/~*') def exportFileDir = new File(sourceDir, 'excel') //make sure path for notes exists exportFileDir.deleteDir() //create a readme to clarify things def readme = This folder contains exported workbooks from Excel. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportExcel` to re-export files  exportFileDir.mkdirs() new File(exportFileDir, '/readme.ad').write(readme) } doLast { File sourceDir = file(srcDir) def exportFileDir = new File(sourceDir, 'excel') def tree = fileTree(srcDir).include('**/*.xlsx').exclude('**/~*') def nl = System.getProperty(line.separator) def export = { sheet, evaluator, targetFileName -&gt; def targetFileCSV = new File(targetFileName + '.csv') def targetFileAD = new File(targetFileName + '.adoc') def df = new org.apache.poi.ss.usermodel.DataFormatter(); def regions = [] sheet.numMergedRegions.times { regions &lt;&lt; sheet.getMergedRegion(it) } logger.debug sheet contains ${regions.size()} regions def color = '' def resetColor = false def numCols = 0 def headerCreated = false def emptyRows = 0 for (int rowNum=0; rowNum&lt;=sheet.lastRowNum; rowNum++) { def row = sheet.getRow(rowNum) if (row &amp;&amp; !headerCreated) { headerCreated = true // create AsciiDoc table header def width = [] numCols = row.lastCellNum numCols.times { columnIndex -&gt; width &lt;&lt; sheet.getColumnWidth((int) columnIndex) } //lets make those numbers nicer: width = width.collect { Math.round(100 * it / width.sum()) } targetFileAD.append('[options=header,cols=' + width.join(',') + ']' + nl) targetFileAD.append('|===' + nl) } def data = [] def style = [] def colors = [] // For each row, iterate through each columns if (row &amp;&amp; (row?.lastCellNum!=-1)) { numCols.times { columnIndex -&gt; def cell = row.getCell(columnIndex) if (cell) { def cellValue = df.formatCellValue(cell, evaluator) if (cellValue.startsWith('*') &amp;&amp; cellValue.endsWith('\u20AC')) { // Remove special characters at currency cellValue = cellValue.substring(1).trim(); } def cellStyle = '' def region = regions.find { it.isInRange(cell.rowIndex, cell.columnIndex) } def skipCell = false if (region) { //check if we are in the upper left corner of the region if (region.firstRow == cell.rowIndex &amp;&amp; region.firstColumn == cell.columnIndex) { def colspan = 1 + region.lastRow - region.firstRow def rowspan = 1 + region.lastColumn - region.firstColumn if (rowspan &gt; 1) { cellStyle += ${rowspan} } if (colspan &gt; 1) { cellStyle += .${colspan} } cellStyle += + } else { skipCell = true } } if (!skipCell) { switch (cell.cellStyle.alignmentEnum.toString()) { case 'RIGHT': cellStyle += '&gt;' break case 'CENTER': cellStyle += '^' break } switch (cell.cellStyle.verticalAlignmentEnum.toString()) { case 'BOTTOM': cellStyle += '.&gt;' break case 'CENTER': cellStyle += '.^' break } color = cell.cellStyle.fillForegroundXSSFColor?.RGB?.encodeHex() color = color != null ? nl + {set:cellbgcolor:#${color}} : '' data &lt;&lt; cellValue if (color == '' &amp;&amp; resetColor) { colors &lt;&lt; nl + {set:cellbgcolor!} resetColor = false } else { colors &lt;&lt; color } if (color != '') { resetColor = true } style &lt;&lt; cellStyle } else { data &lt;&lt;  colors &lt;&lt;  style &lt;&lt; skip } } else { data &lt;&lt;  colors &lt;&lt;  style &lt;&lt;  } } emptyRows = 0 } else { if (emptyRows&lt;3) { //insert empty row numCols.times { data &lt;&lt;  colors &lt;&lt;  style &lt;&lt;  } emptyRows++ } else { break } } targetFileCSV.append(data .collect { \${it.replaceAll('', '')}\ } .join(',') + nl, 'UTF-8') targetFileAD.append(data .withIndex() .collect { value, index -&gt; if (style[index] == skip) {  } else { style[index] + | ${value.replaceAll('[|]', '{vbar}').replaceAll(\n, ' +$0') + colors[index]} } } .join(nl) + nl * 2, 'UTF-8') } targetFileAD.append('|===' + nl) } tree.each { File excel -&gt; println file:  + excel def excelDir = new File(exportFileDir, excel.getName()) excelDir.mkdirs() InputStream inp inp = new FileInputStream(excel) def wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(inp); def evaluator = wb.getCreationHelper().createFormulaEvaluator(); for (int wbi = 0; wbi &lt; wb.getNumberOfSheets(); wbi++) { def sheetName = wb.getSheetAt(wbi).getSheetName() println  -- sheet:  + sheetName def targetFile = new File(excelDir, sheetName) export(wb.getSheetAt(wbi), evaluator, targetFile.getAbsolutePath()) } inp.close(); } } } "
+},
+
+{
+    "id": 59,
     "uri": "015_tasks/03_task_exportVisio.html",
     "menu": "tasks",
     "title": "exportVisio",
@@ -473,7 +481,7 @@ var documents = [
 },
 
 {
-    "id": 59,
+    "id": 60,
     "uri": "015_tasks/03_task_previewSite.html",
     "menu": "tasks",
     "title": "previewSite",
@@ -481,7 +489,7 @@ var documents = [
 },
 
 {
-    "id": 60,
+    "id": 61,
     "uri": "015_tasks/03_task_exportJiraSprintChangelog.html",
     "menu": "tasks",
     "title": "exportJiraSprintChangelogIssues",
@@ -489,7 +497,7 @@ var documents = [
 },
 
 {
-    "id": 61,
+    "id": 62,
     "uri": "015_tasks/03_task_copy_themes.html",
     "menu": "tasks",
     "title": "copyThemes",
@@ -497,7 +505,7 @@ var documents = [
 },
 
 {
-    "id": 62,
+    "id": 63,
     "uri": "015_tasks/03_task_publishToConfluence.html",
     "menu": "tasks",
     "title": "publishToConfluence",
@@ -505,7 +513,7 @@ var documents = [
 },
 
 {
-    "id": 63,
+    "id": 64,
     "uri": "015_tasks/03_task_generateDeck.html",
     "menu": "tasks",
     "title": "generateDeck",
@@ -513,7 +521,7 @@ var documents = [
 },
 
 {
-    "id": 64,
+    "id": 65,
     "uri": "015_tasks/03_task_generatePDF.html",
     "menu": "tasks",
     "title": "generatePDF",
@@ -521,7 +529,7 @@ var documents = [
 },
 
 {
-    "id": 65,
+    "id": 66,
     "uri": "015_tasks/03_task_collectIncludes.html",
     "menu": "tasks",
     "title": "collectIncludes",
@@ -529,7 +537,7 @@ var documents = [
 },
 
 {
-    "id": 66,
+    "id": 67,
     "uri": "015_tasks/03_task_dependencyUpdates.html",
     "menu": "tasks",
     "title": "dependencyUpdates",
@@ -537,7 +545,7 @@ var documents = [
 },
 
 {
-    "id": 67,
+    "id": 68,
     "uri": "015_tasks/03_task_convertToEpub.html",
     "menu": "tasks",
     "title": "convertToEpub",
@@ -545,7 +553,7 @@ var documents = [
 },
 
 {
-    "id": 68,
+    "id": 69,
     "uri": "015_tasks/03_task_generateHTML.html",
     "menu": "tasks",
     "title": "generateHTML",
@@ -553,7 +561,7 @@ var documents = [
 },
 
 {
-    "id": 69,
+    "id": 70,
     "uri": "015_tasks/03_task_convertToDocx.html",
     "menu": "tasks",
     "title": "convertToDocx",
@@ -561,7 +569,7 @@ var documents = [
 },
 
 {
-    "id": 70,
+    "id": 71,
     "uri": "015_tasks/03_task_generateDocBook.html",
     "menu": "tasks",
     "title": "generateDocbook",
@@ -569,7 +577,7 @@ var documents = [
 },
 
 {
-    "id": 71,
+    "id": 72,
     "uri": "015_tasks/03_task_exportChangeLog.html",
     "menu": "tasks",
     "title": "exportChangeLog",
@@ -577,7 +585,7 @@ var documents = [
 },
 
 {
-    "id": 72,
+    "id": 73,
     "uri": "015_tasks/03_task_prependFilename.html",
     "menu": "tasks",
     "title": "prependFilename",
@@ -585,7 +593,7 @@ var documents = [
 },
 
 {
-    "id": 73,
+    "id": 74,
     "uri": "015_tasks/03_task_exportPPT.html",
     "menu": "tasks",
     "title": "exportPPT",
@@ -593,7 +601,7 @@ var documents = [
 },
 
 {
-    "id": 74,
+    "id": 75,
     "uri": "015_tasks/03_task_exportJiraIssues.html",
     "menu": "tasks",
     "title": "exportJiraIssues",
@@ -601,7 +609,7 @@ var documents = [
 },
 
 {
-    "id": 75,
+    "id": 76,
     "uri": "015_tasks/03_task_exportConfluence.html",
     "menu": "tasks",
     "title": "exportConfluence",
@@ -609,7 +617,7 @@ var documents = [
 },
 
 {
-    "id": 76,
+    "id": 77,
     "uri": "015_tasks/03_task_createReferenceDoc.html",
     "menu": "tasks",
     "title": "createReferenceDoc",
@@ -617,7 +625,7 @@ var documents = [
 },
 
 {
-    "id": 77,
+    "id": 78,
     "uri": "015_tasks/03_task_htmlSanityCheck.html",
     "menu": "tasks",
     "title": "htmlSanityCheck",
@@ -625,7 +633,7 @@ var documents = [
 },
 
 {
-    "id": 78,
+    "id": 79,
     "uri": "015_tasks/03_task_exportOpenApi.html",
     "menu": "tasks",
     "title": "exportOpenAPI",
@@ -633,7 +641,7 @@ var documents = [
 },
 
 {
-    "id": 79,
+    "id": 80,
     "uri": "015_tasks/03_task_exportMetrics.html",
     "menu": "tasks",
     "title": "exportMetrics",
@@ -641,7 +649,7 @@ var documents = [
 },
 
 {
-    "id": 80,
+    "id": 81,
     "uri": "015_tasks/03_task_fixencoding.html",
     "menu": "tasks",
     "title": "fixEncoding",
@@ -649,7 +657,7 @@ var documents = [
 },
 
 {
-    "id": 81,
+    "id": 82,
     "uri": "050_ADRs/ADR-2-anotherTest.html",
     "menu": "ADRs",
     "title": "ADR-2-anotherTest.ad",
@@ -657,7 +665,7 @@ var documents = [
 },
 
 {
-    "id": 82,
+    "id": 83,
     "uri": "050_ADRs/ADR-1-firstTest.html",
     "menu": "ADRs",
     "title": "ADR-1-firstTest.adoc",
@@ -665,7 +673,7 @@ var documents = [
 },
 
 {
-    "id": 83,
+    "id": 84,
     "uri": "010_manual/single-page.html",
     "menu": "-",
     "title": "docToolchain Manual",
@@ -673,7 +681,7 @@ var documents = [
 },
 
 {
-    "id": 84,
+    "id": 85,
     "uri": "search.html",
     "menu": "-",
     "title": "search",
@@ -681,7 +689,7 @@ var documents = [
 },
 
 {
-    "id": 85,
+    "id": 86,
     "uri": "lunrjsindex.html",
     "menu": "-",
     "title": "null",
