@@ -409,9 +409,10 @@ if [ "${doJavaCheck}" = true ] ; then
 fi
 
 # use x86 emulator on Apple M1/M2
-emu=`[ $os = "Darwin" ] && [ $arch = "arm64" ] && echo "arch -x86_64"` 
-if [ "$emu" = "arch -x86_64" ]; then
+emu="" 
+if [ "$os" = "Darwin" ] && [ "$arch" = "arm64" ]; then
   echo "Apple silicon detected, run in x86 mode"
+  emu="arch -x86_64"
 fi
 
 # echo "Command to invoke: ${command}"
