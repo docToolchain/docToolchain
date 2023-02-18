@@ -277,9 +277,9 @@
 <ul class="sectlevel1">
 <li><a href="#_publish_your_docs_to_confluence">Publish Your Docs to Confluence</a>
 <ul class="sectlevel2">
-<li><a href="#_step_1_set_up_doctoolchain">Step 1: Set Up docToolchain</a></li>
-<li><a href="#_step_2_configure_confluence_access">Step 2: Configure Confluence Access</a></li>
-<li><a href="#_step_3_publish_all_pages">Step 3: Publish all pages</a></li>
+<li><a href="#_step_1_set_up_doctoolchain">Step 1. Set Up docToolchain</a></li>
+<li><a href="#_step_2_configure_publication_to_confluence">Step 2. Configure Publication to Confluence</a></li>
+<li><a href="#_step_3_publish_your_pages">Step 3: Publish Your Pages</a></li>
 </ul>
 </li>
 </ul>
@@ -322,6 +322,11 @@ To get around this, you can set up a fresh copy of the arc42 template in docTool
 <div class="paragraph">
 <p>In this tutorial, you&#8217;ll learn how to publish the arc42 template to a Confluence cloud instance.</p>
 </div>
+<div class="sect2">
+<h3 id="_step_1_set_up_doctoolchain">Step 1. Set Up docToolchain</h3>
+<div class="paragraph">
+<p>If you  have completed instructions <a href="http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/010_Install.html">install docToolchain</a> and <a href="http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/020_arc42.html">get the arc42 template</a> you can skip this part.</p>
+</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -329,22 +334,27 @@ To get around this, you can set up a fresh copy of the arc42 template in docTool
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-For this tutorial, we will assume that you work with a Linux-based system.
+For this tutorial, we assume that you work with a MacOs/Linux-based system.
 </td>
 </tr>
 </table>
 </div>
-<div class="sect2">
-<h3 id="_step_1_set_up_doctoolchain">Step 1: Set Up docToolchain</h3>
-<div class="paragraph">
-<p>To set up docToolchain, follow these two tutorials: <a href="http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/010_Install.html">install docToolchain</a> and <a href="http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/020_arc42.html">get the arc42 template</a>.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the Terminal, type the following:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">mkdir publishToConfluenceDemo
+cd publishToConfluenceDemo
+curl -Lo dtcw doctoolchain.github.io/dtcw`</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p><code>&#160;&#160;&#160;mkdir publishToConfluenceDemo</code><br>
-<code>&#160;&#160;&#160;cd publishToConfluenceDemo</code></p>
+<p>The result is as follows:</p>
 </div>
 <details>
-<summary class="title"><code>curl -Lo dtcw doctoolchain.github.io/dtcw</code></summary>
+<summary class="title">Details</summary>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -357,11 +367,17 @@ Dload  Upload   Total   Spent    Left  Speed
 </div>
 </div>
 </details>
+</li>
+<li>
+<p>Next, type <code>&#160;&#160;&#160;chmod +x dtcw</code>.<br></p>
+</li>
+<li>
+<p>If you do not have docToolchain as a Docker image, type <code>./dtcw getJava</code>.</p>
 <div class="paragraph">
-<p><code>&#160;&#160;&#160;chmod +x dtcw</code><br></p>
+<p>The result is as follows:</p>
 </div>
 <details>
-<summary class="title"><code>./dtcw getJava</code></summary>
+<summary class="title">Details</summary>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -404,11 +420,20 @@ expanding JDK</code></pre>
 </div>
 </div>
 </details>
+</li>
+<li>
+<p>Answer the questions that appear during installation.</p>
 <div class="paragraph">
-<p>Now comes the part where you have to answer some questions, and lots of <code>.jar</code> files get downloaded.</p>
+<p>You will see lots of <code>.jar</code> files getting downloaded.</p>
+</div>
+</li>
+<li>
+<p>Type <code>./dtcw tasks</code>.</p>
+<div class="paragraph">
+<p>You will see this:</p>
 </div>
 <details>
-<summary class="title"><code>./dtcw tasks</code></summary>
+<summary class="title">Details</summary>
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -487,6 +512,9 @@ BUILD SUCCESSFUL in 3m 29s
 </div>
 </div>
 </details>
+</li>
+</ol>
+</div>
 <details>
 <summary class="title"><code>./dtcw downloadTemplate</code></summary>
 <div class="content">
@@ -523,10 +551,14 @@ BUILD SUCCESSFUL in 22s
 </div>
 </details>
 <div class="paragraph">
-<p>You should have now the following folder structure in place:</p>
+<p>+
+You should now have the following folder structure in your project:</p>
 </div>
-<details>
-<summary class="title"><code>tree</code></summary>
+<div class="paragraph">
+<p>+
+.Project Folder Structure</p>
+</div>
+<div class="exampleblock">
 <div class="content">
 <div class="listingblock">
 <div class="content">
@@ -562,21 +594,22 @@ BUILD SUCCESSFUL in 22s
 </div>
 </div>
 </div>
-</details>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_step_2_configure_confluence_access">Step 2: Configure Confluence Access</h3>
+<h3 id="_step_2_configure_publication_to_confluence">Step 2. Configure Publication to Confluence</h3>
 <div class="paragraph">
-<p>Now I will show you how to configure access to the Confluence API.</p>
+<p>To configure authentication through the Confluence API, do the following.</p>
 </div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the root of your project foler, open the file <code>docToolchainConfig.groovy</code>.</p>
+</li>
+<li>
+<p>Find the text <code>confluence.with</code>.</p>
 <div class="paragraph">
-<p>As an example, I&#8217;ll use the file <code>docToolchainConfig.groovy</code> and search for <code>confluence.with</code>.
-This is the start of the Confluence configuration section.</p>
-</div>
-<div class="paragraph">
-<p>As you can see, there is already an example configured as input for the <code>publishToConfluence</code>-Task.
-But since it&#8217;s only an example, I have to configure it to point to the file generated by <code>./dtcw generateHTML</code>.
-Here is the correct config:</p>
+<p>This is the start of the section where you configure publication to Confluence. As you can see, docToolchain is preconfigured to publish sample input (the arc42 template) to Confluence. The input for the publishToConfluence task is the output of the <code>generateHTML</code> task. You should see this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -585,27 +618,40 @@ Here is the correct config:</p>
 ]</code></pre>
 </div>
 </div>
-<div class="paragraph">
-<p>Next, I&#8217;ll set up the API endpoint:</p>
-</div>
+</li>
+<li>
+<p>Set up the API endpoint.</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Get your Atlassian Confluence URL, such as <a href="https://arc42-template.atlassian.net" class="bare">https://arc42-template.atlassian.net</a>.</p>
+</li>
+<li>
+<p>Put your context, plus /rest/api behind it. See the sample below.</p>
 <div class="listingblock">
+<div class="title">Endpoint Syntax</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">api = 'https://[yourServer]/[context]/rest/api/'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In my case, I want to publish to <a href="https://arc42-template.atlassian.net" class="bare">https://arc42-template.atlassian.net</a>.
-My first guess is that the correct endpoint is <code><a href="https://arc42-template.atlassian.net/wiki/rest/api/" class="bare">https://arc42-template.atlassian.net/wiki/rest/api/</a></code> and I can verify this by appending <code>user/current</code> to this URL.</p>
+<p>In this case, the correct endpoint is <code><a href="https://arc42-template.atlassian.net/wiki/rest/api/" class="bare">https://arc42-template.atlassian.net/wiki/rest/api/</a></code>.</p>
 </div>
+</li>
+<li>
+<p>Verify your endpoint and paste <code>https://[yourServer]/[context]/rest/api/<strong>user/current</strong></code> in your browser, such as <a href="https://arc42-template.atlassian.net/wiki/rest/api/user/current" class="bare">https://arc42-template.atlassian.net/wiki/rest/api/user/current</a>.</p>
 <div class="paragraph">
-<p><a href="https://arc42-template.atlassian.net/wiki/rest/api/user/current" class="bare">https://arc42-template.atlassian.net/wiki/rest/api/user/current</a></p>
+<p>This results in the following output, and proves that I got the right endpoint (not a 404).</p>
 </div>
-<div class="paragraph">
-<p>This results in the following output, and proves that I got the right endpoint (no 404).</p>
+</li>
+</ol>
+</div>
+</li>
+</ol>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="json">{
+<pre>{
   "type":"anonymous",
   "profilePicture":{
     "path":"/wiki/s/-93606273/6452/1a34f7853d41f548e0ef8f60a80cc50468126739/_/images/icons/profilepics/anonymous.png",
@@ -620,30 +666,29 @@ My first guess is that the correct endpoint is <code><a href="https://arc42-temp
     "base":"https://arc42-template.atlassian.net/wiki",
     "context":"/wiki"
   }
-}</code></pre>
+}</pre>
 </div>
 </div>
 <div class="paragraph">
-<p>As you can see, this API endpoint works as a GET request without being logged in!</p>
+<p>+
+As you can see, this API endpoint works as a GET request without being logged in!</p>
 </div>
 <div class="paragraph">
-<p>I created a space called <code>arc42 V8 flat English</code> with the space-key <code>8FE</code>.
-So I configure it accordingly:</p>
+<p>+
+. In <code>docToolchainConfig.groovy</code>, add the space-key, such as <code>8FE</code>.</p>
 </div>
-<div class="literalblock">
+<div class="paragraph">
+<p>+</p>
+</div>
+<div class="listingblock">
 <div class="content">
-<pre>// the key of the confluence space to write to
-spaceKey = '8FE'</pre>
+<pre>spaceKey = '8FE'</pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Now comes the hardest part.
-The configuration of the credentials.</p>
 </div>
 <div class="sect3">
-<h4 id="_step_2_1_authentication">Step 2.1: Authentication</h4>
+<h4 id="_step_2_1_configure_confluence_authentication">Step 2.1. Configure Confluence Authentication</h4>
 <div class="sect4">
-<h5 id="_step_2_1a_authentication_with_username_and_password_insecure">Step 2.1a: Authentication with username and password (insecure)</h5>
+<h5 id="_step_2_1a_cli_authentication_with_username_and_password_insecure">Step 2.1a. CLI Authentication with username and password (insecure)</h5>
 <div class="admonitionblock warning">
 <table>
 <tr>
@@ -651,15 +696,15 @@ The configuration of the credentials.</p>
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-Instead of passing your password, you can use a personal access token,
+This method is not recommended. Instead of passing your password, you can use a Personal Access Token,
 which can easily be revoked on the event of a compromise. See
-<a href="#personal-access-token">Authentication using Personal Access Token</a>.
+<a href="#personal-access-token">Authentication with Personal Access Token</a>.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>Simply pass your username (which can be your email address) and password to the dctw command:</p>
+<p>In the Terminal, type the foolwoing:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -668,30 +713,39 @@ which can easily be revoked on the event of a compromise. See
 </div>
 </div>
 <div class="sect4">
-<h5 id="_step_2_1b_authentication_with_username_and_api_key">Step 2.1b: Authentication with username and API key</h5>
-<div class="paragraph">
-<p>Since I use a cloud instance, I can use an API token.
-This has to be generated from my central Atlassian account.</p>
+<h5 id="_step_2_1b_cli_authentication_with_username_and_api_token">Step 2.1b: CLI Authentication with username and API token</h5>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This method only works for Confluence Cloud. I can use an API token. The key has to be generated from the central Atlassian account.
+</td>
+</tr>
+</table>
 </div>
-<div class="paragraph">
-<p>Navigate to your <code>Profile</code></p>
-</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to your central Atlassian profile.</p>
 <div class="imageblock center">
 <div class="content">
 <img src="images/070-first.png" alt="070 first" width="30%">
 </div>
 </div>
-<div class="paragraph">
-<p><code>Manage your Account</code></p>
-</div>
+</li>
+<li>
+<p>Go to <strong>Manage your Account</strong>.</p>
 <div class="imageblock center">
 <div class="content">
 <img src="images/070-second.png" alt="070 second" width="30%">
 </div>
 </div>
-<div class="paragraph">
-<p><code>Security</code> &gt; <code>API token</code> &gt; <code>Create and manage API tokens</code></p>
-</div>
+</li>
+<li>
+<p>Click <strong>Security</strong> &gt; <strong>API token</strong> &gt; <strong>Create and manage API tokens</strong>.</p>
 <div class="imageblock center">
 <div class="content">
 <img src="images/070-third.png" alt="070 third" width="80%">
@@ -709,31 +763,33 @@ Here is the <a href="https://id.atlassian.com/manage-profile/security/api-tokens
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>Now, click on <strong>Create API token</strong>.
-To keep things simple, I will copy this token to the config.</p>
-</div>
-<div class="paragraph">
-<p>(When you use the API token, you have to use your email as your username and the token as the password.)</p>
-</div>
-<div class="paragraph">
-<p>So we don&#8217;t store the credentials in the config file, we pass them with the <code>./dtcw</code> command:</p>
-</div>
+</li>
+<li>
+<p>Now, click <strong>Create API token</strong>.</p>
+</li>
+<li>
+<p>Store your API token in a safe location.</p>
+</li>
+<li>
+<p>Add your API token e-mail address as username and password to the <code>.dtcw</code> command.</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="shell">./dtcw publishToConfluence -PconfluenceUser=&lt;your email&gt; -PconfluencePass=&lt;your api-token&gt;</code></pre>
 </div>
 </div>
+</li>
+</ol>
+</div>
 </div>
 <div class="sect4">
-<h5 id="personal-access-token">Step 2.1c: Authentication using Personal Access Token</h5>
+<h5 id="personal-access-token">Step 2.1c: CLI Authentication with Personal Access Token</h5>
 <div class="paragraph">
-<p>If you neither want to pass your password to the command nor are you an admin in
-your Confluence instance, you can use a Personal Access Token. You can follow
-the
+<p>If you do not want to pass your password and you are not an admin of your Confluence instance, you can use a Personal Access Token (PAT). Follow the
 <a href="https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html#UsingPersonalAccessTokens-CreatingPATsintheapplication">Confluence
-documentation</a> to generate one. Once you have it, you can pass it to
-DocToolchain as the following:</p>
+documentation</a> to generate one.</p>
+</div>
+<div class="paragraph">
+<p>In the Terminal, type the following to publish to Confluence with your PAT:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -744,9 +800,13 @@ DocToolchain as the following:</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_step_3_publish_all_pages">Step 3: Publish all pages</h3>
+<h3 id="_step_3_publish_your_pages">Step 3: Publish Your Pages</h3>
+<div class="paragraph">
+<p>To publish your pages to Confluence, type:
+.<code>./dtcw publishToConfluence &lt;extra arguments&gt;</code></p>
+</div>
 <details>
-<summary class="title"><code>./dtcw publishToConfluence &lt;extra arguments&gt;</code></summary>
+<summary class="title">Details</summary>
 <div class="content">
 <div class="listingblock">
 <div class="content">
