@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
   
-  <!-- 030_news/2021/2.0.2-release.html -->
+  <!-- 030_news/2023/2.2.0-release.html -->
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>Release v2.0.2</title>
+  <title>Release v2.2.0</title>
   <meta content="docToolchain" property="og:title">
   <meta content="build your dev docs the easy way..." property="og:description">
   <meta content="website" property="og:type">
@@ -239,7 +239,7 @@
                                    href="../../030_news/2021/2.0.1-release.html">Release v2.0.1</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../../030_news/2021/2.0.2-release.html">Release v2.0.2</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -269,7 +269,7 @@
                                 2023
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../../030_news/2023/2.2.0-release.html">Release v2.2.0</a>
                             </li>
                         </ul>
@@ -285,11 +285,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2021/2.0.2-release.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2023/2.2.0-release.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Release+v2.0.2%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2021/2.0.2-release.adoc%0A%23branch:%20ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Release+v2.2.0%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2023/2.2.0-release.adoc%0A%23branch:%20ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -298,10 +298,17 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_doctoolchain_v2_0_2_has_been_released">docToolchain v2.0.2 has been released!</a>
+<li><a href="#_doctoolchain_v2_2_0_has_been_released">docToolchain v2.2.0 has Been Released!</a>
 <ul class="sectlevel2">
 <li><a href="#_about_this_release">About This Release</a></li>
-<li><a href="#_changelog_v2_0_2">Changelog v2.0.2</a></li>
+</ul>
+</li>
+<li><a href="#_changes_which_need_migration">Changes which need migration</a></li>
+<li><a href="#_2_2_0_2023_02_16">2.2.0 - 2023-02-16</a>
+<ul class="sectlevel2">
+<li><a href="#_fixes">fixes</a></li>
+<li><a href="#_added">added</a></li>
+<li><a href="#_changed">changed</a></li>
 </ul>
 </li>
 </ul>
@@ -312,116 +319,223 @@
 				</div>
 			</div>
 			<main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
-				<p><em>19 October 2021, Ralf D. Müller</em></p>
+				<p><em>15 February 2023, Ralf D. Müller</em></p>
 				<p>
                     
 <div class="sect1">
-<h2 id="_doctoolchain_v2_0_2_has_been_released">docToolchain v2.0.2 has been released!</h2>
+<h2 id="_doctoolchain_v2_2_0_has_been_released">docToolchain v2.2.0 has Been Released!</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_about_this_release">About This Release</h3>
 <div class="paragraph">
-<p>This is a bug-fix release. Thanks to everyone who contributed!</p>
+<p>This is a fresh release of many nice features.
+The best probably is the <code>exportConfluence</code> Task which lets you export a whole confluence space to AsciiDoc!</p>
+</div>
+<div class="paragraph">
+<p>To test the new release, the docToolchain wrapper <code>dtcw</code> will not be updated until the end of the week.</p>
+</div>
+<div class="paragraph">
+<p>To discuss the new features, a new <a href="https://github.com/docToolchain/docToolchain/discussions/1020">discussion thread</a> has been created.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+please take a close look at the changelog, because there are some breaking changes
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_changes_which_need_migration">Changes which need migration</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/937">#937 Confluence publish nested pages by heading</a></p>
+<div class="paragraph">
+<p>This replaces the settings <code>allInOnePage</code> and <code>createSubPages</code>.
+Migrate as follows:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>allInOnePage = true</code> is the same as <code>subpagesForSections = 0</code></p>
+</li>
+<li>
+<p><code>allInOnePage = false &amp;&amp; createSubpages = false</code> is the same as <code>subpagesForSections = 1</code></p>
+</li>
+<li>
+<p><code>allInOnePage = false &amp;&amp; createSubpages = true</code> is the same as <code>subpagesForSections = 2</code></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/940">#940 simplify configuration to use preamble heading from h1 instead of configuration</a></p>
+<div class="paragraph">
+<p>Migrate by removing the setting <code>preambleTitle</code> and set the correct first level heading in the document.</p>
+</div>
+</li>
+<li>
+<p>Make <code>dtcw</code> (and some other shell executables) <a href="https://www.shellcheck.net/">shellcheck</a> proof</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+the docker image has been moved to <strong>doctoolchain</strong>/doctoolchain:v2.1.0
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>You like docToolchain?
+What about helping to make it even better?
+docToolchain is a community project, so be part of the community which drives the project.
+You don&#8217;t have to code for doing so.
+It would even help to brush up the docs, write tutorials or groom the backlog
+(I guess many of the open issues are already fixed).</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_2_2_0_2023_02_16">2.2.0 - 2023-02-16</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_fixes">fixes</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>fixed whitespace in GH issue template (which leads to errors in <code>htmlSanityCheck</code>)</p>
+</li>
+<li>
+<p>fixed ExportMarkdownSpec</p>
+</li>
+<li>
+<p>fixed GenerateDeckSpec</p>
+</li>
+<li>
+<p>fixed GenerateDeck / Reveal.js</p>
+</li>
+<li>
+<p>fixed exportEA hangs by EA v16.1</p>
+</li>
+<li>
+<p>fixed exportEA write model notes into models subfolder</p>
+</li>
+<li>
+<p>allow numeric ancestorIds for confluence export</p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/pull/951">#951 Improve DTC_PROJECT_BRANCH management</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/976">#976 dtcw shows a fatal error when not in git repository</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/978">#978 dtcw.ps1 does not correctly check for java version</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/890">#890 updated documentation on "Self-Contained docToolchain"</a></p>
+</li>
+<li>
+<p>Remove never used analytics.js file from docsy theme</p>
+</li>
+</ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_changelog_v2_0_2">Changelog v2.0.2</h3>
-<div class="sect3">
-<h4 id="_added">Added</h4>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">2021-10-19</dt>
-<dd>
+<h3 id="_added">added</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>use :jbake-rightcolumnhtml: to add some html to the right column</p>
+<p>new Task exportConfluence</p>
+</li>
+<li>
+<p>Add <code>confluenceBearerToken</code> property</p>
+</li>
+<li>
+<p>rubyExtensions configuration</p>
+</li>
+<li>
+<p>CZ as language for downloadTemplate</p>
+</li>
+<li>
+<p>Enable to use a particular version of DTC from the wrapper by setting the environment variable 'DTC_VERSION' accordingly.</p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/1002">publishToConfluence: Add possibility to set the page version comment</a></p>
+</li>
+<li>
+<p>exportEAP.vbs: trim notes filename</p>
+</li>
+<li>
+<p>exportEAP.vbs: creates for each model a combined notes</p>
+</li>
+<li>
+<p>exportEAP.vbs: msg "looking for&#8230;&#8203;" extended for EA 16.1</p>
 </li>
 </ul>
 </div>
-</dd>
-</dl>
 </div>
-</div>
-<div class="sect3">
-<h4 id="_changed">Changed</h4>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">2021-10-19</dt>
-<dd>
+<div class="sect2">
+<h3 id="_changed">changed</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>Add <a href="https://github.com/docToolchain/docToolchain/issues/667">#667 - GH Actions Default Build</a></p>
+<p>switch docker base image from deprecated openJDK 14 to temurin 11</p>
 </li>
-</ul>
+<li>
+<p>The <code>publishToConfluence</code> guide now contains 3 modes for authentication (username &amp; password, username &amp; API key, personal access token)</p>
+</li>
+<li>
+<p>Improve confluence export performance when only ancestorIds are given</p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/937">#937 Confluence publish nested pages by heading</a></p>
+<div class="paragraph">
+<p>This replaces the settings <code>allInOnePage</code> and <code>createSubPages</code>.
+Migrate as follows:</p>
 </div>
-</dd>
-<dt class="hdlist1">2021-10-18</dt>
-<dd>
 <div class="ulist">
 <ul>
 <li>
-<p>Fix <a href="https://github.com/docToolchain/docToolchain/issues/664">#664 - doctoolchain.org link and typos</a></p>
+<p><code>allInOnePage = true</code> is the same as <code>subpagesForSections = 0</code></p>
+</li>
+<li>
+<p><code>allInOnePage = false &amp;&amp; createSubpages = false</code> is the same as <code>subpagesForSections = 1</code></p>
+</li>
+<li>
+<p><code>allInOnePage = false &amp;&amp; createSubpages = true</code> is the same as <code>subpagesForSections = 2</code></p>
 </li>
 </ul>
 </div>
-</dd>
-</dl>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_fixed">Fixed</h4>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">2021-10-19</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>fix example for gitRepoUrl in config</p>
 </li>
 <li>
-<p>fix projectRootDir</p>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/683">#683 publishToConfluence with unknown source language</a></p>
 </li>
 <li>
-<p>fix status.png and siteTitle</p>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/940">#940 simplify configuration to use preamble heading from h1 instead of configuration</a></p>
+<div class="paragraph">
+<p>Migrate by removing the setting <code>preambleTitle</code> and set the correct first level heading in the document.</p>
+</div>
+</li>
+<li>
+<p>Make <code>dtcw</code> (and some other shell executables) <a href="https://www.shellcheck.net/">shellcheck</a> proof</p>
 </li>
 </ul>
-</div>
-</dd>
-<dt class="hdlist1">2021-10-17</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>fix <a href="https://github.com/docToolchain/docToolchain/issues/660">#660 - generateSite: projectRootDir wrong</a></p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">2021-10-11</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>fix <a href="https://github.com/docToolchain/docToolchain/issues/651">#651 - powershell: broken install when space in user path</a></p>
-</li>
-</ul>
-</div>
-</dd>
-<dt class="hdlist1">2021-10-15</dt>
-<dd>
-<div class="ulist">
-<ul>
-<li>
-<p>fix <a href="https://github.com/docToolchain/docToolchain/issues/658">#658 - generateSite - subsequent runs won&#8217;t fail with an invalid or missing site theme</a></p>
-</li>
-</ul>
-</div>
-</dd>
-</dl>
-</div>
 </div>
 </div>
 </div>
