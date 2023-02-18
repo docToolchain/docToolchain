@@ -6,8 +6,8 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Sat, 18 Feb 2023 17:17:51 +0000</pubDate>
-    <lastBuildDate>Sat, 18 Feb 2023 17:17:51 +0000</lastBuildDate>
+    <pubDate>Sat, 18 Feb 2023 18:24:42 +0000</pubDate>
+    <lastBuildDate>Sat, 18 Feb 2023 18:24:42 +0000</lastBuildDate>
 
     
     <item>
@@ -108,7 +108,19 @@ Migrate as follows:&lt;/p&gt;
 &lt;i class=&quot;fa icon-important&quot; title=&quot;Important&quot;&gt;&lt;/i&gt;
 &lt;/td&gt;
 &lt;td class=&quot;content&quot;&gt;
-the docker image has been moved to &lt;strong&gt;doctoolchain&lt;/strong&gt;/doctoolchain:v2.1.0
+the docker image has been moved to &lt;strong&gt;doctoolchain&lt;/strong&gt;/doctoolchain:v2.2.0
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock important&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-important&quot; title=&quot;Important&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+a big &quot;THANK YOU&quot; to all &lt;strong&gt;Sponsors&lt;/strong&gt; and &lt;strong&gt;Contributors&lt;/strong&gt; who helped to support docToolchain!
 &lt;/td&gt;
 &lt;/tr&gt;
 &lt;/table&gt;
