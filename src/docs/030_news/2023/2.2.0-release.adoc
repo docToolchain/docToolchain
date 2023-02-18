@@ -39,7 +39,9 @@ Migrate as follows:
 Migrate by removing the setting `preambleTitle` and set the correct first level heading in the document.
 * Make `dtcw` (and some other shell executables) https://www.shellcheck.net/[shellcheck] proof
 
-IMPORTANT: the docker image has been moved to **doctoolchain**/doctoolchain:v2.1.0
+IMPORTANT: the docker image has been moved to **doctoolchain**/doctoolchain:v2.2.0
+
+IMPORTANT: a big "THANK YOU" to all *Sponsors* and *Contributors* who helped to support docToolchain!
 
 You like docToolchain? 
 What about helping to make it even better? 
