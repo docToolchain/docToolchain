@@ -9,51 +9,41 @@ buildscript {
         }
     }
     dependencies {
-        classpath "pl.zalas:gradle-structurizr-cli:1.3.2"
+        classpath 'com.structurizr:structurizr-dsl:1.26.1'
+        classpath 'com.structurizr:structurizr-export:1.10.0'
+        classpath 'io.github.goto1134:structurizr-d2-exporter:1.2.0'
+        classpath 'com.structurizr:structurizr-graphviz:1.7.0'
     }
 }
-apply plugin: 'pl.zalas.structurizr-cli'
 
-// Question: how can we use the functionality provided by https://github.com/structurizr/cli?
-//
-// The current hack provided with the 'structurizrCli' task is just a proof of
-// concept to show how it can be done.
+import com.structurizr.dsl.*
+import com.structurizr.Workspace
+import com.structurizr.export.*
+import com.structurizr.export.plantuml.*
+import com.structurizr.view.*
 
+// TODO:
+// * refactor: extract configuration paramaters
+// * provide configuration parameters
 
 //tag::exportStructurizr[]
 task exportStructurizr (
-        type: pl.zalas.gradle.structurizrcli.tasks.Export,
         group: 'docToolchain',
         description: 'exports the views of a Structurizr DSL file to diagramms'
 ) {
-    format = "plantuml"
-    workspace = new File(docDir, 'src/docs/structurizr/workspace.dsl')
-    println "Call to exportStructurizr successful"
+    StructurizrDslParser parser = new StructurizrDslParser();
+    parser.parse(new File("${docDir}/src/docs/structurizr/workspace.dsl"));
+    Workspace workspace = parser.getWorkspace();
+    ThemeUtils.loadThemes(workspace);
+    StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
+    Collection<Diagram> diagrams = exporter.export(workspace);
+    // Hardcoded sources for the moment
+    new File(docDir,"/src/docs/structurizr/diagrams/").mkdirs()
+    diagrams.each { diagram ->
+        def file = new File(docDir,"/src/docs/structurizr/diagrams/"+diagram.key+".puml")
+        file.write(diagram.definition)
+        def legend = new File(docDir,"/src/docs/structurizr/diagrams/"+diagram.key+"-key.puml")
+        legend.write(diagram.legend.definition)
+    }
 }
 //end::exportStructurizr[]
-
-// task exportStructurizr (
-//         description: 'exports the views of a Structurizr DSL file to diagramms',
-//         group: 'docToolchain'
-// ) {
-//     doLast {
-//         //make sure to remove old diagrams
-//         new File(docDir, 'src/docs/structurizr').deleteDir()
-//         //create a readme to clarify things
-//         def readme = """This folder contains exported diagrams from Strcturizr DSL files.
-//
-// Please note that these are generated files but reside in the `src`-folder in order to be versioned.
-//
-// This is to make sure that they can be used from environments other than windows.
-//
-// # Warning!
-//
-// **The contents of this folder will be overwritten with each re-export!**
-//
-// use `gradle exportStructurizr` to re-export files
-// """
-//         new File(docDir, 'src/docs/structurizr/.').mkdirs()
-//         new File(docDir, 'src/docs/structurizr/README.adoc').write(readme)
-//         // def sourcePath = new File(docDir, 'src/docs/.').canonicalPath
-//     }
-// }
