@@ -152,7 +152,7 @@ if [ "${docker}" = false ] ; then
         fi
         echo "use ${javaHome} as JDK"
         DTC_OPTS="${DTC_OPTS} '-Dorg.gradle.java.home=${javaHome}'"
-        if [ -z "${JAVA_HOME}" ]; then
+        if [ -z "${JAVA_HOME+x}" ]; then
           #if JAVA_HOME is not set, export it
           export JAVA_HOME=${javaHome}
         else
