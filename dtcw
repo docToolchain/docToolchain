@@ -70,8 +70,30 @@ if [ -d "${HOME}/.doctoolchain/docToolchain-${DTC_VERSION}/." ]; then
     echo "home folder exists"
     homefolder=true
 fi
-if [ $# -eq 0 ]; then
-    echo "No valid argument(s) supplied"
+if [[ $# -lt 1 ]]; then
+    echo '
+Usage: ./dtcw [option...] [task...]
+
+You can use the same options and tasks as in underlying gradle.
+Use "./dtcw tasks --group doctoolchain" to see available tasks.
+Use "local", "sdk" or "docker" as first argument to force the use of a local, sdkman or docker install.
+
+Examples:
+
+  Download and install arc42 Template:
+    ./dtcw downloadTemplate
+
+  Generate PDF:
+    ./dtcw generatePDF
+
+  Generate HTML:
+    ./dtcw generateHTML
+
+  Publish HTML to Confluence:
+    ./dtcw publishToConfluence
+
+  get more documentation at https://doctoolchain.github.io
+'
     exit 1
 fi
 if [ "${1}" = "local" ] ; then
@@ -80,19 +102,11 @@ if [ "${1}" = "local" ] ; then
     cli=false
     shift
 fi
-if [ $# -eq 0 ]; then
-    echo "No valid argument(s) supplied"
-    exit 1
-fi
 if [ "${1}" = "docker" ] ; then
     cli=false
     homefolder=false
     echo "force use of docker"
     shift
-fi
-if [ $# -eq 0 ]; then
-    echo "No valid argument(s) supplied"
-    exit 1
 fi
 if [ "${1}" = "sdk" ] ; then
     cli=false
@@ -101,10 +115,6 @@ if [ "${1}" = "sdk" ] ; then
     sdkman=true
     echo "force use of sdkman"
     shift
-fi
-if [ $# -eq 0 ]; then
-    echo "No valid argument(s) supplied"
-    exit 1
 fi
 if [ "${1}" = "generateDeck" ]; then
     if [ "${homefolder}" = false ]; then
@@ -322,33 +332,6 @@ fi
 #if bakePreview is called, deactivate daemon
 if [ "${1}" = "bakePreview" ] ; then
     DTC_OPTS="${DTC_OPTS} -Dorg.gradle.daemon=false"
-fi
-
-if [[ $# -lt 1 ]]; then
-    echo '
-Usage: ./dtcw [option...] [task...]
-
-You can use the same options and tasks as in underlying gradle.
-Use "./dtcw tasks --group doctoolchain" to see available tasks.
-Use "local", "sdk" or "docker" as first argument to force the use of a local, sdkman or docker install.
-
-Examples:
-
-  Download and install arc42 Template:
-    ./dtcw downloadTemplate
-
-  Generate PDF:
-    ./dtcw generatePDF
-
-  Generate HTML:
-    ./dtcw generateHTML
-
-  Publish HTML to Confluence:
-    ./dtcw publishToConfluence
-
-  get more documentation at https://doctoolchain.github.io
-'
-    exit 1
 fi
 
 if [ "${cli}" = true ] ; then
