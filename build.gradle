@@ -7,7 +7,7 @@ import java.util.zip.ZipFile
 plugins {
     id "org.asciidoctor.convert" version "2.4.0"
     id "org.aim42.htmlSanityCheck" version "1.1.6"
-    id "com.github.ben-manes.versions" version "0.42.0"
+    id "com.github.ben-manes.versions" version "0.46.0"
     id "org.openapi.generator" version "4.3.1"
     id "de.undercouch.download" version "5.0.2"
     id 'org.jbake.site' version '5.5.0'
