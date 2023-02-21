@@ -467,3 +467,24 @@ collectIncludes.with {
     cleanOutputFolder = true // should the output folder be emptied before generation? defailt: false
 }
 //end::collectIncludesConfig[]
+
+//tag::structurizrConfig[]
+// Configuration for Structurizr related tasks
+structurizr = [:]
+
+structurizr.with {
+
+    // Workspace file describing the software architecture model with Structurizr DSL.
+    // workspace = 'src/test/testData/structurizr/workspace.dsl'
+
+    // Format of the exported diagrams. For a list of supported formats see
+    // https://github.com/structurizr/cli/blob/master/docs/export.md
+    //
+    // Note: this feature is not yet supported
+    //
+    // format = 'plantuml'
+
+    // Directory for the exported diagrams.
+    exportPath = "src/docs/structurizr"
+}
+//end::structurizrConfig[]

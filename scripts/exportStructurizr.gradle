@@ -31,18 +31,39 @@ task exportStructurizr (
         group: 'docToolchain',
         description: 'exports the views of a Structurizr DSL file to diagramms'
 ) {
+
+    def workspaceFile = findProperty("structurizr.workspace")?:config.structurizr.workspace
+    def exportPath = findProperty("structurizr.exportPath")?:config.structurizr.exportPath
+
+    logger.info("\n=====================\nStructurizr Config:\n=====================")
+    logger.info("workspace: ${workspaceFile}")
+    logger.info("exportPath: ${exportPath}")
+
+    if (!workspaceFile) {
+        logger.info("\n---> Structurizr workspace not found in Config.groovy")
+        return
+    } else {
+        logger.info("Found workspace in Config.groovy")
+    }
+
     StructurizrDslParser parser = new StructurizrDslParser();
-    parser.parse(new File("${docDir}/src/docs/structurizr/workspace.dsl"));
+    // TODO: provide better error output in case parsing fails
+    parser.parse(new File(docDir, workspaceFile));
     Workspace workspace = parser.getWorkspace();
     ThemeUtils.loadThemes(workspace);
+
+    // TODO: the format is hardcoded for the moment. Here we should provide the 'format' configuration parameter
     StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
+    def fileExtension = '.puml'
+
     Collection<Diagram> diagrams = exporter.export(workspace);
-    // Hardcoded sources for the moment
-    new File(docDir,"/src/docs/structurizr/diagrams/").mkdirs()
+
+    // Make sure the directory exists where the diagrams are exported
+    new File(docDir, exportPath).mkdirs()
     diagrams.each { diagram ->
-        def file = new File(docDir,"/src/docs/structurizr/diagrams/"+diagram.key+".puml")
+        def file = new File(docDir, exportPath+"/"+diagram.key+fileExtension)
         file.write(diagram.definition)
-        def legend = new File(docDir,"/src/docs/structurizr/diagrams/"+diagram.key+"-key.puml")
+        def legend = new File(docDir, exportPath+"/"+diagram.key+"-key"+fileExtension)
         legend.write(diagram.legend.definition)
     }
 }
