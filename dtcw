@@ -17,7 +17,7 @@ MAIN_CONFIG_FILE=docToolchainConfig.groovy
 # find official release versions on github:
 # https://github.com/docToolchain/docToolchain/releases
 # set DTC_VERSION to "latest" to get the unreleased latest version
-: "${DTC_VERSION:=2.1.0}"
+: "${DTC_VERSION:=2.2.0}"
 
 DISTRIBUTION_URL=https://github.com/docToolchain/docToolchain/releases/download/v${DTC_VERSION}/docToolchain-${DTC_VERSION}.zip
 if [ -z "${DTC_PROJECT_BRANCH:-""}" ]; then
