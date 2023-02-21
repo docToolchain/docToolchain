@@ -261,9 +261,8 @@
 <ul class="sectlevel1">
 <li><a href="#_running_tests">Running Tests</a>
 <ul class="sectlevel2">
-<li><a href="#_before_you_begin">Before You Begin</a></li>
-<li><a href="#_prepare_the_project">Prepare the Project</a></li>
 <li><a href="#_execute_tests">Execute Tests</a></li>
+<li><a href="#_execute_a_specific_test">Execute a specific test</a></li>
 <li><a href="#_workaround_to_ensure_correct_proxy_settings_for_tests">Workaround to Ensure Correct Proxy Settings for Tests</a></li>
 </ul>
 </li>
@@ -292,42 +291,15 @@
 <h2 id="_running_tests">Running Tests</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>2 minutes to read</pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_before_you_begin">Before You Begin</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Git and Graphviz must both be installed.</p>
-</li>
-<li>
-<p>Your Gradle setup must be able to work with proxies.</p>
-</li>
-<li>
-<p>You must be using Java 8.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_prepare_the_project">Prepare the Project</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">git clone git@github.com:docToolchain/docToolchain.git
-cd docToolchain/
-git checkout V1.0.0         # <b class="conum">(1)</b>
-git submodule update -i</code></pre>
-</div>
-</div>
 <div class="paragraph">
-<p>(1) The version to test. Not required if you work on the HEAD revision on Master.</p>
-</div>
+<p>docToolchain uses Spock as Test-Framework. See <a href="http://spockframework.org/" class="bare">http://spockframework.org/</a> for details.</p>
 </div>
 <div class="sect2">
 <h3 id="_execute_tests">Execute Tests</h3>
@@ -338,6 +310,14 @@ git submodule update -i</code></pre>
 </div>
 <div class="paragraph">
 <p>The <code>rm</code> command ensures that you have a clean test running. This is vital because if artifacts of an older test run still exist, Gradle will skip steps (‘Up-to-date’) and you might get false positives.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_execute_a_specific_test">Execute a specific test</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">rm -r build &amp;&amp; ./gradlew test --info --tests=ExportStructurizrSpec</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
