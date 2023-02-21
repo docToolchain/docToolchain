@@ -38,10 +38,11 @@ src/docs/ppt
 src/docs/images/ppt
 # src/docs/test.adoc
 src/test/docs/excel/
+src/test/docs/structurizr/
 ~$*
 
 # MAC DS_Store file
 .DS_Store
 
-resources/reveal.js 
+resources/reveal.js
 resources/asciidoctor-reveal.js
