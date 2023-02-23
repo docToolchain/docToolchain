@@ -98,14 +98,6 @@ var documents = [
 
 {
     "id": 12,
-    "uri": "ea/Architect_notes_issue2.html",
-    "menu": "ea",
-    "title": "Architect_notes_issue2.ad",
-    "text": " "
-},
-
-{
-    "id": 13,
     "uri": "ea/Architect_notes.html",
     "menu": "ea",
     "title": "Architect_notes.ad",
@@ -113,7 +105,7 @@ var documents = [
 },
 
 {
-    "id": 14,
+    "id": 13,
     "uri": "ea/Activity_notes_issue1.html",
     "menu": "ea",
     "title": "Activity_notes_issue1.ad",
@@ -121,7 +113,7 @@ var documents = [
 },
 
 {
-    "id": 15,
+    "id": 14,
     "uri": "ea/Activity_notes.html",
     "menu": "ea",
     "title": "Activity_notes.ad",
@@ -129,7 +121,7 @@ var documents = [
 },
 
 {
-    "id": 16,
+    "id": 15,
     "uri": "ea/Use_Cases_notes_UseCases.html",
     "menu": "ea",
     "title": "Use_Cases_notes_UseCases.ad",
@@ -137,7 +129,7 @@ var documents = [
 },
 
 {
-    "id": 17,
+    "id": 16,
     "uri": "ea/issue2.html",
     "menu": "ea",
     "title": "issue2.ad",
@@ -145,15 +137,15 @@ var documents = [
 },
 
 {
-    "id": 18,
-    "uri": "ea/Use_Cases_links.html",
+    "id": 17,
+    "uri": "ea/Architect_notes_issue2.html",
     "menu": "ea",
-    "title": "Use_Cases_links.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+    "title": "Architect_notes_issue2.ad",
+    "text": " "
 },
 
 {
-    "id": 19,
+    "id": 18,
     "uri": "025_development/010_setup_dev_env.html",
     "menu": "development",
     "title": "Setting Up a Dev Environment",
@@ -161,15 +153,7 @@ var documents = [
 },
 
 {
-    "id": 20,
-    "uri": "025_development/005_contributing_to_docs.html",
-    "menu": "development",
-    "title": "Contributing to Docs",
-    "text": " Table of Contents Contributing to Docs Prerequisites Go to page you want to edit or fix Fork the Repository Edit the Page Commit the Changes Comparing changes Contributing to Docs 5 minutes to read The easiest way to contribute to this project is to contribute to the documentation. Here is a quick step-by-step guide on how to fix something on a documentation page. Prerequisites You need a github.com account. If you don&#8217;t have one, you can create one here: https://github.com/signup It might help if you go through the Github Hello World tutorial before you continue but it is not necessary. Go to page you want to edit or fix You already found this tutorial, so you already know how to go to the page you want to edit or fix. All documentation can be found at http://doctoolchain.org/ . The source code of each page is available at https://github.com/doctoolchain/doctoolchain/ in the /src/docs/ folder. But there is an easier way to find the exact source. The documentation pages all look something like this: In the upper right corner you can see the Improve this doc link: This will take you directly to the source of the page, already in edit mode. If you are not logged in, GitHub will ask you to do so. The Create an issue link will be helpful if you want to report a bug or request a feature for a page. It takes you directly to the issue tracker with a pre-filled issue. For now, let&#8217;s click on the Improve this doc link. Fork the Repository If you click the link for the first time, you will be asked to fork the repository. A fork is a copy of the repository. Maybe you are used to working on the main repository or a branch within the main repository. This is not possible in this case, because you don&#8217;t have write access, only read access. The solution is to fork the repository. This way, you create a copy in your own space, and you will have write access to it. Edit the Page You will now be taken to the page you want to edit already in edit mode. What you see is asciidoctor markup. Check out the {url-asciidoc-quick-reference}[AsciiDoc quick reference] for more information. The blue box on top tells you what you already know: a copy has been created for you and you are editing it. Important since you work on your own copy of the docs, you can&#8217;t break anything. You even don&#8217;t have write access to the main repository. So feel free to edit the page as you like. Use the Preview button to see what your edits will look like. Since this is only a preview and GitHub doesn&#8217;t know about docToolchain, this preview will only show you if your AsciiDoc syntax is correct. Some other features like the TOC or include statements will not be available in the preview. Do your edit and then Commit the Changes Below the editor, there is a small Propose Changes form. Enter a headline and a description of the changes you made and click Propose changes . This will save your changes to your fork of the repository. Note Git works with diffs - it only saves the changes you made, not a full copy of the new page. This is important to know if you want to understand the inner workings of Git. After you&#8217;ve clicked the button, you will be taken to a page which shows you what you changed. Comparing changes This view lets you review your changes. These diffs are not easy to read, but I promise that over time you get used to it. Red lines are deletions, green lines are additions. As you can see in the screenshot, I added an empty space in line 17. Line 17 has been deleted (red line) and replaced with a new line (green line). Line 1 looks mysterious, because it seems that is has been replaced with an identical copy. This is because the line ending changed but is not visible in the diff. The grey box on top shows you It is quite likely that you still know what you did a minute ago, so let&#8217;s click on the Create pull request button. "
-},
-
-{
-    "id": 21,
+    "id": 19,
     "uri": "ea/UseCases.html",
     "menu": "ea",
     "title": "UseCases.ad",
@@ -177,7 +161,7 @@ var documents = [
 },
 
 {
-    "id": 22,
+    "id": 20,
     "uri": "ea/Use_Cases_links_issue2.html",
     "menu": "ea",
     "title": "Use_Cases_links_issue2.ad",
@@ -185,7 +169,15 @@ var documents = [
 },
 
 {
-    "id": 23,
+    "id": 21,
+    "uri": "ea/Use_Cases_links.html",
+    "menu": "ea",
+    "title": "Use_Cases_links.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+},
+
+{
+    "id": 22,
     "uri": "ea/Use_Cases_notes.html",
     "menu": "ea",
     "title": "Use_Cases_notes.ad",
@@ -193,7 +185,7 @@ var documents = [
 },
 
 {
-    "id": 24,
+    "id": 23,
     "uri": "ea/issue1.html",
     "menu": "ea",
     "title": "issue1.ad",
@@ -201,11 +193,19 @@ var documents = [
 },
 
 {
-    "id": 25,
+    "id": 24,
     "uri": "ea/readme.html",
     "menu": "ea",
     "title": "readme.ad",
     "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
+},
+
+{
+    "id": 25,
+    "uri": "025_development/005_contributing_to_docs.html",
+    "menu": "development",
+    "title": "Contributing to Docs",
+    "text": " Table of Contents Contributing to Docs Prerequisites Go to page you want to edit or fix Fork the Repository Edit the Page Commit the Changes Comparing changes Contributing to Docs 5 minutes to read The easiest way to contribute to this project is to contribute to the documentation. Here is a quick step-by-step guide on how to fix something on a documentation page. Prerequisites You need a github.com account. If you don&#8217;t have one, you can create one here: https://github.com/signup It might help if you go through the Github Hello World tutorial before you continue but it is not necessary. Go to page you want to edit or fix You already found this tutorial, so you already know how to go to the page you want to edit or fix. All documentation can be found at http://doctoolchain.org/ . The source code of each page is available at https://github.com/doctoolchain/doctoolchain/ in the /src/docs/ folder. But there is an easier way to find the exact source. The documentation pages all look something like this: In the upper right corner you can see the Improve this doc link: This will take you directly to the source of the page, already in edit mode. If you are not logged in, GitHub will ask you to do so. The Create an issue link will be helpful if you want to report a bug or request a feature for a page. It takes you directly to the issue tracker with a pre-filled issue. For now, let&#8217;s click on the Improve this doc link. Fork the Repository If you click the link for the first time, you will be asked to fork the repository. A fork is a copy of the repository. Maybe you are used to working on the main repository or a branch within the main repository. This is not possible in this case, because you don&#8217;t have write access, only read access. The solution is to fork the repository. This way, you create a copy in your own space, and you will have write access to it. Edit the Page You will now be taken to the page you want to edit already in edit mode. What you see is asciidoctor markup. Check out the {url-asciidoc-quick-reference}[AsciiDoc quick reference] for more information. The blue box on top tells you what you already know: a copy has been created for you and you are editing it. Important since you work on your own copy of the docs, you can&#8217;t break anything. You even don&#8217;t have write access to the main repository. So feel free to edit the page as you like. Use the Preview button to see what your edits will look like. Since this is only a preview and GitHub doesn&#8217;t know about docToolchain, this preview will only show you if your AsciiDoc syntax is correct. Some other features like the TOC or include statements will not be available in the preview. Do your edit and then Commit the Changes Below the editor, there is a small Propose Changes form. Enter a headline and a description of the changes you made and click Propose changes . This will save your changes to your fork of the repository. Note Git works with diffs - it only saves the changes you made, not a full copy of the new page. This is important to know if you want to understand the inner workings of Git. After you&#8217;ve clicked the button, you will be taken to a page which shows you what you changed. Comparing changes This view lets you review your changes. These diffs are not easy to read, but I promise that over time you get used to it. Red lines are deletions, green lines are additions. As you can see in the screenshot, I added an empty space in line 17. Line 17 has been deleted (red line) and replaced with a new line (green line). Line 1 looks mysterious, because it seems that is has been replaced with an identical copy. This is because the line ending changed but is not visible in the diff. The grey box on top shows you It is quite likely that you still know what you did a minute ago, so let&#8217;s click on the Create pull request button. "
 },
 
 {
@@ -218,14 +218,6 @@ var documents = [
 
 {
     "id": 27,
-    "uri": "025_development/040_debugging.html",
-    "menu": "development",
-    "title": "Debugging",
-    "text": " Table of Contents Debugging Environment Gradle jBake Templates Theming, Menu and Images Debugging 2 minutes to read Things not working as you expected? Here are some tips that might help you. Environment To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect. Gradle You get more hints about what is going on with Gradle when you add the --info flag to your ./dtcw generateSite command: ./dtcw generateSite --info This outputs all config settings as seen by docToolchain along with many other internal settings. jBake Templates If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println otherwise you won’t see any output. Theming, Menu and Images How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files. Check the build/microsite/tmp folder to see the folder that is fed into jBake. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the build/microsite/output folder to see the generated result. This often helps you to find out where an image actually is located. "
-},
-
-{
-    "id": 28,
     "uri": "025_development/030_create_new_release.html",
     "menu": "development",
     "title": "Creating a New Release",
@@ -233,11 +225,19 @@ var documents = [
 },
 
 {
-    "id": 29,
+    "id": 28,
     "uri": "025_development/020_run_tests.html",
     "menu": "development",
     "title": "Running Tests",
     "text": " Table of Contents Running Tests Execute Tests Execute a specific test Workaround to Ensure Correct Proxy Settings for Tests Running Tests 2 minutes to read docToolchain uses Spock as Test-Framework. See http://spockframework.org/ for details. Execute Tests rm -r build &amp;&amp; ./gradlew test --info The rm command ensures that you have a clean test running. This is vital because if artifacts of an older test run still exist, Gradle will skip steps (‘Up-to-date’) and you might get false positives. Execute a specific test rm -r build &amp;&amp; ./gradlew test --info --tests=ExportStructurizrSpec Workaround to Ensure Correct Proxy Settings for Tests The docToolchain setup is based on the Gradle-Test-Kit and makes use of the Spock test execution framework . The Gradle test runner is started in its own test environment and its own JVM instance. As a result, the global proxy settings are ignored. To execute the test with the correct proxy settings, you must use a workaround. Copy the proxy settings from the gradle.properties file located in the user directory to the gradle.properties file located in the docToolchain folder itself. Note: The files downloaded by the Gradle test runner are placed in a different folder than the default Gradle cache. You will find them in the Tmp folder C:\Users\YOUR_USER_NAME\AppData\Local\Temp\.gradle-test-kit-YOUR_USER_NAME\caches. "
+},
+
+{
+    "id": 29,
+    "uri": "025_development/040_debugging.html",
+    "menu": "development",
+    "title": "Debugging",
+    "text": " Table of Contents Debugging Environment Gradle jBake Templates Theming, Menu and Images Debugging 2 minutes to read Things not working as you expected? Here are some tips that might help you. Environment To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect. Gradle You get more hints about what is going on with Gradle when you add the --info flag to your ./dtcw generateSite command: ./dtcw generateSite --info This outputs all config settings as seen by docToolchain along with many other internal settings. jBake Templates If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println otherwise you won’t see any output. Theming, Menu and Images How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files. Check the build/microsite/tmp folder to see the folder that is fed into jBake. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the build/microsite/output folder to see the generated result. This often helps you to find out where an image actually is located. "
 },
 
 {
@@ -274,22 +274,6 @@ var documents = [
 
 {
     "id": 34,
-    "uri": "020_tutorial/100_diagrams.net.html",
-    "menu": "tutorial",
-    "title": "Diagrams: Diagrams.net",
-    "text": " Table of Contents Diagrams: Diagrams.net Diagrams: Diagrams.net There is no exportDiagramsnet or exportDrawio task, because working with these diagrams is more convenient than with the other diagramming tools. Diagrams.net (formerly known as Draw.io) is a neat little tool which is able to store the source of your diagrams in the meta-data of your .png or .svg files. To recognize these files as diagrams.net files, give them the extension myfile .dio.png or myfile .dio.svg . In IntelliJ, with the asciidoctor plugin and the diagrams.net plugin installed, type something like image::mynewdiagram.dio.png[] IntelliJ will show you that the file doesn&#8217;t exist. Press alt + shift + enter to create the file. IntelliJ will then launch a local copy of the diagrams.net editor. Every change in the diagram will be directly reflected in your document. Figure 1. just a demo image asciidoctor plugin diagrams.net plugin // Please, replace #yourelement with a real element id on your webpage MarketplaceWidget.setupMarketplaceWidget('card', 7391, .button1); MarketplaceWidget.setupMarketplaceWidget('card', 15635, .button2); "
-},
-
-{
-    "id": 35,
-    "uri": "020_tutorial/040_generateSite.html",
-    "menu": "tutorial",
-    "title": "generateSite",
-    "text": " Table of Contents generateSite generateSite The generateSite task is more advanced. In many cases, your goal will not be to create a single HTML document but a whole documentation website. This is where generateSite shines. It uses a static site generator to turn your document into a nice looking microsite with landing-page, local search and edit links. Linux / WSL2 with bash ./dtcw generateSite Windows with Powershell ./dtcw.ps1 generateSite output of generateHTML $ ./dtcw docker generateSite dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists force use of docker /usr/bin/docker use docker installation Starting a Gradle Daemon (subsequent builds will be faster) &gt; Configure project : arc42/arc42.adoc &gt; Task :generateSite created /project/build/microsite/tmp copy internal theme /home/dtcuser/docToolchain/src/site copy project theme /project/src/site &gt; Task :copyImages &gt; Task :bake Warning: Nashorn engine is planned to be removed from a future JDK release BUILD SUCCESSFUL in 1m 15s 3 actionable tasks: 3 executed The output is written to build/microsite/output/index.html . You can open this file in your browser and view the results. But you will notice that some features which rely on javascript will be broken. To avoid this, use the task previewSite to start a little webserver which presents you the site without flaws. Figure 1. generated output of generateHTML task "
-},
-
-{
-    "id": 36,
     "uri": "020_tutorial/030_generateHTML.html",
     "menu": "tutorial",
     "title": "generateHTML &amp; generatePDF",
@@ -297,7 +281,31 @@ var documents = [
 },
 
 {
+    "id": 35,
+    "uri": "020_tutorial/110_revealjs_and_arc42_from_scratch.html",
+    "menu": "tutorial",
+    "title": "Reveal.js &amp; Arc42 from Scratch",
+    "text": " Table of Contents Reveal.js &amp; Arc42 from Scratch 1 Clone docToolchain and Git Submodules 2 Create an arc42 Based Documentation Repository 3 Create the AsciiDoctor Reveal.js Presentation Troubleshooting Reveal.js &amp; Arc42 from Scratch The following procedure describes how to set up the arc42 template and a sample Asciidoctor reveal.js presentation from scratch. It uses the docToolchain as suggested by docs-as-co.de . This tutorial has been tested with an Apple Silicon based mac. This architecture is not yet supported by the docker based docToolchain . Instead the docToolchain repository branch ng is used. 1 Clone docToolchain and Git Submodules git clone https://github.com/docToolchain/docToolchain.git cd docToolchain git submodule init git submodule update The default branch ng should be used. Now add the bin folder to your PATH . You might need to restart your shell. 2 Create an arc42 Based Documentation Repository mkdir &lt;your-doc-folder&gt; cd &lt;your-doc-folder&gt; # Setup the correct Java and Gradle versions in .sdkmanrc # For more information, see https://sdkman.io cat &lt;&lt; EOF &gt; .sdkmanrc # Enable auto-env through the sdkman_auto_env config # Add key=value pairs of SDKs to use below java=11.0.14-ms gradle=6.9.2 EOF # Activate the configured Java and Gradle versions for the current shell sdk env # Initialize arc42 in your current directory docToolchain . downloadTemplate Now answer all the questions, the tool prints. Make sure to read the highlighted lines - they are printed in between the other output of the docToolchain command. Config file '.../Config.groovy' does not exist do you want me to create a default one for you? (y, n) Install arc42 documentation template. Which language do you want to install? (EN, DE, ES, IT, NL) Do you want the template with or without help? Finally, generate the HTML version of the template docToolchain . generateHTML open open build/html5/arc42/arc42.html 3 Create the AsciiDoctor Reveal.js Presentation Create a presentation.adoc file cat &lt;&lt; EOF &gt;&gt; src/docs/presentation.adoc = Title Slide == Slide 1 * This is the first slide == Slide 2 * This is the second slide EOF Add the following entry into the inputFiles section of Config.groovy (note the , at the end of the line): [file: 'presentation.adoc', formats: ['revealjs']], Generate the slide deck docToolchain . generateDeck Host the slides in a server, e.g. using browsersync : browser-sync start --server --files build/**/*.html --startPath /build/decks/html5/presentation.html Troubleshooting If docToolchain reports an error like BUG! exception in phase 'semantic analysis' in source unit 'script16562611848591859871238.groovy' Unsupported class file major version 61 you are probably using a newer version of Java and / or Gradle than supported by the tool. Please make sure you have configured sdkman to use the correct versions of Java and Gradle (see above). "
+},
+
+{
+    "id": 36,
+    "uri": "020_tutorial/100_diagrams.net.html",
+    "menu": "tutorial",
+    "title": "Diagrams: Diagrams.net",
+    "text": " Table of Contents Diagrams: Diagrams.net Diagrams: Diagrams.net There is no exportDiagramsnet or exportDrawio task, because working with these diagrams is more convenient than with the other diagramming tools. Diagrams.net (formerly known as Draw.io) is a neat little tool which is able to store the source of your diagrams in the meta-data of your .png or .svg files. To recognize these files as diagrams.net files, give them the extension myfile .dio.png or myfile .dio.svg . In IntelliJ, with the asciidoctor plugin and the diagrams.net plugin installed, type something like image::mynewdiagram.dio.png[] IntelliJ will show you that the file doesn&#8217;t exist. Press alt + shift + enter to create the file. IntelliJ will then launch a local copy of the diagrams.net editor. Every change in the diagram will be directly reflected in your document. Figure 1. just a demo image asciidoctor plugin diagrams.net plugin // Please, replace #yourelement with a real element id on your webpage MarketplaceWidget.setupMarketplaceWidget('card', 7391, .button1); MarketplaceWidget.setupMarketplaceWidget('card', 15635, .button2); "
+},
+
+{
     "id": 37,
+    "uri": "020_tutorial/040_generateSite.html",
+    "menu": "tutorial",
+    "title": "generateSite",
+    "text": " Table of Contents generateSite generateSite The generateSite task is more advanced. In many cases, your goal will not be to create a single HTML document but a whole documentation website. This is where generateSite shines. It uses a static site generator to turn your document into a nice looking microsite with landing-page, local search and edit links. Linux / WSL2 with bash ./dtcw generateSite Windows with Powershell ./dtcw.ps1 generateSite output of generateHTML $ ./dtcw docker generateSite dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists force use of docker /usr/bin/docker use docker installation Starting a Gradle Daemon (subsequent builds will be faster) &gt; Configure project : arc42/arc42.adoc &gt; Task :generateSite created /project/build/microsite/tmp copy internal theme /home/dtcuser/docToolchain/src/site copy project theme /project/src/site &gt; Task :copyImages &gt; Task :bake Warning: Nashorn engine is planned to be removed from a future JDK release BUILD SUCCESSFUL in 1m 15s 3 actionable tasks: 3 executed The output is written to build/microsite/output/index.html . You can open this file in your browser and view the results. But you will notice that some features which rely on javascript will be broken. To avoid this, use the task previewSite to start a little webserver which presents you the site without flaws. Figure 1. generated output of generateHTML task "
+},
+
+{
+    "id": 38,
     "uri": "020_tutorial/020_arc42.html",
     "menu": "tutorial",
     "title": "arc42 Template",
@@ -305,19 +313,11 @@ var documents = [
 },
 
 {
-    "id": 38,
+    "id": 39,
     "uri": "10_about/20_what-is-doctoolchain.html",
     "menu": "about",
     "title": "What Is docToolchain?",
     "text": " Table of Contents What Is docToolchain? Introduction Docs as Code arc42 How docToolchain Brings Everything Together What You Get with docToolchain .gravatar img { margin-left: 3px; border-radius: 4px; } What Is docToolchain? 4 minutes to read Introduction docToolchain is a documentation generation tool that uses the Docs as Code approach as a basis for its architecture, plus some additional automation provided by the arc42 template . Docs as Code ‘Docs as code’ refers to a philosophy that you should write documentation using the same tools as you use to write code. If you need to write technical docs for your software project, why not use the same tools and processes as you use for your source code? There are so many benefits: You don’t have to learn a complicated docs management system. Developers feel more at home in the docs because they look and feel like code. You can manage docs using standard version control like GitHub. arc42 arc42 has been a part of docToolchain since the earliest version. But what is arc42? Dr. Gernot Starke and Peter Hruschka created the arc42 template as a standard for software architecture documentation. They used their experience of software architectures both in the template structure and the explanations that appear in each chapter to guide you when you’re writing your documentation. arc42 is available in well-known formats including MS Word, textile, and Confluence. All of these formats are automatically generated from a single golden master which is formatted in AsciiDoc . How docToolchain Brings Everything Together To follow a docs as code approach, you need a build script that automates steps like exporting diagrams and rendering Markdown (or AsciiDoc in the case of docToolchain) to the target format. Creating this type of build script is not easy (and even harder to maintain). There are also lots of questions to answer: “How do I create .docx?” and “Why doesn’t lib x work with lib y?” docToolchain is the result of one developer’s journey through the docs as code universe. The goal of docToolchain is to automate the creation of technical docs through an easy-to-use build script that only needs to be configured not modified, and that is nurtured and cared for by a &lt;link to Community page&gt;[diverse open source community]. What You Get with docToolchain A Ready-Made Document Management System By using a version control system like Git , you get a perfect document management system for free. Git allows you to version your docs, branch them, and also leaves an audit trail. You can even check who wrote which part of the docs. Isn’t that great? And because your docs are simple plain text, it’s easy to do a diff and see exactly what has changed. Bonus: storing your docs in the same repo as your code means they’re always in sync! Built-In Collaboration and Review As a distributed version control system, Git comes with doc collaboration and review processes built in. People can fork the docs and send pull requests for the changes they make. You review the changes. Done! Most Git frontends like Bitbucket , GitLab and GitHub also allow you to reject pull requests with comments. Image References and Code Snippets Instead of pasting images into a binary document format, docToolchain lets you reference images. This ensures that your imagery is always up to date every time you rebuild your documents. You can also reference code snippets directly from your source code. You&#8217;ll save so much time because your docs and code will always be in sync and completely up to date! Compound and Stakeholder-Tailored Docs As if image refs and code snippets weren&#8217;t enough, docToolchain also lets you split docs into several sub-documents plus a master for greater cohesion. And you&#8217;re not restricted to one master. You can create master docs for different stakeholders that only contain the chapters they need. And So Much More&#8230;&#8203; If you can dream it, you can script it! Want to include a list of open issues from Jira? You can! Want to include a changelog from Git? Go for it! Want to use inline text-based diagrams? Knock yourself out! "
-},
-
-{
-    "id": 39,
-    "uri": "020_tutorial/110_revealjs_and_arc42_from_scratch.html",
-    "menu": "tutorial",
-    "title": "Reveal.js &amp; Arc42 from Scratch",
-    "text": " Table of Contents Reveal.js &amp; Arc42 from Scratch 1 Clone docToolchain and Git Submodules 2 Create an arc42 Based Documentation Repository 3 Create the AsciiDoctor Reveal.js Presentation Troubleshooting Reveal.js &amp; Arc42 from Scratch The following procedure describes how to set up the arc42 template and a sample Asciidoctor reveal.js presentation from scratch. It uses the docToolchain as suggested by docs-as-co.de . This tutorial has been tested with an Apple Silicon based mac. This architecture is not yet supported by the docker based docToolchain . Instead the docToolchain repository branch ng is used. 1 Clone docToolchain and Git Submodules git clone https://github.com/docToolchain/docToolchain.git cd docToolchain git submodule init git submodule update The default branch ng should be used. Now add the bin folder to your PATH . You might need to restart your shell. 2 Create an arc42 Based Documentation Repository mkdir &lt;your-doc-folder&gt; cd &lt;your-doc-folder&gt; # Setup the correct Java and Gradle versions in .sdkmanrc # For more information, see https://sdkman.io cat &lt;&lt; EOF &gt; .sdkmanrc # Enable auto-env through the sdkman_auto_env config # Add key=value pairs of SDKs to use below java=11.0.14-ms gradle=6.9.2 EOF # Activate the configured Java and Gradle versions for the current shell sdk env # Initialize arc42 in your current directory docToolchain . downloadTemplate Now answer all the questions, the tool prints. Make sure to read the highlighted lines - they are printed in between the other output of the docToolchain command. Config file '.../Config.groovy' does not exist do you want me to create a default one for you? (y, n) Install arc42 documentation template. Which language do you want to install? (EN, DE, ES, IT, NL) Do you want the template with or without help? Finally, generate the HTML version of the template docToolchain . generateHTML open open build/html5/arc42/arc42.html 3 Create the AsciiDoctor Reveal.js Presentation Create a presentation.adoc file cat &lt;&lt; EOF &gt;&gt; src/docs/presentation.adoc = Title Slide == Slide 1 * This is the first slide == Slide 2 * This is the second slide EOF Add the following entry into the inputFiles section of Config.groovy (note the , at the end of the line): [file: 'presentation.adoc', formats: ['revealjs']], Generate the slide deck docToolchain . generateDeck Host the slides in a server, e.g. using browsersync : browser-sync start --server --files build/**/*.html --startPath /build/decks/html5/presentation.html Troubleshooting If docToolchain reports an error like BUG! exception in phase 'semantic analysis' in source unit 'script16562611848591859871238.groovy' Unsupported class file major version 61 you are probably using a newer version of Java and / or Gradle than supported by the tool. Please make sure you have configured sdkman to use the correct versions of Java and Gradle (see above). "
 },
 
 {
@@ -354,6 +354,14 @@ var documents = [
 
 {
     "id": 44,
+    "uri": "010_manual/040_contributors.html",
+    "menu": "-",
+    "title": "moved",
+    "text": " document.location.href = '../10_about/30_community.html'; "
+},
+
+{
+    "id": 45,
     "uri": "010_manual/40_features.html",
     "menu": "manual",
     "title": "Using docToolchain to Build Docs",
@@ -361,19 +369,11 @@ var documents = [
 },
 
 {
-    "id": 45,
+    "id": 46,
     "uri": "010_manual/30_config.html",
     "menu": "manual",
     "title": "Configuration",
     "text": " Table of Contents Configuration mainConfigFile and docDir AsciiDoc config Command Line Parameters Configuration 2 minutes to read This appendix covers all configuration introduced by docToolchain. AsciiDoc, AsciiDoctor, Gradle and other tools and libraries used know of more configuration settings and you can read about those in the corresponding documentation. mainConfigFile and docDir docToolchain should be easy to use. That&#8217;s why the goal is to have one config file with all settings for each project. But first of all, docToolchain has to know where your documentation project is located. If docDir is defined, the default for mainConfigFile is Config.groovy in the root folder of your docDir . You have several options to specify the location of your documentation project ( docDir ) and the location of your config file ( mainConfigFile ). Commandline Specify the property on the commandline ./dtcw generateHTML -PmainConfigFile=Config.groovy Tip you can verify the location of your Config.groovy by executing docToolchain with the --info parameter which sets the loglevel to info . It will print the location on the command line (among other settings) dynamic configuration properties Sometime you need a more dynamic configuration. Since the configuration file is an executable .groovy file, you can not only configure static values but also fetch dynamic once. For example, example = System.properties.myProperty You can then specify the property with the -D parameter like this ./dtcw docker generateHTML -DmyProperty=myValue In the same way, you can use environment variables example = System.getenv(myEnvVariable) But in this case, you have to ensure that the environment varaible can be accessed. It will not work for docker based execution of dtcw Content of the mainConfigFile Unresolved directive in &lt;stdin&gt; - include::../../../Config.groovy[tags=**] AsciiDoc config Command Line Parameters "
-},
-
-{
-    "id": 46,
-    "uri": "010_manual/040_contributors.html",
-    "menu": "-",
-    "title": "moved",
-    "text": " document.location.href = '../10_about/30_community.html'; "
 },
 
 {
@@ -418,14 +418,6 @@ var documents = [
 
 {
     "id": 52,
-    "uri": "015_tasks/03_tasks.html",
-    "menu": "tasks",
-    "title": "What Is a Task?",
-    "text": " Table of Contents What Is a Task? At a Glance How Tasks Are Named generateX exportX convertToX publishToX .gravatar img { margin-left: 3px; border-radius: 4px; } What Is a Task? 2 minutes to read At a Glance A task is another name for a script which triggers the build actions that compile and publish your docs. This diagram gives you an overview of the entire build process: Figure 1. docToolchain How Tasks Are Named Tasks are given a naming prefix which indicates their role in the build process. There are currently 4 groups. generateX These tasks use plain old Asciidoctor functionality to render the source to a given format. exportX These tasks export images and AsciiDoc snippets from other systems or file formats. The resulting artifacts can then be included from your main sources. export tasks differ from generate tasks because with export tasks, you don&#8217;t have to export with each build. Also, with export tasks, it&#8217;s likely that you will already store the resulting artifacts under version control because the tools needed for the export (such as Sparx Enterprise Architect or MS PowerPoint) are typically not available on your build server or another contributor&#8217;s machine. convertToX These tasks take the output from Asciidoctor and convert it (through other tools) to the target format. This results in a dependency on a generateX task and another external tool (currently pandoc ). publishToX These tasks not only convert your documents but also deploy, publish and move them to a remote system (currently Confluence), meaning the result is immediately visible to others. "
-},
-
-{
-    "id": 53,
     "uri": "015_tasks/03_task_exportMarkdown.html",
     "menu": "tasks",
     "title": "exportMarkdown",
@@ -433,19 +425,27 @@ var documents = [
 },
 
 {
-    "id": 54,
-    "uri": "015_tasks/03_task_exportContributors.html",
-    "menu": "tasks",
-    "title": "exportContributors",
-    "text": " Table of Contents exportContributors About This Task How to Use This Task About the Avatar-Icons File Attributes .gravatar img { margin-left: 3px; border-radius: 4px; } exportContributors 3 minutes to read About This Task This task crawls through all Asciidoctor source files and extracts a list of contributors, which is then rendered as AsciiDoc images of each contributor&#8217;s gravatar picture. The extracted list is stored in /home/runner/work/docToolchain/docToolchain/build/contributors/015_tasks/03_task_exportContributors.adoc so it can be easily included in your documents. How to Use This Task The best way to use this task is to create a feedback.adoc file similar to this: feedback.adoc ifndef::backend-pdf[] // (1) image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}{filename}, float=right] // (2) image::https://img.shields.io/badge/create-an%20issue-blue.svg[link=https://github.com/docToolchain/documentation/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:{filename}, float=right] // (3) endif::[] include::{targetDir}/contributors/{filename}[] // (4) Key: Do not show this section when docs are rendered as PDF. Create an Improve This Doc button which links to your GitHub sources. Create a Create an Issue button which links to your issue tracker. Include the list of contributors created by this task. (The task automatically adds the estimated reading time to the list of contributors.) About the Avatar-Icons It seems not to be possible to extract a link to the github avatar icons from the log. So, the solution is to use Gravatar icons. For this to work, the contributors email address is hashed and an icon link is generated from that hash. http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon This result at least in an icon which has a distinct color. Contributors can setup their own image through Gravatar.com . For this to work, the git commits need to use an email address which can be verified by Gravatar.com. Unfortunately, this is not the case if a contributor decided to make his email address private in the email sections of her github account. File Attributes This task also exports some GitHub file attributes. The extracted attributes are stored in /home/runner/work/docToolchain/docToolchain/build/fileattribs/015_tasks/03_task_exportContributors.adoc . :lastUpdated: 16.05.2019 06:22 :lastAuthorName: Ralf D. Müller :lastAuthorEmail: ralf.d.mueller@gmail.com :lastAuthorAvatar: http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon[32,32,role='gravatar',alt='Ralf D. Müller',title='Ralf D. Müller'] :lastMessage: #310 started to document config options You can import and use these attributes in the same way as you import the contributors list. Important please make sure that you do not accidentally publish the email address if your contributors do not want it. For example: feedback.adoc include::{targetDir}/fileattribs/{filename}[] Last updated {lastUpdated} by {lastAuthorName} "
-},
-
-{
-    "id": 55,
+    "id": 53,
     "uri": "015_tasks/03_task_autobuildSite.html",
     "menu": "tasks",
     "title": "autobuildSite",
     "text": " Table of Contents autobuildSite About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } autobuildSite 1 minute to read About This Task This script starts an endless loop which checks for changes to your docs source then re-runs the generateSite -task whenever it detects changes. The output will be logged to build/generateSite.log . Source bin/autobuildSite.bash #!/bin/bash DIR_TO_WATCH='src/' #COMMAND='rm -r build || true &amp;&amp; mkdir -p build/microsite/output/images/ &amp;&amp; ./dtcw generateSite 2&gt;&amp;1 | tee build/generateSite.log' COMMAND='mkdir -p build/microsite/output/images/ &amp;&amp; ./dtcw generateSite 2&gt;&amp;1 | tee build/generateSite.log' #execute first time cp src/docs/images/ready.png build/microsite/output/images/status.png #eval $COMMAND #wait for changes and execute while true ; do watch --no-title --chgexit ls -lR ${DIR_TO_WATCH} | sha1sum cp src/docs/images/building.png build/microsite/output/images/status.png eval $COMMAND cp src/docs/images/ready.png build/microsite/output/images/status.png sleep 6 done "
+},
+
+{
+    "id": 54,
+    "uri": "015_tasks/03_tasks.html",
+    "menu": "tasks",
+    "title": "What Is a Task?",
+    "text": " Table of Contents What Is a Task? At a Glance How Tasks Are Named generateX exportX convertToX publishToX .gravatar img { margin-left: 3px; border-radius: 4px; } What Is a Task? 2 minutes to read At a Glance A task is another name for a script which triggers the build actions that compile and publish your docs. This diagram gives you an overview of the entire build process: Figure 1. docToolchain How Tasks Are Named Tasks are given a naming prefix which indicates their role in the build process. There are currently 4 groups. generateX These tasks use plain old Asciidoctor functionality to render the source to a given format. exportX These tasks export images and AsciiDoc snippets from other systems or file formats. The resulting artifacts can then be included from your main sources. export tasks differ from generate tasks because with export tasks, you don&#8217;t have to export with each build. Also, with export tasks, it&#8217;s likely that you will already store the resulting artifacts under version control because the tools needed for the export (such as Sparx Enterprise Architect or MS PowerPoint) are typically not available on your build server or another contributor&#8217;s machine. convertToX These tasks take the output from Asciidoctor and convert it (through other tools) to the target format. This results in a dependency on a generateX task and another external tool (currently pandoc ). publishToX These tasks not only convert your documents but also deploy, publish and move them to a remote system (currently Confluence), meaning the result is immediately visible to others. "
+},
+
+{
+    "id": 55,
+    "uri": "015_tasks/03_task_exportContributors.html",
+    "menu": "tasks",
+    "title": "exportContributors",
+    "text": " Table of Contents exportContributors About This Task How to Use This Task About the Avatar-Icons File Attributes .gravatar img { margin-left: 3px; border-radius: 4px; } exportContributors 3 minutes to read About This Task This task crawls through all Asciidoctor source files and extracts a list of contributors, which is then rendered as AsciiDoc images of each contributor&#8217;s gravatar picture. The extracted list is stored in /home/runner/work/docToolchain/docToolchain/build/contributors/015_tasks/03_task_exportContributors.adoc so it can be easily included in your documents. How to Use This Task The best way to use this task is to create a feedback.adoc file similar to this: feedback.adoc ifndef::backend-pdf[] // (1) image::https://img.shields.io/badge/improve-this%20doc-orange.svg[link={manualdir}{filename}, float=right] // (2) image::https://img.shields.io/badge/create-an%20issue-blue.svg[link=https://github.com/docToolchain/documentation/issues/new?title=&amp;body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:{filename}, float=right] // (3) endif::[] include::{targetDir}/contributors/{filename}[] // (4) Key: Do not show this section when docs are rendered as PDF. Create an Improve This Doc button which links to your GitHub sources. Create a Create an Issue button which links to your issue tracker. Include the list of contributors created by this task. (The task automatically adds the estimated reading time to the list of contributors.) About the Avatar-Icons It seems not to be possible to extract a link to the github avatar icons from the log. So, the solution is to use Gravatar icons. For this to work, the contributors email address is hashed and an icon link is generated from that hash. http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon This result at least in an icon which has a distinct color. Contributors can setup their own image through Gravatar.com . For this to work, the git commits need to use an email address which can be verified by Gravatar.com. Unfortunately, this is not the case if a contributor decided to make his email address private in the email sections of her github account. File Attributes This task also exports some GitHub file attributes. The extracted attributes are stored in /home/runner/work/docToolchain/docToolchain/build/fileattribs/015_tasks/03_task_exportContributors.adoc . :lastUpdated: 16.05.2019 06:22 :lastAuthorName: Ralf D. Müller :lastAuthorEmail: ralf.d.mueller@gmail.com :lastAuthorAvatar: http://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon[32,32,role='gravatar',alt='Ralf D. Müller',title='Ralf D. Müller'] :lastMessage: #310 started to document config options You can import and use these attributes in the same way as you import the contributors list. Important please make sure that you do not accidentally publish the email address if your contributors do not want it. For example: feedback.adoc include::{targetDir}/fileattribs/{filename}[] Last updated {lastUpdated} by {lastAuthorName} "
 },
 
 {
@@ -458,14 +458,6 @@ var documents = [
 
 {
     "id": 57,
-    "uri": "015_tasks/03_task_exportVisio.html",
-    "menu": "tasks",
-    "title": "exportVisio",
-    "text": " Table of Contents exportVisio At a Glance About This Task Important Information About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportVisio 1 minute to read At a Glance About This Task This task searches for Visio files in the /src/docs folder then exports all diagrams and element notes to /src/docs/images/visio and /src/docs/visio . Images are stored as /images/visio/[filename]-[pagename].png . Notes are stored as /visio/[filename]-[pagename].adoc You can specify a filename to export notes to by starting any comment with {adoc:[filename].adoc} . It will then be written to /visio/[filename].adoc . Important Information About This Task Currently, only Visio files stored directly in /src/docs are supported. All others will export to the wrong location. Before running this task, close any open Visio instance. Further Reading and Resources Issue #112 . Source exportVisio.gradle task exportVisio( dependsOn: [streamingExecute], description: 'exports all diagrams and notes from visio files', group: 'docToolchain' ) { doLast { //make sure path for notes exists //and remove old notes new File(docDir, 'src/docs/visio').deleteDir() //also remove old diagrams new File(docDir, 'src/docs/images/visio').deleteDir() //create a readme to clarify things def readme = This folder contains exported diagrams and notes from visio files. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportVisio` to re-export files  new File(docDir, 'src/docs/images/visio/.').mkdirs() new File(docDir, 'src/docs/images/visio/readme.ad').write(readme) new File(docDir, 'src/docs/visio/.').mkdirs() new File(docDir, 'src/docs/visio/readme.ad').write(readme) def sourcePath = new File(docDir, 'src/docs/.').canonicalPath def scriptPath = new File(projectDir, 'scripts/VisioPageToPngConverter.ps1').canonicalPath powershell ${scriptPath} -SourcePath ${sourcePath}.executeCmd() } } scripts/VisioPageToPngConverter.ps1 # Convert all pages in all visio files in the given directory to png files. # A Visio windows might flash shortly. # The converted png files are stored in the same directory # The name of the png file is concatenated from the Visio file name and the page name. # In addtion all the comments are stored in adoc files. # If the Viso file is named MyVisio.vsdx and the page is called FirstPage # the name of the png file will be MyVisio-FirstPage.png and the comment will # be stored in MyVisio-FirstPage.adoc. # But for the name of the adoc files there is an alternative. It can be given in the first # line of the comment. If it is given in the comment it has to be given in curly brackes # with the prefix adoc:, e.g. {adoc:MyCommentFile.adoc} # Prerequisites: Viso and PowerShell has to be installed on the computer. # Parameter: SourcePath where visio files can be found # Example powershell VisoPageToPngConverter.ps1 -SourcePath c:\convertertest\ Param ( [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=0)] [Alias('p')][String]$SourcePath ) Write-Output starting to export visio If (!(Test-Path -Path $SourcePath)) { Write-Warning The path $SourcePath does not exist or is not accessible, please input the correct path. Exit } # Extend the source path to get only Visio files of the given directory and not in subdircetories If ($SourcePath.EndsWith(\)) { $SourcePath = $SourcePath } Else { $SourcePath = $SourcePath\ } $VisioFiles = Get-ChildItem -Path $SourcePath* -Recurse -Include *.vsdx,*.vssx,*.vstx,*.vxdm,*.vssm,*.vstm,*.vsd,*.vdw,*.vss,*.vst If(!($VisioFiles)) { Write-Warning There are no Visio files in the path $SourcePath. Exit } $VisioApp = New-Object -ComObject Visio.Application $VisioApp.Visible = $false # Extract the png from all the files in the folder Foreach($File in $VisioFiles) { $FilePath = $File.FullName Write-Output found $FilePath . $FileDirectory = $File.DirectoryName # Get the folder containing the Visio file. Will be used to store the png and adoc files $FileBaseName = $File.BaseName -replace '[ :/\\*?|&lt;&gt;]','-' # Get the filename to be used as part of the name of the png and adoc files Try { $Document = $VisioApp.Documents.Open($FilePath) $Pages = $VisioApp.ActiveDocument.Pages Foreach($Page in $Pages) { # Create valid filenames for the png and adoc files $PngFileName = $Page.Name -replace '[ :/\\*?|&lt;&gt;]','-' $PngFileName = $FileBaseName-$PngFileName.png $AdocFileName = $PngFileName.Replace(.png, .adoc) #TODO: this needs better logic Write-Output($SourcePath\images\visio\$PngFileName) $Page.Export($SourcePath\images\visio\$PngFileName) $AllPageComments =  ForEach($PageComment in $Page.Comments) { # Extract adoc filename from comment text if the syntax is valid # Remove the filename from the text and save the comment in a file with a valid name $EofStringIndex = $PageComment.Text.IndexOf(.adoc}) if ($PageComment.Text.StartsWith({adoc) -And ($EofStringIndex -gt 6)) { $AdocFileName = $PageComment.Text.Substring(6, $EofStringIndex -1) $AllPageComments += $PageComment.Text.Substring($EofStringIndex + 6) } else { $AllPageComments += $PageComment.Text+`n } } If ($AllPageComments) { $AdocFileName = $AdocFileName -replace '[:/\\*?|&lt;&gt;]','-' #TODO: this needs better logic $stream = [System.IO.StreamWriter] $SourcePath\visio\$AdocFileName $stream.WriteLine($AllPageComments) $stream.close() } } $Document.Close() } Catch { if ($Document) { $Document.Close() } Write-Warning One or more visio page(s) in file $FilePath have been lost in this converting. Write-Warning Error was: $_ } } $VisioApp.Quit() "
-},
-
-{
-    "id": 58,
     "uri": "015_tasks/03_task_exportExcel.html",
     "menu": "tasks",
     "title": "exportExcel",
@@ -473,7 +465,7 @@ var documents = [
 },
 
 {
-    "id": 59,
+    "id": 58,
     "uri": "015_tasks/03_task_exportDrawIo.html",
     "menu": "tasks",
     "title": "exportDrawIo",
@@ -481,7 +473,23 @@ var documents = [
 },
 
 {
+    "id": 59,
+    "uri": "015_tasks/03_task_exportVisio.html",
+    "menu": "tasks",
+    "title": "exportVisio",
+    "text": " Table of Contents exportVisio At a Glance About This Task Important Information About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportVisio 1 minute to read At a Glance About This Task This task searches for Visio files in the /src/docs folder then exports all diagrams and element notes to /src/docs/images/visio and /src/docs/visio . Images are stored as /images/visio/[filename]-[pagename].png . Notes are stored as /visio/[filename]-[pagename].adoc You can specify a filename to export notes to by starting any comment with {adoc:[filename].adoc} . It will then be written to /visio/[filename].adoc . Important Information About This Task Currently, only Visio files stored directly in /src/docs are supported. All others will export to the wrong location. Before running this task, close any open Visio instance. Further Reading and Resources Issue #112 . Source exportVisio.gradle task exportVisio( dependsOn: [streamingExecute], description: 'exports all diagrams and notes from visio files', group: 'docToolchain' ) { doLast { //make sure path for notes exists //and remove old notes new File(docDir, 'src/docs/visio').deleteDir() //also remove old diagrams new File(docDir, 'src/docs/images/visio').deleteDir() //create a readme to clarify things def readme = This folder contains exported diagrams and notes from visio files. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportVisio` to re-export files  new File(docDir, 'src/docs/images/visio/.').mkdirs() new File(docDir, 'src/docs/images/visio/readme.ad').write(readme) new File(docDir, 'src/docs/visio/.').mkdirs() new File(docDir, 'src/docs/visio/readme.ad').write(readme) def sourcePath = new File(docDir, 'src/docs/.').canonicalPath def scriptPath = new File(projectDir, 'scripts/VisioPageToPngConverter.ps1').canonicalPath powershell ${scriptPath} -SourcePath ${sourcePath}.executeCmd() } } scripts/VisioPageToPngConverter.ps1 # Convert all pages in all visio files in the given directory to png files. # A Visio windows might flash shortly. # The converted png files are stored in the same directory # The name of the png file is concatenated from the Visio file name and the page name. # In addtion all the comments are stored in adoc files. # If the Viso file is named MyVisio.vsdx and the page is called FirstPage # the name of the png file will be MyVisio-FirstPage.png and the comment will # be stored in MyVisio-FirstPage.adoc. # But for the name of the adoc files there is an alternative. It can be given in the first # line of the comment. If it is given in the comment it has to be given in curly brackes # with the prefix adoc:, e.g. {adoc:MyCommentFile.adoc} # Prerequisites: Viso and PowerShell has to be installed on the computer. # Parameter: SourcePath where visio files can be found # Example powershell VisoPageToPngConverter.ps1 -SourcePath c:\convertertest\ Param ( [Parameter(Mandatory=$true,ValueFromPipeline=$true,Position=0)] [Alias('p')][String]$SourcePath ) Write-Output starting to export visio If (!(Test-Path -Path $SourcePath)) { Write-Warning The path $SourcePath does not exist or is not accessible, please input the correct path. Exit } # Extend the source path to get only Visio files of the given directory and not in subdircetories If ($SourcePath.EndsWith(\)) { $SourcePath = $SourcePath } Else { $SourcePath = $SourcePath\ } $VisioFiles = Get-ChildItem -Path $SourcePath* -Recurse -Include *.vsdx,*.vssx,*.vstx,*.vxdm,*.vssm,*.vstm,*.vsd,*.vdw,*.vss,*.vst If(!($VisioFiles)) { Write-Warning There are no Visio files in the path $SourcePath. Exit } $VisioApp = New-Object -ComObject Visio.Application $VisioApp.Visible = $false # Extract the png from all the files in the folder Foreach($File in $VisioFiles) { $FilePath = $File.FullName Write-Output found $FilePath . $FileDirectory = $File.DirectoryName # Get the folder containing the Visio file. Will be used to store the png and adoc files $FileBaseName = $File.BaseName -replace '[ :/\\*?|&lt;&gt;]','-' # Get the filename to be used as part of the name of the png and adoc files Try { $Document = $VisioApp.Documents.Open($FilePath) $Pages = $VisioApp.ActiveDocument.Pages Foreach($Page in $Pages) { # Create valid filenames for the png and adoc files $PngFileName = $Page.Name -replace '[ :/\\*?|&lt;&gt;]','-' $PngFileName = $FileBaseName-$PngFileName.png $AdocFileName = $PngFileName.Replace(.png, .adoc) #TODO: this needs better logic Write-Output($SourcePath\images\visio\$PngFileName) $Page.Export($SourcePath\images\visio\$PngFileName) $AllPageComments =  ForEach($PageComment in $Page.Comments) { # Extract adoc filename from comment text if the syntax is valid # Remove the filename from the text and save the comment in a file with a valid name $EofStringIndex = $PageComment.Text.IndexOf(.adoc}) if ($PageComment.Text.StartsWith({adoc) -And ($EofStringIndex -gt 6)) { $AdocFileName = $PageComment.Text.Substring(6, $EofStringIndex -1) $AllPageComments += $PageComment.Text.Substring($EofStringIndex + 6) } else { $AllPageComments += $PageComment.Text+`n } } If ($AllPageComments) { $AdocFileName = $AdocFileName -replace '[:/\\*?|&lt;&gt;]','-' #TODO: this needs better logic $stream = [System.IO.StreamWriter] $SourcePath\visio\$AdocFileName $stream.WriteLine($AllPageComments) $stream.close() } } $Document.Close() } Catch { if ($Document) { $Document.Close() } Write-Warning One or more visio page(s) in file $FilePath have been lost in this converting. Write-Warning Error was: $_ } } $VisioApp.Quit() "
+},
+
+{
     "id": 60,
+    "uri": "015_tasks/03_task_exportJiraSprintChangelog.html",
+    "menu": "tasks",
+    "title": "exportJiraSprintChangelogIssues",
+    "text": " Table of Contents exportJiraSprintChangelogIssues About This Task Configuration Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportJiraSprintChangelogIssues 1 minute to read About This Task This task exports a simplified (key and summary) list of Jira issues for a specific sprint defined in the task configuration. Only a few additional fields (such as assignee) can be switched using configuration flags. Once you define the sprint, the relevant AsciiDoc and Excel files will be generated. If a sprint is not defined in the configuration, changelogs for all sprints that match the configuration will be saved in separate AsciiDoc files and in different tabs within an Excel file. The task configuration can be found within Config.gradle . In addition to the configuration snippet below, it is important to configure the Jira API and credentials in the Jira section of the configuration inside the same file. Configuration Config.groovy // Sprint changelog configuration generate changelog lists based on tickets in sprints of an Jira instance. // This feature requires at least Jira API &amp; credentials to be properly set in Jira section of this configuration sprintChangelog = [:] sprintChangelog.with { sprintState = 'closed' // it is possible to define multiple states, i.e. 'closed, active, future' ticketStatus = Done, Closed // it is possible to define multiple ticket statuses, i.e. Done, Closed, 'in Progress' showAssignee = false showTicketStatus = false showTicketType = true sprintBoardId = 12345 // Jira instance probably have multiple boards; here it can be defined which board should be used // Output folder for this task inside main outputPath resultsFolder = 'Sprints' // if sprintName is not defined or sprint with that name isn't found, release notes will be created on for all sprints that match sprint state configuration sprintName = 'PRJ Sprint 1' // if sprint with a given sprintName is found, release notes will be created just for that sprint allSprintsFilename = 'Sprints_Changelogs' // Extension will be automatically added. } Source exportJiraSprintChangelog.gradle task exportJiraSprintChangelog( description: 'exports all jira issues from Sprint for release notes', group: 'docToolchain' ) { doLast { // Pre defined ticket fields for Changelog based on Jira Sprints def defaultTicketFields = 'summary,status,assignee,issuetype' // retrieving sprints for a given board def sprints = { apiSprints, headers, boardId, sprintState -&gt; apiSprints.get(path: agile/latest/board/${boardId}/sprint, query:[state: ${sprintState}], headers: headers ).data } // retrieving issues for given sprint def issues = { apiIssues, headers, boardId, sprintId, status -&gt; apiIssues.get(path: agile/latest/board/${boardId}/sprint/${sprintId}/issue, query: ['jql' : status in (${status}) ORDER BY type DESC, status ASC, 'maxResults': 1000, fields: defaultTicketFields ], headers: headers ).data } // preparing target folder for generated files final String taskSubfolderName = config.sprintChangelog.resultsFolder final File targetFolder = new File(targetDir + File.separator + taskSubfolderName) if (!targetFolder.exists()) targetFolder.mkdirs() logger.debug(Output folder for 'exportJiraSprintChangelog' task is: '${targetFolder}') // Getting configuration def jiraRoot = config.jira.api def jiraProject = config.jira.project def sprintState = config.sprintChangelog.sprintState def ticketStatusForReleaseNotes = config.sprintChangelog.ticketStatus def sprintBoardId = config.sprintChangelog.sprintBoardId def showAssignee = config.sprintChangelog.showAssignee def showTicketStatus = config.sprintChangelog.showTicketStatus def showTicketType = config.sprintChangelog.showTicketType def sprintName = config.sprintChangelog.sprintName def allSprintsFilename = config.sprintChangelog.allSprintsFilename logger.info(\n==========================\nJira Release notes config\n==========================) logger.info(Spring Board ID: ${sprintBoardId}) logger.info(Show assignees: ${showAssignee}. Show ticket status: ${showTicketStatus}. Show ticket type: ${showTicketType}) logger.info(Filtering for sprints with configured state: '${sprintState}') logger.info(Filtering for issues with configured statuses: ${ticketStatusForReleaseNotes}) logger.info(Attempt to generate release notes for sprint with a name: '${sprintName}') logger.info(Filename used for all sprints: '${allSprintsFilename}') def api = new groovyx.net.http.RESTClient(jiraRoot + '/rest/') api.encoderRegistry = new groovyx.net.http.EncoderRegistry(charset: 'utf-8') def headers = [ 'Authorization': Basic  + config.jira.credentials, 'Content-Type' : 'application/json; charset=utf-8' ] def allChangelogsFilename = ${allSprintsFilename}.xlsx logger.quiet(Changelogs of all sprints will be saved in '${allChangelogsFilename}' file) def changelogsXls = new File(targetFolder, allChangelogsFilename) def changelogsXlsFos = new FileOutputStream(changelogsXls) Workbook wb = new XSSFWorkbook(); CreationHelper hyperlinkHelper = wb.getCreationHelper(); String rgbS = A7A7A7 byte[] rgbB = Hex.decodeHex(rgbS) // get byte array from hex string XSSFColor color = new XSSFColor(rgbB, null) //IndexedColorMap has no usage until now. So it can be set null. XSSFCellStyle headerCellStyle = (XSSFCellStyle) wb.createCellStyle() headerCellStyle.setFillForegroundColor(color) headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND) // prepare tickets according to configuration def columns = ['key'].plus(defaultTicketFields.split(',').collect()) if (!showAssignee) { columns = columns.minus('assignee')} if (!showTicketStatus) { columns = columns.minus('status')} if (!showTicketType) { columns = columns.minus('issuetype')} logger.info(Release notes will contain following info: ${columns}) logger.info(\n=====================\n Sprints\n=====================) // def allMatchedSprints = sprints(api, headers, sprintBoardId, sprintState).values def foundExactSprint = allMatchedSprints.any {it.name == sprintName} logger.info(All sprints that matched configuration: ${allMatchedSprints.size()}) def sprintsForChangelog = foundExactSprint ? allMatchedSprints.stream().filter() {it.name == sprintName} : allMatchedSprints logger.info(Found exact Sprint with name '${sprintName}': ${foundExactSprint}.) sprintsForChangelog.each { sprint -&gt; logger.quiet(\nSprint: $sprint.name [id: $sprint.id] state &lt;$sprint.state&gt;) /* ================================================ Create new worksheet inside existing excel file ================================================ */ String safeSprintName = WorkbookUtil.createSafeSheetName(${sprint.name}) def ws = wb.createSheet(safeSprintName) // Add titles (typically key &amp; summary, but assignee, ticket status, ticket type can be configured in Config.groovy too) def titleRow = ws.createRow(0); int cellNumber = 0; columns.each {columnTitle -&gt; titleRow.createCell(cellNumber++).setCellValue(${columnTitle.capitalize()})} def lastRow = titleRow.getRowNum() titleRow.setRowStyle(headerCellStyle) // set summary (at position 1) column wider than other columns ws.setColumnWidth(1, 35*256) /* ========================================= AsciiDoc file for each sprint ========================================= */ def asciidocFilename = ${sprint.name.replaceAll( , _)}.adoc logger.info(Results will be saved in '${asciidocFilename}' file) def changeLogAdoc = new File(targetFolder, ${asciidocFilename}) changeLogAdoc.write(.Table ${sprint.name} Changelog\n, 'utf-8') changeLogAdoc.append(|=== \n) // AsciiDoc table columns columns.each {columnTitle -&gt; changeLogAdoc.append(|${columnTitle} , 'utf-8')} /* ========================================= Add tickets for the sprint ========================================= */ issues(api, headers, sprintBoardId, sprint.id, ticketStatusForReleaseNotes).issues.each {issue -&gt; def assignee = ${issue.fields.assignee ? issue.fields.assignee.displayName : 'unassigned'}  def message = showAssignee ? by ${assignee} :  logger.quiet(Issue: [$issue.key] '$issue.fields.summary' ${message}&lt;$issue.fields.status.name&gt;) /* =========================== Write ticket to Excel =========================== */ int cellPosition = 0 def row = ws.createRow(++lastRow) Hyperlink link = hyperlinkHelper.createHyperlink(HyperlinkType.URL) link.setAddress(${jiraRoot}/browse/${issue.key}) Cell cellWithUrl = row.createCell(cellPosition) cellWithUrl.setCellValue(${issue.key}) cellWithUrl.setHyperlink(link) row.createCell(++cellPosition).setCellValue(${issue.fields.summary}) /* ============================= Write ticket to Asciidoc ============================= */ changeLogAdoc.append(\n, 'utf-8') changeLogAdoc.append(| ${jiraRoot}/browse/${issue.key}[${issue.key}] , 'utf-8') changeLogAdoc.append(| ${issue.fields.summary} , 'utf-8') /* === Write ticket status, assignee, ticket typee if configured to both Asciidoc &amp; Excel files === */ if (showTicketStatus) { row.createCell(++cellPosition).setCellValue(${issue.fields.status.name}) changeLogAdoc.append(| ${issue.fields.status.name} , 'utf-8') } if (showAssignee) { row.createCell(++cellPosition).setCellValue(${assignee}) changeLogAdoc.append(| ${assignee}, 'utf-8') } if (showTicketType) { row.createCell(++cellPosition).setCellValue(${issue.fields.issuetype.name}) changeLogAdoc.append(| ${issue.fields.issuetype.name} , 'utf-8') } } // Close the asciidoc table changeLogAdoc.append(\n|=== \n,'utf-8') // Set auto-width to KEY column ws.autoSizeColumn(0); } // Write to Excel file wb.write(changelogsXlsFos) } } "
+},
+
+{
+    "id": 61,
     "uri": "015_tasks/03_task_copy_themes.html",
     "menu": "tasks",
     "title": "copyThemes",
@@ -489,19 +497,11 @@ var documents = [
 },
 
 {
-    "id": 61,
+    "id": 62,
     "uri": "015_tasks/03_task_previewSite.html",
     "menu": "tasks",
     "title": "previewSite",
     "text": " Table of Contents previewSite Before You Begin About This Task .gravatar img { margin-left: 3px; border-radius: 4px; } previewSite 1 minute to read Before You Begin If you use WSL to execute this task, you must use the IP V6 address of localhost [::1] to access the server. 127.0.0.1 or localhost will not work. Most site themes don&#8217;t need the static site server for general content, you can just preview the site by opening from the file system in your browser. However, some JavaScript features will not work because of CORS restrictions. About This Task When you use a build in a static site generator through generateSite , you sometimes need a real locally running static server to preview the results. This task will start a jetty for your generated site. "
-},
-
-{
-    "id": 62,
-    "uri": "015_tasks/03_task_exportJiraSprintChangelog.html",
-    "menu": "tasks",
-    "title": "exportJiraSprintChangelogIssues",
-    "text": " Table of Contents exportJiraSprintChangelogIssues About This Task Configuration Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportJiraSprintChangelogIssues 1 minute to read About This Task This task exports a simplified (key and summary) list of Jira issues for a specific sprint defined in the task configuration. Only a few additional fields (such as assignee) can be switched using configuration flags. Once you define the sprint, the relevant AsciiDoc and Excel files will be generated. If a sprint is not defined in the configuration, changelogs for all sprints that match the configuration will be saved in separate AsciiDoc files and in different tabs within an Excel file. The task configuration can be found within Config.gradle . In addition to the configuration snippet below, it is important to configure the Jira API and credentials in the Jira section of the configuration inside the same file. Configuration Config.groovy // Sprint changelog configuration generate changelog lists based on tickets in sprints of an Jira instance. // This feature requires at least Jira API &amp; credentials to be properly set in Jira section of this configuration sprintChangelog = [:] sprintChangelog.with { sprintState = 'closed' // it is possible to define multiple states, i.e. 'closed, active, future' ticketStatus = Done, Closed // it is possible to define multiple ticket statuses, i.e. Done, Closed, 'in Progress' showAssignee = false showTicketStatus = false showTicketType = true sprintBoardId = 12345 // Jira instance probably have multiple boards; here it can be defined which board should be used // Output folder for this task inside main outputPath resultsFolder = 'Sprints' // if sprintName is not defined or sprint with that name isn't found, release notes will be created on for all sprints that match sprint state configuration sprintName = 'PRJ Sprint 1' // if sprint with a given sprintName is found, release notes will be created just for that sprint allSprintsFilename = 'Sprints_Changelogs' // Extension will be automatically added. } Source exportJiraSprintChangelog.gradle task exportJiraSprintChangelog( description: 'exports all jira issues from Sprint for release notes', group: 'docToolchain' ) { doLast { // Pre defined ticket fields for Changelog based on Jira Sprints def defaultTicketFields = 'summary,status,assignee,issuetype' // retrieving sprints for a given board def sprints = { apiSprints, headers, boardId, sprintState -&gt; apiSprints.get(path: agile/latest/board/${boardId}/sprint, query:[state: ${sprintState}], headers: headers ).data } // retrieving issues for given sprint def issues = { apiIssues, headers, boardId, sprintId, status -&gt; apiIssues.get(path: agile/latest/board/${boardId}/sprint/${sprintId}/issue, query: ['jql' : status in (${status}) ORDER BY type DESC, status ASC, 'maxResults': 1000, fields: defaultTicketFields ], headers: headers ).data } // preparing target folder for generated files final String taskSubfolderName = config.sprintChangelog.resultsFolder final File targetFolder = new File(targetDir + File.separator + taskSubfolderName) if (!targetFolder.exists()) targetFolder.mkdirs() logger.debug(Output folder for 'exportJiraSprintChangelog' task is: '${targetFolder}') // Getting configuration def jiraRoot = config.jira.api def jiraProject = config.jira.project def sprintState = config.sprintChangelog.sprintState def ticketStatusForReleaseNotes = config.sprintChangelog.ticketStatus def sprintBoardId = config.sprintChangelog.sprintBoardId def showAssignee = config.sprintChangelog.showAssignee def showTicketStatus = config.sprintChangelog.showTicketStatus def showTicketType = config.sprintChangelog.showTicketType def sprintName = config.sprintChangelog.sprintName def allSprintsFilename = config.sprintChangelog.allSprintsFilename logger.info(\n==========================\nJira Release notes config\n==========================) logger.info(Spring Board ID: ${sprintBoardId}) logger.info(Show assignees: ${showAssignee}. Show ticket status: ${showTicketStatus}. Show ticket type: ${showTicketType}) logger.info(Filtering for sprints with configured state: '${sprintState}') logger.info(Filtering for issues with configured statuses: ${ticketStatusForReleaseNotes}) logger.info(Attempt to generate release notes for sprint with a name: '${sprintName}') logger.info(Filename used for all sprints: '${allSprintsFilename}') def api = new groovyx.net.http.RESTClient(jiraRoot + '/rest/') api.encoderRegistry = new groovyx.net.http.EncoderRegistry(charset: 'utf-8') def headers = [ 'Authorization': Basic  + config.jira.credentials, 'Content-Type' : 'application/json; charset=utf-8' ] def allChangelogsFilename = ${allSprintsFilename}.xlsx logger.quiet(Changelogs of all sprints will be saved in '${allChangelogsFilename}' file) def changelogsXls = new File(targetFolder, allChangelogsFilename) def changelogsXlsFos = new FileOutputStream(changelogsXls) Workbook wb = new XSSFWorkbook(); CreationHelper hyperlinkHelper = wb.getCreationHelper(); String rgbS = A7A7A7 byte[] rgbB = Hex.decodeHex(rgbS) // get byte array from hex string XSSFColor color = new XSSFColor(rgbB, null) //IndexedColorMap has no usage until now. So it can be set null. XSSFCellStyle headerCellStyle = (XSSFCellStyle) wb.createCellStyle() headerCellStyle.setFillForegroundColor(color) headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND) // prepare tickets according to configuration def columns = ['key'].plus(defaultTicketFields.split(',').collect()) if (!showAssignee) { columns = columns.minus('assignee')} if (!showTicketStatus) { columns = columns.minus('status')} if (!showTicketType) { columns = columns.minus('issuetype')} logger.info(Release notes will contain following info: ${columns}) logger.info(\n=====================\n Sprints\n=====================) // def allMatchedSprints = sprints(api, headers, sprintBoardId, sprintState).values def foundExactSprint = allMatchedSprints.any {it.name == sprintName} logger.info(All sprints that matched configuration: ${allMatchedSprints.size()}) def sprintsForChangelog = foundExactSprint ? allMatchedSprints.stream().filter() {it.name == sprintName} : allMatchedSprints logger.info(Found exact Sprint with name '${sprintName}': ${foundExactSprint}.) sprintsForChangelog.each { sprint -&gt; logger.quiet(\nSprint: $sprint.name [id: $sprint.id] state &lt;$sprint.state&gt;) /* ================================================ Create new worksheet inside existing excel file ================================================ */ String safeSprintName = WorkbookUtil.createSafeSheetName(${sprint.name}) def ws = wb.createSheet(safeSprintName) // Add titles (typically key &amp; summary, but assignee, ticket status, ticket type can be configured in Config.groovy too) def titleRow = ws.createRow(0); int cellNumber = 0; columns.each {columnTitle -&gt; titleRow.createCell(cellNumber++).setCellValue(${columnTitle.capitalize()})} def lastRow = titleRow.getRowNum() titleRow.setRowStyle(headerCellStyle) // set summary (at position 1) column wider than other columns ws.setColumnWidth(1, 35*256) /* ========================================= AsciiDoc file for each sprint ========================================= */ def asciidocFilename = ${sprint.name.replaceAll( , _)}.adoc logger.info(Results will be saved in '${asciidocFilename}' file) def changeLogAdoc = new File(targetFolder, ${asciidocFilename}) changeLogAdoc.write(.Table ${sprint.name} Changelog\n, 'utf-8') changeLogAdoc.append(|=== \n) // AsciiDoc table columns columns.each {columnTitle -&gt; changeLogAdoc.append(|${columnTitle} , 'utf-8')} /* ========================================= Add tickets for the sprint ========================================= */ issues(api, headers, sprintBoardId, sprint.id, ticketStatusForReleaseNotes).issues.each {issue -&gt; def assignee = ${issue.fields.assignee ? issue.fields.assignee.displayName : 'unassigned'}  def message = showAssignee ? by ${assignee} :  logger.quiet(Issue: [$issue.key] '$issue.fields.summary' ${message}&lt;$issue.fields.status.name&gt;) /* =========================== Write ticket to Excel =========================== */ int cellPosition = 0 def row = ws.createRow(++lastRow) Hyperlink link = hyperlinkHelper.createHyperlink(HyperlinkType.URL) link.setAddress(${jiraRoot}/browse/${issue.key}) Cell cellWithUrl = row.createCell(cellPosition) cellWithUrl.setCellValue(${issue.key}) cellWithUrl.setHyperlink(link) row.createCell(++cellPosition).setCellValue(${issue.fields.summary}) /* ============================= Write ticket to Asciidoc ============================= */ changeLogAdoc.append(\n, 'utf-8') changeLogAdoc.append(| ${jiraRoot}/browse/${issue.key}[${issue.key}] , 'utf-8') changeLogAdoc.append(| ${issue.fields.summary} , 'utf-8') /* === Write ticket status, assignee, ticket typee if configured to both Asciidoc &amp; Excel files === */ if (showTicketStatus) { row.createCell(++cellPosition).setCellValue(${issue.fields.status.name}) changeLogAdoc.append(| ${issue.fields.status.name} , 'utf-8') } if (showAssignee) { row.createCell(++cellPosition).setCellValue(${assignee}) changeLogAdoc.append(| ${assignee}, 'utf-8') } if (showTicketType) { row.createCell(++cellPosition).setCellValue(${issue.fields.issuetype.name}) changeLogAdoc.append(| ${issue.fields.issuetype.name} , 'utf-8') } } // Close the asciidoc table changeLogAdoc.append(\n|=== \n,'utf-8') // Set auto-width to KEY column ws.autoSizeColumn(0); } // Write to Excel file wb.write(changelogsXlsFos) } } "
 },
 
 {
@@ -538,14 +538,6 @@ var documents = [
 
 {
     "id": 67,
-    "uri": "015_tasks/03_task_generateHTML.html",
-    "menu": "tasks",
-    "title": "generateHTML",
-    "text": " Table of Contents generateHTML About This Task Generating Single-File HTML Output Creating Text-Based Diagrams Controlling Diagram Size Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateHTML 3 minutes to read About This Task This is the standard Asciidoctor generator which is supported out of the box. The result is written to build/html5 (the HTML files need the images folder to be in the same directory to display correctly). Generating Single-File HTML Output If you would like the generator to produce a single-file HTML, you can configure Asciidoctor to store the images inline as data-uri by setting :data-uri: in the config of your AsciiDoc file. But be warned. The file can quickly become very large and some browsers might struggle to render it. Creating Text-Based Diagrams docToolchain is configured to use the asciidoctor-diagram plugin to create PlantUML diagrams. The plugin also supports many other text-based diagrams, but PlantUML is the most common. To use the plugin, specify your PlantUML code like this: .example diagram [plantuml, {plantUMLDir}demoPlantUML, png] # (1) ---- class BlockProcessor class DiagramBlock class DitaaBlock class PlantUmlBlock BlockProcessor &lt;|-- DiagramBlock DiagramBlock &lt;|-- DitaaBlock DiagramBlock &lt;|-- PlantUmlBlock ---- The element of this list specifies the diagram tool plantuml to be used. The second element is the name of the image to be created, and the third specifies the image type. Note {plantUMLDir} ensures that PlantUML also works for the generatePDF task. Without it, generateHTML works fine, but the PDF will not contain the generated images. Important Be sure to specify a unique image name for each diagram, otherwise they will overwrite each other. The above example renders as: Figure 1. example diagram Controlling Diagram Size If you want to control the size of the diagram in the output, configure the width attribute (in pixels) or the scale attribute (floating point ratio) passed to asciidoctor-diagram . The following example updates the diagram above by changing the declaration to one of the versions below: [plantuml, target={plantUMLDir}demoPlantUMLWidth, format=png, width=250] # rest of the diagram definition [plantuml, target={plantUMLDir}demoPlantUMLScale, format=png, scale=0.75] # rest of the diagram definition The output will render like this: Figure 2. example diagram (with specified width) Figure 3. example diagram (with specified scale) Note To work correctly, PlantUML needs Graphviz dot installed. If you can&#8217;t install it, use the Java-based version of the dot library instead. Just add !pragma graphviz_dot smetana as the first line of your diagram definition. This is still an experimental feature, but already works well! Further Reading and Resources This blog post explains more about single-file HTML. Read this blog post to understand how to use PlantUML without Graphviz dot. Other helpful posts related to the generateHTML task: PlantUML with Gradle PlantUML with Asciidoctor-pdf PlantUML Revisited Source AsciiDocBasics.gradle task generateHTML ( type: AsciidoctorTask, group: 'docToolchain', description: 'use html5 as asciidoc backend') { attributes ( 'plantUMLDir' : file(${docDir}/${config.outputPath}/html5).toURI().relativize(new File(${docDir}/${config.outputPath}/html5/plantUML/).toURI()).getPath(), ) // specify output folder explicitly to avoid cleaning targetDir from other generated content outputDir = file(targetDir + '/html5/') separateOutputDirs(false) def sourceFilesHTML = sourceFiles.findAll { 'html' in it.formats } // onlyIf { // sourceFilesHTML // } sources { sourceFilesHTML.each { include it.file logger.info it.file File useFile = new File(srcDir, it.file) if (!useFile.exists()) { throw new Exception ( The file $useFile in HTML config does not exist! Please check the configuration 'inputFiles' in $mainConfigFile.) } } } resources { config.imageDirs.each { imageDir -&gt; from(new File(file(srcDir),imageDir)) logger.info ('imageDir: '+imageDir) into './images' } config.resourceDirs.each { resource -&gt; from(new File(file(srcDir),resource.source)) logger.info ('resource: '+resource.source) into resource.target } } backends = ['html5'] doFirst { if (sourceFilesHTML.size()==0) { throw new Exception ( &gt;&gt; No source files defined for type HTML. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy ) } } } "
-},
-
-{
-    "id": 68,
     "uri": "015_tasks/03_task_dependencyUpdates.html",
     "menu": "tasks",
     "title": "dependencyUpdates",
@@ -553,7 +545,7 @@ var documents = [
 },
 
 {
-    "id": 69,
+    "id": 68,
     "uri": "015_tasks/03_task_convertToEpub.html",
     "menu": "tasks",
     "title": "convertToEpub",
@@ -561,19 +553,27 @@ var documents = [
 },
 
 {
-    "id": 70,
-    "uri": "015_tasks/03_task_convertToDocx.html",
+    "id": 69,
+    "uri": "015_tasks/03_task_generateHTML.html",
     "menu": "tasks",
-    "title": "convertToDocx",
-    "text": " Table of Contents convertToDocx At a Glance Before You Begin Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToDocx 1 minute to read At a Glance Before You Begin Before using this task: Install pandoc . Ensure that 'docbook' and 'docx' are added to the inputFiles formats in Config.groovy. As an optional step, specify a reference doc file with custom stylesheets (see task createReferenceDoc ). Further Reading and Resources Read the Render AsciiDoc to docx (MS Word) blog post. Source pandoc.gradle task convertToDocx ( group: 'docToolchain', description: 'converts file to .docx via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `docx` in config.groovy is converted to docbook and then to docx. def sourceFilesDocx = sourceFiles.findAll { 'docx' in it.formats } sourceFilesDocx.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.docx') workingDir $targetDir/docbook executable = pandoc if(referenceDocFile?.trim()) { args = [-r,docbook, -t,docx, -o,../docx/$targetFile, --reference-doc=${docDir}/${referenceDocFile}, sourceFile] } else { args = [-r,docbook, -t,docx, -o,../docx/$targetFile, sourceFile] } } doFirst { new File($targetDir/docx/).mkdirs() } } "
+    "title": "generateHTML",
+    "text": " Table of Contents generateHTML About This Task Generating Single-File HTML Output Creating Text-Based Diagrams Controlling Diagram Size Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateHTML 3 minutes to read About This Task This is the standard Asciidoctor generator which is supported out of the box. The result is written to build/html5 (the HTML files need the images folder to be in the same directory to display correctly). Generating Single-File HTML Output If you would like the generator to produce a single-file HTML, you can configure Asciidoctor to store the images inline as data-uri by setting :data-uri: in the config of your AsciiDoc file. But be warned. The file can quickly become very large and some browsers might struggle to render it. Creating Text-Based Diagrams docToolchain is configured to use the asciidoctor-diagram plugin to create PlantUML diagrams. The plugin also supports many other text-based diagrams, but PlantUML is the most common. To use the plugin, specify your PlantUML code like this: .example diagram [plantuml, {plantUMLDir}demoPlantUML, png] # (1) ---- class BlockProcessor class DiagramBlock class DitaaBlock class PlantUmlBlock BlockProcessor &lt;|-- DiagramBlock DiagramBlock &lt;|-- DitaaBlock DiagramBlock &lt;|-- PlantUmlBlock ---- The element of this list specifies the diagram tool plantuml to be used. The second element is the name of the image to be created, and the third specifies the image type. Note {plantUMLDir} ensures that PlantUML also works for the generatePDF task. Without it, generateHTML works fine, but the PDF will not contain the generated images. Important Be sure to specify a unique image name for each diagram, otherwise they will overwrite each other. The above example renders as: Figure 1. example diagram Controlling Diagram Size If you want to control the size of the diagram in the output, configure the width attribute (in pixels) or the scale attribute (floating point ratio) passed to asciidoctor-diagram . The following example updates the diagram above by changing the declaration to one of the versions below: [plantuml, target={plantUMLDir}demoPlantUMLWidth, format=png, width=250] # rest of the diagram definition [plantuml, target={plantUMLDir}demoPlantUMLScale, format=png, scale=0.75] # rest of the diagram definition The output will render like this: Figure 2. example diagram (with specified width) Figure 3. example diagram (with specified scale) Note To work correctly, PlantUML needs Graphviz dot installed. If you can&#8217;t install it, use the Java-based version of the dot library instead. Just add !pragma graphviz_dot smetana as the first line of your diagram definition. This is still an experimental feature, but already works well! Further Reading and Resources This blog post explains more about single-file HTML. Read this blog post to understand how to use PlantUML without Graphviz dot. Other helpful posts related to the generateHTML task: PlantUML with Gradle PlantUML with Asciidoctor-pdf PlantUML Revisited Source AsciiDocBasics.gradle task generateHTML ( type: AsciidoctorTask, group: 'docToolchain', description: 'use html5 as asciidoc backend') { attributes ( 'plantUMLDir' : file(${docDir}/${config.outputPath}/html5).toURI().relativize(new File(${docDir}/${config.outputPath}/html5/plantUML/).toURI()).getPath(), ) // specify output folder explicitly to avoid cleaning targetDir from other generated content outputDir = file(targetDir + '/html5/') separateOutputDirs(false) def sourceFilesHTML = sourceFiles.findAll { 'html' in it.formats } // onlyIf { // sourceFilesHTML // } sources { sourceFilesHTML.each { include it.file logger.info it.file File useFile = new File(srcDir, it.file) if (!useFile.exists()) { throw new Exception ( The file $useFile in HTML config does not exist! Please check the configuration 'inputFiles' in $mainConfigFile.) } } } resources { config.imageDirs.each { imageDir -&gt; from(new File(file(srcDir),imageDir)) logger.info ('imageDir: '+imageDir) into './images' } config.resourceDirs.each { resource -&gt; from(new File(file(srcDir),resource.source)) logger.info ('resource: '+resource.source) into resource.target } } backends = ['html5'] doFirst { if (sourceFilesHTML.size()==0) { throw new Exception ( &gt;&gt; No source files defined for type HTML. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy ) } } } "
 },
 
 {
-    "id": 71,
+    "id": 70,
     "uri": "015_tasks/03_task_generateDocBook.html",
     "menu": "tasks",
     "title": "generateDocbook",
     "text": " Table of Contents generateDocbook At a Glance About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateDocbook 1 minute to read At a Glance About This Task A helper task, generateDocbook generates the intermediate format for convertToDocx &lt;&lt;&gt;&gt; and convertToEpub . Source AsciiDocBasics.gradle task generateDocbook ( type: AsciidoctorTask, group: 'docToolchain', description: 'use docbook as asciidoc backend') { def sourceFilesDOCBOOK = sourceFiles.findAll { 'docbook' in it.formats } // onlyIf { // sourceFilesDOCBOOK // } sources { sourceFilesDOCBOOK.each { include it.file logger.info it.file File useFile = new File(srcDir, it.file) if (!useFile.exists()) { throw new Exception ( The file $useFile in DOCBOOK config does not exist! Please check the configuration 'inputFiles' in $mainConfigFile.) } } } backends = ['docbook'] doFirst { if (sourceFilesDOCBOOK.size()==0) { throw new Exception ( &gt;&gt; No source files defined for type docbook. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy ) } } } "
+},
+
+{
+    "id": 71,
+    "uri": "015_tasks/03_task_convertToDocx.html",
+    "menu": "tasks",
+    "title": "convertToDocx",
+    "text": " Table of Contents convertToDocx At a Glance Before You Begin Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToDocx 1 minute to read At a Glance Before You Begin Before using this task: Install pandoc . Ensure that 'docbook' and 'docx' are added to the inputFiles formats in Config.groovy. As an optional step, specify a reference doc file with custom stylesheets (see task createReferenceDoc ). Further Reading and Resources Read the Render AsciiDoc to docx (MS Word) blog post. Source pandoc.gradle task convertToDocx ( group: 'docToolchain', description: 'converts file to .docx via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `docx` in config.groovy is converted to docbook and then to docx. def sourceFilesDocx = sourceFiles.findAll { 'docx' in it.formats } sourceFilesDocx.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.docx') workingDir $targetDir/docbook executable = pandoc if(referenceDocFile?.trim()) { args = [-r,docbook, -t,docx, -o,../docx/$targetFile, --reference-doc=${docDir}/${referenceDocFile}, sourceFile] } else { args = [-r,docbook, -t,docx, -o,../docx/$targetFile, sourceFile] } } doFirst { new File($targetDir/docx/).mkdirs() } } "
 },
 
 {
@@ -634,14 +634,6 @@ var documents = [
 
 {
     "id": 79,
-    "uri": "015_tasks/03_task_fixencoding.html",
-    "menu": "tasks",
-    "title": "fixEncoding",
-    "text": " Table of Contents fixEncoding About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } fixEncoding 1 minute to read About This Task Whenever Asciidoctor has to process a file that is not UTF-8 encoded, Ruby tries to read it, then throws an error similar to this one: asciidoctor: FAILED: /home/demo/test.adoc: Failed to load AsciiDoc document - invalid byte sequence in UTF-8 Unfortunately, finding the incorrectly encoded file is difficult if a lot of includes:: are used, and Asciidoctor will only show the name of the main document. This is not Asciidoctor&#8217;s fault. The fault lies with the Ruby interpreter that sits underneath. The fixEncoding task crawls through all *.ad and *.adoc files and checks their encoding. If it comes across a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding. Source scripts/fixEncoding.gradle import groovy.util.* import static groovy.io.FileType.* task fixEncoding( description: 'finds and converts non UTF-8 adoc files to UTF-8', group: 'docToolchain helper', ) { doLast { File sourceFolder = new File(${docDir}/${inputPath}) println(sourceFolder:  + sourceFolder.canonicalPath) sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^.*(ad|adoc|asciidoc)$') { CharsetToolkit toolkit = new CharsetToolkit(file); // guess the encoding def guessedCharset = toolkit.getCharset().toString().toUpperCase(); if (guessedCharset!='UTF-8') { def text = file.text file.write(text, utf-8) println( converted ${file.name} from '${guessedCharset}' to 'UFT-8') } } } } } "
-},
-
-{
-    "id": 80,
     "uri": "015_tasks/03_task_exportOpenApi.html",
     "menu": "tasks",
     "title": "exportOpenAPI",
@@ -649,7 +641,7 @@ var documents = [
 },
 
 {
-    "id": 81,
+    "id": 80,
     "uri": "015_tasks/03_task_exportMetrics.html",
     "menu": "tasks",
     "title": "exportMetrics",
@@ -657,19 +649,27 @@ var documents = [
 },
 
 {
-    "id": 82,
-    "uri": "050_ADRs/ADR-1-firstTest.html",
-    "menu": "ADRs",
-    "title": "ADR-1-firstTest.adoc",
-    "text": " Table of Contents a first Architecture Decision Record (ADR) a first Architecture Decision Record (ADR) just a test "
+    "id": 81,
+    "uri": "015_tasks/03_task_fixencoding.html",
+    "menu": "tasks",
+    "title": "fixEncoding",
+    "text": " Table of Contents fixEncoding About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } fixEncoding 1 minute to read About This Task Whenever Asciidoctor has to process a file that is not UTF-8 encoded, Ruby tries to read it, then throws an error similar to this one: asciidoctor: FAILED: /home/demo/test.adoc: Failed to load AsciiDoc document - invalid byte sequence in UTF-8 Unfortunately, finding the incorrectly encoded file is difficult if a lot of includes:: are used, and Asciidoctor will only show the name of the main document. This is not Asciidoctor&#8217;s fault. The fault lies with the Ruby interpreter that sits underneath. The fixEncoding task crawls through all *.ad and *.adoc files and checks their encoding. If it comes across a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding. Source scripts/fixEncoding.gradle import groovy.util.* import static groovy.io.FileType.* task fixEncoding( description: 'finds and converts non UTF-8 adoc files to UTF-8', group: 'docToolchain helper', ) { doLast { File sourceFolder = new File(${docDir}/${inputPath}) println(sourceFolder:  + sourceFolder.canonicalPath) sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^.*(ad|adoc|asciidoc)$') { CharsetToolkit toolkit = new CharsetToolkit(file); // guess the encoding def guessedCharset = toolkit.getCharset().toString().toUpperCase(); if (guessedCharset!='UTF-8') { def text = file.text file.write(text, utf-8) println( converted ${file.name} from '${guessedCharset}' to 'UFT-8') } } } } } "
 },
 
 {
-    "id": 83,
+    "id": 82,
     "uri": "050_ADRs/ADR-2-anotherTest.html",
     "menu": "ADRs",
     "title": "ADR-2-anotherTest.ad",
     "text": " Table of Contents second ADR second ADR another Test "
+},
+
+{
+    "id": 83,
+    "uri": "050_ADRs/ADR-1-firstTest.html",
+    "menu": "ADRs",
+    "title": "ADR-1-firstTest.adoc",
+    "text": " Table of Contents a first Architecture Decision Record (ADR) a first Architecture Decision Record (ADR) just a test "
 },
 
 {
