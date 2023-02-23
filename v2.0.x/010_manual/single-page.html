@@ -3427,6 +3427,9 @@ def addLabels = { def pageId, def labelsArray -&gt;
     def api = new RESTClient(config.confluence.api)
     //this fixes the encoding (dierk42: Is this needed here? Don't know)
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
+    if (config.confluence.proxy) {
+        api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
+    }
     def headers = getHeaders()
     // Attach each label in a API call of its own. The only prefix possible
     // in our own Confluence is 'global'
