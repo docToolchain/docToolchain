@@ -23,8 +23,10 @@ import com.structurizr.export.plantuml.*
 import com.structurizr.view.*
 
 // TODO:
-// * refactor: extract configuration paramaters
-// * provide configuration parameters
+// * get extension from the exporter
+// * add all suported exporters
+// * where do we put the code (doFirst, doLast)?
+// * Code inspiration from https://github.com/structurizr/cli/blob/master/src/main/java/com/structurizr/cli/export/ExportCommand.java
 
 //tag::exportStructurizr[]
 task exportStructurizr (
@@ -33,7 +35,9 @@ task exportStructurizr (
 ) {
 
     def workspaceFile = findProperty("structurizr.workspace")?:config.structurizr.workspace
+    // TODO Should we provide a structure for the export command? export.Path, export.format
     def exportPath = findProperty("structurizr.exportPath")?:config.structurizr.exportPath
+    def format = findProperty("structurizr.format")?:config.structurizr.format
 
     logger.info("\n=====================\nStructurizr Config:\n=====================")
     logger.info("workspace: ${workspaceFile}")
@@ -46,16 +50,33 @@ task exportStructurizr (
         logger.info("Found workspace in Config.groovy")
     }
 
-    StructurizrDslParser parser = new StructurizrDslParser();
+    StructurizrDslParser parser = new StructurizrDslParser()
     // TODO: provide better error output in case parsing fails
-    parser.parse(new File(docDir, workspaceFile));
-    Workspace workspace = parser.getWorkspace();
-    ThemeUtils.loadThemes(workspace);
+    parser.parse(new File(docDir, workspaceFile))
+    Workspace workspace = parser.getWorkspace()
+    ThemeUtils.loadThemes(workspace)
 
     // TODO: the format is hardcoded for the moment. Here we should provide the 'format' configuration parameter
-    StructurizrPlantUMLExporter exporter = new StructurizrPlantUMLExporter();
-    def fileExtension = '.puml'
+    if (!format) {
+        format = 'plantuml'
+    }
 
+    DiagramExporter exporter
+    String fileExtension
+    switch(format) {
+        case 'plantuml':
+        case 'plantuml/structurizr':
+            exporter = new StructurizrPlantUMLExporter()
+            fileExtension = '.puml'
+            break
+        case 'plantuml/c4plantuml':
+            exporter = new C4PlantUMLExporter()
+            fileExtension = '.puml'
+            break
+        default:
+            // TODO provide supported formats in the error message
+            throw new GradleException("unknown structurizr.format '${format}'")
+    }
     Collection<Diagram> diagrams = exporter.export(workspace);
 
     // Make sure the directory exists where the diagrams are exported
@@ -63,8 +84,10 @@ task exportStructurizr (
     diagrams.each { diagram ->
         def file = new File(docDir, exportPath+"/"+diagram.key+fileExtension)
         file.write(diagram.definition)
-        def legend = new File(docDir, exportPath+"/"+diagram.key+"-key"+fileExtension)
-        legend.write(diagram.legend.definition)
+        if (diagram.legend) {
+            def legend = new File(docDir, exportPath+"/"+diagram.key+"-key"+fileExtension)
+            legend.write(diagram.legend.definition)
+        }
     }
 }
 //end::exportStructurizr[]
