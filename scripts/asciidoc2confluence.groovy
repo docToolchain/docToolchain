@@ -720,7 +720,7 @@ def parseBody =  { body, anchors, pageAnchors ->
 // the create-or-update functionality for confluence pages
 // #342-dierk42: added parameter 'keywords'
 def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, keywords ->
-    parentId = parentId.toString()
+    parentId = parentId?.toString()
     def api = new RESTClient(config.confluence.api)
     def headers = getHeaders()
     String realTitleLC = realTitle(pageTitle).toLowerCase()
