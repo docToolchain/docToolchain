@@ -49,3 +49,8 @@ jobs:
           JDK_VERSION: "${{ matrix.jdk }}-${{ matrix.java }}"
         run: |
           ./.ci.sh
+      - name: Archive test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-report
+          path: build/reports/tests/test/
