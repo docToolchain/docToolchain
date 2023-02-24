@@ -44,6 +44,6 @@ structurizr.with {
 // for exportStructurizr-Task
 
     workspace = 'src/test/testData/structurizr/workspace.dsl'
-    // format = 'plantuml'
     exportPath = "src/test/docs/structurizr"
+    // format = 'plantuml'
 }
