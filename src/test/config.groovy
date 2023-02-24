@@ -37,13 +37,3 @@ confluence.with {
         destDir: 'src/test/build/exportConfluenceSpec'
     ]
 }
-
-structurizr = [:]
-
-structurizr.with {
-// for exportStructurizr-Task
-
-    workspace = 'src/test/testData/structurizr/workspace.dsl'
-    exportPath = "src/test/docs/structurizr"
-    // format = 'plantuml'
-}

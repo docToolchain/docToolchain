@@ -22,11 +22,7 @@ import com.structurizr.export.*
 import com.structurizr.export.plantuml.*
 import com.structurizr.view.*
 
-// TODO:
-// * Write task documentation
-// * Is there a way to check if the diagrams have to be generated? (timestamp of workspace file)
-
-// This code was inspired from the Structurizr CLI export command 
+// This code was inspired from the Structurizr CLI export command
 // https://github.com/structurizr/cli/blob/master/src/main/java/com/structurizr/cli/export/ExportCommand.java
 
 //tag::exportStructurizr[]
@@ -34,46 +30,47 @@ task exportStructurizr (
         group: 'docToolchain',
         description: 'exports the views of a Structurizr DSL file to diagramms'
 ) {
-    // First we check the parameters
-    def workspaceFile = findProperty("structurizr.workspace")?:config.structurizr.workspace
-    if (!workspaceFile) {
-        logger.info("\n---> 'Structurizr workspace not configured - nothing do to.")
-        return
-    }
+    doLast {
+        // First we check the parameters
+        def workspaceFile = findProperty("structurizr.workspace")?:config.structurizr.workspace
+        if (!workspaceFile) {
+            logger.info("\n---> 'Structurizr workspace not configured - nothing do to.")
+            return
+        }
 
-    // If 'format' parameter is not provided, default to 'plantuml'.
-    def format = (findProperty("structurizr.format")?:config.structurizr.format)?:'plantuml'
-    //  Assure valid 'format' configuration parameter.
-    DiagramExporter exporter
-    switch(format) {
-        case 'plantuml':
-        case 'plantuml/structurizr':
-            exporter = new StructurizrPlantUMLExporter()
-            break
-        case 'plantuml/c4plantuml':
-            exporter = new C4PlantUMLExporter()
-            break
-        default:
-            throw new GradleException("unknown structurizr.format '${format}': supported formats are 'plantuml' and 'plantuml/c4plantuml'.")
-    }
-    def exportPath = findProperty("structurizr.exportPath")?:config.structurizr.exportPath
+        // If 'format' parameter is not provided, default to 'plantuml'.
+        def format = (findProperty("structurizr.format")?:config.structurizr.format)?:'plantuml'
+        //  Assure valid 'format' configuration parameter.
+        DiagramExporter exporter
+        switch(format) {
+            case 'plantuml':
+            case 'plantuml/structurizr':
+                exporter = new StructurizrPlantUMLExporter()
+                break
+            case 'plantuml/c4plantuml':
+                exporter = new C4PlantUMLExporter()
+                break
+            default:
+                throw new GradleException("unknown structurizr.format '${format}': supported formats are 'plantuml' and 'plantuml/c4plantuml'.")
+        }
+        def exportPath = findProperty("structurizr.exportPath")?:config.structurizr.exportPath
 
-    logger.info("\n=====================\nstructurizr config:\n=====================")
-    logger.info("workspace: ${workspaceFile}")
-    logger.info("format: ${format}")
-    logger.info("exportPath: ${exportPath}")
+        logger.info("\n=====================\nstructurizr config:\n=====================")
+        logger.info("workspace: ${workspaceFile}")
+        logger.info("format: ${format}")
+        logger.info("exportPath: ${exportPath}")
 
-    logger.debug("Parsing Structurizr workspace file")
-    StructurizrDslParser parser = new StructurizrDslParser()
-    // TODO: provide better error output in case parsing fails
-    parser.parse(new File(docDir, workspaceFile))
-    Workspace workspace = parser.getWorkspace()
-    ThemeUtils.loadThemes(workspace)
+        logger.debug("Parsing Structurizr workspace file")
+        StructurizrDslParser parser = new StructurizrDslParser()
+        // TODO: provide better error output in case parsing fails
+        parser.parse(new File(docDir, workspaceFile))
+        Workspace workspace = parser.getWorkspace()
+        ThemeUtils.loadThemes(workspace)
 
-    // Cleanup existing diagrams and then make sure the directory exists where the diagrams are exported
-    new File(docDir, exportPath).deleteDir()
-    // Create a readme to clarify things
-    def readme = """This folder contains exported diagrams from a model described with Structurizr DSL.
+        // Cleanup existing diagrams and then make sure the directory exists where the diagrams are exported
+        new File(docDir, exportPath).deleteDir()
+        // Create a readme to clarify things
+        def readme = """This folder contains exported diagrams from a model described with Structurizr DSL.
 
 Please note that these are generated files but reside in the `src`-folder in order to be versioned.
 
@@ -83,16 +80,17 @@ Please note that these are generated files but reside in the `src`-folder in ord
 
 use `gradlew exportStructurizr` to re-export the diagrams
 """
-    new File(docDir, exportPath).mkdirs()
-    new File(docDir, exportPath+'/README.adoc').write(readme)
-    
-    Collection<Diagram> diagrams = exporter.export(workspace);
-    diagrams.each { diagram ->
-        def file = new File(docDir, exportPath+"/"+diagram.key+'.'+diagram.getFileExtension())
-        file.write(diagram.definition)
-        if (diagram.legend) {
-            def legend = new File(docDir, exportPath+"/"+diagram.key+"-key."+diagram.getFileExtension())
-            legend.write(diagram.legend.definition)
+        new File(docDir, exportPath).mkdirs()
+        new File(docDir, exportPath+'/README.adoc').write(readme)
+
+        Collection<Diagram> diagrams = exporter.export(workspace);
+        diagrams.each { diagram ->
+            def file = new File(docDir, exportPath+"/"+diagram.key+'.'+diagram.getFileExtension())
+            file.write(diagram.definition)
+            if (diagram.legend) {
+                def legend = new File(docDir, exportPath+"/"+diagram.key+"-key."+diagram.getFileExtension())
+                legend.write(diagram.legend.definition)
+            }
         }
     }
 }
