@@ -357,14 +357,18 @@ structurizr.with {
     // Workspace file describing the software architecture model with Structurizr DSL.
     // workspace = 'src/test/testData/structurizr/workspace.dsl'
 
-    // Format of the exported diagrams. For a list of supported formats see
-    // https://github.com/structurizr/cli/blob/master/docs/export.md
+    // Directory for the exported diagrams.
+    // WARNING: Do not put manually created/changed files into this directory.
+    // If a valid Structurizr workspace file is provided the directory is deleted before the diagram files are generated.
+    exportPath = "src/test/docs/structurizr"
+
+    // Format of the exported diagrams. Following formats are supported: 
+    // - 'plantuml': the same as 'plantuml/structurizr'
+    // - 'plantuml/structurizr': exports views to PlantUML
+    // - 'plantuml/c4plantuml': exports views to PlantUML with https://github.com/plantuml-stdlib/C4-PlantUML
     //
-    // Note: this feature is not yet supported
+    // Defaults to 'plantuml' if the parameter is not provided.
     //
     // format = 'plantuml'
-
-    // Directory for the exported diagrams.
-    exportPath = "src/test/docs/structurizr"
 }
 //end::structurizrConfig[]
