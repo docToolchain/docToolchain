@@ -199,6 +199,12 @@ include::../015_tasks/03_task_exportOpenApi.adoc[leveloffset=+2]
 
 <<<
 
+include::../015_tasks/03_task_exportStructurizr.adoc[leveloffset=+2]
+
+'''
+
+<<<
+
 include::../015_tasks/03_task_htmlSanityCheck.adoc[leveloffset=+2]
 
 '''
@@ -232,5 +238,3 @@ include::../010_manual/040_contributors.adoc[leveloffset=+1]
 <<<
 
 include::../010_manual/100_config.adoc[leveloffset=+1]
-
-

@@ -1,7 +1,7 @@
-:filename: 015_tasks/03_task_exportOpenApi.adoc
+:filename: 015_tasks/03_task_exportStructurizr.adoc
 include::_config.adoc[]
 
-= exportOpenAPI
+= exportStructurizr
 
 include::../_feedback.adoc[]
 
@@ -22,7 +22,34 @@ This Structurizr DSL example below creates two diagrams, based upon a single set
 
 [source]
 ----
-include::../test/testData/structurizr/workspace.dsl
+workspace {
+
+    model {
+        user = person "User"
+        softwareSystem = softwareSystem "Software System" {
+            webapp = container "Web Application" {
+                user -> this "Uses"
+            }
+            container "Database" {
+                webapp -> this "Reads from and writes to"
+            }
+        }
+    }
+
+    views {
+        systemContext softwareSystem {
+            include *
+            autolayout lr
+        }
+
+        container softwareSystem {
+            include *
+            autolayout lr
+        }
+
+        theme default
+    }
+}
 ----
 
 And here the diagrams defined by the views in the example above rendered by the Structurizr web renderer.
@@ -57,9 +84,8 @@ The example below shows a possible directory layout with a `src/docs/structurizr
             └── workspace.dsl
 ----
 
-The configuration for the `exportStructurizr` in your `docToolchainConfig.groovy` would look like
+The configuration for the `exportStructurizr` task in your `docToolchainConfig.groovy` would look like
 
-.docToolchainConfig.groovy
 [source,groovy]
 ----
 structurizr = [:]
@@ -76,7 +102,7 @@ You probably want to put the directory provided with `exportPath` into your `.gi
 WARNING: Do not put manually created/changed files into the directory provided with `exportPath`.
 If a valid Structurizr workspace file is provided the directory is deleted before the diagram files are generated.
 
-Calling `./dtcw exportStructurizr` or any `generate*`` command will generate the diagrams in the `exportPath` directory.
+Calling `./dtcw exportStructurizr` or any `generate*` command will generate the diagrams in the `exportPath` directory.
 
 .Directory layout after exporting the diagrams
 ----
@@ -98,7 +124,7 @@ Calling `./dtcw exportStructurizr` or any `generate*`` command will generate the
             └── workspace.dsl
 ----
 
-The exported diagrams may be included directly into the document with
+Following our example the exported diagrams may be included in the Asciidoc document `example.adoc` with
 
 ----
 plantuml::../structurizr/diagrams/SystemContext-1.puml["structurizr-SystemContext",format=svg]
