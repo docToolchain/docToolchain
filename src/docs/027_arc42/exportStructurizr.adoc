@@ -1,8 +1,9 @@
-{imagesdir}
+
 :jbake-menu: arc42
 
 include::../_config.adoc[]
 
+[discrete]
 == Structurizr Integration
 :revnumber: 8.2 EN
 :revdate: January 2023
