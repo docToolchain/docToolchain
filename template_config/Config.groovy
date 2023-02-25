@@ -483,12 +483,11 @@ structurizr.with {
     // If a valid Structurizr workspace file is provided the directory is deleted before the diagram files are generated.
     exportPath = "src/docs/structurizr/diagrams"
 
-    // Format of the exported diagrams. Following formats are supported: 
+    // Format of the exported diagrams. Defaults to 'plantuml' if the parameter is not provided.
+    // Following formats are supported: 
     // - 'plantuml': the same as 'plantuml/structurizr'
     // - 'plantuml/structurizr': exports views to PlantUML
     // - 'plantuml/c4plantuml': exports views to PlantUML with https://github.com/plantuml-stdlib/C4-PlantUML
-    //
-    // Defaults to 'plantuml' if the parameter is not provided.
     //
     // format = 'plantuml'
 }
