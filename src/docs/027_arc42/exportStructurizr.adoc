@@ -78,9 +78,10 @@ NOTE: Structurizr lite is currently the only tool which supports the manual layo
 title "Auto-Layout"
 File "workspace.dsl" as dsl
 collections "view.puml" as puml
-component Structurizr
-dsl -> Structurizr
-Structurizr -> puml
+component "Structurizr Java" as Structurizr
+dsl <- Structurizr: read
+Structurizr -> puml: generate
+[gradle] -down-> Structurizr: start
 ----
 
 [plantuml,'manual-layout', png]
