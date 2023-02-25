@@ -3,8 +3,11 @@
 
 include::../_config.adoc[]
 
+:uri-dsl: https://structurizr.com/dsl
+:uri-plantuml: https://plantuml.com
+
 [discrete]
-== Structurizr Integration
+= Structurizr Integration
 :revnumber: 8.2 EN
 :revdate: January 2023
 :revremark: (based upon AsciiDoc version)
@@ -15,7 +18,7 @@ include::../_config.adoc[]
 :numbered:
 
 [[section-introduction-and-goals]]
-=== Introduction and Goals
+== Introduction and Goals
 
 The tool _Structurizr_, created by Simon Brown, bringt the Diagrams-as-Code to the next level.
 It reads a textual architecture model and generates diagrams in various formats for all views defined on this model.
@@ -23,11 +26,11 @@ In addition, it allows the user to manually layout the generated diagrams.
 
 The goal is to create an integration of the structurizr approach for docToolchain.
 
-==== Requirements Overview
+=== Requirements Overview
 
-==== Quality Goals
+=== Quality Goals
 
-==== Stakeholders
+=== Stakeholders
 
 [options="header",cols="1,3"]
 |===
@@ -42,59 +45,118 @@ The goal is to create an integration of the structurizr approach for docToolchai
 |===
 
 [[section-architecture-constraints]]
-=== Architecture Constraints
+== Architecture Constraints
 
 [[section-system-scope-and-context]]
-=== System Scope and Context
+== System Scope and Context
 
-==== Business Context
+=== Business Context
 
+There are two different flows for Structurizr
 
-==== Technical Context
+==== Auto-layout Diagrams
+
+* edit `workspace.dsl` file to update model and views
+* use structurizr to auto-generate output files (default: plantUML)
+* include plantUML files in AsciiDoc documentation
+* repeat
+
+==== Manual-layout Diagrams
+
+* edit `workspace.dsl` file to update model and views
+* use Structurizr lite to manually layout view diagrams
+* use Structurizr lite to export view diagrams as `.png` or `.svg` files
+* reference view diagrams from AsciiDoc documentation
+* repeat
+
+NOTE: Structurizr lite is currently the only tool which supports the manual layout
+
+=== Technical Context
+
+[plantuml,'auto-layout', png]
+----
+title "Auto-Layout"
+File "workspace.dsl" as dsl
+collections "view.puml" as puml
+component Structurizr
+dsl -> Structurizr
+Structurizr -> puml
+----
+
+[plantuml,'manual-layout', png]
+----
+title "Manual-Layout"
+File "workspace.dsl" as dsl
+collections "view .png / .svg" as out
+actor User
+component "Structurizr Lite" as sl {
+   component "Structurizr JavaScript" as sjs
+   component "Structurizr Java" as s
+}
+sjs -down-> s
+User -down-> [Browser]
+[Browser] -down-> sjs
+dsl <- s : read
+sjs -right-> out : generate
+----
+
+==== Interfaces
+
+Structurizr Input::
+{uri-dsl}[Structurizer DSL File]
+
+Structurizr Output::
+{uri-plantuml}[PlantUML File]
 
 [[section-solution-strategy]]
-=== Solution Strategy
+== Solution Strategy
+
+Structurizr is written in Java and docToolchain can easily make use of Java.
+So, for the auto-layout flow, Structurizr can be referenced as Java-library from within as gradle task.
+
+
+For the manual-layout flow
 
 [[section-building-block-view]]
-=== Building Block View
+== Building Block View
 
 
 [[section-runtime-view]]
-=== Runtime View
+== Runtime View
 
-=== Deployment View
+== Deployment View
 
 Structurizr is referenced as Gradle script dependency and fetched through the `downloadDepenencies` task.
 
 
 [[section-concepts]]
-=== Cross-cutting Concepts
+== Cross-cutting Concepts
 
 plantUML, imagesdir
 
 [[section-design-decisions]]
-=== Architecture Decisions
+== Architecture Decisions
 
 see ADR01
 
 [[section-quality-scenarios]]
-=== Quality Requirements
+== Quality Requirements
 
-==== Quality Tree
+=== Quality Tree
 
-==== Quality Scenarios
+=== Quality Scenarios
 
 [[section-technical-risks]]
-=== Risks and Technical Debts
+== Risks and Technical Debts
 
 [[section-glossary]]
-=== Glossary
+== Glossary
 
 
 // tag::glossary[]
 
 DSL::
 Domain Specific Language +
-The Structurizr DSL is described at https://structurizr.com/dsl
+The Structurizr DSL is described at {uri-dsl}
 
 // end::glossary[]
