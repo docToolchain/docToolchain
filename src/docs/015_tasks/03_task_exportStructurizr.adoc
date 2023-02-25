@@ -75,7 +75,7 @@ You probably want to put the directory provided with `exportPath` into your `.gi
 WARNING: Do not put manually created/changed files into the directory provided with `exportPath`.
 If a valid Structurizr workspace file is provided the directory is deleted before the diagram files are generated.
 
-Calling `./dtcw exportStructurizr` or any `generate*` command will generate the diagrams in the `exportPath` directory.
+Calling `./dtcw exportStructurizr` generates the diagrams in the `exportPath` directory.
 
 .Directory layout after exporting the diagrams
 ----
