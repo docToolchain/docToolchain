@@ -1,9 +1,9 @@
 {imagesdir}
-:jbake-menu: -
+:jbake-menu: arc42
 
 include::../_config.adoc[]
 
-= Structurizr Integration
+== Structurizr Integration
 :revnumber: 8.2 EN
 :revdate: January 2023
 :revremark: (based upon AsciiDoc version)
@@ -14,7 +14,7 @@ include::../_config.adoc[]
 :numbered:
 
 [[section-introduction-and-goals]]
-== Introduction and Goals
+=== Introduction and Goals
 
 The tool _Structurizr_, created by Simon Brown, bringt the Diagrams-as-Code to the next level.
 It reads a textual architecture model and generates diagrams in various formats for all views defined on this model.
@@ -22,11 +22,11 @@ In addition, it allows the user to manually layout the generated diagrams.
 
 The goal is to create an integration of the structurizr approach for docToolchain.
 
-=== Requirements Overview
+==== Requirements Overview
 
-=== Quality Goals
+==== Quality Goals
 
-=== Stakeholders
+==== Stakeholders
 
 [options="header",cols="1,3"]
 |===
@@ -41,53 +41,53 @@ The goal is to create an integration of the structurizr approach for docToolchai
 |===
 
 [[section-architecture-constraints]]
-== Architecture Constraints
+=== Architecture Constraints
 
 [[section-system-scope-and-context]]
-== System Scope and Context
+=== System Scope and Context
 
-=== Business Context
+==== Business Context
 
 
-=== Technical Context
+==== Technical Context
 
 [[section-solution-strategy]]
-== Solution Strategy
+=== Solution Strategy
 
 [[section-building-block-view]]
-== Building Block View
+=== Building Block View
 
 
 [[section-runtime-view]]
-== Runtime View
+=== Runtime View
 
-== Deployment View
+=== Deployment View
 
 Structurizr is referenced as Gradle script dependency and fetched through the `downloadDepenencies` task.
 
 
 [[section-concepts]]
-== Cross-cutting Concepts
+=== Cross-cutting Concepts
 
 plantUML, imagesdir
 
 [[section-design-decisions]]
-== Architecture Decisions
+=== Architecture Decisions
 
 see ADR01
 
 [[section-quality-scenarios]]
-== Quality Requirements
+=== Quality Requirements
 
-=== Quality Tree
+==== Quality Tree
 
-=== Quality Scenarios
+==== Quality Scenarios
 
 [[section-technical-risks]]
-== Risks and Technical Debts
+=== Risks and Technical Debts
 
 [[section-glossary]]
-== Glossary
+=== Glossary
 
 
 // tag::glossary[]
