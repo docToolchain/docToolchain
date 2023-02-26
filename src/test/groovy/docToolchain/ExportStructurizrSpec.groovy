@@ -68,4 +68,23 @@ class ExportStructurizrSpec extends Specification {
         and: 'the Container diagram is a C4-PlantUML file'
         new File(exportPath, "Container-1.puml").grep(c4plantuml_pattern)
     }
+
+    void 'test export is skipped with no Structurizr DSL file '() {
+
+        given: 'a clean the environment'
+        exportPath.deleteDir()
+        println new File(".").canonicalPath
+
+        when: 'executing the gradle task `exportStructurizr`'
+        def result = GradleRunner.create()
+                .withProjectDir(new File('.'))
+                .withArguments('exportStructurizr', '--info')
+                .build()
+
+        then: 'the task has been successfully executed'
+        result.task(":exportStructurizr").outcome == SUCCESS
+
+        and: 'the directory is empty'
+        exportPath.listFiles() == null
+    }
 }
