@@ -359,7 +359,7 @@ structurizr.with {
         // The directory in which the Structurizr workspace file is located.
         // path = 'src/docs/structurizr'
 
-        // By default `exportStructurizr` looks for a file ${structurizr.workspace.path}/workspace.dsl
+        // By default `exportStructurizr` looks for a file '${structurizr.workspace.path}/workspace.dsl'
         // You can customize this behavior with 'filename'. Note that the workspace filename is provided without '.dsl' extension. 
         // filename = 'workspace'
     }
@@ -369,7 +369,7 @@ structurizr.with {
         //
         // WARNING: Do not put manually created/changed files into this directory.
         // If a valid Structurizr workspace file is found the directory is deleted before the diagram files are generated.
-        outputPath = 'src/docs/structurizr/diagrams'
+        // outputPath = 'src/docs/structurizr/diagrams'
 
         // Format of the exported diagrams. Defaults to 'plantuml' if the parameter is not provided.
         //
@@ -377,7 +377,7 @@ structurizr.with {
         // - 'plantuml': the same as 'plantuml/structurizr'
         // - 'plantuml/structurizr': exports views to PlantUML
         // - 'plantuml/c4plantuml': exports views to PlantUML with https://github.com/plantuml-stdlib/C4-PlantUML
-        format = 'plantuml'
+        // format = 'plantuml'
     }
 }
 //end::structurizrConfig[]
