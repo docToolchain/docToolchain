@@ -22,7 +22,7 @@ This Structurizr DSL example below creates two diagrams, based upon a single set
 
 [source]
 ----
-include::{projectRootDir}/src/test/testData/structurizr/workspace.dsl[]
+include::{projectRootDir}/src/test/testData/structurizr/default/workspace.dsl[]
 ----
 
 And here the diagrams defined by the views in the example above rendered by the Structurizr web renderer.
@@ -57,22 +57,27 @@ The example below shows a possible directory layout with a `src/docs/structurizr
             └── workspace.dsl
 ----
 
-The configuration for the `exportStructurizr` task in your `docToolchainConfig.groovy` would look like
+The minimal configuration for the `exportStructurizr` task in your `docToolchainConfig.groovy` would look like
 
 [source,groovy]
 ----
 structurizr = [:]
 
 structurizr.with {
-    workspace = 'src/docs/structurizr/workspace.dsl'
-    exportPath = "src/docs/structurizr/diagrams"
-    format = 'plantuml'
+    workspace = {
+        path = 'src/docs/structurizr'
+    }
+    export = {
+        outputPath = "src/docs/structurizr/diagrams"
+        // The format is optional.
+        // format = 'plantuml'
+    }
 }
 ----
 
-You probably want to put the directory provided with `exportPath` into your `.gitignore` file.
+You probably want to put the directory configured with `export.outputPath` into your `.gitignore` file.
 
-WARNING: Do not put manually created/changed files into the directory provided with `exportPath`.
+WARNING: Do not put manually created/changed files into the directory provided with `export.outputPath`.
 If a valid Structurizr workspace file is provided the directory is deleted before the diagram files are generated.
 
 Calling `./dtcw exportStructurizr` generates the diagrams in the `exportPath` directory.

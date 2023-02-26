@@ -31,15 +31,27 @@ task exportStructurizr (
         description: 'exports the views of a Structurizr DSL file to diagramms'
 ) {
     doLast {
+        logger.debug("\n=====================\nStructurizr Config - before property replacement:\n=====================")
+        logger.debug("structurizr.workspace.path: ${config.structurizr.workspace.path}")
+        logger.debug("structurizr.workspace.filename: ${config.structurizr.workspace.filename}")
+        logger.debug("structurizr.export.outputPath: ${config.structurizr.export.outputPath}")
+        logger.debug("structurizr.export.format: ${config.structurizr.export.format}")
+
         // First we check the parameters
-        def workspaceFile = findProperty("structurizr.workspace")?:config.structurizr.workspace
-        if (!workspaceFile) {
-            logger.info("\n---> 'Structurizr workspace not configured - nothing do to.")
-            return
+        def workspacePath = findProperty("structurizr.workspace.path")?:config.structurizr.workspace.path
+        if (!workspacePath) {
+            throw new GradleException("Missing configuration parameter 'structurizr.workspace.path': please provide the path where the Structurizr workspace file is located.")
+        }
+        // If 'workspace.filename' is not provided, default to 'workspace' (without extension).
+        def filename = (findProperty("structurizr.workspace.filename")?:config.structurizr.workspace.filename)?:'workspace'
+
+        def outputPath = findProperty("structurizr.export.outputPath")?:config.structurizr.export.outputPath
+        if (!outputPath) {
+            throw new GradleException("Missing configuration parameter 'structurizr.export.outputPath': please provide the directory where the diagrams should be exported.")
         }
 
         // If 'format' parameter is not provided, default to 'plantuml'.
-        def format = (findProperty("structurizr.format")?:config.structurizr.format)?:'plantuml'
+        def format = (findProperty("structurizr.export.format")?:config.structurizr.export.format)?:'plantuml'
         //  Assure valid 'format' configuration parameter.
         DiagramExporter exporter
         switch(format) {
@@ -53,22 +65,23 @@ task exportStructurizr (
             default:
                 throw new GradleException("unknown structurizr.format '${format}': supported formats are 'plantuml' and 'plantuml/c4plantuml'.")
         }
-        def exportPath = findProperty("structurizr.exportPath")?:config.structurizr.exportPath
 
-        logger.info("\n=====================\nstructurizr config:\n=====================")
-        logger.info("workspace: ${workspaceFile}")
-        logger.info("format: ${format}")
-        logger.info("exportPath: ${exportPath}")
+        logger.info("\n=====================\nStructurizr Config:\n=====================")
+        logger.info("structurizr.workspace.path: ${workspacePath}")
+        logger.info("structurizr.workspace.filename: ${filename}")
+        logger.info("structurizr.export.outputPath: ${outputPath}")
+        logger.info("structurizr.export.format: ${format}")
 
-        logger.debug("Parsing Structurizr workspace file")
+        def workspaceFile = new File(docDir, workspacePath+'/'+filename+'.dsl')
+        logger.info("Parsing Structurizr workspace file '${workspaceFile}'")
         StructurizrDslParser parser = new StructurizrDslParser()
         // TODO: provide better error output in case parsing fails
-        parser.parse(new File(docDir, workspaceFile))
+        parser.parse(workspaceFile)
         Workspace workspace = parser.getWorkspace()
         ThemeUtils.loadThemes(workspace)
 
         // Cleanup existing diagrams and then make sure the directory exists where the diagrams are exported
-        new File(docDir, exportPath).deleteDir()
+        new File(docDir, outputPath).deleteDir()
         // Create a readme to clarify things
         def readme = """This folder contains exported diagrams from a model described with Structurizr DSL.
 
@@ -80,15 +93,15 @@ Please note that these are generated files but reside in the `src`-folder in ord
 
 use `gradlew exportStructurizr` to re-export the diagrams
 """
-        new File(docDir, exportPath).mkdirs()
-        new File(docDir, exportPath+'/README.adoc').write(readme)
+        new File(docDir, outputPath).mkdirs()
+        new File(docDir, outputPath+'/README.adoc').write(readme)
 
         Collection<Diagram> diagrams = exporter.export(workspace);
         diagrams.each { diagram ->
-            def file = new File(docDir, exportPath+"/"+diagram.key+'.'+diagram.getFileExtension())
+            def file = new File(docDir, outputPath+"/"+diagram.key+'.'+diagram.getFileExtension())
             file.write(diagram.definition)
             if (diagram.legend) {
-                def legend = new File(docDir, exportPath+"/"+diagram.key+"-key."+diagram.getFileExtension())
+                def legend = new File(docDir, outputPath+"/"+diagram.key+"-key."+diagram.getFileExtension())
                 legend.write(diagram.legend.definition)
             }
         }

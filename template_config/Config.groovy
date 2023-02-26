@@ -474,21 +474,30 @@ structurizr = [:]
 
 structurizr.with {
 
-    // Workspace file describing the software architecture model with Structurizr DSL.
-    // workspace = 'src/docs/structurizr/workspace.dsl'
+    // Configure where `exportStructurizr` looks for the Structurizr model.
+    workspace = {
+        // The directory in which the Structurizr workspace file is located.
+        // path = 'src/docs/structurizr'
 
-    // Directory for the exported diagrams.
-    // WARNING:
-    // Do not put manually created/changed files into this directory.
-    // If a valid Structurizr workspace file is provided the directory is deleted before the diagram files are generated.
-    exportPath = "src/docs/structurizr/diagrams"
+        // By default `exportStructurizr` looks for a file ${structurizr.workspace.path}/workspace.dsl
+        // You can customize this behavior with 'filename'. Note that the workspace filename is provided without '.dsl' extension. 
+        // filename = 'workspace'
+    }
 
-    // Format of the exported diagrams. Defaults to 'plantuml' if the parameter is not provided.
-    // Following formats are supported: 
-    // - 'plantuml': the same as 'plantuml/structurizr'
-    // - 'plantuml/structurizr': exports views to PlantUML
-    // - 'plantuml/c4plantuml': exports views to PlantUML with https://github.com/plantuml-stdlib/C4-PlantUML
-    //
-    // format = 'plantuml'
+    export = {
+        // Directory for the exported diagrams.
+        //
+        // WARNING: Do not put manually created/changed files into this directory.
+        // If a valid Structurizr workspace file is found the directory is deleted before the diagram files are generated.
+        outputPath = 'src/docs/structurizr/diagrams'
+
+        // Format of the exported diagrams. Defaults to 'plantuml' if the parameter is not provided.
+        //
+        // Following formats are supported: 
+        // - 'plantuml': the same as 'plantuml/structurizr'
+        // - 'plantuml/structurizr': exports views to PlantUML
+        // - 'plantuml/c4plantuml': exports views to PlantUML with https://github.com/plantuml-stdlib/C4-PlantUML
+        format = 'plantuml'
+    }
 }
 //end::structurizrConfig[]
