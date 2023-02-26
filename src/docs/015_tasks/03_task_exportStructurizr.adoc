@@ -75,12 +75,12 @@ structurizr.with {
 }
 ----
 
-You probably want to put the directory configured with `export.outputPath` into your `.gitignore` file.
+You probably want to put the directory configured with `structurizr.export.outputPath` into your `.gitignore` file.
 
-WARNING: Do not put manually created/changed files into the directory provided with `export.outputPath`.
+WARNING: Do not put manually created/changed files into the directory provided with `structurizr.export.outputPath`.
 If a valid Structurizr workspace file is provided the directory is deleted before the diagram files are generated.
 
-Calling `./dtcw exportStructurizr` generates the diagrams in the `exportPath` directory.
+Calling `./dtcw exportStructurizr` generates the diagrams in the `structurizr.export.outputPath` directory.
 
 .Directory layout after exporting the diagrams
 ----
