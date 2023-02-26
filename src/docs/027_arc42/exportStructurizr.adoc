@@ -90,15 +90,17 @@ title "Manual-Layout"
 File "workspace.dsl" as dsl
 collections "view .png / .svg" as out
 actor User
+component Browser {
+      component "Structurizr lite\nJavaScript" as sjs
+}
 component "Structurizr Lite" as sl {
-   component "Structurizr JavaScript" as sjs
    component "Structurizr Java" as s
 }
 sjs -down-> s
-User -down-> [Browser]
-[Browser] -down-> sjs
+User -down-> sjs
 dsl <- s : read
 sjs -right-> out : generate
+s -down-> [graphviz dot]
 ----
 
 ==== Interfaces
