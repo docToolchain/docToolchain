@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
   
-  <!-- 015_tasks/03_task_fixencoding.html -->
+  <!-- 015_tasks/03_task_exportStructurizr.html -->
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>fixEncoding</title>
+  <title>exportStructurizr</title>
   <meta content="docToolchain" property="og:title">
   <meta content="build your dev docs the easy way..." property="og:description">
   <meta content="website" property="og:type">
@@ -300,7 +300,7 @@
                                    href="../015_tasks/03_task_exportPPT.html">exportPPT</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../015_tasks/03_task_exportStructurizr.html">exportStructurizr</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -308,7 +308,7 @@
                                    href="../015_tasks/03_task_exportVisio.html">exportVisio</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../015_tasks/03_task_fixencoding.html">fixEncoding</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -362,11 +362,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_task_fixencoding.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_task_exportStructurizr.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27fixEncoding%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_task_fixencoding.adoc%0A%23branch:%20ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportStructurizr%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_task_exportStructurizr.adoc%0A%23branch:%20ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -375,9 +375,11 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_fixencoding">fixEncoding</a>
+<li><a href="#_exportstructurizr">exportStructurizr</a>
 <ul class="sectlevel2">
 <li><a href="#_about_this_task">About This Task</a></li>
+<li><a href="#_configuration">Configuration</a></li>
+<li><a href="#_example_configuration">Example Configuration</a></li>
 <li><a href="#_source">Source</a></li>
 </ul>
 </li>
@@ -409,59 +411,292 @@
 }
 </style>
 <div class="sect1">
-<h2 id="_fixencoding">fixEncoding</h2>
+<h2 id="_exportstructurizr">exportStructurizr</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/dfa58a10da1e9368266584d3a0a3efc?d=identicon" alt="Max Hofer" width="32" height="32" title="Max Hofer"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>1 minute to read</pre>
+<pre>3 minutes to read</pre>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_about_this_task">About This Task</h3>
 <div class="paragraph">
-<p>Whenever Asciidoctor has to process a file that is not UTF-8 encoded, Ruby tries to read it, then throws an error similar to this one:</p>
+<p><a href="https://structurizr.com">Structurizr</a> builds upon "diagrams as code", allowing you to create multiple diagrams from a single model, using a number of tools and programming languages.
+Structurizr is specifically designed to support the <a href="https://c4model.com/">C4 model for visualising software architecture</a>.</p>
 </div>
-<div class="literalblock">
+<div class="paragraph">
+<p>This task exports <a href="https://plantuml.com/">PlantUML</a> (respective <a href="https://github.com/plantuml-stdlib/C4-PlantUML">C4-PlantUML</a>) diagrams from a software architecture model described with the <a href="https://structurizr.com/help/dsl">Structurizr DSL</a>.
+The generated diagrams can be integrated into the AsciiDoc documentation.</p>
+</div>
+<div class="paragraph">
+<p>The software architecture model is integral part of the software architecture documentation.
+As such we strongly suggest to put the Structurizr workspace file under revision control integrating it in the <code>src/docs</code> directory.
+The user would edit the software architecture model by this file.</p>
+</div>
+<div class="paragraph">
+<p>This Structurizr DSL example below creates two diagrams, based upon a single set of elements and relationships.</p>
+</div>
+<div class="listingblock">
 <div class="content">
-<pre>asciidoctor: FAILED: /home/demo/test.adoc: Failed to load AsciiDoc document - invalid byte sequence in UTF-8</pre>
+<pre class="prettyprint highlight"><code>workspace {
+
+    model {
+        user = person "User"
+        softwareSystem = softwareSystem "Software System" {
+            webapp = container "Web Application" {
+                user -&gt; this "Uses"
+            }
+            container "Database" {
+                webapp -&gt; this "Reads from and writes to"
+            }
+        }
+    }
+
+    views {
+        systemContext softwareSystem {
+            include *
+            autolayout lr
+        }
+
+        container softwareSystem {
+            include *
+            autolayout lr
+        }
+
+        theme default
+    }
+}</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Unfortunately, finding the incorrectly encoded file is difficult if a lot of <code>includes::</code> are used, and Asciidoctor will only show the name of the main document. This is not Asciidoctor&#8217;s fault. The fault lies with the Ruby interpreter that sits underneath.</p>
+<p>And here the diagrams defined by the views in the example above rendered by the Structurizr web renderer.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/manual/structurizr-system-context-diagram.png" alt="System Context Diagram">
+</div>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/manual/structurizr-container-diagram.png" alt="Container Diagram">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration">Configuration</h3>
+<div class="listingblock">
+<div class="title">Config.groovy</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">// Configuration for Structurizr related tasks
+structurizr = [:]
+
+structurizr.with {
+
+    // Configure where `exportStructurizr` looks for the Structurizr model.
+    workspace = {
+        // The directory in which the Structurizr workspace file is located.
+        // path = 'src/docs/structurizr'
+
+        // By default `exportStructurizr` looks for a file '${structurizr.workspace.path}/workspace.dsl'
+        // You can customize this behavior with 'filename'. Note that the workspace filename is provided without '.dsl' extension. 
+        // filename = 'workspace'
+    }
+
+    export = {
+        // Directory for the exported diagrams.
+        //
+        // WARNING: Do not put manually created/changed files into this directory.
+        // If a valid Structurizr workspace file is found the directory is deleted before the diagram files are generated.
+        // outputPath = 'src/docs/structurizr/diagrams'
+
+        // Format of the exported diagrams. Defaults to 'plantuml' if the parameter is not provided.
+        //
+        // Following formats are supported: 
+        // - 'plantuml': the same as 'plantuml/structurizr'
+        // - 'plantuml/structurizr': exports views to PlantUML
+        // - 'plantuml/c4plantuml': exports views to PlantUML with https://github.com/plantuml-stdlib/C4-PlantUML
+        // format = 'plantuml'
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_example_configuration">Example Configuration</h3>
+<div class="paragraph">
+<p>The example below shows a possible directory layout with a <code>src/docs/structurizr</code> directory containing the <code>workspace.dsl</code> file.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>.
+├── docToolchainConfig.groovy
+├── dtcw
+└── src
+    └── docs
+        ├── example
+        │   └── example.adoc
+        ├── images
+        │   ├── some-pics-1.png
+        │   └── some-pics-2.png
+        └── structurizr
+            └── workspace.dsl</pre>
+</div>
 </div>
 <div class="paragraph">
-<p>The fixEncoding task crawls through all <code>*.ad</code> and <code>*.adoc</code> files and checks their encoding.
-If it comes across a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding.</p>
+<p>The minimal configuration for the <code>exportStructurizr</code> task in your <code>docToolchainConfig.groovy</code> would look like</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">structurizr = [:]
+
+structurizr.with {
+    workspace = {
+        path = 'src/docs/structurizr'
+    }
+    export = {
+        outputPath = "src/docs/structurizr/diagrams"
+        // The format is optional.
+        // format = 'plantuml'
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You probably want to put the directory configured with <code>structurizr.export.outputPath</code> into your <code>.gitignore</code> file.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+Do not put manually created/changed files into the directory provided with <code>structurizr.export.outputPath</code>.
+If a valid Structurizr workspace file is provided the directory is deleted before the diagram files are generated.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Calling <code>./dtcw exportStructurizr</code> generates the diagrams in the <code>structurizr.export.outputPath</code> directory.</p>
+</div>
+<div class="listingblock">
+<div class="title">Directory layout after exporting the diagrams</div>
+<div class="content">
+<pre>├── docToolchainConfig.groovy
+├── dtcw
+└── src
+    └── docs
+        ├── example
+        │   └── example.adoc
+        ├── images
+        │   ├── some-pics-1.png
+        │   └── some-pics-2.png
+        └── structurizr
+            ├── diagrams
+            |   ├── Container-1-key.puml
+            |   ├── Container-1.puml
+            |   ├── SystemContext-1-key.puml
+            |   └── SystemContext-1.puml
+            └── workspace.dsl</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Following our example the exported diagrams may be included in the Asciidoc document <code>example.adoc</code> with</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>plantuml::../structurizr/diagrams/SystemContext-1.puml["structurizr-SystemContext",format=svg]
+
+plantuml::../structurizr/diagrams/Container-1.puml["structurizr-Container",format=svg]</pre>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_source">Source</h3>
 <div class="listingblock">
-<div class="title">scripts/fixEncoding.gradle</div>
+<div class="title">exportStructurizr.gradle</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">import groovy.util.*
-import static groovy.io.FileType.*
-
-task fixEncoding(
-        description: 'finds and converts non UTF-8 adoc files to UTF-8',
-        group: 'docToolchain helper',
+<pre class="prettyprint highlight"><code data-lang="groovy">task exportStructurizr (
+        group: 'docToolchain',
+        description: 'exports the views of a Structurizr DSL file to diagramms'
 ) {
     doLast {
-        File sourceFolder = new File("${docDir}/${inputPath}")
-        println("sourceFolder: " + sourceFolder.canonicalPath)
-        sourceFolder.traverse(type: FILES) { file -&gt;
-            if (file.name ==~ '^.*(ad|adoc|asciidoc)$') {
-                CharsetToolkit toolkit = new CharsetToolkit(file);
-                // guess the encoding
-                def guessedCharset = toolkit.getCharset().toString().toUpperCase();
-                if (guessedCharset!='UTF-8') {
-                    def text = file.text
-                    file.write(text, "utf-8")
-                    println("  converted ${file.name} from '${guessedCharset}' to 'UFT-8'")
-                }
+        logger.debug("\n=====================\nStructurizr Config - before property replacement:\n=====================")
+        logger.debug("structurizr.workspace.path: ${config.structurizr.workspace.path}")
+        logger.debug("structurizr.workspace.filename: ${config.structurizr.workspace.filename}")
+        logger.debug("structurizr.export.outputPath: ${config.structurizr.export.outputPath}")
+        logger.debug("structurizr.export.format: ${config.structurizr.export.format}")
+
+        // First we check the parameters
+        def workspacePath = findProperty("structurizr.workspace.path")?:config.structurizr.workspace.path
+        if (!workspacePath) {
+            throw new GradleException("Missing configuration parameter 'structurizr.workspace.path': please provide the path where the Structurizr workspace file is located.")
+        }
+        // If 'workspace.filename' is not provided, default to 'workspace' (without extension).
+        def filename = (findProperty("structurizr.workspace.filename")?:config.structurizr.workspace.filename)?:'workspace'
+
+        def outputPath = findProperty("structurizr.export.outputPath")?:config.structurizr.export.outputPath
+        if (!outputPath) {
+            throw new GradleException("Missing configuration parameter 'structurizr.export.outputPath': please provide the directory where the diagrams should be exported.")
+        }
+
+        // If 'format' parameter is not provided, default to 'plantuml'.
+        def format = (findProperty("structurizr.export.format")?:config.structurizr.export.format)?:'plantuml'
+        //  Assure valid 'format' configuration parameter.
+        DiagramExporter exporter
+        switch(format) {
+            case 'plantuml':
+            case 'plantuml/structurizr':
+                exporter = new StructurizrPlantUMLExporter()
+                break
+            case 'plantuml/c4plantuml':
+                exporter = new C4PlantUMLExporter()
+                break
+            default:
+                throw new GradleException("unknown structurizr.format '${format}': supported formats are 'plantuml' and 'plantuml/c4plantuml'.")
+        }
+
+        logger.info("\n=====================\nStructurizr Config:\n=====================")
+        logger.info("structurizr.workspace.path: ${workspacePath}")
+        logger.info("structurizr.workspace.filename: ${filename}")
+        logger.info("structurizr.export.outputPath: ${outputPath}")
+        logger.info("structurizr.export.format: ${format}")
+
+        def workspaceFile = new File(docDir, workspacePath+'/'+filename+'.dsl')
+        logger.info("Parsing Structurizr workspace file '${workspaceFile}'")
+        StructurizrDslParser parser = new StructurizrDslParser()
+        // TODO: provide better error output in case parsing fails
+        parser.parse(workspaceFile)
+        Workspace workspace = parser.getWorkspace()
+        ThemeUtils.loadThemes(workspace)
+
+        // Cleanup existing diagrams and then make sure the directory exists where the diagrams are exported
+        new File(docDir, outputPath).deleteDir()
+        // Create a readme to clarify things
+        def readme = """This folder contains exported diagrams from a model described with Structurizr DSL.
+
+Please note that these are generated files but reside in the `src`-folder in order to be versioned.
+
+# Warning!
+
+**The contents of this folder will be overwritten with each re-export!**
+
+use `gradlew exportStructurizr` to re-export the diagrams
+"""
+        new File(docDir, outputPath).mkdirs()
+        new File(docDir, outputPath+'/README.adoc').write(readme)
+
+        Collection&lt;Diagram&gt; diagrams = exporter.export(workspace);
+        diagrams.each { diagram -&gt;
+            def file = new File(docDir, outputPath+"/"+diagram.key+'.'+diagram.getFileExtension())
+            file.write(diagram.definition)
+            if (diagram.legend) {
+                def legend = new File(docDir, outputPath+"/"+diagram.key+"-key."+diagram.getFileExtension())
+                legend.write(diagram.legend.definition)
             }
         }
     }
@@ -498,11 +733,11 @@ task fixEncoding(
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27fixEncoding%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_fixencoding.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportStructurizr%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_exportStructurizr.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27fixEncoding%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_fixencoding.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportStructurizr%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_exportStructurizr.adoc">tell
     us how we can improve</a>.
     </p>
 </div>
