@@ -14,6 +14,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === added
 
+* exportStructurizr Task
+
 === changed
 
 * automate the use of x86 emulator on apple silicon in dtcw
