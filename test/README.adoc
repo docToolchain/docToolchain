@@ -1,0 +1,90 @@
+dtcw Automated Tests
+--------------------
+:license: MIT
+
+**Pre-requisites**: installed container runtime (Docker or Podman).
+
+This directory contains automated tests for the `dtcw` Bash wrapper script.
+The tests use https://github.com/bats-core/bats-core[bats-core], a Bash automated testing system.
+
+Documentation for `bats-core` can be found at https://bats-core.readthedocs.io/.
+Detailed documentation to the helper libraries can be found in their git repositories:
+
+- https://github.com/bats-core/bats-assert[bats-assert]
+- https://github.com/bats-core/bats-file[bats-file]
+- https://github.com/bats-core/bats-support[bats-support]
+
+
+The test suite is executed in a container with an image provided from the `bats-core` project.
+This ensures a deterministic test setup and prevents a pollution with test artifacts.
+
+NOTE: `bats-core` provides a container images which is based on https://musl.libc.org/[musl libc].
+The musl C library causes problems with Java. So we use a Debian based test container with a standard glibc.
+
+Test Execution
+~~~~~~~~~~~~~~
+
+The test suite is executed with the following command from the `docToolchain` project root directory,
+
+```sh
+# From the docToolchain project root
+➜ docker run -it -e BATS_LIB_PATH=/usr/lib/bats -v "${PWD}/dtcw:/code/dtcw"  -v "${PWD}/test:/code/test" maxh/bats:latest test
+```
+
+The environment variable `BATS_LIB_PATH` assures our test code can load the `bat-core` helper libraries which are part of the container image at `/usr/lib/bats`.
+The volume bind mounts make `dtcw` and the test code available at `/code`.
+For more details check the https://github.com/mh182/bats-core/blob/docker_debian/Dockerfile[bats-coder/Dockerfile]
+
+This setup provides a clean project setup and avoids possible pitfalls to access resources from the docToolchain project directory.
+
+```sh
+# In the container we have a pristine project which used the docToolchain
+code
+├── dtcw
+└── test
+    ├── pristine_environment.bats
+    └── README.adoccode
+```
+
+You probably want to create an alias to run the test suite
+
+```sh
+➜ alias tdtcw='docker run -it -e BATS_LIB_PATH=/usr/lib/bats -v "${PWD}/dtcw:/code/dtcw"  -v "${PWD}/test:/code/test" maxh/bats:latest'
+➜ tdtcw test
+```
+
+Tests are tagged so the test set execution may be adapted with the `--filter-tags` option.
+Currently followinf tags are used:
+
+- `download`: test is downloading external packages with `curl`, `wget` or https://sdkman.io/[`sdk`]
+
+For example to run all tests, except the tests downloading packages use
+
+```sh
+➜ tdtcw test --filter-tags \!download
+```
+
+Additional information about how you can tweak test execution start the container with the `--help` option
+
+```sh
+➜ tdtcw --help
+```
+
+Debugging
+~~~~~~~~~
+
+To access the test environment in the container call `bash` as entrypoint,
+
+```sh
+➜ docker run -it -e BATS_LIB_PATH=/usr/lib/bats -v "${PWD}/dtcw:/code/dtcw" -v "${PWD}/test:/code/test" --entrypoint bash maxh/bats:latest
+bash-5.2#
+```
+
+Creating the bats-core Test Image
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+```
+➜ git clone -b docker_debian git@github.com:mh182/bats-core.git && cd bats-core
+➜ docker build --tag maxh/bats:latest .
+➜ docker image push maxh/bats:latest
+```
