@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+# SPDX-License-Identifier: MIT
+# Copyright 2022 - 2023, Ralf D. Müller and the docToolchain contributors
 
 set -e
 set -u
@@ -29,13 +31,14 @@ if [ -z "${DTC_PROJECT_BRANCH:-""}" ]; then
     export DTC_PROJECT_BRANCH
 fi
 
-DTC_HEADLESS=${DTC_HEADLESS:="false"}
-if [ -t 0 ]; then
-    # do nothing - we have a tty
-    echo ""
-else
-    echo "Using headless mode since there is no (terminal) interaction possible"
-    DTC_HEADLESS=true
+# If DTC_HEADLESS provided (from tests), don't change it.
+if [ -z ${DTC_HEADLESS+x} ]; then
+    if [ -t 0 ]; then
+        DTC_HEADLESS=false
+    else
+        echo "Using headless mode since there is no (terminal) interaction possible"
+        DTC_HEADLESS=true
+    fi
 fi
 export DTC_HEADLESS
 
@@ -208,14 +211,7 @@ download() {
     if command -v curl &>/dev/null; then
         curl -Lo "${toLocation}" "${url}"
     else
-        wgetversion=$(wget --version && true | head -1 | sed -E 's/^.* 1.([0-9]+).*$/\1/')
-        if [ "${wgetversion}" -gt 13 ]; then
-            wget "${url}" -O "${toLocation}"
-        else
-            echo "you need curl or wget (version >= 1.14) installed"
-            echo "please install or update and re-run the command"
-            exit 1
-        fi
+        wget "${url}" -O "${toLocation}"
     fi
 }
 
@@ -275,7 +271,7 @@ check_java() {
 install_local() {
     mkdir -p "${HOME}/.doctoolchain"
     download "${DISTRIBUTION_URL}" "${HOME}/.doctoolchain/source.zip"
-    unzip "${HOME}/.doctoolchain/source.zip" -d "${HOME}/.doctoolchain/."
+    unzip -q "${HOME}/.doctoolchain/source.zip" -d "${HOME}/.doctoolchain/."
     rm -f "${HOME}/.doctoolchain/source.zip"
 }
 
