@@ -11,6 +11,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 * use the configured proxy when publishing labels to confluence pages
 * #1054 : fix for `publishToConfluence` was broken in v2.2.0
+* #1063 : fix for `exportConfluence` broken path for partial exports
 
 === added
 
@@ -19,7 +20,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === changed
 
 * automate the use of x86 emulator on apple silicon in dtcw
-* fixed jBake Markdown extensions and added FENCED_CODE_BLOCKS
+* updated jBake Markdown extensions and added FENCED_CODE_BLOCKS
 
 == 2.2.0 - 2023-02-16
 
