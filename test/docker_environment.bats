@@ -1,31 +1,37 @@
 # SPDX-License-Identifier: MIT
 # Copyright 2023, Max Hofer and the docToolchain contributors
 
-# Test dtcw wrapper in a pure docker environment
-
-setup_file() {
-    load 'test_helper.bash'
-    mock_create docker
-}
-
-teardown_file() {
-    mock_delete docker
-}
+# Test dtcw wrapper in a pure docker environment.
+# This means no docToolchain locally installed.
 
 setup() {
-    bats_load_library 'bats-support'
-    bats_load_library 'bats-assert'
+    load 'test_helper.bash'
+    setup_environment
 
-    # Needed for use of 'run -<expected_exit_code>', otherwise we get BW02 errors
-    bats_require_minimum_version 1.5.0
+    # Define project branch, otherwise test execution in repository with docker
+    # environment fails due to checking for git branch.
+    export DTC_PROJECT_BRANCH=test
+}
+
+teardown() {
+    mock_teardown
 }
 
 @test "forward call to docker" {
-    run -0 ./dtcw tasks --group doctoolchain
-    assert_line --partial "dtcw - docToolchain wrapper"
-    assert_line --partial "docToolchain"
-    assert_line "docker available"
-    assert_line "/usr/local/bin/docker"
-    assert_line "use docker installation"
-    assert_line --partial "docker mock called"
+    # No local install, but docker is present
+    mock_docker=$(mock_create docker)
+
+    PATH="${minimal_system}" run -0 ./dtcw tasks --group doctoolchain
+
+    assert_line "Available docToolchain environments: local docker"
+    assert_line "Environments with docToolchain [${DTC_VERSION}]: docker"
+    assert_line "Using environment: docker"
+
+    expected_cmd="run --rm -i --platform linux/amd64 -u $(id -u):$(id -g) \
+--name doctoolchain${DTC_VERSION} -e DTC_HEADLESS=true -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=test \
+-p 8042:8042 --entrypoint /bin/bash -v ${PWD}:/project doctoolchain/doctoolchain:v${DTC_VERSION} \
+-c doctoolchain . tasks --group doctoolchain  -PmainConfigFile=docToolchainConfig.groovy --warning-mode=none --no-daemon && exit"
+    assert_equal "$(mock_get_call_args "${mock_docker}")" "${expected_cmd}"
+    # TODO: the mock doesn't handles quotes correctly
+    # assert_line "$expected_cmd"
 }

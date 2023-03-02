@@ -8,33 +8,32 @@
 
 include::../_feedback.adoc[]
 
-== Purpose
+== Installation Overview
 
-This guide explains how to set up docToolchain in the following environments:
+docToolchain is composed of two parts:
 
-- A MacOS with bash
-- Linux/WSL2 with bash
-- Windows with PowerShell
-- Windows with cmd.exe
+- `doctoolchain` which is the toolchain used to create your documentation
+- the docToolchain shell wrapper script installed in your project which calls the toolchain
 
-All you need to work with docToolchain is a wrapper script taking care of everything. This wrapper:
+The use of this setup has the following advantages:
 
-- Ensures that everyone using your repository uses the same docToolchain version.
-- Keeps all docToolchain technology out of your repository.
-- Wraps your commands and directs them to your local installation.
-- Checks your docToolchain installation. If not installed, the wrapper will do it for you via direct download or Docker.
+- It's easy to build your documentation within your project folder.
+- Ensures that everyone in the project uses the same docToolchain version.
+- Keeps all docToolchain technology out of your project repository.
+- Facilitates the installation of the docToolchain if not installed.
+- Makes it easier to upgrade to never versions of docToolchain.
+
+== Install `dtcw` in your project directory
+
+The docToolchain wrapper script `dtcw`, respective `dtcw.ps1` or `dtcw.bat` for MS Windows, is meant to be installed in your project root directory.
+The wrapper script simplifies calls to the docToolchain.
 
 [NOTE]
-====
-Did you already work with an older version of docToolchain? Please note that the way it is installed has changed since the v2.x release.
-====
+Even if you are going to use docToolchain in multiple projects, the toolchain will only be installed once on your system.
 
 .Steps for MacOS/Linux/WSL2 with bash
 [role='primary']
 --
-[NOTE] 
-If you are going to use docToolchain in different projects install the dtcw (docToolchainWrapper) for each one.
-docToolchain itself will only be installed once in your home folder.
 
 If you have an Apple silicon (M1/M2) Mac, make sure that you have docker up and running and type the following commands in the Terminal:
 
@@ -42,9 +41,8 @@ If you have an Apple silicon (M1/M2) Mac, make sure that you have docker up and 
 ----
 `arch -x86_64 /bin/bash`
 ----
-NOTE: `dtcw` uses bash as shell and thus tries to find Java from within bash. If you use `dtcw` from another shell like zsh, your shell knows about the right java version but your bash doesn't. In that case, please switch to bash and make sure that the right java version is known. Afterwards, you can switch back to your shell.
 
-Now, type the following:
+Now, download `dtcw` into your project directory and make the script executable with the following commands:
 
 [source, bash]
 ----
@@ -62,31 +60,21 @@ wget doctoolchain.github.io/dtcw
 chmod +x dtcw
 ----
 
-Since you run docToolchain without Docker, you must get the right Java-Runtime/JDK:
-[source, bash]
-----
-./dtcw getJava
-----
-
-Next, type the following:
-[source, bash]
-----
-./dtcw tasks --group=doctoolchain
-----
-
 --
 
 .Windows with Powershell
 [role='secondary']
 --
+
 [source, powershell]
 ----
 cd <your project>
 Invoke-WebRequest doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1
 ----
 
-NOTE: Got an error message that you are not allowed to execute powershell scripts? 
+NOTE: Got an error message that you are not allowed to execute powershell scripts?
 Try to switch to an unrestricted powershell by executing `powershell.exe -ExecutionPolicy Unrestricted`.
+
 --
 
 .Windows with cmd.exe
@@ -101,51 +89,81 @@ curl -Lo dtcw.bat doctoolchain.github.io/dtcw.bat
 NOTE: `dtcw.bat` wraps the `dtcw.ps1` script and executes it in powershell. This might be easier to use if you haven't yet configured your powershell as a developer.
 
 --
-NOTE: In order to support development for your project on both Linux and Windows, it makes sense to download all three `dtcw` scripts (.sh, .ps1 and .bat) to your project. 
 
+TIP: In case your development team uses different operating systems, put the wrapper scripts for the desired operating systems (`dtcw`, `dtcw.ps1`, and `dtcw.bat`) into your project.
 
-== Let the Wrapper Use a New docToolChain Release 
+Once the docToolchain wrapper is installed in your project directory you have to decide how to install the toolchain:
 
-If you have just downloaded the wrapper, there is no need to do this. In this case, just skip to <<first-command>>.
+- <<run-dtc-in-container>> with the https://hub.docker.com/r/doctoolchain/doctoolchain[docToolchain container image].
+- <<install-dtc-with-dtcw>> in the the users home directory `$HOME/.doctoolchain`
+- <<install-dtc-with-sdk>> a tool for managing parallel versions of multiple Software Development Kits.
 
-If there is a new https://github.com/docToolchain/docToolchain/releases[docToolChain release] you wish to use, do the following:
+[NOTE]
+.docToolchain depends on Java 11 (Java 8, 14, and 17 are also supported)
+====
+If you don't use the docToolchain container image you have to install Java on your system.
+In case you have Java already installed, make sure `JAVA_HOME` is set.
 
-. Open the `dtcw` bash script (.sh, .ps1 and .bat) in your favourite text editor and look for the `VERSION`-line at the start of the file:
-[source, bash]
-----
-# find official release versions on github:
-# https://github.com/docToolchain/docToolchain/releases
-# set VERSION to "latest" to get the unreleased latest version
-VERSION=2.0.5
-----
-. Update it to match the latest release and and everything will be updated with the next run. This will not update the wrapper (dtcw) itself.
-If you think you should update the wrapper, please re-install it.
-. If you want to test a not-yet-released feature, you can set the `VERSION` to `latest` and `dtcw` will `clone` or `pull` the current default branch of the project. Please note this only works with a local copy, not with a Docker install. 
-. If you want to develop new features for docToolchain, you can also use `latestdev` as version. In this case, `dtcw` will try to clone the docToolChain repository with the ssh-git protocol to a fork in `$HOME/.doctoolchain/docToolchain-latest`.
+You may use `dtcw` to install the correct Java version, as shown in the next steps.
+====
 
-NOTE: `latest` and `latestdev` currently only work with the bash version of the wrapper.
+[[run-dtc-in-container]]
+== Run docToolchain in a container
 
-[[first-command]]
-== Run your First Command
+The docToolchain project provides a container image of approximatley 900 MB from the https://hub.docker.com/r/doctoolchain/doctoolchain[Docker Hub] container registry.
+The Dockerfile from which the image is created may be found at https://github.com/docToolchain/docker-image.
 
-To get started with docToolchain, run `tasks` as the first command:
+To to run docToolchain in a container you need an installed container engine.
+The best known container engine is https://docs.docker.com/get-docker/[Docker].
 
-.Linux / WSL2 with bash
+If the container engine is installed you can <<first-command>>.
+The docToolchain wrapper script in your project directory will detect the
+container engine and pull the docToolchain image on the first invocation.
+
+[[install-dtc-with-dtcw]]
+== Install docToolchain with `dtcw`
+
+.Steps for MacOS/Linux/WSL2 with bash
 [role='primary']
 --
+
+To install docToolchain in `$HOME/.doctoolchain` execute the following command.
+
 [source, bash]
 ----
-./dtcw tasks --group=doctoolchain
+./dtcw install doctoolchain
 ----
+
+In case you have no Java installed you may use `dtcw` to install Java in a sub-directory of `$HOME/.doctoolchain`.
+
+[source, bash]
+----
+./dtcw install java
+----
+
+[NOTE]
+.Unable to locate Java Runtime - check yout Bash environment
+====
+If `dtcw` complains about not beeing able to locate a Java Runtime, make sure Java is found in your Bash shell, the shell used by `dtcw`.
+
+If you use `dtcw` from another shell like `zsh`, it may be that your shell finds the supported Java version but your bash setup doesn't.
+In that case, please switch to bash and make sure that a supported Java version is found. Afterwards, you can switch back to your shell.
+====
+
+
 --
 
 .Windows with Powershell
 [role='secondary']
 --
+
+In case you have no Java installed you can use `dtcw.ps1` to install Java:
+
 [source, powershell]
 ----
-.\dtcw.ps1 tasks --group=doctoolchain
+.\dtcw.ps1 install java
 ----
+
 --
 
 .Windows with cmd.exe
@@ -153,64 +171,150 @@ To get started with docToolchain, run `tasks` as the first command:
 --
 [source, cmd]
 ----
-dtcw.bat tasks --group=doctoolchain
+dtcw.bat install java
 ----
+
 --
 
-This command shows all docToolchain tasks and verifies that docToolchain is installed by doing the following:
+If the docToolchain installation finished successfully, you are ready to <<first-command>>.
 
-* It checks for a configuration file and creates one if it does not exist. Prefers a local installation. 
+[[install-dtc-with-sdk]]
+== Install docToolchain with SDKMAN!
 
-* It makes use of Docker (if available) where there is no local installation.
+TODO: description how to install docToolchain with https://sdkman.io/[SDKMAN!].
 
-NOTE: If this is your first time installing docToolchain, downloading might take a while.
 
-* If Docker is not available, it downloads and installs docToolchain to your home folder.
-** It then runs a Gradle build through the Gradle wrapper. If this is your first time, it will download and install Gradle.
-** The Gradle build also fetches some dependencies. This will also take a while if run for the first time.
+[[first-command]]
+== Run your First Command
 
-NOTE: If you are behind a corporate proxy, you might need to consider build-script dependencies are fetched from a repository referenced by the property `mavenRepository`. By default the value `https://plugins.gradle.org/m2/` is used. When a repository requiring credentials is used the properties `mavenUsername` and `mavenPassword` can be set as well. 
-//in which configuration path/file? 
+Call the docToolchain wrapper with `tasks --group doctoolchain` to show all tasks provided by docToolchain.
+Those tasks may be used when invoking the docToolchain wrapper script.
 
-[source, sh] 
+NOTE: The first time docToolchain is called, it downloads all necessary dependencies.
+Therefore the execution of the command may take some time. Subsequent calls to docToolchain will be faster.
+
+.Linux / WSL2 with bash
+[role='primary']
+---
+
+[source, bash]
+----
+./dtcw tasks --group=doctoolchain
+dtcw 0.50 - 8061694f
+docToolchain 2.3.0
+Available docToolchain environments: local <.>
+Environments with docToolchain [2.3.0]: local <.>
+Using environment: local <.>
+Using Java 17.0.6 [/home/john_doe/.doctoolchain/jdk/bin/java] <.>
+Downloading https://services.gradle.org/distributions/gradle-7.5.1-bin.zip <.>
+..........10%..........20%..........30%...........40%..........50%..........60%..........70%...........80%..........90%..........100%
+
+Welcome to Gradle 7.5.1!
+
+Here are the highlights of this release:
+ - Support for Java 18
+ - Support for building with Groovy 4
+ - Much more responsive continuous builds
+ - Improved diagnostics for dependency resolution
+
+For more details see https://docs.gradle.org/7.5.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/7.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon.
+Daemon will be stopped at the end of the build
+
+> Configure project :
+
+Config file '/code/docToolchainConfig.groovy' does not exist' <.>
+[ant:input]
+[ant:input] do you want me to create a default one for you? (y, n)
+y
+----
+
+<.> List of available docToolchain environments. The output may vary depending on your system. In our example only the `local` environment is available since neither `sdk` nor `docker` was found.
+<.> Environments in which docToolchain s available. The output may vary depending on how you installed docToolchain. In our example docToolchain was found in the user's local environment in `$HOME/.doctoolchain`.
+<.> Shows the used docToolchain environment. In case docToolchain is installed in more than one environment the wrapper script picks the environment in the following order: `local`, `sdk`, and then `docker`.
+<.> Location of the used Java. In our example Java was installed in the local environment with the docToolchain wrapper script.
+<.> docToolchain was invoked the first time, thus it is downloading its dependencies.
+<.> The docToolchain configuration file `docToolchainConfig.groovy` wasn't found in the project repository. docToolchain asks if it should create a new one.
+
+---
+
+.Windows with Powershell
+[role='secondary']
+---
+[source, powershell]
+----
+.\dtcw.ps1 tasks --group=doctoolchain
+----
+
+---
+
+.Windows with cmd.exe
+[role='secondary']
+---
+
+
+[source, cmd]
+----
+dtcw.bat tasks --group=doctoolchain
+----
+---
+
+
+NOTE: If you are behind a corporate proxy, you might need to consider build-script dependencies are fetched from a repository referenced by the property `mavenRepository`.
+By default the value `https://plugins.gradle.org/m2/` is used. When a repository requiring credentials is used the properties `mavenUsername` and `mavenPassword` can be set as well.
+
+//in which configuration path/file?
+
+[source, sh]
 .Example command passing a custom maven repository with credentials from the command line
 ----
-./gradlew generateHTML -PmavenRepository=your_maven_repo -PmavenUsername=your_username -PmavenPassword=your_pw --info
+DTC_OPTS="-PmavenRepository=your_maven_repo -PmavenUsername=your_username -PmavenPassword=your_pw" ./dtcw tasks --group=doctoolchain --info
 ----
 
-You'll notice the installation is an incremental process and will take a while because of all the additional dependencies needed.
-After the first few commands, you'll have all the required dependencies installed and things will run faster.
+// end::install[]
 
-//end::install[]
-
-== Configure docToolChain to Use Existing Documents
+== Configure docToolchain to Use Existing Documents
 
 If your project already has documents in AsciiDoc format, you'll need to tell docToolchain where to find them.
 
 To do so, take a look at the created `docToolchainConfig.groovy` and update it.
 
-== Create a New Project from Scratch with Arc42 
+== Create a New Documentation Project from Scratch with Arc42
 
 If you want to use the https://arc42.org[arc42] template in your project, you can get it in AsciiDoc format by using the following commands.
-
-NOTE: If you use cmd.exe, follow the Windows instructions but replace `.ps1` with `.bat`.
 
 .Linux / WSL2 with bash
 [.primary]
 --
+
 [source,bash]
 ----
 ./dtcw downloadTemplate
 ----
+
 --
 
-.Windows
+.Windows with Powershell
 [.secondary]
+
 --
 [source,powershell]
 ----
-./dtcw.ps1 downloadTemplate
+.\dtcw.ps1 downloadTemplate
 ----
+
+--
+
+.Windows with cmd.exe
+[role='secondary']
+--
+
+[source, cmd]
+----
+dtcw.bat downloadTemplate
+----
+
 --
 
 == Generate HTML and PDF
@@ -235,8 +339,8 @@ Now Let's render arc42 to HTML and PDF. To do so, run the commands below:
 --
 [source,powershell]
 ----
-./dtcw.ps1 generateHTML
-./dtcw.ps1 generatePDF
+.\dtcw.ps1 generateHTML
+.\dtcw.ps1 generatePDF
 ----
 --
 
@@ -269,3 +373,24 @@ Please raise an issue on https://github.com/docToolchain/docToolchain/issues[git
 
 TIP: Blog-Posts: https://rdmueller.github.io/enterprise-edition/[Behind the great Firewall], https://rdmueller.github.io/enterprise-edition2/[Enterprise AsciiDoctor]
 
+== Upgrading to a New docToolchain Release
+
+If there is a new https://github.com/docToolchain/docToolchain/releases[docToolchain release] you wish to use, do the following:
+
+. Open the docToolchain wrapper script (`dtcw`, respective `dtcw.ps1` and `dtcw.bat`) in your favourite text editor and look for the line with `DTC_VERSION` which should be localted near the start of the file:
+[source, bash]
+----
+# See https://github.com/docToolchain/docToolchain/releases for available versions.
+# Set DTC_VERSION to "latest" to get the latest, yet unreleased docToolchain version.
+VERSION=2.1.0
+----
+. Change it to match the desired release.
+. In case you want to install docToolchain in local user enviroment install the new docToolchain release with the following command:
+[source, bash]
+----
+./dtcw install doctoolchain
+----
+. If you want to test a not-yet-released feature, you can set the `DTC_VERSION` to `latest` and `dtcw` will `clone` or `pull` the current default branch of the project. Please note this only works with a local copy, not with a Docker install.
+. If you want to develop new features for docToolchain, you can also use `latestdev` as version. In this case, `dtcw` will try to clone the docToolchain repository with the ssh-git protocol to a fork in `$HOME/.doctoolchain/docToolchain-latest`.
+
+NOTE: `latest` and `latestdev` currently only work with the bash version of the wrapper.

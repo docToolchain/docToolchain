@@ -8,167 +8,210 @@
 # The tests follow the installation instructions based on the output provided by `dtcw`.
 # They download external software packages (Java, docToolchain) which makes them slow.
 #
-# ATTENTION: contrary to good test patterns, the tests in this file depend on
-# each other to keep the test execution (and downloads) as short as possible.
-#
-# TODO: write mocks for wget/curl which use a local cache instead of downloading
-# the packages each time.
-# See https://advancedweb.hu/how-to-mock-in-bash-tests/
 
-setup_file() {
-    apt install -y curl zip
-    export SDKMAN_DIR="$HOME/.local/share/sdkman"
-    curl -s "https://get.sdkman.io" | bash
+setup() {
+    load 'test_helper.bash'
+    setup_environment
 
-    # The installation with sdk doesn't make the component available in the tests.
-    # This means we have to adjust the PATH manually.
-    # TODO: Is there is a better way to set this?
+    mock_create_sdk
+
+    # Define project branch, otherwise test execution in repository with docker
+    # environment fails due to checking for git branch.
+    export DTC_PROJECT_BRANCH=test
+
+    # Mock installation of doctoolchain and java with sdk
+    mock_doctoolchain=$(mock_create "${SDKMAN_DIR}/candidates/doctoolchain/${DTC_VERSION}/bin/doctoolchain")
+    mock_java=$(mock_create_java "${SDKMAN_DIR}/candidates/java/current/bin/java" "11.0.18")
+    path=$(path_override "${minimal_system}" "$(path_rm /bin "$(path_rm /usr/bin)")")
+}
+
+teardown() {
+    mock_teardown
+
+    rm -rf "${SDKMAN_DIR}"
+}
+
+mock_create_sdk() {
+    export SDKMAN_DIR="/tmp/sdkman"
+
+    # Mock SDKMAN! installation
+    mkdir -p "${SDKMAN_DIR}/bin"
+    cat <<EOF > "${SDKMAN_DIR}/bin/sdkman-init.sh"
+# Mock call of 'sdk home doctoolchain'
+sdk() {
+    local cmd=\${1}
+    local candidate=\${2}
+    local version=\${3}
+    local candidate_dir="\${SDKMAN_DIR}/candidates/\${candidate}/\${version}"
+    if [ -d "\${candidate_dir}" ]; then
+        echo "\${candidate_dir}"
+    else
+        >&2 echo "\${candidate} \${version} is not installed on your system"
+        return 1
+    fi
+}
+EOF
+
+    # Mock we installed docToolchain and
     PATH="${SDKMAN_DIR}/candidates/doctoolchain/current/bin":$PATH
     export PATH="${SDKMAN_DIR}/candidates/java/current/bin":$PATH
 }
 
-setup() {
-    bats_load_library 'bats-support'
-    bats_load_library 'bats-assert'
+@test "don't show how to install SDKMAN!" {
+    # Test setup: remove doctoolchain and Java
+    rm -rf "${SDKMAN_DIR}/candidates"
 
-    # Needed for use of 'run -<expected_exit_code>', otherwise we get BW02 errors
-    bats_require_minimum_version 1.5.0
+    PATH="${minimal_system}" run -1 ./dtcw tasks --group doctoolchain
 
-    load 'test_helper.bash'
+    assert_line "Available docToolchain environments: local sdk"
+    assert_line "Environments with docToolchain [${DTC_VERSION}]: none"
+    assert_line "Using environment: local"
+
+    refute_output "    # First install SDKMAN!"
+    refute_output '    $ curl -s "https://get.sdkman.io" | bash'
+
+    assert_line "Error: doctoolchain - command not found [environment 'local']"
+    assert_line "It seems docToolchain ${DTC_VERSION} is not installed. dtcw supports the"
+    assert_line "following docToolchain environments:"
+    assert_line "1. 'local': to install docToolchain in [${DTC_ROOT}] use"
+    assert_line "    $ ./dtcw local install doctoolchain"
+    assert_line "2. 'sdk': to install docToolchain with SDKMAN! (https://sdkman.io)"
+    assert_line "    $ sdk install doctoolchain ${DTC_VERSION}"
+    assert_line "Note that running docToolchain in 'local' or 'sdk' environment needs a"
+    assert_line "Java runtime (major version 8, 11, 14, or 17) installed on your host."
+    assert_line "3. 'docker': pull the docToolchain image and execute docToolchain in a container environment."
+    assert_line "    $ ./dtcw docker tasks --group doctoolchain"
 }
 
-teardown() {
-    mock_delete docker
-}
-
-teardown_file() {
-    rm -rf "$SDKMAN_DIR"
-    rm -rf docToolchainConfig.groovy
-    apt purge -y curl zip
-}
-
-@test "any argument show how to install docToolchain with sdk" {
-    # TODO: Why do we exit here with an error if we say don't install anything
-    DTC_HEADLESS=false run -1 ./dtcw tasks --group doctoolchain <<< "2"
-
-    # TODO: Instead of asking to install locally we show the installation
-    # instructions how to install docToolchain with sdkman. Or the alternative
-    # how to install  docToolchain locally with './dtcw local tasks ...'
-    # > sdk install doctoolchain 2.2.0
-    assert_line 'docToolchain not installed.'
-    # TODO: bug - sdkman is not found
-    assert_line 'sdkman not found'
-    assert_line "Do you wish to install doctoolchain to '/root/.doctoolchain'?"
-    assert_line '1) Yes'
-    assert_line '2) No'
-    assert_line '#? you need docToolchain as CLI-Tool installed or docker.'
-    assert_line 'to install docToolchain as CLI-Tool, please install'
-    assert_line 'sdkman and re-run this command.'
-    assert_line 'https://sdkman.io/install'
-    assert_line '$ curl -s "https://get.sdkman.io" | bash'
-}
-
-# bats test_tags=download
-@test "install docToolchain with sdk" {
+@test "doctoolchain installed with sdk - java missing" {
     # Test setup
-    source "${SDKMAN_DIR}/bin/sdkman-init.sh"
-    sdk install doctoolchain 2.2.0
+    # Delete Java from the setup
+    rm "${mock_java}"
 
     # Error since we still miss JDK
-    run -1 ./dtcw tasks --group doctoolchain
+    PATH="${minimal_system}" run -1 ./dtcw tasks --group doctoolchain
 
-    # Shows which docToolchain we use
-    assert_line "docToolchain as CLI available"
-    assert_line "use cli install /root/.local/share/sdkman/candidates/doctoolchain/current/bin/doctoolchain"
+    assert_line "Available docToolchain environments: local sdk"
+    assert_line "Environments with docToolchain [${DTC_VERSION}]: sdk"
+    assert_line "Using environment: sdk"
 
-    # Shows information about missing JDK
-    assert_line "docToolchain depends on java, but the java command couldn't be found in this shell (bash)"
-    assert_line 'it might be that you have installed the needed version java in another shell from which you started dtcw'
-    # TODO Since docToolchain was installed with sdkman, prefer sdkman for the java installation.
-    # Provide the java version which docToolchain needs!
-    assert_line 'dtcw is running in bash and uses the PATH to find java'
-    assert_line 'to install a local java for docToolchain, you can run'
-    assert_line './dtcw getJava'
-    assert_line 'another way to install or update java is to install'
-    assert_line 'sdkman and then java via sdkman'
-    assert_line 'https://sdkman.io/install'
-    assert_line '$ curl -s "https://get.sdkman.io" | bash'
-    assert_line '$ sdk install java'
-    assert_line 'or you can download it from https://adoptium.net/'
-    assert_line 'make sure that your java version is between 8 and 14'
-    assert_line 'If you do not want to use a local java installation, you can also use docToolchain as docker container.'
-    assert_line "In that case, specify 'docker' as first parameter in your statement."
-    assert_line 'example: ./dtcw docker generateSite'
+    assert_line "Error: unable to locate a Java Runtime"
+
+    assert_line "docToolchain supports Java versions 8, 11 (preferred), 14, or 17. In case one of those"
+    assert_line "Java versions is installed make sure 'java' is found with your PATH environment"
+    assert_line "variable. As alternative you may provide the location of your Java installation"
+    assert_line "with JAVA_HOME."
+
+    assert_line "Apart from installing Java with the package manager provided by your operating"
+    assert_line "system, dtcw facilitates the Java installation into a local environment:"
+
+    assert_line "    # Install Java in '${DTC_ROOT}/jdk'"
+    assert_line "    \$ ./dtcw local install java"
+
+    assert_line "Alternatively you can use SDKMAN! (https://sdkman.io) to manage your Java installations"
+
+    # Don't show how SDKMAN! is installed since it is already installed
+    refute_output --partial "# Install SDKMAN!"
+    refute_output --partial "$ curl -s \"https://get.sdkman.io\" | bash"
+    refute_output --partial "Then open a new shell and install Java 11 with"
+
+    # TODO: This will break when we change Java version
+    assert_line "    \$ sdk install java 11.0.18-tem"
+
+    assert_line "If you prefer not to install Java on your host, you can run docToolchain in a"
+    assert_line "docker container. For this case dtcw provides the 'docker' execution environment."
+
+    assert_line 'Example: ./dtcw docker generateSite'
 }
 
-# TODO: test if system already available from system
-# - correct java version
-# - java version is not the one we expect
+@test "tasks - forward to sdk doctoolchain" {
+    # Execute
+    PATH="${path}" run -0 ./dtcw tasks --group doctoolchain
 
-# bats test_tags=download
-@test "create docToolchainConfig" {
-    # Test setup - fix missing precondition
-    source "${SDKMAN_DIR}/bin/sdkman-init.sh"
-
-    # TODO: where do we get this version?
-    run -0 sdk install java 11.0.18-tem
-
-    run -0 java --version
-
-    # The answer if want to create the default configuration with "y"
-    DTC_HEADLESS=false run -0 ./dtcw tasks --group doctoolchain <<< "y"
-
-    assert_line "Java Version 11"
-
-    # TODO: 'gradlew' is not available
-    assert_line "To see all tasks and more detail, run gradlew tasks --all"
-    assert_line "To see more detail about a task, run gradlew help --task <task>"
+    assert_equal "$(mock_get_call_num "${mock_doctoolchain}")" 1
+    assert_equal "$(mock_get_call_args "${mock_doctoolchain}")" ". tasks --group doctoolchain -PmainConfigFile=docToolchainConfig.groovy --warning-mode=none --no-daemon -Dgradle.user.home=${DTC_ROOT}/.gradle"
 }
 
-# bats test_tags=download
-@test "use local with sdk installation" {
-    # Pre-conditions
-    run -0 java --version
-    run -1 doctoolchain
+@test "using local with sdk environment fails" {
+    # Execute
+    PATH="${path}" run -1 ./dtcw local tasks --group doctoolchain
 
-    # Will ask for a local installation which we reject
-    DTC_HEADLESS=false run -1 ./dtcw local tasks --group doctoolchain <<< "2"
-
-    assert_line "force use of local install"
-    # TODO: bug - this is misleading - docToolchain is not installed locally
-    assert_line "docToolchain not installed."
-    # TODO: bug - this is wrong
-    assert_line "sdkman not found"
-
-    assert_line "Do you wish to install doctoolchain to '/root/.doctoolchain'?"
-    assert_line '1) Yes'
-    assert_line '2) No'
-    assert_line "#? you need docToolchain as CLI-Tool installed or docker."
-    assert_line "to install docToolchain as CLI-Tool, please install"
-    assert_line "sdkman and re-run this command."
-    assert_line "https://sdkman.io/install"
-    assert_line '$ curl -s "https://get.sdkman.io" | bash'
+    assert_line "Available docToolchain environments: local sdk"
+    assert_line "Environments with docToolchain [${DTC_VERSION}]: sdk"
+    assert_line "Using environment: local"
+    assert_line "Error: doctoolchain - command not found [environment 'local']"
 }
 
-# bats test_tags=download
-@test "use docker with sdk installation" {
-    skip "this use case is completly buggy"
+@test "using docker with sdk environment fails" {
+    # Execute
+    PATH="${path}" run -2 ./dtcw docker tasks --group doctoolchain
 
-    run ./dtcw docker tasks
-
-    # TODO: same output as the test case with "local" - and buggy
-    assert_line "force use of docker"
+    assert_line "Available docToolchain environments: local sdk"
+    assert_line "Environments with docToolchain [${DTC_VERSION}]: sdk"
+    assert_line "Error: argument error - environment 'docker' not available"
+    assert_line "Install 'docker' on your host to execute docToolchain in a container."
 }
 
-# bats test_tags=download
-@test "no side effect when installing docker" {
-    mock_create docker
+@test "installing docker has no side effects" {
+    # Test setup
+    mock_docker=$(mock_create docker)
 
     # The installation of docker should not have any effect
-    run -0 ./dtcw tasks --group doctoolchain
+    PATH="${path}" run -0 ./dtcw tasks --group doctoolchain
 
-    assert_line "docToolchain as CLI available"
-    assert_line "docker available"
-    assert_line "use cli install /root/.local/share/sdkman/candidates/doctoolchain/current/bin/doctoolchain"
-    assert_line "Java Version 11"
+    assert_line "Available docToolchain environments: local sdk docker"
+    assert_line "Environments with docToolchain [${DTC_VERSION}]: sdk docker"
+    assert_line "Using environment: sdk"
+
+    assert_equal "$(mock_get_call_num "${mock_doctoolchain}")" 1
+    assert_equal "$(mock_get_call_num "${mock_docker}")"  0
+}
+
+@test "using docker with sdk installation" {
+    # Test setup
+    mock_docker=$(mock_create docker)
+
+    PATH="${path}" run ./dtcw docker tasks
+
+    assert_line "Available docToolchain environments: local sdk docker"
+    assert_line "Environments with docToolchain [${DTC_VERSION}]: sdk docker"
+    assert_line "Using environment: docker"
+
+    assert_equal "$(mock_get_call_num "${mock_doctoolchain}")" 0
+    assert_equal "$(mock_get_call_num "${mock_docker}")" 1
+}
+
+@test "DTC_VERSION=latest sdk tasks - fails" {
+    # Test stup
+    DTC_VERSION=latest
+
+    # Execute
+    DTC_VERSION=${DTC_VERSION} PATH="${minimal_system}" run -2 ./dtcw sdk tasks
+
+    assert_line "Error: argument error - invalid environment 'sdk'."
+    assert_line "Development version '${DTC_VERSION}' can only be used in a local environment."
+}
+
+@test "DTC_VERSION=latestdev sdk tasks - fails" {
+    # Test stup
+    DTC_VERSION=latestdev
+
+    # Execute
+    DTC_VERSION=${DTC_VERSION} PATH="${minimal_system}" run -2 ./dtcw sdk tasks
+
+    assert_line "Error: argument error - invalid environment 'sdk'."
+    assert_line "Development version '${DTC_VERSION}' can only be used in a local environment."
+}
+
+@test "specific doctoolchain version not installed" {
+    # Use a docToolchain version which is not installed
+    local not_installed_dtc_version=1.3.0
+
+    # Execute
+    PATH="${path}" DTC_VERSION=${not_installed_dtc_version} run -1 ./dtcw sdk tasks --group doctoolchain
+
+    assert_line "Available docToolchain environments: local sdk"
+    assert_line "Environments with docToolchain [${not_installed_dtc_version}]: none"
+    assert_line "Using environment: sdk"
+    assert_line "Error: doctoolchain - command not found [environment 'sdk']"
 }

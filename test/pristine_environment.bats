@@ -1,116 +1,119 @@
 # SPDX-License-Identifier: MIT
 # Copyright 2023, Max Hofer and the docToolchain contributors
 
-# Test behavior on a clean environment
-
-#
-# One of the following pre-condition have to be met to run:
-# - local install: wget or curl, unzip
-# - sdkman
-# - container runtime (like docker)
-#
-
-#
-# This means: no wget, no curl, no docToolchain, no Java, no SDKMAN!, no docker
-#
+# Test behavior on a clean environment: no wget, no curl, no docToolchain,
+# no Java, no SDKMAN!, no docker.
 
 setup() {
-    bats_load_library 'bats-support'
-    bats_load_library 'bats-assert'
-
-    # Needed for use of 'run -<expected_exit_code>', otherwise we get BW02 errors
-    bats_require_minimum_version 1.5.0
-
     load 'test_helper.bash'
+    setup_environment
 }
 
 teardown() {
-    # Restore environment
-    enable_command unzip
-    enable_command curl
-    enable_command wget
+    mock_teardown
 }
 
 @test "no arguments shows usage" {
-    run -1 ./dtcw
-    assert_line 'Usage: ./dtcw [option...] [task...]'
-    assert_line 'Use "./dtcw tasks --group doctoolchain" to see available tasks.'
-    assert_line 'Use "local", "sdk" or "docker" as first argument to force the use of a local, sdkman or docker install.'
+    PATH="${minimal_system}" run -2 ./dtcw
+
+    # Version information is only shown when we start something
+
+    # Show how to use it
+    assert_line --index  0 "dtcw ${DTCW_VERSION} - ##DTCW_GIT_HASH##"
+    assert_line --index  1 "docToolchain ${DTC_VERSION}"
+    assert_line --index  2 "OS/arch: $(uname -s)/$(uname -m)"
+    assert_line --index  3 "Error: argument missing"
+    assert_line --index  4 "dtcw - Create awesome documentation the easy way with docToolchain."
+    assert_line --index  5 "Usage: ./dtcw [environment] [option...] [task...]"
+    assert_line --index  6 "       ./dtcw [local] install {doctoolchain | java }"
+    assert_line --index  7 "Use 'local', 'sdk' or 'docker' as first argument to force the use of a specific"
+    assert_line --index  8 "docToolchain environment:"
+    assert_line --index  9 "    - local: installation in '$HOME/.doctoolchain'"
+    assert_line --index 10 "    - sdk: installation with SDKMAN! (https://sdkman.io/)"
+    assert_line --index 11 "    - docker: use docToolchain container image"
+    assert_line "Detailed documentation how to use docToolchain may be found at https://doctoolchain.org/"
+    assert_line "Use './dtcw tasks --group doctoolchain' to see docToolchain related tasks."
+    assert_line "Use './dtcw tasks' to see all tasks."
 }
 
-@test "any argument asks for local installation - No" {
-    # TODO: Why do we exit here with an error if we say don't install anything
-    DTC_HEADLESS=false run -1 ./dtcw tasks --group doctoolchain <<< "2"
-
-    assert_line 'docToolchain not installed.'
-    assert_line 'sdkman not found'
-    assert_line "Do you wish to install doctoolchain to '/root/.doctoolchain'?"
-    assert_line '1) Yes'
-    assert_line '2) No'
-    assert_line '#? you need docToolchain as CLI-Tool installed or docker.'
-    assert_line 'to install docToolchain as CLI-Tool, please install'
-    assert_line 'sdkman and re-run this command.'
-    assert_line 'https://sdkman.io/install'
-    assert_line '$ curl -s "https://get.sdkman.io" | bash'
+@test "local - no arguments shows usage" {
+    PATH="${minimal_system}" run -2 ./dtcw local
+    assert_line "Error: argument missing"
 }
 
-# TODO: split test for wget and curl. We have to add curl to our test image
-@test "no curl/wget/docker installed" {
-    disable_command wget
-    disable_command curl
-
-    # Asks for installation even if no curl/wget/sdkman/docker installed
-    # TODO: Should quit with error messages explaining the preconditions are not
-    # met before trying to download.
-    DTC_HEADLESS=false run -1 ./dtcw tasks --group doctoolchain <<< "1"
-
-    assert_line "Do you wish to install doctoolchain to '/root/.doctoolchain'?"
-    assert_line "#? installing doctoolchain"
-    assert_line --partial ">>> https://github.com/docToolchain/docToolchain/releases/download/"
-    assert_line "you need either wget or curl installed"
-    assert_line "please install it and re-run the command"
+@test "sdk - no arguments shows usage" {
+    PATH="${minimal_system}" run -2 ./dtcw sdk
+    assert_line "Error: argument error - environment 'sdk' not available"
 }
 
-@test "wget installed, but no unzip" {
-    disable_command unzip
-
-    # Asks for installation even if no unzip installed
-    # TODO: Should quit with error messages explaining the preconditions are not
-    # met before trying to download.
-    DTC_HEADLESS=false run -1 ./dtcw tasks --group doctoolchain <<< "1"
-
-    assert_line "Do you wish to install doctoolchain to '/root/.doctoolchain'?"
-    assert_line "#? installing doctoolchain"
-    assert_line --partial ">>> https://github.com/docToolchain/docToolchain/releases/download/"
-    assert_line "you need unzip installed"
-    assert_line "please install it and re-run the command"
+@test "docker - no arguments shows usage" {
+    PATH="${minimal_system}" run -2 ./dtcw docker
+    assert_line "Error: argument error - environment 'docker' not available"
 }
 
-@test "sdk tasks" {
-    # TODO: bug - why here no error code?
-    run -0 ./dtcw sdk tasks
+@test "show version info and exit" {
+    run -0 ./dtcw --version
+    assert_line --index 0 "dtcw ${DTCW_VERSION} - ##DTCW_GIT_HASH##"
+    assert_line --index 1 "docToolchain ${DTC_VERSION}"
+    assert_line --index 2 "OS/arch: $(uname -s)/$(uname -m)"
 
-    assert_line "force use of sdkman"
-    assert_line "docToolchain not installed."
-    assert_line "please use sdkman to install docToolchain"
-    # TODO: test will fail on version change
-    assert_line "$ sdk install doctoolchain 2.2.1"
+    refute_output "Error: argument missing"
+    refute_output "Available docToolchain environments: local"
 }
 
-@test "docker tasks" {
-    DTC_HEADLESS=false run -1 ./dtcw docker tasks <<< "2"
+@test "show version info - additional arguments are ignored" {
+    run -0 ./dtcw --version tasks
+    assert_line --index 0 "dtcw ${DTCW_VERSION} - ##DTCW_GIT_HASH##"
+    assert_line --index 1 "docToolchain ${DTC_VERSION}"
 
-    assert_line "force use of docker"
-    assert_line "docToolchain not installed."
-    assert_line "sdkman not found"
-    # TODO: bug - here we should abort since docker is not installed
-    assert_line "Do you wish to install doctoolchain to '/root/.doctoolchain'?"
-    # 1) Yes
-    # 2) No
-    # #? 2
-    # you need docToolchain as CLI-Tool installed or docker.
-    # to install docToolchain as CLI-Tool, please install
-    # sdkman and re-run this command.
-    # https://sdkman.io/install
-    # $ curl -s "https://get.sdkman.io" | bash
+    refute_output "Error: argument missing"
+    refute_output "Available docToolchain environments: local"
+}
+
+@test "tasks uses local environment - shows install docToolchain" {
+    PATH="${minimal_system}" run -1 ./dtcw tasks
+
+    # Shows useful environment information
+    assert_line "Available docToolchain environments: local"
+    assert_line "Environments with docToolchain [${DTC_VERSION}]: none"
+    assert_line "Using environment: local"
+
+    assert_line "Error: doctoolchain - command not found [environment 'local']"
+    assert_line "It seems docToolchain ${DTC_VERSION} is not installed. dtcw supports the"
+    assert_line "following docToolchain environments:"
+    assert_line "1. 'local': to install docToolchain in [${DTC_ROOT}] use"
+    assert_line "    \$ ./dtcw local install doctoolchain"
+    assert_line "2. 'sdk': to install docToolchain with SDKMAN! (https://sdkman.io)"
+    assert_line "    # First install SDKMAN!"
+    assert_line '    $ curl -s "https://get.sdkman.io" | bash'
+    assert_line "    # Then open a new shell and install docToolchain with"
+    assert_line "    \$ sdk install doctoolchain ${DTC_VERSION}"
+    assert_line "Note that running docToolchain in 'local' or 'sdk' environment needs a"
+    assert_line "Java runtime (major version 8, 11, 14, or 17) installed on your host."
+    assert_line "3. 'docker': pull the docToolchain image and execute docToolchain in a container environment."
+    assert_line "    \$ ./dtcw docker tasks --group doctoolchain"
+}
+
+# TODO: exit code is inconsistent - should it be 2?
+@test "sdk tasks shows install SDKMAN!" {
+    PATH="${minimal_system}" run -2 ./dtcw sdk tasks
+
+    # Shows useful environment information
+    assert_line "Available docToolchain environments: local"
+    assert_line "Environments with docToolchain [${DTC_VERSION}]: none"
+    refute_output "Using environment: local"
+
+    assert_line "Error: argument error - environment 'sdk' not available"
+    assert_line "Install SDKMAN! (https://sdkman.io) with"
+    assert_line "    $ curl -s \"https://get.sdkman.io\" | bash"
+    assert_line "Then open a new shell and install 'docToolchain' with"
+    assert_line "    $ sdk install doctoolchain ${DTC_VERSION}"
+}
+
+# TODO: exit code is inconsistent - should it be 2?
+@test "docker tasks shows install docker" {
+    PATH="${minimal_system}" run -2 ./dtcw docker tasks
+
+    assert_line "Error: argument error - environment 'docker' not available"
+    assert_line "Install 'docker' on your host to execute docToolchain in a container."
 }

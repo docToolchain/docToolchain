@@ -4,3 +4,18 @@
 [submodule "resources/asciidoctor-reveal.js"]
 	path = resources/asciidoctor-reveal.js
 	url = https://github.com/asciidoctor/asciidoctor-reveal.js
+[submodule "test/bats"]
+	path = test/bats
+	url = https://github.com/bats-core/bats-core.git
+[submodule "test/test_helper/bats-support"]
+	path = test/test_helper/bats-support
+	url = https://github.com/bats-core/bats-support.git
+[submodule "test/test_helper/bats-assert"]
+	path = test/test_helper/bats-assert
+	url = https://github.com/bats-core/bats-assert.git
+[submodule "test/test_helper/bats-file"]
+	path = test/test_helper/bats-file
+	url = https://github.com/bats-core/bats-file.git
+[submodule "test/test_helper/bats-mock"]
+	path = test/test_helper/bats-mock
+    url = https://github.com/mh182/bats-mock.git
