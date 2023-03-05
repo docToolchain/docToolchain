@@ -3,8 +3,8 @@
 #$env:DTC_SITETHEME = "https://....zip"
 
 $main_config_file = "docToolchainConfig.groovy"
-$version = "2.2.0"
-$dockerVersion = "2.2.0"
+$version = "2.2.1"
+$dockerVersion = "2.2.1"
 $distribution_url = "https://github.com/docToolchain/docToolchain/releases/download/v$version/docToolchain-$version.zip"
 
 if (Test-Path ".git" ) {
