@@ -322,6 +322,9 @@
 <p>Update the version in <code>gradle.properties</code>.</p>
 </li>
 <li>
+<p>Update the version in <code>dtcw</code> and <code>dtcw.ps1</code></p>
+</li>
+<li>
 <p>Update the changelog.</p>
 <div class="ulist">
 <ul>
@@ -359,30 +362,18 @@
 <h3 id="_docker_hub">Docker Hub</h3>
 <div class="sect3">
 <h4 id="_standard_image">Standard Image</h4>
-<div class="paragraph">
-<p>The image build for <a href="https://hub.docker.com/repository/docker/rdmueller/doctoolchain">rdmueller/doctoolchain</a> depends on the GitHub repo <a href="https://github.com/docToolchain/docker-image">docToolchain/docker-image</a>.</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
 <p>Update the <a href="https://github.com/docToolchain/docker-image/tree/master/alpine">Dockerfile</a> to reflect the new version.</p>
 </li>
 <li>
-<p>Create a <a href="https://github.com/docToolchain/docker-image/releases/new">new release</a>.</p>
-</li>
-<li>
-<p>Reference the GitHub release in the changelog (the build on Dockerhub will be automatically triggered).</p>
+<p>run <a href="https://github.com/docToolchain/docker-image/actions/workflows/standard-build.yml">github action</a> to build and deplyo the image</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Important! Currently, the autobuild only works for paying customers. To manually build and upload the image, download the repo, switch to branch <code>ng-beta</code>, cd to the <code>alpine</code> folder and execute <code>docker build -t rdmueller/doctoolchain:v2.0.0-rc15 .</code>. After that, use Docker Desktop to push the resulting image to Docker Hub.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_jenkins_ci_image">Jenkins CI Image</h4>
-<div class="paragraph">
-<p>update the version in the <a href="https://github.com/docToolchain/docker-image/actions/runs/2787848816/workflow">github action definition</a> and run the action.</p>
+<p>do the same for the other images</p>
 </div>
 </div>
 </div>
