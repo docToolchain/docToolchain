@@ -14,7 +14,7 @@ include::../_feedback.adoc[]
 `docker run -it -e BATS_LIB_PATH=/usr/lib/bats -v "${PWD}/dtcw:/code/dtcw"  -v "${PWD}/test:/code/test" maxh/bats:latest test` +
 to test dtcw
 * Update the version in `gradle.properties`.
-* Update the version in `dtcw` and `dtcw.ps1`
+* Update the version in `dtcw` and `dtcw.ps1`. `dtcw.bat` will be generated
 * Update the changelog.
 	** Create a section for the version.
 	** Copy to the new section all unreleased features which will be in the release.
@@ -41,14 +41,8 @@ Create a blog post to announce the new release. The SDKMAN! announcement will re
 === docToolchain-Wrapper (dtcw)
 
 Everything went well? Great! Now let’s update the wrapper.
-The source of the rapper is now the main repository and we need to copy it over to the github pages.
-To do so, make sure that dtcw references the right version.
 
-* https://github.com/docToolchain/doctoolchain/blob/ng/dtcw[dtcw]
-* https://github.com/docToolchain/doctoolchain/blob/ng/dtcw.ps1[dtcw.ps1]
-* the dtcw.bat will be generated
-
-then navigate to https://github.com/docToolchain/doctoolchain.github.io/actions/workflows/update-dtcw.yml and trigger the action.
+Navigate to https://github.com/docToolchain/doctoolchain.github.io/actions/workflows/update-dtcw.yml and trigger the action.
 
 
 === SDKMAN!
