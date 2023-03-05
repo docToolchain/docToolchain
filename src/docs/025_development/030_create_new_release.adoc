@@ -10,6 +10,9 @@ include::../_feedback.adoc[]
 
 === GitHub
 
+* run +
+`docker run -it -e BATS_LIB_PATH=/usr/lib/bats -v "${PWD}/dtcw:/code/dtcw"  -v "${PWD}/test:/code/test" maxh/bats:latest test` +
+to test dtcw
 * Update the version in `gradle.properties`.
 * Update the version in `dtcw` and `dtcw.ps1`
 * Update the changelog.

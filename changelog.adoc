@@ -9,6 +9,14 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+=== added
+
+=== changed
+
+== 2.2.1 - 2023-03-05
+
+=== fixes
+
 * use the configured proxy when publishing labels to confluence pages
 * #1054 : fix for `publishToConfluence` was broken in v2.2.0
 * #1063 : fix for `exportConfluence` broken path for partial exports
