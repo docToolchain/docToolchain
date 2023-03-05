@@ -14,7 +14,7 @@ ifndef::imagesdir[:imagesdir: ../../../images]
 
 === About This Release
 
-Great News! docToolchain now comes with structurizr, a library which let's you model your diagrams-as-code views and we have better automated tests for the doctoolchain wrapper `dtc`!
+Great News! docToolchain now comes with http://structurizr.com/[structurizr], a library which let's you model your diagrams-as-code views and we have better automated tests for the doctoolchain wrapper `dtc`!
 
 To discuss the new features, a new https://github.com/docToolchain/docToolchain/discussions/1072[discussion thread] has been created.
 
@@ -35,8 +35,8 @@ It would even help to brush up the docs, write tutorials or groom the backlog
 === fixes
 
 * use the configured proxy when publishing labels to confluence pages
-* #1054 : fix for `publishToConfluence` was broken in v2.2.0
-* #1063 : fix for `exportConfluence` broken path for partial exports
+* https://github.com/docToolchain/docToolchain/issues/1054[#1054] : fix for `publishToConfluence` was broken in v2.2.0
+* https://github.com/docToolchain/docToolchain/issues/1063[#1063] : fix for `exportConfluence` broken path for partial exports
 
 === added
 
