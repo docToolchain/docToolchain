@@ -67,17 +67,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Activity_notes.html</loc>
-    	<lastmod>2023-03-05</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/Architect_notes.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/ea/Activity_notes_issue1.html</loc>
+    	<lastmod>2023-03-05</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Activity_notes.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
 
@@ -162,17 +162,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/010_Install.html</loc>
-    	<lastmod>2023-03-05</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/020_tutorial/070_publishToConfluence.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/100_diagrams.net.html</loc>
+    	<loc>https://localhost/020_tutorial/010_Install.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
 
@@ -183,6 +178,11 @@
 
     <url>
     	<loc>https://localhost/020_tutorial/030_generateHTML.html</loc>
+    	<lastmod>2023-03-05</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/020_tutorial/100_diagrams.net.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
 
@@ -237,17 +237,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/010_manual/20_install.html</loc>
+    	<lastmod>2023-03-05</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/010_manual/040_contributors.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/010_manual/010_introduction_and_goals.html</loc>
-    	<lastmod>2023-03-05</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/010_manual/20_install.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
 
@@ -282,22 +282,22 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportContributors.html</loc>
-    	<lastmod>2023-03-05</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_generateSite.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportDrawIo.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportContributors.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
+    	<lastmod>2023-03-05</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportDrawIo.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
 
@@ -317,17 +317,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
-    	<lastmod>2023-03-05</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_exportJiraSprintChangelog.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_publishToConfluence.html</loc>
+    	<lastmod>2023-03-05</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
 
@@ -357,6 +357,11 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_convertToDocx.html</loc>
+    	<lastmod>2023-03-05</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
@@ -372,11 +377,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_convertToDocx.html</loc>
-    	<lastmod>2023-03-05</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_prependFilename.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
@@ -387,12 +387,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_exportConfluence.html</loc>
+    	<lastmod>2023-03-05</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_exportStructurizr.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportConfluence.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_createReferenceDoc.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
 
@@ -403,11 +408,6 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportOpenApi.html</loc>
-    	<lastmod>2023-03-05</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_createReferenceDoc.html</loc>
     	<lastmod>2023-03-05</lastmod>
     </url>
 

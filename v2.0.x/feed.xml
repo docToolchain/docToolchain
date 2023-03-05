@@ -6,8 +6,8 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Sun, 5 Mar 2023 13:57:18 +0000</pubDate>
-    <lastBuildDate>Sun, 5 Mar 2023 13:57:18 +0000</lastBuildDate>
+    <pubDate>Sun, 5 Mar 2023 14:05:38 +0000</pubDate>
+    <lastBuildDate>Sun, 5 Mar 2023 14:05:38 +0000</lastBuildDate>
 
     
     <item>
@@ -40,7 +40,7 @@
 &lt;div class=&quot;sect2&quot;&gt;
 &lt;h3 id=&quot;_about_this_release&quot;&gt;About This Release&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
-&lt;p&gt;Great News! docToolchain now comes with structurizr, a library which let&amp;#8217;s you model your diagrams-as-code views and we have better automated tests for the doctoolchain wrapper &lt;code&gt;dtc&lt;/code&gt;!&lt;/p&gt;
+&lt;p&gt;Great News! docToolchain now comes with &lt;a href=&quot;http://structurizr.com/&quot;&gt;structurizr&lt;/a&gt;, a library which let&amp;#8217;s you model your diagrams-as-code views and we have better automated tests for the doctoolchain wrapper &lt;code&gt;dtc&lt;/code&gt;!&lt;/p&gt;
 &lt;/div&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;To discuss the new features, a new &lt;a href=&quot;https://github.com/docToolchain/docToolchain/discussions/1072&quot;&gt;discussion thread&lt;/a&gt; has been created.&lt;/p&gt;
@@ -90,10 +90,10 @@ It would even help to brush up the docs, write tutorials or groom the backlog
 &lt;p&gt;use the configured proxy when publishing labels to confluence pages&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;#1054 : fix for &lt;code&gt;publishToConfluence&lt;/code&gt; was broken in v2.2.0&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1054&quot;&gt;#1054&lt;/a&gt; : fix for &lt;code&gt;publishToConfluence&lt;/code&gt; was broken in v2.2.0&lt;/p&gt;
 &lt;/li&gt;
 &lt;li&gt;
-&lt;p&gt;#1063 : fix for &lt;code&gt;exportConfluence&lt;/code&gt; broken path for partial exports&lt;/p&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1063&quot;&gt;#1063&lt;/a&gt; : fix for &lt;code&gt;exportConfluence&lt;/code&gt; broken path for partial exports&lt;/p&gt;
 &lt;/li&gt;
 &lt;/ul&gt;
 &lt;/div&gt;
