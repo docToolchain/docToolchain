@@ -70,5 +70,5 @@ jobs:
           -H "Consumer-Token: $CONSUMER_TOKEN" \
           -H "Content-Type: application/json" \
           -H "Accept: application/json" \
-          -d '{"candidate": "doctoolchain", "version": "${{ github.event.inputs.version }}", "url": "https://doctoolchain.github.io/docToolchain/v2.0.x/030_news/${{ github.event.inputs.version }}/${{ github.event.inputs.version }}-release.html"}' \
+          -d '{"candidate": "doctoolchain", "version": "${{ github.event.inputs.version }}", "url": "https://doctoolchain.github.io/docToolchain/v2.0.x/030_news/${{ github.event.inputs.year }}/${{ github.event.inputs.version }}-release.html"}' \
           https://vendors.sdkman.io/announce/struct
