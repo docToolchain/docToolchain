@@ -6,9 +6,128 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Sun, 5 Mar 2023 14:23:05 +0000</pubDate>
-    <lastBuildDate>Sun, 5 Mar 2023 14:23:05 +0000</lastBuildDate>
+    <pubDate>Sun, 5 Mar 2023 14:32:16 +0000</pubDate>
+    <lastBuildDate>Sun, 5 Mar 2023 14:32:16 +0000</lastBuildDate>
 
+    
+    <item>
+      <title>Release v2.2.1</title>
+      <link>https://localhost/030_news/2.2.1/2.2.1-release.html</link>
+      <pubDate>Sun, 5 Mar 2023 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">030_news/2.2.1/2.2.1-release.html</guid>
+      <description>
+      &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
+&lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
+&lt;ul class=&quot;sectlevel1&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_doctoolchain_v2_2_1_has_been_released&quot;&gt;docToolchain v2.2.1 has Been Released!&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_about_this_release&quot;&gt;About This Release&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_2_2_1_2023_03_05&quot;&gt;2.2.1 - 2023-03-05&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_fixes&quot;&gt;fixes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_added&quot;&gt;added&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_changed&quot;&gt;changed&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- endtoc --&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_doctoolchain_v2_2_1_has_been_released&quot;&gt;docToolchain v2.2.1 has Been Released!&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_about_this_release&quot;&gt;About This Release&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Great News! docToolchain now comes with &lt;a href=&quot;http://structurizr.com/&quot;&gt;structurizr&lt;/a&gt;, a library which let&amp;#8217;s you model your diagrams-as-code views and we have better automated tests for the doctoolchain wrapper &lt;code&gt;dtc&lt;/code&gt;!&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To discuss the new features, a new &lt;a href=&quot;https://github.com/docToolchain/docToolchain/discussions/1072&quot;&gt;discussion thread&lt;/a&gt; has been created.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+a big &quot;THANK YOU&quot; to all &lt;strong&gt;Sponsors&lt;/strong&gt; and &lt;strong&gt;Contributors&lt;/strong&gt; who helped to support docToolchain!
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You like docToolchain?
+What about helping to make it even better?
+docToolchain is a community project, so be part of the community which drives the project.
+You don&amp;#8217;t have to code for doing so.
+It would even help to brush up the docs, write tutorials or groom the backlog
+(I guess many of the open issues are already fixed).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_2_2_1_2023_03_05&quot;&gt;2.2.1 - 2023-03-05&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_fixes&quot;&gt;fixes&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;use the configured proxy when publishing labels to confluence pages&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1054&quot;&gt;#1054&lt;/a&gt; : fix for &lt;code&gt;publishToConfluence&lt;/code&gt; was broken in v2.2.0&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1063&quot;&gt;#1063&lt;/a&gt; : fix for &lt;code&gt;exportConfluence&lt;/code&gt; broken path for partial exports&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_added&quot;&gt;added&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;http://doctoolchain.org/docToolchain/v2.0.x/015_tasks/03_task_exportStructurizr.html&quot;&gt;exportStructurizr Task&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/tree/ng/test&quot;&gt;automated tests for dtcw&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_changed&quot;&gt;changed&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;automate the use of x86 emulator on apple silicon in dtcw&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;updated jBake Markdown extensions and added FENCED_CODE_BLOCKS&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	  </description>
+    </item>
     
     <item>
       <title>Release v2.2.1</title>
