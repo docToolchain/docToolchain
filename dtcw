@@ -44,7 +44,7 @@ export DTC_HEADLESS
 
 DTC_OPTS="${DTC_OPTS:-} -PmainConfigFile=${MAIN_CONFIG_FILE} --warning-mode=none --no-daemon "
 
-echo "dtcw - docToolchain wrapper V0.37"
+echo "dtcw - docToolchain wrapper V0.38"
 echo "docToolchain V${DTC_VERSION}"
 
 # check if CLI, docker or sdkman are installed
@@ -343,6 +343,9 @@ else
                 echo "Docker does not seem to be running, run it first and retry"
                 echo "if you want to use a local installation of doctoolchain instead"
                 echo "use 'local' as first argument to force the installation and use of a local install."
+                echo ""
+                echo "Example: ./dtcw.ps1 local install"
+                echo ""
 
                 exit 1
             fi

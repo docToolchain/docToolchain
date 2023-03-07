@@ -136,7 +136,7 @@ teardown_file() {
     # TODO: bug - sdkman is not installed - so we should tell to install it
     assert_line "please use sdkman to install docToolchain"
     # TODO: test will fail on version change
-    assert_line "$ sdk install doctoolchain 2.2.0"
+    assert_line "$ sdk install doctoolchain 2.2.1"
 
 }
 

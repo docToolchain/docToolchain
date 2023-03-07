@@ -85,7 +85,7 @@ please choose Temurin 11
     }
 }
 
-Write-Host "dtcw - docToolchain wrapper V0.37(PS)"
+Write-Host "dtcw - docToolchain wrapper V0.38(PS)"
 
 if ($args.Count -lt 1) {
     # Help text adapted to Win/PS: /<command>.ps1
@@ -210,7 +210,13 @@ elseif ($exist_home) {
 elseif ($docker) {
     # Check Docker is running...
     if (-not (Invoke-Expression "docker ps")) {
+        Write-Host ""
         Write-Host "Docker does not seem to be running, run it first and retry"
+        Write-Host "if you want to use a local installation of doctoolchain instead"
+        Write-Host "use 'local' as first argument to force the installation and use of a local install."
+        Write-Host ""
+        Write-Host "Example: ./dtcw.ps1 local install"
+        Write-Host ""
         exit 1
     }
     # Write-Host "Docker is running :)"

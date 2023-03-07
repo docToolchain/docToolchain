@@ -94,7 +94,7 @@ teardown() {
     assert_line "docToolchain not installed."
     assert_line "please use sdkman to install docToolchain"
     # TODO: test will fail on version change
-    assert_line "$ sdk install doctoolchain 2.2.0"
+    assert_line "$ sdk install doctoolchain 2.2.1"
 }
 
 @test "docker tasks" {
