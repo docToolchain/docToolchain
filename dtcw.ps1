@@ -25,7 +25,7 @@ $dtc_opts="$env:dtc_opts -PmainConfigFile='$main_config_file' --warning-mode=non
 function java_help_and_die()
 {
     Write-Host @"
-to install a local java for docToolchain, you cann run
+to install a local java for docToolchain, you can run
 
 ./dtcw getJava
 
@@ -85,7 +85,7 @@ please choose Temurin 11
     }
 }
 
-Write-Host "dtcw - docToolchain wrapper V0.38(PS)"
+Write-Host "dtcw - docToolchain wrapper V0.39(PS)"
 
 if ($args.Count -lt 1) {
     # Help text adapted to Win/PS: /<command>.ps1
@@ -126,23 +126,29 @@ if (Get-Command dooctoolchain -ErrorAction SilentlyContinue) {
 if (Get-Command docker -ErrorAction SilentlyContinue) {
     Write-Host "docker available"
     $docker = $True
+    $doJavaCheck = $False
 }
 
 if (Test-Path "$dtcw_path\docToolchain-$version" ) {
     Write-Host "dtcw folder exist: '$dtcw_path'"
     $exist_home = $True
+    $docker = $False
+    $doJavaCheck = $True
 }
 
 switch ($args[0]) {
     "local" {
         Write-Host "force use of local install"
         $docker = $False
+        $doJavaCheck = $True
         $firstArgsIndex = 1   # << Shift first param
     }
     "docker" {
         Write-Host "force use of docker"
         $cli = $exist_home = $False
         $firstArgsIndex = 1   # << Shift first param
+        $doJavaCheck = $False
+        $docker = $True
     }
     "getJava" {
         Write-Host "this script assumes that you have a 64 bit Windows installation"

@@ -9,11 +9,13 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+* fix decision tree for `dtcw.ps1`
+
 === added
 
 === changed
 
-* brushed up some hints when running dtcw.ps1 and dtcw
+* brushed up some hints when running `dtcw.ps1` and `dtcw`
 
 == 2.2.1 - 2023-03-05
 
