@@ -1,0 +1,54 @@
+name: Execute dtcw test suite
+
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+  pull_request:
+    branches: [ ng ]
+    paths:
+      - 'dtcw'
+      - 'test/**'
+  workflow_dispatch: {}
+
+jobs:
+  shellcheck:
+    name: ShellCheck - shell script linter
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install used packages
+        run: sudo apt-get -qq -y --no-install-recommends install curl ca-certificates ncurses-bin xz-utils
+      - uses: actions/checkout@v3
+      - name: Run shellcheck
+        uses: ludeeus/action-shellcheck@master
+        with:
+          ignore_paths: >-
+            ./.git/*
+            ./test/*
+            ./gradlew
+
+  test-dtcw:
+    needs: shellcheck
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest]
+      fail-fast: false
+    name: Execite dtcw test suite - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Clean out dirctory
+        # Remove all files except the system under test and the test code.
+        run: |
+          find . -maxdepth 1 -type d -not -name '.' -not -name 'test' -print0 | xargs -0 rm -rf --
+          find . -maxdepth 1 -type f -not -name 'dtcw' -not -name 'test' -print0 | xargs -0 rm --
+      - name: Run tests
+        run: |
+          echo $BASH_VERSION
+          test/bats/bin/bats --filter-tags \!e2e test
