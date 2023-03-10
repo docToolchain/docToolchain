@@ -61,6 +61,10 @@ if (project.hasProperty('confluenceUser') && project.hasProperty('confluencePass
     logger.info("Found passed Confluence credentials")
     config.confluence.credentials = "${project.getProperty('confluenceUser')}:${project.getProperty('confluencePass')}".bytes.encodeBase64().toString()
 }
+if (project.hasProperty('confluenceBearerToken')) {
+    logger.info("Found passed Confluence bearerToken")
+    config.confluence.bearerToken = project.getProperty('confluenceBearerToken')
+}
 if (project.hasProperty('username') && project.hasProperty('password')) {
     logger.info("Found passed common Jira & Confluence credentials")
     config.jira.credentials = "${project.getProperty('username')}:${project.getProperty('password')}".bytes.encodeBase64().toString()

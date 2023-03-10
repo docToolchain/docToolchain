@@ -298,6 +298,13 @@ confluence.with {
     // Optional: specify which Confluence OpenAPI Macro should be used to render OpenAPI definitions
     // possible values: ["confluence-open-api", "open-api", true]. true is the same as "confluence-open-api" for backward compatibility
     // useOpenapiMacro = "confluence-open-api"
+
+    // for exportConfluence-Task
+    export = [
+        srcDir: 'sample_data',
+        destDir: 'src/docs'
+    ]
+
 }
 //end::confluenceConfig[]
 
@@ -460,3 +467,37 @@ collectIncludes.with {
     cleanOutputFolder = true // should the output folder be emptied before generation? defailt: false
 }
 //end::collectIncludesConfig[]
+
+//tag::structurizrConfig[]
+// Configuration for Structurizr related tasks
+structurizr = [:]
+
+structurizr.with {
+
+    // Configure where `exportStructurizr` looks for the Structurizr model.
+    workspace = {
+        // The directory in which the Structurizr workspace file is located.
+        // path = 'src/docs/structurizr'
+
+        // By default `exportStructurizr` looks for a file '${structurizr.workspace.path}/workspace.dsl'.
+        // You can customize this behavior with 'filename'. Note that the workspace filename is provided without '.dsl' extension. 
+        // filename = 'workspace'
+    }
+
+    export = {
+        // Directory for the exported diagrams.
+        //
+        // WARNING: Do not put manually created/changed files into this directory.
+        // If a valid Structurizr workspace file is found the directory is deleted before the diagram files are generated.
+        // outputPath = 'src/docs/structurizr/diagrams'
+
+        // Format of the exported diagrams. Defaults to 'plantuml' if the parameter is not provided.
+        //
+        // Following formats are supported: 
+        // - 'plantuml': the same as 'plantuml/structurizr'
+        // - 'plantuml/structurizr': exports views to PlantUML
+        // - 'plantuml/c4plantuml': exports views to PlantUML with https://github.com/plantuml-stdlib/C4-PlantUML
+        // format = 'plantuml'
+    }
+}
+//end::structurizrConfig[]

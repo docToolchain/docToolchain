@@ -134,6 +134,9 @@ def addLabels = { def pageId, def labelsArray ->
     def api = new RESTClient(config.confluence.api)
     //this fixes the encoding (dierk42: Is this needed here? Don't know)
     api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
+    if (config.confluence.proxy) {
+        api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
+    }
     def headers = getHeaders()
     // Attach each label in a API call of its own. The only prefix possible
     // in our own Confluence is 'global'
@@ -717,7 +720,7 @@ def parseBody =  { body, anchors, pageAnchors ->
 // the create-or-update functionality for confluence pages
 // #342-dierk42: added parameter 'keywords'
 def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, keywords ->
-    parentId = parentId.toString()
+    parentId = parentId?.toString()
     def api = new RESTClient(config.confluence.api)
     def headers = getHeaders()
     String realTitleLC = realTitle(pageTitle).toLowerCase()
@@ -813,7 +816,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
                 // update page
                 // https://developer.atlassian.com/display/CONFDEV/Confluence+REST+API+Examples#ConfluenceRESTAPIExamples-Updatingapage
                 request.id      = page.id
-                request.version = [number: (page.version.number as Integer) + 1, message: config.confluence.pageVersionComment]
+                request.version = [number: (page.version.number as Integer) + 1, message: config.confluence.pageVersionComment ?: '']
                 def res = api.put(contentType: ContentType.JSON,
                                   requestContentType : ContentType.JSON,
                                   path: 'content/' + page.id, body: request, headers: headers)
@@ -840,7 +843,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
 
         //create a page
         trythis {
-            request.version = [message: config.confluence.pageVersionComment]
+            request.version = [message: config.confluence.pageVersionComment ?: '']
             page = api.post(contentType: ContentType.JSON,
                             requestContentType: ContentType.JSON,
                             path: 'content', body: request, headers: headers)

@@ -24,7 +24,7 @@ jobs:
 
     steps:
       - name: Install used packages
-        run: sudo apt-get install -y graphviz shellcheck
+        run: sudo apt-get install -y graphviz shellcheck pandoc
 
       - uses: actions/checkout@v2
         with:
@@ -49,3 +49,8 @@ jobs:
           JDK_VERSION: "${{ matrix.jdk }}-${{ matrix.java }}"
         run: |
           ./.ci.sh
+      - name: Archive test results
+        uses: actions/upload-artifact@v3
+        with:
+          name: test-report
+          path: build/reports/tests/test/
