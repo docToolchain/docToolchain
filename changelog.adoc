@@ -16,6 +16,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === changed
 
 * brushed up some hints when running `dtcw.ps1` and `dtcw`
+* Use external main_config_file environment variable in `dtcw` and `dtcw.ps1` if specified
 
 == 2.2.1 - 2023-03-05
 
@@ -83,7 +84,6 @@ Migrate as follows:
 +
 Migrate by removing the setting `preambleTitle` and set the correct first level heading in the document.
 * Make `dtcw` (and some other shell executables) https://www.shellcheck.net/[shellcheck] proof
-* Use external main_config_file environment variable in `dtcw` and `dtcw.ps1` if specified
 
 == 2.1.0 - 2022-08-15
 

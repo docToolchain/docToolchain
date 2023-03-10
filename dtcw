@@ -14,8 +14,10 @@ set -o pipefail
 #export DTC_TEMPLATE2=https://....zip
 #...
 
-if [ "$MAIN_CONFIG_FILE" = "" ] ; then
-  MAIN_CONFIG_FILE=docToolchainConfig.groovy
+if [[ -z "${MAIN_CONFIG_FILE:-""}" ]]; then
+  DTC_MAIN_CONFIG_FILE=docToolchainConfig.groovy
+else
+  DTC_MAIN_CONFIG_FILE="${MAIN_CONFIG_FILE}"
 fi
 
 # find official release versions on github:
@@ -44,7 +46,7 @@ if [ -z ${DTC_HEADLESS+x} ]; then
 fi
 export DTC_HEADLESS
 
-DTC_OPTS="${DTC_OPTS:-} -PmainConfigFile=${MAIN_CONFIG_FILE} --warning-mode=none --no-daemon "
+DTC_OPTS="${DTC_OPTS:-} -PmainConfigFile=${DTC_MAIN_CONFIG_FILE} --warning-mode=none --no-daemon "
 
 echo "dtcw - docToolchain wrapper V0.38"
 echo "docToolchain V${DTC_VERSION}"

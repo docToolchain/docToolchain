@@ -3,10 +3,11 @@
 #$env:DTC_SITETHEME = "https://....zip"
 
 if ($env:main_config_file) {
-    $main_config_file = $env:main_config_file
+    $dtc_main_config_file = $env:main_config_file
 } else {
-    $main_config_file = "docToolchainConfig.groovy"
+    $dtc_main_config_file = "docToolchainConfig.groovy"
 }
+
 $version = "2.2.1"
 $dockerVersion = "2.2.1"
 $distribution_url = "https://github.com/docToolchain/docToolchain/releases/download/v$version/docToolchain-$version.zip"
@@ -24,7 +25,7 @@ $folder_name = ".doctoolchain"
 $dtcw_path = "$home_path\$folder_name"
 $doJavaCheck = $True
 
-$dtc_opts="$env:dtc_opts -PmainConfigFile='$main_config_file' --warning-mode=none --no-daemon "
+$dtc_opts="$env:dtc_opts -PmainConfigFile='$dtc_main_config_file' --warning-mode=none --no-daemon "
 
 function java_help_and_die()
 {
