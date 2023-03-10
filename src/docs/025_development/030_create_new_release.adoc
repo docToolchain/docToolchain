@@ -30,7 +30,7 @@ to test dtcw
 ==== Standard Image
 
 * Update the https://github.com/docToolchain/docker-image/tree/ng-beta/alpine[Dockerfile] to reflect the new version.
-* run https://github.com/docToolchain/docker-image/actions/workflows/standard-build.yml[github action] to build and deplyo the image
+* run https://github.com/docToolchain/docker-image/actions/workflows/standard-build.yml[github action] to build and deploy the image
 
 do the same for the other images
 
