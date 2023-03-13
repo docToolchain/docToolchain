@@ -2,10 +2,10 @@
 #here you can specify the URL of a theme to use with generateSite-task
 #$env:DTC_SITETHEME = "https://....zip"
 
-if ($env:main_config_file) {
-    $dtc_main_config_file = $env:main_config_file
+if ($env:dtc_config_file) {
+    $main_config_file = $env:dtc_config_file
 } else {
-    $dtc_main_config_file = "docToolchainConfig.groovy"
+    $main_config_file = "docToolchainConfig.groovy"
 }
 
 $version = "2.2.1"
@@ -25,7 +25,7 @@ $folder_name = ".doctoolchain"
 $dtcw_path = "$home_path\$folder_name"
 $doJavaCheck = $True
 
-$dtc_opts="$env:dtc_opts -PmainConfigFile='$dtc_main_config_file' --warning-mode=none --no-daemon "
+$dtc_opts="$env:dtc_opts -PmainConfigFile='$main_config_file' --warning-mode=none --no-daemon "
 
 function java_help_and_die()
 {
