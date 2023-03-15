@@ -17,6 +17,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 * brushed up some hints when running `dtcw.ps1` and `dtcw`
 * add environment variable `DTC_CONFIG_FILE` in `dtcw` and `dtcw.ps1` to specify a configuration file other than than `docToolchainConfig.groovy` in the project root folder.
+* `collectIncludes`
+** changed regexp to start with `^[A-Za-z]` as file name to allow lowercase filenames as well.
 
 == 2.2.1 - 2023-03-05
 
