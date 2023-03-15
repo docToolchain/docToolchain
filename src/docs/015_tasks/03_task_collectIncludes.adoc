@@ -21,7 +21,7 @@ In order to include these files in your documentation, you have to add the file 
 
 This task will handle it for you!
 
-Just stick to this file-naming pattern `^[A-Z]{3,}[-\_].\*` (begin with at least three uppercase letters and a dash/underscore) and this task will collect the file and write it to your build folder.
+Just stick to this file-naming pattern `^[A-Za-z]{3,}[-\_].\*` (begin with at least three letters and a dash/underscore) and this task will collect the file and write it to your build folder.
 You only have to include this generated file from within your documentation.
 If you provide templates for the documents, those templates are skipped if the name matches the pattern `^.\*[-\_][tT]emplate
 [-\_].*`.

@@ -344,7 +344,7 @@ collectIncludes.with {
 
 //    separatorChar = "_" // define the allowed separators after prefix. default: "-_"
 
-//    cleanOutputFolder = true // should the output folder be emptied before generation? defailt: false
+//    cleanOutputFolder = true // should the output folder be emptied before generation? default: false
 }
 //end::collectIncludesConfig[]
 
@@ -360,7 +360,7 @@ structurizr.with {
         // path = 'src/docs/structurizr'
 
         // By default `exportStructurizr` looks for a file '${structurizr.workspace.path}/workspace.dsl'
-        // You can customize this behavior with 'filename'. Note that the workspace filename is provided without '.dsl' extension. 
+        // You can customize this behavior with 'filename'. Note that the workspace filename is provided without '.dsl' extension.
         // filename = 'workspace'
     }
 
@@ -373,7 +373,7 @@ structurizr.with {
 
         // Format of the exported diagrams. Defaults to 'plantuml' if the parameter is not provided.
         //
-        // Following formats are supported: 
+        // Following formats are supported:
         // - 'plantuml': the same as 'plantuml/structurizr'
         // - 'plantuml/structurizr': exports views to PlantUML
         // - 'plantuml/c4plantuml': exports views to PlantUML with https://github.com/plantuml-stdlib/C4-PlantUML
