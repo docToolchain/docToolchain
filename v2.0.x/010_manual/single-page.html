@@ -1228,7 +1228,7 @@ In order to include these files in your documentation, you have to add the file 
 <p>This task will handle it for you!</p>
 </div>
 <div class="paragraph">
-<p>Just stick to this file-naming pattern <code>^[A-Z]{3,}[-_].*</code> (begin with at least three uppercase letters and a dash/underscore) and this task will collect the file and write it to your build folder.
+<p>Just stick to this file-naming pattern <code>^[A-Za-z]{3,}[-_].*</code> (begin with at least three letters and a dash/underscore) and this task will collect the file and write it to your build folder.
 You only have to include this generated file from within your documentation.
 If you provide templates for the documents, those templates are skipped if the name matches the pattern <code>^.\*[-\_][tT]emplate
 [-\_].*</code>.</p>
@@ -1267,7 +1267,7 @@ If you provide templates for the documents, those templates are skipped if the n
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>    cleanOutputFolder = true // should the output folder be emptied before generation? defailt: false
+<pre>    cleanOutputFolder = true // should the output folder be emptied before generation? default: false
 }</pre>
 </div>
 </div>
@@ -1369,7 +1369,7 @@ task collectIncludes(
         String maxPrefixLength = config.collectIncludes.maxPrefixLength?:""
         String separatorChar = config.collectIncludes.separatorChar?:"-_"
 
-        String prefixRegEx = "[A-Z]{" + minPrefixLength + "," + maxPrefixLength + "}"
+        String prefixRegEx = "[A-Za-z]{" + minPrefixLength + "," + maxPrefixLength + "}"
         String separatorCharRegEx = "[" + separatorChar + "]"
         String fileFilterRegEx = "^" + prefixRegEx + separatorCharRegEx + ".*[.](" + fileFilter + ")\$"
 
@@ -1378,7 +1378,7 @@ task collectIncludes(
         sourceFolder.traverse(type: FILES) { file -&gt;
             if (file.name ==~ fileFilterRegEx) {
                 String typeRegEx = "^(" + prefixRegEx + ")" + separatorCharRegEx + ".*\$"
-                def type = file.name.replaceAll(typeRegEx,'\$1')
+                def type = file.name.replaceAll(typeRegEx,'\$1').toUpperCase()
                 if (!collections[type]) {
                     collections[type] = []
                 }
@@ -7272,7 +7272,7 @@ structurizr.with {
         // path = 'src/docs/structurizr'
 
         // By default `exportStructurizr` looks for a file '${structurizr.workspace.path}/workspace.dsl'
-        // You can customize this behavior with 'filename'. Note that the workspace filename is provided without '.dsl' extension. 
+        // You can customize this behavior with 'filename'. Note that the workspace filename is provided without '.dsl' extension.
         // filename = 'workspace'
     }
 
@@ -7285,7 +7285,7 @@ structurizr.with {
 
         // Format of the exported diagrams. Defaults to 'plantuml' if the parameter is not provided.
         //
-        // Following formats are supported: 
+        // Following formats are supported:
         // - 'plantuml': the same as 'plantuml/structurizr'
         // - 'plantuml/structurizr': exports views to PlantUML
         // - 'plantuml/c4plantuml': exports views to PlantUML with https://github.com/plantuml-stdlib/C4-PlantUML
