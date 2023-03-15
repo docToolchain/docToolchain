@@ -14,7 +14,7 @@ set -o pipefail
 #export DTC_TEMPLATE2=https://....zip
 #...
 
-MAIN_CONFIG_FILE=docToolchainConfig.groovy
+MAIN_CONFIG_FILE=${DTC_CONFIG_FILE:-docToolchainConfig.groovy}
 
 # find official release versions on github:
 # https://github.com/docToolchain/docToolchain/releases
