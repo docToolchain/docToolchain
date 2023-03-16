@@ -1267,9 +1267,16 @@ If you provide templates for the documents, those templates are skipped if the n
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>    cleanOutputFolder = true // should the output folder be emptied before generation? default: false
-}</pre>
+<pre>cleanOutputFolder = true // should the output folder be emptied before generation? default: false</pre>
 </div>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>excludeDirectories = [] // define additional directories that should not be traversed.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>}</p>
 </div>
 <div class="paragraph">
 <p>=== Example</p>
@@ -1317,6 +1324,7 @@ If you provide templates for the documents, those templates are skipped if the n
 <div class="title">scripts/collectIncludes.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">import static groovy.io.FileType.*
+import static groovy.io.FileVisitResult.*
 import java.security.MessageDigest
 
 task collectIncludes(
@@ -1334,7 +1342,10 @@ task collectIncludes(
     }
     doLast {
         //let's search the whole project for files, not only the docs folder
-        //could be a problem with node projects :-)
+        //exclude typical system folders
+        final defaultExcludedDirectories = [
+            '.svn', '.git', '.idea', 'node_modules', '.gradle', 'build', '.github'
+        ]
 
         //running as subproject? set scandir to main project
         String scanDir_save = scanDir
@@ -1368,6 +1379,9 @@ task collectIncludes(
         String minPrefixLength = config.collectIncludes.minPrefixLength?:"3"
         String maxPrefixLength = config.collectIncludes.maxPrefixLength?:""
         String separatorChar = config.collectIncludes.separatorChar?:"-_"
+        def extraExcludeDirectories = config.collectIncludes.excludeDirectories?:[]
+
+        def excludedDirectories = defaultExcludedDirectories + extraExcludeDirectories
 
         String prefixRegEx = "[A-Za-z]{" + minPrefixLength + "," + maxPrefixLength + "}"
         String separatorCharRegEx = "[" + separatorChar + "]"
@@ -1375,7 +1389,11 @@ task collectIncludes(
 
         logger.info "considering files with this pattern: " + fileFilterRegEx
 
-        sourceFolder.traverse(type: FILES) { file -&gt;
+        sourceFolder.traverse(
+            type: FILES,
+            preDir : { if (it.name in excludedDirectories) return SKIP_SUBTREE },
+            excludeNameFilter: excludedDirectories
+        ) { file -&gt;
             if (file.name ==~ fileFilterRegEx) {
                 String typeRegEx = "^(" + prefixRegEx + ")" + separatorCharRegEx + ".*\$"
                 def type = file.name.replaceAll(typeRegEx,'\$1').toUpperCase()
