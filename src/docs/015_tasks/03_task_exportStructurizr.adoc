@@ -1,0 +1,119 @@
+:filename: 015_tasks/03_task_exportStructurizr.adoc
+include::_config.adoc[]
+
+= exportStructurizr
+
+include::../_feedback.adoc[]
+
+== About This Task
+
+https://structurizr.com[Structurizr] builds upon "diagrams as code", allowing you to create multiple diagrams from a single model, using a number of tools and programming languages.
+Structurizr is specifically designed to support the https://c4model.com/[C4 model for visualising software architecture].
+
+This task exports https://plantuml.com/[PlantUML] (respective https://github.com/plantuml-stdlib/C4-PlantUML[C4-PlantUML]) diagrams from a software architecture model described with the https://structurizr.com/help/dsl[Structurizr DSL].
+The generated diagrams can be integrated into the AsciiDoc documentation.
+
+The software architecture model is integral part of the software architecture documentation.
+As such we strongly suggest to put the Structurizr workspace file under revision control integrating it in the `src/docs` directory.
+The user would edit the software architecture model by this file.
+
+
+This Structurizr DSL example below creates two diagrams, based upon a single set of elements and relationships.
+
+[source]
+----
+include::{projectRootDir}/src/test/testData/structurizr/default/workspace.dsl[]
+----
+
+And here the diagrams defined by the views in the example above rendered by the Structurizr web renderer.
+
+image::manual/structurizr-system-context-diagram.png["System Context Diagram"]
+image::manual/structurizr-container-diagram.png["Container Diagram"]
+
+== Configuration
+
+.Config.groovy
+[source,groovy]
+----
+include::{projectRootDir}/Config.groovy[tags=structurizrConfig]
+----
+
+== Example Configuration
+
+The example below shows a possible directory layout with a `src/docs/structurizr` directory containing the `workspace.dsl` file.
+
+----
+.
+├── docToolchainConfig.groovy
+├── dtcw
+└── src
+    └── docs
+        ├── example
+        │   └── example.adoc
+        ├── images
+        │   ├── some-pics-1.png
+        │   └── some-pics-2.png
+        └── structurizr
+            └── workspace.dsl
+----
+
+The minimal configuration for the `exportStructurizr` task in your `docToolchainConfig.groovy` would look like
+
+[source,groovy]
+----
+structurizr = [:]
+
+structurizr.with {
+    workspace = {
+        path = 'src/docs/structurizr'
+    }
+    export = {
+        outputPath = "src/docs/structurizr/diagrams"
+        // The format is optional.
+        // format = 'plantuml'
+    }
+}
+----
+
+You probably want to put the directory configured with `structurizr.export.outputPath` into your `.gitignore` file.
+
+WARNING: Do not put manually created/changed files into the directory provided with `structurizr.export.outputPath`.
+If a valid Structurizr workspace file is provided the directory is deleted before the diagram files are generated.
+
+Calling `./dtcw exportStructurizr` generates the diagrams in the `structurizr.export.outputPath` directory.
+
+.Directory layout after exporting the diagrams
+----
+├── docToolchainConfig.groovy
+├── dtcw
+└── src
+    └── docs
+        ├── example
+        │   └── example.adoc
+        ├── images
+        │   ├── some-pics-1.png
+        │   └── some-pics-2.png
+        └── structurizr
+            ├── diagrams
+            |   ├── Container-1-key.puml
+            |   ├── Container-1.puml
+            |   ├── SystemContext-1-key.puml
+            |   └── SystemContext-1.puml
+            └── workspace.dsl
+----
+
+Following our example the exported diagrams may be included in the Asciidoc document `example.adoc` with
+
+----
+plantuml::../structurizr/diagrams/SystemContext-1.puml["structurizr-SystemContext",format=svg]
+
+plantuml::../structurizr/diagrams/Container-1.puml["structurizr-Container",format=svg]
+----
+
+== Source
+
+.exportStructurizr.gradle
+[source,groovy]
+----
+include::{projectRootDir}/scripts/exportStructurizr.gradle[tags=exportStructurizr]
+----

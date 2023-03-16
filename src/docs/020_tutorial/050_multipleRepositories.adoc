@@ -6,7 +6,7 @@ include::_config.adoc[]
 == How to generate docs from multiple repositories
 
 Some static site generators sell multi-repository functionality as a feature.
-This feature is mainly achieved through a build in git client.
+This feature is mainly achieved through a built-in git client.
 
 Since we almost always work on systems which already have git installed, docToolchain does not come with its own git client.
 
@@ -47,6 +47,22 @@ cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain
 
 That's better.
 We can now include the docs from our main docs.
+
+To do so, we still need a little Trick. 
+We need to reference the docs in the build folder.
+
+We could do something like `include::../../../build/refs/docToolchain/somefile.adoc[]` but this will break.
+For this, docToolchain sets the attribute `projectRootDir`. 
+With this, we can write the include as `include::{projectRootDir}/build/refs/docToolchain/somefile.adoc[]`.
+
+In order to get `projectRootDir` also in your local preview, create a file called https://intellij-asciidoc-plugin.ahus1.de/docs/users-guide/features/advanced/asciidoctorconfig-file.html[`.asciidoctorconfig`] in the root folder of your project and add
+
+```
+:projectRootDir: {asciidoctorconfigdir}
+```
+
+as content.
+
 But what if we don't want to include them but just let them render?
 We could clone the repository directly to our `src/docs` folder.
 But that would require that it only contains docs and no `src/docs` folder itself.
@@ -78,7 +94,7 @@ src/docs/manual
 
 There is one more thing we can optimize.
 Currently, the script clones the repository with the full history.
-This is far to much traffic if you only want to use the latest version of your docs.
+This is far too much traffic if you only want to use the latest version of your docs.
 Let's add `--depth 1` to the `git clone`command to only fetch the latest version.
 
 .clonerefs.sh
@@ -99,12 +115,12 @@ This script will now let you clone remote repositories and merge them with your 
 
 === git submodule solution
 
-Another solution is to refrence your sub-repositories as https://git-scm.com/book/de/v2/Git-Tools-Submodule[git submodules].
+Another solution is to reference your sub-repositories as https://git-scm.com/book/de/v2/Git-Tools-Submodule[git submodules].
 Git submodules are pointers in your main repository to a certain version of another repository.
-Most CI/CD systems clone your repository together will als configured submodules.
+Most CI/CD systems clone your repository together with all the configured submodules.
 This makes this approach quite convenient.
 
-A draw back is that submodules are not often used and thus developers are not used to them.
+A drawback is that submodules are not often used and thus developers are not used to them.
 
 === artifact solution
 

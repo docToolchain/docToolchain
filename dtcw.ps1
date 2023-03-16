@@ -2,9 +2,14 @@
 #here you can specify the URL of a theme to use with generateSite-task
 #$env:DTC_SITETHEME = "https://....zip"
 
-$main_config_file = "docToolchainConfig.groovy"
-$version = "2.1.0"
-$dockerVersion = "2.1.0"
+if ($env:dtc_config_file) {
+    $main_config_file = $env:dtc_config_file
+} else {
+    $main_config_file = "docToolchainConfig.groovy"
+}
+
+$version = "2.2.1"
+$dockerVersion = "2.2.1"
 $distribution_url = "https://github.com/docToolchain/docToolchain/releases/download/v$version/docToolchain-$version.zip"
 
 if (Test-Path ".git" ) {
@@ -12,7 +17,7 @@ if (Test-Path ".git" ) {
 } else {
     $env:DTCW_PROJECT_BRANCH = ""
 }
-  
+
 
 # https://docs.microsoft.com/en-us/windows/deployment/usmt/usmt-recognized-environment-variables
 $home_path = $env:USERPROFILE
@@ -25,7 +30,7 @@ $dtc_opts="$env:dtc_opts -PmainConfigFile='$main_config_file' --warning-mode=non
 function java_help_and_die()
 {
     Write-Host @"
-to install a local java for docToolchain, you cann run
+to install a local java for docToolchain, you can run
 
 ./dtcw getJava
 
@@ -37,7 +42,7 @@ If you do not want to use a local java installtion, you can also use docToolchai
 In that case, specify 'docker' as first parameter in your statement.
 example: ./dtcw docker generateSite
 "@
- 
+
     exit 1
 }
 
@@ -46,7 +51,7 @@ function checkJava()
     if (Get-Command java -ErrorAction SilentlyContinue)
     {
         $java = $True
-        $javaversion = (Get-Command java | Select-Object -ExpandProperty Version).toString().split("[.]")[0]
+        $javaversion = ((Get-Command java | Select-Object -ExpandProperty Version).toString() -split "[.]")[0]
         echo "Java Version $javaversion"
 
         if ([int]$javaversion -lt 8 ) {
@@ -85,7 +90,7 @@ please choose Temurin 11
     }
 }
 
-Write-Host "dtcw - docToolchain wrapper V0.36(PS)"
+Write-Host "dtcw - docToolchain wrapper V0.39(PS)"
 
 if ($args.Count -lt 1) {
     # Help text adapted to Win/PS: /<command>.ps1
@@ -126,23 +131,29 @@ if (Get-Command dooctoolchain -ErrorAction SilentlyContinue) {
 if (Get-Command docker -ErrorAction SilentlyContinue) {
     Write-Host "docker available"
     $docker = $True
+    $doJavaCheck = $False
 }
 
 if (Test-Path "$dtcw_path\docToolchain-$version" ) {
     Write-Host "dtcw folder exist: '$dtcw_path'"
     $exist_home = $True
+    $docker = $False
+    $doJavaCheck = $True
 }
 
 switch ($args[0]) {
     "local" {
         Write-Host "force use of local install"
         $docker = $False
+        $doJavaCheck = $True
         $firstArgsIndex = 1   # << Shift first param
     }
     "docker" {
         Write-Host "force use of docker"
         $cli = $exist_home = $False
         $firstArgsIndex = 1   # << Shift first param
+        $doJavaCheck = $False
+        $docker = $True
     }
     "getJava" {
         Write-Host "this script assumes that you have a 64 bit Windows installation"
@@ -210,7 +221,13 @@ elseif ($exist_home) {
 elseif ($docker) {
     # Check Docker is running...
     if (-not (Invoke-Expression "docker ps")) {
+        Write-Host ""
         Write-Host "Docker does not seem to be running, run it first and retry"
+        Write-Host "if you want to use a local installation of doctoolchain instead"
+        Write-Host "use 'local' as first argument to force the installation and use of a local install."
+        Write-Host ""
+        Write-Host "Example: ./dtcw.ps1 local install"
+        Write-Host ""
         exit 1
     }
     # Write-Host "Docker is running :)"

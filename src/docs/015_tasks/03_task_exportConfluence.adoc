@@ -1,0 +1,108 @@
+:filename: 015_tasks/03_task_exportConfluence.adoc
+include::_config.adoc[]
+
+= exportConfluence
+
+include::../_feedback.adoc[]
+
+== About This Task
+
+For a long time, docToolchain supports the conversion of AsciiDoc files to confluence spaces.
+This task now allows you to convert you confluence spaces back to AsciiDoc.
+
+A confluence space will be converted to a "ready to use" set of AsciiDoc files together with a navigation menu.
+
+NOTE: the results of the conversion are quite good. However, don't expect the two tasks `publishToConfluence` and `exportConfluence` to be able to give you a full round-trip without losing some information about the format of your texts.
+As an example, numbered headlines will not be automatically converted between both systems.
+
+The task `exportConfluence` parses the entities.xml file of a confluence-space export and creates a hierarchical html export.
+It then uses pandoc to convert the HTML files to AsciiDoc.
+Since this conversion isn't perfect and pandoc doesn't even know about confluence macros, the script also does some pre- and post-processing.
+
+=== prerequisites
+
+* docToolchain >= v2.2
+* you need to have https://pandoc.com[pandoc] installed.
+
+
+=== usage
+
+Export the confluence space as XML and unzip it in a distinct `sample_data` folder.
+
+To export the confluence space, navigate to the space and then click
+
+* `Space Settings`
+* `Manage Space > Export Space`
+* `[x] Export Formats: XLM` => `Next`
+* `[x] Full Export` => `Export`
+
+Configure the right paths in your `docToolchainConfig.groovy`.
+
+[source, groovy]
+....
+    export = [
+            srcDir: 'sample_data',
+            destDir: 'src/docs'
+    ]
+....
+
+Then use the following steps to run the script and render the results as a microsite:
+
+[source, bash]
+----
+./dtcw exportConfluence
+./dtcw generateSite
+----
+
+You can also specify the needed parameters through the command line:
+
+    ./dtcw exportConfluence -Pconfluence.export.srcDir=sample_data -Pconfluence.export.destDir=src/docs
+
+=== Supported Features
+
+* all kinds of text formatting
+* line breaks
+* paragraphs
+* explizit, external links
+* image attachments
+* admonitions
+* .-Titles
+* Anchors
+* numbered Lists
+* bulleted Lists
+* literal blocks
+* code blocks
+* horizontal rules
+* Quotes look good
+* standard tables
+* lucidchart diagrams
+* anchors
+* link-macro
+
+=== unsupported features
+
+* tables with colspans or rowspans
+* layout-sections
+* inline comments
+* comments
+* expand blocks
+* user-profile macro has only rudimentary support
+
+=== known issues
+
+* Definitions lists are transformed to tables
+* Quotes are not exactly as expected but look good
+* tables with colspan will have colspan removed
+* include sections are in give sort order
+
+== Further Reading and Resources
+
+-
+
+== Source
+
+.build.gradle
+[source,groovy]
+----
+include::{projectRootDir}/scripts/confluenceToAsciiDoc.groovy[]
+----

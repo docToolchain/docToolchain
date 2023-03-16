@@ -30,11 +30,11 @@ class ConvertDom2Pages extends Specification {
 
         when: 'run getPages'
         Document dom = Jsoup.parse(htmlFile.getText('utf-8'), 'utf-8', Parser.xmlParser())
-        def (pages, anchors, pageAnchors) = script.getPages(dom, "42", layers, 'preamble title')
+        def (pages, anchors, pageAnchors) = script.getPages(dom, "42", layers)
 
         then: 'the pages are given'
         pages.size() == 1
-        pages[0].title == 'preamble title'
+        pages[0].title == 'Level 1'
         assertion(pages[0])
 
         where:
@@ -149,7 +149,7 @@ class ConvertDom2Pages extends Specification {
 
         when: 'run getPages'
         Document dom = Jsoup.parse(htmlFile.getText('utf-8'), 'utf-8', Parser.xmlParser())
-        def (pages, anchors, pageAnchors) = script.getPages(dom, "42", layers, 'preamble title')
+        def (pages, anchors, pageAnchors) = script.getPages(dom, "42", layers)
 
         then: 'the pages are given'
         assertion(pages)
@@ -158,7 +158,7 @@ class ConvertDom2Pages extends Specification {
         layers | assertion
         0 | { p ->
             p.size() == 1 &&
-                p[0].title == 'preamble title' &&
+                p[0].title == 'Level 1' &&
                 content(p[0].body.toString(),
                     'L2a L3a L4a L5a L3b L2b',
                     'Level 2a Level 2b',

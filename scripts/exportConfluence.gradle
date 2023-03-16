@@ -1,0 +1,34 @@
+buildscript {
+    repositories {
+        maven {
+            credentials {
+                username mavenUsername
+                password mavenPassword
+            }
+            url mavenRepository
+        }
+    }
+    dependencies {
+        //for the exportJiraIssues Task
+        classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.2'
+        //for the renderToConfluence Task
+        classpath 'org.apache.httpcomponents:httpmime:4.5.10'
+        classpath 'org.jsoup:jsoup:1.12.1'
+        classpath 'org.codehaus.groovy:groovy-xml:3.0.12'
+    }
+}
+
+task exportConfluence (
+        description: 'exports a given confluence space to AsciiDoc',
+        group: 'docToolchain'
+) {
+    doLast {
+        def srcDir  = findProperty("confluence.export.srcDir")?:config.confluence.export.srcDir
+        def destDir = findProperty("confluence.export.destDir")?:config.confluence.export.destDir
+        String[] args = ["srcDir=${docDir}/$srcDir",
+                         "destDir=${docDir}/$destDir"]
+        logger.info ("args: "+args)
+        binding.setProperty('args', args)
+        evaluate(new File(projectDir, 'scripts/confluenceToAsciiDoc.groovy'))
+    }
+}

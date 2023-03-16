@@ -211,8 +211,6 @@ to configure a different parent page for each file.
                              ancestorId will be used as a fallback
 - `ancestorId` (optional): the id of the parent page in Confluence as string; leave this empty
                            if a new parent shall be created in the space
-- `preambleTitle` (optional): the title of the page containing the preamble (everything
-                              before the first second level heading). Default is 'arc42'
 
 The following four keys can also be used in the global section below
 
@@ -250,9 +248,6 @@ confluence.with {
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
 
-    // the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
-    preambleTitle = ''
-
     // variable to determine how many layers of sub pages should be created
     subpagesForSections = 1
 
@@ -262,6 +257,9 @@ confluence.with {
     pagePrefix = ''
 
     pageSuffix = ''
+
+    // the comment used for the page version
+    pageVersionComment = ''
 
     /*
     WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!
@@ -300,6 +298,13 @@ confluence.with {
     // Optional: specify which Confluence OpenAPI Macro should be used to render OpenAPI definitions
     // possible values: ["confluence-open-api", "open-api", true]. true is the same as "confluence-open-api" for backward compatibility
     // useOpenapiMacro = "confluence-open-api"
+
+    // for exportConfluence-Task
+    export = [
+        srcDir: 'sample_data',
+        destDir: 'src/docs'
+    ]
+
 }
 //end::confluenceConfig[]
 
@@ -459,6 +464,40 @@ collectIncludes.with {
 
     separatorChar = "_" // define the allowed separators after prefix. default: "-_"
 
-    cleanOutputFolder = true // should the output folder be emptied before generation? defailt: false
+    cleanOutputFolder = true // should the output folder be emptied before generation? default: false
 }
 //end::collectIncludesConfig[]
+
+//tag::structurizrConfig[]
+// Configuration for Structurizr related tasks
+structurizr = [:]
+
+structurizr.with {
+
+    // Configure where `exportStructurizr` looks for the Structurizr model.
+    workspace = {
+        // The directory in which the Structurizr workspace file is located.
+        // path = 'src/docs/structurizr'
+
+        // By default `exportStructurizr` looks for a file '${structurizr.workspace.path}/workspace.dsl'.
+        // You can customize this behavior with 'filename'. Note that the workspace filename is provided without '.dsl' extension.
+        // filename = 'workspace'
+    }
+
+    export = {
+        // Directory for the exported diagrams.
+        //
+        // WARNING: Do not put manually created/changed files into this directory.
+        // If a valid Structurizr workspace file is found the directory is deleted before the diagram files are generated.
+        // outputPath = 'src/docs/structurizr/diagrams'
+
+        // Format of the exported diagrams. Defaults to 'plantuml' if the parameter is not provided.
+        //
+        // Following formats are supported:
+        // - 'plantuml': the same as 'plantuml/structurizr'
+        // - 'plantuml/structurizr': exports views to PlantUML
+        // - 'plantuml/c4plantuml': exports views to PlantUML with https://github.com/plantuml-stdlib/C4-PlantUML
+        // format = 'plantuml'
+    }
+}
+//end::structurizrConfig[]

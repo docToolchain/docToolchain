@@ -37,7 +37,7 @@
 
     Sub WriteNote(currentModel, currentElement, notes, prefix)
         If (Left(notes, 6) = "{adoc:") Then
-            strFileName = Mid(notes,7,InStr(notes,"}")-7)
+            strFileName = Trim(Mid(notes,7,InStr(notes,"}")-7))
             strNotes = Right(notes,Len(notes)-InStr(notes,"}"))
             set objFSO = CreateObject("Scripting.FileSystemObject")
             If (currentModel.Name="Model") Then
@@ -54,20 +54,27 @@
             End If
             MakeDir(path&prefix&post)
 
-            set objFile = objFSO.OpenTextFile(path&prefix&post&strFileName&".ad",ForAppending, True)
+            set objFile = objFSO.OpenTextFile(path&prefix&post&"/"&strFileName&".ad",ForAppending, True)
             name = currentElement.Name
             name = Replace(name,vbCr,"")
             name = Replace(name,vbLf,"")
+        
+            strCombinedNotes = "_all_notes.ad"
+            set objCombinedNotesFile = objFSO.OpenTextFile(path&prefix&post&"/"&strCombinedNotes,ForAppending, True)
 
             if (Left(strNotes, 3) = vbCRLF&"|") Then
                 ' content should be rendered as table - so don't interfere with it
                 objFile.WriteLine(vbCRLF)
+                objCombinedNotesFile.WriteLine(vbCRLF)
             else
                 'let's add the name of the object
                 objFile.WriteLine(vbCRLF&vbCRLF&"."&name)
+                objCombinedNotesFile.WriteLine(vbCRLF&vbCRLF&"."&name)
             End If
             objFile.WriteLine(vbCRLF&strNotes)
             objFile.Close
+            objCombinedNotesFile.WriteLine(vbCRLF&strNotes)
+            objCombinedNotesFile.Close
             if (prefix<>"") Then
                 ' write the same to a second file
                 set objFile = objFSO.OpenTextFile(path&prefix&".ad",ForAppending, True)
@@ -387,7 +394,11 @@
       End If
       EAapp.Repository.CloseFile()
       ' Since EA 15.2 the Enterprise Architect background process hangs without calling Exit explicitly
-      EAapp.Repository.Exit()
+      On Error Resume Next
+        EAapp.Repository.CloseFile()
+        EAapp.Repository.Exit()
+        EAapp.Repository = null
+      ' end fix EA
     End Sub
 
   Private connectionString
@@ -432,7 +443,7 @@
      WScript.echo "opening database connection now"
      OpenProject(connectionString)
   End If
-  WScript.echo "looking for .eap(x) files in " & fso.GetAbsolutePathName(searchPath)
+  WScript.echo "looking for .eap(x) and .qea(x) files in " & fso.GetAbsolutePathName(searchPath)
   ' Dim f As Scripting.Files
   SearchEAProjects fso.GetFolder(searchPath)
 

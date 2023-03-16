@@ -52,7 +52,7 @@ task collectIncludes(
         String maxPrefixLength = config.collectIncludes.maxPrefixLength?:""
         String separatorChar = config.collectIncludes.separatorChar?:"-_"
 
-        String prefixRegEx = "[A-Z]{" + minPrefixLength + "," + maxPrefixLength + "}"
+        String prefixRegEx = "[A-Za-z]{" + minPrefixLength + "," + maxPrefixLength + "}"
         String separatorCharRegEx = "[" + separatorChar + "]"
         String fileFilterRegEx = "^" + prefixRegEx + separatorCharRegEx + ".*[.](" + fileFilter + ")\$"
 
@@ -61,7 +61,7 @@ task collectIncludes(
         sourceFolder.traverse(type: FILES) { file ->
             if (file.name ==~ fileFilterRegEx) {
                 String typeRegEx = "^(" + prefixRegEx + ")" + separatorCharRegEx + ".*\$"
-                def type = file.name.replaceAll(typeRegEx,'\$1')
+                def type = file.name.replaceAll(typeRegEx,'\$1').toUpperCase()
                 if (!collections[type]) {
                     collections[type] = []
                 }

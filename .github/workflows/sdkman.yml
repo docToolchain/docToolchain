@@ -21,6 +21,10 @@ on:
         default: 'something.zip'
         # Input has to be provided for the workflow to run
         required: true
+      year:
+        description: 'to link to the right blog post'
+        default: '2023'
+        required: true
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   deploy-sdkman:
@@ -66,5 +70,5 @@ jobs:
           -H "Consumer-Token: $CONSUMER_TOKEN" \
           -H "Content-Type: application/json" \
           -H "Accept: application/json" \
-          -d '{"candidate": "doctoolchain", "version": "${{ github.event.inputs.version }}", "url": "https://doctoolchain.github.io/docToolchain/v2.0.x/030_news/2022/${{ github.event.inputs.version }}-release.html"}' \
+          -d '{"candidate": "doctoolchain", "version": "${{ github.event.inputs.version }}", "url": "https://doctoolchain.github.io/docToolchain/v2.0.x/030_news/${{ github.event.inputs.year }}/${{ github.event.inputs.version }}-release.html"}' \
           https://vendors.sdkman.io/announce/struct

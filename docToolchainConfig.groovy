@@ -42,6 +42,9 @@ taskInputsDirs = [
 
 taskInputsFiles = []
 
+customTasks = [
+        /** customTasks **/
+]
 //*****************************************************************************************
 
 //Configuration for microsite: generateSite + previewSite
@@ -67,6 +70,7 @@ microsite.with {
 
     //project theme
     //site folder relative to the docs folder
+    //see 'copyTheme' for more details
     siteFolder = '../site'
 
     // the title of the microsite, displayed in the upper left corner
@@ -91,7 +95,7 @@ microsite.with {
     // Slack Channel
     footerSlack = ''
     // general text for the footer
-    footerText = '<small class="text-white">built with <a href="https://doctoolchain.org">docToolchain</a> and <a href="https://jbake.org">jBake</a> <br /> theme: <a href="https://www.docsy.dev/">docsy</a></small>'
+    footerText = '<script defer data-domain="doctoolchain.org" src="https://plausible.io/js/script.js"></script><small class="text-white">built with <a href="https://doctoolchain.org">docToolchain</a> and <a href="https://jbake.org">jBake</a> <br /> theme: <a href="https://www.docsy.dev/">docsy</a></small>'
     // site title if no other title is given
     title = 'docToolchain'
     //
@@ -99,7 +103,7 @@ microsite.with {
     issueUrl = 'https://github.com/docToolchain/docToolchain/issues/new'
     //
     // the base url for code files in github (set to 'null' to hide the "Improve this doc" link)
-    branch = System.getenv("DTC_PROJECT_BRANCH")
+    branch = System.getenv("DTC_PROJECT_BRANCH")?:'ng'
     gitRepoUrl = "https://github.com/doctoolchain/doctoolchain/edit/${branch}/src/docs"
 
     /** end:microsite **/
@@ -162,8 +166,6 @@ confluence = [:]
 // - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty
 //                            if a new parent shall be created in the space
 //                            Set it for every file so the page scanning is done only for the given ancestor page trees.
-// - 'preambleTitle' (optional): the title of the page containing the preamble (everything
-//                            before the first second level heading). Default is 'arc42'
 //
 // inputHtmlFolder is a folder for bulk process html files
 // The following four keys can also be used in the global section below
@@ -195,9 +197,6 @@ confluence.with {
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
 
-    // the title of the page containing the preamble (everything the first second level heading). Default is 'arc42'
-    preambleTitle = ''
-
     // variable to determine how many layers of sub pages should be created
     subpagesForSections = 1
 
@@ -207,6 +206,9 @@ confluence.with {
     pagePrefix = ''
 
     pageSuffix = ''
+
+    // the comment used for the page version
+    pageVersionComment = ''
 
     /*
     WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!
@@ -240,6 +242,12 @@ confluence.with {
     // Optional proxy configuration, only used to access Confluence
     // schema supports http and https
     // proxy = [host: 'my.proxy.com', port: 1234, schema: 'http']
+
+    // for exportConfluence-Task
+    export = [
+            srcDir: 'sample_data',
+            destDir: 'src/docs'
+    ]
 }
 //end::confluenceConfig[]
 //*****************************************************************************************

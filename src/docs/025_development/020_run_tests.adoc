@@ -3,23 +3,7 @@
 
 include::../_feedback.adoc[]
 
-=== Before You Begin
-
-- Git and Graphviz must both be installed.
-- Your Gradle setup must be able to work with proxies.
-- You must be using Java 8.
-
-=== Prepare the Project
-
-[source,bash]
-----
-git clone git@github.com:docToolchain/docToolchain.git
-cd docToolchain/
-git checkout V1.0.0         # <1>
-git submodule update -i
-----
-
-(1) The version to test. Not required if you work on the HEAD revision on Master.
+docToolchain uses Spock as Test-Framework. See http://spockframework.org/ for details.
 
 === Execute Tests
 
@@ -29,6 +13,12 @@ rm -r build && ./gradlew test --info
 ----
 
 The `rm` command ensures that you have a clean test running. This is vital because if artifacts of an older test run still exist, Gradle will skip steps (‘Up-to-date’) and you might get false positives.
+
+=== Execute a specific test
+[source, bash]
+----
+rm -r build && ./gradlew test --info --tests=ExportStructurizrSpec
+----
 
 === Workaround to Ensure Correct Proxy Settings for Tests
 

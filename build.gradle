@@ -101,6 +101,8 @@ apply from: 'scripts/generateSite.gradle'
 apply from: 'scripts/copyThemes.gradle'
 apply from: 'scripts/fixGlobalReferences.gradle'
 apply from: 'scripts/customTasks.gradle'
+apply from: 'scripts/exportConfluence.gradle'
+apply from: 'scripts/exportStructurizr.gradle'
 
 task autobuildSite(
     group: 'docToolchain',
