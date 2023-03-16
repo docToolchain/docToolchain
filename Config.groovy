@@ -345,6 +345,8 @@ collectIncludes.with {
 //    separatorChar = "_" // define the allowed separators after prefix. default: "-_"
 
 //    cleanOutputFolder = true // should the output folder be emptied before generation? default: false
+
+//    excludeDirectories = [] // define additional directories that should not be traversed.
 }
 //end::collectIncludesConfig[]
 
