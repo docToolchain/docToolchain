@@ -10,6 +10,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === fixes
 
 * fix decision tree for `dtcw.ps1`
+* #831 : fix for generateSite: images-hrefs not correct
 
 === added
 

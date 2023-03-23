@@ -55,7 +55,7 @@ jbake {
         'source-highlighter=prettify@',
         //'imagesDir=../images@',
         "imagesoutDir=${targetDir}/microsite/output/images@",
-        "imagesDir=${config.microsite.contextPath}/images@",
+        "imagesDir=${config.microsite.contextPath.endsWith('/') ? config.microsite.contextPath : config.microsite.contextPath.concat('/')}images@",
         "targetDir=${targetDir}",
         "docDir=${docDir}",
         "projectRootDir=${new File(docDir).canonicalPath}@",
