@@ -144,7 +144,7 @@ To get started with docToolchain, run `tasks` as the first command:
 --
 [source, powershell]
 ----
-./dtcw.ps1 tasks --group=doctoolchain
+.\dtcw.ps1 tasks --group=doctoolchain
 ----
 --
 
@@ -155,6 +155,7 @@ To get started with docToolchain, run `tasks` as the first command:
 ----
 dtcw.bat tasks --group=doctoolchain
 ----
+--
 
 This command shows all docToolchain tasks and verifies that docToolchain is installed by doing the following:
 
