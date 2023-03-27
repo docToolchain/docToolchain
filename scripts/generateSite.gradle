@@ -50,12 +50,14 @@ jbake {
         //println 'site.'+key-'config.microsite.' +" = "+ value
     }
 
+    def micrositeContextPath = config.microsite.contextPath?:'/'
+
     configuration['asciidoctor.attributes'] = [
         "sourceDir=${targetDir}",
         'source-highlighter=prettify@',
         //'imagesDir=../images@',
         "imagesoutDir=${targetDir}/microsite/output/images@",
-        "imagesDir=${config.microsite.contextPath}/images@",
+        "imagesDir=${micrositeContextPath.endsWith('/') ? micrositeContextPath : micrositeContextPath.concat('/')}images@",
         "targetDir=${targetDir}",
         "docDir=${docDir}",
         "projectRootDir=${new File(docDir).canonicalPath}@",
