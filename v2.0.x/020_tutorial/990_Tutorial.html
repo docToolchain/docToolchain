@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
   
-  <!-- 020_tutorial/020_arc42.html -->
+  <!-- 020_tutorial/990_Tutorial.html -->
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>arc42 Template</title>
+  <title>How to create a Tutorial</title>
   <meta content="docToolchain" property="og:title">
   <meta content="build your dev docs the easy way..." property="og:description">
   <meta content="website" property="og:type">
@@ -220,7 +220,7 @@
                                    href="../020_tutorial/010_Install.html">Install docToolchain</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../020_tutorial/020_arc42.html">arc42 Template</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -252,7 +252,7 @@
                                    href="../020_tutorial/120_self-contained-dtc.html">Self-Contained docToolchain</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../020_tutorial/990_Tutorial.html">How to create a Tutorial</a>
                             </li>
                         </ul>
@@ -266,11 +266,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/020_arc42.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/990_Tutorial.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27arc42+Template%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/020_arc42.adoc%0A%23branch:%20ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27How+to+create+a+Tutorial%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/990_Tutorial.adoc%0A%23branch:%20ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -279,7 +279,13 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_get_the_arc42_template">Get the arc42 Template</a></li>
+<li><a href="#_how_to_create_a_tutorial">How to create a Tutorial</a>
+<ul class="sectlevel2">
+<li><a href="#_prepare_your_tutorial">Prepare your Tutorial</a></li>
+<li><a href="#_preview_your_work">Preview your work</a></li>
+<li><a href="#_submit_your_pull_request">Submit your Pull-Request</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -302,41 +308,11 @@
         <p>
             
 <div class="sect1">
-<h2 id="_get_the_arc42_template">Get the arc42 Template</h2>
+<h2 id="_how_to_create_a_tutorial">How to create a Tutorial</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>2 minutes to read</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>To work with docToolchain, you first need some documents.
-So let&#8217;s fetch the <a href="https://arc42.org">arc42 template</a> for software architecture documentation.</p>
-</div>
-<div class="paragraph">
-<p>docToolchain comes with a task called <a href="../015_tasks/03_task_downloadTemplate.html"><code>downloadTemplate</code></a>.
-Let&#8217;s invoke it and see what happens.</p>
-</div>
-<div class="openblock primary">
-<div class="title">Linux / WSL2 with bash</div>
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw downloadTemplate</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="openblock secondary">
-<div class="title">Windows with Powershell</div>
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="powershell">./dtcw.ps1 downloadTemplate</code></pre>
-</div>
+<p>Since docToolchain is a community project, it also lives from the content created by the community.
+This little tutorial will explain how you&#8201;&#8212;&#8201;as a member of the community&#8201;&#8212;&#8201;can create your own tutorial.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -345,61 +321,109 @@ Let&#8217;s invoke it and see what happens.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-There is an interesting bug with the german version of the arc42 template in conjunction with running docToolchain in powershell:<br>
-The encoding of the files will be wrong.
-To fix that, just run <code>./dtcw.ps1 fixEncoding</code>.
+Prerequisites: you know how to use Git (<a href="https://www.gitbook.com/" class="bare">https://www.gitbook.com/</a>), how to fork and create a pull request on github and how to write in AsciiDoc.
 </td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>The docToolchain website is build with docToolchain itself.
+So, the code of docToolchain and the documentation reside both in the same repository.
+(The way as it should be with the docs-as-code approach!)</p>
 </div>
+<div class="paragraph">
+<p>Navigate to <a href="https://github.com/docToolchain/docToolchain/tree/ng/src/docs/020_tutorial" class="bare">https://github.com/docToolchain/docToolchain/tree/ng/src/docs/020_tutorial</a> to find the source of the already existing tutorials.</p>
+</div>
+<div class="paragraph">
+<p>As you can see, the files are numbered in steps of 10.
+The numbers are the order of appearance within the left navigation.
+They can be overwritten by a <code>:jbake-order: x</code>-statement within the <code>.adoc</code> file.
+The order is specified in steps of 10 just to be able to insert files in between if necessary.</p>
+</div>
+<div class="sect2">
+<h3 id="_prepare_your_tutorial">Prepare your Tutorial</h3>
+<div class="paragraph">
+<p>To create a new Tutorial, fork the project and create a new file in the folder <code>src/docs</code> with an appropriate name and number.</p>
+</div>
+<div class="paragraph">
+<p>Add the following content to your file:</p>
 </div>
 <div class="listingblock">
-<div class="title">Result of downloadTemplate-Task</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell">$ ./dtcw downloadTemplate
-dtcw - docToolchain wrapper V0.24
-docToolchain V2.0.0
+<pre class="prettyprint highlight"><code data-lang="asciidoc">:jbake-title: Your Navigation-Entry
+:source-highlighter: highlightjs
+:highlightjs-theme: monokai-sublime
+:imagesdir: images
+:icons: font
 
-Bash is running on WSL
-this might cause problems with plantUML
-see https://doctoolchain.github.io/docToolchain/#wsl for more details
-
-Java Version 11
-docker available
-home folder exists
-use local homefolder install /home/rdmueller/.doctoolchain/
-
-&gt; Configure project :
-arc42/arc42.adoc
-
-&gt; Task :downloadTemplate
-Install arc42 documentation template.
-For more information about arc42 see https://arc42.org
-[ant:input] Which language do you want to install? (EN, DE, ES, RU)
-&lt;-------------&gt; 0% EXECUTING [6s]
-[ant:input] Do you want the template with or without help? (withhelp, plain)
-&lt;-----&lt;-------------&gt; 0% EXECUTING [10s]
-Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-DE-withhelp-asciidoc.zip
-arc42 template unpacked into /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42
-added template to docToolchainConfig.groovy
-use 'generateHTML', 'generatePDF' or  'generateSite' to convert the template
-
-BUILD SUCCESSFUL in 15s
-1 actionable task: 1 executed</code></pre>
+== Your Headline</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Out of the box, docToolchain only knows the open source arc42 template for software architecture.
-That&#8217;s why it doesn&#8217;t ask which template to install.
-Since the template exists in four different languages and with or without help on how to use it, docToolchain asks you for these two parameters.
-It then downloads the template right from the source, unzips it and reformats it a little bit to fit the needs of docToolchain.
-It also adds the template to your configuration file.</p>
+<p>The <code>:jbake-title: Your Navigation-Entry</code> tell jBake (the renderer used by docToolchain) the text for the navigation link in left navigation pane.
+If this is missing, it will use the first Headline in your document.
+If this is also missing, it will use the filename.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+You might wonder why you should specify the title if you already have named your tutorial via the first headline.
+The headline is often quite long and <code>:jbake-title:</code> gives you the opportunity to shorten it for the navigation pane.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>That&#8217;s it.
-You have now docToolchain with the arc42 template installed.
-Let&#8217;s render is as HTML, PDF or Microsite in the next steps.</p>
+<p>The <code>include::</code>-statement mainly sets the location of the <code>imagesdir</code> so that you don&#8217;t have to worry about it.
+Take a look at the file to see what else it does!</p>
+</div>
+<div class="paragraph">
+<p>Your first headline should always start with <code>==</code> and not <code>=</code>, sind a single <code>=</code> is the document name like a book title.
+docToolchain expects for the chapters of the documentation headline level <code>==</code> as starting headline.</p>
+</div>
+<div class="paragraph">
+<p>That&#8217;s it. Now you can start to write your tutorial.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_preview_your_work">Preview your work</h3>
+<div class="paragraph">
+<p>To edit your file, use an editor which gives you a preview of your <code>.adoc</code> file like IntelliJ or VS Code.
+This already gives you a good preview of the structure and formatting of your document.</p>
+</div>
+<div class="paragraph">
+<p>Want to see how it looks on a web page?
+There are two ways to render the full page.</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">One</dt>
+<dd>
+<p>create a pull request (PR) and mark it as draft.
+As soon as the PR is submitted, netlify will start to render a preview.
+You will see some tasks running on the PR-page and the last one will give you a link to the preview-site.</p>
+</dd>
+<dt class="hdlist1">Two</dt>
+<dd>
+<p>you can render the page locally through docToolchain.
+Execute <code>./dtcw generateSite</code> locally and you will find the result in <code>build/microsite/output/index.html</code></p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_submit_your_pull_request">Submit your Pull-Request</h3>
+<div class="paragraph">
+<p>As soon as you think your tutorial is ready for production, remove the draft status from your PR and we will start a short review process.
+As soon as we are through the review, we will merge the PR and your tutorial will be live.</p>
+</div>
+<div class="paragraph">
+<p>Any questions? Feel free to open a new <a href="https://github.com/docToolchain/docToolchain/discussions">Discussion</a>!</p>
+</div>
 </div>
 </div>
 </div>
@@ -430,11 +454,11 @@ Let&#8217;s render is as HTML, PDF or Microsite in the next steps.</p>
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27arc42+Template%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/020_arc42.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27How+to+create+a+Tutorial%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/990_Tutorial.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27arc42+Template%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/020_arc42.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27How+to+create+a+Tutorial%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/990_Tutorial.adoc">tell
     us how we can improve</a>.
     </p>
 </div>
