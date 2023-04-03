@@ -15,6 +15,11 @@ This task makes use of the https://github.com/asciidoctor/asciidoctor-reveal.js/
 It creates a PowerPoint presentation, then enriches it by adding reveal.js slide definitions in AsciiDoc to the speaker notes.
 For best results, use this task with the xref:03_task_exportPPT.adoc[`exportPPT`] task.
 
+=== Configure RevealJs
+
+docToolchain comes with some opinionated, sane defaults for RevealJs.
+You can overwrite any of them and provide further configuration as per https://docs.asciidoctor.org/reveal.js-converter/latest/converter/revealjs-options/[asciidoctor-reveal.js] documentation.
+
 == Source
 
 .AsciiDocBasics.gradle

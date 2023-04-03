@@ -12,10 +12,37 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'org.asciidoctor:asciidoctor-gradle-plugin:1.5.3'
+        classpath 'org.asciidoctor:asciidoctor-gradle-jvm:3.3.2'
+        classpath 'org.asciidoctor:asciidoctor-gradle-jvm-pdf:3.3.2'
+        classpath 'org.asciidoctor:asciidoctor-gradle-jvm-gems:3.3.2'
+        classpath 'org.asciidoctor:asciidoctor-gradle-jvm-slides:3.3.2'
     }
 }
-import org.asciidoctor.gradle.AsciidoctorTask
+
+import org.asciidoctor.gradle.jvm.AbstractAsciidoctorTask
+import org.asciidoctor.gradle.jvm.AsciidoctorTask
+import org.asciidoctor.gradle.jvm.slides.AsciidoctorJRevealJSTask
+
+apply plugin: org.asciidoctor.gradle.jvm.AsciidoctorJPlugin
+apply plugin: org.asciidoctor.gradle.jvm.pdf.AsciidoctorJPdfPlugin
+apply plugin: org.asciidoctor.gradle.jvm.gems.AsciidoctorGemSupportPlugin
+apply plugin: org.asciidoctor.gradle.jvm.slides.AsciidoctorRevealJSPlugin
+
+repositories {
+    ruby {
+        gems()
+    }
+}
+
+revealjs {
+    version = '4.1.0'
+
+    templateGitHub {
+        organisation = 'hakimel'
+        repository = 'reveal.js'
+        tag = '3.9.1'
+    }
+}
 
 def color = { color, text ->
     def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37]
@@ -100,22 +127,54 @@ ext {
     sourceFiles = config.inputFiles
 }
 
-
-
-dependencies {
-    asciidoctor 'org.asciidoctor:asciidoctorj-pdf:1.5.3'
-    asciidoctor 'org.asciidoctor:asciidoctorj-diagram:2.2.3'
-}
-
 asciidoctorj {
-    version = '1.6.2'
-}
+    version = '2.5.7'
+    modules {
+        diagram.use()
+        diagram.version '1.5.16'
+    }
+    fatalWarnings ~/image to embed not found or not readable/
 
+    attributes  (
+        //           'pdf-stylesdir': "${pdfThemeDir}@",
+        //           'pdf-style': "custom@",
+        //           'pdf-fontsdir': "${pdfThemeDir}/fonts@",
+        'source-highlighter': 'highlightjs@',
+        'imagesdir': 'images@',
+        'toc': 'left@',
+        'icons': 'font@',
+        'javaVersion'         : "$javaVersion",
+        'currentDate'         : "$currentDate",
+        'allow-uri-read'      : 'true@',
+        'sectanchors'         : 'true@',
+        'targetDir'           : targetDir,
+        'docDir'              : docDir,
+        'projectRootDir'      : "${new File(docDir).canonicalPath}@",
+        'data-uri': '',
+    )
+
+    // Here we can add the code for extensions we write.
+    docExtensions {
+        block (name: "jira") {
+            parent, target, attributes ->
+                options = [
+                    "type": ":link",
+                    "target": jiraRoot+"/browse/${target}".toString(),
+                    "id": "${target}"
+                ]
+
+                // Create the link to the issue.
+                createPhraseNode(parent, "anchor", target, attributes, options).render()
+        }
+    }
+}
 //tag::AsciidoctorTask[]
 
 // common settings for asciidoctor
 // this is needed for PDF generation with plantUML
-tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
+tasks.withType(AbstractAsciidoctorTask) { docTask ->
+
+    baseDirFollowsSourceDir()
 
     config.taskInputsDirs.each {
         inputs.dir new File(docDir, it)
@@ -127,42 +186,11 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
     // configure source and output files and folders
     outputDir = file(targetDir)
     sourceDir = file(srcDir)
-    attributes  (
- //           'pdf-stylesdir': "${pdfThemeDir}@",
- //           'pdf-style': "custom@",
- //           'pdf-fontsdir': "${pdfThemeDir}/fonts@",
-            'source-highlighter': 'highlightjs@',
-            'imagesdir': 'images@',
-            'toc': 'left@',
-            'icons': 'font@',
-            'javaVersion'         : "$javaVersion",
-            'currentDate'         : "$currentDate",
-            'allow-uri-read'      : 'true@',
-            'sectanchors'         : 'true@',
-            'targetDir'           : targetDir,
-            'docDir'              : docDir,
-            'projectRootDir'      : "${new File(docDir).canonicalPath}@",
-    )
-    // Here we can add the code for extensions we write.
-    extensions {
-        inlinemacro (name: "jira") {
-            parent, target, attributes ->
-                options = [
-                        "type": ":link",
-                        "target": jiraRoot+"/browse/${target}".toString(),
-                        "id": "${target}"
-                ]
-
-                // Create the link to the issue.
-                createPhraseNode(parent, "anchor", target, attributes, options).render()
-        }
-    }
 
     // good to see what the build is doing...
     logDocuments = true
 
-    requires = ['asciidoctor-diagram']
-//TODO: write docs
+    //TODO: write docs
     if (config.rubyExtensions) {
         config.rubyExtensions.each { extension ->
             def root= new File(projectDir.canonicalPath)
@@ -172,11 +200,8 @@ tasks.withType(org.asciidoctor.gradle.AsciidoctorTask) { docTask ->
             logger.info ("added required ruby extension '$full'")
         }
     }
-
 }
 //end::AsciidoctorTask[]
-
-
 
 //tag::generateHTML[]
 task generateHTML (
@@ -189,7 +214,11 @@ task generateHTML (
 
     // specify output folder explicitly to avoid cleaning targetDir from other generated content
     outputDir = file(targetDir + '/html5/')
-    separateOutputDirs(false)
+
+    outputOptions {
+        separateOutputDirs = false
+        backends = ['html5']
+    }
 
     def sourceFilesHTML = sourceFiles.findAll {
                                 'html' in it.formats
@@ -223,7 +252,7 @@ task generateHTML (
             into resource.target
         }
     }
-    backends = ['html5']
+
 doFirst {
     if (sourceFilesHTML.size()==0) {
         throw new Exception ("""
@@ -274,7 +303,10 @@ task generatePDF (
         }
     }
 
-    backends = ['pdf']
+    outputOptions {
+        backends = ['pdf']
+    }
+
     /**
     //check if a remote pdfTheme is defined
     def pdfTheme = System.getenv('DTC_PDFTHEME')
@@ -324,7 +356,10 @@ task generateDocbook (
         }
     }
 
-    backends = ['docbook']
+    outputOptions {
+        backends = ['docbook']
+    }
+
     doFirst {
         if (sourceFilesDOCBOOK.size()==0) {
             throw new Exception ("""
@@ -340,30 +375,38 @@ task generateDocbook (
 
 //tag::generateDeck[]
 task generateDeck (
-        type: AsciidoctorTask,
+        type: AsciidoctorJRevealJSTask,
         group: 'docToolchain',
         description: 'use revealJs as asciidoc backend to create a presentation') {
 
+    // corresponding Asciidoctor reveal.js config
+    // :revealjs_theme:
+    theme = 'black'
+
+    revealjsOptions {
+        // :revealjs_hideAddressBar:
+        hideAddressBarOnMobile = 'true'
+        // :revealjs_history:
+        pushToHistory = 'true'
+        // :revealjs_progress:
+        progressBar = 'true'
+        // :revealjs_slideNumber:
+        slideNumber = 'true'
+        // :revealjs_touch:
+        touchMode = 'true'
+        // :revealjs_transition:
+        transition = 'linear'
+    }
+
     attributes (
-            'idprefix': 'slide-',
-            'idseparator': '-',
-            'docinfo1': '',
-            'revealjs_theme': 'black@',
-            'revealjs_progress': 'true@',
-            'revealjs_touch': 'true@',
-            'revealjs_hideAddressBar': 'true@',
-            'revealjs_transition': 'linear@',
-            'revealjs_history': 'true@',
-            'revealjs_slideNumber': 'true@'
+        'idprefix': 'slide-',
+        'idseparator': '-',
+        'docinfo1': '',
     )
-    options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates').absolutePath ]
 
     def sourceFilesREVEAL = sourceFiles.findAll {
         'revealjs' in it.formats
     }
-//    onlyIf {
-//        sourceFilesREVEAL
-//    }
 
     sources {
         sourceFilesREVEAL.each {
@@ -382,15 +425,13 @@ task generateDeck (
     outputDir = file(targetDir+'/decks/')
 
     resources {
-        from('resources') {
-            include 'reveal.js/**'
-        }
         from(sourceDir) {
             include 'images/**'
         }
         into("")
         logger.info "${docDir}/${config.outputPath}/images"
     }
+
     doFirst {
         if (sourceFilesREVEAL.size()==0) {
             throw new Exception ("""
@@ -401,6 +442,7 @@ task generateDeck (
 
     }
 }
+generateDeck.dependsOn asciidoctorGemsPrepare
 //end::generateDeck[]
 
 task install (
