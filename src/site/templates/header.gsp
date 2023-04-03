@@ -100,6 +100,9 @@
   #td-section-nav ul.td-sidebar-nav__section  {
     padding-left:0px;
   }
+  span.navbar-logo {
+    padding-right: 1.5em;
+  }
   .match {
       font-size: smaller;
   }
