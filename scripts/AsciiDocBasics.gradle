@@ -14,15 +14,35 @@ buildscript {
     dependencies {
         classpath 'org.asciidoctor:asciidoctor-gradle-jvm:3.3.2'
         classpath 'org.asciidoctor:asciidoctor-gradle-jvm-pdf:3.3.2'
+        classpath 'org.asciidoctor:asciidoctor-gradle-jvm-gems:3.3.2'
         classpath 'org.asciidoctor:asciidoctor-gradle-jvm-slides:3.3.2'
     }
 }
 
+import org.asciidoctor.gradle.jvm.AbstractAsciidoctorTask
 import org.asciidoctor.gradle.jvm.AsciidoctorTask
+import org.asciidoctor.gradle.jvm.slides.AsciidoctorJRevealJSTask
 
 apply plugin: org.asciidoctor.gradle.jvm.AsciidoctorJPlugin
 apply plugin: org.asciidoctor.gradle.jvm.pdf.AsciidoctorJPdfPlugin
+apply plugin: org.asciidoctor.gradle.jvm.gems.AsciidoctorGemSupportPlugin
 apply plugin: org.asciidoctor.gradle.jvm.slides.AsciidoctorRevealJSPlugin
+
+repositories {
+    ruby {
+        gems()
+    }
+}
+
+revealjs {
+    version = '3.1.0'
+
+    templateGitHub {
+        organisation = 'hakimel'
+        repository = 'reveal.js'
+        tag = '3.9.1'
+    }
+}
 
 def color = { color, text ->
     def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37]
@@ -152,7 +172,7 @@ asciidoctorj {
 
 // common settings for asciidoctor
 // this is needed for PDF generation with plantUML
-tasks.withType(AsciidoctorTask) { docTask ->
+tasks.withType(AbstractAsciidoctorTask) { docTask ->
 
     baseDirFollowsSourceDir()
 
@@ -355,16 +375,25 @@ task generateDocbook (
 
 //tag::generateDeck[]
 task generateDeck (
-        type: AsciidoctorTask,
+        type: AsciidoctorJRevealJSTask,
         group: 'docToolchain',
         description: 'use revealJs as asciidoc backend to create a presentation') {
 
+    theme = 'black@'
+
+    revealjsOptions {
+        hideAddressBarOnMobile = 'true@'
+        pushToHistory = 'true@'
+        progressBar = 'true@'
+        slideNumber = 'true@'
+        touchMode = 'true@'
+        transition = 'linear@'
+    }
+
     attributes (
-            'idprefix': 'slide-',
-            'idseparator': '-',
-            'docinfo1': '',
-            'revealjs_progress': 'true@',
-            'revealjs_history': 'true@',
+        'idprefix': 'slide-',
+        'idseparator': '-',
+        'docinfo1': '',
     )
     options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates').absolutePath ]
 
@@ -411,6 +440,7 @@ task generateDeck (
 
     }
 }
+generateDeck.dependsOn asciidoctorGemsPrepare
 //end::generateDeck[]
 
 task install (
