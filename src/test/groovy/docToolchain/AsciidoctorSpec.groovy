@@ -7,8 +7,6 @@ import static org.gradle.testkit.runner.TaskOutcome.FAILED
 
 class AsciidoctorSpec extends Specification {
 
-    def gradleCommand
-
     void 'test correct handling of images'() {
         when: 'input file contains images'
         def file = new File('src/test/testAsciidoctor/docs/broken_images.adoc')
@@ -26,15 +24,15 @@ class AsciidoctorSpec extends Specification {
                 '-PmainConfigFile=testAsciidoctor.groovy',
             ])
             .buildAndFail()
-        then: 'the task has been successfully executed'
-        result.task(":asciidoctor").outcome == FAILED
+        then: 'the task has been failed'
+            result.task(":asciidoctor").outcome == FAILED
         and: 'the output does contain the warning "image to embed not found or not readable"'
-        println result.output
-        result.output.contains('image to embed not found or not readable')
-        and: 'the output does not contain the warning "invalid style for listing block: plantuml'
-        !result.output.contains('invalid style for listing block: plantuml')
+            println result.output
+            result.output.contains('- image to embed not found or not readable:')
+        and: 'threw an exception to fail the build'
+            result.output.contains('at org.asciidoctor.gradle.remote.ExecutorBase.failOnWarnings')
         and: 'an output file has been created'
-        new File('./build/test/docs/html5/test.html').exists()
+            new File('./build/test/docs/asciidoctor/broken_images.html').exists()
     }
 
 }
