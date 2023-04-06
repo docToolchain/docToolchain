@@ -36,7 +36,7 @@ Did you already work with an older version of docToolchain? Please note that the
 If you are going to use docToolchain in different projects install the dtcw (docToolchainWrapper) for each one.
 docToolchain itself will only be installed once in your home folder.
 
-If you have an Apple silicon (M1/M2) Mac, make sure that you have docker up and running type the following commands in the Terminal:
+If you have an Apple silicon (M1/M2) Mac, make sure that you have docker up and running and type the following commands in the Terminal:
 
 [source, bash]
 ----
