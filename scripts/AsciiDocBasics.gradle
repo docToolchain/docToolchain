@@ -35,7 +35,7 @@ repositories {
 }
 
 revealjs {
-    version = '3.1.0'
+    version = '4.1.0'
 
     templateGitHub {
         organisation = 'hakimel'
@@ -379,15 +379,15 @@ task generateDeck (
         group: 'docToolchain',
         description: 'use revealJs as asciidoc backend to create a presentation') {
 
-    theme = 'black@'
+    theme = 'black'
 
     revealjsOptions {
-        hideAddressBarOnMobile = 'true@'
-        pushToHistory = 'true@'
-        progressBar = 'true@'
-        slideNumber = 'true@'
-        touchMode = 'true@'
-        transition = 'linear@'
+        hideAddressBarOnMobile = 'true'
+        pushToHistory = 'true'
+        progressBar = 'true'
+        slideNumber = 'true'
+        touchMode = 'true'
+        transition = 'linear'
     }
 
     attributes (
@@ -395,14 +395,10 @@ task generateDeck (
         'idseparator': '-',
         'docinfo1': '',
     )
-    options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates').absolutePath ]
 
     def sourceFilesREVEAL = sourceFiles.findAll {
         'revealjs' in it.formats
     }
-//    onlyIf {
-//        sourceFilesREVEAL
-//    }
 
     sources {
         sourceFilesREVEAL.each {
@@ -421,15 +417,13 @@ task generateDeck (
     outputDir = file(targetDir+'/decks/')
 
     resources {
-        from('resources') {
-            include 'reveal.js/**'
-        }
         from(sourceDir) {
             include 'images/**'
         }
         into("")
         logger.info "${docDir}/${config.outputPath}/images"
     }
+
     doFirst {
         if (sourceFilesREVEAL.size()==0) {
             throw new Exception ("""
