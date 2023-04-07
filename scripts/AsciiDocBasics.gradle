@@ -379,14 +379,22 @@ task generateDeck (
         group: 'docToolchain',
         description: 'use revealJs as asciidoc backend to create a presentation') {
 
+    // corresponding Asciidoctor reveal.js config
+    // :revealjs_theme:
     theme = 'black'
 
     revealjsOptions {
+        // :revealjs_hideAddressBar:
         hideAddressBarOnMobile = 'true'
+        // :revealjs_history:
         pushToHistory = 'true'
+        // :revealjs_progress:
         progressBar = 'true'
+        // :revealjs_slideNumber:
         slideNumber = 'true'
+        // :revealjs_touch:
         touchMode = 'true'
+        // :revealjs_transition:
         transition = 'linear'
     }
 
