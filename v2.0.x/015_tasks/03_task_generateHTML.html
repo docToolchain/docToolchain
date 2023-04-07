@@ -601,7 +601,11 @@ This is still an experimental feature, but already works well!
 
     // specify output folder explicitly to avoid cleaning targetDir from other generated content
     outputDir = file(targetDir + '/html5/')
-    separateOutputDirs(false)
+
+    outputOptions {
+        separateOutputDirs = false
+        backends = ['html5']
+    }
 
     def sourceFilesHTML = sourceFiles.findAll {
                                 'html' in it.formats
@@ -635,7 +639,7 @@ This is still an experimental feature, but already works well!
             into resource.target
         }
     }
-    backends = ['html5']
+
 doFirst {
     if (sourceFilesHTML.size()==0) {
         throw new Exception ("""

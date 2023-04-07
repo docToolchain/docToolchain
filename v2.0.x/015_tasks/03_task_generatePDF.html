@@ -535,7 +535,10 @@ For example, insert the following at the top of your document to reference <code
         }
     }
 
-    backends = ['pdf']
+    outputOptions {
+        backends = ['pdf']
+    }
+
     /**
     //check if a remote pdfTheme is defined
     def pdfTheme = System.getenv('DTC_PDFTHEME')

@@ -468,7 +468,10 @@
         }
     }
 
-    backends = ['docbook']
+    outputOptions {
+        backends = ['docbook']
+    }
+
     doFirst {
         if (sourceFilesDOCBOOK.size()==0) {
             throw new Exception ("""

@@ -1011,7 +1011,11 @@ This is still an experimental feature, but already works well!
 
     // specify output folder explicitly to avoid cleaning targetDir from other generated content
     outputDir = file(targetDir + '/html5/')
-    separateOutputDirs(false)
+
+    outputOptions {
+        separateOutputDirs = false
+        backends = ['html5']
+    }
 
     def sourceFilesHTML = sourceFiles.findAll {
                                 'html' in it.formats
@@ -1045,7 +1049,7 @@ This is still an experimental feature, but already works well!
             into resource.target
         }
     }
-    backends = ['html5']
+
 doFirst {
     if (sourceFilesHTML.size()==0) {
         throw new Exception ("""
@@ -1600,7 +1604,10 @@ For example, insert the following at the top of your document to reference <code
         }
     }
 
-    backends = ['pdf']
+    outputOptions {
+        backends = ['pdf']
+    }
+
     /**
     //check if a remote pdfTheme is defined
     def pdfTheme = System.getenv('DTC_PDFTHEME')
@@ -2644,7 +2651,10 @@ generateSite.finalizedBy bake</code></pre>
         }
     }
 
-    backends = ['docbook']
+    outputOptions {
+        backends = ['docbook']
+    }
+
     doFirst {
         if (sourceFilesDOCBOOK.size()==0) {
             throw new Exception ("""
@@ -2671,7 +2681,7 @@ generateSite.finalizedBy bake</code></pre>
 <div class="sect3">
 <h4 id="_generatedeck">3.10. generateDeck</h4>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/9934d8546416204bc9454812316d4113?d=identicon" alt="Pascal Euhus" width="32" height="32" title="Pascal Euhus"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -2693,6 +2703,13 @@ generateSite.finalizedBy bake</code></pre>
 It creates a PowerPoint presentation, then enriches it by adding reveal.js slide definitions in AsciiDoc to the speaker notes.
 For best results, use this task with the <a href="03_task_exportPPT.html"><code>exportPPT</code></a> task.</p>
 </div>
+<div class="sect5">
+<h6 id="_configure_revealjs">Configure RevealJs</h6>
+<div class="paragraph">
+<p>docToolchain comes with some opinionated, sane defaults for RevealJs.
+You can overwrite any of them and provide further configuration as per <a href="https://docs.asciidoctor.org/reveal.js-converter/latest/converter/revealjs-options/">asciidoctor-reveal.js</a> documentation.</p>
+</div>
+</div>
 </div>
 <div class="sect4">
 <h5 id="_source_9">Source</h5>
@@ -2700,30 +2717,38 @@ For best results, use this task with the <a href="03_task_exportPPT.html"><code>
 <div class="title">AsciiDocBasics.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">task generateDeck (
-        type: AsciidoctorTask,
+        type: AsciidoctorJRevealJSTask,
         group: 'docToolchain',
         description: 'use revealJs as asciidoc backend to create a presentation') {
 
+    // corresponding Asciidoctor reveal.js config
+    // :revealjs_theme:
+    theme = 'black'
+
+    revealjsOptions {
+        // :revealjs_hideAddressBar:
+        hideAddressBarOnMobile = 'true'
+        // :revealjs_history:
+        pushToHistory = 'true'
+        // :revealjs_progress:
+        progressBar = 'true'
+        // :revealjs_slideNumber:
+        slideNumber = 'true'
+        // :revealjs_touch:
+        touchMode = 'true'
+        // :revealjs_transition:
+        transition = 'linear'
+    }
+
     attributes (
-            'idprefix': 'slide-',
-            'idseparator': '-',
-            'docinfo1': '',
-            'revealjs_theme': 'black@',
-            'revealjs_progress': 'true@',
-            'revealjs_touch': 'true@',
-            'revealjs_hideAddressBar': 'true@',
-            'revealjs_transition': 'linear@',
-            'revealjs_history': 'true@',
-            'revealjs_slideNumber': 'true@'
+        'idprefix': 'slide-',
+        'idseparator': '-',
+        'docinfo1': '',
     )
-    options template_dirs : [new File(new File (projectDir,'/resources/asciidoctor-reveal.js'),'templates').absolutePath ]
 
     def sourceFilesREVEAL = sourceFiles.findAll {
         'revealjs' in it.formats
     }
-//    onlyIf {
-//        sourceFilesREVEAL
-//    }
 
     sources {
         sourceFilesREVEAL.each {
@@ -2742,15 +2767,13 @@ For best results, use this task with the <a href="03_task_exportPPT.html"><code>
     outputDir = file(targetDir+'/decks/')
 
     resources {
-        from('resources') {
-            include 'reveal.js/**'
-        }
         from(sourceDir) {
             include 'images/**'
         }
         into("")
         logger.info "${docDir}/${config.outputPath}/images"
     }
+
     doFirst {
         if (sourceFilesREVEAL.size()==0) {
             throw new Exception ("""
@@ -2760,7 +2783,8 @@ For best results, use this task with the <a href="03_task_exportPPT.html"><code>
         }
 
     }
-}</code></pre>
+}
+generateDeck.dependsOn asciidoctorGemsPrepare</code></pre>
 </div>
 </div>
 <hr>
