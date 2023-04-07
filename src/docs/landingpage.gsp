@@ -1,6 +1,7 @@
 <div class="row flex-xl-nowrap">
     <main class="col-12 col-md-12 col-xl-12 pl-md-12" role="main">
         <div class="bg-light p-5 rounded jumbotron">
+            <img src="/docToolchain/v2.0.x/images/doctoolchain-logo-blue.png" style="float: left" />
             <h1>docToolchain</h1>
             <p class="lead">
                 Create awesome docs the easy way!

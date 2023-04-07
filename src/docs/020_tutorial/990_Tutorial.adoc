@@ -1,0 +1,73 @@
+:jbake-title: How to create a Tutorial
+include::_config.adoc[]
+
+
+== How to create a Tutorial
+
+Since docToolchain is a community project, it also lives from the content created by the community.
+This little tutorial will explain how you -- as a member of the community -- can create your own tutorial.
+
+NOTE: Prerequisites: you know how to use Git (https://www.gitbook.com/), how to fork and create a pull request on github and how to write in AsciiDoc.
+
+The docToolchain website is build with docToolchain itself.
+So, the code of docToolchain and the documentation reside both in the same repository.
+(The way as it should be with the docs-as-code approach!)
+
+Navigate to https://github.com/docToolchain/docToolchain/tree/ng/src/docs/020_tutorial to find the source of the already existing tutorials.
+
+As you can see, the files are numbered in steps of 10.
+The numbers are the order of appearance within the left navigation.
+They can be overwritten by a `:jbake-order: x`-statement within the `.adoc` file.
+The order is specified in steps of 10 just to be able to insert files in between if necessary.
+
+=== Prepare your Tutorial
+
+To create a new Tutorial, fork the project and create a new file in the folder `src/docs` with an appropriate name and number.
+
+Add the following content to your file:
+
+[source,asciidoc]
+----
+:jbake-title: Your Navigation-Entry
+include::_config.adoc[]
+
+== Your Headline
+----
+
+The `:jbake-title: Your Navigation-Entry` tell jBake (the renderer used by docToolchain) the text for the navigation link in left navigation pane.
+If this is missing, it will use the first Headline in your document. 
+If this is also missing, it will use the filename. 
+
+NOTE: You might wonder why you should specify the title if you already have named your tutorial via the first headline.
+The headline is often quite long and `:jbake-title:` gives you the opportunity to shorten it for the navigation pane.
+
+The `include::`-statement mainly sets the location of the `imagesdir` so that you don't have to worry about it.
+Take a look at the file to see what else it does!
+
+Your first headline should always start with `==` and not `=`, sind a single `=` is the document name like a book title.
+docToolchain expects for the chapters of the documentation headline level `==` as starting headline.
+
+That's it. Now you can start to write your tutorial.
+
+=== Preview your work
+
+To edit your file, use an editor which gives you a preview of your `.adoc` file like IntelliJ or VS Code.
+This already gives you a good preview of the structure and formatting of your document.
+
+Want to see how it looks on a web page?
+There are two ways to render the full page.
+
+One:: create a pull request (PR) and mark it as draft.
+As soon as the PR is submitted, netlify will start to render a preview.
+You will see some tasks running on the PR-page and the last one will give you a link to the preview-site.
+
+Two:: you can render the page locally through docToolchain.
+Execute `./dtcw generateSite` locally and you will find the result in `build/microsite/output/index.html`
+
+=== Submit your Pull-Request
+
+As soon as you think your tutorial is ready for production, remove the draft status from your PR and we will start a short review process.
+As soon as we are through with the review, we will merge the PR and your tutorial will be live.
+
+Any questions? Feel free to open a new https://github.com/docToolchain/docToolchain/discussions[Discussion]!
+
