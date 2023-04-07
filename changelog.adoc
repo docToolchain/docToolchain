@@ -23,7 +23,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 ** certain directories are excluded from traversal. Define `excludeDirectories` in order to skip additional directories.
 * `asciidoctor-gradle-plugin`
 ** upgrade to v3.x
-** removal of `clone.sh` and `cone.ps1` scripts
+** removal of cloning `reveal.js` (`clone.sh` and `clone.ps1` scripts?
 * Doctoolchain now fails if there are images that cannot be resolved during build
 
 == 2.2.1 - 2023-03-05
