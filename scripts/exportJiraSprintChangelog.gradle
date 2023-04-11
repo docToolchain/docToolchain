@@ -11,7 +11,7 @@ buildscript {
     dependencies {
         //for the exportJiraRelaseNotes Task
         classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.2'
-        classpath 'org.apache.poi:poi-ooxml:4.1.1'
+        classpath 'org.apache.poi:poi-ooxml:5.2.3'
     }
 }
 

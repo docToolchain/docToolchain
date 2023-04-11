@@ -9,10 +9,10 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'com.structurizr:structurizr-dsl:1.26.1'
-        classpath 'com.structurizr:structurizr-export:1.10.0'
+        classpath 'com.structurizr:structurizr-dsl:1.29.1'
+        classpath 'com.structurizr:structurizr-export:1.14.0'
         classpath 'io.github.goto1134:structurizr-d2-exporter:1.2.0'
-        classpath 'com.structurizr:structurizr-graphviz:1.7.0'
+        classpath 'com.structurizr:structurizr-graphviz:2.0.0'
     }
 }
 

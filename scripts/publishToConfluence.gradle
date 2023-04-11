@@ -12,8 +12,8 @@ buildscript {
         //for the exportJiraIssues Task
         classpath 'org.codehaus.groovy.modules.http-builder:http-builder:0.7.2'
         //for the renderToConfluence Task
-        classpath 'org.apache.httpcomponents:httpmime:4.5.10'
-        classpath 'org.jsoup:jsoup:1.12.1'
+        classpath 'org.apache.httpcomponents:httpmime:4.5.14'
+        classpath 'org.jsoup:jsoup:1.15.4'
     }
 }
 
