@@ -95,19 +95,19 @@ Calling `./dtcw exportStructurizr` generates the diagrams in the `structurizr.ex
         │   └── some-pics-2.png
         └── structurizr
             ├── diagrams
-            |   ├── Container-1-key.puml
-            |   ├── Container-1.puml
-            |   ├── SystemContext-1-key.puml
-            |   └── SystemContext-1.puml
+            |   ├── Container-001-key.puml
+            |   ├── Container-001.puml
+            |   ├── SystemContext-001-key.puml
+            |   └── SystemContext-001.puml
             └── workspace.dsl
 ----
 
 Following our example the exported diagrams may be included in the Asciidoc document `example.adoc` with
 
 ----
-plantuml::../structurizr/diagrams/SystemContext-1.puml["structurizr-SystemContext",format=svg]
+plantuml::../structurizr/diagrams/SystemContext-001.puml["structurizr-SystemContext",format=svg]
 
-plantuml::../structurizr/diagrams/Container-1.puml["structurizr-Container",format=svg]
+plantuml::../structurizr/diagrams/Container-001.puml["structurizr-Container",format=svg]
 ----
 
 == Source

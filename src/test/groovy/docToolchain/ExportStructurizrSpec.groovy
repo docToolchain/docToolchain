@@ -29,18 +29,18 @@ class ExportStructurizrSpec extends Specification {
         result.task(":exportStructurizr").outcome == SUCCESS
 
         and: 'the System Context diagram file has been created'
-        new File(outputPath, "SystemContext-1.puml").exists()
+        new File(outputPath, "SystemContext-001.puml").exists()
 
         and: 'the legend for the System Context diagram file has been created'
-        new File(outputPath, "SystemContext-1-key.puml").exists()
+        new File(outputPath, "SystemContext-001-key.puml").exists()
 
         and: 'the Container diagram file has been created'
-        new File(outputPath, "Container-1.puml").exists()
+        new File(outputPath, "Container-001.puml").exists()
 
         and: 'the legend for the Container diagram file has been created'
-        new File(outputPath, "Container-1-key.puml").exists()
+        new File(outputPath, "Container-001-key.puml").exists()
     }
-    
+
     void 'test export views from Structurizr DSL with configuration file'() {
 
         given: 'a clean the environment'
@@ -92,8 +92,8 @@ class ExportStructurizrSpec extends Specification {
         def result = GradleRunner.create()
                 .withProjectDir(new File('.'))
                 .withArguments('exportStructurizr', '--info',
-                               '-Pstructurizr.workspace.path=./src/test/testData/structurizr/default', 
-                               '-Pstructurizr.export.outputPath='+outputPath.toString(), 
+                               '-Pstructurizr.workspace.path=./src/test/testData/structurizr/default',
+                               '-Pstructurizr.export.outputPath='+outputPath.toString(),
                                '-Pstructurizr.export.format=plantuml/c4plantuml')
                 .build()
 
@@ -102,11 +102,11 @@ class ExportStructurizrSpec extends Specification {
 
         // C4-Plantuml do not have legend files
         and: 'the System Context diagram is a C4-PlantUML file'
-        def c4plantuml_pattern = ~/.*!include https:\/\/raw\.githubusercontent\.com\/plantuml-stdlib\/C4-PlantUML\/.*/
-        new File(outputPath, "SystemContext-1.puml").grep(c4plantuml_pattern)
+        def c4plantuml_pattern = ~/.*!include <C4\/C4>*/
+        new File(outputPath, "SystemContext-001.puml").grep(c4plantuml_pattern)
 
         and: 'the Container diagram is a C4-PlantUML file'
-        new File(outputPath, "Container-1.puml").grep(c4plantuml_pattern)
+        new File(outputPath, "Container-001.puml").grep(c4plantuml_pattern)
     }
 
     void 'test throwing exception on missing configuration parameter `structurizr.workspace.path`'() {
@@ -139,8 +139,8 @@ class ExportStructurizrSpec extends Specification {
         def result = GradleRunner.create()
                 .withProjectDir(new File('.'))
                 .withArguments('exportStructurizr', '--info',
-                               '-Pstructurizr.workspace.path=./src/test/testData/structurizr/filename', 
-                               '-Pstructurizr.export.outputPath='+outputPath.toString(), 
+                               '-Pstructurizr.workspace.path=./src/test/testData/structurizr/filename',
+                               '-Pstructurizr.export.outputPath='+outputPath.toString(),
                                '-Pstructurizr.format=plantuml/c4plantuml')
                 .build()
 

@@ -12,7 +12,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'org.jsoup:jsoup:1.12.1'
+        classpath 'org.jsoup:jsoup:1.15.4'
     }
 }
 

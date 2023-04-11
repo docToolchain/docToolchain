@@ -12,7 +12,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'org.asciidoctor:asciidoctorj-diagram:2.0.2'
+        classpath 'org.asciidoctor:asciidoctorj-diagram:2.2.7'
     }
 }
 repositories {
@@ -25,8 +25,8 @@ repositories {
     }
 }
 dependencies {
-    jbake 'org.asciidoctor:asciidoctorj-diagram:2.0.2'
-    jbake 'io.pebbletemplates:pebble:3.1.2'
+    jbake 'org.asciidoctor:asciidoctorj-diagram:2.2.7'
+    jbake 'io.pebbletemplates:pebble:3.2.0'
     config.jbake.plugins.each { plugin ->
         jbake plugin
     }
@@ -249,7 +249,7 @@ def convertAdditionalFormats = {
                             println """
 can't convert '${file.canonicalPath-docDir-'/build/microsite/tmp/site/doc'}':
 ${error}
-"""                            
+"""
                             throw new Exception("""
 can't convert '${file.canonicalPath-docDir-'/build/microsite/tmp/site/doc'}':
 ${error}
