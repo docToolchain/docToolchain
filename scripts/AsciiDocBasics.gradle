@@ -12,10 +12,10 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'org.asciidoctor:asciidoctor-gradle-jvm:3.3.2'
-        classpath 'org.asciidoctor:asciidoctor-gradle-jvm-pdf:3.3.2'
-        classpath 'org.asciidoctor:asciidoctor-gradle-jvm-gems:3.3.2'
-        classpath 'org.asciidoctor:asciidoctor-gradle-jvm-slides:3.3.2'
+        classpath 'org.asciidoctor:asciidoctor-gradle-jvm:4.0.0-alpha.1'
+        classpath 'org.asciidoctor:asciidoctor-gradle-jvm-pdf:4.0.0-alpha.1'
+        classpath 'org.asciidoctor:asciidoctor-gradle-jvm-gems:4.0.0-alpha.1'
+        classpath 'org.asciidoctor:asciidoctor-gradle-jvm-slides:4.0.0-alpha.1'
     }
 }
 
