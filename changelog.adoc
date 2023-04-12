@@ -26,7 +26,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 ** upgrade to v4.x
 ** removal of cloning `reveal.js` (`clone.sh` and `clone.ps1` scripts?
 * Doctoolchain now fails if there are images that cannot be resolved during build
-* Upgrade Gradle to 7.0.2
+* Upgrade Gradle to 7.5.1
 * Upgrade dependencies
 ** 'org.apache.httpcomponents:httpmime:4.5.14'
 ** 'org.codehaus.groovy:groovy-xml:3.0.13'
