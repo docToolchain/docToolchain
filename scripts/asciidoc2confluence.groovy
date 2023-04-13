@@ -184,7 +184,7 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
                     'filename': fileName,
             ], headers: headers).data
     def http
-    if (attachment.size==1) {
+    if (attachment.size()==1) {
         // attachment exists. need an update?
         def remoteHash = attachment.results[0].extensions.comment.replaceAll("(?sm).*#([^#]+)#.*",'$1')
         if (remoteHash!=localHash) {
@@ -269,7 +269,7 @@ def retrieveAllPagesByAncestorId(RESTClient api, Map headers, List<String> pageI
                 pageId = pageIds.remove(0)
             }
         } else if (!results.empty) {
-            start += results.size
+            start += results.size()
         } else {
             start = 0
             pageId = ids.remove(0);
@@ -303,7 +303,7 @@ def retrieveAllPagesBySpace(RESTClient api, Map headers, String spaceKey, String
         if (results.empty) {
             morePages = false
         } else {
-            start += results.size
+            start += results.size()
         }
         results.inject(allPages) { Map acc, Map match ->
             //unique page names in confluence, so we can get away with indexing by title
