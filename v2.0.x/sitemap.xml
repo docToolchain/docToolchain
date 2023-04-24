@@ -62,16 +62,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Architect_notes.html</loc>
-    	<lastmod>2023-04-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/issue2.html</loc>
-    	<lastmod>2023-04-24</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/Activity_notes_issue1.html</loc>
     	<lastmod>2023-04-24</lastmod>
     </url>
@@ -82,17 +72,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/ea/Architect_notes.html</loc>
+    	<lastmod>2023-04-24</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
     	<lastmod>2023-04-24</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/ea/readme.html</loc>
-    	<lastmod>2023-04-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/UseCases.html</loc>
+    	<loc>https://localhost/ea/issue2.html</loc>
     	<lastmod>2023-04-24</lastmod>
     </url>
 
@@ -102,12 +92,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
+    	<loc>https://localhost/ea/issue1.html</loc>
     	<lastmod>2023-04-24</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/ea/issue1.html</loc>
+    	<loc>https://localhost/ea/readme.html</loc>
     	<lastmod>2023-04-24</lastmod>
     </url>
 
@@ -127,12 +117,27 @@
     </url>
 
     <url>
+    	<loc>https://localhost/ea/UseCases.html</loc>
+    	<lastmod>2023-04-24</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
     	<lastmod>2023-04-24</lastmod>
     </url>
 
     <url>
+    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
+    	<lastmod>2023-04-24</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
+    	<lastmod>2023-04-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/020_tutorial/120_self-contained-dtc.html</loc>
     	<lastmod>2023-04-24</lastmod>
     </url>
 
@@ -147,27 +152,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/120_self-contained-dtc.html</loc>
-    	<lastmod>2023-04-24</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/020_tutorial/070_publishToConfluence.html</loc>
     	<lastmod>2023-04-24</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/050_multipleRepositories.html</loc>
-    	<lastmod>2023-04-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/050_ADRs/ADR-1-firstTest.html</loc>
-    	<lastmod>2023-04-24</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/020_tutorial/990_Tutorial.html</loc>
+    	<lastmod>2023-04-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/020_tutorial/050_multipleRepositories.html</loc>
     	<lastmod>2023-04-24</lastmod>
     </url>
 
@@ -178,6 +173,11 @@
 
     <url>
     	<loc>https://localhost/050_ADRs/ADR-2-anotherTest.html</loc>
+    	<lastmod>2023-04-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/050_ADRs/ADR-1-firstTest.html</loc>
     	<lastmod>2023-04-24</lastmod>
     </url>
 
@@ -262,12 +262,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportStructurizr.html</loc>
     	<lastmod>2023-04-24</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportStructurizr.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
     	<lastmod>2023-04-24</lastmod>
     </url>
 
@@ -337,6 +337,11 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_exportConfluence.html</loc>
+    	<lastmod>2023-04-24</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_downloadTemplate.html</loc>
     	<lastmod>2023-04-24</lastmod>
     </url>
@@ -352,22 +357,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportJiraIssues.html</loc>
-    	<lastmod>2023-04-24</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportConfluence.html</loc>
-    	<lastmod>2023-04-24</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_exportVisio.html</loc>
     	<lastmod>2023-04-24</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportJiraSprintChangelog.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportJiraIssues.html</loc>
     	<lastmod>2023-04-24</lastmod>
     </url>
 
@@ -383,6 +378,11 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
+    	<lastmod>2023-04-24</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportJiraSprintChangelog.html</loc>
     	<lastmod>2023-04-24</lastmod>
     </url>
 
