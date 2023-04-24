@@ -19,6 +19,11 @@ inputFiles = [
 //folders in which asciidoc will find images.
 //these will be copied as resources to ./images
 //folders are relative to inputPath
+// Hint: If you define an imagepath in your documents like 
+// :imagesdir: ./whatsoever
+// define it conditional like
+// ifndef::imagesdir[:imagesdir: ./whatsoever]
+// as doctoolchain defines :imagesdir: during generation
 imageDirs = [
     /** imageDirs **/
 ]
