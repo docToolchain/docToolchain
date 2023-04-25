@@ -596,7 +596,7 @@ use `gradle exportExcel` to re-export files
                                 }
                             }
                             if (!skipCell) {
-                                switch (cell.cellStyle.alignmentEnum.toString()) {
+                                switch (cell.cellStyle.getCellAlignment().getHorizontal().toString()) {
                                     case 'RIGHT':
                                         cellStyle += '&gt;'
                                         break
@@ -604,7 +604,7 @@ use `gradle exportExcel` to re-export files
                                         cellStyle += '^'
                                         break
                                 }
-                                switch (cell.cellStyle.verticalAlignmentEnum.toString()) {
+                                switch (cell.cellStyle.getCellAlignment().getVertical().toString()) {
                                     case 'BOTTOM':
                                         cellStyle += '.&gt;'
                                         break

@@ -2067,7 +2067,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'org.asciidoctor:asciidoctorj-diagram:2.0.2'
+        classpath 'org.asciidoctor:asciidoctorj-diagram:2.2.7'
     }
 }
 repositories {
@@ -2080,8 +2080,8 @@ repositories {
     }
 }
 dependencies {
-    jbake 'org.asciidoctor:asciidoctorj-diagram:2.0.2'
-    jbake 'io.pebbletemplates:pebble:3.1.2'
+    jbake 'org.asciidoctor:asciidoctorj-diagram:2.2.7'
+    jbake 'io.pebbletemplates:pebble:3.2.0'
     config.jbake.plugins.each { plugin -&gt;
         jbake plugin
     }
@@ -2304,7 +2304,7 @@ def convertAdditionalFormats = {
                             println """
 can't convert '${file.canonicalPath-docDir-'/build/microsite/tmp/site/doc'}':
 ${error}
-"""                            
+"""
                             throw new Exception("""
 can't convert '${file.canonicalPath-docDir-'/build/microsite/tmp/site/doc'}':
 ${error}
@@ -7033,7 +7033,7 @@ use `gradle exportExcel` to re-export files
                                 }
                             }
                             if (!skipCell) {
-                                switch (cell.cellStyle.alignmentEnum.toString()) {
+                                switch (cell.cellStyle.getCellAlignment().getHorizontal().toString()) {
                                     case 'RIGHT':
                                         cellStyle += '&gt;'
                                         break
@@ -7041,7 +7041,7 @@ use `gradle exportExcel` to re-export files
                                         cellStyle += '^'
                                         break
                                 }
-                                switch (cell.cellStyle.verticalAlignmentEnum.toString()) {
+                                switch (cell.cellStyle.getCellAlignment().getVertical().toString()) {
                                     case 'BOTTOM':
                                         cellStyle += '.&gt;'
                                         break
@@ -7283,7 +7283,7 @@ openApi.with {
 <div class="sect3">
 <h4 id="_exportstructurizr">4.3. exportStructurizr</h4>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/dfa58a10da1e9368266584d3a0a3efc?d=identicon" alt="Max Hofer" width="32" height="32" title="Max Hofer"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/9934d8546416204bc9454812316d4113?d=identicon" alt="Pascal Euhus" width="32" height="32" title="Pascal Euhus"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/dfa58a10da1e9368266584d3a0a3efc?d=identicon" alt="Max Hofer" width="32" height="32" title="Max Hofer"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -7466,10 +7466,10 @@ If a valid Structurizr workspace file is provided the directory is deleted befor
         │   └── some-pics-2.png
         └── structurizr
             ├── diagrams
-            |   ├── Container-1-key.puml
-            |   ├── Container-1.puml
-            |   ├── SystemContext-1-key.puml
-            |   └── SystemContext-1.puml
+            |   ├── Container-001-key.puml
+            |   ├── Container-001.puml
+            |   ├── SystemContext-001-key.puml
+            |   └── SystemContext-001.puml
             └── workspace.dsl</pre>
 </div>
 </div>
@@ -7478,9 +7478,9 @@ If a valid Structurizr workspace file is provided the directory is deleted befor
 </div>
 <div class="listingblock">
 <div class="content">
-<pre>plantuml::../structurizr/diagrams/SystemContext-1.puml["structurizr-SystemContext",format=svg]
+<pre>plantuml::../structurizr/diagrams/SystemContext-001.puml["structurizr-SystemContext",format=svg]
 
-plantuml::../structurizr/diagrams/Container-1.puml["structurizr-Container",format=svg]</pre>
+plantuml::../structurizr/diagrams/Container-001.puml["structurizr-Container",format=svg]</pre>
 </div>
 </div>
 </div>
