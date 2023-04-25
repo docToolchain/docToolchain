@@ -213,7 +213,7 @@ java_help_and_die() {
     echo ""
     echo "or you can download it from https://adoptium.net/"
     echo ""
-    echo "make sure that your java version is between 8 and 17"
+    echo "make sure that your java version is between 8 and 14"
     echo ""
     echo "If you do not want to use a local java installation, you can also use docToolchain as docker container."
     echo "In that case, specify 'docker' as first parameter in your statement."
@@ -242,8 +242,8 @@ check_java() {
         echo ""
         java_help_and_die
     else
-        if [ "${javaversion}" -gt 17 ]; then
-            echo "your java version ${javaversion} is too new (>17): $(which java)"
+        if [ "${javaversion}" -gt 14 ]; then
+            echo "your java version ${javaversion} is too new (>14): $(which java)"
             echo "please update your java installation and try again"
             echo ""
             java_help_and_die
