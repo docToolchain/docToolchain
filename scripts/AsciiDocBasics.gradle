@@ -324,8 +324,9 @@ task generatePDF (
     >> Please specify at least one inputFile in your docToolchainConfig.groovy
     """)
             }
-
     }
+
+    outputDir = file(targetDir+'/pdf/')
 }
 //end::generatePDF[]
 
