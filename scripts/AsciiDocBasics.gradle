@@ -452,3 +452,7 @@ task install (
         System.out.println ("docToolchain is installed");
     }
 }
+
+tasks.withType(Copy).configureEach {
+    duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
