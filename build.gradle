@@ -31,7 +31,7 @@ dependencies {
         exclude group: 'org.codehaus.groovy', module: 'groovy-xml'
     }
     testImplementation(
-            ('org.junit.jupiter:junit-jupiter-api:5.9.2'),
+            ('org.junit.jupiter:junit-jupiter-api:5.9.3'),
             ('org.spockframework:spock-core:2.3-groovy-3.0'),
             //('org.slf4j:slf4j-api:1.7.13'),
             //('org.slf4j:slf4j-simple:1.7.13'),
