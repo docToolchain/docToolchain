@@ -276,6 +276,8 @@ task generatePDF (
         'plantUMLDir'         : file("${docDir}/${config.outputPath}/pdf/images/plantUML/").path,
     )
 
+    outputDir = file(targetDir + '/pdf/')
+
     attributes (
         'data-uri': 'true',
         'plantUMLDir'         : file("${docDir}/${config.outputPath}/images/").path,
