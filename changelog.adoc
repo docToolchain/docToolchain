@@ -10,6 +10,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === fixes
 
 * fix decision tree for `dtcw.ps1`
+* https://github.com/docToolchain/docToolchain/issues/455[#455 Force execution to stop with failure on missing image reference]
 * #831 : fix for generateSite: images-hrefs not correct
 * #1109 : docToolchain release notes contain releases twice
 
@@ -25,7 +26,6 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * `asciidoctor-gradle-plugin`
 ** upgrade to v4.x
 ** removal of cloning `reveal.js` (`clone.sh` and `clone.ps1` scripts?
-* Doctoolchain now fails if there are images that cannot be resolved during build
 * Add support for Java 17
 * Upgrade Gradle to 7.5.1
 * Upgrade dependencies
