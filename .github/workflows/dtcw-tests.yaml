@@ -57,7 +57,7 @@ jobs:
     needs: shellcheck
     strategy:
       matrix:
-        os: [windows-latest]
+        os: [ubuntu-latest, macos-latest, windows-latest]
       fail-fast: false
     name: Execute dtcw test suite - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
@@ -65,15 +65,27 @@ jobs:
       run:
         shell: pwsh
     steps:
+      - name: install pwsh
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            echo "pwsh already installed"
+          elif  
+            apt-get install -y wget apt-transport-https software-properties-common
+            wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+            dpkg -i packages-microsoft-prod.deb
+            rm packages-microsoft-prod.deb
+            apt-get update
+            apt-get install -y powershell
+          fi
       - name: Checkout code
         uses: actions/checkout@v3
         with:
           submodules: true
-      - name: Clean out dirctory
+      #- name: Clean out dirctory
         # Remove all files except the system under test and the test code.
-        run: |
-          Get-ChildItem -Directory -Path . -Exclude '.', 'test' -Recurse -Force | Remove-Item -Recurse -Force
-          Get-ChildItem -File -Path . -Exclude 'dtcw', 'test' -Force | Remove-Item -Force ``
+        # run: |
+          # Get-ChildItem -Directory -Path . -Exclude '.', 'test' -Recurse -Force | Remove-Item -Recurse -Force
+          # Get-ChildItem -File -Path . -Exclude 'dtcw', 'test' -Force | Remove-Item -Force ``
       - name: remove dtcw (bash)
         run: |
           rm ./dtcw
