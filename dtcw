@@ -54,10 +54,14 @@ sdkman=false
 homefolder=false
 java=false
 doJavaCheck=true
-arch=$(uname -m)
+if [ "$(arch)" == "i386" ]; then
+  arch="x86_64"
+else 
+  arch=$(uname -m)
+fi
 os=$(uname -s)
 
-if command -v doctoolchain &>/dev/null; then
+if command -v doctoolchain &> /dev/null; then
     echo "docToolchain as CLI available"
     cli=true
 fi
