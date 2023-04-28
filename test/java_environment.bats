@@ -40,12 +40,12 @@ teardown() {
     assert_line "Error: unable to locate a Java Runtime"
 }
 
-@test "oldest supported Java version is Java 8" {
-    mock_java=$(mock_create_java java "1.8.0_362")
+@test "oldest supported Java version is Java 11" {
+    mock_java=$(mock_create_java java "11.0.19")
 
     PATH="${minimal_system}" run -0 ./dtcw tasks --group doctoolchain
 
-    assert_line --partial "Using Java 1.8.0_362"
+    assert_line --partial "Using Java 11.0.19"
     assert_equal "$(mock_get_call_num "${mock_java}")" 1
     assert_equal "$(mock_get_call_args "${mock_doctoolchain}")" ". tasks --group doctoolchain -PmainConfigFile=docToolchainConfig.groovy --warning-mode=none --no-daemon -Dgradle.user.home=${DTC_ROOT}/.gradle"
 }
@@ -60,7 +60,16 @@ teardown() {
     assert_equal "$(mock_get_call_args "${mock_doctoolchain}")" ". tasks --group doctoolchain -PmainConfigFile=docToolchainConfig.groovy --warning-mode=none --no-daemon -Dgradle.user.home=${DTC_ROOT}/.gradle"
 }
 
-@test "show unsupported java version" {
+@test "show unsupported java version - Java 8" {
+    mock_java=$(mock_create_java java "1.8.0_362")
+
+    PATH="${minimal_system}" run -1 ./dtcw tasks --group doctoolchain
+
+    assert_line "Error: unsupported Java version 8 [${mock_java}]"
+    assert_line "docToolchain supports Java versions 11 (preferred), 14, or 17. In case one of those"
+}
+
+@test "show unsupported java version - Java 20" {
     mock_java=$(mock_create_java java "20.0.1")
 
     PATH="${minimal_system}" run -1 ./dtcw tasks --group doctoolchain
@@ -72,9 +81,7 @@ teardown() {
     assert_line "Using environment: local"
 
     assert_line "Error: unsupported Java version 20 [${mock_java}]"
-
-    assert_line "docToolchain supports Java versions 8, 11 (preferred), 14, or 17. In case one of those"
-    # Same output as if Java were not found
+    assert_line "docToolchain supports Java versions 11 (preferred), 14, or 17. In case one of those"
 }
 
 @test "local Java is used before system Java" {

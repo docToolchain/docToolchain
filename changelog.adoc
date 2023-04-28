@@ -26,6 +26,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === changed
 
 * Add support for Java 17
+* Drop support for Java 8
 * Upgrade Gradle to 7.5.1
 * Upgrade dependencies
 ** 'org.asciidoctor:asciidoctor-gradle-jvm:4.0.0-alpha.1' (remove obsolete cloning of `reveal.js`)
@@ -39,7 +40,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 ** 'org.jsoup:jsoup:1.15.4'
 ** 'org.asciidoctor:asciidoctorj-diagram:2.2.7'
 ** 'io.pebbletemplates:pebble:3.2.0'
-** 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+** 'org.junit.jupiter:junit-jupiter-api:5.9.3'
 ** 'net.bytebuddy:byte-buddy:1.14.4'
 ** 'de.undercouch.download:5.4.0'
 ** 'org.openapi.generator:6.5.0'

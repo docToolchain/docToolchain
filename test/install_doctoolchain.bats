@@ -41,7 +41,7 @@ teardown() {
 
     assert_line "Error: unable to locate a Java Runtime"
 
-    assert_line "docToolchain supports Java versions 8, 11 (preferred), 14, or 17. In case one of those"
+    assert_line "docToolchain supports Java versions 11 (preferred), 14, or 17. In case one of those"
     assert_line "Java versions is installed make sure 'java' is found with your PATH environment"
     assert_line "variable. As alternative you may provide the location of your Java installation"
     assert_line "with JAVA_HOME."
