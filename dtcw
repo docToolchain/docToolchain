@@ -458,7 +458,7 @@ assert_java_version_supported() {
     java_version=$(echo "$java_version" | awk -F '"' '/version/ {print $0}' | head -1 | cut -d'"' -f2)
     major_version=$(echo "$java_version" | sed '/^1\./s///' | cut -d'.' -f1)
 
-    if [ "${major_version}" -ge 8 ] && [ "${major_version}" -le 17 ]; then
+    if [ "${major_version}" -ge 11 ] && [ "${major_version}" -le 17 ]; then
         echo "Using Java ${java_version} [${JAVA_CMD}]"
         return
     fi
@@ -469,7 +469,7 @@ assert_java_version_supported() {
 
 java_help_and_die() {
     printf "%s\n" \
-        "docToolchain supports Java versions 8, 11 (preferred), 14, or 17. In case one of those" \
+        "docToolchain supports Java versions 11 (preferred), 14, or 17. In case one of those" \
         "Java versions is installed make sure 'java' is found with your PATH environment" \
         "variable. As alternative you may provide the location of your Java installation" \
         "with JAVA_HOME." \
@@ -571,7 +571,7 @@ how_to_install_doctoolchain() {
         "    \$ sdk install doctoolchain ${version}" \
         "" \
         "Note that running docToolchain in 'local' or 'sdk' environment needs a" \
-        "Java runtime (major version 8, 11, 14, or 17) installed on your host." \
+        "Java runtime (major version 11, 14, or 17) installed on your host." \
         "" \
         "3. 'docker': pull the docToolchain image and execute docToolchain in a container environment." \
         "" \

@@ -78,7 +78,7 @@ EOF
     assert_line "2. 'sdk': to install docToolchain with SDKMAN! (https://sdkman.io)"
     assert_line "    $ sdk install doctoolchain ${DTC_VERSION}"
     assert_line "Note that running docToolchain in 'local' or 'sdk' environment needs a"
-    assert_line "Java runtime (major version 8, 11, 14, or 17) installed on your host."
+    assert_line "Java runtime (major version 11, 14, or 17) installed on your host."
     assert_line "3. 'docker': pull the docToolchain image and execute docToolchain in a container environment."
     assert_line "    $ ./dtcw docker tasks --group doctoolchain"
 }
@@ -97,7 +97,7 @@ EOF
 
     assert_line "Error: unable to locate a Java Runtime"
 
-    assert_line "docToolchain supports Java versions 8, 11 (preferred), 14, or 17. In case one of those"
+    assert_line "docToolchain supports Java versions 11 (preferred), 14, or 17. In case one of those"
     assert_line "Java versions is installed make sure 'java' is found with your PATH environment"
     assert_line "variable. As alternative you may provide the location of your Java installation"
     assert_line "with JAVA_HOME."

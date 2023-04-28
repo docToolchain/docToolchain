@@ -99,7 +99,7 @@ Once the docToolchain wrapper is installed in your project directory you have to
 - <<install-dtc-with-sdk>> a tool for managing parallel versions of multiple Software Development Kits.
 
 [NOTE]
-.docToolchain depends on Java 11 (Java 8, 14, and 17 are also supported)
+.docToolchain depends on Java 11 (Java 11, 14, and 17 are also supported)
 ====
 If you don't use the docToolchain container image you have to install Java on your system.
 In case you have Java already installed, make sure `JAVA_HOME` is set.

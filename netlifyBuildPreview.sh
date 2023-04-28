@@ -6,6 +6,8 @@ mkdir -p "$HOME/.doctoolchain/docToolchain-dev"
 cp -r ./* "$HOME/.doctoolchain/docToolchain-dev"
 # set 'dev' as version in dtcw
 sed -i 's/VERSION=[-0-9.a-z]*/VERSION=dev/' dtcw
+# install Java supported by docToolchain
+./dtcw local install java
 # install docToolchain locally
 ./dtcw local install doctoolchain
 # export information about contributors for those little avatars on top of each file
