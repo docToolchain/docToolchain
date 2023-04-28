@@ -114,4 +114,4 @@ jobs:
           submodules: true
       - name: Run tests
         run: |
-          rm -r build && ./gradlew test --info --tests=DtcwOnPowershellSpec
+          ./gradlew test --info --tests=DtcwOnPowershellSpec
