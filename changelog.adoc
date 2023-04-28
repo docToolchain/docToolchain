@@ -52,6 +52,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * `collectIncludes`
 ** changed regexp to start with `^[A-Za-z]` as file name to allow lowercase filenames as well.
 ** certain directories are excluded from traversal. Define `excludeDirectories` in order to skip additional directories.
+* replace old URL `doctoolchain.github.io` occurrences with the new `doctoolchain.org`
 
 == 2.2.1 - 2023-03-05
 

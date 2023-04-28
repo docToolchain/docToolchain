@@ -47,7 +47,7 @@ Now, download `dtcw` into your project directory and make the script executable 
 [source, bash]
 ----
 cd <your project>
-curl -Lo dtcw doctoolchain.github.io/dtcw
+curl -Lo dtcw doctoolchain.org/dtcw
 chmod +x dtcw
 ----
 
@@ -56,7 +56,7 @@ If you don't have `curl` installed, you can also use `wget`:
 [source, bash]
 ----
 cd <your project>
-wget doctoolchain.github.io/dtcw
+wget doctoolchain.org/dtcw
 chmod +x dtcw
 ----
 
@@ -69,7 +69,7 @@ chmod +x dtcw
 [source, powershell]
 ----
 cd <your project>
-Invoke-WebRequest doctoolchain.github.io/dtcw.ps1 -Outfile dtcw.ps1
+Invoke-WebRequest doctoolchain.org/dtcw.ps1 -Outfile dtcw.ps1
 ----
 
 NOTE: Got an error message that you are not allowed to execute powershell scripts?
@@ -83,7 +83,7 @@ Try to switch to an unrestricted powershell by executing `powershell.exe -Execut
 [source, cmd]
 ----
 cd <your project>
-curl -Lo dtcw.bat doctoolchain.github.io/dtcw.bat
+curl -Lo dtcw.bat doctoolchain.org/dtcw.bat
 ----
 
 NOTE: `dtcw.bat` wraps the `dtcw.ps1` script and executes it in powershell. This might be easier to use if you haven't yet configured your powershell as a developer.
