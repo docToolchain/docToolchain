@@ -17,7 +17,6 @@ class DtcwOnPowershellSpec extends Specification {
     }
 
     @Unroll
-    @Requires({ os.windows })
     void 'test Powershell'() {
         when: 'pwd is executed'
             def (out,err) = powershell(['pwd'])
@@ -26,7 +25,6 @@ class DtcwOnPowershellSpec extends Specification {
             out.contains('Path')
     }
 
-    @Requires({ os.windows })
     void 'test dtcw without parameters'() {
         when: '"./dtcw.ps1" is executed without any parameters'
             def (out,err) = powershell(['./dtcw.ps1'])
@@ -36,7 +34,6 @@ class DtcwOnPowershellSpec extends Specification {
             out.contains('Examples:')
     }
 
-    @Requires({ os.windows })
     void 'test dtcw --version'() {
         when: '"./dtcw.ps1 --version" is executed'
         def (out,err) = powershell(['./dtcw.ps1', '--version'])
@@ -47,7 +44,6 @@ class DtcwOnPowershellSpec extends Specification {
         !out.toLowerCase().contains('available doctoolchain environments')
     }
 
-    @Requires({ os.windows })
     void 'test local installation of jdk'() {
         when: '"./dtcw.ps1 install java" is executed'
             def (out,err) = powershell(['./dtcw.ps1', 'install', 'java'])
@@ -57,7 +53,6 @@ class DtcwOnPowershellSpec extends Specification {
             err == ""
     }
 
-    @Requires({ os.windows })
     void 'test local installation of doctoolchain'() {
         setup: 'remove jdk folder'
             rm "$HOME/.doctoolchain/jdk"
