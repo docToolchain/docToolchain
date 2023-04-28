@@ -67,7 +67,7 @@ jobs:
       - name: install pwsh
         shell: bash
         run: |
-          if [ "$RUNNER_OS" == "Windows" ]; then
+          if [ "$RUNNER_OS" == "windows" ]; then
             echo "pwsh already installed"
           else  
             sudo apt-get install -y wget apt-transport-https software-properties-common
