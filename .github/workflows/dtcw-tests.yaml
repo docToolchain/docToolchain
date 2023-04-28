@@ -33,7 +33,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
       fail-fast: false
-    name: Execite dtcw test suite - ${{ matrix.os }}
+    name: Execute dtcw test suite - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -48,6 +48,35 @@ jobs:
         run: |
           find . -maxdepth 1 -type d -not -name '.' -not -name 'test' -print0 | xargs -0 rm -rf --
           find . -maxdepth 1 -type f -not -name 'dtcw' -not -name 'test' -print0 | xargs -0 rm --
+      - name: Run tests
+        run: |
+          echo $BASH_VERSION
+          test/bats/bin/bats --filter-tags \!e2e test
+
+  test-dtcw-ps1:
+    needs: shellcheck
+    strategy:
+      matrix:
+        os: [windows-latest]
+      fail-fast: false
+    name: Execute dtcw test suite - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: pwsh
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Clean out dirctory
+        # Remove all files except the system under test and the test code.
+        run: |
+          find . -maxdepth 1 -type d -not -name '.' -not -name 'test' -print0 | xargs -0 rm -rf --
+          find . -maxdepth 1 -type f -not -name 'dtcw' -not -name 'test' -print0 | xargs -0 rm --
+      - name: remove dtcw (bash)
+        run: |
+          rm ./dtcw
       - name: Run tests
         run: |
           echo $BASH_VERSION
