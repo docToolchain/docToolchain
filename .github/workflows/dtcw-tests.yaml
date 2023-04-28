@@ -54,12 +54,11 @@ jobs:
           test/bats/bin/bats --filter-tags \!e2e test
 
   test-dtcw-ps1:
-    needs: shellcheck
     strategy:
       matrix:
         os: [ubuntu-latest, macos-latest, windows-latest]
       fail-fast: false
-    name: Execute dtcw test suite - ${{ matrix.os }}
+    name: Execute dtcw test suite on pwsh - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     defaults:
       run:
@@ -95,3 +94,24 @@ jobs:
         run: |
           echo $BASH_VERSION
           test/bats/bin/bats --filter-tags \!e2e test
+
+  test-dtcw-ps1-spock:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        java: [14]
+        jdk: [temurin]
+      fail-fast: false
+    name: Execute dtcw test suite on pwsh - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+      - name: Run tests
+        run: |
+          rm -r build && ./gradlew test --info --tests=DtcwOnPowershellSpec
