@@ -2,10 +2,23 @@ name: Build Project (Default)
 
 on:
   push:
-    branches-ignore:
-      - gh-pages
+    branches:
+      - '!gh-pages'
+    path:
+      - 'scripts/**'
+      - 'src/**'
+      - '!**/README.*'
+      - '!dtcw'
+      - '!test/**'
   pull_request:
     branches: [ master, ng ]
+    # Ignore changes for dtcw
+    path:
+      - 'scripts/**'
+      - 'src/**'
+      - '!**/README.*'
+      - '!dtcw'
+      - '!test/**'
   workflow_dispatch: {}
 
 jobs:
