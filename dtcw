@@ -584,7 +584,7 @@ build_command() {
         # See https://github.com/docToolchain/docToolchain/issues/1087
 
         pwd=$(has cygpath && cygpath -w "${PWD}" || echo "${PWD}")
-        docker_args="run --rm -i --platform linux/amd64 -u $(id -u):$(id -g) --name doctoolchain${version} \
+        docker_args="run --rm -i --platform linux/amd64 -u $(id -u):$(id -g) --name doctoolchain${version}-$(date +%s) \
             -e DTC_HEADLESS=true -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} -p 8042:8042 \
             --entrypoint /bin/bash -v '${pwd}:/project' doctoolchain/doctoolchain:v${version}"
 
