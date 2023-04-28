@@ -102,7 +102,7 @@ jobs:
         java: [14]
         jdk: [temurin]
       fail-fast: false
-    name: Execute dtcw test suite on pwsh - ${{ matrix.os }}
+    name: Execute dtcw spock test suite - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     defaults:
       run:
