@@ -26,8 +26,6 @@ jobs:
             ./.git/*
             ./test/*
             ./gradlew
-            # TODO: we should not ignore this one
-            ./resources/clone.sh
 
   test-dtcw:
     needs: shellcheck
