@@ -63,17 +63,31 @@ task downloadTemplate(
             delete new File(targetDir, 'template.zip')
         }
         println "${template} template unpacked into ${targetDir}"
-        //re-organize content
-        //move images folder
-        new File(targetDir, '../images/.').mkdirs()
+
+        println "start to bootstrap antora"
+
+        new File(targetDir, 'modules/ROOT/pages').mkdirs()
+        new File(targetDir, 'modules/ROOT/assets/images').mkdirs()
+        new File(targetDir, 'modules/adr/pages').mkdirs()
+        //TODO check if not other level
+        new File(targetDir, 'modules/adr/_partials').mkdirs()
+
+        def nav = new File(targetDir, 'modules/ROOT/nav.adoc')
+        nav.createNewFile()
+
         copy {
             from (new File(targetDir, 'images/.'))
-            into new File(targetDir, '../images/.')
+            into new File(targetDir, 'modules/ROOT/assets/images/.')
         }
         delete new File(targetDir, 'images/.')
-        new File(targetDir, 'src').renameTo(new File(targetDir, 'chapters'))
-        //add jbake header
-        new File(targetDir, 'chapters').eachFileRecurse { file->
+
+        copy {
+            from (new File(targetDir, 'src/.'))
+            into new File(targetDir, 'modules/ROOT/pages/.')
+        }
+        delete new File(targetDir, 'src/.')
+
+        new File(targetDir, 'modules/ROOT/pages').eachFileRecurse { file->
             if (file.name.endsWith('.adoc') && file.name ==~ /[0-9]+_.*/) {
                 def text = file.getText('utf-8')
                 def title = ""
@@ -89,35 +103,105 @@ task downloadTemplate(
 :jbake-menu: arc42
 :jbake-order: ${file.name.split("_")[0] as Integer}
 :filename: ${file.canonicalPath-targetDir.canonicalPath}
-ifndef::imagesdir[:imagesdir: ../../images]
+ifndef::imagesdir[:imagesdir: ../assets/images]
 
 :toc:
 
 """+text
                 file.write(text,'utf-8')
+                nav.append('* xref:'+file.name+'['+file.name.split("_")[0]+'. '+title+']\n', 'utf-8')
             }
         }
-        new File(targetDir, 'arc42-template.adoc').renameTo(new File(targetDir, 'arc42.adoc'))
-        def configAdoc = new File(targetDir,'chapters/config.adoc')
-        configAdoc.write(configAdoc.text.replaceAll("[.]/images","../images"),'utf-8')
-        def mainDoc = new File(targetDir,'arc42.adoc')
-        mainDoc.write(":imagesdir: ../images\n:jbake-menu: -\n"+mainDoc.text.replaceAll('src/','chapters/'),'utf-8')
-        //write asciidoctorconfig for editor preview
-        new File(targetDir,'/chapters/.asciidoctorconfig.adoc').write(':imagesdir: ../../images\n\n', 'utf-8')
-        new File(targetDir,'/.asciidoctorconfig.adoc').write(':imagesdir: ../images\n\n', 'utf-8')
-        //add arc42.doc to config
-        def configFile = new File(docDir, mainConfigFile)
-        configFile.write(
-            configFile.text
+
+        new File(targetDir, 'modules/ROOT/pages/.asciidoctorconfig.adoc').text = ':imagesdir: ../assets/images'
+
+
+        // TODO this is the index
+        //def fil = new File("modules/ROOT/pages/index.adoc")
+        //fil.createNewFile()
+        //    fil.write("foo","utf-8")
+        copy {
+            from (new File(targetDir, 'arc42-template.adoc'))
+            into new File(targetDir, 'modules/ROOT/pages/.')
+        }
+        def con = new File(targetDir, 'modules/ROOT/pages/arc42.adoc')
+        new File(targetDir, 'modules/ROOT/pages/arc42-template.adoc')
+            .renameTo(con)
+
+        con.write(con.text.replaceAll('src/', ''), 'utf-8')
+
+        def configFil = new File(docDir, mainConfigFile)
+        configFil.write(
+            configFil.text
                 .replaceAll('[, \\t\\r\\n]+/[*]{2} inputFiles [*]{2}/',
-                            ",\n\t[file: 'arc42/arc42.adoc', formats: ['html','pdf']],\n\t/** inputFiles **/")
+                    ",\n\t[file: 'arc42/modules/ROOT/pages/arc42.adoc', formats: ['html','pdf']],\n\t/** inputFiles **/")
                 .replaceAll('/[*]{2} imageDirs [*]{2}/',
-                            "'images/.',\n\t/** imageDirs **/")
+                    "'arc42/modules/ROOT/assets/images/.',\n\t/** imageDirs **/")
                 .replaceAll('[, \\t\\r\\n]+/[*]{2} imageDirs [*]{2}/',
-                            ",\n\t'images/.',\n\t/** imageDirs **/")
-                .replaceAll("\\[,","["),
+                    ",\n\t'arc42/modules/ROOT/assets/images/.',\n\t/** imageDirs **/")
+                .replaceAll("\\[,", "["),
             'utf-8'
         )
+
+        println "finished to bootstrap antora"
+
+        //re-organize content
+        //move images folder
+        if(false) {
+            new File(targetDir, '../images/.').mkdirs()
+            copy {
+                from(new File(targetDir, 'images/.'))
+                into new File(targetDir, '../images/.')
+            }
+            delete new File(targetDir, 'images/.')
+            new File(targetDir, 'src').renameTo(new File(targetDir, 'chapters'))
+            //add jbake header
+            new File(targetDir, 'chapters').eachFileRecurse { file ->
+                if (file.name.endsWith('.adoc') && file.name ==~ /[0-9]+_.*/) {
+                    def text = file.getText('utf-8')
+                    def title = ""
+                    text.eachLine { line ->
+                        if (title == "" && line.startsWith('=')) {
+                            title = line.split("[ \t]+", 2)[1]
+                        }
+                    }
+                    text = """\
+:jbake-title: $title
+:jbake-type: page_toc
+:jbake-status: published
+:jbake-menu: arc42
+:jbake-order: ${file.name.split("_")[0] as Integer}
+:filename: ${file.canonicalPath - targetDir.canonicalPath}
+ifndef::imagesdir[:imagesdir: ../../images]
+
+:toc:
+
+""" + text
+                    file.write(text, 'utf-8')
+                }
+            }
+            new File(targetDir, 'arc42-template.adoc').renameTo(new File(targetDir, 'arc42.adoc'))
+            def configAdoc = new File(targetDir, 'chapters/config.adoc')
+            configAdoc.write(configAdoc.text.replaceAll("[.]/images", "../images"), 'utf-8')
+            def mainDoc = new File(targetDir, 'arc42.adoc')
+            mainDoc.write(":imagesdir: ../images\n:jbake-menu: -\n" + mainDoc.text.replaceAll('src/', 'chapters/'), 'utf-8')
+            //write asciidoctorconfig for editor preview
+            new File(targetDir, '/chapters/.asciidoctorconfig.adoc').write(':imagesdir: ../../images\n\n', 'utf-8')
+            new File(targetDir, '/.asciidoctorconfig.adoc').write(':imagesdir: ../images\n\n', 'utf-8')
+            //add arc42.doc to config
+            def configFile = new File(docDir, mainConfigFile)
+            configFile.write(
+                configFile.text
+                    .replaceAll('[, \\t\\r\\n]+/[*]{2} inputFiles [*]{2}/',
+                        ",\n\t[file: 'arc42/arc42.adoc', formats: ['html','pdf']],\n\t/** inputFiles **/")
+                    .replaceAll('/[*]{2} imageDirs [*]{2}/',
+                        "'images/.',\n\t/** imageDirs **/")
+                    .replaceAll('[, \\t\\r\\n]+/[*]{2} imageDirs [*]{2}/',
+                        ",\n\t'images/.',\n\t/** imageDirs **/")
+                    .replaceAll("\\[,", "["),
+                'utf-8'
+            )
+        }
         println "added template to ${mainConfigFile}"
         println "use 'generateHTML', 'generatePDF' or  'generateSite' to convert the template"
 
