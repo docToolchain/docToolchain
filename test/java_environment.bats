@@ -66,7 +66,7 @@ teardown() {
     PATH="${minimal_system}" run -1 ./dtcw tasks --group doctoolchain
 
     assert_line "Error: unsupported Java version 8 [${mock_java}]"
-    assert_line "docToolchain supports Java versions 11 (preferred), 14, or 17. In case one of those"
+    assert_line "docToolchain supports Java versions 11, 14, or 17 (preferred). In case one of those"
 }
 
 @test "show unsupported java version - Java 20" {
@@ -81,7 +81,7 @@ teardown() {
     assert_line "Using environment: local"
 
     assert_line "Error: unsupported Java version 20 [${mock_java}]"
-    assert_line "docToolchain supports Java versions 11 (preferred), 14, or 17. In case one of those"
+    assert_line "docToolchain supports Java versions 11, 14, or 17 (preferred). In case one of those"
 }
 
 @test "local Java is used before system Java" {

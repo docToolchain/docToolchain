@@ -41,7 +41,7 @@ teardown() {
 
     assert_line "Error: unable to locate a Java Runtime"
 
-    assert_line "docToolchain supports Java versions 11 (preferred), 14, or 17. In case one of those"
+    assert_line "docToolchain supports Java versions 11, 14, or 17 (preferred). In case one of those"
     assert_line "Java versions is installed make sure 'java' is found with your PATH environment"
     assert_line "variable. As alternative you may provide the location of your Java installation"
     assert_line "with JAVA_HOME."
@@ -56,9 +56,9 @@ teardown() {
 
     assert_line "    # First install SDKMAN!"
     assert_line "    $ curl -s \"https://get.sdkman.io\" | bash"
-    assert_line "    # Then open a new shell and install Java 11 with"
+    assert_line "    # Then open a new shell and install Java 17 with"
     # TODO: This will break when we change Java version
-    assert_line "    $ sdk install java 11.0.18-tem"
+    assert_line "    $ sdk install java 17.0.7-tem"
 
     assert_line "If you prefer not to install Java on your host, you can run docToolchain in a"
     assert_line "docker container. For this case dtcw provides the 'docker' execution environment."
@@ -70,7 +70,7 @@ teardown() {
     # Test setup
     mock_curl=$(mock_create curl)
     mock_unzip=$(mock_create unzip)
-    _mock=$(mock_create_java java "11.0.18")
+    _mock=$(mock_create_java java "17.0.7")
 
     # Execute
     PATH="${minimal_system}" run -0 ./dtcw install doctoolchain
@@ -78,7 +78,7 @@ teardown() {
     # Validate
     assert_line "Environments with docToolchain [${DTC_VERSION}]: none"
     assert_line "Installed docToolchain successfully in '${DTC_HOME}'."
-    assert_line --partial "Using Java 11.0.18"
+    assert_line --partial "Using Java 17.0.7"
     assert_line "Use './dtcw tasks --group doctoolchain' to see docToolchain related tasks."
 }
 
@@ -143,7 +143,7 @@ teardown() {
 }
 
 @test "install doctoolchain twice - skip installation" {
-    _mock=$(mock_create_java java "11.0.18")
+    _mock=$(mock_create_java java "17.0.7")
     _mock=$(mock_create "${DTC_HOME}/bin/doctoolchain")
 
     # Execute
@@ -153,7 +153,7 @@ teardown() {
 
     assert_line "Environments with docToolchain [${DTC_VERSION}]: local"
     assert_line "Skipped installation of docToolchain: already installed in '${DTC_HOME}'"
-    assert_line --partial "Using Java 11.0.18"
+    assert_line --partial "Using Java 17.0.7"
     assert_line "Use './dtcw tasks --group doctoolchain' to see docToolchain related tasks."
 }
 

@@ -399,7 +399,7 @@ function assert_java_version_supported() {
         $JAVA_CMD = "$env:JAVA_HOME/bin/java"
     }
     if (Test-Path "$DTC_JAVA_HOME") {
-        Write-Host "local java JDK-11 found"
+        Write-Host "local java JDK-17 found"
         $javaHome = $DTC_JAVA_HOME
         $JAVA_CMD = "$DTC_JAVA_HOME/bin/java"
         $dtc_opts = "$dtc_opts '-Dorg.gradle.java.home=$javaHome' "
@@ -433,7 +433,7 @@ unsupported Java version ${javaversion} [$JAVA_CMD]
 function java_help_and_die()
 {
     Write-Host @"
-docToolchain supports Java versions 11 (preferred), 14 or 17. In case one of those
+docToolchain supports Java versions 11, 14 or 17 (preferred). In case one of those
 Java versions is installed make sure 'java' is found with your PATH environment
 variable. As alternative you may provide the location of your Java installation
 with JAVA_HOME.
@@ -458,7 +458,7 @@ function how_to_install_sdkman() {
 }
 
 function local_install_java() {
-    $version = "11"
+    $version = "17"
     $implementation = "hotspot"
     $heapsize = "normal"
     $imagetype = "jdk"

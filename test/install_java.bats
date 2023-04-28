@@ -18,9 +18,9 @@ setup() {
     mock_set_side_effect "${mock_tar}" - <<EOF
 mkdir -p "${DTC_ROOT}/jdk/bin"
 cat <<JAVA > "${DTC_ROOT}/jdk/bin/java"
-echo 'openjdk version "11.0.18" 2023-01-17'
-echo 'OpenJDK Runtime Environment Temurin-11.0.18+10 (build 11.0.18+10)'
-echo 'OpenJDK 64-Bit Server VM Temurin-11.0.18+10 (build 11.0.18+10, mixed mode)'
+echo 'openjdk version "17.0.6" 2023-01-17'
+echo 'OpenJDK Runtime Environment Temurin-17.0.6+10 (build 17.0.6+10)'
+echo 'OpenJDK 64-Bit Server VM Temurin-17.0.6+10 (build 17.0.6+10, mixed mode, sharing)'
 echo
 JAVA
 chmod +x "${DTC_ROOT}/jdk/bin/java"
@@ -44,12 +44,12 @@ teardown() {
     # Execute
     PATH="${minimal_system}" run -0 ./dtcw local install java
 
-    assert_equal "$(mock_get_call_args "${mock_curl}")" "--fail --silent --location --output ${DTC_ROOT}/jdk/jdk.tar.gz https://api.adoptium.net/v3/binary/latest/11/ga/linux/x64/jdk/hotspot/normal/eclipse?project=jdk"
+    assert_equal "$(mock_get_call_args "${mock_curl}")" "--fail --silent --location --output ${DTC_ROOT}/jdk/jdk.tar.gz https://api.adoptium.net/v3/binary/latest/17/ga/linux/x64/jdk/hotspot/normal/eclipse?project=jdk"
 
     assert_line "Environments with docToolchain [${DTC_VERSION}]: none"
     assert_line "Using environment: local"
 
-    assert_line "Downloading JDK Temurin 11 [linux/x64] from Adoptium to ${DTC_ROOT}/jdk/jdk.tar.gz"
+    assert_line "Downloading JDK Temurin 17 [linux/x64] from Adoptium to ${DTC_ROOT}/jdk/jdk.tar.gz"
     assert_line "Extracting JDK from archive file."
     assert_line "Successfully installed Java in '${DTC_ROOT}/jdk'."
 
@@ -80,12 +80,12 @@ teardown() {
     # Execute
     PATH="${minimal_system}" run -0 ./dtcw local install java
 
-    assert_equal "$(mock_get_call_args "${mock_curl}")" "--fail --silent --location --output ${DTC_ROOT}/jdk/jdk.tar.gz https://api.adoptium.net/v3/binary/latest/11/ga/linux/x64/jdk/hotspot/normal/eclipse?project=jdk"
+    assert_equal "$(mock_get_call_args "${mock_curl}")" "--fail --silent --location --output ${DTC_ROOT}/jdk/jdk.tar.gz https://api.adoptium.net/v3/binary/latest/17/ga/linux/x64/jdk/hotspot/normal/eclipse?project=jdk"
 
     assert_line "Environments with docToolchain [${DTC_VERSION}]: local"
     assert_line "Using environment: local"
 
-    assert_line "Downloading JDK Temurin 11 [linux/x64] from Adoptium to ${DTC_ROOT}/jdk/jdk.tar.gz"
+    assert_line "Downloading JDK Temurin 17 [linux/x64] from Adoptium to ${DTC_ROOT}/jdk/jdk.tar.gz"
     assert_line "Extracting JDK from archive file."
     assert_line "Successfully installed Java in '${DTC_ROOT}/jdk'."
 

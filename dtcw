@@ -469,7 +469,7 @@ assert_java_version_supported() {
 
 java_help_and_die() {
     printf "%s\n" \
-        "docToolchain supports Java versions 11 (preferred), 14, or 17. In case one of those" \
+        "docToolchain supports Java versions 11, 14, or 17 (preferred). In case one of those" \
         "Java versions is installed make sure 'java' is found with your PATH environment" \
         "variable. As alternative you may provide the location of your Java installation" \
         "with JAVA_HOME." \
@@ -483,11 +483,11 @@ java_help_and_die() {
         "Alternatively you can use SDKMAN! (https://sdkman.io) to manage your Java installations" \
         ""
     if ! is_environment_available sdk; then
-        how_to_install_sdkman "Java 11"
+        how_to_install_sdkman "Java 17"
     fi
     # TODO: This will break when we change Java version
     printf "%s\n" \
-        "    $ sdk install java 11.0.18-tem" \
+        "    $ sdk install java 17.0.7-tem" \
         "" \
         "If you prefer not to install Java on your host, you can run docToolchain in a" \
         "docker container. For this case dtcw provides the 'docker' execution environment." \
@@ -505,7 +505,7 @@ how_to_install_sdkman() {
 }
 
 local_install_java() {
-    version=11
+    version=17
     implementation=hotspot
     heapsize=normal
     imagetype=jdk

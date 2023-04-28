@@ -33,7 +33,7 @@ jobs:
       matrix:
         os: [ubuntu-latest, macos-latest]
       fail-fast: false
-    name: Execite dtcw test suite - ${{ matrix.os }}
+    name: Execute dtcw test suite - ${{ matrix.os }}
     runs-on: ${{ matrix.os }}
     defaults:
       run:

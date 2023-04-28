@@ -21,7 +21,7 @@ setup() {
 
     # Mock installation of doctoolchain and java with sdk
     mock_doctoolchain=$(mock_create "${SDKMAN_DIR}/candidates/doctoolchain/${DTC_VERSION}/bin/doctoolchain")
-    mock_java=$(mock_create_java "${SDKMAN_DIR}/candidates/java/current/bin/java" "11.0.18")
+    mock_java=$(mock_create_java "${SDKMAN_DIR}/candidates/java/current/bin/java" "17.0.7")
     path=$(path_override "${minimal_system}" "$(path_rm /bin "$(path_rm /usr/bin)")")
 }
 
@@ -97,7 +97,7 @@ EOF
 
     assert_line "Error: unable to locate a Java Runtime"
 
-    assert_line "docToolchain supports Java versions 11 (preferred), 14, or 17. In case one of those"
+    assert_line "docToolchain supports Java versions 11, 14, or 17 (preferred). In case one of those"
     assert_line "Java versions is installed make sure 'java' is found with your PATH environment"
     assert_line "variable. As alternative you may provide the location of your Java installation"
     assert_line "with JAVA_HOME."
@@ -113,10 +113,10 @@ EOF
     # Don't show how SDKMAN! is installed since it is already installed
     refute_output --partial "# Install SDKMAN!"
     refute_output --partial "$ curl -s \"https://get.sdkman.io\" | bash"
-    refute_output --partial "Then open a new shell and install Java 11 with"
+    refute_output --partial "Then open a new shell and install Java 17 with"
 
     # TODO: This will break when we change Java version
-    assert_line "    \$ sdk install java 11.0.18-tem"
+    assert_line "    \$ sdk install java 17.0.7-tem"
 
     assert_line "If you prefer not to install Java on your host, you can run docToolchain in a"
     assert_line "docker container. For this case dtcw provides the 'docker' execution environment."
