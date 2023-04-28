@@ -22,7 +22,7 @@ To get around this, you can set up a fresh copy of the arc42 template in docTool
 
 In this tutorial, you'll learn how to publish the arc42 template to a Confluence cloud instance.
 
-=== Step 1. Set Up docToolchain 
+=== Step 1. Set Up docToolchain
 
 If you  have completed instructions http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/010_Install.html[install docToolchain] and http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/020_arc42.html[get the arc42 template] you can skip this part.
 
@@ -35,15 +35,15 @@ NOTE: For this tutorial, we assume that you work with a MacOs/Linux-based system
 ----
 mkdir publishToConfluenceDemo
 cd publishToConfluenceDemo
-curl -Lo dtcw doctoolchain.github.io/dtcw`
+curl -Lo dtcw doctoolchain.org/dtcw`
 ----
-+ 
++
 The result is as follows:
 +
 [%collapsible]
 ====
 ```
-gitpod /workspace/publishToConfluenceDemo (main) $ curl -Lo dtcw doctoolchain.github.io/dtcw
+gitpod /workspace/publishToConfluenceDemo (main) $ curl -Lo dtcw doctoolchain.org/dtcw
 % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 Dload  Upload   Total   Spent    Left  Speed
 100   162  100   162    0     0   1306      0 --:--:-- --:--:-- --:--:--  1317
@@ -277,7 +277,7 @@ input = [
 api = 'https://[yourServer]/[context]/rest/api/'
 ----
 +
-In this case, the correct endpoint is `https://arc42-template.atlassian.net/wiki/rest/api/`. 
+In this case, the correct endpoint is `https://arc42-template.atlassian.net/wiki/rest/api/`.
 +
 .. Verify your endpoint and paste `https://[yourServer]/[context]/rest/api/**user/current**` in your browser, such as https://arc42-template.atlassian.net/wiki/rest/api/user/current.
 +
@@ -313,7 +313,7 @@ spaceKey = '8FE'
 
 ==== Step 2.1. Configure Confluence Authentication
 
-===== Step 2.1a. CLI Authentication with username and password (insecure) 
+===== Step 2.1a. CLI Authentication with username and password (insecure)
 
 WARNING: This method is not recommended. Instead of passing your password, you can use a Personal Access Token,
 which can easily be revoked on the event of a compromise. See
@@ -364,7 +364,7 @@ NOTE: Here is the https://id.atlassian.com/manage-profile/security/api-tokens[sh
 
 If you do not want to pass your password and you are not an admin of your Confluence instance, you can use a Personal Access Token (PAT). Follow the
 https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html#UsingPersonalAccessTokens-CreatingPATsintheapplication[Confluence
-documentation] to generate one. 
+documentation] to generate one.
 
 In the Terminal, type the following to publish to Confluence with your PAT:
 [source,shell]
