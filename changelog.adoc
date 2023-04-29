@@ -20,6 +20,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * various fixes in `dtcw`, `dtcw.ps1`:
 ** pick the right environment if none provided by the user
 ** support of JAVA_HOME which was silently ignored.
+* https://github.com/docToolchain/docToolchain/issues/220[#220 convertToDocx and convertToEpub not working]
 
 === added
 

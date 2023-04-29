@@ -6,6 +6,10 @@ task convertToDocx (
 ) {
     // All files with option `docx` in config.groovy is converted to docbook and then to docx.
     def sourceFilesDocx = sourceFiles.findAll { 'docx' in it.formats }
+    def explicitSourceFilesCount = sourceFilesDocx.size()
+    if(explicitSourceFilesCount==0){
+        sourceFilesDocx = sourceFiles.findAll { 'docbook' in it.formats }
+    }
     sourceFilesDocx.each {
         def sourceFile = it.file.replace('.adoc', '.xml')
         def targetFile = sourceFile.replace('.xml', '.docx')
@@ -28,6 +32,9 @@ task convertToDocx (
     }
     doFirst {
         new File("$targetDir/docx/").mkdirs()
+        if(explicitSourceFilesCount==0) {
+            logger.warn('WARNING: No source files defined for type "docx". Converting with best effort')
+        }
     }
 }
 //end::convertToDocx[]
@@ -40,6 +47,10 @@ task convertToEpub (
 ) {
     // All files with option `epub` in config.groovy is converted to docbook and then to epub.
     def sourceFilesEpub = sourceFiles.findAll { 'epub' in it.formats }
+    def explicitSourceFilesCount = sourceFilesEpub.size()
+    if(explicitSourceFilesCount==0){
+        sourceFilesEpub = sourceFiles.findAll { 'docbook' in it.formats }
+    }
     sourceFilesEpub.each {
         def sourceFile = it.file.replace('.adoc', '.xml')
         def targetFile = sourceFile.replace('.xml', '.epub')
@@ -53,6 +64,9 @@ task convertToEpub (
     }
     doFirst {
         new File("$targetDir/epub/").mkdirs()
+        if(explicitSourceFilesCount==0) {
+            logger.warn('WARNING: No source files defined for type "epub". Converting with best effort')
+        }
     }
 }
 //end::convertToEpub[]
@@ -72,12 +86,12 @@ task createReferenceDoc (
     args = ["-o", "${docDir}/${referenceDocFile}",
             "--print-default-data-file",
             "reference.docx"]
-    
+
     doFirst {
         if(!(referenceDocFile?.trim())) {
             throw new GradleException("Option `referenceDocFile` is not defined in config.groovy or has an empty value.")
         }
-    }   
+    }
 }
 //end::createReferenceDoc[]
 
