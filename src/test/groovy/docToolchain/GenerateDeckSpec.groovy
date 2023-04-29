@@ -32,9 +32,8 @@ class GenerateDeckSpec extends Specification {
                     .withArguments(['generateDeck','--info', '-PinputPath=src/test/docs','-PmainConfigFile=src/test/config_without_revealjs.groovy'])
                     .build()
         then: 'we get an exception'
-            def e = thrown java.lang.Exception
+        def e = thrown java.lang.Exception
         and: 'it contains some info about the problem'
-            e.message.contains('Please specify at least one inputFile in your docToolchainConfig.groovy')
+        e.message.contains('Please specify at least one inputFile in your docToolchainConfig.groovy')
     }
-
 }

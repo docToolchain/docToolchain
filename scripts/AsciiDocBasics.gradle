@@ -220,9 +220,7 @@ task generateHTML (
         backends = ['html5']
     }
 
-    def sourceFilesHTML = sourceFiles.findAll {
-                                'html' in it.formats
-                            }
+    def sourceFilesHTML = findSourceFilesByType(['html'])
 //    onlyIf {
 //        sourceFilesHTML
 //    }
@@ -253,16 +251,14 @@ task generateHTML (
         }
     }
 
-doFirst {
-    if (sourceFilesHTML.size()==0) {
-        throw new Exception ("""
-
->> No source files defined for type HTML.
->> Please specify at least one inputFile in your docToolchainConfig.groovy
-""")
+    doFirst {
+        if (sourceFilesHTML.size()==0) {
+            throw new Exception ("""
+            >> No source files defined for type 'html'.
+            >> Please specify at least one inputFile in your docToolchainConfig.groovy
+            """)
+        }
     }
-
-}
 }
 //end::generateHTML[]
 
@@ -284,9 +280,7 @@ task generatePDF (
         'imagesoutdir'        : file("${docDir}/${config.outputPath}/images/").path
     )
 
-    def sourceFilesPDF = sourceFiles.findAll {
-        'pdf' in it.formats
-    }
+    def sourceFilesPDF = findSourceFilesByType(['pdf'])
 //    onlyIf {
 //        sourceFilesPDF
 //    }
@@ -309,6 +303,15 @@ task generatePDF (
         backends = ['pdf']
     }
 
+    doFirst {
+        if (sourceFilesPDF.size()==0) {
+            throw new Exception ("""
+            >> No source files defined for type 'pdf'.
+            >> Please specify at least one inputFile in your docToolchainConfig.groovy
+            """)
+        }
+    }
+
     /**
     //check if a remote pdfTheme is defined
     def pdfTheme = System.getenv('DTC_PDFTHEME')
@@ -318,16 +321,6 @@ task generatePDF (
         //TODO: finish this...
     }
     **/
-    doFirst {
-            if (sourceFilesPDF.size()==0) {
-                throw new Exception ("""
-
-    >> No source files defined for type PDF.
-    >> Please specify at least one inputFile in your docToolchainConfig.groovy
-    """)
-            }
-
-    }
 }
 //end::generatePDF[]
 
@@ -337,9 +330,7 @@ task generateDocbook (
         group: 'docToolchain',
         description: 'use docbook as asciidoc backend') {
 
-    def sourceFilesDOCBOOK = sourceFiles.findAll {
-        'docbook' in it.formats
-    }
+    def sourceFilesDOCBOOK = findSourceFilesByType(['docbook', 'epub', 'docx'])
 //    onlyIf {
 //        sourceFilesDOCBOOK
 //    }
@@ -365,21 +356,19 @@ task generateDocbook (
     doFirst {
         if (sourceFilesDOCBOOK.size()==0) {
             throw new Exception ("""
-
-    >> No source files defined for type docbook.
-    >> Please specify at least one inputFile in your docToolchainConfig.groovy
-    """)
+            >> No source files defined for type of '[docbook, epub, docx]'.
+            >> Please specify at least one inputFile in your docToolchainConfig.groovy
+            """)
         }
-
     }
 }
 //end::generateDocbook[]
 
 //tag::generateDeck[]
 task generateDeck (
-        type: AsciidoctorJRevealJSTask,
-        group: 'docToolchain',
-        description: 'use revealJs as asciidoc backend to create a presentation') {
+    type: AsciidoctorJRevealJSTask,
+    group: 'docToolchain',
+    description: 'use revealJs as asciidoc backend to create a presentation') {
 
     // corresponding Asciidoctor reveal.js config
     // :revealjs_theme:
@@ -406,9 +395,7 @@ task generateDeck (
         'docinfo1': '',
     )
 
-    def sourceFilesREVEAL = sourceFiles.findAll {
-        'revealjs' in it.formats
-    }
+    def sourceFilesREVEAL = findSourceFilesByType(['revealjs'])
 
     sources {
         sourceFilesREVEAL.each {
@@ -437,11 +424,10 @@ task generateDeck (
     doFirst {
         if (sourceFilesREVEAL.size()==0) {
             throw new Exception ("""
-    >> No source files defined for type 'revealjs'.
-    >> Please specify at least one inputFile in your docToolchainConfig.groovy
-    """)
+            >> No source files defined for type 'revealjs'.
+            >> Please specify at least one inputFile in your docToolchainConfig.groovy
+            """)
         }
-
     }
 }
 generateDeck.dependsOn asciidoctorGemsPrepare
@@ -457,4 +443,16 @@ task install (
 
 tasks.withType(Copy).configureEach {
     duplicatesStrategy = DuplicatesStrategy.INCLUDE
+}
+
+def findSourceFilesByType (types) {
+    List<Object> sourceFilesForTask = []
+    if(sourceFiles){
+        types.each { format ->
+            sourceFilesForTask << sourceFiles.findAll {
+                format in it.formats
+            }
+        }
+    }
+    return sourceFilesForTask.flatten()
 }
