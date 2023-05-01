@@ -44,6 +44,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 ** 'com.github.ben-manes.versions:0.46.0'
 ** 'com.athaydes:spock-reports:2.3.2-groovy-3.0'
 ** 'org.spockframework:spock-core:2.3-groovy-3.0'
+** 'org.asciidoctor.asciidoctorj-diagram:2.2.7'
 * `dtcw` and `dtcw.ps1`:
 ** improve output with hints to guide the user
 ** add `--version` option
