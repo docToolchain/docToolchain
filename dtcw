@@ -61,7 +61,6 @@ main() {
 
     [ "${1}" = "--version" ] && exit 0
 
-
     available_environments=$(get_available_environments)
     echo "Available docToolchain environments:${available_environments}"
 
@@ -166,7 +165,13 @@ EOF
 
 print_version_info() {
     echo "dtcw ${DTCW_VERSION} - ${DTCW_GIT_HASH}"
-    echo "docToolchain ${DTC_VERSION}"
+    if is_doctoolchain_development_version "${DTC_VERSION}"; then
+        local dtc_git_hash=unknown
+        dtc_git_hash=$(git -C "${DTC_HOME}" rev-parse --short=8 HEAD || echo "unknown")
+        echo "docToolchain ${DTC_VERSION} - ${dtc_git_hash}"
+    else
+        echo "docToolchain ${DTC_VERSION}"
+    fi
     echo "OS/arch: ${os}/${arch}"
 }
 
@@ -357,7 +362,7 @@ local_install_doctoolchain() {
     local version=${1}
     if is_doctoolchain_development_version "${version}"; then
         # User decided to pick a floating version - which means a git clone into the local environment.
-        assert_git_installed "Please install 'git' for working with a 'doctToolchain' develpment version"
+        assert_git_installed "Please install 'git' for working with a 'doctToolchain' development version"
 
         if [ -d "${DTC_HOME}/.git" ]; then
             git -C "${DTC_HOME}" pull
