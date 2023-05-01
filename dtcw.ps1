@@ -542,10 +542,11 @@ function build_command($environment, $version, $_args) {
             Write-Host ""
             exit 1
         }
+        $container_name="doctoolchain-${version}-$(date '+%Y%m%d_%H%M%S')"
         $docker_cmd = Get-Command docker
         # TODO: DTC_PROJECT_BRANCH is  not passed into the docker environment
         # See https://github.com/docToolchain/docToolchain/issues/1087
-        $docker_args = "run --rm -i --name doctoolchain${version} -e DTC_HEADLESS=1 -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} -p 8042:8042 --entrypoint /bin/bash -v '${PWD}:/project' doctoolchain/doctoolchain:v${version}"
+        $docker_args = "run --rm -i --name ${container_name} -e DTC_HEADLESS=1 -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} -p 8042:8042 --entrypoint /bin/bash -v '${PWD}:/project' doctoolchain/doctoolchain:v${version}"
         $cmd = "$docker_cmd ${docker_args} -c ""doctoolchain . $_args ${DTC_OPTS} && exit "" "
 
     } else {

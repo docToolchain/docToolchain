@@ -12,6 +12,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/issues/395[#395 asciidoctor-diagram: ERROR: Failed to generate image: PlantUML image generation failed]
 * https://github.com/docToolchain/docToolchain/issues/455[#455 Force execution to stop with failure on missing image reference]
 * https://github.com/docToolchain/docToolchain/issues/621[#621: dtcw - sdkman installation check returns wrong result]
+* https://github.com/docToolchain/docToolchain/issues/829[#829: Multiple run of dtcw with docker is failing because of a container name conflict]
 * https://github.com/docToolchain/docToolchain/issues/831[#831: fix for generateSite: images-hrefs not correct]
 * https://github.com/docToolchain/docToolchain/issues/973[#973: `dtcw getJava` doesn't work without `local`]
 * https://github.com/docToolchain/docToolchain/issues/1109[#1109: docToolchain release notes contain releases twice]
