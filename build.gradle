@@ -38,7 +38,7 @@ dependencies {
             gradleTestKit(),
             //for the renderToConfluence Task
             ('org.apache.httpcomponents:httpmime:4.5.10'),
-            ('org.jsoup:jsoup:1.15.4'),
+            ('org.jsoup:jsoup:1.16.1'),
             ('org.codehaus.groovy.modules.http-builder:http-builder:0.7.2')
     )
     testRuntimeOnly(
