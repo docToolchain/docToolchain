@@ -9,6 +9,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+* https://github.com/docToolchain/docToolchain/issues/395[#395 asciidoctor-diagram: ERROR: Failed to generate image: PlantUML image generation failed]
 * https://github.com/docToolchain/docToolchain/issues/455[#455 Force execution to stop with failure on missing image reference]
 * https://github.com/docToolchain/docToolchain/issues/621[#621: dtcw - sdkman installation check returns wrong result]
 * https://github.com/docToolchain/docToolchain/issues/831[#831: fix for generateSite: images-hrefs not correct]
@@ -53,7 +54,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * `collectIncludes`
 ** changed regexp to start with `^[A-Za-z]` as file name to allow lowercase filenames as well.
 ** certain directories are excluded from traversal. Define `excludeDirectories` in order to skip additional directories.
-* replace old URL `doctoolchain.github.io` occurrences with the new `doctoolchain.org`
+* doc: replace old URL `doctoolchain.github.io` occurrences with the new `doctoolchain.org`
 
 == 2.2.1 - 2023-03-05
 
