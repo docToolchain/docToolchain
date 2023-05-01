@@ -131,7 +131,7 @@ teardown() {
     DTC_VERSION=latest PATH="${minimal_system}" run -1 ./dtcw install doctoolchain
 
     assert_line "Error: git - command not found"
-    assert_line "Please install 'git' for working with a 'doctToolchain' develpment version"
+    assert_line "Please install 'git' for working with a 'doctToolchain' development version"
 }
 
 @test "DTC_VERSION=latestdev local install doctoolchain - git command not found" {
@@ -139,7 +139,7 @@ teardown() {
     DTC_VERSION=latestdev PATH="${minimal_system}" run -1 ./dtcw install doctoolchain
 
     assert_line "Error: git - command not found"
-    assert_line "Please install 'git' for working with a 'doctToolchain' develpment version"
+    assert_line "Please install 'git' for working with a 'doctToolchain' development version"
 }
 
 @test "install doctoolchain twice - skip installation" {

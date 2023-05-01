@@ -161,7 +161,12 @@ Use './dtcw.ps1 tasks' to see all tasks.
 
 function print_version_info() {
     Write-Host "dtcw ${DTCW_VERSION} - ${DTCW_GIT_HASH}"
-    Write-Host "docToolchain ${DTC_VERSION}"
+    if (is_doctoolchain_installed $environment) {
+        $dtc_git_hash=(git -C "$DTC_HOME" rev-parse --short=8 HEAD)
+        Write-Host "docToolchain ${DTC_VERSION} - ${dtc_git_hash}"
+    } else {
+        Write-Host "docToolchain ${DTC_VERSION}"
+    }
     Write-Host "OS/arch: pwsh $os $arch"
 }
 
