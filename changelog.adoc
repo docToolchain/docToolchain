@@ -9,6 +9,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+* https://github.com/docToolchain/docToolchain/issues/1150[#1150 generateDeck with Java 17 shows WARN FilenoUtil]
 * https://github.com/docToolchain/docToolchain/issues/395[#395 asciidoctor-diagram: ERROR: Failed to generate image: PlantUML image generation failed]
 * https://github.com/docToolchain/docToolchain/issues/455[#455 Force execution to stop with failure on missing image reference]
 * https://github.com/docToolchain/docToolchain/issues/621[#621: dtcw - sdkman installation check returns wrong result]
