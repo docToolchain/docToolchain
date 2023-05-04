@@ -1,0 +1,55 @@
+name: Execute dtcw test suite
+
+on:
+  push:
+    branches-ignore:
+      - gh-pages
+  pull_request:
+    branches: [ ng ]
+    paths:
+      - 'dtcw.ps1'
+      - 'src/test/groovy/docToolchain/DtcwOnPowershellSpec.groovy'
+  workflow_dispatch: {}
+
+  test-dtcw-ps1-spock:
+    strategy:
+      matrix:
+        os: [ubuntu-latest, macos-latest, windows-latest]
+        java: [14]
+        jdk: [temurin]
+      fail-fast: false
+    name: Execute dtcw spock test suite - ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+        with:
+          submodules: true
+ 
+      - name: install powershell
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" == "windows" ]; then
+            echo "pwsh already installed"
+          else  
+            sudo apt-get install -y wget apt-transport-https software-properties-common
+            wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+            sudo dpkg -i packages-microsoft-prod.deb
+            rm packages-microsoft-prod.deb
+            sudo apt-get update
+            sudo apt-get install -y powershell
+          fi
+       
+      - name: Run tests
+        run: |
+          ./gradlew test --info --tests=DtcwOnPowershellSpec
+
+      - name: Archive Spock dtcw results
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: spock-dtcw-report
+          path: build/reports/tests/test/
