@@ -160,9 +160,15 @@ Use './dtcw.ps1 tasks' to see all tasks.
 }
 
 function print_version_info() {
-    Write-Output "dtcw ${DTCW_VERSION} - ${DTCW_GIT_HASH}"
-    Write-Output "docToolchain ${DTC_VERSION}"
-    Write-Output "OS/arch: pwsh $global:os $global:arch"
+    Write-Host "dtcw ${DTCW_VERSION} - ${DTCW_GIT_HASH}"
+    if (is_doctoolchain_development_version ${DTC_VERSION}) {
+        $dtc_git_hash=unknown
+        $dtc_git_hash=(git -C "$DTC_HOME" rev-parse --short=8 HEAD 2> $null)
+        Write-Host "docToolchain ${DTC_VERSION} - ${dtc_git_hash}"
+    } else {
+        Write-Host "docToolchain ${DTC_VERSION}"
+    }
+    Write-Host "OS/arch: pwsh $os $arch"
 }
 
 function get_available_environments() {
@@ -393,7 +399,7 @@ function assert_java_version_supported() {
         $JAVA_CMD = "$env:JAVA_HOME/bin/java"
     }
     if (Test-Path "$DTC_JAVA_HOME") {
-        Write-Output "local java JDK-11 found"
+        Write-Host "local java JDK-17 found"
         $javaHome = $DTC_JAVA_HOME
         $JAVA_CMD = "$DTC_JAVA_HOME/bin/java"
         $dtc_opts = "$dtc_opts '-Dorg.gradle.java.home=$javaHome' "
@@ -407,7 +413,7 @@ function assert_java_version_supported() {
 
     Write-Output "Java Version $javaversion"
 
-    if ([int]$javaversion -lt 8 ) {
+    if ([int]$javaversion -lt 11 ) {
         Write-Warning @"
 unsupported Java version ${javaversion} [$JAVA_CMD]
 "@
@@ -426,8 +432,8 @@ unsupported Java version ${javaversion} [$JAVA_CMD]
 
 function java_help_and_die()
 {
-    Write-Output @"
-docToolchain supports Java versions 8, 11 (preferred), 14 or 17. In case one of those
+    Write-Host @"
+docToolchain supports Java versions 11, 14 or 17 (preferred). In case one of those
 Java versions is installed make sure 'java' is found with your PATH environment
 variable. As alternative you may provide the location of your Java installation
 with JAVA_HOME.
@@ -452,7 +458,7 @@ function how_to_install_sdkman() {
 }
 
 function local_install_java() {
-    $version = "11"
+    $version = "17"
     $implementation = "hotspot"
     $heapsize = "normal"
     $imagetype = "jdk"
@@ -514,7 +520,7 @@ following docToolchain environments:
     > ./dtcw.ps1 local install doctoolchain
 
 Note that running docToolchain in 'local' environment needs a
-Java runtime (major version 8, 11, 14 or 17) installed on your host.
+Java runtime (major version 11, 14 or 17) installed on your host.
 
 2. 'docker': pull the docToolchain image and execute docToolchain in a container environment.
 
@@ -536,10 +542,11 @@ function build_command($environment, $version, $_args) {
             Write-Output ""
             exit 1
         }
+        $container_name="doctoolchain-${version}-$(date '+%Y%m%d_%H%M%S')"
         $docker_cmd = Get-Command docker
         # TODO: DTC_PROJECT_BRANCH is  not passed into the docker environment
         # See https://github.com/docToolchain/docToolchain/issues/1087
-        $docker_args = "run --rm -i --name doctoolchain${version} -e DTC_HEADLESS=1 -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} -p 8042:8042 --entrypoint /bin/bash -v '${PWD}:/project' doctoolchain/doctoolchain:v${version}"
+        $docker_args = "run --rm -i --name ${container_name} -e DTC_HEADLESS=1 -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} -p 8042:8042 --entrypoint /bin/bash -v '${PWD}:/project' doctoolchain/doctoolchain:v${version}"
         $cmd = "$docker_cmd ${docker_args} -c ""doctoolchain . $_args ${DTC_OPTS} && exit "" "
 
     } else {

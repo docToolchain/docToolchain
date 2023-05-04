@@ -9,8 +9,10 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+* https://github.com/docToolchain/docToolchain/issues/395[#395 asciidoctor-diagram: ERROR: Failed to generate image: PlantUML image generation failed]
 * https://github.com/docToolchain/docToolchain/issues/455[#455 Force execution to stop with failure on missing image reference]
 * https://github.com/docToolchain/docToolchain/issues/621[#621: dtcw - sdkman installation check returns wrong result]
+* https://github.com/docToolchain/docToolchain/issues/829[#829: Multiple run of dtcw with docker is failing because of a container name conflict]
 * https://github.com/docToolchain/docToolchain/issues/831[#831: fix for generateSite: images-hrefs not correct]
 * https://github.com/docToolchain/docToolchain/issues/973[#973: `dtcw getJava` doesn't work without `local`]
 * https://github.com/docToolchain/docToolchain/issues/1109[#1109: docToolchain release notes contain releases twice]
@@ -24,6 +26,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === changed
 
 * Add support for Java 17
+* Drop support for Java 8
 * Upgrade Gradle to 7.5.1
 * Upgrade dependencies
 ** 'org.asciidoctor:asciidoctor-gradle-jvm:4.0.0-alpha.1' (remove obsolete cloning of `reveal.js`)
@@ -37,13 +40,14 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 ** 'org.jsoup:jsoup:1.15.4'
 ** 'org.asciidoctor:asciidoctorj-diagram:2.2.7'
 ** 'io.pebbletemplates:pebble:3.2.0'
-** 'org.junit.jupiter:junit-jupiter-api:5.9.2'
+** 'org.junit.jupiter:junit-jupiter-api:5.9.3'
 ** 'net.bytebuddy:byte-buddy:1.14.4'
 ** 'de.undercouch.download:5.4.0'
 ** 'org.openapi.generator:6.5.0'
 ** 'com.github.ben-manes.versions:0.46.0'
 ** 'com.athaydes:spock-reports:2.3.2-groovy-3.0'
 ** 'org.spockframework:spock-core:2.3-groovy-3.0'
+** 'org.asciidoctor.asciidoctorj-diagram:2.2.7'
 * `dtcw` and `dtcw.ps1`:
 ** improve output with hints to guide the user
 ** add `--version` option
@@ -52,7 +56,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * `collectIncludes`
 ** changed regexp to start with `^[A-Za-z]` as file name to allow lowercase filenames as well.
 ** certain directories are excluded from traversal. Define `excludeDirectories` in order to skip additional directories.
-* replace old URL `doctoolchain.github.io` occurrences with the new `doctoolchain.org`
+* doc: replace old URL `doctoolchain.github.io` occurrences with the new `doctoolchain.org`
 
 == 2.2.1 - 2023-03-05
 

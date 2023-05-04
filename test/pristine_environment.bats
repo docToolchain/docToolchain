@@ -89,7 +89,7 @@ teardown() {
     assert_line "    # Then open a new shell and install docToolchain with"
     assert_line "    \$ sdk install doctoolchain ${DTC_VERSION}"
     assert_line "Note that running docToolchain in 'local' or 'sdk' environment needs a"
-    assert_line "Java runtime (major version 8, 11, 14, or 17) installed on your host."
+    assert_line "Java runtime (major version 11, 14, or 17) installed on your host."
     assert_line "3. 'docker': pull the docToolchain image and execute docToolchain in a container environment."
     assert_line "    \$ ./dtcw docker tasks --group doctoolchain"
 }

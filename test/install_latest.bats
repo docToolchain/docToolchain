@@ -17,7 +17,7 @@ setup() {
     mock_git=$(mock_create git)
 
     # Installed local Java
-    _mock=$(mock_create_java "${DTC_ROOT}/jdk/bin/java" "11.0.18")
+    _mock=$(mock_create_java "${DTC_ROOT}/jdk/bin/java" "17.0.6")
 }
 
 teardown() {
@@ -35,8 +35,20 @@ teardown() {
     assert_line "Cloned docToolchain in local environment to latest version"
 }
 
+@test "DTC_VERSION=latest - show git hash" {
+    # Test setup
+    # Simulate existing git repository
+    mkdir -p "${DTC_ROOT}/docToolchain-${DTC_VERSION}/.git"
+    mock_set_output "${mock_git}" "07b0a8a7"
+
+    # Execute
+    DTC_VERSION=${DTC_VERSION} PATH="${minimal_system}" run -0 ./dtcw --version
+
+    assert_line --index 1 "docToolchain ${DTC_VERSION} - 07b0a8a7"
+}
+
 @test "DTC_VERSION=latest local install doctoolchain - git pull on existing repository" {
-    # Test stup
+    # Test setup
     # Simulate existing git repository
     mkdir -p "${DTC_ROOT}/docToolchain-${DTC_VERSION}/.git"
 

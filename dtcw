@@ -61,7 +61,6 @@ main() {
 
     [ "${1}" = "--version" ] && exit 0
 
-
     available_environments=$(get_available_environments)
     echo "Available docToolchain environments:${available_environments}"
 
@@ -166,7 +165,13 @@ EOF
 
 print_version_info() {
     echo "dtcw ${DTCW_VERSION} - ${DTCW_GIT_HASH}"
-    echo "docToolchain ${DTC_VERSION}"
+    if is_doctoolchain_development_version "${DTC_VERSION}"; then
+        local dtc_git_hash=unknown
+        dtc_git_hash=$(git -C "${DTC_HOME}" rev-parse --short=8 HEAD 2> /dev/null || echo "unknown")
+        echo "docToolchain ${DTC_VERSION} - ${dtc_git_hash}"
+    else
+        echo "docToolchain ${DTC_VERSION}"
+    fi
     echo "OS/arch: ${os}/${arch}"
 }
 
@@ -357,7 +362,7 @@ local_install_doctoolchain() {
     local version=${1}
     if is_doctoolchain_development_version "${version}"; then
         # User decided to pick a floating version - which means a git clone into the local environment.
-        assert_git_installed "Please install 'git' for working with a 'doctToolchain' develpment version"
+        assert_git_installed "Please install 'git' for working with a 'doctToolchain' development version"
 
         if [ -d "${DTC_HOME}/.git" ]; then
             git -C "${DTC_HOME}" pull
@@ -453,7 +458,7 @@ assert_java_version_supported() {
     java_version=$(echo "$java_version" | awk -F '"' '/version/ {print $0}' | head -1 | cut -d'"' -f2)
     major_version=$(echo "$java_version" | sed '/^1\./s///' | cut -d'.' -f1)
 
-    if [ "${major_version}" -ge 8 ] && [ "${major_version}" -le 17 ]; then
+    if [ "${major_version}" -ge 11 ] && [ "${major_version}" -le 17 ]; then
         echo "Using Java ${java_version} [${JAVA_CMD}]"
         return
     fi
@@ -464,7 +469,7 @@ assert_java_version_supported() {
 
 java_help_and_die() {
     printf "%s\n" \
-        "docToolchain supports Java versions 8, 11 (preferred), 14, or 17. In case one of those" \
+        "docToolchain supports Java versions 11, 14, or 17 (preferred). In case one of those" \
         "Java versions is installed make sure 'java' is found with your PATH environment" \
         "variable. As alternative you may provide the location of your Java installation" \
         "with JAVA_HOME." \
@@ -478,11 +483,11 @@ java_help_and_die() {
         "Alternatively you can use SDKMAN! (https://sdkman.io) to manage your Java installations" \
         ""
     if ! is_environment_available sdk; then
-        how_to_install_sdkman "Java 11"
+        how_to_install_sdkman "Java 17"
     fi
     # TODO: This will break when we change Java version
     printf "%s\n" \
-        "    $ sdk install java 11.0.18-tem" \
+        "    $ sdk install java 17.0.7-tem" \
         "" \
         "If you prefer not to install Java on your host, you can run docToolchain in a" \
         "docker container. For this case dtcw provides the 'docker' execution environment." \
@@ -500,7 +505,7 @@ how_to_install_sdkman() {
 }
 
 local_install_java() {
-    version=11
+    version=17
     implementation=hotspot
     heapsize=normal
     imagetype=jdk
@@ -566,7 +571,7 @@ how_to_install_doctoolchain() {
         "    \$ sdk install doctoolchain ${version}" \
         "" \
         "Note that running docToolchain in 'local' or 'sdk' environment needs a" \
-        "Java runtime (major version 8, 11, 14, or 17) installed on your host." \
+        "Java runtime (major version 11, 14, or 17) installed on your host." \
         "" \
         "3. 'docker': pull the docToolchain image and execute docToolchain in a container environment." \
         "" \
@@ -583,8 +588,10 @@ build_command() {
         # TODO: DTC_PROJECT_BRANCH is  not passed into the docker environment
         # See https://github.com/docToolchain/docToolchain/issues/1087
 
+        local container_name=doctoolchain-${version}
+        container_name+="-$(date '+%Y%m%d_%H%M%S')"
         pwd=$(has cygpath && cygpath -w "${PWD}" || echo "${PWD}")
-        docker_args="run --rm -i --platform linux/amd64 -u $(id -u):$(id -g) --name doctoolchain${version} \
+        docker_args="run --rm -i --platform linux/amd64 -u $(id -u):$(id -g) --name ${container_name} \
             -e DTC_HEADLESS=true -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} -p 8042:8042 \
             --entrypoint /bin/bash -v '${pwd}:/project' doctoolchain/doctoolchain:v${version}"
 
