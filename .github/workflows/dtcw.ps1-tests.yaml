@@ -11,6 +11,7 @@ on:
       - 'src/test/groovy/docToolchain/DtcwOnPowershellSpec.groovy'
   workflow_dispatch: {}
 
+jobs:
   test-dtcw-ps1-spock:
     strategy:
       matrix:
