@@ -1,4 +1,4 @@
-name: Execute dtcw test suite
+name: Execute dtcw.ps1 test suite
 
 on:
   push:
