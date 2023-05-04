@@ -25,6 +25,7 @@ class DtcwOnPowershellSpec extends Specification {
             out.contains('Path')
     }
 
+    @Unroll
     void 'test dtcw without parameters'() {
         when: '"./dtcw.ps1" is executed without any parameters'
             def (out,err) = powershell(['./dtcw.ps1'])
@@ -34,6 +35,7 @@ class DtcwOnPowershellSpec extends Specification {
             out.contains('Examples:')
     }
 
+    @Unroll
     void 'test dtcw --version'() {
         when: '"./dtcw.ps1 --version" is executed'
         def (out,err) = powershell(['./dtcw.ps1', '--version'])
@@ -44,6 +46,7 @@ class DtcwOnPowershellSpec extends Specification {
         !out.toLowerCase().contains('available doctoolchain environments')
     }
 
+    @Unroll
     void 'test local installation of jdk'() {
         when: '"./dtcw.ps1 install java" is executed'
             def (out,err) = powershell(['./dtcw.ps1', 'install', 'java'])
@@ -53,6 +56,7 @@ class DtcwOnPowershellSpec extends Specification {
             err == ""
     }
 
+    @Unroll
     void 'test local installation of doctoolchain'() {
         //setup: 'remove jdk folder'
         //    rm "$HOME/.doctoolchain/jdk"
@@ -69,4 +73,34 @@ class DtcwOnPowershellSpec extends Specification {
         then: 'there is no error'
             err == ""
     }
+    // tests provided by chatGPT
+
+    @Unroll
+    void 'test dtcw with invalid command'() {
+        when: 'an invalid command is provided'
+            def (out, err) = powershell(['./dtcw.ps1', 'local', 'invalidCommand'])
+        then: 'there is an error and the output contains "Invalid command"'
+            out.contains('WARNING: doctoolchain - command not found')
+            err == ""
+    }
+
+    @Unroll
+    void 'test dtcw with tasks command'() {
+        when: 'an unsupported environment is provided'
+            def (out, err) = powershell(['./dtcw.ps1', 'tasks'])
+        then: 'there is an error and the output contains "Unsupported environment"'
+            err.contains('Unsupported environment')
+            out == ""
+    }
+
+    @Unroll
+    void 'test dtcw with docker environment'() {
+        when: 'docker environment is provided and docker is installed'
+            def (out, err) = powershell(['./dtcw.ps1', 'docker', 'tasks'])
+        then: 'there is no error and the output contains "All tasks runnable"'
+            // This test assumes that Docker is installed on the system
+            err.contains('Pulling from doctoolchain/doctoolchain')
+            out.contains('Using environment: docker')
+    }
+
 }
