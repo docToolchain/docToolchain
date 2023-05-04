@@ -11,16 +11,16 @@ The goal if docToolchain is to give you an environment where you can concentrate
 Let's explain how the theming is working under the hood. 
 docToolchain builds the result theme from three location:
 
-. It copys its internal theme into the build-folder ('build/microsite/temp/src/site').
-. It looks after the system environment variable 'DTC_SITETHEME'. If this variable is set, it takes precedence over the default theme (technically,it is an overide on file level). 
-. It looks after a theme in your current repository ('src/site').
+. It copys its internal theme into the output path of the site ( default to `build/microsite/temp/src/site`).
+. It looks after the system environment variable `DTC_SITETHEME`. If this variable is set, it takes precedence over the default theme (technically,it is an overide on file level). 
+. It looks after a theme in your current repository (default to 'src/site').
 
 If you want to create a new theme, call the docToolchain task `copyTheme`.
-This task copy the theme to location 'src/site'.
+This task copy the theme to location `src/site`.
 After that, you can modify it as you want and create a new zip file with the result.
 
 Details about how the theme structure looks like, head over to the https://jbake.org/docs/2.6.7/#project_structure[jBake documentation]
 
-The basic template uses Twitter Bootstrap 5 as its CSS framework. Use the copyThemes task to copy all hidden jBake resources to your project. You can then remove the resources you don’t need, and change those you want to change.
+The basic template uses Twitter Bootstrap 5 as its CSS framework. Use the `copyThemes` task to copy all hidden jBake resources to your project. You can then remove the resources you don’t need, and change those you want to change.
 
-NOTE: copyThemes overwrites existing files, but because your code is safely managed using version control, this shouldn’t be a problem.
+NOTE: `copyThemes` overwrites existing files, but because your code is safely managed using version control, this shouldn’t be a problem.
