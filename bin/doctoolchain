@@ -42,4 +42,7 @@ fi
 
 cd "$doctoolchain"/..
 
+: "${JAVA_OPTS:=""}"
+export JAVA_OPTS="$JAVA_OPTS --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED"
+
 ./gradlew --project-cache-dir "$docDir"/.gradle -PdocDir="$docDir" "$@"
