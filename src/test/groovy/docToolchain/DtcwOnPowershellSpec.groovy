@@ -6,7 +6,7 @@ import spock.lang.Unroll
 
 class DtcwOnPowershellSpec extends Specification {
     List powershell(List command) {
-        def shell = ['powershell.exe', '-ExecutionPolicy', 'Unrestricted']
+        def shell = ['pwsh', '-ExecutionPolicy', 'Unrestricted']
         // def setup = ['$HOME = \\"'+new File('./build/home').canonicalPath+'\\"',';']
         def process = (shell+command).execute(null, new File('.'))
         def sout = new StringBuilder()
