@@ -34,6 +34,8 @@ goto :end
 
 :relativePath
 
+set JAVA_OPTS=%JAVA_OPTS% --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED
+
 call "%GRADLECMD%" --project-cache-dir %BASEDIR%/.gradle "-PdocDir=%WORKINGDIR%%PATHTODOCS%" %params%
 
 goto :end
