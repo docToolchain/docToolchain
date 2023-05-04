@@ -52,5 +52,5 @@ jobs:
         if: always()
         uses: actions/upload-artifact@v3
         with:
-          name: spock-dtcw-report
+          name: spock-dtcw-report-$RUNNER_OS
           path: build/reports/tests/test/
