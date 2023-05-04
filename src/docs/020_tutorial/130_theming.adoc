@@ -13,7 +13,7 @@ docToolchain builds the result theme from three location:
 
 . It copys its internal theme into the output path of the site ( default to `build/microsite/temp/src/site`).
 . It looks after the system environment variable `DTC_SITETHEME`. If this variable is set, it takes precedence over the default theme (technically,it is an overide on file level). 
-. It looks after a theme in your current repository (default to 'src/site').
+. It looks after a theme in your current repository (default to `src/site`).
 
 If you want to create a new theme, call the docToolchain task `copyTheme`.
 This task copy the theme to location `src/site`.
