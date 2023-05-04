@@ -1,0 +1,22 @@
+:jbake-order: 40
+:filename: 020_tutorial/130_theming.adoc
+include::_config.adoc[]
+
+== How to change the default theme for `generateSite`
+
+The jBake templates and CSS are hidden for convenience.
+The goal if docToolchain is to give you an environment where you can concentrate on your documentation and don't have to worry about the theme.
+
+Wie funktioniert das Theming?
+docToolchain kopiert das docToolchain interne theme in den build-folder (build/microsite/temp/src/site). +
+Anschliessend wird nach externen Theme (DTC_SITETHEME) gesucht und dieses eventuell drüber kopiert (Merge auf File-Ebene). +
+Als letzter Schritt wird ein eventuell im Repository vorhandenes Theme (src/site) drüber kopiert.
+
+Trick ist nun, dass man das interne Theme per `copyTheme` in das aktuelle Repository kopiert, modifiziert, alles, was man nicht angefasst hat löscht und den rest eventuell für ein externes Theme zippt.
+
+Details, wie ein Theme aufgebaut ist, ist in jBake dokumentiert: https://jbake.org/docs/2.6.7/#project_structure
+
+
+The basic template uses Twitter Bootstrap 5 as its CSS framework. Use the copyThemes task to copy all hidden jBake resources to your project. You can then remove the resources you don’t need, and change those you want to change.
+
+NOTE: copyThemes overwrites existing files, but because your code is safely managed using version control, this shouldn’t be a problem.
