@@ -1,3 +1,27 @@
+import org.gradle.nativeplatform.platform.internal.DefaultNativePlatform
+
+task verifyPandoc {
+    doLast{
+        def result = exec{
+            def command = "pandoc"
+            ignoreExitValue = true
+            if(DefaultNativePlatform.currentOperatingSystem.isWindows()){
+                executable = "cmd"
+                args "/C", command
+            } else {
+                executable = "bash"
+                args "-c", command
+            }
+        }
+        if(result.getExitValue()!=0){
+            throw new Exception ("""
+            >> Task requires 'pandoc'.
+            >> Please ensure your system has 'pandoc' installed https://pandoc.org/installing.html
+            """)
+        }
+    }
+}
+
 //tag::convertToDocx[]
 task convertToDocx (
         group: 'docToolchain',
@@ -14,6 +38,10 @@ task convertToDocx (
         def sourceFile = it.file.replace('.adoc', '.xml')
         def targetFile = sourceFile.replace('.xml', '.docx')
 
+        new File("$targetDir/docx/$targetFile")
+            .getParentFile()
+            .getAbsoluteFile().mkdirs()
+
         workingDir "$targetDir/docbook"
         executable = "pandoc"
 
@@ -26,12 +54,17 @@ task convertToDocx (
         } else {
             args = ["-r","docbook",
                     "-t","docx",
-                    "-o","../docx/$targetFile",
+                    "-o","./../docx/$targetFile",
                     sourceFile]
         }
     }
     doFirst {
-        new File("$targetDir/docx/").mkdirs()
+        if(sourceFilesDocx.size()==0){
+            throw new Exception ("""
+            >> No source files defined for type 'docx'.
+            >> Please specify at least one inputFile in your docToolchainConfig.groovy
+            """)
+        }
         if(explicitSourceFilesCount==0) {
             logger.warn('WARNING: No source files defined for type "docx". Converting with best effort')
         }
@@ -55,6 +88,10 @@ task convertToEpub (
         def sourceFile = it.file.replace('.adoc', '.xml')
         def targetFile = sourceFile.replace('.xml', '.epub')
 
+        new File("$targetDir/epub/$targetFile")
+            .getParentFile()
+            .getAbsoluteFile().mkdirs()
+
         workingDir "$targetDir/docbook"
         executable = "pandoc"
         args = ['-r','docbook',
@@ -63,7 +100,12 @@ task convertToEpub (
                 sourceFile]
     }
     doFirst {
-        new File("$targetDir/epub/").mkdirs()
+        if(sourceFilesEpub.size()==0){
+            throw new Exception ("""
+            >> No source files defined for type 'epub'.
+            >> Please specify at least one inputFile in your docToolchainConfig.groovy
+            """)
+        }
         if(explicitSourceFilesCount==0) {
             logger.warn('WARNING: No source files defined for type "epub". Converting with best effort')
         }
@@ -71,6 +113,8 @@ task convertToEpub (
 }
 //end::convertToEpub[]
 project.afterEvaluate {
+    project.tasks.convertToDocx.dependsOn verifyPandoc
+    project.tasks.convertToEpub.dependsOn verifyPandoc
     project.tasks.convertToDocx.dependsOn generateDocbook
     project.tasks.convertToEpub.dependsOn generateDocbook
 }
