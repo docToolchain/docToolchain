@@ -353,6 +353,8 @@ task generateDocbook (
         backends = ['docbook']
     }
 
+    outputDir = file(targetDir+'/docbook/')
+
     doFirst {
         if (sourceFilesDOCBOOK.size()==0) {
             throw new Exception ("""
