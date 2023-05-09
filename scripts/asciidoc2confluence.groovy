@@ -942,6 +942,7 @@ def getPagesRecursive(Element element, String parentId, Map anchors, Map pageAnc
     def pages = []
     element.select("div.sect${level}").each { sect ->
         def title = sect.select("h${level + 1}").text()
+        pageAnchors.putAll(recordPageAnchor(sect.select("h${level + 1}")))
         Elements pageBody
         if (level == 1) {
             pageBody = sect.select('div.sectionbody')
@@ -955,7 +956,6 @@ def getPagesRecursive(Element element, String parentId, Map anchors, Map pageAnc
             children: [],
             parent: parentId
         ]
-        pageAnchors.putAll(recordPageAnchor(sect.select("h${level + 1}")))
 
         if (maxLevel > level) {
             currentPage.children.addAll(getPagesRecursive(sect, null, anchors, pageAnchors, level + 1, maxLevel))
