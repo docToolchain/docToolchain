@@ -184,7 +184,7 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
                     'filename': fileName,
             ], headers: headers).data
     def http
-    if (attachment.size()==1) {
+    if (attachment.size==1) {
         // attachment exists. need an update?
         def remoteHash = attachment.results[0].extensions.comment.replaceAll("(?sm).*#([^#]+)#.*",'$1')
         if (remoteHash!=localHash) {
@@ -647,14 +647,23 @@ def parseBody =  { body, anchors, pageAnchors ->
         def src = img.attr('src')
         def imgWidth = img.attr('width')?:500
         def imgAlign = img.attr('align')?:"center"
-        println "    image: "+src
 
         //it is not an online image, so upload it to confluence and use the ri:attachment tag
         if(!src.startsWith("http")) {
-          def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')+src
-          def fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")
+          def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')
+            def fileName
+            //it is an embedded image
+            if(src.startsWith("data:image")){
+                def imageData = src.split(";");
+                def fileExtension = imageData[0].split("/")[1]
+                fileName = img.attr('alt').replaceAll(/\s+/,"_").concat(".${fileExtension}")
+                newUrl += '../images/'+fileName
+            }else {
+                newUrl += src
+                fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")
+            }
           newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")
-
+          println "    image: "+newUrl
           trythis {
               deferredUpload <<  [0,newUrl,fileName,"automatically uploaded"]
           }

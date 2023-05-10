@@ -17,6 +17,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/issues/973[#973: `dtcw getJava` doesn't work without `local`]
 * https://github.com/docToolchain/docToolchain/issues/1109[#1109: docToolchain release notes contain releases twice]
 * https://github.com/docToolchain/docToolchain/issues/1031[#1031: dtcw ignores installed Java RE when docker is installed - your java version 17 is too new]
+* https://github.com/docToolchain/docToolchain/issues/1163[#1163: upload to confluence breaks with embedded images]
 * https://github.com/docToolchain/docToolchain/issues/1161[#1161: publishToConfluence looses the id when generating level 2 page anchors]
 * various fixes in `dtcw`, `dtcw.ps1`:
 ** pick the right environment if none provided by the user
@@ -24,6 +25,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/issues/220[#220 convertToDocx and convertToEpub not working]
 
 === added
+* configure if build should fail on missing images
+** introduces configuration property `failOnMissingImages`
 
 === changed
 
@@ -59,6 +62,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 ** changed regexp to start with `^[A-Za-z]` as file name to allow lowercase filenames as well.
 ** certain directories are excluded from traversal. Define `excludeDirectories` in order to skip additional directories.
 * doc: replace old URL `doctoolchain.github.io` occurrences with the new `doctoolchain.org`
+* `publishToConfluence`
+** support embedded images
 
 == 2.2.1 - 2023-03-05
 

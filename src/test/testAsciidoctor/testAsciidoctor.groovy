@@ -1,7 +1,7 @@
 
 inputPath = 'docs'
 
-outputPath = '../../../build/test/docs/asciidoctor'
+outputPath = 'build/test/docs/asciidoctor'
 
 inputFiles = [
         [file: 'broken_images.adoc', formats: ['html']],

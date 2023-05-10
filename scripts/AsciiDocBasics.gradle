@@ -149,9 +149,15 @@ asciidoctorj {
         'sectanchors'         : 'true@',
         'targetDir'           : targetDir,
         'docDir'              : docDir,
-        'projectRootDir'      : "${new File(docDir).canonicalPath}@",
-        'data-uri': '',
+        'projectRootDir'      : "${new File(docDir).canonicalPath}@"
     )
+
+    def failOnMissingImages = (findProperty("failOnMissingImages")?:config.failOnMissingImages)?:true
+    if(failOnMissingImages == true){
+        attributes(
+            'data-uri': '',
+        )
+    }
 
     // Here we can add the code for extensions we write.
     docExtensions {

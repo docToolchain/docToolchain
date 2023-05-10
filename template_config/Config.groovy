@@ -19,7 +19,7 @@ inputFiles = [
 //folders in which asciidoc will find images.
 //these will be copied as resources to ./images
 //folders are relative to inputPath
-// Hint: If you define an imagepath in your documents like 
+// Hint: If you define an imagepath in your documents like
 // :imagesdir: ./whatsoever
 // define it conditional like
 // ifndef::imagesdir[:imagesdir: ./whatsoever]
@@ -27,6 +27,10 @@ inputFiles = [
 imageDirs = [
     /** imageDirs **/
 ]
+
+// whether the build should fail when detecting broken image references
+// if this config is set to true all images will be embedded
+failOnMissingImages = true
 
 // these are directories (dirs) and files which Gradle monitors for a change
 // in order to decide if the docs have to be re-build
