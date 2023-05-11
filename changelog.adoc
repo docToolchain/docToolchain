@@ -26,29 +26,27 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 
-* Add support for Java 17
-* Drop support for Java 8
-* Upgrade Gradle to 7.5.1
-* Upgrade dependencies
-** 'org.asciidoctor:asciidoctor-gradle-jvm:4.0.0-alpha.1' (remove obsolete cloning of `reveal.js`)
-** 'org.apache.httpcomponents:httpmime:4.5.14'
-** 'org.codehaus.groovy:groovy-xml:3.0.13'
-** 'org.apache.poi:poi-ooxml:5.2.3'
-** 'org.openapitools:openapi-generator-gradle-plugin:6.5.0'
+* add support for Java 17, drop support for Java 8
+* upgrade Gradle to 7.5.1
+* upgrade dependencies
+** 'com.athaydes:spock-reports:2.3.2-groovy-3.0'
+** 'com.github.ben-manes.versions:0.46.0'
 ** 'com.structurizr:structurizr-dsl:1.30.1'
 ** 'com.structurizr:structurizr-export:1.14.0'
 ** 'com.structurizr:structurizr-graphviz:2.0.0'
-** 'org.jsoup:jsoup:1.15.4'
-** 'org.asciidoctor:asciidoctorj-diagram:2.2.7'
-** 'io.pebbletemplates:pebble:3.2.0'
-** 'org.junit.jupiter:junit-jupiter-api:5.9.3'
-** 'net.bytebuddy:byte-buddy:1.14.4'
 ** 'de.undercouch.download:5.4.0'
-** 'org.openapi.generator:6.5.0'
-** 'com.github.ben-manes.versions:0.46.0'
-** 'com.athaydes:spock-reports:2.3.2-groovy-3.0'
+** 'io.pebbletemplates:pebble:3.2.0'
+** 'net.bytebuddy:byte-buddy:1.14.4'
+** 'org.asciidoctor:asciidoctor-gradle-jvm:4.0.0-alpha.1' (remove obsolete cloning of `reveal.js`)
+** 'org.asciidoctor:asciidoctorj-diagram:2.2.7'
+** 'org.apache.httpcomponents:httpmime:4.5.14'
+** 'org.apache.poi:poi-ooxml:5.2.3'
+** 'org.codehaus.groovy:groovy-xml:3.0.13'
+** 'org.jsoup:jsoup:1.16.1'
+** 'org.junit.jupiter:junit-jupiter-api:5.9.3'
+** 'org.openapitools:openapi-generator-gradle-plugin:6.6.0'
+** 'org.openapi.generator:6.6.0'
 ** 'org.spockframework:spock-core:2.3-groovy-3.0'
-** 'org.asciidoctor.asciidoctorj-diagram:2.2.7'
 * `dtcw` and `dtcw.ps1`:
 ** improve output with hints to guide the user
 ** add `--version` option
