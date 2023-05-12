@@ -1,0 +1,74 @@
+buildscript {
+    repositories {
+        maven {
+            credentials {
+                username mavenUsername
+                password mavenPassword
+            }
+            url mavenRepository
+        }
+    }
+    dependencies {
+        classpath 'com.theokanning.openai-gpt3-java:service:0.12.0'
+    }
+}
+
+import com.theokanning.openai.service.OpenAiService;
+import com.theokanning.openai.completion.CompletionRequest;
+
+//tag::generateContent[]
+task generateContent (
+    description: 'Generate documentation with the help of OpenAI',
+    group: 'docToolchain'
+) {
+    doLast{
+        def token  =  (findProperty("openAI.token")?:config.openAI.token)?:null
+        if(token == null){
+            throw new Exception ("""
+            >> No Token provided for openAI.
+            >> Please specify the token using -PopenAI.token=xx-xxxxxxxxxxxxxxxx or in your docToolchainConfig.groovy
+            """)
+        }
+        def model = (findProperty("openAI.model")?:config.openAI.model)?:"text-davinci-003"
+        def maxToken = (findProperty("openAI.maxToken")?:config.openAI.maxToken)?:500
+        def temperature = (findProperty("openAI.temperature")?:config.openAI.temperature)?:0.3
+        logger.info "docToolchain> Generating AI content"
+        logger.info "docToolchain> using model ${model}"
+        logger.info "docToolchain> limiting output to ${maxToken} tokens"
+
+        def pattern = /\/\/\/\/[\r\n\s]AI:*(.*?)[\r\n\s]*\/\/\/\// // match asciidoc block comments
+        def service = new OpenAiService(token, Duration.ofSeconds(60));
+        def sourceFiles = config.inputFiles
+        srcDir  = "${docDir}/${inputPath}"
+        logger.info "docToolchain> Checking for AI comment block in ${sourceFiles}"
+        sourceFiles.every {
+            def sourceFile = new File(srcDir, it.file)
+            def alltext = sourceFile.text
+
+            def matcher = alltext =~ pattern
+            matcher.each { match ->
+                println("---------")
+                println("Request: \n${match[1]}")
+                println("---------")
+                def completionRequest = CompletionRequest.builder()
+                    .prompt(match[1])
+                    .model(model)
+                    .maxTokens(maxToken)
+                    .temperature(temperature)
+                    .echo(false)
+                    .build();
+                def result = service.createCompletion(completionRequest).getChoices()[0]
+                def generatedContent = result.text.replaceAll(/^[\s\n\r]+/, '')
+                if(result.finish_reason == "length"){
+                    generatedContent += "\n// [maxToken ${maxToken} exceeded. Raise to get the full content...]"
+                }
+                println("Result:")
+                println(generatedContent)
+                alltext = alltext.replace(match[0], generatedContent)
+            }
+            sourceFile.write(alltext)
+        }
+        service.shutdownExecutor();
+    }
+}
+//end::generateContent[]

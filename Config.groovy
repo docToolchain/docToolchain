@@ -387,3 +387,15 @@ structurizr.with {
     }
 }
 //end::structurizrConfig[]
+
+//tag::openAIConfig[]
+// Configuration for openAI related tasks
+openAI = [:]
+
+openAI.with {
+    //token = ''
+    //model = "text-davinci-003"
+    //maxToken = '500'
+    //temperature = '0.3'
+}
+//end::openAIConfig[]

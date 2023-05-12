@@ -28,6 +28,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * configure if build should fail on missing images
 ** introduces configuration property `failOnMissingImages`
 
+* introduce `generateContent` task - AI for docToolchain
+
 === changed
 
 * add support for Java 17, drop support for Java 8
