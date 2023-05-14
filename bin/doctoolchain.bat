@@ -24,9 +24,6 @@ set params=%params:* =%
 
 @REM %GRADLECMD% --project-cache-dir %BASEDIR%.gradle -p %BASEDIR% -PdocDir=%WORKINGDIR%%1 %params%
 
-@REM fix for #1150
-set JAVA_OPTS=%JAVA_OPTS% --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.base/java.io=ALL-UNNAMED
-
 cd /d %BASEDIR%
 
 IF "%PATHTODOCS:~0,1%"=="." goto :relativePath
