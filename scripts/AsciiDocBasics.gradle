@@ -206,6 +206,12 @@ tasks.withType(AbstractAsciidoctorTask) { docTask ->
             logger.info ("added required ruby extension '$full'")
         }
     }
+    // fix for #1150
+    // see also https://github.com/asciidoctor/asciidoctor-gradle-plugin/issues/597
+    inProcess = JAVA_EXEC
+    forkOptions {
+        jvmArgs("--add-opens","java.base/sun.nio.ch=ALL-UNNAMED","--add-opens","java.base/java.io=ALL-UNNAMED")
+    }
 }
 //end::AsciidoctorTask[]
 
