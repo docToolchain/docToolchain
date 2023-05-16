@@ -519,7 +519,10 @@ structurizr.with {
 openAI = [:]
 
 openAI.with {
-    //token = ''
+    // This task requires a person access token for openAI.
+    // Ensure to pass this token as parameters when calling the task
+    // using -PopenAI.token=xx-xxxxxxxxxxxxxx
+
     //model = "text-davinci-003"
     //maxToken = '500'
     //temperature = '0.3'

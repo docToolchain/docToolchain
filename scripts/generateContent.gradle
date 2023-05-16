@@ -22,11 +22,11 @@ task generateContent (
     group: 'docToolchain'
 ) {
     doLast{
-        def token  =  (findProperty("openAI.token")?:config.openAI.token)?:null
+        def token  =  findProperty("openAI.token")?:null
         if(token == null){
             throw new Exception ("""
             >> No Token provided for openAI.
-            >> Please specify the token using -PopenAI.token=xx-xxxxxxxxxxxxxxxx or in your docToolchainConfig.groovy
+            >> Please specify the token passing the parameter -PopenAI.token=xx-xxxxxxxxxxxxxxxx
             """)
         }
         def model = (findProperty("openAI.model")?:config.openAI.model)?:"text-davinci-003"
