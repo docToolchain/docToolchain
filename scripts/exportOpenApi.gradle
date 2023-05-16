@@ -16,6 +16,8 @@ apply plugin: 'org.openapi.generator'
 
 def specFile = config.openApi.specFile
 
+// For a list of supported options see https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin
+
 //tag::exportOpenApi[]
 task exportOpenApi (
         type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask,
