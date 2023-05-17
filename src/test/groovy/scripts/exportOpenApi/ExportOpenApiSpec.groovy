@@ -10,23 +10,21 @@ import org.gradle.testkit.runner.TaskOutcome
 
 class ExportOpenApiSpec extends Specification {
 
-    public static final File outputPath = new File('./src/test/groovy/scripts/exportOpenApi/build')
+    public static final docDir = new String('./src/test/groovy/scripts/exportOpenApi')
+    // The outputPath has to match with the value provided in the configuration file.
+    public static final File outputPath = new File("${docDir}/build")
 
     void 'test export of an OpenAPI specification file to an AsciiDoc document' () {
 
         given: 'a clean the environment'
         outputPath.deleteDir()
-        println new File(".").canonicalPath
 
         when: 'executing the gradle task `exportOpenApi`'
         def result = GradleRunner.create()
                 .withProjectDir(new File('.'))
-                .withArguments('exportOpenApi', '--info',
-                               '-PdocDir=./src/test/groovy/scripts/exportOpenApi',
+                .withArguments('exportOpenApi',
+                               "-PdocDir=${docDir}",
                                '-PmainConfigFile=config.groovy'
-                               // '-PopenApi.specFile=./src/test/scripts/exportOpenApi/petstore-v3.0.yaml',
-                               // '-PopenApi.infoUrl=https://my-api.company.com',
-                               // '-PopenApi.infoEmail=info@company.com'
                                )
                 .build()
 
@@ -41,13 +39,12 @@ class ExportOpenApiSpec extends Specification {
 
         given: 'a clean the environment'
         outputPath.deleteDir()
-        println new File(".").canonicalPath
 
         when: 'executing the gradle task `exportOpenApi`'
         def result = GradleRunner.create()
                 .withProjectDir(new File('.'))
-                .withArguments('exportOpenApi', '--info',
-                               '-PdocDir=./src/test/groovy/scripts/exportOpenApi',
+                .withArguments('exportOpenApi',
+                               "-PdocDir=${docDir}",
                                '-PmainConfigFile=config-openApi-missing.groovy'
                                )
                 .build()
@@ -64,13 +61,12 @@ class ExportOpenApiSpec extends Specification {
 
         given: 'a clean the environment'
         outputPath.deleteDir()
-        println new File(".").canonicalPath
 
         when: 'executing the gradle task `exportOpenApi`'
         def result = GradleRunner.create()
                 .withProjectDir(new File('.'))
-                .withArguments('exportOpenApi', '--info',
-                               '-PdocDir=./src/test/groovy/scripts/exportOpenApi',
+                .withArguments('exportOpenApi',
+                               "-PdocDir=${docDir}",
                                '-PmainConfigFile=config.groovy',
                                '-PopenApi.specFile=src/does-not-exist.yaml',
                                )
