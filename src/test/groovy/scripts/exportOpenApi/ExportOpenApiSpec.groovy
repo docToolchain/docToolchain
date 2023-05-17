@@ -1,11 +1,12 @@
 package docToolchain
 
-import org.gradle.testkit.runner.GradleRunner
 import spock.lang.Specification
 import spock.lang.Ignore
 import spock.lang.IgnoreRest
 
-import static org.gradle.testkit.runner.TaskOutcome.*
+import org.gradle.testkit.runner.GradleRunner
+import org.gradle.testkit.runner.TaskOutcome
+
 
 class ExportOpenApiSpec extends Specification {
 
@@ -30,13 +31,13 @@ class ExportOpenApiSpec extends Specification {
                 .build()
 
         then: 'the task has been successfully executed'
-        result.task(":exportOpenApi").outcome == SUCCESS
+        result.task(":exportOpenApi").outcome == TaskOutcome.SUCCESS
 
         and: 'the OpenAPI specification as an AsciiDoc file has been created'
         new File(outputPath, "OpenAPI/index.adoc").exists()
     }
 
-    void 'export of an OpenAPI specification file fails when specFile not found' () {
+    void 'test export fails when specFile does not exist' () {
 
         given: 'a clean the environment'
         outputPath.deleteDir()
@@ -48,12 +49,13 @@ class ExportOpenApiSpec extends Specification {
                 .withArguments('exportOpenApi', '--info',
                                '-PdocDir=./src/test/groovy/scripts/exportOpenApi',
                                '-PmainConfigFile=config.groovy',
-                               '-PopenApi.specFile=./src/test/scripts/exportOpenApi/src/does-not-exist.yaml',
+                               '-PopenApi.specFile=src/does-not-exist.yaml',
                                )
-                .build()
+                .buildAndFail()
 
         then: 'the task throws an exception with information'
-        def e = thrown(Exception)
+        result.task(":exportOpenApi").outcome == TaskOutcome.FAILED
+        result.getOutput().find("In plugin 'org.openapi.generator' type 'org.openapitools.generator.gradle.plugin.tasks.GenerateTask' property 'inputSpec' specifies file '(.+)/src/does-not-exist.yaml' which doesn't exist.")
 
         and: 'no files were created'
         outputPath.listFiles() == null
