@@ -37,6 +37,29 @@ class ExportOpenApiSpec extends Specification {
         new File(outputPath, "OpenAPI/index.adoc").exists()
     }
 
+    void 'test export fails when missing property openApi.specFile' () {
+
+        given: 'a clean the environment'
+        outputPath.deleteDir()
+        println new File(".").canonicalPath
+
+        when: 'executing the gradle task `exportOpenApi`'
+        def result = GradleRunner.create()
+                .withProjectDir(new File('.'))
+                .withArguments('exportOpenApi', '--info',
+                               '-PdocDir=./src/test/groovy/scripts/exportOpenApi',
+                               '-PmainConfigFile=config-openApi-missing.groovy'
+                               )
+                .build()
+
+        then: 'the task throws an exception with useful information'
+        def e = thrown(Exception)
+        e.message.contains("Missing property 'openApi.specFile': please provide the location of the OpenAPI specification file")
+
+        and: 'no files were created'
+        outputPath.listFiles() == null
+    }
+
     void 'test export fails when specFile does not exist' () {
 
         given: 'a clean the environment'
@@ -53,7 +76,7 @@ class ExportOpenApiSpec extends Specification {
                                )
                 .buildAndFail()
 
-        then: 'the task throws an exception with information'
+        then: 'the task fails with useful information'
         result.task(":exportOpenApi").outcome == TaskOutcome.FAILED
         result.getOutput().find("In plugin 'org.openapi.generator' type 'org.openapitools.generator.gradle.plugin.tasks.GenerateTask' property 'inputSpec' specifies file '(.+)/src/does-not-exist.yaml' which doesn't exist.")
 

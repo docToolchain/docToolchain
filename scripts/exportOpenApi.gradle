@@ -25,10 +25,7 @@ task exportOpenApi (
 
     def specFile = findProperty("openApi.specFile")?:config.openApi.specFile
     if (!specFile) {
-        logger.info("\n---> OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)")
-        return
-    } else {
-        logger.info("Found OpenAPI specification in Config.groovy")
+        throw new GradleException("Missing property 'openApi.specFile': please provide the location of the OpenAPI specification file")
     }
 
     outputs.upToDateWhen { false }
