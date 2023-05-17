@@ -36,4 +36,27 @@ class ExportOpenApiSpec extends Specification {
         new File(outputPath, "OpenAPI/index.adoc").exists()
     }
 
+    void 'export of an OpenAPI specification file fails when specFile not found' () {
+
+        given: 'a clean the environment'
+        outputPath.deleteDir()
+        println new File(".").canonicalPath
+
+        when: 'executing the gradle task `exportOpenApi`'
+        def result = GradleRunner.create()
+                .withProjectDir(new File('.'))
+                .withArguments('exportOpenApi', '--info',
+                               '-PdocDir=./src/test/groovy/scripts/exportOpenApi',
+                               '-PmainConfigFile=config.groovy',
+                               '-PopenApi.specFile=./src/test/scripts/exportOpenApi/src/does-not-exist.yaml',
+                               )
+                .build()
+
+        then: 'the task throws an exception with information'
+        def e = thrown(Exception)
+
+        and: 'no files were created'
+        outputPath.listFiles() == null
+    }
+
 }

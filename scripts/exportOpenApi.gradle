@@ -14,7 +14,6 @@ buildscript {
 }
 apply plugin: 'org.openapi.generator'
 
-def specFile = config.openApi.specFile
 
 // For a list of supported options see https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin
 
@@ -24,6 +23,7 @@ task exportOpenApi (
         group: 'docToolchain',
         description: 'exports OpenAPI specification to the asciidoc file') {
 
+    def specFile = findProperty("openApi.specFile")?:config.openApi.specFile
     if (!specFile) {
         logger.info("\n---> OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)")
         return

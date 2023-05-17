@@ -1,5 +1,4 @@
 outputPath = 'build'
-inputPath = './src/test/groovy/scripts/exportOpenApi'
 
 openApi = [:]
 
