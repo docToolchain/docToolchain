@@ -387,3 +387,18 @@ structurizr.with {
     }
 }
 //end::structurizrConfig[]
+
+//tag::openAIConfig[]
+// Configuration for openAI related tasks
+openAI = [:]
+
+openAI.with {
+    // This task requires a person access token for openAI.
+    // Ensure to pass this token as parameters when calling the task
+    // using -PopenAI.token=xx-xxxxxxxxxxxxxx
+
+    //model = "text-davinci-003"
+    //maxToken = '500'
+    //temperature = '0.3'
+}
+//end::openAIConfig[]

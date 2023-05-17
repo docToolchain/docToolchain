@@ -43,6 +43,20 @@ jobs:
         with:
           fetch-depth: 0
 
+      - name: install powershell
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            echo "pwsh already installed"
+          else  
+            sudo apt-get install -y wget apt-transport-https software-properties-common
+            wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+            sudo dpkg -i packages-microsoft-prod.deb
+            rm packages-microsoft-prod.deb
+            sudo apt-get update
+            sudo apt-get install -y powershell
+          fi
+
       # Provide fast feedback about quality of bash scripts
       - name: ShellCheck
         run: |
