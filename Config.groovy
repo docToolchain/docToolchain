@@ -301,14 +301,13 @@ class JiraRequest {
 // Configuration for OpenAPI related task
 openApi = [:]
 
-// 'specFile' is the name of OpenAPI specification yaml file. Tool expects this file inside working dir (as a filename or relative path with filename)
+// 'specFile': path to the OpenAPI specification file relative to docDir.
 // 'infoUrl' and 'infoEmail' are specification metadata about further info related to the API. By default this values would be filled by openapi-generator plugin placeholders
-//
 
 openApi.with {
-    specFile = 'src/docs/petstore-v2.0.yaml' // i.e. 'petstore.yaml', 'src/doc/petstore.yaml'
-    infoUrl = 'https://my-api.company.com'
-    infoEmail = 'info@company.com'
+    // specFile = 'src/docs/petstore-v2.0.yaml'
+    // infoUrl = 'https://my-api.example.org'
+    // infoEmail = 'info@example.org'
 }
 //end::openApiConfig[]
 

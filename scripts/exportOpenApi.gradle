@@ -14,7 +14,9 @@ buildscript {
 }
 apply plugin: 'org.openapi.generator'
 
-def specFile = config.openApi.specFile
+
+// For a list of supported options see https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin
+def specFile = findProperty("openApi.specFile")?:config.openApi.specFile
 
 //tag::exportOpenApi[]
 task exportOpenApi (
@@ -22,30 +24,44 @@ task exportOpenApi (
         group: 'docToolchain',
         description: 'exports OpenAPI specification to the asciidoc file') {
 
-    if (!specFile) {
-        logger.info("\n---> OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)")
-        return
-    } else {
-        logger.info("Found OpenAPI specification in Config.groovy")
+    doFirst {
+        if (!specFile) {
+            throw new GradleException("Missing property 'openApi.specFile': please provide the location of the OpenAPI specification file")
+        }
+
+        logger.debug("\n=====================\nProject Config:\n=====================")
+        logger.debug("Docdir: ${docDir}")
+        logger.debug("Target: ${targetDir}")
+        logger.info("\n=====================\nOpenAPI Config:\n=====================")
+        logger.info("Specification file: ${specFile}")
+        logger.info("inputSpec: ${inputSpec}")
+        logger.info("outputDir: ${outputDir}\n")
     }
 
+    if (!specFile) {
+        // If the specFile is not defined skip the rest. Otherwise GenerateTask
+        // is called which fails with a misleading error message "file doesn't exist".
+        // We throw the descriptive "missing property" error message during execution phase.
+        return
+    }
+
+    // The properties defined by 'GenerateTask' have to be declared in the
+    // configuration phase. Defining those properties in doFirst() throws
+    // exception "propert 'X' is final and cannot be changed any further".
+    generatorName = 'asciidoc'
+    inputSpec = "${docDir}/${specFile}" // plugin is not able to find file if inputPath is defined as '.'
+    outputDir = "${targetDir}/OpenAPI".toString()
+
+    // Define cache is always out-of-date to enforce file generation regardless of input and output file
     outputs.upToDateWhen { false }
     outputs.cacheIf { false }
-    generatorName = 'asciidoc'
-    outputDir = "${targetDir}/OpenAPI".toString()
-    inputSpec = "${docDir}/${specFile}" // plugin is not able to find file if inputPath is defined as '.'
 
-    logger.debug("\n=====================\nProject Config:\n=====================")
-    logger.debug("Docdir: ${docDir}")
-    logger.debug("Target: ${targetDir}")
-    logger.info("\n=====================\nOpenAPI Config:\n=====================")
-    logger.info("Specification file: ${specFile}")
-    logger.info("inputSpec: ${inputSpec}")
-    logger.info("outputDir: ${outputDir}\n")
+    def infoEmail = (findProperty("openApi.infoEmail")?:config.openApi.infoEmail)?:"info@example.org"
+    def infoUrl = (findProperty("openApi.infoUrl")?:config.openApi.infoEmail)?:"https://my-api.example.org"
 
     additionalProperties = [
-        infoEmail:"${config.openApi.infoEmail}",
-        infoUrl:"${config.openApi.infoUrl}"
+        infoEmail:"${infoEmail}",
+        infoUrl:"${infoUrl}"
     ]
 }
 //end::exportOpenApi[]
