@@ -9,7 +9,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath "org.openapitools:openapi-generator-gradle-plugin:6.6.0"
+        classpath libs.openapi.generator
     }
 }
 apply plugin: 'org.openapi.generator'

@@ -28,13 +28,6 @@
 */
 
 // some dependencies
-/**
-@Grapes(
-        [@Grab('org.jsoup:jsoup:1.8.2'),
-         @Grab('org.codehaus.groovy.modules.http-builder:http-builder:0.6' ),
-         @Grab('org.apache.httpcomponents:httpmime:4.5.1')]
-)
-**/
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
 import org.jsoup.nodes.Entities.EscapeMode

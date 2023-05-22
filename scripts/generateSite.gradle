@@ -12,7 +12,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'org.asciidoctor:asciidoctorj-diagram:2.2.7'
+        classpath libs.asciidoctorj.diagram
     }
 }
 repositories {
@@ -25,8 +25,8 @@ repositories {
     }
 }
 dependencies {
-    jbake 'org.asciidoctor:asciidoctorj-diagram:2.2.7'
-    jbake 'io.pebbletemplates:pebble:3.2.0'
+    jbake libs.asciidoctorj.diagram
+    jbake libs.pebble
     config.jbake.plugins.each { plugin ->
         jbake plugin
     }
