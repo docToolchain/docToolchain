@@ -11,11 +11,12 @@ buildscript {
             url mavenRepository
         }
     }
+
     dependencies {
-        classpath 'org.asciidoctor:asciidoctor-gradle-jvm:4.0.0-alpha.1'
-        classpath 'org.asciidoctor:asciidoctor-gradle-jvm-pdf:4.0.0-alpha.1'
-        classpath 'org.asciidoctor:asciidoctor-gradle-jvm-gems:4.0.0-alpha.1'
-        classpath 'org.asciidoctor:asciidoctor-gradle-jvm-slides:4.0.0-alpha.1'
+        classpath libs.asciidoctor
+        classpath libs.asciidoctor.pdf
+        classpath libs.asciidoctor.gems
+        classpath libs.asciidoctor.slides
     }
 }
 
@@ -176,9 +177,26 @@ asciidoctorj {
 }
 //tag::AsciidoctorTask[]
 
+// start Gradle 8 workaround
+// TODO: Remove it after AsciidoctorJ 4.0.0 new release, workaround to fix NoClassDefFoundError on Gradle 7.6,
+// see https://github.com/asciidoctor/asciidoctor-gradle-plugin/issues/655#issuecomment-1374479836
+configurations {
+    asciidocExtensions
+}
+
+dependencies {
+    asciidocExtensions gradleApi()
+}
+// end Gradle 8 workaround
+
 // common settings for asciidoctor
 // this is needed for PDF generation with plantUML
 tasks.withType(AbstractAsciidoctorTask) { docTask ->
+
+    // start Gradle 8 workaround
+    // TODO: remove this after AsciidoctorJ is Gradle 8 compatible
+    configurations 'asciidocExtensions'
+    // end Gradle 8 workaround
 
     baseDirFollowsSourceFile()
 

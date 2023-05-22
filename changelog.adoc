@@ -33,7 +33,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === changed
 
 * add support for Java 17, drop support for Java 8
-* upgrade Gradle to 7.5.1
+* upgrade Gradle to 8.1.1
 * upgrade dependencies
 ** 'com.athaydes:spock-reports:2.3.2-groovy-3.0'
 ** 'com.github.ben-manes.versions:0.46.0'

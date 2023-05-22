@@ -1,4 +1,3 @@
-@Grab("org.codehaus.groovy.modules.http-builder:http-builder:0.7.2" )
 import groovyx.net.http.RESTClient
 import groovyx.net.http.HttpResponseException
 import groovyx.net.http.HTTPBuilder

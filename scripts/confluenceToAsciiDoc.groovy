@@ -1,8 +1,3 @@
-/**
-@Grapes(
-        [@Grab('org.jsoup:jsoup:1.14.3')]
-)
-**/
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
 import org.jsoup.nodes.Document
@@ -229,7 +224,7 @@ images/${folderStructure.join("/")}/${documentId}.png
                             element.before("""
     <div class="lucidchart-wrapper">
 ${lucidInfos.replaceAll("\n", "%%CRLF%%")}
-    $chart 
+    $chart
     https://lucid.app/lucidchart/${documentId}/edit[edit lucidchart]
     </div>
     """)

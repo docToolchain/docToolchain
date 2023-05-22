@@ -5,14 +5,12 @@ import java.util.zip.ZipFile
  */
 
 plugins {
-    id "org.aim42.htmlSanityCheck" version "1.1.6"
-    id "com.github.ben-manes.versions" version "0.46.0"
-    id "org.openapi.generator" version "6.6.0"
-    id "de.undercouch.download" version "5.4.0"
-    id 'org.jbake.site' version '5.5.0'
-    //gretty 4.0.0 does not work with java 8
-    //gretty 3.0.8 has another problem -> #920
-    id 'org.gretty' version '3.0.6'
+    alias(libs.plugins.htmlSanityCheck)
+    alias(libs.plugins.versions)
+    alias(libs.plugins.openapi.generator)
+    alias(libs.plugins.undercouch.download)
+    alias(libs.plugins.jbake.site)
+    alias(libs.plugins.gretty)
 }
 
 apply plugin:'groovy'
@@ -27,23 +25,21 @@ dependencies {
             url mavenRepository
         }
     }
-    testImplementation('com.athaydes:spock-reports:2.3.2-groovy-3.0') {
+    testImplementation(libs.spock.reports) {
         exclude group: 'org.codehaus.groovy', module: 'groovy-xml'
     }
     testImplementation(
-            ('org.junit.jupiter:junit-jupiter-api:5.9.3'),
-            ('org.spockframework:spock-core:2.3-groovy-3.0'),
+            (libs.junit),
+            (libs.spock.core),
             //('org.slf4j:slf4j-api:1.7.13'),
             //('org.slf4j:slf4j-simple:1.7.13'),
             gradleTestKit(),
             //for the renderToConfluence Task
-            ('org.apache.httpcomponents:httpmime:4.5.10'),
-            ('org.jsoup:jsoup:1.16.1'),
-            ('org.codehaus.groovy.modules.http-builder:http-builder:0.7.2')
+            (libs.httpmime),
+            (libs.jsoup),
+            (libs.http.builder)
     )
-    testRuntimeOnly(
-        "net.bytebuddy:byte-buddy:1.14.4"
-    )
+    testRuntimeOnly(libs.byte.buddy)
 }
 
 test {
