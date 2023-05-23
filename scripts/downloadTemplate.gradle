@@ -40,7 +40,11 @@ task downloadTemplate(
         def targetDir = new File(new File(docDir, inputPath), template)
         targetDir.mkdirs()
         if (template in ['arc42', 'req42']) {
-            println "For more information about arc42 see https://arc42.org"
+            if (template=='arc42') {
+                println "For more information about arc42 see https://arc42.org"
+            } else {
+                println "For more information about req42 see https://req42.de/en"
+            }
             ant.input(message: "${color 'green', 'Which language do you want to install?'}", validargs: languages[template].join(','), addproperty: 'lang')
             ant.input(message: "${color 'green', 'Do you want the template with or without help?'}", validargs: 'withhelp,plain', addproperty: 'help')
             lang = ant.lang
