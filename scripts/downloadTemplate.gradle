@@ -12,7 +12,14 @@ task downloadTemplate(
             return new String((char) 27) + "[${colors[color]}m${text}" + new String((char) 27) + "[0m"
         }
         def lang, help
-        def templates = [arc42:"https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-${->lang}-${->help}-asciidoc.zip"]
+        def templates = [
+            arc42:"https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-${->lang}-${->help}-asciidoc.zip",
+            req42:"https://github.com/Hruschka/req42-framework/raw/main/dist/req42-framework-${->lang}-${->help}-asciidoc.zip"
+        ]
+        def languages = [
+                arc42: ['CZ', 'EN', 'DE', 'ES', 'IT', 'NL', 'UA'], 
+                req42:['EN', 'DE']
+        ]
         for (int i=1; i<20; i++) {
             def template = System.getenv('DTC_TEMPLATE' + i) ?: ""
             if (template) {
@@ -30,15 +37,11 @@ task downloadTemplate(
             template = templates.keySet()[(ant.template as Integer)-1]
         }
         println "${color 'green', 'Install '+template+' documentation template.'}"
-        def targetDir = new File(new File(docDir, inputPath), 'arc42')
+        def targetDir = new File(new File(docDir, inputPath), template)
         targetDir.mkdirs()
-        if (template=='arc42') {
+        if (template in ['arc42', 'req42']) {
             println "For more information about arc42 see https://arc42.org"
-            /**
-             if (targetDir.exists()) {println "${targetDir.canonicalPath} already exists"
-             println "in order to re-install the template, please remove the folder first and re-run the script"
-             throw new RuntimeException("Template folder already exists")}**/
-            ant.input(message: "${color 'green', 'Which language do you want to install?'}", validargs: 'CZ,EN,DE,ES,IT,NL,UA', addproperty: 'lang')
+            ant.input(message: "${color 'green', 'Which language do you want to install?'}", validargs: languages[template].join(','), addproperty: 'lang')
             ant.input(message: "${color 'green', 'Do you want the template with or without help?'}", validargs: 'withhelp,plain', addproperty: 'help')
             lang = ant.lang
             help = ant.help
