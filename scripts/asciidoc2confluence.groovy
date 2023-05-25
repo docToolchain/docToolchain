@@ -633,10 +633,8 @@ def parseBody =  { body, anchors, pageAnchors ->
     // <ac:image ac:align="center" ac:width="500">
     // <ri:attachment ri:filename="deployment-context.png"/>
     // </ac:image>
+    def imageDir = "images/"
     body.select('img').each { img ->
-        img.attributes().each { attribute ->
-            //println attribute.dump()
-        }
         def src = img.attr('src')
         def imgWidth = img.attr('width')?:500
         def imgAlign = img.attr('align')?:"center"
@@ -650,7 +648,15 @@ def parseBody =  { body, anchors, pageAnchors ->
                 def imageData = src.split(";");
                 def fileExtension = imageData[0].split("/")[1]
                 fileName = img.attr('alt').replaceAll(/\s+/,"_").concat(".${fileExtension}")
-                newUrl += '../images/'+fileName
+                if(config.imageDirs.size > 0){
+                    def dir = config.imageDirs.find { it ->
+                        new File( newUrl + it + fileName).exists()
+                    }
+                    if(dir != null){
+                        imageDir = dir
+                    }
+                }
+                newUrl += imageDir + fileName
             }else {
                 newUrl += src
                 fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")

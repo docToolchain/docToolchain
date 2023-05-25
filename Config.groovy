@@ -21,7 +21,7 @@ imageDirs = [
 
 // whether the build should fail when detecting broken image references
 // if this config is set to true all images will be embedded
-failOnMissingImages = true
+// failOnMissingImages = false
 
 taskInputsDirs = ["${inputPath}/images"]
 
