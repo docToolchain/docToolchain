@@ -54,6 +54,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 ** 'org.openapi.generator:6.6.0'
 ** 'org.spockframework:spock-core:2.3-groovy-3.0'
 * `dtcw` and `dtcw.ps1`:
+** Changed environment variable `DTC_ROOT` to be configurable specify the parent directory the installation directory, which defaults the value of the environment variable `HOME`
 ** improve output with hints to guide the user
 ** add `--version` option
 ** deprecate `getJava` with `install java`

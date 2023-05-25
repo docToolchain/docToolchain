@@ -625,7 +625,7 @@ show_os_related_info() {
 }
 
 # Location where local installations are placed.
-DTC_ROOT="${HOME}/.doctoolchain"
+DTC_ROOT=${DTC_ROOT:-"${HOME}/.doctoolchain"}
 
 # More than one docToolchain version may be installed locally.
 # This is the directory for the specific version.

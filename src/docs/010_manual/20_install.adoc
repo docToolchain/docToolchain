@@ -127,14 +127,18 @@ container engine and pull the docToolchain image on the first invocation.
 [role='primary']
 --
 
-To install docToolchain in `$HOME/.doctoolchain` execute the following command.
+docToolchain will be installed below the directory specified via the environment variable `DTC_ROOT`, which defaults to `$HOME`.
+To install docToolchain in `$DTC_ROOT/.doctoolchain` execute the following command.
+
+TIP: You can specify an alternative installation directory by setting `DTC_ROOT` to a custom value.
+Please keep in mind the `DTC_ROOT` must be permanently specified, otherwise `dtcw` will not be able to find your installation.
 
 [source, bash]
 ----
 ./dtcw install doctoolchain
 ----
 
-In case you have no Java installed you may use `dtcw` to install Java in a sub-directory of `$HOME/.doctoolchain`.
+In case you have no Java installed you may use `dtcw` to install Java in a sub-directory of `$DTC_ROOT/.doctoolchain`.
 
 [source, bash]
 ----
