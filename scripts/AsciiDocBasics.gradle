@@ -154,7 +154,7 @@ asciidoctorj {
     )
 
     def failOnMissingImages = (findProperty("failOnMissingImages")?:config.failOnMissingImages)?:false
-    if(failOnMissingImages == true){
+    if(failOnMissingImages.toBoolean() == true){
         attributes(
             'data-uri': '',
         )
