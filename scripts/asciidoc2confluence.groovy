@@ -793,7 +793,7 @@ def generateAndAttachToC(localPage) {
         content += (config.confluence.tableOfChildren?:default_children)
     }
     def localHash = MD5(localPage)
-    content += '<p style="display:none">hash: #'+localHash+'#</p>'
+    content += '<ac:placeholder>hash: #'+localHash+'#</ac:placeholder>'
     return content
 }
 
