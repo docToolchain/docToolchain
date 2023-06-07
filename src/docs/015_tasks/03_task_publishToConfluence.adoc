@@ -13,6 +13,11 @@ image::ea/Manual/publishToConfluence.png[]
 This task takes a generated HTML file, splits it by headline, and pushes it to your instance of https://www.atlassian.com/software/confluence[Confluence].
 This lets you use the https://www.writethedocs.org/guide/docs-as-code/[docs-as-code approach] even if your organisation insists on using Confluence as its main document repository.
 
+[NOTE]
+====
+Currently, docToolchain only has full support for the old Confluence editor. The new editor is not fully supported yet. You can use the new editor, but you may experience some unexpected layout issues/ changes. To make use of the new editor you need to set `enforceNewEditor` to `true` in the Confluence section of the docToolchain configuration file.
+====
+
 == Special Features
 
 === Easy Code Block Conversion
@@ -95,10 +100,10 @@ Set an optional comment for the new page version in Confluence.
 For security reasons it is highly recommended to store your credentials in a separate file outside the Git repository, such as in your Home folder.
 
 To authenticate with username and API token, use:
-    credentials = "user:${new File("/users/me/apitoken").text}" or 
+    credentials = "user:${new File("/users/me/apitoken").text}" or
     credentials = "user:${new File("/users/me/apitoken").text}"`.bytes.encodeBase64().toString()` to ........
 You can create an API-token in https://confluence.atlassian.com/cloud/api-tokens-938839638.html[your profile].
-    
+
 To authenticate with username and password, use:
     credentials = ......
 
@@ -114,7 +119,7 @@ If you wish to simplify the injection of credentials from external sources, do t
 3. Open the file, and put the variables in it:
     - confluenceUser=myusername, and on a new line
     - confluencePass=myuserpassword
-    
+
 
 *apikey*
 

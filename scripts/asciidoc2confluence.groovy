@@ -797,9 +797,18 @@ def generateAndAttachToC(localPage) {
     return content
 }
 
+def determineEditorVersion() {
+    if(config.confluence.enforceNewEditor &&
+        config.confluence.enforceNewEditor.toBoolean() == true){
+        println "WARNING: You are using the new editor version v2. This is not yet fully supported by docToolchain."
+        return "v2"
+    }
+        return "v1"
+}
+
 // the create-or-update functionality for confluence pages
 // #342-dierk42: added parameter 'keywords'
-def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, keywords ->
+def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, keywords, editorVersion ->
     parentId = parentId?.toString()
     def api = new RESTClient(config.confluence.api)
     def headers = getHeaders()
@@ -821,6 +830,13 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
     def request = [
             type : 'page',
             title: realTitle(pageTitle),
+            metadata: [
+                properties: [
+                    editor: [
+                        value: editorVersion
+                    ],
+                ]
+            ],
             space: [
                     key: confluenceSpaceKey
             ],
@@ -942,9 +958,10 @@ def parseAnchors(page) {
 
 def pushPages
 pushPages = { pages, anchors, pageAnchors, labels ->
+    def editorVersion = determineEditorVersion()
     pages.each { page ->
         println page.title
-        def id = pushToConfluence page.title, page.body, page.parent, anchors, pageAnchors, labels
+        def id = pushToConfluence page.title, page.body, page.parent, anchors, pageAnchors, labels, editorVersion
         page.children*.parent = id
         // println "Push children von id " + id
         pushPages page.children, anchors, pageAnchors, labels

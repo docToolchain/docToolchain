@@ -137,4 +137,34 @@ class PublishToConfluenceSpec extends Specification {
             new File(existingImage.get("filePath")).exists()
             existingImage.get("fileName") == "${calculatedHash}.png"
     }
+
+    void 'test the correct editor is used'() {
+        setup: 'load asciidoc2confluence'
+        GroovyShell shell = new GroovyShell()
+        def script = shell.parse(new File('./scripts/asciidoc2confluence.groovy'))
+        when: 'explicitly not enforce the new editor'
+        script.setProperty("config", Map.of("imageDirs", ["Foo/"], "confluence", Map.of(
+            "enforceNewEditor", false
+        )))
+        def expectedVersion1 = script.determineEditorVersion()
+
+        then: 'the editor is the old one'
+        expectedVersion1 == "v1"
+
+        when: 'enforce the new editor'
+        script.setProperty("config", Map.of("imageDirs", ["Foo/"], "confluence", Map.of(
+            "enforceNewEditor", true
+        )))
+        def expectedVersion2 = script.determineEditorVersion()
+
+        then: 'the editor is the new one'
+        expectedVersion2 == "v2"
+
+        when: 'no config is set explicitly for the editor'
+        script.setProperty("config", Map.of("imageDirs", ["Foo/"], "confluence", []))
+        def expectedVersion3 = script.determineEditorVersion()
+
+        then: 'the default editor is the old one'
+        expectedVersion3 == "v1"
+    }
 }
