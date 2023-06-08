@@ -835,6 +835,12 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
                     editor: [
                         value: editorVersion
                     ],
+                    "content-appearance-draft": [
+                        value: "full-width"
+                    ],
+                    "content-appearance-published": [
+                        value: "full-width"
+                    ]
                 ]
             ],
             space: [
