@@ -17,7 +17,7 @@ task downloadTemplate(
             req42:"https://github.com/Hruschka/req42-framework/raw/main/dist/req42-framework-${->lang}-${->help}-asciidoc.zip"
         ]
         def languages = [
-                arc42: ['CZ', 'EN', 'DE', 'ES', 'IT', 'NL', 'UA'], 
+                arc42: ['CZ', 'DE', 'EN', 'ES', 'FR', 'IT', 'NL', 'UA'], 
                 req42:['EN', 'DE']
         ]
         for (int i=1; i<20; i++) {
