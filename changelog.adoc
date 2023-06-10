@@ -30,6 +30,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 * introduce `generateContent` task - AI for docToolchain
 * added req42 framework to downloadTemplate task
+* added 'FR' as language for arc42
 
 === changed
 
