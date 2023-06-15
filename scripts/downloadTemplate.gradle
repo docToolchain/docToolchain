@@ -11,13 +11,13 @@ task downloadTemplate(
             def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37]
             return new String((char) 27) + "[${colors[color]}m${text}" + new String((char) 27) + "[0m"
         }
-        def lang, help
+        def lang, help, antora
         def templates = [
             arc42:"https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-${->lang}-${->help}-asciidoc.zip",
             req42:"https://github.com/Hruschka/req42-framework/raw/main/dist/req42-framework-${->lang}-${->help}-asciidoc.zip"
         ]
         def languages = [
-                arc42: ['CZ', 'DE', 'EN', 'ES', 'FR', 'IT', 'NL', 'UA'], 
+                arc42: ['CZ', 'DE', 'EN', 'ES', 'FR', 'IT', 'NL', 'UA'],
                 req42:['EN', 'DE']
         ]
         for (int i=1; i<20; i++) {
@@ -47,8 +47,10 @@ task downloadTemplate(
             }
             ant.input(message: "${color 'green', 'Which language do you want to install?'}", validargs: languages[template].join(','), addproperty: 'lang')
             ant.input(message: "${color 'green', 'Do you want the template with or without help?'}", validargs: 'withhelp,plain', addproperty: 'help')
+            ant.input(message: "${color 'green', 'Do you want the template to be setup for Antora?'}", validargs: 'y,n', addproperty: 'antora')
             lang = ant.lang
             help = ant.help
+            antora = ant.antora.toBoolean()
         }
         download.run {
             src templates[template]
@@ -64,43 +66,48 @@ task downloadTemplate(
         }
         println "${template} template unpacked into ${targetDir}"
 
-        println "start to bootstrap antora"
+        def configFile = new File(docDir, mainConfigFile)
 
-        new File(targetDir, 'modules/ROOT/pages').mkdirs()
-        new File(targetDir, 'modules/ROOT/assets/images').mkdirs()
-        new File(targetDir, 'modules/adr/pages').mkdirs()
-        //TODO check if not other level
-        new File(targetDir, 'modules/adr/_partials').mkdirs()
+        if(antora && template in ['arc42', 'req42']){
+            println "start to bootstrap antora"
 
-        def nav = new File(targetDir, 'modules/ROOT/nav.adoc')
-        nav.createNewFile()
+            new File(targetDir, 'modules/ROOT/pages').mkdirs()
+            new File(targetDir, 'modules/ROOT/assets/images').mkdirs()
+            new File(targetDir, 'modules/adr/pages').mkdirs()
+            //TODO check if not other level
+            new File(targetDir, 'modules/adr/_partials').mkdirs()
 
-        copy {
-            from (new File(targetDir, 'images/.'))
-            into new File(targetDir, 'modules/ROOT/assets/images/.')
-        }
-        delete new File(targetDir, 'images/.')
+            def nav = new File(targetDir, 'modules/ROOT/nav.adoc')
+            nav.createNewFile()
 
-        copy {
-            from (new File(targetDir, 'src/.'))
-            into new File(targetDir, 'modules/ROOT/pages/.')
-        }
-        delete new File(targetDir, 'src/.')
+            copy {
+                from (new File(targetDir, 'images/.'))
+                into new File(targetDir, 'modules/ROOT/assets/images/.')
+            }
+            delete new File(targetDir, 'images/.')
 
-        new File(targetDir, 'modules/ROOT/pages').eachFileRecurse { file->
-            if (file.name.endsWith('.adoc') && file.name ==~ /[0-9]+_.*/) {
-                def text = file.getText('utf-8')
-                def title = ""
-                text.eachLine { line ->
-                    if (title=="" && line.startsWith('=')) {
-                        title = line.split("[ \t]+",2)[1]
+            copy {
+                from (new File(targetDir, 'src/.'))
+                into new File(targetDir, 'modules/ROOT/pages/.')
+            }
+            delete new File(targetDir, 'src/.')
+
+            new File(targetDir, 'modules/ROOT/pages').eachFileRecurse { file->
+                if (file.name.endsWith('.adoc') && file.name ==~ /[0-9]+_.*/) {
+                    def text = file.getText('utf-8')
+                    def title = ""
+                    text.eachLine { line ->
+                        if (title=="" && line.startsWith('=')) {
+                            title = line.split("[ \t]+",2)[1]
+                        }
                     }
-                }
-                text = """\
+                    text = text.replaceAll(/ifndef::imagesdir\[:imagesdir: \.\.\/images]/,
+                        "")
+                    text = """\
 :jbake-title: $title
 :jbake-type: page_toc
 :jbake-status: published
-:jbake-menu: arc42
+:jbake-menu: $template
 :jbake-order: ${file.name.split("_")[0] as Integer}
 :filename: ${file.canonicalPath-targetDir.canonicalPath}
 ifndef::imagesdir[:imagesdir: ../assets/images]
@@ -108,46 +115,54 @@ ifndef::imagesdir[:imagesdir: ../assets/images]
 :toc:
 
 """+text
-                file.write(text,'utf-8')
-                nav.append('* xref:'+file.name+'['+file.name.split("_")[0]+'. '+title+']\n', 'utf-8')
+                    file.write(text,'utf-8')
+                    nav.append('* xref:'+file.name+'['+file.name.split("_")[0]+'. '+title+']\n', 'utf-8')
+                }
             }
+
+            new File(targetDir, 'modules/ROOT/pages/.asciidoctorconfig.adoc').text = ':imagesdir: ../assets/images'
+            def templateConfig = new File(targetDir, 'modules/ROOT/pages/config.adoc')
+            templateConfig.text = templateConfig.text.replaceAll(':imagesdir: ./images', ':imagesdir: ../assets/images')
+
+            def templateFile = new File(targetDir, template == "arc42" ? "${template}-template.adoc" : "${template}-framework.adoc")
+            def mainFile = new File(targetDir, "modules/ROOT/pages/index.adoc")
+            copy {
+                from (templateFile)
+                into new File(targetDir, 'modules/ROOT/pages/.')
+            }
+            delete templateFile
+            new File(targetDir, "modules/ROOT/pages/${template}-template.adoc")
+                .renameTo(mainFile)
+
+            mainFile.write(mainFile.text.replaceAll('src/', ''), 'utf-8')
+
+            configFile.write(
+                configFile.text
+                    .replaceAll('[, \\t\\r\\n]+/[*]{2} inputFiles [*]{2}/',
+                        ",\n\t[file: '${template}/modules/ROOT/pages/index.adoc', formats: ['html','pdf']],\n\t/** inputFiles **/")
+                    .replaceAll('/[*]{2} imageDirs [*]{2}/',
+                        "'arc42/modules/ROOT/assets/images/.',\n\t/** imageDirs **/")
+                    .replaceAll('[, \\t\\r\\n]+/[*]{2} imageDirs [*]{2}/',
+                        ",\n\t'${template}/modules/ROOT/assets/images/.',\n\t/** imageDirs **/")
+                    .replaceAll("\\[,", "["),
+                'utf-8'
+            )
+
+            new File(targetDir, 'antora.yml').text = """\
+name: ${template}-template
+title: ${template} Template
+version: latest
+start_page: 01_introduction_and_goals.adoc
+nav:
+  - modules/ROOT/nav.adoc
+"""
+
+            println "finished to bootstrap antora"
         }
-
-        new File(targetDir, 'modules/ROOT/pages/.asciidoctorconfig.adoc').text = ':imagesdir: ../assets/images'
-
-
-        // TODO this is the index
-        //def fil = new File("modules/ROOT/pages/index.adoc")
-        //fil.createNewFile()
-        //    fil.write("foo","utf-8")
-        copy {
-            from (new File(targetDir, 'arc42-template.adoc'))
-            into new File(targetDir, 'modules/ROOT/pages/.')
-        }
-        def con = new File(targetDir, 'modules/ROOT/pages/arc42.adoc')
-        new File(targetDir, 'modules/ROOT/pages/arc42-template.adoc')
-            .renameTo(con)
-
-        con.write(con.text.replaceAll('src/', ''), 'utf-8')
-
-        def configFil = new File(docDir, mainConfigFile)
-        configFil.write(
-            configFil.text
-                .replaceAll('[, \\t\\r\\n]+/[*]{2} inputFiles [*]{2}/',
-                    ",\n\t[file: 'arc42/modules/ROOT/pages/arc42.adoc', formats: ['html','pdf']],\n\t/** inputFiles **/")
-                .replaceAll('/[*]{2} imageDirs [*]{2}/',
-                    "'arc42/modules/ROOT/assets/images/.',\n\t/** imageDirs **/")
-                .replaceAll('[, \\t\\r\\n]+/[*]{2} imageDirs [*]{2}/',
-                    ",\n\t'arc42/modules/ROOT/assets/images/.',\n\t/** imageDirs **/")
-                .replaceAll("\\[,", "["),
-            'utf-8'
-        )
-
-        println "finished to bootstrap antora"
 
         //re-organize content
         //move images folder
-        if(false) {
+        else {
             new File(targetDir, '../images/.').mkdirs()
             copy {
                 from(new File(targetDir, 'images/.'))
@@ -165,11 +180,13 @@ ifndef::imagesdir[:imagesdir: ../assets/images]
                             title = line.split("[ \t]+", 2)[1]
                         }
                     }
+                    text = text.replaceAll(/ifndef::imagesdir\[:imagesdir: \.\.\/images]/,
+                        "")
                     text = """\
 :jbake-title: $title
 :jbake-type: page_toc
 :jbake-status: published
-:jbake-menu: arc42
+:jbake-menu: ${template}
 :jbake-order: ${file.name.split("_")[0] as Integer}
 :filename: ${file.canonicalPath - targetDir.canonicalPath}
 ifndef::imagesdir[:imagesdir: ../../images]
@@ -180,20 +197,20 @@ ifndef::imagesdir[:imagesdir: ../../images]
                     file.write(text, 'utf-8')
                 }
             }
-            new File(targetDir, 'arc42-template.adoc').renameTo(new File(targetDir, 'arc42.adoc'))
+            new File(targetDir, template == "arc42" ? "${template}-template.adoc" : "${template}-framework.adoc")
+                .renameTo(new File(targetDir, "${template}.adoc"))
             def configAdoc = new File(targetDir, 'chapters/config.adoc')
             configAdoc.write(configAdoc.text.replaceAll("[.]/images", "../images"), 'utf-8')
-            def mainDoc = new File(targetDir, 'arc42.adoc')
+            def mainDoc = new File(targetDir, "${template}.adoc")
             mainDoc.write(":imagesdir: ../images\n:jbake-menu: -\n" + mainDoc.text.replaceAll('src/', 'chapters/'), 'utf-8')
             //write asciidoctorconfig for editor preview
             new File(targetDir, '/chapters/.asciidoctorconfig.adoc').write(':imagesdir: ../../images\n\n', 'utf-8')
             new File(targetDir, '/.asciidoctorconfig.adoc').write(':imagesdir: ../images\n\n', 'utf-8')
             //add arc42.doc to config
-            def configFile = new File(docDir, mainConfigFile)
             configFile.write(
                 configFile.text
                     .replaceAll('[, \\t\\r\\n]+/[*]{2} inputFiles [*]{2}/',
-                        ",\n\t[file: 'arc42/arc42.adoc', formats: ['html','pdf']],\n\t/** inputFiles **/")
+                        ",\n\t[file: '${template}/${template}.adoc', formats: ['html','pdf']],\n\t/** inputFiles **/")
                     .replaceAll('/[*]{2} imageDirs [*]{2}/',
                         "'images/.',\n\t/** imageDirs **/")
                     .replaceAll('[, \\t\\r\\n]+/[*]{2} imageDirs [*]{2}/',
