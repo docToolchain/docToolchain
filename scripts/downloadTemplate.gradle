@@ -79,6 +79,7 @@ task downloadTemplate(
 
             def nav = new File(targetDir, 'modules/ROOT/nav.adoc')
             nav.createNewFile()
+            def navContent = [:]
 
             copy {
                 from (new File(targetDir, 'images/.'))
@@ -112,13 +113,18 @@ task downloadTemplate(
 :filename: ${file.canonicalPath-targetDir.canonicalPath}
 ifndef::imagesdir[:imagesdir: ../assets/images]
 
+ifndef::optimize-content[]
 :toc:
-
+endif::optimize-content[]
 """+text
                     file.write(text,'utf-8')
-                    nav.append('* xref:'+file.name+'['+file.name.split("_")[0]+'. '+title+']\n', 'utf-8')
+                    def navIndex = file.name.split("_")[0]
+                    navContent.put(navIndex as Integer, '* xref:'+file.name+'['+navIndex+'. '+title+']\n')
                 }
             }
+            def sortedNav = navContent.keySet().sort().collect { key ->
+                navContent[key]}.join('\n');
+            nav.write(sortedNav,'utf-8')
 
             new File(targetDir, 'modules/ROOT/pages/.asciidoctorconfig.adoc').text = ':imagesdir: ../assets/images'
             def templateConfig = new File(targetDir, 'modules/ROOT/pages/config.adoc')
@@ -131,10 +137,26 @@ ifndef::imagesdir[:imagesdir: ../assets/images]
                 into new File(targetDir, 'modules/ROOT/pages/.')
             }
             delete templateFile
-            new File(targetDir, "modules/ROOT/pages/${template}-template.adoc")
+            new File(targetDir, "modules/ROOT/pages/${templateFile.name}")
                 .renameTo(mainFile)
 
-            mainFile.write(mainFile.text.replaceAll('src/', ''), 'utf-8')
+            def mainFileTxt = mainFile.text.replaceAll('src/', '')
+
+           mainFileTxt = mainFileTxt.replaceAll(/(?m)^= image:$template-logo\.png.*/, """\
+ifndef::optimize-content[]
+= image:$template-logo.png[$template] Template
+endif::optimize-content[]
+
+ifdef::optimize-content[]
+image:arc42-logo.png[arc42]
+endif::optimize-content[]
+""")
+            mainFileTxt = mainFileTxt.replaceAll(/include::about-${template}.adoc\[]/, """\
+include::about-${template}.adoc[]
+
+ifndef::optimize-content[]
+""") + "\nendif::optimize-content[]"
+            mainFile.write(mainFileTxt, 'utf-8')
 
             configFile.write(
                 configFile.text
@@ -152,9 +174,12 @@ ifndef::imagesdir[:imagesdir: ../assets/images]
 name: ${template}-template
 title: ${template} Template
 version: latest
-start_page: 01_introduction_and_goals.adoc
+start_page: index.adoc
 nav:
   - modules/ROOT/nav.adoc
+asciidoc:
+  attributes:
+    optimize-content: true
 """
 
             println "finished to bootstrap antora"
