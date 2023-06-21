@@ -9,6 +9,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+* https://github.com/docToolchain/docToolchain/issues/1198[#1198: gravatar eleminates leading 0 from md5 hash]
 * https://github.com/docToolchain/docToolchain/issues/1193[#1193: exportEA fails since v2.0.5 with an exception]
 * https://github.com/docToolchain/docToolchain/issues/395[#395 asciidoctor-diagram: ERROR: Failed to generate image: PlantUML image generation failed]
 * https://github.com/docToolchain/docToolchain/issues/455[#455 Force execution to stop with failure on missing image reference]
@@ -20,6 +21,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/issues/1031[#1031: dtcw ignores installed Java RE when docker is installed - your java version 17 is too new]
 * https://github.com/docToolchain/docToolchain/issues/1163[#1163: upload to confluence breaks with embedded images]
 * https://github.com/docToolchain/docToolchain/issues/1161[#1161: publishToConfluence looses the id when generating level 2 page anchors]
+
 * various fixes in `dtcw`, `dtcw.ps1`:
 ** pick the right environment if none provided by the user
 ** support of JAVA_HOME which was silently ignored.
