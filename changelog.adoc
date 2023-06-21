@@ -33,6 +33,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * added req42 framework to downloadTemplate task
 * added 'FR' as language for arc42
 
+* added short tutorial about changing the theme of a microsite
+
 === changed
 
 * add support for Java 17, drop support for Java 8
