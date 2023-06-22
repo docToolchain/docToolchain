@@ -4,6 +4,18 @@ include::_config.adoc[]
 [[task_downloadTemplate]]
 = downloadTemplate
 
+== About This Task
+This task is primarily used to bootstrap a new project. You can choose to download an official template like https://github.com/arc42/arc42-template[arc42] or https://github.com/Hruschka/req42-framework[req42] (both available in multiple languages) or you can register and use your own custom template.
+
+== Setup and Configuration
+
+You can choose to bootstrap your project as an Antora project or as a plain AsciiDoc project. The Antora integration is currently in beta. The Antora integration enables you to register the project seamlessly with an existing Antora playbook.
+
+== Further Reading and Resources
+
+* https://arc42.org/[Arc42]
+* https://req42.de/[Req42]
+
 include::../_feedback.adoc[]
 
 
