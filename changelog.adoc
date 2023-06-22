@@ -35,6 +35,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * introduce `generateContent` task - AI for docToolchain
 * added req42 framework to downloadTemplate task
 * added 'FR' as language for arc42
+* https://antora.org[Antora] support (beta), setup a docToolchain project and integrate it as module seamlessly into your existing Antora playbook. See `downloadTemplate` task for more details.
 
 * added short tutorial about changing the theme of a microsite
 
