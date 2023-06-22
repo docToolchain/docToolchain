@@ -1,3 +1,5 @@
+import java.nio.file.Files
+import java.nio.file.Paths
 
 //tag::downloadTemplate[]
 task downloadTemplate(
@@ -37,8 +39,8 @@ task downloadTemplate(
             template = templates.keySet()[(ant.template as Integer)-1]
         }
         println "${color 'green', 'Install '+template+' documentation template.'}"
-        def targetDir = new File(new File(docDir, inputPath), template)
-        targetDir.mkdirs()
+        def outputDir = new File(docDir, inputPath)
+        outputDir.mkdirs()
         if (template in ['arc42', 'req42']) {
             if (template=='arc42') {
                 println "For more information about arc42 see https://arc42.org"
@@ -54,46 +56,52 @@ task downloadTemplate(
         }
         download.run {
             src templates[template]
-            dest new File(targetDir, 'template.zip')
+            dest new File(outputDir, 'template.zip')
             overwrite true
         }
         copy {
-            from zipTree(new File(targetDir, 'template.zip'))
-            into targetDir
+            from zipTree(new File(outputDir, 'template.zip'))
+            into outputDir
         }
         delete {
-            delete new File(targetDir, 'template.zip')
+            delete new File(outputDir, 'template.zip')
         }
-        println "${template} template unpacked into ${targetDir}"
+        println "${template} template unpacked into ${outputDir}"
 
         def configFile = new File(docDir, mainConfigFile)
 
         if(antora && template in ['arc42', 'req42']){
-            println "start to bootstrap antora"
+            println "start to bootstrap Antora, this integration considered experimental"
 
-            new File(targetDir, 'modules/ROOT/pages').mkdirs()
-            new File(targetDir, 'modules/ROOT/assets/images').mkdirs()
-            new File(targetDir, 'modules/adr/pages').mkdirs()
-            //TODO check if not other level
-            new File(targetDir, 'modules/adr/_partials').mkdirs()
+            new File(outputDir, 'modules/ROOT/pages').mkdirs()
+            new File(outputDir, 'modules/ROOT/assets/images').mkdirs()
+            def examplesDirPath = Paths.get(outputDir.absolutePath, "/modules/ROOT/examples")
+            examplesDirPath.toFile().mkdirs()
 
-            def nav = new File(targetDir, 'modules/ROOT/nav.adoc')
+            // Here we create a symbolic link to task output folders that should be includable
+            // currently works with `collectIncludes`
+            Files.createSymbolicLink(
+                Paths.get(examplesDirPath.toString(), "_includes"),
+                Paths.get(targetDir as String, "_includes")
+            )
+
+            def nav = new File(outputDir, 'modules/ROOT/nav.adoc')
             nav.createNewFile()
             def navContent = [:]
 
             copy {
-                from (new File(targetDir, 'images/.'))
-                into new File(targetDir, 'modules/ROOT/assets/images/.')
+                from (new File(outputDir, 'images/.'))
+                into new File(outputDir, 'modules/ROOT/assets/images/.')
             }
-            delete new File(targetDir, 'images/.')
+            delete new File(outputDir, 'images/.')
 
             copy {
-                from (new File(targetDir, 'src/.'))
-                into new File(targetDir, 'modules/ROOT/pages/.')
+                from (new File(outputDir, 'src/.'))
+                into new File(outputDir, 'modules/ROOT/pages/.')
             }
-            delete new File(targetDir, 'src/.')
+            delete new File(outputDir, 'src/.')
 
-            new File(targetDir, 'modules/ROOT/pages').eachFileRecurse { file->
+            new File(outputDir, 'modules/ROOT/pages').eachFileRecurse { file->
                 if (file.name.endsWith('.adoc') && file.name ==~ /[0-9]+_.*/) {
                     def text = file.getText('utf-8')
                     def title = ""
@@ -110,7 +118,7 @@ task downloadTemplate(
 :jbake-status: published
 :jbake-menu: $template
 :jbake-order: ${file.name.split("_")[0] as Integer}
-:filename: ${file.canonicalPath-targetDir.canonicalPath}
+:filename: ${file.canonicalPath-outputDir.canonicalPath}
 ifndef::imagesdir[:imagesdir: ../assets/images]
 
 ifndef::optimize-content[]
@@ -126,18 +134,18 @@ endif::optimize-content[]
                 navContent[key]}.join('\n');
             nav.write(sortedNav,'utf-8')
 
-            new File(targetDir, 'modules/ROOT/pages/.asciidoctorconfig.adoc').text = ':imagesdir: ../assets/images'
-            def templateConfig = new File(targetDir, 'modules/ROOT/pages/config.adoc')
+            new File(outputDir, 'modules/ROOT/pages/.asciidoctorconfig.adoc').text = ':imagesdir: ../assets/images'
+            def templateConfig = new File(outputDir, 'modules/ROOT/pages/config.adoc')
             templateConfig.text = templateConfig.text.replaceAll(':imagesdir: ./images', ':imagesdir: ../assets/images')
 
-            def templateFile = new File(targetDir, template == "arc42" ? "${template}-template.adoc" : "${template}-framework.adoc")
-            def mainFile = new File(targetDir, "modules/ROOT/pages/index.adoc")
+            def templateFile = new File(outputDir, template == "arc42" ? "${template}-template.adoc" : "${template}-framework.adoc")
+            def mainFile = new File(outputDir, "modules/ROOT/pages/index.adoc")
             copy {
                 from (templateFile)
-                into new File(targetDir, 'modules/ROOT/pages/.')
+                into new File(outputDir, 'modules/ROOT/pages/.')
             }
             delete templateFile
-            new File(targetDir, "modules/ROOT/pages/${templateFile.name}")
+            new File(outputDir, "modules/ROOT/pages/${templateFile.name}")
                 .renameTo(mainFile)
 
             def mainFileTxt = mainFile.text.replaceAll('src/', '')
@@ -160,17 +168,18 @@ ifndef::optimize-content[]
 
             configFile.write(
                 configFile.text
+                    .replaceAll('//useAntoraIntegration = false', 'useAntoraIntegration = true')
                     .replaceAll('[, \\t\\r\\n]+/[*]{2} inputFiles [*]{2}/',
-                        ",\n\t[file: '${template}/modules/ROOT/pages/index.adoc', formats: ['html','pdf']],\n\t/** inputFiles **/")
+                        ",\n\t[file: 'modules/ROOT/pages/index.adoc', formats: ['html','pdf']],\n\t/** inputFiles **/")
                     .replaceAll('/[*]{2} imageDirs [*]{2}/',
-                        "'arc42/modules/ROOT/assets/images/.',\n\t/** imageDirs **/")
+                        "'modules/ROOT/assets/images/.',\n\t/** imageDirs **/")
                     .replaceAll('[, \\t\\r\\n]+/[*]{2} imageDirs [*]{2}/',
-                        ",\n\t'${template}/modules/ROOT/assets/images/.',\n\t/** imageDirs **/")
+                        ",\n\t'modules/ROOT/assets/images/.',\n\t/** imageDirs **/")
                     .replaceAll("\\[,", "["),
                 'utf-8'
             )
 
-            new File(targetDir, 'antora.yml').text = """\
+            new File(outputDir, 'antora.yml').text = """\
 name: ${template}-template
 title: ${template} Template
 version: latest
@@ -188,15 +197,15 @@ asciidoc:
         //re-organize content
         //move images folder
         else {
-            new File(targetDir, '../images/.').mkdirs()
+            new File(outputDir, '../images/.').mkdirs()
             copy {
-                from(new File(targetDir, 'images/.'))
-                into new File(targetDir, '../images/.')
+                from(new File(outputDir, 'images/.'))
+                into new File(outputDir, '../images/.')
             }
-            delete new File(targetDir, 'images/.')
-            new File(targetDir, 'src').renameTo(new File(targetDir, 'chapters'))
+            delete new File(outputDir, 'images/.')
+            new File(outputDir, 'src').renameTo(new File(outputDir, 'chapters'))
             //add jbake header
-            new File(targetDir, 'chapters').eachFileRecurse { file ->
+            new File(outputDir, 'chapters').eachFileRecurse { file ->
                 if (file.name.endsWith('.adoc') && file.name ==~ /[0-9]+_.*/) {
                     def text = file.getText('utf-8')
                     def title = ""
@@ -213,7 +222,7 @@ asciidoc:
 :jbake-status: published
 :jbake-menu: ${template}
 :jbake-order: ${file.name.split("_")[0] as Integer}
-:filename: ${file.canonicalPath - targetDir.canonicalPath}
+:filename: ${file.canonicalPath - outputDir.canonicalPath}
 ifndef::imagesdir[:imagesdir: ../../images]
 
 :toc:
@@ -222,15 +231,15 @@ ifndef::imagesdir[:imagesdir: ../../images]
                     file.write(text, 'utf-8')
                 }
             }
-            new File(targetDir, template == "arc42" ? "${template}-template.adoc" : "${template}-framework.adoc")
-                .renameTo(new File(targetDir, "${template}.adoc"))
-            def configAdoc = new File(targetDir, 'chapters/config.adoc')
+            new File(outputDir, template == "arc42" ? "${template}-template.adoc" : "${template}-framework.adoc")
+                .renameTo(new File(outputDir, "${template}.adoc"))
+            def configAdoc = new File(outputDir, 'chapters/config.adoc')
             configAdoc.write(configAdoc.text.replaceAll("[.]/images", "../images"), 'utf-8')
-            def mainDoc = new File(targetDir, "${template}.adoc")
+            def mainDoc = new File(outputDir, "${template}.adoc")
             mainDoc.write(":imagesdir: ../images\n:jbake-menu: -\n" + mainDoc.text.replaceAll('src/', 'chapters/'), 'utf-8')
             //write asciidoctorconfig for editor preview
-            new File(targetDir, '/chapters/.asciidoctorconfig.adoc').write(':imagesdir: ../../images\n\n', 'utf-8')
-            new File(targetDir, '/.asciidoctorconfig.adoc').write(':imagesdir: ../images\n\n', 'utf-8')
+            new File(outputDir, '/chapters/.asciidoctorconfig.adoc').write(':imagesdir: ../../images\n\n', 'utf-8')
+            new File(outputDir, '/.asciidoctorconfig.adoc').write(':imagesdir: ../images\n\n', 'utf-8')
             //add arc42.doc to config
             configFile.write(
                 configFile.text
