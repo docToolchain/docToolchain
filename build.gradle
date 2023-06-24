@@ -1,5 +1,24 @@
 import java.util.zip.ZipFile
 
+// fix versions for #1200
+buildscript {
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'org.ysb33r.gradle' && details.requested.name == 'grolifant' && details.requested.version == '0.12.1') {
+                details.useVersion '0.16.1'
+                details.because 'jcenter redirect'
+                System.out.println ">>>>>>>>> fix grolifant"
+            }
+            if (details.requested.group == 'org.codehaus.groovy.modules.http-builder' && details.requested.name == 'http-builder' && details.requested.version == '0.7.2') {
+                details.useVersion '0.7.1'
+                details.because 'jcenter redirect'
+                System.out.println ">>>>>>>>> fix http-builder"
+            }
+        }
+    }
+}
+// /fix versions for #1200
+
 /*
  * This build file is part of the docToolchain
  */
