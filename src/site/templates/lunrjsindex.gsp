@@ -8,7 +8,8 @@ text = content.body
                 .replaceAll("<[^>]*>", " ")
                 .replaceAll("[\r\n \t]", " ")
                 .replaceAll(" +", " ")
-                .replaceAll('"', "")
+                .replaceAll('[\\\\]', '\\\\\\\\')
+                .replaceAll('"', '\\\\"')
 %>
 {
     "id": $i,
