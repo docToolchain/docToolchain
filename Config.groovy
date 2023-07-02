@@ -1,11 +1,15 @@
 outputPath = 'build/docs'
 
+// If you want to use the Antora integration, set this to true.
+// This requires your project to be setup as Antora module.
+// You can use `downloadTemplate` task to bootstrap your project.
+//useAntoraIntegration = false
+
 // Path where the docToolchain will search for the input files.
 // This path is appended to the docDir property specified in gradle.properties
 // or in the command line, and therefore must be relative to it.
 
 inputPath = 'src/docs';
-
 
 inputFiles = [
         [file: 'manual_test_script.adoc',       formats: ['html','pdf']],

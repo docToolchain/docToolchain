@@ -24,6 +24,8 @@ import org.asciidoctor.gradle.jvm.AbstractAsciidoctorTask
 import org.asciidoctor.gradle.jvm.AsciidoctorTask
 import org.asciidoctor.gradle.jvm.slides.AsciidoctorJRevealJSTask
 
+import java.util.regex.Matcher
+
 apply plugin: org.asciidoctor.gradle.jvm.AsciidoctorJPlugin
 apply plugin: org.asciidoctor.gradle.jvm.pdf.AsciidoctorJPdfPlugin
 apply plugin: org.asciidoctor.gradle.jvm.gems.AsciidoctorGemSupportPlugin
@@ -78,6 +80,8 @@ if (pdfThemeDir.startsWith('.')) {
 logger.info "docToolchain> pdfThemeDir: ${pdfThemeDir}"
 inputPath = config.inputPath?config.inputPath:'.'
 logger.info "docToolchain> inputPath: ${inputPath}"
+useAntoraIntegration = config.useAntoraIntegration?config.useAntoraIntegration:false
+logger.info "docToolchain> Use Antora integration: ${useAntoraIntegration}"
 def props = project.gradle.startParameter.projectProperties
 logger.info("\nGradle project Properties [${props.size()}]:\n${props}\n==============================")
 
@@ -173,6 +177,25 @@ asciidoctorj {
                 // Create the link to the issue.
                 createPhraseNode(parent, "anchor", target, attributes, options).render()
         }
+        // We need an extension to be able to convert Asciidoc if we are not in the context of Antora but we have
+        // enabled the Antora integration.
+        include_processor (filter: {it.contains("example\$")}) {
+            document, reader, target, attributes ->
+                def baseDir =  new File(reader.getDir()).parentFile
+                def rawContent = new File(reader.getFile()).text.replace("example\$", "${baseDir}/examples/")
+
+                Matcher matcher = (rawContent =~ /include::[^\[]+/)
+
+                if(matcher.find()) {
+                    def content = matcher.group().replace("example\$", "${baseDir}/examples/") + "[]"
+                    reader.pushInclude(
+                        content,
+                        target,
+                        target,
+                        1,
+                        attributes)
+                }
+        }
     }
 }
 //tag::AsciidoctorTask[]
@@ -258,7 +281,6 @@ task generateHTML (
     sources {
         sourceFilesHTML.each {
             include it.file
-            logger.info it.file
 
             File useFile = new File(srcDir, it.file)
             if (!useFile.exists()) {
