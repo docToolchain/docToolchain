@@ -27,6 +27,10 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 ** pick the right environment if none provided by the user
 ** support of JAVA_HOME which was silently ignored.
 * https://github.com/docToolchain/docToolchain/issues/220[#220 convertToDocx and convertToEpub not working]
+* Workaround for Confluence new Editor rollout
+** https://github.com/docToolchain/docToolchain/issues/1184[#1184: PublishToConfluence new editor issues and page size]
+** https://github.com/docToolchain/docToolchain/issues/880[#880: publishToConfluence FAILED: Content body cannot be converted to new editor format]
+* https://github.com/docToolchain/docToolchain/issues/1053[#1053: publishToConfluence: hash is displayed at end of some pages]
 
 === added
 * configure if build should fail on missing images

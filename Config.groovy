@@ -21,7 +21,7 @@ imageDirs = [
 
 // whether the build should fail when detecting broken image references
 // if this config is set to true all images will be embedded
-failOnMissingImages = true
+// failOnMissingImages = false
 
 taskInputsDirs = ["${inputPath}/images"]
 
@@ -115,6 +115,9 @@ confluence.with {
 
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
+
+    // if true, all pages will be created using the new editor v2
+    // enforceNewEditor = false
 
     // variable to determine how many layers of sub pages should be created
     subpagesForSections = 1

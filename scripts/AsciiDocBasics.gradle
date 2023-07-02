@@ -153,8 +153,8 @@ asciidoctorj {
         'projectRootDir'      : "${new File(docDir).canonicalPath}@"
     )
 
-    def failOnMissingImages = (findProperty("failOnMissingImages")?:config.failOnMissingImages)?:true
-    if(failOnMissingImages == true){
+    def failOnMissingImages = (findProperty("failOnMissingImages")?:config.failOnMissingImages)?:false
+    if(failOnMissingImages.toBoolean() == true){
         attributes(
             'data-uri': '',
         )
