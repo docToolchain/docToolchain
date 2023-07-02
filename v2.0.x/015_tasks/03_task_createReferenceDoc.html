@@ -316,6 +316,10 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateContent.html">generateContent</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../015_tasks/03_task_generateDeck.html">generateDeck</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -482,12 +486,12 @@ referenceDocFile = "${inputPath}/my-ref-file.docx"</code></pre>
     args = ["-o", "${docDir}/${referenceDocFile}",
             "--print-default-data-file",
             "reference.docx"]
-    
+
     doFirst {
         if(!(referenceDocFile?.trim())) {
             throw new GradleException("Option `referenceDocFile` is not defined in config.groovy or has an empty value.")
         }
-    }   
+    }
 }</code></pre>
 </div>
 </div>

@@ -316,6 +316,10 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateContent.html">generateContent</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../015_tasks/03_task_generateDeck.html">generateDeck</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -516,9 +520,7 @@ For example, insert the following at the top of your document to reference <code
         'imagesoutdir'        : file("${docDir}/${config.outputPath}/images/").path
     )
 
-    def sourceFilesPDF = sourceFiles.findAll {
-        'pdf' in it.formats
-    }
+    def sourceFilesPDF = findSourceFilesByType(['pdf'])
 //    onlyIf {
 //        sourceFilesPDF
 //    }
@@ -541,6 +543,15 @@ For example, insert the following at the top of your document to reference <code
         backends = ['pdf']
     }
 
+    doFirst {
+        if (sourceFilesPDF.size()==0) {
+            throw new Exception ("""
+            &gt;&gt; No source files defined for type 'pdf'.
+            &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy
+            """)
+        }
+    }
+
     /**
     //check if a remote pdfTheme is defined
     def pdfTheme = System.getenv('DTC_PDFTHEME')
@@ -550,16 +561,6 @@ For example, insert the following at the top of your document to reference <code
         //TODO: finish this...
     }
     **/
-    doFirst {
-            if (sourceFilesPDF.size()==0) {
-                throw new Exception ("""
-
-    &gt;&gt; No source files defined for type PDF.
-    &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy
-    """)
-            }
-
-    }
 }</code></pre>
 </div>
 </div>

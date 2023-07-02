@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
   
-  <!-- 020_tutorial/110_revealjs_and_arc42_from_scratch.html -->
+  <!-- 020_tutorial/110_presentations_with_revealjs.html -->
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>Reveal.js &amp; Arc42 from Scratch</title>
+  <title>Presentations with reveal.js</title>
   <meta content="docToolchain" property="og:title">
   <meta content="build your dev docs the easy way..." property="og:description">
   <meta content="website" property="og:type">
@@ -248,11 +248,15 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../020_tutorial/110_revealjs_and_arc42_from_scratch.html">Reveal.js &amp; Arc42 from Scratch</a>
+                                   href="../020_tutorial/110_presentations_with_revealjs.html">Presentations with reveal.js</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../020_tutorial/120_self-contained-dtc.html">Self-Contained docToolchain</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/130_theming.html">How to change the theme</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
@@ -269,11 +273,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/110_revealjs_and_arc42_from_scratch.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/110_presentations_with_revealjs.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Reveal.js+%26amp%3B+Arc42+from+Scratch%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/110_revealjs_and_arc42_from_scratch.adoc%0A%23branch:%20ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Presentations+with+reveal.js%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/110_presentations_with_revealjs.adoc%0A%23branch:%20ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -282,14 +286,14 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_reveal_js_arc42_from_scratch">Reveal.js &amp; Arc42 from Scratch</a>
+<li><a href="#_presentations_with_reveal_js">Presentations with reveal.js</a>
 <ul class="sectlevel2">
-<li><a href="#_1_clone_doctoolchain_and_git_submodules">1 Clone docToolchain and Git Submodules</a></li>
-<li><a href="#_2_create_an_arc42_based_documentation_repository">2 Create an arc42 Based Documentation Repository</a></li>
-<li><a href="#_3_create_the_asciidoctor_reveal_js_presentation">3 Create the AsciiDoctor Reveal.js Presentation</a></li>
-<li><a href="#_troubleshooting">Troubleshooting</a></li>
+<li><a href="#_precondition">Precondition</a></li>
+<li><a href="#_create_the_slide_deck_repository">Create the Slide Deck Repository</a></li>
+<li><a href="#_create_a_minmal_asciidoctor_reveal_js_presentation">Create a minmal AsciiDoctor Reveal.js Presentation</a></li>
 </ul>
 </li>
+<li><a href="#_references">References</a></li>
 </ul>
 </div>
 
@@ -312,98 +316,90 @@
         <p>
             
 <div class="sect1">
-<h2 id="_reveal_js_arc42_from_scratch">Reveal.js &amp; Arc42 from Scratch</h2>
+<h2 id="_presentations_with_reveal_js">Presentations with reveal.js</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following procedure describes how to set up the <a href="https://arc42.org">arc42</a> template and a sample <a href="https://docs.asciidoctor.org/reveal.js-converter/latest/">Asciidoctor
-reveal.js</a> presentation from scratch.</p>
+<p><a href="https://revealjs.com/">reveal.js</a> is an open source HTML presentation framework.
+It&#8217;s a tool that enables anyone with a web browser to create fully-featured and beautiful presentations for free.</p>
 </div>
 <div class="paragraph">
-<p>It uses the <a href="http://doctoolchain.org/docToolchain/v2.0.x/">docToolchain</a> as suggested by
-<a href="https://docs-as-co.de">docs-as-co.de</a>.</p>
+<p>Instead of creating your <em>reveal.js</em> presentations in HTML markup (or markdown) you may prefer to use <a href="https://asciidoc.org/">AsciiDoc</a> instead.</p>
 </div>
 <div class="paragraph">
-<p>This tutorial has been tested with an Apple Silicon based mac. This architecture is not yet supported by the docker
-based <a href="http://doctoolchain.org/docToolchain/v2.0.x/">docToolchain</a>. Instead the <a href="https://github.com/docToolchain/docToolchain">docToolchain
-repository</a> branch <code>ng</code> is used.</p>
+<p><em>docToolchain</em> uses <a href="https://docs.asciidoctor.org/reveal.js-converter/latest/">Asciidoctor reveal.js</a> to transform your AsciiDoc document into an HTML5 presentation designed to be executed by the reveal.js presentation framework.</p>
+</div>
+<div class="paragraph">
+<p>This tutorial shows how easy it is to create a <em>reveal.js</em> slide deck with <em>docToolchain</em>.
+It was written for a Bash environment (Linux or macOS). The adoption to MS Powershell should be trivial.</p>
 </div>
 <div class="sect2">
-<h3 id="_1_clone_doctoolchain_and_git_submodules">1 Clone docToolchain and Git Submodules</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell">git clone https://github.com/docToolchain/docToolchain.git
-cd docToolchain
-git submodule init
-git submodule update</code></pre>
-</div>
-</div>
+<h3 id="_precondition">Precondition</h3>
 <div class="paragraph">
-<p>The default branch <code>ng</code> should be used.</p>
-</div>
-<div class="paragraph">
-<p>Now add the <code>bin</code> folder to your <code>PATH</code>. You might need to restart your shell.</p>
+<p>To follow the tutorial you either need to have <a href="https://doctoolchain.org/docToolchain/v2.0.x/010_manual/20_install.html">docToolchain installed locally</a> or a running docker environment.
+In the later case the first call to <em>docToolchain</em> will pull the container image which may take some time.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_2_create_an_arc42_based_documentation_repository">2 Create an arc42 Based Documentation Repository</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell">mkdir &lt;your-doc-folder&gt;
-cd &lt;your-doc-folder&gt;
-
-# Setup the correct Java and Gradle versions in .sdkmanrc
-# For more information, see https://sdkman.io
-cat &lt;&lt; EOF &gt; .sdkmanrc
-# Enable auto-env through the sdkman_auto_env config
-# Add key=value pairs of SDKs to use below
-java=11.0.14-ms
-gradle=6.9.2
-EOF
-
-# Activate the configured Java and Gradle versions for the current shell
-sdk env
-
-# Initialize arc42 in your current directory
-docToolchain . downloadTemplate</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Now answer all the questions, the tool prints. Make sure to read the highlighted lines - they are printed in between the
-other output of the <code>docToolchain</code> command.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="text">Config file '.../Config.groovy' does not exist
-do you want me to create a default one for you? (y, n)
-
-Install arc42 documentation template.
-Which language do you want to install? (EN, DE, ES, IT, NL)
-
-Do you want the template with or without help?</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Finally, generate the HTML version of the template</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell">docToolchain . generateHTML
-open open build/html5/arc42/arc42.html</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_3_create_the_asciidoctor_reveal_js_presentation">3 Create the AsciiDoctor Reveal.js Presentation</h3>
-<div class="olist arabic">
-<ol class="arabic">
+<h3 id="_create_the_slide_deck_repository">Create the Slide Deck Repository</h3>
+<div class="ulist">
+<ul>
 <li>
-<p>Create a <code>presentation.adoc</code> file</p>
+<p>Create a project directory</p>
 </li>
-</ol>
+</ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell">cat &lt;&lt; EOF &gt;&gt; src/docs/presentation.adoc
+<pre class="prettyprint highlight"><code data-lang="shell">$ mkdir my-presentation
+$ cd my-presentation</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Download the <em>docToolchain</em> wrapper and set the executable permissions</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="shell">$ curl -sLo dtcw doctoolchain.github.io/dtc
+$ chmod +x dtcw</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Initialize the git repository with the minimal files</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="shell">$ git init
+
+# Ignore generated files in your git repository
+$ echo ".gradle" &gt; .gitignore
+$ echo "build" &gt;&gt; .gitignore
+$ git add .gitignore
+
+$ git commit -m "Initial commit for my reveal.js slide deck"</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_a_minmal_asciidoctor_reveal_js_presentation">Create a minmal AsciiDoctor Reveal.js Presentation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a <code>presentation.adoc</code> file with an image</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="shell">$ mkdir -p src/images
+$ cat &lt;&lt; EOF &gt;&gt; src/presentation.adoc
 = Title Slide
 
 == Slide 1
@@ -414,61 +410,107 @@ open open build/html5/arc42/arc42.html</code></pre>
 
 * This is the second slide
 
+== Slide with Image
+
+* The Debian Logo
+
+image::debian.svg[]
+EOF
+
+$ curl -Lo src/images/debian-logo.svg https://www.debian.org/logos/openlogo.svg</code></pre>
+</div>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Create the <em>docToolchain</em> configuration file <code>docToolchainConfig.groovy</code></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="shell">$ cat &lt;&lt; EOF &gt;&gt; docToolchainConfig.groovy
+// Path where docToolchain creates its artifacts.
+outputPath = 'build'
+
+// Path where the docToolchain will search for the input files.
+inputPath = 'src';
+
+// Define which formats should be processed.
+inputFiles = [
+    [file: 'presentation.adoc', formats: ['revealjs']],
+]
 EOF</code></pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic" start="2">
-<li>
-<p>Add the following entry into the <code>inputFiles</code> section of <code>Config.groovy</code> (note the <code>,</code>   at the end of the line):</p>
-</li>
-</ol>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>As alternative we could create the configuration by invoking <code>./dtcw tasks</code>.
+If <em>docToolchain</em> doesn&#8217;t find a configuration file it will ask to create a new one.
+The generated configuration file contains the configuration for all tasks provided by <em>docToolchain</em>, which may be overwhelming.</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">[file: 'presentation.adoc', formats: ['revealjs']],</code></pre>
+</td>
+</tr>
+</table>
 </div>
-</div>
-<div class="olist arabic">
-<ol class="arabic" start="3">
+<div class="ulist">
+<ul>
 <li>
 <p>Generate the slide deck</p>
 </li>
-</ol>
+</ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell">docToolchain . generateDeck</code></pre>
+<pre class="prettyprint highlight"><code data-lang="shell">$ ./dtcw generateDeck</code></pre>
 </div>
 </div>
-<div class="olist arabic">
-<ol class="arabic" start="4">
+<div class="ulist">
+<ul>
 <li>
-<p>Host the slides in a server, e.g. using <a href="https://browsersync.io/">browsersync</a>:</p>
+<p>Find your slide deck at <code>build/decks/presentation.html</code> and open it in your browser.</p>
 </li>
-</ol>
+<li>
+<p>Add the newly created files to you git project</p>
+</li>
+</ul>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell">browser-sync start --server --files "build/**/*.html" --startPath /build/decks/html5/presentation.html</code></pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_troubleshooting">Troubleshooting</h3>
-<div class="paragraph">
-<p>If <code>docToolchain</code> reports an error like</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="text">BUG! exception in phase 'semantic analysis' in source unit 'script16562611848591859871238.groovy'
-Unsupported class file major version 61</code></pre>
+<pre class="prettyprint highlight"><code data-lang="shell">$ git add docToolchainConfig.groovy src
+$ git commit -m "Add my first reveal.js slide deck"</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>you are probably using a newer version of Java and / or Gradle than supported by the tool. Please make sure you have
-configured <a href="https://sdkman.io">sdkman</a> to use the correct versions of Java and Gradle (see above).</p>
+<p>Congratulations for creating your first <em>reaveal.js</em> slide deck.</p>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_references">References</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://doctoolchain.org">docToolchain</a></p>
+</li>
+<li>
+<p><a href="https://docs.asciidoctor.org/reveal.js-converter/latest/">Asciidoctor reveal.js</a></p>
+</li>
+<li>
+<p><a href="https://asciidoc.org/">AsciiDoc</a></p>
+</li>
+<li>
+<p><a href="https://revealjs.com/">reveal.js</a></p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -499,11 +541,11 @@ configured <a href="https://sdkman.io">sdkman</a> to use the correct versions of
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Reveal.js+%26amp%3B+Arc42+from+Scratch%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/110_revealjs_and_arc42_from_scratch.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Presentations+with+reveal.js%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/110_presentations_with_revealjs.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Reveal.js+%26amp%3B+Arc42+from+Scratch%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/110_revealjs_and_arc42_from_scratch.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Presentations+with+reveal.js%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/110_presentations_with_revealjs.adoc">tell
     us how we can improve</a>.
     </p>
 </div>

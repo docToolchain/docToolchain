@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
   
-  <!-- 015_tasks/03_tasks.html -->
+  <!-- 015_tasks/03_task_generateContent.html -->
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>What Is a Task?</title>
+  <title>generateContent</title>
   <meta content="docToolchain" property="og:title">
   <meta content="build your dev docs the easy way..." property="og:description">
   <meta content="website" property="og:type">
@@ -219,7 +219,7 @@
                         
                         <ul class="td-sidebar-nav__section pr-md-3 ul-0">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../015_tasks/03_tasks.html">What Is a Task?</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -315,7 +315,7 @@
                                    href="../015_tasks/03_task_fixencoding.html">fixEncoding</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../015_tasks/03_task_generateContent.html">generateContent</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -369,11 +369,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_tasks.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_task_generateContent.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27What+Is+a+Task%3F%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_tasks.adoc%0A%23branch:%20ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27generateContent%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_task_generateContent.adoc%0A%23branch:%20ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -382,14 +382,12 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_what_is_a_task">What Is a Task?</a></li>
-<li><a href="#_at_a_glance">At a Glance</a></li>
-<li><a href="#_how_tasks_are_named">How Tasks Are Named</a>
+<li><a href="#_generatecontent">generateContent</a>
 <ul class="sectlevel2">
-<li><a href="#_generatex">generateX</a></li>
-<li><a href="#_exportx">exportX</a></li>
-<li><a href="#_converttox">convertToX</a></li>
-<li><a href="#_publishtox">publishToX</a></li>
+<li><a href="#_about_this_task">About This Task</a></li>
+<li><a href="#_configuration">Configuration</a></li>
+<li><a href="#_example">Example</a></li>
+<li><a href="#_source">Source</a></li>
 </ul>
 </li>
 </ul>
@@ -420,68 +418,273 @@
 }
 </style>
 <div class="sect1">
-<h2 id="_what_is_a_task">What Is a Task?</h2>
+<h2 id="_generatecontent">generateContent</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/9934d8546416204bc9454812316d4113?d=identicon" alt="PacoVK" width="32" height="32" title="PacoVK"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>2 minutes to read</pre>
+<pre>3 minutes to read</pre>
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_at_a_glance">At a Glance</h2>
-<div class="sectionbody">
+<div class="sect2">
+<h3 id="_about_this_task">About This Task</h3>
 <div class="paragraph">
-<p>A task is another name for a script which triggers the build actions that compile and publish your docs.
-This diagram gives you an overview of the entire build process:</p>
+<p>This task makes use of <a href="https://platform.openai.com">openAI</a> to render documentation into your input Asciidoc files.
+It can help you to get started with the outline of your documentation or even with real content. This task implements OpenAI <a href="https://platform.openai.com/docs/api-reference/completions">completions</a>.
+Simply put an asciidoc comment block that starts with <code>AI:</code> followed by your description what you need.</p>
 </div>
-<div class="imageblock">
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+You need a valid <a href="https://platform.openai.com/account/api-keys">API-Key</a> from OpenAI to execute this task.
+Be aware that whatever content you use to describe what you want, OpenAI will process this data!
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configuration">Configuration</h3>
+<div class="listingblock">
+<div class="title">Config.groovy</div>
 <div class="content">
-<img src="../images/overview.dio.png" alt="overview.dio">
-</div>
-<div class="title">Figure 1. docToolchain</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_how_tasks_are_named">How Tasks Are Named</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Tasks are given a naming prefix which indicates their role in the build process.
-There are currently 4 groups.</p>
-</div>
-<div class="sect2">
-<h3 id="_generatex">generateX</h3>
-<div class="paragraph">
-<p>These tasks use plain old Asciidoctor functionality to render the source to a given format.</p>
+<pre class="prettyprint highlight"><code data-lang="groovy">// Configuration for openAI related tasks
+openAI = [:]
+
+openAI.with {
+    // This task requires a person access token for openAI.
+    // Ensure to pass this token as parameters when calling the task
+    // using -PopenAI.token=xx-xxxxxxxxxxxxxx
+
+    //model = "text-davinci-003"
+    //maxToken = '500'
+    //temperature = '0.3'
+}</code></pre>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_exportx">exportX</h3>
-<div class="paragraph">
-<p>These tasks export images and AsciiDoc snippets from other systems or file formats.
-The resulting artifacts can then be included from your main sources.
-<em>export</em> tasks differ from <em>generate</em> tasks because with <em>export</em> tasks, you don&#8217;t have to export with each build.
-Also, with <em>export</em> tasks, it&#8217;s likely that you will already store the resulting artifacts under version control
-because the tools needed for the export (such as Sparx Enterprise Architect or MS PowerPoint) are typically not available on your build server or another contributor&#8217;s machine.</p>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+Token is a credential, it is best not to put it into your config, but pass this parameter to the task using <code>-PopenAI.token=xx-xxxxxxxxxxxxx</code> at task execution.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_converttox">convertToX</h3>
+<h3 id="_example">Example</h3>
 <div class="paragraph">
-<p>These tasks take the output from Asciidoctor and convert it (through other tools) to the target format.
-This results in a dependency on a <em>generateX</em> task and another external tool (currently <a href="https://pandoc.org">pandoc</a>).</p>
+<p>Given a config in your project, that specifies the following inputFiles:</p>
+</div>
+<div class="listingblock">
+<div class="title">docToolchainConfig.groovy</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">/** config redacted **/
+inputFiles = [
+	[file: 'example/example.adoc', formats: ['html','pdf', 'docbook']],
+        /** inputFiles **/
+]
+/** config redacted  **/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You could generate a whole file, e.g. an outline for your documentation.</p>
+</div>
+<div class="listingblock">
+<div class="title">example/example.adoc</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="asciidoc">////
+AI: Create an outline for a documentation of a Java based microservice called fraud-detector. The documentation should follow the Divio structure. Use Asciidoc syntax for the output. The result should define a toc.
+////</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+The result varies based on your input you give, the more specific you are, the better suited the output.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>The result could look like the following:</p>
+</div>
+<div class="listingblock">
+<div class="title">example/example.adoc</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="asciidoc">== Fraud-Detector
+:toc:
+
+=== Overview
+* Description of fraud-detector microservice
+* Abstract view of architecture
+* List of core libraries used
+
+=== Getting Started
+* Setup instructions
+* How to add it as a dependency
+* Configuration instructions
+
+=== Architecture
+* In-depth view of architecture
+  * Components
+  * Services
+  * Data Structure
+
+=== Development
+* Contribution Guidelines
+* Coding Standards
+* Debugging Suggestions
+
+=== Troubleshooting
+* Known Issues and Solutions
+* Support
+
+=== FAQs
+* Common Questions and Answers</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can also let just parts of your docs, like installation of basic tools, e.g. JDK 17, generate.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+You can specify as many <code>AI:</code> blocks as you want. They will al be replaced by openAI.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">example/example.adoc</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="asciidoc">=== Getting Started
+* Setup instructions
+
+////
+AI: Write a short how-to install JDK 17 on Windows, Mac and Linux using sdkman. Use Asciidoc syntax for the output.
+////
+
+* How to add it as a dependency</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The example above, will lead to a result similar to:</p>
+</div>
+<div class="listingblock">
+<div class="title">example/example.adoc</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="asciidoc">    = Installing JDK 17 using SDKMAN
+
+    JDK 17 is a version of the Java Development Kit that is suitable for general use. It can be installed quickly and easily with the help of SDKMAN. This guide includes instructions for installation on Windows, Mac and Linux operating systems.
+
+    == Windows
+
+    JDK 17 can be installed on Windows with the following commands:
+
+    [source,shell]
+    ----
+    sdk install java 17.0.1-open
+    ----
+
+    == Mac
+
+    JDK 17 can be installed on Mac with the following commands:
+
+    [source,shell]
+    ----
+    sdk install java 17.0.1-open
+    ----
+
+    == Linux
+
+    JDK 17 can be installed on Linux with the following commands:
+
+    [source,shell]
+    ----
+    sdk install java 17.0.1-open
+    ----</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_publishtox">publishToX</h3>
-<div class="paragraph">
-<p>These tasks not only convert your documents but also deploy, publish and move them to a remote system (currently Confluence),
-meaning the result is immediately visible to others.</p>
+<h3 id="_source">Source</h3>
+<div class="listingblock">
+<div class="title">generateContent.gradle</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">task generateContent (
+    description: 'Generate documentation with the help of OpenAI',
+    group: 'docToolchain'
+) {
+    doLast{
+        def token  =  findProperty("openAI.token")?:null
+        if(token == null){
+            throw new Exception ("""
+            &gt;&gt; No Token provided for openAI.
+            &gt;&gt; Please specify the token passing the parameter -PopenAI.token=xx-xxxxxxxxxxxxxxxx
+            """)
+        }
+        def model = (findProperty("openAI.model")?:config.openAI.model)?:"text-davinci-003"
+        def maxToken = (findProperty("openAI.maxToken")?:config.openAI.maxToken)?:500
+        def temperature = (findProperty("openAI.temperature")?:config.openAI.temperature)?:0.3
+        logger.info "docToolchain&gt; Generating AI content"
+        logger.info "docToolchain&gt; using model ${model}"
+        logger.info "docToolchain&gt; limiting output to ${maxToken} tokens"
+
+        def pattern = /\/\/\/\/[\r\n\s]AI:*(.*?)[\r\n\s]*\/\/\/\// // match asciidoc block comments
+        def service = new OpenAiService(token, Duration.ofSeconds(60));
+        def sourceFiles = config.inputFiles
+        srcDir  = "${docDir}/${inputPath}"
+        logger.info "docToolchain&gt; Checking for AI comment block in ${sourceFiles}"
+        sourceFiles.every {
+            def sourceFile = new File(srcDir, it.file)
+            def alltext = sourceFile.text
+
+            def matcher = alltext =~ pattern
+            matcher.each { match -&gt;
+                println("---------")
+                println("Request: \n${match[1]}")
+                println("---------")
+                def completionRequest = CompletionRequest.builder()
+                    .prompt(match[1])
+                    .model(model)
+                    .maxTokens(maxToken)
+                    .temperature(temperature)
+                    .echo(false)
+                    .build();
+                def result = service.createCompletion(completionRequest).getChoices()[0]
+                def generatedContent = result.text.replaceAll(/^[\s\n\r]+/, '')
+                if(result.finish_reason == "length"){
+                    generatedContent += "\n// [maxToken ${maxToken} exceeded. Raise to get the full content...]"
+                }
+                println("Result:")
+                println(generatedContent)
+                alltext = alltext.replace(match[0], generatedContent)
+            }
+            sourceFile.write(alltext)
+        }
+        service.shutdownExecutor();
+    }
+}</code></pre>
+</div>
 </div>
 </div>
 </div>
@@ -513,11 +716,11 @@ meaning the result is immediately visible to others.</p>
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27What+Is+a+Task%3F%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_tasks.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27generateContent%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_generateContent.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27What+Is+a+Task%3F%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_tasks.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27generateContent%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_generateContent.adoc">tell
     us how we can improve</a>.
     </p>
 </div>

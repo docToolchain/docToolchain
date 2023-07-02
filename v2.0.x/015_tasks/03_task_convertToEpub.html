@@ -316,6 +316,10 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateContent.html">generateContent</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../015_tasks/03_task_generateDeck.html">generateDeck</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -465,9 +469,17 @@ The resulting file can be found in <code>build/docs/epub</code>.</p>
 ) {
     // All files with option `epub` in config.groovy is converted to docbook and then to epub.
     def sourceFilesEpub = sourceFiles.findAll { 'epub' in it.formats }
+    def explicitSourceFilesCount = sourceFilesEpub.size()
+    if(explicitSourceFilesCount==0){
+        sourceFilesEpub = sourceFiles.findAll { 'docbook' in it.formats }
+    }
     sourceFilesEpub.each {
         def sourceFile = it.file.replace('.adoc', '.xml')
         def targetFile = sourceFile.replace('.xml', '.epub')
+
+        new File("$targetDir/epub/$targetFile")
+            .getParentFile()
+            .getAbsoluteFile().mkdirs()
 
         workingDir "$targetDir/docbook"
         executable = "pandoc"
@@ -477,7 +489,15 @@ The resulting file can be found in <code>build/docs/epub</code>.</p>
                 sourceFile]
     }
     doFirst {
-        new File("$targetDir/epub/").mkdirs()
+        if(sourceFilesEpub.size()==0){
+            throw new Exception ("""
+            &gt;&gt; No source files defined for type 'epub'.
+            &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy
+            """)
+        }
+        if(explicitSourceFilesCount==0) {
+            logger.warn('WARNING: No source files defined for type "epub". Converting with best effort')
+        }
     }
 }</code></pre>
 </div>

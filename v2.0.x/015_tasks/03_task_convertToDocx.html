@@ -316,6 +316,10 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateContent.html">generateContent</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../015_tasks/03_task_generateDeck.html">generateDeck</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -469,9 +473,17 @@
 ) {
     // All files with option `docx` in config.groovy is converted to docbook and then to docx.
     def sourceFilesDocx = sourceFiles.findAll { 'docx' in it.formats }
+    def explicitSourceFilesCount = sourceFilesDocx.size()
+    if(explicitSourceFilesCount==0){
+        sourceFilesDocx = sourceFiles.findAll { 'docbook' in it.formats }
+    }
     sourceFilesDocx.each {
         def sourceFile = it.file.replace('.adoc', '.xml')
         def targetFile = sourceFile.replace('.xml', '.docx')
+
+        new File("$targetDir/docx/$targetFile")
+            .getParentFile()
+            .getAbsoluteFile().mkdirs()
 
         workingDir "$targetDir/docbook"
         executable = "pandoc"
@@ -485,12 +497,20 @@
         } else {
             args = ["-r","docbook",
                     "-t","docx",
-                    "-o","../docx/$targetFile",
+                    "-o","./../docx/$targetFile",
                     sourceFile]
         }
     }
     doFirst {
-        new File("$targetDir/docx/").mkdirs()
+        if(sourceFilesDocx.size()==0){
+            throw new Exception ("""
+            &gt;&gt; No source files defined for type 'docx'.
+            &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy
+            """)
+        }
+        if(explicitSourceFilesCount==0) {
+            logger.warn('WARNING: No source files defined for type "docx". Converting with best effort')
+        }
     }
 }</code></pre>
 </div>

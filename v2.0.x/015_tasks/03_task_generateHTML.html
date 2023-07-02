@@ -316,6 +316,10 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateContent.html">generateContent</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../015_tasks/03_task_generateDeck.html">generateDeck</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -607,9 +611,7 @@ This is still an experimental feature, but already works well!
         backends = ['html5']
     }
 
-    def sourceFilesHTML = sourceFiles.findAll {
-                                'html' in it.formats
-                            }
+    def sourceFilesHTML = findSourceFilesByType(['html'])
 //    onlyIf {
 //        sourceFilesHTML
 //    }
@@ -617,7 +619,6 @@ This is still an experimental feature, but already works well!
     sources {
         sourceFilesHTML.each {
             include it.file
-            logger.info it.file
 
             File useFile = new File(srcDir, it.file)
             if (!useFile.exists()) {
@@ -640,16 +641,14 @@ This is still an experimental feature, but already works well!
         }
     }
 
-doFirst {
-    if (sourceFilesHTML.size()==0) {
-        throw new Exception ("""
-
-&gt;&gt; No source files defined for type HTML.
-&gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy
-""")
+    doFirst {
+        if (sourceFilesHTML.size()==0) {
+            throw new Exception ("""
+            &gt;&gt; No source files defined for type 'html'.
+            &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy
+            """)
+        }
     }
-
-}
 }</code></pre>
 </div>
 </div>

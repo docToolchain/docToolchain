@@ -316,6 +316,10 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateContent.html">generateContent</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../015_tasks/03_task_generateDeck.html">generateDeck</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -447,9 +451,7 @@
         group: 'docToolchain',
         description: 'use docbook as asciidoc backend') {
 
-    def sourceFilesDOCBOOK = sourceFiles.findAll {
-        'docbook' in it.formats
-    }
+    def sourceFilesDOCBOOK = findSourceFilesByType(['docbook', 'epub', 'docx'])
 //    onlyIf {
 //        sourceFilesDOCBOOK
 //    }
@@ -472,15 +474,15 @@
         backends = ['docbook']
     }
 
+    outputDir = file(targetDir+'/docbook/')
+
     doFirst {
         if (sourceFilesDOCBOOK.size()==0) {
             throw new Exception ("""
-
-    &gt;&gt; No source files defined for type docbook.
-    &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy
-    """)
+            &gt;&gt; No source files defined for type of '[docbook, epub, docx]'.
+            &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy
+            """)
         }
-
     }
 }</code></pre>
 </div>

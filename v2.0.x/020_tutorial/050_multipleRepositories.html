@@ -248,11 +248,15 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/110_revealjs_and_arc42_from_scratch.html">Reveal.js &amp; Arc42 from Scratch</a>
+                                   href="../020_tutorial/110_presentations_with_revealjs.html">Presentations with reveal.js</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../020_tutorial/120_self-contained-dtc.html">Self-Contained docToolchain</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/130_theming.html">How to change the theme</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
@@ -287,6 +291,7 @@
 <li><a href="#_git_clone_solution">git clone solution</a></li>
 <li><a href="#_git_submodule_solution">git submodule solution</a></li>
 <li><a href="#_artifact_solution">artifact solution</a></li>
+<li><a href="#_use_antora_integration">Use Antora integration</a></li>
 </ul>
 </li>
 </ul>
@@ -456,6 +461,45 @@ This makes this approach quite convenient.</p>
 Maybe to an artifactory instance.
 Your main repository could fetch the published artifacts and use them in the build process.
 That would be exactly what you do with code.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_use_antora_integration">Use Antora integration</h3>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The Antora integration is currently in beta and we are happy to get your feedback.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>If you use <a href="https://antora.org/">Antora</a> to build your docs, docToolchain provides a special Antora integration. Essentially docToolchains task <code>downloadTemplate</code> is now capable to set up your project as Antora module and still leverage the various docToolchain features. This enables you to register your docToolchain project to an existing Antora playbook. The Antora integration currently supports <code>arc42</code> and <code>req42</code> templates out of the box.
+If you want to use your own template, you need to ensure the directory follows the default Antora structure. Docs are currently expected to be in <code>${inputPath}/modules/ROOT/</code>.</p>
+</div>
+<div class="sect3">
+<h4 id="_include_content">Include content</h4>
+<div class="paragraph">
+<p>Antora comes along with some custom behaviour and non-standard asciidoc syntax. Read the following sections to learn how to include content.</p>
+</div>
+<div class="sect4">
+<h5 id="_images">Images</h5>
+<div class="paragraph">
+<p>Images are expected to be within <code>assets/images</code>.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_other_files">Other files</h5>
+<div class="paragraph">
+<p>In order to include other files, eg. generated output from docToolchain tasks like <code>collectIncludes</code>, you must ensure there is a symlink from the docToolchain output directory to  <code>${inputPath}/modules/ROOT/examples/&lt;outputFile/folder&gt;</code>.</p>
+</div>
+</div>
 </div>
 </div>
 </div>

@@ -316,6 +316,10 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateContent.html">generateContent</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../015_tasks/03_task_generateDeck.html">generateDeck</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -633,12 +637,7 @@ Since this conversion isn&#8217;t perfect and pandoc doesn&#8217;t even know abo
 <div class="listingblock">
 <div class="title">build.gradle</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">/**
-@Grapes(
-        [@Grab('org.jsoup:jsoup:1.14.3')]
-)
-**/
-import org.jsoup.Jsoup
+<pre class="prettyprint highlight"><code data-lang="groovy">import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
 import org.jsoup.nodes.Document
 import groovy.xml.XmlSlurper
@@ -864,7 +863,7 @@ images/${folderStructure.join("/")}/${documentId}.png
                             element.before("""
     &lt;div class="lucidchart-wrapper"&gt;
 ${lucidInfos.replaceAll("\n", "%%CRLF%%")}
-    $chart 
+    $chart
     https://lucid.app/lucidchart/${documentId}/edit[edit lucidchart]
     &lt;/div&gt;
     """)

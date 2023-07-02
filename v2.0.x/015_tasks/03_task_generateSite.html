@@ -316,6 +316,10 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateContent.html">generateContent</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../015_tasks/03_task_generateDeck.html">generateDeck</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -847,7 +851,7 @@ buildscript {
         }
     }
     dependencies {
-        classpath 'org.asciidoctor:asciidoctorj-diagram:2.2.7'
+        classpath libs.asciidoctorj.diagram
     }
 }
 repositories {
@@ -860,8 +864,8 @@ repositories {
     }
 }
 dependencies {
-    jbake 'org.asciidoctor:asciidoctorj-diagram:2.2.7'
-    jbake 'io.pebbletemplates:pebble:3.2.0'
+    jbake libs.asciidoctorj.diagram
+    jbake libs.pebble
     config.jbake.plugins.each { plugin -&gt;
         jbake plugin
     }

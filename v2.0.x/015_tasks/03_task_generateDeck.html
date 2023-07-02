@@ -315,6 +315,10 @@
                                    href="../015_tasks/03_task_fixencoding.html">fixEncoding</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateContent.html">generateContent</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../015_tasks/03_task_generateDeck.html">generateDeck</a>
                             </li>
@@ -452,9 +456,9 @@ You can overwrite any of them and provide further configuration as per <a href="
 <div class="title">AsciiDocBasics.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">task generateDeck (
-        type: AsciidoctorJRevealJSTask,
-        group: 'docToolchain',
-        description: 'use revealJs as asciidoc backend to create a presentation') {
+    type: AsciidoctorJRevealJSTask,
+    group: 'docToolchain',
+    description: 'use revealJs as asciidoc backend to create a presentation') {
 
     // corresponding Asciidoctor reveal.js config
     // :revealjs_theme:
@@ -481,9 +485,7 @@ You can overwrite any of them and provide further configuration as per <a href="
         'docinfo1': '',
     )
 
-    def sourceFilesREVEAL = sourceFiles.findAll {
-        'revealjs' in it.formats
-    }
+    def sourceFilesREVEAL = findSourceFilesByType(['revealjs'])
 
     sources {
         sourceFilesREVEAL.each {
@@ -512,11 +514,10 @@ You can overwrite any of them and provide further configuration as per <a href="
     doFirst {
         if (sourceFilesREVEAL.size()==0) {
             throw new Exception ("""
-    &gt;&gt; No source files defined for type 'revealjs'.
-    &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy
-    """)
+            &gt;&gt; No source files defined for type 'revealjs'.
+            &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy
+            """)
         }
-
     }
 }
 generateDeck.dependsOn asciidoctorGemsPrepare</code></pre>
