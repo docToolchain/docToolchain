@@ -17,12 +17,23 @@ buildscript {
         classpath libs.asciidoctor.pdf
         classpath libs.asciidoctor.gems
         classpath libs.asciidoctor.slides
+
+        classpath libs.jsoup
+        classpath libs.itext.layout
+        classpath libs.itext.hyph
+        classpath libs.opennlp
     }
 }
 
 import org.asciidoctor.gradle.jvm.AbstractAsciidoctorTask
 import org.asciidoctor.gradle.jvm.AsciidoctorTask
 import org.asciidoctor.gradle.jvm.slides.AsciidoctorJRevealJSTask
+import org.jsoup.Jsoup
+import org.jsoup.nodes.Document
+import com.itextpdf.layout.hyphenation.Hyphenation;
+import com.itextpdf.layout.hyphenation.Hyphenator;
+import opennlp.tools.sentdetect.SentenceDetectorME
+import opennlp.tools.sentdetect.SentenceModel
 
 import java.util.regex.Matcher
 
@@ -196,6 +207,75 @@ asciidoctorj {
                         attributes)
                 }
         }
+        treeprocessor {
+            document ->
+                List blocks = document.blocks()
+                (0..<blocks.size()).each {
+                    def block = blocks[it]
+                    def totalSentences = 0
+                    def textualContent = ""
+                    if(block.getBlocks().size() > 0){
+                        Document doc = Jsoup.parse(block.getContent(), "UTF-8")
+                        doc.select("p").forEach {
+                            textualContent += " " + it.text()
+                        }
+                    }
+                    // TODO do not hardcode the path to the model
+                    InputStream modelIn = new FileInputStream("tmp/opennlp-en-ud-ewt-sentence-1.0-1.9.3.bin");
+
+                    def tokenizedContent = []
+
+                    try {
+                        SentenceModel model = new SentenceModel(modelIn);
+                        SentenceDetectorME sentenceDetector = new SentenceDetectorME(model);
+                        def sentences = sentenceDetector.sentDetect(textualContent)
+                        totalSentences = sentences.size()
+                        tokenizedContent = new StringTokenizer(textualContent).toList();
+                    }
+                    catch (IOException e) {
+                        e.printStackTrace();
+                    }
+                    finally {
+                        if (modelIn != null) {
+                            try {
+                                modelIn.close();
+                            }
+                            catch (IOException e) {
+                            }
+                        }
+                    }
+
+                    def totalSyllables = 0
+
+                    for (String word : tokenizedContent) {
+                        // The results are pretty close to simmilar tools like https://readabilityformulas.com/free-readability-formula-tests.php
+                        // however the hyphenator is not perfect and the results are not 100% accurate. They have bigger differences if we set the
+                        // minimum word length to 2. If we set it to 0 the results are pretty close to the other tools.
+                        // TODO do not hardcode the language and country
+                        Hyphenation s = Hyphenator.hyphenate("en", "US", word, 0, 2);
+                        if(s != null){
+                            totalSyllables += s.length() + 1
+                        } else {
+                            totalSyllables += 1
+                        }
+                    }
+
+                    if(totalSentences > 0){
+                        def score = 206.835 - 1.015 * (tokenizedContent.size() / totalSentences) - 84.6 * (totalSyllables / tokenizedContent.size())
+                        def grade = 0.39 * (tokenizedContent.size() / totalSentences) + 11.8 * (totalSyllables / tokenizedContent.size()) - 15.59
+
+
+                        println("Block Analysis for ${block.getTitle()}")
+                        println("words count: " + tokenizedContent.size())
+                        println("totalSentences: " + totalSentences)
+                        println("totalSyllables: " + totalSyllables)
+                        println("score: " + score)
+                        println("grade: " + grade)
+                    } else {
+                        println("No sentences found, cannot calculate readability score for ${block.getTitle()}")
+                    }
+                }
+        }
     }
 }
 //tag::AsciidoctorTask[]
@@ -209,6 +289,10 @@ configurations {
 
 dependencies {
     asciidocExtensions gradleApi()
+    asciidocExtensions libs.jsoup
+    asciidocExtensions libs.itext.layout
+    asciidocExtensions libs.itext.hyph
+    asciidocExtensions libs.opennlp
 }
 // end Gradle 8 workaround
 
