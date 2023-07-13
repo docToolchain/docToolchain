@@ -9,6 +9,14 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+=== added
+
+=== changed
+
+== 3.0.0-rc1 - 2023-07-13
+
+=== fixes
+
 * https://github.com/docToolchain/docToolchain/issues/1200[#1200: JCenter kills doctoolchain, as Grolifant is not available on Maven Central]
 * https://github.com/docToolchain/docToolchain/issues/1198[#1198: gravatar eleminates leading 0 from md5 hash]
 * https://github.com/docToolchain/docToolchain/issues/1193[#1193: exportEA fails since v2.0.5 with an exception]
