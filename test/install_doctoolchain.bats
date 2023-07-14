@@ -30,7 +30,7 @@ teardown() {
 
     PATH="${minimal_system}" run -1 ./dtcw install doctoolchain
 
-    assert_equal "$(mock_get_call_args "${mock_curl}")" "--fail --silent --location --output ${DTC_ROOT}/source.zip https://github.com/docToolchain/docToolchain/releases/download/v${DTC_VERSION}/docToolchain-${DTC_VERSION}.zip"
+    assert_equal "$(mock_get_call_args "${mock_curl}")" "--fail --location --output ${DTC_ROOT}/source.zip https://github.com/docToolchain/docToolchain/releases/download/v${DTC_VERSION}/docToolchain-${DTC_VERSION}.zip"
     assert_equal "$(mock_get_call_args "${mock_unzip}")" "-q ${DTC_ROOT}/source.zip -d ${DTC_ROOT}"
 
     assert_line "Environments with docToolchain [${DTC_VERSION}]: none"
