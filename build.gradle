@@ -181,6 +181,7 @@ task prepareDist() {
                 include 'LICENCE'
                 include 'README.adoc'
                 include 'settings.gradle'
+                include 'libs.versions.toml'
             }
             into new File(buildDir,distFolder+"/.")
         }
@@ -192,7 +193,7 @@ task createDist(type: Zip, dependsOn: prepareDist) {
     include '*'
     include '**/*' //to include contents of a folder present inside Reports directory
     archiveFileName = 'docToolchain-'+dtc_version+'.zip'
-    destinationDirectory = new File(buildDir, distFolder)
+    destinationDirectory = buildDir
 }
 
 task downloadDependencies {
