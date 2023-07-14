@@ -508,11 +508,26 @@ Be sure to specify a unique image name for each diagram, otherwise they will ove
 <div class="paragraph">
 <p>The above example renders as:</p>
 </div>
-<div class="imageblock">
+<div class="listingblock">
+<div class="title">example diagram</div>
 <div class="content">
-<img src="../images/{plantUMLDir}demoPlantUML.png" alt="{plantUMLDir}demoPlantUML" width="269" height="282">
+<pre>Failed to generate image: PlantUML preprocessing failed: [From &lt;input&gt; (line 2) ]
+
+@startuml
+!pragma graphviz_dot smetana
+^^^^^
+ This directive has been renamed to '!pragma layout smetana'. Please update your diagram.
+
+!pragma graphviz_dot smetana
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor &lt;|-- DiagramBlock
+DiagramBlock &lt;|-- DitaaBlock
+DiagramBlock &lt;|-- PlantUmlBlock</pre>
 </div>
-<div class="title">Figure 1. example diagram</div>
 </div>
 </div>
 <div class="sect2">
@@ -533,17 +548,47 @@ The following example updates the diagram above by changing the declaration to o
 <div class="paragraph">
 <p>The output will render like this:</p>
 </div>
-<div class="imageblock">
+<div class="listingblock">
+<div class="title">example diagram (with specified width)</div>
 <div class="content">
-<img src="../images/{plantUMLDir}demoPlantUMLWidth.png" alt="{plantUMLDir}demoPlantUMLWidth" width="250" height="282">
+<pre>Failed to generate image: PlantUML preprocessing failed: [From &lt;input&gt; (line 2) ]
+
+@startuml
+!pragma graphviz_dot smetana
+^^^^^
+ This directive has been renamed to '!pragma layout smetana'. Please update your diagram.
+
+!pragma graphviz_dot smetana
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor &lt;|-- DiagramBlock
+DiagramBlock &lt;|-- DitaaBlock
+DiagramBlock &lt;|-- PlantUmlBlock</pre>
 </div>
-<div class="title">Figure 2. example diagram (with specified width)</div>
 </div>
-<div class="imageblock">
+<div class="listingblock">
+<div class="title">example diagram (with specified scale)</div>
 <div class="content">
-<img src="../images/{plantUMLDir}demoPlantUMLScale.png" alt="{plantUMLDir}demoPlantUMLScale" width="201" height="211">
+<pre>Failed to generate image: PlantUML preprocessing failed: [From &lt;input&gt; (line 2) ]
+
+@startuml
+!pragma graphviz_dot smetana
+^^^^^
+ This directive has been renamed to '!pragma layout smetana'. Please update your diagram.
+
+!pragma graphviz_dot smetana
+class BlockProcessor
+class DiagramBlock
+class DitaaBlock
+class PlantUmlBlock
+
+BlockProcessor &lt;|-- DiagramBlock
+DiagramBlock &lt;|-- DitaaBlock
+DiagramBlock &lt;|-- PlantUmlBlock</pre>
 </div>
-<div class="title">Figure 3. example diagram (with specified scale)</div>
 </div>
 <div class="admonitionblock note">
 <table>
