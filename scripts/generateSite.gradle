@@ -267,8 +267,13 @@ def parseAsciiDocAttribs = { beforeToc, origText, jbake ->
     def text = ""
     origText.eachLine { line ->
         if (parseAttribs && line.startsWith(":jbake")) {
-            line = (line - ":jbake-").split(": +", 2)
-            jbake[line[0]] = line[1]
+            def parsedJbakeAttribute = (line - ":jbake-").split(": +", 2)
+            if(parsedJbakeAttribute.length != 2) {
+                logger.warn("jbake-attribute is not valid or Asciidoc conform: $line")
+                logger.warn("jbake-attribute $line will be ignored, trying to continue...")
+            } else {
+                jbake[parsedJbakeAttribute[0]] = parsedJbakeAttribute[1]
+            }
         } else {
             if (line.startsWith("[")) {
                 // stop parsing jBake-attribs when a [source] - block starts which might contain those attribs as example
