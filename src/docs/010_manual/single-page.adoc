@@ -61,7 +61,7 @@ include::../015_tasks/03_task_generateHTML.adoc[leveloffset=+2]
 
 <<<
 
-include::../015_tasks/03_copy_themes.adoc[leveloffset=+2]
+include::../015_tasks/03_task_copy_themes.adoc[leveloffset=+2]
 
 '''
 
@@ -217,19 +217,19 @@ include::../015_tasks/03_task_dependencyUpdates.adoc[leveloffset=+2]
 
 <<<
 
-include::../010_manual/08_development.adoc[leveloffset=+1]
+include::../025_development/development.adoc[leveloffset=+1]
 
 '''
 
 <<<
 
-include::../010_manual/050_Frequently_asked_Questions.adoc[leveloffset=+1]
+include::../010_manual/50_Frequently_asked_Questions.adoc[leveloffset=+1]
 
 '''
 
 <<<
 
-include::../010_manual/04_further_reading.adoc[leveloffset=+1]
+include::../010_manual/60_further_reading.adoc[leveloffset=+1]
 
 <<<
 
@@ -237,4 +237,4 @@ include::../010_manual/040_contributors.adoc[leveloffset=+1]
 
 <<<
 
-include::../010_manual/100_config.adoc[leveloffset=+1]
+include::../010_manual/30_config.adoc[leveloffset=+1]
