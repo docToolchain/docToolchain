@@ -36,7 +36,7 @@ $distribution_url = "https://github.com/docToolchain/docToolchain/releases/downl
 $GITHUB_PROJECT_URL = "https://github.com/docToolchain/docToolchain"
 
 # Bump this version up if something is changed in the wrapper script
-$DTCW_VERSION = "0.50"
+$DTCW_VERSION = "0.51"
 # Template replaced by the GitHub value upon releasing dtcw
 $DTCW_GIT_HASH = "##DTCW_GIT_HASH##"
 
@@ -395,13 +395,14 @@ function assert_java_version_supported() {
     if (Get-Command java -ErrorAction SilentlyContinue) {
         $JAVA_CMD = "java"
     }
-    if ( $env:JAVA_HOME -ne "" ) {
+    if ( $null -ne $env:JAVA_HOME -and $env:JAVA_HOME -ne "") {
         $JAVA_CMD = "$env:JAVA_HOME/bin/java"
+        Write-Warning "here '$env:JAVA_HOME'"
     }
     if (Test-Path "$DTC_JAVA_HOME") {
         Write-Host "local java JDK-17 found"
-        $javaHome = $DTC_JAVA_HOME
-        $JAVA_CMD = "$DTC_JAVA_HOME/bin/java"
+        $javaHome = "$DTC_JAVA_HOME/jdk-17.0.7+7"
+        $JAVA_CMD = "$javaHome/bin/java"
         $dtc_opts = "$dtc_opts '-Dorg.gradle.java.home=$javaHome' "
     }
     if ($JAVA_CMD -eq "") {
@@ -409,7 +410,7 @@ function assert_java_version_supported() {
         java_help_and_die
     }
     # We got a Java version
-    $javaversion = ((java -version 2>&1 | Select-String -Pattern 'version').Line | Select-Object -First 1 ).Split('"')[1].Split(".")[0]
+    $javaversion = ((Invoke-Expression -Command "$JAVA_CMD -version 2>&1" | Select-String -Pattern 'version').Line | Select-Object -First 1 ).Split('"')[1].Split(".")[0]
 
     Write-Output "Java Version $javaversion"
 
