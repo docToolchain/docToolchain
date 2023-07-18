@@ -36,7 +36,7 @@ $distribution_url = "https://github.com/docToolchain/docToolchain/releases/downl
 $GITHUB_PROJECT_URL = "https://github.com/docToolchain/docToolchain"
 
 # Bump this version up if something is changed in the wrapper script
-$DTCW_VERSION = "0.51"
+$DTCW_VERSION = "0.52"
 # Template replaced by the GitHub value upon releasing dtcw
 $DTCW_GIT_HASH = "##DTCW_GIT_HASH##"
 
@@ -281,20 +281,19 @@ function install_component_and_exit($environment, $component) {
             switch ($component) {
                 "doctoolchain" {
                     local_install_doctoolchain $DTC_VERSION
+                    Write-Output ""
+                    Write-Output "Use './dtcw.ps1 tasks --group doctoolchain' to see docToolchain related tasks."
                     assert_java_version_supported
                 }
                 "java" {
                     local_install_java
+                    if ( (is_doctoolchain_installed $environment) -eq $False) {
+                        how_to_install_doctoolchain $DTC_VERSION
+                    }
                 }
                 * {
                     error_install_component_and_die "unknown component '$component'"
                 }
-            }
-            if ( (is_doctoolchain_installed $environment) -eq $False) {
-                how_to_install_doctoolchain $DTC_VERSION
-            } else {
-                Write-Output ""
-                Write-Output "Use './dtcw.ps1 tasks --group doctoolchain' to see docToolchain related tasks."
             }
             $exit_code = 0
 
