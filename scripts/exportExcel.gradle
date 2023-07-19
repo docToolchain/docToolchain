@@ -195,7 +195,11 @@ use `gradle exportExcel` to re-export files
                                     useRemoved = false
                                 }
                             }
-                            prev = span[1]
+                            if (span.size()>1) {
+                                prev = span[1]
+                            } else {
+                                prev = ""
+                            }
                         } else {
                             removed << s
                             useRemoved = false
