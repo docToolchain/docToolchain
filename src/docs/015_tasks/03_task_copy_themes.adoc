@@ -2,21 +2,19 @@
 include::_config.adoc[]
 
 [[task-copyThemes]]
-= copyThemes
+== copyThemes
 
 include::../_feedback.adoc[]
 
-== About This Task
+=== About This Task
 
 docToolchain provides you with a simple Twitter bootstrap default theme to get you started.
 You can use the `copyThemes` task to apply a different theme (either jBakeTheme or pdfTheme) to your project.
 Feel free to remove all files which should remain as the default and change all others.
 When you next run docToolchain, your theme files will be laid over the default theme in order to generate the PDF or site.
 
-== Source
+=== Source
 
-.scripts/copyThemes.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/copyThemes.gradle[]
-----
+:param_source_file: copyThemes.gradle
+:param_source_language: groovy
+include::_viewTaskSource.adoc[]
