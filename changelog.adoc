@@ -11,6 +11,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 * https://github.com/docToolchain/docToolchain/pull/1217[#1217, #1214, #1216: dtcw.ps1 fix handling of java version] 
 * https://github.com/docToolchain/docToolchain/issues/1215[#1215: dtcw.ps1 says dtc not installed after exceuting an install]
+* https://github.com/docToolchain/docToolchain/issues/1221[#1221: generateSite: beforeToc functionality broken]
 
 
 === added
