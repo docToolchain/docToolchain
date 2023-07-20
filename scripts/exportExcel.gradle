@@ -184,22 +184,21 @@ use `gradle exportExcel` to re-export files
                     if (s!="skip") {
                         if (s.contains('+')) {
                             def span = s.split('[+]')[0].split('[.]')
+                            def current = ""
+                            if (span.size()>1) {
+                                current = span[1]
+                            }
                             if (span[0] != '') {
                                 removed << span[0] + '+' + s.split('[+]')[1]
                             } else {
                                 removed << s.split('[+]')[1]
                             }
-                            println i
                             if (i > 0) {
-                                if (span[1] != prev) {
+                                if (current != prev) {
                                     useRemoved = false
                                 }
                             }
-                            if (span.size()>1) {
-                                prev = span[1]
-                            } else {
-                                prev = ""
-                            }
+                            prev = current
                         } else {
                             removed << s
                             useRemoved = false
