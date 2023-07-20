@@ -262,9 +262,10 @@ ${error}
 
 }
 
-def parseAsciiDocAttribs = { beforeToc, origText, jbake ->
+def parseAsciiDocAttribs = { origText, jbake ->
     def parseAttribs = true
     def text = ""
+    def beforeToc = ""
     origText.eachLine { line ->
         if (parseAttribs && line.startsWith(":jbake")) {
             def parsedJbakeAttribute = (line - ":jbake-").split(": +", 2)
@@ -286,7 +287,7 @@ def parseAsciiDocAttribs = { beforeToc, origText, jbake ->
             }
         }
     }
-    return text
+    return [text, beforeToc]
 }
 
 def parseOtherAttribs = { origText, jbake ->
@@ -362,7 +363,7 @@ def fixMetaDataHeader = {
                 }
                 def beforeToc = ""
                 if (file.name.toLowerCase() ==~ '^.*(ad|adoc|asciidoc)$') {
-                    text = parseAsciiDocAttribs(beforeToc, origText, jbake)
+                    (text, beforeToc) = parseAsciiDocAttribs(origText, jbake)
                 } else {
                     text = parseOtherAttribs(origText, jbake)
                 }
