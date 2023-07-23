@@ -150,6 +150,12 @@
         background-color: #7a2519;
         color: #ffffff;
     }
+
+    code .language-console .hljs-meta {
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        user-select: none;
+    }
     </style>
 
 
