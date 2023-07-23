@@ -1,9 +1,7 @@
 <head>
     <%
         //let's fix the context root
-        if (content.rootpath) {
-
-        } else {
+        if (!content.rootpath) {
             //if we are in the main folder, we need no rootpath
             content.rootpath = ''
             //but if we are deeper in the folder structure...
@@ -14,7 +12,7 @@
         //this is mainly a fix for the imagesdir which is set to /images
         content.body = content.body?.replaceAll('src="/', 'src="' + content.rootpath)
     %>
-    <!-- ${content.sourceuri} -->
+    <!-- sourceuri: ${content.sourceuri} -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -67,7 +65,7 @@
         background-color: rgba(127, 180, 224, 0.3) !important;
     }
 
-    //for blog posts
+    /* for blog posts */
     span.blogtag {
         border-radius: 10px;
         background-color: #30638E;
@@ -98,16 +96,16 @@
     #td-section-nav {
         max-height: calc(100vh - 4rem);
         font-size: smaller;
-        line-hight: 1.1;
+        line-height: 1.1;
     }
 
     .td-page-meta {
         font-size: smaller;
-        line-hight: 1.1;
+        line-height: 1.1;
     }
 
     #td-section-nav ul.td-sidebar-nav__section {
-        padding-left: 0px;
+        padding-left: 0;
     }
 
     span.navbar-logo {
@@ -130,7 +128,7 @@
     }
 
     div.openblock.primary div.content div.content, div.openblock.secondary div.content div.content {
-        border: 0px solid #7a2518;
+        border: 0 solid #7a2518;
         padding: 0;
     }
 
