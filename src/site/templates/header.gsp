@@ -21,16 +21,16 @@
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title><%if (content.title) {%>${content.title}<% } else { %>${config.site_title}<% }%></title>
-  <meta content="docToolchain" property="og:title">
-  <meta content="build your dev docs the easy way..." property="og:description">
-  <meta content="website" property="og:type">
-  <meta content="docToolchain" property="og:site_name">
-  <meta content="docToolchain" itemprop="name">
-  <meta content="build your dev docs the easy way..." itemprop="description">
-  <meta content="summary" name="twitter:card">
-  <meta content="docToolchain" name="twitter:title">
-  <meta content="build your dev docs the easy way..." name="twitter:description">
+    <title>${content.title ? content.title : config.site_title}</title>
+    <meta content="docToolchain" property="og:title">
+    <meta content="build your dev docs the easy way..." property="og:description">
+    <meta content="website" property="og:type">
+    <meta content="docToolchain" property="og:site_name">
+    <meta content="docToolchain" itemprop="name">
+    <meta content="build your dev docs the easy way..." itemprop="description">
+    <meta content="summary" name="twitter:card">
+    <meta content="docToolchain" name="twitter:title">
+    <meta content="build your dev docs the easy way..." name="twitter:description">
 
   <link as="style" href="${content.rootpath}css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
         rel="preload">
