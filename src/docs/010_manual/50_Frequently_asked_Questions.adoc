@@ -134,6 +134,25 @@ I (Ralf) once gave it a try and even managed to get remote control over EA via V
 
 == Known error Messages
 
+=== Q: I get the error for ':generateDeck' saying 'No such file or directory' when cloning reveal.js.
+
+----
+./dtcw generateDeck
+dtcw - docToolchain wrapper V0.38
+docToolchain Vlatest
+docToolchain as CLI available
+docker available
+home folder exists
+cloning reveal.js
+./dtcw: line 133: cd: $HOME/.doctoolchain/docToolchain-latest/resources: No such file or directory
+----
+
+.Answer
+[%collapsible]
+====
+You're using dtcw v0.38 or an older version. This is because with the release of docToolchain 3.x, the ':generateDeck' tasks no longer rely on helper scripts. To resolve this issue, simply upgrade dtcw to the latest version. The good news is that dtcw is backwards compatible with docToolchain, meaning you can use the latest version of dtcw while still referring to older versions of docToolchain. To switch to other version of docToolchain refer to https://doctoolchain.org/docToolchain/v2.0.x/010_manual/20_install.html#_let_the_wrapper_use_a_new_doctoolchain_release[the installation docs].
+====
+
 === Q: I get the error saying 'Failed to create MD5 hash for file content'.
 
 ----

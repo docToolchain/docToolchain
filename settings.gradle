@@ -17,3 +17,12 @@ include 'services:webservice'
 */
 
 rootProject.name = 'docToolchain'
+
+dependencyResolutionManagement {
+    versionCatalogs {
+        libs {
+            from(files("libs.versions.toml"))
+        }
+    }
+}
+

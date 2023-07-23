@@ -57,10 +57,6 @@ unit_tests () {
   echo "#        Unit testing                      #"
   echo "#                                          #"
   echo "############################################"
-  # clone reveal.js
-  cd resources
-  ./clone.sh
-  cd -
   ./gradlew test --info
 }
 
@@ -90,6 +86,8 @@ create_doc () {
   echo "############################################"
   echo "TRAVIS_BRANCH=${BRANCH}"
   if [ "${BRANCH}" == "ng" ] || [ "${BRANCH}" == "main-2.x" ] ; then
+    echo ">>> install"
+    ./dtcw local install doctoolchain
     echo ">>> tasks"
     ./dtcw local tasks
     echo ">>> exportMarkdown"

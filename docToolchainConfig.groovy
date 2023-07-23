@@ -1,6 +1,9 @@
-
-
 outputPath = 'build'
+
+// If you want to use the Antora integration, set this to true.
+// This requires your project to be setup as Antora module.
+// You can use `downloadTemplate` task to bootstrap your project.
+//useAntoraIntegration = false
 
 // Path where the docToolchain will search for the input files.
 // This path is appended to the docDir property specified in gradle.properties
@@ -196,6 +199,9 @@ confluence.with {
 
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
+
+    // if true, all pages will be created using the new editor v2
+    // enforceNewEditor = false
 
     // variable to determine how many layers of sub pages should be created
     subpagesForSections = 1

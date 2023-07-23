@@ -28,13 +28,6 @@
 */
 
 // some dependencies
-/**
-@Grapes(
-        [@Grab('org.jsoup:jsoup:1.8.2'),
-         @Grab('org.codehaus.groovy.modules.http-builder:http-builder:0.6' ),
-         @Grab('org.apache.httpcomponents:httpmime:4.5.1')]
-)
-**/
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
 import org.jsoup.nodes.Entities.EscapeMode
@@ -48,6 +41,10 @@ import groovyx.net.http.HttpResponseException
 import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.EncoderRegistry
 import groovyx.net.http.ContentType
+
+import groovy.transform.Field
+
+import java.nio.file.Path
 import java.security.MessageDigest
 import static groovy.io.FileType.FILES
 //to upload attachments:
@@ -57,9 +54,13 @@ import org.apache.http.entity.mime.content.InputStreamBody
 import org.apache.http.entity.mime.HttpMultipartMode
 import groovyx.net.http.Method
 
+@Field
 def CDATA_PLACEHOLDER_START = '<cdata-placeholder>'
+
+@Field
 def CDATA_PLACEHOLDER_END = '</cdata-placeholder>'
 
+@Field
 def baseUrl
 def allPages
 // #938-mksiva: global variable to hold input spaceKey passed in the Config.groovy
@@ -221,7 +222,7 @@ def realTitle = { pageTitle ->
     confluencePagePrefix + pageTitle + confluencePageSuffix
 }
 
-def rewriteMarks = { body ->
+def rewriteMarks (body) {
     // Confluence strips out mark elements.  Replace them with default formatting.
     body.select('mark').wrap('<span style="background:#ff0;color:#000"></style>').unwrap()
 }
@@ -269,7 +270,7 @@ def retrieveAllPagesByAncestorId(RESTClient api, Map headers, List<String> pageI
                 pageId = pageIds.remove(0)
             }
         } else if (!results.empty) {
-            start += results.size
+            start += results.size()
         } else {
             start = 0
             pageId = ids.remove(0);
@@ -303,7 +304,7 @@ def retrieveAllPagesBySpace(RESTClient api, Map headers, String spaceKey, String
         if (results.empty) {
             morePages = false
         } else {
-            start += results.size
+            start += results.size()
         }
         results.inject(allPages) { Map acc, Map match ->
             //unique page names in confluence, so we can get away with indexing by title
@@ -375,7 +376,7 @@ boolean hasRequestedParent(Map existingPage, String requestedParentId) {
     }
 }
 
-def rewriteDescriptionLists = { body ->
+def rewriteDescriptionLists(body) {
     def TAGS = [ dt: 'th', dd: 'td' ]
     body.select('dl').each { dl ->
         // WHATWG allows wrapping dt/dd in divs, simply unwrap them
@@ -426,7 +427,7 @@ def rewriteDescriptionLists = { body ->
     }
 }
 
-def rewriteInternalLinks = { body, anchors, pageAnchors ->
+def rewriteInternalLinks (body, anchors, pageAnchors) {
     // find internal cross-references and replace them with link macros
     body.select('a[href]').each { a ->
         def href = a.attr('href')
@@ -532,7 +533,7 @@ def rewriteCodeblocks(Elements body, String cdataStart, String cdataEnd) {
     }
 }
 
-def rewriteOpenAPI = { org.jsoup.nodes.Element body ->
+def rewriteOpenAPI (org.jsoup.nodes.Element body) {
     if (config.confluence.useOpenapiMacro == true || config.confluence.useOpenapiMacro == 'confluence-open-api') {
         body.select('div.openapi  pre > code').each { code ->
             def parent=code.parent()
@@ -588,7 +589,7 @@ def rewriteOpenAPI = { org.jsoup.nodes.Element body ->
     }
 }
 
-def unescapeCDATASections = { html ->
+def unescapeCDATASections(html){
     def start = html.indexOf(CDATA_PLACEHOLDER_START)
     while (start > -1) {
         def end = html.indexOf(CDATA_PLACEHOLDER_END, start)
@@ -602,14 +603,62 @@ def unescapeCDATASections = { html ->
         }
         start = html.indexOf(CDATA_PLACEHOLDER_START, start + 1)
     }
-    html
+    return html
+}
+
+def getEmbeddedImageData(src){
+    def imageData = src.split("[;:,]")
+    def fileExtension = imageData[1].split("/")[1]
+    return Map.of(
+        "fileExtension", fileExtension,
+        "encoding", imageData[2],
+        "encodedContent", imageData[3]
+    )
+}
+
+def handleEmbeddedImage(basePath, fileName, fileExtension, encodedContent) {
+    def imageDir = "images/"
+    if(config.imageDirs.size() > 0){
+        def dir = config.imageDirs.find { it ->
+            def configureImagesDir = it.replace('./', '/')
+            Path.of(basePath, configureImagesDir, fileName).toFile().exists()
+        }
+        if(dir != null){
+            imageDir = dir.replace('./', '/')
+        }
+    }
+
+    if(!Path.of(basePath, imageDir, fileName).toFile().exists()){
+        println "Could not find embedded image at a known location"
+        def embeddedImagesLocation = "/confluence/images/"
+        new File(basePath + embeddedImagesLocation).mkdirs()
+        def imageHash = MD5(encodedContent)
+        println "Embedded Image Hash " + imageHash
+        def image = new File(basePath + embeddedImagesLocation + imageHash + ".${fileExtension}")
+        if(!image.exists()){
+            println "Creating image at " + basePath + embeddedImagesLocation
+            image.withOutputStream {output ->
+                output.write(encodedContent.decodeBase64())}
+        }
+        fileName = imageHash + ".${fileExtension}"
+        return Map.of(
+            "filePath", image.canonicalPath,
+            "fileName", fileName
+        )
+    } else {
+        return Map.of(
+            "filePath", basePath + imageDir + fileName,
+            "fileName", fileName
+        )
+    }
 }
 
 //modify local page in order to match the internal confluence storage representation a bit better
 //definition lists are not displayed by confluence, so turn them into tables
 //body can be of type Element or Elements
-def deferredUpload = []
-def parseBody =  { body, anchors, pageAnchors ->
+
+def parseBody(body, anchors, pageAnchors) {
+    def uploads = []
     rewriteOpenAPI body
 
     body.select('div.paragraph').unwrap()
@@ -640,23 +689,34 @@ def parseBody =  { body, anchors, pageAnchors ->
     // <ac:image ac:align="center" ac:width="500">
     // <ri:attachment ri:filename="deployment-context.png"/>
     // </ac:image>
+
     body.select('img').each { img ->
-        img.attributes().each { attribute ->
-            //println attribute.dump()
-        }
         def src = img.attr('src')
         def imgWidth = img.attr('width')?:500
         def imgAlign = img.attr('align')?:"center"
-        println "    image: "+src
 
         //it is not an online image, so upload it to confluence and use the ri:attachment tag
         if(!src.startsWith("http")) {
-          def newUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')+src
-          def fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")
+            def sanitizedBaseUrl = baseUrl.toString().replaceAll('\\\\','/').replaceAll('/[^/]*$','/')
+            def newUrl
+            def fileName
+            //it is an embedded image
+            if(src.startsWith("data:image")){
+                def imageData = getEmbeddedImageData(src)
+                def fileExtension = imageData.get("fileExtension")
+                def encodedContent = imageData.get("encodedContent")
+                fileName = img.attr('alt').replaceAll(/\s+/,"_").concat(".${fileExtension}")
+                def embeddedImage = handleEmbeddedImage(sanitizedBaseUrl, fileName, fileExtension, encodedContent)
+                newUrl = embeddedImage.get("filePath")
+                fileName = embeddedImage.get("fileName")
+            }else {
+                newUrl = sanitizedBaseUrl + src
+                fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")
+            }
           newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")
-
+          println "    image: "+newUrl
           trythis {
-              deferredUpload <<  [0,newUrl,fileName,"automatically uploaded"]
+              uploads <<  [0,newUrl,fileName,"automatically uploaded"]
           }
           img.after("<ac:image ac:align=\"${imgAlign}\" ac:width=\"${imgWidth}\"><ri:attachment ri:filename=\"${fileName}\"/></ac:image>")
         }
@@ -682,7 +742,7 @@ def parseBody =  { body, anchors, pageAnchors ->
                 newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")
 
                 trythis {
-                    deferredUpload <<  [0,newUrl,fileName,"automatically uploaded non-image attachment by docToolchain"]
+                    uploads <<  [0,newUrl,fileName,"automatically uploaded non-image attachment by docToolchain"]
                 }
                 def uriArray=fileName.split("/")
                 def pureFilename = uriArray[uriArray.length-1]
@@ -714,15 +774,45 @@ def parseBody =  { body, anchors, pageAnchors ->
             .replaceAll(CDATA_PLACEHOLDER_START,'<![CDATA[')
             .replaceAll(CDATA_PLACEHOLDER_END,']]>')
 
-    return pageString
+    return Map.of(
+        "page", pageString,
+        "uploads", uploads
+    )
+}
+
+def generateAndAttachToC(localPage) {
+    def content
+    if(config.confluence.disableToC){
+        def prefix = (config.confluence.extraPageContent?:'')
+        content  = prefix+localPage
+    }else{
+        def default_toc = '<p><ac:structured-macro ac:name="toc"/></p>'
+        def prefix = (config.confluence.tableOfContents?:default_toc)+(config.confluence.extraPageContent?:'')
+        content  = prefix+localPage
+        def default_children = '<p><ac:structured-macro ac:name="children"><ac:parameter ac:name="sort">creation</ac:parameter></ac:structured-macro></p>'
+        content += (config.confluence.tableOfChildren?:default_children)
+    }
+    def localHash = MD5(localPage)
+    content += '<ac:placeholder>hash: #'+localHash+'#</ac:placeholder>'
+    return content
+}
+
+def determineEditorVersion() {
+    if(config.confluence.enforceNewEditor &&
+        config.confluence.enforceNewEditor.toBoolean() == true){
+        println "WARNING: You are using the new editor version v2. This is not yet fully supported by docToolchain."
+        return "v2"
+    }
+        return "v1"
 }
 
 // the create-or-update functionality for confluence pages
 // #342-dierk42: added parameter 'keywords'
-def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, keywords ->
+def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, keywords, editorVersion ->
     parentId = parentId?.toString()
     def api = new RESTClient(config.confluence.api)
     def headers = getHeaders()
+    def deferredUpload = []
     String realTitleLC = realTitle(pageTitle).toLowerCase()
 
     //this fixes the encoding
@@ -731,27 +821,28 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
         api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
     }
     //try to get an existing page
-    localPage = parseBody(pageBody, anchors, pageAnchors)
+    def parsedBody = parseBody(pageBody, anchors, pageAnchors)
+    localPage = parsedBody.get("page")
+    deferredUpload.addAll(parsedBody.get("uploads"))
     def localHash = MD5(localPage)
-    if(config.confluence.disableToC){
-        def prefix = (config.confluence.extraPageContent?:'')
-        localPage  = prefix+localPage
-        localHash = MD5(localPage)
-        localPage += '<p style="display:none">hash: #'+localHash+'#</p>'
-    }else{
-        def default_toc = '<p><ac:structured-macro ac:name="toc"/></p>'
-        def prefix = (config.confluence.tableOfContents?:default_toc)+(config.confluence.extraPageContent?:'')
-        localPage  = prefix+localPage
-        def default_children = '<p><ac:structured-macro ac:name="children"><ac:parameter ac:name="sort">creation</ac:parameter></ac:structured-macro></p>'
-        localPage += (config.confluence.tableOfChildren?:default_children)
-        localHash = MD5(localPage)
-        localPage += '<p style="display:none">hash: #'+localHash+'#</p>'
-    }
-
+    localPage = generateAndAttachToC(localPage)
 
     def request = [
             type : 'page',
             title: realTitle(pageTitle),
+            metadata: [
+                properties: [
+                    editor: [
+                        value: editorVersion
+                    ],
+                    "content-appearance-draft": [
+                        value: "full-width"
+                    ],
+                    "content-appearance-published": [
+                        value: "full-width"
+                    ]
+                ]
+            ],
             space: [
                     key: confluenceSpaceKey
             ],
@@ -873,9 +964,10 @@ def parseAnchors(page) {
 
 def pushPages
 pushPages = { pages, anchors, pageAnchors, labels ->
+    def editorVersion = determineEditorVersion()
     pages.each { page ->
         println page.title
-        def id = pushToConfluence page.title, page.body, page.parent, anchors, pageAnchors, labels
+        def id = pushToConfluence page.title, page.body, page.parent, anchors, pageAnchors, labels, editorVersion
         page.children*.parent = id
         // println "Push children von id " + id
         pushPages page.children, anchors, pageAnchors, labels
@@ -942,6 +1034,7 @@ def getPagesRecursive(Element element, String parentId, Map anchors, Map pageAnc
     def pages = []
     element.select("div.sect${level}").each { sect ->
         def title = sect.select("h${level + 1}").text()
+        pageAnchors.putAll(recordPageAnchor(sect.select("h${level + 1}")))
         Elements pageBody
         if (level == 1) {
             pageBody = sect.select('div.sectionbody')
@@ -955,7 +1048,6 @@ def getPagesRecursive(Element element, String parentId, Map anchors, Map pageAnc
             children: [],
             parent: parentId
         ]
-        pageAnchors.putAll(recordPageAnchor(sect.select("h${level + 1}")))
 
         if (maxLevel > level) {
             currentPage.children.addAll(getPagesRecursive(sect, null, anchors, pageAnchors, level + 1, maxLevel))

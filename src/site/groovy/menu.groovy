@@ -105,7 +105,7 @@ def processMap(def originalEntries, String prefix, def map, boolean skipIndex) {
                     candidate = index;
                     if(candidate.order == -987654321) {
                         String t = entry.key;
-                        def matcher = t =~ /^([0-9]+)_(.*)$/
+                        def matcher = t =~ /^([0-9]+)[_-](.*)$/
                         if(matcher.matches()) {
                             Integer o = matcher.group(1) as Integer
                             candidate.order = o
@@ -114,7 +114,7 @@ def processMap(def originalEntries, String prefix, def map, boolean skipIndex) {
                 } else {
                     String t = entry.key;
                     Integer o = -1
-                    def matcher = t =~ /^([0-9]+)_(.*)$/
+                    def matcher = t =~ /^([0-9]+)[_-](.*)$/
                     if(matcher.matches()) {
                         o = matcher.group(1) as Integer
                         t = matcher.group(2)

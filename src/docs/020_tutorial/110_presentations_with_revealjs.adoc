@@ -1,0 +1,123 @@
+:jbake-order: 110
+:filename: 020_tutorial/110_presentations_wit_revealjs.adoc
+include::_config.adoc[]
+
+== Presentations with reveal.js
+
+https://revealjs.com/[reveal.js] is an open source HTML presentation framework.
+It's a tool that enables anyone with a web browser to create fully-featured and beautiful presentations for free.
+
+Instead of creating your _reveal.js_ presentations in HTML markup (or markdown) you may prefer to use https://asciidoc.org/[AsciiDoc] instead.
+
+_docToolchain_ uses https://docs.asciidoctor.org/reveal.js-converter/latest/[Asciidoctor reveal.js] to transform your AsciiDoc document into an HTML5 presentation designed to be executed by the reveal.js presentation framework.
+
+This tutorial shows how easy it is to create a _reveal.js_ slide deck with _docToolchain_.
+It was written for a Bash environment (Linux or macOS). The adoption to MS Powershell should be trivial.
+
+=== Precondition
+
+To follow the tutorial you either need to have https://doctoolchain.org/docToolchain/v2.0.x/010_manual/20_install.html[docToolchain installed locally] or a running docker environment.
+In the later case the first call to _docToolchain_ will pull the container image which may take some time.
+
+=== Create the Slide Deck Repository
+
+- Create a project directory
+
+```shell
+$ mkdir my-presentation
+$ cd my-presentation
+```
+
+- Download the _docToolchain_ wrapper and set the executable permissions
+
+```shell
+$ curl -sLo dtcw doctoolchain.github.io/dtc
+$ chmod +x dtcw
+```
+
+- Initialize the git repository with the minimal files
+
+```shell
+$ git init
+
+# Ignore generated files in your git repository
+$ echo ".gradle" > .gitignore
+$ echo "build" >> .gitignore
+$ git add .gitignore
+
+$ git commit -m "Initial commit for my reveal.js slide deck"
+```
+
+=== Create a minmal AsciiDoctor Reveal.js Presentation
+
+- Create a `presentation.adoc` file with an image
+
+```shell
+$ mkdir -p src/images
+$ cat << EOF >> src/presentation.adoc
+= Title Slide
+
+== Slide 1
+
+* This is the first slide
+
+== Slide 2
+
+* This is the second slide
+
+== Slide with Image
+
+* The Debian Logo
+
+image::debian.svg[]
+EOF
+
+$ curl -Lo src/images/debian-logo.svg https://www.debian.org/logos/openlogo.svg
+```
+
+- Create the _docToolchain_ configuration file `docToolchainConfig.groovy`
+
+```shell
+$ cat << EOF >> docToolchainConfig.groovy
+// Path where docToolchain creates its artifacts.
+outputPath = 'build'
+
+// Path where the docToolchain will search for the input files.
+inputPath = 'src';
+
+// Define which formats should be processed.
+inputFiles = [
+    [file: 'presentation.adoc', formats: ['revealjs']],
+]
+EOF
+```
+
+[NOTE]
+====
+As alternative we could create the configuration by invoking `./dtcw tasks`.
+If _docToolchain_ doesn't find a configuration file it will ask to create a new one.
+The generated configuration file contains the configuration for all tasks provided by _docToolchain_, which may be overwhelming.
+====
+
+- Generate the slide deck
+
+```shell
+$ ./dtcw generateDeck
+```
+
+- Find your slide deck at `build/decks/presentation.html` and open it in your browser.
+- Add the newly created files to you git project
+
+```shell
+$ git add docToolchainConfig.groovy src
+$ git commit -m "Add my first reveal.js slide deck"
+```
+
+Congratulations for creating your first _reaveal.js_ slide deck.
+
+== References
+
+- https://doctoolchain.org[docToolchain]
+- https://docs.asciidoctor.org/reveal.js-converter/latest/[Asciidoctor reveal.js]
+- https://asciidoc.org/[AsciiDoc]
+- https://revealjs.com/[reveal.js]

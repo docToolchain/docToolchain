@@ -1,19 +1,35 @@
 import java.util.zip.ZipFile
 
+// fix versions for #1200
+buildscript {
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'org.ysb33r.gradle' && details.requested.name == 'grolifant' && details.requested.version == '0.12.1') {
+                details.useVersion '0.16.1'
+                details.because 'jcenter redirect'
+                System.out.println ">>>>>>>>> fix grolifant"
+            }
+            if (details.requested.group == 'org.codehaus.groovy.modules.http-builder' && details.requested.name == 'http-builder' && details.requested.version == '0.7.2') {
+                details.useVersion '0.7.1'
+                details.because 'jcenter redirect'
+                System.out.println ">>>>>>>>> fix http-builder"
+            }
+        }
+    }
+}
+// /fix versions for #1200
+
 /*
  * This build file is part of the docToolchain
  */
 
 plugins {
-    id "org.asciidoctor.convert" version "2.4.0"
-    id "org.aim42.htmlSanityCheck" version "1.1.6"
-    id "com.github.ben-manes.versions" version "0.42.0"
-    id "org.openapi.generator" version "4.3.1"
-    id "de.undercouch.download" version "5.0.2"
-    id 'org.jbake.site' version '5.5.0'
-    //gretty 4.0.0 does not work with java 8
-    //gretty 3.0.8 has another problem -> #920
-    id 'org.gretty' version '3.0.6'
+    alias(libs.plugins.htmlSanityCheck)
+    alias(libs.plugins.versions)
+    alias(libs.plugins.openapi.generator)
+    alias(libs.plugins.undercouch.download)
+    alias(libs.plugins.jbake.site)
+    alias(libs.plugins.gretty)
 }
 
 apply plugin:'groovy'
@@ -28,25 +44,27 @@ dependencies {
             url mavenRepository
         }
     }
+    testImplementation(libs.spock.reports) {
+        exclude group: 'org.codehaus.groovy', module: 'groovy-xml'
+    }
     testImplementation(
-            ('junit:junit:4.13.2'),
-            ('org.spockframework:spock-core:1.3-groovy-2.5'),
-            ('com.athaydes:spock-reports:1.6.2'),
+            (libs.junit),
+            (libs.spock.core),
             //('org.slf4j:slf4j-api:1.7.13'),
             //('org.slf4j:slf4j-simple:1.7.13'),
             gradleTestKit(),
             //for the renderToConfluence Task
-            ('org.apache.httpcomponents:httpmime:4.5.10'),
-            ('org.jsoup:jsoup:1.12.1'),
-            ('org.codehaus.groovy.modules.http-builder:http-builder:0.7.2')
+            (libs.httpmime),
+            (libs.jsoup),
+            (libs.http.builder)
     )
-    testCompile(
-        ('org.codehaus.groovy.modules.http-builder:http-builder:0.7.2')
-    )
-    testRuntime(
-        "net.bytebuddy:byte-buddy:1.12.8"
-    )
+    testRuntimeOnly(libs.byte.buddy)
 }
+
+test {
+    useJUnitPlatform()
+}
+
 if (project.name!=rootProject.name) {
     // disable all tasks which are not docToolchain tasks
     // this avoids for example that task 'check' runs if invoked in main project
@@ -102,6 +120,8 @@ apply from: 'scripts/copyThemes.gradle'
 apply from: 'scripts/fixGlobalReferences.gradle'
 apply from: 'scripts/customTasks.gradle'
 apply from: 'scripts/exportConfluence.gradle'
+apply from: 'scripts/exportStructurizr.gradle'
+apply from: 'scripts/generateContent.gradle'
 
 task autobuildSite(
     group: 'docToolchain',
@@ -161,6 +181,7 @@ task prepareDist() {
                 include 'LICENCE'
                 include 'README.adoc'
                 include 'settings.gradle'
+                include 'libs.versions.toml'
             }
             into new File(buildDir,distFolder+"/.")
         }
@@ -172,9 +193,7 @@ task createDist(type: Zip, dependsOn: prepareDist) {
     include '*'
     include '**/*' //to include contents of a folder present inside Reports directory
     archiveFileName = 'docToolchain-'+dtc_version+'.zip'
-    destinationDirectory = new File(buildDir, distFolder)
-    destinationDir(file(buildDir))
-
+    destinationDirectory = buildDir
 }
 
 task downloadDependencies {

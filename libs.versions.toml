@@ -1,0 +1,68 @@
+[versions]
+groovy = "3.0.13"
+# Plugins
+htmlSanityCheck = "1.1.6"
+versions = "0.46.0"
+openapi = "6.6.0"
+undercouch-download = "5.4.0"
+jbake = "5.5.0"
+# gretty 4.0.0 does not work with java 8
+# gretty 3.0.8 has another problem -> #920
+gretty = "3.0.6"
+
+# Libs
+asciidoctor-jvm = "4.0.0-alpha.1"
+jsoup = "1.16.1"
+apache-poi = "5.2.3"
+markdown-to-asciidoc = "1.1"
+structurizr-dsl = "1.29.1"
+structurizr-export = "1.14.0"
+structurizr-graphviz = "2.0.0"
+structurizr-d2-exporter = "1.2.0"
+openai-gpt3 = "0.12.0"
+asciidoctorj-diagram = "2.2.7"
+pebble = "3.2.0"
+
+# Test
+spock = "2.3-groovy-3.0"
+spock-reports = "2.3.2-groovy-3.0"
+junit = "5.9.3"
+httpmime = "4.5.14"
+http-builder = "0.7.2"
+byte-buddy = "1.14.4"
+
+[plugins]
+htmlSanityCheck = { id = "org.aim42.htmlSanityCheck", version.ref = "htmlSanityCheck"}
+versions = { id = "com.github.ben-manes.versions", version.ref = "versions"}
+openapi-generator = { id = "org.openapi.generator", version.ref = "openapi"}
+undercouch-download = { id = "de.undercouch.download", version.ref = "undercouch-download"}
+jbake-site = { id = "org.jbake.site", version.ref = "jbake"}
+gretty = { id = "org.gretty", version.ref = "gretty"}
+
+[libraries]
+groovy-xml = { module = "org.codehaus.groovy:groovy-xml", version.ref = "groovy" }
+asciidoctor = { module = "org.asciidoctor:asciidoctor-gradle-jvm", version.ref = "asciidoctor-jvm" }
+asciidoctor-pdf = { module = "org.asciidoctor:asciidoctor-gradle-jvm-pdf", version.ref = "asciidoctor-jvm" }
+asciidoctor-gems = { module = "org.asciidoctor:asciidoctor-gradle-jvm-gems", version.ref = "asciidoctor-jvm" }
+asciidoctor-slides = { module = "org.asciidoctor:asciidoctor-gradle-jvm-slides", version.ref = "asciidoctor-jvm" }
+jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
+html-sanity-check = { module = "org.aim42.htmlSanityCheck:org.aim42.htmlSanityCheck.gradle.plugin", version.ref = "htmlSanityCheck" }
+poi-ooxml =  { module = "org.apache.poi:poi-ooxml", version.ref = "apache-poi" }
+markdown-to-asciidoc =  { module = "nl.jworks.markdown_to_asciidoc:markdown_to_asciidoc", version.ref = "markdown-to-asciidoc" }
+openapi-generator = { module = "org.openapitools:openapi-generator-gradle-plugin", version.ref = "openapi" }
+structurizr-dsl = { module = "com.structurizr:structurizr-dsl", version.ref = "structurizr-dsl" }
+structurizr-export = { module = "com.structurizr:structurizr-export", version.ref = "structurizr-export" }
+structurizr-graphviz = { module = "com.structurizr:structurizr-graphviz", version.ref = "structurizr-graphviz" }
+structurizr-d2-exporter = { module = "io.github.goto1134:structurizr-d2-exporter", version.ref = "structurizr-d2-exporter" }
+openai-gpt3-service = { module = "com.theokanning.openai-gpt3-java:service", version.ref = "openai-gpt3" }
+asciidoctorj-diagram = { module = "org.asciidoctor:asciidoctorj-diagram", version.ref = "asciidoctorj-diagram" }
+pebble = { module = "io.pebbletemplates:pebble", version.ref = "pebble" }
+
+
+# Test
+spock-core = { module = "org.spockframework:spock-core", version.ref = "spock" }
+spock-reports = { module = "com.athaydes:spock-reports", version.ref = "spock-reports" }
+junit = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
+httpmime = { module = "org.apache.httpcomponents:httpmime", version.ref = "httpmime" }
+http-builder = { module = "org.codehaus.groovy.modules.http-builder:http-builder", version.ref = "http-builder" }
+byte-buddy = { module = "net.bytebuddy:byte-buddy", version.ref = "byte-buddy" }

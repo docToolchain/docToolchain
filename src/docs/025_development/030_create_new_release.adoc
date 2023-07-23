@@ -10,7 +10,11 @@ include::../_feedback.adoc[]
 
 === GitHub
 
+* run +
+`docker run -it -e BATS_LIB_PATH=/usr/lib/bats -v "${PWD}/dtcw:/code/dtcw"  -v "${PWD}/test:/code/test" maxh/bats:latest test` +
+to test dtcw
 * Update the version in `gradle.properties`.
+* Update the version in `dtcw` and `dtcw.ps1`. `dtcw.bat` will be generated
 * Update the changelog.
 	** Create a section for the version.
 	** Copy to the new section all unreleased features which will be in the release.
@@ -25,17 +29,10 @@ include::../_feedback.adoc[]
 
 ==== Standard Image
 
-The image build for https://hub.docker.com/repository/docker/rdmueller/doctoolchain[rdmueller/doctoolchain] depends on the GitHub repo https://github.com/docToolchain/docker-image[docToolchain/docker-image].
+* Update the https://github.com/docToolchain/docker-image/tree/ng-beta/alpine[Dockerfile] to reflect the new version.
+* run https://github.com/docToolchain/docker-image/actions/workflows/standard-build.yml[github action] to build and deploy the image
 
-* Update the https://github.com/docToolchain/docker-image/tree/master/alpine[Dockerfile] to reflect the new version.
-* Create a https://github.com/docToolchain/docker-image/releases/new[new release].
-* Reference the GitHub release in the changelog (the build on Dockerhub will be automatically triggered).
-
-Important! Currently, the autobuild only works for paying customers. To manually build and upload the image, download the repo, switch to branch `ng-beta`, cd to the `alpine` folder and execute `docker build -t rdmueller/doctoolchain:v2.0.0-rc15 .`. After that, use Docker Desktop to push the resulting image to Docker Hub.
-
-==== Jenkins CI Image
-
-update the version in the https://github.com/docToolchain/docker-image/actions/runs/2787848816/workflow[github action definition] and run the action.
+do the same for the other images
 
 === Blog Post
 
@@ -44,14 +41,8 @@ Create a blog post to announce the new release. The SDKMAN! announcement will re
 === docToolchain-Wrapper (dtcw)
 
 Everything went well? Great! Now let’s update the wrapper.
-The source of the rapper is now the main repository and we need to copy it over to the github pages.
-To do so, make sure that dtcw references the right version.
 
-* https://github.com/docToolchain/doctoolchain/blob/ng/dtcw[dtcw]
-* https://github.com/docToolchain/doctoolchain/blob/ng/dtcw.ps1[dtcw.ps1]
-* the dtcw.bat will be generated
-
-then navigate to https://github.com/docToolchain/doctoolchain.github.io/actions/workflows/update-dtcw.yml and trigger the action.
+Navigate to https://github.com/docToolchain/doctoolchain.github.io/actions/workflows/update-dtcw.yml and trigger the action.
 
 
 === SDKMAN!

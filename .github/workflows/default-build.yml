@@ -2,10 +2,23 @@ name: Build Project (Default)
 
 on:
   push:
-    branches-ignore:
-      - gh-pages
+    branches:
+      - '!gh-pages'
+    path:
+      - 'scripts/**'
+      - 'src/**'
+      - '!**/README.*'
+      - '!dtcw'
+      - '!test/**'
   pull_request:
     branches: [ master, ng ]
+    # Ignore changes for dtcw
+    path:
+      - 'scripts/**'
+      - 'src/**'
+      - '!**/README.*'
+      - '!dtcw'
+      - '!test/**'
   workflow_dispatch: {}
 
 jobs:
@@ -14,7 +27,7 @@ jobs:
       matrix:
         os: [ubuntu-latest]
         # TODO: Will it really run on one of these? , windows-latest, macOS-latest]
-        java: [8, 11, 14] # , 17]
+        java: [11, 14, 17]
         jdk: [adopt]
         # , temurin]
       fail-fast: false
@@ -26,9 +39,23 @@ jobs:
       - name: Install used packages
         run: sudo apt-get install -y graphviz shellcheck pandoc
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           fetch-depth: 0
+
+      - name: install powershell
+        shell: bash
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+            echo "pwsh already installed"
+          else  
+            sudo apt-get install -y wget apt-transport-https software-properties-common
+            wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+            sudo dpkg -i packages-microsoft-prod.deb
+            rm packages-microsoft-prod.deb
+            sudo apt-get update
+            sudo apt-get install -y powershell
+          fi
 
       # Provide fast feedback about quality of bash scripts
       - name: ShellCheck
@@ -37,7 +64,7 @@ jobs:
           find . -type f -perm 0755 -exec egrep -l '^#!(/bin/bash|/usr/bin/env bash)' {} + | xargs shellcheck
 
       - name: Set up JDK
-        uses: actions/setup-java@v2
+        uses: actions/setup-java@v3
         with:
           distribution: ${{ matrix.jdk }}
           java-version: ${{ matrix.java }}
@@ -50,6 +77,7 @@ jobs:
         run: |
           ./.ci.sh
       - name: Archive test results
+        if: always()
         uses: actions/upload-artifact@v3
         with:
           name: test-report

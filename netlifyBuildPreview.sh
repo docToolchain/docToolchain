@@ -1,12 +1,15 @@
 #!/usr/bin/env bash
+set -x
 
 # create a locally installed version of the current repo
-mkdir -p "$HOME/.doctoolchain/docToolchain-dev"
-cp -r ./* "$HOME/.doctoolchain/docToolchain-dev"
+mkdir -p "$HOME/.doctoolchain/docToolchain-latest"
+cp -r ./* "$HOME/.doctoolchain/docToolchain-latest"
 # set 'dev' as version in dtcw
-sed -i 's/VERSION=[-0-9.a-z]*/VERSION=dev/' dtcw
-# ensure that dtcw is installed
-./dtcw tasks
+sed -i 's/VERSION:=[-0-9.a-z]*/VERSION=latest/' dtcw
+# install Java supported by docToolchain
+./dtcw local install java
+# install docToolchain locally
+./dtcw local install doctoolchain
 # export information about contributors for those little avatars on top of each file
 ./dtcw exportContributors
 # for the excel demo to work, we need to export the excel file

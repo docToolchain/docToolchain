@@ -1,6 +1,3 @@
-@Grapes(
-    [@Grab('org.jsoup:jsoup:1.8.2'),]
-)
 import org.jsoup.Jsoup
 import org.jsoup.select.NodeVisitor
 import org.jsoup.parser.Parser

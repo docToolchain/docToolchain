@@ -1,5 +1,10 @@
 outputPath = 'build'
 
+// If you want to use the Antora integration, set this to true.
+// This requires your project to be setup as Antora module.
+// You can use `downloadTemplate` task to bootstrap your project.
+//useAntoraIntegration = false
+
 // Path where the docToolchain will search for the input files.
 // This path is appended to the docDir property specified in gradle.properties
 // or in the command line, and therefore must be relative to it.
@@ -19,9 +24,18 @@ inputFiles = [
 //folders in which asciidoc will find images.
 //these will be copied as resources to ./images
 //folders are relative to inputPath
+// Hint: If you define an imagepath in your documents like
+// :imagesdir: ./whatsoever
+// define it conditional like
+// ifndef::imagesdir[:imagesdir: ./whatsoever]
+// as doctoolchain defines :imagesdir: during generation
 imageDirs = [
     /** imageDirs **/
 ]
+
+// whether the build should fail when detecting broken image references
+// if this config is set to true all images will be embedded
+failOnMissingImages = true
 
 // these are directories (dirs) and files which Gradle monitors for a change
 // in order to decide if the docs have to be re-build
@@ -248,6 +262,9 @@ confluence.with {
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
 
+    // if true, all pages will be created using the new editor v2
+    // enforceNewEditor = false
+
     // variable to determine how many layers of sub pages should be created
     subpagesForSections = 1
 
@@ -464,6 +481,58 @@ collectIncludes.with {
 
     separatorChar = "_" // define the allowed separators after prefix. default: "-_"
 
-    cleanOutputFolder = true // should the output folder be emptied before generation? defailt: false
+    cleanOutputFolder = true // should the output folder be emptied before generation? default: false
+
+    excludeDirectories = [] // define additional directories that should not be traversed.
+
 }
 //end::collectIncludesConfig[]
+
+//tag::structurizrConfig[]
+// Configuration for Structurizr related tasks
+structurizr = [:]
+
+structurizr.with {
+
+    // Configure where `exportStructurizr` looks for the Structurizr model.
+    workspace = {
+        // The directory in which the Structurizr workspace file is located.
+        // path = 'src/docs/structurizr'
+
+        // By default `exportStructurizr` looks for a file '${structurizr.workspace.path}/workspace.dsl'.
+        // You can customize this behavior with 'filename'. Note that the workspace filename is provided without '.dsl' extension.
+        // filename = 'workspace'
+    }
+
+    export = {
+        // Directory for the exported diagrams.
+        //
+        // WARNING: Do not put manually created/changed files into this directory.
+        // If a valid Structurizr workspace file is found the directory is deleted before the diagram files are generated.
+        // outputPath = 'src/docs/structurizr/diagrams'
+
+        // Format of the exported diagrams. Defaults to 'plantuml' if the parameter is not provided.
+        //
+        // Following formats are supported:
+        // - 'plantuml': the same as 'plantuml/structurizr'
+        // - 'plantuml/structurizr': exports views to PlantUML
+        // - 'plantuml/c4plantuml': exports views to PlantUML with https://github.com/plantuml-stdlib/C4-PlantUML
+        // format = 'plantuml'
+    }
+}
+//end::structurizrConfig[]
+
+//tag::openAIConfig[]
+// Configuration for openAI related tasks
+openAI = [:]
+
+openAI.with {
+    // This task requires a person access token for openAI.
+    // Ensure to pass this token as parameters when calling the task
+    // using -PopenAI.token=xx-xxxxxxxxxxxxxx
+
+    //model = "text-davinci-003"
+    //maxToken = '500'
+    //temperature = '0.3'
+}
+//end::openAIConfig[]

@@ -10,7 +10,7 @@ buildscript {
     }
     dependencies {
         //for export Excel Task
-        classpath 'org.apache.poi:poi-ooxml:4.1.1'
+        classpath libs.poi.ooxml
     }
 }
 
@@ -113,7 +113,7 @@ use `gradle exportExcel` to re-export files
                                 }
                             }
                             if (!skipCell) {
-                                switch (cell.cellStyle.alignmentEnum.toString()) {
+                                switch (cell.cellStyle.getCellAlignment().getHorizontal().toString()) {
                                     case 'RIGHT':
                                         cellStyle += '>'
                                         break
@@ -121,7 +121,7 @@ use `gradle exportExcel` to re-export files
                                         cellStyle += '^'
                                         break
                                 }
-                                switch (cell.cellStyle.verticalAlignmentEnum.toString()) {
+                                switch (cell.cellStyle.getCellAlignment().getVertical().toString()) {
                                     case 'BOTTOM':
                                         cellStyle += '.>'
                                         break

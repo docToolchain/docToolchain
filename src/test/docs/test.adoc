@@ -1,5 +1,3 @@
-include::config-de.adoc[]
-
 .sequence diagram (without graphviz)
 [plantuml,"{plantUMLDir}testPlant",png]
 ----

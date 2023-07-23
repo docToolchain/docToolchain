@@ -20,8 +20,12 @@
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section $isActive"
                                    href="${c.rootpath}${entry.uri}">${entry.title?:entry}</a>"""
                 } else {
+                    def title = entry.title?:entry
+                    if (config.site_menu[title]) {
+                        title = config.site_menu[title]
+                    }
                     result = result + """
-                                ${entry.title?:entry}"""
+                                ${title}"""
                 }
                 if (entry.children) {
                     result = result + printMenu(c, index + 1, entry.children)

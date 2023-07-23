@@ -1,8 +1,3 @@
-/**
-@Grapes(
-        [@Grab('org.jsoup:jsoup:1.14.3')]
-)
-**/
 import org.jsoup.Jsoup
 import org.jsoup.parser.Parser
 import org.jsoup.nodes.Document
@@ -229,7 +224,7 @@ images/${folderStructure.join("/")}/${documentId}.png
                             element.before("""
     <div class="lucidchart-wrapper">
 ${lucidInfos.replaceAll("\n", "%%CRLF%%")}
-    $chart 
+    $chart
     https://lucid.app/lucidchart/${documentId}/edit[edit lucidchart]
     </div>
     """)
@@ -455,7 +450,7 @@ String[] getFolderStructure ( Map pages, String pageId) {
             return getFolderStructure(pages, parentId )  + pages[parentId].filename
         } else {
             println "parent page not found: " + parentId + " for " + pages[pageId].filename
-            return pages[pageId].filename
+            return []
         }
     } else {
         return []
@@ -506,31 +501,34 @@ def extractBodies(GPathResult entities, pages, attachments, space, users, File d
                     (body, uTags) = fixBody( pageId, body, users, pages, space)
                     unknownTags = (unknownTags + uTags).unique()
 
-                    outFile.write(body)
+                    outFile.write(body, 'utf-8')
 
                     // convert to AsciiDoc
                     def outFilename = outFile.canonicalPath[0..-6] + ".adoc"
                     def command = "pandoc --wrap preserve -f html -t asciidoc -s ${outFile.canonicalPath} -o ${outFilename}"
-                    command.execute().waitFor()
-
-                    def outFileAdoc = new File(outFilename)
-                    def filename = (outFile.toString() - destDir.toString())
-                    def weightedChildren = []
-                    children.each { child ->
-                        weightedChildren << [weight : ((pages[child]?.position?:"-1") as Integer),
-                                             include: "include::" + pages[pageId].filename + "/" + pages[child].filename + ".adoc[levelOffset=+1]",
-                                             menu   : "include::" + pages[child].filename + "/_menu.adoc[]"]
-                    }
-                    def childIncludes = ""
-                    if (weightedChildren.size()>0) {
-                      childIncludes = """
-ifdef::includeChildren[]
-${weightedChildren.sort { it.weight }.collect { it.include }.join("\n")}
-endif::includeChildren[]
-"""
-                    }
-                    println deepFilename
-                    def fileHeader = """
+                    def process = command.execute()
+                    process.waitForProcessOutput(System.out, System.err)
+                    if (process.exitValue()>1) {
+                        println "couldn't convert ${outfile.canonicalPath}"
+                    } else {
+                        def outFileAdoc = new File(outFilename)
+                        def filename = (outFile.toString() - destDir.toString())
+                        def weightedChildren = []
+                        children.each { child ->
+                            weightedChildren << [weight : ((pages[child]?.position?:"-1") as Integer),
+                                                include: "include::" + pages[pageId].filename + "/" + pages[child].filename + ".adoc[levelOffset=+1]",
+                                                menu   : "include::" + pages[child].filename + "/_menu.adoc[]"]
+                        }
+                        def childIncludes = ""
+                        if (weightedChildren.size()>0) {
+                        childIncludes = """
+    ifdef::includeChildren[]
+    ${weightedChildren.sort { it.weight }.collect { it.include }.join("\n")}
+    endif::includeChildren[]
+    """
+                        }
+                        println deepFilename
+                        def fileHeader = """
 :jbake-menu: ${folderStructure.size()>0?folderStructure[0]:'-'}
 :jbake-deep-menu: ${folderStructure.join("/")}
 :jbake-status: published
@@ -543,42 +541,44 @@ include::{jbake-root}_config.adoc[]
 ifndef::imagesdir[:imagesdir: {jbake-root}images]
 
 """
-                    // apply some last dirty fixes
-                    def adoc = outFileAdoc.text
-                            // fix \r\n for passed through asciidoc
-                            .replaceAll("%%CRLF%% *", "\n")
-                            // fix descrete headers
-                            .replaceAll("(=+) \\[discrete\\]", "[discrete]\n\$1 ")
-                            // nonbreaking space asciidoc style
-                            .replaceAll(" ", "{nbsp}")
-                            // empty headline
-                            .replaceAll("(?sm)^ [+] *\$", "")
-                            // filepath attribute
-                            .replaceAll("%7Bfilepath%7D", "{filepath}")
-                    println(pages[pageId].title)
-                    def linkedAttachments = "\n"
-                    if (adoc.contains('%%attachments%%')) {
-                        linkedAttachments += ".Attachments\n\n"
-                        attachments.findAll{it.value.pageId == pageId}.each { attachmentId, attributes ->
-                            linkedAttachments += "* link:${ "../" * (folderStructure.size() )}images/${folderStructure.join("/")}/" + attributes.version+"_"+attributes.filename +"["+attributes.filename+" (v${attributes.version})]\n"
+                        // apply some last dirty fixes
+                        def adoc = outFileAdoc.text
+                                // fix \r\n for passed through asciidoc
+                                .replaceAll("%%CRLF%% *", "\n")
+                                // fix descrete headers
+                                .replaceAll("(=+) \\[discrete\\]", "[discrete]\n\$1 ")
+                                // nonbreaking space asciidoc style
+                                .replaceAll(" ", "{nbsp}")
+                                // empty headline
+                                .replaceAll("(?sm)^ [+] *\$", "")
+                                // filepath attribute
+                                .replaceAll("%7Bfilepath%7D", "{filepath}")
+                        println(pages[pageId].title)
+                        def linkedAttachments = "\n"
+                        if (adoc.contains('%%attachments%%')) {
+                            linkedAttachments += ".Attachments\n\n"
+                            attachments.findAll{it.value.pageId == pageId}.each { attachmentId, attributes ->
+                                linkedAttachments += "* link:${ "../" * (folderStructure.size() )}images/${folderStructure.join("/")}/" + attributes.version+"_"+attributes.filename +"["+attributes.filename+" (v${attributes.version})]\n"
+                            }
+                            adoc = adoc.replace('%%attachments%%', linkedAttachments)
+                            linkedAttachments = "\n"
                         }
-                        adoc = adoc.replace('%%attachments%%', linkedAttachments)
-                        linkedAttachments = "\n"
+                        attachments.findAll{it.value.pageId == pageId}.each { attachmentId, attributes ->
+                            linkedAttachments += "// attachment /images/${folderStructure.join("/")}/" + attributes.filename +"["+attributes.filename+"]\n"
+                        }
+                        outFileAdoc.write(
+                                        fileHeader +
+                                        "== ${pages[pageId].title}\n\n" +
+                                        adoc +
+                                        linkedAttachments + "\n" +
+                                        childIncludes,
+                                        'utf-8'
+                        )
+                        outFile.delete()
+    //                    menuFile.append("""
+    //${"*" * folderStructure.size()} xref:${metaData.filename.toString()}.adoc[${pages[pageId].title}]
+    //""")
                     }
-                    attachments.findAll{it.value.pageId == pageId}.each { attachmentId, attributes ->
-                        linkedAttachments += "// attachment /images/${folderStructure.join("/")}/" + attributes.filename +"["+attributes.filename+"]\n"
-                    }
-                    outFileAdoc.write(
-                                    fileHeader +
-                                    "== ${pages[pageId].title}\n\n" +
-                                    adoc +
-                                    linkedAttachments + "\n" +
-                                    childIncludes
-                    )
-                    outFile.delete()
-//                    menuFile.append("""
-//${"*" * folderStructure.size()} xref:${metaData.filename.toString()}.adoc[${pages[pageId].title}]
-//""")
                 }
                 break
         }
@@ -606,7 +606,7 @@ def (File srcDir, File destDir) = parseCliArgs(args)
 println srcDir.canonicalPath
 println destDir.canonicalPath
 lucidInfoFile = new File( destDir,"lucidinfos.txt")
-lucidInfoFile.write("")
+lucidInfoFile.write("", 'utf-8')
 
 File inFile = new File(srcDir, "entities.xml")
 def entities = new XmlSlurper().parseText(inFile.getText('utf-8'))
@@ -639,7 +639,7 @@ include::_menu.adoc[]
 <!-- endtoc -->
 ++++
 
-""")
+""", 'utf-8')
 println ""
 println "pages converted: " + pages.findAll{it.value.status=='current'}.size()
 println "unknown tags found: " + unknownTags.unique()
@@ -650,4 +650,4 @@ unknownTagsStats.sort{a, b -> b.value.size() <=> a.value.size()}.each { tag, tag
     }
 }
 
-new File(destDir, '_menu.adoc').write( createMenu(pages, 0))
+new File(destDir, '_menu.adoc').write( createMenu(pages, 0), 'utf-8')

@@ -12,7 +12,7 @@ task exportContributors(
             MessageDigest md5 = MessageDigest.getInstance("MD5");
             md5.update(input.getBytes());
             BigInteger hash = new BigInteger(1, md5.digest());
-            hash.toString(16);
+             String.format("%032x", hash)
         }
         File sourceFolder = new File("${docDir}/${inputPath}")
         println "sourceFolder: " + sourceFolder.canonicalPath
