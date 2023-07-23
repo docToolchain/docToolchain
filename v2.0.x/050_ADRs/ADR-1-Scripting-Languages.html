@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
   
-  <!-- 050_ADRs/ADR-1-firstTest.html -->
+  <!-- 050_ADRs/ADR-1-Scripting-Languages.html -->
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>ADR-1-firstTest.adoc</title>
+  <title>ADR-01: Scripting Languages in docToolchain</title>
   <meta content="docToolchain" property="og:title">
   <meta content="build your dev docs the easy way..." property="og:description">
   <meta content="website" property="og:type">
@@ -219,12 +219,12 @@
                         
                         <ul class="td-sidebar-nav__section pr-md-3 ul-0">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../050_ADRs/ADR-1-firstTest.html">ADR-1-firstTest.adoc</a>
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../050_ADRs/ADR-2-anotherTest.html">ADR-2-anotherTest.ad</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../050_ADRs/ADR-1-Scripting-Languages.html">ADR-01: Scripting Languages in docToolchain</a>
                             </li>
                         </ul>
                     </li>
@@ -237,11 +237,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/050_ADRs/ADR-1-firstTest.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/050_ADRs/ADR-1-Scripting-Languages.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-1-firstTest.adoc%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/050_ADRs/ADR-1-firstTest.adoc%0A%23branch:%20ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-01%3A+Scripting+Languages+in+docToolchain%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/050_ADRs/ADR-1-Scripting-Languages.adoc%0A%23branch:%20ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -250,7 +250,14 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_a_first_architecture_decision_record_adr">a first Architecture Decision Record (ADR)</a></li>
+<li><a href="#_adr_01_scripting_languages_in_doctoolchain">ADR-01: Scripting Languages in docToolchain</a>
+<ul class="sectlevel2">
+<li><a href="#_context">Context</a></li>
+<li><a href="#_decision">Decision</a></li>
+<li><a href="#_status">Status</a></li>
+<li><a href="#_consequences">Consequences</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -273,10 +280,47 @@
         <p>
             
 <div class="sect1">
-<h2 id="_a_first_architecture_decision_record_adr">a first Architecture Decision Record (ADR)</h2>
+<h2 id="_adr_01_scripting_languages_in_doctoolchain">ADR-01: Scripting Languages in docToolchain</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="_context">Context</h3>
 <div class="paragraph">
-<p>just a test</p>
+<p>In the docToolchain project, we have a variety of scripts written in different languages. This has raised questions about the rationale behind the selection of different languages for different scripts, especially when it comes to managing and maintaining these scripts.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_decision">Decision</h3>
+<div class="paragraph">
+<p>We have decided to primarily use Groovy for scripting tasks in the docToolchain project. This decision is based on the following reasons:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Groovy is a language on the JVM, which is well-known and widely used in our team.</p>
+</li>
+<li>
+<p>Groovy is essentially Java on steroids, with 95% of Java code also being valid Groovy code, making it a versatile and powerful language for our needs.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>However, we also use other languages when necessary. For instance, we use Visual Basic when there are no suitable Java libraries for certain tasks, such as extracting PowerPoint slides or diagrams from Sparx Enterprise Architect.</p>
+</div>
+<div class="paragraph">
+<p>The interaction between scripts written in different languages is managed through a Gradle task, which is also written in Groovy. This task invokes the necessary scripts through the shell, using a "streamingExecute" helper to show the progress of long-running scripts on the console.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_status">Status</h3>
+<div class="paragraph">
+<p>This decision is currently in effect.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_consequences">Consequences</h3>
+<div class="paragraph">
+<p>As a result of this decision, most scripts are developed for a specific purpose at a given point in time and are updated only when necessary. Some scripts are updated on a regular basis due to their widespread use and the varying needs of users. Legacy scripts will be updated when there is a need for it.</p>
+</div>
 </div>
 </div>
 </div>
@@ -307,11 +351,11 @@
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-1-firstTest.adoc%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:050_ADRs/ADR-1-firstTest.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-01%3A+Scripting+Languages+in+docToolchain%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:050_ADRs/ADR-1-Scripting-Languages.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-1-firstTest.adoc%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:050_ADRs/ADR-1-firstTest.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-01%3A+Scripting+Languages+in+docToolchain%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:050_ADRs/ADR-1-Scripting-Languages.adoc">tell
     us how we can improve</a>.
     </p>
 </div>
