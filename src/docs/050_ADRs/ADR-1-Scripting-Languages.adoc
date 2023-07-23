@@ -3,11 +3,15 @@
 :jbake-menu: ADRs
 :jbake-order: 1
 :jbake-status: published
+:jbake-title: ADR-01: Scripting
 
 == ADR-01: Scripting Languages in docToolchain
 
+=== Status
 
-=== Context
+This decision is currently in effect.
+
+=== Problem and Context
 
 In the docToolchain project, we have a variety of scripts written in different languages. This has raised questions about the rationale behind the selection of different languages for different scripts, especially when it comes to managing and maintaining these scripts.
 
@@ -21,10 +25,6 @@ We have decided to primarily use Groovy for scripting tasks in the docToolchain 
 However, we also use other languages when necessary. For instance, we use Visual Basic when there are no suitable Java libraries for certain tasks, such as extracting PowerPoint slides or diagrams from Sparx Enterprise Architect.
 
 The interaction between scripts written in different languages is managed through a Gradle task, which is also written in Groovy. This task invokes the necessary scripts through the shell, using a "streamingExecute" helper to show the progress of long-running scripts on the console.
-
-=== Status
-
-This decision is currently in effect.
 
 === Consequences
 
