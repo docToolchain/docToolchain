@@ -1,0 +1,10 @@
+apply plugin:'groovy'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation((libs.http.builder))
+    implementation((libs.httpmime))
+}

@@ -9,6 +9,7 @@ buildscript {
                 details.because 'jcenter redirect'
                 System.out.println ">>>>>>>>> fix grolifant"
             }
+            //TODO is this really needed here?
             if (details.requested.group == 'org.codehaus.groovy.modules.http-builder' && details.requested.name == 'http-builder' && details.requested.version == '0.7.2') {
                 details.useVersion '0.7.1'
                 details.because 'jcenter redirect'
@@ -59,6 +60,7 @@ dependencies {
             (libs.http.builder)
     )
     testRuntimeOnly(libs.byte.buddy)
+    compileClasspath((libs.http.builder))
 }
 
 test {

@@ -28,7 +28,7 @@ spock = "2.3-groovy-3.0"
 spock-reports = "2.3.2-groovy-3.0"
 junit = "5.9.3"
 httpmime = "4.5.14"
-http-builder = "0.7.2"
+http-builder = "0.7.1"
 byte-buddy = "1.14.4"
 
 [plugins]

@@ -24,7 +24,8 @@ task publishToConfluence(
 ) {
     doLast {
         logger.info("docToolchain> docDir: "+docDir)
-
+        //TODO default should be false, if the V2 Client has been implemented
+        config.confluence.useV1Api = (findProperty("confluence.useV1Api")?:config.confluence.useV1Api)?:true
         binding.setProperty('config',config)
         binding.setProperty('docDir',docDir)
         evaluate(new File(projectDir, 'scripts/asciidoc2confluence.groovy'))
