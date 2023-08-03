@@ -59,12 +59,66 @@ The task of the script is to convert the file to a markup format which is known 
 
 In this case, the python docutils will convert restructuredText to HTML.
 
-=== additional Markup languages
+=== Additional Markup languages
 
 You can add additional markup languages the same way as restructuredText has been added.
 The only difference is that you will configure the script to render your files as reference to your converter script and not use the internal script.
 
 You can find the internal script for restructured text as example here: https://github.com/docToolchain/docToolchain/blob/ng/scripts/rstToHtml.py
 
+
+=== Special Cases
+
 You can also use this mechanism to add new features to existing Markup languages.
 As an example, you can use a script to replace all plantUML references in a MarkDown file with a reference to a kroki.io server to render the file.
+
+.docToolchainConfig.groovy
+[source, groovy]
+----
+...
+    additionalConverters = [
+            '.md': [
+                    type: 'groovyFile',
+                    command: 'scripts/markdown-kroki.groovy'
+            ]
+    ]
+...
+----
+
+.scripts/markdown-kroki.groovy
+[source, groovy]
+----
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Base64;
+import java.util.zip.Deflater;
+
+public static byte[] encode(String decoded) throws IOException {
+    return Base64.getUrlEncoder().encode(compress(decoded.getBytes()));
+}
+
+private static byte[] compress(byte[] source) throws IOException {
+    Deflater deflater = new Deflater(Deflater.BEST_COMPRESSION);
+    deflater.setInput(source);
+    deflater.finish();
+
+    byte[] buffer = new byte[2048];
+    int compressedLength = deflater.deflate(buffer);
+    byte[] result = new byte[compressedLength];
+    System.arraycopy(buffer, 0, result, 0, compressedLength);
+    return result;
+}
+
+def source = file.text
+def krokiServer = "https://kroki.io/"
+
+def newSource = source.replaceAll(/(?s)```(plantuml|mermaid)([^`]*)```/){all, type, diagramSource ->
+    System.out.println file.canonicalPath
+    System.out.println type
+    System.out.println diagramSource
+    imageUrl = krokiServer+type+'/png/'+new String(encode(diagramSource))
+    System.out.println imageUrl
+    return "![$type diagram]($imageUrl \"Image Title\")"
+}
+file.write(newSource)
+----
