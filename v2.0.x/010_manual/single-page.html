@@ -7375,6 +7375,42 @@ use `gradle exportExcel` to re-export files
                     "\"${it.replaceAll('"', '""')}\""
                 }
                 .join(',') + nl, 'UTF-8')
+
+                // fix #1192 https://github.com/docToolchain/docToolchain/issues/1192
+                // remove unnecessary spans which break Asciidoctor rendering
+                def prev = ''
+                def removed = []
+                def useRemoved = true
+                style.eachWithIndex { s, i -&gt;
+                    if (s!="skip") {
+                        if (s.contains('+')) {
+                            def span = s.split('[+]')[0].split('[.]')
+                            def current = ""
+                            if (span.size()&gt;1) {
+                                current = span[1]
+                            }
+                            if (span[0] != '') {
+                                removed &lt;&lt; span[0] + '+' + s.split('[+]')[1]
+                            } else {
+                                removed &lt;&lt; s.split('[+]')[1]
+                            }
+                            if (i &gt; 0) {
+                                if (current != prev) {
+                                    useRemoved = false
+                                }
+                            }
+                            prev = current
+                        } else {
+                            removed &lt;&lt; s
+                            useRemoved = false
+                        }
+                    } else {
+                        removed &lt;&lt; "skip"
+                    }
+                }
+                if (useRemoved) { style = removed }
+                // fix #1192 https://github.com/docToolchain/docToolchain/issues/1192
+
                 targetFileAD.append(data
                         .withIndex()
                         .collect { value, index -&gt;
@@ -7387,6 +7423,8 @@ use `gradle exportExcel` to re-export files
                 .join(nl) + nl * 2, 'UTF-8')
             }
             targetFileAD.append('|===' + nl)
+            // rewrite file to remove consecutive nl
+            targetFileAD.write(targetFileAD.text.replaceAll("(?m)(\\r?\\n){2,}", nl+nl))
         }
 
 
