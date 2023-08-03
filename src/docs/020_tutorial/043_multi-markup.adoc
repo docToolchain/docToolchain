@@ -45,12 +45,12 @@ Refer to https://github.com/docToolchain/multi-markup-demo/blob/main/src/docs/de
 
 Since jBake doesn't support restructuredText, docToolchain employs a different mechanism:
 
-ifndef::projectRootDir[:projectRootDir: ../../../]
+ifndef::projectRootDir[:projectRootDir: ../../..]
 
 .docToolchainConfig.groovy
 [source, groovy]
 ----
-include::{projectRootDir}template_config/Config.groovy[tags=additionalConverters]
+include::{projectRootDir}/template_config/Config.groovy[tags=additionalConverters]
 ----
 
 Once an additional converter is configured, docToolchain will traverse all doc-files, check the extension, and invoke the configured script if the extension matches.
