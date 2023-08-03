@@ -1,0 +1,70 @@
+:jbake-order: 43
+:jbake-title: generateSite: Multi-Markup
+:filename: 020_tutorial/043_multi-markup.adoc
+include::_config.adoc[]
+
+== How to work with different Markup styles
+
+The xref:../015_tasks/03_task_generateSite.adoc[`generateSite`] task is often used to convert AsciiDoc to HTML.
+AsciiDoc is the default and preferred Markup language for documentation written in docToolchain.
+
+Since docToolchain is intended to be used by larger teams or organisations, it is important that other Markup styles can also be used.
+
+docToolchain uses jBake under the hood and jBake is cable of rendering AsciiDoc, Markdown and plain HTML.
+
+=== Meta-Data Header
+
+With AsciiDoc, meta-data is defined as AsciiDoc attributes which start with `jbake-` like `:jbake-header:`.
+For other Markup languages, the meta-data is defined in a block in front of the document, delimited by `~~~~~~` [footnote: this can be configured in the `jbake.properties` file of the theme and will be available in the `docToolchainConfig.groovy` in the next version].
+See also https://jbake.org/docs/2.6.7/#metadata_header[Metadata Header] in the jBake documentation.
+
+=== Markdown
+
+Since Markdown is directly supported by jBake, you can use it without any additional configuration.
+As you can see in this https://github.com/docToolchain/multi-markup-demo/blob/main/src/docs/demo/markdown.md[sample repository], docToolchain will use the convention over configuration mechanism to determine the menu (`jbake-menu`) the location within the menu (`jbake-order`) and title entry of the menu (`jbake-title`) from the folder structure and the first headline of the document.
+
+If you want to override these defaults, you can use a Meta-Data header.
+
+==== Flavours
+
+The Markdown standard is quite small.
+For extended features, you need to specify the flavour you want to use. 
+jBake uses flexmark to render Markdown and flexmark supports lots of different flavours.
+They can be configured within the `jbake.properties` file within the theme.
+The default is `markdown.extensions=GITHUB,EXTRA,TABLES,TOC,FENCED_CODE_BLOCKS`
+
+see also https://jbake.org/docs/2.6.7/#markdown_extensions .
+
+=== HTML
+
+Plain HTML is supported in the same way as Markdown.
+The body of the HTML will be displayed in the content area of the microsite.
+See https://github.com/docToolchain/multi-markup-demo/blob/main/src/docs/demo/html.html[src/docs/Demo/html.html] in the sample repository.
+
+=== restructuredText (.rst)
+
+Since restructuredText is not supported by jBake, docToolchain uses another mechanism:
+
+ifndef::projectRootDir[:projectRootDir: ../../../]
+
+.docToolchainConfig.groovy
+[source, groovy]
+----
+include::{projectRootDir}template_config/Config.groovy[tags=additionalConverters]
+----
+
+As soon as one additional converter is configured, docToolchain will walk over all doc-files, check the extension and invoke the configured script if the extension matches.
+
+The task of the script is to convert the file to a markup format which is known by jBake (AsciiDoc, Markdown or HTML). Afterwards, jBake will convert everything as always.
+
+In this case, the python docutils will convert restructuredText to HTML.
+
+=== additional Markup languages
+
+You can add additional markup languages the same way as restructuredText has been added.
+The only difference is that you will configure the script to render your files as reference to your converter script and not use the internal script.
+
+You can find the internal script for restructured text as example here: https://github.com/docToolchain/docToolchain/blob/ng/scripts/rstToHtml.py
+
+You can also use this mechanism to add new features to existing Markup languages.
+As an example, you can use a script to replace all plantUML references in a MarkDown file with a reference to a kroki.io server to render the file.
