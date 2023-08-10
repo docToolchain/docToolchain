@@ -34,7 +34,7 @@ export DTC_PROJECT_BRANCH
 export DTC_HEADLESS
 
 # Options passed to docToolchain
-DTC_OPTS="${DTC_OPTS:-} -PmainConfigFile=${DTC_CONFIG_FILE} --warning-mode=none --no-daemon"
+DTC_OPTS="${DTC_OPTS:-} -PmainConfigFile=${DTC_CONFIG_FILE} --warning-mode=none --no-daemon -Dfile.encoding=UTF-8 "
 
 # Here you find the project
 GITHUB_PROJECT_URL=https://github.com/docToolchain/docToolchain
