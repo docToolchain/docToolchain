@@ -73,7 +73,7 @@ teardown() {
     assert_line "Using environment: local"
 
     assert_equal "$(mock_get_call_num "${mock_doctoolchain}")" 1
-    assert_equal "$(mock_get_call_args "${mock_doctoolchain}")" ". tasks -PmainConfigFile=docToolchainConfig.groovy --warning-mode=none --no-daemon -Dfile.encoding=UTF-8  -Dorg.gradle.java.home=${DTC_ROOT}/jdk -Dgradle.user.home=${DTC_ROOT}/.gradle"
+    assert_equal "$(mock_get_call_args "${mock_doctoolchain}")" ". tasks -PmainConfigFile=docToolchainConfig.groovy --warning-mode=none --no-daemon -Dfile.encoding=UTF-8 -Dorg.gradle.java.home=${DTC_ROOT}/jdk -Dgradle.user.home=${DTC_ROOT}/.gradle"
 }
 
 @test "DTC_VERSION=latest tasks - git pull before execution" {
