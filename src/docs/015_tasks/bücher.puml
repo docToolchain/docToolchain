@@ -1,0 +1,3 @@
+@startuml buecher
+Bücher2 -> Schränke
+@enduml

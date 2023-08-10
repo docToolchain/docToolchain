@@ -7,6 +7,17 @@ include::../_feedback.adoc[]
 
 image::ea/Manual/generateHTML.png[]
 
+[plantuml, töst, png]
+----
+Bücher -> Schrank
+----
+
+plantuml::buecher.puml[]
+
+[plantuml, töst, png]
+----
+include::bücher.puml[]
+----
 
 == About This Task
 
