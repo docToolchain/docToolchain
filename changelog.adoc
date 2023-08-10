@@ -14,6 +14,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/issues/1215[#1215: dtcw.ps1 says dtc not installed after exceuting an install]
 * https://github.com/docToolchain/docToolchain/issues/1192[#1192: exportExcel: unnecessary Rowspans break rendering of table]
 * https://github.com/docToolchain/docToolchain/issues/1221[#1221: generateSite: beforeToc functionality broken]
+* https://github.com/docToolchain/docToolchain/issues/1218[#1218: plantuml encoding issues]
 
 === added
 

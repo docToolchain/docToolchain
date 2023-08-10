@@ -129,7 +129,7 @@ EOF
     PATH="${path}" run -0 ./dtcw tasks --group doctoolchain
 
     assert_equal "$(mock_get_call_num "${mock_doctoolchain}")" 1
-    assert_equal "$(mock_get_call_args "${mock_doctoolchain}")" ". tasks --group doctoolchain -PmainConfigFile=docToolchainConfig.groovy --warning-mode=none --no-daemon -Dgradle.user.home=${DTC_ROOT}/.gradle"
+    assert_equal "$(mock_get_call_args "${mock_doctoolchain}")" ". tasks --group doctoolchain -PmainConfigFile=docToolchainConfig.groovy --warning-mode=none --no-daemon -Dfile.encoding=UTF-8  -Dgradle.user.home=${DTC_ROOT}/.gradle"
 }
 
 @test "using local with sdk environment fails" {

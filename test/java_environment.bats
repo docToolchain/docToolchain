@@ -31,7 +31,7 @@ teardown() {
     PATH="${minimal_system}" JAVA_HOME="${minimal_system}/jdk" ./dtcw tasks --group doctoolchain
 
     assert_equal "$(mock_get_call_num "${mock_java}")" 1
-    assert_equal "$(mock_get_call_args "${mock_doctoolchain}")" ". tasks --group doctoolchain -PmainConfigFile=docToolchainConfig.groovy --warning-mode=none --no-daemon -Dgradle.user.home=${DTC_ROOT}/.gradle"
+    assert_equal "$(mock_get_call_args "${mock_doctoolchain}")" ". tasks --group doctoolchain -PmainConfigFile=docToolchainConfig.groovy --warning-mode=none --no-daemon -Dfile.encoding=UTF-8 -Dfile.encoding=UTF-8  -Dgradle.user.home=${DTC_ROOT}/.gradle"
 }
 
 @test "invalid JAVA_HOME" {
