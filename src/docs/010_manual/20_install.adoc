@@ -10,6 +10,8 @@ include::../_feedback.adoc[]
 
 == Installation Overview
 
+icon:copy[] icon:clipboard[] icon:tags[]
+
 docToolchain is composed of two parts:
 
 - `doctoolchain` which is the toolchain used to create your documentation
