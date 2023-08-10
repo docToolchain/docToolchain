@@ -35,7 +35,7 @@ teardown() {
     expected_cmd="run --rm -i --platform linux/amd64 -u $(id -u):$(id -g) \
 --name doctoolchain-${DTC_VERSION}-${timestamp} -e DTC_HEADLESS=true -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=test \
  --entrypoint /bin/bash -v ${PWD}:/project doctoolchain/doctoolchain:v${DTC_VERSION} \
--c doctoolchain . tasks --group doctoolchain  -PmainConfigFile=docToolchainConfig.groovy --warning-mode=none --no-daemon && exit"
+-c doctoolchain . tasks --group doctoolchain -PmainConfigFile=docToolchainConfig.groovy --warning-mode=none --no-daemon && exit"
     assert_equal "$(mock_get_call_args "${mock_docker}")" "${expected_cmd}"
     # TODO: the mock doesn't handles quotes correctly
     # assert_line "$expected_cmd"
