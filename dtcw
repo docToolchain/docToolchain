@@ -591,8 +591,18 @@ build_command() {
         local container_name=doctoolchain-${version}
         container_name+="-$(date '+%Y%m%d_%H%M%S')"
         pwd=$(has cygpath && cygpath -w "${PWD}" || echo "${PWD}")
+
+        PORTMAPPING=""
+        # Loop through the arguments
+        for arg in "$@"; do
+            if [ "$arg" == "previewSite" ]; then
+                PORTMAPPING="-p 8042:8042"
+                break
+            fi
+        done
+
         docker_args="run --rm -i --platform linux/amd64 -u $(id -u):$(id -g) --name ${container_name} \
-            -e DTC_HEADLESS=true -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} -p 8042:8042 \
+            -e DTC_HEADLESS=true -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} ${PORTMAPPING} \
             --entrypoint /bin/bash -v '${pwd}:/project' doctoolchain/doctoolchain:v${version}"
 
         cmd="docker ${docker_args} -c \"doctoolchain . ${*} ${DTC_OPTS} && exit\""
