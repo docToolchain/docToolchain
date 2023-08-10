@@ -4,11 +4,16 @@ document.addEventListener('DOMContentLoaded', function() {
 
     copyDivs.forEach(div => {
         // Create a button
-        const btn = document.createElement('i');
-        btn.classList.add(['fa-light', 'fa-clipboard'])
-        
+        const span = document.createElement('span')
+        span.classList.add('icon')
+
+        const icon = document.createElement('i');
+        icon.classList.add('fa')
+        icon.classList.add('fa-clipboard')
+        span.appendChild(icon)
+
         // Add click event to the button
-        btn.addEventListener('click', async function() {
+        icon.addEventListener('click', async function() {
             try {
                 await copyTableToClipboard(div);
                 alert('Code copied to clipboard!');
@@ -18,12 +23,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
 
         // Append the button to the div
-        div.appendChild(btn);
+        div.appendChild(span);
     });
 });
 
 async function copyTableToClipboard(listingblock) {
-    const code = listingblock.querySelector('div.content').innerText;
+    const code = listingblock.querySelector('div.content').innerText+"\n";
     const blob = new Blob([code], { type: 'text/plain' });
     const data = [new ClipboardItem({ 'text/plain': blob })];
     await navigator.clipboard.write(data);
