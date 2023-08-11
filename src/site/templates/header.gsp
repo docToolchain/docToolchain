@@ -37,7 +37,7 @@
   <link href="${content.rootpath}css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css" integrity=""
         rel="stylesheet">
   <link href="${content.rootpath}css/asciidoctor.css" rel="stylesheet">
-  <link href="${content.rootpath}css/prettify.css" rel="stylesheet">
+  <link href="${content.rootpath}css/highlightjs.css" rel="stylesheet">
 
     <!-- favicon generated with https://www.favicon-generator.org/ -->
     <link rel="shortcut icon" href="${content.rootpath}favicon.ico">
@@ -171,5 +171,11 @@
         div.listingblock div.content pre {
             margin: 0;
         }
+    </style>
+    <!-- highlightjs -->
+    <style>
+    .hljs-meta {
+        user-select: none;
+    }
     </style>
 </head>
