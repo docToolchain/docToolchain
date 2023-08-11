@@ -9,7 +9,7 @@ $ErrorActionPreference = "Stop"
 
 # See https://github.com/docToolchain/docToolchain/releases for available versions.
 # Set DTC_VERSION to "latest" to get the latest, yet unreleased version.
-$DTC_VERSION = "2.2.1"
+$DTC_VERSION = "3.0.0-rc1"
 if ($env:DTC_VERSION) { $DTC_VERSION = $env:DTC_VERSION }
 
 #here you can specify the URL of a theme to use with generateSite-task
@@ -28,7 +28,7 @@ if ($env:DTC_CONFIG_FILE) { $DTC_CONFIG_FILE = $env:DTC_CONFIG_FILE }
 if (Test-Path ".git" ) { $env:DTCW_PROJECT_BRANCH = (git branch --show-current) } else { $env:DTCW_PROJECT_BRANCH = "" }
 
 # Options passed to docToolchain
-$DTC_OPTS = "$env:DTC_OPTS -PmainConfigFile='$DTC_CONFIG_FILE' --warning-mode=none --no-daemon "
+$DTC_OPTS = "$env:DTC_OPTS -PmainConfigFile='$DTC_CONFIG_FILE' --warning-mode=none --no-daemon -Dfile.encoding=UTF-8 "
 
 $distribution_url = "https://github.com/docToolchain/docToolchain/releases/download/v$DTC_VERSION/docToolchain-$DTC_VERSION.zip"
 
@@ -36,7 +36,7 @@ $distribution_url = "https://github.com/docToolchain/docToolchain/releases/downl
 $GITHUB_PROJECT_URL = "https://github.com/docToolchain/docToolchain"
 
 # Bump this version up if something is changed in the wrapper script
-$DTCW_VERSION = "0.50"
+$DTCW_VERSION = "0.52"
 # Template replaced by the GitHub value upon releasing dtcw
 $DTCW_GIT_HASH = "##DTCW_GIT_HASH##"
 
@@ -281,20 +281,19 @@ function install_component_and_exit($environment, $component) {
             switch ($component) {
                 "doctoolchain" {
                     local_install_doctoolchain $DTC_VERSION
+                    Write-Output ""
+                    Write-Output "Use './dtcw.ps1 tasks --group doctoolchain' to see docToolchain related tasks."
                     assert_java_version_supported
                 }
                 "java" {
                     local_install_java
+                    if ( (is_doctoolchain_installed $environment) -eq $False) {
+                        how_to_install_doctoolchain $DTC_VERSION
+                    }
                 }
                 * {
                     error_install_component_and_die "unknown component '$component'"
                 }
-            }
-            if ( (is_doctoolchain_installed $environment) -eq $False) {
-                how_to_install_doctoolchain $DTC_VERSION
-            } else {
-                Write-Output ""
-                Write-Output "Use './dtcw.ps1 tasks --group doctoolchain' to see docToolchain related tasks."
             }
             $exit_code = 0
 
@@ -395,13 +394,14 @@ function assert_java_version_supported() {
     if (Get-Command java -ErrorAction SilentlyContinue) {
         $JAVA_CMD = "java"
     }
-    if ( $env:JAVA_HOME -ne "" ) {
+    if ( $null -ne $env:JAVA_HOME -and $env:JAVA_HOME -ne "") {
         $JAVA_CMD = "$env:JAVA_HOME/bin/java"
+        Write-Warning "here '$env:JAVA_HOME'"
     }
     if (Test-Path "$DTC_JAVA_HOME") {
         Write-Host "local java JDK-17 found"
-        $javaHome = $DTC_JAVA_HOME
-        $JAVA_CMD = "$DTC_JAVA_HOME/bin/java"
+        $javaHome = "$DTC_JAVA_HOME/jdk-17.0.7+7"
+        $JAVA_CMD = "$javaHome/bin/java"
         $dtc_opts = "$dtc_opts '-Dorg.gradle.java.home=$javaHome' "
     }
     if ($JAVA_CMD -eq "") {
@@ -409,7 +409,7 @@ function assert_java_version_supported() {
         java_help_and_die
     }
     # We got a Java version
-    $javaversion = ((java -version 2>&1 | Select-String -Pattern 'version').Line | Select-Object -First 1 ).Split('"')[1].Split(".")[0]
+    $javaversion = ((Invoke-Expression -Command "$JAVA_CMD -version 2>&1" | Select-String -Pattern 'version').Line | Select-Object -First 1 ).Split('"')[1].Split(".")[0]
 
     Write-Output "Java Version $javaversion"
 

@@ -25,6 +25,7 @@ class AsciidoctorSpec extends Specification {
             .withArguments([
                 'asciidoctor',
                 '--info',
+                '-PfailOnMissingImages=true',
                 '-PdocDir=./src/test/testAsciidoctor',
                 '-PmainConfigFile=testAsciidoctor.groovy',
             ])
@@ -55,7 +56,6 @@ class AsciidoctorSpec extends Specification {
             .withArguments([
                 'asciidoctor',
                 '--info',
-                '-PfailOnMissingImages=false',
                 '-PdocDir=./src/test/testAsciidoctor',
                 '-PmainConfigFile=testAsciidoctor.groovy',
             ])

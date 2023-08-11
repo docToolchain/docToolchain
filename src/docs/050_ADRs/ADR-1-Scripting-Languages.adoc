@@ -1,0 +1,33 @@
+:filename: 050_ADRs/ADR-1-Scripting-Languages.adoc
+:icons: font
+:jbake-menu: ADRs
+:jbake-order: 1
+:jbake-status: published
+:jbake-title: ADR-01: Scripting
+
+== ADR-01: Scripting Languages in docToolchain
+
+=== Status
+
+This decision is currently in effect.
+
+=== Problem and Context
+
+In the docToolchain project, we have a variety of scripts written in different languages. This has raised questions about the rationale behind the selection of different languages for different scripts, especially when it comes to managing and maintaining these scripts.
+
+=== Decision
+
+We have decided to primarily use Groovy for scripting tasks in the docToolchain project. This decision is based on the following reasons:
+
+- Groovy is a language on the JVM, which is well-known and widely used in our team.
+- Groovy is essentially Java on steroids, with 95% of Java code also being valid Groovy code, making it a versatile and powerful language for our needs.
+
+However, we also use other languages when necessary. For instance, we use Visual Basic when there are no suitable Java libraries for certain tasks, such as extracting PowerPoint slides or diagrams from Sparx Enterprise Architect.
+
+The interaction between scripts written in different languages is managed through a Gradle task, which is also written in Groovy. This task invokes the necessary scripts through the shell, using a "streamingExecute" helper to show the progress of long-running scripts on the console.
+
+=== Consequences
+
+As a result of this decision, most scripts are developed for a specific purpose at a given point in time and are updated only when necessary. Some scripts are updated on a regular basis due to their widespread use and the varying needs of users. Legacy scripts will be updated when there is a need for it.
+
+

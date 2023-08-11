@@ -9,6 +9,23 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+* https://github.com/docToolchain/docToolchain/issues/1209[#1209: generateSite: Problem with meta data parsing]
+* https://github.com/docToolchain/docToolchain/pull/1217[#1217, #1214, #1216: dtcw.ps1 fix handling of java version] 
+* https://github.com/docToolchain/docToolchain/issues/1215[#1215: dtcw.ps1 says dtc not installed after exceuting an install]
+* https://github.com/docToolchain/docToolchain/issues/1192[#1192: exportExcel: unnecessary Rowspans break rendering of table]
+* https://github.com/docToolchain/docToolchain/issues/1221[#1221: generateSite: beforeToc functionality broken]
+* https://github.com/docToolchain/docToolchain/issues/1218[#1218: plantuml encoding issues]
+
+=== added
+
+* https://github.com/docToolchain/docToolchain/issues/1230[#1230 generateSite: copy to clipboard]
+
+=== changed
+
+== 3.0.0-rc1 - 2023-07-13
+
+=== fixes
+
 * https://github.com/docToolchain/docToolchain/issues/1200[#1200: JCenter kills doctoolchain, as Grolifant is not available on Maven Central]
 * https://github.com/docToolchain/docToolchain/issues/1198[#1198: gravatar eleminates leading 0 from md5 hash]
 * https://github.com/docToolchain/docToolchain/issues/1193[#1193: exportEA fails since v2.0.5 with an exception]
@@ -27,6 +44,10 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 ** pick the right environment if none provided by the user
 ** support of JAVA_HOME which was silently ignored.
 * https://github.com/docToolchain/docToolchain/issues/220[#220 convertToDocx and convertToEpub not working]
+* Workaround for Confluence new Editor rollout
+** https://github.com/docToolchain/docToolchain/issues/1184[#1184: PublishToConfluence new editor issues and page size]
+** https://github.com/docToolchain/docToolchain/issues/880[#880: publishToConfluence FAILED: Content body cannot be converted to new editor format]
+* https://github.com/docToolchain/docToolchain/issues/1053[#1053: publishToConfluence: hash is displayed at end of some pages]
 
 === added
 * configure if build should fail on missing images
@@ -35,6 +56,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * introduce `generateContent` task - AI for docToolchain
 * added req42 framework to downloadTemplate task
 * added 'FR' as language for arc42
+* https://antora.org[Antora] support (beta), setup a docToolchain project and integrate it as module seamlessly into your existing Antora playbook. See `downloadTemplate` task for more details.
 
 * added short tutorial about changing the theme of a microsite
 
