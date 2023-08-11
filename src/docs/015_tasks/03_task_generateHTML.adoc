@@ -5,9 +5,6 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
-image::ea/Manual/generateHTML.png[]
-
-
 == About This Task
 
 This is the standard Asciidoctor generator which is supported out of the box.
@@ -109,7 +106,6 @@ DiagramBlock <|-- PlantUmlBlock
 NOTE: To work correctly, PlantUML needs Graphviz dot installed.
 If you can't install it, use the Java-based version of the dot library instead.
 Just add `!pragma layout smetana` as the first line of your diagram definition.
-This is still an experimental feature, but already works well!
 
 == Further Reading and Resources
 * https://rdmueller.github.io/single-file-html/[This blog post] explains more about single-file HTML.
