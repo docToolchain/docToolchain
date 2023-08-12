@@ -7,7 +7,7 @@ content.body = content.body.split("(?ms)<!-- endtoc -->",2)[1]
 }
 %>
 <%include "header.gsp"%>
-<body onload="prettyPrint()" class="td-section">
+<body class="td-section">
 <header>
 	<%include "menu.gsp"%>
 </header>

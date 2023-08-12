@@ -1,7 +1,7 @@
 <!doctype html>
 <html lang="de">
 <%include "header.gsp"%>
-<body onload="prettyPrint()" class="td-section">
+<body class="td-section">
 <header>
 <%include "menu.gsp"%>
 </header>
