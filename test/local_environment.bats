@@ -40,7 +40,7 @@ teardown() {
     assert_line "Using Java 11.0.18 [${HOME}/.doctoolchain/jdk/bin/java]"
 
     assert_equal "$(mock_get_call_num "${mock_doctoolchain}")" 1
-    assert_equal "$(mock_get_call_args "${mock_doctoolchain}")" ". tasks --group doctoolchain -PmainConfigFile=docToolchainConfig.groovy --warning-mode=none --no-daemon -Dorg.gradle.java.home=${DTC_ROOT}/jdk -Dgradle.user.home=${DTC_ROOT}/.gradle"
+    assert_equal "$(mock_get_call_args "${mock_doctoolchain}")" ". tasks --group doctoolchain -PmainConfigFile=docToolchainConfig.groovy --warning-mode=none --no-daemon -Dfile.encoding=UTF-8 -Dorg.gradle.java.home=${DTC_ROOT}/jdk -Dgradle.user.home=${DTC_ROOT}/.gradle"
 }
 
 @test "overrule configuration file with DTC_CONFIG_FILE" {
@@ -48,7 +48,7 @@ teardown() {
     PATH="${minimal_system}" DTC_CONFIG_FILE=my_config_file.groovy run -0 ./dtcw tasks
 
     assert_equal "$(mock_get_call_num "${mock_doctoolchain}")" 1
-    assert_equal "$(mock_get_call_args "${mock_doctoolchain}")" ". tasks -PmainConfigFile=my_config_file.groovy --warning-mode=none --no-daemon -Dorg.gradle.java.home=${DTC_ROOT}/jdk -Dgradle.user.home=${DTC_ROOT}/.gradle"
+    assert_equal "$(mock_get_call_args "${mock_doctoolchain}")" ". tasks -PmainConfigFile=my_config_file.groovy --warning-mode=none --no-daemon -Dfile.encoding=UTF-8 -Dorg.gradle.java.home=${DTC_ROOT}/jdk -Dgradle.user.home=${DTC_ROOT}/.gradle"
 }
 
 @test "using sdk with local environment fails" {

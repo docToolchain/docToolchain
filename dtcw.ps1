@@ -28,7 +28,7 @@ if ($env:DTC_CONFIG_FILE) { $DTC_CONFIG_FILE = $env:DTC_CONFIG_FILE }
 if (Test-Path ".git" ) { $env:DTCW_PROJECT_BRANCH = (git branch --show-current) } else { $env:DTCW_PROJECT_BRANCH = "" }
 
 # Options passed to docToolchain
-$DTC_OPTS = "$env:DTC_OPTS -PmainConfigFile='$DTC_CONFIG_FILE' --warning-mode=none --no-daemon "
+$DTC_OPTS = "$env:DTC_OPTS -PmainConfigFile='$DTC_CONFIG_FILE' --warning-mode=none --no-daemon -Dfile.encoding=UTF-8 "
 
 $distribution_url = "https://github.com/docToolchain/docToolchain/releases/download/v$DTC_VERSION/docToolchain-$DTC_VERSION.zip"
 
