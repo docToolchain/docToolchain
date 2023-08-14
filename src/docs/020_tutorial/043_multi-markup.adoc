@@ -6,30 +6,30 @@ include::_config.adoc[]
 == How to Work with Different Markup Styles
 
 The xref:../015_tasks/03_task_generateSite.adoc[`generateSite`] task is often used to convert AsciiDoc to HTML. 
-AsciiDoc is the default and preferred markup language for documentation written in docToolchain.
+AsciiDoc is the default (and preferred) markup language for documentation written in docToolchain.
 
-As docToolchain is designed to be used by larger teams or organizations, it is essential to accommodate other markup styles as well.
-
-docToolchain leverages jBake, capable of rendering AsciiDoc, Markdown, and plain HTML.
+But because docToolchain is designed to be used by larger teams and organisations, it also leverages jBake, which is capable of rendering AsciiDoc, Markdown, and plain HTML.
 
 === Meta-Data Header
 
-In AsciiDoc, meta-data is defined as attributes beginning with `jbake-`, such as `:jbake-header:`. 
-For other markup languages, the meta-data is defined in a block at the beginning of the document, delimited by `~~~~~~` [footnote: this can be configured in the `jbake.properties` file of the theme and will be available in the `docToolchainConfig.groovy` in the next version]. 
+In AsciiDoc, metadata is defined as attributes beginning with `jbake-`, such as `:jbake-header:`. 
+For other markup languages, the metadata is defined in a block at the beginning of the document, delimited by `~~~~~~` [footnote: this can be configured in the `jbake.properties` file of the theme, and will be available in `docToolchainConfig.groovy` in the next version]. 
 Refer to the https://jbake.org/docs/2.6.7/#metadata_header[Metadata Header] section in the jBake documentation for more information.
 
 === Markdown
 
-Since jBake directly supports Markdown, you can use it without any additional configuration. 
-As illustrated in this https://github.com/docToolchain/multi-markup-demo/blob/main/src/docs/demo/markdown.md[sample repository], docToolchain utilizes the convention over configuration principle to determine the menu (`jbake-menu`), the location within the menu (`jbake-order`), and the title entry of the menu (`jbake-title`) from the folder structure and the document's first headline.
+==== jBake
 
-If you wish to override these defaults, you can use a Meta-Data header.
+Since jBake directly supports Markdown, you can use it without any additional configuration. 
+As illustrated by this https://github.com/docToolchain/multi-markup-demo/blob/main/src/docs/demo/markdown.md[sample repository], docToolchain utilises the convention-over-configuration principle to determine the menu (`jbake-menu`), the location within the menu (`jbake-order`), and the title entry of the menu (`jbake-title`) from the folder structure and the document's first headline.
+
+If you wish to override these defaults, you can use a metadata header.
 
 ==== Flavours
 
-The Markdown standard is relatively limited.
-For extended features, you need to specify the flavor you want to use. 
-jBake employs flexmark to render Markdown, and flexmark supports various flavors. 
+Here, the Markdown standard is relatively limited.
+For extended features, you'll need to specify the flavour you want to use. 
+jBake employs flexmark to render Markdown, and flexmark supports various flavours. 
 These can be configured within the `jbake.properties` file within the theme. 
 The default is `markdown.extensions=GITHUB,EXTRA,TABLES,TOC,FENCED_CODE_BLOCKS`.
 
@@ -37,13 +37,13 @@ See also https://jbake.org/docs/2.6.7/#markdown_extensions for more details.
 
 === HTML
 
-Plain HTML is supported in the same manner as Markdown. 
+Plain HTML is supported in the same way as Markdown.
 The HTML body will be displayed in the content area of the microsite. 
 Refer to https://github.com/docToolchain/multi-markup-demo/blob/main/src/docs/demo/html.html[src/docs/Demo/html.html] in the sample repository.
 
 === restructuredText (.rst)
 
-Since jBake doesn't support restructuredText, docToolchain employs a different mechanism:
+Since jBake doesn't support restructuredText, docToolchain uses a different mechanism:
 
 ifndef::projectRootDir[:projectRootDir: ../../..]
 
@@ -80,17 +80,17 @@ stop
 
 ----
 
-The script's task is to convert the file to a markup format recognized by jBake (AsciiDoc, Markdown, or HTML). 
+The script's task is to convert the file to a markup format recognised by jBake (AsciiDoc, Markdown, or HTML). 
 Afterwards, jBake will process everything as usual.
 
-In this case, the python docutils will convert restructuredText to HTML.
+In this case, the Python docutils will convert restructuredText to HTML.
 
 === Additional Markup Languages
 
-You can integrate additional markup languages the same way restructuredText was added.
+You can integrate additional markup languages in the same way as you added restructuredText.
 The only difference is that you will configure the script to render your files as a reference to your converter script, rather than using the internal script.
 
-You can find the internal script for restructured text as an example here: https://github.com/docToolchain/docToolchain/blob/ng/scripts/rstToHtml.py.
+You can find an example of the internal script for restructured text here: https://github.com/docToolchain/docToolchain/blob/ng/scripts/rstToHtml.py.
 
 === Special Cases
 
