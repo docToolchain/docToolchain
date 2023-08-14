@@ -1,0 +1,149 @@
+:jbake-order: 43
+:jbake-title: generateSite: Multi-Markup
+:filename: 020_tutorial/043_multi-markup.adoc
+include::_config.adoc[]
+
+== How to Work with Different Markup Styles
+
+The xref:../015_tasks/03_task_generateSite.adoc[`generateSite`] task is often used to convert AsciiDoc to HTML. 
+AsciiDoc is the default (and preferred) markup language for documentation written in docToolchain.
+
+But because docToolchain is designed to be used by larger teams and organisations, it also leverages jBake, which is capable of rendering AsciiDoc, Markdown, and plain HTML.
+
+=== Meta-Data Header
+
+In AsciiDoc, metadata is defined as attributes beginning with `jbake-`, such as `:jbake-header:`. 
+For other markup languages, the metadata is defined in a block at the beginning of the document, delimited by `~~~~~~` [footnote: this can be configured in the `jbake.properties` file of the theme, and will be available in `docToolchainConfig.groovy` in the next version]. 
+Refer to the https://jbake.org/docs/2.6.7/#metadata_header[Metadata Header] section in the jBake documentation for more information.
+
+=== Markdown
+
+==== jBake
+
+Since jBake directly supports Markdown, you can use it without any additional configuration. 
+As illustrated by this https://github.com/docToolchain/multi-markup-demo/blob/main/src/docs/demo/markdown.md[sample repository], docToolchain utilises the convention-over-configuration principle to determine the menu (`jbake-menu`), the location within the menu (`jbake-order`), and the title entry of the menu (`jbake-title`) from the folder structure and the document's first headline.
+
+If you wish to override these defaults, you can use a metadata header.
+
+==== Flavours
+
+Here, the Markdown standard is relatively limited.
+For extended features, you'll need to specify the flavour you want to use. 
+jBake employs flexmark to render Markdown, and flexmark supports various flavours. 
+These can be configured within the `jbake.properties` file within the theme. 
+The default is `markdown.extensions=GITHUB,EXTRA,TABLES,TOC,FENCED_CODE_BLOCKS`.
+
+See also https://jbake.org/docs/2.6.7/#markdown_extensions for more details.
+
+=== HTML
+
+Plain HTML is supported in the same way as Markdown.
+The HTML body will be displayed in the content area of the microsite. 
+Refer to https://github.com/docToolchain/multi-markup-demo/blob/main/src/docs/demo/html.html[src/docs/Demo/html.html] in the sample repository.
+
+=== restructuredText (.rst)
+
+Since jBake doesn't support restructuredText, docToolchain uses a different mechanism:
+
+ifndef::projectRootDir[:projectRootDir: ../../..]
+
+.docToolchainConfig.groovy
+[source, groovy]
+----
+include::{projectRootDir}/template_config/Config.groovy[tags=additionalConverters]
+----
+
+Once an additional converter is configured, docToolchain will traverse all doc-files, check the extension, and invoke the configured script if the extension matches.
+
+[plantuml, additionalConverter, png]
+----
+@startuml
+skinparam defaultTextAlignment center
+
+|docToolchain|
+start
+:start generateSite task;
+partition "traverse all doc-files" {
+  if (File extension is .rst ?) then (yes)
+    :Invoke configured\nAdditional Converter\nscript;
+    :Convert file from\nrestructuredText to HTML\nwith configured script;
+  else (no)
+  endif
+}
+:Pass all files to jBake;
+|jBake|
+:Render all\nHTML, .adoc and .md\nfiles with HTML;
+|docToolchain|
+stop
+
+@enduml
+
+----
+
+The script's task is to convert the file to a markup format recognised by jBake (AsciiDoc, Markdown, or HTML). 
+Afterwards, jBake will process everything as usual.
+
+In this case, the Python docutils will convert restructuredText to HTML.
+
+=== Additional Markup Languages
+
+You can integrate additional markup languages in the same way as you added restructuredText.
+The only difference is that you will configure the script to render your files as a reference to your converter script, rather than using the internal script.
+
+You can find an example of the internal script for restructured text here: https://github.com/docToolchain/docToolchain/blob/ng/scripts/rstToHtml.py.
+
+=== Special Cases
+
+This mechanism also enables you to add new features to existing markup languages.
+For instance, you can use a script to replace all plantUML references in a Markdown file with a reference to a kroki.io server to render the file.
+
+.docToolchainConfig.groovy
+[source, groovy]
+----
+...
+    additionalConverters = [
+            '.md': [
+                    type: 'groovyFile',
+                    command: 'scripts/markdown-kroki.groovy'
+            ]
+    ]
+...
+----
+
+.scripts/markdown-kroki.groovy
+[source, groovy]
+----
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.util.Base64;
+import java.util.zip.Deflater;
+
+public static byte[] encode(String decoded) throws IOException {
+    return Base64.getUrlEncoder().encode(compress(decoded.getBytes()));
+}
+
+private static byte[] compress(byte[] source) throws IOException {
+    Deflater deflater = new Deflater(Deflater.BEST_COMPRESSION);
+    deflater.setInput(source);
+    deflater.finish();
+
+    byte[] buffer = new byte[2048];
+    int compressedLength = deflater.deflate(buffer);
+    byte[] result = new byte[compressedLength];
+    System.arraycopy(buffer, 0, result, 0, compressedLength);
+    return result;
+}
+
+def source = file.text
+def krokiServer = "https://kroki.io/"
+
+def newSource = source.replaceAll(/(?s)```(plantuml|mermaid)([^`]*)```/){all, type, diagramSource ->
+    System.out.println file.canonicalPath
+    System.out.println type
+    System.out.println diagramSource
+    imageUrl = krokiServer+type+'/png/'+new String(encode(diagramSource))
+    System.out.println imageUrl
+    return "![$type diagram]($imageUrl \"Image Title\")"
+}
+file.write(newSource)
+----

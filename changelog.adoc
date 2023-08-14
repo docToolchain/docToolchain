@@ -18,6 +18,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === added
 
+* added tutorial on how to use multiple markup languages with docToolchain
 * https://github.com/docToolchain/docToolchain/issues/1230[#1230 generateSite: copy to clipboard]
 
 === changed
