@@ -55,30 +55,6 @@ include::{projectRootDir}/template_config/Config.groovy[tags=additionalConverter
 
 Once an additional converter is configured, docToolchain will traverse all doc-files, check the extension, and invoke the configured script if the extension matches.
 
-[plantuml, additionalConverter, png]
-----
-@startuml
-skinparam defaultTextAlignment center
-
-|docToolchain|
-start
-:start generateSite task;
-partition "traverse all doc-files" {
-  if (File extension is .rst ?) then (yes)
-    :Invoke configured\nAdditional Converter\nscript;
-    :Convert file from\nrestructuredText to HTML\nwith configured script;
-  else (no)
-  endif
-}
-:Pass all files to jBake;
-|jBake|
-:Render all\nHTML, .adoc and .md\nfiles with HTML;
-|docToolchain|
-stop
-
-@enduml
-
-----
 
 The script's task is to convert the file to a markup format recognised by jBake (AsciiDoc, Markdown, or HTML). 
 Afterwards, jBake will process everything as usual.
