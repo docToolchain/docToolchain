@@ -140,7 +140,26 @@
     }
     </style>
 
-
+    <!-- copy-n-paste.js -->
+    <style>
+        div.listingblock {
+            position: relative;
+        }
+        div.listingblock > span.icon {
+            position: absolute;
+            top: 2px;
+            right: 6px;
+            visibility: hidden;
+            z-index: 2;
+            cursor: pointer;
+        }
+        div.listingblock:hover > span.icon {
+            visibility: visible;
+        }
+        div.listingblock div.content pre {
+            margin: 0;
+        }
+    </style>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -653,6 +672,7 @@ meaning the result is immediately visible to others.</p>
     <script src="../js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
     <script src="../js/blocks.js" ></script>
     <script src="../js/prettify.js"></script>
+    <script src="../js/copy-n-paste.js"></script>
 
 
 </body>

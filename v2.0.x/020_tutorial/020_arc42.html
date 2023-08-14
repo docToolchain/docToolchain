@@ -140,7 +140,26 @@
     }
     </style>
 
-
+    <!-- copy-n-paste.js -->
+    <style>
+        div.listingblock {
+            position: relative;
+        }
+        div.listingblock > span.icon {
+            position: absolute;
+            top: 2px;
+            right: 6px;
+            visibility: hidden;
+            z-index: 2;
+            cursor: pointer;
+        }
+        div.listingblock:hover > span.icon {
+            visibility: visible;
+        }
+        div.listingblock div.content pre {
+            margin: 0;
+        }
+    </style>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -233,6 +252,10 @@
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../020_tutorial/040_generateSite.html">generateSite</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/043_multi-markup.html">generateSite: Multi-Markup</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
@@ -577,6 +600,7 @@ Let&#8217;s render is as HTML, PDF or Microsite in the next steps.</p>
     <script src="../js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
     <script src="../js/blocks.js" ></script>
     <script src="../js/prettify.js"></script>
+    <script src="../js/copy-n-paste.js"></script>
 
 
 </body>
