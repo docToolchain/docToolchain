@@ -49,7 +49,7 @@ Now, download `dtcw` into your project directory and make the script executable 
 [source, bash]
 ----
 cd <your project>
-curl -Lo dtcw doctoolchain.org/dtcw
+curl -Lo dtcw https://doctoolchain.org/dtcw
 chmod +x dtcw
 ----
 
