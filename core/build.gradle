@@ -1,10 +1,18 @@
+plugins {
+    id 'groovy'
+}
+
 apply plugin:'groovy'
 
 repositories {
     mavenCentral()
 }
 
+group = "org.doctoolchain"
+
 dependencies {
+    compileOnly((libs.groovy.all))
     implementation((libs.http.builder))
     implementation((libs.httpmime))
+    implementation((libs.jsoup))
 }

@@ -1,4 +1,4 @@
-package org.doctoolchain.integration.atlassian
+package orc.docToolchain.atlassian
 
 import org.apache.commons.lang.NotImplementedException
 

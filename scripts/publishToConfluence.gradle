@@ -9,11 +9,7 @@ buildscript {
         }
     }
     dependencies {
-        //for the exportJiraIssues Task
-        classpath libs.http.builder
-        //for the renderToConfluence Task
-        classpath libs.httpmime
-        classpath libs.jsoup
+        classpath("org.doctoolchain:core")
     }
 }
 
@@ -28,7 +24,7 @@ task publishToConfluence(
         config.confluence.useV1Api = (findProperty("confluence.useV1Api")?:config.confluence.useV1Api)?:true
         binding.setProperty('config',config)
         binding.setProperty('docDir',docDir)
-        evaluate(new File(projectDir, 'scripts/asciidoc2confluence.groovy'))
+        evaluate(new File(projectDir, 'core/src/main/groovy/asciidoc2confluence.groovy'))
     }
 }
 //end::publishToConfluence[]

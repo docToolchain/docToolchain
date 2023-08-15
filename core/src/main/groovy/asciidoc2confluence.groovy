@@ -41,8 +41,8 @@ import java.nio.file.Path
 import java.security.MessageDigest
 import static groovy.io.FileType.FILES
 
-import org.doctoolchain.integration.atlassian.ConfluenceClientV1
-import org.doctoolchain.integration.atlassian.ConfluenceClientV2
+import orc.docToolchain.atlassian.ConfluenceClientV1
+import orc.docToolchain.atlassian.ConfluenceClientV2
 
 @Field
 def editorVersion = determineEditorVersion()

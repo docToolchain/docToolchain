@@ -1,12 +1,10 @@
-package org.doctoolchain.integration.atlassian
+package orc.docToolchain.atlassian
 
-import groovyx.net.http.RESTClient
-import groovyx.net.http.HttpResponseException
 import groovyx.net.http.EncoderRegistry
-import org.apache.http.entity.mime.MultipartEntityBuilder
-import org.apache.http.entity.mime.HttpMultipartMode
-import org.apache.http.entity.ContentType
+import groovyx.net.http.HttpResponseException
 import groovyx.net.http.Method
+import groovyx.net.http.RESTClient
+import org.apache.http.entity.ContentType
 
 abstract class ConfluenceClient {
 
