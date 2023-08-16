@@ -2,25 +2,35 @@ package docToolchain.export2confluence
 
 import groovy.json.JsonSlurper
 import groovyx.net.http.RESTClient
+import org.docToolchain.atlassian.ConfluenceClient
+import org.docToolchain.atlassian.ConfluenceClientV1
 import spock.lang.Specification
 
 class Export2ConfluenceSpec extends Specification {
 
-    def gradleCommand
+    GroovyShell setupShell() {
+        def config = new ConfigObject()
+        config.confluence = [
+            api : 'https://my.confluence/rest/api/',
+            useV1Api : true,
+        ]
+        return new GroovyShell(new Binding([
+            config: config
+        ]))
+    }
 
     void 'test space output'() {
         setup: 'load asciidoc2confluence'
-        GroovyShell shell = new GroovyShell()
-        def script = shell.parse(new File("./scripts/asciidoc2confluence.groovy"))
 
         def jsonSlurper = new JsonSlurper()
-        def restClient = Stub(RESTClient.class)
-        restClient.get(_) >>
-            [data: jsonSlurper.parse(new File('./src/test/groovy/docToolchain/export2confluence/space.json'))] >>
-            // no more results
-            [data: [results: []]]
+        GroovyShell shell = setupShell()
+        def script = shell.parse(new File("./core/src/main/groovy/asciidoc2confluence.groovy"))
+        script.setProperty("confluenceClient", Stub(constructorArgs: ["mock", "mock"],ConfluenceClient.class){
+            fetchPagesBySpaceKey(_, _, _) >> [data: jsonSlurper.parse(new File('./src/test/groovy/docToolchain/export2confluence/space.json'))] >>
+                // no more results
+                [data: [results: []]] })
         when: 'run retrieveAllPagesBySpace'
-        def result = script.retrieveAllPagesBySpace(restClient, [:], 'spaceKey', 'xxx', 100)
+        def result = script.retrieveAllPagesBySpace('spaceKey', 100)
         then: 'the pages are given'
         result.size() == 10
         result == ['page old 1': [title: 'page old 1', id: '688183', parentId: '47456033'],
@@ -37,21 +47,19 @@ class Export2ConfluenceSpec extends Specification {
 
     void 'test ancestor-id output'() {
         setup: 'load asciidoc2confluence'
-        GroovyShell shell = new GroovyShell()
-        def script = shell.parse(new File("./scripts/asciidoc2confluence.groovy"))
-
+        GroovyShell shell = setupShell()
         def jsonSlurper = new JsonSlurper()
-        def restClient = Stub(RESTClient.class)
-        restClient.get(_) >>
-            [data: jsonSlurper.parse(new File('./src/test/groovy/docToolchain/export2confluence/ancestorId.json'))] >>
-            // no more pages outside the limit
-            [data: [results: []]] >>
-            // first child loop
-            [data: jsonSlurper.parse(new File('./src/test/groovy/docToolchain/export2confluence/ancestorId_child.json'))] >>
-            // all other child loops
-            [data: [results: []]]
+        def script = shell.parse(new File("./core/src/main/groovy/asciidoc2confluence.groovy"))
+        script.setProperty("confluenceClient", Stub(constructorArgs: ["mock", "mock"],ConfluenceClient.class){
+            fetchPagesByAncestorId(_, _, _) >> [data: jsonSlurper.parse(new File('./src/test/groovy/docToolchain/export2confluence/ancestorId.json'))] >>
+                // no more pages outside the limit
+                [data: [results: []]] >>
+                // first child loop
+                [data: jsonSlurper.parse(new File('./src/test/groovy/docToolchain/export2confluence/ancestorId_child.json'))] >>
+                // all other child loops
+                [data: [results: []]] })
         when: 'run retrieveAllPagesByAncestorId'
-        def result = script.retrieveAllPagesByAncestorId(restClient, [:], ['123'], 'xxx', 100)
+        def result = script.retrieveAllPagesByAncestorId(['123'], 100)
         then: 'the pages are given'
         result.size() == 7
         result == ['page 1': [title: 'page 1', id: '183954870', parentId: '123'],

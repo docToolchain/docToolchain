@@ -57,7 +57,8 @@ dependencies {
             //for the renderToConfluence Task
             (libs.httpmime),
             (libs.jsoup),
-            (libs.http.builder)
+            (libs.http.builder),
+            ("org.doctoolchain:core")
     )
     testRuntimeOnly(libs.byte.buddy)
     compileClasspath((libs.http.builder))

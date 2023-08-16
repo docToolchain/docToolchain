@@ -17,12 +17,14 @@ buildscript {
         classpath libs.asciidoctor.pdf
         classpath libs.asciidoctor.gems
         classpath libs.asciidoctor.slides
+        classpath("org.doctoolchain:core")
     }
 }
 
 import org.asciidoctor.gradle.jvm.AbstractAsciidoctorTask
 import org.asciidoctor.gradle.jvm.AsciidoctorTask
 import org.asciidoctor.gradle.jvm.slides.AsciidoctorJRevealJSTask
+import org.docToolchain.configuration.Config
 
 import java.util.regex.Matcher
 
@@ -59,20 +61,19 @@ if (docDir.startsWith('.')) {
 logger.info "docToolchain> docDir: ${docDir}"
 logger.info "docToolchain> mainConfigFile: ${mainConfigFile}"
 logger.info "docToolchain> projectDir: ${projectDir}"
-def configSlurper = new ConfigSlurper()
-def configFile = new File(docDir, mainConfigFile)
-if (configFile.exists()) {
+def configuration = new Config(docDir, mainConfigFile)
+if (configuration.exists()) {
     //ok - nothing to do
 } else {
     println "\n${color 'green', """Config file '${configFile.canonicalPath}' does not exist' """}"
     def input = ant.input(message: "\n${color 'green', 'do you want me to create a default one for you?'}", validargs: 'y,n', addproperty: 'yesno')
     if (ant.yesno=="y") {
-        configFile.write(new File("./template_config/Config.groovy").text)
+        configuration.writeConfigFromTemplate("./template_config/Config.groovy")
     } else {
         throw new Exception("can't continue without a config file")
     }
 }
-config = configSlurper.parse(configFile.text)
+config = configuration.parseConfig()
 pdfThemeDir = config.pdfThemeDir?config.pdfThemeDir:''
 if (pdfThemeDir.startsWith('.')) {
     pdfThemeDir = new File(docDir, pdfThemeDir).canonicalPath

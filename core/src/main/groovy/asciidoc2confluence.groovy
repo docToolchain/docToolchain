@@ -41,8 +41,8 @@ import java.nio.file.Path
 import java.security.MessageDigest
 import static groovy.io.FileType.FILES
 
-import orc.docToolchain.atlassian.ConfluenceClientV1
-import orc.docToolchain.atlassian.ConfluenceClientV2
+import org.docToolchain.atlassian.ConfluenceClientV1
+import org.docToolchain.atlassian.ConfluenceClientV2
 
 @Field
 def editorVersion = determineEditorVersion()
@@ -177,7 +177,7 @@ def retrieveAllPagesByAncestorId(List<String> pageIds, int pageLimit) {
     boolean morePages = true
     while (morePages) {
         def results = confluenceClient.fetchPagesByAncestorId(pageId, start, pageLimit)
-        results = results.results ?: []
+        results = results.data.results ?: []
 
         results.inject(allPages) { Map acc, Map match ->
             //unique page names in confluence, so we can get away with indexing by title
