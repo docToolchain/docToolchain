@@ -1,9 +1,7 @@
 package docToolchain.export2confluence
 
 import groovy.json.JsonSlurper
-import groovyx.net.http.RESTClient
 import org.docToolchain.atlassian.ConfluenceClient
-import org.docToolchain.atlassian.ConfluenceClientV1
 import spock.lang.Specification
 
 class Export2ConfluenceSpec extends Specification {
