@@ -18,11 +18,11 @@ class Export2ConfluenceSpec extends Specification {
     }
 
     void 'test space output'() {
-        setup: 'load asciidoc2confluence'
+        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
 
         def jsonSlurper = new JsonSlurper()
         GroovyShell shell = setupShell()
-        def script = shell.parse(new File("./core/src/main/groovy/asciidoc2confluence.groovy"))
+        def script = shell.parse(new File("./core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy"))
         script.setProperty("confluenceClient", Stub(constructorArgs: ["mock", "mock"],ConfluenceClient.class){
             fetchPagesBySpaceKey(_, _, _) >> [data: jsonSlurper.parse(new File('./src/test/groovy/docToolchain/export2confluence/space.json'))] >>
                 // no more results
@@ -44,10 +44,10 @@ class Export2ConfluenceSpec extends Specification {
     }
 
     void 'test ancestor-id output'() {
-        setup: 'load asciidoc2confluence'
+        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
         GroovyShell shell = setupShell()
         def jsonSlurper = new JsonSlurper()
-        def script = shell.parse(new File("./core/src/main/groovy/asciidoc2confluence.groovy"))
+        def script = shell.parse(new File("./core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy"))
         script.setProperty("confluenceClient", Stub(constructorArgs: ["mock", "mock"],ConfluenceClient.class){
             fetchPagesByAncestorId(_, _, _) >> [data: jsonSlurper.parse(new File('./src/test/groovy/docToolchain/export2confluence/ancestorId.json'))] >>
                 // no more pages outside the limit

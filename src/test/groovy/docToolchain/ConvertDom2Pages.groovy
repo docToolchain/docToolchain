@@ -25,9 +25,9 @@ class ConvertDom2Pages extends Specification {
 
     @Unroll
     void 'test layers with preamble'() {
-        setup: 'load asciidoc2confluence'
+        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
         GroovyShell shell = setupShell()
-        def script = shell.parse(new File("./core/src/main/groovy/asciidoc2confluence.groovy"))
+        def script = shell.parse(new File("./core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy"))
 
         when: 'convert to HTML'
         def result = GradleRunner.create()
@@ -144,9 +144,9 @@ class ConvertDom2Pages extends Specification {
 
     @Unroll
     void 'test layers without preamble'() {
-        setup: 'load asciidoc2confluence'
+        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
         GroovyShell shell = setupShell()
-        def script = shell.parse(new File("./core/src/main/groovy/asciidoc2confluence.groovy"))
+        def script = shell.parse(new File("./core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy"))
 
         when: 'convert to HTML'
         def result = GradleRunner.create()

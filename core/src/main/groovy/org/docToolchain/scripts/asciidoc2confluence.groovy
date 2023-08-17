@@ -1,3 +1,4 @@
+package org.docToolchain.scripts
 /**
  * Created by Ralf D. Mueller and Alexander Heusingfeld
  * https://github.com/rdmueller/asciidoc2confluence

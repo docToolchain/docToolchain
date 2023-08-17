@@ -4,7 +4,7 @@ import org.apache.commons.lang.NotImplementedException
 
 class ConfluenceClientV2 extends ConfluenceClient {
 
-    ConfluenceClientV2(String baseApiUrl, String editorVersion) {
+    ConfluenceClientV2(Object baseApiUrl, Object editorVersion) {
         super(baseApiUrl, editorVersion)
         throw new NotImplementedException("ConfluenceClientV2 is not implemented yet")
     }

@@ -36,7 +36,7 @@ abstract class ConfluenceClient {
 
     abstract createAttachment(String pageId, InputStream inputStream, String fileName, String note, String localHash)
 
-    def uploadAttachment(uri, InputStream inputStream, String fileName, note, localHash) {
+    protected uploadAttachment(uri, InputStream inputStream, String fileName, note, localHash) {
         restClient.request(uri, Method.POST, ContentType.MULTIPART_FORM_DATA){ req ->
             def multiPartContent = MultipartEntityBuilder.create()
             .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
@@ -62,7 +62,7 @@ abstract class ConfluenceClient {
 
     protected abstract doCreatePageRequest(Map requestBody)
 
-    def getDefaultModifyPageRequestBody(String title, String confluenceSpaceKey, Object localPage, String parentId) {
+    protected getDefaultModifyPageRequestBody(String title, String confluenceSpaceKey, Object localPage, String parentId) {
         def requestBody = [
                 type : 'page',
                 title: title,

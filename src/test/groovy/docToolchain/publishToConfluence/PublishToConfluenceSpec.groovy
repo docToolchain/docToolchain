@@ -20,9 +20,9 @@ class PublishToConfluenceSpec extends Specification {
     }
 
     void 'test default language'() {
-        setup: 'load asciidoc2confluence'
+        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
         GroovyShell shell = setupShell()
-        def script = shell.parse(new File('./core/src/main/groovy/asciidoc2confluence.groovy'))
+        def script = shell.parse(new File('./core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy'))
         when: 'run rewriteCodeblocks'
         Document dom = Jsoup.parse('<pre><code>none</code></pre>', 'utf-8', Parser.xmlParser())
         script.rewriteCodeblocks dom.getAllElements(), '<cdata-placeholder>', '</cdata-placeholder>'
@@ -33,9 +33,9 @@ class PublishToConfluenceSpec extends Specification {
 
     @Unroll
     void 'test converted language'() {
-        setup: 'load asciidoc2confluence'
+        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
         GroovyShell shell = setupShell()
-        def script = shell.parse(new File('./core/src/main/groovy/asciidoc2confluence.groovy'))
+        def script = shell.parse(new File('./core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy'))
 
         when: 'run rewriteCodeblocks'
         Document dom = Jsoup.parse("<pre><code data-lang=\"${input}\">language</code></pre>", 'utf-8', Parser.xmlParser())
@@ -52,9 +52,9 @@ class PublishToConfluenceSpec extends Specification {
     }
 
     void 'test body is parsed properly'() {
-        setup: 'load asciidoc2confluence'
+        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
             GroovyShell shell = setupShell()
-            def script = shell.parse(new File('./core/src/main/groovy/asciidoc2confluence.groovy'))
+            def script = shell.parse(new File('./core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy'))
             script.setProperty("baseUrl", "./src/test/build/exportConfluenceSpec")
             script.setProperty("config", Map.of("imageDirs", ["Foo/"], "confluence", []))
             script.setProperty("deferredUpload", [])
@@ -69,9 +69,9 @@ class PublishToConfluenceSpec extends Specification {
     }
 
     void 'test ToC generation works as expected'() {
-        setup: 'load asciidoc2confluence'
+        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
             GroovyShell shell = setupShell()
-            def script = shell.parse(new File('./core/src/main/groovy/asciidoc2confluence.groovy'))
+            def script = shell.parse(new File('./core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy'))
             script.setProperty("baseUrl", "/Users/Foo/bar")
             script.setProperty("config", Map.of("imageDirs", ["Foo/"], "confluence", Map.of("disableToC", true)))
             script.setProperty("deferredUpload", [])
@@ -119,9 +119,9 @@ class PublishToConfluenceSpec extends Specification {
     }
 
     void 'test handling of embedded images'() {
-        setup: 'load asciidoc2confluence'
+        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
             GroovyShell shell = setupShell()
-            def script = shell.parse(new File('./core/src/main/groovy/asciidoc2confluence.groovy'))
+            def script = shell.parse(new File('./core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy'))
             script.setProperty("baseUrl", "/Users/Foo/bar")
             script.setProperty("config", Map.of("imageDirs", ["Foo/"]))
             script.setProperty("deferredUpload", [])
@@ -150,9 +150,9 @@ class PublishToConfluenceSpec extends Specification {
     }
 
     void 'test the correct editor is used'() {
-        setup: 'load asciidoc2confluence'
+        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
         GroovyShell shell = setupShell()
-        def script = shell.parse(new File('./core/src/main/groovy/asciidoc2confluence.groovy'))
+        def script = shell.parse(new File('./core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy'))
         when: 'explicitly not enforce the new editor'
         script.setProperty("config", Map.of("imageDirs", ["Foo/"], "confluence", Map.of(
             "enforceNewEditor", false

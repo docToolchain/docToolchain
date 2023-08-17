@@ -24,7 +24,7 @@ task publishToConfluence(
         config.confluence.useV1Api = (findProperty("confluence.useV1Api")?:config.confluence.useV1Api)?:true
         binding.setProperty('config',config)
         binding.setProperty('docDir',docDir)
-        evaluate(new File(projectDir, 'core/src/main/groovy/asciidoc2confluence.groovy'))
+        evaluate(new File(projectDir, 'core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy'))
     }
 }
 //end::publishToConfluence[]

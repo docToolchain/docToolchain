@@ -272,8 +272,8 @@ The following style definitions are Confluence-compatible, and will enable the u
 include::{projectRootDir}/scripts/publishToConfluence.gradle[tags=publishToConfluence]
 ----
 
-.scripts/asciidoc2confluence.groovy
+.scripts/org/docToolchain/scripts/asciidoc2confluence.groovy
 [source,groovy]
 ----
-include::{projectRootDir}/scripts/asciidoc2confluence.groovy[]
+include::{projectRootDir}/core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy[]
 ----
