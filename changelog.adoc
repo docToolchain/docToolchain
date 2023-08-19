@@ -16,6 +16,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/issues/1221[#1221: generateSite: beforeToc functionality broken]
 * https://github.com/docToolchain/docToolchain/issues/1218[#1218: plantuml encoding issues]
 * fixed curl command in manual
+* https://github.com/docToolchain/docToolchain/issues/402[#402: publishToConfluence: Error rendering macro 'code']
 
 === added
 

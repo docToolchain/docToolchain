@@ -773,6 +773,9 @@ def parseBody(body, anchors, pageAnchors) {
             .replaceAll('<a([^>]*)></a>','')
             .replaceAll(CDATA_PLACEHOLDER_START,'<![CDATA[')
             .replaceAll(CDATA_PLACEHOLDER_END,']]>')
+            // workaround for #402
+            .replaceAll('(?m)(ac:name="language">)([\n\r\t ]*)([a-z]+)([\n\r\t ]*)(</ac)','$1$3$5')
+
 
     return Map.of(
         "page", pageString,
