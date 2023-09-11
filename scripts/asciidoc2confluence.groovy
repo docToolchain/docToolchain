@@ -969,6 +969,7 @@ def pushPages
 pushPages = { pages, anchors, pageAnchors, labels ->
     def editorVersion = determineEditorVersion()
     pages.each { page ->
+        page.title = page.title.trim()
         println page.title
         def id = pushToConfluence page.title, page.body, page.parent, anchors, pageAnchors, labels, editorVersion
         page.children*.parent = id
@@ -1119,6 +1120,7 @@ if(config.confluence.inputHtmlFolder) {
 config.confluence.input.each { input ->
     if(input.file) {
         input.file = "${docDir}/${input.file}"
+        input.file = input.file.trim()
 
         println "publish ${input.file}"
 
