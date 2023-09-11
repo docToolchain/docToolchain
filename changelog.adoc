@@ -9,6 +9,14 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+=== added
+
+=== changed
+
+== 3.0.1 - 2023-09-11
+
+=== fixes
+
 * https://github.com/docToolchain/docToolchain/issues/1209[#1209: generateSite: Problem with meta data parsing]
 * https://github.com/docToolchain/docToolchain/pull/1217[#1217, #1214, #1216: dtcw.ps1 fix handling of java version] 
 * https://github.com/docToolchain/docToolchain/issues/1215[#1215: dtcw.ps1 says dtc not installed after exceuting an install]
@@ -17,13 +25,73 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/issues/1218[#1218: plantuml encoding issues]
 * fixed curl command in manual
 * https://github.com/docToolchain/docToolchain/issues/402[#402: publishToConfluence: Error rendering macro 'code']
+* https://github.com/docToolchain/docToolchain/issues/1200[#1200: JCenter kills doctoolchain, as Grolifant is not available on Maven Central]
+* https://github.com/docToolchain/docToolchain/issues/1198[#1198: gravatar eleminates leading 0 from md5 hash]
+* https://github.com/docToolchain/docToolchain/issues/1193[#1193: exportEA fails since v2.0.5 with an exception]
+* https://github.com/docToolchain/docToolchain/issues/395[#395 asciidoctor-diagram: ERROR: Failed to generate image: PlantUML image generation failed]
+* https://github.com/docToolchain/docToolchain/issues/455[#455 Force execution to stop with failure on missing image reference]
+* https://github.com/docToolchain/docToolchain/issues/621[#621: dtcw - sdkman installation check returns wrong result]
+* https://github.com/docToolchain/docToolchain/issues/829[#829: Multiple run of dtcw with docker is failing because of a container name conflict]
+* https://github.com/docToolchain/docToolchain/issues/831[#831: fix for generateSite: images-hrefs not correct]
+* https://github.com/docToolchain/docToolchain/issues/973[#973: `dtcw getJava` doesn't work without `local`]
+* https://github.com/docToolchain/docToolchain/issues/1109[#1109: docToolchain release notes contain releases twice]
+* https://github.com/docToolchain/docToolchain/issues/1031[#1031: dtcw ignores installed Java RE when docker is installed - your java version 17 is too new]
+* https://github.com/docToolchain/docToolchain/issues/1163[#1163: upload to confluence breaks with embedded images]
+* https://github.com/docToolchain/docToolchain/issues/1161[#1161: publishToConfluence looses the id when generating level 2 page anchors]
 
-=== added
+* various fixes in `dtcw`, `dtcw.ps1`:
+** pick the right environment if none provided by the user
+** support of JAVA_HOME which was silently ignored.
+* https://github.com/docToolchain/docToolchain/issues/220[#220 convertToDocx and convertToEpub not working]
+* Workaround for Confluence new Editor rollout
+** https://github.com/docToolchain/docToolchain/issues/1184[#1184: PublishToConfluence new editor issues and page size]
+** https://github.com/docToolchain/docToolchain/issues/880[#880: publishToConfluence FAILED: Content body cannot be converted to new editor format]
+* https://github.com/docToolchain/docToolchain/issues/1053[#1053: publishToConfluence: hash is displayed at end of some pages]
 
-* added tutorial on how to use multiple markup languages with docToolchain
-* https://github.com/docToolchain/docToolchain/issues/1230[#1230 generateSite: copy to clipboard]
+* configure if build should fail on missing images
+** introduces configuration property `failOnMissingImages`
+
+* introduce `generateContent` task - AI for docToolchain
+* added req42 framework to downloadTemplate task
+* added 'FR' as language for arc42
+* https://antora.org[Antora] support (beta), setup a docToolchain project and integrate it as module seamlessly into your existing Antora playbook. See `downloadTemplate` task for more details.
+
+* added short tutorial about changing the theme of a microsite
 
 === changed
+
+* add support for Java 17, drop support for Java 8
+* upgrade Gradle to 8.1.1
+* upgrade dependencies
+** 'com.athaydes:spock-reports:2.3.2-groovy-3.0'
+** 'com.github.ben-manes.versions:0.46.0'
+** 'com.structurizr:structurizr-dsl:1.30.1'
+** 'com.structurizr:structurizr-export:1.14.0'
+** 'com.structurizr:structurizr-graphviz:2.0.0'
+** 'de.undercouch.download:5.4.0'
+** 'io.pebbletemplates:pebble:3.2.0'
+** 'net.bytebuddy:byte-buddy:1.14.4'
+** 'org.asciidoctor:asciidoctor-gradle-jvm:4.0.0-alpha.1' (remove obsolete cloning of `reveal.js`)
+** 'org.asciidoctor:asciidoctorj-diagram:2.2.7'
+** 'org.apache.httpcomponents:httpmime:4.5.14'
+** 'org.apache.poi:poi-ooxml:5.2.3'
+** 'org.codehaus.groovy:groovy-xml:3.0.13'
+** 'org.jsoup:jsoup:1.16.1'
+** 'org.junit.jupiter:junit-jupiter-api:5.9.3'
+** 'org.openapitools:openapi-generator-gradle-plugin:6.6.0'
+** 'org.openapi.generator:6.6.0'
+** 'org.spockframework:spock-core:2.3-groovy-3.0'
+* `dtcw` and `dtcw.ps1`:
+** improve output with hints to guide the user
+** add `--version` option
+** deprecate `getJava` with `install java`
+** add environment variable `DTC_CONFIG_FILE` to specify a configuration file other than than `docToolchainConfig.groovy` in the project root folder
+* `collectIncludes`
+** changed regexp to start with `^[A-Za-z]` as file name to allow lowercase filenames as well.
+** certain directories are excluded from traversal. Define `excludeDirectories` in order to skip additional directories.
+* doc: replace old URL `doctoolchain.github.io` occurrences with the new `doctoolchain.org`
+* `publishToConfluence`
+** support embedded images
 
 == 3.0.0-rc1 - 2023-07-13
 
