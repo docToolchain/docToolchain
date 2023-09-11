@@ -234,12 +234,59 @@
                     <li class="collapse show" id="docs">
                         <ul class="td-sidebar-nav__section pr-md-3">
                 <div id="toc" class="toc">
-<div id="toctitle">Table of Contents</div>
+<div id="toctitle">toc-title</div>
 <ul class="sectlevel2">
-<li><a href="#_install_doctoolchain">1. Install docToolchain</a></li>
+<li><a href="#_install_doctoolchain">1. Install docToolchain</a>
+<ul class="sectlevel3">
+<li><a href="#_installation_overview">1.1. Installation Overview</a></li>
+<li><a href="#_install_dtcw_in_your_project_directory">1.2. Install <code>dtcw</code> in your project directory</a></li>
+<li><a href="#run-dtc-in-container">1.3. Run docToolchain in a container</a></li>
+<li><a href="#install-dtc-with-dtcw">1.4. Install docToolchain with <code>dtcw</code></a></li>
+<li><a href="#install-dtc-with-sdk">1.5. Install docToolchain with SDKMAN!</a></li>
+<li><a href="#first-command">1.6. Run your First Command</a></li>
+<li><a href="#_configure_doctoolchain_to_use_existing_documents">1.7. Configure docToolchain to Use Existing Documents</a></li>
+<li><a href="#_create_a_new_documentation_project_from_scratch_with_arc42">1.8. Create a New Documentation Project from Scratch with Arc42</a></li>
+<li><a href="#_generate_html_and_pdf">1.9. Generate HTML and PDF</a></li>
+<li><a href="#_upgrading_to_a_new_doctoolchain_release">1.10. Upgrading to a New docToolchain Release</a></li>
+</ul>
+</li>
 <li><a href="#_using_doctoolchain_to_build_docs">2. Using docToolchain to Build Docs</a></li>
-<li><a href="#_autobuildsite">3. autobuildSite</a></li>
-<li><a href="#_about_this_task_22">4. About This Task</a></li>
+<li><a href="#_autobuildsite">3. autobuildSite</a>
+<ul class="sectlevel3">
+<li><a href="#_about_this_task">3.1. About This Task</a></li>
+<li><a href="#_source">3.2. Source</a></li>
+<li><a href="#_generatehtml">3.3. generateHTML</a></li>
+<li><a href="#_fixencoding">3.4. fixEncoding</a></li>
+<li><a href="#_prependfilename">3.5. prependFilename</a></li>
+<li><a href="#_collectincludes">3.6. collectIncludes</a></li>
+<li><a href="#_generatepdf">3.7. generatePDF</a></li>
+<li><a href="#task_generatesite">3.8. generateSite</a></li>
+<li><a href="#_generatedocbook">3.9. generateDocbook</a></li>
+<li><a href="#_generatedeck">3.10. generateDeck</a></li>
+<li><a href="#_publishtoconfluence">3.11. publishToConfluence</a></li>
+<li><a href="#_converttodocx">3.12. convertToDocx</a></li>
+<li><a href="#_createreferencedoc">3.13. createReferenceDoc</a></li>
+<li><a href="#_converttoepub">3.14. convertToEpub</a></li>
+<li><a href="#_exportea">3.15. exportEA</a></li>
+<li><a href="#_exportvisio">3.16. exportVisio</a></li>
+<li><a href="#_exportdrawio">3.17. exportDrawIo</a></li>
+<li><a href="#_exportchangelog">3.18. exportChangeLog</a></li>
+<li><a href="#_exportcontributors">3.19. exportContributors</a></li>
+<li><a href="#_exportjiraissues">3.20. exportJiraIssues</a></li>
+<li><a href="#_exportjirasprintchangelogissues">3.21. exportJiraSprintChangelogIssues</a></li>
+<li><a href="#_exportppt">3.22. exportPPT</a></li>
+<li><a href="#_exportexcel">3.23. exportExcel</a></li>
+</ul>
+</li>
+<li><a href="#_about_this_task_22">4. About This Task</a>
+<ul class="sectlevel3">
+<li><a href="#_source_21">4.1. Source</a></li>
+<li><a href="#_exportopenapi">4.2. exportOpenAPI</a></li>
+<li><a href="#_exportstructurizr">4.3. exportStructurizr</a></li>
+<li><a href="#_htmlsanitycheck">4.4. htmlSanityCheck</a></li>
+<li><a href="#_dependencyupdates">4.5. dependencyUpdates</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -4258,6 +4305,9 @@ def parseBody(body, anchors, pageAnchors) {
             .replaceAll('&lt;a([^&gt;]*)&gt;&lt;/a&gt;','')
             .replaceAll(CDATA_PLACEHOLDER_START,'&lt;![CDATA[')
             .replaceAll(CDATA_PLACEHOLDER_END,']]&gt;')
+            // workaround for #402
+            .replaceAll('(?m)(ac:name="language"&gt;)([\n\r\t ]*)([a-z]+)([\n\r\t ]*)(&lt;/ac)','$1$3$5')
+
 
     return Map.of(
         "page", pageString,
