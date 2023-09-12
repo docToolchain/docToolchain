@@ -18,8 +18,9 @@ We just had to create Bugfix-Release v3.0.2
 
 The v3.0.1 Release created a non-working default config. This release fixes this blocker.
 
-== Notes
+IMPORTANT: please also check the xref:3.0.1-release.adoc[release notes for v3.0.1]
 
+== Notes
 
 == 3.0.2 - 2023-09-12
 
@@ -28,6 +29,7 @@ The v3.0.1 Release created a non-working default config. This release fixes this
 
 * https://github.com/docToolchain/docToolchain/pull/1246[#1246: publishToConfluence: Fix comparision error for titles with leading/trailing white spaces]
 * https://github.com/docToolchain/docToolchain/issues/1248[#1248: broken default config]
+
 
 === changed
 
