@@ -6,8 +6,8 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Tue, 12 Sep 2023 16:39:17 +0000</pubDate>
-    <lastBuildDate>Tue, 12 Sep 2023 16:39:17 +0000</lastBuildDate>
+    <pubDate>Tue, 12 Sep 2023 17:05:39 +0000</pubDate>
+    <lastBuildDate>Tue, 12 Sep 2023 17:05:39 +0000</lastBuildDate>
 
     
     <item>
@@ -45,6 +45,18 @@
 &lt;h3 id=&quot;_about_this_release&quot;&gt;About This Release&lt;/h3&gt;
 &lt;div class=&quot;paragraph&quot;&gt;
 &lt;p&gt;The v3.0.1 Release created a non-working default config. This release fixes this blocker.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock important&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-important&quot; title=&quot;Important&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+please also check the &lt;a href=&quot;3.0.1-release.html&quot;&gt;release notes for v3.0.1&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
 &lt;/div&gt;
 &lt;/div&gt;
 &lt;/div&gt;
