@@ -9,12 +9,16 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
-* https://github.com/docToolchain/docToolchain/pull/1246[#1246: publishToConfluence: Fix comparision error for titles with leading/trailing white spaces]
-* https://github.com/docToolchain/docToolchain/issues/1248[#1248: broken default config]
-
 === added
 
 === changed
+
+== 3.0.2 - 2023-09-12
+
+=== fixes
+
+* https://github.com/docToolchain/docToolchain/pull/1246[#1246: publishToConfluence: Fix comparision error for titles with leading/trailing white spaces]
+* https://github.com/docToolchain/docToolchain/issues/1248[#1248: broken default config]
 
 == 3.0.1 - 2023-09-11
 
