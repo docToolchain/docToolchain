@@ -49,7 +49,7 @@ task downloadTemplate(
             }
             ant.input(message: "${color 'green', 'Which language do you want to install?'}", validargs: languages[template].join(','), addproperty: 'lang')
             ant.input(message: "${color 'green', 'Do you want the template with or without help?'}", validargs: 'withhelp,plain', addproperty: 'help')
-            ant.input(message: "${color 'green', 'Do you want the template to be setup for Antora?'}", validargs: 'y,n', addproperty: 'antora')
+            ant.input(message: "${color 'green', 'Do you want the template to be setup for Antora? (experimental)'}", validargs: 'n,y', addproperty: 'antora')
             lang = ant.lang
             help = ant.help
             antora = ant.antora.toBoolean()
