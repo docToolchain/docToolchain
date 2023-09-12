@@ -128,7 +128,7 @@ microsite.with {
     // set a title to '-' in order to remove this menu entry.
     menu = [:]
 
-tag::additionalConverters[]
+//tag::additionalConverters[]
 /**
 
 if you need support for additional markup converters, you can configure them here
@@ -149,7 +149,7 @@ Needs `python3` and `docutils` installed.
         //'.two': [command: 'scripts/convert-md.groovy', type: 'groovyFile'],
         //'.rst': [command: 'dtcw:rstToHtml.py', type: 'bash'],
     ]
-end::additionalConverters[]
+//end::additionalConverters[]
 
     // if you prefer another convention regarding the automatic generation
     // of jBake headers, you can configure a script to modify them here
