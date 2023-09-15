@@ -15,7 +15,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
 
     def fetchSpaceIdByKey(String spaceKey) {
             return restClient.get(
-                path   : "spaces",
+                path   : API_V2_PATH + "spaces",
                 headers: headers,
                 query  : [
                     'keys' : [spaceKey],
@@ -29,14 +29,14 @@ class ConfluenceClientV2 extends ConfluenceClient {
     def addLabel(Object pageId, Object label) {
         trythis {
             restClient.post(contentType: ContentType.JSON,
-                path: 'content/' + pageId + "/label", body: label, headers: headers)
+                path: API_V1_PATH + 'content/' + pageId + "/label", body: label, headers: headers)
         }
     }
 
     @Override
     def getAttachment(Object pageId, Object filename) {
         restClient.get(
-            path: 'pages/' + pageId + '/attachment',
+            path: API_V2_PATH + 'pages/' + pageId + '/attachment',
             query: [
                 'filename': fileName,
             ], headers: headers)
@@ -44,7 +44,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
 
     @Override
     def updateAttachment(String pageId, String attachmentId, InputStream inputStream, String fileName, String note, String localHash) {
-        def uri = 'content/' + pageId + '/child/attachment/' + attachmentId + '/data'
+        def uri = API_V1_PATH + 'content/' + pageId + '/child/attachment/' + attachmentId + '/data'
         uploadAttachment(uri, inputStream, fileName, note, localHash)
     }
 
@@ -66,7 +66,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
         trythis {
             restClient.get(
                 'headers': headers,
-                'path'   : "spaces/${spaceId}/pages",
+                'path'   : API_V2_PATH + "spaces/${spaceId}/pages",
                 'query'  : query
             )
         } ?: []
@@ -92,7 +92,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
     @Override
     def fetchPageByPageId(String id) {
         restClient.get(
-            path   : "pages/${id}",
+            path   : API_V2_PATH + "pages/${id}",
             headers: headers
         )
     }
@@ -106,7 +106,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
         restClient.get(
             [
                 'headers': headers,
-                'path'   : "spaces/${spaceId}/pages",
+                'path'   : API_V2_PATH + "spaces/${spaceId}/pages",
                 'query'  : request,
             ]
         ).data.results?.getAt(0)?.id
@@ -134,7 +134,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
         trythis {
             restClient.put(contentType: ContentType.JSON,
                 requestContentType : ContentType.JSON,
-                path: 'pages/' + pageId, body: requestBody, headers: headers)
+                path: API_V2_PATH + 'pages/' + pageId, body: requestBody, headers: headers)
         }
     }
 
@@ -159,7 +159,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
         trythis {
             restClient.post(contentType: ContentType.JSON,
                 requestContentType: ContentType.JSON,
-                path: 'pages', body: requestBody, headers: headers)
+                path: API_V2_PATH + 'pages', body: requestBody, headers: headers)
         }
     }
 }

@@ -13,14 +13,14 @@ class ConfluenceClientV1 extends ConfluenceClient {
     def addLabel(pageId, label) {
         trythis {
             restClient.post(contentType: ContentType.JSON,
-                path: 'content/' + pageId + "/label", body: label, headers: headers)
+                path: API_V1_PATH + 'content/' + pageId + "/label", body: label, headers: headers)
         }
     }
 
     @Override
     def getAttachment(Object pageId, Object fileName) {
         restClient.get(
-            path: 'content/' + pageId + '/child/attachment',
+            path: API_V1_PATH + 'content/' + pageId + '/child/attachment',
             query: [
                 'filename': fileName,
             ], headers: headers)
@@ -28,7 +28,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
 
     @Override
     def updateAttachment(String pageId, String attachmentId, InputStream inputStream, String fileName, String note, String localHash) {
-        def uri = 'content/' + pageId + '/child/attachment/' + attachmentId + '/data'
+        def uri = API_V1_PATH + 'content/' + pageId + '/child/attachment/' + attachmentId + '/data'
         uploadAttachment(uri, inputStream, fileName, note, localHash)
     }
 
@@ -50,7 +50,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
         trythis {
             restClient.get(
                     'headers': headers,
-                    'path'   : "content",
+                    'path'   : API_V1_PATH + "content",
                     'query'  : query
             )
         } ?: []
@@ -66,7 +66,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
         trythis {
             restClient.get(
                     'headers': headers,
-                    'path'   : "content/${pageId}/child/page",
+                    'path'   : API_V1_PATH + "content/${pageId}/child/page",
                     'query'  : query
             )
         } ?: []
@@ -75,7 +75,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
     @Override
     def fetchPageByPageId(String id) {
         restClient.get(
-                path   : "content/${id}",
+                path   : API_V1_PATH + "content/${id}",
                 query: [
                         'expand': 'body.storage,version,ancestors'
                 ], headers: headers)
@@ -90,7 +90,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
         restClient.get(
                 [
                         'headers': headers,
-                        'path'   : "content",
+                        'path'   : API_V1_PATH + "content",
                         'query'  : request,
                 ]
         ).data.results?.getAt(0)?.id
@@ -104,7 +104,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
         trythis {
             restClient.put(contentType: ContentType.JSON,
                 requestContentType : ContentType.JSON,
-                path: 'content/' + pageId, body: requestBody, headers: headers)
+                path: API_V1_PATH + 'content/' + pageId, body: requestBody, headers: headers)
         }
     }
 
@@ -115,7 +115,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
         trythis {
             restClient.post(contentType: ContentType.JSON,
                 requestContentType: ContentType.JSON,
-                path: 'content', body: requestBody, headers: headers)
+                path: API_V1_PATH + 'content', body: requestBody, headers: headers)
         }
     }
 

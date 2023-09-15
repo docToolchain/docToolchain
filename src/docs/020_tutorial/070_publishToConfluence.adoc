@@ -269,7 +269,6 @@ input = [
 ----
 . Set up the API endpoint.
 .. Get your Atlassian Confluence URL, such as https://arc42-template.atlassian.net.
-.. Put your context, plus /rest/api behind it. See the sample below.
 +
 .Endpoint Syntax
 [source, groovy]
