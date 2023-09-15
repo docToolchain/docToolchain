@@ -1,11 +1,12 @@
 package org.docToolchain.atlassian
 
 import groovyx.net.http.ContentType
+import org.docToolchain.configuration.ConfigService
 
 class ConfluenceClientV1 extends ConfluenceClient {
 
-    ConfluenceClientV1(Object baseApiUrl, Object editorVersion) {
-        super(baseApiUrl, editorVersion)
+    ConfluenceClientV1(ConfigService configService) {
+        super(configService)
     }
 
     @Override
@@ -84,7 +85,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
     protected fetchPageIdByName(String name, String spaceKey) {
         def request = [
                 'title'    : name,
-                'spaceKey' : confluenceSpaceKey
+                'spaceKey' : spaceKey
         ]
         restClient.get(
                 [
@@ -96,16 +97,60 @@ class ConfluenceClientV1 extends ConfluenceClient {
     }
 
     @Override
-    protected doUpdatePageRequest(String pageId, Map requestBody) {
-        restClient.put(contentType: ContentType.JSON,
+    def updatePage(String pageId, String title, String confluenceSpaceKey, Object localPage, Integer pageVersion, String pageVersionComment, String parentId = null){
+        def requestBody = getDefaultModifyPageRequestBody(title, confluenceSpaceKey, localPage, parentId)
+        requestBody.id      = pageId
+        requestBody.version = [number: pageVersion, message: pageVersionComment ?: '']
+        trythis {
+            restClient.put(contentType: ContentType.JSON,
                 requestContentType : ContentType.JSON,
                 path: 'content/' + pageId, body: requestBody, headers: headers)
+        }
     }
 
     @Override
-    protected doCreatePageRequest(Map requestBody) {
-        restClient.post(contentType: ContentType.JSON,
+    def createPage(String title, String confluenceSpaceKey, Object localPage, String pageVersionComment, String parentId = null){
+        def requestBody = getDefaultModifyPageRequestBody(title, confluenceSpaceKey, localPage, parentId)
+        requestBody.version = [message: pageVersionComment ?: '']
+        trythis {
+            restClient.post(contentType: ContentType.JSON,
                 requestContentType: ContentType.JSON,
                 path: 'content', body: requestBody, headers: headers)
+        }
+    }
+
+    protected getDefaultModifyPageRequestBody(String title, String confluenceSpaceKey, Object localPage, String parentId) {
+        def requestBody = [
+            type : 'page',
+            title: title,
+            metadata: [
+                properties: [
+                    editor: [
+                        value: editorVersion
+                    ],
+                    "content-appearance-draft": [
+                        value: "full-width"
+                    ],
+                    "content-appearance-published": [
+                        value: "full-width"
+                    ]
+                ]
+            ],
+            space: [
+                key: confluenceSpaceKey
+            ],
+            body : [
+                storage: [
+                    value         : localPage,
+                    representation: 'storage'
+                ]
+            ]
+        ]
+        if (parentId) {
+            requestBody.ancestors = [
+                [ type: 'page', id: parentId]
+            ]
+        }
+        requestBody
     }
 }

@@ -1,4 +1,7 @@
 package org.docToolchain.scripts
+
+import org.docToolchain.configuration.ConfigService
+
 /**
  * Created by Ralf D. Mueller and Alexander Heusingfeld
  * https://github.com/rdmueller/asciidoc2confluence
@@ -44,14 +47,19 @@ import static groovy.io.FileType.FILES
 
 import org.docToolchain.atlassian.ConfluenceClientV1
 import org.docToolchain.atlassian.ConfluenceClientV2
+import org.docToolchain.configuration.ConfigService
+import org.docToolchain.atlassian.ConfluenceService
 
 @Field
-def editorVersion = determineEditorVersion()
+ConfigService configService = new ConfigService(config)
 
 @Field
-def confluenceClient = config.confluence.useV1Api ?
-        new ConfluenceClientV1(config.confluence.api, editorVersion) :
-        new ConfluenceClientV2(config.confluence.api, editorVersion)
+ConfluenceService confluenceService = new ConfluenceService(configService)
+
+@Field
+def confluenceClient = configService.getConfigProperty("confluence.useV1Api") ?
+        new ConfluenceClientV1(configService) :
+        new ConfluenceClientV2(configService)
 
 @Field
 def CDATA_PLACEHOLDER_START = '<cdata-placeholder>'
@@ -72,21 +80,6 @@ def confluenceSubpagesForSections
 def confluencePagePrefix
 //def baseApiPath = new URI(config.confluence.api).path
 // helper functions
-
-if (config.confluence.proxy) {
-    confluenceClient.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
-}
-
-if(config.confluence.bearerToken){
-    confluenceClient.addHeader('Authorization', 'Bearer ' + config.confluence.bearerToken)
-    println 'Start using bearer auth'
-} else {
-    confluenceClient.addHeader('Authorization', 'Basic ' + config.confluence.credentials)
-    //Add api key and value to REST API request header if configured - required for authentification.
-    if (config.confluence.apikey){
-        confluenceClient.addHeader('keyid', config.confluence.apikey)
-    }
-}
 
 def MD5(String s) {
     MessageDigest.getInstance("MD5").digest(s.bytes).encodeHex().toString()
@@ -701,14 +694,7 @@ def generateAndAttachToC(localPage) {
     return content
 }
 
-def determineEditorVersion() {
-    if(config.confluence.enforceNewEditor &&
-        config.confluence.enforceNewEditor.toBoolean() == true){
-        println "WARNING: You are using the new editor version v2. This is not yet fully supported by docToolchain."
-        return "v2"
-    }
-        return "v1"
-}
+
 
 // the create-or-update functionality for confluence pages
 // #342-dierk42: added parameter 'keywords'
@@ -729,6 +715,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
     // #938-mksiva: Changed the 3rd parameter from 'config.confluence.spaceKey' to 'confluenceSpaceKey' as it was always taking the default spaceKey
     // instead of the one passed in the input for each row.
     def pages = retrieveAllPages(confluenceSpaceKey)
+
     // println "Suche nach vorhandener Seite: " + pageTitle
     Map existingPage = pages[realTitleLC]
     def page
@@ -947,19 +934,10 @@ if(config.confluence.inputHtmlFolder) {
 }
 
 config.confluence.input.each { input ->
+    // TODO check why this is necessary
     if(input.file) {
-        input.file = "${docDir}/${input.file}"
-        input.file = input.file.trim()
-
-        println "publish ${input.file}"
-
-        if (input.file ==~ /.*[.](ad|adoc|asciidoc)$/) {
-            println "HINT:"
-            println "please first convert ${input.file} to html by executing generateHTML"
-            println "the generated file will be found in build/html5/. and has to be referenced instead of the .adoc file"
-            throw new RuntimeException("config problem")
-        }
-    //  assignend, but never used in pushToConfluence(...) (fixed here)
+        input.file = confluenceService.checkAndBuildCanonicalFileName(input.file)
+        //  assignend, but never used in pushToConfluence(...) (fixed here)
         // #938-mksiva: assign spaceKey passed for each file in the input
         spaceKeyInput = input.spaceKey
         confluenceSpaceKey = input.spaceKey ?: config.confluence.spaceKey
@@ -987,13 +965,9 @@ config.confluence.input.each { input ->
             println "Deprecated configuration, use first level heading in document instead of preambleTitle configuration"
             throw new RuntimeException("config problem")
         }
-
-        def html = input.file ? new File(input.file).getText('utf-8') : new URL(input.url).getText()
-        baseUrl = input.file ? new File(input.file) : new URL(input.url)
-        Document dom = Jsoup.parse(html, 'utf-8', Parser.xmlParser())
-        dom.outputSettings().prettyPrint(false);//makes html() preserve linebreaks and spacing
-        dom.outputSettings().escapeMode(org.jsoup.nodes.Entities.EscapeMode.xhtml); //This will ensure xhtml validity regarding entities
-        dom.outputSettings().charset("UTF-8"); //does no harm :-)
+        File htmlFile = new File(input.file)
+        baseUrl = htmlFile
+        Document dom = confluenceService.parseFile(htmlFile)
 
         // if ancestorName is defined try to find machingAncestorId in confluence
         def retrievedAncestorId
@@ -1010,14 +984,8 @@ config.confluence.input.each { input ->
         //println("ancestorName: '${input.ancestorName}', ancestorId: ${input.ancestorId} ---> final parentId: ${parentId}")
 
         // #342-dierk42: get the keywords from the meta tags
-        def keywords = []
-        dom.select('meta[name=keywords]').each { kw ->
-            kws = kw.attr('content').split(',')
-            kws.each { skw ->
-                keywords << skw.trim()
-            }
-            println "Keywords:" + keywords
-        }
+        def keywords = confluenceService.getKeywords(dom)
+
         def (pages, anchors, pageAnchors) = getPages(dom, parentId, confluenceSubpagesForSections)
         pushPages pages, anchors, pageAnchors, keywords
         if (parentId) {

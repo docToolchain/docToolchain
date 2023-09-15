@@ -5,27 +5,45 @@ import groovyx.net.http.HttpResponseException
 import groovyx.net.http.Method
 import groovyx.net.http.RESTClient
 import org.apache.http.entity.ContentType
+import org.docToolchain.configuration.ConfigService
 
 abstract class ConfluenceClient {
 
-    private final String editorVersion
+    protected final String editorVersion
     protected String baseApiUrl
-    Map headers = ['X-Atlassian-Token':'no-check']
+    Map headers
     RESTClient restClient;
 
-    ConfluenceClient(baseApiUrl, editorVersion) {
-        this.baseApiUrl = baseApiUrl
+    ConfluenceClient(ConfigService configService) {
+        this.baseApiUrl = configService.getConfigProperty('confluence.api')
         this.restClient = new RESTClient(baseApiUrl)
-        this.editorVersion = editorVersion
         restClient.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
+        this.headers = ['X-Atlassian-Token':'no-check']
+        if(configService.getConfigProperty("confluence.enforceNewEditor")
+            && configService.getConfigProperty("confluence.enforceNewEditor").toBoolean() == true){
+            println "WARNING: You are using the new editor version v2. This is not yet fully supported by docToolchain."
+            this.editorVersion = "v2"
+        } else {
+            this.editorVersion = "v1"
+        }
+        if(configService.getConfigProperty('confluence.proxy')){
+            def proxy = configService.getConfigProperty('confluence.proxy')
+            restClient.setProxy(proxy.host as String, proxy.port as int, proxy.schema  as String?: 'http')
+        }
+        if(configService.getConfigProperty('confluence.bearerToken')){
+            headers.put('Authorization', 'Bearer ' + configService.getConfigProperty('confluence.bearerToken'))
+            println 'Start using bearer auth'
+        } else {
+            headers.put('Authorization', 'Basic ' + configService.getConfigProperty('confluence.credentials'))
+            //Add api key and value to REST API request header if configured - required for authentification.
+            if (configService.getConfigProperty('confluence.apikey')){
+                headers.put('keyid', configService.getConfigProperty('confluence.apikey'))
+            }
+        }
     }
 
     def addHeader(key, value) {
         this.headers.put(key, value)
-    }
-
-    def setProxy(host, port, schema) {
-        restClient.setProxy(host, port, schema)
     }
 
     abstract addLabel(pageId, label)
@@ -56,63 +74,11 @@ abstract class ConfluenceClient {
 
     abstract fetchPageByPageId(String id)
 
+    abstract updatePage(String pageId, String title, String confluenceSpaceKey, Object localPage, Integer pageVersion, String pageVersionComment, String parentId)
+
+    abstract createPage(String title, String confluenceSpaceKey, Object localPage, String pageVersionComment, String parentId)
+
     protected abstract fetchPageIdByName(String name, String spaceKey)
-
-    protected abstract doUpdatePageRequest(String pageId, Map requestBody)
-
-    protected abstract doCreatePageRequest(Map requestBody)
-
-    protected getDefaultModifyPageRequestBody(String title, String confluenceSpaceKey, Object localPage, String parentId) {
-        def requestBody = [
-                type : 'page',
-                title: title,
-                metadata: [
-                        properties: [
-                                editor: [
-                                        value: editorVersion
-                                ],
-                                "content-appearance-draft": [
-                                        value: "full-width"
-                                ],
-                                "content-appearance-published": [
-                                        value: "full-width"
-                                ]
-                        ]
-                ],
-                space: [
-                        key: confluenceSpaceKey
-                ],
-                body : [
-                        storage: [
-                                value         : localPage,
-                                representation: 'storage'
-                        ]
-                ]
-        ]
-        if (parentId) {
-            requestBody.ancestors = [
-                    [ type: 'page', id: parentId]
-            ]
-        }
-        requestBody
-    }
-
-    def updatePage(String pageId, String title, String confluenceSpaceKey, Object localPage, Integer pageVersion, String pageVersionComment, String parentId = null){
-        def requestBody = getDefaultModifyPageRequestBody(title, confluenceSpaceKey, localPage, parentId)
-        requestBody.id      = pageId
-        requestBody.version = [number: pageVersion, message: pageVersionComment ?: '']
-        trythis {
-            doUpdatePageRequest(pageId, requestBody)
-        }
-    }
-
-    def createPage(String title, String confluenceSpaceKey, Object localPage, String pageVersionComment, String parentId = null){
-        def requestBody = getDefaultModifyPageRequestBody(title, confluenceSpaceKey, localPage, parentId)
-        requestBody.version = [message: pageVersionComment ?: '']
-        trythis {
-            doCreatePageRequest(requestBody)
-        }
-    }
 
     def retrieveFullPageById(String pageId) {
         trythis {

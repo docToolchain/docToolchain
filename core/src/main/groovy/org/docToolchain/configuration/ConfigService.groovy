@@ -1,25 +1,17 @@
 package org.docToolchain.configuration
 
 class ConfigService {
-    final private File configFile
-    private ConfigSlurper configSlurper = new ConfigSlurper()
+    final private ConfigObject config
 
-    ConfigService(String docDir, String mainConfigFile) {
-        this.configFile = new File(docDir, mainConfigFile)
+    ConfigService(ConfigObject config) {
+        this.config = config
     }
 
-    ConfigObject parseConfigOrDo(closure){
-        if(!configFile.exists()){
-            closure.run()
+    Object getConfigProperty(String propertyPath) {
+        def property = config.get(propertyPath)
+        if(!property){
+            return config.flatten().get(propertyPath)
         }
-        return configSlurper.parse(configFile.text)
-    }
-
-    void writeNewConfigFromTemplate(String templatePath){
-        configFile.write(new File(templatePath).text)
-    }
-
-    String getConfigFilePath() {
-        return configFile.getCanonicalPath()
+        return property
     }
 }
