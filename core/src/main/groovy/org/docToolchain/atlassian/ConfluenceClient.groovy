@@ -15,7 +15,7 @@ abstract class ConfluenceClient {
     protected final String editorVersion
     protected String baseApiUrl
     Map headers
-    RESTClient restClient;
+    RESTClient restClient
 
     ConfluenceClient(ConfigService configService) {
         this.baseApiUrl = configService.getConfigProperty('confluence.api')
@@ -71,9 +71,9 @@ abstract class ConfluenceClient {
         }
     }
 
-    abstract fetchPagesBySpaceKey(String spaceKey, Integer offset, Integer pageLimit)
+    protected abstract fetchPagesBySpaceKey(String spaceKey, Integer pageLimit, Closure closure)
 
-    abstract fetchPagesByAncestorId(String pageId, Integer offset, Integer pageLimit)
+    abstract fetchPagesByAncestorId(List<String> pageIds, Integer pageLimit)
 
     abstract fetchPageByPageId(String id)
 
@@ -82,6 +82,25 @@ abstract class ConfluenceClient {
     abstract createPage(String title, String confluenceSpaceKey, Object localPage, String pageVersionComment, String parentId)
 
     protected abstract fetchPageIdByName(String name, String spaceKey)
+
+    def fetchPagesBySpaceKey(String spaceKey, Integer pageLimit) {
+        def allPages = [:]
+        fetchPagesBySpaceKey(spaceKey, pageLimit, {
+                it.inject(allPages) { Map acc, Map match ->
+                //unique page names in confluence, so we can get away with indexing by title
+                def ancestors = match.ancestors.collect { it.id }
+                acc[match.title.toLowerCase()] = [
+                    title   : match.title,
+                    id      : match.id,
+                    parentId: ancestors.isEmpty() ? null : ancestors.last()
+                ]
+                acc
+            }
+        })
+        // TODO remove debug output
+        println("fetchPagesBySpaceKey: ${this.getClass().getSimpleName()} allPages: ${allPages}")
+        return allPages
+    }
 
     def retrieveFullPageById(String pageId) {
         trythis {
@@ -109,7 +128,7 @@ abstract class ConfluenceClient {
                     throw new Exception("missing authentication credentials")
                     break
                 case '400':
-                    println error.response.data.message
+                    println error.response.data
                     println "please check the ancestorId in your config file"
                     throw new Exception("Parent does not exist")
                     break

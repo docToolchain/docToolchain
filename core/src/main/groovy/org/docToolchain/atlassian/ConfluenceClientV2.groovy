@@ -55,45 +55,93 @@ class ConfluenceClientV2 extends ConfluenceClient {
     }
 
     @Override
-    def fetchPagesBySpaceKey(String spaceKey, Integer offset, Integer pageLimit) {
-        def query = [
-            'depth'   : 'all',
-            'limit'   : pageLimit,
-            //TODO use the cursor over offset
-            'cursor'  : 'none',
-            'start'   : offset,
-        ]
-        trythis {
-            restClient.get(
-                'headers': headers,
-                'path'   : API_V2_PATH + "spaces/${spaceId}/pages",
-                'query'  : query
-            )
-        } ?: []
+    def fetchPagesBySpaceKey(String spaceKey, Integer pageLimit, Closure closure) {
+        String cursor
+        Boolean morePages = true
+        while (morePages){
+            def query = [
+                'depth'   : 'all',
+                'limit'   : pageLimit,
+            ]
+            if(cursor){
+                query['cursor'] = cursor
+            }
+            trythis {
+                def response = restClient.get(
+                    'headers': headers,
+                    'path'   : API_V2_PATH + "spaces/${spaceId}/pages",
+                    'query'  : query
+                ).data
+                def results = response.results ?: []
+                if (results.empty || response._links.isEmpty()) {
+                    morePages = false
+                } else {
+                    cursor = response._links.next.split("cursor=")[1]
+                }
+                closure(results)
+            } ?: []
+        }
     }
 
     @Override
-    def fetchPagesByAncestorId(String pageId, Integer offset, Integer pageLimit) {
-        def query = [
-            'limit'   : pageLimit,
-            //TODO use the cursor over offset
-            'cursor'  : 'none',
-            'start'   : offset,
-        ]
-        trythis {
-            restClient.get(
-                'headers': headers,
-                'path'   : "pages/${pageId}/children",
-                'query'  : query
-            )
-        } ?: []
+    def fetchPagesByAncestorId(List<String> pageIds, Integer pageLimit) {
+        def allPages = [:]
+        String cursor
+        Boolean morePages = true
+        String pageId = pageIds.remove(0)
+        println("fetchPagesByAncestorId: ${this.getClass().getSimpleName()} pageId: ${pageId}")
+        while (morePages){
+            def query = [
+                'depth'   : 'all',
+                'limit'   : pageLimit,
+            ]
+            if(cursor){
+                query['cursor'] = cursor
+            }
+            trythis {
+                def response = restClient.get(
+                    'headers': headers,
+                    'path': API_V2_PATH + "pages/${pageId}/children",
+                    'query': query
+                ).data
+                def results = response.results ?: []
+                def ids = []
+                results.inject(allPages) { Map acc, Map match ->
+                    //unique page names in confluence, so we can get away with indexing by title
+                    ids.add(match.id)
+                    acc[match.title.toLowerCase()] = [
+                        title   : match.title,
+                        id      : match.id,
+                        parentId: pageId
+                    ]
+                    acc
+                }
+                if ((results.empty || response._links.isEmpty()) && ids.isEmpty()) {
+                    if(pageIds.isEmpty()) {
+                        morePages = false
+                    } else {
+                        pageId = pageIds.remove(0)
+                    }
+                } else if (!results.empty && !response._links.isEmpty()) {
+                    cursor = response._links.next.split("cursor=")[1]
+                } else {
+                    cursor = null
+                    pageId = ids.remove(0);
+                }
+            } ?: []
+        }
+        return allPages
     }
 
     @Override
     def fetchPageByPageId(String id) {
+        def query = [
+            'body-format'   : 'storage'
+        ]
         restClient.get(
             path   : API_V2_PATH + "pages/${id}",
-            headers: headers
+            headers: headers,
+            query  : query
         )
     }
 
@@ -112,6 +160,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
         ).data.results?.getAt(0)?.id
     }
 
+    // confluenceSpaceKey is not used in the V2 API
     @Override
     def updatePage(String pageId, String title, String confluenceSpaceKey, Object localPage, Integer pageVersion, String pageVersionComment, String parentId) {
         def requestBody = [
@@ -121,10 +170,8 @@ class ConfluenceClientV2 extends ConfluenceClient {
             "spaceId"   : spaceId,
             "parentId": parentId ?: "",
             "body"    : [
-                "PageBodyWrite": [
-                    "value"          : localPage,
-                    "representation": "storage"
-                ]
+                "value"          : localPage,
+                "representation": "storage"
             ],
             "version" : [
                 "number" : pageVersion,
@@ -146,10 +193,8 @@ class ConfluenceClientV2 extends ConfluenceClient {
             "spaceId"   : spaceId,
             "parentId": parentId ?: "",
             "body"    : [
-                "PageBodyWrite": [
-                    "value"          : localPage,
-                    "representation": "storage"
-                ]
+                "value"          : localPage,
+                "representation": "storage"
             ],
             "version" : [
                 "number" : 1,

@@ -162,71 +162,6 @@ def rewriteMarks (body) {
     body.select('mark').wrap('<span style="background:#ff0;color:#000"></style>').unwrap()
 }
 
-def retrieveAllPagesByAncestorId(List<String> pageIds, int pageLimit) {
-    def allPages = [:]
-
-    int start = 0
-    def ids = []
-    def pageId = pageIds.remove(0)
-    boolean morePages = true
-    while (morePages) {
-        def results = confluenceClient.fetchPagesByAncestorId(pageId, start, pageLimit)
-        results = results.data.results ?: []
-
-        results.inject(allPages) { Map acc, Map match ->
-            //unique page names in confluence, so we can get away with indexing by title
-            ids.add(match.id)
-            acc[match.title.toLowerCase()] = [
-                title   : match.title,
-                id      : match.id,
-                parentId: pageId
-            ]
-            acc
-        }
-
-        if (results.empty && ids.isEmpty()) {
-            if(pageIds.isEmpty()) {
-                morePages = false
-            } else {
-                pageId = pageIds.remove(0)
-            }
-        } else if (!results.empty) {
-            start += results.size()
-        } else {
-            start = 0
-            pageId = ids.remove(0);
-        }
-    }
-    allPages
-}
-
-def retrieveAllPagesBySpace(String spaceKey, int pageLimit) {
-    boolean morePages = true
-    int start = 0
-
-    def allPages = [:]
-    while (morePages) {
-        def results = confluenceClient.fetchPagesBySpaceKey(spaceKey, start, pageLimit).data
-        results = results.results ?: []
-        if (results.empty) {
-            morePages = false
-        } else {
-            start += results.size()
-        }
-        results.inject(allPages) { Map acc, Map match ->
-            //unique page names in confluence, so we can get away with indexing by title
-            def ancestors = match.ancestors.collect { it.id }
-            acc[match.title.toLowerCase()] = [
-                title   : match.title,
-                id      : match.id,
-                parentId: ancestors.isEmpty() ? null : ancestors.last()
-            ]
-            acc
-        }
-    }
-    allPages
-}
-
 // #352-LuisMuniz: Helper methods
 // Fetch all pages of the defined config ancestorsIds. Only keep relevant info in the pages Map
 // The map is indexed by lower-case title
@@ -250,9 +185,9 @@ def retrieveAllPages = { String spaceKey ->
         println (".")
 
         if(checkSpace) {
-            allPages = retrieveAllPagesBySpace(spaceKey, pageLimit)
+            allPages = confluenceClient.fetchPagesBySpaceKey(spaceKey, pageLimit)
         } else {
-            allPages = retrieveAllPagesByAncestorId(pageIds, pageLimit)
+            allPages = confluenceClient.fetchPagesByAncestorId(pageIds, pageLimit)
         }
         allPages
     }
@@ -715,7 +650,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
     // #938-mksiva: Changed the 3rd parameter from 'config.confluence.spaceKey' to 'confluenceSpaceKey' as it was always taking the default spaceKey
     // instead of the one passed in the input for each row.
     def pages = retrieveAllPages(confluenceSpaceKey)
-
+    println("pages retrieved")
     // println "Suche nach vorhandener Seite: " + pageTitle
     Map existingPage = pages[realTitleLC]
     def page
@@ -735,7 +670,7 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
         println "found existing page: " + page.id +" version "+page.version.number
 
         //extract hash from remote page to see if it is different from local one
-
+        println("retrieving remote ${page}")
         def remotePage = page.body.storage.value.toString().trim()
 
         def remoteHash = remotePage =~ /(?ms)hash: #([^#]+)#/
@@ -786,7 +721,6 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
                     + "with id=${existingPage.id} already exists in the space. "
                     + "A Confluence page title must be unique within a space, consider specifying a 'confluencePagePrefix' in ConfluenceConfig.groovy")
         }
-
         //create a page
         page = confluenceClient.createPage(
                 realTitle,
@@ -820,7 +754,6 @@ def parseAnchors(page) {
 
 def pushPages
 pushPages = { pages, anchors, pageAnchors, labels ->
-
     pages.each { page ->
         page.title = page.title.trim()
         println page.title

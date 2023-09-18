@@ -39,37 +39,86 @@ class ConfluenceClientV1 extends ConfluenceClient {
     }
 
     @Override
-    def fetchPagesBySpaceKey(String spaceKey, Integer offset, Integer pageLimit) {
-        def query = [
-                'type'    : 'page',
-                'spaceKey': spaceKey,
-                'expand'  : 'ancestors',
-                'limit'   : pageLimit,
-                'start'   : offset,
-        ]
+    def fetchPagesBySpaceKey(String spaceKey, Integer pageLimit, Closure closure) {
+        //TODO
+        pageLimit = 1
+        def allPages = [:]
+        boolean morePages = true
+        def offset = 0
         trythis {
-            restClient.get(
+            while (morePages) {
+                def query = [
+                    'type'    : 'page',
+                    'spaceKey': spaceKey,
+                    'expand'  : 'ancestors',
+                    'limit'   : pageLimit,
+                    'start'   : offset,
+                ]
+                def results = restClient.get(
                     'headers': headers,
                     'path'   : API_V1_PATH + "content",
                     'query'  : query
-            )
+                ).data
+                results = results.results ?: []
+                if (results.empty) {
+                    morePages = false
+                } else {
+                    offset += results.size()
+                }
+                closure(results)
+            }
         } ?: []
     }
 
     @Override
-    def fetchPagesByAncestorId(String pageId, Integer offset, Integer pageLimit) {
-        def query = [
+    def fetchPagesByAncestorId(List<String> pageIds, Integer pageLimit) {
+        def allPages = [:]
+
+        Integer offset = 0
+        def ids = []
+        String pageId = pageIds.remove(0)
+        Boolean morePages = true
+        println("fetchPagesByAncestorId: ${this.getClass().getSimpleName()} pageId: ${pageId}")
+        while (morePages) {
+            def query = [
                 'type'    : 'page',
                 'limit'   : pageLimit,
                 'start'   : offset,
-        ]
-        trythis {
-            restClient.get(
+            ]
+            trythis {
+                def results = restClient.get(
                     'headers': headers,
                     'path'   : API_V1_PATH + "content/${pageId}/child/page",
                     'query'  : query
-            )
-        } ?: []
+                )
+                results = results.data.results ?: []
+
+                results.inject(allPages) { Map acc, Map match ->
+                    //unique page names in confluence, so we can get away with indexing by title
+                    ids.add(match.id)
+                    acc[match.title.toLowerCase()] = [
+                        title   : match.title,
+                        id      : match.id,
+                        parentId: pageId
+                    ]
+                    acc
+                }
+
+                if (results.empty && ids.isEmpty()) {
+                    if(pageIds.isEmpty()) {
+                        morePages = false
+                    } else {
+                        pageId = pageIds.remove(0)
+                    }
+                } else if (!results.empty) {
+                    offset += results.size()
+                } else {
+                    offset = 0
+                    pageId = ids.remove(0);
+                }
+            } ?: []
+        }
+        return allPages
     }
 
     @Override
