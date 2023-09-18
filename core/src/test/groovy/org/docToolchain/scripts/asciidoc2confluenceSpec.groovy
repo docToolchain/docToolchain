@@ -2,6 +2,7 @@ package org.docToolchain.scripts
 
 import groovy.json.JsonSlurper
 import org.docToolchain.atlassian.ConfluenceClient
+import org.docToolchain.configuration.ConfigService
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.parser.Parser
@@ -12,24 +13,30 @@ class asciidoc2confluenceSpec extends Specification {
 
     static final ASCIIDOC2CONFLUENCE_SCRIPT = new File("./src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy")
 
-    GroovyShell setupShell() {
-        def config = new ConfigObject()
+    def config;
+
+    def setup() {
+        config = new ConfigObject()
         config.confluence = [
             api : 'https://my.confluence/rest/api/',
             useV1Api : true,
         ]
+    }
+
+    GroovyShell setupShell() {
         return new GroovyShell(new Binding([
             config: config
         ]))
     }
 
     void 'test space output'() {
+        //TODO move test to ConfluenceClientSpec
         setup: 'load org.docToolchain.scripts.asciidoc2confluence'
 
         def jsonSlurper = new JsonSlurper()
         GroovyShell shell = setupShell()
         def script = shell.parse(ASCIIDOC2CONFLUENCE_SCRIPT)
-        script.setProperty("confluenceClient", Stub(constructorArgs: ["mock", "mock"],ConfluenceClient.class){
+        script.setProperty("confluenceClient", Stub(constructorArgs: [new ConfigService(config)],ConfluenceClient.class){
             fetchPagesBySpaceKey(_, _, _) >> [data: jsonSlurper.parse(new File('./src/test/resources/asciidoc2confluence/space.json'))] >>
                 // no more results
                 [data: [results: []]] })
@@ -50,11 +57,12 @@ class asciidoc2confluenceSpec extends Specification {
     }
 
     void 'test ancestor-id output'() {
+        //TODO move test to ConfluenceClientSpec
         setup: 'load org.docToolchain.scripts.asciidoc2confluence'
         GroovyShell shell = setupShell()
         def jsonSlurper = new JsonSlurper()
         def script = shell.parse(ASCIIDOC2CONFLUENCE_SCRIPT)
-        script.setProperty("confluenceClient", Stub(constructorArgs: ["mock", "mock"],ConfluenceClient.class){
+        script.setProperty("confluenceClient", Stub(constructorArgs: [new ConfigService(config)],ConfluenceClient.class){
             fetchPagesByAncestorId(_, _, _) >> [data: jsonSlurper.parse(new File('./src/test/resources/asciidoc2confluence/ancestorId.json'))] >>
                 // no more pages outside the limit
                 [data: [results: []]] >>
@@ -206,6 +214,7 @@ class asciidoc2confluenceSpec extends Specification {
     }
 
     void 'test the correct editor is used'() {
+        //TODO move test to ConfluenceClientSpec
         setup: 'load org.docToolchain.scripts.asciidoc2confluence'
         GroovyShell shell = setupShell()
         def script = shell.parse(ASCIIDOC2CONFLUENCE_SCRIPT)

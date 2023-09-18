@@ -22,13 +22,7 @@ abstract class ConfluenceClient {
         this.restClient = new RESTClient(baseApiUrl)
         restClient.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
         this.headers = ['X-Atlassian-Token':'no-check']
-        if(configService.getConfigProperty("confluence.enforceNewEditor")
-            && configService.getConfigProperty("confluence.enforceNewEditor").toBoolean() == true){
-            println "WARNING: You are using the new editor version v2. This is not yet fully supported by docToolchain."
-            this.editorVersion = "v2"
-        } else {
-            this.editorVersion = "v1"
-        }
+        this.editorVersion = determineEditorVersion(configService)
         if(configService.getConfigProperty('confluence.proxy')){
             def proxy = configService.getConfigProperty('confluence.proxy')
             restClient.setProxy(proxy.host as String, proxy.port as int, proxy.schema  as String?: 'http')
@@ -136,6 +130,16 @@ abstract class ConfluenceClient {
                     println error.response.data
             }
             null
+        }
+    }
+
+    private String determineEditorVersion(ConfigService configService){
+        if(configService.getConfigProperty("confluence.enforceNewEditor")
+            && configService.getConfigProperty("confluence.enforceNewEditor").toBoolean() == true){
+            println "WARNING: You are using the new editor version v2. This is not yet fully supported by docToolchain."
+            return "v2"
+        } else {
+            return "v1"
         }
     }
 }
