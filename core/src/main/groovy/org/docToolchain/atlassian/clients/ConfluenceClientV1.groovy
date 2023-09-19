@@ -1,4 +1,4 @@
-package org.docToolchain.atlassian
+package org.docToolchain.atlassian.clients
 
 import groovyx.net.http.ContentType
 import org.docToolchain.configuration.ConfigService

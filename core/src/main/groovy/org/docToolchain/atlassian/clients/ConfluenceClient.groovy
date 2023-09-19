@@ -1,4 +1,4 @@
-package org.docToolchain.atlassian
+package org.docToolchain.atlassian.clients
 
 import groovyx.net.http.EncoderRegistry
 import groovyx.net.http.HttpResponseException
@@ -20,12 +20,12 @@ abstract class ConfluenceClient {
     ConfluenceClient(ConfigService configService) {
         this.baseApiUrl = configService.getConfigProperty('confluence.api')
         this.restClient = new RESTClient(baseApiUrl)
-        restClient.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
+        restClient.setEncoderRegistry(new EncoderRegistry( charset: 'utf-8' ))
         this.headers = ['X-Atlassian-Token':'no-check']
         this.editorVersion = determineEditorVersion(configService)
         if(configService.getConfigProperty('confluence.proxy')){
             def proxy = configService.getConfigProperty('confluence.proxy')
-            restClient.setProxy(proxy.host as String, proxy.port as int, proxy.schema  as String?: 'http')
+            restClient.setProxy(proxy.host as String, proxy.port as Integer, proxy.schema  as String?: 'http')
         }
         if(configService.getConfigProperty('confluence.bearerToken')){
             headers.put('Authorization', 'Bearer ' + configService.getConfigProperty('confluence.bearerToken'))

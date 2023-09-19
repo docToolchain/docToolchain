@@ -1,6 +1,7 @@
-package org.docToolchain.atlassian
+package org.docToolchain.atlassian.clients
 
 import groovyx.net.http.ContentType
+import org.docToolchain.atlassian.clients.ConfluenceClient
 import org.docToolchain.configuration.ConfigService
 
 class ConfluenceClientV2 extends ConfluenceClient {

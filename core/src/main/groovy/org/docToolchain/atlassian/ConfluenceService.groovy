@@ -39,8 +39,7 @@ class ConfluenceService {
     ArrayList getKeywords(Document dom) {
         ArrayList keywords = new ArrayList()
         dom.select('meta[name=keywords]').each { kw ->
-            kws = kw.attr('content').split(',')
-            kws.each { skw ->
+            kw.attr('content').split(',').each { skw ->
                 keywords << skw.trim()
             }
             println "Keywords:" + keywords

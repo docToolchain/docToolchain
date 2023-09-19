@@ -1,8 +1,9 @@
 package org.docToolchain.scripts
 
 import groovy.json.JsonSlurper
-import org.docToolchain.atlassian.ConfluenceClient
+import org.docToolchain.atlassian.clients.ConfluenceClient
 import org.docToolchain.configuration.ConfigService
+import org.docToolchain.util.TestUtils
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
 import org.jsoup.parser.Parser
@@ -37,7 +38,7 @@ class asciidoc2confluenceSpec extends Specification {
         GroovyShell shell = setupShell()
         def script = shell.parse(ASCIIDOC2CONFLUENCE_SCRIPT)
         script.setProperty("confluenceClient", Stub(constructorArgs: [new ConfigService(config)],ConfluenceClient.class){
-            fetchPagesBySpaceKey(_, _, _) >> [data: jsonSlurper.parse(new File('./src/test/resources/asciidoc2confluence/space.json'))] >>
+            fetchPagesBySpaceKey(_, _, _) >> [data: jsonSlurper.parse(new File("${TestUtils.TEST_RESOURCES_DIR}/asciidoc2confluence/space.json"))] >>
                 // no more results
                 [data: [results: []]] })
         when: 'run retrieveAllPagesBySpace'
@@ -63,11 +64,11 @@ class asciidoc2confluenceSpec extends Specification {
         def jsonSlurper = new JsonSlurper()
         def script = shell.parse(ASCIIDOC2CONFLUENCE_SCRIPT)
         script.setProperty("confluenceClient", Stub(constructorArgs: [new ConfigService(config)],ConfluenceClient.class){
-            fetchPagesByAncestorId(_, _, _) >> [data: jsonSlurper.parse(new File('./src/test/resources/asciidoc2confluence/ancestorId.json'))] >>
+            fetchPagesByAncestorId(_, _, _) >> [data: jsonSlurper.parse(new File("${TestUtils.TEST_RESOURCES_DIR}/asciidoc2confluence/ancestorId.json"))] >>
                 // no more pages outside the limit
                 [data: [results: []]] >>
                 // first child loop
-                [data: jsonSlurper.parse(new File('./src/test/resources/asciidoc2confluence/ancestorId_child.json'))] >>
+                [data: jsonSlurper.parse(new File("${TestUtils.TEST_RESOURCES_DIR}/asciidoc2confluence/ancestorId_child.json"))] >>
                 // all other child loops
                 [data: [results: []]] })
         when: 'run retrieveAllPagesByAncestorId'
@@ -122,7 +123,7 @@ class asciidoc2confluenceSpec extends Specification {
         script.setProperty("baseUrl", "./src/test/build/asciidoc2confluence")
         script.setProperty("config", Map.of("imageDirs", ["Foo/"], "confluence", []))
         script.setProperty("deferredUpload", [])
-        def bodyFixture = new File('./src/test/resources/asciidoc2confluence/fixtures/body.html');
+        def bodyFixture = new File("${TestUtils.TEST_RESOURCES_DIR}/asciidoc2confluence/fixtures/body.html");
         when: 'run parseBody'
         def output = script.parseBody Jsoup.parse(bodyFixture.text) , [], []
 
@@ -139,7 +140,7 @@ class asciidoc2confluenceSpec extends Specification {
         script.setProperty("baseUrl", "/Users/Foo/bar")
         script.setProperty("config", Map.of("imageDirs", ["Foo/"], "confluence", Map.of("disableToC", true)))
         script.setProperty("deferredUpload", [])
-        def docFixture = new File('./src/test/resources/asciidoc2confluence/fixtures/confluenceDocWithoutToC.html').text;
+        def docFixture = new File("${TestUtils.TEST_RESOURCES_DIR}/asciidoc2confluence/fixtures/confluenceDocWithoutToC.html").text;
 
         when: 'we disable ToC generation and run generateAndAttachToC'
         script.setProperty("config", Map.of("imageDirs", ["Foo/"], "confluence", Map.of("disableToC", true)))
@@ -189,7 +190,7 @@ class asciidoc2confluenceSpec extends Specification {
         script.setProperty("baseUrl", "/Users/Foo/bar")
         script.setProperty("config", Map.of("imageDirs", ["Foo/"]))
         script.setProperty("deferredUpload", [])
-        def imageFixture = new File('./src/test/resources/asciidoc2confluence/fixtures/imageBase64.txt');
+        def imageFixture = new File("${TestUtils.TEST_RESOURCES_DIR}/asciidoc2confluence/fixtures/imageBase64.txt");
         def calculatedHash = script.MD5(imageFixture.text)
 
         when: 'given a clean environment'

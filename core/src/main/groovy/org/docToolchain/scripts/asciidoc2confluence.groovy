@@ -1,7 +1,4 @@
 package org.docToolchain.scripts
-
-import org.docToolchain.configuration.ConfigService
-
 /**
  * Created by Ralf D. Mueller and Alexander Heusingfeld
  * https://github.com/rdmueller/asciidoc2confluence
@@ -32,8 +29,7 @@ import org.docToolchain.configuration.ConfigService
 */
 
 // some dependencies
-import org.jsoup.Jsoup
-import org.jsoup.parser.Parser
+
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
 import org.jsoup.nodes.TextNode
@@ -45,8 +41,8 @@ import java.nio.file.Path
 import java.security.MessageDigest
 import static groovy.io.FileType.FILES
 
-import org.docToolchain.atlassian.ConfluenceClientV1
-import org.docToolchain.atlassian.ConfluenceClientV2
+import org.docToolchain.atlassian.clients.ConfluenceClientV1
+import org.docToolchain.atlassian.clients.ConfluenceClientV2
 import org.docToolchain.configuration.ConfigService
 import org.docToolchain.atlassian.ConfluenceService
 
