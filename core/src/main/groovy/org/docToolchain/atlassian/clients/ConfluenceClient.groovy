@@ -23,8 +23,8 @@ abstract class ConfluenceClient {
         restClient.setEncoderRegistry(new EncoderRegistry( charset: 'utf-8' ))
         this.headers = ['X-Atlassian-Token':'no-check']
         this.editorVersion = determineEditorVersion(configService)
-        if(configService.getConfigProperty('confluence.proxy')){
-            def proxy = configService.getConfigProperty('confluence.proxy')
+        if(configService.getFlatConfigSubTree('confluence.proxy')){
+            def proxy = configService.getFlatConfigSubTree('confluence.proxy')
             restClient.setProxy(proxy.host as String, proxy.port as Integer, proxy.schema  as String?: 'http')
         }
         if(configService.getConfigProperty('confluence.bearerToken')){
@@ -65,7 +65,7 @@ abstract class ConfluenceClient {
         }
     }
 
-    protected abstract fetchPagesBySpaceKey(String spaceKey, Integer pageLimit, Closure closure)
+    abstract fetchPagesBySpaceKey(String spaceKey, Integer pageLimit)
 
     abstract fetchPagesByAncestorId(List<String> pageIds, Integer pageLimit)
 
@@ -76,25 +76,6 @@ abstract class ConfluenceClient {
     abstract createPage(String title, String confluenceSpaceKey, Object localPage, String pageVersionComment, String parentId)
 
     protected abstract fetchPageIdByName(String name, String spaceKey)
-
-    def fetchPagesBySpaceKey(String spaceKey, Integer pageLimit) {
-        def allPages = [:]
-        fetchPagesBySpaceKey(spaceKey, pageLimit, {
-                it.inject(allPages) { Map acc, Map match ->
-                //unique page names in confluence, so we can get away with indexing by title
-                def ancestors = match.ancestors.collect { it.id }
-                acc[match.title.toLowerCase()] = [
-                    title   : match.title,
-                    id      : match.id,
-                    parentId: ancestors.isEmpty() ? null : ancestors.last()
-                ]
-                acc
-            }
-        })
-        // TODO remove debug output
-        println("fetchPagesBySpaceKey: ${this.getClass().getSimpleName()} allPages: ${allPages}")
-        return allPages
-    }
 
     def retrieveFullPageById(String pageId) {
         trythis {

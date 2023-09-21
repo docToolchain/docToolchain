@@ -37,8 +37,16 @@ class ConfigServiceSpec extends Specification {
             noExceptionThrown()
     }
 
-    def "test get first-level nested config tree"() {
-        when: 'i try to access a first-level config tree'
+    def "test get nested config tree using getConfigProperty"() {
+        when: 'i try to access a nested config property that is a tree'
+            def property = configService.getConfigProperty("confluence.proxy")
+        then: 'a null value is returned'
+            property == null
+            noExceptionThrown()
+    }
+
+    def "test get first-level nested config property"() {
+        when: 'i try to access a first-level config tree using getConfigProperty'
             def property = configService.getConfigProperty("confluence")
         then: 'the config tree is returned'
             property.size() == 3
@@ -47,9 +55,22 @@ class ConfigServiceSpec extends Specification {
             noExceptionThrown()
     }
 
+    def "test get first-level nested config tree"() {
+        when: 'i try to access a first-level config tree using getFlatConfigSubTree'
+            def property = configService.getFlatConfigSubTree("confluence")
+        then: 'the config tree is returned'
+            property.size() == 5
+            property.api == "https://my.confluence/rest/api/"
+            property.spaceKey == "asciidoc"
+            property["proxy.host"] == "proxy.example.com"
+            property["proxy.port"] == 8080
+            property["proxy.schema"] == "https"
+            noExceptionThrown()
+    }
+
     def "test get second-level nested config tree"() {
         when: 'i try to access a second-level config tree'
-            def property = configService.getConfigProperty("confluence.proxy")
+            def property = configService.getFlatConfigSubTree("confluence.proxy")
         then: 'the config tree is returned'
             property.size() == 3
             property.host == "proxy.example.com"
@@ -58,11 +79,19 @@ class ConfigServiceSpec extends Specification {
             noExceptionThrown()
     }
 
-    def "test try to get non-existing config"() {
+    def "test try to get non-existing config using getConfigProperty"() {
         when: 'i try to access a non-existing property'
             def property = configService.getConfigProperty("non-sense")
         then: 'a null value is returned'
             property == null
+            noExceptionThrown()
+    }
+
+    def "test try to get non-existing config using getFlatConfigSubTree"() {
+        when: 'i try to access a non-existing property'
+            def property = configService.getFlatConfigSubTree("non-sense")
+        then: 'an empty map is returned'
+            property == Collections.EMPTY_MAP
             noExceptionThrown()
     }
 }

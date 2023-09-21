@@ -56,32 +56,43 @@ class ConfluenceClientV2 extends ConfluenceClient {
     }
 
     @Override
-    def fetchPagesBySpaceKey(String spaceKey, Integer pageLimit, Closure closure) {
+    def fetchPagesBySpaceKey(String spaceKey, Integer pageLimit) {
+        def allPages = [:]
         String cursor
         Boolean morePages = true
-        while (morePages){
-            def query = [
-                'depth'   : 'all',
-                'limit'   : pageLimit,
-            ]
-            if(cursor){
-                query['cursor'] = cursor
-            }
-            trythis {
-                def response = restClient.get(
-                    'headers': headers,
-                    'path'   : API_V2_PATH + "spaces/${spaceId}/pages",
-                    'query'  : query
-                ).data
-                def results = response.results ?: []
-                if (results.empty || response._links.isEmpty()) {
-                    morePages = false
-                } else {
-                    cursor = response._links.next.split("cursor=")[1]
+        trythis {
+            while (morePages){
+                def query = [
+                    'depth'   : 'all',
+                    'limit'   : pageLimit,
+                ]
+                if(cursor){
+                    query['cursor'] = cursor
                 }
-                closure(results)
-            } ?: []
+
+                    def response = restClient.get(
+                        'headers': headers,
+                        'path'   : API_V2_PATH + "spaces/${spaceId}/pages",
+                        'query'  : query
+                    ).data
+                    def results = response.results ?: []
+                    if (results.empty || response._links.isEmpty()) {
+                        morePages = false
+                    } else {
+                        cursor = response._links.next.split("cursor=")[1]
+                    }
+                    results.inject(allPages) { Map acc, Map match ->
+                        //unique page names in confluence, so we can get away with indexing by title
+                        acc[match.title.toLowerCase()] = [
+                            title   : match.title,
+                            id      : match.id,
+                            parentId: match.parentId
+                        ]
+                        acc
+                    }
+            }
         }
+        return allPages
     }
 
     @Override
@@ -89,8 +100,8 @@ class ConfluenceClientV2 extends ConfluenceClient {
         def allPages = [:]
         String cursor
         Boolean morePages = true
+        def ids = []
         String pageId = pageIds.remove(0)
-        println("fetchPagesByAncestorId: ${this.getClass().getSimpleName()} pageId: ${pageId}")
         while (morePages){
             def query = [
                 'depth'   : 'all',
@@ -106,7 +117,6 @@ class ConfluenceClientV2 extends ConfluenceClient {
                     'query': query
                 ).data
                 def results = response.results ?: []
-                def ids = []
                 results.inject(allPages) { Map acc, Map match ->
                     //unique page names in confluence, so we can get away with indexing by title
                     ids.add(match.id)
@@ -117,7 +127,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
                     ]
                     acc
                 }
-                if ((results.empty || response._links.isEmpty()) && ids.isEmpty()) {
+                if (results.empty && ids.isEmpty()) {
                     if(pageIds.isEmpty()) {
                         morePages = false
                     } else {
@@ -127,7 +137,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
                     cursor = response._links.next.split("cursor=")[1]
                 } else {
                     cursor = null
-                    pageId = ids.remove(0);
+                    pageId = ids.remove(0)
                 }
             } ?: []
         }

@@ -39,12 +39,10 @@ class ConfluenceClientV1 extends ConfluenceClient {
     }
 
     @Override
-    def fetchPagesBySpaceKey(String spaceKey, Integer pageLimit, Closure closure) {
-        //TODO
-        pageLimit = 1
+    def fetchPagesBySpaceKey(String spaceKey, Integer pageLimit) {
         def allPages = [:]
-        boolean morePages = true
-        def offset = 0
+        Boolean morePages = true
+        Integer offset = 0
         trythis {
             while (morePages) {
                 def query = [
@@ -65,9 +63,19 @@ class ConfluenceClientV1 extends ConfluenceClient {
                 } else {
                     offset += results.size()
                 }
-                closure(results)
+                results.inject(allPages) { Map acc, Map match ->
+                    //unique page names in confluence, so we can get away with indexing by title
+                    def ancestors = match.ancestors.collect { it.id }
+                    acc[match.title.toLowerCase()] = [
+                        title   : match.title,
+                        id      : match.id,
+                        parentId: ancestors.isEmpty() ? null : ancestors.last()
+                    ]
+                    acc
+                }
             }
-        } ?: []
+        }
+        return allPages
     }
 
     @Override
@@ -78,7 +86,6 @@ class ConfluenceClientV1 extends ConfluenceClient {
         def ids = []
         String pageId = pageIds.remove(0)
         Boolean morePages = true
-        println("fetchPagesByAncestorId: ${this.getClass().getSimpleName()} pageId: ${pageId}")
         while (morePages) {
             def query = [
                 'type'    : 'page',
@@ -114,7 +121,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
                     offset += results.size()
                 } else {
                     offset = 0
-                    pageId = ids.remove(0);
+                    pageId = ids.remove(0)
                 }
             } ?: []
         }

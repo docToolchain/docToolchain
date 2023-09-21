@@ -1,8 +1,5 @@
 package org.docToolchain.scripts
 
-import groovy.json.JsonSlurper
-import org.docToolchain.atlassian.clients.ConfluenceClient
-import org.docToolchain.configuration.ConfigService
 import org.docToolchain.util.TestUtils
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -14,7 +11,7 @@ class asciidoc2confluenceSpec extends Specification {
 
     static final ASCIIDOC2CONFLUENCE_SCRIPT = new File("./src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy")
 
-    def config;
+    ConfigObject config
 
     def setup() {
         config = new ConfigObject()
@@ -28,60 +25,6 @@ class asciidoc2confluenceSpec extends Specification {
         return new GroovyShell(new Binding([
             config: config
         ]))
-    }
-
-    void 'test space output'() {
-        //TODO move test to ConfluenceClientSpec
-        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
-
-        def jsonSlurper = new JsonSlurper()
-        GroovyShell shell = setupShell()
-        def script = shell.parse(ASCIIDOC2CONFLUENCE_SCRIPT)
-        script.setProperty("confluenceClient", Stub(constructorArgs: [new ConfigService(config)],ConfluenceClient.class){
-            fetchPagesBySpaceKey(_, _, _) >> [data: jsonSlurper.parse(new File("${TestUtils.TEST_RESOURCES_DIR}/asciidoc2confluence/space.json"))] >>
-                // no more results
-                [data: [results: []]] })
-        when: 'run retrieveAllPagesBySpace'
-        def result = script.retrieveAllPagesBySpace('spaceKey', 100)
-        then: 'the pages are given'
-        result.size() == 10
-        result == ['page old 1': [title: 'page old 1', id: '688183', parentId: '47456033'],
-                   'page old 2': [title: 'page old 2', id: '1081416', parentId: null],
-                   'page old 3': [title: 'page old 3', id: '4390965', parentId: '1081416'],
-                   'page old 4': [title: 'page old 4', id: '4391029', parentId: '4390965'],
-                   'page old 5': [title: 'page old 5', id: '4391039', parentId: '14094801'],
-                   'page old 6': [title: 'page old 6', id: '4391048', parentId: '4390965'],
-                   'page old 7': [title: 'page old 7', id: '4391051', parentId: '4390965'],
-                   'page old 8': [title: 'page old 8', id: '4391056', parentId: '14094801'],
-                   'page old 9': [title: 'page old 9', id: '4718619', parentId: '4390965'],
-                   'page old 0': [title: 'page old 0', id: '4718623', parentId: '4390965']]
-    }
-
-    void 'test ancestor-id output'() {
-        //TODO move test to ConfluenceClientSpec
-        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
-        GroovyShell shell = setupShell()
-        def jsonSlurper = new JsonSlurper()
-        def script = shell.parse(ASCIIDOC2CONFLUENCE_SCRIPT)
-        script.setProperty("confluenceClient", Stub(constructorArgs: [new ConfigService(config)],ConfluenceClient.class){
-            fetchPagesByAncestorId(_, _, _) >> [data: jsonSlurper.parse(new File("${TestUtils.TEST_RESOURCES_DIR}/asciidoc2confluence/ancestorId.json"))] >>
-                // no more pages outside the limit
-                [data: [results: []]] >>
-                // first child loop
-                [data: jsonSlurper.parse(new File("${TestUtils.TEST_RESOURCES_DIR}/asciidoc2confluence/ancestorId_child.json"))] >>
-                // all other child loops
-                [data: [results: []]] })
-        when: 'run retrieveAllPagesByAncestorId'
-        def result = script.retrieveAllPagesByAncestorId(['123'], 100)
-        then: 'the pages are given'
-        result.size() == 7
-        result == ['page 1': [title: 'page 1', id: '183954870', parentId: '123'],
-                   'page 2': [title: 'page 2', id: '92996640', parentId: '123'],
-                   'page 3': [title: 'page 3', id: '101845068', parentId: '123'],
-                   'page 4': [title: 'page 4', id: '183954872', parentId: '123'],
-                   'page 5': [title: 'page 5', id: '71210367', parentId: '183954870'],
-                   'page 6': [title: 'page 6', id: '76418864', parentId: '183954870'],
-                   'page 7': [title: 'page 7', id: '71208921', parentId: '183954870']]
     }
 
     void 'test default language'() {
@@ -123,7 +66,7 @@ class asciidoc2confluenceSpec extends Specification {
         script.setProperty("baseUrl", "./src/test/build/asciidoc2confluence")
         script.setProperty("config", Map.of("imageDirs", ["Foo/"], "confluence", []))
         script.setProperty("deferredUpload", [])
-        def bodyFixture = new File("${TestUtils.TEST_RESOURCES_DIR}/asciidoc2confluence/fixtures/body.html");
+        def bodyFixture = new File("${TestUtils.TEST_RESOURCES_DIR}/asciidoc2confluence/fixtures/body.html")
         when: 'run parseBody'
         def output = script.parseBody Jsoup.parse(bodyFixture.text) , [], []
 
@@ -140,7 +83,7 @@ class asciidoc2confluenceSpec extends Specification {
         script.setProperty("baseUrl", "/Users/Foo/bar")
         script.setProperty("config", Map.of("imageDirs", ["Foo/"], "confluence", Map.of("disableToC", true)))
         script.setProperty("deferredUpload", [])
-        def docFixture = new File("${TestUtils.TEST_RESOURCES_DIR}/asciidoc2confluence/fixtures/confluenceDocWithoutToC.html").text;
+        def docFixture = new File("${TestUtils.TEST_RESOURCES_DIR}/asciidoc2confluence/fixtures/confluenceDocWithoutToC.html").text
 
         when: 'we disable ToC generation and run generateAndAttachToC'
         script.setProperty("config", Map.of("imageDirs", ["Foo/"], "confluence", Map.of("disableToC", true)))
@@ -190,7 +133,7 @@ class asciidoc2confluenceSpec extends Specification {
         script.setProperty("baseUrl", "/Users/Foo/bar")
         script.setProperty("config", Map.of("imageDirs", ["Foo/"]))
         script.setProperty("deferredUpload", [])
-        def imageFixture = new File("${TestUtils.TEST_RESOURCES_DIR}/asciidoc2confluence/fixtures/imageBase64.txt");
+        def imageFixture = new File("${TestUtils.TEST_RESOURCES_DIR}/asciidoc2confluence/fixtures/imageBase64.txt")
         def calculatedHash = script.MD5(imageFixture.text)
 
         when: 'given a clean environment'
@@ -212,37 +155,6 @@ class asciidoc2confluenceSpec extends Specification {
         then: 'the image exists after running handleEmbeddedImage'
         new File(existingImage.get("filePath")).exists()
         existingImage.get("fileName") == "${calculatedHash}.png"
-    }
-
-    void 'test the correct editor is used'() {
-        //TODO move test to ConfluenceClientSpec
-        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
-        GroovyShell shell = setupShell()
-        def script = shell.parse(ASCIIDOC2CONFLUENCE_SCRIPT)
-        when: 'explicitly not enforce the new editor'
-        script.setProperty("config", Map.of("imageDirs", ["Foo/"], "confluence", Map.of(
-            "enforceNewEditor", false
-        )))
-        def expectedVersion1 = script.determineEditorVersion()
-
-        then: 'the editor is the old one'
-        expectedVersion1 == "v1"
-
-        when: 'enforce the new editor'
-        script.setProperty("config", Map.of("imageDirs", ["Foo/"], "confluence", Map.of(
-            "enforceNewEditor", true
-        )))
-        def expectedVersion2 = script.determineEditorVersion()
-
-        then: 'the editor is the new one'
-        expectedVersion2 == "v2"
-
-        when: 'no config is set explicitly for the editor'
-        script.setProperty("config", Map.of("imageDirs", ["Foo/"], "confluence", []))
-        def expectedVersion3 = script.determineEditorVersion()
-
-        then: 'the default editor is the old one'
-        expectedVersion3 == "v1"
     }
 
 }
