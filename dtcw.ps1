@@ -542,7 +542,7 @@ function build_command($environment, $version, $_args) {
             Write-Output ""
             exit 1
         }
-        $container_name="doctoolchain-${version}-$(date '+%Y%m%d_%H%M%S')"
+        $container_name="doctoolchain-${version}-$(date -uFormat '+%Y%m%d_%H%M%S')"
         $docker_cmd = Get-Command docker
         # TODO: DTC_PROJECT_BRANCH is  not passed into the docker environment
         # See https://github.com/docToolchain/docToolchain/issues/1087
