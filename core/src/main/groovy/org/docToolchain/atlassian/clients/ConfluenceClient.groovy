@@ -4,13 +4,14 @@ import groovyx.net.http.EncoderRegistry
 import groovyx.net.http.HttpResponseException
 import groovyx.net.http.Method
 import groovyx.net.http.RESTClient
+import groovyx.net.http.URIBuilder
 import org.apache.http.entity.ContentType
 import org.docToolchain.configuration.ConfigService
 
 abstract class ConfluenceClient {
 
-    protected final String API_V1_PATH = "/wiki/rest/api/"
-    protected final String API_V2_PATH = "/wiki/api/v2/"
+    protected final String API_V1_DEFAULT_PATH = "/wiki/rest/api/"
+    protected final String API_V2_DEFAULT_PATH = "/wiki/api/v2/"
 
     protected final String editorVersion
     protected String baseApiUrl

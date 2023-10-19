@@ -1,12 +1,24 @@
 package org.docToolchain.atlassian.clients
 
 import groovyx.net.http.ContentType
+import groovyx.net.http.URIBuilder
 import org.docToolchain.configuration.ConfigService
 
 class ConfluenceClientV1 extends ConfluenceClient {
 
+    protected final String API_V1_PATH
+
     ConfluenceClientV1(ConfigService configService) {
         super(configService)
+        API_V1_PATH = getRealApiPath()
+    }
+
+    protected String getRealApiPath() {
+        if(this.baseApiUrl.contains("/rest/api")) {
+            def path = new URIBuilder(this.baseApiUrl).getPath()
+            return path.endsWith("/") ? path : path + "/"
+        }
+        return API_V1_DEFAULT_PATH
     }
 
     @Override

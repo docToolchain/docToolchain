@@ -30,4 +30,49 @@ class ConfluenceClientV1Spec extends ConfluenceClientSpec {
             >> [data: [results: []]]
         return new ConfluenceClientV1(configService)
     }
+
+    def "test ConfluencClientV1 API path without context"() {
+        given: "i create a Confluence config and the API does not have a context path"
+            ConfigObject config = new ConfigObject()
+            config.confluence = [
+                api: "https://confluence.atlassian.com/rest/api/",
+                credentials: "user:password"
+            ]
+            ConfigService configService = new ConfigService(config)
+            ConfluenceClientV1 confluenceClient = getConfluenceClient(configService) as ConfluenceClientV1
+        when: "the client has been created"
+            def apiPath = confluenceClient.API_V1_PATH
+        then: "the API path is set without the context path"
+            apiPath == "/rest/api/"
+    }
+
+    def "test ConfluencClientV1 API path could be context aware"() {
+        given: "i create a Confluence config that includes the API context path and has no trailing slash"
+            ConfigObject config = new ConfigObject()
+            config.confluence = [
+                api: "https://confluence.atlassian.com/foo/rest/api",
+                credentials: "user:password"
+            ]
+            ConfigService configService = new ConfigService(config)
+            ConfluenceClientV1 confluenceClient = getConfluenceClient(configService) as ConfluenceClientV1
+        when: "the client has been created"
+            def apiPath = confluenceClient.API_V1_PATH
+        then: "the API path is set with the context path and a trailing slash"
+            apiPath == "/foo/rest/api/"
+    }
+
+    def "test default API path is set correctly"() {
+        given: "i create a Confluence config with host only"
+            ConfigObject config = new ConfigObject()
+            config.confluence = [
+                api: "https://confluence.atlassian.com",
+                credentials: "user:password"
+            ]
+            ConfigService configService = new ConfigService(config)
+            ConfluenceClientV1 confluenceClient = getConfluenceClient(configService) as ConfluenceClientV1
+        when: "the client has been created"
+            def apiPath = confluenceClient.API_V1_PATH
+        then: "the default API path is set correctly"
+            apiPath == "/wiki/rest/api/"
+    }
 }
