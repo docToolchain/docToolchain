@@ -34,7 +34,7 @@ Execute
 
 [source, bash]
 ----
-./dtcw local getJava
+./dtcw local install java
 ----
 
 to fetch and install the correct JDK.
@@ -70,10 +70,10 @@ The last needed step is to download an offline version of `gradle` for docToolch
 This was inspired by https://chengl.com/gradle-offline-build/.
 
 .Steps
-. Download a `gradle` binary-zip from https://services.gradle.org/distributions/
-. Place it in the folder `.doctoolchain/docToolchain-$VERSION/gradle/wrapper` (replace $VERSION with current docToolchain version that you installed)
-. Go to folder `.doctoolchain/docToolchain-$VERSION/gradle/wrapper` and open the file `gradle-wrapper.properties`
-.  change the `distributionUrl` to `distributionUrl=gradle-$GRADLEVERSION-bin.zip` (replace $GRADLEVERSION with the version of the binary-zip you just downloaded)
+. download a `gradle` binary-zip from https://services.gradle.org/distributions/
+. place it in the folder `.doctoolchain/docToolchain-$VERSION/gradle/wrapper` (replace $VERSION with current docToolchain version that you installed)
+. go to folder `.doctoolchain/docToolchain-$VERSION/gradle/wrapper` and open the file `gradle-wrapper.properties`
+. change the `distributionUrl` to `distributionUrl=gradle-$GRADLEVERSION-bin.zip` (replace $GRADLEVERSION with the version of the binary-zip you just downloaded)
 
 docToolchain now uses an offline version of Gradle.
 
