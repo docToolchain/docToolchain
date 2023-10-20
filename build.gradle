@@ -58,7 +58,7 @@ dependencies {
             (libs.httpmime),
             (libs.jsoup),
             (libs.http.builder),
-            ("org.doctoolchain:core")
+            ("org.docToolchain:core")
     )
     testRuntimeOnly(libs.byte.buddy)
     compileClasspath((libs.http.builder))

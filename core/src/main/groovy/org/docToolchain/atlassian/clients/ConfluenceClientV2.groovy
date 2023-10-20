@@ -13,6 +13,15 @@ class ConfluenceClientV2 extends ConfluenceClient {
         this.spaceId = fetchSpaceIdByKey(spaceKey)
     }
 
+    @Override
+    def verifyCredentials() {
+        trythis {
+            restClient.get(
+                path: API_V1_DEFAULT_PATH + 'user/current', headers: headers
+            )
+        }
+    }
+
     def fetchSpaceIdByKey(String spaceKey) {
             return restClient.get(
                 path   : API_V2_DEFAULT_PATH + "spaces",

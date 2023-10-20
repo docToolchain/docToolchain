@@ -13,6 +13,15 @@ class ConfluenceClientV1 extends ConfluenceClient {
         API_V1_PATH = getRealApiPath()
     }
 
+    @Override
+    def verifyCredentials() {
+        trythis {
+            restClient.get(
+                path: API_V1_PATH + 'user/current', headers: headers
+            )
+        }
+    }
+
     protected String getRealApiPath() {
         if(this.baseApiUrl.contains("/rest/api")) {
             def path = new URIBuilder(this.baseApiUrl).getPath()

@@ -4,7 +4,6 @@ import groovyx.net.http.EncoderRegistry
 import groovyx.net.http.HttpResponseException
 import groovyx.net.http.Method
 import groovyx.net.http.RESTClient
-import groovyx.net.http.URIBuilder
 import org.apache.http.entity.ContentType
 import org.docToolchain.configuration.ConfigService
 
@@ -43,6 +42,8 @@ abstract class ConfluenceClient {
     def addHeader(key, value) {
         this.headers.put(key, value)
     }
+
+    abstract verifyCredentials()
 
     abstract addLabel(pageId, label)
 

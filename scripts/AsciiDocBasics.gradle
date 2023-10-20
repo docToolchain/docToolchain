@@ -17,7 +17,7 @@ buildscript {
         classpath libs.asciidoctor.pdf
         classpath libs.asciidoctor.gems
         classpath libs.asciidoctor.slides
-        classpath("org.doctoolchain:core")
+        classpath("org.docToolchain:core")
     }
 }
 

@@ -8,7 +8,7 @@ repositories {
     mavenCentral()
 }
 
-group = "org.doctoolchain"
+group = "org.docToolchain"
 
 dependencies {
     compileOnly((libs.groovy.all))
