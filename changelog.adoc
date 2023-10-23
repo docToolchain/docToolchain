@@ -13,7 +13,14 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === added
 
+* https://github.com/docToolchain/docToolchain/issues/1254[configure Confluence API parameters via Gradle parameters]
+
+* introduce `verifyConfluenceApiAccess` task - check if your API settings are correct
+
 === changed
+
+* introduce docToolchain core component to modularize the project
+* implement Confluence API v2 support
 
 == 3.0.2 - 2023-09-12
 

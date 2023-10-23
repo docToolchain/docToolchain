@@ -35,6 +35,7 @@ task publishToConfluence(
 ) {
     doLast {
         logger.info("docToolchain> docDir: "+docDir)
+        config.confluence.api = findProperty("confluence.api")?:config.confluence.api
         //TODO default should be false, if the V1 has been removed in cloud
         config.confluence.useV1Api = (findProperty("confluence.useV1Api")?:config.confluence.useV1Api)?:true
         binding.setProperty('config',config)
