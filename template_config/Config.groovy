@@ -259,6 +259,12 @@ confluence.with {
     // a working example is https://arc42-template.atlassian.net/wiki
     api = 'https://[yourServer]/[context]'
 
+    // if true API V1 only will be used. Default is true.
+    // useV1Api = true
+
+    // if true, the new editor v2 will be used. Default is false.
+    // enforceNewEditor = false
+
     //    Additionally, spaceKey, subpagesForSections, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
 
     // the key of the confluence space to write to
