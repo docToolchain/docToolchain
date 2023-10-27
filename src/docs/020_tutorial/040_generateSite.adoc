@@ -28,7 +28,7 @@ It uses a static site generator to turn your document into a nice looking micros
 ----
 --
 
-.output of generateHTML
+.output of generateSite
 [source, shell session]
 ----
 $ ./dtcw docker generateSite
