@@ -338,6 +338,14 @@ def rewriteCodeblocks(Elements body, String cdataStart, String cdataEnd) {
                 // fall back to plain text to avoid error messages when rendering
                 language = 'text'
             }
+            // #1265 - pacoVK: fix for nested CDATA sections in XML code blocks
+            if (language.equals("xml")){
+                String xmlDocument = code.wholeOwnText()
+                if (xmlDocument.contains("<![CDATA[") && xmlDocument.contains("]]>")){
+                    xmlDocument = xmlDocument.replaceAll("]]>", "]]]]><![CDATA[>")
+                    code.text(xmlDocument)
+                }
+            }
         } else {
             // Confluence default is Java, so prefer explicit plain text
             language = 'text'
@@ -601,7 +609,6 @@ def parseBody(body, anchors, pageAnchors) {
             // workaround for #402
             .replaceAll('(?m)(ac:name="language">)([\n\r\t ]*)([a-z]+)([\n\r\t ]*)(</ac)','$1$3$5')
 
-
     return Map.of(
         "page", pageString,
         "uploads", uploads
@@ -666,7 +673,6 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
         println "found existing page: " + page.id +" version "+page.version.number
 
         //extract hash from remote page to see if it is different from local one
-        println("retrieving remote ${page}")
         def remotePage = page.body.storage.value.toString().trim()
 
         def remoteHash = remotePage =~ /(?ms)hash: #([^#]+)#/
