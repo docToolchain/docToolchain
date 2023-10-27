@@ -72,5 +72,5 @@ To avoid this, use the task xref:../015_tasks/03_task_previewSite.adoc[`previewS
 :xrefstyle: short
 
 [[html_out]]
-.generated output of generateHTML task
+.generated output of generateSite task
 image::generateSite.png[]
