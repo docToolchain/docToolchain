@@ -435,17 +435,18 @@ download_file() {
 
 assert_java_version_supported() {
     # Defines the order in which Java is searched.
-    if [ -n "${JAVA_HOME-}" ]; then
-        JAVA_CMD="${JAVA_HOME}/bin/java"
-    elif [ -d "${DTC_JAVA_HOME}" ]; then
-        if [ -d "${DTC_JAVA_HOME}/Contents" ]; then
-            # JDK for MacOS have a different structure
-            JAVA_HOME="${DTC_JAVA_HOME}/Contents/Home"
-        else
-            JAVA_HOME="${DTC_JAVA_HOME}"
-        fi
-        export JAVA_HOME
-        DTC_OPTS="${DTC_OPTS} '-Dorg.gradle.java.home=${JAVA_HOME}'"
+    if [ -d "${DTC_JAVA_HOME}" ]; then
+            echo "Caution: Your JAVA_HOME setting is overriden by DTCs own JDK install (for this execution)"
+            if [ -d "${DTC_JAVA_HOME}/Contents" ]; then
+                # JDK for MacOS have a different structure
+                JAVA_HOME="${DTC_JAVA_HOME}/Contents/Home"
+            else
+                JAVA_HOME="${DTC_JAVA_HOME}"
+            fi
+            export JAVA_HOME
+            DTC_OPTS="${DTC_OPTS} '-Dorg.gradle.java.home=${JAVA_HOME}'"
+            JAVA_CMD="${JAVA_HOME}/bin/java"
+    elif [ -n "${JAVA_HOME-}" ]; then
         JAVA_CMD="${JAVA_HOME}/bin/java"
     else
         # Don't provide JAVA_HOME if java is used by PATH.

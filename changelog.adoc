@@ -11,6 +11,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 * https://github.com/docToolchain/docToolchain/pull/1262[#1262: downloadTemplate skips creating a folder, causes generateSite to fail]
 * https://github.com/docToolchain/docToolchain/issues/1269[#1269 Fix wrong bash usage on Darwin with Homebrew]
+* https://github.com/docToolchain/docToolchain/issues/1270[#1269 Ensure DTC_JAVA_HOME is preferred over JAVA_HOME]
 
 === added
 
