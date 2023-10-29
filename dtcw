@@ -54,6 +54,7 @@ main() {
     # For debugging purpose at the top of the script
     arch=$(uname -m)
     os=$(uname -s)
+    bash=bash
 
     print_version_info
 
@@ -103,12 +104,13 @@ main() {
 
     emu=""
     if [ "${os}" = "Darwin" ] && [ "${arch}" = "arm64" ]; then
-      echo "Apple silicon detected, using x86_64 mode"
+      echo "Apple silicon detected, using x86_64 mode and os native bash"
       emu="arch -x86_64"
+      bash="/bin/bash"
     fi
 
     # echo "Command to invoke: ${command}"
-    exec ${emu} bash -c "${command}"
+    exec ${emu} ${bash} -c "${command}"
 }
 
 assert_argument_exists() {
