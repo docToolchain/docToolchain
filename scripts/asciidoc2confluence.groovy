@@ -69,7 +69,10 @@ def spaceKeyInput
 
 def confluenceSpaceKey
 def confluenceSubpagesForSections
+@Field
 def confluencePagePrefix
+@Field
+def confluencePageSuffix
 def baseApiPath = new URI(config.confluence.api).path
 // helper functions
 
@@ -218,7 +221,7 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
 }
 
 
-def realTitle = { pageTitle ->
+def realTitle (pageTitle) {
     confluencePagePrefix + pageTitle + confluencePageSuffix
 }
 
