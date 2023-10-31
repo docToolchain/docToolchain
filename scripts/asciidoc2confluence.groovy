@@ -132,12 +132,7 @@ def parseAdmonitionBlock(block, String type) {
 */
 def addLabels = { def pageId, def labelsArray ->
     //https://docs.atlassian.com/confluence/REST/latest/
-    def api = new RESTClient(config.confluence.api)
-    //this fixes the encoding (dierk42: Is this needed here? Don't know)
-    api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
-    if (config.confluence.proxy) {
-        api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
-    }
+    def api = createRESTClient()
     def headers = getHeaders()
     // Attach each label in a API call of its own. The only prefix possible
     // in our own Confluence is 'global'
@@ -171,13 +166,8 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
     }
 
     //https://docs.atlassian.com/confluence/REST/latest/
-    def api = new RESTClient(config.confluence.api)
-    //this fixes the encoding
-    api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
-    if (config.confluence.proxy) {
-        api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
-    }
-   def headers = getHeaders()
+    def api = createRESTClient()
+    def headers = getHeaders()
     //check if attachment already exists
     def result = "nothing"
     def attachment = api.get(path: 'content/' + pageId + '/child/attachment',
@@ -813,16 +803,11 @@ def determineEditorVersion() {
 // #342-dierk42: added parameter 'keywords'
 def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, keywords, editorVersion ->
     parentId = parentId?.toString()
-    def api = new RESTClient(config.confluence.api)
+    def api = createRESTClient()
     def headers = getHeaders()
     def deferredUpload = []
     String realTitleLC = realTitle(pageTitle).toLowerCase()
 
-    //this fixes the encoding
-    api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
-    if (config.confluence.proxy) {
-        api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
-    }
     //try to get an existing page
     def parsedBody = parseBody(pageBody, anchors, pageAnchors)
     localPage = parsedBody.get("page")
@@ -993,8 +978,19 @@ def promoteHeaders(tree, start, offset) {
     }
 }
 
-def retrievePageIdByName = { String name ->
+def createRESTClient(){
     def api = new RESTClient(config.confluence.api)
+    // this fixes the encoding (dierk42: Is this needed here? Don't know)
+    api.encoderRegistry = new EncoderRegistry( charset: 'utf-8' )
+    if (config.confluence.proxy) {
+        api.setProxy(config.confluence.proxy.host, config.confluence.proxy.port, config.confluence.proxy.schema ?: 'http')
+        println 'Using proxy ' + (config.confluence.proxy.schema ?: 'http') + '://' + config.confluence.proxy.host + ':' + config.confluence.proxy.port
+    }
+    api
+}
+
+def retrievePageIdByName = { String name ->
+    def api = createRESTClient()
     def headers = getHeaders()
 
         trythis {
