@@ -268,48 +268,19 @@ input = [
 ]
 ----
 . Set up the API endpoint.
-.. Get your Atlassian Confluence URL, such as https://arc42-template.atlassian.net.
-.. Put your context, plus /rest/api behind it. See the sample below.
+Get your Atlassian Confluence URL, such as https://arc42-template.atlassian.net.
 +
 .Endpoint Syntax
 [source, groovy]
 ----
-api = 'https://[yourServer]/[context]/rest/api/'
+api = 'https://[yourServer]/[context]'
 ----
-+
-In this case, the correct endpoint is `https://arc42-template.atlassian.net/wiki/rest/api/`.
-+
-.. Verify your endpoint and paste `https://[yourServer]/[context]/rest/api/**user/current**` in your browser, such as https://arc42-template.atlassian.net/wiki/rest/api/user/current.
-+
-This results in the following output, and proves that I got the right endpoint (not a 404).
-[source, json]
-----
-{
-  "type":"anonymous",
-  "profilePicture":{
-    "path":"/wiki/s/-93606273/6452/1a34f7853d41f548e0ef8f60a80cc50468126739/_/images/icons/profilepics/anonymous.png",
-    "width":48,
-    "height":48,
-    "isDefault":true
-  },
-  "displayName":"Anonymous",
-  "isExternalCollaborator":false,
-  "_expandable":{"operations":""},
-  "_links":{
-    "base":"https://arc42-template.atlassian.net/wiki",
-    "context":"/wiki"
-  }
-}
-----
-+
-As you can see, this API endpoint works as a GET request without being logged in!
-+
+In this case, the correct endpoint is `https://arc42-template.atlassian.net/wiki`.
+
 . In `docToolchainConfig.groovy`, add the space-key, such as `8FE`.
-+
 ----
 spaceKey = '8FE'
 ----
-
 
 ==== Step 2.1. Configure Confluence Authentication
 
@@ -319,7 +290,7 @@ WARNING: This method is not recommended. Instead of passing your password, you c
 which can easily be revoked on the event of a compromise. See
 xref:personal-access-token[Authentication with Personal Access Token].
 
-In the Terminal, type the foolwoing:
+In the Terminal, type the following:
 
 [source,shell]
 ----
@@ -372,8 +343,29 @@ In the Terminal, type the following to publish to Confluence with your PAT:
 ./dtcw publishToConfluence -PconfluenceBearerToken=<your personal access token>
 ----
 
+==== Step 3: Verify Your Configuration
+To verify your configuration execute `./dtcw verifyConfluenceApiAccess` and pass the credentials to the task, depending on the setup you chose in the steps before.
+An example would be
+[source,shell]
+----
+./dtcw verifyConfluenceApiAccess -PconfluenceUser=<your email> -PconfluencePass=<your api-token>
+----
+If the API is accessible, the task will succeed and print the API version that is used. Otherwise, an error will be printed.
 
-=== Step 3: Publish Your Pages
+[source, shell]
+----
+...
+Daemon will be stopped at the end of the build
+
+> Task :verifyConfluenceApiAccess
+Using Confluence API V1
+
+BUILD SUCCESSFUL in 15s
+3 actionable tasks: 3 executed
+----
++
+
+=== Step 4: Publish Your Pages
 
 To publish your pages to Confluence, type:
 .`./dtcw publishToConfluence <extra arguments>`

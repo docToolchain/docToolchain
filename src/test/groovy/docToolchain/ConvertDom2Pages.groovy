@@ -11,11 +11,23 @@ import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
 import static org.gradle.testkit.runner.TaskOutcome.UP_TO_DATE
 
 class ConvertDom2Pages extends Specification {
+
+    GroovyShell setupShell() {
+        def config = new ConfigObject()
+        config.confluence = [
+            api : 'https://my.confluence/rest/api/',
+            useV1Api : true,
+        ]
+        return new GroovyShell(new Binding([
+            config: config
+        ]))
+    }
+
     @Unroll
     void 'test layers with preamble'() {
-        setup: 'load asciidoc2confluence'
-        GroovyShell shell = new GroovyShell()
-        def script = shell.parse(new File("./scripts/asciidoc2confluence.groovy"))
+        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
+        GroovyShell shell = setupShell()
+        def script = shell.parse(new File("./core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy"))
 
         when: 'convert to HTML'
         def result = GradleRunner.create()
@@ -132,9 +144,9 @@ class ConvertDom2Pages extends Specification {
 
     @Unroll
     void 'test layers without preamble'() {
-        setup: 'load asciidoc2confluence'
-        GroovyShell shell = new GroovyShell()
-        def script = shell.parse(new File("./scripts/asciidoc2confluence.groovy"))
+        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
+        GroovyShell shell = setupShell()
+        def script = shell.parse(new File("./core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy"))
 
         when: 'convert to HTML'
         def result = GradleRunner.create()

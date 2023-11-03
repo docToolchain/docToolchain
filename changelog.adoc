@@ -13,10 +13,18 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/issues/1269[#1269 Fix wrong bash usage on Darwin with Homebrew]
 * https://github.com/docToolchain/docToolchain/issues/1270[#1269 Ensure DTC_JAVA_HOME is preferred over JAVA_HOME]
 * https://github.com/docToolchain/docToolchain/issues/1069[#1069 publishToConfluence 'ancestorName' query does not support proxy]
+* https://github.com/docToolchain/docToolchain/issues/1272[#1272: publishToConfluence broken when document contains internal links]
 
 === added
 
+* https://github.com/docToolchain/docToolchain/issues/1254[configure Confluence API parameters via Gradle parameters]
+
+* introduce `verifyConfluenceApiAccess` task - check if your API settings are correct
+
 === changed
+
+* introduce docToolchain core component to modularize the project
+* implement Confluence API v2 support
 
 == 3.0.2 - 2023-09-12
 
