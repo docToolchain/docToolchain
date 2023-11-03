@@ -74,6 +74,8 @@ def confluenceSpaceKey
 def confluenceSubpagesForSections
 @Field
 def confluencePagePrefix
+@Field
+def confluencePageSuffix
 //def baseApiPath = new URI(config.confluence.api).path
 // helper functions
 
