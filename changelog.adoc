@@ -9,6 +9,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+* https://github.com/docToolchain/docToolchain/issues/1281[#1281: publishToConfluence throws exception when uploading attachments in v3.1.0]
+
 === added
 
 === changed
