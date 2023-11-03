@@ -15,6 +15,11 @@ This lets you use the https://www.writethedocs.org/guide/docs-as-code/[docs-as-c
 
 [NOTE]
 ====
+From the 01.01.2024 on, Atlassian turns off API V1 for Confluence Cloud, if there is a V2 equivalent. docToolchain versions from 3.1 on support API V2. If you are using an older version of docToolchain, you'll need to upgrade to a newer version.
+====
+
+[NOTE]
+====
 Currently, docToolchain only has full support for the old Confluence editor. The new editor is not fully supported yet. You can use the new editor, but you may experience some unexpected layout issues/ changes. To make use of the new editor you need to set `enforceNewEditor` to `true` in the Confluence section of the docToolchain configuration file.
 ====
 
@@ -78,11 +83,23 @@ Specify the ID as a string within the config file.
 
 *api*
 
-For cloud instances, `[context]` is `wiki`.
+Endpoint of the confluenceAPI (REST) to be used and looks like `https://[yourServer]/[context]`, while `[context]` is optional.
+If you use Confluence Cloud, you can omit the context.
+If you use Confluence Server, you may need to set a context, depending on your Confluence configuration.
+
+*useV1Api*
+
+*_This feature is available for docToolchain >= 3.1 only_*
+
+If you are using Confluence Cloud, you can set this to `false` to use the new API V2. If you are using Confluence Server, you can set this to `true` to use the old API V1. If you are using Confluence Cloud and set this to `false`, you will get an error message, once Atlassian turns off API V1 (starting 01.01.2024).
+
+*enforceNewEditor*
+
+Atlassian is currently rolling out a new editor for Confluence. If you want to use the new editor, you can set this to `true`. If you are using the old editor, you can set this to `false`. If you are using the new editor, you may experience some unexpected layout issues/ changes, since the new editor has yet no feature parity and therefore may be incompatible.
 
 *disableToC*
 
-This boolean configuration determines whether or not the table of contents (ToC) is disabled on the page once uploaded to Confluence. `false` by default, so the ToC is active.
+This boolean configuration determines whether the table of contents (ToC) is disabled on the page once uploaded to Confluence. `false` by default, so the ToC is active.
 
 *pagePrefix/pageSuffix*
 
@@ -272,8 +289,8 @@ The following style definitions are Confluence-compatible, and will enable the u
 include::{projectRootDir}/scripts/publishToConfluence.gradle[tags=publishToConfluence]
 ----
 
-.scripts/asciidoc2confluence.groovy
+.scripts/org/docToolchain/scripts/asciidoc2confluence.groovy
 [source,groovy]
 ----
-include::{projectRootDir}/scripts/asciidoc2confluence.groovy[]
+include::{projectRootDir}/core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy[]
 ----
