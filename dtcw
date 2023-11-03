@@ -12,7 +12,7 @@ set -o pipefail
 
 # See https://github.com/docToolchain/docToolchain/releases for available versions.
 # Set DTC_VERSION to "latest" to get the latest, yet unreleased version.
-: "${DTC_VERSION:=3.0.2}"
+: "${DTC_VERSION:=3.1.0}"
 
 # The 'generateSite' and 'copyThemes' tasks support DTC_SITETHEME, an URL of a theme.
 # export DTC_SITETHEME=https://....zip
