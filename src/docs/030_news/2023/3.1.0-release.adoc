@@ -16,6 +16,7 @@ ifndef::imagesdir[:imagesdir: ../../../images]
 
 Here it is: docToolchain v3.1.0!
 It contains two major changes:
+
 * docToolchain starts to become more modularized. This enables us to provide a core component which can be used by other projects as well, *without* the use of Gradle. Though, Gradle will still get the full support.
 * Atlassian is currently deprecating the Confluence API v1. This release candidate contains the first steps to support the new API v2. From January 2024 on,
 the old API will be shut down for all *Cloud Instances* (https://community.developer.atlassian.com/t/deprecating-many-confluence-v1-apis-that-have-v2-equivalents/66883[see]).
