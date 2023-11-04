@@ -55,7 +55,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
 
     @Override
     def createAttachment(String pageId, InputStream inputStream, String fileName, String note, String localHash) {
-        def uri = ""
+        def uri = API_V1_PATH + 'content/' + pageId + '/child/attachment'
         uploadAttachment(uri, inputStream, fileName, note, localHash)
     }
 
