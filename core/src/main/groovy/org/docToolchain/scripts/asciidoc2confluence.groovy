@@ -138,10 +138,9 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
     }
 
     def attachment = confluenceClient.getAttachment(pageId, fileName).data
-    if (attachment.size==1) {
+    if (attachment.size()>0 && attachment.results.size()>0) {
         // attachment exists. need an update?
-        def remoteHash = attachment.results[0].extensions.comment.replaceAll("(?sm).*#([^#]+)#.*",'$1')
-        if (remoteHash!=localHash) {
+        if (confluenceClient.attachmentHasChanged(attachment, localHash)) {
             //hash is different -> attachment needs to be updated
             confluenceClient.updateAttachment(pageId, attachment.results[0].id, is, fileName, note, localHash)
             println "    updated attachment"

@@ -64,7 +64,10 @@ abstract class ConfluenceClient {
 
     abstract createAttachment(String pageId, InputStream inputStream, String fileName, String note, String localHash)
 
+    abstract attachmentHasChanged(attachment, localHash)
+
     protected uploadAttachment(uri, InputStream inputStream, String fileName, note, localHash) {
+        //TODO build sane URL
         def builder = new HTTPBuilder(baseApiUrl + uri)
         //TODO this is a workaround for the fact that the RESTClient does not support mulitpart/form-data from Groovy 3.0.0 on
         if (!proxyConfig.isEmpty()) {

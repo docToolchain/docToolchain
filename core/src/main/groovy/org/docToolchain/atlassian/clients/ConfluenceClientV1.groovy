@@ -60,6 +60,12 @@ class ConfluenceClientV1 extends ConfluenceClient {
     }
 
     @Override
+    def attachmentHasChanged(Object attachment, Object localHash) {
+        def remoteHash = attachment.results[0].extensions.comment.replaceAll("(?sm).*#([^#]+)#.*",'$1')
+        return remoteHash!=localHash
+    }
+
+    @Override
     def fetchPagesBySpaceKey(String spaceKey, Integer pageLimit) {
         def allPages = [:]
         Boolean morePages = true
