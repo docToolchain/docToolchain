@@ -16,11 +16,11 @@ class ConfigService {
     }
 
     Map getFlatConfigSubTree(String propertyPath) {
-       return config.flatten().inject([:]) { result, key, value-> {
+       return config.flatten().inject([:]) { result, key, value ->
             if(key.startsWith(propertyPath)){
                 result.put(key.replaceFirst("${propertyPath}.", ""), value)
             }
             return result
-        }}
+        }
     }
 }

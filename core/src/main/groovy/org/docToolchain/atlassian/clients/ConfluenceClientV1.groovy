@@ -24,7 +24,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
 
     protected String getRealApiPath() {
         if(this.baseApiUrl.contains("/rest/api")) {
-            def path = new URIBuilder(this.baseApiUrl).getPath()
+            String path = new URIBuilder(this.baseApiUrl).getPath()
             return path.endsWith("/") ? path : path + "/"
         }
         return API_V1_DEFAULT_PATH
@@ -55,8 +55,14 @@ class ConfluenceClientV1 extends ConfluenceClient {
 
     @Override
     def createAttachment(String pageId, InputStream inputStream, String fileName, String note, String localHash) {
-        def uri = ""
+        def uri = API_V1_PATH + 'content/' + pageId + '/child/attachment'
         uploadAttachment(uri, inputStream, fileName, note, localHash)
+    }
+
+    @Override
+    def attachmentHasChanged(Object attachment, Object localHash) {
+        def remoteHash = attachment.results[0].extensions.comment.replaceAll("(?sm).*#([^#]+)#.*",'$1')
+        return remoteHash!=localHash
     }
 
     @Override

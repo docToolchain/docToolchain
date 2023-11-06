@@ -91,6 +91,9 @@ If you use Confluence Server, you may need to set a context, depending on your C
 
 *_This feature is available for docToolchain >= 3.1 only_*
 
+[NOTE]
+If you set this to `false`, ensure the `api` config is set to `https://[yourCloudDomain]`. (Mind no _context_ given here)
+
 If you are using Confluence Cloud, you can set this to `false` to use the new API V2. If you are using Confluence Server, you can set this to `true` to use the old API V1. If you are using Confluence Cloud and set this to `false`, you will get an error message, once Atlassian turns off API V1 (starting 01.01.2024).
 
 *enforceNewEditor*

@@ -43,9 +43,10 @@ class ConfluenceClientV2 extends ConfluenceClient {
     }
 
     @Override
-    def getAttachment(Object pageId, Object filename) {
+    def getAttachment(Object pageId, Object fileName) {
+        //TODO NOT Found
         restClient.get(
-            path: API_V2_DEFAULT_PATH + 'pages/' + pageId + '/attachment',
+            path: API_V2_DEFAULT_PATH + 'pages/' + pageId + '/attachments',
             query: [
                 'filename': fileName,
             ], headers: headers)
@@ -59,8 +60,14 @@ class ConfluenceClientV2 extends ConfluenceClient {
 
     @Override
     def createAttachment(String pageId, InputStream inputStream, String fileName, String note, String localHash) {
-        def uri = ""
+        def uri = API_V1_DEFAULT_PATH + 'content/' + pageId + '/child/attachment'
         uploadAttachment(uri, inputStream, fileName, note, localHash)
+    }
+
+    @Override
+    def attachmentHasChanged(attachment, localHash) {
+        def remoteHash = attachment.results[0].comment.replaceAll("(?sm).*#([^#]+)#.*",'$1')
+        return remoteHash!=localHash
     }
 
     @Override

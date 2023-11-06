@@ -1,10 +1,14 @@
 package org.docToolchain.atlassian.clients
 
 import groovyx.net.http.EncoderRegistry
+import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.HttpResponseException
 import groovyx.net.http.Method
 import groovyx.net.http.RESTClient
-import org.apache.http.entity.ContentType
+import org.apache.http.entity.mime.HttpMultipartMode
+import org.apache.http.entity.mime.MultipartEntity
+import org.apache.http.entity.mime.content.InputStreamBody
+import org.apache.http.entity.mime.content.StringBody
 import org.docToolchain.configuration.ConfigService
 
 abstract class ConfluenceClient {
@@ -16,6 +20,8 @@ abstract class ConfluenceClient {
     protected String baseApiUrl
     Map headers
     RESTClient restClient
+    //TODO this is a workaround for the fact that the RESTClient does not support mulitpart/form-data from Groovy 3.0.0 on
+    Map proxyConfig = [:]
 
     ConfluenceClient(ConfigService configService) {
         this.baseApiUrl = configService.getConfigProperty('confluence.api')
@@ -25,6 +31,11 @@ abstract class ConfluenceClient {
         this.editorVersion = determineEditorVersion(configService)
         if(configService.getFlatConfigSubTree('confluence.proxy')){
             def proxy = configService.getFlatConfigSubTree('confluence.proxy')
+            //TODO this is a workaround for the fact that the RESTClient does not support mulitpart/form-data from Groovy 3.0.0 on
+            proxyConfig.put('host', proxy.host as String)
+            proxyConfig.put('port', proxy.port as Integer)
+            proxyConfig.put('schema', proxy.schema  as String?: 'http')
+            //END WORKAROUND
             restClient.setProxy(proxy.host as String, proxy.port as Integer, proxy.schema  as String?: 'http')
         }
         if(configService.getConfigProperty('confluence.bearerToken')){
@@ -53,15 +64,25 @@ abstract class ConfluenceClient {
 
     abstract createAttachment(String pageId, InputStream inputStream, String fileName, String note, String localHash)
 
+    abstract attachmentHasChanged(attachment, localHash)
+
     protected uploadAttachment(uri, InputStream inputStream, String fileName, note, localHash) {
-        restClient.request(uri, Method.POST, ContentType.MULTIPART_FORM_DATA){ req ->
-            def multiPartContent = MultipartEntityBuilder.create()
-            .setMode(HttpMultipartMode.BROWSER_COMPATIBLE)
-            .addBinaryBody("file", inputStream, ContentType.APPLICATION_OCTET_STREAM, fileName)
-            .addTextBody("comment", note + "\r\n#" + localHash + "#")
-            .build()
+        //TODO build sane URL
+        def builder = new HTTPBuilder(baseApiUrl + uri)
+        //TODO this is a workaround for the fact that the RESTClient does not support mulitpart/form-data from Groovy 3.0.0 on
+        if (!proxyConfig.isEmpty()) {
+            builder.setProxy(proxyConfig.get("host") as String, proxyConfig.get("port") as Integer, proxyConfig.get("schema") as String)
+        }
+        //END WORKAROUND
+        builder.request(Method.POST) { req ->
+            requestContentType: "multipart/form-data"
+            MultipartEntity multiPartContent = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE)
+            // Adding Multi-part file parameter "file"
+            multiPartContent.addPart("file", new InputStreamBody(inputStream, fileName))
+            // Adding another string parameter "comment"
+            multiPartContent.addPart("comment", new StringBody(note + "\r\n#" + localHash + "#"))
             req.setEntity(multiPartContent)
-            headers.each { key, value ->
+            this.headers.each { key, value ->
                 req.addHeader(key, value)
             }
         }
