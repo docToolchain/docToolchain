@@ -24,7 +24,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
 
     protected String getRealApiPath() {
         if(this.baseApiUrl.contains("/rest/api")) {
-            def path = new URIBuilder(this.baseApiUrl).getPath()
+            String path = new URIBuilder(this.baseApiUrl).getPath()
             return path.endsWith("/") ? path : path + "/"
         }
         return API_V1_DEFAULT_PATH

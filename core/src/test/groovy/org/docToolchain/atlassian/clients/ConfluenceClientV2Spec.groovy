@@ -58,4 +58,33 @@ class ConfluenceClientV2Spec extends ConfluenceClientSpec {
             confluenceClient != null
             confluenceClient.spaceId == "123456"
     }
+
+    def "test attachment diff can be detected correctly"() {
+        def mockedResponse =   [results:[[mediaTypeDescription:"PNG Image",
+                                          webuiLink:"", downloadLink:"", createdAt:"null", id:"att17858747",
+                                          comment:"automatically uploaded #a937de4e4d3a556d0b8886d7ecb5e0c5#",
+                                          version: [number:1,
+                                                    message:"automatically uploaded #a937de4e4d3a556d0b8886d7ecb5e0c5#",
+                                                    minorEdit:false, authorId:"557058:5d896875-errew-85a4-werwerwerwerwe",
+                                                    createdAt:2
+                                          ],
+                                          title:"01_2_iso-25010-topics-DE.drawio.png", fileSize:100109, status:"current",
+                                          mediaType:"image/png", pageId:17695008, fileId:"e79-rtzrtz-tzrz-d7aebea2986f",
+                                          _links:[
+                                              download:"", webui:""]]], _links:[:]]
+        when: "i create a ConfluenceClientV2"
+            ConfigObject config = new ConfigObject()
+            config.confluence = [
+                api: "https://confluence.atlassian.com",
+                credentials: "user:password"
+            ]
+            ConfigService configService = new ConfigService(config)
+            ConfluenceClient confluenceClient = getConfluenceClient(configService)
+        and : "i check if the attachment has changed"
+            def hasNotChanged = confluenceClient.attachmentHasChanged(mockedResponse, "a937de4e4d3a556d0b8886d7ecb5e0c5")
+            def hasChanged = confluenceClient.attachmentHasChanged(mockedResponse, "somethingdifferent")
+        then: "the attachment has changed"
+            hasChanged == true
+            hasNotChanged == false
+    }
 }
