@@ -63,10 +63,11 @@ logger.info "docToolchain> mainConfigFile: ${mainConfigFile}"
 logger.info "docToolchain> projectDir: ${projectDir}"
 config = new ConfigBuilder(docDir, mainConfigFile)
 .prepareConfigFileIfNotExists({
-    println "\n${color 'green', """Config file '${configBuilder.configFile.getCanonicalPath()}' does not exist' """}"
+    def configFile = new File(docDir, mainConfigFile)
+    println "\n${color 'green', """Config file '${configFile.getCanonicalPath()}' does not exist' """}"
     def input = ant.input(message: "\n${color 'green', 'do you want me to create a default one for you?'}", validargs: 'y,n', addproperty: 'yesno')
     if (ant.yesno=="y") {
-        configBuilder.configFile.write(new File("./template_config/Config.groovy").text)
+        configFile.write(new File("./template_config/Config.groovy").text)
     } else {
         throw new Exception("can't continue without a config file")
     }
