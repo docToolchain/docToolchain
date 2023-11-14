@@ -1,47 +1,36 @@
 package org.docToolchain.atlassian.clients
 
 import groovyx.net.http.ContentType
-import groovyx.net.http.URIBuilder
 import org.docToolchain.configuration.ConfigService
 
 class ConfluenceClientV1 extends ConfluenceClient {
 
-    protected final String API_V1_PATH
 
     ConfluenceClientV1(ConfigService configService) {
         super(configService)
-        API_V1_PATH = getRealApiPath()
     }
 
     @Override
     def verifyCredentials() {
         trythis {
             restClient.get(
-                path: API_V1_PATH + 'user/current', headers: headers
+                path: API_V1_PATH + '/user/current', headers: headers
             )
         }
-    }
-
-    protected String getRealApiPath() {
-        if(this.baseApiUrl.contains("/rest/api")) {
-            String path = new URIBuilder(this.baseApiUrl).getPath()
-            return path.endsWith("/") ? path : path + "/"
-        }
-        return API_V1_DEFAULT_PATH
     }
 
     @Override
     def addLabel(pageId, label) {
         trythis {
             restClient.post(contentType: ContentType.JSON,
-                path: API_V1_PATH + 'content/' + pageId + "/label", body: label, headers: headers)
+                path: API_V1_PATH + '/content/' + pageId + "/label", body: label, headers: headers)
         }
     }
 
     @Override
     def getAttachment(Object pageId, Object fileName) {
         restClient.get(
-            path: API_V1_PATH + 'content/' + pageId + '/child/attachment',
+            path: API_V1_PATH + '/content/' + pageId + '/child/attachment',
             query: [
                 'filename': fileName,
             ], headers: headers)
@@ -49,13 +38,14 @@ class ConfluenceClientV1 extends ConfluenceClient {
 
     @Override
     def updateAttachment(String pageId, String attachmentId, InputStream inputStream, String fileName, String note, String localHash) {
-        def uri = API_V1_PATH + 'content/' + pageId + '/child/attachment/' + attachmentId + '/data'
+        def uri = API_V1_PATH + '/content/' + pageId + '/child/attachment/' + attachmentId + '/data'
         uploadAttachment(uri, inputStream, fileName, note, localHash)
     }
 
     @Override
     def createAttachment(String pageId, InputStream inputStream, String fileName, String note, String localHash) {
-        def uri = API_V1_PATH + 'content/' + pageId + '/child/attachment'
+        def uri = API_V1_PATH + '/content/' + pageId + '/child/attachment'
+        println("Uploading attachment to ${uri}")
         uploadAttachment(uri, inputStream, fileName, note, localHash)
     }
 
@@ -81,7 +71,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
                 ]
                 def results = restClient.get(
                     'headers': headers,
-                    'path'   : API_V1_PATH + "content",
+                    'path'   : API_V1_PATH + "/content",
                     'query'  : query
                 ).data
                 results = results.results ?: []
@@ -122,7 +112,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
             trythis {
                 def results = restClient.get(
                     'headers': headers,
-                    'path'   : API_V1_PATH + "content/${pageId}/child/page",
+                    'path'   : API_V1_PATH + "/content/${pageId}/child/page",
                     'query'  : query
                 )
                 results = results.data.results ?: []
@@ -158,7 +148,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
     @Override
     def fetchPageByPageId(String id) {
         restClient.get(
-                path   : API_V1_PATH + "content/${id}",
+                path   : API_V1_PATH + "/content/${id}",
                 query: [
                         'expand': 'body.storage,version,ancestors'
                 ], headers: headers)
@@ -173,7 +163,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
         restClient.get(
                 [
                         'headers': headers,
-                        'path'   : API_V1_PATH + "content",
+                        'path'   : API_V1_PATH + "/content",
                         'query'  : request,
                 ]
         ).data.results?.getAt(0)?.id
@@ -187,7 +177,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
         trythis {
             restClient.put(contentType: ContentType.JSON,
                 requestContentType : ContentType.JSON,
-                path: API_V1_PATH + 'content/' + pageId, body: requestBody, headers: headers)
+                path: API_V1_PATH + '/content/' + pageId, body: requestBody, headers: headers)
         }
     }
 
@@ -198,7 +188,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
         trythis {
             restClient.post(contentType: ContentType.JSON,
                 requestContentType: ContentType.JSON,
-                path: API_V1_PATH + 'content', body: requestBody, headers: headers)
+                path: API_V1_PATH + '/content', body: requestBody, headers: headers)
         }
     }
 

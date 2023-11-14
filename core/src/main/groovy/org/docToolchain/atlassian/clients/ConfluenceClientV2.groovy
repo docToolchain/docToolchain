@@ -17,14 +17,14 @@ class ConfluenceClientV2 extends ConfluenceClient {
     def verifyCredentials() {
         trythis {
             restClient.get(
-                path: API_V1_DEFAULT_PATH + 'user/current', headers: headers
+                path: API_V1_PATH + '/user/current', headers: headers
             )
         }
     }
 
     def fetchSpaceIdByKey(String spaceKey) {
             return restClient.get(
-                path   : API_V2_DEFAULT_PATH + "spaces",
+                path   : API_V2_PATH + "/spaces",
                 headers: headers,
                 query  : [
                     'keys' : [spaceKey],
@@ -38,7 +38,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
     def addLabel(Object pageId, Object label) {
         trythis {
             restClient.post(contentType: ContentType.JSON,
-                path: API_V1_DEFAULT_PATH + 'content/' + pageId + "/label", body: label, headers: headers)
+                path: API_V1_PATH + '/content/' + pageId + "/label", body: label, headers: headers)
         }
     }
 
@@ -46,7 +46,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
     def getAttachment(Object pageId, Object fileName) {
         //TODO NOT Found
         restClient.get(
-            path: API_V2_DEFAULT_PATH + 'pages/' + pageId + '/attachments',
+            path: API_V2_PATH + '/pages/' + pageId + '/attachments',
             query: [
                 'filename': fileName,
             ], headers: headers)
@@ -54,13 +54,13 @@ class ConfluenceClientV2 extends ConfluenceClient {
 
     @Override
     def updateAttachment(String pageId, String attachmentId, InputStream inputStream, String fileName, String note, String localHash) {
-        def uri = API_V1_DEFAULT_PATH + 'content/' + pageId + '/child/attachment/' + attachmentId + '/data'
+        def uri = API_V1_PATH + '/content/' + pageId + '/child/attachment/' + attachmentId + '/data'
         uploadAttachment(uri, inputStream, fileName, note, localHash)
     }
 
     @Override
     def createAttachment(String pageId, InputStream inputStream, String fileName, String note, String localHash) {
-        def uri = API_V1_DEFAULT_PATH + 'content/' + pageId + '/child/attachment'
+        def uri = API_V1_PATH + '/content/' + pageId + '/child/attachment'
         uploadAttachment(uri, inputStream, fileName, note, localHash)
     }
 
@@ -87,7 +87,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
 
                     def response = restClient.get(
                         'headers': headers,
-                        'path'   : API_V2_DEFAULT_PATH + "spaces/${spaceId}/pages",
+                        'path'   : API_V2_PATH + "/spaces/${spaceId}/pages",
                         'query'  : query
                     ).data
                     def results = response.results ?: []
@@ -128,7 +128,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
             trythis {
                 def response = restClient.get(
                     'headers': headers,
-                    'path': API_V2_DEFAULT_PATH + "pages/${pageId}/children",
+                    'path': API_V2_PATH + "/pages/${pageId}/children",
                     'query': query
                 ).data
                 def results = response.results ?: []
@@ -165,7 +165,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
             'body-format'   : 'storage'
         ]
         restClient.get(
-            path   : API_V2_DEFAULT_PATH + "pages/${id}",
+            path   : API_V2_PATH + "/pages/${id}",
             headers: headers,
             query  : query
         )
@@ -180,7 +180,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
         restClient.get(
             [
                 'headers': headers,
-                'path'   : API_V2_DEFAULT_PATH + "spaces/${spaceId}/pages",
+                'path'   : API_V2_PATH + "/spaces/${spaceId}/pages",
                 'query'  : request,
             ]
         ).data.results?.getAt(0)?.id
@@ -207,7 +207,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
         trythis {
             restClient.put(contentType: ContentType.JSON,
                 requestContentType : ContentType.JSON,
-                path: API_V2_DEFAULT_PATH + 'pages/' + pageId, body: requestBody, headers: headers)
+                path: API_V2_PATH + '/pages/' + pageId, body: requestBody, headers: headers)
         }
     }
 
@@ -230,7 +230,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
         trythis {
             restClient.post(contentType: ContentType.JSON,
                 requestContentType: ContentType.JSON,
-                path: API_V2_DEFAULT_PATH + 'pages', body: requestBody, headers: headers)
+                path: API_V2_PATH + '/pages', body: requestBody, headers: headers)
         }
     }
 }

@@ -5,6 +5,7 @@ import groovyx.net.http.HTTPBuilder
 import groovyx.net.http.HttpResponseException
 import groovyx.net.http.Method
 import groovyx.net.http.RESTClient
+import groovyx.net.http.URIBuilder
 import org.apache.http.entity.mime.HttpMultipartMode
 import org.apache.http.entity.mime.MultipartEntity
 import org.apache.http.entity.mime.content.InputStreamBody
@@ -13,18 +14,26 @@ import org.docToolchain.configuration.ConfigService
 
 abstract class ConfluenceClient {
 
-    protected final String API_V1_DEFAULT_PATH = "/wiki/rest/api/"
-    protected final String API_V2_DEFAULT_PATH = "/wiki/api/v2/"
-
+    private final String API_DEFAULT_CONTEXT = "wiki"
+    private final String API_V1_IDENTIFIER = "/rest/api"
+    private final String API_V2_IDENTIFIER = "/api/v2"
+    protected final String API_V1_PATH
+    protected final String API_V2_PATH
     protected final String editorVersion
+
     protected String baseApiUrl
+    private String apiContext
+
     Map headers
     RESTClient restClient
     //TODO this is a workaround for the fact that the RESTClient does not support mulitpart/form-data from Groovy 3.0.0 on
     Map proxyConfig = [:]
 
     ConfluenceClient(ConfigService configService) {
-        this.baseApiUrl = configService.getConfigProperty('confluence.api')
+        String apiConfigItem = configService.getConfigProperty('confluence.api')
+        this.baseApiUrl = buildApiBaseUrlAndSetAPIContextFromConfigItem(apiConfigItem)
+        this.API_V1_PATH = apiContext + API_V1_IDENTIFIER
+        this.API_V2_PATH = apiContext + API_V2_IDENTIFIER
         this.restClient = new RESTClient(baseApiUrl)
         restClient.setEncoderRegistry(new EncoderRegistry( charset: 'utf-8' ))
         this.headers = ['X-Atlassian-Token':'no-check']
@@ -50,6 +59,45 @@ abstract class ConfluenceClient {
         }
     }
 
+    protected String buildApiBaseUrlAndSetAPIContextFromConfigItem(String configItem) {
+        URIBuilder builder = new URIBuilder(configItem)
+        StringBuilder apiUrlBuilder = new StringBuilder(builder.getScheme()).append("://").append(builder.getHost())
+        if(builder.getPort() != -1){
+            apiUrlBuilder.append(":").append(builder.getPort())
+        }
+        String apiContext = determineApiContext(builder.getPath())
+        if(!apiContext.isEmpty()){
+            setAPIContext("/" + apiContext)
+        } else {
+            setAPIContext("")
+        }
+        return apiUrlBuilder.toString()
+    }
+
+    private setAPIContext(String apiContext) {
+        this.apiContext = apiContext
+    }
+
+    private determineApiContext(String apiPath) {
+        if(apiPath.length() == 0){
+            // no context has been set
+            return API_DEFAULT_CONTEXT
+        }
+        // remove leading slash, remove api versions identifier from path
+        apiPath = apiPath
+            .substring(1)
+            .replace(API_V1_IDENTIFIER, "")
+            .replace(API_V2_IDENTIFIER, "")
+        // then split by slash to get the context
+        String[] pathParts = apiPath.split("/")
+        if(pathParts.size() == 1){
+            // context has been set
+            return pathParts[0]
+        }
+        // assume that context has been omitted intentionally https://docs.atlassian.com/ConfluenceServer/rest/8.6.1/
+        return ""
+    }
+
     def addHeader(key, value) {
         this.headers.put(key, value)
     }
@@ -67,7 +115,6 @@ abstract class ConfluenceClient {
     abstract attachmentHasChanged(attachment, localHash)
 
     protected uploadAttachment(uri, InputStream inputStream, String fileName, note, localHash) {
-        //TODO build sane URL
         def builder = new HTTPBuilder(baseApiUrl + uri)
         //TODO this is a workaround for the fact that the RESTClient does not support mulitpart/form-data from Groovy 3.0.0 on
         if (!proxyConfig.isEmpty()) {

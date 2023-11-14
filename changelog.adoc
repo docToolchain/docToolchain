@@ -9,9 +9,13 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+* https://github.com/docToolchain/docToolchain/issues/1291[#1291: publishToConfluence - Images not found]
+
 === added
 
 === changed
+
+* The Confluence API configuration is now aware of contexts and hides the API version specific settings.
 
 == 3.1.1 - 2023-11-07
 

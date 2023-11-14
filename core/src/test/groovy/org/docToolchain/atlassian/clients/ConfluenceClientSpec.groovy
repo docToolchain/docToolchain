@@ -19,6 +19,8 @@ abstract class ConfluenceClientSpec extends Specification {
         then: "the client is created and configured with basic auth"
             confluenceClient != null
             confluenceClient.baseApiUrl == "https://confluence.atlassian.com"
+            confluenceClient.API_V1_PATH == "/wiki/rest/api"
+            confluenceClient.API_V2_PATH == "/wiki/api/v2"
             confluenceClient.headers.size() == 2
             confluenceClient.headers.get("X-Atlassian-Token") == "no-check"
             confluenceClient.headers.get("Authorization") == "Basic user:password"
@@ -38,6 +40,8 @@ abstract class ConfluenceClientSpec extends Specification {
         then: "the client is created with basic auth and api key"
             confluenceClient != null
             confluenceClient.baseApiUrl == "https://confluence.atlassian.com"
+            confluenceClient.API_V1_PATH == "/wiki/rest/api"
+            confluenceClient.API_V2_PATH == "/wiki/api/v2"
             confluenceClient.headers.size() == 3
             confluenceClient.headers.get("X-Atlassian-Token") == "no-check"
             confluenceClient.headers.get("Authorization") == "Basic user:password"
@@ -162,5 +166,86 @@ abstract class ConfluenceClientSpec extends Specification {
                        'page 5': [title: 'page 5', id: '71210367', parentId: '183954870'],
                        'page 6': [title: 'page 6', id: '76418864', parentId: '183954870'],
                        'page 7': [title: 'page 7', id: '71208921', parentId: '183954870']]
+    }
+
+    def "test ConfluencClient API path without context"() {
+        given: "i create a Confluence config and the API does not have a context path"
+            ConfigObject config = new ConfigObject()
+            config.confluence = [
+                api: "https://confluence.atlassian.com/rest/api/",
+                credentials: "user:password"
+            ]
+            ConfigService configService = new ConfigService(config)
+            ConfluenceClient confluenceClient = getConfluenceClient(configService)
+        when: "the client has been created"
+            def baseApiUrl = confluenceClient.baseApiUrl
+        then: "the API BaseUrl is set without the context path"
+            baseApiUrl == "https://confluence.atlassian.com"
+            confluenceClient.API_V1_PATH == "/rest/api"
+    }
+
+    def "test default API path is set correctly if there are no trailing slashes"() {
+        given: "i create a Confluence config with host only"
+            ConfigObject config = new ConfigObject()
+            config.confluence = [
+                api: "https://confluence.atlassian.com/wiki/api/v2",
+                credentials: "user:password"
+            ]
+            ConfigService configService = new ConfigService(config)
+            ConfluenceClient confluenceClient = getConfluenceClient(configService)
+        when: "the client has been created"
+            def baseApiUrl = confluenceClient.baseApiUrl
+        then: "the default API path is set correctly"
+            baseApiUrl == "https://confluence.atlassian.com"
+            confluenceClient.API_V1_PATH == "/wiki/rest/api"
+    }
+
+    def "test ConfluencClient API path could be context aware"() {
+        given: "i create a Confluence config that includes the API context path and has no trailing slash"
+            ConfigObject config = new ConfigObject()
+            config.confluence = [
+                api: "https://confluence.atlassian.com/foo/rest/api/",
+                credentials: "user:password"
+            ]
+            ConfigService configService = new ConfigService(config)
+            ConfluenceClient confluenceClient = getConfluenceClient(configService)
+        when: "the client has been created"
+            def baseApiUrl = confluenceClient.baseApiUrl
+        then: "the API path is set with the context path and a trailing slash"
+            baseApiUrl == "https://confluence.atlassian.com"
+            confluenceClient.API_V1_PATH == "/foo/rest/api"
+    }
+
+    def "test ConfluencClient API path could contain context only"() {
+        given: "i create a Confluence config that includes the API context only"
+            ConfigObject config = new ConfigObject()
+            config.confluence = [
+                api: "https://confluence.atlassian.com/foo",
+                credentials: "user:password"
+            ]
+            ConfigService configService = new ConfigService(config)
+            ConfluenceClient confluenceClient = getConfluenceClient(configService)
+        when: "the client has been created"
+            def baseApiUrl = confluenceClient.baseApiUrl
+        then: "the API path is set with the context path and a trailing slash"
+            baseApiUrl == "https://confluence.atlassian.com"
+            confluenceClient.API_V1_PATH == "/foo/rest/api"
+    }
+
+    def "test default API path is set correctly"() {
+        given: "i create a Confluence config with host only"
+            ConfigObject config = new ConfigObject()
+            config.confluence = [
+                api: "https://confluence.atlassian.com",
+                credentials: "user:password"
+            ]
+            ConfigService configService = new ConfigService(config)
+            ConfluenceClient confluenceClient = getConfluenceClient(configService)
+        when: "the client has been created"
+            def baseApiUrl = confluenceClient.baseApiUrl
+        then: "the default API path is set correctly"
+            baseApiUrl == "https://confluence.atlassian.com"
+            confluenceClient.API_V1_PATH == "/wiki/rest/api"
+            confluenceClient.API_V2_PATH == "/wiki/api/v2"
     }
 }
