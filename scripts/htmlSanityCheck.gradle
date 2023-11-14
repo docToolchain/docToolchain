@@ -50,5 +50,8 @@ htmlSanityCheck {
     logger.info "docToolchain> HSC checkingResultsDir: ${checkingResultsDir}"
 }
 //end::htmlSanityCheck[]
+project.afterEvaluate {
+    project.tasks.htmlSanityCheck.dependsOn generateHTML
+}
 
 
