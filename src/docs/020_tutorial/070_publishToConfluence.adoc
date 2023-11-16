@@ -277,6 +277,9 @@ api = 'https://[yourServer]/[context]'
 ----
 In this case, the correct endpoint is `https://arc42-template.atlassian.net/wiki`.
 
+[NOTE]
+The context is optional, unless it is something other that "wiki". If you would like to enforce a URL that has no context (only valid if you specified `useV1Api = true`) for Confluence Server you should specify the full API URL, like `https://confluence.example.com/rest/api`.
+
 . In `docToolchainConfig.groovy`, add the space-key, such as `8FE`.
 ----
 spaceKey = '8FE'
