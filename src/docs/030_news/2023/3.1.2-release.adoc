@@ -1,0 +1,48 @@
+:filename: 030_news/2023/3.1.2-release.adoc
+:jbake-title: Release v3.1.2
+:jbake-date: 2023-11-16
+:jbake-type: post
+:jbake-tags: docToolchain
+:jbake-status: published
+:jbake-menu: news
+:jbake-author: Pascal Euhus
+:icons: font
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+== docToolchain release v3.1.2 (Bugfix-Release)
+
+This is the Bugfix-Release v3.1.2
+
+=== About This Release
+
+The v3.1.1 Release could not handle certain Confluence URLs and was missing a task dependency.
+
+IMPORTANT: please also check the xref:3.1.0-release.adoc[release notes for v3.1.0]
+
+== Notes
+
+== 3.1.2 - 2023-11-16
+
+=== fixes
+
+* https://github.com/docToolchain/docToolchain/issues/1291[#1291: publishToConfluence - Images not found]
+* https://github.com/docToolchain/docToolchain/issues/1293[#1293: Explicit dependency required between generateHTML and htmlSanityCheck]
+
+=== added
+
+=== changed
+
+* The Confluence API configuration is now aware of contexts and hides the API version specific settings.
+
+NOTE: a big "THANK YOU" to all *Sponsors* and *Contributors* who helped to support docToolchain!
+
+[TIP]
+====
+You like docToolchain? +
+What about helping to make it even better? +
+docToolchain is a community project, so be part of the community which drives the project. +
+You don't have to code for doing so. +
+It would even help to brush up the docs, write tutorials or groom the backlog +
+(I guess many of the open issues are already fixed).
+====
