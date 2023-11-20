@@ -1,0 +1,77 @@
+:filename: 050_ADRs/ADR-2-separate-core-logic-from-gradle.adoc
+
+:icons: font
+:jbake-menu: ADRs
+:jbake-order: 2
+:jbake-status: published
+:jbake-title: ADR-02: Separate core logic from Gradle
+
+:github-discussion: https://github.com/docToolchain/docToolchain/discussions/1076
+:gradle-buildsrc: https://docs.gradle.org/current/userguide/organizing_gradle_projects.html#sec:build_sources
+:gradle-submoduleshttps://docs.gradle.org/current/userguide/multi_project_builds.html#sec:adding_subprojects
+
+== ADR-02: Separate core logic from Gradle
+
+=== Status
+
+This decision is currently under ongoing discussion.
+
+=== Problem and Context
+
+The structure of the docToolchain project, is historically grown and has been adapted to the needs of the project. 
+The project is built with Gradle. 
+Although Gradle is a powerful build tool that allows for a lot of flexibility,
+there are some recommendation on how to setup and structure a project, 
+docToolchains setup is quite customized only follows few conventions.
+The project setup is not very well documented, which makes it difficult for new developers to understand the build process.
+Furthermore, the build scripts have become increasingly complex over time, which makes it difficult to maintain them.
+
+Apart from the aforementioned problems, docToolchain is currently very tightly coupled to Gradle, which in some scenarios leads to high startup times, e.g. when running tests.
+
+=== Decision
+
+There has been a vital {github-discussion}[discussion on GitHub] around docToolchain v3, which has led to the decision to separate the core logic from Gradle.
+The core logic will be implemented in Groovy and will be used by Gradle.
+Gradle, as a first-class citizen, is then considered as a tool to provide a convenient way to use the core logic. 
+The core logic will be implemented in a way that it is in the first steps completely isolated from Gradle. 
+This paves the road for even further decoupling from Gradle in the future.
+
+This decision has several advantages:
+
+* Developer experience is improved, as the core logic is easier to understand and to maintain.
+IDE support is improved, as the core logic is like any other Groovy project, no custom setup required.
+* Encapsulating business logic into a dedicated submodule that does not know anything about Gradle or any other buildtool, opens the door for non-Gradle usage.
+* Core logic is not splattered over scripts and Gradle task definitions, but is concentrated in a single place.
+* Dependencies are easier to manage, as they are defined in a single place.
+Gradle buildscripts only have a single dependency to the core logic.
+* Tests can be executed without Gradle, which leads to faster test execution.
+
+=== Alternatives
+
+==== Keep the current setup
+We could keep the current setup, but this would block to the aforementioned improvements.
+
+==== Separate core logic into Gradle's buildSrc
+We could separate the core logic into Gradle's {gradle-buildsrc}[buildSrc].
+While this would improve the situation, it would still not solve the problem of having the core logic tightly coupled to Gradle.
+Furthermore, it would not solve the problem of having a complex/ slow test setup, since there is still the need for Gradle runner.
+On top buildSrc is meant for complex build logic and not for business logic. https://github.com/docToolchain/docToolchain/pull/1208[See this PR for an example]
+
+==== Separate core logic into a separate project
+We could separate the core logic into a separate project.
+This would solve the problem of having the core logic tightly coupled to Gradle.
+While a submodule in the first step is still part of the current project, it relieves the core logic from the need to know about Gradle.
+However, some tasks rely on Gradle plugins, this would make it difficult to execute them without Gradle. https://github.com/docToolchain/docToolchain/pull/1226[See this PR for an example]
+
+=== Consequences
+
+As a result of this decision, the setup needs to be migrated to the new structure. This includes:
+
+* Migrating the core logic into a separate submodule
+** Revise current implementation
+** Logic that solely depends on Gradle plugins should be kept as is to avoid unnecessary effort and reduce the overall scope of the migration
+* Migrating the tests into the new submodule
+* Adopt the buildscripts to use the new submodule
+
+New features should be implemented in the new submodule.
+Gradle Task should only be used to provide a convenient default way to use the core logic.

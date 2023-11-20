@@ -3,6 +3,7 @@
 set -u
 set -e
 set -o pipefail
+test "${DTC_BASH_OPTS:-}" && set "${DTC_BASH_OPTS}"
 
 if [[ $# -lt 2 ]]; then
     echo '

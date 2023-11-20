@@ -28,7 +28,7 @@ To follow a docs as code approach, you need a build script that automates steps 
 
 Creating this type of build script is not easy (and even harder to maintain). There are also lots of questions to answer: “How do I create .docx?” and “Why doesn’t lib x work with lib y?”
 
-docToolchain is the result of https://rdmeuller.github.io[one developer’s journey] through the docs as code universe. The goal of docToolchain is to automate the creation of technical docs through an easy-to-use build script that only needs to be configured not modified, and that is nurtured and cared for by a <link to Community page>[diverse open source community].
+docToolchain is the result of https://rdmueller.github.io[one developer’s journey] through the docs as code universe. The goal of docToolchain is to automate the creation of technical docs through an easy-to-use build script that only needs to be configured not modified, and that is nurtured and cared for by a https://doctoolchain.org/docToolchain/v2.0.x/10_about/30_community.html[diverse open source community].
 
 === What You Get with docToolchain
 
