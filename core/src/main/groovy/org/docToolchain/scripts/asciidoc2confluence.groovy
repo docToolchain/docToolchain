@@ -447,6 +447,11 @@ def unescapeCDATASections(html){
 def getEmbeddedImageData(src){
     def imageData = src.split("[;:,]")
     def fileExtension = imageData[1].split("/")[1]
+    // treat svg+xml as svg to be able to create a file from the embedded image
+    // more MIME types: https://www.iana.org/assignments/media-types/media-types.xhtml#image
+    if(fileExtension == "svg+xml"){
+        fileExtension = "svg"
+    }
     return Map.of(
         "fileExtension", fileExtension,
         "encoding", imageData[2],
