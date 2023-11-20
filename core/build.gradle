@@ -1,0 +1,30 @@
+plugins {
+    id 'groovy'
+}
+
+apply plugin:'groovy'
+
+repositories {
+    mavenCentral()
+}
+
+group = "org.docToolchain"
+
+dependencies {
+    compileOnly((libs.groovy.all))
+    implementation((libs.http.builder))
+    implementation((libs.httpmime))
+    implementation((libs.jsoup))
+
+    testImplementation(libs.spock.reports) {
+        exclude group: 'org.codehaus.groovy', module: 'groovy-xml'
+    }
+    testImplementation(
+        (libs.junit),
+        (libs.groovy.all),
+    )
+}
+
+test {
+    useJUnitPlatform()
+}

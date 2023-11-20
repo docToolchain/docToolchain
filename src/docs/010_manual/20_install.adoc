@@ -10,8 +10,6 @@ include::../_feedback.adoc[]
 
 == Installation Overview
 
-icon:copy[] icon:clipboard[] icon:tags[]
-
 docToolchain is composed of two parts:
 
 - `doctoolchain` which is the toolchain used to create your documentation
@@ -49,7 +47,7 @@ Now, download `dtcw` into your project directory and make the script executable 
 [source, bash]
 ----
 cd <your project>
-curl -Lo dtcw doctoolchain.org/dtcw
+curl -Lo dtcw https://doctoolchain.org/dtcw
 chmod +x dtcw
 ----
 

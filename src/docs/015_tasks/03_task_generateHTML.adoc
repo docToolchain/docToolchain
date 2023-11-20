@@ -5,9 +5,6 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
-image::ea/Manual/generateHTML.png[]
-
-
 == About This Task
 
 This is the standard Asciidoctor generator which is supported out of the box.

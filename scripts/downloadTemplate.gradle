@@ -39,8 +39,6 @@ task downloadTemplate(
             template = templates.keySet()[(ant.template as Integer)-1]
         }
         println "${color 'green', 'Install '+template+' documentation template.'}"
-        def outputDir = new File(docDir, inputPath)
-        outputDir.mkdirs()
         if (template in ['arc42', 'req42']) {
             if (template=='arc42') {
                 println "For more information about arc42 see https://arc42.org"
@@ -49,11 +47,13 @@ task downloadTemplate(
             }
             ant.input(message: "${color 'green', 'Which language do you want to install?'}", validargs: languages[template].join(','), addproperty: 'lang')
             ant.input(message: "${color 'green', 'Do you want the template with or without help?'}", validargs: 'withhelp,plain', addproperty: 'help')
-            ant.input(message: "${color 'green', 'Do you want the template to be setup for Antora?'}", validargs: 'y,n', addproperty: 'antora')
+            ant.input(message: "${color 'green', 'Do you want the template to be setup for Antora? (experimental)'}", validargs: 'n,y', addproperty: 'antora')
             lang = ant.lang
             help = ant.help
             antora = ant.antora.toBoolean()
         }
+        def outputDir = new File(docDir, Paths.get(inputPath, template).toString())
+        outputDir.mkdirs()
         download.run {
             src templates[template]
             dest new File(outputDir, 'template.zip')
@@ -170,11 +170,11 @@ ifndef::optimize-content[]
                 configFile.text
                     .replaceAll('//useAntoraIntegration = false', 'useAntoraIntegration = true')
                     .replaceAll('[, \\t\\r\\n]+/[*]{2} inputFiles [*]{2}/',
-                        ",\n\t[file: 'modules/ROOT/pages/index.adoc', formats: ['html','pdf']],\n\t/** inputFiles **/")
+                        ",\n\t[file: '${template}/modules/ROOT/pages/index.adoc', formats: ['html','pdf']],\n\t/** inputFiles **/")
                     .replaceAll('/[*]{2} imageDirs [*]{2}/',
-                        "'modules/ROOT/assets/images/.',\n\t/** imageDirs **/")
+                        "'${template}/modules/ROOT/assets/images/.',\n\t/** imageDirs **/")
                     .replaceAll('[, \\t\\r\\n]+/[*]{2} imageDirs [*]{2}/',
-                        ",\n\t'modules/ROOT/assets/images/.',\n\t/** imageDirs **/")
+                        ",\n\t'${template}/modules/ROOT/assets/images/.',\n\t/** imageDirs **/")
                     .replaceAll("\\[,", "["),
                 'utf-8'
             )
