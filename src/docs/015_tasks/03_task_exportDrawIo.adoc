@@ -2,15 +2,16 @@
 include::_config.adoc[]
 :experimental:
 
-= exportDrawIo
+== exportDrawIo
 
 include::../_feedback.adoc[]
 
-== About This Task
+=== About This Task
+
 There is no `exportDrawIo` task available in docToolchain because such a task is not required.
 You can continue to use https://app.diagrams.net/[diagrams.net] (formerly known as draw.io) to edit your diagrams simply by making a change to your diagram-authoring workflow.
 
-== About diagrams.net
+=== About diagrams.net
 
 diagrams.net offers free and open source desktop editors for all major operating system platforms.
 Visit https://www.diagrams.net/integrations to find a desktop editor application compatible with your operating system.
@@ -18,12 +19,12 @@ When you use the desktop version, just create your diagram with the `.png` (or e
 
 They have also launched a free plugin for VS Code and IntelliJ so you can edit your diagrams offline!
 
-== How to Change Your Workflow to Use diagrams.net
+=== How to Change Your Workflow to Use diagrams.net
 
 Export your diagrams.net/draw.io diagrams as a PNG with the source embedded in the file metadata.
 This allows you to embed your diagrams into AsciiDoc source as you normally would (using the `image::` macro) with the added advantage of storing the diagram source with the image itself.
 
-== How to Convert a Confluence Page to AsciiDoc
+=== How to Convert a Confluence Page to AsciiDoc
 
 If you are converting a Confluence page with embedded draw.io diagrams to AsciiDoc, use this export workflow to continue using diagrams.net:
 

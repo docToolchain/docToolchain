@@ -15,6 +15,6 @@ When you next run docToolchain, your theme files will be laid over the default t
 
 === Source
 
-:param_source_file: copyThemes.gradle
+:param_source_file: scripts/copyThemes.gradle
 :param_source_language: groovy
 include::_viewTaskSource.adoc[]

@@ -1,19 +1,25 @@
-// :param_source_file: copyThemes.gradle
+// :param_source_file: scripts/copyThemes.gradle
 // :param_source_language: groovy
+// :param_source_tags: task-tag // optional
 
 ifndef::param_source_file[#please specify :param_source_file#]
+
 ifndef::param_source_language[#please specify :param_source_language#]
 
-.Show source code of `{param_source_file}` or go directly to https://github.com/docToolchain/docToolchain/blob/ng/scripts/{param_source_file}[GitHub · docToolchain/scripts/{param_source_file}^].
+ifdef::param_source_tags[:includeTags: tags={param_source_tags}]
+
+.Show source code of `{param_source_file}` or go directly to https://github.com/docToolchain/docToolchain/blob/ng/{param_source_file}[GitHub · docToolchain/{param_source_file}^].
 [%collapsible]
 ====
-.scripts/{param_source_file}
+.{param_source_file}
 [source,{param_source_language}]
 ----
-include::{projectRootDir}/scripts/{param_source_file}[]
+include::{projectRootDir}/{param_source_file}[{includeTags}]
 ----
 ====
 
 // After the template, clear the parameters so they don't end up in the next call of the template by accident
+:includeTags!:
+:param_source_tags!:
 :param_source_language!:
 :param_source_file!:

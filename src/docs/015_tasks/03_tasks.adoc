@@ -5,7 +5,7 @@ include::_config.adoc[]
 
 include::../_feedback.adoc[]
 
-== At a Glance
+=== At a Glance
 
 A task is another name for a script which triggers the build actions that compile and publish your docs.
 This diagram gives you an overview of the entire build process:
@@ -14,16 +14,16 @@ This diagram gives you an overview of the entire build process:
 image::overview.dio.png[]
 
 
-== How Tasks Are Named
+=== How Tasks Are Named
 
 Tasks are given a naming prefix which indicates their role in the build process.
 There are currently 4 groups.
 
-=== generateX
+==== generateX
 
 These tasks use plain old Asciidoctor functionality to render the source to a given format.
 
-=== exportX
+==== exportX
 
 These tasks export images and AsciiDoc snippets from other systems or file formats.
 The resulting artifacts can then be included from your main sources.
@@ -31,12 +31,12 @@ _export_ tasks differ from _generate_ tasks because with _export_ tasks, you don
 Also, with _export_ tasks, it's likely that you will already store the resulting artifacts under version control
 because the tools needed for the export (such as Sparx Enterprise Architect or MS PowerPoint) are typically not available on your build server or another contributor's machine.
 
-=== convertToX
+==== convertToX
 
 These tasks take the output from Asciidoctor and convert it (through other tools) to the target format.
 This results in a dependency on a _generateX_ task and another external tool (currently https://pandoc.org[pandoc]).
 
-=== publishToX
+==== publishToX
 
 These tasks not only convert your documents but also deploy, publish and move them to a remote system (currently Confluence),
 meaning the result is immediately visible to others.

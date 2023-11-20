@@ -1,18 +1,18 @@
 :filename: 015_tasks/03_task_exportOpenApi.adoc
 include::_config.adoc[]
 
-= exportOpenAPI
+== exportOpenAPI
 
 include::../_feedback.adoc[]
 
-== About This Task
+=== About This Task
 
 This task exports an OpenAPI Specification definition yaml file to a AsciiDoc document.
 Currently this task depends on https://github.com/OpenAPITools/openapi-generator[OpenAPI Generator (v4.3.1)] and its https://github.com/OpenAPITools/openapi-generator/tree/master/modules/openapi-generator-gradle-plugin[gradle plugin].
 
 image::manual/openAPI.png[]
 
-== Configuration
+=== Configuration
 
 .Config.groovy
 [source,groovy]
@@ -20,10 +20,9 @@ image::manual/openAPI.png[]
 include::{projectRootDir}/Config.groovy[tags=openApiConfig]
 ----
 
-== Source
+=== Source
 
-.exportOpenApi.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/exportOpenApi.gradle[tags=exportOpenApi]
-----
+:param_source_file: scripts/exportOpenApi.gradle
+:param_source_language: groovy
+:param_source_tags: exportOpenApi
+include::_viewTaskSource.adoc[]

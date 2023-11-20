@@ -2,17 +2,17 @@
 include::_config.adoc[]
 
 [[task_generatesite]]
-= generateSite
+== generateSite
 
 include::../_feedback.adoc[]
 
-== About This Task
+=== About This Task
 
 When you have only one document, the output of `generateHTML` might meet your requirements.
 But as your documentation grows, and you have multiple documents, you will need a microsite which bundles all of the information.
 The `generateSite` task uses https://jbake.org[jBake] to create a static site with a landing page, a blog and search.
 
-== Pages
+=== Pages
 
 The microsite is page-oriented, not document-oriented.
 If you have already organized your documents by chapter, use them as pages to create a great user experience.
@@ -34,7 +34,7 @@ ifndef::imagesdir[:imagesdir: ../../images]
 :toc:
 
 [[section-solution-strategy]]
-== Solution Strategy
+=== Solution Strategy
 ----
 
 Here is an overview of each element:
@@ -89,15 +89,15 @@ NOTE: Start your pages with a `==` level headline.
 You can fix the level offset when you include the page in a larger document with `include::chapter.adoc[leveloffset=+1]`.
 
 [[config]]
-== Configuration
+=== Configuration
 
 The configuration follows the __convention-over-configuration__ approach.
 If you follow the conventions, you don't have to configure anything.
 But if you want to, you can override the convention behaviour with a configuration.
 
-=== Menu
+==== Menu
 
-==== Navigation elements
+===== Navigation elements
 
 The navigation is organized with following elements:
 
@@ -147,7 +147,7 @@ When there is no sub-folder, only a flat list of pages is created.
 NOTE: When an `index.adoc` page is defined inside the top level folder (like: `10_foo/index.adoc` or `20_bar/index.adoc`) then the page will listed in the section navigation tree in the sidebar as any other regular page. By default it will be the first element of the tree, unless the value is overridden by a `:jbake-order:` attribute.
 
 [[top-menu-config]]
-==== Configuring the top level menu
+===== Configuring the top level menu
 
 The `:jbake-menu:` is only the code for the menu entry to be created.
 You can map these codes to menu entries through the configuration (`microsite`-Section) in the following way:
@@ -176,7 +176,7 @@ src/docs
 
 Where `demo1.adoc` and `demo3.adoc` contain no `:jbake-menu:` header, `demo2.adoc` contains `:jbake-menu: code2`, then:
 
-* `demo1.adoc` will have a menu-code of `code1` because it is located in the folder `code1`. 
+* `demo1.adoc` will have a menu-code of `code1` because it is located in the folder `code1`.
 This code is translated through the configuration to the menu named `Some Title 1`.
 * `demo2.adoc` is in the same folder, but the `:jbake-menu:` attribute has a higher precedence which results in menu-code `code2`.
 This code is translated through the configuration to the menu named `Other Title 2`.
@@ -187,14 +187,14 @@ This is an easy way to hide a menu in the rendered microsite.
 It will not be rendered as part of any menu, but it will be available in the microsite as "hidden" `_demo4-draft.html`.
 Feel free to remove these draft renderings before you publish your microsite.
 
-=== Links
+==== Links
 
 In the column on the right, links are driven by the values defined in `docToolchainConfig.groovy`.
 
 * "Improve this doc": displayed when `gitRepoUrl` is set.
 * "Create an issue": displayed when `issueUrl` is set.
 
-=== Configuring the JBake plugin
+==== Configuring the JBake plugin
 
 Behind the scene the `generateSite` task is relying on Jbake.
 
@@ -212,7 +212,7 @@ include::{projectRootDir}/Config.groovy[tags=jbakeConfig]
 The plugins are retrieved from a repository (by default maven-central) configured with project property `depsMavenRepository`.
 When a repository requiring credentials is used the properties `depsMavenUsername` and `depsMavenPassword` can be set as well.
 
-== Templates and Style
+=== Templates and Style
 
 The jBake templates and CSS are hidden for convenience.
 
@@ -222,14 +222,14 @@ You can then remove the resources you don't need, and change those you want to c
 
 NOTE: `copyThemes` overwrites existing files, but because your code is safely managed using version control, this shouldn't be a problem.
 
-== Landing Page
+=== Landing Page
 
 Place an `index.gsp` page as your landing page in `src/site/templates`.
 This landing page is plain HTML5 styled with Twitter Bootstrap.
 The page header and footer are added by docToolchain.
 An example can be found at xref:03_task_copy_themes.adoc[`copyThemes`] or https://github.com/docToolchain/docToolchain/blob/ng/src/site/templates/index.gsp[on GitHub].
 
-== Blog
+=== Blog
 
 The microsite also contains a simple but powerful blog.
 Use it to inform your team about changes, as well as architecture decision records (ADRs).
@@ -255,24 +255,22 @@ To create a new blog post, create a new file in `src/docs/blog/<year>/<post-name
 
 ----
 
-== Search
+=== Search
 
 The microsite does not have its own local search.
 But it does have a search input field which can be used to link to another search engine.
 
-== CI/CD
+=== CI/CD
 
 When running in an automated build, set the environment variable `DTC_HEADLESS` to `true` or `1`. This stops docToolchain from asking to install the configured theme, and it will simply assume that you do want to install it.
 You can also avoid the theme downloading with every build by copying the themes folder from `$HOME/.doctoolchain/themes` to the corresponding folder in your build container.
 
-== Further Reading and Resources
+=== Further Reading and Resources
 
 Read about the `previewSite` task xref:03_task_previewSite.adoc[here.]
 
-== Source
+=== Source
 
-.scripts/generateSite.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/generateSite.gradle[]
-----
+:param_source_file: scripts/generateSite.gradle
+:param_source_language: groovy
+include::_viewTaskSource.adoc[]

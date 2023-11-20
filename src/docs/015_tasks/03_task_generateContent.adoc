@@ -1,11 +1,11 @@
 :filename: 015_tasks/03_task_generateContent.adoc
 include::_config.adoc[]
 
-= generateContent
+== generateContent
 
 include::../_feedback.adoc[]
 
-== About This Task
+=== About This Task
 
 This task makes use of https://platform.openai.com[openAI] to render documentation into your input Asciidoc files.
 It can help you to get started with the outline of your documentation or even with real content. This task implements OpenAI https://platform.openai.com/docs/api-reference/completions[completions].
@@ -15,7 +15,7 @@ Simply put an asciidoc comment block that starts with `AI:` followed by your des
 You need a valid https://platform.openai.com/account/api-keys[API-Key] from OpenAI to execute this task.
 Be aware that whatever content you use to describe what you want, OpenAI will process this data!
 
-== Configuration
+=== Configuration
 
 .Config.groovy
 [source,groovy]
@@ -26,7 +26,7 @@ include::{projectRootDir}/Config.groovy[tags=openAIConfig]
 [WARNING]
 Token is a credential, it is best not to put it into your config, but pass this parameter to the task using `-PopenAI.token=xx-xxxxxxxxxxxxx` at task execution.
 
-== Example
+=== Example
 
 Given a config in your project, that specifies the following inputFiles:
 
@@ -99,6 +99,7 @@ You can specify as many `AI:` blocks as you want. They will al be replaced by op
 [source,asciidoc]
 ----
 == Getting Started
+
 * Setup instructions
 
 ////
@@ -112,43 +113,42 @@ The example above, will lead to a result similar to:
 
 .example/example.adoc
 [source,asciidoc]
+-----
+= Installing JDK 17 using SDKMAN
+
+JDK 17 is a version of the Java Development Kit that is suitable for general use. It can be installed quickly and easily with the help of SDKMAN. This guide includes instructions for installation on Windows, Mac and Linux operating systems.
+
+== Windows
+
+JDK 17 can be installed on Windows with the following commands:
+
+[source,shell]
 ----
-    = Installing JDK 17 using SDKMAN
-
-    JDK 17 is a version of the Java Development Kit that is suitable for general use. It can be installed quickly and easily with the help of SDKMAN. This guide includes instructions for installation on Windows, Mac and Linux operating systems.
-
-    == Windows
-
-    JDK 17 can be installed on Windows with the following commands:
-
-    [source,shell]
-    ----
-    sdk install java 17.0.1-open
-    ----
-
-    == Mac
-
-    JDK 17 can be installed on Mac with the following commands:
-
-    [source,shell]
-    ----
-    sdk install java 17.0.1-open
-    ----
-
-    == Linux
-
-    JDK 17 can be installed on Linux with the following commands:
-
-    [source,shell]
-    ----
-    sdk install java 17.0.1-open
-    ----
+sdk install java 17.0.1-open
 ----
+
+== Mac
+
+JDK 17 can be installed on Mac with the following commands:
+
+[source,shell]
+----
+sdk install java 17.0.1-open
+----
+
+== Linux
+
+JDK 17 can be installed on Linux with the following commands:
+
+[source,shell]
+----
+sdk install java 17.0.1-open
+----
+-----
 
 == Source
 
-.generateContent.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/generateContent.gradle[tags=generateContent]
-----
+:param_source_file: scripts/generateContent.gradle
+:param_source_language: groovy
+:param_source_tags: generateContent
+include::_viewTaskSource.adoc[]

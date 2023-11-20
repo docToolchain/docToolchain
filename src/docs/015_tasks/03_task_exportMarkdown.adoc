@@ -1,16 +1,16 @@
-:jbake-title: exportMarkdown
 :filename: 015_tasks/03_task_exportMarkdown.adoc
 include::_config.adoc[]
+
+== exportMarkdown
 
 include::../_feedback.adoc[]
 
 // the source is in exportMarkdownDocs.md !!
-include::{projectRootDir}/build/exportMarkdownDocs.adoc[]
+include::{projectRootDir}/build/015_tasks/03_task_exportMarkdown.adoc[]
 
-== Source
+=== Source
 
-.exportMarkdown.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/exportMarkdown.gradle[tags=exportMarkdown]
-----
+:param_source_file: scripts/exportMarkdown.gradle
+:param_source_language: groovy
+:param_source_tags: exportMarkdown
+include::_viewTaskSource.adoc[]
