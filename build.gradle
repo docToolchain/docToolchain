@@ -25,6 +25,7 @@ buildscript {
  */
 
 plugins {
+    id("groovy")
     alias(libs.plugins.htmlSanityCheck)
     alias(libs.plugins.versions)
     alias(libs.plugins.openapi.generator)
@@ -32,8 +33,6 @@ plugins {
     alias(libs.plugins.jbake.site)
     alias(libs.plugins.gretty)
 }
-
-apply plugin:'groovy'
 
 dependencies {
     repositories {
