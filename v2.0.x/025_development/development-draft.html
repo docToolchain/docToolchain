@@ -314,6 +314,7 @@
 <li><a href="#_gradle">Gradle</a></li>
 <li><a href="#_jbake_templates">jBake Templates</a></li>
 <li><a href="#_theming_menu_and_images">Theming, Menu and Images</a></li>
+<li><a href="#_script_execution_debugging">Script Execution Debugging</a></li>
 </ul>
 </li>
 </ul>
@@ -533,7 +534,7 @@ title = '##site-title##'</code></pre>
 <h2 id="_creating_a_new_release">Creating a New Release</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/01d61a369ff83fb5a364c448b421d103?d=identicon" alt="Tulio Camminati" width="32" height="32" title="Tulio Camminati"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/9934d8546416204bc9454812316d4113?d=identicon" alt="Pascal Euhus" width="32" height="32" title="Pascal Euhus"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/01d61a369ff83fb5a364c448b421d103?d=identicon" alt="Tulio Camminati" width="32" height="32" title="Tulio Camminati"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -609,7 +610,7 @@ to test dtcw</p>
 <div class="ulist">
 <ul>
 <li>
-<p>Update the <a href="https://github.com/docToolchain/docker-image/tree/ng-beta/alpine">Dockerfile</a> to reflect the new version.</p>
+<p>Update the <a href="https://github.com/docToolchain/docker-image/tree/ng-beta/.github/workflows">GitHub workflows</a> to reflect the new version.</p>
 </li>
 <li>
 <p>run <a href="https://github.com/docToolchain/docker-image/actions/workflows/standard-build.yml">github action</a> to build and deploy the image</p>
@@ -663,7 +664,7 @@ to test dtcw</p>
 <h2 id="_debugging">Debugging</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b75bf2d43c618f7eb22b0c76ee8514?d=identicon" alt="Gerd Aschemann" width="32" height="32" title="Gerd Aschemann"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -704,6 +705,12 @@ to test dtcw</p>
 </div>
 <div class="paragraph">
 <p>Check the <code>build/microsite/tmp</code> folder to see the folder that is fed into jBake. In this folder, all files will have additional <code>jbake</code> attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the <code>build/microsite/output</code> folder to see the generated result. This often helps you to find out where an image actually is located.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_script_execution_debugging">Script Execution Debugging</h3>
+<div class="paragraph">
+<p>The execution of the <a href="../../../bin/doctoolchain" class="bare">../../../bin/doctoolchain</a> bash script may be traced by setting the environment variable <code>DTC_BASH_OPTS</code> to, e.g., <code>-vx</code>.</p>
 </div>
 </div>
 </div>

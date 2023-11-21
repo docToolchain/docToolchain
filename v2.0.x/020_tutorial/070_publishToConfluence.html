@@ -313,7 +313,7 @@
 <ul class="sectlevel2">
 <li><a href="#_step_1_set_up_doctoolchain">Step 1. Set Up docToolchain</a></li>
 <li><a href="#_step_2_configure_publication_to_confluence">Step 2. Configure Publication to Confluence</a></li>
-<li><a href="#_step_3_publish_your_pages">Step 3: Publish Your Pages</a></li>
+<li><a href="#_step_4_publish_your_pages">Step 4: Publish Your Pages</a></li>
 </ul>
 </li>
 </ul>
@@ -654,65 +654,38 @@ You should now have the following folder structure in your project:</p>
 </div>
 </li>
 <li>
-<p>Set up the API endpoint.</p>
-<div class="olist loweralpha">
-<ol class="loweralpha" type="a">
-<li>
-<p>Get your Atlassian Confluence URL, such as <a href="https://arc42-template.atlassian.net" class="bare">https://arc42-template.atlassian.net</a>.</p>
-</li>
-<li>
-<p>Put your context, plus /rest/api behind it. See the sample below.</p>
+<p>Set up the API endpoint.
+Get your Atlassian Confluence URL, such as <a href="https://arc42-template.atlassian.net" class="bare">https://arc42-template.atlassian.net</a>.</p>
 <div class="listingblock">
 <div class="title">Endpoint Syntax</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">api = 'https://[yourServer]/[context]/rest/api/'</code></pre>
+<pre class="prettyprint highlight"><code data-lang="groovy">api = 'https://[yourServer]/[context]'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>In this case, the correct endpoint is <code><a href="https://arc42-template.atlassian.net/wiki/rest/api/" class="bare">https://arc42-template.atlassian.net/wiki/rest/api/</a></code>.</p>
+<p>In this case, the correct endpoint is <code><a href="https://arc42-template.atlassian.net/wiki" class="bare">https://arc42-template.atlassian.net/wiki</a></code>.</p>
 </div>
 </li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The context is optional, unless it is something other that "wiki". If you would like to enforce a URL that has no context (only valid if you specified <code>useV1Api = true</code>) for Confluence Server you should specify the full API URL, like <code><a href="https://confluence.example.com/rest/api" class="bare">https://confluence.example.com/rest/api</a></code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>Verify your endpoint and paste <code>https://[yourServer]/[context]/rest/api/<strong>user/current</strong></code> in your browser, such as <a href="https://arc42-template.atlassian.net/wiki/rest/api/user/current" class="bare">https://arc42-template.atlassian.net/wiki/rest/api/user/current</a>.</p>
-<div class="paragraph">
-<p>This results in the following output, and proves that I got the right endpoint (not a 404).</p>
-</div>
+<p>In <code>docToolchainConfig.groovy</code>, add the space-key, such as <code>8FE</code>.</p>
 </li>
 </ol>
-</div>
-</li>
-</ol>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>{
-  "type":"anonymous",
-  "profilePicture":{
-    "path":"/wiki/s/-93606273/6452/1a34f7853d41f548e0ef8f60a80cc50468126739/_/images/icons/profilepics/anonymous.png",
-    "width":48,
-    "height":48,
-    "isDefault":true
-  },
-  "displayName":"Anonymous",
-  "isExternalCollaborator":false,
-  "_expandable":{"operations":""},
-  "_links":{
-    "base":"https://arc42-template.atlassian.net/wiki",
-    "context":"/wiki"
-  }
-}</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>+
-As you can see, this API endpoint works as a GET request without being logged in!</p>
-</div>
-<div class="paragraph">
-<p>+
-. In <code>docToolchainConfig.groovy</code>, add the space-key, such as <code>8FE</code>.</p>
-</div>
-<div class="paragraph">
-<p>+</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -738,7 +711,7 @@ which can easily be revoked on the event of a compromise. See
 </table>
 </div>
 <div class="paragraph">
-<p>In the Terminal, type the foolwoing:</p>
+<p>In the Terminal, type the following:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -832,9 +805,39 @@ documentation</a> to generate one.</p>
 </div>
 </div>
 </div>
+<div class="sect3">
+<h4 id="_step_3_verify_your_configuration">Step 3: Verify Your Configuration</h4>
+<div class="paragraph">
+<p>To verify your configuration execute <code>./dtcw verifyConfluenceApiAccess</code> and pass the credentials to the task, depending on the setup you chose in the steps before.
+An example would be</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="shell">./dtcw verifyConfluenceApiAccess -PconfluenceUser=&lt;your email&gt; -PconfluencePass=&lt;your api-token&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the API is accessible, the task will succeed and print the API version that is used. Otherwise, an error will be printed.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="shell">...
+Daemon will be stopped at the end of the build
+
+&gt; Task :verifyConfluenceApiAccess
+Using Confluence API V1
+
+BUILD SUCCESSFUL in 15s
+3 actionable tasks: 3 executed</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>+</p>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_step_3_publish_your_pages">Step 3: Publish Your Pages</h3>
+<h3 id="_step_4_publish_your_pages">Step 4: Publish Your Pages</h3>
 <div class="paragraph">
 <p>To publish your pages to Confluence, type:
 .<code>./dtcw publishToConfluence &lt;extra arguments&gt;</code></p>

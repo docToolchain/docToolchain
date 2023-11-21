@@ -6,9 +6,388 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Tue, 12 Sep 2023 17:05:39 +0000</pubDate>
-    <lastBuildDate>Tue, 12 Sep 2023 17:05:39 +0000</lastBuildDate>
+    <pubDate>Tue, 21 Nov 2023 21:52:06 +0000</pubDate>
+    <lastBuildDate>Tue, 21 Nov 2023 21:52:06 +0000</lastBuildDate>
 
+    
+    <item>
+      <title>Release v3.1.2</title>
+      <link>https://localhost/030_news/2023/3.1.2-release.html</link>
+      <pubDate>Thu, 16 Nov 2023 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">030_news/2023/3.1.2-release.html</guid>
+      <description>
+      &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
+&lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
+&lt;ul class=&quot;sectlevel1&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_doctoolchain_release_v3_1_2_bugfix_release&quot;&gt;docToolchain release v3.1.2 (Bugfix-Release)&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_about_this_release&quot;&gt;About This Release&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_notes&quot;&gt;Notes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_3_1_2_2023_11_16&quot;&gt;3.1.2 - 2023-11-16&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_fixes&quot;&gt;fixes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_added&quot;&gt;added&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_changed&quot;&gt;changed&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- endtoc --&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_doctoolchain_release_v3_1_2_bugfix_release&quot;&gt;docToolchain release v3.1.2 (Bugfix-Release)&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This is the Bugfix-Release v3.1.2&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_about_this_release&quot;&gt;About This Release&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The v3.1.1 Release could not handle certain Confluence URLs and was missing a task dependency.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock important&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-important&quot; title=&quot;Important&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+please also check the &lt;a href=&quot;3.1.0-release.html&quot;&gt;release notes for v3.1.0&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_notes&quot;&gt;Notes&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_3_1_2_2023_11_16&quot;&gt;3.1.2 - 2023-11-16&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_fixes&quot;&gt;fixes&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1291&quot;&gt;#1291: publishToConfluence - Images not found&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1293&quot;&gt;#1293: Explicit dependency required between generateHTML and htmlSanityCheck&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_added&quot;&gt;added&lt;/h3&gt;
+
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_changed&quot;&gt;changed&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;The Confluence API configuration is now aware of contexts and hides the API version specific settings.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+a big &quot;THANK YOU&quot; to all &lt;strong&gt;Sponsors&lt;/strong&gt; and &lt;strong&gt;Contributors&lt;/strong&gt; who helped to support docToolchain!
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You like docToolchain?&lt;br&gt;
+What about helping to make it even better?&lt;br&gt;
+docToolchain is a community project, so be part of the community which drives the project.&lt;br&gt;
+You don&amp;#8217;t have to code for doing so.&lt;br&gt;
+It would even help to brush up the docs, write tutorials or groom the backlog&lt;br&gt;
+(I guess many of the open issues are already fixed).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	  </description>
+    </item>
+    
+    <item>
+      <title>Release v3.1.1</title>
+      <link>https://localhost/030_news/2023/3.1.1-release.html</link>
+      <pubDate>Tue, 7 Nov 2023 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">030_news/2023/3.1.1-release.html</guid>
+      <description>
+      &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
+&lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
+&lt;ul class=&quot;sectlevel1&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_doctoolchain_release_v3_1_1_bugfix_release&quot;&gt;docToolchain release v3.1.1 (Bugfix-Release)&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_about_this_release&quot;&gt;About This Release&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_notes&quot;&gt;Notes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_3_1_1_2023_11_07&quot;&gt;3.1.1 - 2023-11-07&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_fixes&quot;&gt;fixes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_changed&quot;&gt;changed&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- endtoc --&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_doctoolchain_release_v3_1_1_bugfix_release&quot;&gt;docToolchain release v3.1.1 (Bugfix-Release)&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We just had to create Bugfix-Release v3.1.1&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_about_this_release&quot;&gt;About This Release&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The v3.1.0 Release could not handle Confluence attachments. This release fixes this blocker.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock important&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-important&quot; title=&quot;Important&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+please also check the &lt;a href=&quot;3.1.0-release.html&quot;&gt;release notes for v3.1.0&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_notes&quot;&gt;Notes&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_3_1_1_2023_11_07&quot;&gt;3.1.1 - 2023-11-07&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_fixes&quot;&gt;fixes&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1281&quot;&gt;#1281: publishToConfluence throws exception when uploading attachments in v3.1.0&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1283&quot;&gt;#1283: &quot;tasks&quot; target causes Exception&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_changed&quot;&gt;changed&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Improve docs for &lt;code&gt;publishToConfluence&lt;/code&gt; task&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+a big &quot;THANK YOU&quot; to all &lt;strong&gt;Sponsors&lt;/strong&gt; and &lt;strong&gt;Contributors&lt;/strong&gt; who helped to support docToolchain!
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You like docToolchain?&lt;br&gt;
+What about helping to make it even better?&lt;br&gt;
+docToolchain is a community project, so be part of the community which drives the project.&lt;br&gt;
+You don&amp;#8217;t have to code for doing so.&lt;br&gt;
+It would even help to brush up the docs, write tutorials or groom the backlog&lt;br&gt;
+(I guess many of the open issues are already fixed).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	  </description>
+    </item>
+    
+    <item>
+      <title>Release v3.1.0</title>
+      <link>https://localhost/030_news/2023/3.1.0-release.html</link>
+      <pubDate>Fri, 3 Nov 2023 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">030_news/2023/3.1.0-release.html</guid>
+      <description>
+      &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
+&lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
+&lt;ul class=&quot;sectlevel1&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_doctoolchain_release_v3_1_0&quot;&gt;docToolchain release v3.1.0!&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_about_this_release&quot;&gt;About This Release&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_notes&quot;&gt;Notes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_3_1_0_2023_11_03&quot;&gt;3.1.0 - 2023-11-03&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_fixes&quot;&gt;fixes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_added&quot;&gt;added&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_changed&quot;&gt;changed&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- endtoc --&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_doctoolchain_release_v3_1_0&quot;&gt;docToolchain release v3.1.0!&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_about_this_release&quot;&gt;About This Release&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Here it is: docToolchain v3.1.0!
+It contains two major changes:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;docToolchain starts to become more modularized. This enables us to provide a core component which can be used by other projects as well, &lt;strong&gt;without&lt;/strong&gt; the use of Gradle. Though, Gradle will still get the full support.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;Atlassian is currently deprecating the Confluence API v1. This release candidate contains the first steps to support the new API v2. From January 2024 on,
+the old API will be shut down for all &lt;strong&gt;Cloud Instances&lt;/strong&gt; (&lt;a href=&quot;https://community.developer.atlassian.com/t/deprecating-many-confluence-v1-apis-that-have-v2-equivalents/66883&quot;&gt;see&lt;/a&gt;).
+While the script logic was mostly unaffected, the RestClient had to be rewritten.
+Although we tested everything, we need your help to test the new API to verify we didn&amp;#8217;t miss anything.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_notes&quot;&gt;Notes&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;to switch to the new API, you have to set the &lt;code&gt;confluence.useV1Api&lt;/code&gt; property to &lt;code&gt;false&lt;/code&gt; in your &lt;code&gt;docToolchainConfig.groovy&lt;/code&gt; file.
+This is recommended for all users using Confluence Cloud.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_3_1_0_2023_11_03&quot;&gt;3.1.0 - 2023-11-03&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_fixes&quot;&gt;fixes&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/pull/1262&quot;&gt;#1262: downloadTemplate skips creating a folder, causes generateSite to fail&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1269&quot;&gt;#1269 Fix wrong bash usage on Darwin with Homebrew&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1270&quot;&gt;#1269 Ensure DTC_JAVA_HOME is preferred over JAVA_HOME&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1069&quot;&gt;#1069 publishToConfluence &apos;ancestorName&apos; query does not support proxy&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1272&quot;&gt;#1272: publishToConfluence broken when document contains internal links&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_added&quot;&gt;added&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1254&quot;&gt;configure Confluence API parameters via Gradle parameters&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;introduce &lt;code&gt;verifyConfluenceApiAccess&lt;/code&gt; task - check if your API settings are correct&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_changed&quot;&gt;changed&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;introduce docToolchain core component to modularize the project&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;implement Confluence API v2 support&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You like docToolchain?&lt;br&gt;
+What about helping to make it even better?&lt;br&gt;
+docToolchain is a community project, so be part of the community which drives the project.&lt;br&gt;
+You don&amp;#8217;t have to code for doing so.&lt;br&gt;
+It would even help to brush up the docs, write tutorials or groom the backlog&lt;br&gt;
+(I guess many of the open issues are already fixed).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	  </description>
+    </item>
     
     <item>
       <title>Release v3.0.2</title>

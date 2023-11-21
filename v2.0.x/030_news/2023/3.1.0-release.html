@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
   
-  <!-- 030_news/2021/2021-11-23-Open-Source-Camp.html -->
+  <!-- 030_news/2023/3.1.0-release.html -->
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>Open Source Camp</title>
+  <title>Release v3.1.0</title>
   <meta content="docToolchain" property="og:title">
   <meta content="build your dev docs the easy way..." property="og:description">
   <meta content="website" property="og:type">
@@ -245,7 +245,7 @@
                                 2021
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../../030_news/2021/2021-11-23-Open-Source-Camp.html">Open Source Camp</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -315,7 +315,7 @@
                                    href="../../030_news/2023/3.0.2-release.html">Release v3.0.2</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../../030_news/2023/3.1.0-release.html">Release v3.1.0</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -339,11 +339,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2021/2021-11-23-Open-Source-Camp.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2023/3.1.0-release.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Open+Source+Camp%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2021/2021-11-23-Open-Source-Camp.adoc%0A%23branch:%20ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Release+v3.1.0%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2023/3.1.0-release.adoc%0A%23branch:%20ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -352,7 +352,19 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_open_source_camp">Open Source Camp</a></li>
+<li><a href="#_doctoolchain_release_v3_1_0">docToolchain release v3.1.0!</a>
+<ul class="sectlevel2">
+<li><a href="#_about_this_release">About This Release</a></li>
+</ul>
+</li>
+<li><a href="#_notes">Notes</a></li>
+<li><a href="#_3_1_0_2023_11_03">3.1.0 - 2023-11-03</a>
+<ul class="sectlevel2">
+<li><a href="#_fixes">fixes</a></li>
+<li><a href="#_added">added</a></li>
+<li><a href="#_changed">changed</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -361,46 +373,116 @@
 				</div>
 			</div>
 			<main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
-				<p><em>23 November 2021, rdmueller</em></p>
+				<p><em>03 November 2023, Pascal Euhus</em></p>
 				<p>
                     
 <div class="sect1">
-<h2 id="_open_source_camp">Open Source Camp</h2>
+<h2 id="_doctoolchain_release_v3_1_0">docToolchain release v3.1.0!</h2>
 <div class="sectionbody">
-<style>
-.center {
-  text-align: center;
-}
-</style>
-<div class="imageblock center">
-<div class="content">
-<img src="https://cyberland.ijug.eu/assets/logo/camp-logo.png" alt="camp logo">
-</div>
-</div>
+<div class="sect2">
+<h3 id="_about_this_release">About This Release</h3>
 <div class="paragraph">
-<p>The next <a href="https://cyberland.ijug.eu/2021-12-open-source-camp/">Cyberland Open Source Camp</a> is just around the corner. This time, <a href="https://doctoolchain.org/">docToolchain</a> will be one of the featured open source projects! Calling all contributors and supporters of the project to think about the tasks we could realistically solve in those few hours. Here are some ideas from our <a href="https://github.com/docToolchain/docToolchain/issues">list of open issues</a> to get your brains into gear:</p>
+<p>Here it is: docToolchain v3.1.0!
+It contains two major changes:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/docToolchain/docToolchain/issues/578">Autocompletion for the CLI</a>.</p>
+<p>docToolchain starts to become more modularized. This enables us to provide a core component which can be used by other projects as well, <strong>without</strong> the use of Gradle. Though, Gradle will still get the full support.</p>
 </li>
 <li>
-<p><a href="https://github.com/docToolchain/docToolchain/issues/692">generateSite – additional navigation level on the left</a>.</p>
-</li>
-<li>
-<p><a href="https://github.com/docToolchain/docToolchain/issues/699">Create multi-branch GitHub pages example</a>.</p>
-</li>
-<li>
-<p><a href="https://github.com/docToolchain/docToolchain/issues/679">Investigations with Gitpod</a>.</p>
-</li>
-<li>
-<p><a href="https://github.com/docToolchain/docToolchain/issues/700">A new InitRepo task</a>.</p>
+<p>Atlassian is currently deprecating the Confluence API v1. This release candidate contains the first steps to support the new API v2. From January 2024 on,
+the old API will be shut down for all <strong>Cloud Instances</strong> (<a href="https://community.developer.atlassian.com/t/deprecating-many-confluence-v1-apis-that-have-v2-equivalents/66883">see</a>).
+While the script logic was mostly unaffected, the RestClient had to be rewritten.
+Although we tested everything, we need your help to test the new API to verify we didn&#8217;t miss anything.</p>
 </li>
 </ul>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_notes">Notes</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p>to switch to the new API, you have to set the <code>confluence.useV1Api</code> property to <code>false</code> in your <code>docToolchainConfig.groovy</code> file.
+This is recommended for all users using Confluence Cloud.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_3_1_0_2023_11_03">3.1.0 - 2023-11-03</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_fixes">fixes</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/pull/1262">#1262: downloadTemplate skips creating a folder, causes generateSite to fail</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/1269">#1269 Fix wrong bash usage on Darwin with Homebrew</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/1270">#1269 Ensure DTC_JAVA_HOME is preferred over JAVA_HOME</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/1069">#1069 publishToConfluence 'ancestorName' query does not support proxy</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/1272">#1272: publishToConfluence broken when document contains internal links</a></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_added">added</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/1254">configure Confluence API parameters via Gradle parameters</a></p>
+</li>
+<li>
+<p>introduce <code>verifyConfluenceApiAccess</code> task - check if your API settings are correct</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_changed">changed</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>introduce docToolchain core component to modularize the project</p>
+</li>
+<li>
+<p>implement Confluence API v2 support</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>If you have another idea, please <a href="mailto:ralf.d.mueller@gmail.com">let me know</a>. To vote for a task, go to  <a href="https://github.com/docToolchain/docToolchain/issues?q=is%3Aopen+label%3AHackergarten+sort%3Areactions-heart-desc">GitHub</a> and ❤️ the issue.</p>
+<p>You like docToolchain?<br>
+What about helping to make it even better?<br>
+docToolchain is a community project, so be part of the community which drives the project.<br>
+You don&#8217;t have to code for doing so.<br>
+It would even help to brush up the docs, write tutorials or groom the backlog<br>
+(I guess many of the open issues are already fixed).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 </div>
 </div>

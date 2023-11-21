@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
   
-  <!-- 050_ADRs/ADR-2-anotherTest.html -->
+  <!-- 050_ADRs/ADR-2-separate-core-logic-from-gradle.html -->
   <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
   <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
   <meta content="jbake" name="generator">
   <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>ADR-2-anotherTest.ad</title>
+  <title>ADR-02: Separate core logic from Gradle</title>
   <meta content="docToolchain" property="og:title">
   <meta content="build your dev docs the easy way..." property="og:description">
   <meta content="website" property="og:type">
@@ -238,12 +238,12 @@
                         
                         <ul class="td-sidebar-nav__section pr-md-3 ul-0">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../050_ADRs/ADR-2-anotherTest.html">ADR-2-anotherTest.ad</a>
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../050_ADRs/ADR-1-Scripting-Languages.html">ADR-01: Scripting</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../050_ADRs/ADR-2-separate-core-logic-from-gradle.html">ADR-02: Separate core logic from Gradle</a>
                             </li>
                         </ul>
                     </li>
@@ -256,11 +256,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/050_ADRs/ADR-2-anotherTest.ad"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/050_ADRs/ADR-2-separate-core-logic-from-gradle.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-2-anotherTest.ad%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/050_ADRs/ADR-2-anotherTest.ad%0A%23branch:%20ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-02%3A+Separate+core+logic+from+Gradle%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/050_ADRs/ADR-2-separate-core-logic-from-gradle.adoc%0A%23branch:%20ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -269,7 +269,15 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_second_adr">second ADR</a></li>
+<li><a href="#_adr_02_separate_core_logic_from_gradle">ADR-02: Separate core logic from Gradle</a>
+<ul class="sectlevel2">
+<li><a href="#_status">Status</a></li>
+<li><a href="#_problem_and_context">Problem and Context</a></li>
+<li><a href="#_decision">Decision</a></li>
+<li><a href="#_alternatives">Alternatives</a></li>
+<li><a href="#_consequences">Consequences</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -291,11 +299,126 @@
     <div class="td-content">
         <p>
             
-<div class="sect1">
-<h2 id="_second_adr">second ADR</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>another Test</p>
+<p>:gradle-submoduleshttps://docs.gradle.org/current/userguide/multi_project_builds.html#sec:adding_subprojects</p>
+</div>
+<div class="sect1">
+<h2 id="_adr_02_separate_core_logic_from_gradle">ADR-02: Separate core logic from Gradle</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_status">Status</h3>
+<div class="paragraph">
+<p>This decision is currently under ongoing discussion.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_problem_and_context">Problem and Context</h3>
+<div class="paragraph">
+<p>The structure of the docToolchain project, is historically grown and has been adapted to the needs of the project.
+The project is built with Gradle.
+Although Gradle is a powerful build tool that allows for a lot of flexibility,
+there are some recommendation on how to setup and structure a project,
+docToolchains setup is quite customized only follows few conventions.
+The project setup is not very well documented, which makes it difficult for new developers to understand the build process.
+Furthermore, the build scripts have become increasingly complex over time, which makes it difficult to maintain them.</p>
+</div>
+<div class="paragraph">
+<p>Apart from the aforementioned problems, docToolchain is currently very tightly coupled to Gradle, which in some scenarios leads to high startup times, e.g. when running tests.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_decision">Decision</h3>
+<div class="paragraph">
+<p>There has been a vital <a href="https://github.com/docToolchain/docToolchain/discussions/1076">discussion on GitHub</a> around docToolchain v3, which has led to the decision to separate the core logic from Gradle.
+The core logic will be implemented in Groovy and will be used by Gradle.
+Gradle, as a first-class citizen, is then considered as a tool to provide a convenient way to use the core logic.
+The core logic will be implemented in a way that it is in the first steps completely isolated from Gradle.
+This paves the road for even further decoupling from Gradle in the future.</p>
+</div>
+<div class="paragraph">
+<p>This decision has several advantages:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Developer experience is improved, as the core logic is easier to understand and to maintain.
+IDE support is improved, as the core logic is like any other Groovy project, no custom setup required.</p>
+</li>
+<li>
+<p>Encapsulating business logic into a dedicated submodule that does not know anything about Gradle or any other buildtool, opens the door for non-Gradle usage.</p>
+</li>
+<li>
+<p>Core logic is not splattered over scripts and Gradle task definitions, but is concentrated in a single place.</p>
+</li>
+<li>
+<p>Dependencies are easier to manage, as they are defined in a single place.
+Gradle buildscripts only have a single dependency to the core logic.</p>
+</li>
+<li>
+<p>Tests can be executed without Gradle, which leads to faster test execution.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_alternatives">Alternatives</h3>
+<div class="sect3">
+<h4 id="_keep_the_current_setup">Keep the current setup</h4>
+<div class="paragraph">
+<p>We could keep the current setup, but this would block to the aforementioned improvements.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_separate_core_logic_into_gradles_buildsrc">Separate core logic into Gradle&#8217;s buildSrc</h4>
+<div class="paragraph">
+<p>We could separate the core logic into Gradle&#8217;s <a href="https://docs.gradle.org/current/userguide/organizing_gradle_projects.html#sec:build_sources">buildSrc</a>.
+While this would improve the situation, it would still not solve the problem of having the core logic tightly coupled to Gradle.
+Furthermore, it would not solve the problem of having a complex/ slow test setup, since there is still the need for Gradle runner.
+On top buildSrc is meant for complex build logic and not for business logic. <a href="https://github.com/docToolchain/docToolchain/pull/1208">See this PR for an example</a></p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_separate_core_logic_into_a_separate_project">Separate core logic into a separate project</h4>
+<div class="paragraph">
+<p>We could separate the core logic into a separate project.
+This would solve the problem of having the core logic tightly coupled to Gradle.
+While a submodule in the first step is still part of the current project, it relieves the core logic from the need to know about Gradle.
+However, some tasks rely on Gradle plugins, this would make it difficult to execute them without Gradle. <a href="https://github.com/docToolchain/docToolchain/pull/1226">See this PR for an example</a></p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_consequences">Consequences</h3>
+<div class="paragraph">
+<p>As a result of this decision, the setup needs to be migrated to the new structure. This includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Migrating the core logic into a separate submodule</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Revise current implementation</p>
+</li>
+<li>
+<p>Logic that solely depends on Gradle plugins should be kept as is to avoid unnecessary effort and reduce the overall scope of the migration</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Migrating the tests into the new submodule</p>
+</li>
+<li>
+<p>Adopt the buildscripts to use the new submodule</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>New features should be implemented in the new submodule.
+Gradle Task should only be used to provide a convenient default way to use the core logic.</p>
+</div>
 </div>
 </div>
 </div>
@@ -326,11 +449,11 @@
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-2-anotherTest.ad%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:050_ADRs/ADR-2-anotherTest.ad">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-02%3A+Separate+core+logic+from+Gradle%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:050_ADRs/ADR-2-separate-core-logic-from-gradle.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-2-anotherTest.ad%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:050_ADRs/ADR-2-anotherTest.ad">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-02%3A+Separate+core+logic+from+Gradle%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:050_ADRs/ADR-2-separate-core-logic-from-gradle.adoc">tell
     us how we can improve</a>.
     </p>
 </div>
