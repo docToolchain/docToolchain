@@ -1,19 +1,19 @@
 :jbake-menu: -
 :jbake-type: page_tocl
 :jbake-status: published
-include::_config.adoc[]
 :filename: 010_manual/single-page.adoc
 :imagesdir: images
 :allow-uri-read:
 :doctype: book
+:toc:
 :toc-title: toc-title
 :toclevels: 3
 :projectRootDir: {projectRootDir}
 :disableredirects:
+include::_config.adoc[]
 
 :manualdir: https://github.com/docToolchain/docToolchain/edit/master/src/docs/
 
-[discrete]
 = docToolchain Manual
 
 
@@ -31,10 +31,9 @@ endif::backend-pdf[]
 // numbering from here on
 :numbered:
 
-
 <<<
 
-include::010_introduction_and_goals.adoc[leveloffset=+1]
+include::../10_about/20_what-is-doctoolchain.adoc[]
 
 '''
 
@@ -48,170 +47,174 @@ include::40_features.adoc[leveloffset=+1]
 
 '''
 
+= docToolchain Tasks
+
+:leveloffset: +0
+
 <<<
-include::../015_tasks/03_task_autobuildSite.adoc[leveloffset=+1]
+include::../015_tasks/03_task_autobuildSite.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_generateHTML.adoc[leveloffset=+2]
+include::../015_tasks/03_task_generateHTML.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_copy_themes.adoc[leveloffset=+2]
+include::../015_tasks/03_task_copy_themes.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_fixencoding.adoc[leveloffset=+2]
+include::../015_tasks/03_task_fixencoding.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_prependFilename.adoc[leveloffset=+2]
+include::../015_tasks/03_task_prependFilename.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_collectIncludes.adoc[leveloffset=+2]
+include::../015_tasks/03_task_collectIncludes.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_generatePDF.adoc[leveloffset=+2]
+include::../015_tasks/03_task_generatePDF.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_generateSite.adoc[leveloffset=+2]
+include::../015_tasks/03_task_generateSite.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_generateDocBook.adoc[leveloffset=+2]
+include::../015_tasks/03_task_generateDocBook.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_generateDeck.adoc[leveloffset=+2]
+include::../015_tasks/03_task_generateDeck.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_publishToConfluence.adoc[leveloffset=+2]
+include::../015_tasks/03_task_publishToConfluence.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_convertToDocx.adoc[leveloffset=+2]
+include::../015_tasks/03_task_convertToDocx.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_createReferenceDoc.adoc[leveloffset=+2]
+include::../015_tasks/03_task_createReferenceDoc.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_convertToEpub.adoc[leveloffset=+2]
+include::../015_tasks/03_task_convertToEpub.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_exportEA.adoc[leveloffset=+2]
+include::../015_tasks/03_task_exportEA.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_exportVisio.adoc[leveloffset=+2]
+include::../015_tasks/03_task_exportVisio.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_exportDrawIo.adoc[leveloffset=+2]
+include::../015_tasks/03_task_exportDrawIo.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_exportChangeLog.adoc[leveloffset=+2]
+include::../015_tasks/03_task_exportChangeLog.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_exportContributors.adoc[leveloffset=+2]
+include::../015_tasks/03_task_exportContributors.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_exportJiraIssues.adoc[leveloffset=+2]
+include::../015_tasks/03_task_exportJiraIssues.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_exportJiraSprintChangelog.adoc[leveloffset=+2]
+include::../015_tasks/03_task_exportJiraSprintChangelog.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_exportPPT.adoc[leveloffset=+2]
+include::../015_tasks/03_task_exportPPT.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_exportExcel.adoc[leveloffset=+2]
+include::../015_tasks/03_task_exportExcel.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_exportMarkdown.adoc[leveloffset=+2]
+include::../015_tasks/03_task_exportMarkdown.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_exportOpenApi.adoc[leveloffset=+2]
+include::../015_tasks/03_task_exportOpenApi.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_exportStructurizr.adoc[leveloffset=+2]
+include::../015_tasks/03_task_exportStructurizr.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_htmlSanityCheck.adoc[leveloffset=+2]
+include::../015_tasks/03_task_htmlSanityCheck.adoc[]
 
 '''
 
 <<<
 
-include::../015_tasks/03_task_dependencyUpdates.adoc[leveloffset=+2]
+include::../015_tasks/03_task_dependencyUpdates.adoc[]
 
 '''
 
