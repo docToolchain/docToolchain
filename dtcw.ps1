@@ -9,7 +9,7 @@ $ErrorActionPreference = "Stop"
 
 # See https://github.com/docToolchain/docToolchain/releases for available versions.
 # Set DTC_VERSION to "latest" to get the latest, yet unreleased version.
-$DTC_VERSION = "3.0.0-rc1"
+$DTC_VERSION = "3.1.2"
 if ($env:DTC_VERSION) { $DTC_VERSION = $env:DTC_VERSION }
 
 #here you can specify the URL of a theme to use with generateSite-task
@@ -542,7 +542,7 @@ function build_command($environment, $version, $_args) {
             Write-Output ""
             exit 1
         }
-        $container_name="doctoolchain-${version}-$(date '+%Y%m%d_%H%M%S')"
+        $container_name="doctoolchain-${version}-$(date -uFormat '+%Y%m%d_%H%M%S')"
         $docker_cmd = Get-Command docker
         # TODO: DTC_PROJECT_BRANCH is  not passed into the docker environment
         # See https://github.com/docToolchain/docToolchain/issues/1087

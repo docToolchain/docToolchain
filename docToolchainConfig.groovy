@@ -191,9 +191,7 @@ confluence.with {
 
     inputHtmlFolder = ''
     // endpoint of the confluenceAPI (REST) to be used
-    // to verify the endpoint, add user/current and pate it into your browser
-    // you should get a json about your own user
-    api = 'https://[yourServer]/[context]/rest/api/'
+    api = 'https://[yourServer]'
 
     //    Additionally, spaceKey, subpagesForSections, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
 

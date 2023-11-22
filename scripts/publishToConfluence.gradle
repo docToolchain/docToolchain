@@ -9,13 +9,26 @@ buildscript {
         }
     }
     dependencies {
-        //for the exportJiraIssues Task
-        classpath libs.http.builder
-        //for the renderToConfluence Task
-        classpath libs.httpmime
-        classpath libs.jsoup
+        classpath("org.docToolchain:core")
     }
 }
+
+import org.docToolchain.tasks.VerifyConfluenceApiAccessTask
+
+//tag::verifyConfluenceApiAccess[]
+task verifyConfluenceApiAccess(
+    description: 'verifies confluence API URL and credentials are set correctly',
+    group: 'docToolchain'
+) {
+    doLast {
+        //TODO default should be false, if the V1 has been removed in cloud
+        config.confluence.useV1Api = findProperty("confluence.useV1Api") != null ?
+            findProperty("confluence.useV1Api") : config.confluence.useV1Api != [:] ?
+            config.confluence.useV1Api :true
+        new VerifyConfluenceApiAccessTask(config).execute()
+    }
+}
+//end::verifyConfluenceApiAccess[]
 
 //tag::publishToConfluence[]
 task publishToConfluence(
@@ -24,10 +37,14 @@ task publishToConfluence(
 ) {
     doLast {
         logger.info("docToolchain> docDir: "+docDir)
-
+        config.confluence.api = findProperty("confluence.api")?:config.confluence.api
+        //TODO default should be false, if the V1 has been removed in cloud
+        config.confluence.useV1Api = findProperty("confluence.useV1Api") != null ?
+            findProperty("confluence.useV1Api") : config.confluence.useV1Api != [:] ?
+            config.confluence.useV1Api :true
         binding.setProperty('config',config)
         binding.setProperty('docDir',docDir)
-        evaluate(new File(projectDir, 'scripts/asciidoc2confluence.groovy'))
+        evaluate(new File(projectDir, 'core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy'))
     }
 }
 //end::publishToConfluence[]

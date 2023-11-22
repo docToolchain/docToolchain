@@ -128,8 +128,8 @@ microsite.with {
     // set a title to '-' in order to remove this menu entry.
     menu = [:]
 
+//tag::additionalConverters[]
 /**
-tag::additionalConverters[]
 
 if you need support for additional markup converters, you can configure them here
 you have three different types of script you can define:
@@ -143,13 +143,13 @@ you have three different types of script you can define:
 `dtcw:rstToHtml.py` is an internal script to convert restructuredText.
 Needs `python3` and `docutils` installed.
 
-end::additionalConverters[]
 **/
     additionalConverters = [
         //'.one': [command: 'println "test"+file.canonicalPath', type: 'groovy'],
         //'.two': [command: 'scripts/convert-md.groovy', type: 'groovyFile'],
         //'.rst': [command: 'dtcw:rstToHtml.py', type: 'bash'],
     ]
+//end::additionalConverters[]
 
     // if you prefer another convention regarding the automatic generation
     // of jBake headers, you can configure a script to modify them here
@@ -251,11 +251,19 @@ confluence.with {
     ]
 
     // endpoint of the confluenceAPI (REST) to be used
-    // verfiy that you got the correct endpoint by browsing to
-    // https://[yourServer]/[context]/rest/api/user/current
-    // you should get a valid json which describes your current user
-    // a working example is https://arc42-template.atlassian.net/wiki/rest/api/user/current
-    api = 'https://[yourServer]/[context]/rest/api/'
+    // if you use Confluence Cloud, you can set this value to
+    // https://[yourServer]
+    // a working example is https://arc42-template.atlassian.net
+    // if you use Confluence Server, you may need to set a context:
+    // https://[yourServer]/[context]
+    // a working example is https://arc42-template.atlassian.net/wiki
+    api = 'https://[yourServer]/[context]'
+
+    // if true API V1 only will be used. Default is true.
+    // useV1Api = true
+
+    // if true, the new editor v2 will be used. Default is false.
+    // enforceNewEditor = false
 
     //    Additionally, spaceKey, subpagesForSections, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
 

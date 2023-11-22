@@ -28,7 +28,7 @@ spock = "2.3-groovy-3.0"
 spock-reports = "2.3.2-groovy-3.0"
 junit = "5.9.3"
 httpmime = "4.5.14"
-http-builder = "0.7.2"
+http-builder = "0.7.1"
 byte-buddy = "1.14.4"
 
 [plugins]
@@ -40,6 +40,7 @@ jbake-site = { id = "org.jbake.site", version.ref = "jbake"}
 gretty = { id = "org.gretty", version.ref = "gretty"}
 
 [libraries]
+groovy-all = { module = "org.codehaus.groovy:groovy-all", version.ref = "groovy" }
 groovy-xml = { module = "org.codehaus.groovy:groovy-xml", version.ref = "groovy" }
 asciidoctor = { module = "org.asciidoctor:asciidoctor-gradle-jvm", version.ref = "asciidoctor-jvm" }
 asciidoctor-pdf = { module = "org.asciidoctor:asciidoctor-gradle-jvm-pdf", version.ref = "asciidoctor-jvm" }
