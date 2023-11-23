@@ -26,38 +26,44 @@ In this tutorial, you'll learn how to publish the arc42 template to a Confluence
 
 If you  have completed instructions http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/010_Install.html[install docToolchain] and http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/020_arc42.html[get the arc42 template] you can skip this part.
 
-NOTE: For this tutorial, we assume that you work with a MacOs/Linux-based system.
+NOTE: For this tutorial, we assume that you work with a macOS/Linux-based system.
 
 
 . In the Terminal, type the following:
 +
-[source, bash]
+[source, console]
 ----
-mkdir publishToConfluenceDemo
-cd publishToConfluenceDemo
-curl -Lo dtcw doctoolchain.org/dtcw`
+$ mkdir publishToConfluenceDemo
+$ cd publishToConfluenceDemo
+$ curl -Lo dtcw doctoolchain.org/dtcw
 ----
 +
-The result is as follows:
-+
+.Show output
 [%collapsible]
 ====
-```
+....
 gitpod /workspace/publishToConfluenceDemo (main) $ curl -Lo dtcw doctoolchain.org/dtcw
 % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 Dload  Upload   Total   Spent    Left  Speed
 100   162  100   162    0     0   1306      0 --:--:-- --:--:-- --:--:--  1317
 100 10724  100 10724    0     0  25903      0 --:--:-- --:--:-- --:--:-- 25903
-```
+....
 ====
-. Next, type `{nbsp}{nbsp}{nbsp}chmod +x dtcw`. +
-. If you do not have docToolchain as a Docker image, type `./dtcw getJava`.
+
+. Next, make the file `dtcw` executable.
 +
-The result is as follows:
+[source, console]
+$ chmod +x dtcw
+
+. If you do not have docToolchain as a Docker image, type
 +
+[source, console]
+$ ./dtcw getJava
++
+.Show output
 [%collapsible]
 ====
-```
+....
 ./dtcw: line 28: !false: command not found
 dtcw - docToolchain wrapper V0.31
 docToolchain V2.0.5
@@ -93,20 +99,22 @@ FINISHED --2022-08-25 20:07:13--
 Total wall clock time: 1.7s
 Downloaded: 1 files, 185M in 0.6s (310 MB/s)
 expanding JDK
-```
+....
 ====
-+
+
 . Answer the questions that appear during installation.
 +
 You will see lots of `.jar` files getting downloaded.
+
+. Initialise docToolchain by running your first task.
 +
-. Type `./dtcw tasks`.
+[source,console]
+$ ./dtcw tasks
 +
-You will see this:
-+
+.Show output
 [%collapsible]
 ====
-```
+....
 dtcw - docToolchain wrapper V0.31
 docToolchain V2.0.5
 local java JDK found
@@ -178,13 +186,18 @@ For troubleshooting, visit https://help.gradle.org
 
 BUILD SUCCESSFUL in 3m 29s
 1 actionable task: 1 executed
-```
+....
 ====
 
-.`./dtcw downloadTemplate`
+. Next download the arc42 template
++
+[source,console]
+$ ./dtcw downloadTemplate
++
+.Show output
 [%collapsible]
 ====
-```
+....
 
 dtcw - docToolchain wrapper V0.31
 docToolchain V2.0.5
@@ -212,14 +225,13 @@ use 'generateHTML', 'generatePDF' or  'generateSite' to convert the template
 
 BUILD SUCCESSFUL in 22s
 1 actionable task: 1 executed
-```
+....
 ====
 +
 You should now have the following folder structure in your project:
 +
 .Project Folder Structure
-====
-```
+....
 .
 ├── docToolchainConfig.groovy
 ├── dtcw
@@ -249,17 +261,19 @@ You should now have the following folder structure in your project:
 └── arc42-logo.png
 
 5 directories, 21 files
-```
-====
+....
 
 === Step 2. Configure Publication to Confluence
 
 To configure authentication through the Confluence API, do the following.
 
 . In the root of your project foler, open the file `docToolchainConfig.groovy`.
+
 . Find the text `confluence.with`.
 +
-This is the start of the section where you configure publication to Confluence. As you can see, docToolchain is preconfigured to publish sample input (the arc42 template) to Confluence. The input for the publishToConfluence task is the output of the `generateHTML` task. You should see this:
+This is the start of the section where you configure publication to Confluence.
+As you can see, docToolchain is preconfigured to publish sample input (the arc42 template) to Confluence.
+The input for the publishToConfluence task is the output of the `generateHTML` task. You should see this:
 +
 [source, groovy]
 ----
@@ -267,6 +281,7 @@ input = [
     [ file: "build/html5/arc42/arc42.html" ],
 ]
 ----
+
 . Set up the API endpoint.
 Get your Atlassian Confluence URL, such as https://arc42-template.atlassian.net.
 +
@@ -275,12 +290,15 @@ Get your Atlassian Confluence URL, such as https://arc42-template.atlassian.net.
 ----
 api = 'https://[yourServer]/[context]'
 ----
++
 In this case, the correct endpoint is `https://arc42-template.atlassian.net/wiki`.
-
++
 [NOTE]
 The context is optional, unless it is something other that "wiki". If you would like to enforce a URL that has no context (only valid if you specified `useV1Api = true`) for Confluence Server you should specify the full API URL, like `https://confluence.example.com/rest/api`.
 
 . In `docToolchainConfig.groovy`, add the space-key, such as `8FE`.
++
+[source, groovy]
 ----
 spaceKey = '8FE'
 ----
@@ -289,51 +307,51 @@ spaceKey = '8FE'
 
 ===== Step 2.1a. CLI Authentication with username and password (insecure)
 
-WARNING: This method is not recommended. Instead of passing your password, you can use a Personal Access Token,
-which can easily be revoked on the event of a compromise. See
-xref:personal-access-token[Authentication with Personal Access Token].
+WARNING: This method is not recommended.
+Instead of passing your password,
+you can use a Personal Access Token,
+which can easily be revoked on the event of a compromise.
+See xref:personal-access-token[Authentication with Personal Access Token].
 
 In the Terminal, type the following:
 
-[source,shell]
-----
-./dtcw publishToConfluence -PconfluenceUser=<your username> -PconfluencePass=<your password>
-----
+[source,console]
+$ ./dtcw publishToConfluence -PconfluenceUser=<your username> -PconfluencePass=<your password>
 
 ===== Step 2.1b: CLI Authentication with username and API token
 
-NOTE: This method only works for Confluence Cloud. I can use an API token. The key has to be generated from the central Atlassian account.
+NOTE: This method only works for Confluence Cloud.
+I can use an API token.
+The key has to be generated from the central Atlassian account.
 
 . Navigate to your central Atlassian profile.
 +
 [.center]
 image::070-first.png[width=30%]
-+
+
 . Go to **Manage your Account**.
 +
 [.center]
 image::070-second.png[width=30%]
-+
+
 . Click **Security** > **API token** > **Create and manage API tokens**.
 +
 [.center]
 image::070-third.png[width=80%]
 +
 NOTE: Here is the https://id.atlassian.com/manage-profile/security/api-tokens[shortcut] to this page.
-+
+
 . Now, click **Create API token**.
-+
+
 . Store your API token in a safe location.
-. Add your API token e-mail address as username and password to the `.dtcw` command.
+
+. Add your API token e-mail address as username and password to the `./dtcw` command.
 +
-[source,shell]
-----
-./dtcw publishToConfluence -PconfluenceUser=<your email> -PconfluencePass=<your api-token>
-----
+[source,console]
+$ ./dtcw publishToConfluence -PconfluenceUser=<your email> -PconfluencePass=<your api-token>
 
 
 [[personal-access-token]]
-
 ===== Step 2.1c: CLI Authentication with Personal Access Token
 
 If you do not want to pass your password and you are not an admin of your Confluence instance, you can use a Personal Access Token (PAT). Follow the
@@ -341,22 +359,21 @@ https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032
 documentation] to generate one.
 
 In the Terminal, type the following to publish to Confluence with your PAT:
-[source,shell]
-----
-./dtcw publishToConfluence -PconfluenceBearerToken=<your personal access token>
-----
 
-==== Step 3: Verify Your Configuration
+[source,console]
+$ ./dtcw publishToConfluence -PconfluenceBearerToken=<your personal access token>
+
+=== Step 3: Verify Your Configuration
+
 To verify your configuration execute `./dtcw verifyConfluenceApiAccess` and pass the credentials to the task, depending on the setup you chose in the steps before.
 An example would be
-[source,shell]
-----
-./dtcw verifyConfluenceApiAccess -PconfluenceUser=<your email> -PconfluencePass=<your api-token>
-----
+
+[source,console]
+$ ./dtcw verifyConfluenceApiAccess -PconfluenceUser=<your email> -PconfluencePass=<your api-token>
+
 If the API is accessible, the task will succeed and print the API version that is used. Otherwise, an error will be printed.
 
-[source, shell]
-----
+....
 ...
 Daemon will be stopped at the end of the build
 
@@ -365,16 +382,19 @@ Using Confluence API V1
 
 BUILD SUCCESSFUL in 15s
 3 actionable tasks: 3 executed
-----
-+
+....
 
 === Step 4: Publish Your Pages
 
 To publish your pages to Confluence, type:
-.`./dtcw publishToConfluence <extra arguments>`
+
+[source, console]
+$ ./dtcw publishToConfluence <extra arguments>
+
+.Show output
 [%collapsible]
 ====
-```
+....
 dtcw - docToolchain wrapper V0.31
 docToolchain V2.0.5
 local java JDK found
@@ -436,7 +456,7 @@ allPages already retrieved
 > created page 2034040848
 10. Quality Requirements
 Start getting headers
-```
+....
 ====
 
 This command will first run the task `generateHTML` and then create one Confluence page for each arc42-chapter.
