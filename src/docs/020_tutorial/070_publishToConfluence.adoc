@@ -316,9 +316,7 @@ See xref:personal-access-token[Authentication with Personal Access Token].
 In the Terminal, type the following:
 
 [source,console]
-----
 $ ./dtcw publishToConfluence -PconfluenceUser=<your username> -PconfluencePass=<your password>
-----
 
 ===== Step 2.1b: CLI Authentication with username and API token
 
@@ -350,9 +348,7 @@ NOTE: Here is the https://id.atlassian.com/manage-profile/security/api-tokens[sh
 . Add your API token e-mail address as username and password to the `./dtcw` command.
 +
 [source,console]
-----
 $ ./dtcw publishToConfluence -PconfluenceUser=<your email> -PconfluencePass=<your api-token>
-----
 
 
 [[personal-access-token]]
@@ -363,25 +359,21 @@ https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032
 documentation] to generate one.
 
 In the Terminal, type the following to publish to Confluence with your PAT:
+
 [source,console]
-----
 $ ./dtcw publishToConfluence -PconfluenceBearerToken=<your personal access token>
-----
 
 === Step 3: Verify Your Configuration
 
 To verify your configuration execute `./dtcw verifyConfluenceApiAccess` and pass the credentials to the task, depending on the setup you chose in the steps before.
 An example would be
 
-[source,shell]
-----
-./dtcw verifyConfluenceApiAccess -PconfluenceUser=<your email> -PconfluencePass=<your api-token>
-----
+[source,console]
+$ ./dtcw verifyConfluenceApiAccess -PconfluenceUser=<your email> -PconfluencePass=<your api-token>
 
 If the API is accessible, the task will succeed and print the API version that is used. Otherwise, an error will be printed.
 
-[source, shell]
-----
+....
 ...
 Daemon will be stopped at the end of the build
 
@@ -390,7 +382,7 @@ Using Confluence API V1
 
 BUILD SUCCESSFUL in 15s
 3 actionable tasks: 3 executed
-----
+....
 
 === Step 4: Publish Your Pages
 
