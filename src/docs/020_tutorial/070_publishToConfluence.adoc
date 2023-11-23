@@ -368,7 +368,7 @@ In the Terminal, type the following to publish to Confluence with your PAT:
 $ ./dtcw publishToConfluence -PconfluenceBearerToken=<your personal access token>
 ----
 
-==== Step 3: Verify Your Configuration
+=== Step 3: Verify Your Configuration
 
 To verify your configuration execute `./dtcw verifyConfluenceApiAccess` and pass the credentials to the task, depending on the setup you chose in the steps before.
 An example would be
