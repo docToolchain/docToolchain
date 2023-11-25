@@ -10,6 +10,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === fixes
 
 * https://github.com/docToolchain/docToolchain/issues/1300[#1300: publishToConfluence:Cannot handle embedded SVG images]
+* https://github.com/docToolchain/docToolchain/issues/1253[#1253: publishToConfluence removes all linebreaks from code]
 
 === added
 
