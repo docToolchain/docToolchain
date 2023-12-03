@@ -390,26 +390,33 @@ function download_file($url, $file) {
 
 function assert_java_version_supported() {
     # Defines the order in which Java is searched.
-    $JAVA_CMD = ""
-    if (Get-Command java -ErrorAction SilentlyContinue) {
-        $JAVA_CMD = "java"
-    }
-    if ( $null -ne $env:JAVA_HOME -and $env:JAVA_HOME -ne "") {
-        $JAVA_CMD = "$env:JAVA_HOME/bin/java"
-        Write-Warning "here '$env:JAVA_HOME'"
-    }
-    if (Test-Path "$DTC_JAVA_HOME") {
-        Write-Host "local java JDK-17 found"
+    $JAVA_CMD = $null
+
+    if ( Test-Path "$DTC_JAVA_HOME") {
         $javaHome = "$DTC_JAVA_HOME/jdk-17.0.7+7"
-        $JAVA_CMD = "$javaHome/bin/java"
+        Write-Host "Check Java from $javaHome"
+
+        $JAVA_CMD = Get-Command "$javaHome\bin\java" -ErrorAction SilentlyContinue        
         $dtc_opts = "$dtc_opts '-Dorg.gradle.java.home=$javaHome' "
     }
-    if ($JAVA_CMD -eq "") {
+
+    if ( $null -eq $JAVA_CMD) {
+        Write-Host "Check Java from Path"
+        $JAVA_CMD = Get-Command java -ErrorAction SilentlyContinue
+    }
+
+    if ( $null -eq $JAVA_CMD -and $null -ne $env:JAVA_HOME -and $env:JAVA_HOME -ne "") {
+        Write-Host "Check Java from $env:JAVA_HOME"
+        $JAVA_CMD = Get-Command "$env:JAVA_HOME\bin\java" -ErrorAction SilentlyContinue
+    }
+
+    if ($null -eq $JAVA_CMD) {
         Write-Warning "unable to locate a Java Runtime"
         java_help_and_die
     }
+
     # We got a Java version
-    $javaversion = ((Invoke-Expression -Command "$JAVA_CMD -version 2>&1" | Select-String -Pattern 'version').Line | Select-Object -First 1 ).Split('"')[1].Split(".")[0]
+    $javaversion = ($JAVA_CMD | Select-Object -ExpandProperty Version).Major
 
     Write-Output "Java Version $javaversion"
 
