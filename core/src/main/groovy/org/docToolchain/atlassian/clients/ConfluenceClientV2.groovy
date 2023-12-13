@@ -1,6 +1,11 @@
 package org.docToolchain.atlassian.clients
 
-import groovyx.net.http.ContentType
+import groovy.json.JsonBuilder
+import org.apache.hc.client5.http.classic.methods.HttpGet
+import org.apache.hc.client5.http.classic.methods.HttpPost
+import org.apache.hc.core5.http.HttpRequest
+import org.apache.hc.core5.http.io.entity.StringEntity
+import org.apache.hc.core5.net.URIBuilder
 import org.docToolchain.configuration.ConfigService
 
 class ConfluenceClientV2 extends ConfluenceClient {
@@ -15,11 +20,8 @@ class ConfluenceClientV2 extends ConfluenceClient {
 
     @Override
     def verifyCredentials() {
-        trythis {
-            restClient.get(
-                path: API_V1_PATH + '/user/current', headers: headers
-            )
-        }
+        HttpRequest get = new HttpGet(API_V1_PATH + '/user/current')
+        return callApiAndFailIfNot20x(get)
     }
 
     def fetchSpaceIdByKey(String spaceKey) {
@@ -36,20 +38,20 @@ class ConfluenceClientV2 extends ConfluenceClient {
 
     @Override
     def addLabel(Object pageId, Object label) {
-        trythis {
-            restClient.post(contentType: ContentType.JSON,
-                path: API_V1_PATH + '/content/' + pageId + "/label", body: label, headers: headers)
-        }
+        HttpRequest post = new HttpPost(API_V1_PATH + '/content/' + pageId + "/label")
+        post.setHeader('Content-Type', 'application/json')
+        // TODO test if this works
+        post.setEntity(new StringEntity(new JsonBuilder([label]).toPrettyString()))
+        return callApiAndFailIfNot20x(post)
     }
 
     @Override
     def getAttachment(Object pageId, Object fileName) {
-        //TODO NOT Found
-        restClient.get(
-            path: API_V2_PATH + '/pages/' + pageId + '/attachments',
-            query: [
-                'filename': fileName,
-            ], headers: headers)
+        URI uri = new URIBuilder(API_V2_PATH + '/pages/' + pageId + '/attachments')
+            .addParameter('filename', fileName as String)
+            .build()
+        HttpRequest get = new HttpGet(uri)
+        return callApiAndFailIfNot20x(get)
     }
 
     @Override

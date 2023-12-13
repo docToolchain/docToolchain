@@ -19,6 +19,7 @@ structurizr-d2-exporter = "1.2.0"
 openai-gpt3 = "0.12.0"
 asciidoctorj-diagram = "2.2.7"
 pebble = "3.2.0"
+http-client = "5.3"
 
 # Test
 spock = "2.3-groovy-3.0"
@@ -54,6 +55,7 @@ structurizr-d2-exporter = { module = "io.github.goto1134:structurizr-d2-exporter
 openai-gpt3-service = { module = "com.theokanning.openai-gpt3-java:service", version.ref = "openai-gpt3" }
 asciidoctorj-diagram = { module = "org.asciidoctor:asciidoctorj-diagram", version.ref = "asciidoctorj-diagram" }
 pebble = { module = "io.pebbletemplates:pebble", version.ref = "pebble" }
+http-client = { module = "org.apache.httpcomponents.client5:httpclient5", version.ref = "http-client" }
 
 
 # Test

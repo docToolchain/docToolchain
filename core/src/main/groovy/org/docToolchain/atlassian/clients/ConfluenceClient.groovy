@@ -1,15 +1,20 @@
 package org.docToolchain.atlassian.clients
 
-import groovyx.net.http.EncoderRegistry
-import groovyx.net.http.HTTPBuilder
-import groovyx.net.http.HttpResponseException
-import groovyx.net.http.Method
-import groovyx.net.http.RESTClient
-import groovyx.net.http.URIBuilder
-import org.apache.http.entity.mime.HttpMultipartMode
-import org.apache.http.entity.mime.MultipartEntity
-import org.apache.http.entity.mime.content.InputStreamBody
-import org.apache.http.entity.mime.content.StringBody
+import groovy.json.JsonSlurper
+import org.apache.hc.client5.http.HttpResponseException
+import org.apache.hc.client5.http.classic.methods.HttpPost
+import org.apache.hc.client5.http.entity.mime.HttpMultipartMode
+import org.apache.hc.client5.http.entity.mime.InputStreamBody
+import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder
+import org.apache.hc.client5.http.entity.mime.StringBody
+import org.apache.hc.client5.http.impl.classic.CloseableHttpClient
+import org.apache.hc.client5.http.impl.classic.HttpClientBuilder
+import org.apache.hc.core5.http.ClassicHttpRequest
+import org.apache.hc.core5.http.Header
+import org.apache.hc.core5.http.HttpEntity
+import org.apache.hc.core5.http.HttpHost
+import org.apache.hc.core5.http.message.BasicHeader
+import org.apache.hc.core5.net.URIBuilder
 import org.docToolchain.configuration.ConfigService
 
 abstract class ConfluenceClient {
@@ -22,56 +27,50 @@ abstract class ConfluenceClient {
     protected final String editorVersion
 
     protected String baseApiUrl
+    protected Set<Header> headers
     private String apiContext
 
-    Map headers
-    RESTClient restClient
-    //TODO this is a workaround for the fact that the RESTClient does not support mulitpart/form-data from Groovy 3.0.0 on
-    Map proxyConfig = [:]
+    HttpClientBuilder httpClientBuilder
+    HttpHost targetHost
 
     ConfluenceClient(ConfigService configService) {
         String apiConfigItem = configService.getConfigProperty('confluence.api')
-        this.baseApiUrl = buildApiBaseUrlAndSetAPIContextFromConfigItem(apiConfigItem)
+        this.targetHost = buildApiBaseUrlAndSetAPIContextFromConfigItem(apiConfigItem)
         this.API_V1_PATH = apiContext + API_V1_IDENTIFIER
         this.API_V2_PATH = apiContext + API_V2_IDENTIFIER
-        this.restClient = new RESTClient(baseApiUrl)
-        restClient.setEncoderRegistry(new EncoderRegistry( charset: 'utf-8' ))
-        this.headers = ['X-Atlassian-Token':'no-check']
+        this.httpClientBuilder = HttpClientBuilder.create()
+        this.headers = new HashSet<>([
+            new BasicHeader('X-Atlassian-Token', 'no-check'),
+            new BasicHeader('Content-Type', 'application/json;charset=utf-8')
+        ])
         this.editorVersion = determineEditorVersion(configService)
         if(configService.getFlatConfigSubTree('confluence.proxy')){
             def proxy = configService.getFlatConfigSubTree('confluence.proxy')
-            //TODO this is a workaround for the fact that the RESTClient does not support mulitpart/form-data from Groovy 3.0.0 on
-            proxyConfig.put('host', proxy.host as String)
-            proxyConfig.put('port', proxy.port as Integer)
-            proxyConfig.put('schema', proxy.schema  as String?: 'http')
-            //END WORKAROUND
-            restClient.setProxy(proxy.host as String, proxy.port as Integer, proxy.schema  as String?: 'http')
+            httpClientBuilder.setProxy(new HttpHost(proxy.schema  as String?: 'http', proxy.host as String, proxy.port as Integer))
         }
         if(configService.getConfigProperty('confluence.bearerToken')){
-            headers.put('Authorization', 'Bearer ' + configService.getConfigProperty('confluence.bearerToken'))
+            headers.add(new BasicHeader('Authorization', 'Bearer ' + configService.getConfigProperty('confluence.bearerToken')))
             println 'Start using bearer auth'
         } else {
-            headers.put('Authorization', 'Basic ' + configService.getConfigProperty('confluence.credentials'))
+            headers.add(new BasicHeader('Authorization', 'Basic ' + configService.getConfigProperty('confluence.credentials')))
             //Add api key and value to REST API request header if configured - required for authentification.
             if (configService.getConfigProperty('confluence.apikey')){
-                headers.put('keyid', configService.getConfigProperty('confluence.apikey'))
+                headers.add(new BasicHeader('keyid', configService.getConfigProperty('confluence.apikey') as String))
             }
         }
+        httpClientBuilder.setDefaultHeaders(headers)
     }
 
-    protected String buildApiBaseUrlAndSetAPIContextFromConfigItem(String configItem) {
+    protected HttpHost buildApiBaseUrlAndSetAPIContextFromConfigItem(String configItem) {
         URIBuilder builder = new URIBuilder(configItem)
-        StringBuilder apiUrlBuilder = new StringBuilder(builder.getScheme()).append("://").append(builder.getHost())
-        if(builder.getPort() != -1){
-            apiUrlBuilder.append(":").append(builder.getPort())
-        }
+        HttpHost targetHost = new HttpHost(builder.getScheme(), builder.getHost(), builder.getPort())
         String apiContext = determineApiContext(builder.getPath())
         if(!apiContext.isEmpty()){
             setAPIContext("/" + apiContext)
         } else {
             setAPIContext("")
         }
-        return apiUrlBuilder.toString()
+        return targetHost
     }
 
     private setAPIContext(String apiContext) {
@@ -98,10 +97,6 @@ abstract class ConfluenceClient {
         return ""
     }
 
-    def addHeader(key, value) {
-        this.headers.put(key, value)
-    }
-
     abstract verifyCredentials()
 
     abstract addLabel(pageId, label)
@@ -115,23 +110,24 @@ abstract class ConfluenceClient {
     abstract attachmentHasChanged(attachment, localHash)
 
     protected uploadAttachment(uri, InputStream inputStream, String fileName, note, localHash) {
-        def builder = new HTTPBuilder(baseApiUrl + uri)
-        //TODO this is a workaround for the fact that the RESTClient does not support mulitpart/form-data from Groovy 3.0.0 on
-        if (!proxyConfig.isEmpty()) {
-            builder.setProxy(proxyConfig.get("host") as String, proxyConfig.get("port") as Integer, proxyConfig.get("schema") as String)
-        }
-        //END WORKAROUND
-        builder.request(Method.POST) { req ->
-            requestContentType: "multipart/form-data"
-            MultipartEntity multiPartContent = new MultipartEntity(HttpMultipartMode.BROWSER_COMPATIBLE)
-            // Adding Multi-part file parameter "file"
-            multiPartContent.addPart("file", new InputStreamBody(inputStream, fileName))
-            // Adding another string parameter "comment"
-            multiPartContent.addPart("comment", new StringBody(note + "\r\n#" + localHash + "#"))
-            req.setEntity(multiPartContent)
-            this.headers.each { key, value ->
-                req.addHeader(key, value)
-            }
+        HttpPost post = new HttpPost(uri)
+        HttpEntity entity = MultipartEntityBuilder.create()
+            .setMode(HttpMultipartMode.EXTENDED)
+            .addPart("file", new InputStreamBody(inputStream, fileName))
+            .addPart("comment", new StringBody(note + "\r\n#" + localHash + "#", ContentType.TEXT_PLAIN))
+            .build()
+        post.setEntity(entity)
+        callApiAndFailIfNot20x(post)
+    }
+
+    protected callApiAndFailIfNot20x(ClassicHttpRequest httpRequest) {
+       //TODO we could implement rate limiting here
+        try (CloseableHttpClient httpClient = httpClientBuilder.build()) {
+            return Optional.ofNullable(httpClient.execute(targetHost, httpRequest, new ConfluenceClientResponseHandler()))
+                .map(response -> new JsonSlurper().parseText(response))
+                .orElse(null);
+        } catch (IOException e) {
+            //TODO handle exception
         }
     }
 
@@ -148,15 +144,11 @@ abstract class ConfluenceClient {
     protected abstract fetchPageIdByName(String name, String spaceKey)
 
     def retrieveFullPageById(String pageId) {
-        trythis {
-            fetchPageByPageId(pageId).data
-        } ?: [:]
+        fetchPageByPageId(pageId) ?: [:]
     }
 
     def retrievePageIdByName(String name, String spaceKey){
-        trythis {
-            fetchPageIdByName(name, spaceKey)
-        } ?: null
+      return fetchPageIdByName(name, spaceKey)
     }
 
     // for getting better error message from the REST-API

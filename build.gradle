@@ -64,6 +64,7 @@ dependencies {
     )
     testRuntimeOnly(libs.byte.buddy)
     compileClasspath((libs.http.builder))
+    compileClasspath((libs.http.client))
 }
 
 test {
