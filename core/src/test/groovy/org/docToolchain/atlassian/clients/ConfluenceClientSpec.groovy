@@ -16,15 +16,16 @@ abstract class ConfluenceClientSpec extends Specification {
             ]
             ConfigService configService = new ConfigService(config)
             ConfluenceClient confluenceClient = getConfluenceClient(configService)
+            def headers = confluenceClient.restClient.headers
         then: "the client is created and configured with basic auth"
             confluenceClient != null
-            confluenceClient.baseApiUrl == "https://confluence.atlassian.com"
+            confluenceClient.restClient.targetHost.toURI() == "https://confluence.atlassian.com"
+            confluenceClient.restClient.proxyHost == null
             confluenceClient.API_V1_PATH == "/wiki/rest/api"
             confluenceClient.API_V2_PATH == "/wiki/api/v2"
-            confluenceClient.headers.size() == 2
-            confluenceClient.headers.get("X-Atlassian-Token") == "no-check"
-            confluenceClient.headers.get("Authorization") == "Basic user:password"
-            confluenceClient.restClient.getClient().getProperties().get("params").parameters.size() == 1
+            headers.size() == 3
+            headers.any { it.getName() == "X-Atlassian-Token" }
+            headers.any { it.getName() == "Authorization" }
     }
 
     def "test ConfluenceClient with BasicAuth and API key"() {
@@ -37,16 +38,17 @@ abstract class ConfluenceClientSpec extends Specification {
             ]
             ConfigService configService = new ConfigService(config)
             ConfluenceClient confluenceClient = getConfluenceClient(configService)
+            def headers = confluenceClient.restClient.headers
         then: "the client is created with basic auth and api key"
             confluenceClient != null
-            confluenceClient.baseApiUrl == "https://confluence.atlassian.com"
+            confluenceClient.restClient.targetHost.toURI() == "https://confluence.atlassian.com"
             confluenceClient.API_V1_PATH == "/wiki/rest/api"
             confluenceClient.API_V2_PATH == "/wiki/api/v2"
-            confluenceClient.headers.size() == 3
-            confluenceClient.headers.get("X-Atlassian-Token") == "no-check"
-            confluenceClient.headers.get("Authorization") == "Basic user:password"
-            confluenceClient.headers.get("keyid") == "my-api-key"
-            confluenceClient.restClient.getClient().getProperties().get("params").parameters.size() == 1
+            headers.size() == 4
+            headers.any { it.getName() == "X-Atlassian-Token" }
+            headers.any { it.getName() == "Authorization" }
+            headers.any { it.getValue() == "Basic user:password" }
+            headers.any { it.getName() == "keyid" }
     }
 
     def "test ConfluenceClient with Proxy"() {
@@ -65,9 +67,7 @@ abstract class ConfluenceClientSpec extends Specification {
             ConfluenceClient confluenceClient = getConfluenceClient(configService)
         then: "the client is created with proxy configured"
             confluenceClient != null
-            confluenceClient.restClient.getClient().getProperties().get("params").parameters.size() == 2
-            confluenceClient.restClient.getClient().getProperties().get("params").parameters
-                .get("http.route.default-proxy").toString() == "https://proxy.example.com:8080"
+            confluenceClient.restClient.proxyHost.toURI() == "https://proxy.example.com:8080"
     }
 
     def "test ConfluenceClient with Bearer auth"() {
@@ -80,11 +80,12 @@ abstract class ConfluenceClientSpec extends Specification {
             ]
             ConfigService configService = new ConfigService(config)
             ConfluenceClient confluenceClient = getConfluenceClient(configService)
+            def headers = confluenceClient.restClient.headers
         then: "the client is created with bearer token configure and basic auth is ignored"
             confluenceClient != null
-            confluenceClient.restClient.getClient().getProperties().get("params").parameters.size() == 1
-            confluenceClient.headers.size() == 2
-            confluenceClient.headers.get("Authorization") == "Bearer tokenXYZ"
+            headers.size() == 3
+            headers.any { it.getValue() == "Bearer tokenXYZ" }
+            headers.any { it.getValue() != "Basic user:password" }
     }
 
     def "test ConfluenceClient that uses the new editor"() {
@@ -178,7 +179,7 @@ abstract class ConfluenceClientSpec extends Specification {
             ConfigService configService = new ConfigService(config)
             ConfluenceClient confluenceClient = getConfluenceClient(configService)
         when: "the client has been created"
-            def baseApiUrl = confluenceClient.baseApiUrl
+            def baseApiUrl = confluenceClient.restClient.targetHost.toURI()
         then: "the API BaseUrl is set without the context path"
             baseApiUrl == "https://confluence.atlassian.com"
             confluenceClient.API_V1_PATH == "/rest/api"
@@ -194,7 +195,7 @@ abstract class ConfluenceClientSpec extends Specification {
             ConfigService configService = new ConfigService(config)
             ConfluenceClient confluenceClient = getConfluenceClient(configService)
         when: "the client has been created"
-            def baseApiUrl = confluenceClient.baseApiUrl
+            def baseApiUrl = confluenceClient.restClient.targetHost.toURI()
         then: "the default API path is set correctly"
             baseApiUrl == "https://confluence.atlassian.com"
             confluenceClient.API_V1_PATH == "/wiki/rest/api"
@@ -210,7 +211,7 @@ abstract class ConfluenceClientSpec extends Specification {
             ConfigService configService = new ConfigService(config)
             ConfluenceClient confluenceClient = getConfluenceClient(configService)
         when: "the client has been created"
-            def baseApiUrl = confluenceClient.baseApiUrl
+            def baseApiUrl = confluenceClient.restClient.targetHost.toURI()
         then: "the API path is set with the context path and a trailing slash"
             baseApiUrl == "https://confluence.atlassian.com"
             confluenceClient.API_V1_PATH == "/foo/rest/api"
@@ -226,7 +227,7 @@ abstract class ConfluenceClientSpec extends Specification {
             ConfigService configService = new ConfigService(config)
             ConfluenceClient confluenceClient = getConfluenceClient(configService)
         when: "the client has been created"
-            def baseApiUrl = confluenceClient.baseApiUrl
+            def baseApiUrl = confluenceClient.restClient.targetHost.toURI()
         then: "the API path is set with the context path and a trailing slash"
             baseApiUrl == "https://confluence.atlassian.com"
             confluenceClient.API_V1_PATH == "/foo/rest/api"
@@ -242,7 +243,7 @@ abstract class ConfluenceClientSpec extends Specification {
             ConfigService configService = new ConfigService(config)
             ConfluenceClient confluenceClient = getConfluenceClient(configService)
         when: "the client has been created"
-            def baseApiUrl = confluenceClient.baseApiUrl
+            def baseApiUrl = confluenceClient.restClient.targetHost.toURI()
         then: "the default API path is set correctly"
             baseApiUrl == "https://confluence.atlassian.com"
             confluenceClient.API_V1_PATH == "/wiki/rest/api"

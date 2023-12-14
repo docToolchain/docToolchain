@@ -13,7 +13,6 @@ import org.docToolchain.configuration.ConfigService
 
 class ConfluenceClientV1 extends ConfluenceClient {
 
-
     ConfluenceClientV1(ConfigService configService) {
         super(configService)
     }

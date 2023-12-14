@@ -12,8 +12,6 @@ group = "org.docToolchain"
 
 dependencies {
     compileOnly((libs.groovy.all))
-    implementation((libs.http.builder))
-    implementation((libs.httpmime))
     implementation((libs.http.client))
     implementation((libs.jsoup))
 
