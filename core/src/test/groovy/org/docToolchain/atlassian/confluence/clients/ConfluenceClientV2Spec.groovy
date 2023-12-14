@@ -1,4 +1,4 @@
-package org.docToolchain.atlassian.clients
+package org.docToolchain.atlassian.confluence.clients
 
 import groovy.json.JsonSlurper
 import org.docToolchain.configuration.ConfigService

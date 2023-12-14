@@ -1,4 +1,4 @@
-package org.docToolchain.atlassian.clients
+package org.docToolchain.atlassian.confluence.clients
 
 import org.docToolchain.configuration.ConfigService
 import spock.lang.Specification

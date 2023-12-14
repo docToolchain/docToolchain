@@ -1,4 +1,4 @@
-package org.docToolchain.atlassian
+package org.docToolchain.atlassian.confluence
 
 import org.docToolchain.configuration.ConfigService
 import org.docToolchain.util.TestUtils
@@ -13,7 +13,7 @@ class ConfluenceServiceSpec extends Specification {
             ConfigObject config = new ConfigObject()
             config.docDir = "src/docs"
             ConfigService configService = new ConfigService(config)
-            ConfluenceService confluenceService = new ConfluenceService(configService)
+        ConfluenceService confluenceService = new ConfluenceService(configService)
         when: 'the filename is `foo.html`'
             String canonicalFilePath = confluenceService.checkAndBuildCanonicalFileName("foo.html")
         then: 'the canonical file path is returned'

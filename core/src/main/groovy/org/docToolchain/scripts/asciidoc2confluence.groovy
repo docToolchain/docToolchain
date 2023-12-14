@@ -44,10 +44,10 @@ import java.nio.file.Path
 import java.security.MessageDigest
 import static groovy.io.FileType.FILES
 
-import org.docToolchain.atlassian.clients.ConfluenceClientV1
-import org.docToolchain.atlassian.clients.ConfluenceClientV2
+import org.docToolchain.atlassian.confluence.clients.ConfluenceClientV1
+import org.docToolchain.atlassian.confluence.clients.ConfluenceClientV2
 import org.docToolchain.configuration.ConfigService
-import org.docToolchain.atlassian.ConfluenceService
+import org.docToolchain.atlassian.confluence.ConfluenceService
 
 @Field
 ConfigService configService = new ConfigService(config)

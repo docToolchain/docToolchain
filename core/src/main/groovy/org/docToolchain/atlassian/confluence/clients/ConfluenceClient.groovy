@@ -1,4 +1,4 @@
-package org.docToolchain.atlassian.clients
+package org.docToolchain.atlassian.confluence.clients
 
 import org.apache.hc.client5.http.classic.methods.HttpPost
 import org.apache.hc.client5.http.entity.mime.HttpMultipartMode

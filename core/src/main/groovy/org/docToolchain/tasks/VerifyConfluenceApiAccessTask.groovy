@@ -1,9 +1,9 @@
 package org.docToolchain.tasks
 
 
-import org.docToolchain.atlassian.clients.ConfluenceClient
-import org.docToolchain.atlassian.clients.ConfluenceClientV1
-import org.docToolchain.atlassian.clients.ConfluenceClientV2
+import org.docToolchain.atlassian.confluence.clients.ConfluenceClient
+import org.docToolchain.atlassian.confluence.clients.ConfluenceClientV1
+import org.docToolchain.atlassian.confluence.clients.ConfluenceClientV2
 
 import java.util.logging.Logger
 

@@ -1,4 +1,4 @@
-package org.docToolchain.atlassian.clients
+package org.docToolchain.atlassian.confluence.clients
 
 import groovy.json.JsonBuilder
 import org.apache.hc.client5.http.classic.methods.HttpGet
