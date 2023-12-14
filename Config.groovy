@@ -280,24 +280,17 @@ jira.with {
     i.e. customfield_10026:'Story Points' for Jira instance that has custom field with that name and will be saved in a coloumn named "Story Points"
     */
     requests = [
-        new JiraRequest(
+        [
             filename:"File1_Done_issues",
             jql:"project='%jiraProject%' AND status='Done' ORDER BY duedate ASC",
             customfields: [customfield_10026:'Story Points']
-        ),
-        new JiraRequest(
+        ],
+        [
             filename:'CurrentSprint',
             jql:"project='%jiraProject%' AND Sprint in openSprints() ORDER BY priority DESC, duedate ASC",
             customfields: [customfield_10026:'Story Points']
-        ),
+        ]
     ]
-}
-
-@groovy.transform.Immutable
-class JiraRequest {
-    String filename  //filename (without extension) of the file in which JQL results will be saved. Extension will be determined automatically for Asciidoc or Excel file
-    String jql // Jira Query Language syntax
-    Map<String,String> customfields // map of customFieldId:displayName values for Jira fields which don't have default names, i.e. customfield_10026:StoryPoints
 }
 //end::jiraConfig[]
 

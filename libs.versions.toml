@@ -62,6 +62,5 @@ http-client = { module = "org.apache.httpcomponents.client5:httpclient5", versio
 spock-core = { module = "org.spockframework:spock-core", version.ref = "spock" }
 spock-reports = { module = "com.athaydes:spock-reports", version.ref = "spock-reports" }
 junit = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
-httpmime = { module = "org.apache.httpcomponents:httpmime", version.ref = "httpmime" }
 http-builder = { module = "org.codehaus.groovy.modules.http-builder:http-builder", version.ref = "http-builder" }
 byte-buddy = { module = "net.bytebuddy:byte-buddy", version.ref = "byte-buddy" }

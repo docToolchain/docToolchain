@@ -56,8 +56,6 @@ dependencies {
             (libs.junit),
             (libs.spock.core),
             gradleTestKit(),
-            //for the renderToConfluence Task
-            (libs.httpmime),
             (libs.jsoup),
             (libs.http.builder),
             ("org.docToolchain:core")

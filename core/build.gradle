@@ -14,6 +14,7 @@ dependencies {
     compileOnly((libs.groovy.all))
     implementation((libs.http.client))
     implementation((libs.jsoup))
+    implementation((libs.poi.ooxml))
 
     testImplementation(libs.spock.reports) {
         exclude group: 'org.codehaus.groovy', module: 'groovy-xml'
