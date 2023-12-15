@@ -18,6 +18,14 @@ class ExportJiraIssuesTask extends DocToolchainTask {
     @Override
     void execute() {
         LOGGER.info("Starting Jira Export...")
-        jiraService.exportIssues()
+        String taskSubfolderName = configService.getConfigProperty("jira.resultsFolder")
+        //TODO targetDir is currently dependend on Gradle
+        String targetDir = configService.getConfigProperty("targetDir")
+        File targetFolder = new File(targetDir + File.separator + taskSubfolderName)
+        if (!targetFolder.exists()){
+            targetFolder.mkdirs()
+        }
+        println("Output folder for 'exportJiraIssues' task is: '${targetFolder}'")
+        jiraService.exportJira()
     }
 }

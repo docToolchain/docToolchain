@@ -3,59 +3,67 @@ package org.docToolchain.atlassian.jira.converter
 import org.apache.commons.codec.binary.Hex
 import org.apache.poi.common.usermodel.HyperlinkType
 import org.apache.poi.ss.usermodel.Cell
-import org.apache.poi.ss.usermodel.CreationHelper
 import org.apache.poi.ss.usermodel.FillPatternType
 import org.apache.poi.ss.usermodel.Hyperlink
+import org.apache.poi.ss.usermodel.Row
+import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.Workbook
 import org.apache.poi.xssf.usermodel.XSSFCellStyle
 import org.apache.poi.xssf.usermodel.XSSFColor
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
 
+import java.util.logging.Logger
+
 class ExcelConverter extends IssueConverter {
 
-    def ws
-    Workbook wb
-    FileOutputStream jiraFos
-    CreationHelper hyperlinkHelper
-    int lastRow
+    private static final Logger LOGGER = Logger.getLogger(ExcelConverter.class.getName())
+
+    private static final String EXTENSION = 'xlsx'
+
+    private Sheet workSheet
+    private Workbook workbook
+    private FileOutputStream jiraFos
+    private Integer lastRow
+    private String allHeaders
+
+    ExcelConverter(File targetFolder) {
+        super(targetFolder)
+    }
 
     @Override
-    def prepareOutputFile(String fileName, File targetFolder, String allHeaders) {
-        def extension = 'xlsx'
-        def jiraResultsFilename = "${fileName}.${extension}"
-        println(">> Results will be saved in '${jiraResultsFilename}' file")
+    def initialize(String fileName, String allHeaders) {
+        this.allHeaders = allHeaders
+        String jiraResultsFilename = "${fileName}.${EXTENSION}"
+        println("Results will be saved in '${jiraResultsFilename}' file")
 
-        def jiraDataXls = new File(targetFolder, jiraResultsFilename)
-        this.jiraFos = new FileOutputStream(jiraDataXls)
-
-        this.wb = new XSSFWorkbook();
-        this.hyperlinkHelper = wb.getCreationHelper();
-        def sheetName = "${fileName}"
-        def ws = wb.createSheet(sheetName)
+        this.outputFile = new File(targetFolder, jiraResultsFilename)
+        this.jiraFos = new FileOutputStream(outputFile)
+        this.workbook = new XSSFWorkbook()
+        this.workSheet = workbook.createSheet(fileName)
 
         String rgbS = "A7A7A7"
         byte[] rgbB = Hex.decodeHex(rgbS)
         XSSFColor color = new XSSFColor(rgbB, null) //IndexedColorMap has no usage until now. So it can be set null.
-        XSSFCellStyle headerCellStyle = (XSSFCellStyle) wb.createCellStyle()
+        XSSFCellStyle headerCellStyle = (XSSFCellStyle) workbook.createCellStyle()
         headerCellStyle.setFillForegroundColor(color)
         headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND)
 
-        def titleRow = ws.createRow(0);
-        int cellNumber = 0;
+        Row titleRow = workSheet.createRow(0)
+        Integer cellNumber = 0
         titleRow.createCell(cellNumber).setCellValue("Key")
         allHeaders.split(",").each {field ->
             titleRow.createCell(++cellNumber).setCellValue("${field.capitalize()}")
         }
         this.lastRow = titleRow.getRowNum()
         titleRow.setRowStyle(headerCellStyle)
-        this.ws = ws
     }
 
     @Override
-    def convertAndAppend(File jiraDataAsciidoc, issue, jiraRoot, jiraDateTimeFormatParse, jiraDateTimeOutput, Map<String, String> customFields) {
-        int cellPosition = 0
-        def row = ws.createRow(++lastRow)
-        Hyperlink link = hyperlinkHelper.createHyperlink(HyperlinkType.URL)
+    def convertAndAppend(issue, jiraRoot, jiraDateTimeFormatParse, jiraDateTimeOutput, Map<String, String> customFields) {
+        LOGGER.info("Converting issue '${issue.key}' and append to ${outputFile.getName()}")
+        Integer cellPosition = 0
+        Row row = workSheet.createRow(++lastRow)
+        Hyperlink link = workbook.getCreationHelper().createHyperlink(HyperlinkType.URL)
         link.setAddress("${jiraRoot}/browse/${issue.key}")
         Cell cellWithUrl = row.createCell(cellPosition)
         cellWithUrl.setCellValue("${issue.key}")
@@ -74,5 +82,14 @@ class ExcelConverter extends IssueConverter {
             def foundCustom = issue.fields.find {it.key == field.key}
             row.createCell(position).setCellValue("${foundCustom ? foundCustom.value : '-'}")
         }
+
+        for(int colNum = 0; colNum<allHeaders.size()+1;colNum++) {
+            workSheet.autoSizeColumn(colNum)
+        }
+        // Set summary column width slightly wider but fixed size, so it doesn't change with every summary update
+        workSheet.setColumnWidth(4, 25*384)
+
+
+        workbook.write(jiraFos)
     }
 }
