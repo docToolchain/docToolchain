@@ -16,4 +16,8 @@ abstract class JiraClient {
     }
 
     def abstract getIssuesByJql(String jql, String selectedFields)
+
+    def abstract getSprintsByBoardAndState(String boardId, String sprintState)
+
+    def abstract getIssuesForSprint(String boardId, String sprintId, String issueStatus, String ticketFields)
 }

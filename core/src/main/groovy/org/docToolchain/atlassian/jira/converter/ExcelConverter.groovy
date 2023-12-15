@@ -31,15 +31,20 @@ class ExcelConverter extends IssueConverter {
     }
 
     @Override
-    def initialize(String fileName, String allHeaders) {
-        this.allHeaders = allHeaders
+    def initialize(String fileName, String columns) {
+        initialize(fileName, columns, fileName)
+    }
+
+    @Override
+    def initialize(String fileName, String columns, String caption) {
+        this.allHeaders = columns
         String jiraResultsFilename = "${fileName}.${EXTENSION}"
         println("Results will be saved in '${jiraResultsFilename}' file")
 
         this.outputFile = new File(targetFolder, jiraResultsFilename)
         this.jiraFos = new FileOutputStream(outputFile)
         this.workbook = new XSSFWorkbook()
-        this.workSheet = workbook.createSheet(fileName)
+        this.workSheet = workbook.createSheet(caption)
 
         String rgbS = "A7A7A7"
         byte[] rgbB = Hex.decodeHex(rgbS)
@@ -51,7 +56,7 @@ class ExcelConverter extends IssueConverter {
         Row titleRow = workSheet.createRow(0)
         Integer cellNumber = 0
         titleRow.createCell(cellNumber).setCellValue("Key")
-        allHeaders.split(",").each {field ->
+        columns.split(",").each { field ->
             titleRow.createCell(++cellNumber).setCellValue("${field.capitalize()}")
         }
         this.lastRow = titleRow.getRowNum()

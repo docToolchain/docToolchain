@@ -75,12 +75,12 @@ class JiraService {
 
         LOGGER.fine("Request to Jira API for '${targetFileName}' with query: '${jql}'")
 
-        def allHeaders = "${DEFAULT_FIELDS},${customFields.values().join(",")}"
+        def columns = "${DEFAULT_FIELDS},${customFields.values().join(",")}"
         def allFieldIds = "${DEFAULT_FIELDS},${customFields.keySet().join(",")}"
-        LOGGER.finer("Preparing headers for default & custom fields: ${allHeaders}")
+        LOGGER.finer("Preparing headers for default & custom fields: ${columns}")
         LOGGER.finer("Preparing field IDs for default & custom fields: ${allFieldIds}")
         converters.each { converter ->
-            converter.initialize(targetFileName, allHeaders)
+            converter.initialize(targetFileName, columns)
         }
 
         jiraClient.getIssuesByJql(

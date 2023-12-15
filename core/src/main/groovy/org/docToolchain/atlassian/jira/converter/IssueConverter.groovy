@@ -9,6 +9,7 @@ abstract class IssueConverter {
         this.targetFolder = targetFolder
     }
 
-    abstract def initialize(String fileName, String allHeaders)
+    abstract def initialize(String fileName, String columns)
+    abstract def initialize(String fileName, String columns, String caption)
     abstract def convertAndAppend(issue, jiraRoot, jiraDateTimeFormatParse, jiraDateTimeOutput, Map<String, String> customFields)
 }

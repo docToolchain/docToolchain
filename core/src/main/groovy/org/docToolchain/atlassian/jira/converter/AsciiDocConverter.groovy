@@ -13,17 +13,22 @@ class AsciiDocConverter extends IssueConverter {
     }
 
     @Override
-    initialize(String fileName, String allHeaders) {
+    def initialize(String fileName, String columns) {
+        initialize(fileName, columns, fileName)
+    }
+
+    @Override
+    def initialize(String fileName, String columns, String caption) {
         String jiraResultsFilename = "${fileName}.${EXTENSION}"
         println("Results will be saved in '${jiraResultsFilename}' file")
 
         this.outputFile = new File(targetFolder, jiraResultsFilename)
-        outputFile.write(".${fileName}\n", 'utf-8')
+        outputFile.write(".${caption}\n", 'utf-8')
         outputFile.append("|=== \n")
 
         // AsciiDoc table headers (custom fields map needs values here)
         outputFile.append("|Key ", 'utf-8')
-        allHeaders.split(",").each {field ->
+        columns.split(",").each { field ->
             outputFile.append("|${field.capitalize()} ", 'utf-8')
         }
         outputFile.append("\n", 'utf-8')
@@ -32,6 +37,7 @@ class AsciiDocConverter extends IssueConverter {
     @Override
     def convertAndAppend(issue, jiraRoot, jiraDateTimeFormatParse, jiraDateTimeOutput, Map<String, String> customFields) {
         LOGGER.info("Converting issue '${issue.key}' and append to ${outputFile.getName()}")
+        outputFile.append("\n", 'utf-8')
         outputFile.append("| ${jiraRoot}/browse/${issue.key}[${issue.key}] ", 'utf-8')
         outputFile.append("| ${issue.fields.priority.name} ", 'utf-8')
         outputFile.append("| ${Date.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)} ", 'utf-8')
