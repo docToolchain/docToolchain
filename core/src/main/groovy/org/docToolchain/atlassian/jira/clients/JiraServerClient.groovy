@@ -34,7 +34,7 @@ class JiraServerClient extends JiraClient {
     }
 
     @Override
-    def getIssuesForSprint(String boardId, String sprintId, String issueStatus, String ticketFields) {
+    def getIssuesForSprint(String boardId, Integer sprintId, String issueStatus, String ticketFields) {
         URI uri = new URIBuilder(API_PATH + "/agile/latest/board/${boardId}/sprint/${sprintId}/issue")
             .addParameter('jql', "status in (${issueStatus}) ORDER BY type DESC, status ASC")
             .addParameter('maxResults', '1000')

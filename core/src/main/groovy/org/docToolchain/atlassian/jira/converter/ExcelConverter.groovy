@@ -8,9 +8,11 @@ import org.apache.poi.ss.usermodel.Hyperlink
 import org.apache.poi.ss.usermodel.Row
 import org.apache.poi.ss.usermodel.Sheet
 import org.apache.poi.ss.usermodel.Workbook
+import org.apache.poi.ss.util.WorkbookUtil
 import org.apache.poi.xssf.usermodel.XSSFCellStyle
 import org.apache.poi.xssf.usermodel.XSSFColor
 import org.apache.poi.xssf.usermodel.XSSFWorkbook
+import org.docToolchain.atlassian.jira.utils.DateUtil
 
 import java.util.logging.Logger
 
@@ -30,6 +32,15 @@ class ExcelConverter extends IssueConverter {
         super(targetFolder)
     }
 
+    def prepareWorkbook(String fileName) {
+        this.workbook = new XSSFWorkbook()
+        String jiraResultsFilename = "${fileName}.${EXTENSION}"
+        println("Results will be saved in '${jiraResultsFilename}' file")
+
+        this.outputFile = new File(targetFolder, jiraResultsFilename)
+        this.jiraFos = new FileOutputStream(outputFile)
+    }
+
     @Override
     def initialize(String fileName, String columns) {
         initialize(fileName, columns, fileName)
@@ -37,14 +48,13 @@ class ExcelConverter extends IssueConverter {
 
     @Override
     def initialize(String fileName, String columns, String caption) {
+        if(workbook == null) {
+            prepareWorkbook(fileName)
+        }
         this.allHeaders = columns
-        String jiraResultsFilename = "${fileName}.${EXTENSION}"
-        println("Results will be saved in '${jiraResultsFilename}' file")
 
-        this.outputFile = new File(targetFolder, jiraResultsFilename)
-        this.jiraFos = new FileOutputStream(outputFile)
-        this.workbook = new XSSFWorkbook()
-        this.workSheet = workbook.createSheet(caption)
+        String safeSheetName = WorkbookUtil.createSafeSheetName(caption)
+        this.workSheet = workbook.createSheet(safeSheetName)
 
         String rgbS = "A7A7A7"
         byte[] rgbB = Hex.decodeHex(rgbS)
@@ -55,16 +65,15 @@ class ExcelConverter extends IssueConverter {
 
         Row titleRow = workSheet.createRow(0)
         Integer cellNumber = 0
-        titleRow.createCell(cellNumber).setCellValue("Key")
         columns.split(",").each { field ->
-            titleRow.createCell(++cellNumber).setCellValue("${field.capitalize()}")
+            titleRow.createCell(cellNumber++).setCellValue("${field.capitalize()}")
         }
         this.lastRow = titleRow.getRowNum()
         titleRow.setRowStyle(headerCellStyle)
     }
 
     @Override
-    def convertAndAppend(issue, jiraRoot, jiraDateTimeFormatParse, jiraDateTimeOutput, Map<String, String> customFields) {
+    def convertAndAppend(issue, jiraRoot, jiraDateTimeFormatParse, jiraDateTimeOutput, Boolean showAssignee, Boolean showTicketStatus, Boolean showTicketType, Map<String, String> customFields) {
         LOGGER.info("Converting issue '${issue.key}' and append to ${outputFile.getName()}")
         Integer cellPosition = 0
         Row row = workSheet.createRow(++lastRow)
@@ -75,11 +84,18 @@ class ExcelConverter extends IssueConverter {
         cellWithUrl.setHyperlink(link)
 
         row.createCell(++cellPosition).setCellValue("${issue.fields.priority.name}")
-        row.createCell(++cellPosition).setCellValue("${Date.parse(jiraDateTimeFormatParse, issue.fields.created).format(jiraDateTimeOutput)}")
-        row.createCell(++cellPosition).setCellValue("${issue.fields.resolutiondate ? Date.parse(jiraDateTimeFormatParse, issue.fields.resolutiondate).format(jiraDateTimeOutput) : ''}")
+        row.createCell(++cellPosition).setCellValue("${DateUtil.format(issue.fields.created, jiraDateTimeFormatParse, jiraDateTimeOutput)}")
+        row.createCell(++cellPosition).setCellValue("${issue.fields.resolutiondate ? DateUtil.format(issue.fields.resolutiondate, jiraDateTimeFormatParse, jiraDateTimeOutput) : ''}")
         row.createCell(++cellPosition).setCellValue("${issue.fields.summary}")
-        row.createCell(++cellPosition).setCellValue("${issue.fields.assignee ? issue.fields.assignee.displayName : ''}")
-        row.createCell(++cellPosition).setCellValue("${issue.fields.status.name}")
+        if (showAssignee) {
+            row.createCell(++cellPosition).setCellValue("${issue.fields.assignee ? issue.fields.assignee.displayName : 'no assigned'}")
+        }
+        if (showTicketStatus) {
+            row.createCell(++cellPosition).setCellValue("${issue.fields.status.name}")
+        }
+        if (showTicketType) {
+            row.createCell(++cellPosition).setCellValue("${issue.fields.issuetype.name}")
+        }
 
         // Custom fields
         customFields.each { field ->
@@ -87,14 +103,15 @@ class ExcelConverter extends IssueConverter {
             def foundCustom = issue.fields.find {it.key == field.key}
             row.createCell(position).setCellValue("${foundCustom ? foundCustom.value : '-'}")
         }
+    }
 
+    @Override
+    def finalizeOutput() {
         for(int colNum = 0; colNum<allHeaders.size()+1;colNum++) {
             workSheet.autoSizeColumn(colNum)
         }
         // Set summary column width slightly wider but fixed size, so it doesn't change with every summary update
         workSheet.setColumnWidth(4, 25*384)
-
-
         workbook.write(jiraFos)
     }
 }

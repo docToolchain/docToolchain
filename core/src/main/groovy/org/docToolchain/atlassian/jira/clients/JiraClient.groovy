@@ -19,5 +19,5 @@ abstract class JiraClient {
 
     def abstract getSprintsByBoardAndState(String boardId, String sprintState)
 
-    def abstract getIssuesForSprint(String boardId, String sprintId, String issueStatus, String ticketFields)
+    def abstract getIssuesForSprint(String boardId, Integer sprintId, String issueStatus, String ticketFields)
 }

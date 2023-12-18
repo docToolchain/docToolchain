@@ -1,0 +1,181 @@
+{
+    "expand": "names,schema",
+    "startAt": 0,
+    "maxResults": 50,
+    "total": 1,
+    "issues": [
+        {
+            "expand": "",
+            "id": "10001",
+            "self": "https://your-domain.atlassian.net/rest/agile/1.0/board/92/issue/10001",
+            "key": "HSP-1",
+            "fields": {
+                "summary": "summary",
+                "created": "2022-11-15T23:15:20.052+0000",
+                "resolutiondate": "2022-11-15T23:16:20.052+0000",
+                "issuetype": {
+                    "self": "https://your-domain.atlassian.net/rest/api/3/issuetype/10001",
+                    "id": "10001",
+                    "description": "A user story. Created by Jira Software - do not edit or delete.",
+                    "iconUrl": "https://your-domain.atlassian.net/secure/viewavatar?size=medium&avatarId=10315&avatarType=issuetype",
+                    "name": "Story",
+                    "subtask": false,
+                    "avatarId": 10315
+                },
+                "flagged": true,
+                "priority": {
+                    "self": "https://your-domain.atlassian.net/rest/api/3/priority/3",
+                    "iconUrl": "https://your-domain.atlassian.net/images/icons/priorities/medium.svg",
+                    "name": "Medium",
+                    "id": "3"
+                },
+                "sprint": {
+                    "id": 37,
+                    "self": "https://your-domain.atlassian.net/rest/agile/1.0/sprint/13",
+                    "state": "future",
+                    "name": "sprint 2",
+                    "goal": "sprint 2 goal"
+                },
+                "closedSprints": [
+                    {
+                        "id": 37,
+                        "self": "https://your-domain.atlassian.net/rest/agile/1.0/sprint/23",
+                        "state": "closed",
+                        "name": "sprint 1",
+                        "startDate": "2015-04-11T15:22:00.000+10:00",
+                        "endDate": "2015-04-20T01:22:00.000+10:00",
+                        "completeDate": "2015-04-20T11:04:00.000+10:00",
+                        "goal": "sprint 1 goal"
+                    }
+                ],
+                "description": "example bug report",
+                "project": {
+                    "self": "https://your-domain.atlassian.net/rest/api/3/project/EX",
+                    "id": "10000",
+                    "key": "EX",
+                    "name": "Example",
+                    "avatarUrls": {
+                        "48x48": "https://your-domain.atlassian.net/secure/projectavatar?size=large&pid=10000",
+                        "24x24": "https://your-domain.atlassian.net/secure/projectavatar?size=small&pid=10000",
+                        "16x16": "https://your-domain.atlassian.net/secure/projectavatar?size=xsmall&pid=10000",
+                        "32x32": "https://your-domain.atlassian.net/secure/projectavatar?size=medium&pid=10000"
+                    },
+                    "projectCategory": {
+                        "self": "https://your-domain.atlassian.net/rest/api/3/projectCategory/10000",
+                        "id": "10000",
+                        "name": "FIRST",
+                        "description": "First Project Category"
+                    },
+                    "simplified": false,
+                    "style": "classic",
+                    "insight": {
+                        "totalIssueCount": 100,
+                        "lastIssueUpdateTime": "2022-11-15T23:15:20.052+0000"
+                    }
+                },
+                "comment": [
+                    {
+                        "self": "https://your-domain.atlassian.net/rest/api/3/issue/10010/comment/10000",
+                        "id": "10000",
+                        "author": {
+                            "self": "https://your-domain.atlassian.net/rest/api/3/user?accountId=5b10a2844c20165700ede21g",
+                            "accountId": "5b10a2844c20165700ede21g",
+                            "displayName": "Mia Krystof",
+                            "active": false
+                        },
+                        "body": {
+                            "type": "doc",
+                            "version": 1,
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": [
+                                        {
+                                            "type": "text",
+                                            "text": "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eget venenatis elit. Duis eu justo eget augue iaculis fermentum. Sed semper quam laoreet nisi egestas at posuere augue semper."
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "updateAuthor": {
+                            "self": "https://your-domain.atlassian.net/rest/api/3/user?accountId=5b10a2844c20165700ede21g",
+                            "accountId": "5b10a2844c20165700ede21g",
+                            "displayName": "Mia Krystof",
+                            "active": false
+                        },
+                        "created": "2021-01-17T12:34:00.000+0000",
+                        "updated": "2021-01-18T23:45:00.000+0000",
+                        "visibility": {
+                            "type": "role",
+                            "value": "Administrators",
+                            "identifier": "Administrators"
+                        }
+                    }
+                ],
+                "epic": {
+                    "id": 37,
+                    "self": "https://your-domain.atlassian.net/rest/agile/1.0/epic/23",
+                    "name": "epic 1",
+                    "summary": "epic 1 summary",
+                    "color": {
+                        "key": "color_4"
+                    },
+                    "done": true
+                },
+                "worklog": [
+                    {
+                        "self": "https://your-domain.atlassian.net/rest/api/3/issue/10010/worklog/10000",
+                        "author": {
+                            "self": "https://your-domain.atlassian.net/rest/api/3/user?accountId=5b10a2844c20165700ede21g",
+                            "accountId": "5b10a2844c20165700ede21g",
+                            "displayName": "Mia Krystof",
+                            "active": false
+                        },
+                        "updateAuthor": {
+                            "self": "https://your-domain.atlassian.net/rest/api/3/user?accountId=5b10a2844c20165700ede21g",
+                            "accountId": "5b10a2844c20165700ede21g",
+                            "displayName": "Mia Krystof",
+                            "active": false
+                        },
+                        "comment": {
+                            "type": "doc",
+                            "version": 1,
+                            "content": [
+                                {
+                                    "type": "paragraph",
+                                    "content": [
+                                        {
+                                            "type": "text",
+                                            "text": "I did some work here."
+                                        }
+                                    ]
+                                }
+                            ]
+                        },
+                        "updated": "2021-01-18T23:45:00.000+0000",
+                        "visibility": {
+                            "type": "group",
+                            "value": "jira-developers",
+                            "identifier": "276f955c-63d7-42c8-9520-92d01dca0625"
+                        },
+                        "started": "2021-01-17T12:34:00.000+0000",
+                        "timeSpent": "3h 20m",
+                        "timeSpentSeconds": 12000,
+                        "id": "100028",
+                        "issueId": "10002"
+                    }
+                ],
+                "updated": 1,
+                "timetracking": {
+                    "originalEstimate": "10m",
+                    "remainingEstimate": "3m",
+                    "timeSpent": "6m",
+                    "originalEstimateSeconds": 600,
+                    "remainingEstimateSeconds": 200,
+                    "timeSpentSeconds": 400
+                }
+            }
+        }
+    ]
+}
