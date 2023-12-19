@@ -25,8 +25,6 @@ http-client = "5.3"
 spock = "2.3-groovy-3.0"
 spock-reports = "2.3.2-groovy-3.0"
 junit = "5.9.3"
-httpmime = "4.5.14"
-http-builder = "0.7.1"
 byte-buddy = "1.14.4"
 
 [plugins]
@@ -62,5 +60,4 @@ http-client = { module = "org.apache.httpcomponents.client5:httpclient5", versio
 spock-core = { module = "org.spockframework:spock-core", version.ref = "spock" }
 spock-reports = { module = "com.athaydes:spock-reports", version.ref = "spock-reports" }
 junit = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
-http-builder = { module = "org.codehaus.groovy.modules.http-builder:http-builder", version.ref = "http-builder" }
 byte-buddy = { module = "net.bytebuddy:byte-buddy", version.ref = "byte-buddy" }

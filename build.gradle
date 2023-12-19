@@ -57,11 +57,9 @@ dependencies {
             (libs.spock.core),
             gradleTestKit(),
             (libs.jsoup),
-            (libs.http.builder),
             ("org.docToolchain:core")
     )
     testRuntimeOnly(libs.byte.buddy)
-    compileClasspath((libs.http.builder))
     compileClasspath((libs.http.client))
 }
 
