@@ -38,14 +38,24 @@ class AsciiDocConverter extends IssueConverter {
 
 
     @Override
-    def convertAndAppend(issue, jiraRoot, jiraDateTimeFormatParse, jiraDateTimeOutput, Boolean showAssignee, Boolean showTicketStatus, Boolean showTicketType, Map<String, String> customFields) {
+    def convertAndAppend(issue, jiraRoot, jiraDateTimeFormatParse, jiraDateTimeOutput,
+                         Boolean showAssignee, Boolean showTicketStatus, Boolean showTicketType,
+                         Boolean showPriority, Boolean showCreatedDate, Boolean showResolvedDate,
+                         Map<String, String> customFields) {
         LOGGER.info("Converting issue '${issue.key}' and append to ${outputFile.getName()}")
         outputFile.append("\n", 'utf-8')
         outputFile.append("| ${jiraRoot}/browse/${issue.key}[${issue.key}] ", 'utf-8')
-        outputFile.append("| ${issue.fields.priority.name} ", 'utf-8')
-        outputFile.append("| ${DateUtil.format(issue.fields.created, jiraDateTimeFormatParse, jiraDateTimeOutput)} ", 'utf-8')
-        outputFile.append("| ${jiraDateTimeFormatParse} ", 'utf-8')
-        outputFile.append("| ${issue.fields.resolutiondate ? DateUtil.format(issue.fields.resolutiondate, jiraDateTimeFormatParse, jiraDateTimeOutput) : ''} ", 'utf-8')
+        //TODO this is a workaround and this will be removed when we will have a better solution
+        if(showPriority) {
+            outputFile.append("| ${issue.fields.priority.name} ", 'utf-8')
+        }
+        if(showCreatedDate) {
+            outputFile.append("| ${DateUtil.format(issue.fields.created, jiraDateTimeFormatParse, jiraDateTimeOutput)} ", 'utf-8')
+        }
+        if(showResolvedDate) {
+            outputFile.append("| ${issue.fields.resolutiondate ? DateUtil.format(issue.fields.resolutiondate, jiraDateTimeFormatParse, jiraDateTimeOutput) : ''} ", 'utf-8')
+        }
+        //end of workaround
         outputFile.append("| ${issue.fields.summary} ", 'utf-8')
         if (showAssignee) {
             outputFile.append("| ${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}", 'utf-8')

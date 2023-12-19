@@ -73,7 +73,10 @@ class ExcelConverter extends IssueConverter {
     }
 
     @Override
-    def convertAndAppend(issue, jiraRoot, jiraDateTimeFormatParse, jiraDateTimeOutput, Boolean showAssignee, Boolean showTicketStatus, Boolean showTicketType, Map<String, String> customFields) {
+    def convertAndAppend(issue, jiraRoot, jiraDateTimeFormatParse, jiraDateTimeOutput,
+                         Boolean showAssignee, Boolean showTicketStatus, Boolean showTicketType,
+                         Boolean showPriority, Boolean showCreatedDate, Boolean showResolvedDate,
+                         Map<String, String> customFields) {
         LOGGER.info("Converting issue '${issue.key}' and append to ${outputFile.getName()}")
         Integer cellPosition = 0
         Row row = workSheet.createRow(++lastRow)
@@ -83,9 +86,18 @@ class ExcelConverter extends IssueConverter {
         cellWithUrl.setCellValue("${issue.key}")
         cellWithUrl.setHyperlink(link)
 
-        row.createCell(++cellPosition).setCellValue("${issue.fields.priority.name}")
-        row.createCell(++cellPosition).setCellValue("${DateUtil.format(issue.fields.created, jiraDateTimeFormatParse, jiraDateTimeOutput)}")
-        row.createCell(++cellPosition).setCellValue("${issue.fields.resolutiondate ? DateUtil.format(issue.fields.resolutiondate, jiraDateTimeFormatParse, jiraDateTimeOutput) : ''}")
+        //TODO this is a workaround and this will be removed when we will have a better solution
+        if(showPriority) {
+            row.createCell(++cellPosition).setCellValue("${issue.fields.priority.name}")
+        }
+        if(showCreatedDate) {
+            row.createCell(++cellPosition).setCellValue("${DateUtil.format(issue.fields.created, jiraDateTimeFormatParse, jiraDateTimeOutput)}")
+        }
+        if(showResolvedDate) {
+            row.createCell(++cellPosition).setCellValue("${issue.fields.resolutiondate ? DateUtil.format(issue.fields.resolutiondate, jiraDateTimeFormatParse, jiraDateTimeOutput) : ''}")
+        }
+        // end of workaround
+
         row.createCell(++cellPosition).setCellValue("${issue.fields.summary}")
         if (showAssignee) {
             row.createCell(++cellPosition).setCellValue("${issue.fields.assignee ? issue.fields.assignee.displayName : 'no assigned'}")

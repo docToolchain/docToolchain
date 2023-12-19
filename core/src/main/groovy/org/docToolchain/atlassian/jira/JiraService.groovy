@@ -16,7 +16,8 @@ class JiraService {
 
     private final String DEFAULT_FIELDS = 'key,priority,created,resolutiondate,summary,assignee,status,issuetype'
 
-    final File targetFolder
+    final File outputFolder
+    protected File targetFolder
     protected JiraClient jiraClient
     private jiraConfig
     private changeLogConfig
@@ -26,20 +27,29 @@ class JiraService {
         this.jiraClient = new JiraServerClient(configService)
         this.jiraConfig = configService.getFlatConfigSubTree('jira')
         this.changeLogConfig = configService.getFlatConfigSubTree('sprintChangelog')
-        //TODO resultFolder
-        String taskSubFolderName = jiraConfig.resultsFolder
         //TODO targetDir is currently dependend on Gradle
         String targetDir = configService.getConfigProperty("targetDir")
-        this.targetFolder = new File(targetDir + File.separator + taskSubFolderName)
-        registerConverters()
+        this.outputFolder = new File(targetDir)
+        if (!outputFolder.exists()){
+            outputFolder.mkdirs()
+        }
     }
 
     def exportJira(){
+        //TODO this is currently a workaround, this will change in the future
+        String taskSubFolderName = jiraConfig.resultsFolder
+        this.targetFolder = new File(outputFolder.getAbsolutePath() + File.separator + taskSubFolderName)
+        if (!targetFolder.exists()){
+            targetFolder.mkdirs()
+        }
+        registerConverters()
+        // end of workaround
         if(jiraConfig.iql){
             LegacyJiraProcessor.processLegacyRequests(targetFolder, jiraConfig, jiraClient)
         }
         HashSet jiraExports = jiraConfig.exports as HashSet ?: []
         transformAndMergeLegacyConfiguration(jiraExports)
+        println("Jira exports: ${jiraExports}")
         jiraExports.each {export ->
                 process(export)
             }
@@ -47,8 +57,14 @@ class JiraService {
 
     def exportJiraSprintChangelog(){
         def jiraRoot = jiraConfig.api
-
-        String taskSubfolderName = changeLogConfig.resultsFolder
+        //TODO this is currently a workaround, this will change in the future
+        String taskSubFolderName = changeLogConfig.resultsFolder
+        this.targetFolder = new File(outputFolder.getAbsolutePath() + File.separator + taskSubFolderName)
+        if (!targetFolder.exists()){
+            targetFolder.mkdirs()
+        }
+        registerConverters()
+        // end of workaround
         def sprintState = changeLogConfig.sprintState
         def ticketStatusForReleaseNotes = changeLogConfig.ticketStatus
         def sprintBoardId = changeLogConfig.sprintBoardId
@@ -66,6 +82,9 @@ class JiraService {
         LOGGER.info("Attempt to generate release notes for sprint with a name: '${sprintName}'")
         LOGGER.info("Filename used for all sprints: '${allSprintsFilename}'")
         def columns = DEFAULT_FIELDS.split(',').collect()
+        //TODO this is currently a workaround, this will change in the future
+        columns = columns.minus('priority').minus('created').minus('resolutiondate')
+        // end of workaround
         if (!showAssignee) { columns = columns.minus('assignee')}
         if (!showTicketStatus) { columns = columns.minus('status')}
         if (!showTicketType) { columns = columns.minus('issuetype')}
@@ -86,7 +105,7 @@ class JiraService {
             converters.find() { it instanceof ExcelConverter }?.initialize(sprint.name as String, columns.join(','))
             jiraClient.getIssuesForSprint(sprintBoardId, sprint.id, ticketStatusForReleaseNotes, columns.join(',')).issues.each { issue ->
                 converters.each { converter ->
-                    converter.convertAndAppend(issue, jiraRoot, jiraConfig.dateTimeFormatParse, jiraConfig.dateTimeFormatOutput, showAssignee, showTicketStatus, showTicketType, [:])
+                    converter.convertAndAppend(issue, jiraRoot, jiraConfig.dateTimeFormatParse, jiraConfig.dateTimeFormatOutput, showAssignee, showTicketStatus, showTicketType, false, false, false, [:])
                 }
             }
             converters.each { converter ->
@@ -140,7 +159,7 @@ class JiraService {
             allFieldIds
         ).issues.each { issue ->
             converters.each { converter ->
-                converter.convertAndAppend(issue, jiraRoot, jiraDateTimeFormatParse, jiraDateTimeOutput, true, true, true, customFields)
+                converter.convertAndAppend(issue, jiraRoot, jiraDateTimeFormatParse, jiraDateTimeOutput, true, true, true, true, true, true, customFields)
             }
         }
         converters.each { converter ->
