@@ -100,7 +100,7 @@ class ExcelConverter extends IssueConverter {
 
         row.createCell(++cellPosition).setCellValue("${issue.fields.summary}")
         if (showAssignee) {
-            row.createCell(++cellPosition).setCellValue("${issue.fields.assignee ? issue.fields.assignee.displayName : 'no assigned'}")
+            row.createCell(++cellPosition).setCellValue("${issue.fields.assignee ? issue.fields.assignee.displayName : 'not assigned'}")
         }
         if (showTicketStatus) {
             row.createCell(++cellPosition).setCellValue("${issue.fields.status.name}")

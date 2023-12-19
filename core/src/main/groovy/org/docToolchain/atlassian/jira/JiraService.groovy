@@ -49,7 +49,6 @@ class JiraService {
         }
         HashSet jiraExports = jiraConfig.exports as HashSet ?: []
         transformAndMergeLegacyConfiguration(jiraExports)
-        println("Jira exports: ${jiraExports}")
         jiraExports.each {export ->
                 process(export)
             }
