@@ -257,6 +257,9 @@ confluence.with {
     // a working example is https://arc42-template.atlassian.net/wiki
     api = 'https://[yourServer]/[context]'
 
+    // requests per second for confluence API calls
+    rateLimit = 10
+
     // if true API V1 only will be used. Default is true.
     // useV1Api = true
 
@@ -373,6 +376,9 @@ jira.with {
 
     // endpoint of the JiraAPI (REST) to be used
     api = 'https://your-jira-instance'
+
+    // requests per second for jira API calls
+    rateLimit = 10
 
     /*
     WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!

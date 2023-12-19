@@ -21,6 +21,9 @@ class RequestFailedException extends RuntimeException{
             case 400:
                 possibleSolution = "please check the ancestorId in your config file"
                 break
+            case 429:
+                possibleSolution = "please check if you need to decrease the rate limit in your config file"
+                break
             default:
                 possibleSolution = "please check your config. If you are sure that everything is correct, " +
                     "please open an issue at https://github.com/docToolchain/docToolchain/issues"

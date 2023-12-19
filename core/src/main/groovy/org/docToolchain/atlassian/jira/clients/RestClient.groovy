@@ -1,5 +1,6 @@
 package org.docToolchain.atlassian.jira.clients
 
+import com.google.common.util.concurrent.RateLimiter
 import groovy.json.JsonSlurper
 import org.apache.hc.client5.http.ClientProtocolException
 import org.apache.hc.core5.annotation.Contract
@@ -15,6 +16,7 @@ import org.docToolchain.http.BasicRestClient
 class RestClient extends BasicRestClient {
 
     private final ConfigService configService
+    private RateLimiter rateLimiter
     protected HttpHost targetHost
     protected Set<Header> headers
 
@@ -25,12 +27,14 @@ class RestClient extends BasicRestClient {
     }
 
     def doRequestAndFailIfNot20x(ClassicHttpRequest httpRequest){
+        rateLimiter.acquire()
         return doRequestAndFailIfNot20x(targetHost, httpRequest, new RestClientResponseHandler())
             .map(response -> new JsonSlurper().parseText(response))
             .orElse(null)
     }
 
     private initialize(){
+        this.rateLimiter = RateLimiter.create(configService.getConfigProperty('jira.rateLimit') as Double ?: 10)
         this.headers = constructDefaultHeaders()
         this.targetHost = constructTargetHost()
         httpClientBuilder.setDefaultHeaders(headers)

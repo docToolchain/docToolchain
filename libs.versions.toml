@@ -20,6 +20,7 @@ openai-gpt3 = "0.12.0"
 asciidoctorj-diagram = "2.2.7"
 pebble = "3.2.0"
 http-client = "5.3"
+guava = "33.0.0-jre"
 
 # Test
 spock = "2.3-groovy-3.0"
@@ -54,7 +55,7 @@ openai-gpt3-service = { module = "com.theokanning.openai-gpt3-java:service", ver
 asciidoctorj-diagram = { module = "org.asciidoctor:asciidoctorj-diagram", version.ref = "asciidoctorj-diagram" }
 pebble = { module = "io.pebbletemplates:pebble", version.ref = "pebble" }
 http-client = { module = "org.apache.httpcomponents.client5:httpclient5", version.ref = "http-client" }
-
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
 
 # Test
 spock-core = { module = "org.spockframework:spock-core", version.ref = "spock" }

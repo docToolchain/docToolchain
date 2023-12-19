@@ -191,6 +191,9 @@ confluence.with {
     // endpoint of the confluenceAPI (REST) to be used
     api = 'https://[yourServer]'
 
+    // requests per second for confluence API calls
+    rateLimit = 10
+
     //    Additionally, spaceKey, subpagesForSections, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
 
     // the key of the confluence space to write to
@@ -294,6 +297,9 @@ jira.with {
 
     // endpoint of the JiraAPI (REST) to be used
     api = 'https://your-jira-instance'
+
+    // requests per second for Jira API calls
+    rateLimit = 10
 
     /*
     WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!
