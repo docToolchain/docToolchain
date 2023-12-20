@@ -6,9 +6,6 @@ versions = "0.46.0"
 openapi = "6.6.0"
 undercouch-download = "5.4.0"
 jbake = "5.5.0"
-# gretty 4.0.0 does not work with java 8
-# gretty 3.0.8 has another problem -> #920
-gretty = "3.0.6"
 
 # Libs
 asciidoctor-jvm = "4.0.0-alpha.1"
@@ -37,7 +34,6 @@ versions = { id = "com.github.ben-manes.versions", version.ref = "versions"}
 openapi-generator = { id = "org.openapi.generator", version.ref = "openapi"}
 undercouch-download = { id = "de.undercouch.download", version.ref = "undercouch-download"}
 jbake-site = { id = "org.jbake.site", version.ref = "jbake"}
-gretty = { id = "org.gretty", version.ref = "gretty"}
 
 [libraries]
 groovy-all = { module = "org.codehaus.groovy:groovy-all", version.ref = "groovy" }

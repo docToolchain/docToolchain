@@ -68,8 +68,6 @@ microsite.with {
     title='Microsite'
     // used in the template for absolute uris
     host='https://localhost'
-    // configure a port on which your preview server will run
-    previewPort = 8042
 
     //project theme
     //site folder relative to the docs folder

@@ -72,8 +72,6 @@ microsite.with {
 
     // is your microsite deployed with a context path?
     contextPath = '/'
-    // configure a port on which your preview server will run
-    previewPort = 8042
     // the folder of a site definition (theme) relative to the docDir+inputPath
     //siteFolder = '../site'
 

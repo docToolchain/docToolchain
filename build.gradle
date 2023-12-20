@@ -2,6 +2,11 @@ import java.util.zip.ZipFile
 
 // fix versions for #1200
 buildscript {
+    configurations {
+        jbake {
+            exclude group: 'org.eclipse.jetty'
+        }
+    }
     configurations.all {
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
             if (details.requested.group == 'org.ysb33r.gradle' && details.requested.name == 'grolifant' && details.requested.version == '0.12.1') {
@@ -30,7 +35,6 @@ plugins {
     alias(libs.plugins.openapi.generator)
     alias(libs.plugins.undercouch.download)
     alias(libs.plugins.jbake.site)
-    alias(libs.plugins.gretty)
 }
 
 apply plugin:'groovy'
@@ -51,8 +55,6 @@ dependencies {
     testImplementation(
             (libs.junit),
             (libs.spock.core),
-            //('org.slf4j:slf4j-api:1.7.13'),
-            //('org.slf4j:slf4j-simple:1.7.13'),
             gradleTestKit(),
             //for the renderToConfluence Task
             (libs.httpmime),
