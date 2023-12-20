@@ -26,7 +26,7 @@ class ExcelConverter extends IssueConverter {
     private Workbook workbook
     private FileOutputStream jiraFos
     private Integer lastRow
-    private String allHeaders
+    private List<String> columns
 
     ExcelConverter(File targetFolder) {
         super(targetFolder)
@@ -42,16 +42,16 @@ class ExcelConverter extends IssueConverter {
     }
 
     @Override
-    def initialize(String fileName, String columns) {
+    def initialize(String fileName, List<String> columns) {
         initialize(fileName, columns, fileName)
     }
 
     @Override
-    def initialize(String fileName, String columns, String caption) {
+    def initialize(String fileName, List<String> columns, String caption) {
         if(workbook == null) {
             prepareWorkbook(fileName)
         }
-        this.allHeaders = columns
+        this.columns = columns
 
         String safeSheetName = WorkbookUtil.createSafeSheetName(caption)
         this.workSheet = workbook.createSheet(safeSheetName)
@@ -65,7 +65,7 @@ class ExcelConverter extends IssueConverter {
 
         Row titleRow = workSheet.createRow(0)
         Integer cellNumber = 0
-        columns.split(",").each { field ->
+        columns.each { field ->
             titleRow.createCell(cellNumber++).setCellValue("${field.capitalize()}")
         }
         this.lastRow = titleRow.getRowNum()
@@ -119,7 +119,7 @@ class ExcelConverter extends IssueConverter {
 
     @Override
     def finalizeOutput() {
-        for(int colNum = 0; colNum<allHeaders.size()+1;colNum++) {
+        for(int colNum = 0; colNum<columns.size()+1;colNum++) {
             workSheet.autoSizeColumn(colNum)
         }
         // Set summary column width slightly wider but fixed size, so it doesn't change with every summary update

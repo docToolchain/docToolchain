@@ -14,8 +14,6 @@ class JiraService {
 
     private static final Logger LOGGER = Logger.getLogger(JiraService.class.getName())
 
-    private final String DEFAULT_FIELDS = 'key,priority,created,resolutiondate,summary,assignee,status,issuetype'
-
     final File outputFolder
     protected File targetFolder
     protected JiraClient jiraClient
@@ -55,6 +53,13 @@ class JiraService {
     }
 
     def exportJiraSprintChangelog(){
+        List<String> columns = new ArrayList<String>(List.of(
+            'key',
+            'summary',
+            'assignee',
+            'status',
+            'issuetype'
+        ))
         def jiraRoot = jiraConfig.api
         //TODO this is currently a workaround, this will change in the future
         String taskSubFolderName = changeLogConfig.resultsFolder
@@ -80,10 +85,6 @@ class JiraService {
         LOGGER.info("Filtering for issues with configured statuses: ${ticketStatusForReleaseNotes}")
         LOGGER.info("Attempt to generate release notes for sprint with a name: '${sprintName}'")
         LOGGER.info("Filename used for all sprints: '${allSprintsFilename}'")
-        def columns = DEFAULT_FIELDS.split(',').collect()
-        //TODO this is currently a workaround, this will change in the future
-        columns = columns.minus('priority').minus('created').minus('resolutiondate')
-        // end of workaround
         if (!showAssignee) { columns = columns.minus('assignee')}
         if (!showTicketStatus) { columns = columns.minus('status')}
         if (!showTicketType) { columns = columns.minus('issuetype')}
@@ -100,8 +101,8 @@ class JiraService {
         LOGGER.info("Found exact Sprint with name '${sprintName}': ${foundExactSprint}.")
         sprintsForChangelog.each { sprint ->
             LOGGER.finer("\nSprint: $sprint.name [id: $sprint.id] state <$sprint.state>")
-            converters.find() { it instanceof AsciiDocConverter }?.initialize(sprint.name.replaceAll(" ", "_") as String, columns.join(','), ".Table ${sprint.name} Changelog\n")
-            converters.find() { it instanceof ExcelConverter }?.initialize(sprint.name as String, columns.join(','))
+            converters.find() { it instanceof AsciiDocConverter }?.initialize(sprint.name.replaceAll(" ", "_") as String, columns, ".Table ${sprint.name} Changelog\n")
+            converters.find() { it instanceof ExcelConverter }?.initialize(sprint.name as String, columns)
             jiraClient.getIssuesForSprint(sprintBoardId, sprint.id, ticketStatusForReleaseNotes, columns.join(',')).issues.each { issue ->
                 converters.each { converter ->
                     converter.convertAndAppend(issue, jiraRoot, jiraConfig.dateTimeFormatParse, jiraConfig.dateTimeFormatOutput, showAssignee, showTicketStatus, showTicketType, false, false, false, [:])
@@ -135,6 +136,16 @@ class JiraService {
     }
 
     protected process(export) {
+        List<String> columns = new ArrayList<String>(List.of(
+            'key',
+            'priority',
+            'created',
+            'resolutiondate',
+            'summary',
+            'assignee',
+            'status',
+            'issuetype'
+        ))
         String jiraRoot = jiraConfig.api
         String jiraProject = jiraConfig.project
         String jiraLabel = jiraConfig.label
@@ -146,8 +157,10 @@ class JiraService {
 
         LOGGER.fine("Request to Jira API for '${targetFileName}' with query: '${jql}'")
 
-        def columns = "${DEFAULT_FIELDS},${customFields.values().join(",")}"
-        def allFieldIds = "${DEFAULT_FIELDS},${customFields.keySet().join(",")}"
+        def allFieldIds = "${columns.join(",")},${customFields.keySet().join(",")}"
+
+        columns.addAll(customFields.values())
+
         LOGGER.finer("Preparing headers for default & custom fields: ${columns}")
         LOGGER.finer("Preparing field IDs for default & custom fields: ${allFieldIds}")
         converters.each { converter ->

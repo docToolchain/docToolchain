@@ -15,12 +15,12 @@ class AsciiDocConverter extends IssueConverter {
     }
 
     @Override
-    def initialize(String fileName, String columns) {
+    def initialize(String fileName, List<String> columns) {
         initialize(fileName, columns, fileName)
     }
 
     @Override
-    def initialize(String fileName, String columns, String caption) {
+    def initialize(String fileName, List<String> columns, String caption) {
         String jiraResultsFilename = "${fileName}.${EXTENSION}"
         println("Results will be saved in '${jiraResultsFilename}' file")
 
@@ -29,7 +29,7 @@ class AsciiDocConverter extends IssueConverter {
         outputFile.append("|=== \n")
 
         // AsciiDoc table headers (custom fields map needs values here)
-        columns.split(",").each { field ->
+        columns.each { field ->
             outputFile.append("|${field.capitalize()} ", 'utf-8')
         }
         outputFile.append("\n", 'utf-8')
