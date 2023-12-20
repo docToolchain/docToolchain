@@ -19,6 +19,7 @@ import org.apache.hc.core5.http.message.BasicHeader
 import org.apache.hc.core5.net.URIBuilder
 import org.docToolchain.configuration.ConfigService
 import org.docToolchain.http.BasicRestClient
+import org.docToolchain.http.RequestFailedException
 
 class RestClient extends BasicRestClient {
 

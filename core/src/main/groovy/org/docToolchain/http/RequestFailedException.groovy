@@ -1,4 +1,4 @@
-package org.docToolchain.atlassian.jira.clients
+package org.docToolchain.http
 
 import org.apache.hc.core5.http.HttpResponse
 
@@ -13,8 +13,20 @@ class RequestFailedException extends RuntimeException{
         String reasonLog = reason != null ? reason.getMessage() : "<none>"
         String possibleSolution
 
-        possibleSolution = "please check your config. If you are sure that everything is correct, " +
-            "please open an issue at https://github.com/docToolchain/docToolchain/issues"
+        switch (response.getCode()) {
+            case 401:
+                possibleSolution = "please check your credentials in config file or passed parameters"
+                break
+            case 400:
+                possibleSolution = "please check the your config file or passed parameters"
+                break
+            case 429:
+                possibleSolution = "please check if you need to decrease the rate limit in your config file"
+                break
+            default:
+                possibleSolution = "please check your config. If you are sure that everything is correct, " +
+                    "please open an issue at https://github.com/docToolchain/docToolchain/issues"
+        }
 
         return "something went wrong - request failed" + " (" +
             "\nresponse: " + responseLog + ", " +
