@@ -393,8 +393,13 @@ function assert_java_version_supported() {
     $JAVA_CMD = $null
 
     if ( Test-Path "$DTC_JAVA_HOME") {
-        $javaHome = "$DTC_JAVA_HOME/jdk-17.0.7+7"
         Write-Host "Check Java from $javaHome"
+        # Get the list of directories that start with 'jdk-'
+        $javaDirs = Get-ChildItem -Path $DTC_JAVA_HOME -Directory | Where-Object { $_.Name -like "jdk-*" }
+        # Select the first directory from the list
+        $selectedJavaDir = $javaDirs | Select-Object -First 1
+        # Construct the complete Java path
+        $javaHome = Join-Path -Path $DTC_JAVA_HOME -ChildPath $selectedJavaDir.Name
 
         $JAVA_CMD = Get-Command "$javaHome\bin\java" -ErrorAction SilentlyContinue
         $dtc_opts = "$dtc_opts '-Dorg.gradle.java.home=$javaHome' "
