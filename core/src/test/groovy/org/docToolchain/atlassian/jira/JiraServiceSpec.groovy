@@ -26,7 +26,7 @@ class JiraServiceSpec extends Specification {
             saveAsciidoc: true,
             saveExcel: true,
             resultsFolder: RESULT_DIR_JIRA_EXPORT,
-            requests: [
+            exports: [
                 [
                     filename:'CurrentSprint',
                     jql:"project='%jiraProject%' AND Sprint in openSprints() ORDER BY priority DESC, duedate ASC",

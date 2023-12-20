@@ -285,7 +285,7 @@ jira.with {
     User can configure custom fields IDs and name those for column header,
     i.e. customfield_10026:'Story Points' for Jira instance that has custom field with that name and will be saved in a coloumn named "Story Points"
     */
-    requests = [
+    exports = [
         [
             filename:"File1_Done_issues",
             jql:"project='%jiraProject%' AND status='Done' ORDER BY duedate ASC",
