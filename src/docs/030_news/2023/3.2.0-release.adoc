@@ -1,0 +1,57 @@
+:filename: 030_news/2023/3.2.0-release.adoc
+:jbake-title: Release v3.2.0
+:jbake-date: 2023-12-20
+:jbake-type: post
+:jbake-tags: docToolchain
+:jbake-status: published
+:jbake-menu: news
+:jbake-author: Pascal Euhus
+:icons: font
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+== docToolchain release v3.2.0
+
+=== About This Release
+
+Here it is: docToolchain v3.2.0!
+It contains two major changes:
+
+* Clean up dependency tree
+** Removed build-in server for `previewSite` task. the task is now a no-op. There is no replacement for the build-in server. Simply open the generated `.html` in your browser.  `previewSite` may be removed in a future release.
+** Removed unused dependencies
+
+* Refactored exportJiraIssues and exportJiraSprintChangelog tasks.
+** Improved error handling for all Atlassian API calls
+** Introduced new configuration option `jira.exports` as a replacement for `jira.requests`. The change is backwards compatible, but the new configuration option is recommended and the deprecated `jira.requests` will be removed soon.
+** Introduce configuration option to limit the number of API calls per second to avoid 429 errors
+
+== Notes
+
+== 3.2.0 - 2023-12-20
+
+=== fixes
+
+* https://github.com/docToolchain/docToolchain/issues/1307[#1307: powershell: problem to find local installed jdk]
+* https://github.com/docToolchain/docToolchain/issues/1300[#1300: publishToConfluence:Cannot handle embedded SVG images]
+* https://github.com/docToolchain/docToolchain/issues/1253[#1253: publishToConfluence removes all linebreaks from code]
+
+=== added
+
+=== changed
+
+* https://github.com/docToolchain/docToolchain/issues/1231[#1231: docker: port mapping only needed for previewSite]
+* https://github.com/docToolchain/docToolchain/issues/1309[#1309: deprecate previewSite task]
+* https://github.com/docToolchain/docToolchain/issues/1292[#1292: remove http builder and httpmime]
+
+NOTE: a big "THANK YOU" to all *Sponsors* and *Contributors* who helped to support docToolchain!
+
+[TIP]
+====
+You like docToolchain? +
+What about helping to make it even better? +
+docToolchain is a community project, so be part of the community which drives the project. +
+You don't have to code for doing so. +
+It would even help to brush up the docs, write tutorials or groom the backlog +
+(I guess many of the open issues are already fixed).
+====
