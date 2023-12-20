@@ -44,10 +44,10 @@ import java.nio.file.Path
 import java.security.MessageDigest
 import static groovy.io.FileType.FILES
 
-import org.docToolchain.atlassian.clients.ConfluenceClientV1
-import org.docToolchain.atlassian.clients.ConfluenceClientV2
+import org.docToolchain.atlassian.confluence.clients.ConfluenceClientV1
+import org.docToolchain.atlassian.confluence.clients.ConfluenceClientV2
 import org.docToolchain.configuration.ConfigService
-import org.docToolchain.atlassian.ConfluenceService
+import org.docToolchain.atlassian.confluence.ConfluenceService
 
 @Field
 ConfigService configService = new ConfigService(config)
@@ -140,7 +140,7 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
         localHash = MD5(new File(url).newDataInputStream().text)
     }
 
-    def attachment = confluenceClient.getAttachment(pageId, fileName).data
+    def attachment = confluenceClient.getAttachment(pageId, fileName)
     if (attachment.size()>0 && attachment.results.size()>0) {
         // attachment exists. need an update?
         if (confluenceClient.attachmentHasChanged(attachment, localHash)) {
@@ -639,16 +639,16 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
                 config.confluence.pageVersionComment ?: '',
                 parentId
         )
-        println "> created page "+page?.data?.id
+        println "> created page "+page?.id
         deferredUpload.each {
-            uploadAttachment(page?.data?.id, it[1], it[2], it[3])
+            uploadAttachment(page?.id, it[1], it[2], it[3])
         }
         deferredUpload = []
         // #324-dierk42: Add keywords as labels to page.
         if (keywords) {
-            addLabels(page?.data?.id, keywords)
+            addLabels(page?.id, keywords)
         }
-        return page?.data?.id
+        return page?.id
     }
 }
 

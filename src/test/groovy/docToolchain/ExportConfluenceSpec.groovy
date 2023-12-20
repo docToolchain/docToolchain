@@ -2,8 +2,6 @@ package docToolchain
 
 import org.gradle.testkit.runner.GradleRunner
 import spock.lang.Specification
-import spock.lang.Ignore
-import spock.lang.IgnoreRest
 
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
 

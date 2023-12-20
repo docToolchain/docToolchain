@@ -56,14 +56,11 @@ dependencies {
             (libs.junit),
             (libs.spock.core),
             gradleTestKit(),
-            //for the renderToConfluence Task
-            (libs.httpmime),
             (libs.jsoup),
-            (libs.http.builder),
             ("org.docToolchain:core")
     )
     testRuntimeOnly(libs.byte.buddy)
-    compileClasspath((libs.http.builder))
+    compileClasspath((libs.http.client))
 }
 
 test {

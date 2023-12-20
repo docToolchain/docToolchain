@@ -257,6 +257,9 @@ confluence.with {
     // a working example is https://arc42-template.atlassian.net/wiki
     api = 'https://[yourServer]/[context]'
 
+    // requests per second for confluence API calls
+    rateLimit = 10
+
     // if true API V1 only will be used. Default is true.
     // useV1Api = true
 
@@ -374,6 +377,9 @@ jira.with {
     // endpoint of the JiraAPI (REST) to be used
     api = 'https://your-jira-instance'
 
+    // requests per second for jira API calls
+    rateLimit = 10
+
     /*
     WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!
 
@@ -415,25 +421,18 @@ jira.with {
     User can configure custom fields IDs and name those for column header,
     i.e. customfield_10026:'Story Points' for Jira instance that has custom field with that name and will be saved in a coloumn named "Story Points"
     */
-    requests = [
-        new JiraRequest(
+    exports = [
+        [
             filename:"File1_Done_issues",
             jql:"project='%jiraProject%' AND status='Done' ORDER BY duedate ASC",
             customfields: [customfield_10026:'Story Points']
-        ),
-        new JiraRequest(
+        ],
+        [
             filename:'CurrentSprint',
             jql:"project='%jiraProject%' AND Sprint in openSprints() ORDER BY priority DESC, duedate ASC",
             customfields: [customfield_10026:'Story Points']
-        ),
+        ],
     ]
-}
-
-@groovy.transform.Immutable
-class JiraRequest {
-    String filename  //filename (without extension) of the file in which JQL results will be saved. Extension will be determined automatically for Asciidoc or Excel file
-    String jql // Jira Query Language syntax
-    Map<String,String> customfields // map of customFieldId:displayName values for Jira fields which don't have default names, i.e. customfield_10026:StoryPoints
 }
 //end::jiraConfig[]
 
