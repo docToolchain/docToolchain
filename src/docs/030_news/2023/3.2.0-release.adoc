@@ -15,6 +15,9 @@ ifndef::imagesdir[:imagesdir: ../../../images]
 === About This Release
 
 Here it is: docToolchain v3.2.0!
+
+We could *reduce* the size of the release by ~70MB compared to v3.1.2 and ~120MB compared to v2.2.1. Additionally we successfully closed a plenty vulnerabilities in the dependencies (11 Critical, 76 High, 129 Medium).
+
 It contains two major changes:
 
 * Clean up dependency tree
