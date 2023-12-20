@@ -9,6 +9,14 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+=== added
+
+=== changed
+
+== 3.2.0 - 2023-12-20
+
+=== fixes
+
 * https://github.com/docToolchain/docToolchain/issues/1307[#1307: powershell: problem to find local installed jdk]
 * https://github.com/docToolchain/docToolchain/issues/1300[#1300: publishToConfluence:Cannot handle embedded SVG images]
 * https://github.com/docToolchain/docToolchain/issues/1253[#1253: publishToConfluence removes all linebreaks from code]
