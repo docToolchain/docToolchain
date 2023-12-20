@@ -19,6 +19,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 * https://github.com/docToolchain/docToolchain/issues/1231[#1231: docker: port mapping only needed for previewSite]
 * https://github.com/docToolchain/docToolchain/issues/1309[#1309: deprecate previewSite task]
+* https://github.com/docToolchain/docToolchain/issues/1292[#1292: remove http builder and httpmime]
 
 == 3.1.2 - 2023-11-16
 
