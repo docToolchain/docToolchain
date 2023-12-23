@@ -17,12 +17,13 @@ The result looks more like a nicely rendered book than a print-to-PDF HTML page.
 For a file to be rendered, it has to be configured in the `doctoolchainConfig.groovy` file.
 There you will find a section that looks like this:
 
-```
+[source]
+----
 inputFiles = [
         [file: 'manual.adoc',       formats: ['html','pdf']],
         /** inputFiles **/
 ]
-```
+----
 
 Add the files that you want to be rendered, along with the desired format.
 In this case `pdf`.

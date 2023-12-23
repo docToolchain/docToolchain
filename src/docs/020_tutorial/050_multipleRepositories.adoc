@@ -57,9 +57,10 @@ With this, we can write the include as `include::{projectRootDir}/build/refs/doc
 
 In order to get `projectRootDir` also in your local preview, create a file called https://intellij-asciidoc-plugin.ahus1.de/docs/users-guide/features/advanced/asciidoctorconfig-file.html[`.asciidoctorconfig`] in the root folder of your project and add
 
-```
+[source]
+----
 :projectRootDir: {asciidoctorconfigdir}
-```
+----
 
 as content.
 

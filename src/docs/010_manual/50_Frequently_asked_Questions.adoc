@@ -186,7 +186,8 @@ The docToolchain-wrapper (dtcw) in v2.0 will check the java version for you so t
 
 === Q: I get an error message saying 'Error occurred during initialization of VM'
 
-```
+[source]
+----
 Starting a Gradle Daemon, 1 incompatible Daemon could not be reused, use --status for details
 
 FAILURE: Build failed with an exception.
@@ -196,7 +197,7 @@ Unable to start the daemon process.
 …
 Error occurred during initialization of VM
 Could not reserve enough space for 2097152KB object heap
-```
+----
 
 .Answer
 [%collapsible]
@@ -246,11 +247,12 @@ Make sure that your WSL is up-to-date by running `wsl --update`. This is not par
 
 This issue can occur in CI environments (such as Bamboo) that have restricted permissions in the working folder where files or directories created outside the container might not be accessible inside the container. Before starting the container, give the working directory maximum permissions for allowing access to the user inside the Docker container.
 
-```
+[source]
+----
 chmod -R o+rwx ${bamboo.working.directory}
 ./dtcw generateSite
 
-```
+----
 
 Another solution could be that you work on the same project with WSL and Powershell.
 In such an environment, the WSL environment creates temporary files which can not be modified via powershell.

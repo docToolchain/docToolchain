@@ -33,19 +33,25 @@ Sometimes you need a more dynamic configuration.
 Since the configuration file is an executable `.groovy` file, you can not only configure static values but also fetch dynamic once.
 
 For example,
-```
+
+[source]
+----
    example = System.properties.myProperty
-```
+----
 
 You can then specify the property with the `-D` parameter like this
-```
+
+[source]
+----
 ./dtcw docker generateHTML -DmyProperty=myValue
-```
+----
 
 In the same way, you can use environment variables
-```
+
+[source]
+----
    example = System.getenv("myEnvVariable")
-```
+----
 
 But in this case, you have to ensure that the environment variable can be accessed.
 It will not work for docker based execution of `dtcw`
