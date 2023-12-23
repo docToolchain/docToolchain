@@ -28,7 +28,7 @@ If you provide templates for the documents, those templates are skipped if the n
 
 == The Optional Parameter Configurations
 
-You can configure which files are found by the script be setting the paramters in the Config.groovy file.
+You can configure which files are found by the script be setting the parameters in the Config.groovy file.
 
 [source,groovy]
 ----

@@ -50,7 +50,7 @@ In order make this also work in your editor preview, specify a line like the fol
 .Answer
 [%collapsible]
 ====
-Ahis is most likely because your editor doesn't know where they are stored.
+This is most likely because your editor doesn't know where they are stored.
 If you follow the default settings, you probably store your images in a subfolder `images`.
 The build script knows about it, because the attribute `imagesdir` has been set to `./images`, but your editor doesn't care about the build script - it only checks the currently opened AsciiDoc file.
 
@@ -75,7 +75,7 @@ So, if you want to use photos from your flipcharts - JPG might work for you.
 
 SVG:: great for high resolution diagrams, but not good supported by DOCX as output format.
 OpenOffice Writer might display the image a bit stretched, MS Word didn't display it at all in some experiments.
-PDF output might display a warning that newer SVG versions are not supported (happends especially with diagrams.net images).
+PDF output might display a warning that newer SVG versions are not supported (happens especially with diagrams.net images).
 
 PNG:: this is the preferred format for images used with docToolchain.
 All output formats support it and if diagrams are rendered with a resolution high enough to display all details, it will also be scaled well with all output formats.
@@ -215,7 +215,7 @@ This seems to be a problem with WSL on Windows.
 Some sources mention to run Java in headless mode, but in this case, it doesn't solve the problem.
 The root cause seems to be plantUML trying to get some font information.
 
-Only real solution seems to be to shutdown WSL from a powershell window wiht `wsl --shutdown` and retry.
+Only real solution seems to be to shutdown WSL from a powershell window with `wsl --shutdown` and retry.
 
 WARNING: this will kill all your WSL terminals without warning.
 
@@ -244,7 +244,7 @@ Make sure that your WSL is up to date by running `wsl --update`. This is not par
 [%collapsible]
 ====
 
-This issue can occur in CI enviroments (such as Bamboo) that have resticted permissions in the working folder where files or directories created outside the container might not be accessible inside the container. Before starting the container, give the working directory maximum permissions for allowing access to the user inside the Docker container.
+This issue can occur in CI environments (such as Bamboo) that have restricted permissions in the working folder where files or directories created outside the container might not be accessible inside the container. Before starting the container, give the working directory maximum permissions for allowing access to the user inside the Docker container.
 
 ```
 chmod -R o+rwx ${bamboo.working.directory}

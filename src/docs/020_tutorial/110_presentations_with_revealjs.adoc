@@ -48,7 +48,7 @@ $ git add .gitignore
 $ git commit -m "Initial commit for my reveal.js slide deck"
 ```
 
-=== Create a minmal AsciiDoctor Reveal.js Presentation
+=== Create a minimal AsciiDoctor Reveal.js Presentation
 
 - Create a `presentation.adoc` file with an image
 
@@ -113,7 +113,7 @@ $ git add docToolchainConfig.groovy src
 $ git commit -m "Add my first reveal.js slide deck"
 ```
 
-Congratulations for creating your first _reaveal.js_ slide deck.
+Congratulations for creating your first _reveal.js_ slide deck.
 
 == References
 

@@ -47,7 +47,7 @@ In the same way, you can use environment variables
    example = System.getenv("myEnvVariable")
 ```
 
-But in this case, you have to ensure that the environment varaible can be accessed.
+But in this case, you have to ensure that the environment variable can be accessed.
 It will not work for docker based execution of `dtcw`
 
 === Content of the `mainConfigFile`

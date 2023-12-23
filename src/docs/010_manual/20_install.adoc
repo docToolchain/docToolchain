@@ -110,7 +110,7 @@ You may use `dtcw` to install the correct Java version, as shown in the next ste
 [[run-dtc-in-container]]
 == Run docToolchain in a container
 
-The docToolchain project provides a container image of approximatley 900 MB from the https://hub.docker.com/r/doctoolchain/doctoolchain[Docker Hub] container registry.
+The docToolchain project provides a container image of approximately 900 MB from the https://hub.docker.com/r/doctoolchain/doctoolchain[Docker Hub] container registry.
 The Dockerfile from which the image is created may be found at https://github.com/docToolchain/docker-image.
 
 To to run docToolchain in a container you need an installed container engine.
@@ -142,9 +142,9 @@ In case you have no Java installed you may use `dtcw` to install Java in a sub-d
 ----
 
 [NOTE]
-.Unable to locate Java Runtime - check yout Bash environment
+.Unable to locate Java Runtime - check your Bash environment
 ====
-If `dtcw` complains about not beeing able to locate a Java Runtime, make sure Java is found in your Bash shell, the shell used by `dtcw`.
+If `dtcw` complains about not being able to locate a Java Runtime, make sure Java is found in your Bash shell, the shell used by `dtcw`.
 
 If you use `dtcw` from another shell like `zsh`, it may be that your shell finds the supported Java version but your bash setup doesn't.
 In that case, please switch to bash and make sure that a supported Java version is found. Afterwards, you can switch back to your shell.
@@ -377,7 +377,7 @@ TIP: Blog-Posts: https://rdmueller.github.io/enterprise-edition/[Behind the grea
 
 If there is a new https://github.com/docToolchain/docToolchain/releases[docToolchain release] you wish to use, do the following:
 
-. Open the docToolchain wrapper script (`dtcw`, respective `dtcw.ps1` and `dtcw.bat`) in your favourite text editor and look for the line with `DTC_VERSION` which should be localted near the start of the file:
+. Open the docToolchain wrapper script (`dtcw`, respective `dtcw.ps1` and `dtcw.bat`) in your favourite text editor and look for the line with `DTC_VERSION` which should be located near the start of the file:
 [source, bash]
 ----
 # See https://github.com/docToolchain/docToolchain/releases for available versions.
@@ -385,7 +385,7 @@ If there is a new https://github.com/docToolchain/docToolchain/releases[docToolc
 VERSION=2.1.0
 ----
 . Change it to match the desired release.
-. In case you want to install docToolchain in local user enviroment install the new docToolchain release with the following command:
+. In case you want to install docToolchain in local user environment install the new docToolchain release with the following command:
 [source, bash]
 ----
 ./dtcw install doctoolchain
