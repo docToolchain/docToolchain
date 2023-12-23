@@ -7,7 +7,8 @@ Things not working as you expected? Here are some tips that might help you.
 
 === Environment
 
-To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect.
+To get the best out of docToolchain, we recommend that you set up a development environment.
+This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect.
 
 === Gradle
 
@@ -25,7 +26,7 @@ If something goes wrong with a template, you typically don’t receive much info
 
 How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files.
 
-Check the `build/microsite/tmp` folder to see the folder that is fed into jBake. In this folder, all files will have additional `jbake` attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the `build/microsite/output` folder to see the generated result. This often helps you to find out where an image actually is located.
+Check the `build/microsite/tmp` folder to see the folder that is fed into jBake. In this folder, all files will have additional `jbake` attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the `build/microsite/output` folder to see the generated result. This often helps you find out where an image actually is located.
 
 === Script Execution Debugging
 

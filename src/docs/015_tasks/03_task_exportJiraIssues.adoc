@@ -56,8 +56,8 @@ jira.exports = [
 
 == Configuration
 
-Jira configuration support list requests to Jira where results of each requests will be saved in a file with specifies filename. Flags
-_saveAsciidoc_ & _saveExcel_ allow you to easily configure the format in which results should be saved.
+Jira configuration support list requests to Jira where results of each request will be saved in a file with specifies filename.
+Flags _saveAsciidoc_ & _saveExcel_ allow you to easily configure the format in which results should be saved.
 
 === Deprecation Notice
 

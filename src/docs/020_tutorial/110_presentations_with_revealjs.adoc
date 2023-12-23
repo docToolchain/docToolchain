@@ -94,7 +94,7 @@ EOF
 
 [NOTE]
 ====
-As alternative we could create the configuration by invoking `./dtcw tasks`.
+As an alternative we could create the configuration by invoking `./dtcw tasks`.
 If _docToolchain_ doesn't find a configuration file it will ask to create a new one.
 The generated configuration file contains the configuration for all tasks provided by _docToolchain_, which may be overwhelming.
 ====
@@ -113,7 +113,7 @@ $ git add docToolchainConfig.groovy src
 $ git commit -m "Add my first reveal.js slide deck"
 ```
 
-Congratulations for creating your first _reveal.js_ slide deck.
+Congratulations on creating your first _reveal.js_ slide deck.
 
 == References
 

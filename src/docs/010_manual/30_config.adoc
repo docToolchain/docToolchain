@@ -29,7 +29,7 @@ It will print the location on the command line (among other settings)
 
 === dynamic configuration properties
 
-Sometime you need a more dynamic configuration.
+Sometimes you need a more dynamic configuration.
 Since the configuration file is an executable `.groovy` file, you can not only configure static values but also fetch dynamic once.
 
 For example,

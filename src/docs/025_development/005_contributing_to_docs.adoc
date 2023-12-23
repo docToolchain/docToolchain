@@ -16,7 +16,7 @@ Here is a quick step-by-step guide on how to fix something on a documentation pa
 
 * You need a github.com account.
 ** If you don't have one, you can create one here: https://github.com/signup
-* It might help if you go through the {uri-hello-world}[Github Hello World tutorial] before you continue but it is not necessary.
+* It might help if you go through the {uri-hello-world}[Github Hello World tutorial] before you continue, but it is not necessary.
 
 === Go to page you want to edit or fix
 
@@ -130,7 +130,7 @@ Red lines are deletions, green lines are additions.
 As you can see in the screenshot, I added an empty space in line 17.
 Line 17 has been deleted (red line) and replaced with a new line (green line).
 
-Line 1 looks mysterious, because it seems that is has been replaced with an identical copy.
+Line 1 looks mysterious, because it seems that it has been replaced with an identical copy.
 This is because the line ending changed but is not visible in the diff.
 
 The grey box on top shows you

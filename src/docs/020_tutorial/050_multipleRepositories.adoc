@@ -147,4 +147,4 @@ Antora comes along with some custom behaviour and non-standard asciidoc syntax. 
 Images are expected to be within `assets/images`.
 
 ===== Other files
-In order to include other files, eg. generated output from docToolchain tasks like `collectIncludes`, you must ensure there is a symlink from the docToolchain output directory to  `${inputPath}/modules/ROOT/examples/<outputFile/folder>`.
+In order to include other files, e.g. generated output from docToolchain tasks like `collectIncludes`, you must ensure there is a symlink from the docToolchain output directory to  `${inputPath}/modules/ROOT/examples/<outputFile/folder>`.

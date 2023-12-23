@@ -148,7 +148,7 @@ If you wish to simplify the injection of credentials from external sources, do t
 
 In situations where you have to use full user authorisation because of internal Confluence permission handling, you'll need to add the API-token in addition to the credentials.
 The API-token cannot be added to the credentials because it's used for user and password exchange.
-Therefore the API-token can be added as parameter `apikey`, which makes the addition of the token a separate header field with key: `keyId` and value of `apikey`.
+Therefore, the API-token can be added as parameter `apikey`, which makes the addition of the token a separate header field with key: `keyId` and value of `apikey`.
 An example (including storing of the real value outside this configuration) is: `apikey = "${new File("/home/me/apitoken").text}"`.
 
 *bearerToken*
@@ -163,7 +163,7 @@ If you need to prefix your pages with a warning stating that 'this is generated 
 
 *enableAttachments*
 
-If value is set to `true`, any links to local file references will be uploaded as attachments. The current implementation only supports a single folder, the name of which will be used as a prefix to validate whether or not your file should be uploaded.
+If value is set to `true`, any links to local file references will be uploaded as attachments. The current implementation only supports a single folder, the name of which will be used as a prefix to validate whether your file should be uploaded.
 If you enable this feature, and use a folder which starts with 'attachment', an adaption of this prefix is required.
 
 *pageLimit*
