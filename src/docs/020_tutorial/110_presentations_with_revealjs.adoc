@@ -23,21 +23,24 @@ In the later case the first call to _docToolchain_ will pull the container image
 
 - Create a project directory
 
-```shell
+[source,shell]
+----
 $ mkdir my-presentation
 $ cd my-presentation
-```
+----
 
 - Download the _docToolchain_ wrapper and set the executable permissions
 
-```shell
+[source,shell]
+----
 $ curl -sLo dtcw doctoolchain.github.io/dtc
 $ chmod +x dtcw
-```
+----
 
 - Initialize the git repository with the minimal files
 
-```shell
+[source,shell]
+----
 $ git init
 
 # Ignore generated files in your git repository
@@ -46,13 +49,14 @@ $ echo "build" >> .gitignore
 $ git add .gitignore
 
 $ git commit -m "Initial commit for my reveal.js slide deck"
-```
+----
 
-=== Create a minmal AsciiDoctor Reveal.js Presentation
+=== Create a minimal AsciiDoctor Reveal.js Presentation
 
 - Create a `presentation.adoc` file with an image
 
-```shell
+[source,shell]
+----
 $ mkdir -p src/images
 $ cat << EOF >> src/presentation.adoc
 = Title Slide
@@ -73,11 +77,12 @@ image::debian.svg[]
 EOF
 
 $ curl -Lo src/images/debian-logo.svg https://www.debian.org/logos/openlogo.svg
-```
+----
 
 - Create the _docToolchain_ configuration file `docToolchainConfig.groovy`
 
-```shell
+[source,shell]
+----
 $ cat << EOF >> docToolchainConfig.groovy
 // Path where docToolchain creates its artifacts.
 outputPath = 'build'
@@ -90,30 +95,32 @@ inputFiles = [
     [file: 'presentation.adoc', formats: ['revealjs']],
 ]
 EOF
-```
+----
 
 [NOTE]
 ====
-As alternative we could create the configuration by invoking `./dtcw tasks`.
+As an alternative we could create the configuration by invoking `./dtcw tasks`.
 If _docToolchain_ doesn't find a configuration file it will ask to create a new one.
 The generated configuration file contains the configuration for all tasks provided by _docToolchain_, which may be overwhelming.
 ====
 
 - Generate the slide deck
 
-```shell
+[source,shell]
+----
 $ ./dtcw generateDeck
-```
+----
 
 - Find your slide deck at `build/decks/presentation.html` and open it in your browser.
 - Add the newly created files to you git project
 
-```shell
+[source,shell]
+----
 $ git add docToolchainConfig.groovy src
 $ git commit -m "Add my first reveal.js slide deck"
-```
+----
 
-Congratulations for creating your first _reaveal.js_ slide deck.
+Congratulations on creating your first _reveal.js_ slide deck.
 
 == References
 

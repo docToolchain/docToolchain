@@ -43,7 +43,7 @@ As a distributed version control system, Git comes with doc collaboration and re
 Most Git frontends like https://www.bitbucket.org[Bitbucket], https://gitlab.com[GitLab] and https://github.com[GitHub] also allow you to reject pull requests with comments.
 
 ==== Image References and Code Snippets
-Instead of pasting images into a binary document format, docToolchain lets you reference images. This ensures that your imagery is always up to date every time you rebuild your documents.
+Instead of pasting images into a binary document format, docToolchain lets you reference images. This ensures that your imagery is always up-to-date every time you rebuild your documents.
 
 You can also reference code snippets directly from your source code. You'll save so much time because your docs and code will always be in sync and completely up to date!
 

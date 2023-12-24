@@ -5,14 +5,15 @@
 
 ==== dtcw on linux
 
-```
+[source]
+----
 wget docToolchain.github.io/dtcw
 chmod +x dtcw
 ./dtcw local tasks
 ./dtcw docker tasks
 ./dtcw sdk tasks
 ./dtcw
-```
+----
 
 * check for correct version
 * check that local, docker and sdkman work
@@ -27,11 +28,12 @@ sdk install doctoolchain 1.3.0-beta
 
 ==== downloadTemplate
 
-```
+[source]
+----
 tree src/docs
 ./dtcw downloadTemplate
 tree src/docs
-```
+----
 
 * check that different templates can be downloaded
 * check that the following `generate`-tasks work
@@ -39,36 +41,39 @@ tree src/docs
 
 ==== generateHTML
 
-```
+[source]
+----
 tree build
 ./dtcw generateHTML
 tree build
 start build/html5/arc42/arc42.html
-```
+----
 
 * check generated output
 ** check for images (arc42-logo, chapter 5)
 
 ==== generatePDF
 
-```
+[source]
+----
 tree build
 ./dtcw generatePDF
 tree build
 start build/docs/pdf/arc42.pdf
-```
+----
 
 * check generated output
 ** check for images (arc42-logo, chapter 5)
 
 ==== generateDocbook
 
-```
+[source]
+----
 tree build
 ./dtcw generateDocbook
 tree build
 start build/docs/pdf/arc42.pdf
-```
+----
 
 * check generated output
 
