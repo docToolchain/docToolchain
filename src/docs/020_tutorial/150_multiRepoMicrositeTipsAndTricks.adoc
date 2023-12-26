@@ -1,0 +1,33 @@
+:jbake-order: 40
+:jbake-title: Building a microsite from multiple repositories
+include::_config.adoc[]
+
+== Multiple Repositories
+
+Modern software development teams maintain several git repositories.
+If they commit to having documentation close to the code, they will inevitably have documentation spread over several repositories.
+DocToolchain supports building documentation such as a microsite from several repositories precisely by not supporting it in any particular way,
+You can just checkout all repositories you need, and extract and arrange the content of their `docs` folders as you need _before_ you build the documentation.
+
+== Backlinks to the repositories
+
+DocToolchain offers two helpful links in the top right corner of every page:
+
+Improve this doc::: Opens a new tab to directly edit the respective page on e.g. GitHub
+
+Create an issue::: Lets you create a new issue in a defined git repository.
+
+The URLs for both activities can be specified in `docToolchainConfig.groovy`, in the fields `issueUrl` and `gitRepoUrl`.
+However, if you build your documentation from several repos, you'll want to link to _different_ repos.
+
+A simple fix is to do a postprocessing with sed and replace the default URLs with the correct ones.
+If your way of arranging the documentation folders from the different repos is simple enough,
+you can simply run sed with a different URL on the different generated folders.
+
+If your arrangement is more complicated, e.g. because you merge all repos ADRs into one folder, you can do a preprocessing step in advance.
+
+. In each repo, automatically set the `:filename:` tag and prefix the value with a unique identifier for the repository.
+. Move your adoc files to the desired target folders.
+. run `generateSite`
+. In the generated HTML files, replace the repository in the backlinks.
+By including the prefix in your query, you can make sure to target the correct repository.
