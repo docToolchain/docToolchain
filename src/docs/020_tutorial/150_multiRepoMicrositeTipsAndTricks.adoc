@@ -6,7 +6,7 @@ include::_config.adoc[]
 
 Modern software development teams maintain several git repositories.
 If they commit to having documentation close to the code, they will inevitably have documentation spread over several repositories.
-DocToolchain supports building documentation such as a microsite from several repositories precisely by not supporting it in any particular way,
+DocToolchain supports building documentation such as a microsite from several repositories precisely by not supporting it in any particular way.
 You can just checkout all repositories you need, and extract and arrange the content of their `docs` folders as you need _before_ you build the documentation.
 
 == Backlinks to the repositories
