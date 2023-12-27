@@ -20,9 +20,9 @@ Create an issue::: Lets you create a new issue in a defined git repository.
 The URLs for both activities can be specified in `docToolchainConfig.groovy`, in the fields `issueUrl` and `gitRepoUrl`.
 However, if you build your documentation from several repos, you'll want to link to _different_ repos.
 
-A simple fix is to do a postprocessing with sed and replace the default URLs with the correct ones.
+A simple fix is to do a postprocessing step with sed and replace the default URLs with the correct ones.
 If your way of arranging the documentation folders from the different repos is simple enough,
-you can simply run sed with a different URL on the different generated folders.
+you can simply run sed with a different URL on each of the different generated folders.
 
 If your arrangement is more complicated, e.g. because you merge all repos ADRs into one folder, you can do a preprocessing step in advance.
 
