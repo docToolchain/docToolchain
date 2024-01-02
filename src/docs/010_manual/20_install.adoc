@@ -120,6 +120,39 @@ If the container engine is installed you can <<first-command>>.
 The docToolchain wrapper script in your project directory will detect the
 container engine and pull the docToolchain image on the first invocation.
 
+Some might need to create their own docker image to add additional tooling or configurations, e.g. proxy settings.
+In this case you can pass the image name via parameter `image` directly after `docker`:
+
+.Linux/Mac with bash
+[role='primary']
+---
+[source, bash]
+----
+./dtcw docker image <image_name> generateHTML
+----
+
+---
+
+.Windows with Powershell
+[role='secondary']
+---
+[source, powershell]
+----
+.\dtcw.ps1 docker image <image_name> generateHTML
+----
+
+---
+
+.Windows with cmd.exe
+[role='secondary']
+---
+
+
+[source, cmd]
+----
+.\dtcw.bat docker image <image_name> generateHTML
+----
+
 [[install-dtc-with-dtcw]]
 == Install docToolchain with `dtcw`
 
