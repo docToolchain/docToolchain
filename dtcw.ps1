@@ -36,7 +36,7 @@ $distribution_url = "https://github.com/docToolchain/docToolchain/releases/downl
 $GITHUB_PROJECT_URL = "https://github.com/docToolchain/docToolchain"
 
 # Bump this version up if something is changed in the wrapper script
-$DTCW_VERSION = "0.52"
+$DTCW_VERSION = "0.53"
 # Template replaced by the GitHub value upon releasing dtcw
 $DTCW_GIT_HASH = "##DTCW_GIT_HASH##"
 
@@ -91,17 +91,29 @@ function main($_args) {
     }
     # No install command, so forward call to docToolchain but first we check if
     # everything is there.
+    $docker_image_name = ""
     if ($environment -ne "docker")
     {
         assert_doctoolchain_installed "$environment" "$DTC_VERSION"
         assert_java_version_supported
         # TODO: what if 'doctoolchain' found by $PATH does not match the one from the local environment?
         # The version provided by $DTC_VERSION could be a different one.
+    } else {
+        $docker_image_name = "doctoolchain/doctoolchain"
+        if ( $_args[0] -eq "install" ) {
+            # shift 1
+            $null, $_args = $_args
+            $docker_image_name = $_args[0]
+            # shift 1
+            $null, $_args = $_args
+            assert_argument_exists $_args
+        }
+        Write-Output "Using docker image: $docker_image_name"
     }
     # TODO: can generateDeck, bakePreview be used in combination with other commands?
     # The code below assumes we have just one task.
 
-    $global:command = build_command "$environment" "$DTC_VERSION" $_args
+    $global:command = build_command "$environment" "$DTC_VERSION" "$docker_image_name" $_args
 
     #TODO: implement HEADLESS mode
     # [[ "${DTC_HEADLESS}" = true ]] && echo "Using headless mode since there is no (terminal) interaction possible"
@@ -541,7 +553,7 @@ Java runtime (major version 11, 14 or 17) installed on your host.
 "@
 }
 
-function build_command($environment, $version, $_args) {
+function build_command($environment, $version, $docker_image, $_args) {
     $cmd = ""
     if ( $environment -eq "docker") {
         if (-not (Invoke-Expression "docker ps")) {
@@ -559,7 +571,7 @@ function build_command($environment, $version, $_args) {
 
         # TODO: DTC_PROJECT_BRANCH is  not passed into the docker environment
         # See https://github.com/docToolchain/docToolchain/issues/1087
-        $docker_args = "run --rm -i --name ${container_name} -e DTC_HEADLESS=1 -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} --entrypoint /bin/bash -v '${PWD}:/project' doctoolchain/doctoolchain:v${version}"
+        $docker_args = "run --rm -i --name ${container_name} -e DTC_HEADLESS=1 -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} --entrypoint /bin/bash -v '${PWD}:/project' ${docker_image}:v${version}"
         $cmd = "$docker_cmd ${docker_args} -c ""doctoolchain . $_args ${DTC_OPTS} && exit "" "
 
     } else {
