@@ -119,7 +119,7 @@ main() {
     fi
 
     # echo "Command to invoke: ${command}"
-    exec ${emu} ${bash} -c "${command}"
+    exec "${emu}" "${bash}" -c "${command}"
 }
 
 assert_argument_exists() {
