@@ -194,7 +194,7 @@ confluence.with {
     // requests per second for confluence API calls
     rateLimit = 10
 
-    //    Additionally, spaceKey, subpagesForSections, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
+    // Additionally, spaceKey, subpagesForSections, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
 
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
@@ -220,10 +220,10 @@ confluence.with {
 
     Tool expects credentials that belong to an account which has the right permissions to to create and edit confluence pages in the given space.
     Credentials can be used in a form of:
-     - passed parameters when calling script (-PconfluenceUser=myUsername -PconfluencePass=myPassword) which can be fetched as a secrets on CI/CD or
-     - gradle variables set through gradle properties (uses the 'confluenceUser' and 'confluencePass' keys)
+    - passed parameters when calling script (-PconfluenceUser=myUsername -PconfluencePass=myPassword) which can be fetched as a secrets on CI/CD or
+    - gradle variables set through gradle properties (uses the 'confluenceUser' and 'confluencePass' keys)
     Often, same credentials are used for Jira & Confluence, in which case it is recommended to pass CLI parameters for both entities as
-    -Pusername=myUser -Ppassword=myPassword
+    - Pusername=myUser -Ppassword=myPassword
     - in case using bearer authentication set token value to the bearerToken
     */
 
