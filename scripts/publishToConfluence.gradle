@@ -31,9 +31,9 @@ task verifyConfluenceApiAccess(
 }
 //end::verifyConfluenceApiAccess[]
 
-//tag::wipeConfluenceSpaceTask[]
-task wipeConfluenceSpaceTask(
-    description: 'verifies confluence API URL and credentials are set correctly',
+//tag::wipeConfluenceSpace[]
+task wipeConfluenceSpace(
+    description: 'deletes all pages in the configured confluence space',
     group: 'docToolchain'
 ) {
     doLast {
@@ -50,7 +50,7 @@ task wipeConfluenceSpaceTask(
 
     }
 }
-//end::wipeConfluenceSpaceTask[]
+//end::wipeConfluenceSpace[]
 
 //tag::publishToConfluence[]
 task publishToConfluence(
