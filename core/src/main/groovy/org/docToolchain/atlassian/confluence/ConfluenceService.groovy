@@ -1,5 +1,6 @@
 package org.docToolchain.atlassian.confluence
 
+import org.docToolchain.atlassian.confluence.clients.ConfluenceClient
 import org.docToolchain.configuration.ConfigService
 import org.jsoup.Jsoup
 import org.jsoup.nodes.Document
@@ -45,5 +46,16 @@ class ConfluenceService {
             println "Keywords:" + keywords
         }
         return keywords
+    }
+
+    def wipeConfluenceSpace(ConfluenceClient confluenceClient) {
+        String spaceKey = configService.getConfigProperty('confluence.spaceKey')
+        def allPages = confluenceClient.fetchPagesBySpaceKey(spaceKey, 100)
+        println("Deleting ${allPages.size()} pages from space ${spaceKey}")
+        allPages.each { key, page ->
+            println("Deleting page: [${page.title}]")
+            confluenceClient.deletePage(page.id)
+        }
+        println("Successfully wiped ${spaceKey}")
     }
 }

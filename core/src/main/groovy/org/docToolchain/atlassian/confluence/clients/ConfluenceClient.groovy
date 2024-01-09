@@ -94,6 +94,8 @@ abstract class ConfluenceClient {
 
     abstract fetchPageByPageId(String id)
 
+    abstract deletePage(String id)
+
     abstract updatePage(String pageId, String title, String confluenceSpaceKey, Object localPage, Integer pageVersion, String pageVersionComment, String parentId)
 
     abstract createPage(String title, String confluenceSpaceKey, Object localPage, String pageVersionComment, String parentId)

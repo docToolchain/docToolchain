@@ -14,6 +14,7 @@ buildscript {
 }
 
 import org.docToolchain.tasks.VerifyConfluenceApiAccessTask
+import org.docToolchain.tasks.WipeConfluenceSpaceTask
 
 //tag::verifyConfluenceApiAccess[]
 task verifyConfluenceApiAccess(
@@ -29,6 +30,27 @@ task verifyConfluenceApiAccess(
     }
 }
 //end::verifyConfluenceApiAccess[]
+
+//tag::wipeConfluenceSpaceTask[]
+task wipeConfluenceSpaceTask(
+    description: 'verifies confluence API URL and credentials are set correctly',
+    group: 'docToolchain'
+) {
+    doLast {
+        ant.input(message: "${'Do you really want to delete all pages in ' + config.confluence.spaceKey}", validargs: 'y,n', addproperty: 'confirm')
+        if(ant.confirm.toBoolean()) {
+            //TODO default should be false, if the V1 has been removed in cloud
+            config.confluence.useV1Api = findProperty("confluence.useV1Api") != null ?
+                findProperty("confluence.useV1Api") : config.confluence.useV1Api != [:] ?
+                config.confluence.useV1Api :true
+            new WipeConfluenceSpaceTask(config).execute()
+        } else {
+            println("Aborting wipe confluence space, this task needs to be confirmed with 'y'")
+        }
+
+    }
+}
+//end::wipeConfluenceSpaceTask[]
 
 //tag::publishToConfluence[]
 task publishToConfluence(

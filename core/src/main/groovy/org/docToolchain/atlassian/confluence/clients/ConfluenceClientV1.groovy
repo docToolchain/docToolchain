@@ -1,6 +1,7 @@
 package org.docToolchain.atlassian.confluence.clients
 
 import groovy.json.JsonBuilder
+import org.apache.hc.client5.http.classic.methods.HttpDelete
 import org.apache.hc.client5.http.classic.methods.HttpGet
 import org.apache.hc.client5.http.classic.methods.HttpPost
 import org.apache.hc.client5.http.classic.methods.HttpPut
@@ -156,6 +157,14 @@ class ConfluenceClientV1 extends ConfluenceClient {
             .build()
         HttpRequest get = new HttpGet(uri)
         return callApiAndFailIfNot20x(get)
+    }
+
+    @Override
+    def deletePage(String id) {
+        URI uri = new URIBuilder(API_V1_PATH + "/content/${id}")
+            .build()
+        HttpRequest delete = new HttpDelete(uri)
+        return callApiAndFailIfNot20x(delete)
     }
 
     @Override
