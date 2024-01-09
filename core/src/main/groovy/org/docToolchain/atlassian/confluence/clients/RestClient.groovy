@@ -55,7 +55,6 @@ class RestClient extends BasicRestClient {
     private constructDefaultHeaders(){
         HashSet<Header> headers = new HashSet<>([
             new BasicHeader('X-Atlassian-Token', 'no-check'),
-            new BasicHeader('Content-Type', 'application/json;charset=utf-8')
         ])
         if(configService.getConfigProperty('confluence.bearerToken')){
             headers.add(new BasicHeader('Authorization', 'Bearer ' + configService.getConfigProperty('confluence.bearerToken')))

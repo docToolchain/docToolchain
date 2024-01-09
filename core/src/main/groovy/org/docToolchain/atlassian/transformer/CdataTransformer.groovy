@@ -22,7 +22,8 @@ class CdataTransformer {
             start = html.indexOf(ConfluenceTags.CDATA_PLACEHOLDER_START, start + 1)
         }
         return new Document("")
-            .outputSettings(new Document.OutputSettings().prettyPrint(false))
+            .outputSettings(new Document.OutputSettings().prettyPrint(false)
+            .syntax(Document.OutputSettings.Syntax.xml))
             .html(html)
     }
 }

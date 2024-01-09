@@ -4,11 +4,14 @@ import groovy.json.JsonBuilder
 import org.apache.hc.client5.http.classic.methods.HttpGet
 import org.apache.hc.client5.http.classic.methods.HttpPost
 import org.apache.hc.client5.http.classic.methods.HttpPut
+import org.apache.hc.core5.http.ContentType
 import org.apache.hc.core5.http.HttpRequest
 import org.apache.hc.core5.http.io.entity.StringEntity
 import org.apache.hc.core5.http.message.BasicNameValuePair
 import org.apache.hc.core5.net.URIBuilder
 import org.docToolchain.configuration.ConfigService
+
+import java.nio.charset.StandardCharsets
 
 
 class ConfluenceClientV1 extends ConfluenceClient {
@@ -26,7 +29,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
     @Override
     def addLabel(pageId, label) {
         HttpRequest post = new HttpPost(API_V1_PATH + '/content/' + pageId + "/label")
-        post.setHeader('Content-Type', 'application/json')
+        post.setHeader('Content-Type', ContentType.APPLICATION_JSON)
         // TODO test if this works
         post.setEntity(new StringEntity(new JsonBuilder([label]).toPrettyString()))
         return callApiAndFailIfNot20x(post)
@@ -178,8 +181,8 @@ class ConfluenceClientV1 extends ConfluenceClient {
         requestBody.id      = pageId
         requestBody.version = [number: pageVersion, message: pageVersionComment ?: '']
         HttpPut put = new HttpPut(API_V1_PATH + '/content/' + pageId)
-        put.setHeader('Content-Type', 'application/json')
-        put.setEntity(new StringEntity(new JsonBuilder(requestBody).toPrettyString()))
+        put.setHeader('Content-Type', ContentType.APPLICATION_JSON)
+        put.setEntity(new StringEntity(new JsonBuilder(requestBody).toPrettyString(), StandardCharsets.UTF_8))
         return callApiAndFailIfNot20x(put)
     }
 
@@ -188,8 +191,8 @@ class ConfluenceClientV1 extends ConfluenceClient {
         def requestBody = getDefaultModifyPageRequestBody(title, confluenceSpaceKey, localPage, parentId)
         requestBody.version = [message: pageVersionComment ?: '']
         HttpPost post = new HttpPost(API_V1_PATH + '/content')
-        post.setHeader('Content-Type', 'application/json')
-        post.setEntity(new StringEntity(new JsonBuilder(requestBody).toPrettyString()))
+        post.setHeader('Content-Type', ContentType.APPLICATION_JSON)
+        post.setEntity(new StringEntity(new JsonBuilder(requestBody).toPrettyString(), StandardCharsets.UTF_8))
         return callApiAndFailIfNot20x(post)
     }
 

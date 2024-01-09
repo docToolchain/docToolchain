@@ -514,7 +514,9 @@ def parseBody(body, anchors, pageAnchors) {
     if(body instanceof Element){
         bodyString = body.html()
     }
-    Element saneHtml = new Document("").outputSettings(new Document.OutputSettings().prettyPrint(false)).html(bodyString)
+    Element saneHtml = new Document("")
+        .outputSettings(new Document.OutputSettings().syntax(Document.OutputSettings.Syntax.xml).prettyPrint(false))
+        .html(bodyString)
     def pageString = new HtmlTransformer().transformToConfluenceFormat(saneHtml)
 
     return Map.of(
