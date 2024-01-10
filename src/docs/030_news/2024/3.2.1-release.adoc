@@ -1,0 +1,48 @@
+:filename: 030_news/2023/3.2.1-release.adoc
+:jbake-title: Release v3.2.1
+:jbake-date: 2024-01-10
+:jbake-type: post
+:jbake-tags: docToolchain
+:jbake-status: published
+:jbake-menu: news
+:jbake-author: Pascal Euhus
+:icons: font
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+== docToolchain release v3.2.1 (Bugfix-Release)
+
+This is the Bugfix-Release v3.2.1
+
+=== About This Release
+
+The v3.2.0 Release could not handle certain HTML files in `publishToConfluence` and failed on attachments uploads.
+
+IMPORTANT: please also check the xref:../2023/3.2.0-release.adoc[release notes for v3.2.0]
+
+== Notes
+
+== 3.2.1 - 2024-01-10
+
+=== fixes
+
+* https://github.com/docToolchain/docToolchain/issues/1330[#1330: Publish to confluence gives response 400 on version 3.2.0]
+
+=== added
+* https://github.com/docToolchain/docToolchain/issues/1327[#1327: Allow use of enhanced docker image]
+* new task `wipeConfluenceSpace` to delete all pages of a space
+
+=== changed
+
+
+NOTE: a big "THANK YOU" to all *Sponsors* and *Contributors* who helped to support docToolchain!
+
+[TIP]
+====
+You like docToolchain? +
+What about helping to make it even better? +
+docToolchain is a community project, so be part of the community which drives the project. +
+You don't have to code for doing so. +
+It would even help to brush up the docs, write tutorials or groom the backlog +
+(I guess many of the open issues are already fixed).
+====
