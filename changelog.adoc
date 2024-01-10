@@ -11,6 +11,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === added
 * https://github.com/docToolchain/docToolchain/issues/1327[#1327: Allow use of enhanced docker image]
+* new task `wipeConfluenceSpace` to delete all pages of a space
 
 === changed
 
