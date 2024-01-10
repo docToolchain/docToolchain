@@ -12,7 +12,7 @@ set -o pipefail
 
 # See https://github.com/docToolchain/docToolchain/releases for available versions.
 # Set DTC_VERSION to "latest" to get the latest, yet unreleased version.
-: "${DTC_VERSION:=3.1.2}"
+: "${DTC_VERSION:=3.2.1}"
 
 # The 'generateSite' and 'copyThemes' tasks support DTC_SITETHEME, an URL of a theme.
 # export DTC_SITETHEME=https://....zip
@@ -41,7 +41,7 @@ GITHUB_PROJECT_URL=https://github.com/docToolchain/docToolchain
 GITHUB_PROJECT_URL_SSH=git@github.com:docToolchain/docToolchain
 
 # Bump this version up if something is changed in the wrapper script
-DTCW_VERSION=0.50
+DTCW_VERSION=0.51
 # Template replaced by the GitHub value upon releasing dtcw
 DTCW_GIT_HASH=##DTCW_GIT_HASH##
 
@@ -88,15 +88,24 @@ main() {
 
     # No install command, so forward call to docToolchain but first we check if
     # everything is there.
+    docker_image_name=""
     if [[ ${environment} != docker ]]; then
         assert_doctoolchain_installed "${environment}" "${DTC_VERSION}"
         assert_java_version_supported
 
         # TODO: what if 'doctoolchain' found by $PATH does not match the one from the local environment?
         # The version provided by $DTC_VERSION could be a different one.
+    else
+        docker_image_name="doctoolchain/doctoolchain"
+        if [ "${1}" = "image" ]; then
+            docker_image_name="${2-}"
+            shift 2
+            assert_argument_exists "$@"
+        fi
+        echo "Using docker image: ${docker_image_name}"
     fi
 
-    command=$(build_command "${environment}" "${DTC_VERSION}" "$@")
+    command=$(build_command "${environment}" "${DTC_VERSION}" "${docker_image_name}" "$@")
 
     [[ "${DTC_HEADLESS}" = true ]] && echo "Using headless mode since there is no (terminal) interaction possible"
 
@@ -585,7 +594,8 @@ how_to_install_doctoolchain() {
 build_command() {
     local env=${1}
     local version=${2}
-    shift 2
+    local docker_image=${3}
+    shift 3
     local cmd
     if [ "${env}" = docker ]; then
         # TODO: DTC_PROJECT_BRANCH is  not passed into the docker environment
@@ -594,9 +604,10 @@ build_command() {
         local container_name=doctoolchain-${version}
         container_name+="-$(date '+%Y%m%d_%H%M%S')"
         pwd=$(has cygpath && cygpath -w "${PWD}" || echo "${PWD}")
+
         docker_args="run --rm -i --platform linux/amd64 -u $(id -u):$(id -g) --name ${container_name} \
-            -e DTC_HEADLESS=true -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} -p 8042:8042 \
-            --entrypoint /bin/bash -v '${pwd}:/project' doctoolchain/doctoolchain:v${version}"
+            -e DTC_HEADLESS=true -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} \
+            --entrypoint /bin/bash -v '${pwd}:/project' ${docker_image}:v${version}"
 
         cmd="docker ${docker_args} -c \"doctoolchain . ${*} ${DTC_OPTS} && exit\""
     else

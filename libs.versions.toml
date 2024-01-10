@@ -6,9 +6,6 @@ versions = "0.46.0"
 openapi = "6.6.0"
 undercouch-download = "5.4.0"
 jbake = "5.5.0"
-# gretty 4.0.0 does not work with java 8
-# gretty 3.0.8 has another problem -> #920
-gretty = "3.0.6"
 
 # Libs
 asciidoctor-jvm = "4.0.0-alpha.1"
@@ -22,13 +19,13 @@ structurizr-d2-exporter = "1.2.0"
 openai-gpt3 = "0.12.0"
 asciidoctorj-diagram = "2.2.7"
 pebble = "3.2.0"
+http-client = "5.3"
+guava = "33.0.0-jre"
 
 # Test
 spock = "2.3-groovy-3.0"
 spock-reports = "2.3.2-groovy-3.0"
 junit = "5.9.3"
-httpmime = "4.5.14"
-http-builder = "0.7.1"
 byte-buddy = "1.14.4"
 
 [plugins]
@@ -37,7 +34,6 @@ versions = { id = "com.github.ben-manes.versions", version.ref = "versions"}
 openapi-generator = { id = "org.openapi.generator", version.ref = "openapi"}
 undercouch-download = { id = "de.undercouch.download", version.ref = "undercouch-download"}
 jbake-site = { id = "org.jbake.site", version.ref = "jbake"}
-gretty = { id = "org.gretty", version.ref = "gretty"}
 
 [libraries]
 groovy-all = { module = "org.codehaus.groovy:groovy-all", version.ref = "groovy" }
@@ -58,12 +54,11 @@ structurizr-d2-exporter = { module = "io.github.goto1134:structurizr-d2-exporter
 openai-gpt3-service = { module = "com.theokanning.openai-gpt3-java:service", version.ref = "openai-gpt3" }
 asciidoctorj-diagram = { module = "org.asciidoctor:asciidoctorj-diagram", version.ref = "asciidoctorj-diagram" }
 pebble = { module = "io.pebbletemplates:pebble", version.ref = "pebble" }
-
+http-client = { module = "org.apache.httpcomponents.client5:httpclient5", version.ref = "http-client" }
+guava = { module = "com.google.guava:guava", version.ref = "guava" }
 
 # Test
 spock-core = { module = "org.spockframework:spock-core", version.ref = "spock" }
 spock-reports = { module = "com.athaydes:spock-reports", version.ref = "spock-reports" }
 junit = { module = "org.junit.jupiter:junit-jupiter-api", version.ref = "junit" }
-httpmime = { module = "org.apache.httpcomponents:httpmime", version.ref = "httpmime" }
-http-builder = { module = "org.codehaus.groovy.modules.http-builder:http-builder", version.ref = "http-builder" }
 byte-buddy = { module = "net.bytebuddy:byte-buddy", version.ref = "byte-buddy" }

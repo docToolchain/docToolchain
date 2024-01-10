@@ -68,8 +68,6 @@ microsite.with {
     title='Microsite'
     // used in the template for absolute uris
     host='https://localhost'
-    // configure a port on which your preview server will run
-    previewPort = 8042
 
     //project theme
     //site folder relative to the docs folder
@@ -193,6 +191,9 @@ confluence.with {
     // endpoint of the confluenceAPI (REST) to be used
     api = 'https://[yourServer]'
 
+    // requests per second for confluence API calls
+    rateLimit = 10
+
     //    Additionally, spaceKey, subpagesForSections, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
 
     // the key of the confluence space to write to
@@ -297,6 +298,9 @@ jira.with {
     // endpoint of the JiraAPI (REST) to be used
     api = 'https://your-jira-instance'
 
+    // requests per second for Jira API calls
+    rateLimit = 10
+
     /*
     WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!
 
@@ -338,25 +342,18 @@ jira.with {
     User can configure custom fields IDs and name those for column header,
     i.e. customfield_10026:'Story Points' for Jira instance that has custom field with that name and will be saved in a coloumn named "Story Points"
     */
-    requests = [
-        new JiraRequest(
+    exports = [
+        [
             filename:"File1_Done_issues",
             jql:"project='%jiraProject%' AND status='Done' ORDER BY duedate ASC",
             customfields: [customfield_10026:'Story Points']
-        ),
-        new JiraRequest(
+        ],
+        [
             filename:'CurrentSprint',
             jql:"project='%jiraProject%' AND Sprint in openSprints() ORDER BY priority DESC, duedate ASC",
             customfields: [customfield_10026:'Story Points']
-        ),
+        ]
     ]
-}
-
-@groovy.transform.Immutable
-class JiraRequest {
-    String filename  //filename (without extension) of the file in which JQL results will be saved. Extension will be determined automatically for Asciidoc or Excel file
-    String jql // Jira Query Language syntax
-    Map<String,String> customfields // map of customFieldId:displayName values for Jira fields which don't have default names, i.e. customfield_10026:StoryPoints
 }
 //end::jiraConfig[]
 

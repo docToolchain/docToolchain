@@ -7,7 +7,7 @@ include::../_feedback.adoc[]
 
 === About This Task
 
-This task exports all issues for a given query or queries from Jira as either an AsciiDoc table or an Excel file.
+This task exports all issues for a given query or queries from Jira as either an AsciiDoc table, an Excel file or both.
 
 The configuration for this task can be found within `Config.gradle` (`gradle.properties` can be used as a fallback).
 Username/password is deprecated, so you need to use username/API-token instead.
@@ -15,22 +15,79 @@ Username/password is deprecated, so you need to use username/API-token instead.
 An API-token can be created through https://id.atlassian.com/manage/api-tokens[].
 We recommend that you keep username and API-token out of your GitHub repository, and instead pass them as environment variables to docToolchain.
 
+=== Migrate configuration to version >= 3.2.0
+
+Since version 3.2.0, the configuration `requests` is deprecated. Please migrate to and use `exports` instead. The old configuration will be removed in the near future.
+To migrate your configuration, replace the JiraRequest class with a Map. The following example shows how to migrate a configuration with a single JiraRequest to the new configuration:
+
+.Prior to 3.2.0
+[source,groovy]
+----
+jira.requests = [
+   new JiraRequest(
+      filename: 'jiraIssues',
+      jql: 'project = %jiraProject% AND labels = %jiraLabel%',
+      customfields: [
+         'customfield_10026': 'StoryPoints'
+      ]
+   )
+]
+----
+
+will be migrated to:
+
+.From 3.2.0 onwards
+[source,groovy]
+----
+jira.exports = [
+    [
+        filename: 'jiraIssues',
+        jql: 'project = %jiraProject% AND labels = %jiraLabel%',
+        customfields: [
+            'customfield_10026': 'StoryPoints'
+        ]
+    ]
+]
+----
+
 === Configuration
 
-Jira configuration support list requests to Jira where results of each requests will be saved in a file with specifies filename. Flags
-_saveAsciidoc_ & _saveExcel_ allow you to easily configure the format in which results should be saved.
+Jira configuration support list requests to Jira where results of each request will be saved in a file with specifies filename.
+Flags _saveAsciidoc_ & _saveExcel_ allow you to easily configure the format in which results should be saved.
 
-IMPORTANT: The old configuration was based on the *single Jira query is deprecated* (single 'jql' parameter). Support for it will be removed in the near future. Please migrate to the new configuration which allows multiple Jira queries.
+==== Deprecation Notice
+
+* The old configuration was based on the *single Jira query is deprecated* (single 'jql' parameter). Support for it will be removed in the near future. Please migrate to the new configuration which allows multiple Jira queries.
+* Since version 3.2.0, the configuration `requests` is deprecated. Please migrate to and use `exports` instead. The old configuration will be removed in the near future.
+
+==== Configuration Options
+
+**exports** (since 3.2.0), List of Maps that contains the following keys:
+
+* `filename`: The filename of the exported file. The file extension will be added automatically.
+* `jql`: The Jira query to be executed. Can have placeholders that are interpolated. Allowed placeholders are: `%jiraProject%` (interpolated with `jira.project`), `%jiraLabel%` (interpolated with `jira.label`)
+* `customfields`: A Map of custom fields to be included in the export. Key is the technical name of the custom field in Jira, value is the name of the column in the export.
+
+**rateLimit** (since 3.2.0), The rate limit for Jira requests. Default is 10 requests per second.
+
+**requests** (_**deprecated**_ since 3.2.0, please use `exports` instead),
+List of JiraRequest that has the following properties:
+[source,groovy]
+----
+class JiraRequest {
+String filename  //filename (without extension) of the file in which JQL results will be saved. Extension will be determined automatically for Asciidoc or Excel file
+String jql // Jira Query Language syntax
+Map<String,String> customfields // map of customFieldId:displayName values for Jira fields which don't have default names, i.e. customfield_10026:StoryPoints
+}
+----
+
+Full configuration options:
 
 .Config.groovy
 [source,groovy]
 ----
 include::{projectRootDir}/Config.groovy[tags=jiraConfig]
 ----
-
-=== Further Reading and Resources
-
-Read the https://rdmueller.github.io/Jira/[Living Documents for Agile Projects] blog post.
 
 === Source
 

@@ -9,7 +9,7 @@ include::../_feedback.adoc[]
 === About This Task
 
 When you have only one document, the output of `generateHTML` might meet your requirements.
-But as your documentation grows, and you have multiple documents, you will need a microsite which bundles all of the information.
+But as your documentation grows, and you have multiple documents, you will need a microsite which bundles all the information.
 The `generateSite` task uses https://jbake.org[jBake] to create a static site with a landing page, a blog and search.
 
 === Pages
@@ -104,7 +104,7 @@ The navigation is organized with following elements:
 * A top level menu.
 * For each item of this top level menu, a section sidebar on the left.
 
-The location of a page in the top-level menu and in the section sidebar depends from:
+The location of a page in the top-level menu and in the section sidebar depends on:
 
 * Its location in the folder structure
 * Page attributes
@@ -133,7 +133,7 @@ The top level folders (`10_foo` and `20_bar`) are used to determine to which men
 
 In the section sidebar, the navigation tree is determined by the folder structure.
 Folders are nodes in the sidebar tree.
-Each node can contains pages (leafs) or other folders (child nodes).
+Each node can contain pages (leafs) or other folders (child nodes).
 The order is controlled by the prefix of the file or folder name (unless overridden by the `:jbake-order:` inside each page).
 
 When an index page is present (like `20_bar/30_delis/index.adoc` in the example) then the navigation tree node corresponds to this index page (you can click on it and the title is taken from the page).
@@ -144,7 +144,7 @@ You can still define the order with the name (for the example `20` because the f
 
 When there is no sub-folder, only a flat list of pages is created.
 
-NOTE: When an `index.adoc` page is defined inside the top level folder (like: `10_foo/index.adoc` or `20_bar/index.adoc`) then the page will listed in the section navigation tree in the sidebar as any other regular page. By default it will be the first element of the tree, unless the value is overridden by a `:jbake-order:` attribute.
+NOTE: When an `index.adoc` page is defined inside the top level folder (like: `10_foo/index.adoc` or `20_bar/index.adoc`) then the page will be listed in the section navigation tree in the sidebar as any other regular page. By default, it will be the first element of the tree, unless the value is overridden by a `:jbake-order:` attribute.
 
 [[top-menu-config]]
 ===== Configuring the top level menu

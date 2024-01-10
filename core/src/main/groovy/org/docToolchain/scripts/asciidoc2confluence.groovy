@@ -1,4 +1,7 @@
 package org.docToolchain.scripts
+
+import org.docToolchain.atlassian.transformer.HtmlTransformer
+
 /**
  * Created by Ralf D. Mueller and Alexander Heusingfeld
  * https://github.com/rdmueller/asciidoc2confluence
@@ -41,10 +44,10 @@ import java.nio.file.Path
 import java.security.MessageDigest
 import static groovy.io.FileType.FILES
 
-import org.docToolchain.atlassian.clients.ConfluenceClientV1
-import org.docToolchain.atlassian.clients.ConfluenceClientV2
+import org.docToolchain.atlassian.confluence.clients.ConfluenceClientV1
+import org.docToolchain.atlassian.confluence.clients.ConfluenceClientV2
 import org.docToolchain.configuration.ConfigService
-import org.docToolchain.atlassian.ConfluenceService
+import org.docToolchain.atlassian.confluence.ConfluenceService
 
 @Field
 ConfigService configService = new ConfigService(config)
@@ -137,7 +140,7 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
         localHash = MD5(new File(url).newDataInputStream().text)
     }
 
-    def attachment = confluenceClient.getAttachment(pageId, fileName).data
+    def attachment = confluenceClient.getAttachment(pageId, fileName)
     if (attachment.size()>0 && attachment.results.size()>0) {
         // attachment exists. need an update?
         if (confluenceClient.attachmentHasChanged(attachment, localHash)) {
@@ -293,84 +296,6 @@ def rewriteJiraLinks = { body ->
     }
 }
 
-
-def rewriteCodeblocks(Elements body, String cdataStart, String cdataEnd) {
-    Set<String> languages = [
-        'actionscript3',
-        'applescript',
-        'bash',
-        'c#',
-        'cpp',
-        'css',
-        'coldfusion',
-        'delphi',
-        'diff',
-        'erl',
-        'groovy',
-        'xml',
-        'java',
-        'jfx',
-        'js',
-        'php',
-        'perl',
-        'text',
-        'powershell',
-        'py',
-        'ruby',
-        'sql',
-        'sass',
-        'scala',
-        'vb',
-        'yml'
-    ]
-    def languageMapping = [
-        'json':'yml', // acceptable workaround
-        'shell':'bash',
-        'yaml':'yml'
-    ]
-    body.select('pre > code').each { code ->
-        def language = code.attr('data-lang')
-        if (language) {
-            if (languageMapping.containsKey(language)) {
-                // fix some known languages using a mapping
-                language = languageMapping[language]
-            }
-            if (!(language in languages)) {
-                // fall back to plain text to avoid error messages when rendering
-                language = 'text'
-            }
-            // #1265 - pacoVK: fix for nested CDATA sections in XML code blocks
-            if (language.equals("xml")){
-                String xmlDocument = code.wholeOwnText()
-                if (xmlDocument.contains("<![CDATA[") && xmlDocument.contains("]]>")){
-                    xmlDocument = xmlDocument.replaceAll("]]>", "]]]]><![CDATA[>")
-                    code.text(xmlDocument)
-                }
-            }
-        } else {
-            // Confluence default is Java, so prefer explicit plain text
-            language = 'text'
-        }
-
-        code.select('span[class]').each { span ->
-            span.unwrap()
-        }
-        code.select('i[class]').each { i ->
-            i.unwrap()
-        }
-        code.select('b').each { b ->
-            b.before(" // ")
-            b.unwrap()
-        }
-        code.before("<ac:parameter ac:name=\"language\">${language}</ac:parameter>")
-        code.parent() // pre now
-            .wrap('<ac:structured-macro ac:name="code"></ac:structured-macro>')
-            .unwrap()
-        code.wrap("<ac:plain-text-body>${cdataStart}${cdataEnd}</ac:plain-text-body>")
-            .unwrap()
-    }
-}
-
 def rewriteOpenAPI (org.jsoup.nodes.Element body) {
     if (config.confluence.useOpenapiMacro == true || config.confluence.useOpenapiMacro == 'confluence-open-api') {
         body.select('div.openapi  pre > code').each { code ->
@@ -427,26 +352,14 @@ def rewriteOpenAPI (org.jsoup.nodes.Element body) {
     }
 }
 
-def unescapeCDATASections(html){
-    def start = html.indexOf(CDATA_PLACEHOLDER_START)
-    while (start > -1) {
-        def end = html.indexOf(CDATA_PLACEHOLDER_END, start)
-        if (end > -1) {
-            def prefix = html.substring(0, start) + CDATA_PLACEHOLDER_START
-            def suffix = html.substring(end)
-            def unescaped = html.substring(start + CDATA_PLACEHOLDER_START.length(), end)
-                    .replaceAll('&lt;', '<').replaceAll('&gt;', '>')
-                    .replaceAll('&amp;', '&')
-            html = prefix + unescaped + suffix
-        }
-        start = html.indexOf(CDATA_PLACEHOLDER_START, start + 1)
-    }
-    return html
-}
-
 def getEmbeddedImageData(src){
     def imageData = src.split("[;:,]")
     def fileExtension = imageData[1].split("/")[1]
+    // treat svg+xml as svg to be able to create a file from the embedded image
+    // more MIME types: https://www.iana.org/assignments/media-types/media-types.xhtml#image
+    if(fileExtension == "svg+xml"){
+        fileExtension = "svg"
+    }
     return Map.of(
         "fileExtension", fileExtension,
         "encoding", imageData[2],
@@ -596,19 +509,15 @@ def parseBody(body, anchors, pageAnchors) {
     rewriteMarks body
     rewriteDescriptionLists body
     rewriteInternalLinks body, anchors, pageAnchors
-    //sanitize code inside code tags
-    rewriteCodeblocks body instanceof Element ? new Elements(body) : body, CDATA_PLACEHOLDER_START, CDATA_PLACEHOLDER_END
-    def pageString = unescapeCDATASections body.html().trim()
-
-    //change some html elements through simple substitutions
-    pageString = pageString
-            .replaceAll('<br>','<br />')
-            .replaceAll('</br>','<br />')
-            .replaceAll('<a([^>]*)></a>','')
-            .replaceAll(CDATA_PLACEHOLDER_START,'<![CDATA[')
-            .replaceAll(CDATA_PLACEHOLDER_END,']]>')
-            // workaround for #402
-            .replaceAll('(?m)(ac:name="language">)([\n\r\t ]*)([a-z]+)([\n\r\t ]*)(</ac)','$1$3$5')
+    //not really sure if must check here the type
+    String bodyString = body
+    if(body instanceof Element){
+        bodyString = body.html()
+    }
+    Element saneHtml = new Document("")
+        .outputSettings(new Document.OutputSettings().syntax(Document.OutputSettings.Syntax.xml).prettyPrint(false))
+        .html(bodyString)
+    def pageString = new HtmlTransformer().transformToConfluenceFormat(saneHtml)
 
     return Map.of(
         "page", pageString,
@@ -732,16 +641,16 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
                 config.confluence.pageVersionComment ?: '',
                 parentId
         )
-        println "> created page "+page?.data?.id
+        println "> created page "+page?.id
         deferredUpload.each {
-            uploadAttachment(page?.data?.id, it[1], it[2], it[3])
+            uploadAttachment(page?.id, it[1], it[2], it[3])
         }
         deferredUpload = []
         // #324-dierk42: Add keywords as labels to page.
         if (keywords) {
-            addLabels(page?.data?.id, keywords)
+            addLabels(page?.id, keywords)
         }
-        return page?.data?.id
+        return page?.id
     }
 }
 

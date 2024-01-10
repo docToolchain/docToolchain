@@ -12,9 +12,10 @@ group = "org.docToolchain"
 
 dependencies {
     compileOnly((libs.groovy.all))
-    implementation((libs.http.builder))
-    implementation((libs.httpmime))
+    implementation((libs.http.client))
     implementation((libs.jsoup))
+    implementation((libs.poi.ooxml))
+    implementation((libs.guava))
 
     testImplementation(libs.spock.reports) {
         exclude group: 'org.codehaus.groovy', module: 'groovy-xml'

@@ -41,7 +41,7 @@ exportEA starts opening the database parameter 'connection' first then looks for
 further project files either in the searchPath (if set) or in the docDir folder of the project.
 
 ==== glossaryAsciiDocFormat
-Whether or not the EA project glossary is exported depends on this parameter.
+Whether the EA project glossary is exported depends on this parameter.
 If not set or an empty string, no glossary is exported.
 The glossaryAsciiDocFormat string is used to format each glossary entry in a
 certain AsciiDoc format.
@@ -87,7 +87,7 @@ The resulting text is stored next to the diagram image using the same path and f
 If diagramAttributes is not set or an empty string, no file is written.
 
 ==== additionalOptions
-This parameter is used to define the specific behavior of the export. Currently these options are supported:
+This parameter is used to define the specific behavior of the export. Currently, these options are supported:
 
 `KeepFirstDiagram`
 

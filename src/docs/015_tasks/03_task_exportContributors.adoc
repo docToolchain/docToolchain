@@ -45,7 +45,7 @@ For this to work, the contributors email address is hashed and an icon link is g
 
 This result at least in an icon which has a distinct color.
 
-Contributors can setup their own image through https://gravatar.com[Gravatar.com].
+Contributors can set up their own image through https://gravatar.com[Gravatar.com].
 For this to work, the git commits need to use an email address which can be verified by Gravatar.com.
 Unfortunately, this is not the case if a contributor decided to make his email address private in the email sections of her github account.
 

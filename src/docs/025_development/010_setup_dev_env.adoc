@@ -5,7 +5,7 @@ include::../_feedback.adoc[]
 
 === Before You Begin
 
-When you install docToolchain, all of the code is hidden. The information on this page explains how to get access to the code so you can customise the setup in your dev environment.
+When you install docToolchain, all the code is hidden. The information on this page explains how to get access to the code, so you can customise the setup in your dev environment.
 
 === Do a Local Install for Docker and SDKMAN!
 
@@ -36,7 +36,7 @@ When docToolchain builds a static website, it first copies an internal theme to 
 
 1. Run the `copyThemes` task to copy the internal and external themes to the `microsite.siteFolder`.
 2. Check the files (take a look at https://jbake.org/[jbake.org] to get a better understanding).
-3. Modify the relevant files and delete all of the other files.
+3. Modify the relevant files and delete all the other files.
 
 ==== How to Modify an Existing Theme or Create a Theme from Scratch
 
@@ -59,4 +59,4 @@ title = '##site-title##'
 
 * The first line is the message that will be shown to the user (can be over several lines).
 * The second line (starting with `Example`:) is the default value for the prompt.
-* The third line is the config item itself. If the value is surrounded by `##`, the user will be prompted for this value and it will be replaced with the user’s input. Otherwise the config item will be added without a prompt to the user’s current `docToochainConfig.groovy`.
+* The third line is the config item itself. If the value is surrounded by `##`, the user will be prompted for this value and it will be replaced with the user’s input. Otherwise, the config item will be added without a prompt to the user’s current `docToochainConfig.groovy`.
