@@ -187,6 +187,19 @@ class ConfluenceClientV2 extends ConfluenceClient {
             "id"      : pageId,
             "status"  : "current",
             "title"   : title,
+            "metadata": [
+                "properties": [
+                    "editor": [
+                        "value": editorVersion
+                    ],
+                    "content-appearance-draft": [
+                        value: "full-width"
+                    ],
+                    "content-appearance-published": [
+                        value: "full-width"
+                    ]
+                ]
+            ],
             "spaceId"   : spaceId,
             "parentId": parentId ?: "",
             "body"    : [
@@ -208,6 +221,19 @@ class ConfluenceClientV2 extends ConfluenceClient {
     def createPage(String title, String confluenceSpaceKey, Object localPage, String pageVersionComment, String parentId) {
         def requestBody = [
             "title"   : title,
+            "metadata": [
+                "properties": [
+                    "editor": [
+                        "value": editorVersion
+                    ],
+                    "content-appearance-draft": [
+                        value: "full-width"
+                    ],
+                    "content-appearance-published": [
+                        value: "full-width"
+                    ]
+                ]
+            ],
             "status"  : "current",
             "spaceId"   : spaceId,
             "parentId": parentId ?: "",
