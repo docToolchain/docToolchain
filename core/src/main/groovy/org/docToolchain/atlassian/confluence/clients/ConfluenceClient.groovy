@@ -6,6 +6,7 @@ import org.apache.hc.client5.http.entity.mime.InputStreamBody
 import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder
 import org.apache.hc.client5.http.entity.mime.StringBody
 import org.apache.hc.core5.http.ClassicHttpRequest
+import org.apache.hc.core5.http.ContentType
 import org.apache.hc.core5.http.HttpEntity
 import org.apache.hc.core5.net.URIBuilder
 import org.docToolchain.configuration.ConfigService
@@ -93,6 +94,8 @@ abstract class ConfluenceClient {
     abstract fetchPagesByAncestorId(List<String> pageIds, Integer pageLimit)
 
     abstract fetchPageByPageId(String id)
+
+    abstract deletePage(String id)
 
     abstract updatePage(String pageId, String title, String confluenceSpaceKey, Object localPage, Integer pageVersion, String pageVersionComment, String parentId)
 
