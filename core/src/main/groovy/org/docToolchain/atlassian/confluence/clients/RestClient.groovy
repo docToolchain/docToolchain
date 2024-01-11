@@ -51,7 +51,7 @@ class RestClient extends BasicRestClient {
                 EntityUtils.consume(entity)
                 println("Got status code ${response.getCode()}")
                 return null
-            } else if (response.getCode() <= HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+            } else if (response.getCode() >= HttpStatus.SC_INTERNAL_SERVER_ERROR) {
                 EntityUtils.consume(entity)
                 throw new RequestFailedException(response, null)
             }
