@@ -36,8 +36,31 @@ class RestClient extends BasicRestClient {
     }
 
     def doRequestAndFailIfNot20x(ClassicHttpRequest httpRequest){
+        return doRequest(httpRequest, (ClassicHttpResponse response, HttpEntity entity) -> {
+            if (response.getCode() < HttpStatus.SC_OK || response.getCode() > HttpStatus.SC_PARTIAL_CONTENT) {
+                EntityUtils.consume(entity)
+                println(response.getHeaders())
+                throw new RequestFailedException(response, null)
+            }
+        })
+    }
+
+    def doRequestAndReturnOrNull(ClassicHttpRequest httpRequest){
+        return doRequest(httpRequest, (ClassicHttpResponse response, HttpEntity entity) -> {
+            if (response.getCode() < HttpStatus.SC_OK || response.getCode() > HttpStatus.SC_PARTIAL_CONTENT) {
+                EntityUtils.consume(entity)
+                println("Got status code ${response.getCode()}")
+                return null
+            } else if (response.getCode() <= HttpStatus.SC_INTERNAL_SERVER_ERROR) {
+                EntityUtils.consume(entity)
+                throw new RequestFailedException(response, null)
+            }
+        })
+    }
+
+    private doRequest(ClassicHttpRequest httpRequest, Closure callback){
         rateLimiter.acquire()
-        return doRequestAndFailIfNot20x(targetHost, httpRequest, new RestClientResponseHandler())
+        return doRequest(targetHost, httpRequest, new RestClientResponseHandler(callback))
             .map(response -> new JsonSlurper().parseText(response))
             .orElse(null)
     }
@@ -96,22 +119,24 @@ class RestClient extends BasicRestClient {
     @Contract(threading = ThreadingBehavior.STATELESS)
     private class RestClientResponseHandler implements HttpClientResponseHandler<String> {
 
+        Closure callback
+
+        RestClientResponseHandler(Closure callback) {
+            this.callback = callback
+        }
+
         @Override
         String handleResponse(ClassicHttpResponse response) throws HttpException, IOException {
-            final HttpEntity entity = response.getEntity();
-            if (response.getCode() < HttpStatus.SC_OK || response.getCode() > HttpStatus.SC_PARTIAL_CONTENT) {
-                EntityUtils.consume(entity)
-                println(response.getHeaders())
-                throw new RequestFailedException(response, null)
-            }
-            return entity == null ? null : handleEntity(entity);
+            final HttpEntity entity = response.getEntity()
+            callback(response, entity)
+            return entity == null ? null : handleEntity(entity)
         }
 
         private String handleEntity(final HttpEntity entity) throws IOException {
             try {
-                return EntityUtils.toString(entity);
+                return EntityUtils.toString(entity)
             } catch (final ParseException ex) {
-                throw new ClientProtocolException(ex);
+                throw new ClientProtocolException(ex)
             }
         }
     }

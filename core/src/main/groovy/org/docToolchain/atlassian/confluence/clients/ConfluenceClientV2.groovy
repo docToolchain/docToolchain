@@ -54,7 +54,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
             .addParameter('filename', fileName as String)
             .build()
         HttpRequest get = new HttpGet(uri)
-        return callApiAndFailIfNot20x(get)
+        return callApiAndReturnOrNull(get)
     }
 
     @Override
@@ -159,7 +159,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
             .addParameter('body-format', 'storage')
             .build()
         HttpRequest get = new HttpGet(uri)
-        return callApiAndFailIfNot20x(get)
+        return callApiAndReturnOrNull(get)
     }
 
     @Override
@@ -177,7 +177,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
             .addParameter('status', "current")
             .build()
         HttpRequest get = new HttpGet(uri)
-        return callApiAndFailIfNot20x(get).results?.getAt(0)?.id
+        return callApiAndReturnOrNull(get)
     }
 
     // confluenceSpaceKey is not used in the V2 API

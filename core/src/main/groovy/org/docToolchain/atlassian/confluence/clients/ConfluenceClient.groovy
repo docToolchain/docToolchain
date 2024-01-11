@@ -89,6 +89,10 @@ abstract class ConfluenceClient {
         return restClient.doRequestAndFailIfNot20x(httpRequest)
     }
 
+    protected callApiAndReturnOrNull(ClassicHttpRequest httpRequest) {
+        return restClient.doRequestAndReturnOrNull(httpRequest)
+    }
+
     abstract fetchPagesBySpaceKey(String spaceKey, Integer pageLimit)
 
     abstract fetchPagesByAncestorId(List<String> pageIds, Integer pageLimit)
