@@ -223,7 +223,7 @@ confluence.with {
     - passed parameters when calling script (-PconfluenceUser=myUsername -PconfluencePass=myPassword) which can be fetched as a secrets on CI/CD or
     - gradle variables set through gradle properties (uses the 'confluenceUser' and 'confluencePass' keys)
     Often, same credentials are used for Jira & Confluence, in which case it is recommended to pass CLI parameters for both entities as
-    - Pusername=myUser -Ppassword=myPassword
+    -Pusername=myUser -Ppassword=myPassword
     - in case using bearer authentication set token value to the bearerToken
     */
 
