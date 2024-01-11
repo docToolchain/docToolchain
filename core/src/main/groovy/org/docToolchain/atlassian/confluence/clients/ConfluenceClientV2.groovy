@@ -54,7 +54,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
             .addParameter('filename', fileName as String)
             .build()
         HttpRequest get = new HttpGet(uri)
-        return callApiAndFailIfNot20x(get)
+        return callApiAndReturnOrNull(get)
     }
 
     @Override
@@ -159,7 +159,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
             .addParameter('body-format', 'storage')
             .build()
         HttpRequest get = new HttpGet(uri)
-        return callApiAndFailIfNot20x(get)
+        return callApiAndReturnOrNull(get)
     }
 
     @Override
@@ -177,7 +177,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
             .addParameter('status', "current")
             .build()
         HttpRequest get = new HttpGet(uri)
-        return callApiAndFailIfNot20x(get).results?.getAt(0)?.id
+        return callApiAndReturnOrNull(get)
     }
 
     // confluenceSpaceKey is not used in the V2 API
@@ -187,6 +187,19 @@ class ConfluenceClientV2 extends ConfluenceClient {
             "id"      : pageId,
             "status"  : "current",
             "title"   : title,
+            "metadata": [
+                "properties": [
+                    "editor": [
+                        "value": editorVersion
+                    ],
+                    "content-appearance-draft": [
+                        value: "full-width"
+                    ],
+                    "content-appearance-published": [
+                        value: "full-width"
+                    ]
+                ]
+            ],
             "spaceId"   : spaceId,
             "parentId": parentId ?: "",
             "body"    : [
@@ -208,6 +221,19 @@ class ConfluenceClientV2 extends ConfluenceClient {
     def createPage(String title, String confluenceSpaceKey, Object localPage, String pageVersionComment, String parentId) {
         def requestBody = [
             "title"   : title,
+            "metadata": [
+                "properties": [
+                    "editor": [
+                        "value": editorVersion
+                    ],
+                    "content-appearance-draft": [
+                        value: "full-width"
+                    ],
+                    "content-appearance-published": [
+                        value: "full-width"
+                    ]
+                ]
+            ],
             "status"  : "current",
             "spaceId"   : spaceId,
             "parentId": parentId ?: "",

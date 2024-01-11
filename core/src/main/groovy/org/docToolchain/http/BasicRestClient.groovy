@@ -14,7 +14,7 @@ abstract class BasicRestClient {
         this.httpClientBuilder = HttpClientBuilder.create()
     }
 
-    def doRequestAndFailIfNot20x(HttpHost targetHost, ClassicHttpRequest httpRequest, HttpClientResponseHandler<String> responseHandler) {
+    def doRequest(HttpHost targetHost, ClassicHttpRequest httpRequest, HttpClientResponseHandler<String> responseHandler) {
         try (CloseableHttpClient httpClient = httpClientBuilder.build()) {
             return Optional.ofNullable(httpClient.execute(targetHost, httpRequest, responseHandler))
         } catch (IOException e) {

@@ -42,7 +42,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
             .addParameter('filename', fileName as String)
             .build()
         HttpRequest get = new HttpGet(uri)
-        return callApiAndFailIfNot20x(get)
+        return callApiAndReturnOrNull(get)
     }
 
     @Override
@@ -159,7 +159,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
             .addParameters(query)
             .build()
         HttpRequest get = new HttpGet(uri)
-        return callApiAndFailIfNot20x(get)
+        return callApiAndReturnOrNull(get)
     }
 
     @Override
@@ -180,8 +180,7 @@ class ConfluenceClientV1 extends ConfluenceClient {
             .addParameters(query)
             .build()
         HttpRequest get = new HttpGet(uri)
-        def results = callApiAndFailIfNot20x(get)
-        return results?.results.get(0)?.id
+        return callApiAndReturnOrNull(get)
     }
 
     @Override

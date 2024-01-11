@@ -23,7 +23,7 @@ abstract class ConfluenceClientSpec extends Specification {
             confluenceClient.restClient.proxyHost == null
             confluenceClient.API_V1_PATH == "/wiki/rest/api"
             confluenceClient.API_V2_PATH == "/wiki/api/v2"
-            headers.size() == 3
+            headers.size() == 2
             headers.any { it.getName() == "X-Atlassian-Token" }
             headers.any { it.getName() == "Authorization" }
     }
@@ -44,7 +44,7 @@ abstract class ConfluenceClientSpec extends Specification {
             confluenceClient.restClient.targetHost.toURI() == "https://confluence.atlassian.com"
             confluenceClient.API_V1_PATH == "/wiki/rest/api"
             confluenceClient.API_V2_PATH == "/wiki/api/v2"
-            headers.size() == 4
+            headers.size() == 3
             headers.any { it.getName() == "X-Atlassian-Token" }
             headers.any { it.getName() == "Authorization" }
             headers.any { it.getValue() == "Basic user:password" }
@@ -83,7 +83,7 @@ abstract class ConfluenceClientSpec extends Specification {
             def headers = confluenceClient.restClient.headers
         then: "the client is created with bearer token configure and basic auth is ignored"
             confluenceClient != null
-            headers.size() == 3
+            headers.size() == 2
             headers.any { it.getValue() == "Bearer tokenXYZ" }
             headers.any { it.getValue() != "Basic user:password" }
     }
@@ -114,6 +114,20 @@ abstract class ConfluenceClientSpec extends Specification {
             ConfigService configService = new ConfigService(config)
             ConfluenceClient confluenceClient = getConfluenceClient(configService)
         then: "the client is created and configured with old editor"
+            confluenceClient != null
+            confluenceClient.editorVersion == "v1"
+    }
+
+    def "test ConfluenceClient that uses the old editor per default"() {
+        when: "i create a ConfluenceClient"
+            ConfigObject config = new ConfigObject()
+            config.confluence = [
+                api: "https://confluence.atlassian.com",
+                credentials: "user:password"
+            ]
+            ConfigService configService = new ConfigService(config)
+            ConfluenceClient confluenceClient = getConfluenceClient(configService)
+        then: "the client is created and configured with old editor as default"
             confluenceClient != null
             confluenceClient.editorVersion == "v1"
     }

@@ -141,7 +141,7 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
     }
 
     def attachment = confluenceClient.getAttachment(pageId, fileName)
-    if (attachment.size()>0 && attachment.results.size()>0) {
+    if (attachment?.results) {
         // attachment exists. need an update?
         if (confluenceClient.attachmentHasChanged(attachment, localHash)) {
             //hash is different -> attachment needs to be updated
@@ -692,7 +692,8 @@ def promoteHeaders(tree, start, offset) {
 }
 
 def retrievePageIdByName = { String name ->
-    confluenceClient.retrievePageIdByName(name, confluenceSpaceKey)
+    def data = confluenceClient.retrievePageIdByName(name, confluenceSpaceKey)
+    return data?.results?.get(0)?.id
 }
 
 def getPagesRecursive(Element element, String parentId, Map anchors, Map pageAnchors, int level, int maxLevel) {
