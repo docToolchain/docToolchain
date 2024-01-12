@@ -16,7 +16,7 @@ abstract class BasicRestClient {
     BasicRestClient() {
         this.httpClientBuilder = HttpClientBuilder.create()
         httpClientBuilder.addRequestInterceptorFirst { request, entityDetails, context ->
-            request.setHeader('User-Agent', "docToolchain_v${getClass().getPackage().getImplementationVersion()}")
+            request.setHeader(HttpHeaders.USER_AGENT, "docToolchain_v${getClass().getPackage().getImplementationVersion()}")
             Header hostHeader = request.getHeader(HttpHeaders.HOST)
             if (hostHeader == null) {
                 String host = new URIBuilder(request.getUri().toString()).getHost()
