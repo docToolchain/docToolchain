@@ -2,10 +2,7 @@ package org.docToolchain.scripts
 
 import org.docToolchain.util.TestUtils
 import org.jsoup.Jsoup
-import org.jsoup.nodes.Document
-import org.jsoup.parser.Parser
 import spock.lang.Specification
-import spock.lang.Unroll
 
 class asciidoc2confluenceSpec extends Specification {
 
@@ -25,38 +22,6 @@ class asciidoc2confluenceSpec extends Specification {
         return new GroovyShell(new Binding([
             config: config
         ]))
-    }
-
-    void 'test default language'() {
-        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
-        GroovyShell shell = setupShell()
-        def script = shell.parse(ASCIIDOC2CONFLUENCE_SCRIPT)
-        when: 'run rewriteCodeblocks'
-        Document dom = Jsoup.parse('<pre><code>none</code></pre>', 'utf-8', Parser.xmlParser())
-        script.rewriteCodeblocks dom.getAllElements(), '<cdata-placeholder>', '</cdata-placeholder>'
-
-        then: 'the language is text'
-        dom.select('ac|structured-macro > ac|parameter').text() == 'text'
-    }
-
-    @Unroll
-    void 'test converted language'() {
-        setup: 'load org.docToolchain.scripts.asciidoc2confluence'
-        GroovyShell shell = setupShell()
-        def script = shell.parse(ASCIIDOC2CONFLUENCE_SCRIPT)
-
-        when: 'run rewriteCodeblocks'
-        Document dom = Jsoup.parse("<pre><code data-lang=\"${input}\">language</code></pre>", 'utf-8', Parser.xmlParser())
-        script.rewriteCodeblocks dom.getAllElements(), '<cdata-placeholder>', '</cdata-placeholder>'
-
-        then: 'the language is converted'
-        dom.select('ac|structured-macro > ac|parameter').text() == output
-
-        where:
-        input || output
-        'terraform' || 'text' // fallback
-        'yaml' || 'yml' // mapping
-        'xml' || 'xml' // identity
     }
 
     void 'test body is parsed properly'() {

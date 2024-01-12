@@ -57,6 +57,7 @@ unit_tests () {
   echo "#        Unit testing                      #"
   echo "#                                          #"
   echo "############################################"
+  ./gradlew core:test --info
   ./gradlew test --info
 }
 

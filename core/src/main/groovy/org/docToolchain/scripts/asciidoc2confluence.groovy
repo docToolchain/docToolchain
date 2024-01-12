@@ -835,9 +835,9 @@ config.confluence.input.each { input ->
         def (pages, anchors, pageAnchors) = getPages(dom, parentId, confluenceSubpagesForSections)
         pushPages pages, anchors, pageAnchors, keywords
         if (parentId) {
-            println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}/pages/${parentId}"
+            println "published to ${config.confluence.api - "rest/api/"}/spaces/${confluenceSpaceKey}/pages/${parentId}"
         } else {
-            println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}"
+            println "published to ${config.confluence.api - "rest/api/"}/spaces/${confluenceSpaceKey}"
         }
     }
 }
