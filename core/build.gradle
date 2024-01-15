@@ -8,6 +8,20 @@ repositories {
     mavenCentral()
 }
 
+// Workaround to keep project.version in sync with gradle.properties but the modules isolated as hell
+def props = new Properties()
+file("../gradle.properties").withInputStream { props.load(it) }
+def dtc_version = props.getProperty('dtc_version')
+// end of workaround
+
+jar {
+    manifest {
+        attributes(
+            'Implementation-Version': dtc_version
+        )
+    }
+}
+
 group = "org.docToolchain"
 
 dependencies {

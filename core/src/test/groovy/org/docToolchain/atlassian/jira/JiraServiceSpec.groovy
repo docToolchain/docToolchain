@@ -47,6 +47,10 @@ class JiraServiceSpec extends Specification {
         return config
     }
 
+    def setupSpec() {
+        TimeZone.setDefault(TimeZone.getTimeZone("UTC"))
+    }
+
     def "test exportJiraSprintChangelog"() {
         setup: "a JiraService instance in a clean environment"
             new File("${TARGET_DIR}/${RESULT_DIR_CHANGELOG}").deleteDir()
