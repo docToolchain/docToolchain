@@ -1,12 +1,11 @@
 :filename: 015_tasks/03_task_wipeConfluenceSpace.adoc
 include::_config.adoc[]
 
-[[task_previewsite]]
-= wipeConfluenceSpace
+== wipeConfluenceSpace
 
 include::../_feedback.adoc[]
 
-== About This Task
+=== About This Task
 
 [WARNING]
 ====
@@ -16,7 +15,7 @@ This task is destructive and can harm your environment
 This task will wipe all content from your Confluence space, configured in your `docToolchainConfig.groovy`.
 It will not delete the space itself. The task makes it easy if you want to start from scratch with your documentation, or if you want to re-import your documentation from scratch after you did refactor your document structure and want to get rid of all the old pages.
 
-== Usage
+=== Usage
 
 [source,bash]
 ----
@@ -35,10 +34,9 @@ Daemon will be stopped at the end of the build
 [ant:input] Do you really want to delete all pages in myDemoSpace (y, n)
 ----
 
-== Source
+=== Source
 
-.publishToConfluence.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/publishToConfluence.gradle[tags=wipeConfluenceSpace]
-----
+:param_source_file: scripts/publishToConfluence.gradle
+:param_source_language: groovy
+:param_source_tags: wipeConfluenceSpace
+include::_viewTaskSource.adoc[]
