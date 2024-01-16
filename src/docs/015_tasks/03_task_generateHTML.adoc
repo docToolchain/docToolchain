@@ -1,21 +1,21 @@
 :filename: 015_tasks/03_task_generateHTML.adoc
 include::_config.adoc[]
 
-= generateHTML
+== generateHTML
 
 include::../_feedback.adoc[]
 
-== About This Task
+=== About This Task
 
 This is the standard Asciidoctor generator which is supported out of the box.
 The result is written to `build/html5` (the HTML files need the images folder to be in the same directory to display correctly).
 
-== Generating Single-File HTML Output
+=== Generating Single-File HTML Output
 
 If you would like the generator to produce a single-file HTML, you can configure Asciidoctor to store the images inline as `data-uri` by setting `:data-uri:` in the config of your AsciiDoc file.
 But be warned. The file can quickly become very large and some browsers might struggle to render it.
 
-== Creating Text-Based Diagrams
+=== Creating Text-Based Diagrams
 
 docToolchain is configured to use the https://asciidoctor.org/docs/asciidoctor-diagram/[asciidoctor-diagram] plugin to create PlantUML diagrams.
 The plugin also supports many other text-based diagrams, but http://plantuml.com/[PlantUML] is the most common.
@@ -60,7 +60,7 @@ DiagramBlock <|-- DitaaBlock
 DiagramBlock <|-- PlantUmlBlock
 ----
 
-== Controlling Diagram Size
+=== Controlling Diagram Size
 
 If you want to control the size of the diagram in the output, configure the "width" attribute (in pixels) or the "scale" attribute (floating point ratio) passed to https://asciidoctor.org/docs/asciidoctor-diagram/[asciidoctor-diagram].
 The following example updates the diagram above by changing the declaration to one of the versions below:
@@ -107,19 +107,18 @@ NOTE: To work correctly, PlantUML needs Graphviz dot installed.
 If you can't install it, use the Java-based version of the dot library instead.
 Just add `!pragma layout smetana` as the first line of your diagram definition.
 
+=== Further Reading and Resources
 
-== Further Reading and Resources
 * https://rdmueller.github.io/single-file-html/[This blog post] explains more about single-file HTML.
 * Read https://rdmueller.github.io/plantuml-without-graphviz/[this blog post] to understand how to use PlantUML without Graphviz dot.
 * Other helpful posts related to the `generateHTML` task:
     - https://rdmueller.github.io/plantuml-gradle/[PlantUML with Gradle]
     - https://rdmueller.github.io/plantUML-and-pdf/[PlantUML with Asciidoctor-pdf]
-    - https://rdmueller.github.io/plantUML-revisited/[PlantUML Revisited] 
+    - https://rdmueller.github.io/plantUML-revisited/[PlantUML Revisited]
 
-== Source
+=== Source
 
-.AsciiDocBasics.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/AsciiDocBasics.gradle[tags=generateHTML]
-----
+:param_source_file: scripts/AsciiDocBasics.gradle
+:param_source_language: groovy
+:param_source_tags: generateHTML
+include::_viewTaskSource.adoc[]

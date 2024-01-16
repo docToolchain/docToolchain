@@ -1,20 +1,17 @@
 :filename: 015_tasks/03_task_autobuildSite.adoc
-
 include::_config.adoc[]
 
-= autobuildSite
+== autobuildSite
 
 include::../_feedback.adoc[]
 
-== About This Task
+=== About This Task
 
 This script starts an endless loop which checks for changes to your docs source then re-runs the `generateSite`-task whenever it detects changes.
 The output will be logged to `build/generateSite.log`.
 
-== Source
+=== Source
 
-.bin/autobuildSite.bash
-[source,bash]
-----
-include::{projectRootDir}/bin/autobuildSite.bash[]
-----
+:param_source_file: bin/autobuildSite.bash
+:param_source_language: bash
+include::_viewTaskSource.adoc[]

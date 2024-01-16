@@ -3,15 +3,11 @@ include::_config.adoc[]
 
 :url1: https://docs.asciidoctor.org/asciidoc/latest/directives/include-tagged-regions/
 
-= exportPPT
+== exportPPT
 
 include::../_feedback.adoc[]
 
-== At a Glance
-
-image::ea/Manual/exportPPT.png[]
-
-== About This Task
+=== About This Task
 
 This task lets you export a series of PowerPoint slides to be used within your AsciiDoc documentation.
 It is currently a Windows-only task.
@@ -22,22 +18,19 @@ This will help you to get a stable result, even when you insert or delete slides
 
 Use the {url1}[tagged regions (`//tag::[]`) feature of asciidoctor] to include only certain slides or parts of your speaker notes.
 
-== Further Reading and Resources
+=== Further Reading and Resources
 
 * Read the https://rdmueller.github.io/PPT-as-asciidoc-editor/[Do More with Slides] blog post.
 * Find more information about the Windows-only aspect of this task in https://github.com/docToolchain/docToolchain/issues/231[this issue].
 * Check out https://github.com/uniqueck/asciidoctorj-office-extension[asciidoctorj-office-extension] for another way to use PPT slides in your docs.
 
-== Source
+=== Source
 
-.exportPPT.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/exportPPT.gradle[tags=exportPPT]
-----
+:param_source_file: scripts/exportPPT.gradle
+:param_source_language: groovy
+:param_source_tags: exportPPT
+include::_viewTaskSource.adoc[]
 
-.exportPPT.vbs
-[source,vbs]
-----
-include::{projectRootDir}/scripts/exportPPT.vbs[]
-----
+:param_source_file: scripts/exportPPT.vbs
+:param_source_language: vbs
+include::_viewTaskSource.adoc[]

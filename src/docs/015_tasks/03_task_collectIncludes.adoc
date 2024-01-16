@@ -1,14 +1,11 @@
 :filename: 015_tasks/03_task_collectIncludes.adoc
-
 include::_config.adoc[]
 
-= collectIncludes
+== collectIncludes
 
 include::../_feedback.adoc[]
 
-// image::ea/Manual/collectIncludes.png[]
-
-== About This Task
+=== About This Task
 
 This task crawls through your entire project looking for AsciiDoc files with a specific name pattern, then creates a single AsciiDoc file which includes only those files.
 
@@ -26,7 +23,7 @@ You only have to include this generated file from within your documentation.
 If you provide templates for the documents, those templates are skipped if the name matches the pattern `^.\*[-\_][tT]emplate
 [-\_].*`.
 
-== The Optional Parameter Configurations
+=== The Optional Parameter Configurations
 
 You can configure which files are found by the script be setting the parameters in the Config.groovy file.
 
@@ -35,7 +32,7 @@ You can configure which files are found by the script be setting the parameters 
 include::{projectRootDir}/template_config/Config.groovy[tags=collectIncludesConfig]
 ----
 
-== Example
+=== Example
 
 You have a file called:
 
@@ -56,10 +53,9 @@ You can then include these files in your main documentation by using a single in
 
     include::{targetDir}/docs/_includes/ADR_includes.adoc[]
 
-== Source
+=== Source
 
-.scripts/collectIncludes.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/collectIncludes.gradle[tags=collectIncludes]
-----
+:param_source_file: scripts/collectIncludes.gradle
+:param_source_language: groovy
+:param_source_tags: collectIncludes
+include::_viewTaskSource.adoc[]

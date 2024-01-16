@@ -1,15 +1,11 @@
 :filename: 015_tasks/03_task_convertToDocx.adoc
 include::_config.adoc[]
 
-= convertToDocx
+== convertToDocx
 
 include::../_feedback.adoc[]
 
-== At a Glance
-
-image::ea/Manual/convertToDocx.png[]
-
-== Before You Begin
+=== Before You Begin
 
 Before using this task:
 
@@ -17,13 +13,13 @@ Before using this task:
 * Ensure that 'docbook' and 'docx' are added to the inputFiles formats in Config.groovy.
 * As an optional step, specify a reference doc file with custom stylesheets (see task xref:03_task_createReferenceDoc.adoc[`createReferenceDoc`]).
 
-== Further Reading and Resources
+=== Further Reading and Resources
+
 Read the https://rdmueller.github.io/create-docx/[Render AsciiDoc to docx (MS Word)] blog post.
 
-== Source
+=== Source
 
-.pandoc.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/pandoc.gradle[tags=convertToDocx]
-----
+:param_source_file: scripts/pandoc.gradle
+:param_source_language: groovy
+:param_source_tags: convertToDocx
+include::_viewTaskSource.adoc[]

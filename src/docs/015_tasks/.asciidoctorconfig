@@ -1,0 +1,4 @@
+:imagesdir: ../images
+ifndef::projectRootDir[:projectRootDir: ../../..]
+ifndef::targetDir[:targetDir: ../../../build]
+:plantUMLDir: {targetDir}/html5/plantUML

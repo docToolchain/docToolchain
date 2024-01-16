@@ -1,2 +1,3 @@
 ifndef::imagesdir[:imagesdir: ../images]
+ifndef::projectRootDir[:projectRootDir: ../../..]
 ifndef::targetDir[:targetDir: ../../../build/docs]

@@ -1,15 +1,11 @@
 :filename: 015_tasks/03_task_publishToConfluence.adoc
 include::_config.adoc[]
 
-= publishToConfluence
+== publishToConfluence
 
 include::../_feedback.adoc[]
 
-== At a Glance
-
-image::ea/Manual/publishToConfluence.png[]
-
-== About This Task
+=== About This Task
 This task takes a generated HTML file, splits it by headline, and pushes it to your instance of https://www.atlassian.com/software/confluence[Confluence].
 This lets you use the https://www.writethedocs.org/guide/docs-as-code/[docs-as-code approach] even if your organisation insists on using Confluence as its main document repository.
 
@@ -24,9 +20,9 @@ To *enable API V2*, set `useV1Api` to `false` in the Confluence section of the d
 Currently, docToolchain only has full support for the old Confluence editor. The new editor is not fully supported yet. You can use the new editor, but you may experience some unexpected layout issues/ changes. To make use of the new editor you need to set `enforceNewEditor` to `true` in the Confluence section of the docToolchain configuration file.
 ====
 
-== Special Features
+=== Special Features
 
-=== Easy Code Block Conversion
+==== Easy Code Block Conversion
 
 `[source]`-blocks are converted to code-macro blocks in Confluence.
 
@@ -59,18 +55,18 @@ Therefore, some transformation is applied.
 
 NOTE: Get a list of valid languages (and learn how to add others) https://confluence.atlassian.com/doc/code-block-macro-139390.html[here].
 
-=== Minimal Impact on Non-Techie Confluence Users
+==== Minimal Impact on Non-Techie Confluence Users
 
 Only pages and images that changed between task runs are published, and only those changes are notified to page watchers, cutting down on 'spam'.
 
-=== Keywords Automatically Attached as Labels
+==== Keywords Automatically Attached as Labels
 
 `:keywords:` are attached as labels to every Confluence page generated using the `publishToConfluence` task.
 See https://confluence.atlassian.com/doc/add-remove-and-search-for-labels-136419.html[Atlassian's own guidelines on labels].
 Several keywords are allowed, and they must be separated by commas. For example: `:keywords: label_1, label-2, label3, ...`.
 Labels (keywords) must not contain a space character. Use either '_' or '-'.
 
-== Configuration
+=== Configuration
 
 You configure the publishToConfluence task in the file docToolchainConfig.groovy. It is located in the root of your project folder. We try to make the configuration self-explanatory, but below is some more information about each config option.
 
@@ -229,7 +225,7 @@ Using the plugin can be handled on different ways.
 include::{projectRootDir}/Config.groovy[tags=confluenceConfig]
 ----
 
-== CSS Styling
+=== CSS Styling
 
 Some AsciiDoctor features depend on specific CSS style definitions.
 Unless these styles are defined, some formatting that is present in the HTML version will not be represented when published to Confluence.
@@ -287,16 +283,13 @@ The following style definitions are Confluence-compatible, and will enable the u
 .yellow-background{background-color:#fafa00}
 ----
 
-== Source
+=== Source
 
-.publishToConfluence.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/publishToConfluence.gradle[tags=publishToConfluence]
-----
+:param_source_file: scripts/publishToConfluence.gradle
+:param_source_language: groovy
+:param_source_tags: publishToConfluence
+include::_viewTaskSource.adoc[]
 
-.scripts/org/docToolchain/scripts/asciidoc2confluence.groovy
-[source,groovy]
-----
-include::{projectRootDir}/core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy[]
-----
+:param_source_file: core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy
+:param_source_language: groovy
+include::_viewTaskSource.adoc[]
