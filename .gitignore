@@ -49,3 +49,6 @@ src/test/docs/structurizr/
 
 resources/reveal.js
 resources/asciidoctor-reveal.js
+
+# VSC config file
+.vscode/

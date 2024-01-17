@@ -89,6 +89,7 @@ main() {
     # No install command, so forward call to docToolchain but first we check if
     # everything is there.
     docker_image_name=""
+    docker_extra_arguments=""
     if [[ ${environment} != docker ]]; then
         assert_doctoolchain_installed "${environment}" "${DTC_VERSION}"
         assert_java_version_supported
@@ -103,9 +104,15 @@ main() {
             assert_argument_exists "$@"
         fi
         echo "Using docker image: ${docker_image_name}"
+        if [ "${1}" = "extra_arguments" ]; then
+            docker_extra_arguments="${2-}"
+            shift 2
+            assert_argument_exists "$@"
+            echo "Extra arguments passed to 'docker run' ${docker_extra_arguments}"
+        fi
     fi
 
-    command=$(build_command "${environment}" "${DTC_VERSION}" "${docker_image_name}" "$@")
+    command=$(build_command "${environment}" "${DTC_VERSION}" "${docker_image_name}" "${docker_extra_arguments}" "$@")
 
     [[ "${DTC_HEADLESS}" = true ]] && echo "Using headless mode since there is no (terminal) interaction possible"
 
@@ -595,7 +602,8 @@ build_command() {
     local env=${1}
     local version=${2}
     local docker_image=${3}
-    shift 3
+    local docker_extra_arguments=${4}
+    shift 4
     local cmd
     if [ "${env}" = docker ]; then
         # TODO: DTC_PROJECT_BRANCH is  not passed into the docker environment
@@ -605,8 +613,15 @@ build_command() {
         container_name+="-$(date '+%Y%m%d_%H%M%S')"
         pwd=$(has cygpath && cygpath -w "${PWD}" || echo "${PWD}")
 
+        docker_env_file=dtcw_docker.env
+        env_file_option=""
+        if [ -f "$docker_env_file" ]; then
+            env_file_option="--env-file ${docker_env_file}"
+        fi
+
         docker_args="run --rm -i --platform linux/amd64 -u $(id -u):$(id -g) --name ${container_name} \
             -e DTC_HEADLESS=true -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} \
+            ${docker_extra_arguments} ${env_file_option} \
             --entrypoint /bin/bash -v '${pwd}:/project' ${docker_image}:v${version}"
 
         cmd="docker ${docker_args} -c \"doctoolchain . ${*} ${DTC_OPTS} && exit\""
