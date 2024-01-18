@@ -9,7 +9,16 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+=== added
+
+=== changed
+
+== 3.2.2 - 2024-01-18
+
+=== fixes
+
 * https://github.com/docToolchain/docToolchain/issues/1335[#1335 publishToConfluence throws exception when uploading attachments in v3.2.0]
+* https://github.com/docToolchain/docToolchain/issues/1343[#1343: Build and publish docs after PR get into ng]
 
 === added
 * https://github.com/docToolchain/docToolchain/issues/1338[#1338: extend the options for the docker environment by additional environment variables and additional parameter sets.]

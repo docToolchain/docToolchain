@@ -1,0 +1,49 @@
+:filename: 030_news/2024/3.2.2-release.adoc
+:jbake-title: Release v3.2.2
+:jbake-date: 2024-01-18
+:jbake-type: post
+:jbake-tags: docToolchain
+:jbake-status: published
+:jbake-menu: news
+:jbake-author: Pascal Euhus
+:icons: font
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+== docToolchain release v3.2.2 (Bugfix-Release)
+
+This is the Bugfix-Release v3.2.2
+
+=== About This Release
+
+The v3.2.1 Release changed the behaviour of the REST client used in `publishToConfluence` and failed on attachments uploads in some cases.
+
+IMPORTANT: please also check the xref:../2023/3.2.0-release.adoc[release notes for v3.2.0] and xref:../2024/3.2.1-release.adoc[release notes for v3.2.1]
+
+== Notes
+
+== 3.2.2 - 2024-01-18
+
+=== fixes
+
+* https://github.com/docToolchain/docToolchain/issues/1335[#1335 publishToConfluence throws exception when uploading attachments in v3.2.0]
+* https://github.com/docToolchain/docToolchain/issues/1343[#1343: Build and publish docs after PR get into ng]
+
+=== added
+* https://github.com/docToolchain/docToolchain/issues/1338[#1338: extend the options for the docker environment by additional environment variables and additional parameter sets.]
+
+=== changed
+
+* [Core] Http calls from docToolchain are now identified by a user agent string of format `docToolchain_v<DTCW_VERSION>`.
+
+NOTE: a big "THANK YOU" to all *Sponsors* and *Contributors* who helped to support docToolchain!
+
+[TIP]
+====
+You like docToolchain? +
+What about helping to make it even better? +
+docToolchain is a community project, so be part of the community which drives the project. +
+You don't have to code for doing so. +
+It would even help to brush up the docs, write tutorials or groom the backlog +
+(I guess many of the open issues are already fixed).
+====
