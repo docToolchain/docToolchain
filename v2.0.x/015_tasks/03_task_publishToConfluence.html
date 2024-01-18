@@ -1,31 +1,33 @@
 <!doctype html>
 <html lang="de">
 <head>
-  
-  <!-- 015_tasks/03_task_publishToConfluence.html -->
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    
+    <!-- sourceuri: 015_tasks/03_task_publishToConfluence.html -->
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <meta content="jbake" name="generator">
-  <meta content="INDEX, FOLLOW" name="ROBOTS">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="jbake" name="generator">
+    <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>publishToConfluence</title>
-  <meta content="docToolchain" property="og:title">
-  <meta content="build your dev docs the easy way..." property="og:description">
-  <meta content="website" property="og:type">
-  <meta content="docToolchain" property="og:site_name">
-  <meta content="docToolchain" itemprop="name">
-  <meta content="build your dev docs the easy way..." itemprop="description">
-  <meta content="summary" name="twitter:card">
-  <meta content="docToolchain" name="twitter:title">
-  <meta content="build your dev docs the easy way..." name="twitter:description">
+    <title>publishToConfluence</title>
+    <meta content="docToolchain" property="og:title">
+    <meta content="build your dev docs the easy way..." property="og:description">
+    <meta content="website" property="og:type">
+    <meta content="docToolchain" property="og:site_name">
+    <meta content="docToolchain" itemprop="name">
+    <meta content="build your dev docs the easy way..." itemprop="description">
+    <meta content="summary" name="twitter:card">
+    <meta content="docToolchain" name="twitter:title">
+    <meta content="build your dev docs the easy way..." name="twitter:description">
 
-  <link as="style" href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+    <link as="style"
+        href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
         rel="preload">
-  <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css" integrity=""
+    <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+        integrity=""
         rel="stylesheet">
-  <link href="../css/asciidoctor.css" rel="stylesheet">
-  <link href="../css/prettify.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
 
     <!-- favicon generated with https://www.favicon-generator.org/ -->
     <link rel="shortcut icon" href="../favicon.ico">
@@ -38,7 +40,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="../android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -47,65 +49,76 @@
     <meta name="msapplication-TileImage" content="../ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-  <script src="../js/jquery-3.5.1.min.js"></script>
-  <style>
-      div.bg-light {
-          background-color: rgba(127, 180, 224, 0.3) !important;
-      }
-      //for blog posts
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <style>
+    div.bg-light {
+        background-color: rgba(127, 180, 224, 0.3) !important;
+    }
 
-  span.blogtag {
-      border-radius: 10px;
-      background-color: #30638E;
-      color: white;
-      padding: 5px 10px;
-  }
-  span.blogblogtag a {
-      color: white;
-      padding: 0
-  }
-  span.blogtag span {
-      margin-left: 10px;
-      border-radius: 10px;
-      background-color: white;
-      color: #30638E;
-  }
-  div.td-toc {
-    height: calc(100vh - 5rem) !important;
-  }
-  div#toctitle {
-    display: none
-  }
-  #td-section-nav {
-    max-height: calc(100vh - 4rem);
-    font-size: smaller;
-    line-hight: 1.1;
-  }
-  .td-page-meta {
-      font-size: smaller;
-      line-hight: 1.1;
-  }
-  #td-section-nav ul.td-sidebar-nav__section  {
-    padding-left:0px;
-  }
-  span.navbar-logo {
-    padding-right: 1.5em;
-  }
-  .match {
-      font-size: smaller;
-  }
-      .admonitionblock td.icon .fa:before {
-          font-size: xxx-large;
-      }
-  </style>
+    /* for blog posts */
+    span.blogtag {
+        border-radius: 10px;
+        background-color: #30638E;
+        color: white;
+        padding: 5px 10px;
+    }
 
-   <style>
+    span.blogblogtag a {
+        color: white;
+        padding: 0
+    }
+
+    span.blogtag span {
+        margin-left: 10px;
+        border-radius: 10px;
+        background-color: white;
+        color: #30638E;
+    }
+
+    div.td-toc {
+        height: calc(100vh - 5rem) !important;
+    }
+
+    div#toctitle {
+        display: none
+    }
+
+    #td-section-nav {
+        max-height: calc(100vh - 4rem);
+        font-size: smaller;
+        line-height: 1.1;
+    }
+
+    .td-page-meta {
+        font-size: smaller;
+        line-height: 1.1;
+    }
+
+    #td-section-nav ul.td-sidebar-nav__section {
+        padding-left: 0;
+    }
+
+    span.navbar-logo {
+        padding-right: 1.5em;
+    }
+
+    .match {
+        font-size: smaller;
+    }
+
+    .admonitionblock td.icon .fa:before {
+        font-size: xxx-large;
+    }
+    </style>
+
+    <style>
     div.openblock.primary div.content, div.openblock.secondary div.content {
         border: 1px solid #7a2518;
         padding: 5px;
     }
+
     div.openblock.primary div.content div.content, div.openblock.secondary div.content div.content {
-        border: 0px solid #7a2518;
+        border: 0 solid #7a2518;
         padding: 0;
     }
 
@@ -375,7 +388,11 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/150_task_creatTask.html">createTask</a>
+                                   href="../015_tasks/03_task_wipeConfluenceSpace.html">wipeConfluenceSpace</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/150_task_createTask.html">createTask</a>
                             </li>
                         </ul>
                     </li>
@@ -403,7 +420,6 @@
 <ul class="sectlevel1">
 <li><a href="#_publishtoconfluence">publishToConfluence</a>
 <ul class="sectlevel2">
-<li><a href="#_at_a_glance">At a Glance</a></li>
 <li><a href="#_about_this_task">About This Task</a></li>
 <li><a href="#_special_features">Special Features</a></li>
 <li><a href="#_configuration">Configuration</a></li>
@@ -443,19 +459,11 @@
 <h2 id="_publishtoconfluence">publishToConfluence</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/9934d8546416204bc9454812316d4113?d=identicon" alt="Pascal Euhus" width="32" height="32" title="Pascal Euhus"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/8ef7eec3e8d0d4f6cf243e8009c1cee8?d=identicon" alt="Bence Hornák" width="32" height="32" title="Bence Hornák"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5a5f4f4cb007274a31a00ca53975ad5c?d=identicon" alt="apparatchick" width="32" height="32" title="apparatchick"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/ad30b590d12622a076b6fe3767266c47?d=identicon" alt="Adelrich König (koa)" width="32" height="32" title="Adelrich König (koa)"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/ddc89ccc2b60ccbd48c6cfa1516573b6?d=identicon" alt="Andreas Klemp (EXT)" width="32" height="32" title="Andreas Klemp (EXT)"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Rosi" width="32" height="32" title="Rosi"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/1a867bc36c58b6d45b3dde4d87f9410a?d=identicon" alt="Martin" width="32" height="32" title="Martin"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/fc4dffda746759e7e98470ed9cfcc074?d=identicon" alt="Jan-Niklas Vierheller" width="32" height="32" title="Jan-Niklas Vierheller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/26543494012e9d554d707ae10121bcf3?d=identicon" alt="Denny Israel" width="32" height="32" title="Denny Israel"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/518a75fcbe5adea38aa4bec267d7572b?d=identicon" alt="Nikolay Orozov" width="32" height="32" title="Nikolay Orozov"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/b55e260be513eedfb745afb36248b8ec?d=identicon" alt="Vladi" width="32" height="32" title="Vladi"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/6dd2fe167fd7d2a84322787e3428d14e?d=identicon" alt="Joseph Staub" width="32" height="32" title="Joseph Staub"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange" width="32" height="32" title="Peter Stange"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/7107bc30257a84fd371a188bda07309f?d=identicon" alt="oliver drewes" width="32" height="32" title="oliver drewes"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/415bf2233be007b088ca81b749f02071?d=identicon" alt="Nils Mahlstaedt" width="32" height="32" title="Nils Mahlstaedt"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/be47969496f94a5a89159d70cd82bda0?d=identicon" alt="sabatmonk" width="32" height="32" title="sabatmonk"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/05107bc93f3e4d103ca06f4e68a64b38?d=identicon" alt="Heiko Stehli" width="32" height="32" title="Heiko Stehli"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/4280fc350b2b3cb323d151be608be3f8?d=identicon" alt="Alexander Herrmann" width="32" height="32" title="Alexander Herrmann"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/3c015f3ee9960d842c195993cbb91cff?d=identicon" alt="Tim Riemer" width="32" height="32" title="Tim Riemer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/aacd09e76c0affa36f76f8ef337a1536?d=identicon" alt="Luis Muniz" width="32" height="32" title="Luis Muniz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/6c5a117679f7101b5de26dd25a2a8e98?d=identicon" alt="Dierk Höppner" width="32" height="32" title="Dierk Höppner"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/e7d9e6618a36e94b35d43cbd2925aee0?d=identicon" alt="bit-jkraushaar" width="32" height="32" title="bit-jkraushaar"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/d2017e2cab333d23e2c7285cb62fdc43?d=identicon" alt="Constantin" width="32" height="32" title="Constantin"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/6c384e5d2b684c60fc8f062d75dae3f7?d=identicon" alt="Alfon" width="32" height="32" title="Alfon"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2dc2929d0609d6338d2794446156f312?d=identicon" alt="Thomas Grabietz" width="32" height="32" title="Thomas Grabietz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr" width="32" height="32" title="David M. Carr"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2d7d4905cb126f17594f25175a5ef086?d=identicon" alt="Timo Abele" width="32" height="32" title="Timo Abele"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/9934d8546416204bc9454812316d4113?d=identicon" alt="Pascal Euhus" width="32" height="32" title="Pascal Euhus"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a1a5917e47cadf234366c3e3beef39b6?d=identicon" alt="Johannes Thorn" width="32" height="32" title="Johannes Thorn"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/8ef7eec3e8d0d4f6cf243e8009c1cee8?d=identicon" alt="Bence Hornák" width="32" height="32" title="Bence Hornák"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5a5f4f4cb007274a31a00ca53975ad5c?d=identicon" alt="apparatchick" width="32" height="32" title="apparatchick"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/ad30b590d12622a076b6fe3767266c47?d=identicon" alt="Adelrich König (koa)" width="32" height="32" title="Adelrich König (koa)"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/ddc89ccc2b60ccbd48c6cfa1516573b6?d=identicon" alt="Andreas Klemp (EXT)" width="32" height="32" title="Andreas Klemp (EXT)"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Rosi" width="32" height="32" title="Rosi"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/1a867bc36c58b6d45b3dde4d87f9410a?d=identicon" alt="Martin" width="32" height="32" title="Martin"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/fc4dffda746759e7e98470ed9cfcc074?d=identicon" alt="Jan-Niklas Vierheller" width="32" height="32" title="Jan-Niklas Vierheller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/26543494012e9d554d707ae10121bcf3?d=identicon" alt="Denny Israel" width="32" height="32" title="Denny Israel"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/518a75fcbe5adea38aa4bec267d7572b?d=identicon" alt="Nikolay Orozov" width="32" height="32" title="Nikolay Orozov"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/b55e260be513eedfb745afb36248b8ec?d=identicon" alt="Vladi" width="32" height="32" title="Vladi"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/6dd2fe167fd7d2a84322787e3428d14e?d=identicon" alt="Joseph Staub" width="32" height="32" title="Joseph Staub"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a8ff23c0e396f621ed233027f21c27ea?d=identicon" alt="Peter Stange" width="32" height="32" title="Peter Stange"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/7107bc30257a84fd371a188bda07309f?d=identicon" alt="oliver drewes" width="32" height="32" title="oliver drewes"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/415bf2233be007b088ca81b749f02071?d=identicon" alt="Nils Mahlstaedt" width="32" height="32" title="Nils Mahlstaedt"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/be47969496f94a5a89159d70cd82bda0?d=identicon" alt="sabatmonk" width="32" height="32" title="sabatmonk"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/05107bc93f3e4d103ca06f4e68a64b38?d=identicon" alt="Heiko Stehli" width="32" height="32" title="Heiko Stehli"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/4280fc350b2b3cb323d151be608be3f8?d=identicon" alt="Alexander Herrmann" width="32" height="32" title="Alexander Herrmann"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/3c015f3ee9960d842c195993cbb91cff?d=identicon" alt="Tim Riemer" width="32" height="32" title="Tim Riemer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/aacd09e76c0affa36f76f8ef337a1536?d=identicon" alt="Luis Muniz" width="32" height="32" title="Luis Muniz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/6c5a117679f7101b5de26dd25a2a8e98?d=identicon" alt="Dierk Höppner" width="32" height="32" title="Dierk Höppner"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/e7d9e6618a36e94b35d43cbd2925aee0?d=identicon" alt="bit-jkraushaar" width="32" height="32" title="bit-jkraushaar"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/d2017e2cab333d23e2c7285cb62fdc43?d=identicon" alt="Constantin" width="32" height="32" title="Constantin"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/6c384e5d2b684c60fc8f062d75dae3f7?d=identicon" alt="Alfon" width="32" height="32" title="Alfon"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2dc2929d0609d6338d2794446156f312?d=identicon" alt="Thomas Grabietz" width="32" height="32" title="Thomas Grabietz"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/73252f762a6ec69bb59a23c8ff861c4a?d=identicon" alt="David M. Carr" width="32" height="32" title="David M. Carr"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>10 minutes to read</pre>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_at_a_glance">At a Glance</h3>
-<div class="imageblock">
-<div class="content">
-<img src="../images/ea/Manual/publishToConfluence.png" alt="publishToConfluence">
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -472,7 +480,8 @@ This lets you use the <a href="https://www.writethedocs.org/guide/docs-as-code/"
 </td>
 <td class="content">
 <div class="paragraph">
-<p>From the 01.01.2024 on, Atlassian turns off API V1 for Confluence Cloud, if there is a V2 equivalent. docToolchain versions from 3.1 on support API V2. If you are using an older version of docToolchain, you&#8217;ll need to upgrade to a newer version.</p>
+<p>From the 01.01.2024 on, Atlassian turns off API V1 for Confluence Cloud, if there is a V2 equivalent. docToolchain versions from 3.1 on support API V2. If you are using an older version of docToolchain, you&#8217;ll need to upgrade to a newer version.
+To <strong>enable API V2</strong>, set <code>useV1Api</code> to <code>false</code> in the Confluence section of the docToolchain configuration file.</p>
 </div>
 </td>
 </tr>
@@ -668,6 +677,9 @@ If you use Confluence Cloud, you can omit the context.
 If you use Confluence Server, you may need to set a context, depending on your Confluence configuration.</p>
 </div>
 <div class="paragraph">
+<p><strong>rateLimit</strong> (since 3.2.0), The rate limit for Confluence requests. Default is 10 requests per second.</p>
+</div>
+<div class="paragraph">
 <p><strong>useV1Api</strong></p>
 </div>
 <div class="paragraph">
@@ -751,7 +763,7 @@ You can create an API-token in <a href="https://confluence.atlassian.com/cloud/a
 <div class="paragraph">
 <p>In situations where you have to use full user authorisation because of internal Confluence permission handling, you&#8217;ll need to add the API-token in addition to the credentials.
 The API-token cannot be added to the credentials because it&#8217;s used for user and password exchange.
-Therefore the API-token can be added as parameter <code>apikey</code>, which makes the addition of the token a separate header field with key: <code>keyId</code> and value of <code>apikey</code>.
+Therefore, the API-token can be added as parameter <code>apikey</code>, which makes the addition of the token a separate header field with key: <code>keyId</code> and value of <code>apikey</code>.
 An example (including storing of the real value outside this configuration) is: <code>apikey = "${new File("/home/me/apitoken").text}"</code>.</p>
 </div>
 <div class="paragraph">
@@ -772,7 +784,7 @@ Personal Access Token</a> as the <code>bearerToken</code>. It is an alternative 
 <p><strong>enableAttachments</strong></p>
 </div>
 <div class="paragraph">
-<p>If value is set to <code>true</code>, any links to local file references will be uploaded as attachments. The current implementation only supports a single folder, the name of which will be used as a prefix to validate whether or not your file should be uploaded.
+<p>If value is set to <code>true</code>, any links to local file references will be uploaded as attachments. The current implementation only supports a single folder, the name of which will be used as a prefix to validate whether your file should be uploaded.
 If you enable this feature, and use a folder which starts with 'attachment', an adaption of this prefix is required.</p>
 </div>
 <div class="paragraph">
@@ -901,6 +913,9 @@ confluence.with {
     // endpoint of the confluenceAPI (REST) to be used
     // https://[yourServer]
     api = 'https://[yourServer]'
+
+    // requests per second for confluence API calls
+    rateLimit = 10
 
 //    Additionally, spaceKey, subpagesForSections, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
 
@@ -1035,8 +1050,11 @@ You will most likely <strong>NOT</strong> want to include the entire thing, as s
 </div>
 <div class="sect2">
 <h3 id="_source">Source</h3>
+<details>
+<summary class="title">Show source code of <code>scripts/publishToConfluence.gradle</code> or go directly to <a href="https://github.com/docToolchain/docToolchain/blob/ng/scripts/publishToConfluence.gradle" target="_blank" rel="noopener">GitHub · docToolchain/scripts/publishToConfluence.gradle</a>.</summary>
+<div class="content">
 <div class="listingblock">
-<div class="title">publishToConfluence.gradle</div>
+<div class="title">scripts/publishToConfluence.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">task publishToConfluence(
         description: 'publishes the HTML rendered output to confluence',
@@ -1056,10 +1074,18 @@ You will most likely <strong>NOT</strong> want to include the entire thing, as s
 }</code></pre>
 </div>
 </div>
+</div>
+</details>
+<details>
+<summary class="title">Show source code of <code>core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy</code> or go directly to <a href="https://github.com/docToolchain/docToolchain/blob/ng/core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy" target="_blank" rel="noopener">GitHub · docToolchain/core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy</a>.</summary>
+<div class="content">
 <div class="listingblock">
-<div class="title">scripts/org/docToolchain/scripts/asciidoc2confluence.groovy</div>
+<div class="title">core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">package org.docToolchain.scripts
+
+import org.docToolchain.atlassian.transformer.HtmlTransformer
+
 /**
  * Created by Ralf D. Mueller and Alexander Heusingfeld
  * https://github.com/rdmueller/asciidoc2confluence
@@ -1102,10 +1128,10 @@ import java.nio.file.Path
 import java.security.MessageDigest
 import static groovy.io.FileType.FILES
 
-import org.docToolchain.atlassian.clients.ConfluenceClientV1
-import org.docToolchain.atlassian.clients.ConfluenceClientV2
+import org.docToolchain.atlassian.confluence.clients.ConfluenceClientV1
+import org.docToolchain.atlassian.confluence.clients.ConfluenceClientV2
 import org.docToolchain.configuration.ConfigService
-import org.docToolchain.atlassian.ConfluenceService
+import org.docToolchain.atlassian.confluence.ConfluenceService
 
 @Field
 ConfigService configService = new ConfigService(config)
@@ -1198,8 +1224,8 @@ def uploadAttachment = { def pageId, String url, String fileName, String note -&
         localHash = MD5(new File(url).newDataInputStream().text)
     }
 
-    def attachment = confluenceClient.getAttachment(pageId, fileName).data
-    if (attachment.size()&gt;0 &amp;&amp; attachment.results.size()&gt;0) {
+    def attachment = confluenceClient.getAttachment(pageId, fileName)
+    if (attachment?.results) {
         // attachment exists. need an update?
         if (confluenceClient.attachmentHasChanged(attachment, localHash)) {
             //hash is different -&gt; attachment needs to be updated
@@ -1354,84 +1380,6 @@ def rewriteJiraLinks = { body -&gt;
     }
 }
 
-
-def rewriteCodeblocks(Elements body, String cdataStart, String cdataEnd) {
-    Set&lt;String&gt; languages = [
-        'actionscript3',
-        'applescript',
-        'bash',
-        'c#',
-        'cpp',
-        'css',
-        'coldfusion',
-        'delphi',
-        'diff',
-        'erl',
-        'groovy',
-        'xml',
-        'java',
-        'jfx',
-        'js',
-        'php',
-        'perl',
-        'text',
-        'powershell',
-        'py',
-        'ruby',
-        'sql',
-        'sass',
-        'scala',
-        'vb',
-        'yml'
-    ]
-    def languageMapping = [
-        'json':'yml', // acceptable workaround
-        'shell':'bash',
-        'yaml':'yml'
-    ]
-    body.select('pre &gt; code').each { code -&gt;
-        def language = code.attr('data-lang')
-        if (language) {
-            if (languageMapping.containsKey(language)) {
-                // fix some known languages using a mapping
-                language = languageMapping[language]
-            }
-            if (!(language in languages)) {
-                // fall back to plain text to avoid error messages when rendering
-                language = 'text'
-            }
-            // #1265 - pacoVK: fix for nested CDATA sections in XML code blocks
-            if (language.equals("xml")){
-                String xmlDocument = code.wholeOwnText()
-                if (xmlDocument.contains("&lt;![CDATA[") &amp;&amp; xmlDocument.contains("]]&gt;")){
-                    xmlDocument = xmlDocument.replaceAll("]]&gt;", "]]]]&gt;&lt;![CDATA[&gt;")
-                    code.text(xmlDocument)
-                }
-            }
-        } else {
-            // Confluence default is Java, so prefer explicit plain text
-            language = 'text'
-        }
-
-        code.select('span[class]').each { span -&gt;
-            span.unwrap()
-        }
-        code.select('i[class]').each { i -&gt;
-            i.unwrap()
-        }
-        code.select('b').each { b -&gt;
-            b.before(" // ")
-            b.unwrap()
-        }
-        code.before("&lt;ac:parameter ac:name=\"language\"&gt;${language}&lt;/ac:parameter&gt;")
-        code.parent() // pre now
-            .wrap('&lt;ac:structured-macro ac:name="code"&gt;&lt;/ac:structured-macro&gt;')
-            .unwrap()
-        code.wrap("&lt;ac:plain-text-body&gt;${cdataStart}${cdataEnd}&lt;/ac:plain-text-body&gt;")
-            .unwrap()
-    }
-}
-
 def rewriteOpenAPI (org.jsoup.nodes.Element body) {
     if (config.confluence.useOpenapiMacro == true || config.confluence.useOpenapiMacro == 'confluence-open-api') {
         body.select('div.openapi  pre &gt; code').each { code -&gt;
@@ -1486,23 +1434,6 @@ def rewriteOpenAPI (org.jsoup.nodes.Element body) {
                   }
               }
     }
-}
-
-def unescapeCDATASections(html){
-    def start = html.indexOf(CDATA_PLACEHOLDER_START)
-    while (start &gt; -1) {
-        def end = html.indexOf(CDATA_PLACEHOLDER_END, start)
-        if (end &gt; -1) {
-            def prefix = html.substring(0, start) + CDATA_PLACEHOLDER_START
-            def suffix = html.substring(end)
-            def unescaped = html.substring(start + CDATA_PLACEHOLDER_START.length(), end)
-                    .replaceAll('&amp;lt;', '&lt;').replaceAll('&amp;gt;', '&gt;')
-                    .replaceAll('&amp;amp;', '&amp;')
-            html = prefix + unescaped + suffix
-        }
-        start = html.indexOf(CDATA_PLACEHOLDER_START, start + 1)
-    }
-    return html
 }
 
 def getEmbeddedImageData(src){
@@ -1662,19 +1593,15 @@ def parseBody(body, anchors, pageAnchors) {
     rewriteMarks body
     rewriteDescriptionLists body
     rewriteInternalLinks body, anchors, pageAnchors
-    //sanitize code inside code tags
-    rewriteCodeblocks body instanceof Element ? new Elements(body) : body, CDATA_PLACEHOLDER_START, CDATA_PLACEHOLDER_END
-    def pageString = unescapeCDATASections body.html().trim()
-
-    //change some html elements through simple substitutions
-    pageString = pageString
-            .replaceAll('&lt;br&gt;','&lt;br /&gt;')
-            .replaceAll('&lt;/br&gt;','&lt;br /&gt;')
-            .replaceAll('&lt;a([^&gt;]*)&gt;&lt;/a&gt;','')
-            .replaceAll(CDATA_PLACEHOLDER_START,'&lt;![CDATA[')
-            .replaceAll(CDATA_PLACEHOLDER_END,']]&gt;')
-            // workaround for #402
-            .replaceAll('(?m)(ac:name="language"&gt;)([\n\r\t ]*)([a-z]+)([\n\r\t ]*)(&lt;/ac)','$1$3$5')
+    //not really sure if must check here the type
+    String bodyString = body
+    if(body instanceof Element){
+        bodyString = body.html()
+    }
+    Element saneHtml = new Document("")
+        .outputSettings(new Document.OutputSettings().syntax(Document.OutputSettings.Syntax.xml).prettyPrint(false))
+        .html(bodyString)
+    def pageString = new HtmlTransformer().transformToConfluenceFormat(saneHtml)
 
     return Map.of(
         "page", pageString,
@@ -1798,16 +1725,16 @@ def pushToConfluence = { pageTitle, pageBody, parentId, anchors, pageAnchors, ke
                 config.confluence.pageVersionComment ?: '',
                 parentId
         )
-        println "&gt; created page "+page?.data?.id
+        println "&gt; created page "+page?.id
         deferredUpload.each {
-            uploadAttachment(page?.data?.id, it[1], it[2], it[3])
+            uploadAttachment(page?.id, it[1], it[2], it[3])
         }
         deferredUpload = []
         // #324-dierk42: Add keywords as labels to page.
         if (keywords) {
-            addLabels(page?.data?.id, keywords)
+            addLabels(page?.id, keywords)
         }
-        return page?.data?.id
+        return page?.id
     }
 }
 
@@ -1849,7 +1776,8 @@ def promoteHeaders(tree, start, offset) {
 }
 
 def retrievePageIdByName = { String name -&gt;
-    confluenceClient.retrievePageIdByName(name, confluenceSpaceKey)
+    def data = confluenceClient.retrievePageIdByName(name, confluenceSpaceKey)
+    return data?.results?.get(0)?.id
 }
 
 def getPagesRecursive(Element element, String parentId, Map anchors, Map pageAnchors, int level, int maxLevel) {
@@ -1991,15 +1919,17 @@ config.confluence.input.each { input -&gt;
         def (pages, anchors, pageAnchors) = getPages(dom, parentId, confluenceSubpagesForSections)
         pushPages pages, anchors, pageAnchors, keywords
         if (parentId) {
-            println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}/pages/${parentId}"
+            println "published to ${config.confluence.api - "rest/api/"}/spaces/${confluenceSpaceKey}/pages/${parentId}"
         } else {
-            println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}"
+            println "published to ${config.confluence.api - "rest/api/"}/spaces/${confluenceSpaceKey}"
         }
     }
 }
 ""</code></pre>
 </div>
 </div>
+</div>
+</details>
 </div>
 </div>
 </div>

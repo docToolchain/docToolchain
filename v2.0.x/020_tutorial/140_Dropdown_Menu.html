@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: 020_tutorial/990_Tutorial.html -->
+    <!-- sourceuri: 020_tutorial/140_Dropdown_Menu.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>How to create a Tutorial</title>
+    <title>How to create a Dropdown Menu</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -295,11 +295,11 @@
                                    href="../020_tutorial/130_theming.html">How to change the theme</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../020_tutorial/140_Dropdown_Menu.html">How to create a Dropdown Menu</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../020_tutorial/990_Tutorial.html">How to create a Tutorial</a>
                             </li>
                         </ul>
@@ -313,11 +313,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/990_Tutorial.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/140_Dropdown_Menu.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27How+to+create+a+Tutorial%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/990_Tutorial.adoc%0A%23branch:%20ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27How+to+create+a+Dropdown+Menu%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/140_Dropdown_Menu.adoc%0A%23branch:%20ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -326,11 +326,12 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_how_to_create_a_tutorial">How to create a Tutorial</a>
+<li><a href="#_how_to_set_up_a_dropdown_menu_for_a_microsite">How to set up a Dropdown Menu for a Microsite</a>
 <ul class="sectlevel2">
-<li><a href="#_prepare_your_tutorial">Prepare your Tutorial</a></li>
-<li><a href="#_preview_your_work">Preview your work</a></li>
-<li><a href="#_submit_your_pull_request">Submit your Pull-Request</a></li>
+<li><a href="#_folder_structure">Folder Structure</a></li>
+<li><a href="#_markers">Markers</a></li>
+<li><a href="#_menu_generation">Menu Generation</a></li>
+<li><a href="#_caveats">Caveats</a></li>
 </ul>
 </li>
 </ul>
@@ -355,12 +356,8 @@
         <p>
             
 <div class="sect1">
-<h2 id="_how_to_create_a_tutorial">How to create a Tutorial</h2>
+<h2 id="_how_to_set_up_a_dropdown_menu_for_a_microsite">How to set up a Dropdown Menu for a Microsite</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Since docToolchain is a community project, it also lives from the content created by the community.
-This little tutorial will explain how you&#8201;&#8212;&#8201;as a member of the community&#8201;&#8212;&#8201;can create your own tutorial.</p>
-</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -368,110 +365,412 @@ This little tutorial will explain how you&#8201;&#8212;&#8201;as a member of the
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Prerequisites: you know how to use Git (<a href="https://www.gitbook.com/" class="bare">https://www.gitbook.com/</a>), how to fork and create a pull request on github and how to write in AsciiDoc.
+If you don&#8217;t need to understand what&#8217;s going on, there is a shortcut:
+Just look at the <a href="https://github.com/docToolchain/docToolchain/pull/1318/commits">commits</a> in
+<a href="https://github.com/docToolchain/docToolchain/pull/1318">this PR</a>
+(<a href="https://deploy-preview-1318&#8212;&#8203;dtc-docs-preview.netlify.app/">preview</a>)
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The docToolchain website is build with docToolchain itself.
-So, the code of docToolchain and the documentation reside both in the same repository.
-(The way as it should be with the docs-as-code approach!)</p>
+<p>The microsite generated by docToolchain groups your documentation along two axes:
+the top menu and the left sidebar.
+The top menu lists several menu items that each correspond to a different asciidoc <code>page</code>.
+And each page comprises several chapters that you can navigate in the left sidebar.
+If you want to group several pages you need an intermediary axis.
+This axis can be realized with a dropdown menu.
+There is no syntax within docToolchain to create a dropdown and assign (several) pages to menu items,
+but we can tweak the html generation to create a dropdown for us.
+The result will look like this:</p>
 </div>
-<div class="paragraph">
-<p>Navigate to <a href="https://github.com/docToolchain/docToolchain/tree/ng/src/docs/020_tutorial" class="bare">https://github.com/docToolchain/docToolchain/tree/ng/src/docs/020_tutorial</a> to find the source of the already existing tutorials.</p>
-</div>
-<div class="paragraph">
-<p>As you can see, the files are numbered in steps of 10.
-The numbers are the order of appearance within the left navigation.
-They can be overwritten by a <code>:jbake-order: x</code>-statement within the <code>.adoc</code> file.
-The order is specified in steps of 10 just to be able to insert files in between if necessary.</p>
-</div>
-<div class="sect2">
-<h3 id="_prepare_your_tutorial">Prepare your Tutorial</h3>
-<div class="paragraph">
-<p>To create a new Tutorial, fork the project and create a new file in the folder <code>src/docs</code> with an appropriate name and number.</p>
-</div>
-<div class="paragraph">
-<p>Add the following content to your file:</p>
-</div>
-<div class="listingblock">
+<div class="imageblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="asciidoc">:jbake-title: Your Navigation-Entry
-:source-highlighter: highlightjs
-:highlightjs-theme: monokai-sublime
-:imagesdir: images
-:icons: font
-
-== Your Headline</code></pre>
+<img src="images/140_dropdown_result.png" alt="140 dropdown result">
 </div>
 </div>
 <div class="paragraph">
-<p>The <code>:jbake-title: Your Navigation-Entry</code> tell jBake (the renderer used by docToolchain) the text for the navigation link in left navigation pane.
-If this is missing, it will use the first Headline in your document.
-If this is also missing, it will use the filename.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-You might wonder why you should specify the title if you already have named your tutorial via the first headline.
-The headline is often quite long and <code>:jbake-title:</code> gives you the opportunity to shorten it for the navigation pane.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The <code>include::</code>-statement mainly sets the location of the <code>imagesdir</code> so that you don&#8217;t have to worry about it.
-Take a look at the file to see what else it does!</p>
-</div>
-<div class="paragraph">
-<p>Your first headline should always start with <code>==</code> and not <code>=</code>, sind a single <code>=</code> is the document name like a book title.
-docToolchain expects for the chapters of the documentation headline level <code>==</code> as starting headline.</p>
-</div>
-<div class="paragraph">
-<p>That&#8217;s it. Now you can start to write your tutorial.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_preview_your_work">Preview your work</h3>
-<div class="paragraph">
-<p>To edit your file, use an editor which gives you a preview of your <code>.adoc</code> file like IntelliJ or VS Code.
-This already gives you a good preview of the structure and formatting of your document.</p>
-</div>
-<div class="paragraph">
-<p>Want to see how it looks on a web page?
-There are two ways to render the full page.</p>
+<p>In the following we will use this terminology:</p>
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">One</dt>
+<dt class="hdlist1">menu item</dt>
 <dd>
-<p>create a pull request (PR) and mark it as draft.
-As soon as the PR is submitted, netlify will start to render a preview.
-You will see some tasks running on the PR-page and the last one will give you a link to the preview-site.</p>
+<p>Entries (or their String values) on the blue top menu bar (e.g. 'backend')</p>
 </dd>
-<dt class="hdlist1">Two</dt>
+<dt class="hdlist1">dropdown item</dt>
 <dd>
-<p>you can render the page locally through docToolchain.
-Execute <code>./dtcw generateSite</code> locally and you will find the result in <code>build/microsite/output/index.html</code></p>
+<p>Entries in a dropdown list, e.g. 'business', 'arc42', 'how-to' in the picture above</p>
 </dd>
 </dl>
 </div>
+<div class="sect2">
+<h3 id="_folder_structure">Folder Structure</h3>
+<div class="paragraph">
+<p>The folders are arranged as usual: one folder per page.
+We use prefixes (e.g. <code>general_</code>) to group pages that should end up in the same dropdown,
+but this is not technically required, it just helps us to stay on top of things.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>.
+├── docToolchainConfig.groovy
+├── dtcw
+└── src
+   └── docs
+       ├── general_arc42
+       │   ├── page1.adoc
+       │   ...
+       ├── general_business
+       ├── general_how_to
+       ├── backend_arc42
+       ├── backend_business
+       ├── backend_how_to
+       ...</pre>
+</div>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_submit_your_pull_request">Submit your Pull-Request</h3>
+<h3 id="_markers">Markers</h3>
 <div class="paragraph">
-<p>As soon as you think your tutorial is ready for production, remove the draft status from your PR and we will start a short review process.
-As soon as we are through with the review, we will merge the PR and your tutorial will be live.</p>
+<p>By default, the <code>menu</code> field in <code>docToolchainConfig.groovy</code> maps folder names to item names.
+It also implicitly encodes</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>the order in which menu items are displayed</p>
+</li>
+<li>
+<p>the actual value that is displayed in the top menu</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>Any questions? Feel free to open a new <a href="https://github.com/docToolchain/docToolchain/discussions">Discussion</a>!</p>
+<p>Here, it will additionally encode</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic" start="3">
+<li>
+<p>the menu entry a page belongs to</p>
+</li>
+<li>
+<p>the order of a page within a dropdown</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>In order to accomplish that, we&#8217;ll put both the menu item and the dropdown item in every right side value.
+The format for that is <code>"&lt;menu item name&gt;: &lt;dropdown item name&gt;"</code>.
+If a value does not contain <code>": "</code> it will be interpreted as a regular menu item linked to one page.</p>
+</div>
+<div class="admonitionblock caution">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-caution" title="Caution"></i>
+</td>
+<td class="content">
+This means that your menu (or dropdown) items cannot contain <code>": "</code> in their name.
+If you need <code>": "</code> as part of the menu or dropdown item, you can use a different separator.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Look at the following example.
+The first three entries will create a menu item "general" with three dropdown items "arc42", "business" and "how-to" (in that order).
+The last entry "blog" will create a regular menu item with no dropdown.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">    menu = [
+            general_arc42:    'general: arc42',
+            general_business: 'general: business',
+            general_how_to:   'general: how-to',
+            backend_arc42:    'backend: arc42',
+            backend_business: 'backend: business',
+            backend_how_to:   'backend: how-to',
+            // ...
+            blog:   'blog'
+    ]</code></pre>
 </div>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_menu_generation">Menu Generation</h3>
+<div class="paragraph">
+<p>To make docToolchain create the dropdown for us, we need to apply some changes to the default theme.
+So, if not done already, we need to download the <code>site</code> folder with <code>dtcw</code> <a href="130_theming.html"><code>copyThemes</code></a>.</p>
+</div>
+<div class="listingblock">
+<div class="title">default menu generation</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="gsp">&lt;%
+        content.newEntries.each { entry -&gt;
+%&gt;
+            &lt;li class="nav-item mr-4 mb-2 mb-lg-0"&gt;
+                &lt;a class="nav-link ${entry.isActive}" href="${entry.href}"&gt;&lt;span&gt;${entry.title}&lt;/span&gt;&lt;/a&gt;
+            &lt;/li&gt;
+&lt;%
+        }
+%&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In the example above <code>&lt;% &#8230;&#8203; %&gt;</code> are used to embed groovy code into pages that are otherwise html.
+Here a for-each loop is embedded to generate a <em>list item</em> element for every element in <code>content.newEntries</code>.
+The <code>content.newEntries</code> field has the information from the <code>menu</code> field where earlier we added the information about which menu item each page should go under.
+Now we need to extract the information about which dropdowns there are and which pages go where.
+First, we&#8217;ll add some imports that we&#8217;ll need later.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">    import static java.util.stream.Collectors.groupingBy
+    import static java.util.stream.Collectors.mapping
+    import static java.util.stream.Collectors.toList</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then, we&#8217;ll assert that our assumption still holds: <code>content.newEntries</code> is an <code>ArrayList</code> of <code>LinkedHashMap</code> s.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">    assert content.newEntries instanceof java.util.ArrayList
+    assert (content.newEntries.size() == 0) || content.newEntries[0] instanceof java.util.LinkedHashMap</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After verifying the type of the input, let&#8217;s transform it to a class that we define, <code>Item</code>.
+Having their definition in view will make it easier to work with them later on.
+We&#8217;ll also define a transformation from a <code>LinkedHashMap</code> to our <code>Item</code> that drops the menu item from combined titles where we had added them before.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">    //a custom class for dropdown items
+    class Item {
+        boolean isActive
+        String href
+        String title
+        Item(isActive, href, title) {
+            this.isActive = isActive
+            this.href = href
+            this.title = title
+        }
+    };
+
+    //Transform a LinkedHashMap to an Item.
+    //if the title is a combination of menu item and dropdown item, drop the menu item.
+    def transform(e) {
+        var title = e.title.contains(": ")
+                  ? e.title.split(": ")[1]
+                  : e.title
+        new Item(e.isActive, e.href, title)
+    }</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+There are some newer groovy (server pages) features around like <a href="https://gsp.grails.org/latest/ref/Tags/each.html">&lt;g:each &#8230;&#8203;&gt; elements</a> and <a href="https://groovy.apache.org/blog/groovy-records">records</a>.
+I could not make them work<sup class="footnote">[<a id="_footnoteref_1" class="footnote" href="#_footnotedef_1" title="View footnote.">1</a>]</sup> and ended up using the old concepts.
+If you find a way to apply them feel free to verify it by building on <a href="https://github.com/docToolchain/docToolchain/pull/1318">this PR</a> and update this tutorial!
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In order to group pages by menu item, we need to define a key function.
+The key function should always return the menu item.
+So, from a combined title, just the menu item should be returned and the dropdown item be dropped.
+And from a regular item the whole title should be returned.
+But we still want to preserve the information about whether to create a dropdown.
+Thus, we add a marker prefix in front of the key for dropdown items.
+(Instead of the marker prefix we could also just interpret map entries where the value is a one element list as not-a-dropdown.
+But then we couldn&#8217;t support dropdowns with exactly one element and somebody might want that.)</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">    MARKER_DROPDOWN = "dropdownmenuitem_"
+
+    //get the menu item from a combined title. If there is no separator get the full title.
+    def getMenuItem(e) {
+        e.title.contains(": ")
+                  ? MARKER_DROPDOWN + e.title.split(": ")[0]
+                  :                   e.title
+    }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now we can group the pages to a map where the key is the menu item (plus an indicator prefix iff // == "if and only if"
+a dropdown should be created) and the value is a list of <code>Items</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">    var LinkedHashMap&lt;String, List&lt;Item&gt;&gt; itemGroups
+    itemGroups = content.newEntries.stream()
+                                   .collect(
+                                       groupingBy(
+                                           this::getMenuItem,
+                                           LinkedHashMap::new,
+                                           mapping(this::transform, toList())
+                                       )
+                                   )</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>After enriching the original <code>content.newEntries</code> map with dropdown information and making that information accessible,
+we can now generate the menu from it.
+So we&#8217;ll add an <code>if</code> to the existing for-each loop, that distinguishes between regular menu items and those with a dropdown.
+For a dropdown, we place a button (so one can click on it and have the dropdown items displayed) and a <code>div</code> with all the dropdown items.
+For a regular menu item, everything stays the same.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="html">    itemGroups.each { key, val -&gt;
+        if (key.startsWith(MARKER_DROPDOWN)) {
+            //dropdown
+%&gt;
+            &lt;li class="nav-item mr-4 mb-2 mb-lg-0"&gt;
+                &lt;div class="dropdown"&gt;
+                    &lt;button class="dropbtn"&gt;&lt;span&gt;${key.minus(MARKER_DROPDOWN)}&lt;/span&gt;&lt;/button&gt;
+                    &lt;div class="dropdown-content"&gt;
+&lt;%
+            val.each { item -&gt;
+%&gt;
+                        &lt;a href="${item.href}"&gt;${item.title}&lt;/a&gt;
+&lt;%
+            }
+%&gt;
+                    &lt;/div&gt;
+                &lt;/div&gt;
+            &lt;/li&gt;
+&lt;%
+        } else {
+            //there is no dropdown, take the only element
+            entry = val.get(0)
+%&gt;
+            &lt;li class="nav-item mr-4 mb-2 mb-lg-0"&gt;
+                &lt;a class="nav-link ${entry.isActive}" href="${entry.href}"&gt;&lt;span&gt;${entry.title}&lt;/span&gt;&lt;/a&gt;
+            &lt;/li&gt;
+&lt;%
+        }
+    }
+%&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now we have all the structural information, and if we generate a microsite now, we can see all the dropdown items.
+But, we only want to see them on a mouse over, so we&#8217;ll have to add some CSS as well.
+For that we&#8217;ll just add another <code>style</code> element to <code>header.gsp</code>.</p>
+</div>
+<div class="paragraph">
+<p>For basic functionality, we just need to set <code>display</code> to <code>none</code> unless there is a mouseover.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="css">    &lt;!-- dropdown menu --&gt;
+    &lt;style&gt;
+
+         /* Dropdown Content (Hidden by Default) */
+         .dropdown-content {
+           display: none;
+           position: absolute;
+           background-color: #f1f1f1;
+           min-width: 160px;
+           box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+           z-index: 1;
+         }
+
+         /* Show the dropdown menu on hover */
+         .dropdown:hover .dropdown-content {display: block;}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now all that&#8217;s left is some styling to seamlessly integrate the dropdown to the rest of the page.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="css">         /* The container &lt;div&gt; - needed to position the dropdown content */
+         .dropdown {
+           position: relative;
+           display: inline-block;
+         }
+
+         /* Dropdown Button */
+         .dropbtn {
+           background-color: #30638E;
+           color: white;
+           padding: 10px;
+           font-size: 16px;
+           border: none;
+         }
+
+         /* Links inside the dropdown */
+         .dropdown-content a {
+           color: black;
+           padding: 12px 16px;
+           text-decoration: none;
+           display: block;
+         }
+
+         /* analogous to the `.td-navbar .nav-link` block*/
+         .td-navbar .dropbtn {
+           text-transform:none;
+           font-weight:700;
+         }
+
+         /* Change color of dropdown links on hover */
+         .dropdown-content a:hover {background-color: #ddd;}
+
+         /* Change the background color of the dropdown button when the dropdown content is shown */
+         .dropdown:hover .dropbtn {background-color: #5579ae;}
+
+    &lt;/style&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>With that, we have added a dropdown to the top menu and didn&#8217;t have to add any new features to docToolchain.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_caveats">Caveats</h3>
+<div class="paragraph">
+<p>The fact that there is no <em>structural</em> support<sup class="footnote">[<a id="_footnoteref_2" class="footnote" href="#_footnotedef_2" title="View footnote.">2</a>]</sup> for dropdowns in docToolchain is noticeable in some places.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>The folder structure (in <code>docs</code>) is flat, folders of dropdown and menu items are on the same level.</p>
+</li>
+<li>
+<p>The URLs in turn are not as one might expect <code>&#8230;&#8203;/menu_item/dropdown_item/page</code> but <code>&#8230;&#8203;/menu_item_dropdown_item/page</code>.</p>
+</li>
+<li>
+<p>For regular pages the top entry in the left sidebar is the name of the menu item,
+but for pages of dropdowns the top entry on the left is the value specified in <code>menu.gsp</code> in the field <code>menu</code>:
+<code>&lt;menu item&gt;: &lt;dropdown item&gt;</code>.
+(This behaviour can in all likelihood be changed by adding a command in the right <code>.gsp</code> file)</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These points are probably not an issue for most people, but for transparency they are listed here.</p>
+</div>
+</div>
+</div>
+</div>
+<div id="footnotes">
+<hr>
+<div class="footnote" id="_footnotedef_1">
+<a href="#_footnoteref_1">1</a>. 1) <code>&lt;g:xy&gt;</code> elements are not recognized, I guess the 'g' namespace isn&#8217;t. 2a) <code>record Point(int x, int y, String color) { }</code> gives <code>Unexpected input: '('</code> 2b) <code>@RecordType class</code> gives <code>SimpleTemplateScript &#8230;&#8203; unable to resolve annotation RecordType</code>
+</div>
+<div class="footnote" id="_footnotedef_2">
+<a href="#_footnoteref_2">2</a>. we are basically telling docToolchain to treat some menu items, which we labeled as dropdown items, differently from the rest.
 </div>
 </div>
         </p>
@@ -501,11 +800,11 @@ As soon as we are through with the review, we will merge the PR and your tutoria
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27How+to+create+a+Tutorial%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/990_Tutorial.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27How+to+create+a+Dropdown+Menu%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/140_Dropdown_Menu.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27How+to+create+a+Tutorial%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/990_Tutorial.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27How+to+create+a+Dropdown+Menu%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/140_Dropdown_Menu.adoc">tell
     us how we can improve</a>.
     </p>
 </div>

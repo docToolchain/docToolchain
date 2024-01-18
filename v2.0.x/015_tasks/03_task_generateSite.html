@@ -1,31 +1,33 @@
 <!doctype html>
 <html lang="de">
 <head>
-  
-  <!-- 015_tasks/03_task_generateSite.html -->
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    
+    <!-- sourceuri: 015_tasks/03_task_generateSite.html -->
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <meta content="jbake" name="generator">
-  <meta content="INDEX, FOLLOW" name="ROBOTS">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="jbake" name="generator">
+    <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>generateSite</title>
-  <meta content="docToolchain" property="og:title">
-  <meta content="build your dev docs the easy way..." property="og:description">
-  <meta content="website" property="og:type">
-  <meta content="docToolchain" property="og:site_name">
-  <meta content="docToolchain" itemprop="name">
-  <meta content="build your dev docs the easy way..." itemprop="description">
-  <meta content="summary" name="twitter:card">
-  <meta content="docToolchain" name="twitter:title">
-  <meta content="build your dev docs the easy way..." name="twitter:description">
+    <title>generateSite</title>
+    <meta content="docToolchain" property="og:title">
+    <meta content="build your dev docs the easy way..." property="og:description">
+    <meta content="website" property="og:type">
+    <meta content="docToolchain" property="og:site_name">
+    <meta content="docToolchain" itemprop="name">
+    <meta content="build your dev docs the easy way..." itemprop="description">
+    <meta content="summary" name="twitter:card">
+    <meta content="docToolchain" name="twitter:title">
+    <meta content="build your dev docs the easy way..." name="twitter:description">
 
-  <link as="style" href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+    <link as="style"
+        href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
         rel="preload">
-  <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css" integrity=""
+    <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+        integrity=""
         rel="stylesheet">
-  <link href="../css/asciidoctor.css" rel="stylesheet">
-  <link href="../css/prettify.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
 
     <!-- favicon generated with https://www.favicon-generator.org/ -->
     <link rel="shortcut icon" href="../favicon.ico">
@@ -38,7 +40,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="../android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -47,65 +49,76 @@
     <meta name="msapplication-TileImage" content="../ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-  <script src="../js/jquery-3.5.1.min.js"></script>
-  <style>
-      div.bg-light {
-          background-color: rgba(127, 180, 224, 0.3) !important;
-      }
-      //for blog posts
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <style>
+    div.bg-light {
+        background-color: rgba(127, 180, 224, 0.3) !important;
+    }
 
-  span.blogtag {
-      border-radius: 10px;
-      background-color: #30638E;
-      color: white;
-      padding: 5px 10px;
-  }
-  span.blogblogtag a {
-      color: white;
-      padding: 0
-  }
-  span.blogtag span {
-      margin-left: 10px;
-      border-radius: 10px;
-      background-color: white;
-      color: #30638E;
-  }
-  div.td-toc {
-    height: calc(100vh - 5rem) !important;
-  }
-  div#toctitle {
-    display: none
-  }
-  #td-section-nav {
-    max-height: calc(100vh - 4rem);
-    font-size: smaller;
-    line-hight: 1.1;
-  }
-  .td-page-meta {
-      font-size: smaller;
-      line-hight: 1.1;
-  }
-  #td-section-nav ul.td-sidebar-nav__section  {
-    padding-left:0px;
-  }
-  span.navbar-logo {
-    padding-right: 1.5em;
-  }
-  .match {
-      font-size: smaller;
-  }
-      .admonitionblock td.icon .fa:before {
-          font-size: xxx-large;
-      }
-  </style>
+    /* for blog posts */
+    span.blogtag {
+        border-radius: 10px;
+        background-color: #30638E;
+        color: white;
+        padding: 5px 10px;
+    }
 
-   <style>
+    span.blogblogtag a {
+        color: white;
+        padding: 0
+    }
+
+    span.blogtag span {
+        margin-left: 10px;
+        border-radius: 10px;
+        background-color: white;
+        color: #30638E;
+    }
+
+    div.td-toc {
+        height: calc(100vh - 5rem) !important;
+    }
+
+    div#toctitle {
+        display: none
+    }
+
+    #td-section-nav {
+        max-height: calc(100vh - 4rem);
+        font-size: smaller;
+        line-height: 1.1;
+    }
+
+    .td-page-meta {
+        font-size: smaller;
+        line-height: 1.1;
+    }
+
+    #td-section-nav ul.td-sidebar-nav__section {
+        padding-left: 0;
+    }
+
+    span.navbar-logo {
+        padding-right: 1.5em;
+    }
+
+    .match {
+        font-size: smaller;
+    }
+
+    .admonitionblock td.icon .fa:before {
+        font-size: xxx-large;
+    }
+    </style>
+
+    <style>
     div.openblock.primary div.content, div.openblock.secondary div.content {
         border: 1px solid #7a2518;
         padding: 5px;
     }
+
     div.openblock.primary div.content div.content, div.openblock.secondary div.content div.content {
-        border: 0px solid #7a2518;
+        border: 0 solid #7a2518;
         padding: 0;
     }
 
@@ -375,7 +388,11 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/150_task_creatTask.html">createTask</a>
+                                   href="../015_tasks/03_task_wipeConfluenceSpace.html">wipeConfluenceSpace</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/150_task_createTask.html">createTask</a>
                             </li>
                         </ul>
                     </li>
@@ -446,7 +463,7 @@
 <h2 id="task_generatesite">generateSite</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Schrotti" width="32" height="32" title="Schrotti"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2d7d4905cb126f17594f25175a5ef086?d=identicon" alt="Timo Abele" width="32" height="32" title="Timo Abele"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a1a5917e47cadf234366c3e3beef39b6?d=identicon" alt="Johannes Thorn" width="32" height="32" title="Johannes Thorn"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c9b0a22075cd70224fd219e3257a8ce0?d=identicon" alt="Jeremie Bresson" width="32" height="32" title="Jeremie Bresson"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/eedf6f2d4b31cc4e49a7aa4fc55f51d3?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/70d15b356579ae85bc72b68af52946c2?d=identicon" alt="Schrotti" width="32" height="32" title="Schrotti"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -457,7 +474,7 @@
 <h3 id="_about_this_task">About This Task</h3>
 <div class="paragraph">
 <p>When you have only one document, the output of <code>generateHTML</code> might meet your requirements.
-But as your documentation grows, and you have multiple documents, you will need a microsite which bundles all of the information.
+But as your documentation grows, and you have multiple documents, you will need a microsite which bundles all the information.
 The <code>generateSite</code> task uses <a href="https://jbake.org">jBake</a> to create a static site with a landing page, a blog and search.</p>
 </div>
 </div>
@@ -592,7 +609,7 @@ But if you want to, you can override the convention behaviour with a configurati
 </ul>
 </div>
 <div class="paragraph">
-<p>The location of a page in the top-level menu and in the section sidebar depends from:</p>
+<p>The location of a page in the top-level menu and in the section sidebar depends on:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -633,7 +650,7 @@ But if you want to, you can override the convention behaviour with a configurati
 <div class="paragraph">
 <p>In the section sidebar, the navigation tree is determined by the folder structure.
 Folders are nodes in the sidebar tree.
-Each node can contains pages (leafs) or other folders (child nodes).
+Each node can contain pages (leafs) or other folders (child nodes).
 The order is controlled by the prefix of the file or folder name (unless overridden by the <code>:jbake-order:</code> inside each page).</p>
 </div>
 <div class="paragraph">
@@ -654,7 +671,7 @@ You can still define the order with the name (for the example <code>20</code> be
 <div class="title">Note</div>
 </td>
 <td class="content">
-When an <code>index.adoc</code> page is defined inside the top level folder (like: <code>10_foo/index.adoc</code> or <code>20_bar/index.adoc</code>) then the page will listed in the section navigation tree in the sidebar as any other regular page. By default it will be the first element of the tree, unless the value is overridden by a <code>:jbake-order:</code> attribute.
+When an <code>index.adoc</code> page is defined inside the top level folder (like: <code>10_foo/index.adoc</code> or <code>20_bar/index.adoc</code>) then the page will be listed in the section navigation tree in the sidebar as any other regular page. By default, it will be the first element of the tree, unless the value is overridden by a <code>:jbake-order:</code> attribute.
 </td>
 </tr>
 </table>
@@ -823,7 +840,7 @@ Use it to inform your team about changes, as well as architecture decision recor
 
 :imagesdir: ../../images
 
-== {jbake-title}
+= {jbake-title}
 {jbake-author}
 {jbake-date}
 
@@ -853,6 +870,9 @@ You can also avoid the theme downloading with every build by copying the themes 
 </div>
 <div class="sect2">
 <h3 id="_source">Source</h3>
+<details>
+<summary class="title">Show source code of <code>scripts/generateSite.gradle</code> or go directly to <a href="https://github.com/docToolchain/docToolchain/blob/ng/scripts/generateSite.gradle" target="_blank" rel="noopener">GitHub · docToolchain/scripts/generateSite.gradle</a>.</summary>
+<div class="content">
 <div class="listingblock">
 <div class="title">scripts/generateSite.gradle</div>
 <div class="content">
@@ -891,7 +911,6 @@ dependencies {
 }
 
 apply plugin: 'org.jbake.site'
-apply plugin: 'org.gretty'
 
 def color = { color, text -&gt;
     def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37]
@@ -927,15 +946,6 @@ jbake {
     }
 
 }
-bakePreview {
-    port = '8046'
-}
-gretty {
-    httpPort = "${config.microsite.previewPort?:8042}" as Integer
-    contextPath = "${config.microsite.contextPath}"
-    extraResourceBases = ["${targetDir}/microsite/output"]
-}
-
 
 def prepareAndCopyTheme = {
     //copy internal theme
@@ -1043,7 +1053,7 @@ ${color 'green', 'for you?'}\n""",
                             }
                         }
                         configFile.write(configFileText.replaceAll("(?sm)/[*][*] start:microsite [*][*]/.*/[*][*] end:microsite [*][*]/", "%%marker%%").replace("%%marker%%", conf))
-                        println color('green', "config written\ntry\n ./dtcw generateSite previewSite\nto see your microsite!")
+                        println color('green', "config written\nopen ${targetDir}/microsite/output/index.html in your browser\nto see your microsite!")
                     }
                     //copy the dummy docs (blog, landing page) to the project repository
                     copy {
@@ -1360,24 +1370,21 @@ task generateSite(
 
     }
 }
+
 task previewSite(
     group: 'docToolchain',
     dependsOn: [],
-    description: 'start a little webserver to preview your Microsite',
+    description: 'preview your Microsite',
 ) {
-    if (new File("${targetDir}/microsite/output").exists()) {
-        finalizedBy 'jettyRun'
-    }
     doLast {
-        if (new File("${targetDir}/microsite/output").exists()) {
-            // everything is fine
-        } else {
-            throw new GradleException("""&gt;
-&gt; Microsite not built yet, please run './dtcw generateSite' first
-&gt;""")
-        }
+        println("previewSite command has been deprecated.")
+        println("To preview your site, open ${targetDir}/microsite/output/index.html in your browser.")
+        println("To read alternative ways to preview your site, please consult the documentation.")
     }
 }
+previewSite.dependsOn(generateSite)
+previewSite.mustRunAfter(bake)
+
 task copyImages(type: Copy) {
     config.imageDirs.each { imageDir -&gt;
         from(new File (new File(docDir, inputPath),imageDir)) {}
@@ -1395,6 +1402,8 @@ bake.dependsOn copyImages
 generateSite.finalizedBy bake</code></pre>
 </div>
 </div>
+</div>
+</details>
 </div>
 </div>
 </div>

@@ -1,31 +1,33 @@
 <!doctype html>
 <html lang="de">
 <head>
-  
-  <!-- 015_tasks/03_task_exportChangeLog.html -->
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    
+    <!-- sourceuri: 015_tasks/03_task_exportChangeLog.html -->
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <meta content="jbake" name="generator">
-  <meta content="INDEX, FOLLOW" name="ROBOTS">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="jbake" name="generator">
+    <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>exportChangeLog</title>
-  <meta content="docToolchain" property="og:title">
-  <meta content="build your dev docs the easy way..." property="og:description">
-  <meta content="website" property="og:type">
-  <meta content="docToolchain" property="og:site_name">
-  <meta content="docToolchain" itemprop="name">
-  <meta content="build your dev docs the easy way..." itemprop="description">
-  <meta content="summary" name="twitter:card">
-  <meta content="docToolchain" name="twitter:title">
-  <meta content="build your dev docs the easy way..." name="twitter:description">
+    <title>exportChangeLog</title>
+    <meta content="docToolchain" property="og:title">
+    <meta content="build your dev docs the easy way..." property="og:description">
+    <meta content="website" property="og:type">
+    <meta content="docToolchain" property="og:site_name">
+    <meta content="docToolchain" itemprop="name">
+    <meta content="build your dev docs the easy way..." itemprop="description">
+    <meta content="summary" name="twitter:card">
+    <meta content="docToolchain" name="twitter:title">
+    <meta content="build your dev docs the easy way..." name="twitter:description">
 
-  <link as="style" href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+    <link as="style"
+        href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
         rel="preload">
-  <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css" integrity=""
+    <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+        integrity=""
         rel="stylesheet">
-  <link href="../css/asciidoctor.css" rel="stylesheet">
-  <link href="../css/prettify.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
 
     <!-- favicon generated with https://www.favicon-generator.org/ -->
     <link rel="shortcut icon" href="../favicon.ico">
@@ -38,7 +40,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="../android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -47,65 +49,76 @@
     <meta name="msapplication-TileImage" content="../ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-  <script src="../js/jquery-3.5.1.min.js"></script>
-  <style>
-      div.bg-light {
-          background-color: rgba(127, 180, 224, 0.3) !important;
-      }
-      //for blog posts
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <style>
+    div.bg-light {
+        background-color: rgba(127, 180, 224, 0.3) !important;
+    }
 
-  span.blogtag {
-      border-radius: 10px;
-      background-color: #30638E;
-      color: white;
-      padding: 5px 10px;
-  }
-  span.blogblogtag a {
-      color: white;
-      padding: 0
-  }
-  span.blogtag span {
-      margin-left: 10px;
-      border-radius: 10px;
-      background-color: white;
-      color: #30638E;
-  }
-  div.td-toc {
-    height: calc(100vh - 5rem) !important;
-  }
-  div#toctitle {
-    display: none
-  }
-  #td-section-nav {
-    max-height: calc(100vh - 4rem);
-    font-size: smaller;
-    line-hight: 1.1;
-  }
-  .td-page-meta {
-      font-size: smaller;
-      line-hight: 1.1;
-  }
-  #td-section-nav ul.td-sidebar-nav__section  {
-    padding-left:0px;
-  }
-  span.navbar-logo {
-    padding-right: 1.5em;
-  }
-  .match {
-      font-size: smaller;
-  }
-      .admonitionblock td.icon .fa:before {
-          font-size: xxx-large;
-      }
-  </style>
+    /* for blog posts */
+    span.blogtag {
+        border-radius: 10px;
+        background-color: #30638E;
+        color: white;
+        padding: 5px 10px;
+    }
 
-   <style>
+    span.blogblogtag a {
+        color: white;
+        padding: 0
+    }
+
+    span.blogtag span {
+        margin-left: 10px;
+        border-radius: 10px;
+        background-color: white;
+        color: #30638E;
+    }
+
+    div.td-toc {
+        height: calc(100vh - 5rem) !important;
+    }
+
+    div#toctitle {
+        display: none
+    }
+
+    #td-section-nav {
+        max-height: calc(100vh - 4rem);
+        font-size: smaller;
+        line-height: 1.1;
+    }
+
+    .td-page-meta {
+        font-size: smaller;
+        line-height: 1.1;
+    }
+
+    #td-section-nav ul.td-sidebar-nav__section {
+        padding-left: 0;
+    }
+
+    span.navbar-logo {
+        padding-right: 1.5em;
+    }
+
+    .match {
+        font-size: smaller;
+    }
+
+    .admonitionblock td.icon .fa:before {
+        font-size: xxx-large;
+    }
+    </style>
+
+    <style>
     div.openblock.primary div.content, div.openblock.secondary div.content {
         border: 1px solid #7a2518;
         padding: 5px;
     }
+
     div.openblock.primary div.content div.content, div.openblock.secondary div.content div.content {
-        border: 0px solid #7a2518;
+        border: 0 solid #7a2518;
         padding: 0;
     }
 
@@ -375,7 +388,11 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/150_task_creatTask.html">createTask</a>
+                                   href="../015_tasks/03_task_wipeConfluenceSpace.html">wipeConfluenceSpace</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/150_task_createTask.html">createTask</a>
                             </li>
                         </ul>
                     </li>
@@ -403,7 +420,6 @@
 <ul class="sectlevel1">
 <li><a href="#_exportchangelog">exportChangeLog</a>
 <ul class="sectlevel2">
-<li><a href="#_at_a_glance">At a Glance</a></li>
 <li><a href="#_about_this_task">About This Task</a></li>
 <li><a href="#_further_reading_and_resources">Further Reading and Resources</a></li>
 <li><a href="#_source">Source</a></li>
@@ -440,19 +456,11 @@
 <h2 id="_exportchangelog">exportChangeLog</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/0d2c684ec9e55edec506308356b67016?d=identicon" alt="Jakub J Jablonski" width="32" height="32" title="Jakub J Jablonski"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/a1a5917e47cadf234366c3e3beef39b6?d=identicon" alt="Johannes Thorn" width="32" height="32" title="Johannes Thorn"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/c3a42a44fe24014c947ff435ca206081?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/69124393772349d32fb9fe975545757d?d=identicon" alt="Lars Francke" width="32" height="32" title="Lars Francke"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/0d2c684ec9e55edec506308356b67016?d=identicon" alt="Jakub J Jablonski" width="32" height="32" title="Jakub J Jablonski"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
 <pre>2 minutes to read</pre>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_at_a_glance">At a Glance</h3>
-<div class="imageblock">
-<div class="content">
-<img src="../images/ea/Manual/exportChangeLog.png" alt="exportChangeLog">
-</div>
 </div>
 </div>
 <div class="sect2">
@@ -525,8 +533,11 @@ This feature is not available just yet.
 </div>
 <div class="sect2">
 <h3 id="_source">Source</h3>
+<details>
+<summary class="title">Show source code of <code>scripts/exportChangelog.gradle</code> or go directly to <a href="https://github.com/docToolchain/docToolchain/blob/ng/scripts/exportChangelog.gradle" target="_blank" rel="noopener">GitHub · docToolchain/scripts/exportChangelog.gradle</a>.</summary>
+<div class="content">
 <div class="listingblock">
-<div class="title">exportChangelog.gradle</div>
+<div class="title">scripts/exportChangelog.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">task exportChangeLog(
         description: 'exports the change log from a git subpath',
@@ -549,6 +560,8 @@ This feature is not available just yet.
 }</code></pre>
 </div>
 </div>
+</div>
+</details>
 </div>
 </div>
 </div>

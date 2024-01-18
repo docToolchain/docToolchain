@@ -1,31 +1,33 @@
 <!doctype html>
 <html lang="de">
 <head>
-  
-  <!-- 020_tutorial/070_publishToConfluence.html -->
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    
+    <!-- sourceuri: 020_tutorial/070_publishToConfluence.html -->
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <meta content="jbake" name="generator">
-  <meta content="INDEX, FOLLOW" name="ROBOTS">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="jbake" name="generator">
+    <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>publishToConfluence</title>
-  <meta content="docToolchain" property="og:title">
-  <meta content="build your dev docs the easy way..." property="og:description">
-  <meta content="website" property="og:type">
-  <meta content="docToolchain" property="og:site_name">
-  <meta content="docToolchain" itemprop="name">
-  <meta content="build your dev docs the easy way..." itemprop="description">
-  <meta content="summary" name="twitter:card">
-  <meta content="docToolchain" name="twitter:title">
-  <meta content="build your dev docs the easy way..." name="twitter:description">
+    <title>publishToConfluence</title>
+    <meta content="docToolchain" property="og:title">
+    <meta content="build your dev docs the easy way..." property="og:description">
+    <meta content="website" property="og:type">
+    <meta content="docToolchain" property="og:site_name">
+    <meta content="docToolchain" itemprop="name">
+    <meta content="build your dev docs the easy way..." itemprop="description">
+    <meta content="summary" name="twitter:card">
+    <meta content="docToolchain" name="twitter:title">
+    <meta content="build your dev docs the easy way..." name="twitter:description">
 
-  <link as="style" href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+    <link as="style"
+        href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
         rel="preload">
-  <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css" integrity=""
+    <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+        integrity=""
         rel="stylesheet">
-  <link href="../css/asciidoctor.css" rel="stylesheet">
-  <link href="../css/prettify.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
 
     <!-- favicon generated with https://www.favicon-generator.org/ -->
     <link rel="shortcut icon" href="../favicon.ico">
@@ -38,7 +40,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="../android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -47,65 +49,76 @@
     <meta name="msapplication-TileImage" content="../ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-  <script src="../js/jquery-3.5.1.min.js"></script>
-  <style>
-      div.bg-light {
-          background-color: rgba(127, 180, 224, 0.3) !important;
-      }
-      //for blog posts
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <style>
+    div.bg-light {
+        background-color: rgba(127, 180, 224, 0.3) !important;
+    }
 
-  span.blogtag {
-      border-radius: 10px;
-      background-color: #30638E;
-      color: white;
-      padding: 5px 10px;
-  }
-  span.blogblogtag a {
-      color: white;
-      padding: 0
-  }
-  span.blogtag span {
-      margin-left: 10px;
-      border-radius: 10px;
-      background-color: white;
-      color: #30638E;
-  }
-  div.td-toc {
-    height: calc(100vh - 5rem) !important;
-  }
-  div#toctitle {
-    display: none
-  }
-  #td-section-nav {
-    max-height: calc(100vh - 4rem);
-    font-size: smaller;
-    line-hight: 1.1;
-  }
-  .td-page-meta {
-      font-size: smaller;
-      line-hight: 1.1;
-  }
-  #td-section-nav ul.td-sidebar-nav__section  {
-    padding-left:0px;
-  }
-  span.navbar-logo {
-    padding-right: 1.5em;
-  }
-  .match {
-      font-size: smaller;
-  }
-      .admonitionblock td.icon .fa:before {
-          font-size: xxx-large;
-      }
-  </style>
+    /* for blog posts */
+    span.blogtag {
+        border-radius: 10px;
+        background-color: #30638E;
+        color: white;
+        padding: 5px 10px;
+    }
 
-   <style>
+    span.blogblogtag a {
+        color: white;
+        padding: 0
+    }
+
+    span.blogtag span {
+        margin-left: 10px;
+        border-radius: 10px;
+        background-color: white;
+        color: #30638E;
+    }
+
+    div.td-toc {
+        height: calc(100vh - 5rem) !important;
+    }
+
+    div#toctitle {
+        display: none
+    }
+
+    #td-section-nav {
+        max-height: calc(100vh - 4rem);
+        font-size: smaller;
+        line-height: 1.1;
+    }
+
+    .td-page-meta {
+        font-size: smaller;
+        line-height: 1.1;
+    }
+
+    #td-section-nav ul.td-sidebar-nav__section {
+        padding-left: 0;
+    }
+
+    span.navbar-logo {
+        padding-right: 1.5em;
+    }
+
+    .match {
+        font-size: smaller;
+    }
+
+    .admonitionblock td.icon .fa:before {
+        font-size: xxx-large;
+    }
+    </style>
+
+    <style>
     div.openblock.primary div.content, div.openblock.secondary div.content {
         border: 1px solid #7a2518;
         padding: 5px;
     }
+
     div.openblock.primary div.content div.content, div.openblock.secondary div.content div.content {
-        border: 0px solid #7a2518;
+        border: 0 solid #7a2518;
         padding: 0;
     }
 
@@ -283,6 +296,10 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/140_Dropdown_Menu.html">How to create a Dropdown Menu</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../020_tutorial/990_Tutorial.html">How to create a Tutorial</a>
                             </li>
                         </ul>
@@ -313,6 +330,7 @@
 <ul class="sectlevel2">
 <li><a href="#_step_1_set_up_doctoolchain">Step 1. Set Up docToolchain</a></li>
 <li><a href="#_step_2_configure_publication_to_confluence">Step 2. Configure Publication to Confluence</a></li>
+<li><a href="#_step_3_verify_your_configuration">Step 3: Verify Your Configuration</a></li>
 <li><a href="#_step_4_publish_your_pages">Step 4: Publish Your Pages</a></li>
 </ul>
 </li>
@@ -368,7 +386,7 @@ To get around this, you can set up a fresh copy of the arc42 template in docTool
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-For this tutorial, we assume that you work with a MacOs/Linux-based system.
+For this tutorial, we assume that you work with a macOS/Linux-based system.
 </td>
 </tr>
 </table>
@@ -379,43 +397,47 @@ For this tutorial, we assume that you work with a MacOs/Linux-based system.
 <p>In the Terminal, type the following:</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">mkdir publishToConfluenceDemo
-cd publishToConfluenceDemo
-curl -Lo dtcw doctoolchain.org/dtcw`</code></pre>
+<pre class="prettyprint highlight"><code data-lang="console">$ mkdir publishToConfluenceDemo
+$ cd publishToConfluenceDemo
+$ curl -Lo dtcw doctoolchain.org/dtcw</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>The result is as follows:</p>
 </div>
 <details>
-<summary class="title">Details</summary>
+<summary class="title">Show output</summary>
 <div class="content">
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="prettyprint highlight"><code>gitpod /workspace/publishToConfluenceDemo (main) $ curl -Lo dtcw doctoolchain.org/dtcw
+<pre>gitpod /workspace/publishToConfluenceDemo (main) $ curl -Lo dtcw doctoolchain.org/dtcw
 % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
 Dload  Upload   Total   Spent    Left  Speed
 100   162  100   162    0     0   1306      0 --:--:-- --:--:-- --:--:--  1317
-100 10724  100 10724    0     0  25903      0 --:--:-- --:--:-- --:--:-- 25903</code></pre>
+100 10724  100 10724    0     0  25903      0 --:--:-- --:--:-- --:--:-- 25903</pre>
 </div>
 </div>
 </div>
 </details>
 </li>
 <li>
-<p>Next, type <code>&#160;&#160;&#160;chmod +x dtcw</code>.<br></p>
-</li>
-<li>
-<p>If you do not have docToolchain as a Docker image, type <code>./dtcw getJava</code>.</p>
-<div class="paragraph">
-<p>The result is as follows:</p>
-</div>
-<details>
-<summary class="title">Details</summary>
-<div class="content">
+<p>Next, make the file <code>dtcw</code> executable.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code>./dtcw: line 28: !false: command not found
+<pre class="prettyprint highlight"><code data-lang="console">$ chmod +x dtcw</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you do not have docToolchain as a Docker image, type</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="console">$ ./dtcw getJava</code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Show output</summary>
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>./dtcw: line 28: !false: command not found
 dtcw - docToolchain wrapper V0.31
 docToolchain V2.0.5
 docker available
@@ -449,7 +471,7 @@ Saving to: ‘/home/gitpod/.doctoolchain/jdk/jdk.tar.gz’
 FINISHED --2022-08-25 20:07:13--
 Total wall clock time: 1.7s
 Downloaded: 1 files, 185M in 0.6s (310 MB/s)
-expanding JDK</code></pre>
+expanding JDK</pre>
 </div>
 </div>
 </div>
@@ -462,16 +484,18 @@ expanding JDK</code></pre>
 </div>
 </li>
 <li>
-<p>Type <code>./dtcw tasks</code>.</p>
-<div class="paragraph">
-<p>You will see this:</p>
-</div>
-<details>
-<summary class="title">Details</summary>
-<div class="content">
+<p>Initialise docToolchain by running your first task.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code>dtcw - docToolchain wrapper V0.31
+<pre class="prettyprint highlight"><code data-lang="console">$ ./dtcw tasks</code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Show output</summary>
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>dtcw - docToolchain wrapper V0.31
 docToolchain V2.0.5
 local java JDK found
 use /home/gitpod/.doctoolchain/jdk as JDK
@@ -541,20 +565,25 @@ To see more detail about a task, run gradlew help --task &lt;task&gt;
 For troubleshooting, visit https://help.gradle.org
 
 BUILD SUCCESSFUL in 3m 29s
-1 actionable task: 1 executed</code></pre>
+1 actionable task: 1 executed</pre>
 </div>
 </div>
 </div>
 </details>
 </li>
-</ol>
-</div>
-<details>
-<summary class="title"><code>./dtcw downloadTemplate</code></summary>
-<div class="content">
+<li>
+<p>Next download the arc42 template</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code>dtcw - docToolchain wrapper V0.31
+<pre class="prettyprint highlight"><code data-lang="console">$ ./dtcw downloadTemplate</code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Show output</summary>
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>dtcw - docToolchain wrapper V0.31
 docToolchain V2.0.5
 local java JDK found
 use /home/gitpod/.doctoolchain/jdk as JDK
@@ -579,24 +608,18 @@ added template to docToolchainConfig.groovy
 use 'generateHTML', 'generatePDF' or  'generateSite' to convert the template
 
 BUILD SUCCESSFUL in 22s
-1 actionable task: 1 executed</code></pre>
+1 actionable task: 1 executed</pre>
 </div>
 </div>
 </div>
 </details>
 <div class="paragraph">
-<p>+
-You should now have the following folder structure in your project:</p>
+<p>You should now have the following folder structure in your project:</p>
 </div>
-<div class="paragraph">
-<p>+
-.Project Folder Structure</p>
-</div>
-<div class="exampleblock">
+<div class="literalblock">
+<div class="title">Project Folder Structure</div>
 <div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code>.
+<pre>.
 ├── docToolchainConfig.groovy
 ├── dtcw
 └── src
@@ -624,10 +647,11 @@ You should now have the following folder structure in your project:</p>
 ├── 08-Crosscutting-Concepts-Structure-EN.png
 └── arc42-logo.png
 
-5 directories, 21 files</code></pre>
+5 directories, 21 files</pre>
 </div>
 </div>
-</div>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
@@ -643,7 +667,9 @@ You should now have the following folder structure in your project:</p>
 <li>
 <p>Find the text <code>confluence.with</code>.</p>
 <div class="paragraph">
-<p>This is the start of the section where you configure publication to Confluence. As you can see, docToolchain is preconfigured to publish sample input (the arc42 template) to Confluence. The input for the publishToConfluence task is the output of the <code>generateHTML</code> task. You should see this:</p>
+<p>This is the start of the section where you configure publication to Confluence.
+As you can see, docToolchain is preconfigured to publish sample input (the arc42 template) to Confluence.
+The input for the publishToConfluence task is the output of the <code>generateHTML</code> task. You should see this:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -665,9 +691,6 @@ Get your Atlassian Confluence URL, such as <a href="https://arc42-template.atlas
 <div class="paragraph">
 <p>In this case, the correct endpoint is <code><a href="https://arc42-template.atlassian.net/wiki" class="bare">https://arc42-template.atlassian.net/wiki</a></code>.</p>
 </div>
-</li>
-</ol>
-</div>
 <div class="admonitionblock note">
 <table>
 <tr>
@@ -680,17 +703,16 @@ The context is optional, unless it is something other that "wiki". If you would 
 </tr>
 </table>
 </div>
-<div class="olist arabic">
-<ol class="arabic">
+</li>
 <li>
 <p>In <code>docToolchainConfig.groovy</code>, add the space-key, such as <code>8FE</code>.</p>
-</li>
-</ol>
-</div>
 <div class="listingblock">
 <div class="content">
-<pre>spaceKey = '8FE'</pre>
+<pre class="prettyprint highlight"><code data-lang="groovy">spaceKey = '8FE'</code></pre>
 </div>
+</div>
+</li>
+</ol>
 </div>
 <div class="sect3">
 <h4 id="_step_2_1_configure_confluence_authentication">Step 2.1. Configure Confluence Authentication</h4>
@@ -703,9 +725,11 @@ The context is optional, unless it is something other that "wiki". If you would 
 <i class="fa icon-warning" title="Warning"></i>
 </td>
 <td class="content">
-This method is not recommended. Instead of passing your password, you can use a Personal Access Token,
-which can easily be revoked on the event of a compromise. See
-<a href="#personal-access-token">Authentication with Personal Access Token</a>.
+This method is not recommended.
+Instead of passing your password,
+you can use a Personal Access Token,
+which can easily be revoked on the event of a compromise.
+See <a href="#personal-access-token">Authentication with Personal Access Token</a>.
 </td>
 </tr>
 </table>
@@ -715,7 +739,7 @@ which can easily be revoked on the event of a compromise. See
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell">./dtcw publishToConfluence -PconfluenceUser=&lt;your username&gt; -PconfluencePass=&lt;your password&gt;</code></pre>
+<pre class="prettyprint highlight"><code data-lang="console">$ ./dtcw publishToConfluence -PconfluenceUser=&lt;your username&gt; -PconfluencePass=&lt;your password&gt;</code></pre>
 </div>
 </div>
 </div>
@@ -728,7 +752,9 @@ which can easily be revoked on the event of a compromise. See
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-This method only works for Confluence Cloud. I can use an API token. The key has to be generated from the central Atlassian account.
+This method only works for Confluence Cloud.
+I can use an API token.
+The key has to be generated from the central Atlassian account.
 </td>
 </tr>
 </table>
@@ -778,10 +804,10 @@ Here is the <a href="https://id.atlassian.com/manage-profile/security/api-tokens
 <p>Store your API token in a safe location.</p>
 </li>
 <li>
-<p>Add your API token e-mail address as username and password to the <code>.dtcw</code> command.</p>
+<p>Add your API token e-mail address as username and password to the <code>./dtcw</code> command.</p>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell">./dtcw publishToConfluence -PconfluenceUser=&lt;your email&gt; -PconfluencePass=&lt;your api-token&gt;</code></pre>
+<pre class="prettyprint highlight"><code data-lang="console">$ ./dtcw publishToConfluence -PconfluenceUser=&lt;your email&gt; -PconfluencePass=&lt;your api-token&gt;</code></pre>
 </div>
 </div>
 </li>
@@ -800,54 +826,55 @@ documentation</a> to generate one.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell">./dtcw publishToConfluence -PconfluenceBearerToken=&lt;your personal access token&gt;</code></pre>
+<pre class="prettyprint highlight"><code data-lang="console">$ ./dtcw publishToConfluence -PconfluenceBearerToken=&lt;your personal access token&gt;</code></pre>
 </div>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_step_3_verify_your_configuration">Step 3: Verify Your Configuration</h4>
+</div>
+<div class="sect2">
+<h3 id="_step_3_verify_your_configuration">Step 3: Verify Your Configuration</h3>
 <div class="paragraph">
 <p>To verify your configuration execute <code>./dtcw verifyConfluenceApiAccess</code> and pass the credentials to the task, depending on the setup you chose in the steps before.
 An example would be</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell">./dtcw verifyConfluenceApiAccess -PconfluenceUser=&lt;your email&gt; -PconfluencePass=&lt;your api-token&gt;</code></pre>
+<pre class="prettyprint highlight"><code data-lang="console">$ ./dtcw verifyConfluenceApiAccess -PconfluenceUser=&lt;your email&gt; -PconfluencePass=&lt;your api-token&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
 <p>If the API is accessible, the task will succeed and print the API version that is used. Otherwise, an error will be printed.</p>
 </div>
-<div class="listingblock">
+<div class="literalblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell">...
+<pre>...
 Daemon will be stopped at the end of the build
 
 &gt; Task :verifyConfluenceApiAccess
 Using Confluence API V1
 
 BUILD SUCCESSFUL in 15s
-3 actionable tasks: 3 executed</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>+</p>
+3 actionable tasks: 3 executed</pre>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_step_4_publish_your_pages">Step 4: Publish Your Pages</h3>
 <div class="paragraph">
-<p>To publish your pages to Confluence, type:
-.<code>./dtcw publishToConfluence &lt;extra arguments&gt;</code></p>
+<p>To publish your pages to Confluence, type:</p>
 </div>
-<details>
-<summary class="title">Details</summary>
-<div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code>dtcw - docToolchain wrapper V0.31
+<pre class="prettyprint highlight"><code data-lang="console">$ ./dtcw publishToConfluence &lt;extra arguments&gt;</code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Show output</summary>
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>dtcw - docToolchain wrapper V0.31
 docToolchain V2.0.5
 local java JDK found
 use /home/gitpod/.doctoolchain/jdk as JDK
@@ -907,7 +934,7 @@ Start getting headers
 allPages already retrieved
 &gt; created page 2034040848
 10. Quality Requirements
-Start getting headers</code></pre>
+Start getting headers</pre>
 </div>
 </div>
 </div>

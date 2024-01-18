@@ -1,31 +1,33 @@
 <!doctype html>
 <html lang="de">
 <head>
-  
-  <!-- 015_tasks/150_task_creatTask.html -->
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    
+    <!-- sourceuri: 015_tasks/03_task_wipeConfluenceSpace.html -->
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <meta content="jbake" name="generator">
-  <meta content="INDEX, FOLLOW" name="ROBOTS">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="jbake" name="generator">
+    <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>createTask</title>
-  <meta content="docToolchain" property="og:title">
-  <meta content="build your dev docs the easy way..." property="og:description">
-  <meta content="website" property="og:type">
-  <meta content="docToolchain" property="og:site_name">
-  <meta content="docToolchain" itemprop="name">
-  <meta content="build your dev docs the easy way..." itemprop="description">
-  <meta content="summary" name="twitter:card">
-  <meta content="docToolchain" name="twitter:title">
-  <meta content="build your dev docs the easy way..." name="twitter:description">
+    <title>wipeConfluenceSpace</title>
+    <meta content="docToolchain" property="og:title">
+    <meta content="build your dev docs the easy way..." property="og:description">
+    <meta content="website" property="og:type">
+    <meta content="docToolchain" property="og:site_name">
+    <meta content="docToolchain" itemprop="name">
+    <meta content="build your dev docs the easy way..." itemprop="description">
+    <meta content="summary" name="twitter:card">
+    <meta content="docToolchain" name="twitter:title">
+    <meta content="build your dev docs the easy way..." name="twitter:description">
 
-  <link as="style" href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+    <link as="style"
+        href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
         rel="preload">
-  <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css" integrity=""
+    <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+        integrity=""
         rel="stylesheet">
-  <link href="../css/asciidoctor.css" rel="stylesheet">
-  <link href="../css/prettify.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
 
     <!-- favicon generated with https://www.favicon-generator.org/ -->
     <link rel="shortcut icon" href="../favicon.ico">
@@ -38,7 +40,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="../android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -47,65 +49,76 @@
     <meta name="msapplication-TileImage" content="../ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-  <script src="../js/jquery-3.5.1.min.js"></script>
-  <style>
-      div.bg-light {
-          background-color: rgba(127, 180, 224, 0.3) !important;
-      }
-      //for blog posts
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <style>
+    div.bg-light {
+        background-color: rgba(127, 180, 224, 0.3) !important;
+    }
 
-  span.blogtag {
-      border-radius: 10px;
-      background-color: #30638E;
-      color: white;
-      padding: 5px 10px;
-  }
-  span.blogblogtag a {
-      color: white;
-      padding: 0
-  }
-  span.blogtag span {
-      margin-left: 10px;
-      border-radius: 10px;
-      background-color: white;
-      color: #30638E;
-  }
-  div.td-toc {
-    height: calc(100vh - 5rem) !important;
-  }
-  div#toctitle {
-    display: none
-  }
-  #td-section-nav {
-    max-height: calc(100vh - 4rem);
-    font-size: smaller;
-    line-hight: 1.1;
-  }
-  .td-page-meta {
-      font-size: smaller;
-      line-hight: 1.1;
-  }
-  #td-section-nav ul.td-sidebar-nav__section  {
-    padding-left:0px;
-  }
-  span.navbar-logo {
-    padding-right: 1.5em;
-  }
-  .match {
-      font-size: smaller;
-  }
-      .admonitionblock td.icon .fa:before {
-          font-size: xxx-large;
-      }
-  </style>
+    /* for blog posts */
+    span.blogtag {
+        border-radius: 10px;
+        background-color: #30638E;
+        color: white;
+        padding: 5px 10px;
+    }
 
-   <style>
+    span.blogblogtag a {
+        color: white;
+        padding: 0
+    }
+
+    span.blogtag span {
+        margin-left: 10px;
+        border-radius: 10px;
+        background-color: white;
+        color: #30638E;
+    }
+
+    div.td-toc {
+        height: calc(100vh - 5rem) !important;
+    }
+
+    div#toctitle {
+        display: none
+    }
+
+    #td-section-nav {
+        max-height: calc(100vh - 4rem);
+        font-size: smaller;
+        line-height: 1.1;
+    }
+
+    .td-page-meta {
+        font-size: smaller;
+        line-height: 1.1;
+    }
+
+    #td-section-nav ul.td-sidebar-nav__section {
+        padding-left: 0;
+    }
+
+    span.navbar-logo {
+        padding-right: 1.5em;
+    }
+
+    .match {
+        font-size: smaller;
+    }
+
+    .admonitionblock td.icon .fa:before {
+        font-size: xxx-large;
+    }
+    </style>
+
+    <style>
     div.openblock.primary div.content, div.openblock.secondary div.content {
         border: 1px solid #7a2518;
         padding: 5px;
     }
+
     div.openblock.primary div.content div.content, div.openblock.secondary div.content div.content {
-        border: 0px solid #7a2518;
+        border: 0 solid #7a2518;
         padding: 0;
     }
 
@@ -375,7 +388,11 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../015_tasks/150_task_creatTask.html">createTask</a>
+                                   href="../015_tasks/03_task_wipeConfluenceSpace.html">wipeConfluenceSpace</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/150_task_createTask.html">createTask</a>
                             </li>
                         </ul>
                     </li>
@@ -388,11 +405,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/150_task_creatTask.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_task_wipeConfluenceSpace.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27createTask%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/150_task_creatTask.adoc%0A%23branch:%20ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27wipeConfluenceSpace%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/015_tasks/03_task_wipeConfluenceSpace.adoc%0A%23branch:%20ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -401,10 +418,10 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_createtask">createTask</a>
+<li><a href="#_wipeconfluencespace">wipeConfluenceSpace</a>
 <ul class="sectlevel2">
-<li><a href="#_at_a_glance">At a Glance</a></li>
 <li><a href="#_about_this_task">About This Task</a></li>
+<li><a href="#_usage">Usage</a></li>
 <li><a href="#_source">Source</a></li>
 </ul>
 </li>
@@ -436,71 +453,88 @@
 }
 </style>
 <div class="sect1">
-<h2 id="_createtask">createTask</h2>
+<h2 id="_wipeconfluencespace">wipeConfluenceSpace</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Unresolved directive in ../_feedback.adoc - include::/home/runner/work/docToolchain/docToolchain/build/contributors/015_tasks/150_task_createTask.adoc[]</p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/9934d8546416204bc9454812316d4113?d=identicon" alt="Pascal Euhus" width="32" height="32" title="Pascal Euhus"></span></p>
 </div>
-<div class="sect2">
-<h3 id="_at_a_glance">At a Glance</h3>
-
+<div class="literalblock">
+<div class="content">
+<pre>1 minute to read</pre>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_about_this_task">About This Task</h3>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
 <div class="paragraph">
-<p>You miss a special task in the above list?
-Or maybe you want to change a task to better fit your needs?
-Why not create your own project specific task?</p>
+<p>This task is destructive and can harm your environment</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>Execute <code>./dtcw createTask</code> and docToolchain will create and configure a custom gradle task for you in a folder <code>scripts</code>.</p>
+<p>This task will wipe all content from your Confluence space, configured in your <code>docToolchainConfig.groovy</code>.
+It will not delete the space itself. The task makes it easy if you want to start from scratch with your documentation, or if you want to re-import your documentation from scratch after you did refactor your document structure and want to get rid of all the old pages.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_usage">Usage</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw wipeConfluenceSpace -PconfluenceUser=foo.bar@example.corp -PconfluencePass=&lt;REDACTED&gt;</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>To get started, take a look at <a href="https://github.com/docToolchain/docToolchain/tree/ng/scripts">all the other tasks</a> to see how they solve problems.
-Copy and modify the code to your own task and start hacking.</p>
+<p>You will be asked to confirm the deletion of all pages in the space. Enter <code>y</code> to confirm.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">...
+To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/8.1.1/userguide/gradle_daemon.html#sec:disabling_the_daemon.
+Daemon will be stopped at the end of the build
+
+&gt; Task :wipeConfluenceSpace
+[ant:input] Do you really want to delete all pages in myDemoSpace (y, n)</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_source">Source</h3>
-<div class="listingblock">
-<div class="title">customTasks.gradle</div>
+<details>
+<summary class="title">Show source code of <code>scripts/publishToConfluence.gradle</code> or go directly to <a href="https://github.com/docToolchain/docToolchain/blob/ng/scripts/publishToConfluence.gradle" target="_blank" rel="noopener">GitHub · docToolchain/scripts/publishToConfluence.gradle</a>.</summary>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">config.customTasks?.each { task -&gt;
-    println "include custom task $task"
-    apply from: docDir+'/'+task
-}
+<div class="listingblock">
+<div class="title">scripts/publishToConfluence.gradle</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">task wipeConfluenceSpace(
+    description: 'deletes all pages in the configured confluence space',
+    group: 'docToolchain'
+) {
+    doLast {
+        ant.input(message: "${'Do you really want to delete all pages in ' + config.confluence.spaceKey}", validargs: 'y,n', addproperty: 'confirm')
+        if(ant.confirm.toBoolean()) {
+            //TODO default should be false, if the V1 has been removed in cloud
+            config.confluence.useV1Api = findProperty("confluence.useV1Api") != null ?
+                findProperty("confluence.useV1Api") : config.confluence.useV1Api != [:] ?
+                config.confluence.useV1Api :true
+            new WipeConfluenceSpaceTask(config).execute()
+        } else {
+            println("Aborting wipe confluence space, this task needs to be confirmed with 'y'")
+        }
 
-task createTask(
-        description: 'create a new Task as quick start',
-        group: 'docToolchain'
-) {
-    doLast {
-        def file = new File(docDir+'/scripts/customTask.gradle')
-        new File(docDir+"/scripts").mkdirs()
-        file.write("""\
-task customTask (
-        description: 'a custom task',
-        group: 'docToolchain'
-) {
-    doLast {
-        println "your own custom task"
-    }
-}
-""")
-        def config = new File(docDir+'/'+mainConfigFile)
-        config.write(config.text.replaceAll(
-            "/[*][*] customTasks [*][*]/",
-            "'scripts/customTask.gradle',\n\t\t/** customTasks **/"
-        ))
-        println """
-custom task
-${file.canonicalPath}
-created and configured
-"""
     }
 }</code></pre>
 </div>
 </div>
+</div>
+</details>
 </div>
 </div>
 </div>
@@ -531,11 +565,11 @@ created and configured
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27createTask%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/150_task_creatTask.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27wipeConfluenceSpace%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_wipeConfluenceSpace.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27createTask%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/150_task_creatTask.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27wipeConfluenceSpace%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_wipeConfluenceSpace.adoc">tell
     us how we can improve</a>.
     </p>
 </div>

@@ -1,31 +1,33 @@
 <!doctype html>
 <html lang="de">
 <head>
-  
-  <!-- 015_tasks/03_task_exportJiraSprintChangelog.html -->
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    
+    <!-- sourceuri: 015_tasks/03_task_exportJiraSprintChangelog.html -->
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <meta content="jbake" name="generator">
-  <meta content="INDEX, FOLLOW" name="ROBOTS">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="jbake" name="generator">
+    <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>exportJiraSprintChangelogIssues</title>
-  <meta content="docToolchain" property="og:title">
-  <meta content="build your dev docs the easy way..." property="og:description">
-  <meta content="website" property="og:type">
-  <meta content="docToolchain" property="og:site_name">
-  <meta content="docToolchain" itemprop="name">
-  <meta content="build your dev docs the easy way..." itemprop="description">
-  <meta content="summary" name="twitter:card">
-  <meta content="docToolchain" name="twitter:title">
-  <meta content="build your dev docs the easy way..." name="twitter:description">
+    <title>exportJiraSprintChangelogIssues</title>
+    <meta content="docToolchain" property="og:title">
+    <meta content="build your dev docs the easy way..." property="og:description">
+    <meta content="website" property="og:type">
+    <meta content="docToolchain" property="og:site_name">
+    <meta content="docToolchain" itemprop="name">
+    <meta content="build your dev docs the easy way..." itemprop="description">
+    <meta content="summary" name="twitter:card">
+    <meta content="docToolchain" name="twitter:title">
+    <meta content="build your dev docs the easy way..." name="twitter:description">
 
-  <link as="style" href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+    <link as="style"
+        href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
         rel="preload">
-  <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css" integrity=""
+    <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+        integrity=""
         rel="stylesheet">
-  <link href="../css/asciidoctor.css" rel="stylesheet">
-  <link href="../css/prettify.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
 
     <!-- favicon generated with https://www.favicon-generator.org/ -->
     <link rel="shortcut icon" href="../favicon.ico">
@@ -38,7 +40,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="../android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -47,65 +49,76 @@
     <meta name="msapplication-TileImage" content="../ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-  <script src="../js/jquery-3.5.1.min.js"></script>
-  <style>
-      div.bg-light {
-          background-color: rgba(127, 180, 224, 0.3) !important;
-      }
-      //for blog posts
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <style>
+    div.bg-light {
+        background-color: rgba(127, 180, 224, 0.3) !important;
+    }
 
-  span.blogtag {
-      border-radius: 10px;
-      background-color: #30638E;
-      color: white;
-      padding: 5px 10px;
-  }
-  span.blogblogtag a {
-      color: white;
-      padding: 0
-  }
-  span.blogtag span {
-      margin-left: 10px;
-      border-radius: 10px;
-      background-color: white;
-      color: #30638E;
-  }
-  div.td-toc {
-    height: calc(100vh - 5rem) !important;
-  }
-  div#toctitle {
-    display: none
-  }
-  #td-section-nav {
-    max-height: calc(100vh - 4rem);
-    font-size: smaller;
-    line-hight: 1.1;
-  }
-  .td-page-meta {
-      font-size: smaller;
-      line-hight: 1.1;
-  }
-  #td-section-nav ul.td-sidebar-nav__section  {
-    padding-left:0px;
-  }
-  span.navbar-logo {
-    padding-right: 1.5em;
-  }
-  .match {
-      font-size: smaller;
-  }
-      .admonitionblock td.icon .fa:before {
-          font-size: xxx-large;
-      }
-  </style>
+    /* for blog posts */
+    span.blogtag {
+        border-radius: 10px;
+        background-color: #30638E;
+        color: white;
+        padding: 5px 10px;
+    }
 
-   <style>
+    span.blogblogtag a {
+        color: white;
+        padding: 0
+    }
+
+    span.blogtag span {
+        margin-left: 10px;
+        border-radius: 10px;
+        background-color: white;
+        color: #30638E;
+    }
+
+    div.td-toc {
+        height: calc(100vh - 5rem) !important;
+    }
+
+    div#toctitle {
+        display: none
+    }
+
+    #td-section-nav {
+        max-height: calc(100vh - 4rem);
+        font-size: smaller;
+        line-height: 1.1;
+    }
+
+    .td-page-meta {
+        font-size: smaller;
+        line-height: 1.1;
+    }
+
+    #td-section-nav ul.td-sidebar-nav__section {
+        padding-left: 0;
+    }
+
+    span.navbar-logo {
+        padding-right: 1.5em;
+    }
+
+    .match {
+        font-size: smaller;
+    }
+
+    .admonitionblock td.icon .fa:before {
+        font-size: xxx-large;
+    }
+    </style>
+
+    <style>
     div.openblock.primary div.content, div.openblock.secondary div.content {
         border: 1px solid #7a2518;
         padding: 5px;
     }
+
     div.openblock.primary div.content div.content, div.openblock.secondary div.content div.content {
-        border: 0px solid #7a2518;
+        border: 0 solid #7a2518;
         padding: 0;
     }
 
@@ -375,7 +388,11 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/150_task_creatTask.html">createTask</a>
+                                   href="../015_tasks/03_task_wipeConfluenceSpace.html">wipeConfluenceSpace</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/150_task_createTask.html">createTask</a>
                             </li>
                         </ul>
                     </li>
@@ -439,7 +456,7 @@
 <h2 id="_exportjirasprintchangelogissues">exportJiraSprintChangelogIssues</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/b55e260be513eedfb745afb36248b8ec?d=identicon" alt="Vladi" width="32" height="32" title="Vladi"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/a1a5917e47cadf234366c3e3beef39b6?d=identicon" alt="Johannes Thorn" width="32" height="32" title="Johannes Thorn"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2fb11e699999e0d7f6913d50228d7bd8?d=identicon" alt="Jody Winter" width="32" height="32" title="Jody Winter"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/b55e260be513eedfb745afb36248b8ec?d=identicon" alt="Vladi" width="32" height="32" title="Vladi"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -488,190 +505,25 @@ sprintChangelog.with {
 </div>
 <div class="sect2">
 <h3 id="_source">Source</h3>
+<details>
+<summary class="title">Show source code of <code>scripts/exportJiraSprintChangelog.gradle</code> or go directly to <a href="https://github.com/docToolchain/docToolchain/blob/ng/scripts/exportJiraSprintChangelog.gradle" target="_blank" rel="noopener">GitHub · docToolchain/scripts/exportJiraSprintChangelog.gradle</a>.</summary>
+<div class="content">
 <div class="listingblock">
-<div class="title">exportJiraSprintChangelog.gradle</div>
+<div class="title">scripts/exportJiraSprintChangelog.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">task exportJiraSprintChangelog(
         description: 'exports all jira issues from Sprint for release notes',
         group: 'docToolchain'
 ) {
     doLast {
-        // Pre defined ticket fields for Changelog based on Jira Sprints
-        def defaultTicketFields = 'summary,status,assignee,issuetype'
-
-        // retrieving sprints for a given board
-        def sprints = { apiSprints, headers, boardId, sprintState -&gt;
-                apiSprints.get(path: "agile/latest/board/${boardId}/sprint",
-                    query:[state: "${sprintState}"],
-                    headers: headers
-                ).data
-        }
-
-        // retrieving issues for given sprint
-        def issues = { apiIssues, headers, boardId, sprintId, status -&gt;
-            apiIssues.get(path: "agile/latest/board/${boardId}/sprint/${sprintId}/issue",
-                    query: ['jql'       : "status in (${status}) ORDER BY type DESC, status ASC",
-                            'maxResults': 1000,
-                            fields: defaultTicketFields
-                    ],
-                    headers: headers
-            ).data
-        }
-
-        // preparing target folder for generated files
-        final String taskSubfolderName = config.sprintChangelog.resultsFolder
-        final File targetFolder = new File(targetDir + File.separator + taskSubfolderName)
-        if (!targetFolder.exists()) targetFolder.mkdirs()
-        logger.debug("Output folder for 'exportJiraSprintChangelog' task is: '${targetFolder}'")
-
-        // Getting configuration
-        def jiraRoot = config.jira.api
-        def jiraProject = config.jira.project
-
-        def sprintState = config.sprintChangelog.sprintState
-        def ticketStatusForReleaseNotes = config.sprintChangelog.ticketStatus
-        def sprintBoardId = config.sprintChangelog.sprintBoardId
-        def showAssignee = config.sprintChangelog.showAssignee
-        def showTicketStatus = config.sprintChangelog.showTicketStatus
-        def showTicketType = config.sprintChangelog.showTicketType
-        def sprintName = config.sprintChangelog.sprintName
-        def allSprintsFilename = config.sprintChangelog.allSprintsFilename
-
-        logger.info("\n==========================\nJira Release notes config\n==========================")
-        logger.info("Spring Board ID: ${sprintBoardId}")
-        logger.info("Show assignees: ${showAssignee}. Show ticket status: ${showTicketStatus}. Show ticket type: ${showTicketType}")
-        logger.info("Filtering for sprints with configured state: '${sprintState}'")
-        logger.info("Filtering for issues with configured statuses: ${ticketStatusForReleaseNotes}")
-        logger.info("Attempt to generate release notes for sprint with a name: '${sprintName}'")
-        logger.info("Filename used for all sprints: '${allSprintsFilename}'")
-
-        def api = new groovyx.net.http.RESTClient(jiraRoot + '/rest/')
-        api.encoderRegistry = new groovyx.net.http.EncoderRegistry(charset: 'utf-8')
-        def headers = [
-                'Authorization': "Basic " + config.jira.credentials,
-                'Content-Type' : 'application/json; charset=utf-8'
-        ]
-
-        def allChangelogsFilename = "${allSprintsFilename}.xlsx"
-        logger.quiet("Changelogs of all sprints will be saved in '${allChangelogsFilename}' file")
-
-        def changelogsXls = new File(targetFolder, allChangelogsFilename)
-        def changelogsXlsFos = new FileOutputStream(changelogsXls)
-        Workbook wb = new XSSFWorkbook();
-        CreationHelper hyperlinkHelper = wb.getCreationHelper();
-
-        String rgbS = "A7A7A7"
-        byte[] rgbB = Hex.decodeHex(rgbS) // get byte array from hex string
-        XSSFColor color = new XSSFColor(rgbB, null) //IndexedColorMap has no usage until now. So it can be set null.
-        XSSFCellStyle headerCellStyle = (XSSFCellStyle) wb.createCellStyle()
-        headerCellStyle.setFillForegroundColor(color)
-        headerCellStyle.setFillPattern(FillPatternType.SOLID_FOREGROUND)
-
-        // prepare tickets according to configuration
-        def columns = ['key'].plus(defaultTicketFields.split(',').collect())
-        if (!showAssignee) { columns = columns.minus('assignee')}
-        if (!showTicketStatus) { columns = columns.minus('status')}
-        if (!showTicketType) { columns = columns.minus('issuetype')}
-        logger.info("Release notes will contain following info: ${columns}")
-
-        logger.info("\n=====================\n      Sprints\n=====================")
-        //
-        def allMatchedSprints = sprints(api, headers, sprintBoardId, sprintState).values
-        def foundExactSprint = allMatchedSprints.any {it.name == sprintName}
-        logger.info("All sprints that matched configuration: ${allMatchedSprints.size()}")
-
-        def sprintsForChangelog = foundExactSprint ? allMatchedSprints.stream().filter() {it.name == sprintName} : allMatchedSprints
-        logger.info("Found exact Sprint with name '${sprintName}': ${foundExactSprint}.")
-
-        sprintsForChangelog.each { sprint -&gt;
-            logger.quiet("\nSprint: $sprint.name [id: $sprint.id] state &lt;$sprint.state&gt;")
-
-            /* ================================================
-                Create new worksheet inside existing excel file
-               ================================================ */
-            String safeSprintName = WorkbookUtil.createSafeSheetName("${sprint.name}")
-            def ws = wb.createSheet(safeSprintName)
-
-            // Add titles (typically key &amp; summary, but assignee, ticket status, ticket type can be configured in Config.groovy too)
-            def titleRow = ws.createRow(0);
-            int cellNumber = 0;
-            columns.each {columnTitle -&gt; titleRow.createCell(cellNumber++).setCellValue("${columnTitle.capitalize()}")}
-
-            def lastRow = titleRow.getRowNum()
-            titleRow.setRowStyle(headerCellStyle)
-            // set summary (at position 1) column wider than other columns
-            ws.setColumnWidth(1, 35*256)
-
-            /* =========================================
-                      AsciiDoc file for each sprint
-               ========================================= */
-            def asciidocFilename = "${sprint.name.replaceAll(" ", "_")}.adoc"
-            logger.info("Results will be saved in '${asciidocFilename}' file")
-
-            def changeLogAdoc = new File(targetFolder, "${asciidocFilename}")
-            changeLogAdoc.write(".Table ${sprint.name} Changelog\n", 'utf-8')
-            changeLogAdoc.append("|=== \n")
-
-            // AsciiDoc table columns
-            columns.each {columnTitle -&gt; changeLogAdoc.append("|${columnTitle} ", 'utf-8')}
-
-            /* =========================================
-                      Add tickets for the sprint
-               ========================================= */
-            issues(api, headers, sprintBoardId, sprint.id, ticketStatusForReleaseNotes).issues.each {issue -&gt;
-                def assignee = "${issue.fields.assignee ? issue.fields.assignee.displayName : 'unassigned'} "
-                def message = showAssignee ? "by ${assignee} ": ""
-                logger.quiet("Issue: [$issue.key] '$issue.fields.summary' ${message}&lt;$issue.fields.status.name&gt;")
-
-                /* ===========================
-                      Write ticket to Excel
-                   =========================== */
-                int cellPosition = 0
-                def row = ws.createRow(++lastRow)
-
-                Hyperlink link = hyperlinkHelper.createHyperlink(HyperlinkType.URL)
-                link.setAddress("${jiraRoot}/browse/${issue.key}")
-                Cell cellWithUrl = row.createCell(cellPosition)
-                cellWithUrl.setCellValue("${issue.key}")
-                cellWithUrl.setHyperlink(link)
-
-                row.createCell(++cellPosition).setCellValue("${issue.fields.summary}")
-
-                /* =============================
-                      Write ticket to Asciidoc
-                   ============================= */
-                changeLogAdoc.append("\n", 'utf-8')
-                changeLogAdoc.append("| ${jiraRoot}/browse/${issue.key}[${issue.key}] ", 'utf-8')
-                changeLogAdoc.append("| ${issue.fields.summary} ", 'utf-8')
-
-                /* === Write ticket status, assignee, ticket typee if configured to both Asciidoc &amp; Excel files === */
-                if (showTicketStatus) {
-                    row.createCell(++cellPosition).setCellValue("${issue.fields.status.name}")
-                    changeLogAdoc.append("| ${issue.fields.status.name} ", 'utf-8')
-                }
-
-                if (showAssignee) {
-                    row.createCell(++cellPosition).setCellValue("${assignee}")
-                    changeLogAdoc.append("| ${assignee}", 'utf-8')
-                }
-
-                if (showTicketType) {
-                    row.createCell(++cellPosition).setCellValue("${issue.fields.issuetype.name}")
-                    changeLogAdoc.append("| ${issue.fields.issuetype.name} ", 'utf-8')
-                }
-            }
-            // Close the asciidoc table
-            changeLogAdoc.append("\n|=== \n",'utf-8')
-
-            // Set auto-width to KEY column
-            ws.autoSizeColumn(0);
-        }
-        // Write to Excel file
-        wb.write(changelogsXlsFos)
+        config.targetDir = targetDir
+        new ExportJiraSprintChangelogTask(config).execute()
     }
 }</code></pre>
 </div>
 </div>
+</div>
+</details>
 </div>
 </div>
 </div>

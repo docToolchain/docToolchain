@@ -1,31 +1,33 @@
 <!doctype html>
 <html lang="de">
 <head>
-  
-  <!-- 015_tasks/03_task_generateContent.html -->
-  <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+    
+    <!-- sourceuri: 015_tasks/03_task_generateContent.html -->
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-  <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
-  <meta content="jbake" name="generator">
-  <meta content="INDEX, FOLLOW" name="ROBOTS">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="jbake" name="generator">
+    <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-  <title>generateContent</title>
-  <meta content="docToolchain" property="og:title">
-  <meta content="build your dev docs the easy way..." property="og:description">
-  <meta content="website" property="og:type">
-  <meta content="docToolchain" property="og:site_name">
-  <meta content="docToolchain" itemprop="name">
-  <meta content="build your dev docs the easy way..." itemprop="description">
-  <meta content="summary" name="twitter:card">
-  <meta content="docToolchain" name="twitter:title">
-  <meta content="build your dev docs the easy way..." name="twitter:description">
+    <title>generateContent</title>
+    <meta content="docToolchain" property="og:title">
+    <meta content="build your dev docs the easy way..." property="og:description">
+    <meta content="website" property="og:type">
+    <meta content="docToolchain" property="og:site_name">
+    <meta content="docToolchain" itemprop="name">
+    <meta content="build your dev docs the easy way..." itemprop="description">
+    <meta content="summary" name="twitter:card">
+    <meta content="docToolchain" name="twitter:title">
+    <meta content="build your dev docs the easy way..." name="twitter:description">
 
-  <link as="style" href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+    <link as="style"
+        href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
         rel="preload">
-  <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css" integrity=""
+    <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+        integrity=""
         rel="stylesheet">
-  <link href="../css/asciidoctor.css" rel="stylesheet">
-  <link href="../css/prettify.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
 
     <!-- favicon generated with https://www.favicon-generator.org/ -->
     <link rel="shortcut icon" href="../favicon.ico">
@@ -38,7 +40,7 @@
     <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png">
     <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png">
     <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192"  href="../android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../android-icon-192x192.png">
     <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
     <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
@@ -47,65 +49,76 @@
     <meta name="msapplication-TileImage" content="../ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-  <script src="../js/jquery-3.5.1.min.js"></script>
-  <style>
-      div.bg-light {
-          background-color: rgba(127, 180, 224, 0.3) !important;
-      }
-      //for blog posts
+    <script src="../js/jquery-3.5.1.min.js"></script>
+    <style>
+    div.bg-light {
+        background-color: rgba(127, 180, 224, 0.3) !important;
+    }
 
-  span.blogtag {
-      border-radius: 10px;
-      background-color: #30638E;
-      color: white;
-      padding: 5px 10px;
-  }
-  span.blogblogtag a {
-      color: white;
-      padding: 0
-  }
-  span.blogtag span {
-      margin-left: 10px;
-      border-radius: 10px;
-      background-color: white;
-      color: #30638E;
-  }
-  div.td-toc {
-    height: calc(100vh - 5rem) !important;
-  }
-  div#toctitle {
-    display: none
-  }
-  #td-section-nav {
-    max-height: calc(100vh - 4rem);
-    font-size: smaller;
-    line-hight: 1.1;
-  }
-  .td-page-meta {
-      font-size: smaller;
-      line-hight: 1.1;
-  }
-  #td-section-nav ul.td-sidebar-nav__section  {
-    padding-left:0px;
-  }
-  span.navbar-logo {
-    padding-right: 1.5em;
-  }
-  .match {
-      font-size: smaller;
-  }
-      .admonitionblock td.icon .fa:before {
-          font-size: xxx-large;
-      }
-  </style>
+    /* for blog posts */
+    span.blogtag {
+        border-radius: 10px;
+        background-color: #30638E;
+        color: white;
+        padding: 5px 10px;
+    }
 
-   <style>
+    span.blogblogtag a {
+        color: white;
+        padding: 0
+    }
+
+    span.blogtag span {
+        margin-left: 10px;
+        border-radius: 10px;
+        background-color: white;
+        color: #30638E;
+    }
+
+    div.td-toc {
+        height: calc(100vh - 5rem) !important;
+    }
+
+    div#toctitle {
+        display: none
+    }
+
+    #td-section-nav {
+        max-height: calc(100vh - 4rem);
+        font-size: smaller;
+        line-height: 1.1;
+    }
+
+    .td-page-meta {
+        font-size: smaller;
+        line-height: 1.1;
+    }
+
+    #td-section-nav ul.td-sidebar-nav__section {
+        padding-left: 0;
+    }
+
+    span.navbar-logo {
+        padding-right: 1.5em;
+    }
+
+    .match {
+        font-size: smaller;
+    }
+
+    .admonitionblock td.icon .fa:before {
+        font-size: xxx-large;
+    }
+    </style>
+
+    <style>
     div.openblock.primary div.content, div.openblock.secondary div.content {
         border: 1px solid #7a2518;
         padding: 5px;
     }
+
     div.openblock.primary div.content div.content, div.openblock.secondary div.content div.content {
-        border: 0px solid #7a2518;
+        border: 0 solid #7a2518;
         padding: 0;
     }
 
@@ -375,7 +388,11 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/150_task_creatTask.html">createTask</a>
+                                   href="../015_tasks/03_task_wipeConfluenceSpace.html">wipeConfluenceSpace</a>
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/150_task_createTask.html">createTask</a>
                             </li>
                         </ul>
                     </li>
@@ -406,9 +423,9 @@
 <li><a href="#_about_this_task">About This Task</a></li>
 <li><a href="#_configuration">Configuration</a></li>
 <li><a href="#_example">Example</a></li>
-<li><a href="#_source">Source</a></li>
 </ul>
 </li>
+<li><a href="#_source">Source</a></li>
 </ul>
 </div>
 
@@ -440,7 +457,7 @@
 <h2 id="_generatecontent">generateContent</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/9934d8546416204bc9454812316d4113?d=identicon" alt="PacoVK" width="32" height="32" title="PacoVK"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/a1a5917e47cadf234366c3e3beef39b6?d=identicon" alt="Johannes Thorn" width="32" height="32" title="Johannes Thorn"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/9934d8546416204bc9454812316d4113?d=identicon" alt="PacoVK" width="32" height="32" title="PacoVK"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -545,35 +562,35 @@ The result varies based on your input you give, the more specific you are, the b
 <div class="listingblock">
 <div class="title">example/example.adoc</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="asciidoc">== Fraud-Detector
+<pre class="prettyprint highlight"><code data-lang="asciidoc">= Fraud-Detector
 :toc:
 
-=== Overview
+== Overview
 * Description of fraud-detector microservice
 * Abstract view of architecture
 * List of core libraries used
 
-=== Getting Started
+== Getting Started
 * Setup instructions
 * How to add it as a dependency
 * Configuration instructions
 
-=== Architecture
+== Architecture
 * In-depth view of architecture
   * Components
   * Services
   * Data Structure
 
-=== Development
+== Development
 * Contribution Guidelines
 * Coding Standards
 * Debugging Suggestions
 
-=== Troubleshooting
+== Troubleshooting
 * Known Issues and Solutions
 * Support
 
-=== FAQs
+== FAQs
 * Common Questions and Answers</code></pre>
 </div>
 </div>
@@ -595,7 +612,8 @@ You can specify as many <code>AI:</code> blocks as you want. They will al be rep
 <div class="listingblock">
 <div class="title">example/example.adoc</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="asciidoc">=== Getting Started
+<pre class="prettyprint highlight"><code data-lang="asciidoc">== Getting Started
+
 * Setup instructions
 
 ////
@@ -611,43 +629,49 @@ AI: Write a short how-to install JDK 17 on Windows, Mac and Linux using sdkman. 
 <div class="listingblock">
 <div class="title">example/example.adoc</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="asciidoc">    = Installing JDK 17 using SDKMAN
+<pre class="prettyprint highlight"><code data-lang="asciidoc">= Installing JDK 17 using SDKMAN
 
-    JDK 17 is a version of the Java Development Kit that is suitable for general use. It can be installed quickly and easily with the help of SDKMAN. This guide includes instructions for installation on Windows, Mac and Linux operating systems.
+JDK 17 is a version of the Java Development Kit that is suitable for general use. It can be installed quickly and easily with the help of SDKMAN. This guide includes instructions for installation on Windows, Mac and Linux operating systems.
 
-    == Windows
+== Windows
 
-    JDK 17 can be installed on Windows with the following commands:
+JDK 17 can be installed on Windows with the following commands:
 
-    [source,shell]
-    ----
-    sdk install java 17.0.1-open
-    ----
+[source,shell]
+----
+sdk install java 17.0.1-open
+----
 
-    == Mac
+== Mac
 
-    JDK 17 can be installed on Mac with the following commands:
+JDK 17 can be installed on Mac with the following commands:
 
-    [source,shell]
-    ----
-    sdk install java 17.0.1-open
-    ----
+[source,shell]
+----
+sdk install java 17.0.1-open
+----
 
-    == Linux
+== Linux
 
-    JDK 17 can be installed on Linux with the following commands:
+JDK 17 can be installed on Linux with the following commands:
 
-    [source,shell]
-    ----
-    sdk install java 17.0.1-open
-    ----</code></pre>
+[source,shell]
+----
+sdk install java 17.0.1-open
+----</code></pre>
 </div>
 </div>
 </div>
-<div class="sect2">
-<h3 id="_source">Source</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_source">Source</h2>
+<div class="sectionbody">
+<details>
+<summary class="title">Show source code of <code>scripts/generateContent.gradle</code> or go directly to <a href="https://github.com/docToolchain/docToolchain/blob/ng/scripts/generateContent.gradle" target="_blank" rel="noopener">GitHub · docToolchain/scripts/generateContent.gradle</a>.</summary>
+<div class="content">
 <div class="listingblock">
-<div class="title">generateContent.gradle</div>
+<div class="title">scripts/generateContent.gradle</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">task generateContent (
     description: 'Generate documentation with the help of OpenAI',
@@ -706,6 +730,7 @@ AI: Write a short how-to install JDK 17 on Windows, Mac and Linux using sdkman. 
 </div>
 </div>
 </div>
+</details>
 </div>
 </div>
         </p>
