@@ -2,6 +2,11 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">
 
     <url>
+    	<loc>https://localhost/030_news/2024/3.2.2-release.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/030_news/2024/3.2.1-release.html</loc>
     	<lastmod>2024-01-10</lastmod>
     </url>
@@ -107,11 +112,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/10_about/20_what-is-doctoolchain.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/10_about/30_community.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
@@ -122,12 +122,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/050_who-uses-dtc.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/025_development/010_setup_dev_env.html</loc>
+    	<loc>https://localhost/10_about/20_what-is-doctoolchain.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
@@ -137,7 +132,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/025_development/050_who-uses-dtc.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/025_development/040_debugging.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/025_development/010_setup_dev_env.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
@@ -207,11 +212,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/110_presentations_with_revealjs.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/020_tutorial/050_multipleRepositories.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
@@ -222,17 +222,47 @@
     </url>
 
     <url>
+    	<loc>https://localhost/020_tutorial/110_presentations_with_revealjs.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/020_tutorial/043_multi-markup.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/ea/issue1.html</loc>
+    	<loc>https://localhost/ea/Architect_notes.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Architect_notes.html</loc>
+    	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/readme.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/UseCases.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/issue1.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
@@ -252,27 +282,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/readme.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/Activity_notes.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/UseCases.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
@@ -282,17 +292,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_prependFilename.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
@@ -302,22 +302,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_exportContributors.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportStructurizr.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportConfluence.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
@@ -332,17 +327,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_exportStructurizr.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportConfluence.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/150_task_createTask.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_wipeConfluenceSpace.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_generatePDF.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
@@ -357,7 +352,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_wipeConfluenceSpace.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_generateSite.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_generatePDF.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
@@ -372,17 +377,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_collectIncludes.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
@@ -392,12 +387,32 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportDrawIo.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportOpenApi.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportMetrics.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
@@ -417,16 +432,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportOpenApi.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportMetrics.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_exportMarkdown.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
@@ -437,17 +442,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_downloadTemplate.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportJiraIssues.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_downloadTemplate.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
@@ -457,12 +457,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportJiraSprintChangelog.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportJiraSprintChangelog.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportJiraIssues.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
@@ -477,17 +482,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/60_further_reading.html</loc>
-    	<lastmod>2024-01-18</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/010_manual/30_config.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/010_manual/010_introduction_and_goals.html</loc>
+    	<lastmod>2024-01-18</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/010_manual/60_further_reading.html</loc>
     	<lastmod>2024-01-18</lastmod>
     </url>
 

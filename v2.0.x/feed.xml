@@ -6,9 +6,138 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Thu, 18 Jan 2024 19:36:01 +0000</pubDate>
-    <lastBuildDate>Thu, 18 Jan 2024 19:36:01 +0000</lastBuildDate>
+    <pubDate>Thu, 18 Jan 2024 20:17:27 +0000</pubDate>
+    <lastBuildDate>Thu, 18 Jan 2024 20:17:27 +0000</lastBuildDate>
 
+    
+    <item>
+      <title>Release v3.2.2</title>
+      <link>https://localhost/030_news/2024/3.2.2-release.html</link>
+      <pubDate>Thu, 18 Jan 2024 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">030_news/2024/3.2.2-release.html</guid>
+      <description>
+      &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
+&lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
+&lt;ul class=&quot;sectlevel1&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_doctoolchain_release_v3_2_2_bugfix_release&quot;&gt;docToolchain release v3.2.2 (Bugfix-Release)&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_about_this_release&quot;&gt;About This Release&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_notes&quot;&gt;Notes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_3_2_2_2024_01_18&quot;&gt;3.2.2 - 2024-01-18&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_fixes&quot;&gt;fixes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_added&quot;&gt;added&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_changed&quot;&gt;changed&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- endtoc --&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_doctoolchain_release_v3_2_2_bugfix_release&quot;&gt;docToolchain release v3.2.2 (Bugfix-Release)&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This is the Bugfix-Release v3.2.2&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_about_this_release&quot;&gt;About This Release&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The v3.2.1 Release changed the behaviour of the REST client used in &lt;code&gt;publishToConfluence&lt;/code&gt; and failed on attachments uploads in some cases.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock important&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-important&quot; title=&quot;Important&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+please also check the &lt;a href=&quot;../2023/3.2.0-release.html&quot;&gt;release notes for v3.2.0&lt;/a&gt; and &lt;a href=&quot;../2024/3.2.1-release.html&quot;&gt;release notes for v3.2.1&lt;/a&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_notes&quot;&gt;Notes&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_3_2_2_2024_01_18&quot;&gt;3.2.2 - 2024-01-18&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_fixes&quot;&gt;fixes&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1335&quot;&gt;#1335 publishToConfluence throws exception when uploading attachments in v3.2.0&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1343&quot;&gt;#1343: Build and publish docs after PR get into ng&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_added&quot;&gt;added&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1338&quot;&gt;#1338: extend the options for the docker environment by additional environment variables and additional parameter sets.&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_changed&quot;&gt;changed&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;[Core] Http calls from docToolchain are now identified by a user agent string of format &lt;code&gt;docToolchain_v&amp;lt;DTCW_VERSION&amp;gt;&lt;/code&gt;.&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock note&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-note&quot; title=&quot;Note&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+a big &quot;THANK YOU&quot; to all &lt;strong&gt;Sponsors&lt;/strong&gt; and &lt;strong&gt;Contributors&lt;/strong&gt; who helped to support docToolchain!
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You like docToolchain?&lt;br&gt;
+What about helping to make it even better?&lt;br&gt;
+docToolchain is a community project, so be part of the community which drives the project.&lt;br&gt;
+You don&amp;#8217;t have to code for doing so.&lt;br&gt;
+It would even help to brush up the docs, write tutorials or groom the backlog&lt;br&gt;
+(I guess many of the open issues are already fixed).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	  </description>
+    </item>
     
     <item>
       <title>Release v3.2.1</title>

@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: 030_news/2023/3.1.0-release.html -->
+    <!-- sourceuri: 030_news/2024/3.2.2-release.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>Release v3.1.0</title>
+    <title>Release v3.2.2</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -328,7 +328,7 @@
                                    href="../../030_news/2023/3.0.2-release.html">Release v3.0.2</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../../030_news/2023/3.1.0-release.html">Release v3.1.0</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -353,7 +353,7 @@
                                    href="../../030_news/2024/3.2.1-release.html">Release v3.2.1</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../../030_news/2024/3.2.2-release.html">Release v3.2.2</a>
                             </li>
                         </ul>
@@ -369,11 +369,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2023/3.1.0-release.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2024/3.2.2-release.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Release+v3.1.0%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2023/3.1.0-release.adoc%0A%23branch:%20ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Release+v3.2.2%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2024/3.2.2-release.adoc%0A%23branch:%20ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -382,13 +382,13 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_doctoolchain_release_v3_1_0">docToolchain release v3.1.0!</a>
+<li><a href="#_doctoolchain_release_v3_2_2_bugfix_release">docToolchain release v3.2.2 (Bugfix-Release)</a>
 <ul class="sectlevel2">
 <li><a href="#_about_this_release">About This Release</a></li>
 </ul>
 </li>
 <li><a href="#_notes">Notes</a></li>
-<li><a href="#_3_1_0_2023_11_03">3.1.0 - 2023-11-03</a>
+<li><a href="#_3_2_2_2024_01_18">3.2.2 - 2024-01-18</a>
 <ul class="sectlevel2">
 <li><a href="#_fixes">fixes</a></li>
 <li><a href="#_added">added</a></li>
@@ -403,30 +403,31 @@
 				</div>
 			</div>
 			<main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
-				<p><em>03 November 2023, Pascal Euhus</em></p>
+				<p><em>18 January 2024, Pascal Euhus</em></p>
 				<p>
                     
 <div class="sect1">
-<h2 id="_doctoolchain_release_v3_1_0">docToolchain release v3.1.0!</h2>
+<h2 id="_doctoolchain_release_v3_2_2_bugfix_release">docToolchain release v3.2.2 (Bugfix-Release)</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>This is the Bugfix-Release v3.2.2</p>
+</div>
 <div class="sect2">
 <h3 id="_about_this_release">About This Release</h3>
 <div class="paragraph">
-<p>Here it is: docToolchain v3.1.0!
-It contains two major changes:</p>
+<p>The v3.2.1 Release changed the behaviour of the REST client used in <code>publishToConfluence</code> and failed on attachments uploads in some cases.</p>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>docToolchain starts to become more modularized. This enables us to provide a core component which can be used by other projects as well, <strong>without</strong> the use of Gradle. Though, Gradle will still get the full support.</p>
-</li>
-<li>
-<p>Atlassian is currently deprecating the Confluence API v1. This release candidate contains the first steps to support the new API v2. From January 2024 on,
-the old API will be shut down for all <strong>Cloud Instances</strong> (<a href="https://community.developer.atlassian.com/t/deprecating-many-confluence-v1-apis-that-have-v2-equivalents/66883">see</a>).
-While the script logic was mostly unaffected, the RestClient had to be rewritten.
-Although we tested everything, we need your help to test the new API to verify we didn&#8217;t miss anything.</p>
-</li>
-</ul>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+please also check the <a href="../2023/3.2.0-release.html">release notes for v3.2.0</a> and <a href="../2024/3.2.1-release.html">release notes for v3.2.1</a>
+</td>
+</tr>
+</table>
 </div>
 </div>
 </div>
@@ -434,37 +435,21 @@ Although we tested everything, we need your help to test the new API to verify w
 <div class="sect1">
 <h2 id="_notes">Notes</h2>
 <div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>to switch to the new API, you have to set the <code>confluence.useV1Api</code> property to <code>false</code> in your <code>docToolchainConfig.groovy</code> file.
-This is recommended for all users using Confluence Cloud.</p>
-</li>
-</ul>
-</div>
+
 </div>
 </div>
 <div class="sect1">
-<h2 id="_3_1_0_2023_11_03">3.1.0 - 2023-11-03</h2>
+<h2 id="_3_2_2_2024_01_18">3.2.2 - 2024-01-18</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_fixes">fixes</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/docToolchain/docToolchain/pull/1262">#1262: downloadTemplate skips creating a folder, causes generateSite to fail</a></p>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/1335">#1335 publishToConfluence throws exception when uploading attachments in v3.2.0</a></p>
 </li>
 <li>
-<p><a href="https://github.com/docToolchain/docToolchain/issues/1269">#1269 Fix wrong bash usage on Darwin with Homebrew</a></p>
-</li>
-<li>
-<p><a href="https://github.com/docToolchain/docToolchain/issues/1270">#1269 Ensure DTC_JAVA_HOME is preferred over JAVA_HOME</a></p>
-</li>
-<li>
-<p><a href="https://github.com/docToolchain/docToolchain/issues/1069">#1069 publishToConfluence 'ancestorName' query does not support proxy</a></p>
-</li>
-<li>
-<p><a href="https://github.com/docToolchain/docToolchain/issues/1272">#1272: publishToConfluence broken when document contains internal links</a></p>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/1343">#1343: Build and publish docs after PR get into ng</a></p>
 </li>
 </ul>
 </div>
@@ -474,10 +459,7 @@ This is recommended for all users using Confluence Cloud.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/docToolchain/docToolchain/issues/1254">configure Confluence API parameters via Gradle parameters</a></p>
-</li>
-<li>
-<p>introduce <code>verifyConfluenceApiAccess</code> task - check if your API settings are correct</p>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/1338">#1338: extend the options for the docker environment by additional environment variables and additional parameter sets.</a></p>
 </li>
 </ul>
 </div>
@@ -487,12 +469,21 @@ This is recommended for all users using Confluence Cloud.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>introduce docToolchain core component to modularize the project</p>
-</li>
-<li>
-<p>implement Confluence API v2 support</p>
+<p>[Core] Http calls from docToolchain are now identified by a user agent string of format <code>docToolchain_v&lt;DTCW_VERSION&gt;</code>.</p>
 </li>
 </ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+a big "THANK YOU" to all <strong>Sponsors</strong> and <strong>Contributors</strong> who helped to support docToolchain!
+</td>
+</tr>
+</table>
 </div>
 <div class="admonitionblock tip">
 <table>
