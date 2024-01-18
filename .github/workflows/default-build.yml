@@ -4,7 +4,9 @@ on:
   push:
     branches:
       - '!gh-pages'
+      - 'ng'
     path:
+      - 'core/**'
       - 'scripts/**'
       - 'src/**'
       - '!**/README.*'
@@ -14,6 +16,7 @@ on:
     branches: [ master, ng ]
     # Ignore changes for dtcw
     path:
+      - 'core/**'
       - 'scripts/**'
       - 'src/**'
       - '!**/README.*'
@@ -48,7 +51,7 @@ jobs:
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
             echo "pwsh already installed"
-          else  
+          else
             sudo apt-get install -y wget apt-transport-https software-properties-common
             wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
             sudo dpkg -i packages-microsoft-prod.deb
