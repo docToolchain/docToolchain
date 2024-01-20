@@ -7,6 +7,11 @@ include::../_feedback.adoc[]
 
 A task is another name for a script which triggers the build actions that compile and publish your docs.
 
+This diagram gives you an overview of the entire build process:
+
+.docToolchain
+image::overview.dio.png[]
+
 === How Tasks Are Named
 
 Tasks are given a naming prefix which indicates their role in the build process.
