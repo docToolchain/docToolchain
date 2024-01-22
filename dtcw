@@ -219,6 +219,11 @@ get_dtc_installations() {
 
     if [ -x "${DTC_HOME}/bin/doctoolchain" ]; then
         installations+=" local"
+    else
+        # maybe it is just available in the path
+        if command -v doctoolchain >/dev/null 2>&1; then
+            installations+=" local"
+        fi
     fi
 
     if [[ "${envs}" =~ sdk ]] && sdk_home_doctoolchain "${version}" &> /dev/null ; then
@@ -632,7 +637,12 @@ build_command() {
             DTC_OPTS="${DTC_OPTS} '-Dgradle.user.home=${DTC_ROOT}/.gradle'"
         fi
         if [ "${env}" = local ]; then
-            cmd="${DTC_HOME}/bin/doctoolchain . ${*} ${DTC_OPTS}"
+            # is doctoolchain available on the path?
+            if command -v doctoolchain >/dev/null 2>&1; then
+                cmd="doctoolchain . ${*} ${DTC_OPTS}"
+            else
+                cmd="${DTC_HOME}/bin/doctoolchain . ${*} ${DTC_OPTS}"
+            fi
         else
             cmd="$(sdk_home_doctoolchain "${version}")/bin/doctoolchain . ${*} ${DTC_OPTS}"
         fi
