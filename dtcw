@@ -121,7 +121,7 @@ main() {
     emu=""
     if [ "${os}" = "Darwin" ] && [ "${arch}" = "arm64" ]; then
       echo "Apple silicon detected, using x86_64 mode and os native bash"
-      emu="arch -x86_64"
+      emu="/usr/bin/arch -x86_64"
       bash="/bin/bash"
     fi
 
