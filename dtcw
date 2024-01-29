@@ -541,7 +541,9 @@ local_install_java() {
     fi
     case "${os}" in
         Linux) os=linux ;;
-        Darwin) os=mac ;;
+        Darwin) os=mac
+            # Enforce usage of Intel Java as long as jbake does not work on Apple Silicon
+            arch=x64 ;;
         Cygwin) os=linux ;;
     esac
     mkdir -p "${DTC_JAVA_HOME}"

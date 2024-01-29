@@ -9,6 +9,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixes
 
+* [Noticket] Enforce x86 Java on macOS as long as jbake does not support arm64 processors
 * [Noticket] Avoid usage of an arbitrary `arch` binary/script on `+${PATH}+` instead of the desired `/usr/bin/arch` on macOS.
 
 === added
