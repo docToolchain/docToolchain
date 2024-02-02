@@ -6,17 +6,31 @@ import org.jsoup.nodes.Element
 class HtmlTransformer {
 
     private CodeBlockTransformer codeBlockTransformer
-    private CdataTransformer cdataTransformer
 
     HtmlTransformer() {
         this.codeBlockTransformer = new CodeBlockTransformer()
-        this.cdataTransformer = new CdataTransformer()
     }
 
     String transformToConfluenceFormat(Element body) {
         codeBlockTransformer.transformCodeBlock(body)
-        Element transformedElement = cdataTransformer.unescapeCDATASections(body)
-        String html = transformedElement.html()
+        return sanitizeBody(body)
+    }
+
+    private String sanitizeBody(Element body){
+        String html = body.html().trim()
+        def start = html.indexOf(ConfluenceTags.CDATA_PLACEHOLDER_START)
+        while (start > -1) {
+            def end = html.indexOf(ConfluenceTags.CDATA_PLACEHOLDER_END, start)
+            if (end > -1) {
+                def prefix = html.substring(0, start) + ConfluenceTags.CDATA_PLACEHOLDER_START
+                def suffix = html.substring(end)
+                def unescaped = html.substring(start + ConfluenceTags.CDATA_PLACEHOLDER_START.length(), end)
+                    .replaceAll('&lt;', '<').replaceAll('&gt;', '>')
+                    .replaceAll('&amp;', '&')
+                html = prefix + unescaped + suffix
+            }
+            start = html.indexOf(ConfluenceTags.CDATA_PLACEHOLDER_START, start + 1)
+        }
         return html
             .replaceAll('<br>','<br />')
             .replaceAll('</br>','<br />')

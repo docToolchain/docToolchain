@@ -35,11 +35,13 @@ import org.docToolchain.atlassian.transformer.HtmlTransformer
 
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
+import org.jsoup.nodes.Entities
 import org.jsoup.nodes.TextNode
 import org.jsoup.select.Elements
 
 import groovy.transform.Field
 
+import java.nio.charset.Charset
 import java.nio.file.Path
 import java.security.MessageDigest
 import static groovy.io.FileType.FILES
