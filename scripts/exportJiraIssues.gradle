@@ -9,7 +9,11 @@ buildscript {
         }
     }
     dependencies {
-        classpath("org.docToolchain:core")
+        if (file("libs/org/docToolchain/core-${project.properties.dtc_version}.jar").exists()) {
+            classpath files("libs/org/docToolchain/core-${project.properties.dtc_version}.jar")
+        } else {
+            classpath("org.docToolchain:core")
+        }
     }
 }
 
