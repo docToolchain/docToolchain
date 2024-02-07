@@ -19,13 +19,17 @@ docToolchain is currently being used by the following organisations. If you're a
 
 ifndef::imagesdir[:imagesdir: ../../../images]
 
+[link=https://www.dbsystel.de]
+image::db-logo.svg[DB Systel]
+
 [link=https://www.tomtom.com]
 image::TomTomLogo.png[TomTom]
 
-Deutsche Bahn - https://www.dbsystel.de/[DB Systel]
-
 [link=https://www.codecentric.de]
-image::cclogo.png[codcentric]
+image::cclogo.png[codecentric]
+
+[link=https://www.innoq.com]
+image::innoq-logo.svg[INNOQ]
 
 === Open Source Projects Using It
 If your open source project is using docToochain, please let us know by sending a pull request:
