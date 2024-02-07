@@ -52,6 +52,11 @@ dependencies {
             gradleTestKit(),
             (libs.jsoup),
     )
+    if (file("libs/org/docToolchain/core-${project.properties.dtc_version}.jar").exists()) {
+        testImplementation(files("libs/org/docToolchain/core-${project.properties.dtc_version}.jar"))
+    } else {
+        testImplementation("org.docToolchain:core")
+    }
     testRuntimeOnly(libs.byte.buddy)
     compileClasspath((libs.http.client))
 }
