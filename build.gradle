@@ -14,12 +14,6 @@ buildscript {
                 details.because 'jcenter redirect'
                 System.out.println ">>>>>>>>> fix grolifant"
             }
-            //TODO is this really needed here?
-            if (details.requested.group == 'org.codehaus.groovy.modules.http-builder' && details.requested.name == 'http-builder' && details.requested.version == '0.7.2') {
-                details.useVersion '0.7.1'
-                details.because 'jcenter redirect'
-                System.out.println ">>>>>>>>> fix http-builder"
-            }
         }
     }
 }
@@ -57,7 +51,6 @@ dependencies {
             (libs.spock.core),
             gradleTestKit(),
             (libs.jsoup),
-            ("org.docToolchain:core")
     )
     testRuntimeOnly(libs.byte.buddy)
     compileClasspath((libs.http.client))
@@ -133,6 +126,9 @@ task autobuildSite(
 
 }
 task prepareDist() {
+    if (!file("libs/org/docToolchain/core-${project.properties.dtc_version}.jar").exists()) {
+        dependsOn gradle.includedBuild('core').task(':release-core')
+    }
     doLast {
         def distFolder = "dist/docToolchain-"+dtc_version
         println "generate distribution for "+dtc_version
@@ -156,11 +152,11 @@ task prepareDist() {
             into new File(buildDir,distFolder+"/resources")
         }
         copy{
-            from (new File("./core")) {
+            from (new File("./libs")) {
                 include "*"
                 include "**/*"
             }
-            into new File(buildDir,distFolder+"/core")
+            into new File(buildDir,distFolder+"/libs")
         }
         copy{
             from new File("./scripts")

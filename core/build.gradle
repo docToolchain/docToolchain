@@ -1,5 +1,6 @@
 plugins {
     id 'groovy'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
 }
 
 apply plugin:'groovy'
@@ -42,4 +43,16 @@ dependencies {
 
 test {
     useJUnitPlatform()
+}
+
+tasks.register('release-core', com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar) {
+    archiveFileName = "core-${dtc_version}.jar"
+    destinationDirectory = file("../libs/${project.group.toString().replace('.', '/')}")
+    manifest {
+        attributes(
+            'Implementation-Version': dtc_version
+        )
+    }
+    from sourceSets.main.output
+    configurations = [project.configurations.runtimeClasspath]
 }

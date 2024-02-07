@@ -13,11 +13,15 @@ buildscript {
     }
 
     dependencies {
-        classpath libs.asciidoctor
-        classpath libs.asciidoctor.pdf
-        classpath libs.asciidoctor.gems
-        classpath libs.asciidoctor.slides
-        classpath("org.docToolchain:core")
+        classpath (libs.asciidoctor)
+        classpath (libs.asciidoctor.pdf)
+        classpath (libs.asciidoctor.gems)
+        classpath(libs.asciidoctor.slides)
+        if (file("libs/org/docToolchain/core-${project.properties.dtc_version}.jar").exists()) {
+            classpath files("libs/org/docToolchain/core-${project.properties.dtc_version}.jar")
+        } else {
+            classpath("org.docToolchain:core")
+        }
     }
 }
 
