@@ -37,12 +37,6 @@ apply plugin: org.asciidoctor.gradle.jvm.pdf.AsciidoctorJPdfPlugin
 apply plugin: org.asciidoctor.gradle.jvm.gems.AsciidoctorGemSupportPlugin
 apply plugin: org.asciidoctor.gradle.jvm.slides.AsciidoctorRevealJSPlugin
 
-repositories {
-    ruby {
-        gems()
-    }
-}
-
 revealjs {
     version = '4.1.0'
 
@@ -241,14 +235,19 @@ tasks.withType(AbstractAsciidoctorTask) { docTask ->
     // good to see what the build is doing...
     logDocuments = true
 
-    //TODO: write docs
+    //TODO: write docs for this
     if (config.rubyExtensions) {
         config.rubyExtensions.each { extension ->
-            def root= new File(projectDir.canonicalPath)
-            def full= new File(new File(docDir,extension).canonicalPath)
-            def relPath = root.toPath().relativize( full.toPath() ).toFile()
-            requires += [relPath.toString()]
-            logger.info ("added required ruby extension '$full'")
+            println("extension: $extension")
+            if(extension.endsWith('.rb')) {
+                def root= new File(projectDir.canonicalPath)
+                def full = new File(new File(docDir,extension).canonicalPath)
+                def relPath = root.toPath().relativize( full.toPath() ).toFile()
+                asciidoctorj.requires += [relPath.toString()]
+                println ("added required ruby extension '$full'")
+            } else {
+                throw new IllegalArgumentException("Ruby extension '$extension' must end with '.rb'. Only local extensions are supported, yet.")
+            }
         }
     }
     // fix for #1150
