@@ -117,18 +117,20 @@ config.flatten().each {key, value ->
 }
 
 // this is a hard dependency for the asciidoctor-gradle-plugin based generateDeck task
-config.inputFiles.each {
-    if(it.formats.contains('revealjs')){
-        repositories {
-            ruby {
-                gems()
+task prepareRubyGems {
+    doFirst {
+            project.repositories {
+                ruby {
+                    gems()
+                }
             }
-        }
     }
 }
+asciidoctorGemsPrepare.dependsOn prepareRubyGems
 
 // TODO this could help to allow ruby gems from remote
 if (config.rubyExtensions && config.rubyExtensions.any { !it.endsWith('.rb') }) {
+    //TODO make dependsOn prepareRubyGems for asciidoctor tasks
     repositories {
         ruby {
             gems()
