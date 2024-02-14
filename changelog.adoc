@@ -14,6 +14,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/issues/1353[#1353: docker: Problem with 3.x images and dependencies?]
 * https://github.com/docToolchain/docToolchain/issues/1239[#1239: Execute a custom asciidoctor converter for generateHTML]
 * https://github.com/docToolchain/docToolchain/issues/1290[#1290: Custom ruby extension for PDF generation]
+* https://github.com/docToolchain/docToolchain/issues/1355[#1355: publishToConfluence - some code blocks are generated as txt instead of requested language and loose linebreaks]
+* https://github.com/docToolchain/docToolchain/issues/1349[#1349: publishToConfluence - a source code block containing template parameters has formatting problems]
 
 === added
 

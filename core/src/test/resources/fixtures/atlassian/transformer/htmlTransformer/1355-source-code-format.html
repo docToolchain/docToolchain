@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body class="article toc2 toc-left">
+<div id="header">
+    <div id="toc" class="toc2">
+        <div id="toctitle">Table of Contents</div>
+        <ul class="sectlevel1">
+            <li><a href="#_test_2">Test 2</a></li>
+        </ul>
+    </div>
+</div>
+<div id="content">
+    <div class="sect1">
+        <h2 id="_test_2"><a class="anchor" href="#_test_2"></a>Test 2</h2>
+        <div class="sectionbody">
+            <div class="listingblock">
+                <div class="content">
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">public class ComplexModel : IModel
+{
+    private readonly ILoggerFactory loggerFactory;
+    private readonly ILogger&lt;ComplexModel&gt; logger;
+
+    ComplexModel( ILoggerFactory loggerFactory, ... )
+    {
+        this.loggerFactory = loggerFactory;
+        logger = loggerFactory.CreateLogger&lt;ComplexModel&gt;();
+        ...
+    }
+}</code></pre>
+                </div>
+            </div>
+            <div class="listingblock">
+                <div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;af:button id="_exc" icon="/adf/ikb.adf.basis.ui/images/excel.gif"&gt;
+           &lt;af:exportCollectionActionListener type="excelHTML"
+                                               exportedId="_t1"
+                                               exportedRows="all"
+                                               filename="termine.xls"
+                                               title="Kundenbezogene Termine"/&gt;
+&lt;/af:button&gt;</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<div id="footer">
+    <div id="footer-text">
+        Last updated 2024-02-01 22:40:04 +0100
+    </div>
+</div>
+</body>
+</html>
