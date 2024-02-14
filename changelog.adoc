@@ -12,6 +12,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * [Noticket] Enforce x86 Java on macOS as long as jbake does not support arm64 processors
 * [Noticket] Avoid usage of an arbitrary `arch` binary/script on `+${PATH}+` instead of the desired `/usr/bin/arch` on macOS.
 * https://github.com/docToolchain/docToolchain/issues/1353[#1353: docker: Problem with 3.x images and dependencies?]
+* https://github.com/docToolchain/docToolchain/issues/1239[#1239: Execute a custom asciidoctor converter for generateHTML]
+* https://github.com/docToolchain/docToolchain/issues/1290[#1290: Custom ruby extension for PDF generation]
 
 === added
 
