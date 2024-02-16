@@ -50,11 +50,11 @@ teardown_file() {
     sdk install doctoolchain "${DTC_VERSION}"
 
     # Error since we still miss JDK
-    run -1 ./dtcw tasks --group doctoolchain
+    run -1 ./dtcw sdk tasks --group doctoolchain
 
     # Shows which docToolchain we use
     assert_line "Available docToolchain environments: local sdk"
-    assert_line "Environments with docToolchain [${DTC_VERSION}]: sdk"
+    assert_line "Environments with docToolchain [${DTC_VERSION}]: local sdk"
     assert_line "Using environment: sdk"
 
     assert_line "Error: unable to locate a Java Runtime"
@@ -78,7 +78,7 @@ teardown_file() {
     # The answer if want to create the default configuration with "y"
     DTC_HEADLESS=false run -0 ./dtcw tasks --group doctoolchain <<< "y"
 
-    assert_line "Using environment: sdk"
+    assert_line "Using environment: local"
 
     # TODO: 'gradlew' is not available
     assert_line "To see all tasks and more detail, run gradlew tasks --all"
@@ -98,7 +98,7 @@ teardown_file() {
     # Execute
     run -0 ./dtcw tasks --group doctoolchain
 
-    assert_line "Using environment: sdk"
+    assert_line "Using environment: local"
 
     # TODO: 'gradlew' is not visible for the usevisible for the user
     assert_line "To see all tasks and more detail, run gradlew tasks --all"
