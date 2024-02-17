@@ -208,13 +208,15 @@ task createDist(type: Zip, dependsOn: prepareDist) {
 
 task downloadDependencies {
     doLast {
+        project.repositories {
+            ruby {
+                gems()
+            }
+        }
+
         configurations.findAll{it.canBeResolved}.each{
             println "-> "+it.name
-            if (it.name != "asciidoctorGems") {
-                it.resolve()
-            } else {
-                println "skip "+it.name
-            }
+            it.resolve()
         }
     }
 }
