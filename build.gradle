@@ -208,7 +208,14 @@ task createDist(type: Zip, dependsOn: prepareDist) {
 
 task downloadDependencies {
     doLast {
-        configurations.findAll{it.canBeResolved}.each{it.resolve()}
+        configurations.findAll{it.canBeResolved}.each{
+            println "-> "+it.name
+            if (it.name != "asciidoctorGems") {
+                it.resolve()
+            } else {
+                println "skip "+it.name
+            }
+        }
     }
 }
 
