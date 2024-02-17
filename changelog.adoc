@@ -7,6 +7,14 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 == Unreleased
 
+=== fixed
+
+=== added
+
+=== changed
+
+== 3.3 - 2024-02-17
+
 === fixes
 
 * [Noticket] Enforce x86 Java on macOS as long as jbake does not support arm64 processors
@@ -20,6 +28,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === added
 
 === changed
+
+* you can now specify another dockerhub via DTC_DOCKER_PREFIX
 
 == 3.2.2 - 2024-01-18
 

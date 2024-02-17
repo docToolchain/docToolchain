@@ -12,7 +12,10 @@ set -o pipefail
 
 # See https://github.com/docToolchain/docToolchain/releases for available versions.
 # Set DTC_VERSION to "latest" to get the latest, yet unreleased version.
-: "${DTC_VERSION:=3.2.2}"
+: "${DTC_VERSION:=3.3}"
+
+# if not set, public docker hub is used
+: "${DTC_DOCKER_PREFIX:=}"
 
 # The 'generateSite' and 'copyThemes' tasks support DTC_SITETHEME, an URL of a theme.
 # export DTC_SITETHEME=https://....zip
@@ -629,7 +632,7 @@ build_command() {
         docker_args="run --rm -i --platform linux/amd64 -u $(id -u):$(id -g) --name ${container_name} \
             -e DTC_HEADLESS=true -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} \
             ${docker_extra_arguments} ${env_file_option} \
-            --entrypoint /bin/bash -v '${pwd}:/project' ${docker_image}:v${version}"
+            --entrypoint /bin/bash -v '${pwd}:/project' ${DTC_DOCKER_PREFIX}${docker_image}:v${version}"
 
         cmd="docker ${docker_args} -c \"doctoolchain . ${*} ${DTC_OPTS} && exit\""
     else
