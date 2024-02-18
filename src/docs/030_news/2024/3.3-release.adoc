@@ -27,6 +27,8 @@ This should also help to run docToolchain in restricted environments.
 
 Other changes fix problems with custom ruby extensiosn for PDF generation and features for `publishToConfluence`
 
+IMPORTANT: this release breaks the `generateDeck` task.
+
 == Notes
 
 === fixes
