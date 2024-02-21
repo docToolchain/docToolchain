@@ -39,7 +39,6 @@ class RestClient extends BasicRestClient {
         return doRequest(httpRequest, (ClassicHttpResponse response, HttpEntity entity) -> {
             if (response.getCode() < HttpStatus.SC_OK || response.getCode() > HttpStatus.SC_PARTIAL_CONTENT) {
                 EntityUtils.consume(entity)
-                println(response.getHeaders())
                 throw new RequestFailedException(response, null)
             }
         })

@@ -43,7 +43,8 @@ abstract class ConfluenceClient {
     }
 
     private determineApiContext(String apiPath) {
-        if(apiPath.length() == 0){
+        // either no path or just a single slash
+        if(apiPath.length() <= 1){
             // no context has been set
             return API_DEFAULT_CONTEXT
         }
