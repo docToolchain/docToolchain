@@ -263,4 +263,21 @@ abstract class ConfluenceClientSpec extends Specification {
             confluenceClient.API_V1_PATH == "/wiki/rest/api"
             confluenceClient.API_V2_PATH == "/wiki/api/v2"
     }
+
+    def "test default API path is set correctly when config ends with /"() {
+        given: "i create a Confluence config with host only that ends with a /"
+            ConfigObject config = new ConfigObject()
+            config.confluence = [
+                api: "https://confluence.atlassian.com/",
+                credentials: "user:password"
+            ]
+            ConfigService configService = new ConfigService(config)
+            ConfluenceClient confluenceClient = getConfluenceClient(configService)
+        when: "the client has been created"
+            def baseApiUrl = confluenceClient.restClient.targetHost.toURI()
+        then: "the default API path is set correctly"
+            baseApiUrl == "https://confluence.atlassian.com"
+            confluenceClient.API_V1_PATH == "/wiki/rest/api"
+            confluenceClient.API_V2_PATH == "/wiki/api/v2"
+    }
 }
