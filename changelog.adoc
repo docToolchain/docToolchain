@@ -10,6 +10,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 === fixed
 
 * https://github.com/docToolchain/docToolchain/issues/1369[#1359: publishToConfluence - Something went wrong]
+* https://github.com/docToolchain/docToolchain/issues/1372[#1372: publishToConfluence: java.io.FileNotFoundException]
 
 === added
 
