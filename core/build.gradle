@@ -46,6 +46,7 @@ test {
 }
 
 tasks.register('release-core', com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar) {
+    dependsOn compileGroovy
     archiveFileName = "core-${dtc_version}.jar"
     destinationDirectory = file("../libs/${project.group.toString().replace('.', '/')}")
     manifest {
