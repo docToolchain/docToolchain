@@ -9,7 +9,7 @@ $ErrorActionPreference = "Stop"
 
 # See https://github.com/docToolchain/docToolchain/releases for available versions.
 # Set DTC_VERSION to "latest" to get the latest, yet unreleased version.
-$DTC_VERSION = "3.2.0"
+$DTC_VERSION = "3.3.1"
 if ($env:DTC_VERSION) { $DTC_VERSION = $env:DTC_VERSION }
 
 #here you can specify the URL of a theme to use with generateSite-task
@@ -36,7 +36,7 @@ $distribution_url = "https://github.com/docToolchain/docToolchain/releases/downl
 $GITHUB_PROJECT_URL = "https://github.com/docToolchain/docToolchain"
 
 # Bump this version up if something is changed in the wrapper script
-$DTCW_VERSION = "0.52"
+$DTCW_VERSION = "0.53"
 # Template replaced by the GitHub value upon releasing dtcw
 $DTCW_GIT_HASH = "##DTCW_GIT_HASH##"
 
@@ -71,11 +71,12 @@ function main($_args) {
 
     if (is_supported_environment $_args[0] -And assert_environment_available $_args[0] $DTC_VERSION) {
         # User enforced environment
-        $environment= $_args[0]
+        $environment = $_args[0]
         # shift 1
         $null, $_args = $_args
         assert_argument_exists $_args
-    } else {
+    }
+    else {
         $environment = get_environment $_args
     }
     Write-Output "Using environment: $environment"
@@ -84,24 +85,47 @@ function main($_args) {
         # shift 1
         $null, $_args = $_args
         install_component_and_exit $environment $_args
-    } elseif ( $_args[0] -eq "getJava" ) {
+    }
+    elseif ( $_args[0] -eq "getJava" ) {
         # TODO: remove getJava in the next major release
         Write-Warning "Warning: 'getJava' is deprecated and and will be removed. Use './dtcw install java' instead."
         install_component_and_exit $environment "java"
     }
     # No install command, so forward call to docToolchain but first we check if
     # everything is there.
-    if ($environment -ne "docker")
-    {
+    $docker_image_name = ""
+    $docker_extra_arguments = ""
+    if ($environment -ne "docker") {
         assert_doctoolchain_installed "$environment" "$DTC_VERSION"
         assert_java_version_supported
         # TODO: what if 'doctoolchain' found by $PATH does not match the one from the local environment?
         # The version provided by $DTC_VERSION could be a different one.
     }
+    else {
+        $docker_image_name = "doctoolchain/doctoolchain"
+        if ( $_args[0] -eq "install" ) {
+            # shift 1
+            $null, $_args = $_args
+            $docker_image_name = $_args[0]
+            # shift 1
+            $null, $_args = $_args
+            assert_argument_exists $_args
+        }
+        Write-Output "Using docker image: $docker_image_name"
+        if ($args[0] -eq "extra_arguments") {
+            # shift 1
+            $null, $_args = $_args
+            $docker_extra_arguments = $args[0]
+            # shift 1
+            $null, $_args = $_args
+            assert_argument_exists $args
+            Write-Host "Extra arguments passed to docker run $docker_extra_arguments"
+        }
+    }
     # TODO: can generateDeck, bakePreview be used in combination with other commands?
     # The code below assumes we have just one task.
 
-    $global:command = build_command "$environment" "$DTC_VERSION" $_args
+    $global:command = build_command "$environment" "$DTC_VERSION" "$docker_image_name" "$docker_extra_arguments" $_args
 
     #TODO: implement HEADLESS mode
     # [[ "${DTC_HEADLESS}" = true ]] && echo "Using headless mode since there is no (terminal) interaction possible"
@@ -162,10 +186,11 @@ Use './dtcw.ps1 tasks' to see all tasks.
 function print_version_info() {
     Write-Host "dtcw ${DTCW_VERSION} - ${DTCW_GIT_HASH}"
     if (is_doctoolchain_development_version ${DTC_VERSION}) {
-        $dtc_git_hash="unknown"
-        $dtc_git_hash=(git -C "$DTC_HOME" rev-parse --short=8 HEAD 2> $null)
+        $dtc_git_hash = "unknown"
+        $dtc_git_hash = (git -C "$DTC_HOME" rev-parse --short=8 HEAD 2> $null)
         Write-Host "docToolchain ${DTC_VERSION} - ${dtc_git_hash}"
-    } else {
+    }
+    else {
         Write-Host "docToolchain ${DTC_VERSION}"
     }
     Write-Host "OS/arch: pwsh $os $arch"
@@ -184,7 +209,8 @@ function get_available_environments() {
 function has($global:command) {
     if (Get-Command docker -ErrorAction SilentlyContinue) {
         return $True
-    } else {
+    }
+    else {
         return $False
     }
 }
@@ -198,7 +224,7 @@ function get_dtc_installations($envs, $version) {
 
     if ($envs.Contains("docker")) {
         # Having docker installed means docToolchain is available
-        $installations+=" docker"
+        $installations += " docker"
     }
 
     #TODO: was bedeutet das?
@@ -218,12 +244,12 @@ function is_supported_environment($environment) {
 
 function assert_environment_available($environment, $version) {
     # If environment not available, exit with error
-    if ((is_environment_available $environment) -eq $False)
-    {
+    if ((is_environment_available $environment) -eq $False) {
         Write-Error "argument error - environment '$environment' not available"
         if ($environment -eq "sdk") {
             Write-Output "sdkman is not supported on windows"
-        } else {
+        }
+        else {
             # docker
             Write-Output "Install 'docker' on your host to execute docToolchain in a container."
         }
@@ -245,7 +271,8 @@ function is_doctoolchain_development_version($version) {
     # Alternatives: 'testing', 'dev' (used for development)
     if ( ($version -eq "latest") -Or ($version -eq "latestdev") ) {
         return $True
-    } else {
+    }
+    else {
         return $False
     }
 }
@@ -333,16 +360,19 @@ function local_install_doctoolchain($version) {
         if (Test-Path "$DTC_HOME/.git" ) {
             Invoke-Expression "git -C ""$DTC_HOME"" pull"
             Write-Output "Updated docToolchain in local environment to latest version"
-        } else {
+        }
+        else {
             if ($version -eq "latest") {
                 Invoke-Expression "git clone ""${GITHUB_PROJECT_URL}.git"" ""$DTC_HOME"" "
-            } else {
+            }
+            else {
                 # TODO: derive the ssh URL from GITHUB_PROJECT_URL
                 Invoke-Expression "git clone git@github.com:docToolchain/docToolchain.git ""$DTC_HOME"" "
             }
             Write-Output "Cloned docToolchain in local environment to latest version"
         }
-    } else {
+    }
+    else {
         New-Item -Path ${DTC_ROOT} -ItemType "directory" -Force > $null
         if ($proxy) {
             # Pass Proxy-Settings to Gradle
@@ -358,26 +388,29 @@ function local_install_doctoolchain($version) {
             }
             # Use Proxy for downloading the distribution
             Invoke-WebRequest $distribution_url -OutFile "${DTC_ROOT}\source.zip" -Proxy $proxy -ProxyUseDefaultCredentials
-        } else {
+        }
+        else {
             Invoke-WebRequest $distribution_url -OutFile "${DTC_ROOT}\source.zip"
         }
         Expand-Archive -Force -LiteralPath "${DTC_ROOT}\source.zip" -DestinationPath "${DTC_ROOT}\"
         Remove-Item "${DTC_ROOT}\source.zip"     #  << Remove .zip ?
         if ($global:os -eq "windows") {
             $global:command = "&'${DTC_ROOT}\docToolchain-$DTC_VERSION\bin\doctoolchain.bat' . $global:commandArgs $DTC_OPTS"
-        } else {
+        }
+        else {
             $global:command = "&'${DTC_ROOT}\docToolchain-$DTC_VERSION\bin\doctoolchain' . $global:commandArgs $DTC_OPTS"
         }
         Write-Output "Installed docToolchain successfully in '${DTC_HOME}'."
     }
     # Add it to the existing installations so the output to guide the user can adjust accordingly.
-    $dtc_installations+=" local"
+    $dtc_installations += " local"
 }
 
 function assert_git_installed($message) {
     if (has git) {
         return
-    } else {
+    }
+    else {
         Write-Warning "git - command not found"
         Write-Warning $message
         exit $ERR_DTCW
@@ -430,7 +463,8 @@ function assert_java_version_supported() {
 unsupported Java version ${javaversion} [$JAVA_CMD]
 "@
         java_help_and_die
-    } else {
+    }
+    else {
         if ([int]$javaversion -gt 17 ) {
             Write-Warning @"
 unsupported Java version ${javaversion} [$JAVA_CMD]
@@ -442,8 +476,7 @@ unsupported Java version ${javaversion} [$JAVA_CMD]
     return
 }
 
-function java_help_and_die()
-{
+function java_help_and_die() {
     Write-Host @"
 docToolchain supports Java versions 11, 14 or 17 (preferred). In case one of those
 Java versions is installed make sure 'java' is found with your PATH environment
@@ -478,30 +511,31 @@ function local_install_java() {
 
     switch ($global:arch) {
         'x86_64' { $global:arch = "x64" }
-        'arm64'  { $global:arch = "aarch64"}
+        'arm64' { $global:arch = "aarch64" }
     }
     if ( ${os} -eq "MINGW64" ) {
         Write-Error "MINGW64 is not supported, Please use powershell or WSL"
     }
     switch ($global:os) {
-        'Linux'  { $global:os = 'linux' }
-        'Darwin' { $global:os = 'max'   }
+        'Linux' { $global:os = 'linux' }
+        'Darwin' { $global:os = 'max' }
         'Cygwin' { $global:os = 'linux' }
     }
-    if ($global:os -eq 'windows') { $targetFile = 'jdk.zip'} else { $targetFile = 'jdk.tar.gz'}
+    if ($global:os -eq 'windows') { $targetFile = 'jdk.zip' } else { $targetFile = 'jdk.tar.gz' }
 
-    if(!(Test-Path -Path $DTC_JAVA_HOME )){
+    if (!(Test-Path -Path $DTC_JAVA_HOME )) {
         New-Item -ItemType directory -Path $DTC_JAVA_HOME > $null
     }
     Write-Output "Downloading JDK Temurin $version [$global:os/$global:arch] from Adoptium to $DTC_JAVA_HOME/${targetFile}"
-    $adoptium_java_url="https://api.adoptium.net/v3/binary/latest/$version/$releasetype/$global:os/$global:arch/$imagetype/$implementation/$heapsize/eclipse?project=jdk"
+    $adoptium_java_url = "https://api.adoptium.net/v3/binary/latest/$version/$releasetype/$global:os/$global:arch/$imagetype/$implementation/$heapsize/eclipse?project=jdk"
     download_file "$adoptium_java_url" "$DTC_JAVA_HOME/${targetFile}"
     Write-Output "Extracting JDK from archive file."
     # TODO: should we not delete a previsouly installed on?
     # Otherwise we may get a mix of different Java versions.
     if ($global:os -eq 'windows') {
         Expand-Archive -Force -LiteralPath "$DTC_JAVA_HOME\${targetFile}" -DestinationPath "$DTC_JAVA_HOME"
-    } else {
+    }
+    else {
         tar -zxf "${DTC_JAVA_HOME}/${targetFile}" --strip 1 -C "${DTC_JAVA_HOME}/."
     }
     Remove-Item "$DTC_JAVA_HOME\${targetFile}"
@@ -541,7 +575,7 @@ Java runtime (major version 11, 14 or 17) installed on your host.
 "@
 }
 
-function build_command($environment, $version, $_args) {
+function build_command($environment, $version, $docker_image, $docker_extra_arguments , $_args) {
     $cmd = ""
     if ( $environment -eq "docker") {
         if (-not (Invoke-Expression "docker ps")) {
@@ -554,20 +588,28 @@ function build_command($environment, $version, $_args) {
             Write-Output ""
             exit 1
         }
-        $container_name="doctoolchain-${version}-$(date -uFormat '+%Y%m%d_%H%M%S')"
+        $container_name = "doctoolchain-${version}-$(Get-date -uFormat '+%Y%m%d_%H%M%S')"
         $docker_cmd = Get-Command docker
+
+        $docker_env_file = "dtcw_docker.env"
+        $env_file_option = ""
+        if (Test-Path $docker_env_file) {
+            $env_file_option = "--env-file ${docker_env_file}"
+        }
 
         # TODO: DTC_PROJECT_BRANCH is  not passed into the docker environment
         # See https://github.com/docToolchain/docToolchain/issues/1087
-        $docker_args = "run --rm -i --name ${container_name} -e DTC_HEADLESS=1 -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} --entrypoint /bin/bash -v '${PWD}:/project' doctoolchain/doctoolchain:v${version}"
+        $docker_args = "run --rm -i --name ${container_name} -e DTC_HEADLESS=1 -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} $docker_extra_arguments $env_file_option --entrypoint /bin/bash -v '${PWD}:/project' ${docker_image}:v${version}"
         $cmd = "$docker_cmd ${docker_args} -c ""doctoolchain . $_args ${DTC_OPTS} && exit "" "
 
-    } else {
+    }
+    else {
         if ( $environment -eq "local" ) {
             if ($global:os -eq "windows") {
-                $cmd="${DTC_HOME}/bin/doctoolchain.bat . $_args ${DTC_OPTS}"
-            } else {
-                $cmd="${DTC_HOME}/bin/doctoolchain . $_args ${DTC_OPTS}"
+                $cmd = "${DTC_HOME}/bin/doctoolchain.bat . $_args ${DTC_OPTS}"
+            }
+            else {
+                $cmd = "${DTC_HOME}/bin/doctoolchain . $_args ${DTC_OPTS}"
             }
         }
     }
@@ -579,13 +621,13 @@ function show_os_related_info() {
 }
 
 # Location where local installations are placed.
-$DTC_ROOT="$HOME/.doctoolchain"
+$DTC_ROOT = "$HOME/.doctoolchain"
 
 # More than one docToolchain version may be installed locally.
 # This is the directory for the specific version.
-$DTC_HOME="$DTC_ROOT/docToolchain-$DTC_VERSION"
+$DTC_HOME = "$DTC_ROOT/docToolchain-$DTC_VERSION"
 
 # Directory for local Java installation
-$DTC_JAVA_HOME="$DTC_ROOT/jdk"
+$DTC_JAVA_HOME = "$DTC_ROOT/jdk"
 
 main $args

@@ -1,13 +1,17 @@
 package org.docToolchain.atlassian.confluence.clients
 
 import groovy.json.JsonBuilder
+import org.apache.hc.client5.http.classic.methods.HttpDelete
 import org.apache.hc.client5.http.classic.methods.HttpGet
 import org.apache.hc.client5.http.classic.methods.HttpPost
 import org.apache.hc.client5.http.classic.methods.HttpPut
+import org.apache.hc.core5.http.ContentType
 import org.apache.hc.core5.http.HttpRequest
 import org.apache.hc.core5.http.io.entity.StringEntity
 import org.apache.hc.core5.net.URIBuilder
 import org.docToolchain.configuration.ConfigService
+
+import java.nio.charset.StandardCharsets
 
 class ConfluenceClientV2 extends ConfluenceClient {
 
@@ -38,7 +42,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
     @Override
     def addLabel(Object pageId, Object label) {
         HttpRequest post = new HttpPost(API_V1_PATH + '/content/' + pageId + "/label")
-        post.setHeader('Content-Type', 'application/json')
+        post.setHeader('Content-Type', ContentType.APPLICATION_JSON)
         // TODO test if this works
         post.setEntity(new StringEntity(new JsonBuilder([label]).toPrettyString()))
         return callApiAndFailIfNot20x(post)
@@ -50,7 +54,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
             .addParameter('filename', fileName as String)
             .build()
         HttpRequest get = new HttpGet(uri)
-        return callApiAndFailIfNot20x(get)
+        return callApiAndReturnOrNull(get)
     }
 
     @Override
@@ -80,14 +84,15 @@ class ConfluenceClientV2 extends ConfluenceClient {
             URIBuilder uriBuilder = new URIBuilder(API_V2_PATH + "/spaces/${spaceId}/pages")
                 .addParameter('depth', 'all')
                 .addParameter('limit', pageLimit.toString())
-            if(cursor){
+            if (cursor){
                 uriBuilder.addParameter('cursor', cursor)
             }
             URI uri = uriBuilder.build()
             HttpRequest get = new HttpGet(uri)
             def response =  callApiAndFailIfNot20x(get)
             def results = response.results ?: []
-            if (results.empty || response._links.isEmpty()) {
+            def hasNext = response.containsKey('_links') && response._links.containsKey('next')
+            if (results.empty || !hasNext) {
                 morePages = false
             } else {
                 cursor = response._links.next.split("cursor=")[1]
@@ -116,12 +121,12 @@ class ConfluenceClientV2 extends ConfluenceClient {
             URIBuilder uriBuilder = new URIBuilder(API_V2_PATH + "/pages/${pageId}/children")
                 .addParameter('depth', 'all')
                 .addParameter('limit', pageLimit.toString())
-            if(cursor){
+            if (cursor){
                 uriBuilder.addParameter('cursor', cursor)
             }
             URI uri = uriBuilder.build()
             HttpRequest get = new HttpGet(uri)
-            def response =  callApiAndFailIfNot20x(get)
+            def response = callApiAndFailIfNot20x(get)
             def results = response.results ?: []
             results.inject(allPages) { Map acc, Map match ->
                 //unique page names in confluence, so we can get away with indexing by title
@@ -133,13 +138,14 @@ class ConfluenceClientV2 extends ConfluenceClient {
                 ]
                 acc
             }
+            def hasNext = response.containsKey('_links') && response._links.containsKey('next')
             if (results.empty && ids.isEmpty()) {
-                if(pageIds.isEmpty()) {
+                if (pageIds.isEmpty()) {
                     morePages = false
                 } else {
                     pageId = pageIds.remove(0)
                 }
-            } else if (!results.empty && !response._links.isEmpty()) {
+            } else if (!results.empty && hasNext) {
                 cursor = response._links.next.split("cursor=")[1]
             } else {
                 cursor = null
@@ -155,7 +161,15 @@ class ConfluenceClientV2 extends ConfluenceClient {
             .addParameter('body-format', 'storage')
             .build()
         HttpRequest get = new HttpGet(uri)
-        return callApiAndFailIfNot20x(get)
+        return callApiAndReturnOrNull(get)
+    }
+
+    @Override
+    def deletePage(String id) {
+        URI uri = new URIBuilder(API_V2_PATH + "/pages/${id}")
+            .build()
+        HttpRequest delete = new HttpDelete(uri)
+        return callApiAndFailIfNot20x(delete)
     }
 
     @Override
@@ -165,7 +179,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
             .addParameter('status', "current")
             .build()
         HttpRequest get = new HttpGet(uri)
-        return callApiAndFailIfNot20x(get).results?.getAt(0)?.id
+        return callApiAndReturnOrNull(get)
     }
 
     // confluenceSpaceKey is not used in the V2 API
@@ -175,6 +189,19 @@ class ConfluenceClientV2 extends ConfluenceClient {
             "id"      : pageId,
             "status"  : "current",
             "title"   : title,
+            "metadata": [
+                "properties": [
+                    "editor": [
+                        "value": editorVersion
+                    ],
+                    "content-appearance-draft": [
+                        value: "full-width"
+                    ],
+                    "content-appearance-published": [
+                        value: "full-width"
+                    ]
+                ]
+            ],
             "spaceId"   : spaceId,
             "parentId": parentId ?: "",
             "body"    : [
@@ -187,8 +214,8 @@ class ConfluenceClientV2 extends ConfluenceClient {
             ]
         ]
         HttpPut put = new HttpPut(API_V2_PATH + '/pages/' + pageId)
-        put.setHeader('Content-Type', 'application/json')
-        put.setEntity(new StringEntity(new JsonBuilder(requestBody).toPrettyString()))
+        put.setHeader('Content-Type', ContentType.APPLICATION_JSON)
+        put.setEntity(new StringEntity(new JsonBuilder(requestBody).toPrettyString(), StandardCharsets.UTF_8))
         return callApiAndFailIfNot20x(put)
     }
 
@@ -196,6 +223,19 @@ class ConfluenceClientV2 extends ConfluenceClient {
     def createPage(String title, String confluenceSpaceKey, Object localPage, String pageVersionComment, String parentId) {
         def requestBody = [
             "title"   : title,
+            "metadata": [
+                "properties": [
+                    "editor": [
+                        "value": editorVersion
+                    ],
+                    "content-appearance-draft": [
+                        value: "full-width"
+                    ],
+                    "content-appearance-published": [
+                        value: "full-width"
+                    ]
+                ]
+            ],
             "status"  : "current",
             "spaceId"   : spaceId,
             "parentId": parentId ?: "",
@@ -209,8 +249,8 @@ class ConfluenceClientV2 extends ConfluenceClient {
             ]
         ]
         HttpPost post = new HttpPost(API_V2_PATH + '/pages')
-        post.setHeader('Content-Type', 'application/json')
-        post.setEntity(new StringEntity(new JsonBuilder(requestBody).toPrettyString()))
+        post.setHeader('Content-Type', ContentType.APPLICATION_JSON)
+        post.setEntity(new StringEntity(new JsonBuilder(requestBody).toPrettyString(), StandardCharsets.UTF_8))
         return callApiAndFailIfNot20x(post)
     }
 }

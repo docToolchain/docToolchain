@@ -7,9 +7,65 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 == Unreleased
 
-=== fixes
+=== fixed
 
 === added
+
+=== changed
+
+== 3.3.1 - 2024-03-01
+
+=== fixed
+
+* https://github.com/docToolchain/docToolchain/issues/1369[#1359: publishToConfluence - Something went wrong]
+* https://github.com/docToolchain/docToolchain/issues/1372[#1372: publishToConfluence: java.io.FileNotFoundException]
+* https://github.com/docToolchain/docToolchain/pull/1379[publishToConfluence: Fix Confluence APIv2 Cursor Logic]
+
+=== added
+
+=== changed
+
+== 3.3 - 2024-02-17
+
+=== fixes
+
+* [Noticket] Enforce x86 Java on macOS as long as jbake does not support arm64 processors
+* [Noticket] Avoid usage of an arbitrary `arch` binary/script on `+${PATH}+` instead of the desired `/usr/bin/arch` on macOS.
+* https://github.com/docToolchain/docToolchain/issues/1353[#1353: docker: Problem with 3.x images and dependencies?]
+* https://github.com/docToolchain/docToolchain/issues/1239[#1239: Execute a custom asciidoctor converter for generateHTML]
+* https://github.com/docToolchain/docToolchain/issues/1290[#1290: Custom ruby extension for PDF generation]
+* https://github.com/docToolchain/docToolchain/issues/1355[#1355: publishToConfluence - some code blocks are generated as txt instead of requested language and loose linebreaks]
+* https://github.com/docToolchain/docToolchain/issues/1349[#1349: publishToConfluence - a source code block containing template parameters has formatting problems]
+
+=== added
+
+=== changed
+
+* you can now specify another dockerhub via DTC_DOCKER_PREFIX
+
+== 3.2.2 - 2024-01-18
+
+=== fixes
+
+* https://github.com/docToolchain/docToolchain/issues/1335[#1335 publishToConfluence throws exception when uploading attachments in v3.2.0]
+* https://github.com/docToolchain/docToolchain/issues/1343[#1343: Build and publish docs after PR get into ng]
+
+=== added
+* https://github.com/docToolchain/docToolchain/issues/1338[#1338: extend the options for the docker environment by additional environment variables and additional parameter sets.]
+
+=== changed
+
+* [Core] Http calls from docToolchain are now identified by a user agent string of format `docToolchain_v<DTCW_VERSION>`.
+
+== 3.2.1 - 2024-01-10
+
+=== fixes
+
+* https://github.com/docToolchain/docToolchain/issues/1330[#1330: Publish to confluence gives response 400 on version 3.2.0]
+
+=== added
+* https://github.com/docToolchain/docToolchain/issues/1327[#1327: Allow use of enhanced docker image]
+* new task `wipeConfluenceSpace` to delete all pages of a space
 
 === changed
 

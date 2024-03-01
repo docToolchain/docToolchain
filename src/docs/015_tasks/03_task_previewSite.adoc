@@ -2,11 +2,11 @@
 include::_config.adoc[]
 
 [[task_previewsite]]
-= previewSite
+== previewSite
 
 include::../_feedback.adoc[]
 
-== About This Task
+=== About This Task
 
 [NOTE]
 ====
@@ -16,4 +16,3 @@ This task has now been deprecated.
 When you use a build in a static site generator through xref:03_task_generateSite.adoc[`generateSite`], most site themes don't need the static site server for general content. You can just preview the site by opening from the file system in your browser.
 
 However, some JavaScript features will not work because of CORS restrictions. In that case you need a server. You can start one by running e.g. `python -m http.server` or in case you have Python 3 `python3 -m http.server`.
-

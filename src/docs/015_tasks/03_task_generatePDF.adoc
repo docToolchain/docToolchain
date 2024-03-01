@@ -1,13 +1,11 @@
 :filename: 015_tasks/03_task_generatePDF.adoc
 include::_config.adoc[]
 
-= generatePDF
+== generatePDF
 
 include::../_feedback.adoc[]
 
-== At a Glance
-
-== About This Task
+=== About This Task
 
 This task makes use of the https://asciidoctor.org/docs/convert-asciidoc-to-pdf/[asciidoctor-pdf] plugin to render your documents as pretty PDF files.
 Files are written to `build/pdf`.
@@ -38,7 +36,7 @@ Most people only want to convert selected files to PDF, so that's why you need t
 
 ====
 
-== Creating a Custom PDF Theme
+=== Creating a Custom PDF Theme
 
 If you want to change colors, fonts or page headers and footers, you can do so by creating a `custom-theme.yml` file.
 Copy the file `src/docs/pdfTheme/custom-theme.yml` from docToolchain to your project and reference it from your main `.adoc`file by setting the `:pdf-themesdir:`.
@@ -48,15 +46,14 @@ For example, insert the following at the top of your document to reference `cust
     :pdf-themesdir: ../pdfTheme
     :pdf-theme: custom
 
-== Further Reading and Resources
+=== Further Reading and Resources
 
 * Learn how to modify a theme by reading https://github.com/asciidoctor/asciidoctor-pdf/blob/master/docs/theming-guide.adoc[asciidoctor-pdf theming guide].
 * The https://rdmueller.github.io/pdf-output/[Beyond HTML] blog post is also an excellent resource if you want to dig a little deeper.
 
-== Source
+=== Source
 
-.AsciiDocBasics.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/AsciiDocBasics.gradle[tags=generatePDF]
-----
+:param_source_file: scripts/AsciiDocBasics.gradle
+:param_source_language: groovy
+:param_source_tags: generatePDF
+include::_viewTaskSource.adoc[]

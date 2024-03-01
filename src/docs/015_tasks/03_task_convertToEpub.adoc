@@ -1,32 +1,27 @@
 :filename: 015_tasks/03_task_convertToEpub.adoc
 include::_config.adoc[]
 
-= convertToEpub
+== convertToEpub
 
 include::../_feedback.adoc[]
 
-== At a Glance
-
-image::ea/Manual/convertToEpub.png[]
-
-== Dependency
+=== Dependency
 
 xref:03_task_generateDocBook.adoc[`generateDocBook`]
 
-== About This Task
+=== About This Task
 
 This task uses https://pandoc.org[pandoc] to convert the DocBook output from AsciiDoctor to ePub.
 This publishes the output as an eBook which can be read using any eBook reader.
 The resulting file can be found in `build/docs/epub`.
 
-== Further Reading and Resources
+=== Further Reading and Resources
 
 https://rdmueller.github.io/create-epub/[Turn your Document into an Audio-Book] blog post.
 
-== Source
+=== Source
 
-.pandoc.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/pandoc.gradle[tags=convertToEpub]
-----
+:param_source_file: scripts/pandoc.gradle
+:param_source_language: groovy
+:param_source_tags: convertToEpub
+include::_viewTaskSource.adoc[]

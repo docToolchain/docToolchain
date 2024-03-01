@@ -1,5 +1,3 @@
-:jbake-order: 10
-:filename: 020_tutorial/010_Install.adoc
 :jbake-title: Install docToolchain
 include::_config.adoc[]
 
@@ -21,7 +19,7 @@ include::../010_manual/20_install.adoc[tags=install]
 
 ==== `dtcw` doesn't run
 
-You might get an error similiar to this one:
+You might get an error similar to this one:
 
 [source]
 ----
@@ -36,7 +34,7 @@ Please try to redownload the wrapper.
 
 ==== docker throws and error with `dtcw`
 
-On windows you might get the following error 
+On windows you might get the following error
 [source]
 ----
 Error response from daemon: user declined directory sharing C:\Users\path_to_my_folder
@@ -55,9 +53,9 @@ You may see that docToolchain starts but crashes with a stacktrace that starts l
 Could not compile settings file '/Users/falk/.doctoolchain/docToolchain-2.0.0/settings.gradle'.
 > startup failed:
   General error during semantic analysis: Unsupported class file major version 61
-  
+
   java.lang.IllegalArgumentException: Unsupported class file major version 61
-----  
+----
 
 In this case, you've got an incompatible version of Java.
 `dtcw` tries to check the Java version up front by running  `java --version`, but Gradle sometimes picks up a different version.

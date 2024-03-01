@@ -1,15 +1,11 @@
 :filename: 015_tasks/03_task_exportExcel.adoc
 include::_config.adoc[]
 
-= exportExcel
+== exportExcel
 
 include::../_feedback.adoc[]
 
-== At a Glance
-
-image::ea/Manual/exportExcel.png[]
-
-== About This Task
+=== About This Task
 
 Sometimes you need to include tabular data in your documentation.
 Most likely, this data will be stored as a MS Excel spreadsheet, or you may like to use Excel to create and edit it.
@@ -43,14 +39,13 @@ The AsciiDoc version gives you a bit more control because the following are pres
 - Column width relative to other columns.
 - Background colors.
 
-== Further Reading and Resources
+=== Further Reading and Resources
 
 See https://github.com/uniqueck/asciidoctorj-office-extension[asciidoctorj-office-extension] to learn another way to use Excel spreadsheets in your docs.
 
-== Source
+=== Source
 
-.build.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/exportExcel.gradle[tags=exportExcel]
-----
+:param_source_file: scripts/exportExcel.gradle
+:param_source_language: groovy
+:param_source_tags: exportExcel
+include::_viewTaskSource.adoc[]

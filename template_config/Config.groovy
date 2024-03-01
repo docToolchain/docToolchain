@@ -11,6 +11,13 @@ outputPath = 'build'
 
 inputPath = 'src/docs';
 
+// if you need to register custom Asciidoctor extensions, this is the right place
+// configure the name and path to your extension, relative to the root of your project
+// (relative to dtcw). For example: 'src/ruby/asciidoctor-lists.rb'.
+// this is the same as the `requires`-list of the asciidoctor gradle plugin. The extensions will be
+// registered for generateDeck, generateHtml, generatePdf and generateDocbook tasks, only.
+// rubyExtensions = []
+
 // the pdfThemeDir config in this file is outdated.
 // please check http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/030_generateHTML.html#_pdf_style for further details
 // pdfThemeDir = './src/docs/pdfTheme'
@@ -163,13 +170,6 @@ Needs `python3` and `docutils` installed.
         headers.title += " - from CustomConvention"
     """.stripIndent()
     **/
-
-    // if you need to register custom Asciidoctor extensions, this is the right place
-    // configure the name and path to your extension, relative to the root of your project
-    // (relative to dtcw). For example: 'src/ruby/asciidoctor-lists.rb'.
-    // this is the same as the `requires`-list of the asciidoctor gradle plugin
-
-    // rubyExtensions = []
 }
 
 //*****************************************************************************************

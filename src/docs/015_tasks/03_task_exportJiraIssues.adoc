@@ -1,15 +1,11 @@
 :filename: 015_tasks/03_task_exportJiraIssues.adoc
 include::_config.adoc[]
 
-= exportJiraIssues
+== exportJiraIssues
 
 include::../_feedback.adoc[]
 
-== At a Glance
-
-image::ea/Manual/exportJiraIssues.png[]
-
-== About This Task
+=== About This Task
 
 This task exports all issues for a given query or queries from Jira as either an AsciiDoc table, an Excel file or both.
 
@@ -19,7 +15,7 @@ Username/password is deprecated, so you need to use username/API-token instead.
 An API-token can be created through https://id.atlassian.com/manage/api-tokens[].
 We recommend that you keep username and API-token out of your GitHub repository, and instead pass them as environment variables to docToolchain.
 
-== Migrate configuration to version >= 3.2.0
+=== Migrate configuration to version >= 3.2.0
 
 Since version 3.2.0, the configuration `requests` is deprecated. Please migrate to and use `exports` instead. The old configuration will be removed in the near future.
 To migrate your configuration, replace the JiraRequest class with a Map. The following example shows how to migrate a configuration with a single JiraRequest to the new configuration:
@@ -54,17 +50,17 @@ jira.exports = [
 ]
 ----
 
-== Configuration
+=== Configuration
 
 Jira configuration support list requests to Jira where results of each request will be saved in a file with specifies filename.
 Flags _saveAsciidoc_ & _saveExcel_ allow you to easily configure the format in which results should be saved.
 
-=== Deprecation Notice
+==== Deprecation Notice
 
 * The old configuration was based on the *single Jira query is deprecated* (single 'jql' parameter). Support for it will be removed in the near future. Please migrate to the new configuration which allows multiple Jira queries.
 * Since version 3.2.0, the configuration `requests` is deprecated. Please migrate to and use `exports` instead. The old configuration will be removed in the near future.
 
-=== Configuration Options
+==== Configuration Options
 
 **exports** (since 3.2.0), List of Maps that contains the following keys:
 
@@ -93,10 +89,9 @@ Full configuration options:
 include::{projectRootDir}/Config.groovy[tags=jiraConfig]
 ----
 
-== Source
+=== Source
 
-.exportJiraIssues.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/exportJiraIssues.gradle[tags=exportJiraIssues]
-----
+:param_source_file: scripts/exportJiraIssues.gradle
+:param_source_language: groovy
+:param_source_tags: exportJiraIssues
+include::_viewTaskSource.adoc[]

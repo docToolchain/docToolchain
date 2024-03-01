@@ -6,6 +6,7 @@ import org.apache.hc.client5.http.entity.mime.InputStreamBody
 import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder
 import org.apache.hc.client5.http.entity.mime.StringBody
 import org.apache.hc.core5.http.ClassicHttpRequest
+import org.apache.hc.core5.http.ContentType
 import org.apache.hc.core5.http.HttpEntity
 import org.apache.hc.core5.net.URIBuilder
 import org.docToolchain.configuration.ConfigService
@@ -42,7 +43,8 @@ abstract class ConfluenceClient {
     }
 
     private determineApiContext(String apiPath) {
-        if(apiPath.length() == 0){
+        // either no path or just a single slash
+        if(apiPath.length() <= 1){
             // no context has been set
             return API_DEFAULT_CONTEXT
         }
@@ -88,11 +90,17 @@ abstract class ConfluenceClient {
         return restClient.doRequestAndFailIfNot20x(httpRequest)
     }
 
+    protected callApiAndReturnOrNull(ClassicHttpRequest httpRequest) {
+        return restClient.doRequestAndReturnOrNull(httpRequest)
+    }
+
     abstract fetchPagesBySpaceKey(String spaceKey, Integer pageLimit)
 
     abstract fetchPagesByAncestorId(List<String> pageIds, Integer pageLimit)
 
     abstract fetchPageByPageId(String id)
+
+    abstract deletePage(String id)
 
     abstract updatePage(String pageId, String title, String confluenceSpaceKey, Object localPage, Integer pageVersion, String pageVersionComment, String parentId)
 

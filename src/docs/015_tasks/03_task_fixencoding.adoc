@@ -1,13 +1,11 @@
 :filename: 015_tasks/03_task_fixencoding.adoc
 include::_config.adoc[]
 
-= fixEncoding
+== fixEncoding
 
 include::../_feedback.adoc[]
 
-// image::ea/Manual/publishToConfluence.png[]
-
-== About This Task
+=== About This Task
 
 Whenever Asciidoctor has to process a file that is not UTF-8 encoded, Ruby tries to read it, then throws an error similar to this one:
 
@@ -18,10 +16,8 @@ Unfortunately, finding the incorrectly encoded file is difficult if a lot of `in
 The fixEncoding task crawls through all `+++*.ad+++` and `+++*.adoc+++` files and checks their encoding.
 If it comes across a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding.
 
-== Source
+=== Source
 
-.scripts/fixEncoding.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/fixEncoding.gradle[]
-----
+:param_source_file: scripts/fixEncoding.gradle
+:param_source_language: groovy
+include::_viewTaskSource.adoc[]

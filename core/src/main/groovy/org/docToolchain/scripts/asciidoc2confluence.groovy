@@ -35,11 +35,13 @@ import org.docToolchain.atlassian.transformer.HtmlTransformer
 
 import org.jsoup.nodes.Document
 import org.jsoup.nodes.Element
+import org.jsoup.nodes.Entities
 import org.jsoup.nodes.TextNode
 import org.jsoup.select.Elements
 
 import groovy.transform.Field
 
+import java.nio.charset.Charset
 import java.nio.file.Path
 import java.security.MessageDigest
 import static groovy.io.FileType.FILES
@@ -141,7 +143,7 @@ def uploadAttachment = { def pageId, String url, String fileName, String note ->
     }
 
     def attachment = confluenceClient.getAttachment(pageId, fileName)
-    if (attachment.size()>0 && attachment.results.size()>0) {
+    if (attachment?.results) {
         // attachment exists. need an update?
         if (confluenceClient.attachmentHasChanged(attachment, localHash)) {
             //hash is different -> attachment needs to be updated
@@ -514,7 +516,9 @@ def parseBody(body, anchors, pageAnchors) {
     if(body instanceof Element){
         bodyString = body.html()
     }
-    Element saneHtml = new Document("").outputSettings(new Document.OutputSettings().prettyPrint(false)).html(bodyString)
+    Element saneHtml = new Document("")
+        .outputSettings(new Document.OutputSettings().syntax(Document.OutputSettings.Syntax.xml).prettyPrint(false))
+        .html(bodyString)
     def pageString = new HtmlTransformer().transformToConfluenceFormat(saneHtml)
 
     return Map.of(
@@ -690,7 +694,8 @@ def promoteHeaders(tree, start, offset) {
 }
 
 def retrievePageIdByName = { String name ->
-    confluenceClient.retrievePageIdByName(name, confluenceSpaceKey)
+    def data = confluenceClient.retrievePageIdByName(name, confluenceSpaceKey)
+    return data?.results?.get(0)?.id
 }
 
 def getPagesRecursive(Element element, String parentId, Map anchors, Map pageAnchors, int level, int maxLevel) {
@@ -832,9 +837,9 @@ config.confluence.input.each { input ->
         def (pages, anchors, pageAnchors) = getPages(dom, parentId, confluenceSubpagesForSections)
         pushPages pages, anchors, pageAnchors, keywords
         if (parentId) {
-            println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}/pages/${parentId}"
+            println "published to ${config.confluence.api - "rest/api/"}/spaces/${confluenceSpaceKey}/pages/${parentId}"
         } else {
-            println "published to ${config.confluence.api - "rest/api/"}spaces/${confluenceSpaceKey}"
+            println "published to ${config.confluence.api - "rest/api/"}/spaces/${confluenceSpaceKey}"
         }
     }
 }

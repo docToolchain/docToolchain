@@ -94,7 +94,7 @@ TIP: In case your development team uses different operating systems, put the wra
 
 Once the docToolchain wrapper is installed in your project directory you have to decide how to install the toolchain:
 
-- <<run-dtc-in-container>> with the https://hub.docker.com/r/doctoolchain/doctoolchain[docToolchain container image].
+- <<run-dtc-in-container>> with the https://hub.docker.com/r/doctoolchain/doctoolchain[docToolchain container image] or <<run-dtc-in-costum-container>>.
 - <<install-dtc-with-dtcw>> in the users home directory `$HOME/.doctoolchain`
 - <<install-dtc-with-sdk>> a tool for managing parallel versions of multiple Software Development Kits.
 
@@ -119,6 +119,66 @@ The best known container engine is https://docs.docker.com/get-docker/[Docker].
 If the container engine is installed you can <<first-command>>.
 The docToolchain wrapper script in your project directory will detect the
 container engine and pull the docToolchain image on the first invocation.
+
+[[run-dtc-in-costum-container]]
+=== Use your costum docker image
+Some might need to create their own docker image to add additional tooling or configurations, e.g. proxy settings.
+In this case you can pass the image name via parameter `image` directly after `docker`:
+
+.Linux/Mac with bash
+[role='primary']
+---
+[source, bash]
+----
+./dtcw docker image <image_name> generateHTML
+----
+
+---
+
+.Windows with Powershell
+[role='secondary']
+---
+[source, powershell]
+----
+.\dtcw.ps1 docker image <image_name> generateHTML
+----
+
+---
+
+.Windows with cmd.exe
+[role='secondary']
+---
+
+
+[source, cmd]
+----
+.\dtcw.bat docker image <image_name> generateHTML
+----
+
+[[add-environment-variables-to-docker]]
+=== Pass environment variables to docker containers
+To pass any environment variable to the docker container you can make use of an https://docs.docker.com/engine/reference/commandline/run/#env[environment file].
+The environment file must have the name `dtcw_docker.env` and must be located in the same folder as `dtcw`.
+
+An example content is e.g.:
+
+[source, cmd]
+----
+# set environment variables for docToolchain docker container
+PROJECT=TEST_PROJECT
+TEAM=TEST_TEAM
+----
+
+[[add-additional-parameter-to-docker]]
+=== Pass additional parameter to docker containers
+To pass additional parameters to the docker container you can make use of the parameter `extra_arguments` followed by a string with the additional parameters.
+
+One usecase is to enable you to set environment variables to dynamic values.
+
+[source, bash]
+----
+./dtcw docker image <image_name> extra_arguments "--env USER=${USERNAME} --env REPO_LOCATION=`git config remote.origin.url`" generateHTML
+----
 
 [[install-dtc-with-dtcw]]
 == Install docToolchain with `dtcw`

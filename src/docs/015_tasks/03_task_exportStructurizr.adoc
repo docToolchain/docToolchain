@@ -1,11 +1,11 @@
 :filename: 015_tasks/03_task_exportStructurizr.adoc
 include::_config.adoc[]
 
-= exportStructurizr
+== exportStructurizr
 
 include::../_feedback.adoc[]
 
-== About This Task
+=== About This Task
 
 https://structurizr.com[Structurizr] builds upon "diagrams as code", allowing you to create multiple diagrams from a single model, using a number of tools and programming languages.
 Structurizr is specifically designed to support the https://c4model.com/[C4 model for visualising software architecture].
@@ -30,7 +30,7 @@ And here the diagrams defined by the views in the example above rendered by the 
 image::manual/structurizr-system-context-diagram.png["System Context Diagram"]
 image::manual/structurizr-container-diagram.png["Container Diagram"]
 
-== Configuration
+=== Configuration
 
 .Config.groovy
 [source,groovy]
@@ -38,7 +38,7 @@ image::manual/structurizr-container-diagram.png["Container Diagram"]
 include::{projectRootDir}/Config.groovy[tags=structurizrConfig]
 ----
 
-== Example Configuration
+=== Example Configuration
 
 The example below shows a possible directory layout with a `src/docs/structurizr` directory containing the `workspace.dsl` file.
 
@@ -110,10 +110,9 @@ plantuml::../structurizr/diagrams/SystemContext-001.puml["structurizr-SystemCont
 plantuml::../structurizr/diagrams/Container-001.puml["structurizr-Container",format=svg]
 ----
 
-== Source
+=== Source
 
-.exportStructurizr.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/exportStructurizr.gradle[tags=exportStructurizr]
-----
+:param_source_file: scripts/exportStructurizr.gradle
+:param_source_language: groovy
+:param_source_tags: exportStructurizr
+include::_viewTaskSource.adoc[]

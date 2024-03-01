@@ -1,15 +1,11 @@
 :filename: 015_tasks/03_task_exportVisio.adoc
 include::_config.adoc[]
 
-= exportVisio
+== exportVisio
 
 include::../_feedback.adoc[]
 
-== At a Glance
-
-image::ea/Manual/exportVisio.png[]
-
-== About This Task
+=== About This Task
 
 This task searches for Visio files in the `/src/docs` folder then exports all diagrams and element notes to `/src/docs/images/visio` and `/src/docs/visio`.
 
@@ -18,25 +14,22 @@ Images are stored as `/images/visio/[filename]-[pagename].png`. Notes are stored
 You can specify a filename to export notes to by starting any comment with `+++{adoc:[filename].adoc}+++`.
 It will then be written to `/visio/[filename].adoc`.
 
-== Important Information About This Task
+=== Important Information About This Task
 
 * Currently, only Visio files stored directly in `/src/docs` are supported. All others will export to the wrong location.
 * Before running this task, close any open Visio instance.
 
-== Further Reading and Resources
+=== Further Reading and Resources
 
 https://github.com/docToolchain/docToolchain/issues/112[Issue #112].
 
-== Source
+=== Source
 
-.exportVisio.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/exportVisio.gradle[tags=exportVisio]
-----
+:param_source_file: scripts/exportVisio.gradle
+:param_source_language: groovy
+:param_source_tags: exportVisio
+include::_viewTaskSource.adoc[]
 
-.scripts/VisioPageToPngConverter.ps1
-[source]
-----
-include::{projectRootDir}/scripts/VisioPageToPngConverter.ps1[]
-----
+:param_source_file: scripts/VisioPageToPngConverter.ps1
+:param_source_language: powershell
+include::_viewTaskSource.adoc[]

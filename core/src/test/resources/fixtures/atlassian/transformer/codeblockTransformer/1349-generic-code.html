@@ -1,0 +1,16 @@
+<div class="sect2">
+    <div class="content">
+<pre class="highlightjs highlight"><code class="language-csharp hljs" data-lang="csharp">public class ComplexModel : IModel
+{
+    private readonly ILoggerFactory loggerFactory;
+    private readonly ILogger&lt;ComplexModel&gt; logger;
+
+    ComplexModel( ILoggerFactory loggerFactory, ... )
+    {
+        this.loggerFactory = loggerFactory;
+        logger = loggerFactory.CreateLogger&lt;ComplexModel&gt;();
+        ...
+    }
+}</code></pre>
+    </div>
+</div>

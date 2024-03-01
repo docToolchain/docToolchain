@@ -29,7 +29,7 @@ class RestClient extends BasicRestClient {
 
     def doRequestAndFailIfNot20x(ClassicHttpRequest httpRequest){
         rateLimiter.acquire()
-        return doRequestAndFailIfNot20x(targetHost, httpRequest, new RestClientResponseHandler())
+        return doRequest(targetHost, httpRequest, new RestClientResponseHandler())
             .map(response -> new JsonSlurper().parseText(response))
             .orElse(null)
     }
@@ -83,6 +83,8 @@ class RestClient extends BasicRestClient {
                 return EntityUtils.toString(entity);
             } catch (final ParseException ex) {
                 throw new ClientProtocolException(ex);
+            } finally {
+                EntityUtils.consumeQuietly(entity);
             }
         }
     }

@@ -1,6 +1,4 @@
-:jbake-order: 40
 :jbake-title: How to change the theme
-:filename: 020_tutorial/130_theming.adoc
 include::_config.adoc[]
 
 == How to change the default theme for `generateSite`
