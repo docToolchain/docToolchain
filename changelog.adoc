@@ -9,8 +9,17 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+=== added
+
+=== changed
+
+== 3.3.1 - 2024-03-01
+
+=== fixed
+
 * https://github.com/docToolchain/docToolchain/issues/1369[#1359: publishToConfluence - Something went wrong]
 * https://github.com/docToolchain/docToolchain/issues/1372[#1372: publishToConfluence: java.io.FileNotFoundException]
+* https://github.com/docToolchain/docToolchain/pull/1379[publishToConfluence: Fix Confluence APIv2 Cursor Logic]
 
 === added
 

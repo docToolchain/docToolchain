@@ -12,7 +12,7 @@ set -o pipefail
 
 # See https://github.com/docToolchain/docToolchain/releases for available versions.
 # Set DTC_VERSION to "latest" to get the latest, yet unreleased version.
-: "${DTC_VERSION:=3.3}"
+: "${DTC_VERSION:=3.3.1}"
 
 # if not set, public docker hub is used
 : "${DTC_DOCKER_PREFIX:=}"
