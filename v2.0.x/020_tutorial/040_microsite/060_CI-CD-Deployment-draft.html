@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: 020_tutorial/030_generateHTML.html -->
+    <!-- sourceuri: 020_tutorial/040_microsite/060_CI-CD-Deployment.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>generateHTML &amp; generatePDF</title>
+    <title>CI/CD-Build</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -21,35 +21,35 @@
     <meta content="build your dev docs the easy way..." name="twitter:description">
 
     <link as="style"
-        href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+        href="../../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
         rel="preload">
-    <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+    <link href="../../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
         integrity=""
         rel="stylesheet">
-    <link href="../css/asciidoctor.css" rel="stylesheet">
-    <link href="../css/prettify.css" rel="stylesheet">
+    <link href="../../css/asciidoctor.css" rel="stylesheet">
+    <link href="../../css/prettify.css" rel="stylesheet">
 
     <!-- favicon generated with https://www.favicon-generator.org/ -->
-    <link rel="shortcut icon" href="../favicon.ico">
-    <link rel="apple-touch-icon" sizes="57x57" href="../apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="../apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="../apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
-    <link rel="manifest" href="../manifest.json">
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="apple-touch-icon" sizes="57x57" href="../../apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../../apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../../apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../../apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../../apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../../apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../../apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../../apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../../android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../../favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
+    <link rel="manifest" href="../../manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="../ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="../../ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    <script src="../js/jquery-3.5.1.min.js"></script>
+    <script src="../../js/jquery-3.5.1.min.js"></script>
     <style>
     div.bg-light {
         background-color: rgba(127, 180, 224, 0.3) !important;
@@ -179,42 +179,42 @@
 <header>
 	
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
-    <a class="navbar-brand" href="../index.html">
-        <span class="navbar-logo"><img src="../images/doctoolchain-logo-blue.png" width="32px" /></span><span
+    <a class="navbar-brand" href="../../index.html">
+        <span class="navbar-logo"><img src="../../images/doctoolchain-logo-blue.png" width="32px" /></span><span
             class="font-weight-bold">docToolchain</span>
     </a>
     <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
         <ul class="navbar-nav mt-2 mt-lg-0">
-    <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
+    <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../10_about/10_about-the-project.html"><span>About</span></a>
+                <a class="nav-link " href="../../10_about/10_about-the-project.html"><span>About</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../010_manual/20_install.html"><span>User Docs</span></a>
+                <a class="nav-link " href="../../010_manual/20_install.html"><span>User Docs</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../015_tasks/03_tasks.html"><span>Tasks</span></a>
+                <a class="nav-link " href="../../015_tasks/03_tasks.html"><span>Tasks</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link active" href="../020_tutorial/010_Install.html"><span>Tutorial</span></a>
+                <a class="nav-link active" href="../../020_tutorial/010_Install.html"><span>Tutorial</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../025_development/005_contributing_to_docs.html"><span>For Devs</span></a>
+                <a class="nav-link " href="../../025_development/005_contributing_to_docs.html"><span>For Devs</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../030_news/index.html"><span>News</span></a>
+                <a class="nav-link " href="../../030_news/index.html"><span>News</span></a>
             </li>
 
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
-        <form action="../search.html">
+        <form action="../../search.html">
         <input aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
                placeholder=" Search this site…" type="search" name="q">
         </form>
@@ -228,7 +228,7 @@
 			<div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
 				<div class="td-sidebar__inner" id="td-sidebar-menu" >
 					
-        <form class="td-sidebar__search d-flex align-items-center d-lg-none" action="../search.html">
+        <form class="td-sidebar__search d-flex align-items-center d-lg-none" action="../../search.html">
 
             <input aria-label="Search this site…" name="q" autocomplete="off" class="form-control td-search-input"
                    placeholder=" Search this site…" type="search">
@@ -252,61 +252,61 @@
                         <ul class="td-sidebar-nav__section pr-md-3 ul-0">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/010_Install.html">Install docToolchain</a>
+                                   href="../../020_tutorial/010_Install.html">Install docToolchain</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/020_arc42.html">arc42 Template</a>
+                                   href="../../020_tutorial/020_arc42.html">arc42 Template</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../020_tutorial/030_generateHTML.html">generateHTML &amp; generatePDF</a>
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/030_generateHTML.html">generateHTML &amp; generatePDF</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/040_microsite/index.html">Microsite</a>
+                                   href="../../020_tutorial/040_microsite/index.html">Microsite</a>
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/040_microsite/040_generateSite.html">generateSite</a>
+                                   href="../../020_tutorial/040_microsite/040_generateSite.html">generateSite</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/040_microsite/043_multi-markup.html">generateSite: Multi-Markup</a>
+                                   href="../../020_tutorial/040_microsite/043_multi-markup.html">generateSite: Multi-Markup</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/040_microsite/130_theming.html">How to change the theme</a>
+                                   href="../../020_tutorial/040_microsite/130_theming.html">How to change the theme</a>
                             </li>
                         </ul>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/050_multipleRepositories.html">Multi-Repo</a>
+                                   href="../../020_tutorial/050_multipleRepositories.html">Multi-Repo</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/070_publishToConfluence.html">publishToConfluence</a>
+                                   href="../../020_tutorial/070_publishToConfluence.html">publishToConfluence</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/100_diagrams.net.html">Diagrams: Diagrams.net</a>
+                                   href="../../020_tutorial/100_diagrams.net.html">Diagrams: Diagrams.net</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/110_presentations_with_revealjs.html">Presentations with reveal.js</a>
+                                   href="../../020_tutorial/110_presentations_with_revealjs.html">Presentations with reveal.js</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/120_self-contained-dtc.html">Self-Contained docToolchain</a>
+                                   href="../../020_tutorial/120_self-contained-dtc.html">Self-Contained docToolchain</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/140_Dropdown_Menu.html">How to create a Dropdown Menu</a>
+                                   href="../../020_tutorial/140_Dropdown_Menu.html">How to create a Dropdown Menu</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/990_Tutorial.html">How to create a Tutorial</a>
+                                   href="../../020_tutorial/990_Tutorial.html">How to create a Tutorial</a>
                             </li>
                         </ul>
                     </li>
@@ -319,11 +319,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/030_generateHTML.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/040_microsite/060_CI-CD-Deployment.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27generateHTML+%26amp%3B+generatePDF%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/030_generateHTML.adoc%0A%23branch:%20ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27CI%2FCD-Build%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/040_microsite/060_CI-CD-Deployment.adoc%0A%23branch:%20ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -332,11 +332,7 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_generatehtml_generatepdf">generateHTML &amp; generatePDF</a>
-<ul class="sectlevel2">
-<li><a href="#_configuration">Configuration</a></li>
-</ul>
-</li>
+<li><a href="#_how_to_automatically_build_your_microsite_with_various_cicd_systems">How to automatically build your Microsite with various CI/CD Systems</a></li>
 </ul>
 </div>
 
@@ -359,203 +355,14 @@
         <p>
             
 <div class="sect1">
-<h2 id="_generatehtml_generatepdf">generateHTML &amp; generatePDF</h2>
+<h2 id="_how_to_automatically_build_your_microsite_with_various_cicd_systems">How to automatically build your Microsite with various CI/CD Systems</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="../015_tasks/03_task_generateHTML.html"><code>generateHTML</code></a> and <a href="../015_tasks/03_task_generatePDF.html"><code>generatePDF</code></a> are basic tasks which invoke Asciidoctor to generate the output you want.</p>
-</div>
-<div class="openblock primary">
-<div class="title">Linux / WSL2 with bash</div>
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw generateHTML</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="openblock secondary">
-<div class="title">Windows with Powershell</div>
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="powershell">./dtcw.ps1 generateHTML</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">output of generateHTML</div>
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell session">$ ./dtcw generateHTML
-dtcw - docToolchain wrapper V0.23
-docToolchain V2.0.0
-
-Bash is running on WSL
-this might cause problems with plantUML
-see https://doctoolchain.github.io/docToolchain/#wsl for more details
-
-Java Version 11
-docker available
-home folder exists
-use local homefolder install /home/rdmueller/.doctoolchain/
-Starting a Gradle Daemon, 22 busy Daemons could not be reused, use --status for details
-
-&gt; Configure project :
-arc42/arc42.adoc
-
-&gt; Task :generateHTML
-Converting /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42/arc42.adoc
-
-BUILD SUCCESSFUL in 26s
-1 actionable task: 1 executed</code></pre>
-</div>
+<p>You probably don&#8217;t want to keep your docs secret.
+So you need a way to publish your static site.</p>
 </div>
 <div class="paragraph">
-<p>The output is written to <code>build/html5/arc42/arc42.html</code> and <code>build/pdf/arc42/Arc42.pdf</code>.</p>
-</div>
-<div id="html_out" class="imageblock">
-<div class="content">
-<img src="images/generateHTML.dio.png" alt="generateHTML.dio">
-</div>
-<div class="title">Figure 1. generated output of generateHTML task</div>
-</div>
-<div class="paragraph">
-<p>As you can see in <a href="#html_out">Figure 1</a>, HTML output is rendered as a single page with a table of contents (TOC) on the left.
-If using the <code>withhelp</code> version, help appears behind question mark icons on the right side of the page.
-When readers hold their mouse over each icon, help appears.</p>
-</div>
-<div id="pdf_out" class="imageblock">
-<div class="content">
-<img src="images/generatePDF.png" alt="generatePDF">
-</div>
-<div class="title">Figure 2. generated output of generatePDF task</div>
-</div>
-<div class="paragraph">
-<p><a href="#pdf_out">Figure 2</a> shows you the PDF output.
-There is a TOC available on the first pages, and a TOC also appears on the left, helping readers navigate the document.</p>
-</div>
-<div class="paragraph">
-<p>Both HTML and PDF outputs can be styled to suit your needs.</p>
-</div>
-<div class="sect2">
-<h3 id="_configuration">Configuration</h3>
-<div class="sect3">
-<h4 id="_files_to_convert">Files to convert</h4>
-<div class="paragraph">
-<p>For both tasks, the most important configuration is <code>inputFiles</code>-list at the start of your <code>docToolchainConfig.groovy</code></p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">inputFiles = [
-        //[file: 'doctoolchain_demo.adoc',       formats: ['html','pdf']],
-        //[file: 'arc42-template.adoc',    formats: ['html','pdf']],
-        /** inputFiles **/
-]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Normally, Asciidoctor converts all files it can find.
-For documents structured using includes, to create a full document (and avoid each chapter being converted to an individual PDF) you&#8217;ll need a main AsciiDoc file that includes all chapters.</p>
-</div>
-<div class="paragraph">
-<p>The <code>inputFiles</code>-map lists all of the main files as well as a list of formats applicable to each.
-For example, this lets you specify which files should be converted to HTML but not to PDF.
-You will need to configure this list manually.</p>
-</div>
-<div class="paragraph">
-<p>If docToolchain converts an unexpected list of files, this is the first place to look when troubleshooting problems.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_working_with_the_pdf_style">Working with the PDF style</h4>
-<div class="paragraph">
-<p>First, execute <code>./dtcw copyTheme</code> to copy a simple <code>pdfTheme</code> to your own project.
-Find it in <code>/src/docs/pdfTheme</code>.</p>
-</div>
-<div class="paragraph">
-<p>Currently, docToolchain uses the <a href="https://asciidoctor.org/docs/asciidoctor-pdf/">asciidoctor-pdf</a> library.
-The documentation contains a good <a href="https://github.com/asciidoctor/asciidoctor-pdf/blob/v1.6.0/docs/theming-guide.adoc">theming guide</a>.</p>
-</div>
-<div class="paragraph">
-<p>To activate the new style, you have to tell Asciidoctor where to find it.
-For maximum flexibility, specify the location and other PDF-related attributes in the file that you want to convert.
-The most important ones are:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="asciidoc">:pdf-stylesdir: ../pdfTheme
-:pdf-style: custom
-// only needed when you specify your own fonts
-:pdf-fontsdir: ../pdfTheme/fonts</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For this tutorial, navigate to <code>src/docs/arc42/arc42.adoc</code> then add the following to the top of the document:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="asciidoc">:pdf-stylesdir: ../pdfTheme
-:pdf-style: custom</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>This will specify that AsciiDoc will find the <code>pdfTheme</code> relative to the document location in <code>../pdfTheme</code> which will result in <code>src/docs/arc42/../pdfTheme</code> which is equal to <code>src/docs/pdfTheme</code>.</p>
-</div>
-<div class="paragraph">
-<p>You can also make use of the attribute <code>{projectRootDir}</code> which will contain the absolute path to your project directory.
-For example <code>:pdf-stylesdir: {projectRootDir}/src/docs/pdfTheme</code> will search in <code><strong>/home/myname/projects/demo</strong>/src/docs/pdfTheme</code> for the theme.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If you want to use the <code>{projectRootDir}</code> in your editor preview, you must define it as a relative path:
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="asciidoc">ifndef:projectRootDir[:projectRootDir: ../../..]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>When added to the top of your <code>arc42.adoc</code> tutorial file, this will set the <code>projectRootDir</code> to the correct folder.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_working_with_the_html_style">Working with the HTML style</h4>
-<div class="paragraph">
-<p>The easiest way to modify the HTML style is to add a <a href="https://docs.asciidoctor.org/asciidoc/latest/pass/pass-block/">pass-through block</a> with the required CSS styles.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="asciidoctor">++++
-&lt;style&gt;
-  h2 {
-    color: green;
-  }
-&lt;/style&gt;
-++++</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-For the <code>generate<strong>Site</strong></code> task, there is a different mechanism to change the styles if the generated microsite.
-</td>
-</tr>
-</table>
-</div>
-</div>
+<p>In this tutorial, I will show you three ways how to do it with the three main systems: GitLab, GitHub and Netlify</p>
 </div>
 </div>
 </div>
@@ -586,11 +393,11 @@ For the <code>generate<strong>Site</strong></code> task, there is a different me
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27generateHTML+%26amp%3B+generatePDF%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/030_generateHTML.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27CI%2FCD-Build%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/040_microsite/060_CI-CD-Deployment.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27generateHTML+%26amp%3B+generatePDF%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/030_generateHTML.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27CI%2FCD-Build%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/040_microsite/060_CI-CD-Deployment.adoc">tell
     us how we can improve</a>.
     </p>
 </div>
@@ -719,14 +526,14 @@ For the <code>generate<strong>Site</strong></code> task, there is a different me
         </div>
     </footer>
 
-    <script src="../js/popper.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
+    <script src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
 
 
-    <script src="../js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
-    <script src="../js/blocks.js" ></script>
-    <script src="../js/prettify.js"></script>
-    <script src="../js/copy-n-paste.js"></script>
+    <script src="../../js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
+    <script src="../../js/blocks.js" ></script>
+    <script src="../../js/prettify.js"></script>
+    <script src="../../js/copy-n-paste.js"></script>
 
 
 </body>
