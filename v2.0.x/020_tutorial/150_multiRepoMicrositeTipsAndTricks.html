@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: 020_tutorial/120_self-contained-dtc.html -->
+    <!-- sourceuri: 020_tutorial/150_multiRepoMicrositeTipsAndTricks.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>Self-Contained docToolchain</title>
+    <title>Building a microsite from multiple repositories</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -297,7 +297,7 @@
                                    href="../020_tutorial/110_presentations_with_revealjs.html">Presentations with reveal.js</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
                                    href="../020_tutorial/120_self-contained-dtc.html">Self-Contained docToolchain</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -305,7 +305,7 @@
                                    href="../020_tutorial/140_Dropdown_Menu.html">How to create a Dropdown Menu</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../020_tutorial/150_multiRepoMicrositeTipsAndTricks.html">Building a microsite from multiple repositories</a>
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -323,11 +323,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/120_self-contained-dtc.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/150_multiRepoMicrositeTipsAndTricks.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Self-Contained+docToolchain%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/120_self-contained-dtc.adoc%0A%23branch:%20ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Building+a+microsite+from+multiple+repositories%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/150_multiRepoMicrositeTipsAndTricks.adoc%0A%23branch:%20ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -336,12 +336,8 @@
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_self_contained_doctoolchain">Self-Contained docToolchain</a>
-<ul class="sectlevel2">
-<li><a href="#_docker_solution">Docker Solution</a></li>
-<li><a href="#_local_solution">Local Solution</a></li>
-</ul>
-</li>
+<li><a href="#_multiple_repositories">Multiple Repositories</a></li>
+<li><a href="#_backlinks_to_the_repositories">Backlinks to the repositories</a></li>
 </ul>
 </div>
 
@@ -364,139 +360,62 @@
         <p>
             
 <div class="sect1">
-<h2 id="_self_contained_doctoolchain">Self-Contained docToolchain</h2>
+<h2 id="_multiple_repositories">Multiple Repositories</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>When you work in a restricted environment where you don&#8217;t have direct access to the internet, you might need a self-contained version of docToolchain.
-A version which does not need to download dependencies but already has them on board.</p>
+<p>Modern software development teams maintain several git repositories.
+If they commit to having documentation close to the code, they will inevitably have documentation spread over several repositories.
+DocToolchain supports building documentation such as a microsite from several repositories precisely by not supporting it in any particular way.
+You can just checkout all repositories you need, and extract and arrange the content of their <code>docs</code> folders as you need <em>before</em> you build the documentation.</p>
 </div>
-<div class="sect2">
-<h3 id="_docker_solution">Docker Solution</h3>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_backlinks_to_the_repositories">Backlinks to the repositories</h2>
+<div class="sectionbody">
 <div class="paragraph">
-<p>If you have docker available, then this might already be the solution.
-The docker image already contains all dependencies and the docToolchain wrapper (<code>dtcw</code>) already checks if docker is available and running and thus will use docker in this case.
-In order to fetch the docker image from your local docker proxy, please check the source of <code>dtcw</code> and update <a href="https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw#L280">the docker image reference</a>.</p>
+<p>DocToolchain offers two helpful links in the top right corner of every page:</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_local_solution">Local Solution</h3>
-<div class="paragraph">
-<p>If you don&#8217;t have Docker available, you need a local, self-contained install.</p>
-</div>
-<div class="sect3">
-<h4 id="_download_wrapper">Download wrapper</h4>
-<div class="paragraph">
-<p>Start on an unrestricted system and download the docToolchain wrapper:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">mkdir dtc-self-contained
-cd dtc-self-contained
-curl -Lo dtcw doctoolchain.org/dtcw
-chmod +x dtcw</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_check_and_install_correct_java_development_kit_jdk">Check and install correct Java Development Kit (JDK)</h4>
-<div class="paragraph">
-<p>We start with ensuring that we have the correct Java Development Kit (JDK) installed.
-Execute</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw local install java</code></pre>
-</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Improve this doc</dt>
+<dd>
+<p>Opens a new tab to directly edit the respective page on e.g. GitHub</p>
+</dd>
+<dt class="hdlist1">Create an issue</dt>
+<dd>
+<p>Lets you create a new issue in a defined git repository.</p>
+</dd>
+</dl>
 </div>
 <div class="paragraph">
-<p>to fetch and install the correct JDK.
-It will be installed to <code>$HOME/.doctoolchain/jdk</code>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_start_first_tasks_to_install_doctoolchain_locally">Start first tasks to install docToolchain locally</h4>
-<div class="paragraph">
-<p>Now, let&#8217;s start a simple task to download and install docToolchain locally:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw local tasks</code></pre>
-</div>
+<p>The URLs for both activities can be specified in <code>docToolchainConfig.groovy</code>, in the fields <code>issueUrl</code> and <code>gitRepoUrl</code>.
+However, if you build your documentation from several repos, you&#8217;ll want to link to <em>different</em> repos.</p>
 </div>
 <div class="paragraph">
-<p><code>local</code> will ensure that docker is ignored, even when docker is up and running.<br>
-<code>tasks</code> is a simple task which just shows all available tasks.</p>
+<p>A simple fix is to do a postprocessing step with sed and replace the default URLs with the correct ones.
+If your way of arranging the documentation folders from the different repos is simple enough,
+you can simply run sed with a different URL on each of the different generated folders.</p>
 </div>
 <div class="paragraph">
-<p>When you run this command, docToolchain will ask if it is allowed to install itself to <code>$HOME/.doctoolchain</code> and if it should create a simple config file.
-It will also fetch some first dependencies in order to execute the task.
-These dependencies will be downloaded to <code>$HOME/.doctoolchain/.gradle</code>.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_fetch_remaining_dependencies">Fetch remaining dependencies</h4>
-<div class="paragraph">
-<p>To fetch the remaining dependencies, execute</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw downloadDependencies</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>this will fetch the remaining dependencies and download them to <code>$HOME/.doctoolchain/.gradle</code></p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_get_an_offline_gradle_binary">Get an offline gradle binary</h4>
-<div class="paragraph">
-<p>The last needed step is to download an offline version of <code>gradle</code> for docToolchain to use.
-This was inspired by <a href="https://chengl.com/gradle-offline-build/" class="bare">https://chengl.com/gradle-offline-build/</a>.</p>
+<p>If your arrangement is more complicated, e.g. because you merge all repos ADRs into one folder, you can do a preprocessing step in advance.</p>
 </div>
 <div class="olist arabic">
-<div class="title">Steps</div>
 <ol class="arabic">
 <li>
-<p>download a <code>gradle</code> binary-zip from <a href="https://services.gradle.org/distributions/" class="bare">https://services.gradle.org/distributions/</a></p>
+<p>In each repo, automatically set the <code>:filename:</code> tag and prefix the value with a unique identifier for the repository.</p>
 </li>
 <li>
-<p>place it in the folder <code>.doctoolchain/docToolchain-$VERSION/gradle/wrapper</code> (replace $VERSION with current docToolchain version that you installed)</p>
+<p>Move your adoc files to the desired target folders.</p>
 </li>
 <li>
-<p>go to folder <code>.doctoolchain/docToolchain-$VERSION/gradle/wrapper</code> and open the file <code>gradle-wrapper.properties</code></p>
+<p>run <code>generateSite</code></p>
 </li>
 <li>
-<p>change the <code>distributionUrl</code> to <code>distributionUrl=gradle-$GRADLEVERSION-bin.zip</code> (replace $GRADLEVERSION with the version of the binary-zip you just downloaded)</p>
+<p>In the generated HTML files, replace the repository in the backlinks.
+By including the prefix in your query, you can make sure to target the correct repository.</p>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p>docToolchain now uses an offline version of Gradle.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_finalize">Finalize</h4>
-<div class="paragraph">
-<p>As a result, we now have docToolchain, a JDK, gradle and all dependencies installed to <code>$HOME/.doctoolchain</code>.</p>
-</div>
-<div class="paragraph">
-<p>You can now zip this folder and copy it to your restricted environment to the <code>$HOME/.doctoolchain</code> folder.
-The wrapper of your project will recognize it as local installation and use it.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-the installed JDK is for one specific PU architecture.
-So, if your team works with different Systems (Windows, Mac, Linux), you have to create several versions.
-</td>
-</tr>
-</table>
-</div>
-</div>
 </div>
 </div>
 </div>
@@ -527,11 +446,11 @@ So, if your team works with different Systems (Windows, Mac, Linux), you have to
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Self-Contained+docToolchain%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/120_self-contained-dtc.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Building+a+microsite+from+multiple+repositories%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/150_multiRepoMicrositeTipsAndTricks.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Self-Contained+docToolchain%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/120_self-contained-dtc.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Building+a+microsite+from+multiple+repositories%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/150_multiRepoMicrositeTipsAndTricks.adoc">tell
     us how we can improve</a>.
     </p>
 </div>
