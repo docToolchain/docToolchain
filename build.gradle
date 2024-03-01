@@ -221,7 +221,7 @@ task downloadDependencies {
             }
         }
 
-        configurations.findAll{it.canBeResolved}.each{
+        configurations.findAll{it.canBeResolved && !it.name.startsWith("test")}.each{
             println "-> "+it.name
             it.resolve()
         }
