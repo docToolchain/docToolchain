@@ -164,6 +164,13 @@ task prepareDist() {
             into new File(buildDir,distFolder+"/libs")
         }
         copy{
+            from (new File("./core")) {
+                include "*"
+                include "**/*"
+            }
+            into new File(buildDir,distFolder+"/core")
+        }
+        copy{
             from new File("./scripts")
             into new File(buildDir,distFolder+"/scripts")
         }
