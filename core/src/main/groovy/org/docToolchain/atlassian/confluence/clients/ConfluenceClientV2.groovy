@@ -84,14 +84,15 @@ class ConfluenceClientV2 extends ConfluenceClient {
             URIBuilder uriBuilder = new URIBuilder(API_V2_PATH + "/spaces/${spaceId}/pages")
                 .addParameter('depth', 'all')
                 .addParameter('limit', pageLimit.toString())
-            if(cursor){
+            if (cursor){
                 uriBuilder.addParameter('cursor', cursor)
             }
             URI uri = uriBuilder.build()
             HttpRequest get = new HttpGet(uri)
             def response =  callApiAndFailIfNot20x(get)
             def results = response.results ?: []
-            if (results.empty || response._links.isEmpty()) {
+            def hasNext = response.containsKey('_links') && response._links.containsKey('next')
+            if (results.empty || !hasNext) {
                 morePages = false
             } else {
                 cursor = response._links.next.split("cursor=")[1]
@@ -120,12 +121,12 @@ class ConfluenceClientV2 extends ConfluenceClient {
             URIBuilder uriBuilder = new URIBuilder(API_V2_PATH + "/pages/${pageId}/children")
                 .addParameter('depth', 'all')
                 .addParameter('limit', pageLimit.toString())
-            if(cursor){
+            if (cursor){
                 uriBuilder.addParameter('cursor', cursor)
             }
             URI uri = uriBuilder.build()
             HttpRequest get = new HttpGet(uri)
-            def response =  callApiAndFailIfNot20x(get)
+            def response = callApiAndFailIfNot20x(get)
             def results = response.results ?: []
             results.inject(allPages) { Map acc, Map match ->
                 //unique page names in confluence, so we can get away with indexing by title
@@ -137,13 +138,14 @@ class ConfluenceClientV2 extends ConfluenceClient {
                 ]
                 acc
             }
+            def hasNext = response.containsKey('_links') && response._links.containsKey('next')
             if (results.empty && ids.isEmpty()) {
-                if(pageIds.isEmpty()) {
+                if (pageIds.isEmpty()) {
                     morePages = false
                 } else {
                     pageId = pageIds.remove(0)
                 }
-            } else if (!results.empty && !response._links.isEmpty()) {
+            } else if (!results.empty && hasNext) {
                 cursor = response._links.next.split("cursor=")[1]
             } else {
                 cursor = null
