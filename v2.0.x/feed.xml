@@ -6,9 +6,121 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Fri, 1 Mar 2024 20:51:14 +0000</pubDate>
-    <lastBuildDate>Fri, 1 Mar 2024 20:51:14 +0000</lastBuildDate>
+    <pubDate>Sat, 2 Mar 2024 05:06:06 +0000</pubDate>
+    <lastBuildDate>Sat, 2 Mar 2024 05:06:06 +0000</lastBuildDate>
 
+    
+    <item>
+      <title>Release v3.3</title>
+      <link>https://localhost/030_news/2024/3.3-release.html</link>
+      <pubDate>Sun, 18 Feb 2024 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">030_news/2024/3.3-release.html</guid>
+      <description>
+      &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
+&lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
+&lt;ul class=&quot;sectlevel1&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_doctoolchain_release_v3_3_bugfix_release&quot;&gt;docToolchain release v3.3 (Bugfix-Release)&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_about_this_release&quot;&gt;About This Release&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_notes&quot;&gt;Notes&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_fixes&quot;&gt;fixes&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_changed&quot;&gt;changed&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- endtoc --&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_doctoolchain_release_v3_3_bugfix_release&quot;&gt;docToolchain release v3.3 (Bugfix-Release)&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_about_this_release&quot;&gt;About This Release&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This release fixes a problem with the docker image and dependencies in a restricted environment.
+The docker image should already contain all required dependencies and thus should be able to run in an enviroment without internet connection (build pipeline).
+With the latest im provements, a change was introduced which broke this feature.
+This resulted in timeouts for the dependency resolution.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We now managed to fix this again.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;We also introduced an enviroment variable DTC_DOCKER_PREFIX to specify an internal docker hub for the docker image.
+This should also help to run docToolchain in restricted environments.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Other changes fix problems with custom ruby extensiosn for PDF generation and features for &lt;code&gt;publishToConfluence&lt;/code&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_notes&quot;&gt;Notes&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_fixes&quot;&gt;fixes&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;[Noticket] Enforce x86 Java on macOS as long as jbake does not support arm64 processors&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;[Noticket] Avoid usage of an arbitrary &lt;code&gt;arch&lt;/code&gt; binary/script on &lt;code&gt;${PATH}&lt;/code&gt; instead of the desired &lt;code&gt;/usr/bin/arch&lt;/code&gt; on macOS.&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1353&quot;&gt;#1353: docker: Problem with 3.x images and dependencies?&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1239&quot;&gt;#1239: Execute a custom asciidoctor converter for generateHTML&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1290&quot;&gt;#1290: Custom ruby extension for PDF generation&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1355&quot;&gt;#1355: publishToConfluence - some code blocks are generated as txt instead of requested language and loose linebreaks&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1349&quot;&gt;#1349: publishToConfluence - a source code block containing template parameters has formatting problems&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_changed&quot;&gt;changed&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;you can now specify another dockerhub via DTC_DOCKER_PREFIX&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You like docToolchain?&lt;br&gt;
+What about helping to make it even better?&lt;br&gt;
+docToolchain is a community project, so be part of the community which drives the project.&lt;br&gt;
+You don&amp;#8217;t have to code for doing so.&lt;br&gt;
+It would even help to brush up the docs, write tutorials or groom the backlog&lt;br&gt;
+(I guess many of the open issues are already fixed).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	  </description>
+    </item>
     
     <item>
       <title>Release v3.2.2</title>
