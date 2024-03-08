@@ -1,0 +1,117 @@
+:filename: 030_news/2023/ADR01-Structurizr.adoc
+:jbake-title: ADR01: Structurizr
+:jbake-date: 2023-02-1521
+:jbake-type: post
+:jbake-tags: adr, structurizr
+:jbake-status: published
+:jbake-menu: news
+:jbake-author: Ralf D. Müller
+:icons: font
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+== ADR01: Integration of Structurizr
+
+:uri-rdmueller: https://github.com/rdmueller
+
+|===
+| Status | Decided by
+| *DRAFT* | {uri-rdmueller}[Ralf D. Müller]
+|===
+
+Structurizr is integrated as Gradle Task with direct reference of the Structurizr Java library.
+
+Only the exportPlantUML feature is implemented.
+Other exports might follow.
+
+Structurizr Lite is included to be able to use the Diagrams-as-Code 2.0 approach (manual layout) and to export the diagrams directly as `.png` or `.svg`.
+
+=== Problems and Context
+
+Structurizr is a popular toolset for modeling diagrams according to the C4 model instead of drawing them.
+Structurizr was created by Simon Brown and is maintained as an open source tool.
+The approach fits nicely with the docs-as-code approach of docToolchain and an integration adds another valuable tool to docToolchain.
+
+Structurizr operates on a central DSL based model which needs to be convertes/exported to diagrams.
+Thus, a task for exporting the diagrams from the model is needed.
+
+To use the diagrams-as-code 2.0 approach, a tool to position the diagram elements (manual layout) is needed.
+
+=== Consequences
+
+The modular nature of docToolchain allows us to integrate the new tasks as independent module.
+
+=== Alternatives
+
+==== Structurizr export
+
+Structurizr export can be solved in several ways:
+
+|===
+| Alternative | Pro | Con
+
+| Structurizr CLI
+a| 
+* easy to use
+* wildly used
+* could be integrated in `doctoolchain.sh`
+a|
+* shell script => start another process
+
+| Structurizr Gradle-Plugin
+a|
+* docToolchain is gradle based
+a|
+* needs deeper integration into docToolchain
+* only downloads and starts Structurizr CLI
+
+| Structurizr Java Library
+a| 
+* fast
+* easy to integrate
+a|
+* first didn't know how but with the help of Simon Brown, this was a quick win
+|===
+
+=> The easiest Integration is currently the Structurizr Java Library. As soon as we get rid of Gradle, it might make sense to integrate the Structurizr CLI.
+
+==== Diagrams-as-Code 2.0
+
+The manual layout can't be achieved with the PlantUML export since PlantUML only can do automatic layout.
+So, another tool is needed.
+
+Currently, only Structurizr and Structurizr light are known to be capable of using this approach.
+
+Structurizr itself seems to be a bit oversized, so we decided to use Structurizr light.
+
+Structurizr light can be integrated as Docker Container or standalone `.war` file plus graphviz dot.
+
+NOTE: we are still looking for the right way to integrate Structurizr lite.
+
+|===
+| Alternative | Pro | Con
+
+| Docker Container
+a|
+* easy to use
+* already available
+a|
+* can't start docker from within docker
+
+| `.war`-File
+a|
+* self contained Spring-Boot app
+* runs also in a docker container
+a|
+* has to be build
+* needs graphviz dot
+|===
+
+=== References
+
+* https://c4model.com/[C4 Model]
+* https://structurizr.com[Structurizr]
+* https://structurizr.com/help/lite[Structurizr lite]
+* https://github.com/docToolchain/docToolchain/issues/1016[original issue #1016]
+* https://www.youtube.com/watch?v=Za1-v4Zkq5E[Diagrams-as-Code Video by Simon Brown]
+
