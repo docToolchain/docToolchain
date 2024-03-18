@@ -16,6 +16,9 @@ buildscript {
             }
         }
     }
+    dependencies {
+        classpath libs.html.sanity.check
+    }
 }
 // /fix versions for #1200
 
@@ -229,7 +232,7 @@ task downloadDependencies {
                 println "-> " + it.name
                 it.resolve()
                 it.files.each { file ->
-                    if (file.name.contains("shadow")) {
+                    if (file.name.contains("htmlSanityCheck")) {
                         println "  -> " + file.name
                     }
                 }
