@@ -214,17 +214,25 @@ task createDist(type: Zip, dependsOn: prepareDist) {
 }
 
 task downloadDependencies {
+    if (!file("libs/org/docToolchain/core-${project.properties.dtc_version}.jar").exists()) {
+        dependsOn gradle.includedBuild('core').task(':release-core')
+    }
     doLast {
+
         project.repositories {
             ruby {
                 gems()
             }
         }
-
         [configurations, buildscript.configurations].each { config ->
             config.findAll{ it.canBeResolved && !it.name?.startsWith("test")}.each {
                 println "-> " + it.name
                 it.resolve()
+                it.files.each { file ->
+                    if (file.name.contains("shadow")) {
+                        println "  -> " + file.name
+                    }
+                }
             }
         }
     }
