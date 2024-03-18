@@ -221,9 +221,11 @@ task downloadDependencies {
             }
         }
 
-        configurations.findAll{it.canBeResolved && !it.name.startsWith("test")}.each{
-            println "-> "+it.name
-            it.resolve()
+        [configurations, buildscript.configurations].each { config ->
+            config.findAll{ it.canBeResolved && !it.name?.startsWith("test")}.each {
+                println "-> " + it.name
+                it.resolve()
+            }
         }
     }
 }
