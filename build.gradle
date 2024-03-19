@@ -46,16 +46,7 @@ dependencies {
             url mavenRepository
         }
     }
-    // core project dependencies
-    // this is a workaround for dependency resolution
-    // downloadDependencies task
-    compileOnly((libs.groovy.all))
-    implementation((libs.http.client))
-    implementation((libs.jsoup))
-    implementation((libs.poi.ooxml))
-    implementation((libs.guava))
 
-    // /core
     testImplementation(libs.spock.reports) {
         exclude group: 'org.codehaus.groovy', module: 'groovy-xml'
     }
@@ -241,11 +232,6 @@ task downloadDependencies {
             config.findAll{ it.canBeResolved && !it.name?.startsWith("test")}.each {
                 println "-> " + it.name
                 it.resolve()
-                it.files.each { file ->
-                    if (file.name.contains("htmlSanityCheck")) {
-                        println "  -> " + file.name
-                    }
-                }
             }
         }
     }
