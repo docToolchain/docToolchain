@@ -18,6 +18,10 @@ buildscript {
     }
     dependencies {
         classpath libs.html.sanity.check
+        classpath (libs.asciidoctor)
+        classpath (libs.asciidoctor.pdf)
+        classpath (libs.asciidoctor.gems)
+        classpath (libs.asciidoctor.slides)
     }
 }
 // /fix versions for #1200
@@ -54,6 +58,7 @@ dependencies {
     implementation((libs.jsoup))
     implementation((libs.poi.ooxml))
     implementation((libs.guava))
+
     // /core
     testImplementation(libs.spock.reports) {
         exclude group: 'org.codehaus.groovy', module: 'groovy-xml'
