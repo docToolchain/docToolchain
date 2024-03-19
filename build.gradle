@@ -18,10 +18,6 @@ buildscript {
     }
     dependencies {
         classpath libs.html.sanity.check
-        classpath (libs.asciidoctor)
-        classpath (libs.asciidoctor.pdf)
-        //classpath (libs.asciidoctor.gems)
-        //classpath (libs.asciidoctor.slides)
     }
 }
 // /fix versions for #1200
@@ -234,13 +230,13 @@ task downloadDependencies {
         dependsOn gradle.includedBuild('core').task(':release-core')
     }
     doLast {
-/**
+
         project.repositories {
             ruby {
                 gems()
             }
         }
- **/
+
         [configurations, buildscript.configurations].each { config ->
             config.findAll{ it.canBeResolved && !it.name?.startsWith("test")}.each {
                 println "-> " + it.name
