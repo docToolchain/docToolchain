@@ -234,12 +234,13 @@ task downloadDependencies {
         dependsOn gradle.includedBuild('core').task(':release-core')
     }
     doLast {
-
+/**
         project.repositories {
             ruby {
                 gems()
             }
         }
+ **/
         [configurations, buildscript.configurations].each { config ->
             config.findAll{ it.canBeResolved && !it.name?.startsWith("test")}.each {
                 println "-> " + it.name
