@@ -20,8 +20,8 @@ buildscript {
         classpath libs.html.sanity.check
         classpath (libs.asciidoctor)
         classpath (libs.asciidoctor.pdf)
-        classpath (libs.asciidoctor.gems)
-        classpath (libs.asciidoctor.slides)
+        //classpath (libs.asciidoctor.gems)
+        //classpath (libs.asciidoctor.slides)
     }
 }
 // /fix versions for #1200
