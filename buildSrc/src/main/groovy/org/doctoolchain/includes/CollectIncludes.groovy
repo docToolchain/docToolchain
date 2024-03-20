@@ -1,0 +1,131 @@
+package org.doctoolchain.includes
+
+import static groovy.io.FileType.FILES
+import static groovy.io.FileVisitResult.SKIP_SUBTREE
+
+class CollectIncludes {
+
+    def prepareDirectory(config, String targetDir) {
+        boolean cleanOutputFolder = config.collectIncludes.cleanOutputFolder?:false
+        def outputFolder = new File(targetDir + '/_includes')
+        if (cleanOutputFolder){
+            outputFolder.deleteDir()
+        }
+
+        outputFolder.mkdirs()
+    }
+
+
+    def collectFiles(scanDir, project, rootProject, docDir, projectDir, includeRoot, config, logger, targetDir, useAntoraIntegration) {
+        //let'path search the whole project for files, not only the docs folder
+        //exclude typical system folders
+        final defaultExcludedDirectories = [
+            '.svn', '.git', '.idea', 'node_modules', '.gradle', 'build', '.github'
+        ]
+
+        //running as subproject? set scandir to main project
+        String scanDir_save = scanDir
+        if (project.name!=rootProject.name && scanDir =='.') {
+            scanDir = project(':').projectDir.path
+        }
+        if (docDir.startsWith('.')) {
+            docDir = file(new File(projectDir, docDir).canonicalPath)
+        }
+        logger.info "docToolchain> docDir: ${docDir}"
+        logger.info "docToolchain> scanDir: ${scanDir}"
+        if (scanDir.startsWith('.')) {
+            scanDir = file(new File(docDir, scanDir).canonicalPath)
+        } else {
+            scanDir = file(new File(scanDir, "").canonicalPath)
+        }
+        logger.info "docToolchain> scanDir: ${scanDir}"
+
+        logger.info "docToolchain> includeRoot: ${includeRoot}"
+
+        if (includeRoot.startsWith('.')) {
+            includeRoot = file(new File(docDir, includeRoot).canonicalPath)
+        }
+        logger.info "docToolchain> includeRoot: ${includeRoot}"
+
+        File sourceFolder = scanDir
+        println "sourceFolder: " + sourceFolder.canonicalPath
+        def collections = [:]
+
+        String fileFilter = config.collectIncludes.fileFilter?:"ad|adoc|asciidoc"
+        String minPrefixLength = config.collectIncludes.minPrefixLength?:"3"
+        String maxPrefixLength = config.collectIncludes.maxPrefixLength?:""
+        String separatorChar = config.collectIncludes.separatorChar?:"-_"
+        def extraExcludeDirectories = config.collectIncludes.excludeDirectories?:[]
+
+        def excludedDirectories = defaultExcludedDirectories + extraExcludeDirectories
+
+        String prefixRegEx = "[A-Za-z]{" + minPrefixLength + "," + maxPrefixLength + "}"
+        String separatorCharRegEx = "[" + separatorChar + "]"
+        String fileFilterRegEx = "^" + prefixRegEx + separatorCharRegEx + ".*[.](" + fileFilter + ")\$"
+
+        logger.info "considering files with this pattern: " + fileFilterRegEx
+
+        sourceFolder.traverse(
+            type: FILES,
+            preDir : { if (it.name in excludedDirectories) return SKIP_SUBTREE },
+            excludeNameFilter: excludedDirectories
+        ) { file ->
+            if (file.name ==~ fileFilterRegEx) {
+                String typeRegEx = "^(" + prefixRegEx + ")" + separatorCharRegEx + ".*\$"
+                def type = file.name.replaceAll(typeRegEx,'\$1').toUpperCase()
+                if (!collections[type]) {
+                    collections[type] = []
+                }
+                logger.info "file: " + file.canonicalPath
+                def fileName = (file.canonicalPath - scanDir.canonicalPath)[1..-1]
+                if (file.name ==~ '^.*[Tt]emplate.*$') {
+                    logger.info "ignore template file: " + fileName
+                } else {
+                    String includeFileRegEx = "^.*" + prefixRegEx + "_includes.adoc\$"
+                    if (file.name ==~ includeFileRegEx) {
+                        logger.info "ignore generated _includes files: " + fileName
+                    } else {
+                        if ( fileName.startsWith('docToolchain') || fileName.replace("\\", "/").matches('^.*/docToolchain/.*$')) {
+                            //ignore docToolchain as submodule
+                        } else {
+                            logger.info "include corrected file: " + fileName
+                            collections[type] << fileName
+                        }
+                    }
+                }
+            }
+        }
+        println "targetFolder: " + (targetDir - docDir)
+        logger.info "targetDir - includeRoot: " + (targetDir - includeRoot)
+        def pathDiff = '../' * ((targetDir - docDir)
+            .replaceAll('^/','')
+            .replaceAll('/$','')
+            .replaceAll("[^/]",'').size()+1)
+
+        logger.info "pathDiff: " + pathDiff
+        collections.each { type, fileNames ->
+            if (fileNames) {
+                def outFile = new File(targetDir + '/_includes', type + '_includes.adoc')
+                logger.info outFile.canonicalPath-sourceFolder.canonicalPath
+                outFile.write("// this is autogenerated\n")
+                logger.info "docToolchain> Use Antora integration: ${useAntoraIntegration}"
+                fileNames.sort().each { fileName ->
+                    if (useAntoraIntegration) {
+                        outFile.append("ifndef::optimize-content[]\n")
+                        outFile.append ("include::../" + pathDiff + scanDir_save + "/" + fileName.replace("\\", "/")+"[]\n")
+                        outFile.append("endif::optimize-content[]\n\n")
+                        outFile.append("ifdef::optimize-content[]\n")
+                        outFile.append ("include::example\$" + fileName.replace("\\", "/").replace("${inputPath}/modules/ROOT/examples/", "")+"[]\n")
+                        outFile.append("endif::optimize-content[]\n\n")
+                    } else {
+                        outFile.append ("include::../" + pathDiff + scanDir_save + "/" + fileName.replace("\\", "/")+"[]\n\n")
+                    }
+                }
+            }
+        }
+    }
+
+    static File file(String path) {
+        new File(path)
+    }
+}
