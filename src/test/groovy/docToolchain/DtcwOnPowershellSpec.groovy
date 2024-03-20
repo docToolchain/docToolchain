@@ -12,7 +12,8 @@ class DtcwOnPowershellSpec extends Specification {
         def sout = new StringBuilder()
         def serr = new StringBuilder()
         process.consumeProcessOutput(sout, serr)
-        def p = process.waitForOrKill(5000)
+        process.waitForOrKill(5000)
+        assert process.exitValue() == 0 : "Process failed with exit code ${process.exitValue()}"
         return [sout.toString(), serr.toString()]
     }
 
@@ -73,5 +74,5 @@ class DtcwOnPowershellSpec extends Specification {
         then: 'there is no error'
             err == ""
     }
- 
+
 }
