@@ -217,9 +217,6 @@ task createDist(type: Zip, dependsOn: prepareDist) {
 }
 
 task downloadDependencies {
-    if (!file("libs/org/docToolchain/core-${project.properties.dtc_version}.jar").exists()) {
-        dependsOn gradle.includedBuild('core').task(':release-core')
-    }
     doLast {
 
         project.repositories {
