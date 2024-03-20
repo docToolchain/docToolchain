@@ -1,11 +1,11 @@
 :filename: 015_tasks/03_task_exportJiraSprintChangelog.adoc
 include::_config.adoc[]
 
-= exportJiraSprintChangelogIssues
+== exportJiraSprintChangelogIssues
 
 include::../_feedback.adoc[]
 
-== About This Task
+=== About This Task
 
 This task exports a simplified (key and summary) list of Jira issues for a specific sprint defined in the task configuration. Only a few additional fields (such as assignee) can be switched using configuration flags.
 
@@ -14,7 +14,7 @@ If a sprint is not defined in the configuration, changelogs for all sprints that
 
 The task configuration can be found within `Config.gradle`. In addition to the configuration snippet below, it is important to configure the Jira API and credentials in the Jira section of the configuration inside the same file.
 
-== Configuration
+=== Configuration
 
 .Config.groovy
 [source,groovy]
@@ -22,10 +22,9 @@ The task configuration can be found within `Config.gradle`. In addition to the c
 include::{projectRootDir}/Config.groovy[tags=sprintChangelogConfig]
 ----
 
-== Source
+=== Source
 
-.exportJiraSprintChangelog.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/exportJiraSprintChangelog.gradle[tags=exportJiraSprintChangelog]
-----
+:param_source_file: scripts/exportJiraSprintChangelog.gradle
+:param_source_language: groovy
+:param_source_tags: exportJiraSprintChangelog
+include::_viewTaskSource.adoc[]

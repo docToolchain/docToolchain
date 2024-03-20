@@ -13,16 +13,22 @@ buildscript {
     }
 
     dependencies {
-        classpath libs.asciidoctor
-        classpath libs.asciidoctor.pdf
-        classpath libs.asciidoctor.gems
-        classpath libs.asciidoctor.slides
+        classpath (libs.asciidoctor)
+        classpath (libs.asciidoctor.pdf)
+        classpath (libs.asciidoctor.gems)
+        classpath(libs.asciidoctor.slides)
+        if (file("libs/org/docToolchain/core-${project.properties.dtc_version}.jar").exists()) {
+            classpath files("libs/org/docToolchain/core-${project.properties.dtc_version}.jar")
+        } else {
+            classpath("org.docToolchain:core")
+        }
     }
 }
 
 import org.asciidoctor.gradle.jvm.AbstractAsciidoctorTask
 import org.asciidoctor.gradle.jvm.AsciidoctorTask
 import org.asciidoctor.gradle.jvm.slides.AsciidoctorJRevealJSTask
+import org.docToolchain.configuration.ConfigBuilder
 
 import java.util.regex.Matcher
 
@@ -30,12 +36,6 @@ apply plugin: org.asciidoctor.gradle.jvm.AsciidoctorJPlugin
 apply plugin: org.asciidoctor.gradle.jvm.pdf.AsciidoctorJPdfPlugin
 apply plugin: org.asciidoctor.gradle.jvm.gems.AsciidoctorGemSupportPlugin
 apply plugin: org.asciidoctor.gradle.jvm.slides.AsciidoctorRevealJSPlugin
-
-repositories {
-    ruby {
-        gems()
-    }
-}
 
 revealjs {
     version = '4.1.0'
@@ -59,20 +59,18 @@ if (docDir.startsWith('.')) {
 logger.info "docToolchain> docDir: ${docDir}"
 logger.info "docToolchain> mainConfigFile: ${mainConfigFile}"
 logger.info "docToolchain> projectDir: ${projectDir}"
-def configSlurper = new ConfigSlurper()
-def configFile = new File(docDir, mainConfigFile)
-if (configFile.exists()) {
-    //ok - nothing to do
-} else {
-    println "\n${color 'green', """Config file '${configFile.canonicalPath}' does not exist' """}"
+config = new ConfigBuilder(docDir, mainConfigFile)
+.prepareConfigFileIfNotExists({
+    def configFile = new File(docDir, mainConfigFile)
+    println "\n${color 'green', """Config file '${configFile.getCanonicalPath()}' does not exist' """}"
     def input = ant.input(message: "\n${color 'green', 'do you want me to create a default one for you?'}", validargs: 'y,n', addproperty: 'yesno')
     if (ant.yesno=="y") {
         configFile.write(new File("./template_config/Config.groovy").text)
     } else {
         throw new Exception("can't continue without a config file")
     }
-}
-config = configSlurper.parse(configFile.text)
+}).build()
+logger.info "docToolchain> config: ${config}"
 pdfThemeDir = config.pdfThemeDir?config.pdfThemeDir:''
 if (pdfThemeDir.startsWith('.')) {
     pdfThemeDir = new File(docDir, pdfThemeDir).canonicalPath
@@ -115,6 +113,20 @@ config.flatten().each {key, value ->
         logger.info("Found config -> '${keyString}': '********'")
     }else{
         logger.info("Found config -> '${keyString}': '${value}'")
+    }
+}
+
+// this is a hard dependency for the asciidoctor-gradle-plugin based generateDeck task
+def tasksToExecute = project.gradle.startParameter.taskNames
+if (tasksToExecute.contains('asciidoctorGemsPrepare') ||
+    tasksToExecute.contains('generateDeck') ||
+    // TODO this could help to allow ruby gems from remote, but it is not working yet
+    config.rubyExtensions && config.rubyExtensions.any { !it.endsWith('.rb')}
+) {
+    project.repositories {
+        ruby {
+            gems()
+        }
     }
 }
 
@@ -237,14 +249,18 @@ tasks.withType(AbstractAsciidoctorTask) { docTask ->
     // good to see what the build is doing...
     logDocuments = true
 
-    //TODO: write docs
+    //TODO: write docs for this
     if (config.rubyExtensions) {
         config.rubyExtensions.each { extension ->
-            def root= new File(projectDir.canonicalPath)
-            def full= new File(new File(docDir,extension).canonicalPath)
-            def relPath = root.toPath().relativize( full.toPath() ).toFile()
-            requires += [relPath.toString()]
-            logger.info ("added required ruby extension '$full'")
+            if(extension.endsWith('.rb')) {
+                def root= new File(projectDir.canonicalPath)
+                def full = new File(new File(docDir,extension).canonicalPath)
+                def relPath = root.toPath().relativize( full.toPath() ).toFile()
+                asciidoctorj.requires += [relPath.toString()]
+                println ("added required ruby extension '$full'")
+            } else {
+                throw new IllegalArgumentException("Ruby extension '$extension' must end with '.rb'. Only local extensions are supported, yet.")
+            }
         }
     }
     // fix for #1150

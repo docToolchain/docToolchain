@@ -1,15 +1,11 @@
 :filename: 015_tasks/03_task_exportChangeLog.adoc
 include::_config.adoc[]
 
-= exportChangeLog
+== exportChangeLog
 
 include::../_feedback.adoc[]
 
-== At a Glance
-
-image::ea/Manual/exportChangeLog.png[]
-
-== About This Task
+=== About This Task
 
 As the name suggests, this task exports the changelog to be referenced from within your documentation, if needed.
 The changelog is written to `build/docs/changelog.adoc`.
@@ -53,14 +49,14 @@ By excluding the table definition, you can easily translate the table headings t
 NOTE: In a future docToolchain release, you will have the ability to include only certain commit messages from the changelog and exclude others (starting with `#` or `//`?).
 This feature is not available just yet.
 
-== Further Reading and Resources
+=== Further Reading and Resources
 
 https://rdmueller.github.io/changelog/[The only constant in life is change] blog post.
 
-== Source
+=== Source
 
-.exportChangelog.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/exportChangelog.gradle[tags=exportChangeLog]
-----
+
+:param_source_file: scripts/exportChangelog.gradle
+:param_source_language: groovy
+:param_source_tags: exportChangeLog
+include::_viewTaskSource.adoc[]

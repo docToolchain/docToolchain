@@ -1,0 +1,12 @@
+:jbake-title: CI/CD-Build
+:jbake-status: draft
+include::_config.adoc[]
+
+
+== How to automatically build your Microsite with various CI/CD Systems
+
+You probably don't want to keep your docs secret.
+So you need a way to publish your static site.
+
+In this tutorial, I will show you three ways how to do it with the three main systems: GitLab, GitHub and Netlify
+

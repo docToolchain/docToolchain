@@ -1,9 +1,11 @@
 :filename: 015_tasks/03_task_exportMetrics.adoc
 include::_config.adoc[]
 
-= exportMetrics
+== exportMetrics
 
 include::../_feedback.adoc[]
 
-This task crawls through all Asciidoctor source files and extracts the total number of words in each file (word count) so you can check your writing progress.
+This task crawls through all Asciidoctor source files
+and extracts the total number of words in each file (word count),
+so you can check your writing progress.
 The output is displayed on the command line.

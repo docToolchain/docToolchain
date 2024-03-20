@@ -2,17 +2,17 @@ import java.util.zip.ZipFile
 
 // fix versions for #1200
 buildscript {
+    configurations {
+        jbake {
+            exclude group: 'org.eclipse.jetty'
+        }
+    }
     configurations.all {
         resolutionStrategy.eachDependency { DependencyResolveDetails details ->
             if (details.requested.group == 'org.ysb33r.gradle' && details.requested.name == 'grolifant' && details.requested.version == '0.12.1') {
                 details.useVersion '0.16.1'
                 details.because 'jcenter redirect'
                 System.out.println ">>>>>>>>> fix grolifant"
-            }
-            if (details.requested.group == 'org.codehaus.groovy.modules.http-builder' && details.requested.name == 'http-builder' && details.requested.version == '0.7.2') {
-                details.useVersion '0.7.1'
-                details.because 'jcenter redirect'
-                System.out.println ">>>>>>>>> fix http-builder"
             }
         }
     }
@@ -29,7 +29,6 @@ plugins {
     alias(libs.plugins.openapi.generator)
     alias(libs.plugins.undercouch.download)
     alias(libs.plugins.jbake.site)
-    alias(libs.plugins.gretty)
 }
 
 apply plugin:'groovy'
@@ -50,15 +49,16 @@ dependencies {
     testImplementation(
             (libs.junit),
             (libs.spock.core),
-            //('org.slf4j:slf4j-api:1.7.13'),
-            //('org.slf4j:slf4j-simple:1.7.13'),
             gradleTestKit(),
-            //for the renderToConfluence Task
-            (libs.httpmime),
             (libs.jsoup),
-            (libs.http.builder)
     )
+    if (file("libs/org/docToolchain/core-${project.properties.dtc_version}.jar").exists()) {
+        testImplementation(files("libs/org/docToolchain/core-${project.properties.dtc_version}.jar"))
+    } else {
+        testImplementation("org.docToolchain:core")
+    }
     testRuntimeOnly(libs.byte.buddy)
+    compileClasspath((libs.http.client))
 }
 
 test {
@@ -131,6 +131,9 @@ task autobuildSite(
 
 }
 task prepareDist() {
+    if (!file("libs/org/docToolchain/core-${project.properties.dtc_version}.jar").exists()) {
+        dependsOn gradle.includedBuild('core').task(':release-core')
+    }
     doLast {
         def distFolder = "dist/docToolchain-"+dtc_version
         println "generate distribution for "+dtc_version
@@ -152,6 +155,20 @@ task prepareDist() {
                 include "**/*"
             }
             into new File(buildDir,distFolder+"/resources")
+        }
+        copy{
+            from (new File("./libs")) {
+                include "*"
+                include "**/*"
+            }
+            into new File(buildDir,distFolder+"/libs")
+        }
+        copy{
+            from (new File("./core")) {
+                include "*"
+                include "**/*"
+            }
+            into new File(buildDir,distFolder+"/core")
         }
         copy{
             from new File("./scripts")
@@ -198,7 +215,18 @@ task createDist(type: Zip, dependsOn: prepareDist) {
 
 task downloadDependencies {
     doLast {
-        configurations.findAll{it.canBeResolved}.each{it.resolve()}
+        project.repositories {
+            ruby {
+                gems()
+            }
+        }
+
+        [configurations, buildscript.configurations].each { config ->
+            config.findAll{ it.canBeResolved && !it.name?.startsWith("test")}.each {
+                println "-> " + it.name
+                it.resolve()
+            }
+        }
     }
 }
 

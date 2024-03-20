@@ -1,13 +1,11 @@
 :filename: 015_tasks/03_task_prependFilename.adoc
 include::_config.adoc[]
 
-= prependFilename
+== prependFilename
 
 include::../_feedback.adoc[]
 
-// image::ea/Manual/publishToConfluence.png[]
-
-== About This Task
+=== About This Task
 
 When Asciidoctor renders a file, the file context only knows the name of the top-level AsciiDoc file. But an include file doesn't know that it is being included.
 It simply gets the name of the master file and has no chance to get its own name as an attribute.
@@ -20,10 +18,8 @@ This enables features like the inclusion of file contributors (see exportContrib
 
 NOTE: This task skips all files named `+++config.*+++`, `+++_config.*+++`, `+++feedback.*+++` and `+++_feedback.*+++`.
 
-== Source
+=== Source
 
-.scripts/prependFilename.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/prependFilename.gradle[]
-----
+:param_source_file: scripts/prependFilename.gradle
+:param_source_language: groovy
+include::_viewTaskSource.adoc[]

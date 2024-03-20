@@ -1,26 +1,28 @@
 :filename: 015_tasks/03_task_publishToConfluence.adoc
 include::_config.adoc[]
 
-= publishToConfluence
+== publishToConfluence
 
 include::../_feedback.adoc[]
 
-== At a Glance
-
-image::ea/Manual/publishToConfluence.png[]
-
-== About This Task
+=== About This Task
 This task takes a generated HTML file, splits it by headline, and pushes it to your instance of https://www.atlassian.com/software/confluence[Confluence].
 This lets you use the https://www.writethedocs.org/guide/docs-as-code/[docs-as-code approach] even if your organisation insists on using Confluence as its main document repository.
+
+[NOTE]
+====
+From the 01.01.2024 on, Atlassian turns off API V1 for Confluence Cloud, if there is a V2 equivalent. docToolchain versions from 3.1 on support API V2. If you are using an older version of docToolchain, you'll need to upgrade to a newer version.
+To *enable API V2*, set `useV1Api` to `false` in the Confluence section of the docToolchain configuration file.
+====
 
 [NOTE]
 ====
 Currently, docToolchain only has full support for the old Confluence editor. The new editor is not fully supported yet. You can use the new editor, but you may experience some unexpected layout issues/ changes. To make use of the new editor you need to set `enforceNewEditor` to `true` in the Confluence section of the docToolchain configuration file.
 ====
 
-== Special Features
+=== Special Features
 
-=== Easy Code Block Conversion
+==== Easy Code Block Conversion
 
 `[source]`-blocks are converted to code-macro blocks in Confluence.
 
@@ -53,18 +55,18 @@ Therefore, some transformation is applied.
 
 NOTE: Get a list of valid languages (and learn how to add others) https://confluence.atlassian.com/doc/code-block-macro-139390.html[here].
 
-=== Minimal Impact on Non-Techie Confluence Users
+==== Minimal Impact on Non-Techie Confluence Users
 
 Only pages and images that changed between task runs are published, and only those changes are notified to page watchers, cutting down on 'spam'.
 
-=== Keywords Automatically Attached as Labels
+==== Keywords Automatically Attached as Labels
 
 `:keywords:` are attached as labels to every Confluence page generated using the `publishToConfluence` task.
 See https://confluence.atlassian.com/doc/add-remove-and-search-for-labels-136419.html[Atlassian's own guidelines on labels].
 Several keywords are allowed, and they must be separated by commas. For example: `:keywords: label_1, label-2, label3, ...`.
 Labels (keywords) must not contain a space character. Use either '_' or '-'.
 
-== Configuration
+=== Configuration
 
 You configure the publishToConfluence task in the file docToolchainConfig.groovy. It is located in the root of your project folder. We try to make the configuration self-explanatory, but below is some more information about each config option.
 
@@ -78,11 +80,28 @@ Specify the ID as a string within the config file.
 
 *api*
 
-For cloud instances, `[context]` is `wiki`.
+Endpoint of the confluenceAPI (REST) to be used and looks like `https://[yourServer]/[context]`, while `[context]` is optional.
+If you use Confluence Cloud, you can omit the context.
+If you use Confluence Server, you may need to set a context, depending on your Confluence configuration.
+
+**rateLimit** (since 3.2.0), The rate limit for Confluence requests. Default is 10 requests per second.
+
+*useV1Api*
+
+*_This feature is available for docToolchain >= 3.1 only_*
+
+[NOTE]
+If you set this to `false`, ensure the `api` config is set to `https://[yourCloudDomain]`. (Mind no _context_ given here)
+
+If you are using Confluence Cloud, you can set this to `false` to use the new API V2. If you are using Confluence Server, you can set this to `true` to use the old API V1. If you are using Confluence Cloud and set this to `false`, you will get an error message, once Atlassian turns off API V1 (starting 01.01.2024).
+
+*enforceNewEditor*
+
+Atlassian is currently rolling out a new editor for Confluence. If you want to use the new editor, you can set this to `true`. If you are using the old editor, you can set this to `false`. If you are using the new editor, you may experience some unexpected layout issues/ changes, since the new editor has yet no feature parity and therefore may be incompatible.
 
 *disableToC*
 
-This boolean configuration determines whether or not the table of contents (ToC) is disabled on the page once uploaded to Confluence. `false` by default, so the ToC is active.
+This boolean configuration determines whether the table of contents (ToC) is disabled on the page once uploaded to Confluence. `false` by default, so the ToC is active.
 
 *pagePrefix/pageSuffix*
 
@@ -125,7 +144,7 @@ If you wish to simplify the injection of credentials from external sources, do t
 
 In situations where you have to use full user authorisation because of internal Confluence permission handling, you'll need to add the API-token in addition to the credentials.
 The API-token cannot be added to the credentials because it's used for user and password exchange.
-Therefore the API-token can be added as parameter `apikey`, which makes the addition of the token a separate header field with key: `keyId` and value of `apikey`.
+Therefore, the API-token can be added as parameter `apikey`, which makes the addition of the token a separate header field with key: `keyId` and value of `apikey`.
 An example (including storing of the real value outside this configuration) is: `apikey = "${new File("/home/me/apitoken").text}"`.
 
 *bearerToken*
@@ -140,7 +159,7 @@ If you need to prefix your pages with a warning stating that 'this is generated 
 
 *enableAttachments*
 
-If value is set to `true`, any links to local file references will be uploaded as attachments. The current implementation only supports a single folder, the name of which will be used as a prefix to validate whether or not your file should be uploaded.
+If value is set to `true`, any links to local file references will be uploaded as attachments. The current implementation only supports a single folder, the name of which will be used as a prefix to validate whether your file should be uploaded.
 If you enable this feature, and use a folder which starts with 'attachment', an adaption of this prefix is required.
 
 *pageLimit*
@@ -206,7 +225,7 @@ Using the plugin can be handled on different ways.
 include::{projectRootDir}/Config.groovy[tags=confluenceConfig]
 ----
 
-== CSS Styling
+=== CSS Styling
 
 Some AsciiDoctor features depend on specific CSS style definitions.
 Unless these styles are defined, some formatting that is present in the HTML version will not be represented when published to Confluence.
@@ -264,16 +283,13 @@ The following style definitions are Confluence-compatible, and will enable the u
 .yellow-background{background-color:#fafa00}
 ----
 
-== Source
+=== Source
 
-.publishToConfluence.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/publishToConfluence.gradle[tags=publishToConfluence]
-----
+:param_source_file: scripts/publishToConfluence.gradle
+:param_source_language: groovy
+:param_source_tags: publishToConfluence
+include::_viewTaskSource.adoc[]
 
-.scripts/asciidoc2confluence.groovy
-[source,groovy]
-----
-include::{projectRootDir}/scripts/asciidoc2confluence.groovy[]
-----
+:param_source_file: core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy
+:param_source_language: groovy
+include::_viewTaskSource.adoc[]

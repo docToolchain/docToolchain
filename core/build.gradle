@@ -1,0 +1,59 @@
+plugins {
+    id 'groovy'
+    id 'com.github.johnrengelman.shadow' version '8.1.1'
+}
+
+apply plugin:'groovy'
+
+repositories {
+    mavenCentral()
+}
+
+// Workaround to keep project.version in sync with gradle.properties but the modules isolated as hell
+def props = new Properties()
+file("../gradle.properties").withInputStream { props.load(it) }
+def dtc_version = props.getProperty('dtc_version')
+// end of workaround
+
+jar {
+    manifest {
+        attributes(
+            'Implementation-Version': dtc_version
+        )
+    }
+}
+
+group = "org.docToolchain"
+
+dependencies {
+    compileOnly((libs.groovy.all))
+    implementation((libs.http.client))
+    implementation((libs.jsoup))
+    implementation((libs.poi.ooxml))
+    implementation((libs.guava))
+
+    testImplementation(libs.spock.reports) {
+        exclude group: 'org.codehaus.groovy', module: 'groovy-xml'
+    }
+    testImplementation(
+        (libs.junit),
+        (libs.groovy.all),
+    )
+}
+
+test {
+    useJUnitPlatform()
+}
+
+tasks.register('release-core', com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar) {
+    dependsOn compileGroovy
+    archiveFileName = "core-${dtc_version}.jar"
+    destinationDirectory = file("../libs/${project.group.toString().replace('.', '/')}")
+    manifest {
+        attributes(
+            'Implementation-Version': dtc_version
+        )
+    }
+    from sourceSets.main.output
+    configurations = [project.configurations.runtimeClasspath]
+}

@@ -1,0 +1,16 @@
+<div class="sect2">
+    <div class="content">
+<ac:structured-macro ac:name="code"><ac:parameter ac:name="language">text</ac:parameter><ac:plain-text-body><cdata-placeholder>public class ComplexModel : IModel
+{
+    private readonly ILoggerFactory loggerFactory;
+    private readonly ILogger&lt;ComplexModel&gt; logger;
+
+    ComplexModel( ILoggerFactory loggerFactory, ... )
+    {
+        this.loggerFactory = loggerFactory;
+        logger = loggerFactory.CreateLogger&lt;ComplexModel&gt;();
+        ...
+    }
+}</cdata-placeholder></ac:plain-text-body></ac:structured-macro>
+    </div>
+</div>

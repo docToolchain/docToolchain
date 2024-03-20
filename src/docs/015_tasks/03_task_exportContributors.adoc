@@ -1,16 +1,16 @@
 :filename: 015_tasks/03_task_exportContributors.adoc
 include::_config.adoc[]
 
-= exportContributors
+== exportContributors
 
 include::../_feedback.adoc[]
 
-== About This Task
+=== About This Task
 
 This task crawls through all Asciidoctor source files and extracts a list of contributors, which is then rendered as AsciiDoc images of each contributor's gravatar picture.
 The extracted list is stored in `{targetDir}/contributors/{filename}` so it can be easily included in your documents.
 
-== How to Use This Task
+=== How to Use This Task
 
 The best way to use this task is to create a `feedback.adoc` file similar to this:
 
@@ -35,7 +35,7 @@ The best way to use this task is to create a `feedback.adoc` file similar to thi
 
 _(The task automatically adds the estimated reading time to the list of contributors.)_
 
-== About the Avatar-Icons
+=== About the Avatar-Icons
 
 It seems not to be possible to extract a link to the github avatar icons from the log.
 So, the solution is to use https://gravatar.com[Gravatar] icons.
@@ -45,11 +45,11 @@ For this to work, the contributors email address is hashed and an icon link is g
 
 This result at least in an icon which has a distinct color.
 
-Contributors can setup their own image through https://gravatar.com[Gravatar.com].
+Contributors can set up their own image through https://gravatar.com[Gravatar.com].
 For this to work, the git commits need to use an email address which can be verified by Gravatar.com.
 Unfortunately, this is not the case if a contributor decided to make his email address private in the email sections of her github account.
 
-== File Attributes
+=== File Attributes
 
 This task also exports some GitHub file attributes.
 The extracted attributes are stored in `{targetDir}/fileattribs/{filename}`.

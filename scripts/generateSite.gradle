@@ -33,7 +33,6 @@ dependencies {
 }
 
 apply plugin: 'org.jbake.site'
-apply plugin: 'org.gretty'
 
 def color = { color, text ->
     def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37]
@@ -68,15 +67,6 @@ jbake {
     }
 
 }
-bakePreview {
-    port = '8046'
-}
-gretty {
-    httpPort = "${config.microsite.previewPort?:8042}" as Integer
-    contextPath = "${config.microsite.contextPath}"
-    extraResourceBases = ["${targetDir}/microsite/output"]
-}
-
 
 def prepareAndCopyTheme = {
     //copy internal theme
@@ -184,7 +174,7 @@ ${color 'green', 'for you?'}\n""",
                             }
                         }
                         configFile.write(configFileText.replaceAll("(?sm)/[*][*] start:microsite [*][*]/.*/[*][*] end:microsite [*][*]/", "%%marker%%").replace("%%marker%%", conf))
-                        println color('green', "config written\ntry\n ./dtcw generateSite previewSite\nto see your microsite!")
+                        println color('green', "config written\nopen ${targetDir}/microsite/output/index.html in your browser\nto see your microsite!")
                     }
                     //copy the dummy docs (blog, landing page) to the project repository
                     copy {
@@ -501,24 +491,21 @@ task generateSite(
 
     }
 }
+
 task previewSite(
     group: 'docToolchain',
     dependsOn: [],
-    description: 'start a little webserver to preview your Microsite',
+    description: 'preview your Microsite',
 ) {
-    if (new File("${targetDir}/microsite/output").exists()) {
-        finalizedBy 'jettyRun'
-    }
     doLast {
-        if (new File("${targetDir}/microsite/output").exists()) {
-            // everything is fine
-        } else {
-            throw new GradleException(""">
-> Microsite not built yet, please run './dtcw generateSite' first
->""")
-        }
+        println("previewSite command has been deprecated.")
+        println("To preview your site, open ${targetDir}/microsite/output/index.html in your browser.")
+        println("To read alternative ways to preview your site, please consult the documentation.")
     }
 }
+previewSite.dependsOn(generateSite)
+previewSite.mustRunAfter(bake)
+
 task copyImages(type: Copy) {
     config.imageDirs.each { imageDir ->
         from(new File (new File(docDir, inputPath),imageDir)) {}

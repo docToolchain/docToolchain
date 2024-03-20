@@ -1,22 +1,17 @@
 :filename: 015_tasks/03_task_generateDocBook.adoc
 include::_config.adoc[]
 
-= generateDocbook
+== generateDocbook
 
 include::../_feedback.adoc[]
 
-== At a Glance
-
-image::ea/Manual/generateDocBook.png[]
-
-== About This Task
+=== About This Task
 
 A helper task, generateDocbook generates the intermediate format for xref:03_task_convertToDocx.adoc[`convertToDocx`]<<>> and xref:03_task_convertToEpub.adoc[`convertToEpub`].
 
-== Source
+=== Source
 
-.AsciiDocBasics.gradle
-[source,groovy]
-----
-include::{projectRootDir}/scripts/AsciiDocBasics.gradle[tags=generateDocbook]
-----
+:param_source_file: scripts/AsciiDocBasics.gradle
+:param_source_language: groovy
+:param_source_tags: generateDocbook
+include::_viewTaskSource.adoc[]

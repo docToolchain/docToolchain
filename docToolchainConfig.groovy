@@ -23,8 +23,9 @@ inputFiles = [
 //these will be copied as resources to ./images
 imageDirs = [
     'images/.',
-    '020_tutorial/images/.'
-	/** imageDirs **/
+    '020_tutorial/images/.',
+    '020_tutorial/040_microsite/images/.'
+    /** imageDirs **/
 ]
 
 // folders in which asciidoc will find other resources with corrosponding target directory
@@ -68,8 +69,6 @@ microsite.with {
     title='Microsite'
     // used in the template for absolute uris
     host='https://localhost'
-    // configure a port on which your preview server will run
-    previewPort = 8042
 
     //project theme
     //site folder relative to the docs folder
@@ -191,11 +190,12 @@ confluence.with {
 
     inputHtmlFolder = ''
     // endpoint of the confluenceAPI (REST) to be used
-    // to verify the endpoint, add user/current and pate it into your browser
-    // you should get a json about your own user
-    api = 'https://[yourServer]/[context]/rest/api/'
+    api = 'https://[yourServer]'
 
-    //    Additionally, spaceKey, subpagesForSections, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
+    // requests per second for confluence API calls
+    rateLimit = 10
+
+    // Additionally, spaceKey, subpagesForSections, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
 
     // the key of the confluence space to write to
     spaceKey = 'asciidoc'
@@ -221,8 +221,8 @@ confluence.with {
 
     Tool expects credentials that belong to an account which has the right permissions to to create and edit confluence pages in the given space.
     Credentials can be used in a form of:
-     - passed parameters when calling script (-PconfluenceUser=myUsername -PconfluencePass=myPassword) which can be fetched as a secrets on CI/CD or
-     - gradle variables set through gradle properties (uses the 'confluenceUser' and 'confluencePass' keys)
+    - passed parameters when calling script (-PconfluenceUser=myUsername -PconfluencePass=myPassword) which can be fetched as a secrets on CI/CD or
+    - gradle variables set through gradle properties (uses the 'confluenceUser' and 'confluencePass' keys)
     Often, same credentials are used for Jira & Confluence, in which case it is recommended to pass CLI parameters for both entities as
     -Pusername=myUser -Ppassword=myPassword
     - in case using bearer authentication set token value to the bearerToken
@@ -299,6 +299,9 @@ jira.with {
     // endpoint of the JiraAPI (REST) to be used
     api = 'https://your-jira-instance'
 
+    // requests per second for Jira API calls
+    rateLimit = 10
+
     /*
     WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!
 
@@ -340,25 +343,18 @@ jira.with {
     User can configure custom fields IDs and name those for column header,
     i.e. customfield_10026:'Story Points' for Jira instance that has custom field with that name and will be saved in a coloumn named "Story Points"
     */
-    requests = [
-        new JiraRequest(
+    exports = [
+        [
             filename:"File1_Done_issues",
             jql:"project='%jiraProject%' AND status='Done' ORDER BY duedate ASC",
             customfields: [customfield_10026:'Story Points']
-        ),
-        new JiraRequest(
+        ],
+        [
             filename:'CurrentSprint',
             jql:"project='%jiraProject%' AND Sprint in openSprints() ORDER BY priority DESC, duedate ASC",
             customfields: [customfield_10026:'Story Points']
-        ),
+        ]
     ]
-}
-
-@groovy.transform.Immutable
-class JiraRequest {
-    String filename  //filename (without extension) of the file in which JQL results will be saved. Extension will be determined automatically for Asciidoc or Excel file
-    String jql // Jira Query Language syntax
-    Map<String,String> customfields // map of customFieldId:displayName values for Jira fields which don't have default names, i.e. customfield_10026:StoryPoints
 }
 //end::jiraConfig[]
 

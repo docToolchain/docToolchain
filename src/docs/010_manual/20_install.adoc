@@ -35,7 +35,7 @@ Even if you are going to use docToolchain in multiple projects, the toolchain wi
 [role='primary']
 --
 
-If you have an Apple silicon (M1/M2) Mac, make sure that you have docker up and running and type the following commands in the Terminal:
+If you have an Apple Silicon (M1/M2) Mac, make sure that you have docker up and running and type the following commands in the Terminal:
 
 [source, bash]
 ----
@@ -47,7 +47,7 @@ Now, download `dtcw` into your project directory and make the script executable 
 [source, bash]
 ----
 cd <your project>
-curl -Lo dtcw doctoolchain.org/dtcw
+curl -Lo dtcw https://doctoolchain.org/dtcw
 chmod +x dtcw
 ----
 
@@ -94,8 +94,8 @@ TIP: In case your development team uses different operating systems, put the wra
 
 Once the docToolchain wrapper is installed in your project directory you have to decide how to install the toolchain:
 
-- <<run-dtc-in-container>> with the https://hub.docker.com/r/doctoolchain/doctoolchain[docToolchain container image].
-- <<install-dtc-with-dtcw>> in the the users home directory `$HOME/.doctoolchain`
+- <<run-dtc-in-container>> with the https://hub.docker.com/r/doctoolchain/doctoolchain[docToolchain container image] or <<run-dtc-in-costum-container>>.
+- <<install-dtc-with-dtcw>> in the users home directory `$HOME/.doctoolchain`
 - <<install-dtc-with-sdk>> a tool for managing parallel versions of multiple Software Development Kits.
 
 [NOTE]
@@ -110,15 +110,75 @@ You may use `dtcw` to install the correct Java version, as shown in the next ste
 [[run-dtc-in-container]]
 == Run docToolchain in a container
 
-The docToolchain project provides a container image of approximatley 900 MB from the https://hub.docker.com/r/doctoolchain/doctoolchain[Docker Hub] container registry.
+The docToolchain project provides a container image of approximately 900 MB from the https://hub.docker.com/r/doctoolchain/doctoolchain[Docker Hub] container registry.
 The Dockerfile from which the image is created may be found at https://github.com/docToolchain/docker-image.
 
-To to run docToolchain in a container you need an installed container engine.
+To run docToolchain in a container you need an installed container engine.
 The best known container engine is https://docs.docker.com/get-docker/[Docker].
 
 If the container engine is installed you can <<first-command>>.
 The docToolchain wrapper script in your project directory will detect the
 container engine and pull the docToolchain image on the first invocation.
+
+[[run-dtc-in-costum-container]]
+=== Use your costum docker image
+Some might need to create their own docker image to add additional tooling or configurations, e.g. proxy settings.
+In this case you can pass the image name via parameter `image` directly after `docker`:
+
+.Linux/Mac with bash
+[role='primary']
+---
+[source, bash]
+----
+./dtcw docker image <image_name> generateHTML
+----
+
+---
+
+.Windows with Powershell
+[role='secondary']
+---
+[source, powershell]
+----
+.\dtcw.ps1 docker image <image_name> generateHTML
+----
+
+---
+
+.Windows with cmd.exe
+[role='secondary']
+---
+
+
+[source, cmd]
+----
+.\dtcw.bat docker image <image_name> generateHTML
+----
+
+[[add-environment-variables-to-docker]]
+=== Pass environment variables to docker containers
+To pass any environment variable to the docker container you can make use of an https://docs.docker.com/engine/reference/commandline/run/#env[environment file].
+The environment file must have the name `dtcw_docker.env` and must be located in the same folder as `dtcw`.
+
+An example content is e.g.:
+
+[source, cmd]
+----
+# set environment variables for docToolchain docker container
+PROJECT=TEST_PROJECT
+TEAM=TEST_TEAM
+----
+
+[[add-additional-parameter-to-docker]]
+=== Pass additional parameter to docker containers
+To pass additional parameters to the docker container you can make use of the parameter `extra_arguments` followed by a string with the additional parameters.
+
+One usecase is to enable you to set environment variables to dynamic values.
+
+[source, bash]
+----
+./dtcw docker image <image_name> extra_arguments "--env USER=${USERNAME} --env REPO_LOCATION=`git config remote.origin.url`" generateHTML
+----
 
 [[install-dtc-with-dtcw]]
 == Install docToolchain with `dtcw`
@@ -134,7 +194,7 @@ To install docToolchain in `$HOME/.doctoolchain` execute the following command.
 ./dtcw install doctoolchain
 ----
 
-In case you have no Java installed you may use `dtcw` to install Java in a sub-directory of `$HOME/.doctoolchain`.
+In case you have no Java installed you may use `dtcw` to install Java in a subdirectory of `$HOME/.doctoolchain`.
 
 [source, bash]
 ----
@@ -142,9 +202,9 @@ In case you have no Java installed you may use `dtcw` to install Java in a sub-d
 ----
 
 [NOTE]
-.Unable to locate Java Runtime - check yout Bash environment
+.Unable to locate Java Runtime - check your Bash environment
 ====
-If `dtcw` complains about not beeing able to locate a Java Runtime, make sure Java is found in your Bash shell, the shell used by `dtcw`.
+If `dtcw` complains about not being able to locate a Java Runtime, make sure Java is found in your Bash shell, the shell used by `dtcw`.
 
 If you use `dtcw` from another shell like `zsh`, it may be that your shell finds the supported Java version but your bash setup doesn't.
 In that case, please switch to bash and make sure that a supported Java version is found. Afterwards, you can switch back to your shell.
@@ -191,7 +251,7 @@ Call the docToolchain wrapper with `tasks --group doctoolchain` to show all task
 Those tasks may be used when invoking the docToolchain wrapper script.
 
 NOTE: The first time docToolchain is called, it downloads all necessary dependencies.
-Therefore the execution of the command may take some time. Subsequent calls to docToolchain will be faster.
+Therefore, the execution of the command may take some time. Subsequent calls to docToolchain will be faster.
 
 .Linux / WSL2 with bash
 [role='primary']
@@ -262,7 +322,7 @@ dtcw.bat tasks --group=doctoolchain
 
 
 NOTE: If you are behind a corporate proxy, you might need to consider build-script dependencies are fetched from a repository referenced by the property `mavenRepository`.
-By default the value `https://plugins.gradle.org/m2/` is used. When a repository requiring credentials is used the properties `mavenUsername` and `mavenPassword` can be set as well.
+By default, the value `https://plugins.gradle.org/m2/` is used. When a repository requiring credentials is used the properties `mavenUsername` and `mavenPassword` can be set as well.
 
 //in which configuration path/file?
 
@@ -377,7 +437,7 @@ TIP: Blog-Posts: https://rdmueller.github.io/enterprise-edition/[Behind the grea
 
 If there is a new https://github.com/docToolchain/docToolchain/releases[docToolchain release] you wish to use, do the following:
 
-. Open the docToolchain wrapper script (`dtcw`, respective `dtcw.ps1` and `dtcw.bat`) in your favourite text editor and look for the line with `DTC_VERSION` which should be localted near the start of the file:
+. Open the docToolchain wrapper script (`dtcw`, respective `dtcw.ps1` and `dtcw.bat`) in your favourite text editor and look for the line with `DTC_VERSION` which should be located near the start of the file:
 [source, bash]
 ----
 # See https://github.com/docToolchain/docToolchain/releases for available versions.
@@ -385,7 +445,7 @@ If there is a new https://github.com/docToolchain/docToolchain/releases[docToolc
 VERSION=2.1.0
 ----
 . Change it to match the desired release.
-. In case you want to install docToolchain in local user enviroment install the new docToolchain release with the following command:
+. In case you want to install docToolchain in local user environment install the new docToolchain release with the following command:
 [source, bash]
 ----
 ./dtcw install doctoolchain

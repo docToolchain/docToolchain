@@ -1,0 +1,28 @@
+{
+    "results": [
+        {
+            "id": "71210367",
+            "title": "page 5",
+            "status": "current",
+            "spaceId": "234789",
+            "childPosition": 50
+        },
+        {
+            "id": "76418864",
+            "title": "page 6",
+            "status": "current",
+            "spaceId": "234789",
+            "childPosition": 51
+        },
+        {
+            "id": "71208921",
+            "title": "page 7",
+            "status": "current",
+            "spaceId": "234789",
+            "childPosition": 52
+        }
+    ],
+    "_links": {
+        "next": "https://confluence.de/wiki/api/v2/90480288/children?cursor=183954872sdlkfjsdflksdjf"
+    }
+}

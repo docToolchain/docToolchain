@@ -9,10 +9,6 @@ buildscript {
         }
     }
     dependencies {
-        //for the exportJiraIssues Task
-        classpath libs.http.builder
-        //for the renderToConfluence Task
-        classpath libs.httpmime
         classpath libs.jsoup
         classpath libs.groovy.xml
     }
