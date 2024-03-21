@@ -53,8 +53,7 @@ jbake {
 
     configuration['asciidoctor.attributes'] = [
         "sourceDir=${targetDir}",
-        'source-highlighter=prettify@',
-        //'imagesDir=../images@',
+        "source-highlighter=highlight.js@",
         "imagesoutDir=${targetDir}/microsite/output/images@",
         "imagesDir=${micrositeContextPath.endsWith('/') ? micrositeContextPath : micrositeContextPath.concat('/')}images@",
         "targetDir=${targetDir}",
