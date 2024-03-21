@@ -21,7 +21,7 @@ The use of this setup has the following advantages:
 - Ensures that everyone in the project uses the same docToolchain version.
 - Keeps all docToolchain technology out of your project repository.
 - Facilitates the installation of the docToolchain if not installed.
-- Makes it easier to upgrade to never versions of docToolchain.
+- Makes it easier to upgrade to newer versions of docToolchain.
 
 == Install `dtcw` in your project directory
 
