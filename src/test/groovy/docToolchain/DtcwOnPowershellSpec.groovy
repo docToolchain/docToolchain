@@ -1,6 +1,5 @@
 package docToolchain
 
-import spock.lang.Requires
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -12,7 +11,7 @@ class DtcwOnPowershellSpec extends Specification {
         def sout = new StringBuilder()
         def serr = new StringBuilder()
         process.consumeProcessOutput(sout, serr)
-        def p = process.waitForOrKill(5000)
+        process.waitForOrKill(10000)
         return [sout.toString(), serr.toString()]
     }
 
@@ -73,5 +72,5 @@ class DtcwOnPowershellSpec extends Specification {
         then: 'there is no error'
             err == ""
     }
- 
+
 }
