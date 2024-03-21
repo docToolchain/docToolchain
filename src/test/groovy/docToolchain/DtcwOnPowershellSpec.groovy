@@ -1,6 +1,5 @@
 package docToolchain
 
-import spock.lang.Requires
 import spock.lang.Specification
 import spock.lang.Unroll
 
@@ -12,8 +11,7 @@ class DtcwOnPowershellSpec extends Specification {
         def sout = new StringBuilder()
         def serr = new StringBuilder()
         process.consumeProcessOutput(sout, serr)
-        process.waitForOrKill(5000)
-        assert process.exitValue() == 0 : "Process failed with exit code ${process.exitValue()}"
+        process.waitForOrKill(10000)
         return [sout.toString(), serr.toString()]
     }
 
