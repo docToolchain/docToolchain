@@ -109,8 +109,8 @@ The most important ones are:
 
 [source, asciidoc]
 ----
-:pdf-stylesdir: ../pdfTheme
-:pdf-style: custom
+:pdf-themessdir: ../pdfTheme
+:pdf-theme: custom
 // only needed when you specify your own fonts
 :pdf-fontsdir: ../pdfTheme/fonts
 ----
@@ -119,14 +119,14 @@ For this tutorial, navigate to `src/docs/arc42/arc42.adoc` then add the followin
 
 [source, asciidoc]
 ----
-:pdf-stylesdir: ../pdfTheme
-:pdf-style: custom
+:pdf-themesdir: ../pdfTheme
+:pdf-theme: custom
 ----
 
 This will specify that AsciiDoc will find the `pdfTheme` relative to the document location in `../pdfTheme` which will result in `src/docs/arc42/../pdfTheme` which is equal to `src/docs/pdfTheme`.
 
 You can also make use of the attribute `\{projectRootDir}` which will contain the absolute path to your project directory.
-For example `:pdf-stylesdir: \{projectRootDir}/src/docs/pdfTheme` will search in `**/home/myname/projects/demo**/src/docs/pdfTheme` for the theme.
+For example `:pdf-themessdir: \{projectRootDir}/src/docs/pdfTheme` will search in `**/home/myname/projects/demo**/src/docs/pdfTheme` for the theme.
 
 NOTE: If you want to use the `\{projectRootDir}` in your editor preview, you must define it as a relative path:
 
