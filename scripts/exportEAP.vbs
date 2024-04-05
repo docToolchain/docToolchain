@@ -58,7 +58,7 @@
             name = currentElement.Name
             name = Replace(name,vbCr,"")
             name = Replace(name,vbLf,"")
-        
+
             strCombinedNotes = "_all_notes.ad"
             set objCombinedNotesFile = objFSO.OpenTextFile(path&prefix&post&"/"&strCombinedNotes,ForAppending, True)
 
@@ -190,7 +190,7 @@
         diagramName = Replace(diagramName,vbCr,"")
         diagramName = Replace(diagramName,vbLf,"")
         diagramName = NormalizeName(diagramName)
-        filename = objFSO.BuildPath(path, diagramName & ".png")
+        filename = objFSO.BuildPath(path, diagramName & imageFormat)
 
         exportDiagram = True
         If objFSO.FileExists(filename) Then
@@ -406,6 +406,7 @@
   Private exportDestination
   Private searchPath
   Private glossaryFilePath
+  Private imageFormat
   Private diagramAttributes
   Private additionalOptions
 
@@ -428,10 +429,14 @@
         searchPath = objArguments(argCount+1)
       Case "-g"
         glossaryFilePath = objArguments(argCount+1)
+      Case "-f"
+        imageFormat = objArguments(argCount+1)
       Case "-da"
         diagramAttributes = objArguments(argCount+1)
       Case "-ao"
         additionalOptions = objArguments(argCount+1)
+      Case Else
+        WScript.echo "unknown argument: " & objArguments(argCount)
     End Select
     argCount = argCount + 2
   WEnd

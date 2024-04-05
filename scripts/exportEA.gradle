@@ -191,8 +191,16 @@ use `gradle exportEA` to re-export files
         else {
             searchPath = new File(docDir, 'src').getAbsolutePath()
         }
+        if (config.exportEA.imageFormat.isEmpty()) {
+            imageFormat = ".png"
+        } else if(!config.exportEA.imageFormat.startsWith(".")) {
+            imageFormat = "." + config.exportEA.imageFormat
+        } else {
+            imageFormat = config.exportEA.imageFormat
+        }
         scriptParameterString = scriptParameterString + " -d \"$exportPath\""
         scriptParameterString = scriptParameterString + " -s \"$searchPath\""
+        scriptParameterString = scriptParameterString + " -f \"$imageFormat\""
         logger.info("docToolchain > exportEA: exportPath: " + exportPath)
 
         //remove old glossary files/folder if exist
