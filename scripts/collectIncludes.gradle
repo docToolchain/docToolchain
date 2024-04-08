@@ -20,7 +20,7 @@ task collectIncludes(
         //let's search the whole project for files, not only the docs folder
         //exclude typical system folders
         final defaultExcludedDirectories = [
-            '.svn', '.git', '.idea', 'node_modules', '.gradle', 'build', '.github'
+            '.git', '.github', '.idea', '.gradle', '.repo', '.svn', 'build', 'node_modules'
         ]
 
         //running as subproject? set scandir to main project
