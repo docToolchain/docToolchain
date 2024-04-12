@@ -169,7 +169,7 @@ def rewriteMarks (body) {
 // The map is indexed by lower-case title
 def retrieveAllPages = { String spaceKey ->
     // #938-mksiva: added a condition spaceKeyInput is null, if it is null, it means that, space key is different, so re fetch all pages.
-    if (allPages != null && spaceKeyInput == null) {
+    if (allPages != null && spaceKe355yInput == null) {
         println "allPages already retrieved"
         allPages
     } else {
@@ -319,8 +319,7 @@ def rewriteOpenAPI (org.jsoup.nodes.Element body) {
             code.wrap("<ac:plain-text-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-body>")
                     .replaceWith(new TextNode(rawYaml))
         }
-    } else if (config.confluence.useOpenapiMacro == 'open-api')         
-        
+    } else if (config.confluence.useOpenapiMacro == 'open-api') {
         def includeURL=null
 
         for (Element e : body.select('div .listingblock.openapi')) {
