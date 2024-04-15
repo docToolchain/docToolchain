@@ -169,7 +169,7 @@ def rewriteMarks (body) {
 // The map is indexed by lower-case title
 def retrieveAllPages = { String spaceKey ->
     // #938-mksiva: added a condition spaceKeyInput is null, if it is null, it means that, space key is different, so re fetch all pages.
-    if (allPages != null && spaceKe355yInput == null) {
+    if (allPages != null && spaceKeyInput == null) {
         println "allPages already retrieved"
         allPages
     } else {
