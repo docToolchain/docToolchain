@@ -689,6 +689,25 @@ The input for the publishToConfluence task is the output of the <code>generateHT
 </div>
 </div>
 </li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This corresponds to the following snippet from the start of the file</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">inputFiles = [
+        //[file: 'doctoolchain_demo.adoc',       formats: ['html','pdf']],
+        [file: 'arc42-template.adoc',    formats: ['html','pdf']],
+        /** inputFiles **/
+]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>the <code>inputFiles</code> section tells the <code>generateHTML</code> command to render the file as HTML, the <code>confluence.input</code> section tells the <code>publishToConfluence</code> command which file to publish.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Set up the API endpoint.
 Get your Atlassian Confluence URL, such as <a href="https://arc42-template.atlassian.net" class="bare">https://arc42-template.atlassian.net</a>.</p>
