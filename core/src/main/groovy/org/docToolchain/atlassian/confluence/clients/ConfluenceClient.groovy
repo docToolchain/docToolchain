@@ -94,9 +94,9 @@ abstract class ConfluenceClient {
         return restClient.doRequestAndReturnOrNull(httpRequest)
     }
 
-    abstract fetchPagesBySpaceKey(String spaceKey, Integer pageLimit)
+    abstract Map fetchPagesBySpaceKey(String spaceKey, Integer pageLimit)
 
-    abstract fetchPagesByAncestorId(List<String> pageIds, Integer pageLimit)
+    abstract Map fetchPagesByAncestorId(List<String> pageIds, Integer pageLimit)
 
     abstract fetchPageByPageId(String id)
 

@@ -19,6 +19,8 @@ buildscript {
 
 import org.docToolchain.tasks.VerifyConfluenceApiAccessTask
 import org.docToolchain.tasks.WipeConfluenceSpaceTask
+import org.docToolchain.tasks.Asciidoc2ConfluenceTask
+import org.docToolchain.scripts.*
 
 //tag::verifyConfluenceApiAccess[]
 task verifyConfluenceApiAccess(
@@ -68,9 +70,7 @@ task publishToConfluence(
         config.confluence.useV1Api = findProperty("confluence.useV1Api") != null ?
             findProperty("confluence.useV1Api") : config.confluence.useV1Api != [:] ?
             config.confluence.useV1Api :true
-        binding.setProperty('config',config)
-        binding.setProperty('docDir',docDir)
-        evaluate(new File(projectDir, 'core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy'))
+        Asciidoc2ConfluenceTask.From(config, docDir).execute()
     }
 }
 //end::publishToConfluence[]
