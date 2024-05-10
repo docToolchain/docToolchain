@@ -4506,37 +4506,36 @@ def rewriteOpenAPI (org.jsoup.nodes.Element body) {
                     .replaceWith(new TextNode(rawYaml))
         }
     } else if (config.confluence.useOpenapiMacro == 'open-api') {
+        def includeURL=null
 
-              def includeURL=null
+        for (Element e : body.select('div .listingblock.openapi')) {
+            for (String s : e.className().split(" ")) {
+                if (s.startsWith("url")) {
+                    //include the link to the URL for the macro
+                    includeURL = s.replace('url:', '')
+                }
+            }
+        }
 
-              for (Element e : body.select('div .listingblock.openapi')) {
-                  for (String s : e.className().split(" ")) {
-                      if (s.startsWith("url")) {
-                          //include the link to the URL for the macro
-                          includeURL = s.replace('url:', '')
-                     }
-                  }
-              }
+        body.select('div.openapi  pre &gt; code').each { code -&gt;
+            def parent=code.parent()
+            def rawYaml=code.wholeText()
 
-              body.select('div.openapi  pre &gt; code').each { code -&gt;
-                  def parent=code.parent()
-                  def rawYaml=code.wholeText()
+            code.parent()
+                .wrap('&lt;ac:structured-macro ac:name="open-api" ac:schema-version="1" data-layout="default" ac:macro-id="4302c9d8-fca4-4f14-99a9-9885128870fa"&gt;&lt;/ac:structured-macro&gt;')
+                .unwrap()
 
-                  code.parent()
-                      .wrap('&lt;ac:structured-macro ac:name="open-api" ac:schema-version="1" data-layout="default" ac:macro-id="4302c9d8-fca4-4f14-99a9-9885128870fa"&gt;&lt;/ac:structured-macro&gt;')
-                      .unwrap()
-
-                  if (includeURL!=null)
-                  {
-                      code.before('&lt;ac:parameter ac:name="url"&gt;'+includeURL+'&lt;/ac:parameter&gt;')
-                  }
-                  else {
-                      //default: show download button
-                      code.before('&lt;ac:parameter ac:name="showDownloadButton"&gt;true&lt;/ac:parameter&gt;')
-                      code.wrap("&lt;ac:plain-text-body&gt;${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}&lt;/ac:plain-text-body&gt;")
-                          .replaceWith(new TextNode(rawYaml))
-                  }
-              }
+            if (includeURL!=null)
+            {
+                code.before('&lt;ac:parameter ac:name="url"&gt;'+includeURL+'&lt;/ac:parameter&gt;')
+            }
+            else {
+                //default: show download button
+                code.before('&lt;ac:parameter ac:name="showDownloadButton"&gt;true&lt;/ac:parameter&gt;')
+                code.wrap("&lt;ac:plain-text-body&gt;${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}&lt;/ac:plain-text-body&gt;")
+                    .replaceWith(new TextNode(rawYaml))
+            }
+        }
     }
 }
 
@@ -4652,14 +4651,14 @@ def parseBody(body, anchors, pageAnchors) {
                 newUrl = sanitizedBaseUrl + src
                 fileName = java.net.URLDecoder.decode((src.tokenize('/')[-1]),"UTF-8")
             }
-          newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")
-          println "    image: "+newUrl
-          uploads &lt;&lt;  [0,newUrl,fileName,"automatically uploaded"]
-          img.after("&lt;ac:image ac:align=\"${imgAlign}\" ac:width=\"${imgWidth}\"&gt;&lt;ri:attachment ri:filename=\"${fileName}\"/&gt;&lt;/ac:image&gt;")
+            newUrl = java.net.URLDecoder.decode(newUrl,"UTF-8")
+            println "    image: "+newUrl
+            uploads &lt;&lt;  [0,newUrl,fileName,"automatically uploaded"]
+            img.after("&lt;ac:image ac:align=\"${imgAlign}\" ac:width=\"${imgWidth}\"&gt;&lt;ri:attachment ri:filename=\"${fileName}\"/&gt;&lt;/ac:image&gt;")
         }
         // it is an online image, so we have to use the ri:url tag
         else {
-          img.after("&lt;ac:image ac:align=\"imgAlign\" ac:width=\"${imgWidth}\"&gt;&lt;ri:url ri:value=\"${src}\"/&gt;&lt;/ac:image&gt;")
+            img.after("&lt;ac:image ac:align=\"imgAlign\" ac:width=\"${imgWidth}\"&gt;&lt;ri:url ri:value=\"${src}\"/&gt;&lt;/ac:image&gt;")
         }
         img.remove()
     }
@@ -4963,7 +4962,7 @@ if(config.confluence.inputHtmlFolder) {
         if (fileName.isFile()){
             def map = [file: config.confluence.inputHtmlFolder+fileName.getName()]
             config.confluence.input.add(map)
-         }
+        }
     }
 }
 
