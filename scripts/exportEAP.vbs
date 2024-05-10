@@ -30,7 +30,7 @@
     ' Regular expression can easily be extended with further characters to be replaced.
     Function NormalizeName(theName)
        dim re : Set re = new regexp
-       re.Pattern = "[\\/\[\]\s]"
+       re.Pattern = "[\\/\[\]\s:]"
        re.Global = True
        NormalizeName = re.Replace(theName, "_")
     End Function
