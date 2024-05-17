@@ -226,7 +226,9 @@ to configure a different parent page for each file.
 
 The following four keys can also be used in the global section below
 
-- `spaceKey` (optional): page specific variable for the key of the confluence space to write to
+- `spaceKey`: page specific variable for the key of the confluence space to write to
+              case sensitive! If the case is not correct, it can be that new page will be
+              created but can't be updated in the next run.
 - `subpagesForSections` (optional): The number of nested sub-pages to create. Default is '1'.
                                     '0' means creating all on one page.
                                     The following migration for removed configuration can be used.
