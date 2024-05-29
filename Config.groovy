@@ -189,6 +189,7 @@ confluence.with {
 // -  glossaryTypes: if set and glossary is exported, used to filter for certain types.
 //    Not set or empty list will cause no filtered glossary.
 // -  diagramAttributes: if set, the diagram attributes are exported and formatted as specified
+// -  imageFormat: if set, the image format is used for the export of diagrams. Default is '.png'.
 
 exportEA.with {
 // OPTIONAL: Set the connection to a certain project or comment it out to use all project files inside the src folder or its child folder.
@@ -209,6 +210,8 @@ exportEA.with {
 // OPTIONAL: Additional files will be exported containing diagram attributes in the given asciidoc format
 // diagramAttributes = "Modified: %DIAGRAM_AUTHOR%, %DIAGRAM_MODIFIED%, %DIAGRAM_NAME%,
 // %DIAGRAM_GUID%, %DIAGRAM_CREATED%, %DIAGRAM_NOTES%, %DIAGRAM_DIAGRAM_TYPE%, %DIAGRAM_VERSION%"
+// OPTIONAL: format of the exported diagrams. Defaults to '.png' if the parameter is not provided.
+// imageFormat = ".svg"
 }
 //end::exportEAConfig[]
 

@@ -86,6 +86,12 @@ You can add the string %NEWLINE% where a line break will be added.
 The resulting text is stored next to the diagram image using the same path and file name, but a different file extension (.ad). This can be included in the document if required.
 If diagramAttributes is not set or an empty string, no file is written.
 
+==== imageFormat
+If set, the set image format is used to export the diagrams.
+Default is set to ".png".
+
+Please check your Enterprise Architect version which formats are supported.
+
 ==== additionalOptions
 This parameter is used to define the specific behavior of the export. Currently, these options are supported:
 
