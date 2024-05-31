@@ -76,7 +76,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
     }
 
     @Override
-    def fetchPagesBySpaceKey(String spaceKey, Integer pageLimit) {
+    Map fetchPagesBySpaceKey(String spaceKey, Integer pageLimit) {
         def allPages = [:]
         String cursor
         Boolean morePages = true
@@ -111,7 +111,7 @@ class ConfluenceClientV2 extends ConfluenceClient {
     }
 
     @Override
-    def fetchPagesByAncestorId(List<String> pageIds, Integer pageLimit) {
+    Map fetchPagesByAncestorId(List<String> pageIds, Integer pageLimit) {
         def allPages = [:]
         String cursor
         Boolean morePages = true
