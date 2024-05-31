@@ -1069,9 +1069,7 @@ You will most likely <strong>NOT</strong> want to include the entire thing, as s
         config.confluence.useV1Api = findProperty("confluence.useV1Api") != null ?
             findProperty("confluence.useV1Api") : config.confluence.useV1Api != [:] ?
             config.confluence.useV1Api :true
-        binding.setProperty('config',config)
-        binding.setProperty('docDir',docDir)
-        evaluate(new File(projectDir, 'core/src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy'))
+        Asciidoc2ConfluenceTask.From(config, docDir).execute()
     }
 }</code></pre>
 </div>
