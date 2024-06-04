@@ -94,7 +94,7 @@ TIP: In case your development team uses different operating systems, put the wra
 
 Once the docToolchain wrapper is installed in your project directory you have to decide how to install the toolchain:
 
-- <<run-dtc-in-container>> with the https://hub.docker.com/r/doctoolchain/doctoolchain[docToolchain container image] or <<run-dtc-in-costum-container>>.
+- <<run-dtc-in-container>> with the https://hub.docker.com/r/doctoolchain/doctoolchain[docToolchain container image] or <<run-dtc-in-custom-container>>.
 - <<install-dtc-with-dtcw>> in the users home directory `$HOME/.doctoolchain`
 - <<install-dtc-with-sdk>> a tool for managing parallel versions of multiple Software Development Kits.
 
@@ -120,7 +120,7 @@ If the container engine is installed you can <<first-command>>.
 The docToolchain wrapper script in your project directory will detect the
 container engine and pull the docToolchain image on the first invocation.
 
-[[run-dtc-in-costum-container]]
+[[run-dtc-in-custom-container]]
 === Use your costum docker image
 Some might need to create their own docker image to add additional tooling or configurations, e.g. proxy settings.
 In this case you can pass the image name via parameter `image` directly after `docker`:
