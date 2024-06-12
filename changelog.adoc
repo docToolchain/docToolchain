@@ -15,6 +15,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 
+* https://github.com/docToolchain/docToolchain/issues/1237[#1237 prettify is outdated and should be replaced by highlight.js]
+
 == 3.3.1 - 2024-03-01
 
 === fixed
