@@ -13,7 +13,58 @@
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 <% } %>
         ${content?.rightcolumnhtml?.replaceAll("&lt;","<")?.replaceAll("&gt;",">")?:''}
+<% if (config.site_issuesBaseUrl) {%>        
+        <hr />
+<script>
+const issuesBaseUrl = "${config.site_issuesBaseUrl}";
+const searchTerm = "${sourceFileName}";
+</script>
+
+<script src="${content.rootpath}js/issues.js"></script>
+
+<style>
+        #issues-container {
+            background-color: white;
+            padding: 0px;
+            margin: 0;
+        }
+        .issue {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .issue:last-child {
+            border-bottom: none;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: -10px;
+        }
+        .issue-content {
+            flex-grow: 1;
+            background-color: rgba(255,255,255,0.6);
+        }
+        .issue-title {
+            font-weight: bold;
+            color: #0366d6;
+        }
+        .issue-date {
+            font-size: 0.9em;
+            color: #586069;
+        }
+
+</style>
+
+<div id="issues-container">
+searching issues...
+</div>
+<% } %>
         <hr />
 <% if (content?.body.contains('<!-- endtoc -->')) { %>
         ${content?.body?.split("(?ms)<!-- endtoc -->",2)[0]}
 <% } %>
+
