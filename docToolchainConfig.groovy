@@ -97,12 +97,13 @@ microsite.with {
     // Slack Channel
     footerSlack = ''
     // general text for the footer
-    footerText = '<script defer data-domain="doctoolchain.org" src="https://plausible.io/js/script.js"></script><small class="text-white">built with <a href="https://doctoolchain.org">docToolchain</a> and <a href="https://jbake.org">jBake</a> <br /> theme: <a href="https://www.docsy.dev/">docsy</a></small>'
+    footerText = '<small class="text-white">built with <a href="https://doctoolchain.org">docToolchain</a> and <a href="https://jbake.org">jBake</a> <br /> theme: <a href="https://www.docsy.dev/">docsy</a></small>'
     // site title if no other title is given
     title = 'docToolchain'
     //
     // the url to create an issue in github (set to 'null' to hide the "Create an issue" link)
     issueUrl = 'https://github.com/docToolchain/docToolchain/issues/new'
+    issuesBaseUrl = 'https://api.github.com/repos/doctoolchain/doctoolchain/issues'
     //
     // the base url for code files in github (set to 'null' to hide the "Improve this doc" link)
     branch = System.getenv("DTC_PROJECT_BRANCH")?:'ng'
