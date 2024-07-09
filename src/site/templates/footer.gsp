@@ -90,3 +90,4 @@
     <script src="${content.rootpath}js/blocks.js" ></script>
     <script src="${content.rootpath}js/prettify.js"></script>
     <script src="${content.rootpath}js/copy-n-paste.js"></script>
+    <script src="${content.rootpath}js/submenucollapse.js"></script>
