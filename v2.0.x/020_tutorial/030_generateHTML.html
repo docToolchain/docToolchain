@@ -173,6 +173,31 @@
             margin: 0;
         }
     </style>
+    <style>
+        .td-sidebar-nav__section {
+            padding-left: 9px;
+        }
+        details {
+            margin-left: 10px;
+        }
+        summary {
+            cursor: pointer;
+            padding-left: 10px; /* Erhöhter linker Padding für den Pfeil */
+            list-style: none;
+            position: relative; /* Für absolute Positionierung des Pfeils */
+        }
+        summary::before {
+            content: '>';
+            position: absolute;
+            left: 10px; /* Position des Pfeils */
+            top: 50%;
+            transform: translateY(-50%) translateX(-120%);
+            transition: transform 0.3s;
+        }
+        details[open] > summary::before {
+            transform: translateY(-50%) translateX(-120%) rotate(90deg);
+        }
+    </style>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -228,6 +253,7 @@
 			<div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
 				<div class="td-sidebar__inner" id="td-sidebar-menu" >
 					
+
         <form class="td-sidebar__search d-flex align-items-center d-lg-none" action="../search.html">
 
             <input aria-label="Search this site…" name="q" autocomplete="off" class="form-control td-search-input"
@@ -240,81 +266,97 @@
             </button>
         </form>
 
-        <nav class="collapse td-sidebar-nav" id="td-section-nav" >
+        <nav aria-label="Submenu" class="collapse td-sidebar-nav" id="td-section-nav" >
 
-            <ul class="td-sidebar-nav__section pr-md-3">
+            <ul class="td-sidebar-nav__section">
                 <li class="td-sidebar-nav__section-title">
-                    <span class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Tutorial</span>
+                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">Tutorial</span>
                 </li>
-                <ul>
-                    <li class="collapse show" id="docs">
-                        
-                        <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+                <li>
+                  <ul>
+                      <li class="collapse show" id="docs">
+                          
+                        <ul class="td-sidebar-nav__section ul-0">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/010_Install.html">Install docToolchain</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/010_Install.html" title="Install docToolchain">Install docToolchain</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/020_arc42.html">arc42 Template</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/020_arc42.html" title="arc42 Template">arc42 Template</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../020_tutorial/030_generateHTML.html">generateHTML &amp; generatePDF</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../020_tutorial/030_generateHTML.html" title="generateHTML &amp; generatePDF">generateHTML &amp; generatePDF</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/040_microsite/index.html">Microsite</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/040_microsite/index.html" title="Microsite">Microsite</a>
+                                
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/040_microsite/040_generateSite.html">generateSite</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/040_microsite/040_generateSite.html" title="generateSite">generateSite</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/040_microsite/043_multi-markup.html">generateSite: Multi-Markup</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/040_microsite/043_multi-markup.html" title="generateSite: Multi-Markup">generateSite: Multi-Markup</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/040_microsite/130_theming.html">How to change the theme</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/040_microsite/130_theming.html" title="How to change the theme">How to change the theme</a>
+                                
+                            </li>
+                        </ul></details>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/050_multipleRepositories.html" title="Multi-Repo">Multi-Repo</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/070_publishToConfluence.html" title="publishToConfluence">publishToConfluence</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/100_diagrams.net.html" title="Diagrams: Diagrams.net">Diagrams: Diagrams.net</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/110_presentations_with_revealjs.html" title="Presentations with reveal.js">Presentations with reveal.js</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/120_self-contained-dtc.html" title="Self-Contained docToolchain">Self-Contained docToolchain</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/140_Dropdown_Menu.html" title="How to create a Dropdown Menu">How to create a Dropdown Menu</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/150_multiRepoMicrositeTipsAndTricks.html" title="Building a microsite from multiple repositories">Building a microsite from multiple repositories</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/990_Tutorial.html" title="How to create a Tutorial">How to create a Tutorial</a>
+                                
                             </li>
                         </ul>
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/050_multipleRepositories.html">Multi-Repo</a>
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/070_publishToConfluence.html">publishToConfluence</a>
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/100_diagrams.net.html">Diagrams: Diagrams.net</a>
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/110_presentations_with_revealjs.html">Presentations with reveal.js</a>
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/120_self-contained-dtc.html">Self-Contained docToolchain</a>
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/140_Dropdown_Menu.html">How to create a Dropdown Menu</a>
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/150_multiRepoMicrositeTipsAndTricks.html">Building a microsite from multiple repositories</a>
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/990_Tutorial.html">How to create a Tutorial</a>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                      </li>
+                  </ul>
+                <li>
         </nav>
 
 				</div>
@@ -782,6 +824,7 @@ For the <code>generate<strong>Site</strong></code> task, there is a different me
     <script src="../js/blocks.js" ></script>
     <script src="../js/prettify.js"></script>
     <script src="../js/copy-n-paste.js"></script>
+    <script src="../js/submenucollapse.js"></script>
 
 
 </body>

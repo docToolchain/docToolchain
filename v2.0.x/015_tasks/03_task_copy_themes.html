@@ -173,6 +173,31 @@
             margin: 0;
         }
     </style>
+    <style>
+        .td-sidebar-nav__section {
+            padding-left: 9px;
+        }
+        details {
+            margin-left: 10px;
+        }
+        summary {
+            cursor: pointer;
+            padding-left: 10px; /* Erhöhter linker Padding für den Pfeil */
+            list-style: none;
+            position: relative; /* Für absolute Positionierung des Pfeils */
+        }
+        summary::before {
+            content: '>';
+            position: absolute;
+            left: 10px; /* Position des Pfeils */
+            top: 50%;
+            transform: translateY(-50%) translateX(-120%);
+            transition: transform 0.3s;
+        }
+        details[open] > summary::before {
+            transform: translateY(-50%) translateX(-120%) rotate(90deg);
+        }
+    </style>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -228,6 +253,7 @@
 			<div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
 				<div class="td-sidebar__inner" id="td-sidebar-menu" >
 					
+
         <form class="td-sidebar__search d-flex align-items-center d-lg-none" action="../search.html">
 
             <input aria-label="Search this site…" name="q" autocomplete="off" class="form-control td-search-input"
@@ -240,163 +266,201 @@
             </button>
         </form>
 
-        <nav class="collapse td-sidebar-nav" id="td-section-nav" >
+        <nav aria-label="Submenu" class="collapse td-sidebar-nav" id="td-section-nav" >
 
-            <ul class="td-sidebar-nav__section pr-md-3">
+            <ul class="td-sidebar-nav__section">
                 <li class="td-sidebar-nav__section-title">
-                    <span class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">Tasks</span>
+                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">Tasks</span>
                 </li>
-                <ul>
-                    <li class="collapse show" id="docs">
-                        
-                        <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+                <li>
+                  <ul>
+                      <li class="collapse show" id="docs">
+                          
+                        <ul class="td-sidebar-nav__section ul-0">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_tasks.html">What Is a Task?</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_tasks.html" title="What Is a Task?">What Is a Task?</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_autobuildSite.html">autobuildSite</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_autobuildSite.html" title="autobuildSite">autobuildSite</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_collectIncludes.html">collectIncludes</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_collectIncludes.html" title="collectIncludes">collectIncludes</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_convertToDocx.html">convertToDocx</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_convertToDocx.html" title="convertToDocx">convertToDocx</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_convertToEpub.html">convertToEpub</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_convertToEpub.html" title="convertToEpub">convertToEpub</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../015_tasks/03_task_copy_themes.html">copyThemes</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../015_tasks/03_task_copy_themes.html" title="copyThemes">copyThemes</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_createReferenceDoc.html">createReferenceDoc</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_createReferenceDoc.html" title="createReferenceDoc">createReferenceDoc</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_dependencyUpdates.html">dependencyUpdates</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_dependencyUpdates.html" title="dependencyUpdates">dependencyUpdates</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_downloadTemplate.html">downloadTemplate</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_downloadTemplate.html" title="downloadTemplate">downloadTemplate</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportChangeLog.html">exportChangeLog</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportChangeLog.html" title="exportChangeLog">exportChangeLog</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportConfluence.html">exportConfluence</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportConfluence.html" title="exportConfluence">exportConfluence</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportContributors.html">exportContributors</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportContributors.html" title="exportContributors">exportContributors</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportDrawIo.html">exportDrawIo</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportDrawIo.html" title="exportDrawIo">exportDrawIo</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportEA.html">exportEA</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportEA.html" title="exportEA">exportEA</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportExcel.html">exportExcel</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportExcel.html" title="exportExcel">exportExcel</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportJiraIssues.html">exportJiraIssues</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportJiraIssues.html" title="exportJiraIssues">exportJiraIssues</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportJiraSprintChangelog.html">exportJiraSprintChangelogIssues</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportJiraSprintChangelog.html" title="exportJiraSprintChangelogIssues">exportJiraSprintChangelogIssues</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportMarkdown.html">exportMarkdown</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportMarkdown.html" title="exportMarkdown">exportMarkdown</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportMetrics.html">exportMetrics</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportMetrics.html" title="exportMetrics">exportMetrics</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportOpenApi.html">exportOpenAPI</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportOpenApi.html" title="exportOpenAPI">exportOpenAPI</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportPPT.html">exportPPT</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportPPT.html" title="exportPPT">exportPPT</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportStructurizr.html">exportStructurizr</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportStructurizr.html" title="exportStructurizr">exportStructurizr</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_exportVisio.html">exportVisio</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportVisio.html" title="exportVisio">exportVisio</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_fixencoding.html">fixEncoding</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_fixencoding.html" title="fixEncoding">fixEncoding</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_generateContent.html">generateContent</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateContent.html" title="generateContent">generateContent</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_generateDeck.html">generateDeck</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateDeck.html" title="generateDeck">generateDeck</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_generateDocBook.html">generateDocbook</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateDocBook.html" title="generateDocbook">generateDocbook</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_generateHTML.html">generateHTML</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateHTML.html" title="generateHTML">generateHTML</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_generatePDF.html">generatePDF</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generatePDF.html" title="generatePDF">generatePDF</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_generateSite.html">generateSite</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateSite.html" title="generateSite">generateSite</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_htmlSanityCheck.html">htmlSanityCheck</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_htmlSanityCheck.html" title="htmlSanityCheck">htmlSanityCheck</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_prependFilename.html">prependFilename</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_prependFilename.html" title="prependFilename">prependFilename</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_previewSite.html">previewSite</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_previewSite.html" title="previewSite">previewSite</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_publishToConfluence.html">publishToConfluence</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_publishToConfluence.html" title="publishToConfluence">publishToConfluence</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/03_task_wipeConfluenceSpace.html">wipeConfluenceSpace</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_wipeConfluenceSpace.html" title="wipeConfluenceSpace">wipeConfluenceSpace</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../015_tasks/150_task_createTask.html">createTask</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/150_task_createTask.html" title="createTask">createTask</a>
+                                
                             </li>
                         </ul>
-                    </li>
-                </ul>
+                      </li>
+                  </ul>
+                <li>
         </nav>
 
 				</div>
@@ -765,6 +829,7 @@ task copyThemes(
     <script src="../js/blocks.js" ></script>
     <script src="../js/prettify.js"></script>
     <script src="../js/copy-n-paste.js"></script>
+    <script src="../js/submenucollapse.js"></script>
 
 
 </body>

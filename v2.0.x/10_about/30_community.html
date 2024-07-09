@@ -173,6 +173,31 @@
             margin: 0;
         }
     </style>
+    <style>
+        .td-sidebar-nav__section {
+            padding-left: 9px;
+        }
+        details {
+            margin-left: 10px;
+        }
+        summary {
+            cursor: pointer;
+            padding-left: 10px; /* Erhöhter linker Padding für den Pfeil */
+            list-style: none;
+            position: relative; /* Für absolute Positionierung des Pfeils */
+        }
+        summary::before {
+            content: '>';
+            position: absolute;
+            left: 10px; /* Position des Pfeils */
+            top: 50%;
+            transform: translateY(-50%) translateX(-120%);
+            transition: transform 0.3s;
+        }
+        details[open] > summary::before {
+            transform: translateY(-50%) translateX(-120%) rotate(90deg);
+        }
+    </style>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -228,6 +253,7 @@
 			<div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
 				<div class="td-sidebar__inner" id="td-sidebar-menu" >
 					
+
         <form class="td-sidebar__search d-flex align-items-center d-lg-none" action="../search.html">
 
             <input aria-label="Search this site…" name="q" autocomplete="off" class="form-control td-search-input"
@@ -240,31 +266,36 @@
             </button>
         </form>
 
-        <nav class="collapse td-sidebar-nav" id="td-section-nav" >
+        <nav aria-label="Submenu" class="collapse td-sidebar-nav" id="td-section-nav" >
 
-            <ul class="td-sidebar-nav__section pr-md-3">
+            <ul class="td-sidebar-nav__section">
                 <li class="td-sidebar-nav__section-title">
-                    <span class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">About</span>
+                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">About</span>
                 </li>
-                <ul>
-                    <li class="collapse show" id="docs">
-                        
-                        <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+                <li>
+                  <ul>
+                      <li class="collapse show" id="docs">
+                          
+                        <ul class="td-sidebar-nav__section ul-0">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../10_about/10_about-the-project.html">About the Project</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../10_about/10_about-the-project.html" title="About the Project">About the Project</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../10_about/20_what-is-doctoolchain.html">What Is docToolchain?</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../10_about/20_what-is-doctoolchain.html" title="What Is docToolchain?">What Is docToolchain?</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../10_about/30_community.html">Acknowledgements and Contributors</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../10_about/30_community.html" title="Acknowledgements and Contributors">Acknowledgements and Contributors</a>
+                                
                             </li>
                         </ul>
-                    </li>
-                </ul>
+                      </li>
+                  </ul>
+                <li>
         </nav>
 
 				</div>
@@ -813,6 +844,7 @@ searching issues...
     <script src="../js/blocks.js" ></script>
     <script src="../js/prettify.js"></script>
     <script src="../js/copy-n-paste.js"></script>
+    <script src="../js/submenucollapse.js"></script>
 
 
 </body>

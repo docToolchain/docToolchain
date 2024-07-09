@@ -173,6 +173,31 @@
             margin: 0;
         }
     </style>
+    <style>
+        .td-sidebar-nav__section {
+            padding-left: 9px;
+        }
+        details {
+            margin-left: 10px;
+        }
+        summary {
+            cursor: pointer;
+            padding-left: 10px; /* Erhöhter linker Padding für den Pfeil */
+            list-style: none;
+            position: relative; /* Für absolute Positionierung des Pfeils */
+        }
+        summary::before {
+            content: '>';
+            position: absolute;
+            left: 10px; /* Position des Pfeils */
+            top: 50%;
+            transform: translateY(-50%) translateX(-120%);
+            transition: transform 0.3s;
+        }
+        details[open] > summary::before {
+            transform: translateY(-50%) translateX(-120%) rotate(90deg);
+        }
+    </style>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -228,6 +253,7 @@
 			<div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
 				<div class="td-sidebar__inner" id="td-sidebar-menu">
 					
+
         <form class="td-sidebar__search d-flex align-items-center d-lg-none" action="../../search.html">
 
             <input aria-label="Search this site…" name="q" autocomplete="off" class="form-control td-search-input"
@@ -240,131 +266,148 @@
             </button>
         </form>
 
-        <nav class="collapse td-sidebar-nav" id="td-section-nav" >
+        <nav aria-label="Submenu" class="collapse td-sidebar-nav" id="td-section-nav" >
 
-            <ul class="td-sidebar-nav__section pr-md-3">
+            <ul class="td-sidebar-nav__section">
                 <li class="td-sidebar-nav__section-title">
-                    <span class="align-left pl-0 pr-2 active td-sidebar-link td-sidebar-link__section">News</span>
+                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">News</span>
                 </li>
-                <ul>
-                    <li class="collapse show" id="docs">
-                        
-                        <ul class="td-sidebar-nav__section pr-md-3 ul-0">
+                <li>
+                  <ul>
+                      <li class="collapse show" id="docs">
+                          
+                        <ul class="td-sidebar-nav__section ul-0">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/index.html">Overview</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/index.html" title="Overview">Overview</a>
+                                
                             </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child">
-                                2021
+<details id="d05a5cf06982ba7892ed2a6d38fe832d6"><summary><span class="label">2021</span></summary>
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2021/2021-11-23-Open-Source-Camp.html">Open Source Camp</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2021/2021-11-23-Open-Source-Camp.html" title="Open Source Camp">Open Source Camp</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2021/last-release-candidate.html">Last Release Candidate</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2021/last-release-candidate.html" title="Last Release Candidate">Last Release Candidate</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2021/2.0.0-release.html">Release v2.0.0</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2021/2.0.0-release.html" title="Release v2.0.0">Release v2.0.0</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2021/2.0.1-release.html">Release v2.0.1</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2021/2.0.1-release.html" title="Release v2.0.1">Release v2.0.1</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2021/2.0.2-release.html">Release v2.0.2</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2021/2.0.2-release.html" title="Release v2.0.2">Release v2.0.2</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2021/2.0.3-release.html">Release v2.0.3</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2021/2.0.3-release.html" title="Release v2.0.3">Release v2.0.3</a>
+                                
                             </li>
-                        </ul>
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child">
-                                2022
+                        </ul></details>
+<details id="d3a824154b16ed7dab899bf000b80eeee"><summary><span class="label">2022</span></summary>
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2022/2.0.4-release.html">(Release v2.0.4)</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2022/2.0.4-release.html" title="(Release v2.0.4)">(Release v2.0.4)</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2022/2.0.5-release.html">Release v2.0.5</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2022/2.0.5-release.html" title="Release v2.0.5">Release v2.0.5</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2022/2.1.0-release.html">Release v2.1.0</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2022/2.1.0-release.html" title="Release v2.1.0">Release v2.1.0</a>
+                                
                             </li>
-                        </ul>
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child">
-                                2023
+                        </ul></details>
+<details id="d5531a5834816222280f20d1ef9e95f69"><summary><span class="label">2023</span></summary>
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../../030_news/2023/2.2.0-release.html">Release v2.2.0</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../../030_news/2023/2.2.0-release.html" title="Release v2.2.0">Release v2.2.0</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2023/2.2.1-release.html">Release v2.2.1</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/2.2.1-release.html" title="Release v2.2.1">Release v2.2.1</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2023/3.0.0-rc1.html">Release Candidate v3.0.0</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/3.0.0-rc1.html" title="Release Candidate v3.0.0">Release Candidate v3.0.0</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2023/Babylon.html">Multilingual Documentation</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/Babylon.html" title="Multilingual Documentation">Multilingual Documentation</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2023/3.0.1-release.html">Release v3.0.1</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/3.0.1-release.html" title="Release v3.0.1">Release v3.0.1</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2023/3.0.2-release.html">Release v3.0.2</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/3.0.2-release.html" title="Release v3.0.2">Release v3.0.2</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2023/3.1.0-release.html">Release v3.1.0</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/3.1.0-release.html" title="Release v3.1.0">Release v3.1.0</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2023/3.1.1-release.html">Release v3.1.1</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/3.1.1-release.html" title="Release v3.1.1">Release v3.1.1</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2023/3.1.2-release.html">Release v3.1.2</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/3.1.2-release.html" title="Release v3.1.2">Release v3.1.2</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2023/3.2.0-release.html">Release v3.2.0</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/3.2.0-release.html" title="Release v3.2.0">Release v3.2.0</a>
+                                
                             </li>
-                        </ul>
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child">
-                                2024
+                        </ul></details>
+<details id="d07811dc6c422334ce36a09ff5cd6fe71"><summary><span class="label">2024</span></summary>
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2024/3.2.1-release.html">Release v3.2.1</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2024/3.2.1-release.html" title="Release v3.2.1">Release v3.2.1</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2024/3.2.2-release.html">Release v3.2.2</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2024/3.2.2-release.html" title="Release v3.2.2">Release v3.2.2</a>
+                                
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/2024/3.3-release.html">Release v3.3</a>
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2024/3.3-release.html" title="Release v3.3">Release v3.3</a>
+                                
                             </li>
+                        </ul></details>
                         </ul>
-                            </li>
-                        </ul>
-                    </li>
-                </ul>
+                      </li>
+                  </ul>
+                <li>
         </nav>
 
 				</div>
@@ -783,6 +826,7 @@ Migrate as follows:</p>
     <script src="../../js/blocks.js" ></script>
     <script src="../../js/prettify.js"></script>
     <script src="../../js/copy-n-paste.js"></script>
+    <script src="../../js/submenucollapse.js"></script>
 
 
 </body>
