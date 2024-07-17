@@ -4,6 +4,7 @@ import org.gradle.testkit.runner.GradleRunner
 import spock.lang.Specification
 import spock.lang.Ignore
 import spock.lang.IgnoreRest
+import spock.lang.Requires
 
 import static org.gradle.testkit.runner.TaskOutcome.SUCCESS
 
@@ -11,7 +12,7 @@ class ExportMarkdownSpec extends Specification {
 
     public static final File exportedMarkdownFile = new File('./build/test/docs/exportMarkdownDocs.adoc')
 
-    
+    @Requires({ Runtime.version().feature()>=17 })
     void 'test conversion of sample markdown file'() {
 
         given: 'a clean the environment'
@@ -22,7 +23,7 @@ class ExportMarkdownSpec extends Specification {
         when: 'executing the gradle task `exportMarkdown`'
         def result = GradleRunner.create()
                 .withProjectDir(new File('.'))
-                .withArguments('exportMarkdown', '--info', '-PmainConfigFile=./src/test/config.groovy')
+                .withArguments('exportMarkdown', '--info', '--stacktrace', '-PmainConfigFile=./src/test/config.groovy')
                 .build()
 
         then: 'the task has been successfully executed'
