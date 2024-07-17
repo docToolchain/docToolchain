@@ -25,7 +25,7 @@ set -o pipefail
 # export DTC_TEMPLATE1=https://....zip
 # export DTC_TEMPLATE2=https://....zip
 
-# docToolchain configurtion file may be overruled by the user
+# docToolchain configuration file may be overruled by the user
 : "${DTC_CONFIG_FILE:=docToolchainConfig.groovy}"
 
 # Contains the current project git branch, "-" if not available
@@ -85,7 +85,7 @@ main() {
         install_component_and_exit "${environment}" "${2-}"
     elif [ "${1}" = "getJava" ]; then
         # TODO: remove getJava in the next major release
-        echo "Warning: 'getJava' is deprecated and and will be removed. Use './dtcw install java' instead."
+        echo "Warning: 'getJava' is deprecated and will be removed. Use './dtcw install java' instead."
         install_component_and_exit "${environment}" "java"
     fi
 
