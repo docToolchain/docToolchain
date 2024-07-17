@@ -16,7 +16,7 @@ jobs:
     strategy:
       matrix:
         os: [ubuntu-latest, windows-latest]
-        java: [14]
+        java: [17]
         jdk: [temurin]
       fail-fast: false
     name: Execute dtcw spock test suite - ${{ matrix.os }}
