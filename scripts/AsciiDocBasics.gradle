@@ -3,6 +3,7 @@
  */
 buildscript {
     repositories {
+        mavenCentral()
         maven {
             credentials {
                 username mavenUsername
