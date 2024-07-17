@@ -11,7 +11,7 @@ jbake = "5.5.0"
 asciidoctor-jvm = "4.0.0-alpha.1"
 jsoup = "1.16.1"
 apache-poi = "5.2.3"
-markdown-to-asciidoc = "1.1"
+markdown-to-asciidoc = "2.0.1"
 structurizr-dsl = "1.29.1"
 structurizr-export = "1.14.0"
 structurizr-graphviz = "2.0.0"
@@ -45,7 +45,7 @@ asciidoctor-slides = { module = "org.asciidoctor:asciidoctor-gradle-jvm-slides",
 jsoup = { module = "org.jsoup:jsoup", version.ref = "jsoup" }
 html-sanity-check = { module = "org.aim42.htmlSanityCheck:org.aim42.htmlSanityCheck.gradle.plugin", version.ref = "htmlSanityCheck" }
 poi-ooxml =  { module = "org.apache.poi:poi-ooxml", version.ref = "apache-poi" }
-markdown-to-asciidoc =  { module = "nl.jworks.markdown_to_asciidoc:markdown_to_asciidoc", version.ref = "markdown-to-asciidoc" }
+markdown-to-asciidoc =  { module = "io.github.markdown-asciidoc:markdown-to-asciidoc", version.ref = "markdown-to-asciidoc" }
 openapi-generator = { module = "org.openapitools:openapi-generator-gradle-plugin", version.ref = "openapi" }
 structurizr-dsl = { module = "com.structurizr:structurizr-dsl", version.ref = "structurizr-dsl" }
 structurizr-export = { module = "com.structurizr:structurizr-export", version.ref = "structurizr-export" }
