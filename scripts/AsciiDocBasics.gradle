@@ -11,7 +11,25 @@ buildscript {
             url mavenRepository
         }
     }
-
+    configurations.all {
+        resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+            if (details.requested.group == 'org.ysb33r.gradle' && details.requested.name == 'grolifant' && details.requested.version in ['0.12', '0.12.1']) {
+                details.useVersion '0.16.1'
+                details.because 'jcenter redirect'
+                System.out.println ">>>>>>>>> fix grolifant"
+            }
+            if (details.requested.group == 'org.codehaus.groovy.modules.http-builder' && details.requested.name == 'http-builder' && details.requested.version == '0.7.2') {
+                details.useVersion '0.7.1'
+                details.because 'jcenter redirect'
+                System.out.println ">>>>>>>>> fix http-builder"
+            }
+            if (details.requested.group == 'com.burgstaller' && details.requested.name == 'okhttp-digest') {
+               //changing the name:
+                details.useTarget group: 'io.github.rburgst', name: details.requested.name, version: '1.21'
+                System.out.println ">>>>>>>>> fix okhttp-digest"
+            }
+        }
+    }
     dependencies {
         classpath (libs.asciidoctor)
         classpath (libs.asciidoctor.pdf)
