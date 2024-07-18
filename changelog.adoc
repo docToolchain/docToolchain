@@ -9,8 +9,10 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+* https://github.com/docToolchain/docToolchain/issues/1414[Build suddenly fails (since changes to Gradle plugin portal)]
+
 === added
-* Collapsible left menu
+* Collapsible left menu (see https://doctoolchain.org/docToolchain/v2.0.x/030_news/index.html for an example)
 * https://github.com/docToolchain/docToolchain/pull/1389[exportEA: Add additional option to set the image format]
 * https://github.com/docToolchain/docToolchain/pull/1391[#1391: Update collectIncludes.gradle]
 * 
