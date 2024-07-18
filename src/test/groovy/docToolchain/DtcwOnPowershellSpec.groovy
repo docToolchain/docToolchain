@@ -2,6 +2,7 @@ package docToolchain
 
 import spock.lang.Specification
 import spock.lang.Unroll
+import spock.lang.Requires
 
 class DtcwOnPowershellSpec extends Specification {
     List powershell(List command) {
@@ -16,6 +17,7 @@ class DtcwOnPowershellSpec extends Specification {
     }
 
     @Unroll
+    @Requires({ os.windows })
     void 'test Powershell'() {
         when: 'pwd is executed'
             def (out,err) = powershell(['-Command', 'Get-Location'])
@@ -25,6 +27,7 @@ class DtcwOnPowershellSpec extends Specification {
     }
 
     @Unroll
+    @Requires({ os.windows })
     void 'test dtcw without parameters'() {
         when: '"./dtcw.ps1" is executed without any parameters'
             def (out,err) = powershell(['./dtcw.ps1'])
@@ -35,6 +38,7 @@ class DtcwOnPowershellSpec extends Specification {
     }
 
     @Unroll
+    @Requires({ os.windows })
     void 'test dtcw --version'() {
         when: '"./dtcw.ps1 --version" is executed'
         def (out,err) = powershell(['./dtcw.ps1', '--version'])
@@ -46,6 +50,7 @@ class DtcwOnPowershellSpec extends Specification {
     }
 
     @Unroll
+    @Requires({ os.windows })
     void 'test local installation of jdk'() {
         when: '"./dtcw.ps1 install java" is executed'
             def (out,err) = powershell(['./dtcw.ps1', 'install', 'java'])
@@ -56,6 +61,7 @@ class DtcwOnPowershellSpec extends Specification {
     }
 
     @Unroll
+    @Requires({ os.windows })
     void 'test local installation of doctoolchain'() {
         //setup: 'remove jdk folder'
         //    rm "$HOME/.doctoolchain/jdk"

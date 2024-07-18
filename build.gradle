@@ -107,7 +107,11 @@ apply from: 'scripts/exportContributors.gradle'
 apply from: 'scripts/exportJiraIssues.gradle'
 apply from: 'scripts/exportJiraSprintChangelog.gradle'
 apply from: 'scripts/exportExcel.gradle'
-apply from: 'scripts/exportMarkdown.gradle'
+if ((JavaVersion.current().getMajorVersion() as Integer)<17) {
+    logger.warn("WARNING: JavaVersion < 17 - exportMarkdown disabled")
+} else {
+    apply from: 'scripts/exportMarkdown.gradle'
+}
 apply from: 'scripts/pandoc.gradle'
 apply from: 'scripts/publishToConfluence.gradle'
 apply from: 'scripts/htmlSanityCheck.gradle'
