@@ -1,0 +1,60 @@
+:jbake-order: 50
+:jbake-title: Enterprise docToolchain
+include::_config.adoc[]
+
+== Some Tipps on how to use docToolchain in an Enterprise Environment
+
+Some things are different when you use them at a larger scale.
+That's why I would like to share my experience with docToolchain in an Enterprise Environment.
+
+=== Corporate Identity
+
+When you change the design of your microsite, you give your employees the chance to better identify with the documentation.
+The documentation will feel more "official".
+Take a look at xref:040_microsite/130_theming.adoc[] to see how you change the look and feel.
+
+=== CI/CD Pipelines
+
+To automatically build your documentation on change and deploy it to GitHub Pages or GitLab Pages, please take a look at this demo project: https://github.com/docToolchain/ci-cd-demo[ci-cd-demo].
+It contains a https://github.com/docToolchain/ci-cd-demo/blob/main/.github/workflows/gh-pages.yml[GitHub workflow] and a https://github.com/docToolchain/ci-cd-demo/blob/main/.gitlab-ci.yml[.gitlab-ci.yml] which you can use as a starter for your own setup.
+
+NOTE: Both systems, GitHub and GitLab, only provide _one_ static page for each repository.
+So, if you build the docs in a feature branch, the main docs will be updated.
+To avoid this, you should restrict the pipeline to your main or default branch.
+Since all links of the generated docs are relative, you can use the generated artifacts from a PR-Pipeline to get a preview.
+
+=== Dependencies
+
+The 2.2.1 docker image of docToolchain should be self-contained. 
+Dependency resolution shouldn't be a problem with this image.
+You should run your build pipeline directly on this image.
+`dtcw` will notice it is running within the image and use the dependencies.
+
+When you need to use another version or create a local build, it might be that the sources for needed dependencies are unavailable (https://jfrog.com/blog/jcenter-sunset/).
+
+To be prepared for such a case, you can specify your own corporate repository proxies.
+
+Create a file `init.gradle` with content like the following:
+
+[source, gradle]
+----
+allprojects {
+    buildscript {
+        repositories {
+            maven { url = "<your maven proxy repository for maven central>" }
+        }
+    }
+    repositories {
+        maven { url = "<your maven proxy repository for gradle plugins>" }
+    }
+}
+println ">>> repository locations initialized via init.gradle"
+----
+
+and reference the file when you execute a `dtcw` command like this:
+
+    ./dtcw -I $(pwd)/init.gradle <task>
+
+See https://docs.gradle.org/current/userguide/init_scripts.html for more details on this approach.
+
+
