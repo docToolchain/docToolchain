@@ -9,6 +9,14 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+=== added
+
+=== changed
+
+== 3.4.0 - 2024-07-18
+
+=== fixed
+
 * https://github.com/docToolchain/docToolchain/issues/1414[Build suddenly fails (since changes to Gradle plugin portal)]
 
 === added
