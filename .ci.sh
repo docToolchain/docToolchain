@@ -87,23 +87,24 @@ create_doc () {
   echo "############################################"
   echo "TRAVIS_BRANCH=${BRANCH}"
   if [ "${BRANCH}" == "ng" ] || [ "${BRANCH}" == "main-2.x" ] ; then
-    echo ">>> install"
-    ./dtcw local install doctoolchain
-    echo ">>> tasks"
-    ./dtcw local tasks
-    echo ">>> exportMarkdown"
-    ./dtcw local exportMarkdown
-    echo ">>> exportChangelog"
-    ./dtcw local exportChangeLog
-    echo ">>> exportContributors"
-    ./dtcw local exportContributors
-    echo ">>> generateSite"
-    ./dtcw local generateSite --stacktrace
-    [ -d docs ] || mkdir docs
-    cp -r build/microsite/output/. docs/.
-#    [ -d  docs/htmlchecks ] || mkdir docs/htmlchecks
-#    cp -r build/docs/report/htmlchecks/. docs/htmlchecks/.
-
+    if [ "${JDK_VERSION}" == "adopt-17" ] || [ "${JDK_VERSION}" == "openjdk17" ]  ; then
+      echo ">>> install"
+      ./dtcw local install doctoolchain
+      echo ">>> tasks"
+      ./dtcw local tasks
+      echo ">>> exportMarkdown"
+      ./dtcw local exportMarkdown
+      echo ">>> exportChangelog"
+      ./dtcw local exportChangeLog
+      echo ">>> exportContributors"
+      ./dtcw local exportContributors
+      echo ">>> generateSite"
+      ./dtcw local generateSite --stacktrace
+      [ -d docs ] || mkdir docs
+      cp -r build/microsite/output/. docs/.
+  #    [ -d  docs/htmlchecks ] || mkdir docs/htmlchecks
+  #    cp -r build/docs/report/htmlchecks/. docs/htmlchecks/.
+    fi
   else
     echo ">>> exportMarkdown"
 #    ./gradlew exportMarkdown exportChangeLog exportContributors generateHTML htmlSanityCheck --stacktrace && ./copyDocs.sh
