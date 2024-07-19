@@ -81,7 +81,7 @@ jobs:
           ./.ci.sh
       - name: Archive test results
         if: always()
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: test-report-${{ matrix.jdk }}-${{ matrix.java }}
           path: build/reports/tests/test/
