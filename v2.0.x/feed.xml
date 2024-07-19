@@ -6,9 +6,137 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Fri, 19 Jul 2024 08:15:04 +0000</pubDate>
-    <lastBuildDate>Fri, 19 Jul 2024 08:15:04 +0000</lastBuildDate>
+    <pubDate>Fri, 19 Jul 2024 09:05:35 +0000</pubDate>
+    <lastBuildDate>Fri, 19 Jul 2024 09:05:35 +0000</lastBuildDate>
 
+    
+    <item>
+      <title>Release v3.4</title>
+      <link>https://localhost/030_news/2024/3.4.0-release.html</link>
+      <pubDate>Thu, 18 Jul 2024 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">030_news/2024/3.4.0-release.html</guid>
+      <description>
+      &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
+&lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
+&lt;ul class=&quot;sectlevel1&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_doctoolchain_release_v3_4_bugfix_release&quot;&gt;docToolchain release v3.4 (Bugfix-Release)&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_about_this_release&quot;&gt;About This Release&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_notes&quot;&gt;Notes&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_fixed&quot;&gt;fixed&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_added&quot;&gt;added&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_changed&quot;&gt;changed&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- endtoc --&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_doctoolchain_release_v3_4_bugfix_release&quot;&gt;docToolchain release v3.4 (Bugfix-Release)&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_about_this_release&quot;&gt;About This Release&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;strong&gt;JCenter&lt;/strong&gt; is going into sunset again (&lt;a href=&quot;https://jfrog.com/blog/jcenter-sunset/&quot; class=&quot;bare&quot;&gt;https://jfrog.com/blog/jcenter-sunset/&lt;/a&gt;).
+Since quite some time, docToolchain does not reference JCenter anymore.
+But it seems that deep down in the Gradle code, there where still some mechanisms which resolved dependencies via JCenter.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Now that JCenter redirects to Maven Central, we noticed that there where some dependencies which are not available in Maven Central.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For &lt;em&gt;grolifant&lt;/em&gt; and &lt;em&gt;okhttp-digest&lt;/em&gt;, we could modify the version used: &lt;a href=&quot;https://github.com/docToolchain/docToolchain/pull/1416/files#diff-3433324f9a2bbfe886e6234c6f7e08522a1a63d4cb55e50555310dbc87a26d6eR15&quot; class=&quot;bare&quot;&gt;https://github.com/docToolchain/docToolchain/pull/1416/files#diff-3433324f9a2bbfe886e6234c6f7e08522a1a63d4cb55e50555310dbc87a26d6eR15&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;For &lt;em&gt;markdown_to_asciidoc&lt;/em&gt;, the coordinates changed and with them the minimal Java Version: &lt;a href=&quot;https://github.com/docToolchain/docToolchain/pull/1416/files#diff-0849704cf63a51fc06de310463839c4dd6e238297c41f8431abb1d019c94ac7eL48&quot; class=&quot;bare&quot;&gt;https://github.com/docToolchain/docToolchain/pull/1416/files#diff-0849704cf63a51fc06de310463839c4dd6e238297c41f8431abb1d019c94ac7eL48&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Since docToolchain consists of scripts, we could add some logik that if you are below JDK 17, docToolchain still runs but &lt;code&gt;exportMarkdown&lt;/code&gt; will be disabled.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;To make docToolchain more stable, we added a new tutorial with some thoughts about how to use docToolchain in an Enterprise environment: &lt;a href=&quot;https://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/160_EnterpriseTipsAndTricks.html&quot;&gt;Enterprise docToolchain&lt;/a&gt;.
+In this special case, a corporate proxy for the dependencies would have safed you from a disruption.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Why are those old dependencies in docToolchain?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Well, docToolchain relies on many great libraries which already run in a stable way for quite some time.
+There was no need to update them in the past.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;But to be honest, some are also hard to upgrade.
+This is why there is a replacement for jBake in the pipeline.
+A lightweight version with only the feature set which docToolchain uses with less dependencies.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_notes&quot;&gt;Notes&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_fixed&quot;&gt;fixed&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1414&quot;&gt;Build suddenly fails (since changes to Gradle plugin portal)&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_added&quot;&gt;added&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;Collapsible left menu (see &lt;a href=&quot;https://doctoolchain.org/docToolchain/v2.0.x/030_news/index.html&quot; class=&quot;bare&quot;&gt;https://doctoolchain.org/docToolchain/v2.0.x/030_news/index.html&lt;/a&gt; for an example)&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/pull/1389&quot;&gt;exportEA: Add additional option to set the image format&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/docToolchain/docToolchain/pull/1391&quot;&gt;#1391: Update collectIncludes.gradle&lt;/a&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_changed&quot;&gt;changed&lt;/h3&gt;
+&lt;div class=&quot;ulist&quot;&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;p&gt;removed link to plausible.io on docs site&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;div class=&quot;admonitionblock tip&quot;&gt;
+&lt;table&gt;
+&lt;tr&gt;
+&lt;td class=&quot;icon&quot;&gt;
+&lt;i class=&quot;fa icon-tip&quot; title=&quot;Tip&quot;&gt;&lt;/i&gt;
+&lt;/td&gt;
+&lt;td class=&quot;content&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;You like docToolchain?&lt;br&gt;
+What about helping to make it even better?&lt;br&gt;
+docToolchain is a community project, so be part of the community which drives the project.&lt;br&gt;
+You don&amp;#8217;t have to code for doing so.&lt;br&gt;
+It would even help to brush up the docs, write tutorials or groom the backlog&lt;br&gt;
+(I guess many of the open issues are already fixed).&lt;/p&gt;
+&lt;/div&gt;
+&lt;/td&gt;
+&lt;/tr&gt;
+&lt;/table&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	  </description>
+    </item>
     
     <item>
       <title>Release v3.3</title>
