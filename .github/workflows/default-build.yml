@@ -67,7 +67,7 @@ jobs:
           find . -type f -perm 0755 -exec egrep -l '^#!(/bin/bash|/usr/bin/env bash)' {} + | xargs shellcheck
 
       - name: Set up JDK
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: ${{ matrix.jdk }}
           java-version: ${{ matrix.java }}
