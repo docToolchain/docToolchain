@@ -18,7 +18,7 @@ jobs:
     steps:
       - name: Install used packages
         run: sudo apt-get -qq -y --no-install-recommends install curl ca-certificates ncurses-bin xz-utils
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
       - name: Run shellcheck
         uses: ludeeus/action-shellcheck@master
         with:

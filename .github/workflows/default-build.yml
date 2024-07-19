@@ -42,7 +42,7 @@ jobs:
       - name: Install used packages
         run: sudo apt-get install -y graphviz shellcheck pandoc
 
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
