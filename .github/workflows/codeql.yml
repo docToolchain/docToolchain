@@ -48,8 +48,6 @@ jobs:
           build-mode: none
         - language: python
           build-mode: none
-        - language: ruby
-          build-mode: none
         - language: java-kotlin
           build-mode: none
         # CodeQL supports the following values keywords for 'language': 'c-cpp', 'csharp', 'go', 'java-kotlin', 'javascript-typescript', 'python', 'ruby', 'swift'
