@@ -1,0 +1,67 @@
+:filename: 030_news/2024/3.4-release.adoc
+:jbake-title: Release v3.4
+:jbake-date: 2024-07-18
+:jbake-type: post
+:jbake-tags: docToolchain
+:jbake-status: published
+:jbake-menu: news
+:jbake-author: Ralf D. Müller
+:icons: font
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+== docToolchain release v3.4 (Bugfix-Release)
+
+
+=== About This Release
+
+*JCenter* is going into sunset again (https://jfrog.com/blog/jcenter-sunset/).
+Since quite some time, docToolchain does not reference JCenter anymore.
+But it seems that deep down in the Gradle code, there where still some mechanisms which resolved dependencies via JCenter.
+
+Now that JCenter redirects to Maven Central, we noticed that there where some dependencies which are not available in Maven Central.
+
+For _grolifant_ and _okhttp-digest_, we could modify the version used: https://github.com/docToolchain/docToolchain/pull/1416/files#diff-3433324f9a2bbfe886e6234c6f7e08522a1a63d4cb55e50555310dbc87a26d6eR15
+
+For _markdown_to_asciidoc_, the coordinates changed and with them the minimal Java Version: https://github.com/docToolchain/docToolchain/pull/1416/files#diff-0849704cf63a51fc06de310463839c4dd6e238297c41f8431abb1d019c94ac7eL48
+
+Since docToolchain consists of scripts, we could add some logik that if you are below JDK 17, docToolchain still runs but `exportMarkdown` will be disabled.
+
+To make docToolchain more stable, we added a new tutorial with some thoughts about how to use docToolchain in an Enterprise environment: https://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/160_EnterpriseTipsAndTricks.html[Enterprise docToolchain].
+In this special case, a corporate proxy for the dependencies would have safed you from a disruption.
+
+Why are those old dependencies in docToolchain?
+
+Well, docToolchain relies on many great libraries which already run in a stable way for quite some time.
+There was no need to update them in the past.
+
+But to be honest, some are also hard to upgrade.
+This is why there is a replacement for jBake in the pipeline.
+A lightweight version with only the feature set which docToolchain uses with less dependencies.
+
+== Notes
+
+=== fixed
+
+* https://github.com/docToolchain/docToolchain/issues/1414[Build suddenly fails (since changes to Gradle plugin portal)]
+
+=== added
+
+* Collapsible left menu (see https://doctoolchain.org/docToolchain/v2.0.x/030_news/index.html for an example)
+* https://github.com/docToolchain/docToolchain/pull/1389[exportEA: Add additional option to set the image format]
+* https://github.com/docToolchain/docToolchain/pull/1391[#1391: Update collectIncludes.gradle]
+
+=== changed
+
+* removed link to plausible.io on docs site
+
+
+[TIP]
+====
+You like docToolchain? +
+What about helping to make it even better? +
+docToolchain is a community project, so be part of the community which drives the project. +
+You don't have to code for doing so. +
+It would even help to brush up the docs, write tutorials or groom the backlog +
+(I guess many of the open issues are already fixed).
+====
