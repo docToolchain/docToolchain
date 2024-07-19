@@ -132,11 +132,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/issue1.html</loc>
-    	<lastmod>2024-07-19</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/Architect_notes.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
@@ -157,22 +152,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/readme.html</loc>
-    	<lastmod>2024-07-19</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_wipeConfluenceSpace.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
-    	<lastmod>2024-07-19</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportMetrics.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
@@ -192,7 +177,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/ea/issue1.html</loc>
+    	<lastmod>2024-07-19</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
+    	<lastmod>2024-07-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/readme.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
@@ -203,6 +198,11 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
+    	<lastmod>2024-07-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportMetrics.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
@@ -232,27 +232,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_exportEA.html</loc>
+    	<lastmod>2024-07-19</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_fixencoding.html</loc>
-    	<lastmod>2024-07-19</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportEA.html</loc>
-    	<lastmod>2024-07-19</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
-    	<lastmod>2024-07-19</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_generateSite.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
@@ -272,12 +262,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateHTML.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_generateSite.html</loc>
+    	<lastmod>2024-07-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_generateHTML.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
@@ -292,17 +287,22 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
-    	<lastmod>2024-07-19</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_downloadTemplate.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
+    	<lastmod>2024-07-19</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_generatePDF.html</loc>
+    	<lastmod>2024-07-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_generateContent.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
@@ -317,7 +317,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateContent.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
+    	<lastmod>2024-07-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_publishToConfluence.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
@@ -327,7 +332,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_publishToConfluence.html</loc>
+    	<loc>https://localhost/015_tasks/03_tasks.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
@@ -352,11 +357,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_tasks.html</loc>
-    	<lastmod>2024-07-19</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/025_development/030_create_new_release.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
@@ -372,12 +372,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/050_who-uses-dtc.html</loc>
+    	<loc>https://localhost/025_development/040_debugging.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/040_debugging.html</loc>
+    	<loc>https://localhost/025_development/050_who-uses-dtc.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
@@ -392,12 +392,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/050_ADRs/ADR-1-Scripting-Languages.html</loc>
+    	<loc>https://localhost/010_manual/60_further_reading.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/60_further_reading.html</loc>
+    	<loc>https://localhost/050_ADRs/ADR-1-Scripting-Languages.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
@@ -407,12 +407,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/50_Frequently_asked_Questions.html</loc>
+    	<loc>https://localhost/010_manual/40_features.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/40_features.html</loc>
+    	<loc>https://localhost/010_manual/50_Frequently_asked_Questions.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
@@ -432,22 +432,22 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/100_diagrams.net.html</loc>
-    	<lastmod>2024-07-19</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/020_tutorial/030_generateHTML.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/160_EnterpriseTipsAndTricks.html</loc>
+    	<loc>https://localhost/020_tutorial/100_diagrams.net.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/020_tutorial/120_self-contained-dtc.html</loc>
+    	<lastmod>2024-07-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/020_tutorial/160_EnterpriseTipsAndTricks.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
@@ -472,12 +472,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/040_microsite/130_theming.html</loc>
+    	<loc>https://localhost/020_tutorial/040_microsite/040_generateSite.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/040_microsite/040_generateSite.html</loc>
+    	<loc>https://localhost/020_tutorial/040_microsite/130_theming.html</loc>
     	<lastmod>2024-07-19</lastmod>
     </url>
 
