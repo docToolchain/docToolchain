@@ -2,7 +2,7 @@
 :jbake-title: Enterprise docToolchain
 include::_config.adoc[]
 
-== Some Tipps on how to use docToolchain in an Enterprise Environment
+== Some Tips on how to use docToolchain in an Enterprise Environment
 
 Some things are different when you use them at a larger scale.
 That's why I would like to share my experience with docToolchain in an Enterprise Environment.
