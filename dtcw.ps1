@@ -88,7 +88,7 @@ function main($_args) {
     }
     elseif ( $_args[0] -eq "getJava" ) {
         # TODO: remove getJava in the next major release
-        Write-Warning "Warning: 'getJava' is deprecated and and will be removed. Use './dtcw install java' instead."
+        Write-Warning "Warning: 'getJava' is deprecated and will be removed. Use './dtcw install java' instead."
         install_component_and_exit $environment "java"
     }
     # No install command, so forward call to docToolchain but first we check if

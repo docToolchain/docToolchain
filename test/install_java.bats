@@ -108,7 +108,7 @@ teardown() {
     PATH="${minimal_system}" run -0 ./dtcw getJava
 
     assert_line "Successfully installed Java in '${DTC_ROOT}/jdk'."
-    assert_line "Warning: 'getJava' is deprecated and and will be removed. Use './dtcw install java' instead."
+    assert_line "Warning: 'getJava' is deprecated and will be removed. Use './dtcw install java' instead."
 }
 
 @test "Java download failed" {
