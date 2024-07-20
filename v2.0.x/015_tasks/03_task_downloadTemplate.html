@@ -536,6 +536,7 @@ searching issues...
 <ul class="sectlevel2">
 <li><a href="#_about_this_task">About This Task</a></li>
 <li><a href="#_setup_and_configuration">Setup and Configuration</a></li>
+<li><a href="#_experimental_antora_support">experimental Antora support</a></li>
 <li><a href="#_further_reading_and_resources">Further Reading and Resources</a></li>
 </ul>
 </li>
@@ -571,11 +572,11 @@ searching issues...
 <h2 id="task_downloadTemplate">downloadTemplate</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/a1a5917e47cadf234366c3e3beef39b6?d=identicon" alt="Johannes Thorn" width="32" height="32" title="Johannes Thorn"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/9934d8546416204bc9454812316d4113?d=identicon" alt="Pascal Euhus" width="32" height="32" title="Pascal Euhus"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a1a5917e47cadf234366c3e3beef39b6?d=identicon" alt="Johannes Thorn" width="32" height="32" title="Johannes Thorn"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/9934d8546416204bc9454812316d4113?d=identicon" alt="Pascal Euhus" width="32" height="32" title="Pascal Euhus"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
-<pre>1 minute to read</pre>
+<pre>2 minutes to read</pre>
 </div>
 </div>
 <div class="sect2">
@@ -588,6 +589,70 @@ searching issues...
 <h3 id="_setup_and_configuration">Setup and Configuration</h3>
 <div class="paragraph">
 <p>You can choose to bootstrap your project as an Antora project or as a plain AsciiDoc project. The Antora integration is currently in beta. The Antora integration enables you to register the project seamlessly with an existing Antora playbook.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_experimental_antora_support">experimental Antora support</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>to test the Antora template</p>
+<div class="ulist">
+<ul>
+<li>
+<p>install antora: <a href="https://docs.antora.org/antora/latest/install/install-antora/" class="bare">https://docs.antora.org/antora/latest/install/install-antora/</a></p>
+</li>
+<li>
+<p>download the arc42 template as antora style <code>./dtcw downloadTemplate</code></p>
+</li>
+<li>
+<p>create a <code>playbook.yaml</code> within the root of your project</p>
+</li>
+<li>
+<p>make sure that your project is a valid git repository and contains at least one commit</p>
+</li>
+<li>
+<p>execute <code>antora playbook.yml</code></p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">playbook.yml</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="yml">site:
+  title: Antora ARC42 Template
+  start_page: arc42-template::index.adoc
+content:
+  sources:
+  - url: ./
+    start_path: src/docs/arc42
+    branches: [HEAD]
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true
+asciidoc:
+  attributes:
+    sectanchors: true
+
+output:
+  dir: build/antora</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+To install antora, follow the instructions on <a href="https://docs.antora.org/antora/latest/install-and-run-quickstart/" class="bare">https://docs.antora.org/antora/latest/install-and-run-quickstart/</a>
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">
