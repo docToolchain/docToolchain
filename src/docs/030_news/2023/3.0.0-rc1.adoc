@@ -50,7 +50,7 @@ site:
 content:
   sources:
   - url: ./
-    start_path: src/docs
+    start_path: src/docs/arc42
     branches: [HEAD]
 ui:
   bundle:
