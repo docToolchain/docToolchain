@@ -25,9 +25,9 @@ class HtmlTransformer {
         return this
     }
 
-    String transformToConfluenceFormat(Element body,  anchors, pageAnchors) {
+    String transformToConfluenceFormat(Element body,  anchors, pageAnchors, confluencePagePrefix, confluencePageSuffix) {
         codeBlockTransformer.transformCodeBlock(body)
-        linkTransformer.transformLinks(body, anchors, pageAnchors, jiraBaseUrl, jiraServerId)
+        linkTransformer.transformLinks(body, anchors, pageAnchors, confluencePagePrefix, confluencePageSuffix, jiraBaseUrl, jiraServerId)
         return sanitizeBody(body)
     }
 

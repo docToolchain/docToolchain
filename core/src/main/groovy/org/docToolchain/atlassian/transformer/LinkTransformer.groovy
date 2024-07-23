@@ -5,18 +5,19 @@ import org.jsoup.nodes.Element
 
 class LinkTransformer {
 
-    protected List<Element> transformLinks(Element body,  anchors, pageAnchors, String jiraBaseUrl, String jiraServerId) {
+    // TODO we should improve this part here, as it is not very clean
+    protected List<Element> transformLinks(Element body,  anchors, pageAnchors, confluencePagePrefix, confluencePageSuffix, String jiraBaseUrl, String jiraServerId) {
         return body.select('a[href]').each { link ->
             def href = link.attr('href')
             if (href.startsWith('#')) {
-                rewriteInternalLinks(link, anchors, pageAnchors)
+                rewriteInternalLinks(link, anchors, pageAnchors, confluencePagePrefix, confluencePageSuffix)
             } else if (jiraBaseUrl && href.startsWith(jiraBaseUrl + "/browse/")) {
                 rewriteJiraLinks(link, jiraServerId)
             }
         }
     }
 
-    private rewriteInternalLinks(Element a, anchors, pageAnchors) {
+    private rewriteInternalLinks(Element a, anchors, pageAnchors, confluencePagePrefix, confluencePageSuffix) {
         def anchor = a.attr('href').substring(1)
         def pageTitle = anchors[anchor] ?: pageAnchors[anchor]
         if (pageTitle && a.text()) {
@@ -25,7 +26,7 @@ class LinkTransformer {
             // potentially loose styling that way.
             a.html(a.text())
             a.wrap("<ac:link${anchors.containsKey(anchor) ? ' ac:anchor="' + anchor + '"' : ''}></ac:link>")
-                .before("<ri:page ri:content-title=\"${realTitle pageTitle}\"/>")
+                .before("<ri:page ri:content-title=\"${confluencePagePrefix +  pageTitle + confluencePageSuffix}\"/>")
                 .wrap("<ac:plain-text-link-body>${ConfluenceTags.CDATA_PLACEHOLDER_START}${ConfluenceTags.CDATA_PLACEHOLDER_END}</ac:plain-text-link-body>")
                 .unwrap()
         }
