@@ -256,45 +256,6 @@ class Asciidoc2ConfluenceTask extends DocToolchainTask {
         }
     }
 
-    def rewriteInternalLinks (body, anchors, pageAnchors) {
-        // find internal cross-references and replace them with link macros
-        body.select('a[href]').each { a ->
-            def href = a.attr('href')
-            if (href.startsWith('#')) {
-                def anchor = href.substring(1)
-                def pageTitle = anchors[anchor] ?: pageAnchors[anchor]
-                if (pageTitle && a.text()) {
-                    // as Confluence insists on link texts to be contained
-                    // inside CDATA, we have to strip all HTML and
-                    // potentially loose styling that way.
-                    a.html(a.text())
-                    a.wrap("<ac:link${anchors.containsKey(anchor) ? ' ac:anchor="' + anchor + '"' : ''}></ac:link>")
-                        .before("<ri:page ri:content-title=\"${realTitle pageTitle}\"/>")
-                        .wrap("<ac:plain-text-link-body>${CDATA_PLACEHOLDER_START}${CDATA_PLACEHOLDER_END}</ac:plain-text-link-body>")
-                        .unwrap()
-                }
-            }
-        }
-    }
-
-    def rewriteJiraLinks (body) {
-        // find links to jira tickets and replace them with jira macros
-        body.select('a[href]').each { a ->
-            def href = a.attr('href')
-            if (href.startsWith(config.jira.api + "/browse/")) {
-                def ticketId = a.text()
-                def macroBlock = """<ac:structured-macro ac:name=\"jira\" ac:schema-version=\"1\">
-                     <ac:parameter ac:name=\"key\">${ticketId}</ac:parameter>"""
-                if (config.jira.serverId) {
-                    macroBlock += "<ac:parameter ac:name=\"serverId\">${config.jira.serverId}</ac:parameter>"
-                }
-                macroBlock += "</ac:structured-macro>"
-                a.before(macroBlock)
-                a.remove()
-            }
-        }
-    }
-
     def rewriteOpenAPI (Element body) {
         if (config.confluence.useOpenapiMacro == true || config.confluence.useOpenapiMacro == 'confluence-open-api') {
             body.select('div.openapi  pre > code').each { code ->
@@ -504,7 +465,6 @@ class Asciidoc2ConfluenceTask extends DocToolchainTask {
 
         rewriteMarks body
         rewriteDescriptionLists body
-        rewriteInternalLinks body, anchors, pageAnchors
         //not really sure if must check here the type
         String bodyString = body
         if(body instanceof Element){
