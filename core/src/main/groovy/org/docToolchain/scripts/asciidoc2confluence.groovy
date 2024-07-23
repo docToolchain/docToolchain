@@ -1,5 +1,10 @@
 package org.docToolchain.scripts
 
+/**
+ * THIS SCRIPT HAS BEEN DEPRECATED. IT IS NOT USED ANYMORE. PLEASE REFER TO THE NEW Asciidoc2ConfluenceTask
+ * IMPLEMENTATION INSTEAD. REFERENCE ONLY.
+ */
+
 import org.docToolchain.atlassian.transformer.HtmlTransformer
 
 /**
