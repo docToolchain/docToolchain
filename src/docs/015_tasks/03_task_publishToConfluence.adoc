@@ -167,8 +167,8 @@ If you enable this feature, and use a folder which starts with 'attachment', an 
 Limits the number of pages retrieved from the server to check if a page with this name already exists.
 
 *jiraServerId*
-Stores the Jira server ID that your Confluence instance is connected to. If a value is set, all anchors pointing to a Jira ticket will be replaced by the Confluence Jira macro.
-To function properly, `jiraRoot` must be configured (see xref:03_task_exportJiraIssues.adoc[`exportJiraIssues`]). Here's an example:
+Only required if you are using Jira on-premise. If you are using Jira cloud you do not need to set this value.
+Stores the Jira server ID that your Confluence instance is connected to. If a value is set, all anchors pointing to a Jira ticket will be replaced by the Confluence Jira macro. How-To find your Jira server ID https://confluence.atlassian.com/adminjiraserver/finding-your-server-id-938847652.html[please check the Atlassian documentation].
 
 All files to attach will need to be linked inside the document:
 ``\link:attachment/myfolder/myfile.json[My API definition]``
