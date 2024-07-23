@@ -283,10 +283,13 @@ class Asciidoc2ConfluenceTask extends DocToolchainTask {
             def href = a.attr('href')
             if (href.startsWith(config.jira.api + "/browse/")) {
                 def ticketId = a.text()
-                a.before("""<ac:structured-macro ac:name=\"jira\" ac:schema-version=\"1\">
-                     <ac:parameter ac:name=\"key\">${ticketId}</ac:parameter>
-                     <ac:parameter ac:name=\"serverId\">${config.confluence.jiraServerId}</ac:parameter>
-                     </ac:structured-macro>""")
+                def macroBlock = """<ac:structured-macro ac:name=\"jira\" ac:schema-version=\"1\">
+                     <ac:parameter ac:name=\"key\">${ticketId}</ac:parameter>"""
+                if (config.jira.serverId) {
+                    macroBlock += "<ac:parameter ac:name=\"serverId\">${config.jira.serverId}</ac:parameter>"
+                }
+                macroBlock += "</ac:structured-macro>"
+                a.before(macroBlock)
                 a.remove()
             }
         }
@@ -499,10 +502,6 @@ class Asciidoc2ConfluenceTask extends DocToolchainTask {
             }
         }
 
-        if(config.confluence.jiraServerId){
-            rewriteJiraLinks body
-        }
-
         rewriteMarks body
         rewriteDescriptionLists body
         rewriteInternalLinks body, anchors, pageAnchors
@@ -514,7 +513,14 @@ class Asciidoc2ConfluenceTask extends DocToolchainTask {
         Element saneHtml = new Document("")
             .outputSettings(new Document.OutputSettings().syntax(Document.OutputSettings.Syntax.xml).prettyPrint(false))
             .html(bodyString)
-        def pageString = new HtmlTransformer().transformToConfluenceFormat(saneHtml)
+        HtmlTransformer transformer = new HtmlTransformer()
+        if(config.jira.api){
+            transformer.withJiraIntegration(config.jira.api)
+        }
+        if(config.confluence.jiraServerId){
+            transformer.usingOnPremiseJira(config.confluence.jiraServerId)
+        }
+        def pageString = transformer.transformToConfluenceFormat(saneHtml, anchors, pageAnchors)
 
         return Map.of(
             "page", pageString,

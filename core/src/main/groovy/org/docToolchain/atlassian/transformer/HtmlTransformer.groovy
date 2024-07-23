@@ -6,13 +6,28 @@ import org.jsoup.nodes.Element
 class HtmlTransformer {
 
     private CodeBlockTransformer codeBlockTransformer
+    private LinkTransformer linkTransformer
+    private String jiraServerId
+    private String jiraBaseUrl
 
     HtmlTransformer() {
         this.codeBlockTransformer = new CodeBlockTransformer()
+        this.linkTransformer = new LinkTransformer()
     }
 
-    String transformToConfluenceFormat(Element body) {
+    HtmlTransformer withJiraIntegration(String jiraBaseUrl) {
+        this.jiraBaseUrl = jiraBaseUrl
+        return this
+    }
+
+    HtmlTransformer usingOnPremiseJira(String jiraServerId) {
+        this.jiraServerId = jiraServerId
+        return this
+    }
+
+    String transformToConfluenceFormat(Element body,  anchors, pageAnchors) {
         codeBlockTransformer.transformCodeBlock(body)
+        linkTransformer.transformLinks(body, anchors, pageAnchors, jiraBaseUrl, jiraServerId)
         return sanitizeBody(body)
     }
 
