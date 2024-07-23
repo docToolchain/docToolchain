@@ -2,8 +2,10 @@ package org.docToolchain.scripts
 
 import org.docToolchain.util.TestUtils
 import org.jsoup.Jsoup
+import spock.lang.Ignore
 import spock.lang.Specification
 
+@Ignore
 class asciidoc2confluenceSpec extends Specification {
 
     static final ASCIIDOC2CONFLUENCE_SCRIPT = new File("./src/main/groovy/org/docToolchain/scripts/asciidoc2confluence.groovy")

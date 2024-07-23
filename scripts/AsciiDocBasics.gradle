@@ -196,14 +196,26 @@ asciidoctorj {
     }
 
     // Here we can add the code for extensions we write.
+    // be aware that the docToolchain config variable inside the extension is not available
+    def jiraBaseUrl
+
+    if(config.jira.api){
+        URL url = new URL(config.jira.api)
+        String portPart = url.port == -1 || url.port == url.defaultPort ? "" : ":${url.port}"
+        jiraBaseUrl = "${url.protocol}://${url.host}${portPart}"
+    }
+
     docExtensions {
-        block (name: "jira") {
+        inline_macro (name: "jira") {
             parent, target, attributes ->
-                options = [
+                def options = [
                     "type": ":link",
-                    "target": jiraRoot+"/browse/${target}".toString(),
+                    "target": "${jiraBaseUrl}/browse/${target}".toString(),
                     "id": "${target}"
                 ]
+                if(!jiraBaseUrl ){
+                    println(">>> WARN: No Jira API URL found in config, the Jira extension may not work as expected.")
+                }
 
                 // Create the link to the issue.
                 createPhraseNode(parent, "anchor", target, attributes, options).render()

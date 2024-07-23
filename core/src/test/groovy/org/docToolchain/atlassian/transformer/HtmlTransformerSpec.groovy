@@ -19,7 +19,7 @@ class HtmlTransformerSpec extends Specification {
         when: 'we pass a HTML section into the transformer'
             File htmlFile = new File("${TestUtils.TEST_RESOURCES_DIR}${TEST_RESOURCE_PATH}/1355-source-code-format.html")
             Element input = new Document("").outputSettings(new Document.OutputSettings().prettyPrint(false)).html(htmlFile.text)
-            def result = htmlTransformer.transformToConfluenceFormat(input)
+            def result = htmlTransformer.transformToConfluenceFormat(input, [:], [:], "", "")
         then:  'there is no exception, newlines are preserved and the code has the expected Confluence structure'
             noExceptionThrown()
             // need to call trim() to avoid whitespace issues, newlines are still preserved. Hence this is sane.
