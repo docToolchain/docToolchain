@@ -6,7 +6,15 @@ import org.jsoup.nodes.Element
 class LinkTransformer {
 
     // TODO we should improve this part here, as it is not very clean
-    protected List<Element> transformLinks(Element body,  anchors, pageAnchors, confluencePagePrefix, confluencePageSuffix, String jiraBaseUrl, String jiraServerId) {
+    protected List<Element> transformLinks(Element body,  anchors, pageAnchors, confluencePagePrefix, confluencePageSuffix, String jiraRestApiUrl, String jiraServerId) {
+        def jiraBaseUrl
+        if(jiraRestApiUrl) {
+            URL url = new URL(jiraRestApiUrl)
+            String portPart = url.port == -1 || url.port == url.defaultPort ? "" : ":${url.port}"
+            jiraBaseUrl = "${url.protocol}://${url.host}${portPart}"
+        } else {
+            println(">>> WARN: No Jira API URL found in config, the Jira extension may not work as expected.")
+        }
         return body.select('a[href]').each { link ->
             def href = link.attr('href')
             if (href.startsWith('#')) {
@@ -33,6 +41,7 @@ class LinkTransformer {
     }
 
     private rewriteJiraLinks(Element a, String jiraServerId) {
+        println("rewriteJiraLinks ${jiraServerId}")
         def ticketId = a.text()
         def macroBlock = """<ac:structured-macro ac:name=\"jira\" ac:schema-version=\"1\">
                      <ac:parameter ac:name=\"key\">${ticketId}</ac:parameter>"""
