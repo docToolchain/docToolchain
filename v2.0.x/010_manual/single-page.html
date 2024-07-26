@@ -5141,16 +5141,20 @@ config.confluence.input.each { input -&gt;
         workingDir "$targetDir/docbook"
         executable = "pandoc"
 
+        def pandocOptions = config.pandocOptions ?: []
+
         if(referenceDocFile?.trim()) {
             args = ["-r","docbook",
                     "-t","docx",
                     "-o","../docx/$targetFile",
+                    *pandocOptions,
                     "--reference-doc=${docDir}/${referenceDocFile}",
                     sourceFile]
         } else {
             args = ["-r","docbook",
                     "-t","docx",
                     "-o","./../docx/$targetFile",
+                    *pandocOptions,
                     sourceFile]
         }
     }
