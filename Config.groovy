@@ -408,3 +408,8 @@ openAI.with {
     //temperature = '0.3'
 }
 //end::openAIConfig[]
+
+// Configuration for pandoc options
+pandocOptions = [
+    '--toc'
+]
