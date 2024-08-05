@@ -439,7 +439,7 @@ class Asciidoc2ConfluenceTask extends DocToolchainTask {
 
 
         if(config.confluence.enableAttachments){
-            attachmentPrefix = config.confluence.attachmentPrefix ? config.confluence.attachmentPrefix : 'attachment'
+            def attachmentPrefix = config.confluence.attachmentPrefix ? config.confluence.attachmentPrefix : 'attachment'
             body.select('a').each { link ->
 
                 def src = link.attr('href')
