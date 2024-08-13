@@ -16,6 +16,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 
+* Use https://github.com/aim42/htmlSanityCheck/releases/tag/2.0.0-rc0[Release 2.0.0-rc0] of HTML Sanity Checker
 * https://github.com/docToolchain/docToolchain/issues/1411[removed legacy `jiraRoot` config property]
 
 == 3.4.0 - 2024-07-18
