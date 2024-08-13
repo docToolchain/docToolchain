@@ -644,12 +644,16 @@ build_command() {
             DTC_OPTS="${DTC_OPTS} '-Dgradle.user.home=${DTC_ROOT}/.gradle'"
         fi
         if [ "${env}" = local ]; then
+            if [ -x "${DTC_HOME}/bin/doctoolchain" ]; then
+                cmd="${DTC_HOME}/bin/doctoolchain"
             # is doctoolchain available on the path?
-            if command -v doctoolchain >/dev/null 2>&1; then
-                cmd="doctoolchain . ${*} ${DTC_OPTS}"
+            elif command -v doctoolchain >/dev/null 2>&1; then
+                cmd="doctoolchain"
             else
-                cmd="${DTC_HOME}/bin/doctoolchain . ${*} ${DTC_OPTS}"
+                echo "Could not find doctoolchain executable, neither in '${DTC_HOME}' nor on PATH ('${PATH}')" >&2
+                exit 1
             fi
+            cmd="${cmd} . ${*} ${DTC_OPTS}"
         else
             cmd="$(sdk_home_doctoolchain "${version}")/bin/doctoolchain . ${*} ${DTC_OPTS}"
         fi
