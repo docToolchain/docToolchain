@@ -129,7 +129,9 @@ main() {
     fi
 
     # echo "Command to invoke: ${command}"
-    exec ${emu} ${bash} -c "${command}"
+    # shellcheck disable=SC2086
+    # as we hope to know what we are doing here ;-)
+    exec ${emu} ${bash} ${DTC_SHELL_DEBUG:-} -c "${command}"
 }
 
 assert_argument_exists() {
