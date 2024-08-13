@@ -1,7 +1,7 @@
 [versions]
 groovy = "3.0.13"
 # Plugins
-htmlSanityCheck = "1.1.6"
+htmlSanityCheck = "2.0.0-rc0"
 versions = "0.46.0"
 openapi = "6.6.0"
 undercouch-download = "5.4.0"
