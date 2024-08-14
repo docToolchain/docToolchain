@@ -181,6 +181,11 @@ class Asciidoc2ConfluenceTask extends DocToolchainTask {
             } else {
                 allPages = confluenceClient.fetchPagesByAncestorId(pageIds, pageLimit)
             }
+            if (allPages.isEmpty()) {
+                println "No pages found in the Confluence space."
+            } else {
+                println "Retrieved ${allPages.size()} pages from the Confluence space."
+            }
             allPages
         }
     }
@@ -814,4 +819,3 @@ class Asciidoc2ConfluenceTask extends DocToolchainTask {
         }
     }
 }
-
