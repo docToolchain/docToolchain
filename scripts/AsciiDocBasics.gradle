@@ -286,7 +286,17 @@ tasks.withType(AbstractAsciidoctorTask) { docTask ->
             if(extension.endsWith('.rb')) {
                 def root= new File(projectDir.canonicalPath)
                 def full = new File(new File(docDir,extension).canonicalPath)
-                def relPath = root.toPath().relativize( full.toPath() ).toFile()
+                def rootPath = root.toPath()
+                def fullPath = full.toPath()
+
+                def relPath
+                if (rootPath.root == fullPath.root) {
+                    relPath = rootPath.relativize(fullPath).toFile()
+                } else {
+                    // Use the full path as relative path is not possible
+                    relPath = fullPath.toFile()
+                }
+
                 asciidoctorj.requires += [relPath.toString()]
                 println ("added required ruby extension '$full'")
             } else {
