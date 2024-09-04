@@ -13,6 +13,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/issues/1411[Jira links substitution is not working]
 * https://github.com/docToolchain/docToolchain/issues/1421[publishToConfluence fails with "No such property: attachmentPrefix for class: org.docToolchain.tasks.Asciidoc2ConfluenceTask"]
 * DTCW should preferably use DTC from the local installation and only rely on `+${PATH}+` otherwise
+* https://github.com/docToolchain/docToolchain/issues/1438[Task :exportEA FAILED because of unknown property 'imageFormat']
 
 === added
 
