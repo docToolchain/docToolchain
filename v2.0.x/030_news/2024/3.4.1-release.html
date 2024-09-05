@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: 030_news/2024/3.3-release.html -->
+    <!-- sourceuri: 030_news/2024/3.4.1-release.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>Release v3.3</title>
+    <title>Release v3.4.1</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -399,7 +399,7 @@
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../../030_news/2024/3.3-release.html" title="Release v3.3">Release v3.3</a>
                                 
                             </li>
@@ -409,7 +409,7 @@
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../../030_news/2024/3.4.1-release.html" title="Release v3.4.1">Release v3.4.1</a>
                                 
                             </li>
@@ -426,11 +426,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2024/3.3-release.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2024/3.4.1-release.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Release+v3.3%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2024/3.3-release.adoc%0A%23branch:%20ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Release+v3.4.1%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/030_news/2024/3.4.1-release.adoc%0A%23branch:%20ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -438,7 +438,7 @@
         <hr />
 <script>
 const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
-const searchTerm = "030_news/2024/3.3-release.adoc";
+const searchTerm = "030_news/2024/3.4.1-release.adoc";
 </script>
 
 <script src="../../js/issues.js"></script>
@@ -489,14 +489,15 @@ searching issues...
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_doctoolchain_release_v3_3_bugfix_release">docToolchain release v3.3 (Bugfix-Release)</a>
+<li><a href="#_doctoolchain_release_v3_4_1_bugfix_release">docToolchain release v3.4.1 (Bugfix-Release)</a>
 <ul class="sectlevel2">
 <li><a href="#_about_this_release">About This Release</a></li>
 </ul>
 </li>
 <li><a href="#_notes">Notes</a>
 <ul class="sectlevel2">
-<li><a href="#_fixes">fixes</a></li>
+<li><a href="#_fixed">fixed</a></li>
+<li><a href="#_added">added</a></li>
 <li><a href="#_changed">changed</a></li>
 </ul>
 </li>
@@ -509,29 +510,26 @@ searching issues...
 				</div>
 			</div>
 			<main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
-				<p><em>18 February 2024, Ralf D. Müller</em></p>
+				<p><em>05 September 2024, Pascal Euhus</em></p>
 				<p>
                     
 <div class="sect1">
-<h2 id="_doctoolchain_release_v3_3_bugfix_release">docToolchain release v3.3 (Bugfix-Release)</h2>
+<h2 id="_doctoolchain_release_v3_4_1_bugfix_release">docToolchain release v3.4.1 (Bugfix-Release)</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_about_this_release">About This Release</h3>
 <div class="paragraph">
-<p>This release fixes a problem with the docker image and dependencies in a restricted environment.
-The docker image should already contain all required dependencies and thus should be able to run in an enviroment without internet connection (build pipeline).
-With the latest im provements, a change was introduced which broke this feature.
-This resulted in timeouts for the dependency resolution.</p>
+<p>This release fixes some bugs and introduces some minor changes.</p>
 </div>
 <div class="paragraph">
-<p>We now managed to fix this again.</p>
+<p>This version contains a fix for the <code>publishToConfluence</code> task
+which failed due to a bug introduced in <code>v3.4.0</code>.</p>
 </div>
 <div class="paragraph">
-<p>We also introduced an enviroment variable DTC_DOCKER_PREFIX to specify an internal docker hub for the docker image.
-This should also help to run docToolchain in restricted environments.</p>
+<p>One of the change highlights is the switch to the latest version of the <a href="https://github.com/aim42/htmlSanityCheck">HTML Sanity Checker (HSC)</a>. After some refactoring, HSC is now also available as batch- and command line tool. This allows to use HSC in CI/CD pipelines or as a standalone tool without the prior requirement to use Gradle.</p>
 </div>
 <div class="paragraph">
-<p>Other changes fix problems with custom ruby extensiosn for PDF generation and features for <code>publishToConfluence</code></p>
+<p>Furthermore, we did some housekeeping and removed some legacy code and unused configuration properties.</p>
 </div>
 </div>
 </div>
@@ -540,29 +538,33 @@ This should also help to run docToolchain in restricted environments.</p>
 <h2 id="_notes">Notes</h2>
 <div class="sectionbody">
 <div class="sect2">
-<h3 id="_fixes">fixes</h3>
+<h3 id="_fixed">fixed</h3>
 <div class="ulist">
 <ul>
 <li>
-<p>[Noticket] Enforce x86 Java on macOS as long as jbake does not support arm64 processors</p>
+<p>Missing alt attributes in site templates (found by HTML Sanity Checker 2.0.0-rc0, see below).</p>
 </li>
 <li>
-<p>[Noticket] Avoid usage of an arbitrary <code>arch</code> binary/script on <code>${PATH}</code> instead of the desired <code>/usr/bin/arch</code> on macOS.</p>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/1411">Jira links substitution is not working</a></p>
 </li>
 <li>
-<p><a href="https://github.com/docToolchain/docToolchain/issues/1353">#1353: docker: Problem with 3.x images and dependencies?</a></p>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/1421">publishToConfluence fails with "No such property: attachmentPrefix for class: org.docToolchain.tasks.Asciidoc2ConfluenceTask"</a></p>
 </li>
 <li>
-<p><a href="https://github.com/docToolchain/docToolchain/issues/1239">#1239: Execute a custom asciidoctor converter for generateHTML</a></p>
+<p>DTCW should preferably use DTC from the local installation and only rely on <code>${PATH}</code> otherwise</p>
 </li>
 <li>
-<p><a href="https://github.com/docToolchain/docToolchain/issues/1290">#1290: Custom ruby extension for PDF generation</a></p>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/1438">Task :exportEA FAILED because of unknown property 'imageFormat'</a></p>
 </li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_added">added</h3>
+<div class="ulist">
+<ul>
 <li>
-<p><a href="https://github.com/docToolchain/docToolchain/issues/1355">#1355: publishToConfluence - some code blocks are generated as txt instead of requested language and loose linebreaks</a></p>
-</li>
-<li>
-<p><a href="https://github.com/docToolchain/docToolchain/issues/1349">#1349: publishToConfluence - a source code block containing template parameters has formatting problems</a></p>
+<p>Add an environment variable <code>DTC_SHELL_DEBUG</code> (which could be set to <code>-x</code> or <code>-xv</code>) to let <code>dtcw</code> run the DTC script in a more verbose way.</p>
 </li>
 </ul>
 </div>
@@ -572,7 +574,10 @@ This should also help to run docToolchain in restricted environments.</p>
 <div class="ulist">
 <ul>
 <li>
-<p>you can now specify another dockerhub via DTC_DOCKER_PREFIX</p>
+<p>Use <a href="https://github.com/aim42/htmlSanityCheck/releases/tag/2.0.0-rc0">Release 2.0.0-rc0</a> of HTML Sanity Checker</p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/docToolchain/issues/1411">removed legacy <code>jiraRoot</code> config property</a></p>
 </li>
 </ul>
 </div>
