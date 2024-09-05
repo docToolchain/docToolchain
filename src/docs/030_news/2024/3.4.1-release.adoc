@@ -1,0 +1,54 @@
+:filename: 030_news/2024/3.4.1-release.adoc
+:jbake-title: Release v3.4.1
+:jbake-date: 2024-09-05
+:jbake-type: post
+:jbake-tags: docToolchain
+:jbake-status: published
+:jbake-menu: news
+:jbake-author: Pascal Euhus
+:icons: font
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+== docToolchain release v3.4.1 (Bugfix-Release)
+
+
+=== About This Release
+
+This release fixes some bugs and introduces some minor changes.
+
+This version contains a fix for the `publishToConfluence` task
+which failed due to a bug introduced in `v3.4.0`.
+
+One of the change highlights is the switch to the latest version of the https://github.com/aim42/htmlSanityCheck[HTML Sanity Checker (HSC)]. After some refactoring, HSC is now also available as batch- and command line tool. This allows to use HSC in CI/CD pipelines or as a standalone tool without the prior requirement to use Gradle.
+
+Furthermore, we did some housekeeping and removed some legacy code and unused configuration properties.
+
+== Notes
+
+=== fixed
+
+* Missing alt attributes in site templates (found by HTML Sanity Checker 2.0.0-rc0, see below).
+* https://github.com/docToolchain/docToolchain/issues/1411[Jira links substitution is not working]
+* https://github.com/docToolchain/docToolchain/issues/1421[publishToConfluence fails with "No such property: attachmentPrefix for class: org.docToolchain.tasks.Asciidoc2ConfluenceTask"]
+* DTCW should preferably use DTC from the local installation and only rely on `+${PATH}+` otherwise
+* https://github.com/docToolchain/docToolchain/issues/1438[Task :exportEA FAILED because of unknown property 'imageFormat']
+
+=== added
+
+* Add an environment variable `DTC_SHELL_DEBUG` (which could be set to `-x` or `-xv`) to let `dtcw` run the DTC script in a more verbose way.
+
+=== changed
+
+* Use https://github.com/aim42/htmlSanityCheck/releases/tag/2.0.0-rc0[Release 2.0.0-rc0] of HTML Sanity Checker
+* https://github.com/docToolchain/docToolchain/issues/1411[removed legacy `jiraRoot` config property]
+
+[TIP]
+====
+You like docToolchain? +
+What about helping to make it even better? +
+docToolchain is a community project, so be part of the community which drives the project. +
+You don't have to code for doing so. +
+It would even help to brush up the docs, write tutorials or groom the backlog +
+(I guess many of the open issues are already fixed).
+====
