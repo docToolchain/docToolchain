@@ -9,6 +9,14 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+=== added
+
+=== changed
+
+== 3.4.1 - 2024-09-05
+
+=== fixed
+
 * Missing alt attributes in site templates (found by HTML Sanity Checker 2.0.0-rc0, see below).
 * https://github.com/docToolchain/docToolchain/issues/1411[Jira links substitution is not working]
 * https://github.com/docToolchain/docToolchain/issues/1421[publishToConfluence fails with "No such property: attachmentPrefix for class: org.docToolchain.tasks.Asciidoc2ConfluenceTask"]
