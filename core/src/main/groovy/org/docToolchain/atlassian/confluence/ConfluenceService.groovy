@@ -29,11 +29,13 @@ class ConfluenceService {
     }
 
     Document parseFile(File htmlFile) {
+        println "Parsing file: ${htmlFile.getPath()}"
         String html = htmlFile.getText('utf-8')
         Document dom = Jsoup.parse(html, 'utf-8', Parser.xmlParser())
         dom.outputSettings().prettyPrint(false)//makes html() preserve linebreaks and spacing
         dom.outputSettings().escapeMode(Entities.EscapeMode.xhtml) //This will ensure xhtml validity regarding entities
         dom.outputSettings().charset("UTF-8") //does no harm :-)
+        println "Parsed file successfully"
         return dom
     }
 
