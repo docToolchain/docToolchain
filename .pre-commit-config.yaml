@@ -1,0 +1,68 @@
+default_install_hook_types:
+  - pre-commit
+  - prepare-commit-msg
+  - commit-msg
+  - post-checkout
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.6.0
+    hooks:
+      - id: check-added-large-files
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-executables-have-shebangs
+      # available with next version
+      # - id: check-illegal-windows-names
+      - id: check-json
+      - id: check-merge-conflict
+      - id: check-shebang-scripts-are-executable
+      - id: check-symlinks
+      - id: check-vcs-permalinks
+      - id: check-xml
+      - id: check-yaml
+      - id: end-of-file-fixer
+      - id: destroyed-symlinks
+        stages: [pre-commit, pre-push]
+      - id: detect-private-key
+      - id: mixed-line-ending
+        args:
+          - --fix=lf
+      - id: no-commit-to-branch
+        args:
+          - --pattern
+          - '^(?!((feature|hotfix|release|gh-readonly-queue)\/[a-zA-Z0-9\-\/]+)|main$).*'
+          - --branch
+          - ""
+      - id: pretty-format-json
+        args:
+          - --autofix
+          - --indent
+          - '4'
+          - --no-sort-keys
+      - id: trailing-whitespace
+  - repo: https://github.com/Yelp/detect-secrets
+    rev: v1.5.0
+    hooks:
+      - id: detect-secrets
+        args:
+          - --baseline
+          - .secrets.baseline
+  - repo: https://github.com/adrienverge/yamllint.git
+    rev: v1.35.1
+    hooks:
+      - id: yamllint
+        args: []
+  - repo: https://github.com/python-jsonschema/check-jsonschema.git
+    rev: 0.29.2
+    hooks:
+      - id: check-github-actions
+      - id: check-github-workflows
+  - repo: https://github.com/executablebooks/mdformat
+    rev: 0.7.17
+    hooks:
+      - id: mdformat
+        additional_dependencies:
+          - mdformat-gfm
+        args:
+          - "--wrap=120"
