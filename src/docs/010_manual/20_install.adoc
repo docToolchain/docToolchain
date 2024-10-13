@@ -217,6 +217,14 @@ In that case, please switch to bash and make sure that a supported Java version 
 [role='secondary']
 --
 
+
+To install docToolchain in `$HOME/.doctoolchain` execute the following command.
+
+[source, bash]
+----
+./dtcw install doctoolchain
+----
+
 In case you have no Java installed you can use `dtcw.ps1` to install Java:
 
 [source, powershell]
@@ -229,9 +237,20 @@ In case you have no Java installed you can use `dtcw.ps1` to install Java:
 .Windows with cmd.exe
 [role='secondary']
 --
-[source, cmd]
+
+
+To install docToolchain in `$HOME/.doctoolchain` execute the following command.
+
+[source, bash]
 ----
-dtcw.bat install java
+./dtcw install doctoolchain
+----
+
+In case you have no Java installed you can use `dtcw.ps1` to install Java:
+
+[source, powershell]
+----
+.\dtcw.ps1 install java
 ----
 
 --
