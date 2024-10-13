@@ -222,7 +222,7 @@ To install docToolchain in `$HOME/.doctoolchain` execute the following command.
 
 [source, bash]
 ----
-./dtcw install doctoolchain
+./dtcw.ps1 install doctoolchain
 ----
 
 In case you have no Java installed you can use `dtcw.ps1` to install Java:
@@ -243,14 +243,14 @@ To install docToolchain in `$HOME/.doctoolchain` execute the following command.
 
 [source, bash]
 ----
-./dtcw install doctoolchain
+./dtcw.bat install doctoolchain
 ----
 
 In case you have no Java installed you can use `dtcw.ps1` to install Java:
 
 [source, powershell]
 ----
-.\dtcw.ps1 install java
+.\dtcw.bat install java
 ----
 
 --
