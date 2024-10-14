@@ -109,6 +109,7 @@ microsite.with {
     branch = System.getenv("DTC_PROJECT_BRANCH")?:'ng'
     gitRepoUrl = "https://github.com/doctoolchain/doctoolchain/edit/${branch}/src/docs"
 
+    rightColumnExtra = "/project/src/docs/training.html"
     /** end:microsite **/
 }
 

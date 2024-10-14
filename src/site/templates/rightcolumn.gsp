@@ -67,4 +67,6 @@ searching issues...
 <% if (content?.body.contains('<!-- endtoc -->')) { %>
         ${content?.body?.split("(?ms)<!-- endtoc -->",2)[0]}
 <% } %>
-
+<% if (config.site_rightColumnExtra) {
+    out << new File(config.site_rightColumnExtra).text
+} %>
