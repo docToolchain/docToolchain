@@ -85,10 +85,12 @@
 %>
      <% if (config.site_search) { 
         if (config.site_search instanceof String) {
-            out << config.site_search
+            html = config.site_search
         } else {
-            out << config.site_search.join(",")
+            html = config.site_search.join(",")
         }
+        html = html.replace("<form",'<form class="td-sidebar__search d-flex align-items-center d-lg-none" ')
+        out << html
     } else { %>
         <form class="td-sidebar__search d-flex align-items-center d-lg-none" action="${content.rootpath}search.html">
 
