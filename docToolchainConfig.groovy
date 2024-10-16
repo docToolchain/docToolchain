@@ -112,9 +112,8 @@ microsite.with {
     rightColumnExtra = "training.html"
 
     // define a custom search html
-    search = """        
-        <form action="https://perplexity.ai">
-        <input aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+    search = """<form id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
                placeholder=" Search with perplexity" type="search" name="q">
         </form>
         <script>

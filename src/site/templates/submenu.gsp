@@ -83,7 +83,13 @@
         return result
     }
 %>
-
+     <% if (config.site_search) { 
+        if (config.site_search instanceof String) {
+            out << config.site_search
+        } else {
+            out << config.site_search.join(",")
+        }
+    } else { %>
         <form class="td-sidebar__search d-flex align-items-center d-lg-none" action="${content.rootpath}search.html">
 
             <input aria-label="Search this site…" name="q" autocomplete="off" class="form-control td-search-input"
@@ -95,6 +101,8 @@
                     data-toggle="collapse" type="button">
             </button>
         </form>
+    <% } %>
+
 
         <nav aria-label="Submenu" class="collapse td-sidebar-nav" id="td-section-nav" >
 
