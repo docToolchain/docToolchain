@@ -127,6 +127,31 @@
     </url>
 
     <url>
+    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
+    	<lastmod>2024-10-16</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/issue1.html</loc>
+    	<lastmod>2024-10-16</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
+    	<lastmod>2024-10-16</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
+    	<lastmod>2024-10-16</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Activity_notes.html</loc>
+    	<lastmod>2024-10-16</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/UseCases.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
@@ -142,32 +167,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
-    	<lastmod>2024-10-16</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/issue1.html</loc>
-    	<lastmod>2024-10-16</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/Architect_notes.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
+    	<loc>https://localhost/ea/issue2.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/ea/Architect_notes_issue2.html</loc>
-    	<lastmod>2024-10-16</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
 
@@ -197,21 +207,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Activity_notes.html</loc>
-    	<lastmod>2024-10-16</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/issue2.html</loc>
-    	<lastmod>2024-10-16</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportJiraSprintChangelog.html</loc>
-    	<lastmod>2024-10-16</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_exportConfluence.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
@@ -237,6 +232,11 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_exportJiraSprintChangelog.html</loc>
+    	<lastmod>2024-10-16</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_exportContributors.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
@@ -253,11 +253,6 @@
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_copy_themes.html</loc>
-    	<lastmod>2024-10-16</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
 
@@ -287,6 +282,11 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
+    	<lastmod>2024-10-16</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_exportEA.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
@@ -302,16 +302,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_prependFilename.html</loc>
-    	<lastmod>2024-10-16</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
-    	<lastmod>2024-10-16</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_exportVisio.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
@@ -322,17 +312,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generatePDF.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_prependFilename.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportMarkdown.html</loc>
-    	<lastmod>2024-10-16</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
 
@@ -357,7 +342,22 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_generatePDF.html</loc>
+    	<lastmod>2024-10-16</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
+    	<lastmod>2024-10-16</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportMarkdown.html</loc>
+    	<lastmod>2024-10-16</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
 
@@ -417,11 +417,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/030_generateHTML.html</loc>
-    	<lastmod>2024-10-16</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/025_development/050_who-uses-dtc.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
@@ -433,6 +428,11 @@
 
     <url>
     	<loc>https://localhost/020_tutorial/050_multipleRepositories.html</loc>
+    	<lastmod>2024-10-16</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/020_tutorial/030_generateHTML.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
 
@@ -452,12 +452,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/120_self-contained-dtc.html</loc>
+    	<loc>https://localhost/020_tutorial/110_presentations_with_revealjs.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/110_presentations_with_revealjs.html</loc>
+    	<loc>https://localhost/020_tutorial/120_self-contained-dtc.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
 
@@ -522,12 +522,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/30_config.html</loc>
+    	<loc>https://localhost/010_manual/010_introduction_and_goals.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/010_introduction_and_goals.html</loc>
+    	<loc>https://localhost/010_manual/30_config.html</loc>
     	<lastmod>2024-10-16</lastmod>
     </url>
 
