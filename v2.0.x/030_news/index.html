@@ -239,12 +239,12 @@
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
-    [<form action="https://perplexity.ai">
-        <input aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+    <form id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
                placeholder=" Search with perplexity" type="search" name="q">
         </form>
         <script>
-        document.getElementById('searchForm').addEventListener('submit', function(e) {
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
             e.preventDefault();
             var input = document.getElementById('searchInput');
             var searchTerm = input.value.trim();
@@ -253,7 +253,7 @@
             }
             this.submit();
         });
-    </script>]
+    </script>
     </div>
 </nav>
 
@@ -264,18 +264,22 @@
             <div class="col-12 col-md-3 col-xl-2 td-sidebar d-print-none">
                 <div class="td-sidebar__inner" id="td-sidebar-menu">
                     
-
-        <form class="td-sidebar__search d-flex align-items-center d-lg-none" action="../search.html">
-
-            <input aria-label="Search this site…" name="q" autocomplete="off" class="form-control td-search-input"
-                   placeholder=" Search this site…" type="search">
-
-
-            <button aria-controls="td-docs-nav" aria-expanded="false"
-                    aria-label="Toggle section navigation" class="btn btn-link td-sidebar__toggle d-md-none p-0 ml-3 fas fa-bars" data-target="#td-section-nav"
-                    data-toggle="collapse" type="button">
-            </button>
+     <form id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
         </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+        });
+    </script>
+
 
         <nav aria-label="Submenu" class="collapse td-sidebar-nav" id="td-section-nav" >
 
