@@ -125,6 +125,7 @@ microsite.with {
                 input.value = searchTerm + ' site:doctoolchain.org ';
             }
             this.submit();
+            input.value="";
         });
     </script>
     """
