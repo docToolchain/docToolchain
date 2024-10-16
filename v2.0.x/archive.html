@@ -236,10 +236,21 @@
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
-    <form action="https://perplexity.ai">
+    [<form action="https://perplexity.ai">
         <input aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
                placeholder=" Search with perplexity" type="search" name="q">
         </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+        });
+    </script>]
     </div>
 </nav>
 

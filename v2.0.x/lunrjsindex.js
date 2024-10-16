@@ -202,30 +202,6 @@ var documents = [
 
 {
     "id": 25,
-    "uri": "ea/Use_Cases_links.html",
-    "menu": "ea",
-    "title": "Use_Cases_links.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
-},
-
-{
-    "id": 26,
-    "uri": "ea/Use_Cases_links_issue2.html",
-    "menu": "ea",
-    "title": "Use_Cases_links_issue2.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
-},
-
-{
-    "id": 27,
-    "uri": "ea/Use_Cases_notes.html",
-    "menu": "ea",
-    "title": "Use_Cases_notes.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
-},
-
-{
-    "id": 28,
     "uri": "ea/UseCases.html",
     "menu": "ea",
     "title": "UseCases.ad",
@@ -233,7 +209,39 @@ var documents = [
 },
 
 {
+    "id": 26,
+    "uri": "ea/Use_Cases_links.html",
+    "menu": "ea",
+    "title": "Use_Cases_links.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+},
+
+{
+    "id": 27,
+    "uri": "ea/issue1.html",
+    "menu": "ea",
+    "title": "issue1.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
+    "id": 28,
+    "uri": "ea/Use_Cases_links_issue2.html",
+    "menu": "ea",
+    "title": "Use_Cases_links_issue2.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+},
+
+{
     "id": 29,
+    "uri": "ea/Use_Cases_notes.html",
+    "menu": "ea",
+    "title": "Use_Cases_notes.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
+},
+
+{
+    "id": 30,
     "uri": "ea/Use_Cases_notes_UseCases.html",
     "menu": "ea",
     "title": "Use_Cases_notes_UseCases.ad",
@@ -241,18 +249,10 @@ var documents = [
 },
 
 {
-    "id": 30,
+    "id": 31,
     "uri": "ea/Activity_notes_issue1.html",
     "menu": "ea",
     "title": "Activity_notes_issue1.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 31,
-    "uri": "ea/issue1.html",
-    "menu": "ea",
-    "title": "issue1.ad",
     "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
 },
 
@@ -266,6 +266,14 @@ var documents = [
 
 {
     "id": 33,
+    "uri": "ea/Architect_notes_issue2.html",
+    "menu": "ea",
+    "title": "Architect_notes_issue2.ad",
+    "text": " "
+},
+
+{
+    "id": 34,
     "uri": "ea/readme.html",
     "menu": "ea",
     "title": "readme.ad",
@@ -273,7 +281,7 @@ var documents = [
 },
 
 {
-    "id": 34,
+    "id": 35,
     "uri": "015_tasks/03_tasks.html",
     "menu": "tasks",
     "title": "What Is a Task?",
@@ -281,7 +289,7 @@ var documents = [
 },
 
 {
-    "id": 35,
+    "id": 36,
     "uri": "015_tasks/03_task_previewSite.html",
     "menu": "tasks",
     "title": "previewSite",
@@ -289,7 +297,7 @@ var documents = [
 },
 
 {
-    "id": 36,
+    "id": 37,
     "uri": "015_tasks/03_task_generateHTML.html",
     "menu": "tasks",
     "title": "generateHTML",
@@ -297,7 +305,7 @@ var documents = [
 },
 
 {
-    "id": 37,
+    "id": 38,
     "uri": "ea/Activity_notes.html",
     "menu": "ea",
     "title": "Activity_notes.ad",
@@ -305,19 +313,11 @@ var documents = [
 },
 
 {
-    "id": 38,
+    "id": 39,
     "uri": "ea/issue2.html",
     "menu": "ea",
     "title": "issue2.ad",
     "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
-},
-
-{
-    "id": 39,
-    "uri": "ea/Architect_notes_issue2.html",
-    "menu": "ea",
-    "title": "Architect_notes_issue2.ad",
-    "text": " "
 },
 
 {
@@ -402,14 +402,6 @@ var documents = [
 
 {
     "id": 50,
-    "uri": "015_tasks/03_task_copy_themes.html",
-    "menu": "tasks",
-    "title": "copyThemes",
-    "text": " Table of Contents copyThemes About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } copyThemes 1 minute to read About This Task docToolchain provides you with a simple Twitter bootstrap default theme to get you started. You can use the copyThemes task to apply a different theme (either jBakeTheme or pdfTheme) to your project. Feel free to remove all files which should remain as the default and change all others. When you next run docToolchain, your theme files will be laid over the default theme in order to generate the PDF or site. Source Show source code of scripts/copyThemes.gradle or go directly to GitHub · docToolchain/scripts/copyThemes.gradle . scripts/copyThemes.gradle //tag::copyThemes[] task copyThemes( description: 'copy some default files to your project for you to modify', group: 'docToolchain helper' ) { doFirst { } doLast { def color = { color, text -&gt; def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37] return new String((char) 27) + \"[${colors[color]}m${text}\" + new String((char) 27) + \"[0m\" } def lang = ant.input(message: \"${color 'green', 'What do you want me to copy?'}\", validargs: 'pdfTheme,jBakeTheme', addproperty: 'what') switch (ant.what) { case 'pdfTheme': def targetDir = new File(pdfThemeDir) /** if (targetDir.exists()) { println \"${targetDir.canonicalPath} already exists\" println \"in order to re-install the theme, please remove the folder first and re-run the script\" throw new RuntimeException(\"pdfTheme folder already exists\") } **/ targetDir.mkdirs() def source = new File(projectDir, 'template_config/pdfTheme') println source.canonicalPath println targetDir.canonicalPath copy { from new File(projectDir, 'template_config/pdfTheme') into targetDir } println \"pdfTheme copied into ${targetDir}\" break case 'jBakeTheme': def targetDir = new File(new File(docDir, inputPath), config.microsite.siteFolder?:'../site') /** if (targetDir.exists()) { println \"${targetDir.canonicalPath} already exists\" println \"in order to re-install the theme, please remove the folder first and re-run the script\" throw new RuntimeException(\"jBakeTheme folder already exists\") } **/ targetDir.mkdirs() copy { from new File(projectDir, 'src/site') into targetDir } def siteTheme = System.getenv('DTC_SITETHEME')?:\"\" def themeFolder = new File(projectDir, \"../themes/\" + siteTheme.md5()) copy { from(themeFolder) {} into targetDir } println \"jBakeTheme copied into ${targetDir.canonicalPath}\" break } } } //end::copyThemes[] "
-},
-
-{
-    "id": 51,
     "uri": "015_tasks/03_task_generateContent.html",
     "menu": "tasks",
     "title": "generateContent",
@@ -417,7 +409,7 @@ var documents = [
 },
 
 {
-    "id": 52,
+    "id": 51,
     "uri": "015_tasks/03_task_fixencoding.html",
     "menu": "tasks",
     "title": "fixEncoding",
@@ -425,19 +417,27 @@ var documents = [
 },
 
 {
-    "id": 53,
-    "uri": "015_tasks/03_task_exportOpenApi.html",
+    "id": 52,
+    "uri": "015_tasks/03_task_copy_themes.html",
     "menu": "tasks",
-    "title": "exportOpenAPI",
-    "text": " Table of Contents exportOpenAPI About This Task Configuration Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportOpenAPI 1 minute to read About This Task This task exports an OpenAPI Specification definition yaml file to a AsciiDoc document. Currently, this task depends on OpenAPI Generator (v4.3.1) and its gradle plugin . Configuration Config.groovy // Configuration for OpenAPI related task openApi = [:] // 'specFile' is the name of OpenAPI specification yaml file. Tool expects this file inside working dir (as a filename or relative path with filename) // 'infoUrl' and 'infoEmail' are specification metadata about further info related to the API. By default this values would be filled by openapi-generator plugin placeholders // openApi.with { specFile = 'src/docs/petstore-v2.0.yaml' // i.e. 'petstore.yaml', 'src/doc/petstore.yaml' infoUrl = 'https://my-api.company.com' infoEmail = 'info@company.com' } Source Show source code of scripts/exportOpenApi.gradle or go directly to GitHub · docToolchain/scripts/exportOpenApi.gradle . scripts/exportOpenApi.gradle task exportOpenApi ( type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask, group: 'docToolchain', description: 'exports OpenAPI specification to the asciidoc file') { if (!specFile) { logger.info(\"\\n---&gt; OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)\") return } else { logger.info(\"Found OpenAPI specification in Config.groovy\") } outputs.upToDateWhen { false } outputs.cacheIf { false } generatorName = 'asciidoc' outputDir = \"${targetDir}/OpenAPI\".toString() inputSpec = \"${docDir}/${specFile}\" // plugin is not able to find file if inputPath is defined as '.' logger.debug(\"\\n=====================\\nProject Config:\\n=====================\") logger.debug(\"Docdir: ${docDir}\") logger.debug(\"Target: ${targetDir}\") logger.info(\"\\n=====================\\nOpenAPI Config:\\n=====================\") logger.info(\"Specification file: ${specFile}\") logger.info(\"inputSpec: ${inputSpec}\") logger.info(\"outputDir: ${outputDir}\\n\") additionalProperties = [ infoEmail:\"${config.openApi.infoEmail}\", infoUrl:\"${config.openApi.infoUrl}\" ] } "
+    "title": "copyThemes",
+    "text": " Table of Contents copyThemes About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } copyThemes 1 minute to read About This Task docToolchain provides you with a simple Twitter bootstrap default theme to get you started. You can use the copyThemes task to apply a different theme (either jBakeTheme or pdfTheme) to your project. Feel free to remove all files which should remain as the default and change all others. When you next run docToolchain, your theme files will be laid over the default theme in order to generate the PDF or site. Source Show source code of scripts/copyThemes.gradle or go directly to GitHub · docToolchain/scripts/copyThemes.gradle . scripts/copyThemes.gradle //tag::copyThemes[] task copyThemes( description: 'copy some default files to your project for you to modify', group: 'docToolchain helper' ) { doFirst { } doLast { def color = { color, text -&gt; def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37] return new String((char) 27) + \"[${colors[color]}m${text}\" + new String((char) 27) + \"[0m\" } def lang = ant.input(message: \"${color 'green', 'What do you want me to copy?'}\", validargs: 'pdfTheme,jBakeTheme', addproperty: 'what') switch (ant.what) { case 'pdfTheme': def targetDir = new File(pdfThemeDir) /** if (targetDir.exists()) { println \"${targetDir.canonicalPath} already exists\" println \"in order to re-install the theme, please remove the folder first and re-run the script\" throw new RuntimeException(\"pdfTheme folder already exists\") } **/ targetDir.mkdirs() def source = new File(projectDir, 'template_config/pdfTheme') println source.canonicalPath println targetDir.canonicalPath copy { from new File(projectDir, 'template_config/pdfTheme') into targetDir } println \"pdfTheme copied into ${targetDir}\" break case 'jBakeTheme': def targetDir = new File(new File(docDir, inputPath), config.microsite.siteFolder?:'../site') /** if (targetDir.exists()) { println \"${targetDir.canonicalPath} already exists\" println \"in order to re-install the theme, please remove the folder first and re-run the script\" throw new RuntimeException(\"jBakeTheme folder already exists\") } **/ targetDir.mkdirs() copy { from new File(projectDir, 'src/site') into targetDir } def siteTheme = System.getenv('DTC_SITETHEME')?:\"\" def themeFolder = new File(projectDir, \"../themes/\" + siteTheme.md5()) copy { from(themeFolder) {} into targetDir } println \"jBakeTheme copied into ${targetDir.canonicalPath}\" break } } } //end::copyThemes[] "
 },
 
 {
-    "id": 54,
+    "id": 53,
     "uri": "015_tasks/03_task_generateDocBook.html",
     "menu": "tasks",
     "title": "generateDocbook",
     "text": " Table of Contents generateDocbook About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateDocbook 1 minute to read About This Task A helper task, generateDocbook generates the intermediate format for convertToDocx &lt;&lt;&gt;&gt; and convertToEpub . Source Show source code of scripts/AsciiDocBasics.gradle or go directly to GitHub · docToolchain/scripts/AsciiDocBasics.gradle . scripts/AsciiDocBasics.gradle task generateDocbook ( type: AsciidoctorTask, group: 'docToolchain', description: 'use docbook as asciidoc backend') { def sourceFilesDOCBOOK = findSourceFilesByType(['docbook', 'epub', 'docx']) // onlyIf { // sourceFilesDOCBOOK // } sources { sourceFilesDOCBOOK.each { include it.file logger.info it.file File useFile = new File(srcDir, it.file) if (!useFile.exists()) { throw new Exception (\"\"\" The file $useFile in DOCBOOK config does not exist! Please check the configuration 'inputFiles' in $mainConfigFile.\"\"\") } } } outputOptions { backends = ['docbook'] } outputDir = file(targetDir+'/docbook/') doFirst { if (sourceFilesDOCBOOK.size()==0) { throw new Exception (\"\"\" &gt;&gt; No source files defined for type of '[docbook, epub, docx]'. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy \"\"\") } } } "
+},
+
+{
+    "id": 54,
+    "uri": "015_tasks/03_task_exportOpenApi.html",
+    "menu": "tasks",
+    "title": "exportOpenAPI",
+    "text": " Table of Contents exportOpenAPI About This Task Configuration Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportOpenAPI 1 minute to read About This Task This task exports an OpenAPI Specification definition yaml file to a AsciiDoc document. Currently, this task depends on OpenAPI Generator (v4.3.1) and its gradle plugin . Configuration Config.groovy // Configuration for OpenAPI related task openApi = [:] // 'specFile' is the name of OpenAPI specification yaml file. Tool expects this file inside working dir (as a filename or relative path with filename) // 'infoUrl' and 'infoEmail' are specification metadata about further info related to the API. By default this values would be filled by openapi-generator plugin placeholders // openApi.with { specFile = 'src/docs/petstore-v2.0.yaml' // i.e. 'petstore.yaml', 'src/doc/petstore.yaml' infoUrl = 'https://my-api.company.com' infoEmail = 'info@company.com' } Source Show source code of scripts/exportOpenApi.gradle or go directly to GitHub · docToolchain/scripts/exportOpenApi.gradle . scripts/exportOpenApi.gradle task exportOpenApi ( type: org.openapitools.generator.gradle.plugin.tasks.GenerateTask, group: 'docToolchain', description: 'exports OpenAPI specification to the asciidoc file') { if (!specFile) { logger.info(\"\\n---&gt; OpenAPI specification file not found in Config.groovy (https://doctoolchain.github.io/docToolchain/#_exportopenapi)\") return } else { logger.info(\"Found OpenAPI specification in Config.groovy\") } outputs.upToDateWhen { false } outputs.cacheIf { false } generatorName = 'asciidoc' outputDir = \"${targetDir}/OpenAPI\".toString() inputSpec = \"${docDir}/${specFile}\" // plugin is not able to find file if inputPath is defined as '.' logger.debug(\"\\n=====================\\nProject Config:\\n=====================\") logger.debug(\"Docdir: ${docDir}\") logger.debug(\"Target: ${targetDir}\") logger.info(\"\\n=====================\\nOpenAPI Config:\\n=====================\") logger.info(\"Specification file: ${specFile}\") logger.info(\"inputSpec: ${inputSpec}\") logger.info(\"outputDir: ${outputDir}\\n\") additionalProperties = [ infoEmail:\"${config.openApi.infoEmail}\", infoUrl:\"${config.openApi.infoUrl}\" ] } "
 },
 
 {
@@ -474,22 +474,6 @@ var documents = [
 
 {
     "id": 59,
-    "uri": "015_tasks/03_task_wipeConfluenceSpace.html",
-    "menu": "tasks",
-    "title": "wipeConfluenceSpace",
-    "text": " Table of Contents wipeConfluenceSpace About This Task Usage Source .gravatar img { margin-left: 3px; border-radius: 4px; } wipeConfluenceSpace 1 minute to read About This Task Warning This task is destructive and can harm your environment This task will wipe all content from your Confluence space, configured in your docToolchainConfig.groovy . It will not delete the space itself. The task makes it easy if you want to start from scratch with your documentation, or if you want to re-import your documentation from scratch after you did refactor your document structure and want to get rid of all the old pages. Usage ./dtcw wipeConfluenceSpace -PconfluenceUser=foo.bar@example.corp -PconfluencePass=&lt;REDACTED&gt; You will be asked to confirm the deletion of all pages in the space. Enter y to confirm. ... To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/8.1.1/userguide/gradle_daemon.html#sec:disabling_the_daemon. Daemon will be stopped at the end of the build &gt; Task :wipeConfluenceSpace [ant:input] Do you really want to delete all pages in myDemoSpace (y, n) Source Show source code of scripts/publishToConfluence.gradle or go directly to GitHub · docToolchain/scripts/publishToConfluence.gradle . scripts/publishToConfluence.gradle task wipeConfluenceSpace( description: 'deletes all pages in the configured confluence space', group: 'docToolchain' ) { doLast { ant.input(message: \"${'Do you really want to delete all pages in ' + config.confluence.spaceKey}\", validargs: 'y,n', addproperty: 'confirm') if(ant.confirm.toBoolean()) { //TODO default should be false, if the V1 has been removed in cloud config.confluence.useV1Api = findProperty(\"confluence.useV1Api\") != null ? findProperty(\"confluence.useV1Api\") : config.confluence.useV1Api != [:] ? config.confluence.useV1Api :true new WipeConfluenceSpaceTask(config).execute() } else { println(\"Aborting wipe confluence space, this task needs to be confirmed with 'y'\") } } } "
-},
-
-{
-    "id": 60,
-    "uri": "015_tasks/03_task_htmlSanityCheck.html",
-    "menu": "tasks",
-    "title": "htmlSanityCheck",
-    "text": " Table of Contents htmlSanityCheck About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } htmlSanityCheck 1 minute to read About This Task This task invokes the htmlSanityCheck gradle plugin. It is a standalone (batch- and command-line) HTML sanity checker whose role is to detect missing images, dead links and duplicated bookmarks. In docToolchain, the htmlSanityCheck task ensures that generated HTML contains no missing links or other problems. It is the last default task, and creates a report in build/reports/htmlchecks/index.html (see example below). Figure 1. sample report Further Reading and Resources Read the Automated Quality-Checks blog post. Visit https://github.com/aim42/htmlSanityCheck for more information about this task. Source Show source code of scripts/htmlSanityCheck.gradle or go directly to GitHub · docToolchain/scripts/htmlSanityCheck.gradle . scripts/htmlSanityCheck.gradle htmlSanityCheck { sourceDir = new File(config.htmlSanityCheck.sourceDir?targetDir+\"/\"+config.htmlSanityCheck.sourceDir:\"$targetDir/html5\") // files to check - in Set-notation //sourceDocuments = [ \"one-file.html\", \"another-file.html\", \"index.html\"] // where to put results of sanityChecks... checkingResultsDir = new File(config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath) // directory where the results written to in JUnit XML format junitResultsDir = new File(config.htmlSanityCheck.junitResultsDir?:\"$targetDir/test-results/htmlchecks\") // which statuscodes shall be interpreted as warning, error or success defaults to standard httpSuccessCodes = config.htmlSanityCheck.httpSuccessCodes?:[] httpWarningCodes = config.htmlSanityCheck.httpWarningCodes?:[] httpErrorCodes = config.htmlSanityCheck.httpErrorCodes?:[] // fail build on errors? failOnErrors = config.htmlSanityCheck.failOnErrors?:false logger.info \"docToolchain&gt; HSC sourceDir: ${sourceDir}\" logger.info \"docToolchain&gt; HSC checkingResultsDir: ${checkingResultsDir}\" } "
-},
-
-{
-    "id": 61,
     "uri": "015_tasks/03_task_exportVisio.html",
     "menu": "tasks",
     "title": "exportVisio",
@@ -497,19 +481,35 @@ var documents = [
 },
 
 {
-    "id": 62,
-    "uri": "015_tasks/03_task_dependencyUpdates.html",
+    "id": 60,
+    "uri": "015_tasks/03_task_wipeConfluenceSpace.html",
     "menu": "tasks",
-    "title": "dependencyUpdates",
-    "text": " Table of Contents dependencyUpdates About This Task Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } dependencyUpdates 1 minute to read About This Task This task uses the Gradle versions plugin created by Ben Manes to check for outdated build dependencies. Use this task to keep all dependencies up to date. Warning If you discover newer version, it doesn&#8217;t mean that versions and dependencies will play nicely together. To ensure that everything works, we recommend the versions selected by docToolchain contributors. Further Reading and Resources Read the Handle Dependency Updates the Easy Way blog post. "
+    "title": "wipeConfluenceSpace",
+    "text": " Table of Contents wipeConfluenceSpace About This Task Usage Source .gravatar img { margin-left: 3px; border-radius: 4px; } wipeConfluenceSpace 1 minute to read About This Task Warning This task is destructive and can harm your environment This task will wipe all content from your Confluence space, configured in your docToolchainConfig.groovy . It will not delete the space itself. The task makes it easy if you want to start from scratch with your documentation, or if you want to re-import your documentation from scratch after you did refactor your document structure and want to get rid of all the old pages. Usage ./dtcw wipeConfluenceSpace -PconfluenceUser=foo.bar@example.corp -PconfluencePass=&lt;REDACTED&gt; You will be asked to confirm the deletion of all pages in the space. Enter y to confirm. ... To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/8.1.1/userguide/gradle_daemon.html#sec:disabling_the_daemon. Daemon will be stopped at the end of the build &gt; Task :wipeConfluenceSpace [ant:input] Do you really want to delete all pages in myDemoSpace (y, n) Source Show source code of scripts/publishToConfluence.gradle or go directly to GitHub · docToolchain/scripts/publishToConfluence.gradle . scripts/publishToConfluence.gradle task wipeConfluenceSpace( description: 'deletes all pages in the configured confluence space', group: 'docToolchain' ) { doLast { ant.input(message: \"${'Do you really want to delete all pages in ' + config.confluence.spaceKey}\", validargs: 'y,n', addproperty: 'confirm') if(ant.confirm.toBoolean()) { //TODO default should be false, if the V1 has been removed in cloud config.confluence.useV1Api = findProperty(\"confluence.useV1Api\") != null ? findProperty(\"confluence.useV1Api\") : config.confluence.useV1Api != [:] ? config.confluence.useV1Api :true new WipeConfluenceSpaceTask(config).execute() } else { println(\"Aborting wipe confluence space, this task needs to be confirmed with 'y'\") } } } "
 },
 
 {
-    "id": 63,
+    "id": 61,
     "uri": "015_tasks/03_task_prependFilename.html",
     "menu": "tasks",
     "title": "prependFilename",
     "text": " Table of Contents prependFilename About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } prependFilename 1 minute to read About This Task When Asciidoctor renders a file, the file context only knows the name of the top-level AsciiDoc file. But an include file doesn&#8217;t know that it is being included. It simply gets the name of the master file and has no chance to get its own name as an attribute. This task crawls through all AsciiDoc files and prepends the name of the current file like this: :filename: 015_tasks/03_task_prependFilename.adoc This way, each file gets its own filename. This enables features like the inclusion of file contributors (see exportContributors-task). Note This task skips all files named config.* , _config.* , feedback.* and _feedback.* . Source Show source code of scripts/prependFilename.gradle or go directly to GitHub · docToolchain/scripts/prependFilename.gradle . scripts/prependFilename.gradle import static groovy.io.FileType.* task prependFilename( description: 'crawls through all AsciiDoc files and prepends the name of the current file', group: 'docToolchain helper', ) { doLast { File sourceFolder = new File(\"${docDir}/${inputPath}\") println(\"sourceFolder: \" + sourceFolder.canonicalPath) sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^.*(ad|adoc|asciidoc)$') { if (file.name.split('[.]')[0] in [\"feedback\", \"_feedback\", \"config\", \"_config\"]) { println \"skipped \"+file.name } else { def text = file.getText('utf-8') def name = file.canonicalPath - sourceFolder.canonicalPath name = name.replace(\"\\\\\", \"/\").replaceAll(\"^/\", \"\") if (text.contains(\":filename:\")) { text = text.replaceAll(\":filename:.*\", \":filename: $name\") println \"updated \"+name } else { text = \":filename: $name\\n\" + text println \"added \"+name } file.write(text,'utf-8') } } } } } "
+},
+
+{
+    "id": 62,
+    "uri": "015_tasks/03_task_htmlSanityCheck.html",
+    "menu": "tasks",
+    "title": "htmlSanityCheck",
+    "text": " Table of Contents htmlSanityCheck About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } htmlSanityCheck 1 minute to read About This Task This task invokes the htmlSanityCheck gradle plugin. It is a standalone (batch- and command-line) HTML sanity checker whose role is to detect missing images, dead links and duplicated bookmarks. In docToolchain, the htmlSanityCheck task ensures that generated HTML contains no missing links or other problems. It is the last default task, and creates a report in build/reports/htmlchecks/index.html (see example below). Figure 1. sample report Further Reading and Resources Read the Automated Quality-Checks blog post. Visit https://github.com/aim42/htmlSanityCheck for more information about this task. Source Show source code of scripts/htmlSanityCheck.gradle or go directly to GitHub · docToolchain/scripts/htmlSanityCheck.gradle . scripts/htmlSanityCheck.gradle htmlSanityCheck { sourceDir = new File(config.htmlSanityCheck.sourceDir?targetDir+\"/\"+config.htmlSanityCheck.sourceDir:\"$targetDir/html5\") // files to check - in Set-notation //sourceDocuments = [ \"one-file.html\", \"another-file.html\", \"index.html\"] // where to put results of sanityChecks... checkingResultsDir = new File(config.htmlSanityCheck.checkingResultsDir?:checkingResultsPath) // directory where the results written to in JUnit XML format junitResultsDir = new File(config.htmlSanityCheck.junitResultsDir?:\"$targetDir/test-results/htmlchecks\") // which statuscodes shall be interpreted as warning, error or success defaults to standard httpSuccessCodes = config.htmlSanityCheck.httpSuccessCodes?:[] httpWarningCodes = config.htmlSanityCheck.httpWarningCodes?:[] httpErrorCodes = config.htmlSanityCheck.httpErrorCodes?:[] // fail build on errors? failOnErrors = config.htmlSanityCheck.failOnErrors?:false logger.info \"docToolchain&gt; HSC sourceDir: ${sourceDir}\" logger.info \"docToolchain&gt; HSC checkingResultsDir: ${checkingResultsDir}\" } "
+},
+
+{
+    "id": 63,
+    "uri": "015_tasks/03_task_dependencyUpdates.html",
+    "menu": "tasks",
+    "title": "dependencyUpdates",
+    "text": " Table of Contents dependencyUpdates About This Task Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } dependencyUpdates 1 minute to read About This Task This task uses the Gradle versions plugin created by Ben Manes to check for outdated build dependencies. Use this task to keep all dependencies up to date. Warning If you discover newer version, it doesn&#8217;t mean that versions and dependencies will play nicely together. To ensure that everything works, we recommend the versions selected by docToolchain contributors. Further Reading and Resources Read the Handle Dependency Updates the Easy Way blog post. "
 },
 
 {
@@ -602,18 +602,18 @@ var documents = [
 
 {
     "id": 75,
-    "uri": "10_about/10_about-the-project.html",
-    "menu": "about",
-    "title": "About the Project",
-    "text": " Table of Contents About the Project History How docToolchain Is Used Organisations Using It Open Source Projects Using It About the Project 2 minutes to read History docToolchain is an open source project dedicated to automating the creation of technical documentation. Before the project started, the founders had never heard of the term 'docs as code'. All they knew was that they were sick of keeping their architecture diagrams up to date by copying them from a UML tool to a word processor. Being lazy developers, they thought \"There must be a better way to do this!\". So they automated the diagram export, ditched their word processors, and started using a markup renderer. This enabled them to reference the diagrams from within the text and update them before rendering the document. And so, docToolchain was born. How docToolchain Is Used The main focus of docToolchain is technical documentation. It was traditionally used only for internal docs projects that were not visible to the public. From v2.0.0 we included a static site generator which means that open source projects and other organisations with public-facing docs can use it. Organisations Using It docToolchain is currently being used by the following organisations. If you&#8217;re also using it, please let us know! We love watching our user community grow, and your support keeps the project alive to fight the good docs fight! Open Source Projects Using It If your open source project is using docToochain, please let us know by sending a pull request: docToolchain ( source ) Html Sanity Check ( source ) DB Systel Tech Stories "
-},
-
-{
-    "id": 76,
     "uri": "10_about/20_what-is-doctoolchain.html",
     "menu": "about",
     "title": "What Is docToolchain?",
     "text": " Table of Contents What Is docToolchain? Introduction Docs as Code arc42 How docToolchain Brings Everything Together What You Get with docToolchain .gravatar img { margin-left: 3px; border-radius: 4px; } What Is docToolchain? 4 minutes to read Introduction docToolchain is a documentation generation tool that uses the Docs as Code approach as a basis for its architecture, plus some additional automation provided by the arc42 template . Docs as Code ‘Docs as code’ refers to a philosophy that you should write documentation using the same tools as you use to write code. If you need to write technical docs for your software project, why not use the same tools and processes as you use for your source code? There are so many benefits: You don’t have to learn a complicated docs management system. Developers feel more at home in the docs because they look and feel like code. You can manage docs using standard version control like GitHub. arc42 arc42 has been a part of docToolchain since the earliest version. But what is arc42? Dr. Gernot Starke and Peter Hruschka created the arc42 template as a standard for software architecture documentation. They used their experience of software architectures both in the template structure and the explanations that appear in each chapter to guide you when you’re writing your documentation. arc42 is available in well-known formats including MS Word, textile, and Confluence. All of these formats are automatically generated from a single golden master which is formatted in AsciiDoc . How docToolchain Brings Everything Together To follow a docs as code approach, you need a build script that automates steps like exporting diagrams and rendering Markdown (or AsciiDoc in the case of docToolchain) to the target format. Creating this type of build script is not easy (and even harder to maintain). There are also lots of questions to answer: “How do I create .docx?” and “Why doesn’t lib x work with lib y?” docToolchain is the result of one developer’s journey through the docs as code universe. The goal of docToolchain is to automate the creation of technical docs through an easy-to-use build script that only needs to be configured not modified, and that is nurtured and cared for by a diverse open source community . What You Get with docToolchain A Ready-Made Document Management System By using a version control system like Git , you get a perfect document management system for free. Git allows you to version your docs, branch them, and also leaves an audit trail. You can even check who wrote which part of the docs. Isn’t that great? And because your docs are simple plain text, it’s easy to do a diff and see exactly what has changed. Bonus: storing your docs in the same repo as your code means they’re always in sync! Built-In Collaboration and Review As a distributed version control system, Git comes with doc collaboration and review processes built in. People can fork the docs and send pull requests for the changes they make. You review the changes. Done! Most Git frontends like Bitbucket , GitLab and GitHub also allow you to reject pull requests with comments. Image References and Code Snippets Instead of pasting images into a binary document format, docToolchain lets you reference images. This ensures that your imagery is always up-to-date every time you rebuild your documents. You can also reference code snippets directly from your source code. You&#8217;ll save so much time because your docs and code will always be in sync and completely up to date! Compound and Stakeholder-Tailored Docs As if image refs and code snippets weren&#8217;t enough, docToolchain also lets you split docs into several sub-documents plus a master for greater cohesion. And you&#8217;re not restricted to one master. You can create master docs for different stakeholders that only contain the chapters they need. And So Much More&#8230;&#8203; If you can dream it, you can script it! Want to include a list of open issues from Jira? You can! Want to include a changelog from Git? Go for it! Want to use inline text-based diagrams? Knock yourself out! "
+},
+
+{
+    "id": 76,
+    "uri": "10_about/10_about-the-project.html",
+    "menu": "about",
+    "title": "About the Project",
+    "text": " Table of Contents About the Project History How docToolchain Is Used Organisations Using It Open Source Projects Using It About the Project 2 minutes to read History docToolchain is an open source project dedicated to automating the creation of technical documentation. Before the project started, the founders had never heard of the term 'docs as code'. All they knew was that they were sick of keeping their architecture diagrams up to date by copying them from a UML tool to a word processor. Being lazy developers, they thought \"There must be a better way to do this!\". So they automated the diagram export, ditched their word processors, and started using a markup renderer. This enabled them to reference the diagrams from within the text and update them before rendering the document. And so, docToolchain was born. How docToolchain Is Used The main focus of docToolchain is technical documentation. It was traditionally used only for internal docs projects that were not visible to the public. From v2.0.0 we included a static site generator which means that open source projects and other organisations with public-facing docs can use it. Organisations Using It docToolchain is currently being used by the following organisations. If you&#8217;re also using it, please let us know! We love watching our user community grow, and your support keeps the project alive to fight the good docs fight! Open Source Projects Using It If your open source project is using docToochain, please let us know by sending a pull request: docToolchain ( source ) Html Sanity Check ( source ) DB Systel Tech Stories "
 },
 
 {
@@ -634,22 +634,6 @@ var documents = [
 
 {
     "id": 79,
-    "uri": "025_development/005_contributing_to_docs.html",
-    "menu": "development",
-    "title": "Contributing to Docs",
-    "text": " Table of Contents Contributing to Docs Prerequisites Go to page you want to edit or fix Fork the Repository Edit the Page Commit the Changes Comparing changes Contributing to Docs 5 minutes to read The easiest way to contribute to this project is to contribute to the documentation. Here is a quick step-by-step guide on how to fix something on a documentation page. Prerequisites You need a github.com account. If you don&#8217;t have one, you can create one here: https://github.com/signup It might help if you go through the Github Hello World tutorial before you continue, but it is not necessary. Go to page you want to edit or fix You already found this tutorial, so you already know how to go to the page you want to edit or fix. All documentation can be found at http://doctoolchain.org/ . The source code of each page is available at https://github.com/doctoolchain/doctoolchain/ in the /src/docs/ folder. But there is an easier way to find the exact source. The documentation pages all look something like this: In the upper right corner you can see the Improve this doc link: This will take you directly to the source of the page, already in edit mode. If you are not logged in, GitHub will ask you to do so. The Create an issue link will be helpful if you want to report a bug or request a feature for a page. It takes you directly to the issue tracker with a pre-filled issue. For now, let&#8217;s click on the Improve this doc link. Fork the Repository If you click the link for the first time, you will be asked to fork the repository. A fork is a copy of the repository. Maybe you are used to working on the main repository or a branch within the main repository. This is not possible in this case, because you don&#8217;t have write access, only read access. The solution is to fork the repository. This way, you create a copy in your own space, and you will have write access to it. Edit the Page You will now be taken to the page you want to edit already in edit mode. What you see is asciidoctor markup. Check out the {url-asciidoc-quick-reference}[AsciiDoc quick reference] for more information. The blue box on top tells you what you already know: a copy has been created for you and you are editing it. Important since you work on your own copy of the docs, you can&#8217;t break anything. You even don&#8217;t have write access to the main repository. So feel free to edit the page as you like. Use the Preview button to see what your edits will look like. Since this is only a preview and GitHub doesn&#8217;t know about docToolchain, this preview will only show you if your AsciiDoc syntax is correct. Some other features like the TOC or include statements will not be available in the preview. Do your edit and then Commit the Changes Below the editor, there is a small Propose Changes form. Enter a headline and a description of the changes you made and click Propose changes . This will save your changes to your fork of the repository. Note Git works with diffs - it only saves the changes you made, not a full copy of the new page. This is important to know if you want to understand the inner workings of Git. After you&#8217;ve clicked the button, you will be taken to a page which shows you what you changed. Comparing changes This view lets you review your changes. These diffs are not easy to read, but I promise that over time you get used to it. Red lines are deletions, green lines are additions. As you can see in the screenshot, I added an empty space in line 17. Line 17 has been deleted (red line) and replaced with a new line (green line). Line 1 looks mysterious, because it seems that it has been replaced with an identical copy. This is because the line ending changed but is not visible in the diff. The grey box on top shows you It is quite likely that you still know what you did a minute ago, so let&#8217;s click on the Create pull request button. "
-},
-
-{
-    "id": 80,
-    "uri": "025_development/040_debugging.html",
-    "menu": "development",
-    "title": "Debugging",
-    "text": " Table of Contents Debugging Environment Gradle jBake Templates Theming, Menu and Images Script Execution Debugging Debugging 2 minutes to read Things not working as you expected? Here are some tips that might help you. Environment To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect. Gradle You get more hints about what is going on with Gradle when you add the --info flag to your ./dtcw generateSite command: ./dtcw generateSite --info This outputs all config settings as seen by docToolchain along with many other internal settings. jBake Templates If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println otherwise you won’t see any output. Theming, Menu and Images How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files. Check the build/microsite/tmp folder to see the folder that is fed into jBake. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the build/microsite/output folder to see the generated result. This often helps you find out where an image actually is located. Script Execution Debugging The execution of the ../../../bin/doctoolchain bash script may be traced by setting the environment variable DTC_BASH_OPTS to, e.g., -vx . "
-},
-
-{
-    "id": 81,
     "uri": "025_development/010_setup_dev_env.html",
     "menu": "development",
     "title": "Setting Up a Dev Environment",
@@ -657,11 +641,27 @@ var documents = [
 },
 
 {
-    "id": 82,
+    "id": 80,
+    "uri": "025_development/005_contributing_to_docs.html",
+    "menu": "development",
+    "title": "Contributing to Docs",
+    "text": " Table of Contents Contributing to Docs Prerequisites Go to page you want to edit or fix Fork the Repository Edit the Page Commit the Changes Comparing changes Contributing to Docs 5 minutes to read The easiest way to contribute to this project is to contribute to the documentation. Here is a quick step-by-step guide on how to fix something on a documentation page. Prerequisites You need a github.com account. If you don&#8217;t have one, you can create one here: https://github.com/signup It might help if you go through the Github Hello World tutorial before you continue, but it is not necessary. Go to page you want to edit or fix You already found this tutorial, so you already know how to go to the page you want to edit or fix. All documentation can be found at http://doctoolchain.org/ . The source code of each page is available at https://github.com/doctoolchain/doctoolchain/ in the /src/docs/ folder. But there is an easier way to find the exact source. The documentation pages all look something like this: In the upper right corner you can see the Improve this doc link: This will take you directly to the source of the page, already in edit mode. If you are not logged in, GitHub will ask you to do so. The Create an issue link will be helpful if you want to report a bug or request a feature for a page. It takes you directly to the issue tracker with a pre-filled issue. For now, let&#8217;s click on the Improve this doc link. Fork the Repository If you click the link for the first time, you will be asked to fork the repository. A fork is a copy of the repository. Maybe you are used to working on the main repository or a branch within the main repository. This is not possible in this case, because you don&#8217;t have write access, only read access. The solution is to fork the repository. This way, you create a copy in your own space, and you will have write access to it. Edit the Page You will now be taken to the page you want to edit already in edit mode. What you see is asciidoctor markup. Check out the {url-asciidoc-quick-reference}[AsciiDoc quick reference] for more information. The blue box on top tells you what you already know: a copy has been created for you and you are editing it. Important since you work on your own copy of the docs, you can&#8217;t break anything. You even don&#8217;t have write access to the main repository. So feel free to edit the page as you like. Use the Preview button to see what your edits will look like. Since this is only a preview and GitHub doesn&#8217;t know about docToolchain, this preview will only show you if your AsciiDoc syntax is correct. Some other features like the TOC or include statements will not be available in the preview. Do your edit and then Commit the Changes Below the editor, there is a small Propose Changes form. Enter a headline and a description of the changes you made and click Propose changes . This will save your changes to your fork of the repository. Note Git works with diffs - it only saves the changes you made, not a full copy of the new page. This is important to know if you want to understand the inner workings of Git. After you&#8217;ve clicked the button, you will be taken to a page which shows you what you changed. Comparing changes This view lets you review your changes. These diffs are not easy to read, but I promise that over time you get used to it. Red lines are deletions, green lines are additions. As you can see in the screenshot, I added an empty space in line 17. Line 17 has been deleted (red line) and replaced with a new line (green line). Line 1 looks mysterious, because it seems that it has been replaced with an identical copy. This is because the line ending changed but is not visible in the diff. The grey box on top shows you It is quite likely that you still know what you did a minute ago, so let&#8217;s click on the Create pull request button. "
+},
+
+{
+    "id": 81,
     "uri": "025_development/050_who-uses-dtc.html",
     "menu": "-",
     "title": "moved",
     "text": " document.location.href = '../10_about/10_about-the-project.html'; "
+},
+
+{
+    "id": 82,
+    "uri": "025_development/040_debugging.html",
+    "menu": "development",
+    "title": "Debugging",
+    "text": " Table of Contents Debugging Environment Gradle jBake Templates Theming, Menu and Images Script Execution Debugging Debugging 2 minutes to read Things not working as you expected? Here are some tips that might help you. Environment To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect. Gradle You get more hints about what is going on with Gradle when you add the --info flag to your ./dtcw generateSite command: ./dtcw generateSite --info This outputs all config settings as seen by docToolchain along with many other internal settings. jBake Templates If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println otherwise you won’t see any output. Theming, Menu and Images How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files. Check the build/microsite/tmp folder to see the folder that is fed into jBake. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the build/microsite/output folder to see the generated result. This often helps you find out where an image actually is located. Script Execution Debugging The execution of the ../../../bin/doctoolchain bash script may be traced by setting the environment variable DTC_BASH_OPTS to, e.g., -vx . "
 },
 
 {
@@ -674,14 +674,6 @@ var documents = [
 
 {
     "id": 84,
-    "uri": "020_tutorial/050_multipleRepositories.html",
-    "menu": "tutorial",
-    "title": "Multi-Repo",
-    "text": " Table of Contents How to generate docs from multiple repositories git clone solution git submodule solution artifact solution Use Antora integration How to generate docs from multiple repositories Some static site generators sell multi-repository functionality as a feature. This feature is mainly achieved through a built-in git client. Since we almost always work on systems which already have git installed, docToolchain does not come with its own git client. The solution we propose instead is just a simple bash script which does the magic for you. Here is how. Imagine you have a documentation repository set up with the docToolchain wrapper dtcw and some code documents. Now you would like to include the documents from another repository. git clone solution To get the contents of the other repository, one way is to do a git clone of it right to the build folder of your own repository. Let&#8217;s call the script in which we store this command clonerefs.sh , because we clone a reference to the remote documentation. clonerefs.sh #!/usr/bin/env bash git clone git@github.com:docToolchain/docToolchain.git build/refs/docToolchain this works fine if you execute it once, but the second time it will complain that the folder build/refs/docToolchain is not empty. So let&#8217;s create a cloneOrPull function which tries first to clone the repo and pulls an update if the clone fails. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo \"\" echo $1 (git clone \"$1\" \"$2\" 2&gt; /dev/null &amp;&amp; echo \"cloned repo\" )|| git -C \"$2\" pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain That&#8217;s better. We can now include the docs from our main docs. To do so, we still need a little Trick. We need to reference the docs in the build folder. We could do something like include::../../../build/refs/docToolchain/somefile.adoc[] but this will break. For this, docToolchain sets the attribute projectRootDir . With this, we can write the include as include::/home/runner/work/docToolchain/docToolchain/build/refs/docToolchain/somefile.adoc[] . In order to get projectRootDir also in your local preview, create a file called .asciidoctorconfig in the root folder of your project and add :projectRootDir: {asciidoctorconfigdir} as content. But what if we don&#8217;t want to include them but just let them render? We could clone the repository directly to our src/docs folder. But that would require that it only contains docs and no src/docs folder itself. So we have to copy it over to our src/docs folder. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo \"\" echo $1 (git clone \"$1\" \"$2\" 2&gt; /dev/null &amp;&amp; echo \"cloned repo\" )|| git -C \"$2\" pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain cp build/refs/docToolchain/src/docs/manual src/docs/. But we don&#8217;t want to add these folders to our main repository, so let&#8217;s add it to the .gitignore file. .gitignore [...] src/docs/manual [...] There is one more thing we can optimize. Currently, the script clones the repository with the full history. This is far too much traffic if you only want to use the latest version of your docs. Let&#8217;s add --depth 1 to the `git clone`command to only fetch the latest version. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo \"\" echo $1 (git clone --depth 1 \"$1\" \"$2\" 2&gt; /dev/null &amp;&amp; echo \"cloned repo\" )|| git -C \"$2\" pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain cp build/refs/docToolchain/src/docs/manual src/docs/. This script will now let you clone remote repositories and merge them with your main documentation before building. git submodule solution Another solution is to reference your sub-repositories as git submodules . Git submodules are pointers in your main repository to a certain version of another repository. Most CI/CD systems clone your repository together with all the configured submodules. This makes this approach quite convenient. A drawback is that submodules are not often used and thus developers are not used to them. artifact solution A third solution could be that sub-repositories publish their docs as zip file somewhere. Maybe to an artifactory instance. Your main repository could fetch the published artifacts and use them in the build process. That would be exactly what you do with code. Use Antora integration The Antora integration is currently in beta and we are happy to get your feedback. If you use Antora to build your docs, docToolchain provides a special Antora integration. Essentially docToolchains task downloadTemplate is now capable to set up your project as Antora module and still leverage the various docToolchain features. This enables you to register your docToolchain project to an existing Antora playbook. The Antora integration currently supports arc42 and req42 templates out of the box. If you want to use your own template, you need to ensure the directory follows the default Antora structure. Docs are currently expected to be in ${inputPath}/modules/ROOT/ . Include content Antora comes along with some custom behaviour and non-standard asciidoc syntax. Read the following sections to learn how to include content. Images Images are expected to be within assets/images . Other files In order to include other files, e.g. generated output from docToolchain tasks like collectIncludes , you must ensure there is a symlink from the docToolchain output directory to ${inputPath}/modules/ROOT/examples/&lt;outputFile/folder&gt; . "
-},
-
-{
-    "id": 85,
     "uri": "020_tutorial/030_generateHTML.html",
     "menu": "tutorial",
     "title": "generateHTML &amp; generatePDF",
@@ -689,7 +681,7 @@ var documents = [
 },
 
 {
-    "id": 86,
+    "id": 85,
     "uri": "020_tutorial/070_publishToConfluence.html",
     "menu": "tutorial",
     "title": "publishToConfluence",
@@ -697,19 +689,27 @@ var documents = [
 },
 
 {
-    "id": 87,
-    "uri": "020_tutorial/990_Tutorial.html",
+    "id": 86,
+    "uri": "020_tutorial/050_multipleRepositories.html",
     "menu": "tutorial",
-    "title": "How to create a Tutorial",
-    "text": " Table of Contents How to create a Tutorial Prepare your Tutorial Preview your work Submit your Pull-Request How to create a Tutorial Since docToolchain is a community project, it also lives from the content created by the community. This little tutorial will explain how you&#8201;&#8212;&#8201;as a member of the community&#8201;&#8212;&#8201;can create your own tutorial. Prerequisites: you know how to use Git ( https://www.gitbook.com/ ), how to fork and create a pull request on github and how to write in AsciiDoc. The docToolchain website is build with docToolchain itself. So, the code of docToolchain and the documentation reside both in the same repository. (The way as it should be with the docs-as-code approach!) Navigate to https://github.com/docToolchain/docToolchain/tree/ng/src/docs/020_tutorial to find the source of the already existing tutorials. As you can see, the files are numbered in steps of 10. The numbers are the order of appearance within the left navigation. They can be overwritten by a :jbake-order: x -statement within the .adoc file. The order is specified in steps of 10 just to be able to insert files in between if necessary. Prepare your Tutorial To create a new Tutorial, fork the project and create a new file in the folder src/docs with an appropriate name and number. Add the following content to your file: :jbake-title: Your Navigation-Entry :source-highlighter: highlightjs :highlightjs-theme: monokai-sublime :imagesdir: images :icons: font == Your Headline The :jbake-title: Your Navigation-Entry tell jBake (the renderer used by docToolchain) the text for the navigation link in left navigation pane. If this is missing, it will use the first Headline in your document. If this is also missing, it will use the filename. You might wonder why you should specify the title if you already have named your tutorial via the first headline. The headline is often quite long and :jbake-title: gives you the opportunity to shorten it for the navigation pane. The include:: -statement mainly sets the location of the imagesdir so that you don&#8217;t have to worry about it. Take a look at the file to see what else it does! Your first headline should always start with == and not = , sind a single = is the document name like a book title. docToolchain expects for the chapters of the documentation headline level == as starting headline. That&#8217;s it. Now you can start to write your tutorial. Preview your work To edit your file, use an editor which gives you a preview of your .adoc file like IntelliJ or VS Code. This already gives you a good preview of the structure and formatting of your document. Want to see how it looks on a web page? There are two ways to render the full page. One create a pull request (PR) and mark it as draft. As soon as the PR is submitted, netlify will start to render a preview. You will see some tasks running on the PR-page and the last one will give you a link to the preview-site. Two you can render the page locally through docToolchain. Execute ./dtcw generateSite locally and you will find the result in build/microsite/output/index.html Submit your Pull-Request As soon as you think your tutorial is ready for production, remove the draft status from your PR and we will start a short review process. As soon as we are through with the review, we will merge the PR and your tutorial will be live. Any questions? Feel free to open a new Discussion ! "
+    "title": "Multi-Repo",
+    "text": " Table of Contents How to generate docs from multiple repositories git clone solution git submodule solution artifact solution Use Antora integration How to generate docs from multiple repositories Some static site generators sell multi-repository functionality as a feature. This feature is mainly achieved through a built-in git client. Since we almost always work on systems which already have git installed, docToolchain does not come with its own git client. The solution we propose instead is just a simple bash script which does the magic for you. Here is how. Imagine you have a documentation repository set up with the docToolchain wrapper dtcw and some code documents. Now you would like to include the documents from another repository. git clone solution To get the contents of the other repository, one way is to do a git clone of it right to the build folder of your own repository. Let&#8217;s call the script in which we store this command clonerefs.sh , because we clone a reference to the remote documentation. clonerefs.sh #!/usr/bin/env bash git clone git@github.com:docToolchain/docToolchain.git build/refs/docToolchain this works fine if you execute it once, but the second time it will complain that the folder build/refs/docToolchain is not empty. So let&#8217;s create a cloneOrPull function which tries first to clone the repo and pulls an update if the clone fails. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo \"\" echo $1 (git clone \"$1\" \"$2\" 2&gt; /dev/null &amp;&amp; echo \"cloned repo\" )|| git -C \"$2\" pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain That&#8217;s better. We can now include the docs from our main docs. To do so, we still need a little Trick. We need to reference the docs in the build folder. We could do something like include::../../../build/refs/docToolchain/somefile.adoc[] but this will break. For this, docToolchain sets the attribute projectRootDir . With this, we can write the include as include::/home/runner/work/docToolchain/docToolchain/build/refs/docToolchain/somefile.adoc[] . In order to get projectRootDir also in your local preview, create a file called .asciidoctorconfig in the root folder of your project and add :projectRootDir: {asciidoctorconfigdir} as content. But what if we don&#8217;t want to include them but just let them render? We could clone the repository directly to our src/docs folder. But that would require that it only contains docs and no src/docs folder itself. So we have to copy it over to our src/docs folder. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo \"\" echo $1 (git clone \"$1\" \"$2\" 2&gt; /dev/null &amp;&amp; echo \"cloned repo\" )|| git -C \"$2\" pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain cp build/refs/docToolchain/src/docs/manual src/docs/. But we don&#8217;t want to add these folders to our main repository, so let&#8217;s add it to the .gitignore file. .gitignore [...] src/docs/manual [...] There is one more thing we can optimize. Currently, the script clones the repository with the full history. This is far too much traffic if you only want to use the latest version of your docs. Let&#8217;s add --depth 1 to the `git clone`command to only fetch the latest version. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo \"\" echo $1 (git clone --depth 1 \"$1\" \"$2\" 2&gt; /dev/null &amp;&amp; echo \"cloned repo\" )|| git -C \"$2\" pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain cp build/refs/docToolchain/src/docs/manual src/docs/. This script will now let you clone remote repositories and merge them with your main documentation before building. git submodule solution Another solution is to reference your sub-repositories as git submodules . Git submodules are pointers in your main repository to a certain version of another repository. Most CI/CD systems clone your repository together with all the configured submodules. This makes this approach quite convenient. A drawback is that submodules are not often used and thus developers are not used to them. artifact solution A third solution could be that sub-repositories publish their docs as zip file somewhere. Maybe to an artifactory instance. Your main repository could fetch the published artifacts and use them in the build process. That would be exactly what you do with code. Use Antora integration The Antora integration is currently in beta and we are happy to get your feedback. If you use Antora to build your docs, docToolchain provides a special Antora integration. Essentially docToolchains task downloadTemplate is now capable to set up your project as Antora module and still leverage the various docToolchain features. This enables you to register your docToolchain project to an existing Antora playbook. The Antora integration currently supports arc42 and req42 templates out of the box. If you want to use your own template, you need to ensure the directory follows the default Antora structure. Docs are currently expected to be in ${inputPath}/modules/ROOT/ . Include content Antora comes along with some custom behaviour and non-standard asciidoc syntax. Read the following sections to learn how to include content. Images Images are expected to be within assets/images . Other files In order to include other files, e.g. generated output from docToolchain tasks like collectIncludes , you must ensure there is a symlink from the docToolchain output directory to ${inputPath}/modules/ROOT/examples/&lt;outputFile/folder&gt; . "
 },
 
 {
-    "id": 88,
+    "id": 87,
     "uri": "020_tutorial/150_multiRepoMicrositeTipsAndTricks.html",
     "menu": "tutorial",
     "title": "Building a microsite from multiple repositories",
     "text": " Table of Contents Multiple Repositories Backlinks to the repositories Multiple Repositories Modern software development teams maintain several git repositories. If they commit to having documentation close to the code, they will inevitably have documentation spread over several repositories. DocToolchain supports building documentation such as a microsite from several repositories precisely by not supporting it in any particular way. You can just checkout all repositories you need, and extract and arrange the content of their docs folders as you need before you build the documentation. Backlinks to the repositories DocToolchain offers two helpful links in the top right corner of every page: Improve this doc Opens a new tab to directly edit the respective page on e.g. GitHub Create an issue Lets you create a new issue in a defined git repository. The URLs for both activities can be specified in docToolchainConfig.groovy , in the fields issueUrl and gitRepoUrl . However, if you build your documentation from several repos, you&#8217;ll want to link to different repos. A simple fix is to do a postprocessing step with sed and replace the default URLs with the correct ones. If your way of arranging the documentation folders from the different repos is simple enough, you can simply run sed with a different URL on each of the different generated folders. If your arrangement is more complicated, e.g. because you merge all repos ADRs into one folder, you can do a preprocessing step in advance. In each repo, automatically set the :filename: tag and prefix the value with a unique identifier for the repository. Move your adoc files to the desired target folders. run generateSite In the generated HTML files, replace the repository in the backlinks. By including the prefix in your query, you can make sure to target the correct repository. "
+},
+
+{
+    "id": 88,
+    "uri": "020_tutorial/990_Tutorial.html",
+    "menu": "tutorial",
+    "title": "How to create a Tutorial",
+    "text": " Table of Contents How to create a Tutorial Prepare your Tutorial Preview your work Submit your Pull-Request How to create a Tutorial Since docToolchain is a community project, it also lives from the content created by the community. This little tutorial will explain how you&#8201;&#8212;&#8201;as a member of the community&#8201;&#8212;&#8201;can create your own tutorial. Prerequisites: you know how to use Git ( https://www.gitbook.com/ ), how to fork and create a pull request on github and how to write in AsciiDoc. The docToolchain website is build with docToolchain itself. So, the code of docToolchain and the documentation reside both in the same repository. (The way as it should be with the docs-as-code approach!) Navigate to https://github.com/docToolchain/docToolchain/tree/ng/src/docs/020_tutorial to find the source of the already existing tutorials. As you can see, the files are numbered in steps of 10. The numbers are the order of appearance within the left navigation. They can be overwritten by a :jbake-order: x -statement within the .adoc file. The order is specified in steps of 10 just to be able to insert files in between if necessary. Prepare your Tutorial To create a new Tutorial, fork the project and create a new file in the folder src/docs with an appropriate name and number. Add the following content to your file: :jbake-title: Your Navigation-Entry :source-highlighter: highlightjs :highlightjs-theme: monokai-sublime :imagesdir: images :icons: font == Your Headline The :jbake-title: Your Navigation-Entry tell jBake (the renderer used by docToolchain) the text for the navigation link in left navigation pane. If this is missing, it will use the first Headline in your document. If this is also missing, it will use the filename. You might wonder why you should specify the title if you already have named your tutorial via the first headline. The headline is often quite long and :jbake-title: gives you the opportunity to shorten it for the navigation pane. The include:: -statement mainly sets the location of the imagesdir so that you don&#8217;t have to worry about it. Take a look at the file to see what else it does! Your first headline should always start with == and not = , sind a single = is the document name like a book title. docToolchain expects for the chapters of the documentation headline level == as starting headline. That&#8217;s it. Now you can start to write your tutorial. Preview your work To edit your file, use an editor which gives you a preview of your .adoc file like IntelliJ or VS Code. This already gives you a good preview of the structure and formatting of your document. Want to see how it looks on a web page? There are two ways to render the full page. One create a pull request (PR) and mark it as draft. As soon as the PR is submitted, netlify will start to render a preview. You will see some tasks running on the PR-page and the last one will give you a link to the preview-site. Two you can render the page locally through docToolchain. Execute ./dtcw generateSite locally and you will find the result in build/microsite/output/index.html Submit your Pull-Request As soon as you think your tutorial is ready for production, remove the draft status from your PR and we will start a short review process. As soon as we are through with the review, we will merge the PR and your tutorial will be live. Any questions? Feel free to open a new Discussion ! "
 },
 
 {
@@ -722,14 +722,6 @@ var documents = [
 
 {
     "id": 90,
-    "uri": "020_tutorial/110_presentations_with_revealjs.html",
-    "menu": "tutorial",
-    "title": "Presentations with reveal.js",
-    "text": " Table of Contents Presentations with reveal.js Precondition Create the Slide Deck Repository Create a minimal AsciiDoctor Reveal.js Presentation References Presentations with reveal.js reveal.js is an open source HTML presentation framework. It&#8217;s a tool that enables anyone with a web browser to create fully-featured and beautiful presentations for free. Instead of creating your reveal.js presentations in HTML markup (or markdown) you may prefer to use AsciiDoc instead. docToolchain uses Asciidoctor reveal.js to transform your AsciiDoc document into an HTML5 presentation designed to be executed by the reveal.js presentation framework. This tutorial shows how easy it is to create a reveal.js slide deck with docToolchain . It was written for a Bash environment (Linux or macOS). The adoption to MS Powershell should be trivial. Precondition To follow the tutorial you either need to have docToolchain installed locally or a running docker environment. In the later case the first call to docToolchain will pull the container image which may take some time. Create the Slide Deck Repository Create a project directory $ mkdir my-presentation $ cd my-presentation Download the docToolchain wrapper and set the executable permissions $ curl -sLo dtcw doctoolchain.github.io/dtc $ chmod +x dtcw Initialize the git repository with the minimal files $ git init # Ignore generated files in your git repository $ echo \".gradle\" &gt; .gitignore $ echo \"build\" &gt;&gt; .gitignore $ git add .gitignore $ git commit -m \"Initial commit for my reveal.js slide deck\" Create a minimal AsciiDoctor Reveal.js Presentation Create a presentation.adoc file with an image $ mkdir -p src/images $ cat &lt;&lt; EOF &gt;&gt; src/presentation.adoc = Title Slide == Slide 1 * This is the first slide == Slide 2 * This is the second slide == Slide with Image * The Debian Logo image::debian.svg[] EOF $ curl -Lo src/images/debian-logo.svg https://www.debian.org/logos/openlogo.svg Create the docToolchain configuration file docToolchainConfig.groovy $ cat &lt;&lt; EOF &gt;&gt; docToolchainConfig.groovy // Path where docToolchain creates its artifacts. outputPath = 'build' // Path where the docToolchain will search for the input files. inputPath = 'src'; // Define which formats should be processed. inputFiles = [ [file: 'presentation.adoc', formats: ['revealjs']], ] EOF As an alternative we could create the configuration by invoking ./dtcw tasks . If docToolchain doesn&#8217;t find a configuration file it will ask to create a new one. The generated configuration file contains the configuration for all tasks provided by docToolchain , which may be overwhelming. Generate the slide deck $ ./dtcw generateDeck Find your slide deck at build/decks/presentation.html and open it in your browser. Add the newly created files to you git project $ git add docToolchainConfig.groovy src $ git commit -m \"Add my first reveal.js slide deck\" Congratulations on creating your first reveal.js slide deck. References docToolchain Asciidoctor reveal.js AsciiDoc reveal.js "
-},
-
-{
-    "id": 91,
     "uri": "020_tutorial/120_self-contained-dtc.html",
     "menu": "tutorial",
     "title": "Self-Contained docToolchain",
@@ -737,15 +729,15 @@ var documents = [
 },
 
 {
-    "id": 92,
-    "uri": "020_tutorial/020_arc42.html",
+    "id": 91,
+    "uri": "020_tutorial/110_presentations_with_revealjs.html",
     "menu": "tutorial",
-    "title": "arc42 Template",
-    "text": " Table of Contents Get the arc42 Template Get the arc42 Template To work with docToolchain, you first need some documents. So let&#8217;s fetch the arc42 template for software architecture documentation. docToolchain comes with a task called downloadTemplate . Let&#8217;s invoke it and see what happens. Linux / WSL2 with bash ./dtcw downloadTemplate Windows with Powershell ./dtcw.ps1 downloadTemplate There is an interesting bug with the german version of the arc42 template in conjunction with running docToolchain in powershell: The encoding of the files will be wrong. To fix that, just run ./dtcw.ps1 fixEncoding . Result of downloadTemplate-Task $ ./dtcw downloadTemplate dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists use local homefolder install /home/rdmueller/.doctoolchain/ &gt; Configure project : arc42/arc42.adoc &gt; Task :downloadTemplate Install arc42 documentation template. For more information about arc42 see https://arc42.org [ant:input] Which language do you want to install? (EN, DE, ES, RU) &lt;-------------&gt; 0% EXECUTING [6s] [ant:input] Do you want the template with or without help? (withhelp, plain) &lt;-----&lt;-------------&gt; 0% EXECUTING [10s] Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-DE-withhelp-asciidoc.zip arc42 template unpacked into /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42 added template to docToolchainConfig.groovy use 'generateHTML', 'generatePDF' or 'generateSite' to convert the template BUILD SUCCESSFUL in 15s 1 actionable task: 1 executed Out of the box, docToolchain only knows the open source arc42 template for software architecture. That&#8217;s why it doesn&#8217;t ask which template to install. Since the template exists in four different languages and with or without help on how to use it, docToolchain asks you for these two parameters. It then downloads the template right from the source, unzips it and reformats it a little bit to fit the needs of docToolchain. It also adds the template to your configuration file. That&#8217;s it. You have now docToolchain with the arc42 template installed. Let&#8217;s render is as HTML, PDF or Microsite in the next steps. "
+    "title": "Presentations with reveal.js",
+    "text": " Table of Contents Presentations with reveal.js Precondition Create the Slide Deck Repository Create a minimal AsciiDoctor Reveal.js Presentation References Presentations with reveal.js reveal.js is an open source HTML presentation framework. It&#8217;s a tool that enables anyone with a web browser to create fully-featured and beautiful presentations for free. Instead of creating your reveal.js presentations in HTML markup (or markdown) you may prefer to use AsciiDoc instead. docToolchain uses Asciidoctor reveal.js to transform your AsciiDoc document into an HTML5 presentation designed to be executed by the reveal.js presentation framework. This tutorial shows how easy it is to create a reveal.js slide deck with docToolchain . It was written for a Bash environment (Linux or macOS). The adoption to MS Powershell should be trivial. Precondition To follow the tutorial you either need to have docToolchain installed locally or a running docker environment. In the later case the first call to docToolchain will pull the container image which may take some time. Create the Slide Deck Repository Create a project directory $ mkdir my-presentation $ cd my-presentation Download the docToolchain wrapper and set the executable permissions $ curl -sLo dtcw doctoolchain.github.io/dtc $ chmod +x dtcw Initialize the git repository with the minimal files $ git init # Ignore generated files in your git repository $ echo \".gradle\" &gt; .gitignore $ echo \"build\" &gt;&gt; .gitignore $ git add .gitignore $ git commit -m \"Initial commit for my reveal.js slide deck\" Create a minimal AsciiDoctor Reveal.js Presentation Create a presentation.adoc file with an image $ mkdir -p src/images $ cat &lt;&lt; EOF &gt;&gt; src/presentation.adoc = Title Slide == Slide 1 * This is the first slide == Slide 2 * This is the second slide == Slide with Image * The Debian Logo image::debian.svg[] EOF $ curl -Lo src/images/debian-logo.svg https://www.debian.org/logos/openlogo.svg Create the docToolchain configuration file docToolchainConfig.groovy $ cat &lt;&lt; EOF &gt;&gt; docToolchainConfig.groovy // Path where docToolchain creates its artifacts. outputPath = 'build' // Path where the docToolchain will search for the input files. inputPath = 'src'; // Define which formats should be processed. inputFiles = [ [file: 'presentation.adoc', formats: ['revealjs']], ] EOF As an alternative we could create the configuration by invoking ./dtcw tasks . If docToolchain doesn&#8217;t find a configuration file it will ask to create a new one. The generated configuration file contains the configuration for all tasks provided by docToolchain , which may be overwhelming. Generate the slide deck $ ./dtcw generateDeck Find your slide deck at build/decks/presentation.html and open it in your browser. Add the newly created files to you git project $ git add docToolchainConfig.groovy src $ git commit -m \"Add my first reveal.js slide deck\" Congratulations on creating your first reveal.js slide deck. References docToolchain Asciidoctor reveal.js AsciiDoc reveal.js "
 },
 
 {
-    "id": 93,
+    "id": 92,
     "uri": "020_tutorial/010_Install.html",
     "menu": "tutorial",
     "title": "Install docToolchain",
@@ -753,7 +745,7 @@ var documents = [
 },
 
 {
-    "id": 94,
+    "id": 93,
     "uri": "020_tutorial/160_EnterpriseTipsAndTricks.html",
     "menu": "tutorial",
     "title": "Enterprise docToolchain",
@@ -761,15 +753,7 @@ var documents = [
 },
 
 {
-    "id": 95,
-    "uri": "020_tutorial/040_microsite/130_theming.html",
-    "menu": "tutorial",
-    "title": "How to change the theme",
-    "text": " Table of Contents How to change the default theme for generateSite How to change the default theme for generateSite The goal of docToolchain is to provide an environment where you can focus on documentation, and not worry about theming. That&#8217;s why both the jBake templates and CSS are hidden. Let&#8217;s learn how theming works under the hood. docToolchain builds the result theme from three locations: It copies its internal theme into the output path of the site (defaults to build/microsite/temp/src/site ). It looks after the system environment variable DTC_SITETHEME . If this variable is set, it takes precedence over the default theme (technically,it is an override at the file level). It looks after the theme in your current repository (defaults to src/site ). If you want to create a new theme, call the docToolchain task copyTheme . This task copies the theme to the src/site location. After that, you can modify it as you like and create a new zip file with the result. For more information about what the theme structure looks like, head over to the jBake documentation . The basic template uses Twitter Bootstrap 5 as its CSS framework. Use the copyThemes task to copy all hidden jBake resources to your project. You can then remove the resources you don’t need, and change those you want to change. copyThemes overwrites existing files, but because your code is safely managed using version control, this shouldn’t be a problem. "
-},
-
-{
-    "id": 96,
+    "id": 94,
     "uri": "020_tutorial/040_microsite/040_generateSite.html",
     "menu": "tutorial",
     "title": "generateSite",
@@ -777,15 +761,15 @@ var documents = [
 },
 
 {
-    "id": 97,
-    "uri": "020_tutorial/100_diagrams.net.html",
+    "id": 95,
+    "uri": "020_tutorial/020_arc42.html",
     "menu": "tutorial",
-    "title": "Diagrams: Diagrams.net",
-    "text": " Table of Contents Diagrams: Diagrams.net Diagrams: Diagrams.net There is no exportDiagramsnet or exportDrawio task, because working with these diagrams is more convenient than with the other diagramming tools. Diagrams.net (formerly known as Draw.io) is a neat little tool which is able to store the source of your diagrams in the meta-data of your .png or .svg files. To recognize these files as diagrams.net files, give them the extension myfile .dio.png or myfile .dio.svg . In IntelliJ, with the asciidoctor plugin and the diagrams.net plugin installed, type something like image::mynewdiagram.dio.png[] IntelliJ will show you that the file doesn&#8217;t exist. Press alt + shift + enter to create the file. IntelliJ will then launch a local copy of the diagrams.net editor. Every change in the diagram will be directly reflected in your document. Figure 1. just a demo image asciidoctor plugin diagrams.net plugin // Please, replace #yourelement with a real element id on your webpage MarketplaceWidget.setupMarketplaceWidget('card', 7391, \".button1\"); MarketplaceWidget.setupMarketplaceWidget('card', 15635, \".button2\"); "
+    "title": "arc42 Template",
+    "text": " Table of Contents Get the arc42 Template Get the arc42 Template To work with docToolchain, you first need some documents. So let&#8217;s fetch the arc42 template for software architecture documentation. docToolchain comes with a task called downloadTemplate . Let&#8217;s invoke it and see what happens. Linux / WSL2 with bash ./dtcw downloadTemplate Windows with Powershell ./dtcw.ps1 downloadTemplate There is an interesting bug with the german version of the arc42 template in conjunction with running docToolchain in powershell: The encoding of the files will be wrong. To fix that, just run ./dtcw.ps1 fixEncoding . Result of downloadTemplate-Task $ ./dtcw downloadTemplate dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists use local homefolder install /home/rdmueller/.doctoolchain/ &gt; Configure project : arc42/arc42.adoc &gt; Task :downloadTemplate Install arc42 documentation template. For more information about arc42 see https://arc42.org [ant:input] Which language do you want to install? (EN, DE, ES, RU) &lt;-------------&gt; 0% EXECUTING [6s] [ant:input] Do you want the template with or without help? (withhelp, plain) &lt;-----&lt;-------------&gt; 0% EXECUTING [10s] Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-DE-withhelp-asciidoc.zip arc42 template unpacked into /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42 added template to docToolchainConfig.groovy use 'generateHTML', 'generatePDF' or 'generateSite' to convert the template BUILD SUCCESSFUL in 15s 1 actionable task: 1 executed Out of the box, docToolchain only knows the open source arc42 template for software architecture. That&#8217;s why it doesn&#8217;t ask which template to install. Since the template exists in four different languages and with or without help on how to use it, docToolchain asks you for these two parameters. It then downloads the template right from the source, unzips it and reformats it a little bit to fit the needs of docToolchain. It also adds the template to your configuration file. That&#8217;s it. You have now docToolchain with the arc42 template installed. Let&#8217;s render is as HTML, PDF or Microsite in the next steps. "
 },
 
 {
-    "id": 98,
+    "id": 96,
     "uri": "020_tutorial/040_microsite/index.html",
     "menu": "tutorial",
     "title": "Microsite",
@@ -793,11 +777,27 @@ var documents = [
 },
 
 {
-    "id": 99,
+    "id": 97,
+    "uri": "020_tutorial/040_microsite/130_theming.html",
+    "menu": "tutorial",
+    "title": "How to change the theme",
+    "text": " Table of Contents How to change the default theme for generateSite How to change the default theme for generateSite The goal of docToolchain is to provide an environment where you can focus on documentation, and not worry about theming. That&#8217;s why both the jBake templates and CSS are hidden. Let&#8217;s learn how theming works under the hood. docToolchain builds the result theme from three locations: It copies its internal theme into the output path of the site (defaults to build/microsite/temp/src/site ). It looks after the system environment variable DTC_SITETHEME . If this variable is set, it takes precedence over the default theme (technically,it is an override at the file level). It looks after the theme in your current repository (defaults to src/site ). If you want to create a new theme, call the docToolchain task copyTheme . This task copies the theme to the src/site location. After that, you can modify it as you like and create a new zip file with the result. For more information about what the theme structure looks like, head over to the jBake documentation . The basic template uses Twitter Bootstrap 5 as its CSS framework. Use the copyThemes task to copy all hidden jBake resources to your project. You can then remove the resources you don’t need, and change those you want to change. copyThemes overwrites existing files, but because your code is safely managed using version control, this shouldn’t be a problem. "
+},
+
+{
+    "id": 98,
     "uri": "020_tutorial/040_microsite/043_multi-markup.html",
     "menu": "tutorial",
     "title": "generateSite: Multi-Markup",
     "text": " Table of Contents How to Work with Different Markup Styles Meta-Data Header Markdown HTML restructuredText (.rst) Additional Markup Languages Special Cases How to Work with Different Markup Styles The generateSite task is often used to convert AsciiDoc to HTML. AsciiDoc is the default (and preferred) markup language for documentation written in docToolchain. But because docToolchain is designed to be used by larger teams and organisations, it also leverages jBake, which is capable of rendering AsciiDoc, Markdown, and plain HTML. Meta-Data Header In AsciiDoc, metadata is defined as attributes beginning with jbake- , such as :jbake-header: . For other markup languages, the metadata is defined in a block at the beginning of the document, delimited by ~ ~ [footnote: this can be configured in the jbake.properties file of the theme, and will be available in docToolchainConfig.groovy in the next version]. Refer to the Metadata Header section in the jBake documentation for more information. Markdown jBake Since jBake directly supports Markdown, you can use it without any additional configuration. As illustrated by this sample repository , docToolchain utilises the convention-over-configuration principle to determine the menu ( jbake-menu ), the location within the menu ( jbake-order ), and the title entry of the menu ( jbake-title ) from the folder structure and the document&#8217;s first headline. If you wish to override these defaults, you can use a metadata header. Flavours Here, the Markdown standard is relatively limited. For extended features, you&#8217;ll need to specify the flavour you want to use. jBake employs flexmark to render Markdown, and flexmark supports various flavours. These can be configured within the jbake.properties file within the theme. The default is markdown.extensions=GITHUB,EXTRA,TABLES,TOC,FENCED_CODE_BLOCKS . See also https://jbake.org/docs/2.6.7/#markdown_extensions for more details. HTML Plain HTML is supported in the same way as Markdown. The HTML body will be displayed in the content area of the microsite. Refer to src/docs/Demo/html.html in the sample repository. restructuredText (.rst) Since jBake doesn&#8217;t support restructuredText, docToolchain uses a different mechanism: docToolchainConfig.groovy /** if you need support for additional markup converters, you can configure them here you have three different types of script you can define: - groovy: just groovy code as string - groovyFile: path to a groovy script - bash: a bash command. It will receive the name of the file to be converted as first argument `groovy` and `groovyFile` will have access to the file and config object `dtcw:rstToHtml.py` is an internal script to convert restructuredText. Needs `python3` and `docutils` installed. **/ additionalConverters = [ //'.one': [command: 'println \"test\"+file.canonicalPath', type: 'groovy'], //'.two': [command: 'scripts/convert-md.groovy', type: 'groovyFile'], //'.rst': [command: 'dtcw:rstToHtml.py', type: 'bash'], ] Once an additional converter is configured, docToolchain will traverse all doc-files, check the extension, and invoke the configured script if the extension matches. The script&#8217;s task is to convert the file to a markup format recognised by jBake (AsciiDoc, Markdown, or HTML). Afterwards, jBake will process everything as usual. In this case, the Python docutils will convert restructuredText to HTML. Additional Markup Languages You can integrate additional markup languages in the same way as you added restructuredText. The only difference is that you will configure the script to render your files as a reference to your converter script, rather than using the internal script. You can find an example of the internal script for restructured text here: https://github.com/docToolchain/docToolchain/blob/ng/scripts/rstToHtml.py . Special Cases This mechanism also enables you to add new features to existing markup languages. For instance, you can use a script to replace all plantUML references in a Markdown file with a reference to a kroki.io server to render the file. docToolchainConfig.groovy ... additionalConverters = [ '.md': [ type: 'groovyFile', command: 'scripts/markdown-kroki.groovy' ] ] ... scripts/markdown-kroki.groovy import java.io.ByteArrayOutputStream; import java.io.IOException; import java.util.Base64; import java.util.zip.Deflater; public static byte[] encode(String decoded) throws IOException { return Base64.getUrlEncoder().encode(compress(decoded.getBytes())); } private static byte[] compress(byte[] source) throws IOException { Deflater deflater = new Deflater(Deflater.BEST_COMPRESSION); deflater.setInput(source); deflater.finish(); byte[] buffer = new byte[2048]; int compressedLength = deflater.deflate(buffer); byte[] result = new byte[compressedLength]; System.arraycopy(buffer, 0, result, 0, compressedLength); return result; } def source = file.text def krokiServer = \"https://kroki.io/\" def newSource = source.replaceAll(/(?s)```(plantuml|mermaid)([^`]*)```/){all, type, diagramSource -&gt; System.out.println file.canonicalPath System.out.println type System.out.println diagramSource imageUrl = krokiServer+type+'/png/'+new String(encode(diagramSource)) System.out.println imageUrl return \"![$type diagram]($imageUrl \\\"Image Title\\\")\" } file.write(newSource) "
+},
+
+{
+    "id": 99,
+    "uri": "020_tutorial/100_diagrams.net.html",
+    "menu": "tutorial",
+    "title": "Diagrams: Diagrams.net",
+    "text": " Table of Contents Diagrams: Diagrams.net Diagrams: Diagrams.net There is no exportDiagramsnet or exportDrawio task, because working with these diagrams is more convenient than with the other diagramming tools. Diagrams.net (formerly known as Draw.io) is a neat little tool which is able to store the source of your diagrams in the meta-data of your .png or .svg files. To recognize these files as diagrams.net files, give them the extension myfile .dio.png or myfile .dio.svg . In IntelliJ, with the asciidoctor plugin and the diagrams.net plugin installed, type something like image::mynewdiagram.dio.png[] IntelliJ will show you that the file doesn&#8217;t exist. Press alt + shift + enter to create the file. IntelliJ will then launch a local copy of the diagrams.net editor. Every change in the diagram will be directly reflected in your document. Figure 1. just a demo image asciidoctor plugin diagrams.net plugin // Please, replace #yourelement with a real element id on your webpage MarketplaceWidget.setupMarketplaceWidget('card', 7391, \".button1\"); MarketplaceWidget.setupMarketplaceWidget('card', 15635, \".button2\"); "
 },
 
 {
@@ -834,18 +834,18 @@ var documents = [
 
 {
     "id": 104,
-    "uri": "010_manual/30_config.html",
-    "menu": "manual",
-    "title": "Configuration",
-    "text": " Table of Contents Configuration mainConfigFile and docDir AsciiDoc config Command Line Parameters Configuration 2 minutes to read This appendix covers all configuration introduced by docToolchain. AsciiDoc, AsciiDoctor, Gradle and other tools and libraries used know of more configuration settings and you can read about those in the corresponding documentation. mainConfigFile and docDir docToolchain should be easy to use. That&#8217;s why the goal is to have one config file with all settings for each project. But first of all, docToolchain has to know where your documentation project is located. If docDir is defined, the default for mainConfigFile is Config.groovy in the root folder of your docDir . You have several options to specify the location of your documentation project ( docDir ) and the location of your config file ( mainConfigFile ). Commandline Specify the property on the commandline ./dtcw generateHTML -PmainConfigFile=Config.groovy Tip you can verify the location of your Config.groovy by executing docToolchain with the --info parameter which sets the loglevel to info . It will print the location on the command line (among other settings) dynamic configuration properties Sometimes you need a more dynamic configuration. Since the configuration file is an executable .groovy file, you can not only configure static values but also fetch dynamic once. For example, example = System.properties.myProperty You can then specify the property with the -D parameter like this ./dtcw docker generateHTML -DmyProperty=myValue In the same way, you can use environment variables example = System.getenv(\"myEnvVariable\") But in this case, you have to ensure that the environment variable can be accessed. It will not work for docker based execution of dtcw Content of the mainConfigFile Unresolved directive in &lt;stdin&gt; - include::../../../Config.groovy[tags=**] AsciiDoc config Command Line Parameters "
-},
-
-{
-    "id": 105,
     "uri": "010_manual/010_introduction_and_goals.html",
     "menu": "-",
     "title": "moved",
     "text": " document.location.href = '../10_about/20_what-is-doctoolchain.html'; "
+},
+
+{
+    "id": 105,
+    "uri": "010_manual/30_config.html",
+    "menu": "manual",
+    "title": "Configuration",
+    "text": " Table of Contents Configuration mainConfigFile and docDir AsciiDoc config Command Line Parameters Configuration 2 minutes to read This appendix covers all configuration introduced by docToolchain. AsciiDoc, AsciiDoctor, Gradle and other tools and libraries used know of more configuration settings and you can read about those in the corresponding documentation. mainConfigFile and docDir docToolchain should be easy to use. That&#8217;s why the goal is to have one config file with all settings for each project. But first of all, docToolchain has to know where your documentation project is located. If docDir is defined, the default for mainConfigFile is Config.groovy in the root folder of your docDir . You have several options to specify the location of your documentation project ( docDir ) and the location of your config file ( mainConfigFile ). Commandline Specify the property on the commandline ./dtcw generateHTML -PmainConfigFile=Config.groovy Tip you can verify the location of your Config.groovy by executing docToolchain with the --info parameter which sets the loglevel to info . It will print the location on the command line (among other settings) dynamic configuration properties Sometimes you need a more dynamic configuration. Since the configuration file is an executable .groovy file, you can not only configure static values but also fetch dynamic once. For example, example = System.properties.myProperty You can then specify the property with the -D parameter like this ./dtcw docker generateHTML -DmyProperty=myValue In the same way, you can use environment variables example = System.getenv(\"myEnvVariable\") But in this case, you have to ensure that the environment variable can be accessed. It will not work for docker based execution of dtcw Content of the mainConfigFile Unresolved directive in &lt;stdin&gt; - include::../../../Config.groovy[tags=**] AsciiDoc config Command Line Parameters "
 },
 
 {
