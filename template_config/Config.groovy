@@ -170,6 +170,15 @@ Needs `python3` and `docutils` installed.
         headers.title += " - from CustomConvention"
     """.stripIndent()
     **/
+
+    // define a custom search html
+    /** 
+    search = """        <form action="${content.rootpath}search.html">
+        <input aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search this site…" type="search" name="q">
+        </form>
+    """
+    **/
 }
 
 //*****************************************************************************************

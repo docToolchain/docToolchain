@@ -110,6 +110,16 @@ microsite.with {
     gitRepoUrl = "https://github.com/doctoolchain/doctoolchain/edit/${branch}/src/docs"
 
     rightColumnExtra = "training.html"
+
+    // define a custom search html
+    search = """        
+        <form action="https://perplexity.ai">
+        <input aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+    """
+    
+
     /** end:microsite **/
 }
 

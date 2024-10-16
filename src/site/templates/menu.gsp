@@ -30,9 +30,13 @@
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
+    <% if (config.site_search) {
+        out << config.site_search
+    } else { %>
         <form action="${content.rootpath}search.html">
         <input aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
                placeholder=" Search this site…" type="search" name="q">
         </form>
+    <% } %>
     </div>
 </nav>
