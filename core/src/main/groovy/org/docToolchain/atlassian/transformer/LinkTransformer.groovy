@@ -41,7 +41,6 @@ class LinkTransformer {
     }
 
     private rewriteJiraLinks(Element a, String jiraServerId) {
-        println("rewriteJiraLinks ${jiraServerId}")
         def ticketId = a.text()
         def macroBlock = """<ac:structured-macro ac:name=\"jira\" ac:schema-version=\"1\">
                      <ac:parameter ac:name=\"key\">${ticketId}</ac:parameter>"""
