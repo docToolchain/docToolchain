@@ -9175,7 +9175,7 @@ Entwürfe, Entscheidungen und Lösungen nachvollziehbar und wirkungsvoll festhal
 <div class="sect2">
 <h3 id="_configuration_6">30.10. Configuration</h3>
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/2d7d4905cb126f17594f25175a5ef086?d=identicon" alt="Timo Abele" width="32" height="32" title="Timo Abele"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/05107bc93f3e4d103ca06f4e68a64b38?d=identicon" alt="stehlih" width="32" height="32" title="stehlih"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/2d7d4905cb126f17594f25175a5ef086?d=identicon" alt="Timo Abele" width="32" height="32" title="Timo Abele"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/05107bc93f3e4d103ca06f4e68a64b38?d=identicon" alt="stehlih" width="32" height="32" title="stehlih"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/34ef1437fd31ff96c31dff58125e93fe?d=identicon" alt="Dr. Stefan Pfeiffer" width="32" height="32" title="Dr. Stefan Pfeiffer"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/5f528a3f6814d28b583f31842e3e8d9e?d=identicon" alt="Alexander Schwartz" width="32" height="32" title="Alexander Schwartz"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -9262,7 +9262,401 @@ It will not work for docker based execution of <code>dtcw</code></p>
 <h5 id="_content_of_the_mainconfigfile">Content of the <code>mainConfigFile</code></h5>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">Unresolved directive in 30_config.adoc - include::../../../Config.groovy[tags=**]</code></pre>
+<pre class="prettyprint highlight"><code data-lang="groovy">outputPath = 'build/docs'
+
+// If you want to use the Antora integration, set this to true.
+// This requires your project to be setup as Antora module.
+// You can use `downloadTemplate` task to bootstrap your project.
+//useAntoraIntegration = false
+
+// Path where the docToolchain will search for the input files.
+// This path is appended to the docDir property specified in gradle.properties
+// or in the command line, and therefore must be relative to it.
+
+inputPath = 'src/docs';
+
+inputFiles = [
+        [file: 'manual_test_script.adoc',       formats: ['html','pdf']],
+        /** inputFiles **/
+]
+
+//folders in which asciidoc will find images.
+//these will be copied as resources to ./images
+//folders are relative to inputPath
+imageDirs = [
+        /** imageDirs **/
+]
+
+// whether the build should fail when detecting broken image references
+// if this config is set to true all images will be embedded
+// failOnMissingImages = false
+
+taskInputsDirs = ["${inputPath}/images"]
+
+taskInputsFiles = []
+
+//******************************************************************************************
+
+
+//customization of the Jbake gradle plugin used by the generateSite task
+jbake.with {
+    // possibility to configure additional asciidoctorj plugins used by jbake
+    plugins = [ ]
+
+    // possibiltiy to configure additional asciidoctor attributes passed to the jbake task
+    asciidoctorAttributes = [ ]
+}
+
+//Configuration for exportChangelog
+
+exportChangelog = [:]
+
+changelog.with {
+
+    // Directory of which the exportChangelog task will export the changelog.
+    // It should be relative to the docDir directory provided in the
+    // gradle.properties file.
+    dir = 'src/docs'
+
+    // Command used to fetch the list of changes.
+    // It should be a single command taking a directory as a parameter.
+    // You cannot use multiple commands with pipe between.
+    // This command will be executed in the directory specified by changelogDir
+    // it the environment inherited from the parent process.
+    // This command should produce asciidoc text directly. The exportChangelog
+    // task does not do any post-processing
+    // of the output of that command.
+    //
+    // See also https://git-scm.com/docs/pretty-formats
+    cmd = 'git log --pretty=format:%x7c%x20%ad%x20%n%x7c%x20%an%x20%n%x7c%x20%s%x20%n --date=short'
+
+}
+
+//*****************************************************************************************
+
+//Configureation for publishToConfluence
+
+confluence = [:]
+
+// 'input' is an array of files to upload to Confluence with the ability
+//          to configure a different parent page for each file.
+//
+// Attributes
+// - 'file': absolute or relative path to the asciidoc generated html file to be exported
+// - 'url': absolute URL to an asciidoc generated html file to be exported
+// - 'ancestorName' (optional): the name of the parent page in Confluence as string;
+//                             this attribute has priority over ancestorId, but if page with given name doesn't exist,
+//                             ancestorId will be used as a fallback
+// - 'ancestorId' (optional): the id of the parent page in Confluence as string; leave this empty
+//                            if a new parent shall be created in the space
+//                            Set it for every file so the page scanning is done only for the given ancestor page trees.
+//
+// The following four keys can also be used in the global section below
+// - 'spaceKey' (optional): page specific variable for the key of the confluence space to write to
+// - 'subpagesForSections' (optional): The number of nested sub-pages to create. Default is '1'.
+//                                     '0' means creating all on one page.
+//                                     The following migration for removed configuration can be used.
+//                                     'allInOnePage = true' is the same as 'subpagesForSections = 0'
+//                                     'allInOnePage = false &amp;&amp; createSubpages = false' is the same as 'subpagesForSections = 1'
+//                                     'allInOnePage = false &amp;&amp; createSubpages = true' is the same as 'subpagesForSections = 2'
+// - 'pagePrefix' (optional): page specific variable, the pagePrefix will be a prefix for the page title and it's sub-pages
+//                            use this if you only have access to one confluence space but need to store several
+//                            pages with the same title - a different pagePrefix will make them unique
+// - 'pageSuffix' (optional): same usage as prefix but appended to the title and it's subpages
+// only 'file' or 'url' is allowed. If both are given, 'url' is ignored
+confluence.with {
+    input = [
+            [ file: "build/docs/html5/arc42-template-de.html" ],
+    ]
+
+    // endpoint of the confluenceAPI (REST) to be used
+    // https://[yourServer]
+    api = 'https://[yourServer]'
+
+    // requests per second for confluence API calls
+    rateLimit = 10
+
+//    Additionally, spaceKey, subpagesForSections, pagePrefix and pageSuffix can be globally defined here. The assignment in the input array has precedence
+
+    // the key of the confluence space to write to
+    spaceKey = 'asciidoc'
+
+    // if true, all pages will be created using the new editor v2
+    // enforceNewEditor = false
+
+    // variable to determine how many layers of sub pages should be created
+    subpagesForSections = 1
+
+    // the pagePrefix will be a prefix for each page title
+    // use this if you only have access to one confluence space but need to store several
+    // pages with the same title - a different pagePrefix will make them unique
+    pagePrefix = ''
+
+    pageSuffix = ''
+
+    /*
+    WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!
+
+    Tool expects credentials that belong to an account which has the right permissions to to create and edit confluence pages in the given space.
+    Credentials can be used in a form of:
+     - passed parameters when calling script (-PconfluenceUser=myUsername -PconfluencePass=myPassword) which can be fetched as a secrets on CI/CD or
+     - gradle variables set through gradle properties (uses the 'confluenceUser' and 'confluencePass' keys)
+    Often, same credentials are used for Jira &amp; Confluence, in which case it is recommended to pass CLI parameters for both entities as
+    -Pusername=myUser -Ppassword=myPassword
+    */
+
+    //optional API-token to be added in case the credentials are needed for user and password exchange.
+    //apikey = "[API-token]"
+
+    // HTML Content that will be included with every page published
+    // directly after the TOC. If left empty no additional content will be
+    // added
+    // extraPageContent = '&lt;ac:structured-macro ac:name="warning"&gt;&lt;ac:parameter ac:name="title" /&gt;&lt;ac:rich-text-body&gt;This is a generated page, do not edit!&lt;/ac:rich-text-body&gt;&lt;/ac:structured-macro&gt;
+    extraPageContent = ''
+
+    // enable or disable attachment uploads for local file references
+    enableAttachments = false
+
+    // default attachmentPrefix = attachment - All files to attach will require to be linked inside the document.
+    // attachmentPrefix = "attachment"
+
+
+    // Optional proxy configuration, only used to access Confluence
+    // schema supports http and https
+    // proxy = [host: 'my.proxy.com', port: 1234, schema: 'http']
+
+    // Optional: specify which Confluence OpenAPI Macro should be used to render OpenAPI definitions
+    // possible values: ["confluence-open-api", "open-api", "swagger-open-api", true]. true is the same as "confluence-open-api" for backward compatibility
+    // useOpenapiMacro = "confluence-open-api"
+}
+//*****************************************************************************************
+//Configuration for the export script 'exportEA.vbs'.
+// The following parameters can be used to change the default behaviour of 'exportEA'.
+// All parameter are optionally.
+// -  connection: Parameter allows to select a certain database connection by
+//    using the ConnectionString as used for directly connecting to the project
+//    database instead of looking for EAP/EAPX files inside and below the 'src' folder.
+// - 'packageFilter' is an array of package GUID's to be used for export. All
+//    images inside and in all packages below the package represented by its GUID
+//    are exported. A packageGUID, that is not found in the currently opened
+//    project, is silently skipped. PackageGUID of multiple project files can
+//    be mixed in case multiple projects have to be opened.
+// -  exportPath: relative path to base 'docDir' to which the diagrams and notes are to be exported
+// -  searchPath: relative path to base 'docDir', in which Enterprise Architect project files are searched
+// -  absoluteSearchPath: absolute path in which Enterprise Architect project files are searched
+// -  glossaryAsciiDocFormat: if set, the EA glossary is exported into exportPath as 'glossary.ad'
+// -  glossaryTypes: if set and glossary is exported, used to filter for certain types.
+//    Not set or empty list will cause no filtered glossary.
+// -  diagramAttributes: if set, the diagram attributes are exported and formatted as specified
+// -  imageFormat: if set, the image format is used for the export of diagrams. Default is '.png'.
+
+exportEA.with {
+// OPTIONAL: Set the connection to a certain project or comment it out to use all project files inside the src folder or its child folder.
+// connection = "DBType=1;Connect=Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=[THE_DB_NAME_OF_THE_PROJECT];Data Source=[server_hosting_database.com];LazyLoad=1;"
+// OPTIONAL: Add one or multiple packageGUIDs to be used for export. All packages are analysed, if no packageFilter is set.
+// packageFilter = [
+//                    "{A237ECDE-5419-4d47-AECC-B836999E7AE0}",
+//                    "{B73FA2FB-267D-4bcd-3D37-5014AD8806D6}"
+//                  ]
+// OPTIONAL: export diagrams, notes, etc. below folder src/docs
+// exportPath = "src/docs/"
+// OPTIONAL: EA project files are expected to be located in folder src/projects
+// searchPath = "src/projects/"
+// OPTIONAL: terms will be exported as asciidoc 'Description, single-line'
+// glossaryAsciiDocFormat = "TERM:: MEANING"
+// OPTIONAL: only terms of type Business and Technical will be exported.
+// glossaryTypes = ["Business", "Technical"]
+// OPTIONAL: Additional files will be exported containing diagram attributes in the given asciidoc format
+// diagramAttributes = "Modified: %DIAGRAM_AUTHOR%, %DIAGRAM_MODIFIED%, %DIAGRAM_NAME%,
+// %DIAGRAM_GUID%, %DIAGRAM_CREATED%, %DIAGRAM_NOTES%, %DIAGRAM_DIAGRAM_TYPE%, %DIAGRAM_VERSION%"
+// OPTIONAL: format of the exported diagrams. Defaults to '.png' if the parameter is not provided.
+// imageFormat = ".svg"
+}
+
+htmlSanityCheck.with {
+    //sourceDir = "build/html5/site"
+
+    // where to put results of sanityChecks...
+    //checkingResultsDir =
+
+    // OPTIONAL: directory where the results written to in JUnit XML format
+    //junitResultsDir =
+
+    // OPTIONAL: which statuscodes shall be interpreted as warning, error or success defaults to standard
+    //httpSuccessCodes = []
+    //httpWarningCodes = []
+    //httpErrorCodes = []
+
+    // fail build on errors?
+    failOnErrors = false
+}
+
+// Configuration for Jira related tasks
+jira = [:]
+
+jira.with {
+
+    // endpoint of the JiraAPI (REST) to be used
+    api = 'https://your-jira-instance'
+
+    // requests per second for Jira API calls
+    rateLimit = 10
+
+    /*
+    WARNING: It is strongly recommended to store credentials securely instead of commiting plain text values to your git repository!!!
+
+    Tool expects credentials that belong to an account which has the right permissions to read the JIRA issues for a given project.
+    Credentials can be used in a form of:
+     - passed parameters when calling script (-PjiraUser=myUsername -PjiraPass=myPassword) which can be fetched as a secrets on CI/CD or
+     - gradle variables set through gradle properties (uses the 'jiraUser' and 'jiraPass' keys)
+    Often, Jira &amp; Confluence credentials are the same, in which case it is recommended to pass CLI parameters for both entities as
+    -Pusername=myUser -Ppassword=myPassword
+    */
+
+    // the key of the Jira project
+    project = 'PROJECTKEY'
+
+    // the format of the received date time values to parse
+    dateTimeFormatParse = "yyyy-MM-dd'T'H:m:s.SSSz" // i.e. 2020-07-24'T'9:12:40.999 CEST
+
+    // the format in which the date time should be saved to output
+    dateTimeFormatOutput = "dd.MM.yyyy HH:mm:ss z" // i.e. 24.07.2020 09:02:40 CEST
+
+    // the label to restrict search to
+    label = 'label1'
+
+    // Legacy settings for Jira query. This setting is deprecated &amp; support for it will soon be completely removed. Please use JiraRequests settings
+    jql = "project='%jiraProject%' AND labels='%jiraLabel%' ORDER BY priority DESC, duedate ASC"
+
+    // Base filename in which Jira query results should be stored
+    resultsFilename = 'JiraTicketsContent'
+
+    saveAsciidoc = true // if true, asciidoc file will be created with *.adoc extension
+    saveExcel = true // if true, Excel file will be created with *.xlsx extension
+
+    // Output folder for this task inside main outputPath
+    resultsFolder = 'JiraRequests'
+
+    /*
+    List of requests to Jira API:
+    These are basically JQL expressions bundled with a filename in which results will be saved.
+    User can configure custom fields IDs and name those for column header,
+    i.e. customfield_10026:'Story Points' for Jira instance that has custom field with that name and will be saved in a coloumn named "Story Points"
+    */
+    exports = [
+        [
+            filename:"File1_Done_issues",
+            jql:"project='%jiraProject%' AND status='Done' ORDER BY duedate ASC",
+            customfields: [customfield_10026:'Story Points']
+        ],
+        [
+            filename:'CurrentSprint',
+            jql:"project='%jiraProject%' AND Sprint in openSprints() ORDER BY priority DESC, duedate ASC",
+            customfields: [customfield_10026:'Story Points']
+        ]
+    ]
+}
+
+// Configuration for OpenAPI related task
+openApi = [:]
+
+// 'specFile' is the name of OpenAPI specification yaml file. Tool expects this file inside working dir (as a filename or relative path with filename)
+// 'infoUrl' and 'infoEmail' are specification metadata about further info related to the API. By default this values would be filled by openapi-generator plugin placeholders
+//
+
+openApi.with {
+    specFile = 'src/docs/petstore-v2.0.yaml' // i.e. 'petstore.yaml', 'src/doc/petstore.yaml'
+    infoUrl = 'https://my-api.company.com'
+    infoEmail = 'info@company.com'
+}
+
+// Sprint changelog configuration generate changelog lists based on tickets in sprints of an Jira instance.
+// This feature requires at least Jira API &amp; credentials to be properly set in Jira section of this configuration
+sprintChangelog = [:]
+sprintChangelog.with {
+    sprintState = 'closed' // it is possible to define multiple states, i.e. 'closed, active, future'
+    ticketStatus = "Done, Closed" // it is possible to define multiple ticket statuses, i.e. "Done, Closed, 'in Progress'"
+
+    showAssignee = false
+    showTicketStatus = false
+    showTicketType = true
+    sprintBoardId = 12345  // Jira instance probably have multiple boards; here it can be defined which board should be used
+
+    // Output folder for this task inside main outputPath
+    resultsFolder = 'Sprints'
+
+    // if sprintName is not defined or sprint with that name isn't found, release notes will be created on for all sprints that match sprint state configuration
+    sprintName = 'PRJ Sprint 1' // if sprint with a given sprintName is found, release notes will be created just for that sprint
+    allSprintsFilename = 'Sprints_Changelogs' // Extension will be automatically added.
+}
+
+
+collectIncludes = [:]
+
+collectIncludes.with {
+
+//    fileFilter = "adoc" // define which files are considered. default: "ad|adoc|asciidoc"
+
+//    minPrefixLength = "3" // define what minimum length the prefix. default: "3"
+
+//    maxPrefixLength = "3" // define what maximum length the prefix. default: ""
+
+//    separatorChar = "_" // define the allowed separators after prefix. default: "-_"
+
+//    cleanOutputFolder = true // should the output folder be emptied before generation? default: false
+
+//    excludeDirectories = [] // define additional directories that should not be traversed.
+}
+
+// Configuration for Structurizr related tasks
+structurizr = [:]
+
+structurizr.with {
+
+    // Configure where `exportStructurizr` looks for the Structurizr model.
+    workspace = {
+        // The directory in which the Structurizr workspace file is located.
+        // path = 'src/docs/structurizr'
+
+        // By default `exportStructurizr` looks for a file '${structurizr.workspace.path}/workspace.dsl'
+        // You can customize this behavior with 'filename'. Note that the workspace filename is provided without '.dsl' extension.
+        // filename = 'workspace'
+    }
+
+    export = {
+        // Directory for the exported diagrams.
+        //
+        // WARNING: Do not put manually created/changed files into this directory.
+        // If a valid Structurizr workspace file is found the directory is deleted before the diagram files are generated.
+        // outputPath = 'src/docs/structurizr/diagrams'
+
+        // Format of the exported diagrams. Defaults to 'plantuml' if the parameter is not provided.
+        //
+        // Following formats are supported:
+        // - 'plantuml': the same as 'plantuml/structurizr'
+        // - 'plantuml/structurizr': exports views to PlantUML
+        // - 'plantuml/c4plantuml': exports views to PlantUML with https://github.com/plantuml-stdlib/C4-PlantUML
+        // format = 'plantuml'
+    }
+}
+
+// Configuration for openAI related tasks
+openAI = [:]
+
+openAI.with {
+    // This task requires a person access token for openAI.
+    // Ensure to pass this token as parameters when calling the task
+    // using -PopenAI.token=xx-xxxxxxxxxxxxxx
+
+    //model = "text-davinci-003"
+    //maxToken = '500'
+    //temperature = '0.3'
+}
+
+// Configuration for pandoc options
+pandocOptions = [
+    '--toc'
+]</code></pre>
 </div>
 </div>
 </div>
