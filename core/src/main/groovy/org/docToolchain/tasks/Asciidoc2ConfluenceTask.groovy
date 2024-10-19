@@ -480,7 +480,7 @@ class Asciidoc2ConfluenceTask extends DocToolchainTask {
         if(config.confluence.jiraServerId){
             transformer.usingOnPremiseJira(config.confluence.jiraServerId)
         }
-        def pageString = transformer.transformToConfluenceFormat(saneHtml, anchors, pageAnchors, confluencePagePrefix, confluencePagePrefix)
+        def pageString = transformer.transformToConfluenceFormat(saneHtml, anchors, pageAnchors, confluencePagePrefix, confluencePageSuffix)
 
         return Map.of(
             "page", pageString,

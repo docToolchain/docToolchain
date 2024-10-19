@@ -9,6 +9,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+* https://github.com/docToolchain/docToolchain/issues/1447[publishToConfluence: Internal links broken with v3.4.1]
+
 === added
 
 * possibiblity to change the search form
