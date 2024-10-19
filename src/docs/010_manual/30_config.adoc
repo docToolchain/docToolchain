@@ -60,7 +60,7 @@ It will not work for docker based execution of `dtcw`
 
 [source,groovy]
 ----
-include::../../../Config.groovy[tags=**]
+include::{projectRootDir}/Config.groovy[tags=**]
 ----
 
 == AsciiDoc config
