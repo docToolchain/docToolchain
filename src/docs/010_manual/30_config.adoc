@@ -27,6 +27,12 @@ Specify the property on the commandline
 TIP: you can verify the location of your `Config.groovy` by executing docToolchain with the `--info` parameter which sets the loglevel to `info`.
 It will print the location on the command line (among other settings)
 
+=== Environment Variable
+
+You can also specify the `mainConfigFile` using the environment variable `DTC_CONFIG_FILE`. This will override the default value of `docToolchainConfig.groovy`.
+
+    export DTC_CONFIG_FILE=path/to/config.groovy
+
 === dynamic configuration properties
 
 Sometimes you need a more dynamic configuration.
