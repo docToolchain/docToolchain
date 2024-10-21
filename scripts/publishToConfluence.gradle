@@ -71,6 +71,11 @@ task publishToConfluence(
             findProperty("confluence.useV1Api") : config.confluence.useV1Api != [:] ?
             config.confluence.useV1Api :true
         Asciidoc2ConfluenceTask.From(config, docDir).execute()
+        if (config.confluence.pages.isEmpty()) {
+            logger.warn("No pages found in the Confluence space.")
+        } else {
+            logger.info("Retrieved ${config.confluence.pages.size()} pages from the Confluence space.")
+        }
     }
 }
 //end::publishToConfluence[]
