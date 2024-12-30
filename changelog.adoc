@@ -16,6 +16,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 * possibiblity to change the search form
 * https://github.com/docToolchain/docToolchain/issues/1468[#1468: Add progress indicator/logging for 'allPages' fetch in publishToConfluence task]
+* pre-commit hooks added for improving QA barriers
 
 === changed
 
