@@ -53,3 +53,9 @@ resources/asciidoctor-reveal.js
 
 # VSC config file
 .vscode/
+
+# Vi
+.*.sw?
+
+# Emacs
+*~
