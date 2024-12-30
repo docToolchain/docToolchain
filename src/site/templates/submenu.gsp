@@ -83,7 +83,7 @@
         return result
     }
 %>
-     <% if (config.site_search) { 
+     <% if (config.site_search) {
         if (config.site_search instanceof String) {
             html = config.site_search
         } else {

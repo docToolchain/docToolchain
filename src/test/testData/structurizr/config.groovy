@@ -8,7 +8,7 @@ structurizr.with {
 
     workspace = {
         path = './src/test/testData/structurizr/default'
-        // The workspace filename is provided without extension. 
+        // The workspace filename is provided without extension.
         // filename = 'workspace'
     }
 

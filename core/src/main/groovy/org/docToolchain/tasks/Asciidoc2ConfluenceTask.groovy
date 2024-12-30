@@ -814,4 +814,3 @@ class Asciidoc2ConfluenceTask extends DocToolchainTask {
         }
     }
 }
-

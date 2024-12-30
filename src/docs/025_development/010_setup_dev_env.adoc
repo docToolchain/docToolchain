@@ -20,7 +20,7 @@ What you need to do is:
 3. Check out the ng-branch of your fork to this folder.
 4. To use this version in your test project, edit the version at the start of your `dtcw` script to `2.0.0-dev`.
 
-You now have the full repo locally cloned. To save memory, some parts of the repo are zipped. If you have problems, check out the https://github.com/docToolchain/docToolchain/blob/master/build.gradle#L79[prepareDist-Task].
+You now have the full repo locally cloned. To save memory, some parts of the repo are zipped. If you have problems, check out the https://github.com/docToolchain/docToolchain/blob/8821e631662d460a4f2c21b3507d92e34f2e4cc5/build.gradle#L79[prepareDist-Task].
 
 === Create Gradle-Independent Tasks
 

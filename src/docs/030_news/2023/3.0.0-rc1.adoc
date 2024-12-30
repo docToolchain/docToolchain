@@ -32,7 +32,7 @@ Since this is currently only a pre-release / release candidate, please play arou
 == Notes
 
 * to use the new wrapper, you currently have to fetch it from `https://raw.githubusercontent.com/docToolchain/docToolchain/ng/dtcw` or `https://raw.githubusercontent.com/docToolchain/docToolchain/ng/dtcw.ps1` instead of the location mentioned in the tutorial
-* `./dtcw local install doctoolchain` and `./dtcw local install java` are now the commands to do an initial local setup 
+* `./dtcw local install doctoolchain` and `./dtcw local install java` are now the commands to do an initial local setup
 * generatePDF now needs additional styles, details will follow
 * to test the Antora template
 ** install antora: https://docs.antora.org/antora/latest/install/install-antora/
@@ -146,7 +146,7 @@ NOTE: a big "THANK YOU" to all *Sponsors* and *Contributors* who helped to suppo
 [TIP]
 ====
 You like docToolchain? +
-What about helping to make it even better? + 
+What about helping to make it even better? +
 docToolchain is a community project, so be part of the community which drives the project. +
 You don't have to code for doing so. +
 It would even help to brush up the docs, write tutorials or groom the backlog +

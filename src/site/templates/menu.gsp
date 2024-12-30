@@ -30,7 +30,7 @@
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
-    <% if (config.site_search) { 
+    <% if (config.site_search) {
         if (config.site_search instanceof String) {
             out << config.site_search
         } else {

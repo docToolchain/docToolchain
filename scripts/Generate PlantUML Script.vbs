@@ -13,7 +13,7 @@ LOGLEVEL=1		'INFO
 '
 ' Script Name: GeneratePlantUML
 ' Author: David Anderson
-' Purpose: Create PlantUML Script using an EA diagram  
+' Purpose: Create PlantUML Script using an EA diagram
 ' Date: 31-Jan-2019
 '
 '-----------------------------------------
@@ -39,7 +39,7 @@ sub OnDiagramScript()
 	dim currentDiagram as EA.Diagram
 	set currentDiagram = Repository.GetCurrentDiagram()
 	dim generated_script
-	
+
 	if not currentDiagram is nothing then
 	'check..'
 		if currentDiagram.Type = "Sequence" then
@@ -49,7 +49,7 @@ sub OnDiagramScript()
 			dim diagramObject as EA.DiagramObject
 			dim element as EA.Element
 			dim connector as EA.Connector
-			
+
 			if selectedObjects.Count = 1 then
 				' One or more diagram objects are selected
 				Dim theSelectedElement as EA.Element
@@ -72,12 +72,12 @@ sub OnDiagramScript()
 							else
 								timeline_array (t,2) = chr(34) & element.Name & chr(34)
 							end if
-							'replace spaces with \n if length greater than 20 
+							'replace spaces with \n if length greater than 20
 							if len(timeline_array (t,2)) > 20 then
 								timeline_array (t,2) = replace(timeline_array (t,2), " ","\n")
 							end if
 							if instr(element.Alias, " ") = 0 then
-								timeline_array (t,3) = element.Alias	
+								timeline_array (t,3) = element.Alias
 							else
 								timeline_array (t,3) = chr(34) & element.Alias & chr(34)
 							end if
@@ -86,8 +86,8 @@ sub OnDiagramScript()
 							timeline_array (t,6) = diagramObject.right
 							timeline_array (t,7) = "N"  	'activate switch
 							timeline_array (t,8) = lcase(color(element.Type, diagramObject.BackgroundColor))
-							
-							t=t+1							
+
+							t=t+1
 						else
 							if element.Type = "InteractionFragment" then
 								call LOGDebug( "*Fragment (" & element.ElementID & ") name=" & element.Name & _
@@ -99,19 +99,19 @@ sub OnDiagramScript()
 								sequence_array (s,3) = element.Name
 								sequence_array (s,4) = fragment_type(element.Subtype)
 								sequence_array (s,5) = ""
-								sequence_array (s,6) = "" 
+								sequence_array (s,6) = ""
 								s=s+1
 								if element.Partitions.Count > 0 then
 									line_offset = (diagramObject.top *-1)+ 20
 									for each partition in element.Partitions
-										call LOGDebug( "Partitition for " & element.ElementID & " " & "name=" & partition.Name & " object type=" & partition.ObjectType & " operator=" & partition.Operator & " size=" & partition.size & " note=" & partition.Note)	
+										call LOGDebug( "Partitition for " & element.ElementID & " " & "name=" & partition.Name & " object type=" & partition.ObjectType & " operator=" & partition.Operator & " size=" & partition.size & " note=" & partition.Note)
 										sequence_array (s,0) = line_offset
 										sequence_array (s,1) = 0
 										sequence_array (s,2) = 0
 										sequence_array (s,3) = partition.Name
 										sequence_array (s,4) = "Else"
 										sequence_array (s,5) = ""
-										sequence_array (s,6) = "" 
+										sequence_array (s,6) = ""
 										line_offset = line_offset + partition.Size
 										s=s+1
 									next
@@ -124,9 +124,9 @@ sub OnDiagramScript()
 									sequence_array (s,3) = ""
 									sequence_array (s,4) = "End"
 									sequence_array (s,5) = ""
-									sequence_array (s,6) = "" 
+									sequence_array (s,6) = ""
 									s=s+1
-								end if 
+								end if
 							else
 								if element.Type = "Text" _
 									and element.Name = "title" then
@@ -137,7 +137,7 @@ sub OnDiagramScript()
 									sequence_array (s,3) = element.Notes
 									sequence_array (s,4) = "title"
 									sequence_array (s,5) = ""
-									sequence_array (s,6) = "" 
+									sequence_array (s,6) = ""
 									s=s+1
 								else
 									call LOGWarning( element.type & " element type not added to timeline array")
@@ -152,7 +152,7 @@ sub OnDiagramScript()
 '
 					call LOGDebug( "Sequence Array" )
 					call PrintArray (sequence_array,0,s-1)
-					
+
 					dim box_right
 					dim strLine
 					box_right=0
@@ -164,7 +164,7 @@ sub OnDiagramScript()
 							Exit for
 						end if
 						if timeline_array (i,1) = "Boundary" then
-							strLine = "Box " & timeline_array (i,2) 						
+							strLine = "Box " & timeline_array (i,2)
 							box_right = timeline_array (i,6)
 						Else
 							if box_right > 0 then			'check for inline box
@@ -173,7 +173,7 @@ sub OnDiagramScript()
 									box_right=0
 								end if
 							end if
-							strLine = participant(timeline_array (i,1), timeline_array (i,4)) & " " & timeline_array (i,2) 
+							strLine = participant(timeline_array (i,1), timeline_array (i,4)) & " " & timeline_array (i,2)
 							if not timeline_array (i,3) = "" then
 								strLine = strLine & " as " & timeline_array (i,3)
 							end if
@@ -183,7 +183,7 @@ sub OnDiagramScript()
 						end if
 						generated_script = generated_script & strLine & vbcrlf
 					next
-					
+
 					if box_right > 0 then				'check for trailing
 						generated_script = generated_script & "End Box" & vbcrlf
 						box_right=0
@@ -201,8 +201,8 @@ sub OnDiagramScript()
 						'Session.Output( " styleEx: " & connector.StyleEx )
 						'Session.Output( " parmam & retval: " & connector.MiscData(1) )
 						'Session.Output( " custom property count: " & connector.CustomProperties.Count)
-						
-						sequence_array (s,0) = connector.StartPointY *-1					
+
+						sequence_array (s,0) = connector.StartPointY *-1
 						sequence_array (s,1) = connector.ClientID
 						sequence_array (s,2) = connector.SupplierID
 						sequence_array (s,3) = connector.Name
@@ -224,13 +224,13 @@ sub OnDiagramScript()
 						end if
 						if sequence_array (i,1) = 0 then		'source/target identifiers are equal 0
 							if sequence_array (i,4) = "divider" then
-								strline = "== " & sequence_array(i,3) & " ==" 							
+								strline = "== " & sequence_array(i,3) & " =="
 							else
-								strline = sequence_array (i,4) & " " & sequence_array(i,3) 
+								strline = sequence_array (i,4) & " " & sequence_array(i,3)
 							end if
 							generated_script = generated_script & strLine & vbcrlf
 						else
-							strline = timeline(sequence_array(i,1)) & arrow(sequence_array (i,4), sequence_array (i,6)) & timeline(sequence_array(i,2))  
+							strline = timeline(sequence_array(i,1)) & arrow(sequence_array (i,4), sequence_array (i,6)) & timeline(sequence_array(i,2))
 							if not sequence_array(i,3) = "" then
 								strline = strline & ": " & sequence_array(i,3) & signature(sequence_array (i,5))
 							end if
@@ -249,7 +249,7 @@ sub OnDiagramScript()
 								strline = "activate " & timeline(sequence_array(i,2))
 								generated_script = generated_script & strLine & vbcrlf
 							end if
-							
+
 							'deactivate source
 							if sequence_array (i,6) = 1 then			'isreturn
 								deactivate_timeline(sequence_array(i,1))
@@ -258,7 +258,7 @@ sub OnDiagramScript()
 							end if
 						end if
 					next
-					
+
 					'deactivate any active timelines
 '					For i = 0 to Ubound(timeline_array)
 					For i = 0 to t-1
@@ -267,16 +267,16 @@ sub OnDiagramScript()
 						end if
 						if timeline_array (i,7) = "Y" then
 							timeline_array (i,7) = "N"
-							if timeline_array(i,3) = "" then 
+							if timeline_array(i,3) = "" then
 								strline = "deactivate " & timeline_array(i,2)
 							else
 								strline = "deactivate " & timeline_array(i,3)
 							end if
-							generated_script = generated_script & strLine & vbcrlf							
+							generated_script = generated_script & strLine & vbcrlf
 						end if
 					Next
 					'check for InteractionFragments
-					
+
 					theSelectedElement.Notes = generated_script
 					theSelectedElement.Update
 					call LOGInfo( "Script Complete" )
@@ -285,14 +285,14 @@ sub OnDiagramScript()
 				else
 					Session.Prompt "A note object should be selected for storing the generated PlantUML script" , promptOK
 				end if
-			else	
+			else
 				if selectedObjects.Count = 0 then
 					' Nothing is selected
 					Session.Prompt "A note object should be selected for storing the generated PlantUML script" , promptOK
 				else
-					Session.Prompt "Only one object should be selected" , promptOK					
+					Session.Prompt "Only one object should be selected" , promptOK
 				end if
-			end if		
+			end if
 		else
 			Session.Prompt "This script does not yet support " & currentDiagram.Type & " diagrams" , promptOK
 		end if
@@ -313,7 +313,7 @@ function participant(strType, strStereotype)
 			case "CONTROL" 		participant = "Control"
 			case "ENTITY" 		participant = "Entity"
 			case "COLLECTIONS" 	participant = "Collections"
-			case else			participant = "Participant" 
+			case else			participant = "Participant"
 		end select
 	end if
 end function
@@ -374,38 +374,38 @@ end function
 
 function arrow(misc0, misc3)
 	Call LOGTrace( "arrow(" & misc0 & ":" & misc3 & ")" )
-	
-	if not isnull(misc3) then		
+
+	if not isnull(misc3) then
 		if misc3 = 1 then			' is return?
 			arrow = " -->> "
 			exit function
 		end if
 	end if
-	
+
 	if misc0 = "Asynchronous" then
 		arrow = " ->> "
 	else
 		arrow = " -> "					'synchronous
 	end if
 	Call LOGTrace( "arrow=" & arrow )
-	
+
 end function
 
 function signature(misc2)
 	'parse miscdata2 for params and retrun value
 	call LOGTrace( "signature(" & misc2 & ")")
 
-	dim i 
+	dim i
 	dim j
 	dim l
 	dim retval
 	dim param
-	
+
 	if misc2="" then
 		signature = " ()"
 		exit function
 	end if
-	
+
 	i = inStr(misc2, "retval=void")
 	if i = 0 then
 		i = inStr(misc2, "retval=")
@@ -418,26 +418,26 @@ function signature(misc2)
 		end if
 	end if
 
-	i = instr(misc2,"paramsDlg=") 
+	i = instr(misc2,"paramsDlg=")
 	if i > 0 then
 		j = instr(i, misc2,chr(59))
 		l = j-(i+10)
 		param=mid(misc2,i+10,l)
 	end if
-	
+
 	if param = "" then
 		param="()"
 	else
-		param = "(" & param & ")" 
+		param = "(" & param & ")"
 	end if
-	
+
 	if not retval = "" then
 		retval=":" & retval
 	end if
 
 	signature = param & retval
 	call LOGTrace( "Signature=" & signature )
-	
+
 end function
 
 function color(elementType, BackgroundColor)
@@ -460,16 +460,16 @@ dim hexRGB
 		hexvalue = hex(BackgroundColor)
 		while len(hexvalue) < 6
 			hexvalue = "0" & hexvalue
-		wend		
+		wend
 		hexRGB = "#" & mid(hexvalue,5,2) & mid(hexvalue,3,2) & mid(hexvalue,1,2)
 		color = ColorNameByHex (hexRGB)
 		if color="" then
 			color = hexRGB
 		end if
 		call LOGDebug( "hexColor=" & color)
-	end if 
+	end if
 	call LOGTrace("color=" & color)
-	
+
 end function
 
 function fragment_type(ftype)

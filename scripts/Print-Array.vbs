@@ -12,9 +12,9 @@ Sub PrintArray(vec,lo,hi)
 	row=""
 	For j = 0 to Ubound(vec,2)
 		if j=0 then
-			row = vec(i,j) 
+			row = vec(i,j)
 		else
-			row = row & ":" & vec(i,j) 
+			row = row & ":" & vec(i,j)
 		end if
 	Next
     'call Session.Output(row)
@@ -22,5 +22,5 @@ Sub PrintArray(vec,lo,hi)
 
   Next
   call LOGDebug( "end of array")
-  
+
 End Sub  'PrintArray

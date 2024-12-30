@@ -15,10 +15,10 @@
 
 
 Sub SwapRows(ary,row1,row2)
-  '== This proc swaps two rows of an array 
+  '== This proc swaps two rows of an array
   Dim x,tempvar
   For x = 0 to Ubound(ary,2)
-    tempvar = ary(row1,x)    
+    tempvar = ary(row1,x)
     ary(row1,x) = ary(row2,x)
     ary(row2,x) = tempvar
   Next
@@ -53,7 +53,7 @@ Sub QuickSort(vec,loBound,hiBound,SortField)
   End If
 
   '== Three or more items to sort
-  
+
   For counter = 0 to Ubound(vec,2)
     pivot(counter) = vec(int((loBound + hiBound) / 2),counter)
     vec(int((loBound + hiBound) / 2),counter) = vec(loBound,counter)
@@ -62,7 +62,7 @@ Sub QuickSort(vec,loBound,hiBound,SortField)
 
   loSwap = loBound + 1
   hiSwap = hiBound
-  
+
   do
     '== Find the right loSwap
     while loSwap < hiSwap and vec(loSwap,SortField) <= pivot(SortField)
@@ -77,12 +77,12 @@ Sub QuickSort(vec,loBound,hiBound,SortField)
 
 
   loop while loSwap < hiSwap
-  
+
   For counter = 0 to Ubound(vec,2)
     vec(loBound,counter) = vec(hiSwap,counter)
     vec(hiSwap,counter) = pivot(counter)
   Next
-    
+
   '== Recursively call function .. the beauty of Quicksort
     '== 2 or more items in first section
     if loBound < (hiSwap - 1) then Call QuickSort(vec,loBound,hiSwap-1,SortField)

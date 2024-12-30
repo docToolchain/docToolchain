@@ -1,39 +1,27 @@
----
-name: Bug report
-about: Create a report to help us improve
+______________________________________________________________________
 
----
+name: Bug report about: Create a report to help us improve
 
-**Describe the bug**
-A clear and concise description of what the bug is.
+______________________________________________________________________
 
-**To Reproduce**
-Steps to reproduce the behavior:
-1.
-2.
-3.
-4. See error
+**Describe the bug** A clear and concise description of what the bug is.
 
-**Expected behavior**
-A clear and concise description of what you expected to happen.
+**To Reproduce** Steps to reproduce the behavior: 1. 2. 3. 4. See error
 
-**Screenshots**
-If applicable, add screenshots to help explain your problem.
+**Expected behavior** A clear and concise description of what you expected to happen.
+
+**Screenshots** If applicable, add screenshots to help explain your problem.
 
 **Configuration**
- - docToolchain version
- - OS: [e.g. Windows, Linux, ...]
- - Browser [e.g. chrome, safari]
- - Relevant SDK Versions [e.g. JDK 1.8, ...] 
 
+- docToolchain version
+- OS: [e.g. Windows, Linux, ...]
+- Browser [e.g. chrome, safari]
+- Relevant SDK Versions [e.g. JDK 1.8, ...]
 
-**Additional context**
-Add any other context about the problem here.
+**Additional context** Add any other context about the problem here.
 
-**Find a good headline**
-Now it is time to find a good headline/subject for the problem.
-Please prefix it with the name of the task which fails.
+**Find a good headline** Now it is time to find a good headline/subject for the problem. Please prefix it with the name
+of the task which fails.
 
-Example:
-exportContributors throws exception when ...
-
+Example: exportContributors throws exception when ...

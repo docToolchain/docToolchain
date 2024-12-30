@@ -25,7 +25,7 @@ Since all links of the generated docs are relative, you can use the generated ar
 
 === Dependencies
 
-The 2.2.1 docker image of docToolchain should be self-contained. 
+The 2.2.1 docker image of docToolchain should be self-contained.
 Dependency resolution shouldn't be a problem with this image.
 You should run your build pipeline directly on this image.
 `dtcw` will notice it is running within the image and use the dependencies.
@@ -56,5 +56,3 @@ and reference the file when you execute a `dtcw` command like this:
     ./dtcw -I $(pwd)/init.gradle <task>
 
 See https://docs.gradle.org/current/userguide/init_scripts.html for more details on this approach.
-
-

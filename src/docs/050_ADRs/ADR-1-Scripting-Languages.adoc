@@ -29,5 +29,3 @@ The interaction between scripts written in different languages is managed throug
 === Consequences
 
 As a result of this decision, most scripts are developed for a specific purpose at a given point in time and are updated only when necessary. Some scripts are updated on a regular basis due to their widespread use and the varying needs of users. Legacy scripts will be updated when there is a need for it.
-
-

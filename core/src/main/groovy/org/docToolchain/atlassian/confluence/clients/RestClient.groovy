@@ -142,4 +142,3 @@ class RestClient extends BasicRestClient {
         }
     }
 }
-

@@ -9,7 +9,7 @@ A version which does not need to download dependencies but already has them on b
 
 If you have docker available, then this might already be the solution.
 The docker image already contains all dependencies and the docToolchain wrapper (`dtcw`) already checks if docker is available and running and thus will use docker in this case.
-In order to fetch the docker image from your local docker proxy, please check the source of `dtcw` and update https://github.com/docToolchain/doctoolchain.github.io/blob/master/dtcw#L280[the docker image reference].
+In order to fetch the docker image from your local docker proxy, please check the source of `dtcw` and update https://github.com/docToolchain/doctoolchain.github.io/blob/eef3309340c3510287cf9e88b56ffd8133f96872/dtcw#L280[the docker image reference].
 
 === Local Solution
 
@@ -83,5 +83,3 @@ The wrapper of your project will recognize it as local installation and use it.
 
 NOTE: the installed JDK is for one specific PU architecture.
 So, if your team works with different Systems (Windows, Mac, Linux), you have to create several versions.
-
-

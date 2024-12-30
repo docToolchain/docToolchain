@@ -27,17 +27,17 @@ class ExportChangeLogSpec extends Specification {
             new File('./build/test/docs/changelog.adoc')
                     .text.trim().replaceAll("\r","")
                     .endsWith("""
-| 2017-10-25 
-| Ralf D. Mueller 
-| refined tests 
+| 2017-10-25
+| Ralf D. Mueller
+| refined tests
 
-| 2017-09-25 
-| Jakub J Jablonski 
-| Fix failing test for PDF generation with PlantUML 
+| 2017-09-25
+| Jakub J Jablonski
+| Fix failing test for PDF generation with PlantUML
 
-| 2017-09-24 
-| Ralf D. Mueller 
-| added tests for plantUml 
+| 2017-09-24
+| Ralf D. Mueller
+| added tests for plantUml
 """.trim().replaceAll("\r",""))
     }
 

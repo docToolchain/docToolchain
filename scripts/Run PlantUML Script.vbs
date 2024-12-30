@@ -19,8 +19,8 @@ LOGLEVEL=1		'INFO
 '
 ' Script Name: Execute PlantUML Script
 ' Author: David Anderson
-' Purpose: Wrapper script to appear in the Diagram Srripting group  
-' 		   responsible for directing to the relevant script by diagram type.  
+' Purpose: Wrapper script to appear in the Diagram Srripting group
+' 		   responsible for directing to the relevant script by diagram type.
 ' Date: 11-March-2019
 '
 dim currentDiagram as EA.Diagram
@@ -67,7 +67,7 @@ sub OnDiagramScript()
 				' Nothing is selected
 				Session.Prompt "A note object with the valid PlantUML script should be selected" , promptOK
 			else
-				Session.Prompt "Only one object should be selected" , promptOK				
+				Session.Prompt "Only one object should be selected" , promptOK
 			end if
 		end if
 	else

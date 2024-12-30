@@ -317,7 +317,7 @@ color_array(153,1)="#98FB99"
 color_array(154,0)="#TECHNOLOGY"
 color_array(154,1)="#90EE91"
 
-function ColorHexByName (colorName) 
+function ColorHexByName (colorName)
 dim i
 	'Session.Output( "ColorName=" & colorName)
 	ColorHexByName=""
@@ -326,20 +326,20 @@ dim i
 			ColorHexByName = color_array(i,1)
 			'Session.Output( "ColorHex(" & i & ") =" & ColorHexByName)
 			exit for
-		end if		
+		end if
 	next
 end function
 
-function ColorNameByHex (colorHex) 
+function ColorNameByHex (colorHex)
 dim i
 	ColorNameByHex=""
 	'Session.Output( "ColorHex=" & colorHex)
-	
+
 	for i = 0 to Ubound(color_array)
 		if color_array(i,1) = colorHex then
 			ColorNameByHex = color_array(i,0)
 			'Session.Output( "ColorName(" & i & ") =" & ColorNameByHex)
 			exit for
-		end if		
+		end if
 	next
 end function

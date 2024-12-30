@@ -29,4 +29,3 @@ dependencyResolutionManagement {
 if (!file("libs/org/docToolchain/core-${properties.dtc_version}.jar").exists()) {
     includeBuild("core")
 }
-

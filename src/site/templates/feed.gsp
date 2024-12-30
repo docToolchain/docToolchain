@@ -21,5 +21,5 @@
     </item>
     <%}%>
 
-  </channel> 
+  </channel>
 </rss>

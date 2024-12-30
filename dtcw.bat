@@ -6,4 +6,3 @@ REM pause
 exit /b
 
 *** PowerShell from here on ***
-

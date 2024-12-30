@@ -17,7 +17,7 @@ try {
             ]
         }
     }
-    menu = menu.collectEntries {k, v -> 
+    menu = menu.collectEntries {k, v ->
         [k, makeHierachical(v) ]
     }
     // first, use all menu codes which are defined in the config

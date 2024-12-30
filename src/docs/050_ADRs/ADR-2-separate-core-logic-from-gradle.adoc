@@ -18,10 +18,10 @@ This decision is currently under ongoing discussion.
 
 === Problem and Context
 
-The structure of the docToolchain project, is historically grown and has been adapted to the needs of the project. 
-The project is built with Gradle. 
+The structure of the docToolchain project, is historically grown and has been adapted to the needs of the project.
+The project is built with Gradle.
 Although Gradle is a powerful build tool that allows for a lot of flexibility,
-there are some recommendation on how to setup and structure a project, 
+there are some recommendation on how to setup and structure a project,
 docToolchains setup is quite customized only follows few conventions.
 The project setup is not very well documented, which makes it difficult for new developers to understand the build process.
 Furthermore, the build scripts have become increasingly complex over time, which makes it difficult to maintain them.
@@ -32,8 +32,8 @@ Apart from the aforementioned problems, docToolchain is currently very tightly c
 
 There has been a vital {github-discussion}[discussion on GitHub] around docToolchain v3, which has led to the decision to separate the core logic from Gradle.
 The core logic will be implemented in Groovy and will be used by Gradle.
-Gradle, as a first-class citizen, is then considered as a tool to provide a convenient way to use the core logic. 
-The core logic will be implemented in a way that it is in the first steps completely isolated from Gradle. 
+Gradle, as a first-class citizen, is then considered as a tool to provide a convenient way to use the core logic.
+The core logic will be implemented in a way that it is in the first steps completely isolated from Gradle.
 This paves the road for even further decoupling from Gradle in the future.
 
 This decision has several advantages:

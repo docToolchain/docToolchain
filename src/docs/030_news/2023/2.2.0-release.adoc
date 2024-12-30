@@ -14,7 +14,7 @@ ifndef::imagesdir[:imagesdir: ../../../images]
 
 === About This Release
 
-This is a fresh release of many nice features. 
+This is a fresh release of many nice features.
 The best probably is the `exportConfluence` Task which lets you export a whole confluence space to AsciiDoc!
 
 To test the new release, the docToolchain wrapper `dtcw` will not be updated until the end of the week.
@@ -43,11 +43,11 @@ IMPORTANT: the docker image has been moved to **doctoolchain**/doctoolchain:v2.2
 
 NOTE: a big "THANK YOU" to all *Sponsors* and *Contributors* who helped to support docToolchain!
 
-You like docToolchain? 
-What about helping to make it even better? 
-docToolchain is a community project, so be part of the community which drives the project. 
-You don't have to code for doing so. 
-It would even help to brush up the docs, write tutorials or groom the backlog 
+You like docToolchain?
+What about helping to make it even better?
+docToolchain is a community project, so be part of the community which drives the project.
+You don't have to code for doing so.
+It would even help to brush up the docs, write tutorials or groom the backlog
 (I guess many of the open issues are already fixed).
 
 

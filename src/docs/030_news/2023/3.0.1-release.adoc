@@ -32,7 +32,7 @@ This release was made possible through the hard work of the following wonderful 
 == Notes
 
 * to use the new wrapper, you currently have to fetch it from `https://raw.githubusercontent.com/docToolchain/docToolchain/ng/dtcw` or `https://raw.githubusercontent.com/docToolchain/docToolchain/ng/dtcw.ps1` instead of the location mentioned in the tutorial
-* `./dtcw local install doctoolchain` and `./dtcw local install java` are now the commands to do an initial local setup 
+* `./dtcw local install doctoolchain` and `./dtcw local install java` are now the commands to do an initial local setup
 * generatePDF now needs additional styles, details will follow
 * to test the Antora template
 ** install antora: https://docs.antora.org/antora/latest/install/install-antora/
@@ -69,7 +69,7 @@ output:
 === fixes
 
 * https://github.com/docToolchain/docToolchain/issues/1209[#1209: generateSite: Problem with meta data parsing]
-* https://github.com/docToolchain/docToolchain/pull/1217[#1217, #1214, #1216: dtcw.ps1 fix handling of java version] 
+* https://github.com/docToolchain/docToolchain/pull/1217[#1217, #1214, #1216: dtcw.ps1 fix handling of java version]
 * https://github.com/docToolchain/docToolchain/issues/1215[#1215: dtcw.ps1 says dtc not installed after exceuting an install]
 * https://github.com/docToolchain/docToolchain/issues/1192[#1192: exportExcel: unnecessary Rowspans break rendering of table]
 * https://github.com/docToolchain/docToolchain/issues/1221[#1221: generateSite: beforeToc functionality broken]
@@ -153,7 +153,7 @@ NOTE: a big "THANK YOU" to all *Sponsors* and *Contributors* who helped to suppo
 [TIP]
 ====
 You like docToolchain? +
-What about helping to make it even better? + 
+What about helping to make it even better? +
 docToolchain is a community project, so be part of the community which drives the project. +
 You don't have to code for doing so. +
 It would even help to brush up the docs, write tutorials or groom the backlog +

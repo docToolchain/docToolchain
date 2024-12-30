@@ -12,7 +12,7 @@ task exportVisio(
         new File(docDir, 'src/docs/images/visio').deleteDir()
         //create a readme to clarify things
         def readme = """This folder contains exported diagrams and notes from visio files.
-		
+
 Please note that these are generated files but reside in the `src`-folder in order to be versioned.
 
 This is to make sure that they can be used from environments other than windows.

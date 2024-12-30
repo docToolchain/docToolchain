@@ -290,7 +290,7 @@ inputFiles = [
 ]
 ----
 
-the `inputFiles` section tells the `generateHTML` command to render the file as HTML, the `confluence.input` section tells the `publishToConfluence` command which file to publish. 
+the `inputFiles` section tells the `generateHTML` command to render the file as HTML, the `confluence.input` section tells the `publishToConfluence` command which file to publish.
 
 . Set up the API endpoint.
 Get your Atlassian Confluence URL, such as https://arc42-template.atlassian.net.

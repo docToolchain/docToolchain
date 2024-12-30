@@ -35,8 +35,8 @@ include::_config.adoc[]
 ----
 
 The `:jbake-title: Your Navigation-Entry` tell jBake (the renderer used by docToolchain) the text for the navigation link in left navigation pane.
-If this is missing, it will use the first Headline in your document. 
-If this is also missing, it will use the filename. 
+If this is missing, it will use the first Headline in your document.
+If this is also missing, it will use the filename.
 
 NOTE: You might wonder why you should specify the title if you already have named your tutorial via the first headline.
 The headline is often quite long and `:jbake-title:` gives you the opportunity to shorten it for the navigation pane.
@@ -70,4 +70,3 @@ As soon as you think your tutorial is ready for production, remove the draft sta
 As soon as we are through with the review, we will merge the PR and your tutorial will be live.
 
 Any questions? Feel free to open a new https://github.com/docToolchain/docToolchain/discussions[Discussion]!
-

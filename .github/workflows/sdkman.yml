@@ -38,6 +38,7 @@ jobs:
           CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
           CONSUMER_TOKEN: ${{secrets.CONSUMER_TOKEN}}
         shell: bash
+        # yamllint disable rule:line-length
         run: |
           curl -X POST \
           -H "Consumer-Key: $CONSUMER_KEY" \
@@ -46,6 +47,7 @@ jobs:
           -H "Accept: application/json" \
           -d '{"candidate": "doctoolchain", "version": "${{ github.event.inputs.version }}", "url": "${{ github.event.inputs.url }}"}' \
           https://vendors.sdkman.io/release
+        # yamllint enable rule:line-length
       - name: set-default
         env:
           CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
@@ -64,6 +66,7 @@ jobs:
           CONSUMER_KEY: ${{secrets.CONSUMER_KEY}}
           CONSUMER_TOKEN: ${{secrets.CONSUMER_TOKEN}}
         shell: bash
+        # yamllint disable rule:line-length
         run: |
           curl -X POST \
           -H "Consumer-Key: $CONSUMER_KEY" \
@@ -72,3 +75,4 @@ jobs:
           -H "Accept: application/json" \
           -d '{"candidate": "doctoolchain", "version": "${{ github.event.inputs.version }}", "url": "https://doctoolchain.github.io/docToolchain/v2.0.x/030_news/${{ github.event.inputs.year }}/${{ github.event.inputs.version }}-release.html"}' \
           https://vendors.sdkman.io/announce/struct
+        # yamllint enable rule:line-length

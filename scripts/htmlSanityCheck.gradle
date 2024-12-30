@@ -53,5 +53,3 @@ htmlSanityCheck {
 project.afterEvaluate {
     project.tasks.htmlSanityCheck.dependsOn generateHTML
 }
-
-

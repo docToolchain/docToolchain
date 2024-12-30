@@ -1,5 +1,6 @@
 swagger: '2.0'
 info:
+  # yamllint disable-line rule:line-length
   description: 'This is a sample server Petstore server. For this sample, you can use the api key `special-key` to test the authorization filters.'
   version: 1.0.0
   title: OpenAPI Petstore
@@ -348,6 +349,7 @@ paths:
       tags:
         - store
       summary: Delete purchase order by ID
+      # yamllint disable-line rule:line-length
       description: For valid response try integer IDs with value < 1000. Anything above 1000 or nonintegers will generate API errors
       operationId: deleteOrder
       produces:

@@ -6,8 +6,8 @@
 # If the Viso file is named "MyVisio.vsdx" and the page is called "FirstPage"
 # the name of the png file will be "MyVisio-FirstPage.png" and the comment will
 # be stored in "MyVisio-FirstPage.adoc".
-# But for the name of the adoc files there is an alternative. It can be given in the first 
-# line of the comment. If it is given in the comment it has to be given in curly brackes 
+# But for the name of the adoc files there is an alternative. It can be given in the first
+# line of the comment. If it is given in the comment it has to be given in curly brackes
 # with the prefix "adoc:", e.g. {adoc:MyCommentFile.adoc}
 # Prerequisites: Viso and PowerShell has to be installed on the computer.
 # Parameter: SourcePath where visio files can be found
@@ -47,7 +47,7 @@ If(!($VisioFiles))
 
 $VisioApp = New-Object -ComObject Visio.Application
 $VisioApp.Visible = $false
-    
+
 # Extract the png from all the files in the folder
 Foreach($File in $VisioFiles)
 {
@@ -55,7 +55,7 @@ Foreach($File in $VisioFiles)
     Write-Output "found ""$FilePath"" ."
     $FileDirectory = $File.DirectoryName   # Get the folder containing the Visio file. Will be used to store the png and adoc files
     $FileBaseName = $File.BaseName -replace '[ :/\\*?|<>]','-'   # Get the filename to be used as part of the name of the png and adoc files
-    
+
     Try
     {
         $Document = $VisioApp.Documents.Open($FilePath)
@@ -70,7 +70,7 @@ Foreach($File in $VisioFiles)
             #TODO: this needs better logic
             Write-Output("$SourcePath\images\visio\$PngFileName")
             $Page.Export("$SourcePath\images\visio\$PngFileName")
-            
+
             $AllPageComments = ""
             ForEach($PageComment in $Page.Comments)
             {
@@ -95,7 +95,7 @@ Foreach($File in $VisioFiles)
                 $stream = [System.IO.StreamWriter] "$SourcePath\visio\$AdocFileName"
                 $stream.WriteLine($AllPageComments)
                 $stream.close()
-            }                    
+            }
         }
         $Document.Close()
     }

@@ -16,11 +16,11 @@ ifndef::imagesdir[:imagesdir: ../../../images]
 
 This is the long due announcement of the 2.1.0 release. It has been already released 2022-08-15, but it took me (Ralf) until now (2023-02-15) to create this new post.
 
-You like docToolchain? 
-What about helping to make it even better? 
-docToolchain is a community project, so be part of the community which drives the project. 
-You don't have to code for doing so. 
-It would even help to brush up the docs, write tutorials or groom the backlog 
+You like docToolchain?
+What about helping to make it even better?
+docToolchain is a community project, so be part of the community which drives the project.
+You don't have to code for doing so.
+It would even help to brush up the docs, write tutorials or groom the backlog
 (I guess many of the open issues are already fixed).
 
 IMPORTANT: the docker image has been moved to **doctoolchain**/doctoolchain:v2.1.0

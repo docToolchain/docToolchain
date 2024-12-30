@@ -13,7 +13,7 @@
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 <% } %>
         ${content?.rightcolumnhtml?.replaceAll("&lt;","<")?.replaceAll("&gt;",">")?:''}
-<% if (config.site_issuesBaseUrl) {%>        
+<% if (config.site_issuesBaseUrl) {%>
         <hr />
 <script>
 const issuesBaseUrl = "${config.site_issuesBaseUrl}";
@@ -67,7 +67,6 @@ searching issues...
 <% if (content?.body.contains('<!-- endtoc -->')) { %>
         ${content?.body?.split("(?ms)<!-- endtoc -->",2)[0]}
 <% } %>
-<% if (config.site_rightColumnExtra) { 
+<% if (config.site_rightColumnExtra) {
     out << new File(config.contentFolder, config.site_rightColumnExtra).text
 } %>
-
