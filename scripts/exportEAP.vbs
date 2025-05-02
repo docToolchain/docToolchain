@@ -35,6 +35,17 @@
        NormalizeName = re.Replace(theName, "_")
     End Function
 
+    Function isSelectedViaDiagramFilter(diagram, diagramFilter)
+        isSelectedViaDiagramFilter = False
+        If Len(diagramFilter) > 0 Then
+            If InStr(1, diagram.Stereotype, diagramFilter, vbTextCompare) = 0 Then
+                WScript.Echo " --- Skipping diagram '" & diagram.Name & "' because of filter. Required values are: " & diagramFilter & " -- found: " & diagram.Stereotype
+            Else
+                isSelectedViaDiagramFilter = True
+            End If
+        End If
+    End Function
+
     Sub WriteNote(currentModel, currentElement, notes, prefix)
         If (Left(notes, 6) = "{adoc:") Then
             strFileName = Trim(Mid(notes,7,InStr(notes,"}")-7))
@@ -169,6 +180,7 @@
             objFile.Close
         End If
     End Sub
+
     Sub SaveDiagram(currentModel, currentDiagram)
         Dim exportDiagram ' As Boolean
 
@@ -190,20 +202,35 @@
         diagramName = Replace(diagramName,vbCr,"")
         diagramName = Replace(diagramName,vbLf,"")
         diagramName = NormalizeName(diagramName)
-        filename = objFSO.BuildPath(path, diagramName & imageFormat)
+        diagramGUID = currentDiagram.DiagramGUID
+        diagramGUID = Replace(diagramGUID,"{","")
+        diagramGUID = Replace(diagramGUID,"}","")
+        If InStr(additionalOptions, "append_GUID") > 0 Then
+            diagramName = diagramName +  "_" + diagramGUID
+            filename = objFSO.BuildPath(path, diagramName & imageFormat)
+        ElseIf InStr(additionalOptions, "prepend_GUID") > 0 Then
+            diagramName = diagramGUID + "_" + diagramName
+            filename = objFSO.BuildPath(path, diagramName & imageFormat)
+        ElseIf InStr(additionalOptions, "use_GUID") > 0 Then
+            diagramName = diagramGUID
+            filename = objFSO.BuildPath(path, diagramName & imageFormat)
+        Else
+            filename = objFSO.BuildPath(path, diagramName & imageFormat)
+        End If
+
+        If isSelectedViaDiagramFilter(currentDiagram, diagramFilter) = False Then
+            Repository.CloseDiagram(currentDiagram.DiagramID)
+            Exit Sub
+        End If
 
         exportDiagram = True
         If objFSO.FileExists(filename) Then
             WScript.echo " --- " & filename & " already exists."
-            If Len(additionalOptions) > 0 Then
-                If InStr(additionalOptions, "KeepFirstDiagram") > 0 Then
-                    WScript.echo " --- Skipping export -- parameter 'KeepFirstDiagram' set."
-                Else
-                    WScript.echo " --- Overwriting -- parameter 'KeepFirstDiagram' not set."
-                    exportDiagram = False
-                End If
+            If InStr(additionalOptions, "KeepFirstDiagram") > 0 Then
+                WScript.echo " --- Skipping export -- parameter 'KeepFirstDiagram' set."
             Else
                 WScript.echo " --- Overwriting -- parameter 'KeepFirstDiagram' not set."
+                exportDiagram = False
             End If
         End If
         If exportDiagram Then
@@ -235,28 +262,33 @@
 
         ' export element notes
         For Each currentElement In currentPackage.Elements
-            WriteNote currentModel, currentElement, currentElement.Notes, ""
-            ' export connector notes
-            For Each currentConnector In currentElement.Connectors
-                ' WScript.echo currentConnector.ConnectorGUID
-                if (currentConnector.ClientID=currentElement.ElementID) Then
-                    WriteNote currentModel, currentConnector, currentConnector.Notes, ""
-                End If
-            Next
-            if (Not currentElement.CompositeDiagram Is Nothing) Then
+          WriteNote currentModel, currentElement, currentElement.Notes, ""
+          ' export connector notes
+          For Each currentConnector In currentElement.Connectors
+              ' WScript.echo currentConnector.ConnectorGUID
+              if (currentConnector.ClientID=currentElement.ElementID) Then
+                  WriteNote currentModel, currentConnector, currentConnector.Notes, ""
+              End If
+          Next
+          if (Not currentElement.CompositeDiagram Is Nothing) Then
+              If isSelectedViaDiagramFilter(currentElement.CompositeDiagram, diagramFilter) Then
                 SyncJira currentModel, currentElement.CompositeDiagram
                 SaveDiagram currentModel, currentElement.CompositeDiagram
-            End If
-            if (Not currentElement.Elements Is Nothing) Then
-                DumpDiagrams currentElement,currentModel
-            End If
+              End If
+          End If
+          if (Not currentElement.Elements Is Nothing) Then
+              DumpDiagrams currentElement,currentModel
+          End If
         Next
 
 
         ' Iterate through all diagrams in the current package
         For Each currentDiagram In currentPackage.Diagrams
-            SyncJira currentModel, currentDiagram
-            SaveDiagram currentModel, currentDiagram
+
+            If isSelectedViaDiagramFilter(currentDiagram, diagramFilter) Then
+              SyncJira currentModel, currentDiagram
+              SaveDiagram currentModel, currentDiagram
+            End If
         Next
 
         ' Process child packages
@@ -408,12 +440,16 @@
   Private glossaryFilePath
   Private imageFormat
   Private diagramAttributes
+  Private diagramFilter
   Private additionalOptions
+  Private verboseMode
 
   exportDestination = "./src/docs"
   searchPath = "./src"
   Set packageFilter = CreateObject("System.Collections.ArrayList")
   Set objArguments = WScript.Arguments
+  diagramFilter = ""
+  verboseMode = 0
 
   Dim argCount
   argCount = 0
@@ -433,13 +469,31 @@
         imageFormat = objArguments(argCount+1)
       Case "-da"
         diagramAttributes = objArguments(argCount+1)
+      Case "-df"
+        diagramFilter = objArguments(argCount + 1)
       Case "-ao"
         additionalOptions = objArguments(argCount+1)
+      Case "-v"
+        verboseMode = objArguments(argCount+1)
       Case Else
         WScript.echo "unknown argument: " & objArguments(argCount)
     End Select
     argCount = argCount + 2
   WEnd
+  If verboseMode > 0 Then
+      WScript.Echo "Options passed to script"
+      WScript.Echo "* connectionString     : " & connectionString
+      For Each packageGUID In packageFilter
+          WScript.Echo "* packageFilter element: " & packageGUID
+      Next
+      WScript.Echo "* exportDestination    : " & exportDestination
+      WScript.Echo "* searchPath           : " & searchPath
+      WScript.Echo "* glossaryFilePath     : " & glossaryFilePath
+      WScript.Echo "* imageFormat          : " & imageFormat
+      WScript.Echo "* diagramAttributes    : " & diagramAttributes
+      WScript.Echo "* diagramFilter        : " & diagramFilter
+      WScript.Echo "* additionalOptions    : " & additionalOptions
+  End If
   set fso = CreateObject("Scripting.fileSystemObject")
   WScript.echo "Image extractor"
 

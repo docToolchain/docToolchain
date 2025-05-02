@@ -298,6 +298,9 @@ exportEA.with {
 //                    "{A237ECDE-5419-4d47-AECC-B836999E7AE0}",
 //                    "{B73FA2FB-267D-4bcd-3D37-5014AD8806D6}"
 //                  ]
+// OPTIONAL: tag used to filter diagrams to be exported - based on diagram.Stereotype.
+//           If not set all diagrams in the selected packages are exported.
+// diagramFilter = "myProject"
 // OPTIONAL: relative path to base 'docDir' to which the diagrams and notes are to be exported
 // exportPath = "src/docs/"
 // OPTIONAL: relative path to base 'docDir', in which Enterprise Architect project files are searched

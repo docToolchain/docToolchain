@@ -199,6 +199,9 @@ exportEA.with {
 //                    "{A237ECDE-5419-4d47-AECC-B836999E7AE0}",
 //                    "{B73FA2FB-267D-4bcd-3D37-5014AD8806D6}"
 //                  ]
+// OPTIONAL: tag used to filter diagrams to be exported - based on diagram.Stereotype.
+//           If not set all diagrams in the selected packages are exported.
+// diagramFilter = "myProject"
 // OPTIONAL: export diagrams, notes, etc. below folder src/docs
 // exportPath = "src/docs/"
 // OPTIONAL: EA project files are expected to be located in folder src/projects

@@ -57,12 +57,12 @@ apply plugin: org.asciidoctor.gradle.jvm.gems.AsciidoctorGemSupportPlugin
 apply plugin: org.asciidoctor.gradle.jvm.slides.AsciidoctorRevealJSPlugin
 
 revealjs {
-    version = '4.1.0'
+    version = '5.2.0'
 
     templateGitHub {
         organisation = 'hakimel'
         repository = 'reveal.js'
-        tag = '3.9.1'
+        tag = '5.1.0'
     }
 }
 
@@ -164,7 +164,7 @@ ext {
 }
 
 asciidoctorj {
-    version = '2.5.7'
+    version = '2.5.13'
     modules {
         diagram.use()
         diagram.version '2.3.1'
@@ -243,26 +243,9 @@ asciidoctorj {
 }
 //tag::AsciidoctorTask[]
 
-// start Gradle 8 workaround
-// TODO: Remove it after AsciidoctorJ 4.0.0 new release, workaround to fix NoClassDefFoundError on Gradle 7.6,
-// see https://github.com/asciidoctor/asciidoctor-gradle-plugin/issues/655#issuecomment-1374479836
-configurations {
-    asciidocExtensions
-}
-
-dependencies {
-    asciidocExtensions gradleApi()
-}
-// end Gradle 8 workaround
-
 // common settings for asciidoctor
 // this is needed for PDF generation with plantUML
 tasks.withType(AbstractAsciidoctorTask) { docTask ->
-
-    // start Gradle 8 workaround
-    // TODO: remove this after AsciidoctorJ is Gradle 8 compatible
-    configurations 'asciidocExtensions'
-    // end Gradle 8 workaround
 
     baseDirFollowsSourceFile()
 
@@ -306,7 +289,7 @@ tasks.withType(AbstractAsciidoctorTask) { docTask ->
     }
     // fix for #1150
     // see also https://github.com/asciidoctor/asciidoctor-gradle-plugin/issues/597
-    inProcess = JAVA_EXEC
+    executionMode = JAVA_EXEC
     forkOptions {
         jvmArgs("--add-opens","java.base/sun.nio.ch=ALL-UNNAMED","--add-opens","java.base/java.io=ALL-UNNAMED")
     }
@@ -504,6 +487,7 @@ task generateDeck (
         'idprefix': 'slide-',
         'idseparator': '-',
         'docinfo1': '',
+        'revealjsdir': '../reveal.js'
     )
 
     def sourceFilesREVEAL = findSourceFilesByType(['revealjs'])

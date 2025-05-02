@@ -16,11 +16,10 @@ font:
       bold_italic: notoserif-bold_italic-subset.ttf
     # M+ 1mn supports ASCII and the circled numbers used for conums
     M+ 1mn:
-      normal: mplus1mn-regular-ascii-conums.ttf
-      bold: mplus1mn-bold-ascii.ttf
-      italic: mplus1mn-italic-ascii.ttf
-      bold_italic: mplus1mn-bold_italic-ascii.ttf
-    # yamllint disable-line rule:line-length
+      normal: mplus1mn-regular-subset.ttf
+      bold: mplus1mn-bold-subset.ttf
+      italic: mplus1mn-italic-subset.ttf
+      bold_italic: mplus1mn-bold_italic-subset.ttf
     # M+ 1p supports Latin, Latin-1 Supplement, Latin Extended, Greek, Cyrillic, Vietnamese, Japanese & an assortment of symbols
     # It also provides arrows for ->, <-, => and <= replacements in case these glyphs are missing from font
     M+ 1p Fallback:
@@ -48,7 +47,7 @@ heading:
   margin_bottom: $vertical_rhythm
 link:
   font_color: #009900
-outline_list:
+list:
   indent: $base_font_size * 1.5
 header:
   height: 0.75in

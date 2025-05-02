@@ -154,6 +154,7 @@ task exportEA(
         def searchPath = ""
         def glossaryPath = ""
         def imageFormat = ""
+        def diagramFilter = ""
         def readme = """This folder contains exported diagrams or notes from Enterprise Architect.
 
 Please note that these are generated files but reside in the `src`-folder in order to be versioned.
@@ -178,6 +179,10 @@ use `gradle exportEA` to re-export files
                 scriptParameterString = scriptParameterString + " -p \"${packageFilter}\""
             }
         }
+        if (!config.exportEA.diagramFilter.isEmpty()) {
+            logger.info("docToolchain > exportEA: diagram filter: " + config.exportEA.diagramFilter)
+            scriptParameterString = scriptParameterString + "-df \"${config.exportEA.diagramFilter}\""
+        }
         if (!config.exportEA.exportPath.isEmpty()) {
             exportPath = new File(docDir, config.exportEA.exportPath).getAbsolutePath()
         } else {
@@ -187,7 +192,7 @@ use `gradle exportEA` to re-export files
             searchPath = new File(docDir, config.exportEA.searchPath).getAbsolutePath()
         }
         else if (!config.exportEA.absoluteSearchPath.isEmpty()) {
-        searchPath = new File(config.exportEA.absoluteSearchPath).getAbsolutePath()
+            searchPath = new File(config.exportEA.absoluteSearchPath).getAbsolutePath()
         }
         else {
             searchPath = new File(docDir, 'src').getAbsolutePath()
@@ -198,6 +203,10 @@ use `gradle exportEA` to re-export files
             imageFormat = "." + config.exportEA.imageFormat
         } else {
             imageFormat = config.exportEA.imageFormat
+        }
+        if (!config.exportEA.verboseLevel.isEmpty()) {
+            logger.info("docToolchain > exportEA: verboseLevel: " + config.exportEA.verboseLevel)
+            scriptParameterString = scriptParameterString + "-v ${config.exportEA.verboseLevel}"
         }
         scriptParameterString = scriptParameterString + " -d \"$exportPath\""
         scriptParameterString = scriptParameterString + " -s \"$searchPath\""

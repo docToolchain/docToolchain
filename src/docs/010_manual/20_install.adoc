@@ -35,7 +35,7 @@ Even if you are going to use docToolchain in multiple projects, the toolchain wi
 [role='primary']
 --
 
-If you have an Apple Silicon (M1/M2) Mac, make sure that you have docker up and running and type the following commands in the Terminal:
+If you have an Apple Silicon (M1/M2) Mac, make sure that you have docker up and running, rosetta is installed and up-to-date (`softwareupdate --install-rosetta`) and type the following commands in the Terminal:
 
 [source, bash]
 ----

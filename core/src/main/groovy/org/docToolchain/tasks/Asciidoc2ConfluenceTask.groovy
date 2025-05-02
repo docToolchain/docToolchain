@@ -694,18 +694,18 @@ class Asciidoc2ConfluenceTask extends DocToolchainTask {
         def anchors = [:]
         def pageAnchors = [:]
         def pages = []
-        def sections = []
         def title = dom.select('h1').text()
         if (maxLevel <= 0) {
             dom.select('div#content').each { pageBody ->
                 pageBody.select('div.sect2').unwrap()
                 promoteHeaders pageBody, 2, 1
-                def page = [title   : title,
-                            body    : pageBody,
-                            children: [],
-                            parent  : parentId]
+                def page = [
+                    title: title,
+                    body: pageBody,
+                    children: [],
+                    parent: parentId
+                ]
                 pages << page
-                sections = page.children
                 parentId = null
                 anchors.putAll(parseAnchors(page))
             }
@@ -720,15 +720,20 @@ class Asciidoc2ConfluenceTask extends DocToolchainTask {
                     parent: parentId
                 ]
                 pages << preamble
-                sections = preamble.children
                 parentId = null
                 anchors.putAll(parseAnchors(preamble))
+                
+                // Direkte Manipulation der children-Liste
+                preamble.children.addAll(getPagesRecursive(dom, parentId, anchors, pageAnchors, 1, maxLevel))
             }
-            sections.addAll(getPagesRecursive(dom, parentId, anchors, pageAnchors, 1, maxLevel))
+            
+            // Falls keine Präambel gefunden wurde, füge Seiten direkt zu pages hinzu
+            if (pages.isEmpty()) {
+                pages.addAll(getPagesRecursive(dom, parentId, anchors, pageAnchors, 1, maxLevel))
+            }
         }
         return [pages, anchors, pageAnchors]
     }
-
     void execute() {
         if(config.confluence.inputHtmlFolder) {
             def htmlFolder = "${docDir}/${config.confluence.inputHtmlFolder}"

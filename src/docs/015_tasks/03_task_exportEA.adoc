@@ -24,17 +24,41 @@ Either set the connection to a certain project, or comment it out to use all pro
 ==== packageFilter
 Add one or multiple packageGUIDs to be used for export. All packages are analysed, if no packageFilter is set.
 
+===== diagramFilter
+On top of filtering via packages you have the chance to filter for certain diagrams inside the packages defined via <<packageFilter>>.
+
+You can define the tag that is used to filter the diagrams. Only diagrams with this tag in the are exported.
+
+To set the tags you can use the diagram properties in Enterprise Architect.
+The tags are stored in the https://sparxsystems.com/enterprise_architect_user_guide/17.0/add-ins___scripting/diagram2.html['Stereotype'] field of the diagram properties.
+
+Default: None +
+Example: diagramFilter = "myProject1, myProject2"
+
+[NOTE]
+====
+Using the `diagram.Stereotype` field is a workaround to filter for diagrams.
+The field is not intended to be used for filtering purposes.
+But due to limitations of what is made available via the API, this is the only way to filter for diagrams.
+
+If in the future the API provides a way to filter for diagrams, this workaround will be removed.
+====
+
 ==== exportPath
 Relative path to base 'docDir' to which the diagrams and notes are to be exported.
-Default: "src/docs".
+
+Default: "src/docs". +
 Example: docDir = 'D:\work\mydoc\' ; exportPath = 'src/pdocs' ;
+
 Images will be exported to 'D:\work\mydoc\src\pdocs\images\ea',
 Notes will be exported to 'D:\work\mydoc\src\pdocs\ea',
 
 ==== searchPath
-Relative path to base 'docDir', in which Enterprise Architect project files are searched
-Default: "src/docs".
+Relative path to base 'docDir', in which Enterprise Architect project files are searched.
+
+Default: "src/docs". +
 Example: docDir = 'D:\work\mydoc\' ; exportPath = 'src/projects' ;
+
 Lookup for eap and eapx files starts in 'D:\work\mydoc\src\projects' and goes down the folder structure.
 *Note*: In case parameter 'connection' is already defined, the searchPath value is also used.
 exportEA starts opening the database parameter 'connection' first then looks for
@@ -93,11 +117,23 @@ Default is set to ".png".
 Please check your Enterprise Architect version which formats are supported.
 
 ==== additionalOptions
-This parameter is used to define the specific behavior of the export. Currently, these options are supported:
+This parameter is used to define the specific behavior of the export. Currently, these mutually exclusive options are supported:
 
-`KeepFirstDiagram`
-
+* `KeepFirstDiagram` +
 If diagrams are not uniquely named, the last diagram will be saved. If you want to prevent diagrams from being overwritten, add this parameter to additionalOptions.
+* `append_GUID` +
+Append the diagram GUID to the diagram name to guarantee a unique name.
+* `prepend_GUID` +
+Prepend the diagram GUID before the diagram name guarantee a unique name.
+* `use_GUID` +
+Ignore the diagram name and only use the GUID as diagram name.
+
+==== verbose output
+If set to bigger than 0, the exportEA task will output additional information about the export process.
+
+For example:
+
+verboseLevel = 1
 
 === Glossary export
 By setting the glossaryAsciiDocFormat, the glossary terms stored in the EA project

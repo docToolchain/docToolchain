@@ -1,0 +1,66 @@
+:filename: 030_news/2025/3.4.2-release.adoc
+:jbake-title: Release v3.4.2
+:jbake-date: 2025-04-05
+:jbake-type: post
+:jbake-tags: docToolchain
+:jbake-status: published
+:jbake-menu: news
+:jbake-author: Pascal Euhus
+:icons: font
+
+ifndef::imagesdir[:imagesdir: ../../../images]
+
+== docToolchain release v3.4.2
+
+=== About This Release
+
+This release includes several important bug fixes, new features, and dependency upgrades.
+
+Key highlights include:
+
+- Fixed internal links issue in publishToConfluence with v3.4.1.
+- Resolved pagination traversal and cursor extraction issues in ConfluenceClientV2.
+- Addressed an exception in generatePDF when using custom-theme.yml due to missing fonts.
+- Fixed a runtime error in the exportEA script caused by a type mismatch in VBScript.
+
+New features added in this release include
+
+- the ability to change the search form,
+- a progress indicator for the publishToConfluence task
+- options to extend diagram names with GUIDs and filter diagrams within a package in exportEA.
+
+Additionally, several dependencies have been upgraded .
+
+== Notes
+
+=== fixed
+
+* https://github.com/docToolchain/docToolchain/issues/1447[publishToConfluence: Internal links broken with v3.4.1]
+* fixed an issue with ConfluenceClientV2 pagination traversal / cursor extraction
+* https://github.com/docToolchain/docToolchain/issues/1460[generatePDF throws exception when using custom-theme.yml (font not found in GEM_FONTS_DIR) #1460]
+* https://github.com/docToolchain/docToolchain/issues/1475[exportEA: docToolchain\scripts\exportEAP.vbs(293, 13) Laufzeitfehler in Microsoft VBScript: Typenkonflikt: 'isSelectedViaDiagramFilter']
+
+=== added
+
+* possibility to change the search form
+* https://github.com/docToolchain/docToolchain/issues/1468[#1468: Add progress indicator/logging for 'allPages' fetch in publishToConfluence task]
+* exportEA: add option to extend the diagram name during export with the GUID to guarantee uniqueness https://github.com/docToolchain/docToolchain/pull/1473[#1473 exportEA: Add option to include GUID into diagram names]
+* allow filtering of diagrams within a package - https://github.com/docToolchain/docToolchain/pull/1472[#1472: exportEA: Add filter to select diagrams via tag in EA directly]
+
+=== changed
+
+* upgrade dependencies
+** 'org.asciidoctor:asciidoctorj-diagram:2.3.2'
+** asciidoctor-jvm = "4.0.4"
+** revealjs = "5.1.0"
+** asciidoctorj = "2.5.13"
+
+[TIP]
+====
+You like docToolchain? +
+What about helping to make it even better? +
+docToolchain is a community project, so be part of the community which drives the project. +
+You don't have to code for doing so. +
+It would even help to brush up the docs, write tutorials or groom the backlog +
+(I guess many of the open issues are already fixed).
+====

@@ -9,19 +9,34 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+=== added
+
+=== changed
+
+== 3.4.2 - 2025-04-05
+
+=== fixed
+
 * https://github.com/docToolchain/docToolchain/issues/1447[publishToConfluence: Internal links broken with v3.4.1]
 * fixed an issue with ConfluenceClientV2 pagination traversal / cursor extraction
+* https://github.com/docToolchain/docToolchain/issues/1460[generatePDF throws exception when using custom-theme.yml (font not found in GEM_FONTS_DIR) #1460]
+* https://github.com/docToolchain/docToolchain/issues/1475[exportEA: docToolchain\scripts\exportEAP.vbs(293, 13) Laufzeitfehler in Microsoft VBScript: Typenkonflikt: 'isSelectedViaDiagramFilter']
 
 === added
 
-* possibiblity to change the search form
+* possibility to change the search form
 * https://github.com/docToolchain/docToolchain/issues/1468[#1468: Add progress indicator/logging for 'allPages' fetch in publishToConfluence task]
 * pre-commit hooks added for improving QA barriers
+* exportEA: add option to extend the diagram name during export with the GUID to guarantee uniqueness https://github.com/docToolchain/docToolchain/pull/1473[#1473 exportEA: Add option to include GUID into diagram names]
+* allow filtering of diagrams within a package - https://github.com/docToolchain/docToolchain/pull/1472[#1472: exportEA: Add filter to select diagrams via tag in EA directly]
 
 === changed
 
 * upgrade dependencies
-** 'org.asciidoctor:asciidoctorj-diagram:2.3.1'
+** 'org.asciidoctor:asciidoctorj-diagram:2.3.2'
+** asciidoctor-jvm = "4.0.4"
+** revealjs = "5.1.0"
+** asciidoctorj = "2.5.13"
 
 == 3.4.1 - 2024-09-05
 
