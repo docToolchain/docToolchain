@@ -137,12 +137,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/050_multipleRepositories.html</loc>
+    	<loc>https://localhost/020_tutorial/020_arc42.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/020_arc42.html</loc>
+    	<loc>https://localhost/020_tutorial/050_multipleRepositories.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
@@ -227,11 +227,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Architect_notes.html</loc>
-    	<lastmod>2025-05-19</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/issue2.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
@@ -243,6 +238,11 @@
 
     <url>
     	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
+    	<lastmod>2025-05-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Architect_notes.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
@@ -362,12 +362,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
