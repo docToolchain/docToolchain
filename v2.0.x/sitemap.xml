@@ -197,22 +197,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/010_Install.html</loc>
-    	<lastmod>2025-05-19</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/020_tutorial/160_EnterpriseTipsAndTricks.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/020_tutorial/990_Tutorial.html</loc>
+    	<loc>https://localhost/020_tutorial/010_Install.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
+    	<loc>https://localhost/020_tutorial/990_Tutorial.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
@@ -227,12 +222,7 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/issue2.html</loc>
-    	<lastmod>2025-05-19</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
+    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
@@ -242,7 +232,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/ea/issue2.html</loc>
+    	<lastmod>2025-05-19</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/Use_Cases_notes.html</loc>
+    	<lastmod>2025-05-19</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
@@ -262,12 +262,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/readme.html</loc>
+    	<loc>https://localhost/ea/Activity_notes.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Activity_notes.html</loc>
+    	<loc>https://localhost/ea/readme.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
@@ -342,12 +342,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/040_contributors.html</loc>
+    	<loc>https://localhost/010_manual/30_config.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/30_config.html</loc>
+    	<loc>https://localhost/010_manual/040_contributors.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
@@ -362,17 +362,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
+    	<lastmod>2025-05-19</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
-    	<lastmod>2025-05-19</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
@@ -477,12 +477,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_convertToDocx.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_convertToDocx.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_generateDeck.html</loc>
     	<lastmod>2025-05-19</lastmod>
     </url>
 
