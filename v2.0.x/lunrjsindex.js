@@ -218,18 +218,18 @@ var documents = [
 
 {
     "id": 27,
-    "uri": "020_tutorial/020_arc42.html",
-    "menu": "tutorial",
-    "title": "arc42 Template",
-    "text": " Table of Contents Get the arc42 Template Get the arc42 Template To work with docToolchain, you first need some documents. So let&#8217;s fetch the arc42 template for software architecture documentation. docToolchain comes with a task called downloadTemplate . Let&#8217;s invoke it and see what happens. Linux / WSL2 with bash ./dtcw downloadTemplate Windows with Powershell ./dtcw.ps1 downloadTemplate There is an interesting bug with the german version of the arc42 template in conjunction with running docToolchain in powershell: The encoding of the files will be wrong. To fix that, just run ./dtcw.ps1 fixEncoding . Result of downloadTemplate-Task $ ./dtcw downloadTemplate dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists use local homefolder install /home/rdmueller/.doctoolchain/ &gt; Configure project : arc42/arc42.adoc &gt; Task :downloadTemplate Install arc42 documentation template. For more information about arc42 see https://arc42.org [ant:input] Which language do you want to install? (EN, DE, ES, RU) &lt;-------------&gt; 0% EXECUTING [6s] [ant:input] Do you want the template with or without help? (withhelp, plain) &lt;-----&lt;-------------&gt; 0% EXECUTING [10s] Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-DE-withhelp-asciidoc.zip arc42 template unpacked into /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42 added template to docToolchainConfig.groovy use 'generateHTML', 'generatePDF' or 'generateSite' to convert the template BUILD SUCCESSFUL in 15s 1 actionable task: 1 executed Out of the box, docToolchain only knows the open source arc42 template for software architecture. That&#8217;s why it doesn&#8217;t ask which template to install. Since the template exists in four different languages and with or without help on how to use it, docToolchain asks you for these two parameters. It then downloads the template right from the source, unzips it and reformats it a little bit to fit the needs of docToolchain. It also adds the template to your configuration file. That&#8217;s it. You have now docToolchain with the arc42 template installed. Let&#8217;s render is as HTML, PDF or Microsite in the next steps. "
-},
-
-{
-    "id": 28,
     "uri": "020_tutorial/050_multipleRepositories.html",
     "menu": "tutorial",
     "title": "Multi-Repo",
     "text": " Table of Contents How to generate docs from multiple repositories git clone solution git submodule solution artifact solution Use Antora integration How to generate docs from multiple repositories Some static site generators sell multi-repository functionality as a feature. This feature is mainly achieved through a built-in git client. Since we almost always work on systems which already have git installed, docToolchain does not come with its own git client. The solution we propose instead is just a simple bash script which does the magic for you. Here is how. Imagine you have a documentation repository set up with the docToolchain wrapper dtcw and some code documents. Now you would like to include the documents from another repository. git clone solution To get the contents of the other repository, one way is to do a git clone of it right to the build folder of your own repository. Let&#8217;s call the script in which we store this command clonerefs.sh , because we clone a reference to the remote documentation. clonerefs.sh #!/usr/bin/env bash git clone git@github.com:docToolchain/docToolchain.git build/refs/docToolchain this works fine if you execute it once, but the second time it will complain that the folder build/refs/docToolchain is not empty. So let&#8217;s create a cloneOrPull function which tries first to clone the repo and pulls an update if the clone fails. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo \"\" echo $1 (git clone \"$1\" \"$2\" 2&gt; /dev/null &amp;&amp; echo \"cloned repo\" )|| git -C \"$2\" pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain That&#8217;s better. We can now include the docs from our main docs. To do so, we still need a little Trick. We need to reference the docs in the build folder. We could do something like include::../../../build/refs/docToolchain/somefile.adoc[] but this will break. For this, docToolchain sets the attribute projectRootDir . With this, we can write the include as include::/home/runner/work/docToolchain/docToolchain/build/refs/docToolchain/somefile.adoc[] . In order to get projectRootDir also in your local preview, create a file called .asciidoctorconfig in the root folder of your project and add :projectRootDir: {asciidoctorconfigdir} as content. But what if we don&#8217;t want to include them but just let them render? We could clone the repository directly to our src/docs folder. But that would require that it only contains docs and no src/docs folder itself. So we have to copy it over to our src/docs folder. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo \"\" echo $1 (git clone \"$1\" \"$2\" 2&gt; /dev/null &amp;&amp; echo \"cloned repo\" )|| git -C \"$2\" pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain cp build/refs/docToolchain/src/docs/manual src/docs/. But we don&#8217;t want to add these folders to our main repository, so let&#8217;s add it to the .gitignore file. .gitignore [...] src/docs/manual [...] There is one more thing we can optimize. Currently, the script clones the repository with the full history. This is far too much traffic if you only want to use the latest version of your docs. Let&#8217;s add --depth 1 to the `git clone`command to only fetch the latest version. clonerefs.sh #!/usr/bin/env bash function cloneOrPull { echo \"\" echo $1 (git clone --depth 1 \"$1\" \"$2\" 2&gt; /dev/null &amp;&amp; echo \"cloned repo\" )|| git -C \"$2\" pull } cloneOrPull git@github.com:docToolchain/docToolchain.git build/refs/docToolchain cp build/refs/docToolchain/src/docs/manual src/docs/. This script will now let you clone remote repositories and merge them with your main documentation before building. git submodule solution Another solution is to reference your sub-repositories as git submodules . Git submodules are pointers in your main repository to a certain version of another repository. Most CI/CD systems clone your repository together with all the configured submodules. This makes this approach quite convenient. A drawback is that submodules are not often used and thus developers are not used to them. artifact solution A third solution could be that sub-repositories publish their docs as zip file somewhere. Maybe to an artifactory instance. Your main repository could fetch the published artifacts and use them in the build process. That would be exactly what you do with code. Use Antora integration The Antora integration is currently in beta and we are happy to get your feedback. If you use Antora to build your docs, docToolchain provides a special Antora integration. Essentially docToolchains task downloadTemplate is now capable to set up your project as Antora module and still leverage the various docToolchain features. This enables you to register your docToolchain project to an existing Antora playbook. The Antora integration currently supports arc42 and req42 templates out of the box. If you want to use your own template, you need to ensure the directory follows the default Antora structure. Docs are currently expected to be in ${inputPath}/modules/ROOT/ . Include content Antora comes along with some custom behaviour and non-standard asciidoc syntax. Read the following sections to learn how to include content. Images Images are expected to be within assets/images . Other files In order to include other files, e.g. generated output from docToolchain tasks like collectIncludes , you must ensure there is a symlink from the docToolchain output directory to ${inputPath}/modules/ROOT/examples/&lt;outputFile/folder&gt; . "
+},
+
+{
+    "id": 28,
+    "uri": "020_tutorial/020_arc42.html",
+    "menu": "tutorial",
+    "title": "arc42 Template",
+    "text": " Table of Contents Get the arc42 Template Get the arc42 Template To work with docToolchain, you first need some documents. So let&#8217;s fetch the arc42 template for software architecture documentation. docToolchain comes with a task called downloadTemplate . Let&#8217;s invoke it and see what happens. Linux / WSL2 with bash ./dtcw downloadTemplate Windows with Powershell ./dtcw.ps1 downloadTemplate There is an interesting bug with the german version of the arc42 template in conjunction with running docToolchain in powershell: The encoding of the files will be wrong. To fix that, just run ./dtcw.ps1 fixEncoding . Result of downloadTemplate-Task $ ./dtcw downloadTemplate dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists use local homefolder install /home/rdmueller/.doctoolchain/ &gt; Configure project : arc42/arc42.adoc &gt; Task :downloadTemplate Install arc42 documentation template. For more information about arc42 see https://arc42.org [ant:input] Which language do you want to install? (EN, DE, ES, RU) &lt;-------------&gt; 0% EXECUTING [6s] [ant:input] Do you want the template with or without help? (withhelp, plain) &lt;-----&lt;-------------&gt; 0% EXECUTING [10s] Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-DE-withhelp-asciidoc.zip arc42 template unpacked into /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42 added template to docToolchainConfig.groovy use 'generateHTML', 'generatePDF' or 'generateSite' to convert the template BUILD SUCCESSFUL in 15s 1 actionable task: 1 executed Out of the box, docToolchain only knows the open source arc42 template for software architecture. That&#8217;s why it doesn&#8217;t ask which template to install. Since the template exists in four different languages and with or without help on how to use it, docToolchain asks you for these two parameters. It then downloads the template right from the source, unzips it and reformats it a little bit to fit the needs of docToolchain. It also adds the template to your configuration file. That&#8217;s it. You have now docToolchain with the arc42 template installed. Let&#8217;s render is as HTML, PDF or Microsite in the next steps. "
 },
 
 {
@@ -370,6 +370,14 @@ var documents = [
 
 {
     "id": 46,
+    "uri": "ea/Use_Cases_notes_UseCases.html",
+    "menu": "ea",
+    "title": "Use_Cases_notes_UseCases.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
+},
+
+{
+    "id": 47,
     "uri": "ea/Architect_notes.html",
     "menu": "ea",
     "title": "Architect_notes.ad",
@@ -377,18 +385,10 @@ var documents = [
 },
 
 {
-    "id": 47,
+    "id": 48,
     "uri": "ea/Use_Cases_notes.html",
     "menu": "ea",
     "title": "Use_Cases_notes.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
-},
-
-{
-    "id": 48,
-    "uri": "ea/Use_Cases_notes_UseCases.html",
-    "menu": "ea",
-    "title": "Use_Cases_notes_UseCases.ad",
     "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
 },
 
@@ -418,14 +418,6 @@ var documents = [
 
 {
     "id": 52,
-    "uri": "ea/Activity_notes.html",
-    "menu": "ea",
-    "title": "Activity_notes.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 53,
     "uri": "ea/readme.html",
     "menu": "ea",
     "title": "readme.ad",
@@ -433,19 +425,27 @@ var documents = [
 },
 
 {
-    "id": 54,
-    "uri": "025_development/050_who-uses-dtc.html",
-    "menu": "-",
-    "title": "moved",
-    "text": " document.location.href = '../10_about/10_about-the-project.html'; "
+    "id": 53,
+    "uri": "ea/Activity_notes.html",
+    "menu": "ea",
+    "title": "Activity_notes.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
 },
 
 {
-    "id": 55,
+    "id": 54,
     "uri": "025_development/005_contributing_to_docs.html",
     "menu": "development",
     "title": "Contributing to Docs",
     "text": " Table of Contents Contributing to Docs Prerequisites Go to page you want to edit or fix Fork the Repository Edit the Page Commit the Changes Comparing changes Contributing to Docs 5 minutes to read The easiest way to contribute to this project is to contribute to the documentation. Here is a quick step-by-step guide on how to fix something on a documentation page. Prerequisites You need a github.com account. If you don&#8217;t have one, you can create one here: https://github.com/signup It might help if you go through the Github Hello World tutorial before you continue, but it is not necessary. Go to page you want to edit or fix You already found this tutorial, so you already know how to go to the page you want to edit or fix. All documentation can be found at http://doctoolchain.org/ . The source code of each page is available at https://github.com/doctoolchain/doctoolchain/ in the /src/docs/ folder. But there is an easier way to find the exact source. The documentation pages all look something like this: In the upper right corner you can see the Improve this doc link: This will take you directly to the source of the page, already in edit mode. If you are not logged in, GitHub will ask you to do so. The Create an issue link will be helpful if you want to report a bug or request a feature for a page. It takes you directly to the issue tracker with a pre-filled issue. For now, let&#8217;s click on the Improve this doc link. Fork the Repository If you click the link for the first time, you will be asked to fork the repository. A fork is a copy of the repository. Maybe you are used to working on the main repository or a branch within the main repository. This is not possible in this case, because you don&#8217;t have write access, only read access. The solution is to fork the repository. This way, you create a copy in your own space, and you will have write access to it. Edit the Page You will now be taken to the page you want to edit already in edit mode. What you see is asciidoctor markup. Check out the {url-asciidoc-quick-reference}[AsciiDoc quick reference] for more information. The blue box on top tells you what you already know: a copy has been created for you and you are editing it. Important since you work on your own copy of the docs, you can&#8217;t break anything. You even don&#8217;t have write access to the main repository. So feel free to edit the page as you like. Use the Preview button to see what your edits will look like. Since this is only a preview and GitHub doesn&#8217;t know about docToolchain, this preview will only show you if your AsciiDoc syntax is correct. Some other features like the TOC or include statements will not be available in the preview. Do your edit and then Commit the Changes Below the editor, there is a small Propose Changes form. Enter a headline and a description of the changes you made and click Propose changes . This will save your changes to your fork of the repository. Note Git works with diffs - it only saves the changes you made, not a full copy of the new page. This is important to know if you want to understand the inner workings of Git. After you&#8217;ve clicked the button, you will be taken to a page which shows you what you changed. Comparing changes This view lets you review your changes. These diffs are not easy to read, but I promise that over time you get used to it. Red lines are deletions, green lines are additions. As you can see in the screenshot, I added an empty space in line 17. Line 17 has been deleted (red line) and replaced with a new line (green line). Line 1 looks mysterious, because it seems that it has been replaced with an identical copy. This is because the line ending changed but is not visible in the diff. The grey box on top shows you It is quite likely that you still know what you did a minute ago, so let&#8217;s click on the Create pull request button. "
+},
+
+{
+    "id": 55,
+    "uri": "025_development/050_who-uses-dtc.html",
+    "menu": "-",
+    "title": "moved",
+    "text": " document.location.href = '../10_about/10_about-the-project.html'; "
 },
 
 {
@@ -586,18 +586,18 @@ var documents = [
 
 {
     "id": 73,
-    "uri": "015_tasks/03_task_generateDocBook.html",
-    "menu": "tasks",
-    "title": "generateDocbook",
-    "text": " Table of Contents generateDocbook About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateDocbook 1 minute to read About This Task A helper task, generateDocbook generates the intermediate format for convertToDocx &lt;&lt;&gt;&gt; and convertToEpub . Source Show source code of scripts/AsciiDocBasics.gradle or go directly to GitHub · docToolchain/scripts/AsciiDocBasics.gradle . scripts/AsciiDocBasics.gradle task generateDocbook ( type: AsciidoctorTask, group: 'docToolchain', description: 'use docbook as asciidoc backend') { def sourceFilesDOCBOOK = findSourceFilesByType(['docbook', 'epub', 'docx']) // onlyIf { // sourceFilesDOCBOOK // } sources { sourceFilesDOCBOOK.each { include it.file logger.info it.file File useFile = new File(srcDir, it.file) if (!useFile.exists()) { throw new Exception (\"\"\" The file $useFile in DOCBOOK config does not exist! Please check the configuration 'inputFiles' in $mainConfigFile.\"\"\") } } } outputOptions { backends = ['docbook'] } outputDir = file(targetDir+'/docbook/') doFirst { if (sourceFilesDOCBOOK.size()==0) { throw new Exception (\"\"\" &gt;&gt; No source files defined for type of '[docbook, epub, docx]'. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy \"\"\") } } } "
-},
-
-{
-    "id": 74,
     "uri": "015_tasks/03_task_previewSite.html",
     "menu": "tasks",
     "title": "previewSite",
     "text": " Table of Contents previewSite About This Task .gravatar img { margin-left: 3px; border-radius: 4px; } previewSite 1 minute to read About This Task Note This task has now been deprecated. When you use a build in a static site generator through generateSite , most site themes don&#8217;t need the static site server for general content. You can just preview the site by opening from the file system in your browser. However, some JavaScript features will not work because of CORS restrictions. In that case you need a server. You can start one by running e.g. python -m http.server or in case you have Python 3 python3 -m http.server . "
+},
+
+{
+    "id": 74,
+    "uri": "015_tasks/03_task_generateDocBook.html",
+    "menu": "tasks",
+    "title": "generateDocbook",
+    "text": " Table of Contents generateDocbook About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateDocbook 1 minute to read About This Task A helper task, generateDocbook generates the intermediate format for convertToDocx &lt;&lt;&gt;&gt; and convertToEpub . Source Show source code of scripts/AsciiDocBasics.gradle or go directly to GitHub · docToolchain/scripts/AsciiDocBasics.gradle . scripts/AsciiDocBasics.gradle task generateDocbook ( type: AsciidoctorTask, group: 'docToolchain', description: 'use docbook as asciidoc backend') { def sourceFilesDOCBOOK = findSourceFilesByType(['docbook', 'epub', 'docx']) // onlyIf { // sourceFilesDOCBOOK // } sources { sourceFilesDOCBOOK.each { include it.file logger.info it.file File useFile = new File(srcDir, it.file) if (!useFile.exists()) { throw new Exception (\"\"\" The file $useFile in DOCBOOK config does not exist! Please check the configuration 'inputFiles' in $mainConfigFile.\"\"\") } } } outputOptions { backends = ['docbook'] } outputDir = file(targetDir+'/docbook/') doFirst { if (sourceFilesDOCBOOK.size()==0) { throw new Exception (\"\"\" &gt;&gt; No source files defined for type of '[docbook, epub, docx]'. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy \"\"\") } } } "
 },
 
 {
@@ -762,18 +762,18 @@ var documents = [
 
 {
     "id": 95,
-    "uri": "015_tasks/03_task_convertToDocx.html",
-    "menu": "tasks",
-    "title": "convertToDocx",
-    "text": " Table of Contents convertToDocx Before You Begin Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToDocx 1 minute to read Before You Begin Before using this task: Install pandoc . Ensure that 'docbook' and 'docx' are added to the inputFiles formats in Config.groovy. As an optional step, specify a reference doc file with custom stylesheets (see task createReferenceDoc ). Further Reading and Resources Read the Render AsciiDoc to docx (MS Word) blog post. Source Show source code of scripts/pandoc.gradle or go directly to GitHub · docToolchain/scripts/pandoc.gradle . scripts/pandoc.gradle task convertToDocx ( group: 'docToolchain', description: 'converts file to .docx via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `docx` in config.groovy is converted to docbook and then to docx. def sourceFilesDocx = sourceFiles.findAll { 'docx' in it.formats } def explicitSourceFilesCount = sourceFilesDocx.size() if(explicitSourceFilesCount==0){ sourceFilesDocx = sourceFiles.findAll { 'docbook' in it.formats } } sourceFilesDocx.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.docx') new File(\"$targetDir/docx/$targetFile\") .getParentFile() .getAbsoluteFile().mkdirs() workingDir \"$targetDir/docbook\" executable = \"pandoc\" def pandocOptions = config.pandocOptions ?: [] if(referenceDocFile?.trim()) { args = [\"-r\",\"docbook\", \"-t\",\"docx\", \"-o\",\"../docx/$targetFile\", *pandocOptions, \"--reference-doc=${docDir}/${referenceDocFile}\", sourceFile] } else { args = [\"-r\",\"docbook\", \"-t\",\"docx\", \"-o\",\"./../docx/$targetFile\", *pandocOptions, sourceFile] } } doFirst { if(sourceFilesDocx.size()==0){ throw new Exception (\"\"\" &gt;&gt; No source files defined for type 'docx'. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy \"\"\") } if(explicitSourceFilesCount==0) { logger.warn('WARNING: No source files defined for type \"docx\". Converting with best effort') } } } "
-},
-
-{
-    "id": 96,
     "uri": "015_tasks/03_task_generateDeck.html",
     "menu": "tasks",
     "title": "generateDeck",
     "text": " Table of Contents generateDeck About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateDeck 1 minute to read About This Task This task makes use of the asciidoctor-reveal.js backend to render your documents into an HTML-based presentation. It creates a PowerPoint presentation, then enriches it by adding reveal.js slide definitions in AsciiDoc to the speaker notes. For best results, use this task with the exportPPT task. Configure RevealJs docToolchain comes with some opinionated, sane defaults for RevealJs. You can overwrite any of them and provide further configuration as per asciidoctor-reveal.js documentation. Source Show source code of scripts/AsciiDocBasics.gradle or go directly to GitHub · docToolchain/scripts/AsciiDocBasics.gradle . scripts/AsciiDocBasics.gradle task generateDeck ( type: AsciidoctorJRevealJSTask, group: 'docToolchain', description: 'use revealJs as asciidoc backend to create a presentation') { // corresponding Asciidoctor reveal.js config // :revealjs_theme: theme = 'black' revealjsOptions { // :revealjs_hideAddressBar: hideAddressBarOnMobile = 'true' // :revealjs_history: pushToHistory = 'true' // :revealjs_progress: progressBar = 'true' // :revealjs_slideNumber: slideNumber = 'true' // :revealjs_touch: touchMode = 'true' // :revealjs_transition: transition = 'linear' } attributes ( 'idprefix': 'slide-', 'idseparator': '-', 'docinfo1': '', 'revealjsdir': '../reveal.js' ) def sourceFilesREVEAL = findSourceFilesByType(['revealjs']) sources { sourceFilesREVEAL.each { include it.file logger.info it.file File useFile = new File(srcDir, it.file) if (!useFile.exists()) { throw new Exception (\"\"\" The file $useFile in REVEAL config does not exist! Please check the configuration 'inputFiles' in $mainConfigFile.\"\"\") } } } outputDir = file(targetDir+'/decks/') resources { from(sourceDir) { include 'images/**' } into(\"\") logger.info \"${docDir}/${config.outputPath}/images\" } doFirst { if (sourceFilesREVEAL.size()==0) { throw new Exception (\"\"\" &gt;&gt; No source files defined for type 'revealjs'. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy \"\"\") } } } generateDeck.dependsOn asciidoctorGemsPrepare "
+},
+
+{
+    "id": 96,
+    "uri": "015_tasks/03_task_convertToDocx.html",
+    "menu": "tasks",
+    "title": "convertToDocx",
+    "text": " Table of Contents convertToDocx Before You Begin Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToDocx 1 minute to read Before You Begin Before using this task: Install pandoc . Ensure that 'docbook' and 'docx' are added to the inputFiles formats in Config.groovy. As an optional step, specify a reference doc file with custom stylesheets (see task createReferenceDoc ). Further Reading and Resources Read the Render AsciiDoc to docx (MS Word) blog post. Source Show source code of scripts/pandoc.gradle or go directly to GitHub · docToolchain/scripts/pandoc.gradle . scripts/pandoc.gradle task convertToDocx ( group: 'docToolchain', description: 'converts file to .docx via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `docx` in config.groovy is converted to docbook and then to docx. def sourceFilesDocx = sourceFiles.findAll { 'docx' in it.formats } def explicitSourceFilesCount = sourceFilesDocx.size() if(explicitSourceFilesCount==0){ sourceFilesDocx = sourceFiles.findAll { 'docbook' in it.formats } } sourceFilesDocx.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.docx') new File(\"$targetDir/docx/$targetFile\") .getParentFile() .getAbsoluteFile().mkdirs() workingDir \"$targetDir/docbook\" executable = \"pandoc\" def pandocOptions = config.pandocOptions ?: [] if(referenceDocFile?.trim()) { args = [\"-r\",\"docbook\", \"-t\",\"docx\", \"-o\",\"../docx/$targetFile\", *pandocOptions, \"--reference-doc=${docDir}/${referenceDocFile}\", sourceFile] } else { args = [\"-r\",\"docbook\", \"-t\",\"docx\", \"-o\",\"./../docx/$targetFile\", *pandocOptions, sourceFile] } } doFirst { if(sourceFilesDocx.size()==0){ throw new Exception (\"\"\" &gt;&gt; No source files defined for type 'docx'. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy \"\"\") } if(explicitSourceFilesCount==0) { logger.warn('WARNING: No source files defined for type \"docx\". Converting with best effort') } } } "
 },
 
 {
