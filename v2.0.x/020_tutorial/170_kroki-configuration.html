@@ -2,7 +2,7 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: 020_tutorial/kroki-configuration.html -->
+    <!-- sourceuri: 020_tutorial/170_kroki-configuration.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
@@ -225,7 +225,7 @@
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link active" href="../020_tutorial/kroki-configuration.html"><span>Tutorial</span></a>
+                <a class="nav-link active" href="../020_tutorial/010_Install.html"><span>Tutorial</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -294,11 +294,6 @@
                       <li class="collapse show" id="docs">
                           
                         <ul class="td-sidebar-nav__section ul-0">
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../020_tutorial/kroki-configuration.html" title="Kroki Configuration Guide">Kroki Configuration Guide</a>
-                                
-                            </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../020_tutorial/010_Install.html" title="Install docToolchain">Install docToolchain</a>
@@ -376,6 +371,11 @@
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../020_tutorial/170_kroki-configuration.html" title="Kroki Configuration Guide">Kroki Configuration Guide</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../020_tutorial/990_Tutorial.html" title="How to create a Tutorial">How to create a Tutorial</a>
                                 
@@ -392,11 +392,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/kroki-configuration.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/170_kroki-configuration.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Kroki+Configuration+Guide%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/kroki-configuration.adoc%0A%23branch:%20ng" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Kroki+Configuration+Guide%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/ng/src/docs/020_tutorial/170_kroki-configuration.adoc%0A%23branch:%20ng" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -404,7 +404,7 @@
         <hr />
 <script>
 const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
-const searchTerm = "020_tutorial/kroki-configuration.adoc";
+const searchTerm = "020_tutorial/170_kroki-configuration.adoc";
 </script>
 
 <script src="../js/issues.js"></script>
@@ -627,7 +627,14 @@ curl http://localhost:8000/health</code></pre>
 <h3 id="_practical_examples">Practical Examples</h3>
 <div class="sect3">
 <h4 id="_plantuml_sequence_diagram">PlantUML Sequence Diagram</h4>
-<div class="listingblock">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="asciidoc">[plantuml]
 ....
@@ -646,28 +653,83 @@ DTC -&gt; User: HTML with diagram
 @enduml
 ....</code></pre>
 </div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="imageblock">
+<div class="content">
+<img src="../images/diag-plantuml-md5-fbad0de473ae73686d5b4129f9d83a6b.png" alt="Diagram" width="508" height="355">
 </div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_mermaid_flowchart">Mermaid Flowchart</h4>
-<div class="listingblock">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="asciidoc">[mermaid]
 ....
 graph TD
     A[AsciiDoc Document] --&gt; B{Extension Type?}
-    B --&gt;|asciidoctor-diagram| C[diagram-server-url]
-    B --&gt;|asciidoctor-kroki| D[kroki-server-url]
-    C --&gt; E[Kroki Server]
-    D --&gt; E
-    E --&gt; F[Rendered Diagram]
-....</code></pre>
+    B --&gt;</code></pre>
 </div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">asciidoctor-diagram</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C[diagram-server-url]
+    B -&#8594;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">asciidoctor-kroki</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">D[kroki-server-url]
+    C -&#8594; E[Kroki Server]
+    D -&#8594; E
+    E -&#8594; F[Rendered Diagram]
+&#8230;&#8203;.
+----</p></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<div class="content">
+<pre>Failed to generate image: Could not find the 'mmdc' executable in PATH; add it to the PATH or specify its location using the 'mmdc' document attribute
+graph TD
+    A[AsciiDoc Document] --&gt; B{Extension Type?}
+    B --&gt;</pre>
 </div>
+</div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">asciidoctor-diagram</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C[diagram-server-url]
+    B -&#8594;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">asciidoctor-kroki</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">D[kroki-server-url]
+    C -&#8594; E[Kroki Server]
+    D -&#8594; E
+    E -&#8594; F[Rendered Diagram]
+&#8230;&#8203;.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 <div class="sect3">
 <h4 id="_graphviz_diagram">GraphViz Diagram</h4>
-<div class="listingblock">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 50%;">
+</colgroup>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="asciidoc">[graphviz]
 ....
@@ -686,7 +748,15 @@ digraph G {
 }
 ....</code></pre>
 </div>
+</div></div></td>
+<td class="tableblock halign-left valign-top"><div class="content"><div class="imageblock">
+<div class="content">
+<img src="../images/diag-graphviz-md5-36612d98ab28a7d91230d3343da580d5.png" alt="Diagram" width="815" height="131">
 </div>
+</div></div></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect2">
@@ -966,11 +1036,11 @@ docker run -d --name kroki-bpmn yuzutech/kroki-bpmn</code></pre>
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Kroki+Configuration+Guide%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/kroki-configuration.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Kroki+Configuration+Guide%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/170_kroki-configuration.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Kroki+Configuration+Guide%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/kroki-configuration.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Kroki+Configuration+Guide%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/170_kroki-configuration.adoc">tell
     us how we can improve</a>.
     </p>
 </div>
