@@ -2,6 +2,14 @@ var documents = [
 
 {
     "id": 0,
+    "uri": "030_news/2025/kroki-configuration-complete-guide.html",
+    "menu": "news",
+    "title": "Kroki Configuration Mystery Solved: Two Extensions, One Solution",
+    "text": " Table of Contents Kroki Configuration Mystery Solved: Two Extensions, One Solution The Problem The Discovery The Solution: Defensive Configuration Why This Matters Learn More Community Impact Kroki Configuration Mystery Solved: Two Extensions, One Solution Clearing up the confusion around :diagram-server-url: vs :kroki-server-url: once and for all The Problem If you&#8217;ve ever tried to configure Kroki in docToolchain and wondered why some tutorials show :diagram-server-url: while others use :kroki-server-url: , you&#8217;ve stumbled upon one of the most common configuration mysteries in the AsciiDoc ecosystem. The confusion is real, and it has a fascinating backstory. The Discovery It turns out there are two completely different AsciiDoc extensions for diagrams: asciidoctor-diagram : The original extension that added Kroki support in v2.1.0 using :diagram-server-url: and :diagram-server-type: asciidoctor-kroki : A specialized extension built exclusively for Kroki using :kroki-server-url: Both are legitimate, both are current, and both solve the same problem in different ways. The Solution: Defensive Configuration Instead of guessing which extension your setup uses, we recommend the defensive approach : // Works with both extensions - future-proof configuration :diagram-server-url: https://kroki.io/ :diagram-server-type: kroki_io :kroki-server-url: https://kroki.io/ This ensures your diagrams work regardless of which extension docToolchain uses internally, and you&#8217;re protected against future changes. Why This Matters This isn&#8217;t just about avoiding configuration headaches. It&#8217;s about: ✅ Future-proofing your documentation setup ✅ Team productivity - no more debugging diagram rendering issues ✅ Flexibility for different deployment scenarios ✅ Enterprise readiness with local server options Learn More Want the complete technical breakdown, step-by-step configuration, and enterprise setup instructions? 👉 Check out our comprehensive tutorial : Kroki Configuration Guide The tutorial includes: - Detailed configuration examples - Local Kroki server setup for enterprises - Troubleshooting common issues - Real diagram examples (PlantUML, Mermaid, GraphViz) Community Impact This discovery came from community collaboration in Issue #1500 , where users shared their configuration challenges. It&#8217;s a perfect example of how community-driven problem-solving makes docToolchain better for everyone. Have your own configuration mysteries? Share them in our GitHub Issues - you might help solve the next puzzle! 🧩 Happy diagramming! 📊 "
+},
+
+{
+    "id": 1,
     "uri": "030_news/2025/3.4.2-release.html",
     "menu": "news",
     "title": "Release v3.4.2",
@@ -9,7 +17,7 @@ var documents = [
 },
 
 {
-    "id": 1,
+    "id": 2,
     "uri": "030_news/2024/3.4.1-release.html",
     "menu": "news",
     "title": "Release v3.4.1",
@@ -17,7 +25,7 @@ var documents = [
 },
 
 {
-    "id": 2,
+    "id": 3,
     "uri": "030_news/2024/3.4.0-release.html",
     "menu": "news",
     "title": "Release v3.4",
@@ -25,7 +33,7 @@ var documents = [
 },
 
 {
-    "id": 3,
+    "id": 4,
     "uri": "030_news/2024/3.3-release.html",
     "menu": "news",
     "title": "Release v3.3",
@@ -33,7 +41,7 @@ var documents = [
 },
 
 {
-    "id": 4,
+    "id": 5,
     "uri": "030_news/2024/3.2.2-release.html",
     "menu": "news",
     "title": "Release v3.2.2",
@@ -41,7 +49,7 @@ var documents = [
 },
 
 {
-    "id": 5,
+    "id": 6,
     "uri": "030_news/2024/3.2.1-release.html",
     "menu": "news",
     "title": "Release v3.2.1",
@@ -49,7 +57,7 @@ var documents = [
 },
 
 {
-    "id": 6,
+    "id": 7,
     "uri": "030_news/2023/3.2.0-release.html",
     "menu": "news",
     "title": "Release v3.2.0",
@@ -57,7 +65,7 @@ var documents = [
 },
 
 {
-    "id": 7,
+    "id": 8,
     "uri": "030_news/2023/3.1.2-release.html",
     "menu": "news",
     "title": "Release v3.1.2",
@@ -65,7 +73,7 @@ var documents = [
 },
 
 {
-    "id": 8,
+    "id": 9,
     "uri": "030_news/2023/3.1.1-release.html",
     "menu": "news",
     "title": "Release v3.1.1",
@@ -73,7 +81,7 @@ var documents = [
 },
 
 {
-    "id": 9,
+    "id": 10,
     "uri": "030_news/2023/3.1.0-release.html",
     "menu": "news",
     "title": "Release v3.1.0",
@@ -81,7 +89,7 @@ var documents = [
 },
 
 {
-    "id": 10,
+    "id": 11,
     "uri": "030_news/2023/3.0.2-release.html",
     "menu": "news",
     "title": "Release v3.0.2",
@@ -89,7 +97,7 @@ var documents = [
 },
 
 {
-    "id": 11,
+    "id": 12,
     "uri": "030_news/2023/3.0.1-release.html",
     "menu": "news",
     "title": "Release v3.0.1",
@@ -97,7 +105,7 @@ var documents = [
 },
 
 {
-    "id": 12,
+    "id": 13,
     "uri": "030_news/2023/Babylon.html",
     "menu": "news",
     "title": "Multilingual Documentation",
@@ -105,7 +113,7 @@ var documents = [
 },
 
 {
-    "id": 13,
+    "id": 14,
     "uri": "030_news/2023/3.0.0-rc1.html",
     "menu": "news",
     "title": "Release Candidate v3.0.0",
@@ -113,7 +121,7 @@ var documents = [
 },
 
 {
-    "id": 14,
+    "id": 15,
     "uri": "030_news/2023/2.2.1-release.html",
     "menu": "news",
     "title": "Release v2.2.1",
@@ -121,7 +129,7 @@ var documents = [
 },
 
 {
-    "id": 15,
+    "id": 16,
     "uri": "030_news/2023/2.2.0-release.html",
     "menu": "news",
     "title": "Release v2.2.0",
@@ -129,7 +137,7 @@ var documents = [
 },
 
 {
-    "id": 16,
+    "id": 17,
     "uri": "030_news/2022/2.1.0-release.html",
     "menu": "news",
     "title": "Release v2.1.0",
@@ -137,7 +145,7 @@ var documents = [
 },
 
 {
-    "id": 17,
+    "id": 18,
     "uri": "030_news/2022/2.0.5-release.html",
     "menu": "news",
     "title": "Release v2.0.5",
@@ -145,7 +153,7 @@ var documents = [
 },
 
 {
-    "id": 18,
+    "id": 19,
     "uri": "030_news/2022/2.0.4-release.html",
     "menu": "news",
     "title": "(Release v2.0.4)",
@@ -153,7 +161,7 @@ var documents = [
 },
 
 {
-    "id": 19,
+    "id": 20,
     "uri": "030_news/2021/2021-11-23-Open-Source-Camp.html",
     "menu": "news",
     "title": "Open Source Camp",
@@ -161,7 +169,7 @@ var documents = [
 },
 
 {
-    "id": 20,
+    "id": 21,
     "uri": "030_news/2021/2.0.3-release.html",
     "menu": "news",
     "title": "Release v2.0.3",
@@ -169,7 +177,7 @@ var documents = [
 },
 
 {
-    "id": 21,
+    "id": 22,
     "uri": "030_news/2021/2.0.2-release.html",
     "menu": "news",
     "title": "Release v2.0.2",
@@ -177,7 +185,7 @@ var documents = [
 },
 
 {
-    "id": 22,
+    "id": 23,
     "uri": "030_news/2021/2.0.1-release.html",
     "menu": "news",
     "title": "Release v2.0.1",
@@ -185,7 +193,7 @@ var documents = [
 },
 
 {
-    "id": 23,
+    "id": 24,
     "uri": "030_news/2021/2.0.0-release.html",
     "menu": "news",
     "title": "Release v2.0.0",
@@ -193,7 +201,7 @@ var documents = [
 },
 
 {
-    "id": 24,
+    "id": 25,
     "uri": "030_news/2021/last-release-candidate.html",
     "menu": "news",
     "title": "Last Release Candidate",
@@ -201,7 +209,7 @@ var documents = [
 },
 
 {
-    "id": 25,
+    "id": 26,
     "uri": "030_news/index.html",
     "menu": "news",
     "title": "Overview",
@@ -209,7 +217,7 @@ var documents = [
 },
 
 {
-    "id": 26,
+    "id": 27,
     "uri": "020_tutorial/120_self-contained-dtc.html",
     "menu": "tutorial",
     "title": "Self-Contained docToolchain",
@@ -217,7 +225,7 @@ var documents = [
 },
 
 {
-    "id": 27,
+    "id": 28,
     "uri": "020_tutorial/020_arc42.html",
     "menu": "tutorial",
     "title": "arc42 Template",
@@ -225,7 +233,7 @@ var documents = [
 },
 
 {
-    "id": 28,
+    "id": 29,
     "uri": "020_tutorial/050_multipleRepositories.html",
     "menu": "tutorial",
     "title": "Multi-Repo",
@@ -233,7 +241,7 @@ var documents = [
 },
 
 {
-    "id": 29,
+    "id": 30,
     "uri": "020_tutorial/070_publishToConfluence.html",
     "menu": "tutorial",
     "title": "publishToConfluence",
@@ -241,7 +249,7 @@ var documents = [
 },
 
 {
-    "id": 30,
+    "id": 31,
     "uri": "020_tutorial/030_generateHTML.html",
     "menu": "tutorial",
     "title": "generateHTML &amp; generatePDF",
@@ -249,7 +257,7 @@ var documents = [
 },
 
 {
-    "id": 31,
+    "id": 32,
     "uri": "020_tutorial/140_Dropdown_Menu.html",
     "menu": "tutorial",
     "title": "How to create a Dropdown Menu",
@@ -257,7 +265,7 @@ var documents = [
 },
 
 {
-    "id": 32,
+    "id": 33,
     "uri": "020_tutorial/110_presentations_with_revealjs.html",
     "menu": "tutorial",
     "title": "Presentations with reveal.js",
@@ -265,7 +273,7 @@ var documents = [
 },
 
 {
-    "id": 33,
+    "id": 34,
     "uri": "020_tutorial/150_multiRepoMicrositeTipsAndTricks.html",
     "menu": "tutorial",
     "title": "Building a microsite from multiple repositories",
@@ -273,7 +281,7 @@ var documents = [
 },
 
 {
-    "id": 34,
+    "id": 35,
     "uri": "020_tutorial/040_microsite/index.html",
     "menu": "tutorial",
     "title": "Microsite",
@@ -281,7 +289,7 @@ var documents = [
 },
 
 {
-    "id": 35,
+    "id": 36,
     "uri": "020_tutorial/040_microsite/130_theming.html",
     "menu": "tutorial",
     "title": "How to change the theme",
@@ -289,7 +297,7 @@ var documents = [
 },
 
 {
-    "id": 36,
+    "id": 37,
     "uri": "020_tutorial/040_microsite/043_multi-markup.html",
     "menu": "tutorial",
     "title": "generateSite: Multi-Markup",
@@ -297,7 +305,7 @@ var documents = [
 },
 
 {
-    "id": 37,
+    "id": 38,
     "uri": "020_tutorial/040_microsite/040_generateSite.html",
     "menu": "tutorial",
     "title": "generateSite",
@@ -305,7 +313,15 @@ var documents = [
 },
 
 {
-    "id": 38,
+    "id": 39,
+    "uri": "020_tutorial/kroki-configuration.html",
+    "menu": "tutorial",
+    "title": "Kroki Configuration Guide",
+    "text": " Table of Contents Kroki Configuration Guide Overview The Two Extensions Recommended Configuration Enterprise Setup: Local Kroki Server Practical Examples Supported Diagram Types Troubleshooting Advanced Configuration Security Considerations Why Use Defensive Configuration? Further Resources Contributing Kroki Configuration Guide This guide provides comprehensive instructions for configuring Kroki with docToolchain, including the background story of why multiple attribute sets exist. Overview Kroki is a service that converts text-based diagrams (PlantUML, Mermaid, GraphViz, etc.) into images without requiring local tool installations. However, configuring Kroki in docToolchain can be confusing due to historical evolution of diagram extensions. The Two Extensions There are two different AsciiDoc extensions that support Kroki: asciidoctor-diagram: The All-Rounder The original asciidoctor-diagram extension existed before Kroki and supported local tools. In version 2.1.0, Kroki support was added: :diagram-server-url: https://kroki.io/ :diagram-server-type: kroki_io This extension can use both local tools AND delegate to Kroki servers. asciidoctor-kroki: The Specialist The specialized asciidoctor-kroki extension was built exclusively for Kroki: :kroki-server-url: https://kroki.io/ This extension is optimized specifically for Kroki integration. Recommended Configuration Defensive Configuration Strategy To ensure compatibility with both extensions, use all attributes: // Kroki configuration (compatible with all extensions) :diagram-server-url: https://kroki.io/ :diagram-server-type: kroki_io :kroki-server-url: https://kroki.io/ Configuration in docToolchainConfig.groovy asciidoctorAttributes = [ // Defensive Kroki configuration 'diagram-server-url': 'https://kroki.io/', 'diagram-server-type': 'kroki_io', 'kroki-server-url': 'https://kroki.io/', // Other attributes... 'toc': 'left', 'icons': 'font' ] Enterprise Setup: Local Kroki Server For organizations that prefer not to send diagrams to external services: Docker Setup # Start Kroki locally docker run -d --name kroki -p 8000:8000 yuzutech/kroki # Verify it's running curl http://localhost:8000/health Configuration for Local Server // Local Kroki server configuration :diagram-server-url: http://localhost:8000/ :diagram-server-type: kroki_io :kroki-server-url: http://localhost:8000/ Or in docToolchainConfig.groovy: asciidoctorAttributes = [ 'diagram-server-url': 'http://localhost:8000/', 'diagram-server-type': 'kroki_io', 'kroki-server-url': 'http://localhost:8000/', ] Practical Examples PlantUML Sequence Diagram [plantuml] .... @startuml actor User participant \"docToolchain\" as DTC participant \"Kroki Server\" as Kroki participant \"PlantUML\" as PUML User -&gt; DTC: generateHTML DTC -&gt; Kroki: POST diagram source Kroki -&gt; PUML: render diagram PUML -&gt; Kroki: SVG/PNG Kroki -&gt; DTC: diagram image DTC -&gt; User: HTML with diagram @enduml .... Mermaid Flowchart [mermaid] .... graph TD A[AsciiDoc Document] --&gt; B{Extension Type?} B --&gt;|asciidoctor-diagram| C[diagram-server-url] B --&gt;|asciidoctor-kroki| D[kroki-server-url] C --&gt; E[Kroki Server] D --&gt; E E --&gt; F[Rendered Diagram] .... GraphViz Diagram [graphviz] .... digraph G { rankdir=LR; node [shape=box, style=rounded]; \"Local Tools\" -&gt; \"asciidoctor-diagram\"; \"Kroki Server\" -&gt; \"asciidoctor-diagram\"; \"Kroki Server\" -&gt; \"asciidoctor-kroki\"; \"asciidoctor-diagram\" -&gt; \"docToolchain\"; \"asciidoctor-kroki\" -&gt; \"docToolchain\"; \"docToolchain\" -&gt; \"Beautiful Docs\"; } .... Supported Diagram Types Kroki supports numerous diagram types: PlantUML Mermaid GraphViz Ditaa BlockDiag BPMN C4 (with PlantUML) And many more For a complete list, visit kroki.io . Troubleshooting Diagrams Not Rendering Check server connectivity : [source,bash] ---- curl https://kroki.io/health ---- Verify attribute configuration : Ensure all three attributes are set for maximum compatibility Check for typos in attribute names Test with simple diagram : [source,asciidoc] ---- [plantuml] &#8230;&#8203;. A &#8594; B &#8230;&#8203;. ---- Local Server Issues Container not starting : [source,bash] ---- docker logs kroki ---- Port conflicts : [source,bash] ---- # Use different port docker run -d --name kroki -p 8080:8000 yuzutech/kroki ---- Firewall blocking access : Ensure port 8000 (or your chosen port) is accessible Check corporate firewall settings Network Configuration For corporate environments: // Configure proxy if needed System.setProperty(\"http.proxyHost\", \"proxy.company.com\") System.setProperty(\"http.proxyPort\", \"8080\") System.setProperty(\"https.proxyHost\", \"proxy.company.com\") System.setProperty(\"https.proxyPort\", \"8080\") Advanced Configuration Custom Kroki Instance with Additional Services Some diagram types require additional containers: # Full Kroki setup with all services docker-compose up -d # Or selective services docker run -d --name kroki-mermaid yuzutech/kroki-mermaid docker run -d --name kroki-bpmn yuzutech/kroki-bpmn Performance Optimization For high-volume documentation: asciidoctorAttributes = [ 'kroki-fetch-diagram': 'true', // Cache diagrams locally 'kroki-default-format': 'svg', // Use SVG for better quality ] Security Considerations Network Security Use HTTPS for external Kroki servers Consider VPN for remote team access to local instances Implement proper firewall rules Data Privacy Evaluate whether diagram content contains sensitive information Consider local deployment for confidential projects Review data retention policies of external services Why Use Defensive Configuration? This approach offers several benefits: ✅ Future-proof : Works with extension updates ✅ Flexible : docToolchain can switch between extensions ✅ Robust : No breaking changes with upgrades ✅ Team-friendly : Team members don&#8217;t need to know implementation details Further Resources Kroki Documentation Asciidoctor Diagram Extension Asciidoctor Kroki Extension docToolchain Issues Contributing Found an issue with this guide or have improvements? Please contribute: Report issues on GitHub Submit pull requests with corrections Share your configuration experiences Your feedback helps improve the documentation for everyone! "
+},
+
+{
+    "id": 40,
     "uri": "020_tutorial/100_diagrams.net.html",
     "menu": "tutorial",
     "title": "Diagrams: Diagrams.net",
@@ -313,15 +329,7 @@ var documents = [
 },
 
 {
-    "id": 39,
-    "uri": "020_tutorial/010_Install.html",
-    "menu": "tutorial",
-    "title": "Install docToolchain",
-    "text": " Table of Contents Welcome! Install docToolchain Installation Overview Install dtcw in your project directory Run docToolchain in a container Install docToolchain with dtcw Install docToolchain with SDKMAN! Run your First Command Problems &amp; solutions Welcome! Nice to meet you. Glad that you want to learn more about using docToolchain. Start by installing what you need. The following steps are the same as described in the User Docs. Please follow them step by step. You are prompted to install everything you need for each step. If you encounter problems, create a GitHub issue and the community will help you. Install docToolchain 11 minutes to read Installation Overview docToolchain is composed of two parts: doctoolchain which is the toolchain used to create your documentation the docToolchain shell wrapper script installed in your project which calls the toolchain The use of this setup has the following advantages: It&#8217;s easy to build your documentation within your project folder. Ensures that everyone in the project uses the same docToolchain version. Keeps all docToolchain technology out of your project repository. Facilitates the installation of the docToolchain if not installed. Makes it easier to upgrade to newer versions of docToolchain. Install dtcw in your project directory The docToolchain wrapper script dtcw , respective dtcw.ps1 or dtcw.bat for MS Windows, is meant to be installed in your project root directory. The wrapper script simplifies calls to the docToolchain. Even if you are going to use docToolchain in multiple projects, the toolchain will only be installed once on your system. Steps for MacOS/Linux/WSL2 with bash If you have an Apple Silicon (M1/M2) Mac, make sure that you have docker up and running, rosetta is installed and up-to-date ( softwareupdate --install-rosetta ) and type the following commands in the Terminal: `arch -x86_64 /bin/bash` Now, download dtcw into your project directory and make the script executable with the following commands: cd &lt;your project&gt; curl -Lo dtcw https://doctoolchain.org/dtcw chmod +x dtcw If you don&#8217;t have curl installed, you can also use wget : cd &lt;your project&gt; wget doctoolchain.org/dtcw chmod +x dtcw Windows with Powershell cd &lt;your project&gt; Invoke-WebRequest doctoolchain.org/dtcw.ps1 -Outfile dtcw.ps1 Got an error message that you are not allowed to execute powershell scripts? Try to switch to an unrestricted powershell by executing powershell.exe -ExecutionPolicy Unrestricted . Windows with cmd.exe cd &lt;your project&gt; curl -Lo dtcw.bat doctoolchain.org/dtcw.bat dtcw.bat wraps the dtcw.ps1 script and executes it in powershell. This might be easier to use if you haven&#8217;t yet configured your powershell as a developer. In case your development team uses different operating systems, put the wrapper scripts for the desired operating systems ( dtcw , dtcw.ps1 , and dtcw.bat ) into your project. Once the docToolchain wrapper is installed in your project directory you have to decide how to install the toolchain: Run docToolchain in a container with the docToolchain container image or Use your custom docker image . Install docToolchain with dtcw in the users home directory $HOME/.doctoolchain Install docToolchain with SDKMAN! a tool for managing parallel versions of multiple Software Development Kits. docToolchain depends on Java 17 If you don&#8217;t use the docToolchain container image you have to install Java on your system. In case you have Java already installed, make sure JAVA_HOME is set. You may use dtcw to install the correct Java version, as shown in the next steps. Run docToolchain in a container The docToolchain project provides a container image of approximately 900 MB from the Docker Hub container registry. The Dockerfile from which the image is created may be found at https://github.com/docToolchain/docker-image . To run docToolchain in a container you need an installed container engine. The best known container engine is Docker . If the container engine is installed you can Run your First Command . The docToolchain wrapper script in your project directory will detect the container engine and pull the docToolchain image on the first invocation. Use your custom docker image Some might need to create their own docker image to add additional tooling or configurations, e.g. proxy settings. In this case you can pass the image name via parameter image directly after docker : ./dtcw docker image &lt;image_name&gt; generateHTML .\\dtcw.ps1 docker image &lt;image_name&gt; generateHTML .\\dtcw.bat docker image &lt;image_name&gt; generateHTML Pass environment variables to docker containers To pass any environment variable to the docker container you can make use of an environment file . The environment file must have the name dtcw_docker.env and must be located in the same folder as dtcw . An example content is e.g.: # set environment variables for docToolchain docker container PROJECT=TEST_PROJECT TEAM=TEST_TEAM Pass additional parameter to docker containers To pass additional parameters to the docker container you can make use of the parameter extra_arguments followed by a string with the additional parameters. One usecase is to enable you to set environment variables to dynamic values. ./dtcw docker image &lt;image_name&gt; extra_arguments \"--env USER=${USERNAME} --env REPO_LOCATION=`git config remote.origin.url`\" generateHTML Install docToolchain with dtcw Steps for MacOS/Linux/WSL2 with bash To install docToolchain in $HOME/.doctoolchain execute the following command. ./dtcw install doctoolchain In case you have no Java installed you may use dtcw to install Java in a subdirectory of $HOME/.doctoolchain . ./dtcw install java Unable to locate Java Runtime - check your Bash environment If dtcw complains about not being able to locate a Java Runtime, make sure Java is found in your Bash shell, the shell used by dtcw . If you use dtcw from another shell like zsh , it may be that your shell finds the supported Java version but your bash setup doesn&#8217;t. In that case, please switch to bash and make sure that a supported Java version is found. Afterwards, you can switch back to your shell. Windows with Powershell To install docToolchain in $HOME/.doctoolchain execute the following command. ./dtcw.ps1 install doctoolchain In case you have no Java installed you can use dtcw.ps1 to install Java: .\\dtcw.ps1 install java Windows with cmd.exe To install docToolchain in $HOME/.doctoolchain execute the following command. ./dtcw.bat install doctoolchain In case you have no Java installed you can use dtcw.ps1 to install Java: .\\dtcw.bat install java If the docToolchain installation finished successfully, you are ready to Run your First Command . Install docToolchain with SDKMAN! TODO: description how to install docToolchain with SDKMAN! . Run your First Command Call the docToolchain wrapper with tasks --group doctoolchain to show all tasks provided by docToolchain. Those tasks may be used when invoking the docToolchain wrapper script. The first time docToolchain is called, it downloads all necessary dependencies. Therefore, the execution of the command may take some time. Subsequent calls to docToolchain will be faster. ./dtcw tasks --group=doctoolchain dtcw 0.50 - 8061694f docToolchain 2.3.0 Available docToolchain environments: local (1) Environments with docToolchain [2.3.0]: local (2) Using environment: local (3) Using Java 17.0.6 [/home/john_doe/.doctoolchain/jdk/bin/java] (4) Downloading https://services.gradle.org/distributions/gradle-7.5.1-bin.zip (5) ..........10%..........20%..........30%...........40%..........50%..........60%..........70%...........80%..........90%..........100% Welcome to Gradle 7.5.1! Here are the highlights of this release: - Support for Java 18 - Support for building with Groovy 4 - Much more responsive continuous builds - Improved diagnostics for dependency resolution For more details see https://docs.gradle.org/7.5.1/release-notes.html To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/7.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon. Daemon will be stopped at the end of the build &gt; Configure project : Config file '/code/docToolchainConfig.groovy' does not exist' (6) [ant:input] [ant:input] do you want me to create a default one for you? (y, n) y 1 List of available docToolchain environments. The output may vary depending on your system. In our example only the local environment is available since neither sdk nor docker was found. 2 Environments in which docToolchain s available. The output may vary depending on how you installed docToolchain. In our example docToolchain was found in the user&#8217;s local environment in $HOME/.doctoolchain . 3 Shows the used docToolchain environment. In case docToolchain is installed in more than one environment the wrapper script picks the environment in the following order: local , sdk , and then docker . 4 Location of the used Java. In our example Java was installed in the local environment with the docToolchain wrapper script. 5 docToolchain was invoked the first time, thus it is downloading its dependencies. 6 The docToolchain configuration file docToolchainConfig.groovy wasn&#8217;t found in the project repository. docToolchain asks if it should create a new one. .\\dtcw.ps1 tasks --group=doctoolchain dtcw.bat tasks --group=doctoolchain If you are behind a corporate proxy, you might need to consider build-script dependencies are fetched from a repository referenced by the property mavenRepository . By default, the value https://plugins.gradle.org/m2/ is used. When a repository requiring credentials is used the properties mavenUsername and mavenPassword can be set as well. Example command passing a custom maven repository with credentials from the command line DTC_OPTS=\"-PmavenRepository=your_maven_repo -PmavenUsername=your_username -PmavenPassword=your_pw\" ./dtcw tasks --group=doctoolchain --info Problems &amp; solutions dtcw doesn&#8217;t run You might get an error similar to this one: ./dtcw local tasks --group=doctoolchain ./dtcw: line 1: syntax error near unexpected token `newline' ./dtcw: line 1: `&lt;!DOCTYPE html&gt;' If you see that, it&#8217;s likely that the wrapper didn&#8217;t download correctly. You can expect that an HTML page was downloaded instead of the wrapper. Please try to redownload the wrapper. docker throws and error with dtcw On windows you might get the following error Error response from daemon: user declined directory sharing C:\\Users\\path_to_my_folder This means that docker wanted to share the named folder (possibly the repo) but didn&#8217;t have the rights. This means you have to share the folder yourself on docker. Go to docker dashboard &#8594; settings &#8594; Resources &#8594; FileSharing. Add required folder and hit Apply &amp; Restart. Incompatible Java version You may see that docToolchain starts but crashes with a stacktrace that starts like this: * What went wrong: Could not compile settings file '/Users/falk/.doctoolchain/docToolchain-2.0.0/settings.gradle'. &gt; startup failed: General error during semantic analysis: Unsupported class file major version 61 java.lang.IllegalArgumentException: Unsupported class file major version 61 In this case, you&#8217;ve got an incompatible version of Java. dtcw tries to check the Java version up front by running java --version , but Gradle sometimes picks up a different version. If you get a similar error, try reinstalling a compatible Java version. "
-},
-
-{
-    "id": 40,
+    "id": 41,
     "uri": "020_tutorial/160_EnterpriseTipsAndTricks.html",
     "menu": "tutorial",
     "title": "Enterprise docToolchain",
@@ -329,7 +337,15 @@ var documents = [
 },
 
 {
-    "id": 41,
+    "id": 42,
+    "uri": "020_tutorial/010_Install.html",
+    "menu": "tutorial",
+    "title": "Install docToolchain",
+    "text": " Table of Contents Welcome! Install docToolchain Installation Overview Install dtcw in your project directory Run docToolchain in a container Install docToolchain with dtcw Install docToolchain with SDKMAN! Run your First Command Problems &amp; solutions Welcome! Nice to meet you. Glad that you want to learn more about using docToolchain. Start by installing what you need. The following steps are the same as described in the User Docs. Please follow them step by step. You are prompted to install everything you need for each step. If you encounter problems, create a GitHub issue and the community will help you. Install docToolchain 11 minutes to read Installation Overview docToolchain is composed of two parts: doctoolchain which is the toolchain used to create your documentation the docToolchain shell wrapper script installed in your project which calls the toolchain The use of this setup has the following advantages: It&#8217;s easy to build your documentation within your project folder. Ensures that everyone in the project uses the same docToolchain version. Keeps all docToolchain technology out of your project repository. Facilitates the installation of the docToolchain if not installed. Makes it easier to upgrade to newer versions of docToolchain. Install dtcw in your project directory The docToolchain wrapper script dtcw , respective dtcw.ps1 or dtcw.bat for MS Windows, is meant to be installed in your project root directory. The wrapper script simplifies calls to the docToolchain. Even if you are going to use docToolchain in multiple projects, the toolchain will only be installed once on your system. Steps for MacOS/Linux/WSL2 with bash If you have an Apple Silicon (M1/M2) Mac, make sure that you have docker up and running, rosetta is installed and up-to-date ( softwareupdate --install-rosetta ) and type the following commands in the Terminal: `arch -x86_64 /bin/bash` Now, download dtcw into your project directory and make the script executable with the following commands: cd &lt;your project&gt; curl -Lo dtcw https://doctoolchain.org/dtcw chmod +x dtcw If you don&#8217;t have curl installed, you can also use wget : cd &lt;your project&gt; wget doctoolchain.org/dtcw chmod +x dtcw Windows with Powershell cd &lt;your project&gt; Invoke-WebRequest doctoolchain.org/dtcw.ps1 -Outfile dtcw.ps1 Got an error message that you are not allowed to execute powershell scripts? Try to switch to an unrestricted powershell by executing powershell.exe -ExecutionPolicy Unrestricted . Windows with cmd.exe cd &lt;your project&gt; curl -Lo dtcw.bat doctoolchain.org/dtcw.bat dtcw.bat wraps the dtcw.ps1 script and executes it in powershell. This might be easier to use if you haven&#8217;t yet configured your powershell as a developer. In case your development team uses different operating systems, put the wrapper scripts for the desired operating systems ( dtcw , dtcw.ps1 , and dtcw.bat ) into your project. Once the docToolchain wrapper is installed in your project directory you have to decide how to install the toolchain: Run docToolchain in a container with the docToolchain container image or Use your custom docker image . Install docToolchain with dtcw in the users home directory $HOME/.doctoolchain Install docToolchain with SDKMAN! a tool for managing parallel versions of multiple Software Development Kits. docToolchain depends on Java 17 If you don&#8217;t use the docToolchain container image you have to install Java on your system. In case you have Java already installed, make sure JAVA_HOME is set. You may use dtcw to install the correct Java version, as shown in the next steps. Run docToolchain in a container The docToolchain project provides a container image of approximately 900 MB from the Docker Hub container registry. The Dockerfile from which the image is created may be found at https://github.com/docToolchain/docker-image . To run docToolchain in a container you need an installed container engine. The best known container engine is Docker . If the container engine is installed you can Run your First Command . The docToolchain wrapper script in your project directory will detect the container engine and pull the docToolchain image on the first invocation. Use your custom docker image Some might need to create their own docker image to add additional tooling or configurations, e.g. proxy settings. In this case you can pass the image name via parameter image directly after docker : ./dtcw docker image &lt;image_name&gt; generateHTML .\\dtcw.ps1 docker image &lt;image_name&gt; generateHTML .\\dtcw.bat docker image &lt;image_name&gt; generateHTML Pass environment variables to docker containers To pass any environment variable to the docker container you can make use of an environment file . The environment file must have the name dtcw_docker.env and must be located in the same folder as dtcw . An example content is e.g.: # set environment variables for docToolchain docker container PROJECT=TEST_PROJECT TEAM=TEST_TEAM Pass additional parameter to docker containers To pass additional parameters to the docker container you can make use of the parameter extra_arguments followed by a string with the additional parameters. One usecase is to enable you to set environment variables to dynamic values. ./dtcw docker image &lt;image_name&gt; extra_arguments \"--env USER=${USERNAME} --env REPO_LOCATION=`git config remote.origin.url`\" generateHTML Install docToolchain with dtcw Steps for MacOS/Linux/WSL2 with bash To install docToolchain in $HOME/.doctoolchain execute the following command. ./dtcw install doctoolchain In case you have no Java installed you may use dtcw to install Java in a subdirectory of $HOME/.doctoolchain . ./dtcw install java Unable to locate Java Runtime - check your Bash environment If dtcw complains about not being able to locate a Java Runtime, make sure Java is found in your Bash shell, the shell used by dtcw . If you use dtcw from another shell like zsh , it may be that your shell finds the supported Java version but your bash setup doesn&#8217;t. In that case, please switch to bash and make sure that a supported Java version is found. Afterwards, you can switch back to your shell. Windows with Powershell To install docToolchain in $HOME/.doctoolchain execute the following command. ./dtcw.ps1 install doctoolchain In case you have no Java installed you can use dtcw.ps1 to install Java: .\\dtcw.ps1 install java Windows with cmd.exe To install docToolchain in $HOME/.doctoolchain execute the following command. ./dtcw.bat install doctoolchain In case you have no Java installed you can use dtcw.ps1 to install Java: .\\dtcw.bat install java If the docToolchain installation finished successfully, you are ready to Run your First Command . Install docToolchain with SDKMAN! TODO: description how to install docToolchain with SDKMAN! . Run your First Command Call the docToolchain wrapper with tasks --group doctoolchain to show all tasks provided by docToolchain. Those tasks may be used when invoking the docToolchain wrapper script. The first time docToolchain is called, it downloads all necessary dependencies. Therefore, the execution of the command may take some time. Subsequent calls to docToolchain will be faster. ./dtcw tasks --group=doctoolchain dtcw 0.50 - 8061694f docToolchain 2.3.0 Available docToolchain environments: local (1) Environments with docToolchain [2.3.0]: local (2) Using environment: local (3) Using Java 17.0.6 [/home/john_doe/.doctoolchain/jdk/bin/java] (4) Downloading https://services.gradle.org/distributions/gradle-7.5.1-bin.zip (5) ..........10%..........20%..........30%...........40%..........50%..........60%..........70%...........80%..........90%..........100% Welcome to Gradle 7.5.1! Here are the highlights of this release: - Support for Java 18 - Support for building with Groovy 4 - Much more responsive continuous builds - Improved diagnostics for dependency resolution For more details see https://docs.gradle.org/7.5.1/release-notes.html To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/7.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon. Daemon will be stopped at the end of the build &gt; Configure project : Config file '/code/docToolchainConfig.groovy' does not exist' (6) [ant:input] [ant:input] do you want me to create a default one for you? (y, n) y 1 List of available docToolchain environments. The output may vary depending on your system. In our example only the local environment is available since neither sdk nor docker was found. 2 Environments in which docToolchain s available. The output may vary depending on how you installed docToolchain. In our example docToolchain was found in the user&#8217;s local environment in $HOME/.doctoolchain . 3 Shows the used docToolchain environment. In case docToolchain is installed in more than one environment the wrapper script picks the environment in the following order: local , sdk , and then docker . 4 Location of the used Java. In our example Java was installed in the local environment with the docToolchain wrapper script. 5 docToolchain was invoked the first time, thus it is downloading its dependencies. 6 The docToolchain configuration file docToolchainConfig.groovy wasn&#8217;t found in the project repository. docToolchain asks if it should create a new one. .\\dtcw.ps1 tasks --group=doctoolchain dtcw.bat tasks --group=doctoolchain If you are behind a corporate proxy, you might need to consider build-script dependencies are fetched from a repository referenced by the property mavenRepository . By default, the value https://plugins.gradle.org/m2/ is used. When a repository requiring credentials is used the properties mavenUsername and mavenPassword can be set as well. Example command passing a custom maven repository with credentials from the command line DTC_OPTS=\"-PmavenRepository=your_maven_repo -PmavenUsername=your_username -PmavenPassword=your_pw\" ./dtcw tasks --group=doctoolchain --info Problems &amp; solutions dtcw doesn&#8217;t run You might get an error similar to this one: ./dtcw local tasks --group=doctoolchain ./dtcw: line 1: syntax error near unexpected token `newline' ./dtcw: line 1: `&lt;!DOCTYPE html&gt;' If you see that, it&#8217;s likely that the wrapper didn&#8217;t download correctly. You can expect that an HTML page was downloaded instead of the wrapper. Please try to redownload the wrapper. docker throws and error with dtcw On windows you might get the following error Error response from daemon: user declined directory sharing C:\\Users\\path_to_my_folder This means that docker wanted to share the named folder (possibly the repo) but didn&#8217;t have the rights. This means you have to share the folder yourself on docker. Go to docker dashboard &#8594; settings &#8594; Resources &#8594; FileSharing. Add required folder and hit Apply &amp; Restart. Incompatible Java version You may see that docToolchain starts but crashes with a stacktrace that starts like this: * What went wrong: Could not compile settings file '/Users/falk/.doctoolchain/docToolchain-2.0.0/settings.gradle'. &gt; startup failed: General error during semantic analysis: Unsupported class file major version 61 java.lang.IllegalArgumentException: Unsupported class file major version 61 In this case, you&#8217;ve got an incompatible version of Java. dtcw tries to check the Java version up front by running java --version , but Gradle sometimes picks up a different version. If you get a similar error, try reinstalling a compatible Java version. "
+},
+
+{
+    "id": 43,
     "uri": "020_tutorial/990_Tutorial.html",
     "menu": "tutorial",
     "title": "How to create a Tutorial",
@@ -337,7 +353,7 @@ var documents = [
 },
 
 {
-    "id": 42,
+    "id": 44,
     "uri": "ea/Use_Cases_links.html",
     "menu": "ea",
     "title": "Use_Cases_links.ad",
@@ -345,7 +361,7 @@ var documents = [
 },
 
 {
-    "id": 43,
+    "id": 45,
     "uri": "ea/issue1.html",
     "menu": "ea",
     "title": "issue1.ad",
@@ -353,7 +369,7 @@ var documents = [
 },
 
 {
-    "id": 44,
+    "id": 46,
     "uri": "ea/Activity_notes_issue1.html",
     "menu": "ea",
     "title": "Activity_notes_issue1.ad",
@@ -361,7 +377,7 @@ var documents = [
 },
 
 {
-    "id": 45,
+    "id": 47,
     "uri": "ea/issue2.html",
     "menu": "ea",
     "title": "issue2.ad",
@@ -369,7 +385,7 @@ var documents = [
 },
 
 {
-    "id": 46,
+    "id": 48,
     "uri": "ea/Use_Cases_notes.html",
     "menu": "ea",
     "title": "Use_Cases_notes.ad",
@@ -377,15 +393,7 @@ var documents = [
 },
 
 {
-    "id": 47,
-    "uri": "ea/Use_Cases_notes_UseCases.html",
-    "menu": "ea",
-    "title": "Use_Cases_notes_UseCases.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
-},
-
-{
-    "id": 48,
+    "id": 49,
     "uri": "ea/Architect_notes.html",
     "menu": "ea",
     "title": "Architect_notes.ad",
@@ -393,23 +401,7 @@ var documents = [
 },
 
 {
-    "id": 49,
-    "uri": "ea/UseCases.html",
-    "menu": "ea",
-    "title": "UseCases.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
-},
-
-{
     "id": 50,
-    "uri": "ea/Use_Cases_links_issue2.html",
-    "menu": "ea",
-    "title": "Use_Cases_links_issue2.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
-},
-
-{
-    "id": 51,
     "uri": "ea/Architect_notes_issue2.html",
     "menu": "ea",
     "title": "Architect_notes_issue2.ad",
@@ -417,15 +409,31 @@ var documents = [
 },
 
 {
-    "id": 52,
-    "uri": "ea/Activity_notes.html",
+    "id": 51,
+    "uri": "ea/Use_Cases_notes_UseCases.html",
     "menu": "ea",
-    "title": "Activity_notes.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+    "title": "Use_Cases_notes_UseCases.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
+},
+
+{
+    "id": 52,
+    "uri": "ea/UseCases.html",
+    "menu": "ea",
+    "title": "UseCases.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
 },
 
 {
     "id": 53,
+    "uri": "ea/Use_Cases_links_issue2.html",
+    "menu": "ea",
+    "title": "Use_Cases_links_issue2.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+},
+
+{
+    "id": 54,
     "uri": "ea/readme.html",
     "menu": "ea",
     "title": "readme.ad",
@@ -433,15 +441,15 @@ var documents = [
 },
 
 {
-    "id": 54,
-    "uri": "025_development/050_who-uses-dtc.html",
-    "menu": "-",
-    "title": "moved",
-    "text": " document.location.href = '../10_about/10_about-the-project.html'; "
+    "id": 55,
+    "uri": "ea/Activity_notes.html",
+    "menu": "ea",
+    "title": "Activity_notes.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
 },
 
 {
-    "id": 55,
+    "id": 56,
     "uri": "025_development/005_contributing_to_docs.html",
     "menu": "development",
     "title": "Contributing to Docs",
@@ -449,7 +457,15 @@ var documents = [
 },
 
 {
-    "id": 56,
+    "id": 57,
+    "uri": "025_development/050_who-uses-dtc.html",
+    "menu": "-",
+    "title": "moved",
+    "text": " document.location.href = '../10_about/10_about-the-project.html'; "
+},
+
+{
+    "id": 58,
     "uri": "025_development/020_run_tests.html",
     "menu": "development",
     "title": "Running Tests",
@@ -457,7 +473,7 @@ var documents = [
 },
 
 {
-    "id": 57,
+    "id": 59,
     "uri": "025_development/010_setup_dev_env.html",
     "menu": "development",
     "title": "Setting Up a Dev Environment",
@@ -465,7 +481,7 @@ var documents = [
 },
 
 {
-    "id": 58,
+    "id": 60,
     "uri": "025_development/030_create_new_release.html",
     "menu": "development",
     "title": "Creating a New Release",
@@ -473,7 +489,7 @@ var documents = [
 },
 
 {
-    "id": 59,
+    "id": 61,
     "uri": "025_development/040_debugging.html",
     "menu": "development",
     "title": "Debugging",
@@ -481,7 +497,7 @@ var documents = [
 },
 
 {
-    "id": 60,
+    "id": 62,
     "uri": "10_about/30_community.html",
     "menu": "about",
     "title": "Acknowledgements and Contributors",
@@ -489,7 +505,7 @@ var documents = [
 },
 
 {
-    "id": 61,
+    "id": 63,
     "uri": "10_about/10_about-the-project.html",
     "menu": "about",
     "title": "About the Project",
@@ -497,7 +513,7 @@ var documents = [
 },
 
 {
-    "id": 62,
+    "id": 64,
     "uri": "10_about/20_what-is-doctoolchain.html",
     "menu": "about",
     "title": "What Is docToolchain?",
@@ -505,15 +521,7 @@ var documents = [
 },
 
 {
-    "id": 63,
-    "uri": "050_ADRs/ADR-2-separate-core-logic-from-gradle.html",
-    "menu": "ADRs",
-    "title": "ADR-02: Separate core logic from Gradle",
-    "text": " Table of Contents ADR-02: Separate core logic from Gradle Status Problem and Context Decision Alternatives Consequences :gradle-submoduleshttps://docs.gradle.org/current/userguide/multi_project_builds.html#sec:adding_subprojects ADR-02: Separate core logic from Gradle Status This decision is currently under ongoing discussion. Problem and Context The structure of the docToolchain project, is historically grown and has been adapted to the needs of the project. The project is built with Gradle. Although Gradle is a powerful build tool that allows for a lot of flexibility, there are some recommendation on how to setup and structure a project, docToolchains setup is quite customized only follows few conventions. The project setup is not very well documented, which makes it difficult for new developers to understand the build process. Furthermore, the build scripts have become increasingly complex over time, which makes it difficult to maintain them. Apart from the aforementioned problems, docToolchain is currently very tightly coupled to Gradle, which in some scenarios leads to high startup times, e.g. when running tests. Decision There has been a vital discussion on GitHub around docToolchain v3, which has led to the decision to separate the core logic from Gradle. The core logic will be implemented in Groovy and will be used by Gradle. Gradle, as a first-class citizen, is then considered as a tool to provide a convenient way to use the core logic. The core logic will be implemented in a way that it is in the first steps completely isolated from Gradle. This paves the road for even further decoupling from Gradle in the future. This decision has several advantages: Developer experience is improved, as the core logic is easier to understand and to maintain. IDE support is improved, as the core logic is like any other Groovy project, no custom setup required. Encapsulating business logic into a dedicated submodule that does not know anything about Gradle or any other buildtool, opens the door for non-Gradle usage. Core logic is not splattered over scripts and Gradle task definitions, but is concentrated in a single place. Dependencies are easier to manage, as they are defined in a single place. Gradle buildscripts only have a single dependency to the core logic. Tests can be executed without Gradle, which leads to faster test execution. Alternatives Keep the current setup We could keep the current setup, but this would block to the aforementioned improvements. Separate core logic into Gradle&#8217;s buildSrc We could separate the core logic into Gradle&#8217;s buildSrc . While this would improve the situation, it would still not solve the problem of having the core logic tightly coupled to Gradle. Furthermore, it would not solve the problem of having a complex/ slow test setup, since there is still the need for Gradle runner. On top buildSrc is meant for complex build logic and not for business logic. See this PR for an example Separate core logic into a separate project We could separate the core logic into a separate project. This would solve the problem of having the core logic tightly coupled to Gradle. While a submodule in the first step is still part of the current project, it relieves the core logic from the need to know about Gradle. However, some tasks rely on Gradle plugins, this would make it difficult to execute them without Gradle. See this PR for an example Consequences As a result of this decision, the setup needs to be migrated to the new structure. This includes: Migrating the core logic into a separate submodule Revise current implementation Logic that solely depends on Gradle plugins should be kept as is to avoid unnecessary effort and reduce the overall scope of the migration Migrating the tests into the new submodule Adopt the buildscripts to use the new submodule New features should be implemented in the new submodule. Gradle Task should only be used to provide a convenient default way to use the core logic. "
-},
-
-{
-    "id": 64,
+    "id": 65,
     "uri": "050_ADRs/ADR-1-Scripting-Languages.html",
     "menu": "ADRs",
     "title": "ADR-01: Scripting",
@@ -521,7 +529,15 @@ var documents = [
 },
 
 {
-    "id": 65,
+    "id": 66,
+    "uri": "050_ADRs/ADR-2-separate-core-logic-from-gradle.html",
+    "menu": "ADRs",
+    "title": "ADR-02: Separate core logic from Gradle",
+    "text": " Table of Contents ADR-02: Separate core logic from Gradle Status Problem and Context Decision Alternatives Consequences :gradle-submoduleshttps://docs.gradle.org/current/userguide/multi_project_builds.html#sec:adding_subprojects ADR-02: Separate core logic from Gradle Status This decision is currently under ongoing discussion. Problem and Context The structure of the docToolchain project, is historically grown and has been adapted to the needs of the project. The project is built with Gradle. Although Gradle is a powerful build tool that allows for a lot of flexibility, there are some recommendation on how to setup and structure a project, docToolchains setup is quite customized only follows few conventions. The project setup is not very well documented, which makes it difficult for new developers to understand the build process. Furthermore, the build scripts have become increasingly complex over time, which makes it difficult to maintain them. Apart from the aforementioned problems, docToolchain is currently very tightly coupled to Gradle, which in some scenarios leads to high startup times, e.g. when running tests. Decision There has been a vital discussion on GitHub around docToolchain v3, which has led to the decision to separate the core logic from Gradle. The core logic will be implemented in Groovy and will be used by Gradle. Gradle, as a first-class citizen, is then considered as a tool to provide a convenient way to use the core logic. The core logic will be implemented in a way that it is in the first steps completely isolated from Gradle. This paves the road for even further decoupling from Gradle in the future. This decision has several advantages: Developer experience is improved, as the core logic is easier to understand and to maintain. IDE support is improved, as the core logic is like any other Groovy project, no custom setup required. Encapsulating business logic into a dedicated submodule that does not know anything about Gradle or any other buildtool, opens the door for non-Gradle usage. Core logic is not splattered over scripts and Gradle task definitions, but is concentrated in a single place. Dependencies are easier to manage, as they are defined in a single place. Gradle buildscripts only have a single dependency to the core logic. Tests can be executed without Gradle, which leads to faster test execution. Alternatives Keep the current setup We could keep the current setup, but this would block to the aforementioned improvements. Separate core logic into Gradle&#8217;s buildSrc We could separate the core logic into Gradle&#8217;s buildSrc . While this would improve the situation, it would still not solve the problem of having the core logic tightly coupled to Gradle. Furthermore, it would not solve the problem of having a complex/ slow test setup, since there is still the need for Gradle runner. On top buildSrc is meant for complex build logic and not for business logic. See this PR for an example Separate core logic into a separate project We could separate the core logic into a separate project. This would solve the problem of having the core logic tightly coupled to Gradle. While a submodule in the first step is still part of the current project, it relieves the core logic from the need to know about Gradle. However, some tasks rely on Gradle plugins, this would make it difficult to execute them without Gradle. See this PR for an example Consequences As a result of this decision, the setup needs to be migrated to the new structure. This includes: Migrating the core logic into a separate submodule Revise current implementation Logic that solely depends on Gradle plugins should be kept as is to avoid unnecessary effort and reduce the overall scope of the migration Migrating the tests into the new submodule Adopt the buildscripts to use the new submodule New features should be implemented in the new submodule. Gradle Task should only be used to provide a convenient default way to use the core logic. "
+},
+
+{
+    "id": 67,
     "uri": "010_manual/40_features.html",
     "menu": "manual",
     "title": "Using docToolchain to Build Docs",
@@ -529,7 +545,7 @@ var documents = [
 },
 
 {
-    "id": 66,
+    "id": 68,
     "uri": "010_manual/20_install.html",
     "menu": "manual",
     "title": "Install docToolchain",
@@ -537,7 +553,7 @@ var documents = [
 },
 
 {
-    "id": 67,
+    "id": 69,
     "uri": "010_manual/010_introduction_and_goals.html",
     "menu": "-",
     "title": "moved",
@@ -545,7 +561,7 @@ var documents = [
 },
 
 {
-    "id": 68,
+    "id": 70,
     "uri": "010_manual/040_contributors.html",
     "menu": "-",
     "title": "moved",
@@ -553,7 +569,7 @@ var documents = [
 },
 
 {
-    "id": 69,
+    "id": 71,
     "uri": "010_manual/30_config.html",
     "menu": "manual",
     "title": "Configuration",
@@ -561,7 +577,7 @@ var documents = [
 },
 
 {
-    "id": 70,
+    "id": 72,
     "uri": "010_manual/50_Frequently_asked_Questions.html",
     "menu": "manual",
     "title": "Solutions to Common Problems",
@@ -569,7 +585,7 @@ var documents = [
 },
 
 {
-    "id": 71,
+    "id": 73,
     "uri": "010_manual/60_further_reading.html",
     "menu": "manual",
     "title": "Useful Resources",
@@ -577,7 +593,7 @@ var documents = [
 },
 
 {
-    "id": 72,
+    "id": 74,
     "uri": "015_tasks/03_task_exportExcel.html",
     "menu": "tasks",
     "title": "exportExcel",
@@ -585,7 +601,7 @@ var documents = [
 },
 
 {
-    "id": 73,
+    "id": 75,
     "uri": "015_tasks/03_task_generateDocBook.html",
     "menu": "tasks",
     "title": "generateDocbook",
@@ -593,15 +609,7 @@ var documents = [
 },
 
 {
-    "id": 74,
-    "uri": "015_tasks/03_tasks.html",
-    "menu": "tasks",
-    "title": "What Is a Task?",
-    "text": " Table of Contents What Is a Task? How Tasks Are Named .gravatar img { margin-left: 3px; border-radius: 4px; } What Is a Task? 2 minutes to read A task is another name for a script which triggers the build actions that compile and publish your docs. This diagram gives you an overview of the entire build process: Figure 1. docToolchain How Tasks Are Named Tasks are given a naming prefix which indicates their role in the build process. There are currently 4 groups. generateX These tasks use plain old Asciidoctor functionality to render the source to a given format. exportX These tasks export images and AsciiDoc snippets from other systems or file formats. The resulting artifacts can then be included from your main sources. export tasks differ from generate tasks because with export tasks, you don&#8217;t have to export with each build. Also, with export tasks, it&#8217;s likely that you will already store the resulting artifacts under version control because the tools needed for the export (such as Sparx Enterprise Architect or MS PowerPoint) are typically not available on your build server or another contributor&#8217;s machine. convertToX These tasks take the output from Asciidoctor and convert it (through other tools) to the target format. This results in a dependency on a generateX task and another external tool (currently pandoc ). publishToX These tasks not only convert your documents but also deploy, publish and move them to a remote system (currently Confluence), meaning the result is immediately visible to others. "
-},
-
-{
-    "id": 75,
+    "id": 76,
     "uri": "015_tasks/03_task_previewSite.html",
     "menu": "tasks",
     "title": "previewSite",
@@ -609,7 +617,15 @@ var documents = [
 },
 
 {
-    "id": 76,
+    "id": 77,
+    "uri": "015_tasks/03_tasks.html",
+    "menu": "tasks",
+    "title": "What Is a Task?",
+    "text": " Table of Contents What Is a Task? How Tasks Are Named .gravatar img { margin-left: 3px; border-radius: 4px; } What Is a Task? 2 minutes to read A task is another name for a script which triggers the build actions that compile and publish your docs. This diagram gives you an overview of the entire build process: Figure 1. docToolchain How Tasks Are Named Tasks are given a naming prefix which indicates their role in the build process. There are currently 4 groups. generateX These tasks use plain old Asciidoctor functionality to render the source to a given format. exportX These tasks export images and AsciiDoc snippets from other systems or file formats. The resulting artifacts can then be included from your main sources. export tasks differ from generate tasks because with export tasks, you don&#8217;t have to export with each build. Also, with export tasks, it&#8217;s likely that you will already store the resulting artifacts under version control because the tools needed for the export (such as Sparx Enterprise Architect or MS PowerPoint) are typically not available on your build server or another contributor&#8217;s machine. convertToX These tasks take the output from Asciidoctor and convert it (through other tools) to the target format. This results in a dependency on a generateX task and another external tool (currently pandoc ). publishToX These tasks not only convert your documents but also deploy, publish and move them to a remote system (currently Confluence), meaning the result is immediately visible to others. "
+},
+
+{
+    "id": 78,
     "uri": "015_tasks/03_task_collectIncludes.html",
     "menu": "tasks",
     "title": "collectIncludes",
@@ -617,7 +633,7 @@ var documents = [
 },
 
 {
-    "id": 77,
+    "id": 79,
     "uri": "015_tasks/03_task_exportVisio.html",
     "menu": "tasks",
     "title": "exportVisio",
@@ -625,7 +641,7 @@ var documents = [
 },
 
 {
-    "id": 78,
+    "id": 80,
     "uri": "015_tasks/03_task_exportEA.html",
     "menu": "tasks",
     "title": "exportEA",
@@ -633,7 +649,7 @@ var documents = [
 },
 
 {
-    "id": 79,
+    "id": 81,
     "uri": "015_tasks/03_task_dependencyUpdates.html",
     "menu": "tasks",
     "title": "dependencyUpdates",
@@ -641,7 +657,7 @@ var documents = [
 },
 
 {
-    "id": 80,
+    "id": 82,
     "uri": "015_tasks/03_task_fixencoding.html",
     "menu": "tasks",
     "title": "fixEncoding",
@@ -649,7 +665,7 @@ var documents = [
 },
 
 {
-    "id": 81,
+    "id": 83,
     "uri": "015_tasks/03_task_htmlSanityCheck.html",
     "menu": "tasks",
     "title": "htmlSanityCheck",
@@ -657,7 +673,7 @@ var documents = [
 },
 
 {
-    "id": 82,
+    "id": 84,
     "uri": "015_tasks/03_task_exportPPT.html",
     "menu": "tasks",
     "title": "exportPPT",
@@ -665,7 +681,7 @@ var documents = [
 },
 
 {
-    "id": 83,
+    "id": 85,
     "uri": "015_tasks/03_task_exportStructurizr.html",
     "menu": "tasks",
     "title": "exportStructurizr",
@@ -673,7 +689,7 @@ var documents = [
 },
 
 {
-    "id": 84,
+    "id": 86,
     "uri": "015_tasks/03_task_createReferenceDoc.html",
     "menu": "tasks",
     "title": "createReferenceDoc",
@@ -681,7 +697,7 @@ var documents = [
 },
 
 {
-    "id": 85,
+    "id": 87,
     "uri": "015_tasks/03_task_prependFilename.html",
     "menu": "tasks",
     "title": "prependFilename",
@@ -689,7 +705,7 @@ var documents = [
 },
 
 {
-    "id": 86,
+    "id": 88,
     "uri": "015_tasks/03_task_generateHTML.html",
     "menu": "tasks",
     "title": "generateHTML",
@@ -697,7 +713,7 @@ var documents = [
 },
 
 {
-    "id": 87,
+    "id": 89,
     "uri": "015_tasks/03_task_generateSite.html",
     "menu": "tasks",
     "title": "generateSite",
@@ -705,7 +721,7 @@ var documents = [
 },
 
 {
-    "id": 88,
+    "id": 90,
     "uri": "015_tasks/03_task_exportMetrics.html",
     "menu": "tasks",
     "title": "exportMetrics",
@@ -713,7 +729,7 @@ var documents = [
 },
 
 {
-    "id": 89,
+    "id": 91,
     "uri": "015_tasks/03_task_exportDrawIo.html",
     "menu": "tasks",
     "title": "exportDrawIo",
@@ -721,7 +737,7 @@ var documents = [
 },
 
 {
-    "id": 90,
+    "id": 92,
     "uri": "015_tasks/03_task_generatePDF.html",
     "menu": "tasks",
     "title": "generatePDF",
@@ -729,7 +745,7 @@ var documents = [
 },
 
 {
-    "id": 91,
+    "id": 93,
     "uri": "015_tasks/03_task_copy_themes.html",
     "menu": "tasks",
     "title": "copyThemes",
@@ -737,7 +753,7 @@ var documents = [
 },
 
 {
-    "id": 92,
+    "id": 94,
     "uri": "015_tasks/03_task_exportContributors.html",
     "menu": "tasks",
     "title": "exportContributors",
@@ -745,7 +761,7 @@ var documents = [
 },
 
 {
-    "id": 93,
+    "id": 95,
     "uri": "015_tasks/150_task_createTask.html",
     "menu": "tasks",
     "title": "createTask",
@@ -753,7 +769,7 @@ var documents = [
 },
 
 {
-    "id": 94,
+    "id": 96,
     "uri": "015_tasks/03_task_downloadTemplate.html",
     "menu": "tasks",
     "title": "downloadTemplate",
@@ -761,7 +777,7 @@ var documents = [
 },
 
 {
-    "id": 95,
+    "id": 97,
     "uri": "015_tasks/03_task_convertToDocx.html",
     "menu": "tasks",
     "title": "convertToDocx",
@@ -769,7 +785,7 @@ var documents = [
 },
 
 {
-    "id": 96,
+    "id": 98,
     "uri": "015_tasks/03_task_generateDeck.html",
     "menu": "tasks",
     "title": "generateDeck",
@@ -777,7 +793,7 @@ var documents = [
 },
 
 {
-    "id": 97,
+    "id": 99,
     "uri": "015_tasks/03_task_autobuildSite.html",
     "menu": "tasks",
     "title": "autobuildSite",
@@ -785,7 +801,7 @@ var documents = [
 },
 
 {
-    "id": 98,
+    "id": 100,
     "uri": "015_tasks/03_task_publishToConfluence.html",
     "menu": "tasks",
     "title": "publishToConfluence",
@@ -793,7 +809,7 @@ var documents = [
 },
 
 {
-    "id": 99,
+    "id": 101,
     "uri": "015_tasks/03_task_exportConfluence.html",
     "menu": "tasks",
     "title": "exportConfluence",
@@ -801,7 +817,7 @@ var documents = [
 },
 
 {
-    "id": 100,
+    "id": 102,
     "uri": "015_tasks/03_task_exportMarkdown.html",
     "menu": "tasks",
     "title": "exportMarkdown",
@@ -809,7 +825,7 @@ var documents = [
 },
 
 {
-    "id": 101,
+    "id": 103,
     "uri": "015_tasks/03_task_exportJiraIssues.html",
     "menu": "tasks",
     "title": "exportJiraIssues",
@@ -817,7 +833,7 @@ var documents = [
 },
 
 {
-    "id": 102,
+    "id": 104,
     "uri": "015_tasks/03_task_exportJiraSprintChangelog.html",
     "menu": "tasks",
     "title": "exportJiraSprintChangelogIssues",
@@ -825,7 +841,7 @@ var documents = [
 },
 
 {
-    "id": 103,
+    "id": 105,
     "uri": "015_tasks/03_task_exportChangeLog.html",
     "menu": "tasks",
     "title": "exportChangeLog",
@@ -833,7 +849,7 @@ var documents = [
 },
 
 {
-    "id": 104,
+    "id": 106,
     "uri": "015_tasks/03_task_wipeConfluenceSpace.html",
     "menu": "tasks",
     "title": "wipeConfluenceSpace",
@@ -841,7 +857,7 @@ var documents = [
 },
 
 {
-    "id": 105,
+    "id": 107,
     "uri": "015_tasks/03_task_convertToEpub.html",
     "menu": "tasks",
     "title": "convertToEpub",
@@ -849,7 +865,7 @@ var documents = [
 },
 
 {
-    "id": 106,
+    "id": 108,
     "uri": "015_tasks/03_task_exportOpenApi.html",
     "menu": "tasks",
     "title": "exportOpenAPI",
@@ -857,7 +873,7 @@ var documents = [
 },
 
 {
-    "id": 107,
+    "id": 109,
     "uri": "015_tasks/03_task_generateContent.html",
     "menu": "tasks",
     "title": "generateContent",
@@ -865,7 +881,7 @@ var documents = [
 },
 
 {
-    "id": 108,
+    "id": 110,
     "uri": "010_manual/single-page.html",
     "menu": "-",
     "title": "docToolchain Manual",
@@ -873,7 +889,7 @@ var documents = [
 },
 
 {
-    "id": 109,
+    "id": 111,
     "uri": "search.html",
     "menu": "-",
     "title": "search",
@@ -881,7 +897,7 @@ var documents = [
 },
 
 {
-    "id": 110,
+    "id": 112,
     "uri": "lunrjsindex.html",
     "menu": "-",
     "title": "null",

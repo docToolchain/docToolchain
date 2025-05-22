@@ -6,9 +6,128 @@
     <atom:link href="https://localhost/feed.xml" rel="self" type="application/rss+xml" />
     <description>JBake Bootstrap Template</description>
     <language>en-gb</language>
-    <pubDate>Tue, 20 May 2025 18:33:46 +0000</pubDate>
-    <lastBuildDate>Tue, 20 May 2025 18:33:46 +0000</lastBuildDate>
+    <pubDate>Thu, 22 May 2025 19:05:32 +0000</pubDate>
+    <lastBuildDate>Thu, 22 May 2025 19:05:32 +0000</lastBuildDate>
 
+    
+    <item>
+      <title>Kroki Configuration Mystery Solved: Two Extensions, One Solution</title>
+      <link>https://localhost/030_news/2025/kroki-configuration-complete-guide.html</link>
+      <pubDate>Thu, 22 May 2025 00:00:00 +0000</pubDate>
+      <guid isPermaLink="false">030_news/2025/kroki-configuration-complete-guide.html</guid>
+      <description>
+      &lt;div id=&quot;toc&quot; class=&quot;toc&quot;&gt;
+&lt;div id=&quot;toctitle&quot;&gt;Table of Contents&lt;/div&gt;
+&lt;ul class=&quot;sectlevel1&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_kroki_configuration_mystery_solved_two_extensions_one_solution&quot;&gt;Kroki Configuration Mystery Solved: Two Extensions, One Solution&lt;/a&gt;
+&lt;ul class=&quot;sectlevel2&quot;&gt;
+&lt;li&gt;&lt;a href=&quot;#_the_problem&quot;&gt;The Problem&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_the_discovery&quot;&gt;The Discovery&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_the_solution_defensive_configuration&quot;&gt;The Solution: Defensive Configuration&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_why_this_matters&quot;&gt;Why This Matters&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_learn_more&quot;&gt;Learn More&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#_community_impact&quot;&gt;Community Impact&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/div&gt;
+&lt;!-- endtoc --&gt;
+&lt;div class=&quot;sect1&quot;&gt;
+&lt;h2 id=&quot;_kroki_configuration_mystery_solved_two_extensions_one_solution&quot;&gt;Kroki Configuration Mystery Solved: Two Extensions, One Solution&lt;/h2&gt;
+&lt;div class=&quot;sectionbody&quot;&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;Clearing up the confusion around &lt;code&gt;:diagram-server-url:&lt;/code&gt; vs &lt;code&gt;:kroki-server-url:&lt;/code&gt; once and for all&lt;/em&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_the_problem&quot;&gt;The Problem&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;If you&amp;#8217;ve ever tried to configure Kroki in docToolchain and wondered why some tutorials show &lt;code&gt;:diagram-server-url:&lt;/code&gt; while others use &lt;code&gt;:kroki-server-url:&lt;/code&gt;, you&amp;#8217;ve stumbled upon one of the most common configuration mysteries in the AsciiDoc ecosystem.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The confusion is real, and it has a fascinating backstory.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_the_discovery&quot;&gt;The Discovery&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;It turns out there are &lt;strong&gt;two completely different AsciiDoc extensions&lt;/strong&gt; for diagrams:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;olist arabic&quot;&gt;
+&lt;ol class=&quot;arabic&quot;&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;asciidoctor-diagram&lt;/strong&gt;: The original extension that added Kroki support in v2.1.0 using &lt;code&gt;:diagram-server-url:&lt;/code&gt; and &lt;code&gt;:diagram-server-type:&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;p&gt;&lt;strong&gt;asciidoctor-kroki&lt;/strong&gt;: A specialized extension built exclusively for Kroki using &lt;code&gt;:kroki-server-url:&lt;/code&gt;&lt;/p&gt;
+&lt;/li&gt;
+&lt;/ol&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Both are legitimate, both are current, and both solve the same problem in different ways.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_the_solution_defensive_configuration&quot;&gt;The Solution: Defensive Configuration&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Instead of guessing which extension your setup uses, we recommend the &lt;strong&gt;defensive approach&lt;/strong&gt;:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;listingblock&quot;&gt;
+&lt;div class=&quot;content&quot;&gt;
+&lt;pre class=&quot;prettyprint highlight&quot;&gt;&lt;code data-lang=&quot;asciidoc&quot;&gt;// Works with both extensions - future-proof configuration
+:diagram-server-url: https://kroki.io/
+:diagram-server-type: kroki_io
+:kroki-server-url: https://kroki.io/&lt;/code&gt;&lt;/pre&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This ensures your diagrams work regardless of which extension docToolchain uses internally, and you&amp;#8217;re protected against future changes.&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_why_this_matters&quot;&gt;Why This Matters&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This isn&amp;#8217;t just about avoiding configuration headaches. It&amp;#8217;s about:&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;✅ &lt;strong&gt;Future-proofing&lt;/strong&gt; your documentation setup&lt;br&gt;
+✅ &lt;strong&gt;Team productivity&lt;/strong&gt; - no more debugging diagram rendering issues&lt;br&gt;
+✅ &lt;strong&gt;Flexibility&lt;/strong&gt; for different deployment scenarios&lt;br&gt;
+✅ &lt;strong&gt;Enterprise readiness&lt;/strong&gt; with local server options&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_learn_more&quot;&gt;Learn More&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Want the complete technical breakdown, step-by-step configuration, and enterprise setup instructions?&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;👉 &lt;strong&gt;Check out our comprehensive tutorial&lt;/strong&gt;: &lt;a href=&quot;020_tutorial:kroki-configuration.html&quot;&gt;Kroki Configuration Guide&lt;/a&gt;&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;The tutorial includes:
+- Detailed configuration examples
+- Local Kroki server setup for enterprises
+- Troubleshooting common issues
+- Real diagram examples (PlantUML, Mermaid, GraphViz)&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;div class=&quot;sect2&quot;&gt;
+&lt;h3 id=&quot;_community_impact&quot;&gt;Community Impact&lt;/h3&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;This discovery came from community collaboration in &lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues/1500&quot;&gt;Issue #1500&lt;/a&gt;, where users shared their configuration challenges. It&amp;#8217;s a perfect example of how community-driven problem-solving makes docToolchain better for everyone.&lt;/p&gt;
+&lt;/div&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;Have your own configuration mysteries? Share them in our &lt;a href=&quot;https://github.com/docToolchain/docToolchain/issues&quot;&gt;GitHub Issues&lt;/a&gt; - you might help solve the next puzzle! 🧩&lt;/p&gt;
+&lt;/div&gt;
+&lt;hr&gt;
+&lt;div class=&quot;paragraph&quot;&gt;
+&lt;p&gt;&lt;em&gt;Happy diagramming!&lt;/em&gt; 📊&lt;/p&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+&lt;/div&gt;
+	  </description>
+    </item>
     
     <item>
       <title>Release v3.4.2</title>
