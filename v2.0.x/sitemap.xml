@@ -227,17 +227,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
-    	<lastmod>2025-05-22</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/Activity_notes_issue1.html</loc>
     	<lastmod>2025-05-22</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/ea/issue2.html</loc>
+    	<loc>https://localhost/ea/Use_Cases_links.html</loc>
     	<lastmod>2025-05-22</lastmod>
     </url>
 
@@ -247,7 +242,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Architect_notes.html</loc>
+    	<loc>https://localhost/ea/issue2.html</loc>
+    	<lastmod>2025-05-22</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Architect_notes_issue2.html</loc>
     	<lastmod>2025-05-22</lastmod>
     </url>
 
@@ -257,7 +257,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Architect_notes_issue2.html</loc>
+    	<loc>https://localhost/ea/Architect_notes.html</loc>
+    	<lastmod>2025-05-22</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/UseCases.html</loc>
     	<lastmod>2025-05-22</lastmod>
     </url>
 
@@ -272,22 +277,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/UseCases.html</loc>
-    	<lastmod>2025-05-22</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/Activity_notes.html</loc>
     	<lastmod>2025-05-22</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/005_contributing_to_docs.html</loc>
+    	<loc>https://localhost/025_development/050_who-uses-dtc.html</loc>
     	<lastmod>2025-05-22</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/050_who-uses-dtc.html</loc>
+    	<loc>https://localhost/025_development/005_contributing_to_docs.html</loc>
     	<lastmod>2025-05-22</lastmod>
     </url>
 
@@ -377,12 +377,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
     	<lastmod>2025-05-22</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateDocBook.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
     	<lastmod>2025-05-22</lastmod>
     </url>
 
@@ -407,12 +407,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_fixencoding.html</loc>
     	<lastmod>2025-05-22</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_fixencoding.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
     	<lastmod>2025-05-22</lastmod>
     </url>
 

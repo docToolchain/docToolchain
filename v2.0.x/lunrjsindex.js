@@ -362,14 +362,6 @@ var documents = [
 
 {
     "id": 45,
-    "uri": "ea/Use_Cases_links.html",
-    "menu": "ea",
-    "title": "Use_Cases_links.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
-},
-
-{
-    "id": 46,
     "uri": "ea/Activity_notes_issue1.html",
     "menu": "ea",
     "title": "Activity_notes_issue1.ad",
@@ -377,15 +369,15 @@ var documents = [
 },
 
 {
-    "id": 47,
-    "uri": "ea/issue2.html",
+    "id": 46,
+    "uri": "ea/Use_Cases_links.html",
     "menu": "ea",
-    "title": "issue2.ad",
+    "title": "Use_Cases_links.ad",
     "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
 },
 
 {
-    "id": 48,
+    "id": 47,
     "uri": "ea/Use_Cases_notes.html",
     "menu": "ea",
     "title": "Use_Cases_notes.ad",
@@ -393,10 +385,18 @@ var documents = [
 },
 
 {
-    "id": 49,
-    "uri": "ea/Architect_notes.html",
+    "id": 48,
+    "uri": "ea/issue2.html",
     "menu": "ea",
-    "title": "Architect_notes.ad",
+    "title": "issue2.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+},
+
+{
+    "id": 49,
+    "uri": "ea/Architect_notes_issue2.html",
+    "menu": "ea",
+    "title": "Architect_notes_issue2.ad",
     "text": " "
 },
 
@@ -410,14 +410,22 @@ var documents = [
 
 {
     "id": 51,
-    "uri": "ea/Architect_notes_issue2.html",
+    "uri": "ea/Architect_notes.html",
     "menu": "ea",
-    "title": "Architect_notes_issue2.ad",
+    "title": "Architect_notes.ad",
     "text": " "
 },
 
 {
     "id": 52,
+    "uri": "ea/UseCases.html",
+    "menu": "ea",
+    "title": "UseCases.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
+},
+
+{
+    "id": 53,
     "uri": "ea/Use_Cases_links_issue2.html",
     "menu": "ea",
     "title": "Use_Cases_links_issue2.ad",
@@ -425,19 +433,11 @@ var documents = [
 },
 
 {
-    "id": 53,
+    "id": 54,
     "uri": "ea/readme.html",
     "menu": "ea",
     "title": "readme.ad",
     "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
-},
-
-{
-    "id": 54,
-    "uri": "ea/UseCases.html",
-    "menu": "ea",
-    "title": "UseCases.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
 },
 
 {
@@ -450,18 +450,18 @@ var documents = [
 
 {
     "id": 56,
-    "uri": "025_development/005_contributing_to_docs.html",
-    "menu": "development",
-    "title": "Contributing to Docs",
-    "text": " Table of Contents Contributing to Docs Prerequisites Go to page you want to edit or fix Fork the Repository Edit the Page Commit the Changes Comparing changes Contributing to Docs 5 minutes to read The easiest way to contribute to this project is to contribute to the documentation. Here is a quick step-by-step guide on how to fix something on a documentation page. Prerequisites You need a github.com account. If you don&#8217;t have one, you can create one here: https://github.com/signup It might help if you go through the Github Hello World tutorial before you continue, but it is not necessary. Go to page you want to edit or fix You already found this tutorial, so you already know how to go to the page you want to edit or fix. All documentation can be found at http://doctoolchain.org/ . The source code of each page is available at https://github.com/doctoolchain/doctoolchain/ in the /src/docs/ folder. But there is an easier way to find the exact source. The documentation pages all look something like this: In the upper right corner you can see the Improve this doc link: This will take you directly to the source of the page, already in edit mode. If you are not logged in, GitHub will ask you to do so. The Create an issue link will be helpful if you want to report a bug or request a feature for a page. It takes you directly to the issue tracker with a pre-filled issue. For now, let&#8217;s click on the Improve this doc link. Fork the Repository If you click the link for the first time, you will be asked to fork the repository. A fork is a copy of the repository. Maybe you are used to working on the main repository or a branch within the main repository. This is not possible in this case, because you don&#8217;t have write access, only read access. The solution is to fork the repository. This way, you create a copy in your own space, and you will have write access to it. Edit the Page You will now be taken to the page you want to edit already in edit mode. What you see is asciidoctor markup. Check out the {url-asciidoc-quick-reference}[AsciiDoc quick reference] for more information. The blue box on top tells you what you already know: a copy has been created for you and you are editing it. Important since you work on your own copy of the docs, you can&#8217;t break anything. You even don&#8217;t have write access to the main repository. So feel free to edit the page as you like. Use the Preview button to see what your edits will look like. Since this is only a preview and GitHub doesn&#8217;t know about docToolchain, this preview will only show you if your AsciiDoc syntax is correct. Some other features like the TOC or include statements will not be available in the preview. Do your edit and then Commit the Changes Below the editor, there is a small Propose Changes form. Enter a headline and a description of the changes you made and click Propose changes . This will save your changes to your fork of the repository. Note Git works with diffs - it only saves the changes you made, not a full copy of the new page. This is important to know if you want to understand the inner workings of Git. After you&#8217;ve clicked the button, you will be taken to a page which shows you what you changed. Comparing changes This view lets you review your changes. These diffs are not easy to read, but I promise that over time you get used to it. Red lines are deletions, green lines are additions. As you can see in the screenshot, I added an empty space in line 17. Line 17 has been deleted (red line) and replaced with a new line (green line). Line 1 looks mysterious, because it seems that it has been replaced with an identical copy. This is because the line ending changed but is not visible in the diff. The grey box on top shows you It is quite likely that you still know what you did a minute ago, so let&#8217;s click on the Create pull request button. "
-},
-
-{
-    "id": 57,
     "uri": "025_development/050_who-uses-dtc.html",
     "menu": "-",
     "title": "moved",
     "text": " document.location.href = '../10_about/10_about-the-project.html'; "
+},
+
+{
+    "id": 57,
+    "uri": "025_development/005_contributing_to_docs.html",
+    "menu": "development",
+    "title": "Contributing to Docs",
+    "text": " Table of Contents Contributing to Docs Prerequisites Go to page you want to edit or fix Fork the Repository Edit the Page Commit the Changes Comparing changes Contributing to Docs 5 minutes to read The easiest way to contribute to this project is to contribute to the documentation. Here is a quick step-by-step guide on how to fix something on a documentation page. Prerequisites You need a github.com account. If you don&#8217;t have one, you can create one here: https://github.com/signup It might help if you go through the Github Hello World tutorial before you continue, but it is not necessary. Go to page you want to edit or fix You already found this tutorial, so you already know how to go to the page you want to edit or fix. All documentation can be found at http://doctoolchain.org/ . The source code of each page is available at https://github.com/doctoolchain/doctoolchain/ in the /src/docs/ folder. But there is an easier way to find the exact source. The documentation pages all look something like this: In the upper right corner you can see the Improve this doc link: This will take you directly to the source of the page, already in edit mode. If you are not logged in, GitHub will ask you to do so. The Create an issue link will be helpful if you want to report a bug or request a feature for a page. It takes you directly to the issue tracker with a pre-filled issue. For now, let&#8217;s click on the Improve this doc link. Fork the Repository If you click the link for the first time, you will be asked to fork the repository. A fork is a copy of the repository. Maybe you are used to working on the main repository or a branch within the main repository. This is not possible in this case, because you don&#8217;t have write access, only read access. The solution is to fork the repository. This way, you create a copy in your own space, and you will have write access to it. Edit the Page You will now be taken to the page you want to edit already in edit mode. What you see is asciidoctor markup. Check out the {url-asciidoc-quick-reference}[AsciiDoc quick reference] for more information. The blue box on top tells you what you already know: a copy has been created for you and you are editing it. Important since you work on your own copy of the docs, you can&#8217;t break anything. You even don&#8217;t have write access to the main repository. So feel free to edit the page as you like. Use the Preview button to see what your edits will look like. Since this is only a preview and GitHub doesn&#8217;t know about docToolchain, this preview will only show you if your AsciiDoc syntax is correct. Some other features like the TOC or include statements will not be available in the preview. Do your edit and then Commit the Changes Below the editor, there is a small Propose Changes form. Enter a headline and a description of the changes you made and click Propose changes . This will save your changes to your fork of the repository. Note Git works with diffs - it only saves the changes you made, not a full copy of the new page. This is important to know if you want to understand the inner workings of Git. After you&#8217;ve clicked the button, you will be taken to a page which shows you what you changed. Comparing changes This view lets you review your changes. These diffs are not easy to read, but I promise that over time you get used to it. Red lines are deletions, green lines are additions. As you can see in the screenshot, I added an empty space in line 17. Line 17 has been deleted (red line) and replaced with a new line (green line). Line 1 looks mysterious, because it seems that it has been replaced with an identical copy. This is because the line ending changed but is not visible in the diff. The grey box on top shows you It is quite likely that you still know what you did a minute ago, so let&#8217;s click on the Create pull request button. "
 },
 
 {
@@ -602,18 +602,18 @@ var documents = [
 
 {
     "id": 75,
-    "uri": "015_tasks/03_task_previewSite.html",
-    "menu": "tasks",
-    "title": "previewSite",
-    "text": " Table of Contents previewSite About This Task .gravatar img { margin-left: 3px; border-radius: 4px; } previewSite 1 minute to read About This Task Note This task has now been deprecated. When you use a build in a static site generator through generateSite , most site themes don&#8217;t need the static site server for general content. You can just preview the site by opening from the file system in your browser. However, some JavaScript features will not work because of CORS restrictions. In that case you need a server. You can start one by running e.g. python -m http.server or in case you have Python 3 python3 -m http.server . "
-},
-
-{
-    "id": 76,
     "uri": "015_tasks/03_task_generateDocBook.html",
     "menu": "tasks",
     "title": "generateDocbook",
     "text": " Table of Contents generateDocbook About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateDocbook 1 minute to read About This Task A helper task, generateDocbook generates the intermediate format for convertToDocx &lt;&lt;&gt;&gt; and convertToEpub . Source Show source code of scripts/AsciiDocBasics.gradle or go directly to GitHub · docToolchain/scripts/AsciiDocBasics.gradle . scripts/AsciiDocBasics.gradle task generateDocbook ( type: AsciidoctorTask, group: 'docToolchain', description: 'use docbook as asciidoc backend') { def sourceFilesDOCBOOK = findSourceFilesByType(['docbook', 'epub', 'docx']) // onlyIf { // sourceFilesDOCBOOK // } sources { sourceFilesDOCBOOK.each { include it.file logger.info it.file File useFile = new File(srcDir, it.file) if (!useFile.exists()) { throw new Exception (\"\"\" The file $useFile in DOCBOOK config does not exist! Please check the configuration 'inputFiles' in $mainConfigFile.\"\"\") } } } outputOptions { backends = ['docbook'] } outputDir = file(targetDir+'/docbook/') doFirst { if (sourceFilesDOCBOOK.size()==0) { throw new Exception (\"\"\" &gt;&gt; No source files defined for type of '[docbook, epub, docx]'. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy \"\"\") } } } "
+},
+
+{
+    "id": 76,
+    "uri": "015_tasks/03_task_previewSite.html",
+    "menu": "tasks",
+    "title": "previewSite",
+    "text": " Table of Contents previewSite About This Task .gravatar img { margin-left: 3px; border-radius: 4px; } previewSite 1 minute to read About This Task Note This task has now been deprecated. When you use a build in a static site generator through generateSite , most site themes don&#8217;t need the static site server for general content. You can just preview the site by opening from the file system in your browser. However, some JavaScript features will not work because of CORS restrictions. In that case you need a server. You can start one by running e.g. python -m http.server or in case you have Python 3 python3 -m http.server . "
 },
 
 {
@@ -650,18 +650,18 @@ var documents = [
 
 {
     "id": 81,
-    "uri": "015_tasks/03_task_dependencyUpdates.html",
-    "menu": "tasks",
-    "title": "dependencyUpdates",
-    "text": " Table of Contents dependencyUpdates About This Task Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } dependencyUpdates 1 minute to read About This Task This task uses the Gradle versions plugin created by Ben Manes to check for outdated build dependencies. Use this task to keep all dependencies up to date. Warning If you discover newer version, it doesn&#8217;t mean that versions and dependencies will play nicely together. To ensure that everything works, we recommend the versions selected by docToolchain contributors. Further Reading and Resources Read the Handle Dependency Updates the Easy Way blog post. "
-},
-
-{
-    "id": 82,
     "uri": "015_tasks/03_task_fixencoding.html",
     "menu": "tasks",
     "title": "fixEncoding",
     "text": " Table of Contents fixEncoding About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } fixEncoding 1 minute to read About This Task Whenever Asciidoctor has to process a file that is not UTF-8 encoded, Ruby tries to read it, then throws an error similar to this one: asciidoctor: FAILED: /home/demo/test.adoc: Failed to load AsciiDoc document - invalid byte sequence in UTF-8 Unfortunately, finding the incorrectly encoded file is difficult if a lot of includes:: are used, and Asciidoctor will only show the name of the main document. This is not Asciidoctor&#8217;s fault. The fault lies with the Ruby interpreter that sits underneath. The fixEncoding task crawls through all *.ad and *.adoc files and checks their encoding. If it comes across a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding. Source Show source code of scripts/fixEncoding.gradle or go directly to GitHub · docToolchain/scripts/fixEncoding.gradle . scripts/fixEncoding.gradle import groovy.util.* import static groovy.io.FileType.* task fixEncoding( description: 'finds and converts non UTF-8 adoc files to UTF-8', group: 'docToolchain helper', ) { doLast { File sourceFolder = new File(\"${docDir}/${inputPath}\") println(\"sourceFolder: \" + sourceFolder.canonicalPath) sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^.*(ad|adoc|asciidoc)$') { CharsetToolkit toolkit = new CharsetToolkit(file); // guess the encoding def guessedCharset = toolkit.getCharset().toString().toUpperCase(); if (guessedCharset!='UTF-8') { def text = file.text file.write(text, \"utf-8\") println(\" converted ${file.name} from '${guessedCharset}' to 'UFT-8'\") } } } } } "
+},
+
+{
+    "id": 82,
+    "uri": "015_tasks/03_task_dependencyUpdates.html",
+    "menu": "tasks",
+    "title": "dependencyUpdates",
+    "text": " Table of Contents dependencyUpdates About This Task Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } dependencyUpdates 1 minute to read About This Task This task uses the Gradle versions plugin created by Ben Manes to check for outdated build dependencies. Use this task to keep all dependencies up to date. Warning If you discover newer version, it doesn&#8217;t mean that versions and dependencies will play nicely together. To ensure that everything works, we recommend the versions selected by docToolchain contributors. Further Reading and Resources Read the Handle Dependency Updates the Easy Way blog post. "
 },
 
 {
