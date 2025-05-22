@@ -245,7 +245,7 @@ var documents = [
     "uri": "020_tutorial/170_kroki-configuration.html",
     "menu": "tutorial",
     "title": "Kroki Configuration Guide",
-    "text": " Table of Contents Kroki Configuration Guide Overview The Two Extensions Recommended Configuration Enterprise Setup: Local Kroki Server Practical Examples Supported Diagram Types Troubleshooting Advanced Configuration Security Considerations Why Use Defensive Configuration? Further Resources Contributing Kroki Configuration Guide This guide provides comprehensive instructions for configuring Kroki with docToolchain, including the background story of why multiple attribute sets exist. Overview Kroki is a service that converts text-based diagrams (PlantUML, Mermaid, GraphViz, etc.) into images without requiring local tool installations. However, configuring Kroki in docToolchain can be confusing due to historical evolution of diagram extensions. The Two Extensions There are two different AsciiDoc extensions that support Kroki: asciidoctor-diagram: The All-Rounder The original asciidoctor-diagram extension existed before Kroki and supported local tools. In version 2.1.0, Kroki support was added: :diagram-server-url: https://kroki.io/ :diagram-server-type: kroki_io This extension can use both local tools AND delegate to Kroki servers. asciidoctor-kroki: The Specialist The specialized asciidoctor-kroki extension was built exclusively for Kroki: :kroki-server-url: https://kroki.io/ This extension is optimized specifically for Kroki integration. Recommended Configuration Defensive Configuration Strategy To ensure compatibility with both extensions, use all attributes: // Kroki configuration (compatible with all extensions) :diagram-server-url: https://kroki.io/ :diagram-server-type: kroki_io :kroki-server-url: https://kroki.io/ Configuration in docToolchainConfig.groovy asciidoctorAttributes = [ // Defensive Kroki configuration 'diagram-server-url': 'https://kroki.io/', 'diagram-server-type': 'kroki_io', 'kroki-server-url': 'https://kroki.io/', // Other attributes... 'toc': 'left', 'icons': 'font' ] Enterprise Setup: Local Kroki Server For organizations that prefer not to send diagrams to external services: Docker Setup # Start Kroki locally docker run -d --name kroki -p 8000:8000 yuzutech/kroki # Verify it's running curl http://localhost:8000/health Configuration for Local Server // Local Kroki server configuration :diagram-server-url: http://localhost:8000/ :diagram-server-type: kroki_io :kroki-server-url: http://localhost:8000/ Or in docToolchainConfig.groovy: asciidoctorAttributes = [ 'diagram-server-url': 'http://localhost:8000/', 'diagram-server-type': 'kroki_io', 'kroki-server-url': 'http://localhost:8000/', ] Practical Examples PlantUML Sequence Diagram [plantuml] .... @startuml actor User participant \"docToolchain\" as DTC participant \"Kroki Server\" as Kroki participant \"PlantUML\" as PUML User -&gt; DTC: generateHTML DTC -&gt; Kroki: POST diagram source Kroki -&gt; PUML: render diagram PUML -&gt; Kroki: SVG/PNG Kroki -&gt; DTC: diagram image DTC -&gt; User: HTML with diagram @enduml .... Mermaid Flowchart [mermaid] .... graph TD A[AsciiDoc Document] --&gt; B{Extension Type?} B --&gt; asciidoctor-diagram C[diagram-server-url] B -&#8594; asciidoctor-kroki D[kroki-server-url] C -&#8594; E[Kroki Server] D -&#8594; E E -&#8594; F[Rendered Diagram] &#8230;&#8203;. ---- Failed to generate image: Could not find the 'mmdc' executable in PATH; add it to the PATH or specify its location using the 'mmdc' document attribute graph TD A[AsciiDoc Document] --&gt; B{Extension Type?} B --&gt; asciidoctor-diagram C[diagram-server-url] B -&#8594; asciidoctor-kroki D[kroki-server-url] C -&#8594; E[Kroki Server] D -&#8594; E E -&#8594; F[Rendered Diagram] &#8230;&#8203;. GraphViz Diagram [graphviz] .... digraph G { rankdir=LR; node [shape=box, style=rounded]; \"Local Tools\" -&gt; \"asciidoctor-diagram\"; \"Kroki Server\" -&gt; \"asciidoctor-diagram\"; \"Kroki Server\" -&gt; \"asciidoctor-kroki\"; \"asciidoctor-diagram\" -&gt; \"docToolchain\"; \"asciidoctor-kroki\" -&gt; \"docToolchain\"; \"docToolchain\" -&gt; \"Beautiful Docs\"; } .... Supported Diagram Types Kroki supports numerous diagram types: PlantUML Mermaid GraphViz Ditaa BlockDiag BPMN C4 (with PlantUML) And many more For a complete list, visit kroki.io . Troubleshooting Diagrams Not Rendering Check server connectivity : [source,bash] ---- curl https://kroki.io/health ---- Verify attribute configuration : Ensure all three attributes are set for maximum compatibility Check for typos in attribute names Test with simple diagram : [source,asciidoc] ---- [plantuml] &#8230;&#8203;. A &#8594; B &#8230;&#8203;. ---- Local Server Issues Container not starting : [source,bash] ---- docker logs kroki ---- Port conflicts : [source,bash] ---- # Use different port docker run -d --name kroki -p 8080:8000 yuzutech/kroki ---- Firewall blocking access : Ensure port 8000 (or your chosen port) is accessible Check corporate firewall settings Network Configuration For corporate environments: // Configure proxy if needed System.setProperty(\"http.proxyHost\", \"proxy.company.com\") System.setProperty(\"http.proxyPort\", \"8080\") System.setProperty(\"https.proxyHost\", \"proxy.company.com\") System.setProperty(\"https.proxyPort\", \"8080\") Advanced Configuration Custom Kroki Instance with Additional Services Some diagram types require additional containers: # Full Kroki setup with all services docker-compose up -d # Or selective services docker run -d --name kroki-mermaid yuzutech/kroki-mermaid docker run -d --name kroki-bpmn yuzutech/kroki-bpmn Performance Optimization For high-volume documentation: asciidoctorAttributes = [ 'kroki-fetch-diagram': 'true', // Cache diagrams locally 'kroki-default-format': 'svg', // Use SVG for better quality ] Security Considerations Network Security Use HTTPS for external Kroki servers Consider VPN for remote team access to local instances Implement proper firewall rules Data Privacy Evaluate whether diagram content contains sensitive information Consider local deployment for confidential projects Review data retention policies of external services Why Use Defensive Configuration? This approach offers several benefits: ✅ Future-proof : Works with extension updates ✅ Flexible : docToolchain can switch between extensions ✅ Robust : No breaking changes with upgrades ✅ Team-friendly : Team members don&#8217;t need to know implementation details Further Resources Kroki Documentation Asciidoctor Diagram Extension Asciidoctor Kroki Extension docToolchain Issues Contributing Found an issue with this guide or have improvements? Please contribute: Report issues on GitHub Submit pull requests with corrections Share your configuration experiences Your feedback helps improve the documentation for everyone! "
+    "text": " Table of Contents Kroki Configuration Guide Overview The Two Extensions Recommended Configuration Enterprise Setup: Local Kroki Server Practical Examples Supported Diagram Types Troubleshooting Advanced Configuration Security Considerations Why Use Defensive Configuration? Further Resources Contributing Kroki Configuration Guide This guide provides comprehensive instructions for configuring Kroki with docToolchain, including the background story of why multiple attribute sets exist. Overview Kroki is a service that converts text-based diagrams (PlantUML, Mermaid, GraphViz, etc.) into images without requiring local tool installations. However, configuring Kroki in docToolchain can be confusing due to historical evolution of diagram extensions. The Two Extensions There are two different AsciiDoc extensions that support Kroki: asciidoctor-diagram: The All-Rounder The original asciidoctor-diagram extension existed before Kroki and supported local tools. In version 2.1.0, Kroki support was added: :diagram-server-url: https://kroki.io/ :diagram-server-type: kroki_io This extension can use both local tools AND delegate to Kroki servers. asciidoctor-kroki: The Specialist The specialized asciidoctor-kroki extension was built exclusively for Kroki: :kroki-server-url: https://kroki.io/ This extension is optimized specifically for Kroki integration. Recommended Configuration Defensive Configuration Strategy To ensure compatibility with both extensions, use all attributes: // Kroki configuration (compatible with all extensions) :diagram-server-url: https://kroki.io/ :diagram-server-type: kroki_io :kroki-server-url: https://kroki.io/ Configuration in docToolchainConfig.groovy asciidoctorAttributes = [ // Defensive Kroki configuration 'diagram-server-url': 'https://kroki.io/', 'diagram-server-type': 'kroki_io', 'kroki-server-url': 'https://kroki.io/', // Other attributes... 'toc': 'left', 'icons': 'font' ] Enterprise Setup: Local Kroki Server For organizations that prefer not to send diagrams to external services: Docker Setup # Start Kroki locally docker run -d --name kroki -p 8000:8000 yuzutech/kroki # Verify it's running curl http://localhost:8000/health Configuration for Local Server // Local Kroki server configuration :diagram-server-url: http://localhost:8000/ :diagram-server-type: kroki_io :kroki-server-url: http://localhost:8000/ Or in docToolchainConfig.groovy: asciidoctorAttributes = [ 'diagram-server-url': 'http://localhost:8000/', 'diagram-server-type': 'kroki_io', 'kroki-server-url': 'http://localhost:8000/', ] Practical Examples PlantUML Sequence Diagram [plantuml] .... @startuml actor User participant \"docToolchain\" as DTC participant \"Kroki Server\" as Kroki participant \"PlantUML\" as PUML User -&gt; DTC: generateHTML DTC -&gt; Kroki: POST diagram source Kroki -&gt; PUML: render diagram PUML -&gt; Kroki: SVG/PNG Kroki -&gt; DTC: diagram image DTC -&gt; User: HTML with diagram @enduml .... Mermaid Flowchart [mermaid] .... graph TD A[AsciiDoc Document] --&gt; B{Extension Type?} B --&gt;|asciidoctor-diagram| C[diagram-server-url] B --&gt;|asciidoctor-kroki| D[kroki-server-url] C --&gt; E[Kroki Server] D --&gt; E E --&gt; F[Rendered Diagram] .... Failed to generate image: Could not find the 'mmdc' executable in PATH; add it to the PATH or specify its location using the 'mmdc' document attribute graph TD A[AsciiDoc Document] --&gt; B{Extension Type?} B --&gt;|asciidoctor-diagram| C[diagram-server-url] B --&gt;|asciidoctor-kroki| D[kroki-server-url] C --&gt; E[Kroki Server] D --&gt; E E --&gt; F[Rendered Diagram] GraphViz Diagram [graphviz] .... digraph G { rankdir=LR; node [shape=box, style=rounded]; \"Local Tools\" -&gt; \"asciidoctor-diagram\"; \"Kroki Server\" -&gt; \"asciidoctor-diagram\"; \"Kroki Server\" -&gt; \"asciidoctor-kroki\"; \"asciidoctor-diagram\" -&gt; \"docToolchain\"; \"asciidoctor-kroki\" -&gt; \"docToolchain\"; \"docToolchain\" -&gt; \"Beautiful Docs\"; } .... Supported Diagram Types Kroki supports numerous diagram types: PlantUML Mermaid GraphViz Ditaa BlockDiag BPMN C4 (with PlantUML) And many more For a complete list, visit kroki.io . Troubleshooting Diagrams Not Rendering Check server connectivity : [source,bash] ---- curl https://kroki.io/health ---- Verify attribute configuration : Ensure all three attributes are set for maximum compatibility Check for typos in attribute names Test with simple diagram : [source,asciidoc] ---- [plantuml] &#8230;&#8203;. A &#8594; B &#8230;&#8203;. ---- Local Server Issues Container not starting : [source,bash] ---- docker logs kroki ---- Port conflicts : [source,bash] ---- # Use different port docker run -d --name kroki -p 8080:8000 yuzutech/kroki ---- Firewall blocking access : Ensure port 8000 (or your chosen port) is accessible Check corporate firewall settings Network Configuration For corporate environments: // Configure proxy if needed System.setProperty(\"http.proxyHost\", \"proxy.company.com\") System.setProperty(\"http.proxyPort\", \"8080\") System.setProperty(\"https.proxyHost\", \"proxy.company.com\") System.setProperty(\"https.proxyPort\", \"8080\") Advanced Configuration Custom Kroki Instance with Additional Services Some diagram types require additional containers: # Full Kroki setup with all services docker-compose up -d # Or selective services docker run -d --name kroki-mermaid yuzutech/kroki-mermaid docker run -d --name kroki-bpmn yuzutech/kroki-bpmn Performance Optimization For high-volume documentation: asciidoctorAttributes = [ 'kroki-fetch-diagram': 'true', // Cache diagrams locally 'kroki-default-format': 'svg', // Use SVG for better quality ] Security Considerations Network Security Use HTTPS for external Kroki servers Consider VPN for remote team access to local instances Implement proper firewall rules Data Privacy Evaluate whether diagram content contains sensitive information Consider local deployment for confidential projects Review data retention policies of external services Why Use Defensive Configuration? This approach offers several benefits: ✅ Future-proof : Works with extension updates ✅ Flexible : docToolchain can switch between extensions ✅ Robust : No breaking changes with upgrades ✅ Team-friendly : Team members don&#8217;t need to know implementation details Further Resources Kroki Documentation Asciidoctor Diagram Extension Asciidoctor Kroki Extension docToolchain Issues Contributing Found an issue with this guide or have improvements? Please contribute: Report issues on GitHub Submit pull requests with corrections Share your configuration experiences Your feedback helps improve the documentation for everyone! "
 },
 
 {
@@ -370,22 +370,6 @@ var documents = [
 
 {
     "id": 46,
-    "uri": "ea/Activity_notes_issue1.html",
-    "menu": "ea",
-    "title": "Activity_notes_issue1.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 47,
-    "uri": "ea/issue2.html",
-    "menu": "ea",
-    "title": "issue2.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
-},
-
-{
-    "id": 48,
     "uri": "ea/Use_Cases_notes.html",
     "menu": "ea",
     "title": "Use_Cases_notes.ad",
@@ -393,23 +377,23 @@ var documents = [
 },
 
 {
+    "id": 47,
+    "uri": "ea/Activity_notes_issue1.html",
+    "menu": "ea",
+    "title": "Activity_notes_issue1.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
+    "id": 48,
+    "uri": "ea/issue2.html",
+    "menu": "ea",
+    "title": "issue2.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+},
+
+{
     "id": 49,
-    "uri": "ea/Architect_notes.html",
-    "menu": "ea",
-    "title": "Architect_notes.ad",
-    "text": " "
-},
-
-{
-    "id": 50,
-    "uri": "ea/Architect_notes_issue2.html",
-    "menu": "ea",
-    "title": "Architect_notes_issue2.ad",
-    "text": " "
-},
-
-{
-    "id": 51,
     "uri": "ea/Use_Cases_notes_UseCases.html",
     "menu": "ea",
     "title": "Use_Cases_notes_UseCases.ad",
@@ -417,15 +401,23 @@ var documents = [
 },
 
 {
-    "id": 52,
-    "uri": "ea/UseCases.html",
+    "id": 50,
+    "uri": "ea/Architect_notes.html",
     "menu": "ea",
-    "title": "UseCases.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
+    "title": "Architect_notes.ad",
+    "text": " "
 },
 
 {
-    "id": 53,
+    "id": 51,
+    "uri": "ea/Architect_notes_issue2.html",
+    "menu": "ea",
+    "title": "Architect_notes_issue2.ad",
+    "text": " "
+},
+
+{
+    "id": 52,
     "uri": "ea/Use_Cases_links_issue2.html",
     "menu": "ea",
     "title": "Use_Cases_links_issue2.ad",
@@ -433,11 +425,19 @@ var documents = [
 },
 
 {
-    "id": 54,
+    "id": 53,
     "uri": "ea/readme.html",
     "menu": "ea",
     "title": "readme.ad",
     "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
+},
+
+{
+    "id": 54,
+    "uri": "ea/UseCases.html",
+    "menu": "ea",
+    "title": "UseCases.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
 },
 
 {
@@ -610,18 +610,18 @@ var documents = [
 
 {
     "id": 76,
-    "uri": "015_tasks/03_tasks.html",
-    "menu": "tasks",
-    "title": "What Is a Task?",
-    "text": " Table of Contents What Is a Task? How Tasks Are Named .gravatar img { margin-left: 3px; border-radius: 4px; } What Is a Task? 2 minutes to read A task is another name for a script which triggers the build actions that compile and publish your docs. This diagram gives you an overview of the entire build process: Figure 1. docToolchain How Tasks Are Named Tasks are given a naming prefix which indicates their role in the build process. There are currently 4 groups. generateX These tasks use plain old Asciidoctor functionality to render the source to a given format. exportX These tasks export images and AsciiDoc snippets from other systems or file formats. The resulting artifacts can then be included from your main sources. export tasks differ from generate tasks because with export tasks, you don&#8217;t have to export with each build. Also, with export tasks, it&#8217;s likely that you will already store the resulting artifacts under version control because the tools needed for the export (such as Sparx Enterprise Architect or MS PowerPoint) are typically not available on your build server or another contributor&#8217;s machine. convertToX These tasks take the output from Asciidoctor and convert it (through other tools) to the target format. This results in a dependency on a generateX task and another external tool (currently pandoc ). publishToX These tasks not only convert your documents but also deploy, publish and move them to a remote system (currently Confluence), meaning the result is immediately visible to others. "
-},
-
-{
-    "id": 77,
     "uri": "015_tasks/03_task_previewSite.html",
     "menu": "tasks",
     "title": "previewSite",
     "text": " Table of Contents previewSite About This Task .gravatar img { margin-left: 3px; border-radius: 4px; } previewSite 1 minute to read About This Task Note This task has now been deprecated. When you use a build in a static site generator through generateSite , most site themes don&#8217;t need the static site server for general content. You can just preview the site by opening from the file system in your browser. However, some JavaScript features will not work because of CORS restrictions. In that case you need a server. You can start one by running e.g. python -m http.server or in case you have Python 3 python3 -m http.server . "
+},
+
+{
+    "id": 77,
+    "uri": "015_tasks/03_tasks.html",
+    "menu": "tasks",
+    "title": "What Is a Task?",
+    "text": " Table of Contents What Is a Task? How Tasks Are Named .gravatar img { margin-left: 3px; border-radius: 4px; } What Is a Task? 2 minutes to read A task is another name for a script which triggers the build actions that compile and publish your docs. This diagram gives you an overview of the entire build process: Figure 1. docToolchain How Tasks Are Named Tasks are given a naming prefix which indicates their role in the build process. There are currently 4 groups. generateX These tasks use plain old Asciidoctor functionality to render the source to a given format. exportX These tasks export images and AsciiDoc snippets from other systems or file formats. The resulting artifacts can then be included from your main sources. export tasks differ from generate tasks because with export tasks, you don&#8217;t have to export with each build. Also, with export tasks, it&#8217;s likely that you will already store the resulting artifacts under version control because the tools needed for the export (such as Sparx Enterprise Architect or MS PowerPoint) are typically not available on your build server or another contributor&#8217;s machine. convertToX These tasks take the output from Asciidoctor and convert it (through other tools) to the target format. This results in a dependency on a generateX task and another external tool (currently pandoc ). publishToX These tasks not only convert your documents but also deploy, publish and move them to a remote system (currently Confluence), meaning the result is immediately visible to others. "
 },
 
 {

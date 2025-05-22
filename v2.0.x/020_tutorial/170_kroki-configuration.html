@@ -678,44 +678,26 @@ DTC -&gt; User: HTML with diagram
 ....
 graph TD
     A[AsciiDoc Document] --&gt; B{Extension Type?}
-    B --&gt;</code></pre>
+    B --&gt;|asciidoctor-diagram| C[diagram-server-url]
+    B --&gt;|asciidoctor-kroki| D[kroki-server-url]
+    C --&gt; E[Kroki Server]
+    D --&gt; E
+    E --&gt; F[Rendered Diagram]
+....</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">asciidoctor-diagram</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">C[diagram-server-url]
-    B -&#8594;</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">asciidoctor-kroki</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">D[kroki-server-url]
-    C -&#8594; E[Kroki Server]
-    D -&#8594; E
-    E -&#8594; F[Rendered Diagram]
-&#8230;&#8203;.
-----</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
 <div class="content">
 <pre>Failed to generate image: Could not find the 'mmdc' executable in PATH; add it to the PATH or specify its location using the 'mmdc' document attribute
 graph TD
     A[AsciiDoc Document] --&gt; B{Extension Type?}
-    B --&gt;</pre>
+    B --&gt;|asciidoctor-diagram| C[diagram-server-url]
+    B --&gt;|asciidoctor-kroki| D[kroki-server-url]
+    C --&gt; E[Kroki Server]
+    D --&gt; E
+    E --&gt; F[Rendered Diagram]</pre>
 </div>
 </div></div></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">asciidoctor-diagram</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">C[diagram-server-url]
-    B -&#8594;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">asciidoctor-kroki</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">D[kroki-server-url]
-    C -&#8594; E[Kroki Server]
-    D -&#8594; E
-    E -&#8594; F[Rendered Diagram]
-&#8230;&#8203;.</p></td>
 </tr>
 </tbody>
 </table>
