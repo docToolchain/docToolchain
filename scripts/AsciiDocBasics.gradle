@@ -139,6 +139,9 @@ config.flatten().each {key, value ->
 def tasksToExecute = project.gradle.startParameter.taskNames
 if (tasksToExecute.contains('asciidoctorGemsPrepare') ||
     tasksToExecute.contains('generateDeck') ||
+    tasksToExecute.contains('generateHTML') ||
+    tasksToExecute.contains('generatePDF') ||
+    tasksToExecute.contains('asciidoctor') ||
     // TODO this could help to allow ruby gems from remote, but it is not working yet
     config.rubyExtensions && config.rubyExtensions.any { !it.endsWith('.rb')}
 ) {
@@ -146,6 +149,11 @@ if (tasksToExecute.contains('asciidoctorGemsPrepare') ||
         ruby {
             gems()
         }
+    }
+    
+    // Add dependencies for Ruby gems
+    dependencies {
+        asciidoctorGems 'rubygems:asciidoctor-kroki:0.9.1'
     }
 }
 
@@ -170,6 +178,9 @@ asciidoctorj {
         diagram.version '3.0.1'
     }
     fatalWarnings ~/image to embed not found or not readable/
+
+    // Add asciidoctor-kroki gem for Excalidraw support
+    requires 'asciidoctor-kroki'
 
     attributes  (
         //           'pdf-stylesdir': "${pdfThemeDir}@",
@@ -247,6 +258,8 @@ asciidoctorj {
 // this is needed for PDF generation with plantUML
 tasks.withType(AbstractAsciidoctorTask) { docTask ->
 
+    dependsOn asciidoctorGemsPrepare
+    
     baseDirFollowsSourceFile()
 
     config.taskInputsDirs.each {
@@ -301,6 +314,7 @@ task generateHTML (
         type: AsciidoctorTask,
         group: 'docToolchain',
         description: 'use html5 as asciidoc backend') {
+        dependsOn asciidoctorGemsPrepare
         attributes (
             'plantUMLDir'         : file("${docDir}/${config.outputPath}/html5").toURI().relativize(new File("${docDir}/${config.outputPath}/html5/plantUML/").toURI()).getPath(),
         )
@@ -360,6 +374,7 @@ task generatePDF (
         group: 'docToolchain',
         description: 'use pdf as asciidoc backend') {
 
+    dependsOn asciidoctorGemsPrepare
     attributes (
         'plantUMLDir'         : file("${docDir}/${config.outputPath}/pdf/images/plantUML/").path,
     )
