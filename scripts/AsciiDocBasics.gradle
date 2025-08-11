@@ -179,8 +179,8 @@ asciidoctorj {
     }
     fatalWarnings ~/image to embed not found or not readable/
 
-    // Add asciidoctor-kroki gem for Excalidraw support
-    requires 'asciidoctor-kroki'
+    // Add asciidoctor-kroki extension manually
+    // Note: The gem is downloaded by asciidoctorGemsPrepare task
 
     attributes  (
         //           'pdf-stylesdir': "${pdfThemeDir}@",
@@ -196,7 +196,11 @@ asciidoctorj {
         'sectanchors'         : 'true@',
         'targetDir'           : targetDir,
         'docDir'              : docDir,
-        'projectRootDir'      : "${new File(docDir).canonicalPath}@"
+        'projectRootDir'      : "${new File(docDir).canonicalPath}@",
+        // Kroki configuration for diagram support including Excalidraw
+        'kroki-server-url'    : 'https://kroki.io@',
+        'diagram-server-url'  : 'https://kroki.io@',
+        'diagram-server-type' : 'kroki_io@'
     )
 
     def failOnMissingImages = (findProperty("failOnMissingImages")?:config.failOnMissingImages)?:false
@@ -300,11 +304,23 @@ tasks.withType(AbstractAsciidoctorTask) { docTask ->
             }
         }
     }
+    
+    // Add asciidoctor-kroki extension by absolute path
+    def krokiGemPath = "${project.buildDir}/.asciidoctorGems/gems/asciidoctor-kroki-0.9.1/lib"
+    asciidoctorj.requires += ["${krokiGemPath}/asciidoctor-kroki.rb"]
+    
+    // Add the gem lib directory to Ruby load path
+    asciidoctorj.rubyExtensionRegistry {
+        // This ensures the gem's lib directory is in the load path
+        it.loadPaths.add(krokiGemPath)
+    }
     // fix for #1150
     // see also https://github.com/asciidoctor/asciidoctor-gradle-plugin/issues/597
     executionMode = JAVA_EXEC
     forkOptions {
         jvmArgs("--add-opens","java.base/sun.nio.ch=ALL-UNNAMED","--add-opens","java.base/java.io=ALL-UNNAMED")
+        // Set GEM_PATH for asciidoctor-kroki gem
+        environment "GEM_PATH", "${project.buildDir}/.asciidoctorGems"
     }
 }
 //end::AsciidoctorTask[]

@@ -220,6 +220,80 @@ digraph G {
 ....
 |===
 
+==== Excalidraw Diagram
+
+[cols="2"]
+|===
+a|[source,asciidoc]
+----
+[excalidraw]
+....
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 1,
+      "isDeleted": false,
+      "id": "rect1",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 100,
+      "y": 100,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "width": 150,
+      "height": 100,
+      "seed": 1,
+      "groupIds": [],
+      "roundness": null
+    }
+  ]
+}
+....
+----
+
+a|[excalidraw]
+....
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "type": "rectangle",
+      "version": 1,
+      "versionNonce": 1,
+      "isDeleted": false,
+      "id": "rect1",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 100,
+      "y": 100,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "width": 150,
+      "height": 100,
+      "seed": 1,
+      "groupIds": [],
+      "roundness": null
+    }
+  ]
+}
+....
+|===
+
 === Supported Diagram Types
 
 Kroki supports numerous diagram types:
@@ -231,6 +305,8 @@ Kroki supports numerous diagram types:
 * BlockDiag
 * BPMN
 * C4 (with PlantUML)
+* Excalidraw
+* D2
 * And many more
 
 For a complete list, visit https://kroki.io/#support[kroki.io].

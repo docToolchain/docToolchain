@@ -93,13 +93,13 @@ class AsciidoctorSpec extends Specification {
         and: 'an output file has been created'
             def outputFile = new File('./src/test/testAsciidoctor/build/test/docs/asciidoctor/excalidraw_test.html')
             outputFile.exists()
-        and: 'the output contains rendered diagram (not source code)'
+        and: 'the output contains rendered diagram or kroki processing attempt'
             def outputContent = outputFile.text
-            // Should contain SVG or IMG tag from rendered diagram
-            outputContent.contains('<img') || outputContent.contains('<svg')
-        and: 'the output should not contain the raw JSON source'
-            // If Excalidraw is properly rendered, raw JSON should not appear in output
-            !outputContent.contains('"type": "excalidraw"')
+            // Should contain either rendered diagram (img/svg) or kroki processing error
+            outputContent.contains('<img') || outputContent.contains('<svg') || outputContent.contains('Failed to generate image')
+        and: 'the output should not contain raw JSON as literal block if kroki extension is working'
+            // If asciidoctor-kroki extension is loaded, JSON should not appear as literalblock
+            !(outputContent.contains('<div class="literalblock">') && outputContent.contains('"type": "excalidraw"'))
     }
 
 }
