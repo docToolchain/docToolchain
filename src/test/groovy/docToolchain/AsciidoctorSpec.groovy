@@ -69,4 +69,37 @@ class AsciidoctorSpec extends Specification {
         new File('./src/test/testAsciidoctor/build/test/docs/asciidoctor/broken_images.html').exists()
     }
 
+    void 'test excalidraw diagram rendering'() {
+        given: 'a clean the environment'
+        outputPath.deleteDir()
+        when: 'input file contains excalidraw diagrams'
+        def file = new File('src/test/testAsciidoctor/docs/excalidraw_test.adoc')
+        println file.canonicalPath
+        def fileContent = file.text
+        then: 'the file contains excalidraw block'
+        fileContent.contains('[excalidraw]')
+        when: 'the gradle task is invoked'
+        def result = GradleRunner.create()
+            .withProjectDir(new File('.'))
+            .withArguments([
+                'asciidoctor',
+                '--info',
+                '-PdocDir=./src/test/testAsciidoctor',
+                '-PmainConfigFile=testAsciidoctor.groovy',
+            ])
+            .build()
+        then: 'the task succeeds'
+            result.task(":asciidoctor").outcome == SUCCESS
+        and: 'an output file has been created'
+            def outputFile = new File('./src/test/testAsciidoctor/build/test/docs/asciidoctor/excalidraw_test.html')
+            outputFile.exists()
+        and: 'the output contains rendered diagram (not source code)'
+            def outputContent = outputFile.text
+            // Should contain SVG or IMG tag from rendered diagram
+            outputContent.contains('<img') || outputContent.contains('<svg')
+        and: 'the output should not contain the raw JSON source'
+            // If Excalidraw is properly rendered, raw JSON should not appear in output
+            !outputContent.contains('"type": "excalidraw"')
+    }
+
 }

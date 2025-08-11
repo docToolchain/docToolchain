@@ -1,0 +1,102 @@
+= Test Excalidraw Diagram Rendering
+:kroki-http-method: post
+:kroki-default-format: svg
+:kroki-max-uri-length: 6000
+:kroki-fetch-diagram: true
+:diagram-server-url: https://kroki.io/
+:diagram-server-type: kroki_io
+:kroki-server-url: https://kroki.io/
+
+== Working D2 Diagram (for comparison)
+
+[d2]
+....
+vars: {
+  d2-config: {
+    theme-id: 300
+  }
+}
+direction: right
+
+laptops: Laptops {
+  style.multiple: true
+}
+data: Important Data
+....
+
+== Excalidraw Diagram
+
+This should render as a diagram, not as source code:
+
+[excalidraw]
+....
+{
+  "type": "excalidraw",
+  "version": 2,
+  "source": "https://excalidraw.com",
+  "elements": [
+    {
+      "type": "rectangle",
+      "version": 141,
+      "versionNonce": 361174001,
+      "isDeleted": false,
+      "id": "oDVXy8D6rom3H1-LLH2-f",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 100.50390625,
+      "y": 93.67578125,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "width": 186.47265625,
+      "height": 141.9765625,
+      "seed": 1968410350,
+      "groupIds": [],
+      "roundness": null
+    },
+    {
+      "type": "text",
+      "version": 40,
+      "versionNonce": 1747947695,
+      "isDeleted": false,
+      "id": "L1xFnCYuDqP8zEg7N2efQ",
+      "fillStyle": "hachure",
+      "strokeWidth": 1,
+      "strokeStyle": "solid",
+      "roughness": 1,
+      "opacity": 100,
+      "angle": 0,
+      "x": 150.5,
+      "y": 150.5,
+      "strokeColor": "#000000",
+      "backgroundColor": "transparent",
+      "width": 88,
+      "height": 26,
+      "seed": 1984459630,
+      "groupIds": [],
+      "roundness": null,
+      "fontSize": 20,
+      "fontFamily": 1,
+      "text": "Test Box",
+      "baseline": 18,
+      "textAlign": "center",
+      "verticalAlign": "middle"
+    }
+  ],
+  "appState": {
+    "gridSize": null,
+    "viewBackgroundColor": "#ffffff"
+  }
+}
+....
+
+== Simple PlantUML (for comparison)
+
+[plantuml]
+....
+Alice -> Bob: Hello
+Bob --> Alice: Hi there
+....
