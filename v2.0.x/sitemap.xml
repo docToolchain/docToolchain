@@ -137,12 +137,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/10_about/30_community.html</loc>
+    	<loc>https://localhost/10_about/10_about-the-project.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/10_about/10_about-the-project.html</loc>
+    	<loc>https://localhost/10_about/30_community.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
@@ -172,17 +172,17 @@
     </url>
 
     <url>
+    	<loc>https://localhost/ea/issue1.html</loc>
+    	<lastmod>2025-09-04</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
-    	<lastmod>2025-09-04</lastmod>
-    </url>
-
-    <url>
-    	<loc>https://localhost/ea/issue1.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
@@ -312,12 +312,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_autobuildSite.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
@@ -362,12 +362,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportConfluence.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportConfluence.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_convertToEpub.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
@@ -502,12 +502,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/040_contributors.html</loc>
+    	<loc>https://localhost/010_manual/40_features.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/40_features.html</loc>
+    	<loc>https://localhost/010_manual/040_contributors.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
@@ -532,12 +532,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/050_who-uses-dtc.html</loc>
+    	<loc>https://localhost/025_development/020_run_tests.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/020_run_tests.html</loc>
+    	<loc>https://localhost/025_development/050_who-uses-dtc.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
