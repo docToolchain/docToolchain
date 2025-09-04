@@ -654,9 +654,22 @@ DTC -&gt; User: HTML with diagram
 ....</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="imageblock">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
 <div class="content">
-<img src="../images/diag-plantuml-md5-fbad0de473ae73686d5b4129f9d83a6b.png" alt="Diagram" width="508" height="355">
+<pre>Failed to generate image: certificate verify failed
+@startuml
+actor User
+participant "docToolchain" as DTC
+participant "Kroki Server" as Kroki
+participant "PlantUML" as PUML
+
+User -&gt; DTC: generateHTML
+DTC -&gt; Kroki: POST diagram source
+Kroki -&gt; PUML: render diagram
+PUML -&gt; Kroki: SVG/PNG
+Kroki -&gt; DTC: diagram image
+DTC -&gt; User: HTML with diagram
+@enduml</pre>
 </div>
 </div></div></td>
 </tr>
@@ -686,9 +699,16 @@ graph TD
 ....</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="imageblock">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
 <div class="content">
-<img src="../images/diag-mermaid-md5-aff81fbb5f881f813bb59e600b2af6e1.png" alt="Diagram" width="436" height="625">
+<pre>Failed to generate image: certificate verify failed
+graph TD
+    A[AsciiDoc Document] --&gt; B{Extension Type?}
+    B --&gt;|asciidoctor-diagram| C[diagram-server-url]
+    B --&gt;|asciidoctor-kroki| D[kroki-server-url]
+    C --&gt; E[Kroki Server]
+    D --&gt; E
+    E --&gt; F[Rendered Diagram]</pre>
 </div>
 </div></div></td>
 </tr>
@@ -724,9 +744,22 @@ digraph G {
 ....</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="imageblock">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
 <div class="content">
-<img src="../images/diag-graphviz-md5-36612d98ab28a7d91230d3343da580d5.png" alt="Diagram" width="812" height="131">
+<pre>Failed to generate image: certificate verify failed
+digraph G {
+    rankdir=LR;
+    node [shape=box, style=rounded];
+
+    "Local Tools" -&gt; "asciidoctor-diagram";
+    "Kroki Server" -&gt; "asciidoctor-diagram";
+    "Kroki Server" -&gt; "asciidoctor-kroki";
+
+    "asciidoctor-diagram" -&gt; "docToolchain";
+    "asciidoctor-kroki" -&gt; "docToolchain";
+
+    "docToolchain" -&gt; "Beautiful Docs";
+}</pre>
 </div>
 </div></div></td>
 </tr>
