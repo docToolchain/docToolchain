@@ -9,7 +9,8 @@ $ErrorActionPreference = "Stop"
 
 # See https://github.com/docToolchain/docToolchain/releases for available versions.
 # Set DTC_VERSION to "latest" to get the latest, yet unreleased version.
-$DTC_VERSION = "3.4.2"
+$DEFAULT_DTC_VERSION = "3.4.2"
+$DTC_VERSION = $DEFAULT_DTC_VERSION
 if ($env:DTC_VERSION) { $DTC_VERSION = $env:DTC_VERSION }
 
 #here you can specify the URL of a theme to use with generateSite-task
@@ -194,6 +195,15 @@ function print_version_info() {
         Write-Host "docToolchain ${DTC_VERSION}"
     }
     Write-Host "OS/arch: pwsh $os $arch"
+    
+    # Warn if DTC_VERSION is overridden by environment variable to an older version
+    if ($env:DTC_VERSION -and ($DTC_VERSION -ne $DEFAULT_DTC_VERSION)) {
+        if (($DTC_VERSION -ne "latest") -and ($DTC_VERSION -ne "latestdev")) {
+            Write-Host "WARNING: DTC_VERSION is set to '$DTC_VERSION' via environment variable." -ForegroundColor Yellow
+            Write-Host "         The default version is '$DEFAULT_DTC_VERSION'." -ForegroundColor Yellow
+            Write-Host "         To use the latest version, remove DTC_VERSION: Remove-Item Env:DTC_VERSION" -ForegroundColor Yellow
+        }
+    }
 }
 
 function get_available_environments() {

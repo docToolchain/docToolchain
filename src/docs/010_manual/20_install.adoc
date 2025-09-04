@@ -461,7 +461,7 @@ If there is a new https://github.com/docToolchain/docToolchain/releases[docToolc
 ----
 # See https://github.com/docToolchain/docToolchain/releases for available versions.
 # Set DTC_VERSION to "latest" to get the latest, yet unreleased docToolchain version.
-VERSION=2.1.0
+DTC_VERSION=3.4.2
 ----
 . Change it to match the desired release.
 . In case you want to install docToolchain in local user environment install the new docToolchain release with the following command:
