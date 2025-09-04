@@ -137,12 +137,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/10_about/10_about-the-project.html</loc>
+    	<loc>https://localhost/10_about/30_community.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/10_about/30_community.html</loc>
+    	<loc>https://localhost/10_about/10_about-the-project.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
@@ -167,11 +167,6 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/issue1.html</loc>
-    	<lastmod>2025-09-04</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/ea/Architect_notes.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
@@ -182,12 +177,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/readme.html</loc>
+    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
+    	<loc>https://localhost/ea/issue1.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
@@ -197,12 +192,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Architect_notes_issue2.html</loc>
+    	<loc>https://localhost/ea/readme.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/ea/UseCases.html</loc>
+    	<lastmod>2025-09-04</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/ea/Architect_notes_issue2.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
@@ -317,12 +317,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_wipeConfluenceSpace.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_wipeConfluenceSpace.html</loc>
     	<lastmod>2025-09-04</lastmod>
     </url>
 

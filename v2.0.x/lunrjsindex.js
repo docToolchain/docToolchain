@@ -218,18 +218,18 @@ var documents = [
 
 {
     "id": 27,
-    "uri": "10_about/10_about-the-project.html",
-    "menu": "about",
-    "title": "About the Project",
-    "text": " Table of Contents About the Project History How docToolchain Is Used Organisations Using It Open Source Projects Using It About the Project 2 minutes to read History docToolchain is an open source project dedicated to automating the creation of technical documentation. Before the project started, the founders had never heard of the term 'docs as code'. All they knew was that they were sick of keeping their architecture diagrams up to date by copying them from a UML tool to a word processor. Being lazy developers, they thought \"There must be a better way to do this!\". So they automated the diagram export, ditched their word processors, and started using a markup renderer. This enabled them to reference the diagrams from within the text and update them before rendering the document. And so, docToolchain was born. How docToolchain Is Used The main focus of docToolchain is technical documentation. It was traditionally used only for internal docs projects that were not visible to the public. From v2.0.0 we included a static site generator which means that open source projects and other organisations with public-facing docs can use it. Organisations Using It docToolchain is currently being used by the following organisations. If you&#8217;re also using it, please let us know! We love watching our user community grow, and your support keeps the project alive to fight the good docs fight! Open Source Projects Using It If your open source project is using docToochain, please let us know by sending a pull request: docToolchain ( source ) Html Sanity Check ( source ) DB Systel Tech Stories "
-},
-
-{
-    "id": 28,
     "uri": "10_about/30_community.html",
     "menu": "about",
     "title": "Acknowledgements and Contributors",
     "text": " Table of Contents Acknowledgements and Contributors Why Contributions Matter Get Involved! Our Contributors Acknowledgements and Contributors 3 minutes to read Why Contributions Matter Without our amazing community of contributors, the docToolchain project wouldn’t exist in its current form. As an open source project, we depend on the skills and expertise of many to deliver a quality outcome. From developers to technical writers, many people have made valuable contributions to the code and the docs. We’re so grateful to them. We are also thankful for those in our community who take the time to give feedback, create issues, answer questions and send pull requests. Get Involved! There are so many technologies that support docToolchain, including AsciiDoc, AsciiDoctor, Gradle and arc42. We need all the help we can get to make improvements and keep our project humming. Simply create an issue and send a pull request. Our Contributors Please get in touch to update your entry or let us know if you have contributed in some way and we will add you to the list. Stefan Bodewig MoePad Niels wschaef Gernot Starke Jan Matèrne Alexander Schwartz Alexander Heusingfeld Dan Allen Stefan Pfeiffer isidorotrevino Jakub Jablonski Frank Pohl Ixchel Ruiz Schalk Cronjé Mario García Joe David M. Carr Fabian Nonnenmacher Christoph Stoettner Roman Funk ghp-dev Christoph Raaflaub Jorge Aguilera Stefan Bohn Jochen Kraushaar Luis Muniz Andreas Offenhaeuser Daniel Bast Sabatmonk Maarten Gribnau Michael Prieß Heiko Stehli Peter Stange Nils Mahlstädt @ hmmh Kevin Werner J. Staub Vladi Bjelakovic Daniel Kessel Björn Seebeck Txemanu Nikolay Orozov Andrea Macaluso Michael Roßner Jan Hendriks Daniel Kocot Alexander Schmitt Jérémie Bresson Jody Winter Aaron Collier Ifeanyi Benedict Iheagwara Jan-Niklas Vierheller Sebastian Schuetze David Schowalter Martin Fischer Stefan Boos Adrian Partl Siva Kalidasan Bjoern Kasteleiner Jan Küfner Gerd Aschemann Andreas Klemp Adi König Bence Hornák ZHENG Bote Miranda Boerlage Guido Sörmann Björn Erlwein Tulio Camminati Joachim Röttinger Pascal Euhus Max Hofer Sandra Parsick Johannes Thorn Stefan Rotman Kevin Latka Michael Roßner Jan Stückrath Timo Abele Patrizio Bonzani Lutz Ashauer Igor Gaiduk Jakob Genßler "
+},
+
+{
+    "id": 28,
+    "uri": "10_about/10_about-the-project.html",
+    "menu": "about",
+    "title": "About the Project",
+    "text": " Table of Contents About the Project History How docToolchain Is Used Organisations Using It Open Source Projects Using It About the Project 2 minutes to read History docToolchain is an open source project dedicated to automating the creation of technical documentation. Before the project started, the founders had never heard of the term 'docs as code'. All they knew was that they were sick of keeping their architecture diagrams up to date by copying them from a UML tool to a word processor. Being lazy developers, they thought \"There must be a better way to do this!\". So they automated the diagram export, ditched their word processors, and started using a markup renderer. This enabled them to reference the diagrams from within the text and update them before rendering the document. And so, docToolchain was born. How docToolchain Is Used The main focus of docToolchain is technical documentation. It was traditionally used only for internal docs projects that were not visible to the public. From v2.0.0 we included a static site generator which means that open source projects and other organisations with public-facing docs can use it. Organisations Using It docToolchain is currently being used by the following organisations. If you&#8217;re also using it, please let us know! We love watching our user community grow, and your support keeps the project alive to fight the good docs fight! Open Source Projects Using It If your open source project is using docToochain, please let us know by sending a pull request: docToolchain ( source ) Html Sanity Check ( source ) DB Systel Tech Stories "
 },
 
 {
@@ -266,14 +266,6 @@ var documents = [
 
 {
     "id": 33,
-    "uri": "ea/issue1.html",
-    "menu": "ea",
-    "title": "issue1.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 34,
     "uri": "ea/Architect_notes.html",
     "menu": "ea",
     "title": "Architect_notes.ad",
@@ -281,7 +273,7 @@ var documents = [
 },
 
 {
-    "id": 35,
+    "id": 34,
     "uri": "ea/Use_Cases_links_issue2.html",
     "menu": "ea",
     "title": "Use_Cases_links_issue2.ad",
@@ -289,15 +281,7 @@ var documents = [
 },
 
 {
-    "id": 36,
-    "uri": "ea/readme.html",
-    "menu": "ea",
-    "title": "readme.ad",
-    "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
-},
-
-{
-    "id": 37,
+    "id": 35,
     "uri": "ea/Use_Cases_notes_UseCases.html",
     "menu": "ea",
     "title": "Use_Cases_notes_UseCases.ad",
@@ -305,7 +289,15 @@ var documents = [
 },
 
 {
-    "id": 38,
+    "id": 36,
+    "uri": "ea/issue1.html",
+    "menu": "ea",
+    "title": "issue1.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
+    "id": 37,
     "uri": "ea/issue2.html",
     "menu": "ea",
     "title": "issue2.ad",
@@ -313,19 +305,27 @@ var documents = [
 },
 
 {
-    "id": 39,
-    "uri": "ea/Architect_notes_issue2.html",
+    "id": 38,
+    "uri": "ea/readme.html",
     "menu": "ea",
-    "title": "Architect_notes_issue2.ad",
-    "text": " "
+    "title": "readme.ad",
+    "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
 },
 
 {
-    "id": 40,
+    "id": 39,
     "uri": "ea/UseCases.html",
     "menu": "ea",
     "title": "UseCases.ad",
     "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
+},
+
+{
+    "id": 40,
+    "uri": "ea/Architect_notes_issue2.html",
+    "menu": "ea",
+    "title": "Architect_notes_issue2.ad",
+    "text": " "
 },
 
 {
@@ -506,18 +506,18 @@ var documents = [
 
 {
     "id": 63,
-    "uri": "015_tasks/03_task_wipeConfluenceSpace.html",
-    "menu": "tasks",
-    "title": "wipeConfluenceSpace",
-    "text": " Table of Contents wipeConfluenceSpace About This Task Usage Source .gravatar img { margin-left: 3px; border-radius: 4px; } wipeConfluenceSpace 1 minute to read About This Task Warning This task is destructive and can harm your environment This task will wipe all content from your Confluence space, configured in your docToolchainConfig.groovy . It will not delete the space itself. The task makes it easy if you want to start from scratch with your documentation, or if you want to re-import your documentation from scratch after you did refactor your document structure and want to get rid of all the old pages. Usage ./dtcw wipeConfluenceSpace -PconfluenceUser=foo.bar@example.corp -PconfluencePass=&lt;REDACTED&gt; You will be asked to confirm the deletion of all pages in the space. Enter y to confirm. ... To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/8.1.1/userguide/gradle_daemon.html#sec:disabling_the_daemon. Daemon will be stopped at the end of the build &gt; Task :wipeConfluenceSpace [ant:input] Do you really want to delete all pages in myDemoSpace (y, n) Source Show source code of scripts/publishToConfluence.gradle or go directly to GitHub · docToolchain/scripts/publishToConfluence.gradle . scripts/publishToConfluence.gradle task wipeConfluenceSpace( description: 'deletes all pages in the configured confluence space', group: 'docToolchain' ) { doLast { ant.input(message: \"${'Do you really want to delete all pages in ' + config.confluence.spaceKey}\", validargs: 'y,n', addproperty: 'confirm') if(ant.confirm.toBoolean()) { //TODO default should be false, if the V1 has been removed in cloud config.confluence.useV1Api = findProperty(\"confluence.useV1Api\") != null ? findProperty(\"confluence.useV1Api\") : config.confluence.useV1Api != [:] ? config.confluence.useV1Api :true new WipeConfluenceSpaceTask(config).execute() } else { println(\"Aborting wipe confluence space, this task needs to be confirmed with 'y'\") } } } "
-},
-
-{
-    "id": 64,
     "uri": "015_tasks/03_task_previewSite.html",
     "menu": "tasks",
     "title": "previewSite",
     "text": " Table of Contents previewSite About This Task .gravatar img { margin-left: 3px; border-radius: 4px; } previewSite 1 minute to read About This Task Note This task has now been deprecated. When you use a build in a static site generator through generateSite , most site themes don&#8217;t need the static site server for general content. You can just preview the site by opening from the file system in your browser. However, some JavaScript features will not work because of CORS restrictions. In that case you need a server. You can start one by running e.g. python -m http.server or in case you have Python 3 python3 -m http.server . "
+},
+
+{
+    "id": 64,
+    "uri": "015_tasks/03_task_wipeConfluenceSpace.html",
+    "menu": "tasks",
+    "title": "wipeConfluenceSpace",
+    "text": " Table of Contents wipeConfluenceSpace About This Task Usage Source .gravatar img { margin-left: 3px; border-radius: 4px; } wipeConfluenceSpace 1 minute to read About This Task Warning This task is destructive and can harm your environment This task will wipe all content from your Confluence space, configured in your docToolchainConfig.groovy . It will not delete the space itself. The task makes it easy if you want to start from scratch with your documentation, or if you want to re-import your documentation from scratch after you did refactor your document structure and want to get rid of all the old pages. Usage ./dtcw wipeConfluenceSpace -PconfluenceUser=foo.bar@example.corp -PconfluencePass=&lt;REDACTED&gt; You will be asked to confirm the deletion of all pages in the space. Enter y to confirm. ... To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/8.1.1/userguide/gradle_daemon.html#sec:disabling_the_daemon. Daemon will be stopped at the end of the build &gt; Task :wipeConfluenceSpace [ant:input] Do you really want to delete all pages in myDemoSpace (y, n) Source Show source code of scripts/publishToConfluence.gradle or go directly to GitHub · docToolchain/scripts/publishToConfluence.gradle . scripts/publishToConfluence.gradle task wipeConfluenceSpace( description: 'deletes all pages in the configured confluence space', group: 'docToolchain' ) { doLast { ant.input(message: \"${'Do you really want to delete all pages in ' + config.confluence.spaceKey}\", validargs: 'y,n', addproperty: 'confirm') if(ant.confirm.toBoolean()) { //TODO default should be false, if the V1 has been removed in cloud config.confluence.useV1Api = findProperty(\"confluence.useV1Api\") != null ? findProperty(\"confluence.useV1Api\") : config.confluence.useV1Api != [:] ? config.confluence.useV1Api :true new WipeConfluenceSpaceTask(config).execute() } else { println(\"Aborting wipe confluence space, this task needs to be confirmed with 'y'\") } } } "
 },
 
 {
