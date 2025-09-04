@@ -473,3 +473,36 @@ DTC_VERSION=3.4.2
 . If you want to develop new features for docToolchain, you can also use `latestdev` as version. In this case, `dtcw` will try to clone the docToolchain repository with the ssh-git protocol to a fork in `$HOME/.doctoolchain/docToolchain-latest`.
 
 NOTE: `latest` and `latestdev` currently only work with the bash version of the wrapper.
+
+== Troubleshooting Version Issues
+
+If you see an older version of docToolchain (e.g., 3.4.1) when you expect the latest version (3.4.2), check if you have the `DTC_VERSION` environment variable set:
+
+[source, bash]
+----
+./dtcw --version
+----
+
+If you see a warning like:
+
+----
+WARNING: DTC_VERSION is set to '3.4.1' via environment variable.
+         The default version is '3.4.2'.
+         To use the latest version, unset DTC_VERSION: unset DTC_VERSION
+----
+
+Follow the instructions to unset the environment variable:
+
+.Linux/Mac with bash
+[source, bash]
+----
+unset DTC_VERSION
+----
+
+.Windows with PowerShell
+[source, powershell]
+----
+Remove-Item Env:DTC_VERSION
+----
+
+After unsetting the variable, `./dtcw --version` should show the latest version.
