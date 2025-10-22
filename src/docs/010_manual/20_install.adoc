@@ -260,7 +260,10 @@ If the docToolchain installation finished successfully, you are ready to <<first
 [[install-dtc-with-sdk]]
 == Install docToolchain with SDKMAN!
 
-TODO: description how to install docToolchain with https://sdkman.io/[SDKMAN!].
+[source, bash]
+----
+sdk install doctoolchain
+----
 
 
 [[first-command]]
