@@ -662,11 +662,12 @@ class Asciidoc2ConfluenceTask extends DocToolchainTask {
         element.select("div.sect${level}").each { sect ->
             def title = sect.select("h${level + 1}").text()
             pageAnchors.putAll(recordPageAnchor(sect.select("h${level + 1}")))
-            Elements pageBody
+            Element pageBody
             if (level == 1) {
-                pageBody = sect.select('div.sectionbody')
+                pageBody = sect.selectFirst('div.sectionbody')?.clone()
             } else {
-                pageBody = new Elements(sect)
+                // Work on a clone to avoid mutating the original DOM and to preserve whitespace/newlines
+                pageBody = sect.clone()
                 pageBody.select("h${level + 1}").remove()
             }
             def currentPage = [
@@ -682,7 +683,8 @@ class Asciidoc2ConfluenceTask extends DocToolchainTask {
             } else {
                 pageBody.select("div.sect${level + 1}").unwrap()
             }
-            promoteHeaders sect, level + 2, level + 1
+            // Promote headers within the page content (clone), not the original section
+            promoteHeaders pageBody, level + 2, level + 1
             pages << currentPage
             anchors.putAll(parseAnchors(currentPage))
         }
@@ -721,11 +723,11 @@ class Asciidoc2ConfluenceTask extends DocToolchainTask {
                 pages << preamble
                 parentId = null
                 anchors.putAll(parseAnchors(preamble))
-                
+
                 // Direkte Manipulation der children-Liste
                 preamble.children.addAll(getPagesRecursive(dom, parentId, anchors, pageAnchors, 1, maxLevel))
             }
-            
+
             // Falls keine Präambel gefunden wurde, füge Seiten direkt zu pages hinzu
             if (pages.isEmpty()) {
                 pages.addAll(getPagesRecursive(dom, parentId, anchors, pageAnchors, 1, maxLevel))
