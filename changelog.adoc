@@ -9,6 +9,9 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+* https://github.com/docToolchain/docToolchain/issues/1524[Source blocks not rendered correctly when subpagesForSections greater than 1]
+* https://github.com/docToolchain/docToolchain/issues/1488[doctoolchain version 3.4.2 breaks code blocks in publishToConfluence task]
+
 === added
 
 === changed
