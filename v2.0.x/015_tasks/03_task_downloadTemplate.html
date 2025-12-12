@@ -553,6 +553,7 @@ searching issues...
 <ul class="sectlevel2">
 <li><a href="#_about_this_task">About This Task</a></li>
 <li><a href="#_setup_and_configuration">Setup and Configuration</a></li>
+<li><a href="#_headless_mode">Headless Mode</a></li>
 <li><a href="#_experimental_antora_support">experimental Antora support</a></li>
 <li><a href="#_further_reading_and_resources">Further Reading and Resources</a></li>
 </ul>
@@ -597,7 +598,7 @@ searching issues...
 <h2 id="task_downloadTemplate">downloadTemplate</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a1a5917e47cadf234366c3e3beef39b6?d=identicon" alt="Johannes Thorn" width="32" height="32" title="Johannes Thorn"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/9934d8546416204bc9454812316d4113?d=identicon" alt="Pascal Euhus" width="32" height="32" title="Pascal Euhus"></span></p>
+<p><span class="image gravatar"><img src="https://www.gravatar.com/avatar/16321112f0c942b96ebcb7362a402512?d=identicon" alt="'copilot-swe-agent[bot" width="32" height="32"></span>',title='copilot-swe-agent[bot]'] <span class="image gravatar"><img src="https://www.gravatar.com/avatar/cc5f3bf8b3cb91c985ed4fd046aa451d?d=identicon" alt="Ralf D. Müller" width="32" height="32" title="Ralf D. Müller"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/a1a5917e47cadf234366c3e3beef39b6?d=identicon" alt="Johannes Thorn" width="32" height="32" title="Johannes Thorn"></span> <span class="image gravatar"><img src="https://www.gravatar.com/avatar/9934d8546416204bc9454812316d4113?d=identicon" alt="Pascal Euhus" width="32" height="32" title="Pascal Euhus"></span></p>
 </div>
 <div class="literalblock">
 <div class="content">
@@ -614,6 +615,70 @@ searching issues...
 <h3 id="_setup_and_configuration">Setup and Configuration</h3>
 <div class="paragraph">
 <p>You can choose to bootstrap your project as an Antora project or as a plain AsciiDoc project. The Antora integration is currently in beta. The Antora integration enables you to register the project seamlessly with an existing Antora playbook.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_headless_mode">Headless Mode</h3>
+<div class="paragraph">
+<p>For unattended use (e.g., with CI/CD pipelines or LLM agents), the <code>downloadTemplate</code> task supports headless mode where no user input is required.</p>
+</div>
+<div class="sect3">
+<h4 id="_using_the_dtc_headless_environment_variable">Using the DTC_HEADLESS Environment Variable</h4>
+<div class="paragraph">
+<p>When <code>DTC_HEADLESS=true</code> is set, the task will use sensible defaults:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Template: <code>arc42</code></p>
+</li>
+<li>
+<p>Language: <code>EN</code></p>
+</li>
+<li>
+<p>Help variant: <code>plain</code> (without help text)</p>
+</li>
+<li>
+<p>Antora setup: <code>n</code> (no Antora)</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">export DTC_HEADLESS=true
+./dtcw downloadTemplate</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_using_project_properties">Using Project Properties</h4>
+<div class="paragraph">
+<p>You can override specific options using Gradle project properties:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>-PdtcTemplate=&lt;template&gt;</code> - Template name (e.g., <code>arc42</code>, <code>req42</code>)</p>
+</li>
+<li>
+<p><code>-PdtcLang=&lt;language&gt;</code> - Language code (e.g., <code>EN</code>, <code>DE</code>, <code>FR</code>)</p>
+</li>
+<li>
+<p><code>-PdtcHelp=&lt;variant&gt;</code> - Help variant: <code>plain</code> or <code>withhelp</code></p>
+</li>
+<li>
+<p><code>-PdtcAntora=&lt;boolean&gt;</code> - Antora setup: <code>y</code>, <code>yes</code>, <code>true</code>, or <code>n</code>, <code>no</code>, <code>false</code></p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw downloadTemplate -PdtcTemplate=req42 -PdtcLang=DE -PdtcHelp=withhelp -PdtcAntora=n</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>These properties work in both interactive and headless mode, allowing you to automate template downloads with specific configurations.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
