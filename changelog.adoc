@@ -14,6 +14,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === changed
 * https://github.com/docToolchain/docToolchain/pull/1511[exportEA: close application after export with ShutdownEA interface]
+* https://github.com/docToolchain/docToolchain/pull/1538[exportJiraIssues: support for onPrem Jira serving e.g. from /jira/rest than /rest (std)]
 
 == 3.4.2 - 2025-04-05
 
