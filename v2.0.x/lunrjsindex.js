@@ -242,18 +242,18 @@ var documents = [
 
 {
     "id": 30,
-    "uri": "025_development/040_debugging.html",
-    "menu": "development",
-    "title": "Debugging",
-    "text": " Table of Contents Debugging Environment Gradle jBake Templates Theming, Menu and Images Script Execution Debugging Debugging 2 minutes to read Things not working as you expected? Here are some tips that might help you. Environment To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect. Gradle You get more hints about what is going on with Gradle when you add the --info flag to your ./dtcw generateSite command: ./dtcw generateSite --info This outputs all config settings as seen by docToolchain along with many other internal settings. jBake Templates If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println otherwise you won’t see any output. Theming, Menu and Images How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files. Check the build/microsite/tmp folder to see the folder that is fed into jBake. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the build/microsite/output folder to see the generated result. This often helps you find out where an image actually is located. Script Execution Debugging The execution of the ../../../bin/doctoolchain bash script may be traced by setting the environment variable DTC_BASH_OPTS to, e.g., -vx . "
-},
-
-{
-    "id": 31,
     "uri": "025_development/020_run_tests.html",
     "menu": "development",
     "title": "Running Tests",
     "text": " Table of Contents Running Tests Execute Tests Execute a specific test Workaround to Ensure Correct Proxy Settings for Tests Running Tests 2 minutes to read docToolchain uses Spock as Test-Framework. See http://spockframework.org/ for details. Execute Tests rm -r build &amp;&amp; ./gradlew test --info The rm command ensures that you have a clean test running. This is vital because if artifacts of an older test run still exist, Gradle will skip steps (‘Up-to-date’) and you might get false positives. Execute a specific test rm -r build &amp;&amp; ./gradlew test --info --tests=ExportStructurizrSpec Workaround to Ensure Correct Proxy Settings for Tests The docToolchain setup is based on the Gradle-Test-Kit and makes use of the Spock test execution framework . The Gradle test runner is started in its own test environment and its own JVM instance. As a result, the global proxy settings are ignored. To execute the test with the correct proxy settings, you must use a workaround. Copy the proxy settings from the gradle.properties file located in the user directory to the gradle.properties file located in the docToolchain folder itself. Note: The files downloaded by the Gradle test runner are placed in a different folder than the default Gradle cache. You will find them in the Tmp folder C:\\Users\\YOUR_USER_NAME\\AppData\\Local\\Temp\\.gradle-test-kit-YOUR_USER_NAME\\caches. "
+},
+
+{
+    "id": 31,
+    "uri": "025_development/040_debugging.html",
+    "menu": "development",
+    "title": "Debugging",
+    "text": " Table of Contents Debugging Environment Gradle jBake Templates Theming, Menu and Images Script Execution Debugging Debugging 2 minutes to read Things not working as you expected? Here are some tips that might help you. Environment To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect. Gradle You get more hints about what is going on with Gradle when you add the --info flag to your ./dtcw generateSite command: ./dtcw generateSite --info This outputs all config settings as seen by docToolchain along with many other internal settings. jBake Templates If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println otherwise you won’t see any output. Theming, Menu and Images How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files. Check the build/microsite/tmp folder to see the folder that is fed into jBake. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the build/microsite/output folder to see the generated result. This often helps you find out where an image actually is located. Script Execution Debugging The execution of the ../../../bin/doctoolchain bash script may be traced by setting the environment variable DTC_BASH_OPTS to, e.g., -vx . "
 },
 
 {
@@ -282,6 +282,14 @@ var documents = [
 
 {
     "id": 35,
+    "uri": "ea/readme.html",
+    "menu": "ea",
+    "title": "readme.ad",
+    "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
+},
+
+{
+    "id": 36,
     "uri": "ea/Use_Cases_notes_UseCases.html",
     "menu": "ea",
     "title": "Use_Cases_notes_UseCases.ad",
@@ -289,19 +297,11 @@ var documents = [
 },
 
 {
-    "id": 36,
+    "id": 37,
     "uri": "ea/Use_Cases_links_issue2.html",
     "menu": "ea",
     "title": "Use_Cases_links_issue2.ad",
     "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
-},
-
-{
-    "id": 37,
-    "uri": "ea/readme.html",
-    "menu": "ea",
-    "title": "readme.ad",
-    "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
 },
 
 {
@@ -602,18 +602,18 @@ var documents = [
 
 {
     "id": 75,
-    "uri": "015_tasks/03_task_convertToDocx.html",
-    "menu": "tasks",
-    "title": "convertToDocx",
-    "text": " Table of Contents convertToDocx Before You Begin Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToDocx 1 minute to read Before You Begin Before using this task: Install pandoc . Ensure that 'docbook' and 'docx' are added to the inputFiles formats in Config.groovy. As an optional step, specify a reference doc file with custom stylesheets (see task createReferenceDoc ). Further Reading and Resources Read the Render AsciiDoc to docx (MS Word) blog post. Source Show source code of scripts/pandoc.gradle or go directly to GitHub · docToolchain/scripts/pandoc.gradle . scripts/pandoc.gradle task convertToDocx ( group: 'docToolchain', description: 'converts file to .docx via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `docx` in config.groovy is converted to docbook and then to docx. def sourceFilesDocx = sourceFiles.findAll { 'docx' in it.formats } def explicitSourceFilesCount = sourceFilesDocx.size() if(explicitSourceFilesCount==0){ sourceFilesDocx = sourceFiles.findAll { 'docbook' in it.formats } } sourceFilesDocx.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.docx') new File(\"$targetDir/docx/$targetFile\") .getParentFile() .getAbsoluteFile().mkdirs() workingDir \"$targetDir/docbook\" executable = \"pandoc\" def pandocOptions = config.pandocOptions ?: [] if(referenceDocFile?.trim()) { args = [\"-r\",\"docbook\", \"-t\",\"docx\", \"-o\",\"../docx/$targetFile\", *pandocOptions, \"--reference-doc=${docDir}/${referenceDocFile}\", sourceFile] } else { args = [\"-r\",\"docbook\", \"-t\",\"docx\", \"-o\",\"./../docx/$targetFile\", *pandocOptions, sourceFile] } } doFirst { if(sourceFilesDocx.size()==0){ throw new Exception (\"\"\" &gt;&gt; No source files defined for type 'docx'. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy \"\"\") } if(explicitSourceFilesCount==0) { logger.warn('WARNING: No source files defined for type \"docx\". Converting with best effort') } } } "
-},
-
-{
-    "id": 76,
     "uri": "015_tasks/03_task_copy_themes.html",
     "menu": "tasks",
     "title": "copyThemes",
     "text": " Table of Contents copyThemes About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } copyThemes 1 minute to read About This Task docToolchain provides you with a simple Twitter bootstrap default theme to get you started. You can use the copyThemes task to apply a different theme (either jBakeTheme or pdfTheme) to your project. Feel free to remove all files which should remain as the default and change all others. When you next run docToolchain, your theme files will be laid over the default theme in order to generate the PDF or site. Source Show source code of scripts/copyThemes.gradle or go directly to GitHub · docToolchain/scripts/copyThemes.gradle . scripts/copyThemes.gradle //tag::copyThemes[] task copyThemes( description: 'copy some default files to your project for you to modify', group: 'docToolchain helper' ) { doFirst { } doLast { def color = { color, text -&gt; def colors = [black: 30, red: 31, green: 32, yellow: 33, blue: 34, magenta: 35, cyan: 36, white: 37] return new String((char) 27) + \"[${colors[color]}m${text}\" + new String((char) 27) + \"[0m\" } def lang = ant.input(message: \"${color 'green', 'What do you want me to copy?'}\", validargs: 'pdfTheme,jBakeTheme', addproperty: 'what') switch (ant.what) { case 'pdfTheme': def targetDir = new File(pdfThemeDir) /** if (targetDir.exists()) { println \"${targetDir.canonicalPath} already exists\" println \"in order to re-install the theme, please remove the folder first and re-run the script\" throw new RuntimeException(\"pdfTheme folder already exists\") } **/ targetDir.mkdirs() def source = new File(projectDir, 'template_config/pdfTheme') println source.canonicalPath println targetDir.canonicalPath copy { from new File(projectDir, 'template_config/pdfTheme') into targetDir } println \"pdfTheme copied into ${targetDir}\" break case 'jBakeTheme': def targetDir = new File(new File(docDir, inputPath), config.microsite.siteFolder?:'../site') /** if (targetDir.exists()) { println \"${targetDir.canonicalPath} already exists\" println \"in order to re-install the theme, please remove the folder first and re-run the script\" throw new RuntimeException(\"jBakeTheme folder already exists\") } **/ targetDir.mkdirs() copy { from new File(projectDir, 'src/site') into targetDir } def siteTheme = System.getenv('DTC_SITETHEME')?:\"\" def themeFolder = new File(projectDir, \"../themes/\" + siteTheme.md5()) copy { from(themeFolder) {} into targetDir } println \"jBakeTheme copied into ${targetDir.canonicalPath}\" break } } } //end::copyThemes[] "
+},
+
+{
+    "id": 76,
+    "uri": "015_tasks/03_task_convertToDocx.html",
+    "menu": "tasks",
+    "title": "convertToDocx",
+    "text": " Table of Contents convertToDocx Before You Begin Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToDocx 1 minute to read Before You Begin Before using this task: Install pandoc . Ensure that 'docbook' and 'docx' are added to the inputFiles formats in Config.groovy. As an optional step, specify a reference doc file with custom stylesheets (see task createReferenceDoc ). Further Reading and Resources Read the Render AsciiDoc to docx (MS Word) blog post. Source Show source code of scripts/pandoc.gradle or go directly to GitHub · docToolchain/scripts/pandoc.gradle . scripts/pandoc.gradle task convertToDocx ( group: 'docToolchain', description: 'converts file to .docx via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `docx` in config.groovy is converted to docbook and then to docx. def sourceFilesDocx = sourceFiles.findAll { 'docx' in it.formats } def explicitSourceFilesCount = sourceFilesDocx.size() if(explicitSourceFilesCount==0){ sourceFilesDocx = sourceFiles.findAll { 'docbook' in it.formats } } sourceFilesDocx.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.docx') new File(\"$targetDir/docx/$targetFile\") .getParentFile() .getAbsoluteFile().mkdirs() workingDir \"$targetDir/docbook\" executable = \"pandoc\" def pandocOptions = config.pandocOptions ?: [] if(referenceDocFile?.trim()) { args = [\"-r\",\"docbook\", \"-t\",\"docx\", \"-o\",\"../docx/$targetFile\", *pandocOptions, \"--reference-doc=${docDir}/${referenceDocFile}\", sourceFile] } else { args = [\"-r\",\"docbook\", \"-t\",\"docx\", \"-o\",\"./../docx/$targetFile\", *pandocOptions, sourceFile] } } doFirst { if(sourceFilesDocx.size()==0){ throw new Exception (\"\"\" &gt;&gt; No source files defined for type 'docx'. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy \"\"\") } if(explicitSourceFilesCount==0) { logger.warn('WARNING: No source files defined for type \"docx\". Converting with best effort') } } } "
 },
 
 {
