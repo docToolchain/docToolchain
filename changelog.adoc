@@ -11,6 +11,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/issues/1526[dtcw.ps1: fix setting mainConfigFile via CLI argument]
 
 === added
+* https://github.com/docToolchain/docToolchain/pull/1530[Add instruction for installing docToolchain using SDKMAN]
 
 === changed
 * https://github.com/docToolchain/docToolchain/pull/1511[exportEA: close application after export with ShutdownEA interface]
