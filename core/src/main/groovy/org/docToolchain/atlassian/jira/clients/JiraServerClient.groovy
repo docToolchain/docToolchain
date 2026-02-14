@@ -52,8 +52,13 @@ class JiraServerClient extends JiraClient {
     }
 
     private static String buildOrigin(URI u) {
-        String port = (u.port > -1) ? ":${u.port}" : ""
-        return "${u.scheme}://${u.host}${port}"
+        // Prefer rawAuthority to preserve IPv6 brackets, userinfo, and port
+        String authority = u.rawAuthority
+        if (!authority) {
+            String port = (u.port > -1) ? ":${u.port}" : ""
+            authority = "${u.host}${port}"
+        }
+        return "${u.scheme}://${authority}"
     }
 
     String api(String route) {
