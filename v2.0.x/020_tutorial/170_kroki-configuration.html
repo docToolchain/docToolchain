@@ -459,7 +459,8 @@ searching issues...
 <ul class="sectlevel2">
 <li><a href="#_overview">Overview</a></li>
 <li><a href="#_the_two_extensions">The Two Extensions</a></li>
-<li><a href="#_recommended_configuration">Recommended Configuration</a></li>
+<li><a href="#_required_configuration_for_doctoolchain">Required Configuration for docToolchain</a></li>
+<li><a href="#_defensive_configuration_strategy_recommended">Defensive Configuration Strategy (Recommended)</a></li>
 <li><a href="#_enterprise_setup_local_kroki_server">Enterprise Setup: Local Kroki Server</a></li>
 <li><a href="#_practical_examples">Practical Examples</a></li>
 <li><a href="#_supported_diagram_types">Supported Diagram Types</a></li>
@@ -512,6 +513,18 @@ searching issues...
 <div class="paragraph">
 <p>Kroki is a service that converts text-based diagrams (PlantUML, Mermaid, GraphViz, etc.) into images without requiring local tool installations. However, configuring Kroki in docToolchain can be confusing due to historical evolution of diagram extensions.</p>
 </div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<strong>docToolchain uses the <code>asciidoctor-diagram</code> extension version 2.3.1</strong> with Kroki delegation capabilities. This means you should use the <code>:diagram-server-*</code> attributes for proper functionality.
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_the_two_extensions">The Two Extensions</h3>
@@ -519,7 +532,7 @@ searching issues...
 <p>There are two different AsciiDoc extensions that support Kroki:</p>
 </div>
 <div class="sect3">
-<h4 id="_asciidoctor_diagram_the_all_rounder">asciidoctor-diagram: The All-Rounder</h4>
+<h4 id="_asciidoctor_diagram_the_all_rounder_used_by_doctoolchain">asciidoctor-diagram: The All-Rounder (Used by docToolchain)</h4>
 <div class="paragraph">
 <p>The original <code>asciidoctor-diagram</code> extension existed before Kroki and supported local tools. In version 2.1.0, Kroki support was added:</p>
 </div>
@@ -530,7 +543,7 @@ searching issues...
 </div>
 </div>
 <div class="paragraph">
-<p>This extension can use both local tools AND delegate to Kroki servers.</p>
+<p>This extension can use both local tools AND delegate to Kroki servers. <strong>This is what docToolchain uses.</strong></p>
 </div>
 </div>
 <div class="sect3">
@@ -544,16 +557,27 @@ searching issues...
 </div>
 </div>
 <div class="paragraph">
-<p>This extension is optimized specifically for Kroki integration.</p>
+<p>This extension is optimized specifically for Kroki integration, but is <strong>not used by docToolchain</strong>.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_recommended_configuration">Recommended Configuration</h3>
-<div class="sect3">
-<h4 id="_defensive_configuration_strategy">Defensive Configuration Strategy</h4>
+<h3 id="_required_configuration_for_doctoolchain">Required Configuration for docToolchain</h3>
 <div class="paragraph">
-<p>To ensure compatibility with both extensions, use all attributes:</p>
+<p>Since docToolchain uses <code>asciidoctor-diagram</code>, you <strong>must</strong> use these attributes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="asciidoc">// Required for docToolchain (uses asciidoctor-diagram)
+:diagram-server-url: https://kroki.io/
+:diagram-server-type: kroki_io</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_defensive_configuration_strategy_recommended">Defensive Configuration Strategy (Recommended)</h3>
+<div class="paragraph">
+<p>To ensure compatibility with both extensions and future changes, use all attributes:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -563,15 +587,16 @@ searching issues...
 :kroki-server-url: https://kroki.io/</code></pre>
 </div>
 </div>
-</div>
 <div class="sect3">
 <h4 id="_configuration_in_doctoolchainconfig_groovy">Configuration in docToolchainConfig.groovy</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">asciidoctorAttributes = [
-    // Defensive Kroki configuration
+    // Required for docToolchain (asciidoctor-diagram)
     'diagram-server-url': 'https://kroki.io/',
     'diagram-server-type': 'kroki_io',
+
+    // Optional defensive configuration
     'kroki-server-url': 'https://kroki.io/',
 
     // Other attributes...
@@ -654,22 +679,9 @@ DTC -&gt; User: HTML with diagram
 ....</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="imageblock">
 <div class="content">
-<pre>Failed to generate image: certificate verify failed
-@startuml
-actor User
-participant "docToolchain" as DTC
-participant "Kroki Server" as Kroki
-participant "PlantUML" as PUML
-
-User -&gt; DTC: generateHTML
-DTC -&gt; Kroki: POST diagram source
-Kroki -&gt; PUML: render diagram
-PUML -&gt; Kroki: SVG/PNG
-Kroki -&gt; DTC: diagram image
-DTC -&gt; User: HTML with diagram
-@enduml</pre>
+<img src="images/diag-plantuml-md5-fbad0de473ae73686d5b4129f9d83a6b.png" alt="Diagram" width="508" height="355">
 </div>
 </div></div></td>
 </tr>
@@ -691,26 +703,44 @@ DTC -&gt; User: HTML with diagram
 ....
 graph TD
     A[AsciiDoc Document] --&gt; B{Extension Type?}
-    B --&gt;|asciidoctor-diagram| C[diagram-server-url]
-    B --&gt;|asciidoctor-kroki| D[kroki-server-url]
-    C --&gt; E[Kroki Server]
-    D --&gt; E
-    E --&gt; F[Rendered Diagram]
-....</code></pre>
+    B --&gt;</code></pre>
 </div>
 </div></div></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">asciidoctor-diagram</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C[diagram-server-url]
+    B -&#8594;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">asciidoctor-kroki</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">D[kroki-server-url]
+    C -&#8594; E[Kroki Server]
+    D -&#8594; E
+    E -&#8594; F[Rendered Diagram]
+&#8230;&#8203;.
+----</p></td>
 <td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
 <div class="content">
-<pre>Failed to generate image: certificate verify failed
+<pre>Failed to generate image: Could not find the 'mmdc' executable in PATH; add it to the PATH or specify its location using the 'mmdc' document attribute
 graph TD
     A[AsciiDoc Document] --&gt; B{Extension Type?}
-    B --&gt;|asciidoctor-diagram| C[diagram-server-url]
-    B --&gt;|asciidoctor-kroki| D[kroki-server-url]
-    C --&gt; E[Kroki Server]
-    D --&gt; E
-    E --&gt; F[Rendered Diagram]</pre>
+    B --&gt;</pre>
 </div>
 </div></div></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">asciidoctor-diagram</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">C[diagram-server-url]
+    B -&#8594;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">asciidoctor-kroki</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">D[kroki-server-url]
+    C -&#8594; E[Kroki Server]
+    D -&#8594; E
+    E -&#8594; F[Rendered Diagram]
+&#8230;&#8203;.</p></td>
 </tr>
 </tbody>
 </table>
@@ -744,22 +774,9 @@ digraph G {
 ....</code></pre>
 </div>
 </div></div></td>
-<td class="tableblock halign-left valign-top"><div class="content"><div class="listingblock">
+<td class="tableblock halign-left valign-top"><div class="content"><div class="imageblock">
 <div class="content">
-<pre>Failed to generate image: certificate verify failed
-digraph G {
-    rankdir=LR;
-    node [shape=box, style=rounded];
-
-    "Local Tools" -&gt; "asciidoctor-diagram";
-    "Kroki Server" -&gt; "asciidoctor-diagram";
-    "Kroki Server" -&gt; "asciidoctor-kroki";
-
-    "asciidoctor-diagram" -&gt; "docToolchain";
-    "asciidoctor-kroki" -&gt; "docToolchain";
-
-    "docToolchain" -&gt; "Beautiful Docs";
-}</pre>
+<img src="images/diag-graphviz-md5-36612d98ab28a7d91230d3343da580d5.png" alt="Diagram" width="815" height="131">
 </div>
 </div></div></td>
 </tr>
@@ -822,7 +839,7 @@ curl <a href="https://kroki.io/health" class="bare">https://kroki.io/health</a>
 <div class="ulist">
 <ul>
 <li>
-<p>Ensure all three attributes are set for maximum compatibility</p>
+<p>Ensure at minimum the <code>:diagram-server-url:</code> and <code>:diagram-server-type:</code> attributes are set</p>
 </li>
 <li>
 <p>Check for typos in attribute names</p>
@@ -912,20 +929,6 @@ docker run -d --name kroki-bpmn yuzutech/kroki-bpmn</code></pre>
 </div>
 </div>
 </div>
-<div class="sect3">
-<h4 id="_performance_optimization">Performance Optimization</h4>
-<div class="paragraph">
-<p>For high-volume documentation:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">asciidoctorAttributes = [
-    'kroki-fetch-diagram': 'true',  // Cache diagrams locally
-    'kroki-default-format': 'svg',  // Use SVG for better quality
-]</code></pre>
-</div>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_security_considerations">Security Considerations</h3>
@@ -969,7 +972,7 @@ docker run -d --name kroki-bpmn yuzutech/kroki-bpmn</code></pre>
 </div>
 <div class="paragraph">
 <p>✅ <strong>Future-proof</strong>: Works with extension updates<br>
-✅ <strong>Flexible</strong>: docToolchain can switch between extensions<br>
+✅ <strong>Flexible</strong>: if docToolchain ever switches between extensions, this setup will still work<br>
 ✅ <strong>Robust</strong>: No breaking changes with upgrades<br>
 ✅ <strong>Team-friendly</strong>: Team members don&#8217;t need to know implementation details</p>
 </div>
