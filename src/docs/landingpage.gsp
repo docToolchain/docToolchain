@@ -79,6 +79,69 @@
                 </div>
             </div>
         </div>
+        <div class="row row-cols-1 mb-3">
+            <div class="col">
+                <h2 class="mt-4">Sub-Projects &amp; Ecosystem</h2>
+                <p>docToolchain is more than a single tool &mdash; it's a growing ecosystem of related projects to support your docs-as-code journey.</p>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">AsciiDoc Linter</h4>
+                    </div>
+                    <div class="card-body">
+                        A linter for AsciiDoc files to help you keep your documentation clean and consistent.<br /><br />
+                        <a class="btn btn-primary" href="https://doctoolchain.org/asciidoc-linter" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">dacli</h4>
+                    </div>
+                    <div class="card-body">
+                        A command-line interface to simplify and streamline your docs-as-code workflow with docToolchain.<br /><br />
+                        <a class="btn btn-primary" href="https://doctoolchain.org/dacli" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">diagrams.net IntelliJ Plugin</h4>
+                    </div>
+                    <div class="card-body">
+                        Edit diagrams.net (draw.io) diagrams directly inside IntelliJ IDEA without leaving your IDE.<br /><br />
+                        <a class="btn btn-primary" href="https://github.com/docToolchain/diagrams.net-intellij-plugin" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">iSAQB Template</h4>
+                    </div>
+                    <div class="card-body">
+                        A ready-to-use documentation template following the iSAQB arc42 software architecture documentation standard.<br /><br />
+                        <a class="btn btn-primary" href="https://github.com/docToolchain/iSAQB-Template" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">CI/CD Demo</h4>
+                    </div>
+                    <div class="card-body">
+                        A demo project showing how to integrate docToolchain into your CI/CD pipeline for automated documentation builds.<br /><br />
+                        <a class="btn btn-primary" href="https://github.com/docToolchain/ci-cd-demo" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
         <!--div class="row row-cols-1">
             <div class="col">
                 <div class="card mb-12 shadow-sm">
