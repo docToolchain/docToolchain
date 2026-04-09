@@ -1,3 +1,23 @@
+pluginManagement {
+    def settingsProps = new Properties()
+    file("../gradle.properties").withInputStream { settingsProps.load(it) }
+    def settings_maven_repository = providers.gradleProperty('mavenRepository').orElse(settingsProps.getProperty('mavenRepository', 'https://plugins.gradle.org/m2/')).get()
+    def settings_maven_username = providers.gradleProperty('mavenUsername').orElse(settingsProps.getProperty('mavenUsername', '')).get()
+    def settings_maven_password = providers.gradleProperty('mavenPassword').orElse(settingsProps.getProperty('mavenPassword', '')).get()
+
+    repositories {
+        maven {
+            url = uri(settings_maven_repository)
+            if (settings_maven_username || settings_maven_password) {
+                credentials {
+                    username = settings_maven_username
+                    password = settings_maven_password
+                }
+            }
+        }
+    }
+}
+
 dependencyResolutionManagement {
     versionCatalogs {
         libs {
