@@ -278,6 +278,8 @@ You could call this instead (remember to replace the values used in our example)
 (IP, port, etc. just an example)
 
 For more information about Gradle proxy configuration, read https://stackoverflow.com/questions/5991194/gradle-proxy-configuration[this article].
+
+If your environment requires internal repositories, configure `mavenRepository` (Gradle plugins) and `depsMavenRepository` (regular dependencies), including optional username/password pairs, either in `gradle.properties` or via `DTC_OPTS`.
 ====
 
 
