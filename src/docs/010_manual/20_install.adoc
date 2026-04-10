@@ -347,7 +347,7 @@ NOTE: If you are behind a corporate proxy or in an air-gapped environment, confi
 
 docToolchain supports two repository groups:
 
-* `mavenRepository`, `mavenUsername`, `mavenPassword`: used for Gradle plugin resolution (default: `https://plugins.gradle.org/m2/`)
+* `mavenRepository`, `mavenUsername`, `mavenPassword`: used for Gradle plugin resolution and for `buildscript` classpaths in task scripts (default: `https://plugins.gradle.org/m2/`)
 * `depsMavenRepository`, `depsMavenUsername`, `depsMavenPassword`: used for regular dependency resolution (default: `https://repo.maven.apache.org/maven2/`)
 
 You can set these properties in your project's `gradle.properties` or pass them through `DTC_OPTS`.

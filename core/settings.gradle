@@ -1,9 +1,21 @@
 pluginManagement {
     def settingsProps = new Properties()
-    file("../gradle.properties").withInputStream { settingsProps.load(it) }
-    def settings_maven_repository = providers.gradleProperty('mavenRepository').orElse(settingsProps.getProperty('mavenRepository', 'https://plugins.gradle.org/m2/')).get()
-    def settings_maven_username = providers.gradleProperty('mavenUsername').orElse(settingsProps.getProperty('mavenUsername', '')).get()
-    def settings_maven_password = providers.gradleProperty('mavenPassword').orElse(settingsProps.getProperty('mavenPassword', '')).get()
+    def settingsPropsFile = file("../gradle.properties")
+    def defaultMavenRepository = 'https://plugins.gradle.org/m2/'
+    def defaultMavenUsername = ''
+    def defaultMavenPassword = ''
+
+    if (settingsPropsFile.exists() && settingsPropsFile.canRead()) {
+        try {
+            settingsPropsFile.withInputStream { settingsProps.load(it) }
+        } catch (IOException ignored) {
+            // Keep using CLI properties and hard-coded defaults when the properties file cannot be loaded.
+        }
+    }
+
+    def settings_maven_repository = providers.gradleProperty('mavenRepository').orElse(settingsProps.getProperty('mavenRepository', defaultMavenRepository)).get()
+    def settings_maven_username = providers.gradleProperty('mavenUsername').orElse(settingsProps.getProperty('mavenUsername', defaultMavenUsername)).get()
+    def settings_maven_password = providers.gradleProperty('mavenPassword').orElse(settingsProps.getProperty('mavenPassword', defaultMavenPassword)).get()
 
     repositories {
         maven {
