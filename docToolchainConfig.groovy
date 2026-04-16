@@ -290,7 +290,11 @@ confluence.with {
                     // rootPageTitle: 'My Section Root',
                     // spaceKey: 'SPACEKEY',
                     pageLimit: 100,
-                    downloadAttachments: true
+                    downloadAttachments: true,
+                    // saveRawXhtml: true writes each page's raw Confluence storage-format
+                    // body next to the generated .adoc (as <filename>.xhtml). Useful for
+                    // diagnosing conversion issues; off by default.
+                    saveRawXhtml: false
             ]
     ]
 }

@@ -27,6 +27,7 @@ task exportConfluenceFromApi (
         def spaceKey      = findProperty("confluence.export.api.spaceKey")      ?: (config.confluence.export.api?.spaceKey          ?: config.confluence.spaceKey ?: null)
         def pageLimit     = findProperty("confluence.export.api.pageLimit")     ?: (config.confluence.export.api?.pageLimit         ?: null)
         def downloadAttachments = findProperty("confluence.export.api.downloadAttachments") ?: (config.confluence.export.api?.downloadAttachments ?: 'true')
+        def saveRawXhtml        = findProperty("confluence.export.api.saveRawXhtml")        ?: (config.confluence.export.api?.saveRawXhtml        ?: 'false')
 
         // confluence.api / credentials / bearerToken are already resolved by AsciiDocBasics.gradle
         config.confluence.api = findProperty("confluence.api") ?: config.confluence.api
@@ -44,6 +45,7 @@ task exportConfluenceFromApi (
         if (spaceKey)      argsList << "spaceKey=${spaceKey}".toString()
         if (pageLimit)     argsList << "pageLimit=${pageLimit}".toString()
         if (downloadAttachments != null) argsList << "downloadAttachments=${downloadAttachments}".toString()
+        if (saveRawXhtml != null)        argsList << "saveRawXhtml=${saveRawXhtml}".toString()
 
         String[] args = argsList as String[]
         logger.info("args: " + args)

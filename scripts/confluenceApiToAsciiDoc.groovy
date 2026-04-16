@@ -71,12 +71,14 @@ if (!rootPageId && !rootPageTitle) {
 int pageLimit = (apiArgs.pageLimit ?: config.confluence.pageLimit ?: 100) as int
 double rateLimitPerSecond = (config.confluence.rateLimit ?: 10) as double
 boolean downloadAttachments = (apiArgs.downloadAttachments ?: 'true').toString().toBoolean()
+boolean saveRawXhtml         = (apiArgs.saveRawXhtml ?: 'false').toString().toBoolean()
 
-println "API:        ${baseUrl}"
-println "destDir:    ${destDir.canonicalPath}"
-println "rootPageId: ${rootPageId ?: '(resolving from title)'}"
-println "rootTitle:  ${rootPageTitle ?: '(not set)'}"
-println "spaceKey:   ${spaceKey ?: '(not set)'}"
+println "API:          ${baseUrl}"
+println "destDir:      ${destDir.canonicalPath}"
+println "rootPageId:   ${rootPageId ?: '(resolving from title)'}"
+println "rootTitle:    ${rootPageTitle ?: '(not set)'}"
+println "spaceKey:     ${spaceKey ?: '(not set)'}"
+println "saveRawXhtml: ${saveRawXhtml}"
 
 // --- tiny authenticated REST helper (stdlib only, no new deps) ---
 // Throttles to config.confluence.rateLimit (default 10/s) across all calls.
@@ -345,6 +347,16 @@ pages.each { pid, info ->
 
 def allUnknownTags = [] as Set
 pages.each { pid, info ->
+    // optionally save the raw Confluence storage-format XHTML for later
+    // inspection / diagnosing of conversion artifacts.
+    if (saveRawXhtml) {
+        def folderStructure = getFolderStructure(pages, pid)
+        File rawDir = folderStructure.size() >= 1
+                ? new File(destDir, folderStructure.join("/"))
+                : destDir
+        rawDir.mkdirs()
+        new File(rawDir, "${info.filename}.xhtml").write(bodies[pid] ?: '', 'utf-8')
+    }
     def childIds = childrenByParent[pid.toString()] ?: []
     def uTags = writePage(pid, bodies[pid] ?: '', childIds, pages, attachments, space, users, destDir)
     if (uTags) allUnknownTags.addAll(uTags)
