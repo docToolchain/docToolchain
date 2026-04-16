@@ -116,14 +116,29 @@ fixBody = { String pageId, String body, Map users, Map pages, Map attachments, M
     dom.outputSettings().prettyPrint(false)
     dom.outputSettings().escapeMode(org.jsoup.nodes.Entities.EscapeMode.xhtml)
     dom.outputSettings().charset("UTF-8")
-    // Strip visually-empty cells that contain only a <br/>. Confluence emits
-    // these for "empty" fields, but pandoc renders the <br/> as a stray " +"
-    // (AsciiDoc hard line break) in the cell, which shows up as a literal "+"
-    // in the final output.
+    // Strip <br/>-only cells. Confluence emits <td><br/></td> for "empty"
+    // fields; pandoc would render the <br/> as a stray " +" (AsciiDoc hard
+    // line break) which ends up as a literal "+" in the output. We ONLY
+    // empty cells whose direct children are all <br/> and which carry no
+    // text - cells containing images, paragraphs, nested tables etc. stay
+    // untouched.
     dom.select("td, th").each { cell ->
-        if (cell.text().trim().isEmpty()) {
+        def kids = cell.children()
+        def allBr = !kids.isEmpty() && kids.every { it.tagName() == 'br' }
+        if (allBr && cell.text().trim().isEmpty()) {
             cell.empty()
         }
+    }
+    // Convert row-header cells (`<th scope="row">`) to regular data cells with
+    // bold content, so pandoc doesn't infer a column-header row. Confluence's
+    // metadata tables (Status / Author / Date ...) put each label in a
+    // <th scope="row">, which AsciiDoc otherwise renders as a full header row
+    // via `[options="header"]` or styled column.
+    dom.select("th[scope=row]").each { th ->
+        def inner = th.html()
+        th.tagName("td")
+        th.removeAttr("scope")
+        th.html("<strong>${inner}</strong>")
     }
     def acTags = []
     dom.select("*").each { element ->
@@ -242,21 +257,21 @@ fixBody = { String pageId, String body, Map users, Map pages, Map attachments, M
                             element.remove()
                             break
                         case 'captioneditem':
-                            // Wraps content (typically an image or drawio) with an anchor
-                            // and optional caption. Keep the inner body, promote the anchor
-                            // to an AsciiDoc block anchor. Important: use DOM unwrap so
-                            // nested ac: macros (e.g. drawio inside captioneditem) stay in
-                            // place and get visited by the outer iteration snapshot. The
-                            // previous element.html(...)+remove variant re-parsed inner
-                            // macros as copies that the snapshot didn't know about, so their
-                            // handlers never ran.
-                            def captionedAnchor = element.select("ac|parameter[ac:name=anchor]").text()
+                            // Wraps content (typically an image or drawio) with an anchor and
+                            // optional caption. Keep the inner body; promote the anchor to an
+                            // AsciiDoc block anchor via a placeholder (pandoc would otherwise
+                            // escape '[[' as '++[[++'). Use DIRECT children for parameter
+                            // access / removal so nested macros' parameters aren't touched.
+                            def captionedAnchorParam = element.children().find {
+                                it.tagName() == 'ac:parameter' && it.attr('ac:name') == 'anchor'
+                            }
+                            def captionedAnchor = captionedAnchorParam?.text() ?: ''
                             if (captionedAnchor) {
-                                element.before("\n<span>[[${captionedAnchor}]]</span>\n")
+                                element.before("\n<p>%%ANCHOR%%${captionedAnchor}%%ANCHOR-END%%</p>\n")
                             }
                             def captionedBody = element.select("ac|rich-text-body").first()
                             if (captionedBody) captionedBody.unwrap()
-                            element.select("ac|parameter").each { it.remove() }
+                            element.children().findAll { it.tagName() == 'ac:parameter' }.each { it.remove() }
                             element.unwrap()
                             break
                         case 'details':
@@ -399,45 +414,55 @@ ${lucidInfos.replaceAll("\n", "%%CRLF%%")}
                             // would detach any nested ac: macros and skip them in the outer
                             // iteration), we manipulate the DOM so nested drawio/image/etc.
                             // stay in place.
-                            def admonTitle = element.select("ac|parameter[ac:name=title]").text()
+                            // NB: use DIRECT children for parameter access / removal. A nested
+                            // macro (e.g. info inside expand) also has ac:parameter children,
+                            // and element.select(...) would pick them up. Same for the later
+                            // remove() pass - otherwise we'd strip the nested macro's params
+                            // before its own handler runs.
+                            def admonTitleParam = element.children().find {
+                                it.tagName() == 'ac:parameter' && it.attr('ac:name') == 'title'
+                            }
+                            def admonTitle = admonTitleParam?.text() ?: ''
                             def admonType = [
                                     'info'   : 'NOTE',
                                     'warning': 'WARNING',
                                     'note'   : 'CAUTION',
                                     'tip'    : 'TIP'][macroName]
-                            // NB: placeholder tokens use '-' as separator, never '_'.
-                            // Pandoc's AsciiDoc writer escapes underscores as "++_++" (to
-                            // guard against inline-italic collisions), which would break
-                            // any regex that expects an intact underscore.
+                            // placeholder tokens use '-' as separator; pandoc escapes '_' as '++_++'
                             def admonTitlePart = admonTitle ? "\n<p>%%ADMON-TITLE%%${admonTitle.trim()}%%ADMON-TITLE-END%%</p>\n" : ""
                             element.before(admonTitlePart + "<p>%%ADMON-BEGIN-${admonType}%%</p>\n")
                             element.after("\n<p>%%ADMON-END%%</p>")
-                            // mark headings inside the body as [discrete]
                             element.select("ac|rich-text-body").first()?.select("h1,h2,h3,h4,h5,h6")?.each { h ->
                                 h.before("<p>%%DISCRETE%%</p>")
                             }
                             def admonBody = element.select("ac|rich-text-body").first()
                             if (admonBody) admonBody.unwrap()
-                            element.select("ac|parameter").each { it.remove() }
+                            element.children().findAll { it.tagName() == 'ac:parameter' }.each { it.remove() }
                             element.unwrap()
                             break
                         case 'expand':
-                            // arc42 templates (and others) use `expand` for collapsible
-                            // sections. Map to AsciiDoc's `[%collapsible]` block. Same
-                            // placeholder + DOM-preserving technique as admonitions.
-                            def expandTitle = element.select("ac|parameter[ac:name=title]").text()
+                            // arc42 templates use `expand` for collapsible sections.
+                            // Same DOM-preserving + direct-children treatment as admonitions.
+                            def expandTitleParam = element.children().find {
+                                it.tagName() == 'ac:parameter' && it.attr('ac:name') == 'title'
+                            }
+                            def expandTitle = expandTitleParam?.text() ?: ''
                             def expandTitlePart = expandTitle ? "\n<p>%%EXPAND-TITLE%%${expandTitle.trim()}%%EXPAND-TITLE-END%%</p>\n" : ""
                             element.before(expandTitlePart + "<p>%%EXPAND-BEGIN%%</p>\n")
                             element.after("\n<p>%%EXPAND-END%%</p>")
                             def expandBody = element.select("ac|rich-text-body").first()
                             if (expandBody) expandBody.unwrap()
-                            element.select("ac|parameter").each { it.remove() }
+                            element.children().findAll { it.tagName() == 'ac:parameter' }.each { it.remove() }
                             element.unwrap()
                             break
                         case 'anchor':
+                            // Same placeholder technique as captioneditem's anchor - pandoc
+                            // would otherwise escape "[[anchor]]" to "++[[++anchor++]]++".
                             def anchor = element.select("ac|parameter").text()
-                            element.html("\n<span>[[${anchor}]]<span>\n")
-                            element.unwrap()
+                            if (anchor) {
+                                element.before("\n<p>%%ANCHOR%%${anchor}%%ANCHOR-END%%</p>\n")
+                            }
+                            element.remove()
                             break
                         case ['code', 'paste-code-macro']:
                             def language = element.select("ac|parameter[ac:name=language]").text()
@@ -564,9 +589,18 @@ ifndef::imagesdir[:imagesdir: {jbake-root}images]
             .replaceAll(/\s*%%ADMON-BEGIN-(\w+)%%\s*/, '\n\n[$1]\n====\n\n')
             .replaceAll(/\s*%%ADMON-END%%\s*/, '\n\n====\n\n')
             .replaceAll(/\s*%%EXPAND-TITLE%%([\s\S]*?)%%EXPAND-TITLE-END%%\s*/, '\n\n.$1\n')
-            .replaceAll(/\s*%%EXPAND-BEGIN%%\s*/, '\n[%collapsible]\n====\n\n')
-            .replaceAll(/\s*%%EXPAND-END%%\s*/, '\n\n====\n\n')
+            // Collapsible delimiter is 6 equals ("======") while admonitions use 4
+            // ("===="). This lets a collapsible wrap an admonition without the
+            // inner delimiter prematurely closing the outer block.
+            .replaceAll(/\s*%%EXPAND-BEGIN%%\s*/, '\n[%collapsible]\n======\n\n')
+            .replaceAll(/\s*%%EXPAND-END%%\s*/, '\n\n======\n\n')
             .replaceAll(/\s*%%DISCRETE%%\s*/, '\n\n[discrete]\n')
+            // Anchor placeholder -> AsciiDoc block anchor. We also strip any
+            // "++_++" that pandoc might have injected inside the name itself
+            // (only triggered if the anchor contains underscores).
+            .replaceAll(/\s*%%ANCHOR%%([^%]+)%%ANCHOR-END%%\s*/) { full, name ->
+                "\n[[${name.replaceAll('\\+\\+_\\+\\+', '_')}]]\n"
+            }
     // Status badge placeholder -> AsciiDoc inline role. Closure so we can
     // lowercase the colour for a stable CSS class.
     adoc = adoc.replaceAll(/%%STATUS-BEGIN-(\w+)%%([\s\S]*?)%%STATUS-END%%/) { full, colour, title ->
