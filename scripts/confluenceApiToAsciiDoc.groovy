@@ -389,25 +389,21 @@ def writeUint32BE = { java.io.ByteArrayOutputStream out, int value ->
     out.write(value & 0xFF)
 }
 
-// Build an iTXt chunk (uncompressed) for the given keyword + UTF-8 text.
-// iTXt chunk payload layout:
+// Build a tEXt chunk for the given keyword + Latin-1 text.
+// tEXt chunk payload layout:
 //   keyword (Latin-1) NUL
-//   compression flag (1 byte; 0 = uncompressed)
-//   compression method (1 byte; ignored when uncompressed)
-//   language tag (Latin-1) NUL          (empty here)
-//   translated keyword (UTF-8) NUL      (empty here)
-//   text (UTF-8)
-def buildITxtChunk = { String keyword, String text ->
+//   text (Latin-1, no NUL bytes allowed)
+// We use tEXt (not iTXt) because drawio's Editor.extractGraphModelFromPng
+// only reads tEXt and zTXt - iTXt chunks are ignored. The text is expected
+// to be JavaScript-style URL-encoded XML, which is pure ASCII and therefore
+// Latin-1-safe.
+def buildTextChunk = { String keyword, String text ->
     def payload = new java.io.ByteArrayOutputStream()
-    payload.write(keyword.getBytes('US-ASCII'))
+    payload.write(keyword.getBytes('ISO-8859-1'))
     payload.write(0)
-    payload.write(0)
-    payload.write(0)
-    payload.write(0)
-    payload.write(0)
-    payload.write(text.getBytes('UTF-8'))
+    payload.write(text.getBytes('ISO-8859-1'))
     def data = payload.toByteArray()
-    def type = 'iTXt'.getBytes('US-ASCII')
+    def type = 'tEXt'.getBytes('US-ASCII')
     def chunkOut = new java.io.ByteArrayOutputStream()
     writeUint32BE(chunkOut, data.length)
     chunkOut.write(type)
@@ -419,6 +415,20 @@ def buildITxtChunk = { String keyword, String text ->
     return chunkOut.toByteArray()
 }
 
+// JavaScript encodeURIComponent equivalent. Java's URLEncoder follows the
+// application/x-www-form-urlencoded spec, which differs from
+// encodeURIComponent in a handful of characters - fix them up so drawio's
+// decodeURIComponent round-trips the value exactly.
+def encodeURIComponent = { String s ->
+    java.net.URLEncoder.encode(s, 'UTF-8')
+            .replace('+', '%20')
+            .replace('%21', '!')
+            .replace('%27', "'")
+            .replace('%28', '(')
+            .replace('%29', ')')
+            .replace('%7E', '~')
+}
+
 def pngSignature = [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A] as byte[]
 
 def embedXmlInPng = { byte[] pngBytes, String xmlContent ->
@@ -428,6 +438,12 @@ def embedXmlInPng = { byte[] pngBytes, String xmlContent ->
             throw new IllegalArgumentException("Not a PNG (bad signature)")
         }
     }
+    // Strip a UTF-8 BOM so the XML parses cleanly.
+    def cleanXml = xmlContent
+    if (cleanXml.length() > 0 && cleanXml.charAt(0) == 0xFEFF as char) {
+        cleanXml = cleanXml.substring(1)
+    }
+    def xmlChunk = buildTextChunk('mxfile', encodeURIComponent(cleanXml))
     def out = new java.io.ByteArrayOutputStream()
     out.write(pngBytes, 0, 8)
     int pos = 8
@@ -436,8 +452,12 @@ def embedXmlInPng = { byte[] pngBytes, String xmlContent ->
         int length = readUint32BE(pngBytes, pos)
         String type = new String(pngBytes, pos + 4, 4, 'US-ASCII')
         int chunkTotal = 12 + length
-        if (type == 'IEND' && !inserted) {
-            out.write(buildITxtChunk('mxfile', xmlContent))
+        // Insert BEFORE the first IDAT (drawio's reader stops scanning chunks
+        // at IDAT, so tEXt chunks placed after IDAT are never picked up).
+        // Fall back to inserting before IEND in the unlikely case of a PNG
+        // without any IDAT chunks.
+        if (!inserted && (type == 'IDAT' || type == 'IEND')) {
+            out.write(xmlChunk)
             inserted = true
         }
         out.write(pngBytes, pos, chunkTotal)
