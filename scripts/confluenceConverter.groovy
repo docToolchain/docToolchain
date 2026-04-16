@@ -129,12 +129,13 @@ fixBody = { String pageId, String body, Map users, Map pages, Map attachments, M
             cell.empty()
         }
     }
-    // Convert row-header cells (`<th scope="row">`) to regular data cells with
-    // bold content, so pandoc doesn't infer a column-header row. Confluence's
-    // metadata tables (Status / Author / Date ...) put each label in a
-    // <th scope="row">, which AsciiDoc otherwise renders as a full header row
-    // via `[options="header"]` or styled column.
-    dom.select("th[scope=row]").each { th ->
+    // Convert <th> cells outside of an explicit <thead> to regular data cells
+    // with bold content. Confluence's metadata tables (Status / Author / Date)
+    // put each row-label in a <th scope="row">, which would otherwise render
+    // as a column-header row in AsciiDoc (bold/grey first row). Only <th>
+    // inside <thead> keeps its header semantics.
+    dom.select("th").each { th ->
+        if (th.parents().any { it.tagName() == 'thead' }) return
         def inner = th.html()
         th.tagName("td")
         th.removeAttr("scope")
@@ -278,19 +279,26 @@ fixBody = { String pageId, String body, Map users, Map pages, Map attachments, M
                             // The `details` macro wraps a table of page metadata
                             // (Status / Author / Date etc.). The table itself converts
                             // fine through pandoc, so we just strip the macro wrapper.
+                            // Use DIRECT children for parameter removal - otherwise we'd
+                            // strip parameters of nested macros (especially `status`
+                            // inside the metadata table), breaking those handlers.
                             def detailsBody = element.select("ac|rich-text-body").first()
                             if (detailsBody) detailsBody.unwrap()
-                            element.select("ac|parameter").each { it.remove() }
+                            element.children().findAll { it.tagName() == 'ac:parameter' }.each { it.remove() }
                             element.unwrap()
                             break
                         case 'status':
                             // Inline coloured status badge (e.g. Yellow "wip"). AsciiDoc
                             // has no built-in coloured-label; we emit an inline role
                             // `[.status.<lowercase-colour>]#<title>#` so themes can style
-                            // it. Placeholders again, to keep the square brackets out of
-                            // pandoc's escape treatment.
-                            def statusColour = (element.select("ac|parameter[ac:name=colour]").text() ?: 'Grey')
-                            def statusTitle  = element.select("ac|parameter[ac:name=title]").text() ?: ''
+                            // it. Placeholders keep the square brackets out of pandoc's
+                            // escape treatment.
+                            def statusColour = (element.children().find {
+                                it.tagName() == 'ac:parameter' && it.attr('ac:name') == 'colour'
+                            }?.text()) ?: 'Grey'
+                            def statusTitle = (element.children().find {
+                                it.tagName() == 'ac:parameter' && it.attr('ac:name') == 'title'
+                            }?.text()) ?: ''
                             if (statusTitle) {
                                 // No <span> wrapper: pandoc sometimes drops raw <span>s
                                 // inside tables, hiding our placeholder. Emitting as a
@@ -582,30 +590,42 @@ ifndef::imagesdir[:imagesdir: {jbake-root}images]
             .replaceAll("\u00A0", "{nbsp}")
             .replaceAll("(?sm)^ [+] *\$", "")
             .replaceAll("%7Bfilepath%7D", "{filepath}")
-            // Admonition / expand / status placeholders - use '-' (not '_') as a
-            // separator because pandoc's AsciiDoc writer escapes '_' as '++_++',
-            // breaking any regex that looks for an underscore.
-            .replaceAll(/\s*%%ADMON-TITLE%%([\s\S]*?)%%ADMON-TITLE-END%%\s*/, '\n\n.$1\n')
-            .replaceAll(/\s*%%ADMON-BEGIN-(\w+)%%\s*/, '\n\n[$1]\n====\n\n')
-            .replaceAll(/\s*%%ADMON-END%%\s*/, '\n\n====\n\n')
-            .replaceAll(/\s*%%EXPAND-TITLE%%([\s\S]*?)%%EXPAND-TITLE-END%%\s*/, '\n\n.$1\n')
-            // Collapsible delimiter is 6 equals ("======") while admonitions use 4
-            // ("===="). This lets a collapsible wrap an admonition without the
-            // inner delimiter prematurely closing the outer block.
-            .replaceAll(/\s*%%EXPAND-BEGIN%%\s*/, '\n[%collapsible]\n======\n\n')
-            .replaceAll(/\s*%%EXPAND-END%%\s*/, '\n\n======\n\n')
+            // Placeholders use '-' (not '_') as separator - pandoc's AsciiDoc writer
+            // escapes '_' as '++_++' (guard against inline-italic collisions), which
+            // would break any regex looking for intact underscores.
             .replaceAll(/\s*%%DISCRETE%%\s*/, '\n\n[discrete]\n')
-            // Anchor placeholder -> AsciiDoc block anchor. We also strip any
-            // "++_++" that pandoc might have injected inside the name itself
-            // (only triggered if the anchor contains underscores).
-            .replaceAll(/\s*%%ANCHOR%%([^%]+)%%ANCHOR-END%%\s*/) { full, name ->
-                "\n[[${name.replaceAll('\\+\\+_\\+\\+', '_')}]]\n"
-            }
+    // Admonition and expand: match an optional TITLE placeholder immediately
+    // followed by the BEGIN placeholder, so we can both (a) guarantee a blank
+    // line BEFORE the block and (b) keep the ".title" line directly attached
+    // to the block attribute (no blank line between, which AsciiDoc needs for
+    // the title to stick). Admonitions use 4-char "====", collapsibles use
+    // 6-char "======" so nesting works both ways.
+    adoc = adoc.replaceAll(/\s*(?:%%ADMON-TITLE%%([\s\S]*?)%%ADMON-TITLE-END%%\s*)?%%ADMON-BEGIN-(\w+)%%\s*/) { full, title, type ->
+        def titleLine = (title && title.trim()) ? ".${title.trim()}\n" : ""
+        "\n\n${titleLine}[${type}]\n====\n\n"
+    }
+    adoc = adoc.replaceAll(/\s*%%ADMON-END%%\s*/, '\n\n====\n\n')
+    adoc = adoc.replaceAll(/\s*(?:%%EXPAND-TITLE%%([\s\S]*?)%%EXPAND-TITLE-END%%\s*)?%%EXPAND-BEGIN%%\s*/) { full, title ->
+        def titleLine = (title && title.trim()) ? ".${title.trim()}\n" : ""
+        "\n\n${titleLine}[%collapsible]\n======\n\n"
+    }
+    adoc = adoc.replaceAll(/\s*%%EXPAND-END%%\s*/, '\n\n======\n\n')
+    // Anchor placeholder -> AsciiDoc block anchor. Also cleans up any "++_++"
+    // pandoc may have injected into underscore-containing anchor names.
+    adoc = adoc.replaceAll(/\s*%%ANCHOR%%([^%]+)%%ANCHOR-END%%\s*/) { full, name ->
+        "\n[[${name.replaceAll('\\+\\+_\\+\\+', '_')}]]\n"
+    }
     // Status badge placeholder -> AsciiDoc inline role. Closure so we can
     // lowercase the colour for a stable CSS class.
     adoc = adoc.replaceAll(/%%STATUS-BEGIN-(\w+)%%([\s\S]*?)%%STATUS-END%%/) { full, colour, title ->
         "[.status.${colour.toLowerCase()}]#${title.trim()}#"
     }
+    // Pandoc always emits "image:foo[]" (inline image syntax) even when the
+    // image is on its own line. AsciiDoc needs "image::foo[]" (block image)
+    // for standalone figures, so promote any line whose sole content is
+    // image:... to the block form. Inline images embedded in text are left
+    // untouched because the regex is anchored to start-of-line.
+    adoc = adoc.replaceAll(/(?m)^(\s*)image:(?!:)/, '$1image::')
     println(pages[pageId].title)
     def linkedAttachments = "\n"
     if (adoc.contains('%%attachments%%')) {
