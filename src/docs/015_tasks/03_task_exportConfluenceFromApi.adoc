@@ -155,6 +155,11 @@ Recommended when using `rootPageTitle`.
 | `false`
 | Set to `true` to also write each page's raw Confluence storage-format body to `<destDir>/<folderStructure>/<filename>.xhtml`, next to the generated `.adoc`.
 Useful for diagnosing conversion artefacts - you can compare the XHTML input against the AsciiDoc output side by side.
+
+| `confluence.export.api.stripChapterNumbering`
+| `true`
+| When `true`, strips hand-written numeric chapter prefixes like `5.2.4. ` from heading text so AsciiDoc's `:sectnums:` can take over.
+Set to `false` to preserve the original Confluence numbering verbatim.
 |===
 
 `-Pconfluence.export.api.<name>=<value>` overrides each config key on the command line.

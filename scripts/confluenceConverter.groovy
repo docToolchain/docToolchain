@@ -29,6 +29,12 @@ if (!binding.variables.containsKey('unknownTagsStats')) {
 if (!binding.variables.containsKey('lucidChartsIframe')) {
     lucidChartsIframe = false
 }
+// Strip leading chapter numbers ("5.2.4. Title" -> "Title") from headings.
+// AsciiDoc can re-add its own numbering via :sectnums: if desired, so by default
+// we remove the hand-written prefix Confluence often carries forward.
+if (!binding.variables.containsKey('stripChapterNumbering')) {
+    stripChapterNumbering = true
+}
 
 // get the folder structure for the current page through the page structure information
 getFolderStructure = { Map pages, String pageId ->
@@ -95,7 +101,7 @@ sanitizeFilename = { String title ->
 }
 
 // takes confluence xHTML storage format and fixes some issues to be better converted by pandoc
-fixBody = { String pageId, String body, Map users, Map pages, Map space ->
+fixBody = { String pageId, String body, Map users, Map pages, Map attachments, Map space ->
     body = body
     // it seems to be a bug how CDATA sections are closed in the xHTML
             .replaceAll("]] ><", "]]><")
@@ -186,27 +192,97 @@ fixBody = { String pageId, String body, Map users, Map pages, Map space ->
                     // ignore, part of link
                     break
                 case "ac:inline-comment-marker":
-                    // ignore - not supported
+                    // inline comment markers wrap text with no visible markup; unwrap so
+                    // the underlying text survives but the tag doesn't leak into the output
+                    element.unwrap()
                     break
                 case ["ac:layout",
                       "ac:layout-section",
-                      "ac:layout-cell",
-                      "ac:placeholder"
+                      "ac:layout-cell"
                 ]:
-                    // multi-column layouts are not easily converted - ignore
+                    // multi-column layouts have no HTML equivalent; keep children, drop the
+                    // wrapper so pandoc doesn't see unknown tags in the input
+                    element.unwrap()
+                    break
+                case "ac:placeholder":
+                    // empty placeholder, no content worth keeping
+                    element.remove()
                     break
                 case "ac:structured-macro":
                     def macroName = element.attr("ac:name")
                     switch (macroName) {
-                        case ["drawio",
-                              "excerpt-include",
-                              "panel",
-                        ]:
-                            // ignore - not supported
+                        case 'drawio':
+                            // The drawio macro is rendered by the Confluence plugin at view
+                            // time; the storage format only carries macro parameters. We
+                            // look up the matching PNG attachment (Confluence stores it
+                            // alongside the XML under the name "<diagramName>.png") to emit
+                            // a regular image reference. If no match is found, the macro is
+                            // silently dropped so its parameter text doesn't leak into the
+                            // output.
+                            def diagramName = element.select("ac|parameter[ac:name=diagramName]").text()
+                            def diagramWidth = element.select("ac|parameter[ac:name=diagramWidth]").text()
+                            if (diagramName) {
+                                def expectedPng = diagramName + ".png"
+                                def att = attachments.find {
+                                    it.value.pageId == pageId && it.value.filename == expectedPng
+                                }?.value
+                                def version = att?.version ?: '1'
+                                def widthAttr = diagramWidth ? " width='${diagramWidth}'" : ""
+                                element.before("<img src='{filepath}/${version}_${expectedPng.replaceAll(':', '_')}'${widthAttr} />")
+                            }
+                            element.remove()
                             break
-                        case ["expand",
-                              "expandable-comment",
+                        case 'captioneditem':
+                            // Wraps content (typically an image or drawio) with an anchor
+                            // and optional caption. Keep the inner body, promote the anchor
+                            // to an AsciiDoc block anchor via the existing anchor pattern.
+                            def captionedAnchor = element.select("ac|parameter[ac:name=anchor]").text()
+                            def captionedInner = element.select("ac|rich-text-body").html()
+                            def captionedPrefix = captionedAnchor ? "\n<span>[[${captionedAnchor}]]</span>\n" : ""
+                            element.before(captionedPrefix + captionedInner)
+                            element.remove()
+                            break
+                        case 'details':
+                            // The `details` macro wraps a table of page metadata
+                            // (Status / Author / Date etc.). The table itself converts
+                            // fine through pandoc, so we just strip the macro wrapper.
+                            def detailsBody = element.select("ac|rich-text-body").first()
+                            if (detailsBody) detailsBody.unwrap()
+                            element.select("ac|parameter").each { it.remove() }
+                            element.unwrap()
+                            break
+                        case 'status':
+                            // Inline coloured status badge (e.g. Yellow "wip"). AsciiDoc
+                            // has no built-in coloured-label; we emit an inline role
+                            // `[.status.<lowercase-colour>]#<title>#` so themes can style
+                            // it. Placeholders again, to keep the square brackets out of
+                            // pandoc's escape treatment.
+                            def statusColour = (element.select("ac|parameter[ac:name=colour]").text() ?: 'Grey')
+                            def statusTitle  = element.select("ac|parameter[ac:name=title]").text() ?: ''
+                            if (statusTitle) {
+                                element.before("<span>%%STATUS_${statusColour}%%${statusTitle}%%STATUS_END%%</span>")
+                            }
+                            element.remove()
+                            break
+                        case 'contributors':
+                            // Renders the list of contributors for this page. The API
+                            // driver populates pages[pageId].contributors via the
+                            // history.contributors.publishers expand; the XML driver
+                            // currently leaves it empty.
+                            def names = pages[pageId]?.contributors ?: []
+                            if (names) {
+                                element.before("<span>${names.join(', ')}</span>")
+                            }
+                            element.remove()
+                            break
+                        case ["excerpt-include",
+                              "panel",
+                              "expandable-comment"
                         ]:
+                            // not supported - drop the macro (including children, to avoid
+                            // leaking ac:parameter text into the output). `expand` is
+                            // handled separately above so we keep its body.
+                            element.remove()
                             break
                         case ["view-file"]:
                             def filename = element.select(["ri|attachment"]).attr("ri:filename")
@@ -295,20 +371,43 @@ ${lucidInfos.replaceAll("\n", "%%CRLF%%")}
                               'warning',
                               'note'
                         ]:
-                            body = element.select("ac|rich-text-body").html()
-                            def type = [
+                            // Admonitions need [TYPE] and ==== as block attribute / delimiter
+                            // lines in the AsciiDoc output, but pandoc escapes literal "[" and
+                            // "]" in HTML text as "++[++" / "++]++". We therefore emit unique
+                            // placeholders here and substitute them in writePage AFTER pandoc
+                            // has run. Also: instead of rewriting the body as a string (which
+                            // would detach any nested ac: macros and skip them in the outer
+                            // iteration), we manipulate the DOM so nested drawio/image/etc.
+                            // stay in place.
+                            def admonTitle = element.select("ac|parameter[ac:name=title]").text()
+                            def admonType = [
                                     'info'   : 'NOTE',
                                     'warning': 'WARNING',
                                     'note'   : 'CAUTION',
                                     'tip'    : 'TIP'][macroName]
-                            element.html("""
-    <div class="admonition-wrapper">
-    [${type}]%%CRLF%%
-    ====%%CRLF%%
-    ${body.replaceAll("<h([1-9])>", "<h\$1>[discrete]")}%%CRLF%%
-    ====%%CRLF%%
-    </div>
-    """)
+                            def admonTitlePart = admonTitle ? "\n<p>%%ADMON_TITLE%%${admonTitle.trim()}%%ADMON_TITLE_END%%</p>\n" : ""
+                            element.before(admonTitlePart + "<p>%%ADMON_BEGIN_${admonType}%%</p>\n")
+                            element.after("\n<p>%%ADMON_END%%</p>")
+                            // mark headings inside the body as [discrete]
+                            element.select("ac|rich-text-body").first()?.select("h1,h2,h3,h4,h5,h6")?.each { h ->
+                                h.before("<p>%%DISCRETE%%</p>")
+                            }
+                            def admonBody = element.select("ac|rich-text-body").first()
+                            if (admonBody) admonBody.unwrap()
+                            element.select("ac|parameter").each { it.remove() }
+                            element.unwrap()
+                            break
+                        case 'expand':
+                            // arc42 templates (and others) use `expand` for collapsible
+                            // sections. Map to AsciiDoc's `[%collapsible]` block. Same
+                            // placeholder + DOM-preserving technique as admonitions.
+                            def expandTitle = element.select("ac|parameter[ac:name=title]").text()
+                            def expandTitlePart = expandTitle ? "\n<p>%%EXPAND_TITLE%%${expandTitle.trim()}%%EXPAND_TITLE_END%%</p>\n" : ""
+                            element.before(expandTitlePart + "<p>%%EXPAND_BEGIN%%</p>\n")
+                            element.after("\n<p>%%EXPAND_END%%</p>")
+                            def expandBody = element.select("ac|rich-text-body").first()
+                            if (expandBody) expandBody.unwrap()
+                            element.select("ac|parameter").each { it.remove() }
                             element.unwrap()
                             break
                         case 'anchor':
@@ -360,6 +459,11 @@ ${lucidInfos.replaceAll("\n", "%%CRLF%%")}
             .replaceAll("<strong><br /></strong>", "<br />")
             .replaceAll("<div><div class=\"title\">([^<]+)</div></div>", ".\$1")
             .replaceAll("<strong><br />[.]([^<]+)</strong>", ".\$1")
+    // Optionally strip hand-written chapter numbering from heading opens:
+    //   "<h1>5.2.4. Title ..." -> "<h1>Title ..."
+    if (stripChapterNumbering) {
+        html = html.replaceAll(/(<h[1-9](?:\s[^>]*)?>)\s*\d+(?:\.\d+)*\.?\s+/, '$1')
+    }
     return [html, unknownTags]
 }
 
@@ -376,7 +480,7 @@ writePage = { String pageId, String rawBody, List<String> childIds,
         new File(destDir, folderStructure.join("/")).mkdirs()
     }
     def outFile = new File(destDir, deepFilename + ".html")
-    def (String body, List uTags) = fixBody(pageId, rawBody ?: '', users, pages, space)
+    def (String body, List uTags) = fixBody(pageId, rawBody ?: '', users, pages, attachments, space)
 
     outFile.write(body, 'utf-8')
 
@@ -429,6 +533,23 @@ ifndef::imagesdir[:imagesdir: {jbake-root}images]
             .replaceAll("\u00A0", "{nbsp}")
             .replaceAll("(?sm)^ [+] *\$", "")
             .replaceAll("%7Bfilepath%7D", "{filepath}")
+            // Admonition placeholders emitted by fixBody (see the 'info/note/tip/warning'
+            // case). Done *after* pandoc so the [TYPE] and ==== lines don't get escaped.
+            .replaceAll(/\s*%%ADMON_TITLE%%([\s\S]*?)%%ADMON_TITLE_END%%\s*/, '\n\n.$1\n')
+            .replaceAll(/\s*%%ADMON_BEGIN_(\w+)%%\s*/, '\n\n[$1]\n====\n\n')
+            .replaceAll(/\s*%%ADMON_END%%\s*/, '\n\n====\n\n')
+            // Collapsible (`expand`) placeholders -> AsciiDoc [%collapsible] block.
+            .replaceAll(/\s*%%EXPAND_TITLE%%([\s\S]*?)%%EXPAND_TITLE_END%%\s*/, '\n\n.$1\n')
+            .replaceAll(/\s*%%EXPAND_BEGIN%%\s*/, '\n[%collapsible]\n====\n\n')
+            .replaceAll(/\s*%%EXPAND_END%%\s*/, '\n\n====\n\n')
+            // Discrete heading marker (used inside admonitions so headings don't
+            // break the enclosing ==== block).
+            .replaceAll(/\s*%%DISCRETE%%\s*/, '\n\n[discrete]\n')
+    // Status badge placeholder -> AsciiDoc inline role. Done with a closure so
+    // we can lowercase the colour name for a stable CSS class.
+    adoc = adoc.replaceAll(/%%STATUS_(\w+)%%([\s\S]*?)%%STATUS_END%%/) { full, colour, title ->
+        "[.status.${colour.toLowerCase()}]#${title.trim()}#"
+    }
     println(pages[pageId].title)
     def linkedAttachments = "\n"
     if (adoc.contains('%%attachments%%')) {

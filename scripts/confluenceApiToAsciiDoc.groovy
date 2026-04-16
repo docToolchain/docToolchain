@@ -72,13 +72,17 @@ int pageLimit = (apiArgs.pageLimit ?: config.confluence.pageLimit ?: 100) as int
 double rateLimitPerSecond = (config.confluence.rateLimit ?: 10) as double
 boolean downloadAttachments = (apiArgs.downloadAttachments ?: 'true').toString().toBoolean()
 boolean saveRawXhtml         = (apiArgs.saveRawXhtml ?: 'false').toString().toBoolean()
+// Override the shared converter's default (true). This must be set on the
+// binding (no `def`) so the fixBody closure in confluenceConverter.groovy sees it.
+stripChapterNumbering = (apiArgs.stripChapterNumbering ?: 'true').toString().toBoolean()
 
-println "API:          ${baseUrl}"
-println "destDir:      ${destDir.canonicalPath}"
-println "rootPageId:   ${rootPageId ?: '(resolving from title)'}"
-println "rootTitle:    ${rootPageTitle ?: '(not set)'}"
-println "spaceKey:     ${spaceKey ?: '(not set)'}"
-println "saveRawXhtml: ${saveRawXhtml}"
+println "API:                   ${baseUrl}"
+println "destDir:               ${destDir.canonicalPath}"
+println "rootPageId:            ${rootPageId ?: '(resolving from title)'}"
+println "rootTitle:             ${rootPageTitle ?: '(not set)'}"
+println "spaceKey:              ${spaceKey ?: '(not set)'}"
+println "saveRawXhtml:          ${saveRawXhtml}"
+println "stripChapterNumbering: ${stripChapterNumbering}"
 
 // --- tiny authenticated REST helper (stdlib only, no new deps) ---
 // Throttles to config.confluence.rateLimit (default 10/s) across all calls.
@@ -198,9 +202,18 @@ if (!rootPageId && rootPageTitle) {
     println "Resolved rootPageTitle '${rootPageTitle}' to rootPageId '${rootPageId}'"
 }
 
-// Fetch a single page (with body.storage). Returns the parsed JSON or null.
+// Fetch a single page (with body.storage, version metadata, space, ancestors,
+// and contributor history so the `contributors` macro can render names).
 def fetchPage = { String id ->
-    def url = apiPath("/content/${id}") + "?expand=body.storage,version,space,ancestors"
+    def expand = [
+            'body.storage',
+            'version',
+            'space',
+            'ancestors',
+            'history.createdBy',
+            'history.contributors.publishers.users'
+    ].join(',')
+    def url = apiPath("/content/${id}") + "?expand=${expand}"
     return restGet(url)
 }
 
@@ -278,12 +291,22 @@ while (!queue.isEmpty()) {
     String title = pageData.title
     String filename = sanitizeFilename(title)
     String body = pageData.body?.storage?.value ?: ''
+    // Collect display names for the `contributors` macro. createdBy first,
+    // then any additional publishers (de-duplicated, original order preserved).
+    def contribNames = []
+    def creator = pageData.history?.createdBy?.displayName
+    if (creator) contribNames << creator
+    pageData.history?.contributors?.publishers?.users?.each { user ->
+        def dn = user?.displayName
+        if (dn && !contribNames.contains(dn)) contribNames << dn
+    }
     pages[pid] = [
-            title   : title,
-            parentId: entry.parentId,
-            filename: filename,
-            position: entry.position.toString(),
-            status  : 'current'
+            title       : title,
+            parentId    : entry.parentId,
+            filename    : filename,
+            position    : entry.position.toString(),
+            status      : 'current',
+            contributors: contribNames
     ]
     bodies[pid] = body
     println "page: ${pid} - ${title}"

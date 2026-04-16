@@ -28,6 +28,7 @@ task exportConfluenceFromApi (
         def pageLimit     = findProperty("confluence.export.api.pageLimit")     ?: (config.confluence.export.api?.pageLimit         ?: null)
         def downloadAttachments = findProperty("confluence.export.api.downloadAttachments") ?: (config.confluence.export.api?.downloadAttachments ?: 'true')
         def saveRawXhtml        = findProperty("confluence.export.api.saveRawXhtml")        ?: (config.confluence.export.api?.saveRawXhtml        ?: 'false')
+        def stripChapterNumbering = findProperty("confluence.export.api.stripChapterNumbering") ?: (config.confluence.export.api?.stripChapterNumbering ?: 'true')
 
         // confluence.api / credentials / bearerToken are already resolved by AsciiDocBasics.gradle
         config.confluence.api = findProperty("confluence.api") ?: config.confluence.api
@@ -46,6 +47,7 @@ task exportConfluenceFromApi (
         if (pageLimit)     argsList << "pageLimit=${pageLimit}".toString()
         if (downloadAttachments != null) argsList << "downloadAttachments=${downloadAttachments}".toString()
         if (saveRawXhtml != null)        argsList << "saveRawXhtml=${saveRawXhtml}".toString()
+        if (stripChapterNumbering != null) argsList << "stripChapterNumbering=${stripChapterNumbering}".toString()
 
         String[] args = argsList as String[]
         logger.info("args: " + args)

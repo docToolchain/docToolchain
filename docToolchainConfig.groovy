@@ -294,7 +294,11 @@ confluence.with {
                     // saveRawXhtml: true writes each page's raw Confluence storage-format
                     // body next to the generated .adoc (as <filename>.xhtml). Useful for
                     // diagnosing conversion issues; off by default.
-                    saveRawXhtml: false
+                    saveRawXhtml: false,
+                    // stripChapterNumbering removes hand-written numeric prefixes like
+                    // "5.2.4. " from heading text, so AsciiDoc's own :sectnums: can take
+                    // over. Set to false to preserve the original Confluence numbering.
+                    stripChapterNumbering: true
             ]
     ]
 }
