@@ -1,0 +1,210 @@
+:filename: 015_tasks/03_task_exportConfluenceFromApi.adoc
+include::_config.adoc[]
+
+== exportConfluenceFromApi
+
+include::../_feedback.adoc[]
+
+=== About This Task
+
+This task exports a Confluence page tree (a chosen root page and all its descendants) to AsciiDoc by calling the Confluence REST API directly.
+
+Unlike xref:03_task_exportConfluence.adoc[exportConfluence], this task does *not* require:
+
+* Space administrator rights - ordinary read access to the pages is enough.
+* A pre-prepared XML space export - pages and attachments are fetched on the fly.
+
+It is the right choice when you only want a subtree (not a whole space), when XML export is disabled on your Confluence instance, or when you lack Space Admin permissions.
+
+[NOTE]
+====
+The task produces the same AsciiDoc output shape as `exportConfluence` (same file header, same folder layout, same `_menu.adoc`), so you can swap between the two approaches later if your access or scope changes.
+The shared conversion logic lives in `scripts/confluenceConverter.groovy`.
+====
+
+=== Prerequisites
+
+* docToolchain >= v3.5
+* https://pandoc.org[pandoc] installed and on the `PATH` (same requirement as `exportConfluence`)
+* A Confluence user account with read access to the root page and its descendants
+* An API token (Cloud) or personal access token / basic-auth password (Server / Data Center)
+
+=== Usage
+
+==== Configure the Confluence base URL and credentials
+
+The API base URL and credentials are shared with `publishToConfluence`.
+If you already publish to Confluence with docToolchain, you are done.
+
+[source, groovy]
+....
+confluence = [
+        api: 'https://<your-site>.atlassian.net/wiki'   // Cloud
+        // api: 'https://confluence.company.com'         // Server / DC at root context
+]
+....
+
+Credentials are passed on the command line (or via environment variables in CI):
+
+[source, bash]
+----
+# Cloud (email + API token) - pass as basic-auth
+./dtcw exportConfluenceFromApi \
+    -PconfluenceUser=you@example.com \
+    -PconfluencePass=<api-token> \
+    -Pconfluence.export.api.rootPageId=123456789
+
+# Server / DC using a personal access token
+./dtcw exportConfluenceFromApi \
+    -PconfluenceBearerToken=<pat> \
+    -Pconfluence.export.api.rootPageId=123456789
+----
+
+==== Configure the root page
+
+In `docToolchainConfig.groovy`, set the root page id or title:
+
+[source, groovy]
+....
+confluence = [
+        export: [
+                destDir: 'src/docs',
+                api: [
+                        rootPageId: '123456789',
+                        // or, alternatively:
+                        // rootPageTitle: 'My Section Root',
+                        // spaceKey: 'SPACEKEY',   // required if rootPageTitle is ambiguous
+                        pageLimit: 100,
+                        downloadAttachments: true
+                ]
+        ]
+]
+....
+
+You can find a page's numeric id by opening it in Confluence and copying it from the URL (for Cloud, the URL looks like `.../pages/<pageId>/Title`).
+
+==== Run the task
+
+[source, bash]
+----
+./dtcw exportConfluenceFromApi
+./dtcw generateSite
+----
+
+Or pass everything on the command line:
+
+[source, bash]
+----
+./dtcw exportConfluenceFromApi \
+    -Pconfluence.api=https://<site>.atlassian.net/wiki \
+    -Pconfluence.export.destDir=src/docs \
+    -Pconfluence.export.api.rootPageId=123456789 \
+    -PconfluenceUser=you@example.com \
+    -PconfluencePass=<api-token>
+----
+
+=== Configuration Reference
+
+[cols="1,1,3", options="header"]
+|===
+| Property | Default | Description
+
+| `confluence.api`
+| _(required)_
+| Base URL of your Confluence.
+Same value as used by `publishToConfluence`.
+
+| `confluence.credentials` or `confluence.bearerToken`
+| _(required)_
+| Auth.
+`credentials` is populated automatically from `-PconfluenceUser` + `-PconfluencePass`.
+`bearerToken` is populated from `-PconfluenceBearerToken`.
+
+| `confluence.rateLimit`
+| `10`
+| Maximum REST calls per second (applies to all Confluence tasks).
+
+| `confluence.export.destDir`
+| _(required)_
+| Where the AsciiDoc output is written.
+
+| `confluence.export.api.rootPageId`
+| _(required, unless title is set)_
+| The Confluence page id of the subtree root.
+
+| `confluence.export.api.rootPageTitle`
+| _(optional)_
+| Alternative to `rootPageId`.
+Resolved via CQL.
+Must match exactly one page or the task fails.
+
+| `confluence.export.api.spaceKey`
+| `confluence.spaceKey`
+| Narrows title lookup to one space.
+Recommended when using `rootPageTitle`.
+
+| `confluence.export.api.pageLimit`
+| `100`
+| Pagination size for `child/page` and `child/attachment` listings.
+
+| `confluence.export.api.downloadAttachments`
+| `true`
+| Set to `false` to skip binary attachment downloads (faster, but the output will reference missing files).
+|===
+
+`-Pconfluence.export.api.<name>=<value>` overrides each config key on the command line.
+
+=== How it works
+
+. The task resolves `rootPageId` (optionally via title lookup using CQL).
+. It fetches the root page (`GET /rest/api/content/<id>?expand=body.storage,version,space,ancestors`).
+. It walks the subtree breadth-first, calling `GET /rest/api/content/<id>/child/page` with pagination.
+. For each discovered page it fetches the body (`expand=body.storage`) and lists attachments (`GET /rest/api/content/<id>/child/attachment`).
+. Attachments are downloaded to `<destDir>/images/<folderStructure>/<version>_<filename>` (same layout as the XML exporter produces).
+. Pages are converted via the shared `confluenceConverter.groovy` pipeline (jsoup fixups + pandoc + AsciiDoc post-processing).
+. A top-level `_menu.adoc` navigation tree is generated from the collected pages.
+
+=== Supported Features
+
+Same feature set as xref:03_task_exportConfluence.adoc[exportConfluence], since both tasks share the converter:
+
+* all kinds of text formatting
+* image attachments (downloaded on the fly)
+* admonitions, anchors, .-titles
+* numbered and bulleted lists
+* code and literal blocks
+* standard tables, quotes
+* LucidChart diagram references
+* internal cross-space links (rewritten to `xref:`)
+
+=== Known Limitations
+
+* User profile macros show only the author name (atlassianAccountId is not resolved via a separate user lookup).
+* Page ordering (`position`) is assigned by the order the REST API returns children, which normally matches the Confluence UI order but is not guaranteed.
+* CQL title resolution requires an exact match.
+* Rate limiting is simple (fixed requests/second throttle).
+Bursts of 429 or 5xx get a single retry with `Retry-After`.
+Long-running exports against large trees may benefit from lowering `confluence.rateLimit`.
+
+=== Permission Requirements
+
+[cols="2,3", options="header"]
+|===
+| Capability | Needed permission
+
+| Read pages in the subtree | *Read* permission on the root page and its descendants (inherited per the space's permission model)
+| Download attachments | Same read permission - the task uses the attachment download links returned by the page-child API
+| List children / descendants | *Read* permission on each parent
+|===
+
+You do *not* need Space Administrator or Export Space permission for this task.
+
+=== Source
+
+:param_source_file: scripts/confluenceApiToAsciiDoc.groovy
+:param_source_language: groovy
+include::_viewTaskSource.adoc[]
+
+:param_source_file: scripts/confluenceConverter.groovy
+:param_source_language: groovy
+include::_viewTaskSource.adoc[]

@@ -272,10 +272,26 @@ confluence.with {
     // schema supports http and https
     // proxy = [host: 'my.proxy.com', port: 1234, schema: 'http']
 
-    // for exportConfluence-Task
+    // for exportConfluence-Task (XML-based space export)
     export = [
             srcDir: 'sample_data',
-            destDir: 'src/docs'
+            destDir: 'src/docs',
+            // Optional: restrict the XML export to one page and its descendants.
+            // Pick one of rootPageId / rootPageTitle; rootPageId wins if both are set.
+            // rootPageId: '123456789',
+            // rootPageTitle: 'My Section Root',
+
+            // for exportConfluenceFromApi-Task (REST API-based partial export)
+            // Does not need a pre-prepared XML export; needs only read access.
+            // rootPageId is required (copy it from a Confluence page URL);
+            // alternatively rootPageTitle + spaceKey may be used.
+            api: [
+                    // rootPageId: '123456789',
+                    // rootPageTitle: 'My Section Root',
+                    // spaceKey: 'SPACEKEY',
+                    pageLimit: 100,
+                    downloadAttachments: true
+            ]
     ]
 }
 //end::confluenceConfig[]

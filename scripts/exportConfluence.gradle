@@ -15,16 +15,24 @@ buildscript {
 }
 
 task exportConfluence (
-        description: 'exports a given confluence space to AsciiDoc',
+        description: 'exports a given confluence space (or a subtree) to AsciiDoc',
         group: 'docToolchain'
 ) {
     doLast {
         def srcDir  = findProperty("confluence.export.srcDir")?:config.confluence.export.srcDir
         def destDir = findProperty("confluence.export.destDir")?:config.confluence.export.destDir
-        String[] args = ["srcDir=${docDir}/$srcDir",
-                         "destDir=${docDir}/$destDir"]
+        // optional: restrict the export to the page with this id / title and all its descendants.
+        // empty ConfigObject (missing key) is falsy in Groovy, so `?: null` normalises to null.
+        def rootPageId    = findProperty("confluence.export.rootPageId")    ?: (config.confluence.export.rootPageId    ?: null)
+        def rootPageTitle = findProperty("confluence.export.rootPageTitle") ?: (config.confluence.export.rootPageTitle ?: null)
+        def argsList = ["srcDir=${docDir}/$srcDir",
+                        "destDir=${docDir}/$destDir"]
+        if (rootPageId)    argsList << "rootPageId=${rootPageId}".toString()
+        if (rootPageTitle) argsList << "rootPageTitle=${rootPageTitle}".toString()
+        String[] args = argsList as String[]
         logger.info ("args: "+args)
         binding.setProperty('args', args)
+        binding.setProperty('projectDir', projectDir)
         evaluate(new File(projectDir, 'scripts/confluenceToAsciiDoc.groovy'))
     }
 }

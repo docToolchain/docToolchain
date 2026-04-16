@@ -1,0 +1,55 @@
+buildscript {
+    repositories {
+        maven {
+            credentials {
+                username mavenUsername
+                password mavenPassword
+            }
+            url mavenRepository
+        }
+    }
+    dependencies {
+        classpath libs.jsoup
+        classpath libs.groovy.xml
+    }
+}
+
+task exportConfluenceFromApi (
+        description: 'exports a confluence page (and all its descendants) to AsciiDoc via the Confluence REST API',
+        group: 'docToolchain'
+) {
+    doLast {
+        // destDir falls back to the shared confluence.export.destDir so users who already
+        // configured exportConfluence can reuse the same output folder.
+        def destDir       = findProperty("confluence.export.destDir")           ?: (config.confluence.export.destDir                ?: null)
+        def rootPageId    = findProperty("confluence.export.api.rootPageId")    ?: (config.confluence.export.api?.rootPageId        ?: null)
+        def rootPageTitle = findProperty("confluence.export.api.rootPageTitle") ?: (config.confluence.export.api?.rootPageTitle     ?: null)
+        def spaceKey      = findProperty("confluence.export.api.spaceKey")      ?: (config.confluence.export.api?.spaceKey          ?: config.confluence.spaceKey ?: null)
+        def pageLimit     = findProperty("confluence.export.api.pageLimit")     ?: (config.confluence.export.api?.pageLimit         ?: null)
+        def downloadAttachments = findProperty("confluence.export.api.downloadAttachments") ?: (config.confluence.export.api?.downloadAttachments ?: 'true')
+
+        // confluence.api / credentials / bearerToken are already resolved by AsciiDocBasics.gradle
+        config.confluence.api = findProperty("confluence.api") ?: config.confluence.api
+
+        if (!destDir) {
+            throw new GradleException("confluence.export.destDir is not set. Configure it or pass -Pconfluence.export.destDir=...")
+        }
+        if (!rootPageId && !rootPageTitle) {
+            throw new GradleException("Either confluence.export.api.rootPageId or confluence.export.api.rootPageTitle must be set. Pass -Pconfluence.export.api.rootPageId=... or configure it in docToolchainConfig.groovy.")
+        }
+
+        List<String> argsList = ["destDir=${docDir}/${destDir}".toString()]
+        if (rootPageId)    argsList << "rootPageId=${rootPageId}".toString()
+        if (rootPageTitle) argsList << "rootPageTitle=${rootPageTitle}".toString()
+        if (spaceKey)      argsList << "spaceKey=${spaceKey}".toString()
+        if (pageLimit)     argsList << "pageLimit=${pageLimit}".toString()
+        if (downloadAttachments != null) argsList << "downloadAttachments=${downloadAttachments}".toString()
+
+        String[] args = argsList as String[]
+        logger.info("args: " + args)
+        binding.setProperty('args', args)
+        binding.setProperty('projectDir', projectDir)
+        binding.setProperty('config', config)
+        evaluate(new File(projectDir, 'scripts/confluenceApiToAsciiDoc.groovy'))
+    }
+}
