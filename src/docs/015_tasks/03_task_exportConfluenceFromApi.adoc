@@ -160,6 +160,12 @@ Useful for diagnosing conversion artefacts - you can compare the XHTML input aga
 | `true`
 | When `true`, strips hand-written numeric chapter prefixes like `5.2.4. ` from heading text so AsciiDoc's `:sectnums:` can take over.
 Set to `false` to preserve the original Confluence numbering verbatim.
+
+| `confluence.export.api.mergeDrawio`
+| `true`
+| Merges drawio XML + PNG attachment pairs into a single `<base>.drawio.png` with the XML embedded as an iTXt chunk (keyword `mxfile`).
+The merged file is both a regular image and re-openable by diagrams.net.
+Set to `false` to keep the two attachments side by side.
 |===
 
 `-Pconfluence.export.api.<name>=<value>` overrides each config key on the command line.

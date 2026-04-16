@@ -29,6 +29,7 @@ task exportConfluenceFromApi (
         def downloadAttachments = findProperty("confluence.export.api.downloadAttachments") ?: (config.confluence.export.api?.downloadAttachments ?: 'true')
         def saveRawXhtml        = findProperty("confluence.export.api.saveRawXhtml")        ?: (config.confluence.export.api?.saveRawXhtml        ?: 'false')
         def stripChapterNumbering = findProperty("confluence.export.api.stripChapterNumbering") ?: (config.confluence.export.api?.stripChapterNumbering ?: 'true')
+        def mergeDrawio           = findProperty("confluence.export.api.mergeDrawio")           ?: (config.confluence.export.api?.mergeDrawio           ?: 'true')
 
         // confluence.api / credentials / bearerToken are already resolved by AsciiDocBasics.gradle
         config.confluence.api = findProperty("confluence.api") ?: config.confluence.api
@@ -48,6 +49,7 @@ task exportConfluenceFromApi (
         if (downloadAttachments != null) argsList << "downloadAttachments=${downloadAttachments}".toString()
         if (saveRawXhtml != null)        argsList << "saveRawXhtml=${saveRawXhtml}".toString()
         if (stripChapterNumbering != null) argsList << "stripChapterNumbering=${stripChapterNumbering}".toString()
+        if (mergeDrawio != null)           argsList << "mergeDrawio=${mergeDrawio}".toString()
 
         String[] args = argsList as String[]
         logger.info("args: " + args)

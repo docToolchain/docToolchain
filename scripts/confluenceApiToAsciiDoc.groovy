@@ -72,6 +72,7 @@ int pageLimit = (apiArgs.pageLimit ?: config.confluence.pageLimit ?: 100) as int
 double rateLimitPerSecond = (config.confluence.rateLimit ?: 10) as double
 boolean downloadAttachments = (apiArgs.downloadAttachments ?: 'true').toString().toBoolean()
 boolean saveRawXhtml         = (apiArgs.saveRawXhtml ?: 'false').toString().toBoolean()
+boolean mergeDrawio          = (apiArgs.mergeDrawio ?: 'true').toString().toBoolean()
 // Override the shared converter's default (true). This must be set on the
 // binding (no `def`) so the fixBody closure in confluenceConverter.groovy sees it.
 stripChapterNumbering = (apiArgs.stripChapterNumbering ?: 'true').toString().toBoolean()
@@ -83,6 +84,7 @@ println "rootTitle:             ${rootPageTitle ?: '(not set)'}"
 println "spaceKey:              ${spaceKey ?: '(not set)'}"
 println "saveRawXhtml:          ${saveRawXhtml}"
 println "stripChapterNumbering: ${stripChapterNumbering}"
+println "mergeDrawio:           ${mergeDrawio}"
 
 // --- tiny authenticated REST helper (stdlib only, no new deps) ---
 // Throttles to config.confluence.rateLimit (default 10/s) across all calls.
@@ -319,12 +321,18 @@ while (!queue.isEmpty()) {
         String version = (att.version?.number ?: 1).toString()
         String downloadLink = att._links?.download ?: ''
         attachments[aid] = [
-                filename   : aTitle,
-                id         : aid,
-                version    : version,
-                pageId     : pid,
-                originalId : '',
-                downloadUrl: downloadLink
+                filename        : aTitle,
+                // originalFilename tracks the name Confluence stored in
+                // <ri:attachment ri:filename=...>. The `filename` field may be
+                // rewritten later (e.g. by the drawio PNG/XML merge step) so
+                // fixBody can still resolve the original <ac:image> reference
+                // via this field.
+                originalFilename: aTitle,
+                id              : aid,
+                version         : version,
+                pageId          : pid,
+                originalId      : '',
+                downloadUrl     : downloadLink
         ]
     }
 
@@ -354,6 +362,148 @@ if (downloadAttachments && !attachments.isEmpty()) {
             println "  [error] ${attachment.filename}: ${e.message}"
         }
     }
+}
+
+// --- drawio PNG/XML pair merge ---------------------------------------------
+// Confluence's drawio plugin stores each diagram as two separate attachments:
+// a PNG preview (e.g. "My Diagram.png") and the XML model alongside (e.g.
+// "My Diagram" without extension, or "My Diagram.xml"). We merge the pair
+// into a single "My Diagram.drawio.png" that is both a valid image AND
+// re-openable by diagrams.net - the XML is embedded as an iTXt chunk with
+// keyword "mxfile", which is the convention drawio itself uses.
+//
+// All helpers are defined as binding closures so dependencies between them
+// resolve through the script's binding.
+
+def readUint32BE = { byte[] data, int offset ->
+    ((data[offset] & 0xFF) << 24) |
+            ((data[offset + 1] & 0xFF) << 16) |
+            ((data[offset + 2] & 0xFF) << 8) |
+            (data[offset + 3] & 0xFF)
+}
+
+def writeUint32BE = { java.io.ByteArrayOutputStream out, int value ->
+    out.write((value >>> 24) & 0xFF)
+    out.write((value >>> 16) & 0xFF)
+    out.write((value >>> 8) & 0xFF)
+    out.write(value & 0xFF)
+}
+
+// Build an iTXt chunk (uncompressed) for the given keyword + UTF-8 text.
+// iTXt chunk payload layout:
+//   keyword (Latin-1) NUL
+//   compression flag (1 byte; 0 = uncompressed)
+//   compression method (1 byte; ignored when uncompressed)
+//   language tag (Latin-1) NUL          (empty here)
+//   translated keyword (UTF-8) NUL      (empty here)
+//   text (UTF-8)
+def buildITxtChunk = { String keyword, String text ->
+    def payload = new java.io.ByteArrayOutputStream()
+    payload.write(keyword.getBytes('US-ASCII'))
+    payload.write(0)
+    payload.write(0)
+    payload.write(0)
+    payload.write(0)
+    payload.write(0)
+    payload.write(text.getBytes('UTF-8'))
+    def data = payload.toByteArray()
+    def type = 'iTXt'.getBytes('US-ASCII')
+    def chunkOut = new java.io.ByteArrayOutputStream()
+    writeUint32BE(chunkOut, data.length)
+    chunkOut.write(type)
+    chunkOut.write(data)
+    def crc = new java.util.zip.CRC32()
+    crc.update(type)
+    crc.update(data)
+    writeUint32BE(chunkOut, (int) (crc.value & 0xFFFFFFFFL))
+    return chunkOut.toByteArray()
+}
+
+def pngSignature = [0x89, 0x50, 0x4E, 0x47, 0x0D, 0x0A, 0x1A, 0x0A] as byte[]
+
+def embedXmlInPng = { byte[] pngBytes, String xmlContent ->
+    if (pngBytes.length < 8) throw new IllegalArgumentException("Not a PNG (too short)")
+    for (int i = 0; i < 8; i++) {
+        if (pngBytes[i] != pngSignature[i]) {
+            throw new IllegalArgumentException("Not a PNG (bad signature)")
+        }
+    }
+    def out = new java.io.ByteArrayOutputStream()
+    out.write(pngBytes, 0, 8)
+    int pos = 8
+    boolean inserted = false
+    while (pos < pngBytes.length) {
+        int length = readUint32BE(pngBytes, pos)
+        String type = new String(pngBytes, pos + 4, 4, 'US-ASCII')
+        int chunkTotal = 12 + length
+        if (type == 'IEND' && !inserted) {
+            out.write(buildITxtChunk('mxfile', xmlContent))
+            inserted = true
+        }
+        out.write(pngBytes, pos, chunkTotal)
+        pos += chunkTotal
+        if (type == 'IEND') break
+    }
+    return out.toByteArray()
+}
+
+// Actual merge: for each PNG attachment, look for a sibling drawio XML
+// attachment on the same page (same base name, with or without ".xml"
+// suffix). If its content starts with <mxfile or <mxGraphModel, embed it
+// into the PNG as an iTXt "mxfile" chunk, rename to "<base>.drawio.png",
+// and remove the standalone XML attachment from the map.
+def mergeDrawioPairs = {
+    def consumedXmlIds = [] as Set
+    def pngEntries = attachments.entrySet().findAll {
+        (it.value.filename as String)?.toLowerCase()?.endsWith('.png')
+    }
+    pngEntries.each { pngEntry ->
+        def pngAtt = pngEntry.value
+        String pngName = pngAtt.filename
+        String basename = pngName.substring(0, pngName.length() - '.png'.length())
+        def xmlEntry = attachments.entrySet().find { candidate ->
+            candidate.value.pageId == pngAtt.pageId &&
+                    (candidate.value.filename == basename ||
+                            candidate.value.filename == "${basename}.xml") &&
+                    !consumedXmlIds.contains(candidate.key)
+        }
+        if (!xmlEntry) return
+        def xmlAtt = xmlEntry.value
+        def folderStructure = getFolderStructure(pages, pngAtt.pageId)
+        def xmlFile = new File(new File(destDir, 'images'),
+                folderStructure.join('/') + '/' + xmlAtt.version + '_' + (xmlAtt.filename as String).replaceAll(':', '_'))
+        if (!xmlFile.exists()) return
+        def xmlContent = xmlFile.getText('UTF-8').trim()
+        if (!(xmlContent.startsWith('<mxfile') || xmlContent.startsWith('<mxGraphModel'))) {
+            // Not a drawio XML; leave the pair alone.
+            return
+        }
+        def pngFile = new File(new File(destDir, 'images'),
+                folderStructure.join('/') + '/' + pngAtt.version + '_' + pngName.replaceAll(':', '_'))
+        if (!pngFile.exists()) return
+        byte[] mergedBytes
+        try {
+            mergedBytes = embedXmlInPng(pngFile.bytes, xmlContent)
+        } catch (Exception e) {
+            println "  [drawio-merge error on ${pngName}] ${e.message}"
+            return
+        }
+        String newName = pngName.replaceAll(/\.png$/, '.drawio.png')
+        def newFile = new File(new File(destDir, 'images'),
+                folderStructure.join('/') + '/' + pngAtt.version + '_' + newName.replaceAll(':', '_'))
+        newFile.bytes = mergedBytes
+        pngFile.delete()
+        xmlFile.delete()
+        pngAtt.filename = newName
+        consumedXmlIds << xmlEntry.key
+        println "  merged: ${pngAtt.originalFilename} + ${xmlAtt.filename} -> ${newName}"
+    }
+    consumedXmlIds.each { attachments.remove(it) }
+}
+
+if (mergeDrawio && downloadAttachments && !attachments.isEmpty()) {
+    println "\nmerging drawio PNG/XML pairs..."
+    mergeDrawioPairs()
 }
 
 // --- write pages ---

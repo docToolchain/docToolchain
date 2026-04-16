@@ -202,9 +202,23 @@ fixBody = { String pageId, String body, Map users, Map pages, Map attachments, M
                 case "ac:image":
                     def alignment = element.attr("ac:align")
                     def width = element.attr("ac:width")
-                    def filename = element.select(["ri|attachment"]).attr("ri:filename")
-                    def version = element.select(["ri|attachment"]).attr("ri:version-at-save")
-                    element.before("<img src='{filepath}/${(version ? version + "_" : "1_") + (filename.replaceAll(":", "_"))}' align='${alignment ?: ''}' width='${width ?: ''}' />")
+                    def riFilename = element.select(["ri|attachment"]).attr("ri:filename")
+                    def riVersion = element.select(["ri|attachment"]).attr("ri:version-at-save")
+                    // Resolve against the attachments map so drawio-merged PNGs
+                    // (where filename was rewritten to "<base>.drawio.png" but
+                    // the XHTML still references the original name) point at the
+                    // renamed file. originalFilename is set to the name Confluence
+                    // stored in <ri:attachment ri:filename=...>; filename may have
+                    // been rewritten by the merge step.
+                    def imgAtt = attachments.find {
+                        it.value.pageId == pageId && (
+                                it.value.originalFilename == riFilename ||
+                                        it.value.filename == riFilename
+                        )
+                    }?.value
+                    def actualFilename = imgAtt?.filename ?: riFilename
+                    def actualVersion = imgAtt?.version ?: riVersion ?: '1'
+                    element.before("<img src='{filepath}/${actualVersion}_${actualFilename.replaceAll(':', '_')}' align='${alignment ?: ''}' width='${width ?: ''}' />")
                     element.remove()
                     break
                 case "ac:link":
@@ -255,22 +269,29 @@ fixBody = { String pageId, String body, Map users, Map pages, Map attachments, M
                     switch (macroName) {
                         case 'drawio':
                             // The drawio macro is rendered by the Confluence plugin at view
-                            // time; the storage format only carries macro parameters. We
-                            // look up the matching PNG attachment (Confluence stores it
-                            // alongside the XML under the name "<diagramName>.png") to emit
-                            // a regular image reference. If no match is found, the macro is
-                            // silently dropped so its parameter text doesn't leak into the
-                            // output.
+                            // time; the storage format only carries macro parameters. We look
+                            // up the matching PNG attachment (Confluence stores it under the
+                            // name "<diagramName>.png") and emit a regular image reference.
+                            // After the drawio merge step in the API driver, the actual file
+                            // on disk may have been renamed to "<diagramName>.drawio.png"
+                            // (with the XML embedded as an iTXt chunk); matching on
+                            // originalFilename keeps that transparent here.
                             def diagramName = element.select("ac|parameter[ac:name=diagramName]").text()
                             def diagramWidth = element.select("ac|parameter[ac:name=diagramWidth]").text()
                             if (diagramName) {
-                                def expectedPng = diagramName + ".png"
+                                def originalPng = diagramName + ".png"
                                 def att = attachments.find {
-                                    it.value.pageId == pageId && it.value.filename == expectedPng
+                                    it.value.pageId == pageId && (
+                                            it.value.originalFilename == originalPng ||
+                                                    it.value.filename == originalPng
+                                    )
                                 }?.value
-                                def version = att?.version ?: '1'
-                                def widthAttr = diagramWidth ? " width='${diagramWidth}'" : ""
-                                element.before("<img src='{filepath}/${version}_${expectedPng.replaceAll(':', '_')}'${widthAttr} />")
+                                if (att) {
+                                    def version = att.version ?: '1'
+                                    def actualFilename = att.filename ?: originalPng
+                                    def widthAttr = diagramWidth ? " width='${diagramWidth}'" : ""
+                                    element.before("<img src='{filepath}/${version}_${actualFilename.replaceAll(':', '_')}'${widthAttr} />")
+                                }
                             }
                             element.remove()
                             break

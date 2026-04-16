@@ -298,7 +298,11 @@ confluence.with {
                     // stripChapterNumbering removes hand-written numeric prefixes like
                     // "5.2.4. " from heading text, so AsciiDoc's own :sectnums: can take
                     // over. Set to false to preserve the original Confluence numbering.
-                    stripChapterNumbering: true
+                    stripChapterNumbering: true,
+                    // mergeDrawio merges drawio XML + PNG attachment pairs into a single
+                    // <base>.drawio.png, with the XML embedded as an iTXt chunk so the
+                    // file is both a valid image and re-openable by diagrams.net.
+                    mergeDrawio: true
             ]
     ]
 }
