@@ -116,6 +116,15 @@ fixBody = { String pageId, String body, Map users, Map pages, Map attachments, M
     dom.outputSettings().prettyPrint(false)
     dom.outputSettings().escapeMode(org.jsoup.nodes.Entities.EscapeMode.xhtml)
     dom.outputSettings().charset("UTF-8")
+    // Strip visually-empty cells that contain only a <br/>. Confluence emits
+    // these for "empty" fields, but pandoc renders the <br/> as a stray " +"
+    // (AsciiDoc hard line break) in the cell, which shows up as a literal "+"
+    // in the final output.
+    dom.select("td, th").each { cell ->
+        if (cell.text().trim().isEmpty()) {
+            cell.empty()
+        }
+    }
     def acTags = []
     dom.select("*").each { element ->
         if (element.tagName().startsWith("ac:")) {
@@ -235,12 +244,20 @@ fixBody = { String pageId, String body, Map users, Map pages, Map attachments, M
                         case 'captioneditem':
                             // Wraps content (typically an image or drawio) with an anchor
                             // and optional caption. Keep the inner body, promote the anchor
-                            // to an AsciiDoc block anchor via the existing anchor pattern.
+                            // to an AsciiDoc block anchor. Important: use DOM unwrap so
+                            // nested ac: macros (e.g. drawio inside captioneditem) stay in
+                            // place and get visited by the outer iteration snapshot. The
+                            // previous element.html(...)+remove variant re-parsed inner
+                            // macros as copies that the snapshot didn't know about, so their
+                            // handlers never ran.
                             def captionedAnchor = element.select("ac|parameter[ac:name=anchor]").text()
-                            def captionedInner = element.select("ac|rich-text-body").html()
-                            def captionedPrefix = captionedAnchor ? "\n<span>[[${captionedAnchor}]]</span>\n" : ""
-                            element.before(captionedPrefix + captionedInner)
-                            element.remove()
+                            if (captionedAnchor) {
+                                element.before("\n<span>[[${captionedAnchor}]]</span>\n")
+                            }
+                            def captionedBody = element.select("ac|rich-text-body").first()
+                            if (captionedBody) captionedBody.unwrap()
+                            element.select("ac|parameter").each { it.remove() }
+                            element.unwrap()
                             break
                         case 'details':
                             // The `details` macro wraps a table of page metadata
@@ -260,7 +277,10 @@ fixBody = { String pageId, String body, Map users, Map pages, Map attachments, M
                             def statusColour = (element.select("ac|parameter[ac:name=colour]").text() ?: 'Grey')
                             def statusTitle  = element.select("ac|parameter[ac:name=title]").text() ?: ''
                             if (statusTitle) {
-                                element.before("<span>%%STATUS_${statusColour}%%${statusTitle}%%STATUS_END%%</span>")
+                                // No <span> wrapper: pandoc sometimes drops raw <span>s
+                                // inside tables, hiding our placeholder. Emitting as a
+                                // plain text node inside the cell works reliably.
+                                element.before("%%STATUS-BEGIN-${statusColour}%%${statusTitle}%%STATUS-END%%")
                             }
                             element.remove()
                             break
@@ -385,9 +405,13 @@ ${lucidInfos.replaceAll("\n", "%%CRLF%%")}
                                     'warning': 'WARNING',
                                     'note'   : 'CAUTION',
                                     'tip'    : 'TIP'][macroName]
-                            def admonTitlePart = admonTitle ? "\n<p>%%ADMON_TITLE%%${admonTitle.trim()}%%ADMON_TITLE_END%%</p>\n" : ""
-                            element.before(admonTitlePart + "<p>%%ADMON_BEGIN_${admonType}%%</p>\n")
-                            element.after("\n<p>%%ADMON_END%%</p>")
+                            // NB: placeholder tokens use '-' as separator, never '_'.
+                            // Pandoc's AsciiDoc writer escapes underscores as "++_++" (to
+                            // guard against inline-italic collisions), which would break
+                            // any regex that expects an intact underscore.
+                            def admonTitlePart = admonTitle ? "\n<p>%%ADMON-TITLE%%${admonTitle.trim()}%%ADMON-TITLE-END%%</p>\n" : ""
+                            element.before(admonTitlePart + "<p>%%ADMON-BEGIN-${admonType}%%</p>\n")
+                            element.after("\n<p>%%ADMON-END%%</p>")
                             // mark headings inside the body as [discrete]
                             element.select("ac|rich-text-body").first()?.select("h1,h2,h3,h4,h5,h6")?.each { h ->
                                 h.before("<p>%%DISCRETE%%</p>")
@@ -402,9 +426,9 @@ ${lucidInfos.replaceAll("\n", "%%CRLF%%")}
                             // sections. Map to AsciiDoc's `[%collapsible]` block. Same
                             // placeholder + DOM-preserving technique as admonitions.
                             def expandTitle = element.select("ac|parameter[ac:name=title]").text()
-                            def expandTitlePart = expandTitle ? "\n<p>%%EXPAND_TITLE%%${expandTitle.trim()}%%EXPAND_TITLE_END%%</p>\n" : ""
-                            element.before(expandTitlePart + "<p>%%EXPAND_BEGIN%%</p>\n")
-                            element.after("\n<p>%%EXPAND_END%%</p>")
+                            def expandTitlePart = expandTitle ? "\n<p>%%EXPAND-TITLE%%${expandTitle.trim()}%%EXPAND-TITLE-END%%</p>\n" : ""
+                            element.before(expandTitlePart + "<p>%%EXPAND-BEGIN%%</p>\n")
+                            element.after("\n<p>%%EXPAND-END%%</p>")
                             def expandBody = element.select("ac|rich-text-body").first()
                             if (expandBody) expandBody.unwrap()
                             element.select("ac|parameter").each { it.remove() }
@@ -533,21 +557,19 @@ ifndef::imagesdir[:imagesdir: {jbake-root}images]
             .replaceAll("\u00A0", "{nbsp}")
             .replaceAll("(?sm)^ [+] *\$", "")
             .replaceAll("%7Bfilepath%7D", "{filepath}")
-            // Admonition placeholders emitted by fixBody (see the 'info/note/tip/warning'
-            // case). Done *after* pandoc so the [TYPE] and ==== lines don't get escaped.
-            .replaceAll(/\s*%%ADMON_TITLE%%([\s\S]*?)%%ADMON_TITLE_END%%\s*/, '\n\n.$1\n')
-            .replaceAll(/\s*%%ADMON_BEGIN_(\w+)%%\s*/, '\n\n[$1]\n====\n\n')
-            .replaceAll(/\s*%%ADMON_END%%\s*/, '\n\n====\n\n')
-            // Collapsible (`expand`) placeholders -> AsciiDoc [%collapsible] block.
-            .replaceAll(/\s*%%EXPAND_TITLE%%([\s\S]*?)%%EXPAND_TITLE_END%%\s*/, '\n\n.$1\n')
-            .replaceAll(/\s*%%EXPAND_BEGIN%%\s*/, '\n[%collapsible]\n====\n\n')
-            .replaceAll(/\s*%%EXPAND_END%%\s*/, '\n\n====\n\n')
-            // Discrete heading marker (used inside admonitions so headings don't
-            // break the enclosing ==== block).
+            // Admonition / expand / status placeholders - use '-' (not '_') as a
+            // separator because pandoc's AsciiDoc writer escapes '_' as '++_++',
+            // breaking any regex that looks for an underscore.
+            .replaceAll(/\s*%%ADMON-TITLE%%([\s\S]*?)%%ADMON-TITLE-END%%\s*/, '\n\n.$1\n')
+            .replaceAll(/\s*%%ADMON-BEGIN-(\w+)%%\s*/, '\n\n[$1]\n====\n\n')
+            .replaceAll(/\s*%%ADMON-END%%\s*/, '\n\n====\n\n')
+            .replaceAll(/\s*%%EXPAND-TITLE%%([\s\S]*?)%%EXPAND-TITLE-END%%\s*/, '\n\n.$1\n')
+            .replaceAll(/\s*%%EXPAND-BEGIN%%\s*/, '\n[%collapsible]\n====\n\n')
+            .replaceAll(/\s*%%EXPAND-END%%\s*/, '\n\n====\n\n')
             .replaceAll(/\s*%%DISCRETE%%\s*/, '\n\n[discrete]\n')
-    // Status badge placeholder -> AsciiDoc inline role. Done with a closure so
-    // we can lowercase the colour name for a stable CSS class.
-    adoc = adoc.replaceAll(/%%STATUS_(\w+)%%([\s\S]*?)%%STATUS_END%%/) { full, colour, title ->
+    // Status badge placeholder -> AsciiDoc inline role. Closure so we can
+    // lowercase the colour for a stable CSS class.
+    adoc = adoc.replaceAll(/%%STATUS-BEGIN-(\w+)%%([\s\S]*?)%%STATUS-END%%/) { full, colour, title ->
         "[.status.${colour.toLowerCase()}]#${title.trim()}#"
     }
     println(pages[pageId].title)
