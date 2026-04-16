@@ -129,17 +129,34 @@ fixBody = { String pageId, String body, Map users, Map pages, Map attachments, M
             cell.empty()
         }
     }
-    // Convert <th> cells outside of an explicit <thead> to regular data cells
-    // with bold content. Confluence's metadata tables (Status / Author / Date)
-    // put each row-label in a <th scope="row">, which would otherwise render
-    // as a column-header row in AsciiDoc (bold/grey first row). Only <th>
-    // inside <thead> keeps its header semantics.
-    dom.select("th").each { th ->
-        if (th.parents().any { it.tagName() == 'thead' }) return
-        def inner = th.html()
-        th.tagName("td")
-        th.removeAttr("scope")
-        th.html("<strong>${inner}</strong>")
+    // Detect row-header tables (every body row's first cell is a <th>, like
+    // Confluence's Status/Author/Date metadata blocks) and flag them so the
+    // post-pandoc step can emit a proper `[cols="h,1,...]` specifier. That's
+    // cleaner than wrapping each <th> in <strong>: AsciiDoc's "h" column style
+    // renders the whole column as a header (bold/grey), which is what the
+    // semantic already asks for.
+    // (see https://docs.asciidoctor.org/asciidoc/latest/tables/format-column-content/)
+    dom.select("table").each { table ->
+        def tbody = table.selectFirst("tbody")
+        def rows = (tbody ? tbody.children() : table.children())
+                .findAll { it.tagName() == 'tr' }
+        if (rows.isEmpty()) return
+        def allRowsStartWithTh = rows.every { row ->
+            def firstCell = row.children().find { ['td', 'th'].contains(it.tagName()) }
+            firstCell?.tagName() == 'th'
+        }
+        if (!allRowsStartWithTh) return
+        def numCols = rows.first().children().findAll { ['td', 'th'].contains(it.tagName()) }.size()
+        if (numCols < 2) return
+        // Marker picked up by writePage after pandoc. Use '-' separators
+        // because pandoc escapes '_'.
+        table.before("<p>%%TABLE-ROWHEADER-${numCols}%%</p>")
+        rows.each { row ->
+            row.select("th").each { th ->
+                th.tagName("td")
+                th.removeAttr("scope")
+            }
+        }
     }
     def acTags = []
     dom.select("*").each { element ->
@@ -610,10 +627,20 @@ ifndef::imagesdir[:imagesdir: {jbake-root}images]
         "\n\n${titleLine}[%collapsible]\n======\n\n"
     }
     adoc = adoc.replaceAll(/\s*%%EXPAND-END%%\s*/, '\n\n======\n\n')
-    // Anchor placeholder -> AsciiDoc block anchor. Also cleans up any "++_++"
-    // pandoc may have injected into underscore-containing anchor names.
+    // Anchor placeholder -> AsciiDoc block anchor. Blank line BEFORE (so it's
+    // separated from the previous block), single newline AFTER (so the anchor
+    // sticks to the next block - a blank line here would detach it). Also
+    // clean up any "++_++" pandoc injected into underscore-containing names.
     adoc = adoc.replaceAll(/\s*%%ANCHOR%%([^%]+)%%ANCHOR-END%%\s*/) { full, name ->
-        "\n[[${name.replaceAll('\\+\\+_\\+\\+', '_')}]]\n"
+        "\n\n[[${name.replaceAll('\\+\\+_\\+\\+', '_')}]]\n"
+    }
+    // Row-header table placeholder -> explicit `[cols="h,1,..."]` attribute on
+    // the table that follows. Consumes pandoc's auto-generated `[cols=...]`
+    // line if present so we don't end up with two attribute lists.
+    adoc = adoc.replaceAll(/%%TABLE-ROWHEADER-(\d+)%%\s*\n+\s*(?:\[[^\]]*\]\s*\n)?\|===/) { full, numCols ->
+        def n = numCols as Integer
+        def colsSpec = 'h' + (',1' * (n - 1))
+        "[cols=\"${colsSpec}\"]\n|==="
     }
     // Status badge placeholder -> AsciiDoc inline role. Closure so we can
     // lowercase the colour for a stable CSS class.
@@ -635,9 +662,6 @@ ifndef::imagesdir[:imagesdir: {jbake-root}images]
         }
         adoc = adoc.replace('%%attachments%%', linkedAttachments)
         linkedAttachments = "\n"
-    }
-    attachments.findAll { it.value.pageId == pageId }.each { attachmentId, attributes ->
-        linkedAttachments += "// attachment /images/${folderStructure.join("/")}/" + attributes.filename + "[" + attributes.filename + "]\n"
     }
     outFileAdoc.write(
             fileHeader +
