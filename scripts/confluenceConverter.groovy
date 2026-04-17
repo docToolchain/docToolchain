@@ -598,11 +598,13 @@ writePage = { String pageId, String rawBody, List<String> childIds,
     }
     def childIncludes = ""
     if (weightedChildren.size() > 0) {
+        // No leading whitespace in the template — AsciiDoc treats 4+ spaces
+        // as a literal/code block, which would swallow the ifdef and includes.
         childIncludes = """
-    ifdef::includeChildren[]
-    ${weightedChildren.sort { it.weight }.collect { it.include }.join("\n")}
-    endif::includeChildren[]
-    """
+ifdef::includeChildren[]
+${weightedChildren.sort { it.weight }.collect { it.include }.join("\n")}
+endif::includeChildren[]
+"""
     }
     println deepFilename
     def fileHeader = """
