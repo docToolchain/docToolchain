@@ -564,12 +564,6 @@ margin-left: 1em !important;
 </style>
 ++++
 
-include::_menu.adoc[]
-
-++++
-<!-- endtoc -->
-++++
-
 """, 'utf-8')
 
 new File(destDir, '_menu.adoc').write(createMenu(pages, 0), 'utf-8')

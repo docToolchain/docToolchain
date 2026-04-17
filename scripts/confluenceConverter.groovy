@@ -617,6 +617,12 @@ endif::includeChildren[]
 :filename: ${metaData.filename.toString()}.adoc
 :filepath: ${folderStructure.join("/")}
 include::{jbake-root}_config.adoc[]
+ifdef::show-microsite-menu[]
+include::{jbake-root}_menu.adoc[]
+++++
+<!-- endtoc -->
+++++
+endif::show-microsite-menu[]
 ifndef::imagesdir[:imagesdir: {jbake-root}images]
 
 """

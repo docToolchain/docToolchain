@@ -238,12 +238,6 @@ margin-left: 1em !important;
 </style>
 ++++
 
-include::_menu.adoc[]
-
-++++
-<!-- endtoc -->
-++++
-
 """, 'utf-8')
 println ""
 println "pages converted: " + pages.findAll { it.value.status == 'current' }.size()
