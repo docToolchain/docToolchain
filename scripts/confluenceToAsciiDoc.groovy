@@ -139,7 +139,7 @@ def copyAttachments(attachments, pages, srcDir, destDir) {
     attachments.each { attachmentId, attachment ->
         def attachmentFile = new File(srcDir, 'attachments/' + attachment.pageId + '/' + (attachment.originalId ?: attachment.id) + "/" + attachment.version)
         def folderStructure = getFolderStructure(pages, attachment.pageId)
-        def deepFilename = folderStructure.join("/") + "/" + attachment.version + "_" + (attachment.filename.replaceAll(":", "_"))
+        def deepFilename = folderStructure.join("/") + "/" + attachment.version + "_" + (attachment.filename.replaceAll(":", "_").replaceAll(" ", "_"))
         if (folderStructure.size() > 1) {
             new File(destDir, "images/" + folderStructure.join("/")).mkdirs()
         }

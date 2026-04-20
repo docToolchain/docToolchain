@@ -350,7 +350,7 @@ if (downloadAttachments && !attachments.isEmpty()) {
     println "\ndownloading attachments..."
     attachments.each { attachmentId, attachment ->
         def folderStructure = getFolderStructure(pages, attachment.pageId)
-        def deepFilename = folderStructure.join("/") + "/" + attachment.version + "_" + (attachment.filename.replaceAll(":", "_"))
+        def deepFilename = folderStructure.join("/") + "/" + attachment.version + "_" + (attachment.filename.replaceAll(":", "_").replaceAll(" ", "_"))
         def destFile = new File(new File(destDir, 'images'), deepFilename)
         if (!attachment.downloadUrl) {
             println "  [skip, no download link] ${attachment.filename}"
@@ -491,7 +491,7 @@ def mergeDrawioPairs = {
         def xmlAtt = xmlEntry.value
         def folderStructure = getFolderStructure(pages, pngAtt.pageId)
         def xmlFile = new File(new File(destDir, 'images'),
-                folderStructure.join('/') + '/' + xmlAtt.version + '_' + (xmlAtt.filename as String).replaceAll(':', '_'))
+                folderStructure.join('/') + '/' + xmlAtt.version + '_' + (xmlAtt.filename as String).replaceAll(':', '_').replaceAll(' ', '_'))
         if (!xmlFile.exists()) return
         def xmlContent = xmlFile.getText('UTF-8').trim()
         if (!(xmlContent.startsWith('<mxfile') || xmlContent.startsWith('<mxGraphModel'))) {
@@ -499,7 +499,7 @@ def mergeDrawioPairs = {
             return
         }
         def pngFile = new File(new File(destDir, 'images'),
-                folderStructure.join('/') + '/' + pngAtt.version + '_' + pngName.replaceAll(':', '_'))
+                folderStructure.join('/') + '/' + pngAtt.version + '_' + pngName.replaceAll(':', '_').replaceAll(' ', '_'))
         if (!pngFile.exists()) return
         byte[] mergedBytes
         try {
@@ -510,7 +510,7 @@ def mergeDrawioPairs = {
         }
         String newName = pngName.replaceAll(/\.png$/, '.drawio.png')
         def newFile = new File(new File(destDir, 'images'),
-                folderStructure.join('/') + '/' + pngAtt.version + '_' + newName.replaceAll(':', '_'))
+                folderStructure.join('/') + '/' + pngAtt.version + '_' + newName.replaceAll(':', '_').replaceAll(' ', '_'))
         newFile.bytes = mergedBytes
         pngFile.delete()
         xmlFile.delete()

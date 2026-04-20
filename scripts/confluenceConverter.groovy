@@ -218,7 +218,7 @@ fixBody = { String pageId, String body, Map users, Map pages, Map attachments, M
                     }?.value
                     def actualFilename = imgAtt?.filename ?: riFilename
                     def actualVersion = imgAtt?.version ?: riVersion ?: '1'
-                    element.before("<img src='{filepath}/${actualVersion}_${actualFilename.replaceAll(':', '_')}' align='${alignment ?: ''}' width='${width ?: ''}' />")
+                    element.before("<img src='{filepath}/${actualVersion}_${actualFilename.replaceAll(':', '_').replaceAll(' ', '_')}' align='${alignment ?: ''}' width='${width ?: ''}' />")
                     element.remove()
                     break
                 case "ac:link":
@@ -290,7 +290,7 @@ fixBody = { String pageId, String body, Map users, Map pages, Map attachments, M
                                     def version = att.version ?: '1'
                                     def actualFilename = att.filename ?: originalPng
                                     def widthAttr = diagramWidth ? " width='${diagramWidth}'" : ""
-                                    element.before("<img src='{filepath}/${version}_${actualFilename.replaceAll(':', '_')}'${widthAttr} />")
+                                    element.before("<img src='{filepath}/${version}_${actualFilename.replaceAll(':', '_').replaceAll(' ', '_')}'${widthAttr} />")
                                 }
                             }
                             element.remove()
@@ -354,6 +354,22 @@ fixBody = { String pageId, String body, Map users, Map pages, Map attachments, M
                             if (names) {
                                 element.before("<span>${names.join(', ')}</span>")
                             }
+                            element.remove()
+                            break
+                        case 'table-filter':
+                            // table-filter wraps tables with filter controls. The filter
+                            // metadata is in ac:parameter children (would leak as text).
+                            // Keep the inner body (which may contain a real table) and
+                            // strip the wrapper + params. Same DOM-preserving unwrap as
+                            // expand/admonition.
+                            def tfBody = element.select("ac|rich-text-body").first()
+                            if (tfBody) tfBody.unwrap()
+                            element.children().findAll { it.tagName() == 'ac:parameter' }.each { it.remove() }
+                            element.unwrap()
+                            break
+                        case 'detailssummary':
+                            // Dynamic child-page listing via CQL — cannot be replicated
+                            // in static AsciiDoc. Drop it entirely.
                             element.remove()
                             break
                         case ["excerpt-include",
@@ -445,7 +461,19 @@ ${lucidInfos.replaceAll("\n", "%%CRLF%%")}
                             element.remove()
                             break
                         case 'children':
+                            // Confluence's standard page-footer pattern is
+                            // <hr/><p><children/></p>. Remove the macro, the
+                            // enclosing empty <p>, and the preceding <hr/> so
+                            // no stray horizontal rule remains.
+                            def childrenParent = element.parent()
                             element.remove()
+                            if (childrenParent?.tagName() == 'p' &&
+                                    childrenParent.text().trim().isEmpty() &&
+                                    childrenParent.children().isEmpty()) {
+                                def prev = childrenParent.previousElementSibling()
+                                if (prev?.tagName() == 'hr') prev.remove()
+                                childrenParent.remove()
+                            }
                             break
                         case ['tip',
                               'info',
