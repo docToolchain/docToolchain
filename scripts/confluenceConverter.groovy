@@ -235,7 +235,11 @@ fixBody = { String pageId, String body, Map users, Map pages, Map attachments, M
                             def folderStructureSource = getFolderStructure(pages, pageId)
                             def targetLink = "../" * folderStructureSource.size() + folderStructureTarget + "/" + targetPage.value.filename + ".adoc"
                             if (anchor) {
-                                targetLink += "#" + anchor
+                                // All anchor IDs are prefixed with '_' (see the
+                                // %%ANCHOR%% post-processing) to ensure they start
+                                // with a letter/underscore (AsciiDoc / HTML requirement).
+                                // References must use the same prefixed form.
+                                targetLink += "#_" + anchor
                             }
                             element.before(" xref:${targetLink}[${linkText}] ")
                             element.remove()
@@ -696,7 +700,8 @@ ifndef::imagesdir[:imagesdir: {jbake-root}images]
     // sticks to the next block - a blank line here would detach it). Also
     // clean up any "++_++" pandoc injected into underscore-containing names.
     adoc = adoc.replaceAll(/\s*%%ANCHOR%%([^%]+)%%ANCHOR-END%%\s*/) { full, name ->
-        "\n\n[[${name.replaceAll('\\+\\+_\\+\\+', '_')}]]\n"
+        def cleanName = '_' + name.replaceAll('\\+\\+_\\+\\+', '_')
+        "\n\n[[${cleanName}]]\n"
     }
     // Row-header table placeholder -> explicit `[cols="h,1,..."]` attribute on
     // the table that follows. Consumes pandoc's auto-generated `[cols=...]`
