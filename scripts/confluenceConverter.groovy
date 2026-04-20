@@ -626,11 +626,18 @@ writePage = { String pageId, String rawBody, List<String> childIds,
     }
     def childIncludes = ""
     if (weightedChildren.size() > 0) {
+        // Natural sort: pad numeric segments in the include path so
+        // "arc42_2_..." < "arc42_10_..." instead of the alphabetical
+        // "arc42_10_..." < "arc42_2_...". The REST API often returns
+        // children sorted by title (alphabetical), so the position values
+        // we assigned via eachWithIndex just mirror that wrong order.
+        // Natural sort on the filename is a better universal default.
+        def naturalKey = { String s -> s.replaceAll(/\d+/) { it.padLeft(10, '0') } }
         // No leading whitespace in the template — AsciiDoc treats 4+ spaces
         // as a literal/code block, which would swallow the ifdef and includes.
         childIncludes = """
 ifdef::includeChildren[]
-${weightedChildren.sort { it.weight }.collect { it.include }.join("\n")}
+${weightedChildren.sort { a, b -> naturalKey(a.include) <=> naturalKey(b.include) }.collect { it.include }.join("\n")}
 endif::includeChildren[]
 """
     }
@@ -735,7 +742,12 @@ ifndef::imagesdir[:imagesdir: {jbake-root}images]
 createMenu = { Map pages, startPageId ->
     def pageList = pages.findAll { it.value.parentId == startPageId }
     def menu = ""
-    pageList.sort { (it.value.position ?: '-1') as Integer }.each { page ->
+    // Natural sort by title so "Chapter 2" < "Chapter 10" (numeric segments
+    // compared as numbers). The REST API's child/page endpoint often returns
+    // children sorted alphabetically by title, which gives wrong order for
+    // numbered page names.
+    def naturalKey = { String s -> s.replaceAll(/\d+/) { it.padLeft(10, '0') } }
+    pageList.sort { a, b -> naturalKey(a.value.title) <=> naturalKey(b.value.title) }.each { page ->
         def folderStructure = getFolderStructure(pages, page.key)
         menu += "*" * (folderStructure.size() + 1) + " xref:{jbake-root}" + folderStructure.join("/") + '/' + page.value.filename + ".adoc[" + page.value.title + "]\n"
         def childPageList = pages.findAll { it.value.parentId == page.key }
