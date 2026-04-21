@@ -377,7 +377,7 @@ if (downloadAttachments && !attachments.isEmpty()) {
     attachments.each { attachmentId, attachment ->
         def folderStructure = getFolderStructure(pages, attachment.pageId)
         def deepFilename = folderStructure.join("/") + "/" + attachment.version + "_" + (attachment.filename.replaceAll(":", "_").replaceAll(" ", "_"))
-        def destFile = new File(new File(destDir, 'images'), deepFilename)
+        def destFile = new File(new File(destDir, 'docs/images'), deepFilename)
         if (!attachment.downloadUrl) {
             println "  [skip, no download link] ${attachment.filename}"
             return
@@ -516,7 +516,7 @@ def mergeDrawioPairs = {
         if (!xmlEntry) return
         def xmlAtt = xmlEntry.value
         def folderStructure = getFolderStructure(pages, pngAtt.pageId)
-        def xmlFile = new File(new File(destDir, 'images'),
+        def xmlFile = new File(new File(destDir, 'docs/images'),
                 folderStructure.join('/') + '/' + xmlAtt.version + '_' + (xmlAtt.filename as String).replaceAll(':', '_').replaceAll(' ', '_'))
         if (!xmlFile.exists()) return
         def xmlContent = xmlFile.getText('UTF-8').trim()
@@ -524,7 +524,7 @@ def mergeDrawioPairs = {
             // Not a drawio XML; leave the pair alone.
             return
         }
-        def pngFile = new File(new File(destDir, 'images'),
+        def pngFile = new File(new File(destDir, 'docs/images'),
                 folderStructure.join('/') + '/' + pngAtt.version + '_' + pngName.replaceAll(':', '_').replaceAll(' ', '_'))
         if (!pngFile.exists()) return
         byte[] mergedBytes
@@ -535,7 +535,7 @@ def mergeDrawioPairs = {
             return
         }
         String newName = pngName.replaceAll(/\.png$/, '.drawio.png')
-        def newFile = new File(new File(destDir, 'images'),
+        def newFile = new File(new File(destDir, 'docs/images'),
                 folderStructure.join('/') + '/' + pngAtt.version + '_' + newName.replaceAll(':', '_').replaceAll(' ', '_'))
         newFile.bytes = mergedBytes
         pngFile.delete()
@@ -554,7 +554,13 @@ def mergeDrawioPairs = {
 } // end of: } else { /* full API mode */ }
 
 // --- write pages (common path for both API and convertOnly modes) ---
-lucidInfoFile = new File(destDir, "lucidinfos.txt")
+// .adoc output, images, _config.adoc, _menu.adoc go to a `docs/` subdirectory
+// under destDir. raw/ (XHTML cache + metadata.json) stays directly under destDir.
+// This keeps the generated output self-contained and separable from the cache.
+def docsDir = new File(destDir, 'docs')
+docsDir.mkdirs()
+
+lucidInfoFile = new File(docsDir, "lucidinfos.txt")
 lucidInfoFile.write("", 'utf-8')
 
 // precompute children-by-parent for writePage
@@ -594,11 +600,11 @@ if (saveRawXhtml && !convertOnly) {
 def allUnknownTags = [] as Set
 pages.each { pid, info ->
     def childIds = childrenByParent[pid.toString()] ?: []
-    def uTags = writePage(pid, bodies[pid] ?: '', childIds, pages, attachments, space, users, destDir)
+    def uTags = writePage(pid, bodies[pid] ?: '', childIds, pages, attachments, space, users, docsDir)
     if (uTags) allUnknownTags.addAll(uTags)
 }
 
-new File(destDir, '_config.adoc').write("""
+new File(docsDir, '_config.adoc').write("""
 ++++
 <style>
 div.ulist ul {
@@ -609,7 +615,7 @@ margin-left: 1em !important;
 
 """, 'utf-8')
 
-new File(destDir, '_menu.adoc').write(createMenu(pages, 0), 'utf-8')
+new File(docsDir, '_menu.adoc').write(createMenu(pages, 0), 'utf-8')
 
 println ""
 println "pages converted: ${pages.size()}"
