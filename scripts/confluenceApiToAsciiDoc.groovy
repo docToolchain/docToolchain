@@ -73,6 +73,7 @@ double rateLimitPerSecond = (config.confluence.rateLimit ?: 10) as double
 boolean downloadAttachments = (apiArgs.downloadAttachments ?: 'true').toString().toBoolean()
 boolean saveRawXhtml         = (apiArgs.saveRawXhtml ?: 'false').toString().toBoolean()
 boolean mergeDrawio          = (apiArgs.mergeDrawio ?: 'true').toString().toBoolean()
+String stripPagePrefix       = (apiArgs.stripPagePrefix ?: '') as String
 // Override the shared converter's default (true). This must be set on the
 // binding (no `def`) so the fixBody closure in confluenceConverter.groovy sees it.
 stripChapterNumbering = (apiArgs.stripChapterNumbering ?: 'true').toString().toBoolean()
@@ -80,6 +81,7 @@ stripChapterNumbering = (apiArgs.stripChapterNumbering ?: 'true').toString().toB
 println "API:                   ${baseUrl}"
 println "destDir:               ${destDir.canonicalPath}"
 println "rootPageId:            ${rootPageId ?: '(resolving from title)'}"
+if (stripPagePrefix) println "stripPagePrefix:       '${stripPagePrefix}'"
 println "rootTitle:             ${rootPageTitle ?: '(not set)'}"
 println "spaceKey:              ${spaceKey ?: '(not set)'}"
 println "saveRawXhtml:          ${saveRawXhtml}"
@@ -291,7 +293,13 @@ while (!queue.isEmpty()) {
         continue
     }
     String title = pageData.title
-    String filename = sanitizeFilename(title)
+    // Strip a common prefix from the filename (directory + .adoc name) to
+    // shorten paths — useful when every page in a Confluence space shares
+    // a project prefix that would otherwise push nested paths past Windows'
+    // 260-char limit. The page TITLE (used in headings, menu, xrefs) stays
+    // unchanged.
+    String filenameBase = stripPagePrefix ? title.replaceFirst(/^\Q${stripPagePrefix}\E/, '') : title
+    String filename = sanitizeFilename(filenameBase)
     String body = pageData.body?.storage?.value ?: ''
     // Collect display names for the `contributors` macro. createdBy first,
     // then any additional publishers (de-duplicated, original order preserved).
@@ -306,6 +314,7 @@ while (!queue.isEmpty()) {
             title       : title,
             parentId    : entry.parentId,
             filename    : filename,
+            adocFilename: filename,    // will differ from filename when stripPagePrefixRegex is set
             position    : entry.position.toString(),
             status      : 'current',
             contributors: contribNames

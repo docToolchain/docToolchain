@@ -36,7 +36,9 @@ if (!binding.variables.containsKey('stripChapterNumbering')) {
     stripChapterNumbering = true
 }
 
-// get the folder structure for the current page through the page structure information
+// get the folder structure for the current page through the page structure information.
+// Uses `filename` (the original sanitised name) — this governs XHTML paths, image
+// paths, and the {filepath} attribute substituted into image references.
 getFolderStructure = { Map pages, String pageId ->
     def parentId = pages[pageId]?.parentId
     if (parentId && parentId != "null" && parentId != 0) {
@@ -44,6 +46,25 @@ getFolderStructure = { Map pages, String pageId ->
             return getFolderStructure(pages, parentId) + pages[parentId].filename
         } else {
             println "parent page not found: " + parentId + " for " + pages[pageId].filename
+            return []
+        }
+    } else {
+        return []
+    }
+}
+
+// Same as getFolderStructure but reads `adocFilename` (prefix-stripped filename)
+// when present, falling back to `filename`. This governs the .adoc output paths,
+// include:: directives, and _menu.adoc xref paths. The two tracks (original for
+// images/XHTML, stripped for .adoc) allow shortening file paths without breaking
+// image references.
+getAdocFolderStructure = { Map pages, String pageId ->
+    def parentId = pages[pageId]?.parentId
+    if (parentId && parentId != "null" && parentId != 0) {
+        if (pages[parentId]) {
+            return getAdocFolderStructure(pages, parentId) + (pages[parentId].adocFilename ?: pages[parentId].filename)
+        } else {
+            println "parent page not found: " + parentId + " for " + (pages[pageId].adocFilename ?: pages[pageId].filename)
             return []
         }
     } else {
@@ -600,11 +621,17 @@ ${lucidInfos.replaceAll("\n", "%%CRLF%%")}
 writePage = { String pageId, String rawBody, List<String> childIds,
               Map pages, Map attachments, Map space, Map users, File destDir ->
     def metaData = pages[pageId]
+    def adocFilename = metaData.adocFilename ?: metaData.filename
+    // Original folder structure (based on `filename`) — used for image/{filepath} refs.
     def folderStructure = getFolderStructure(pages, pageId)
-    def deepFilename = folderStructure.join("/") + "/" + metaData.filename.toString()
+    // Prefix-stripped folder structure (based on `adocFilename`) — used for .adoc output
+    // paths, include:: directives, and jBake attributes. When no prefix regex is set,
+    // adocFilename == filename and the two structures are identical.
+    def adocFolderStructure = getAdocFolderStructure(pages, pageId)
+    def deepFilename = adocFolderStructure.join("/") + "/" + adocFilename.toString()
 
-    if (folderStructure.size() >= 1) {
-        new File(destDir, folderStructure.join("/")).mkdirs()
+    if (adocFolderStructure.size() >= 1) {
+        new File(destDir, adocFolderStructure.join("/")).mkdirs()
     }
     def outFile = new File(destDir, deepFilename + ".html")
     def (String body, List uTags) = fixBody(pageId, rawBody ?: '', users, pages, attachments, space)
@@ -624,9 +651,11 @@ writePage = { String pageId, String rawBody, List<String> childIds,
     def weightedChildren = []
     childIds.each { child ->
         if (pages[child] == null) return
+        def parentAdocFn = pages[pageId].adocFilename ?: pages[pageId].filename
+        def childAdocFn = pages[child].adocFilename ?: pages[child].filename
         weightedChildren << [weight : ((pages[child]?.position ?: "-1") as Integer),
-                             include: "include::" + pages[pageId].filename + "/" + pages[child].filename + ".adoc[levelOffset=+1]",
-                             menu   : "include::" + pages[child].filename + "/_menu.adoc[]"]
+                             include: "include::" + parentAdocFn + "/" + childAdocFn + ".adoc[levelOffset=+1]",
+                             menu   : "include::" + childAdocFn + "/_menu.adoc[]"]
     }
     def childIncludes = ""
     if (weightedChildren.size() > 0) {
@@ -647,13 +676,13 @@ endif::includeChildren[]
     }
     println deepFilename
     def fileHeader = """
-:jbake-menu: ${folderStructure.size() > 0 ? folderStructure[0] : '-'}
-:jbake-deep-menu: ${folderStructure.join("/")}
+:jbake-menu: ${adocFolderStructure.size() > 0 ? adocFolderStructure[0] : '-'}
+:jbake-deep-menu: ${adocFolderStructure.join("/")}
 :jbake-status: published
 :jbake-type: page_custom_menu
 :jbake-order: ${metaData.position ?: '0'}
-:jbake-root: ${"../" * (folderStructure.size())}
-:filename: ${metaData.filename.toString()}.adoc
+:jbake-root: ${"../" * (adocFolderStructure.size())}
+:filename: ${adocFilename.toString()}.adoc
 :filepath: ${folderStructure.join("/")}
 include::{jbake-root}_config.adoc[]
 ifdef::show-microsite-menu[]
@@ -753,8 +782,9 @@ createMenu = { Map pages, startPageId ->
     // numbered page names.
     def naturalKey = { String s -> s.replaceAll(/\d+/) { it.padLeft(10, '0') } }
     pageList.sort { a, b -> naturalKey(a.value.title) <=> naturalKey(b.value.title) }.each { page ->
-        def folderStructure = getFolderStructure(pages, page.key)
-        menu += "*" * (folderStructure.size() + 1) + " xref:{jbake-root}" + folderStructure.join("/") + '/' + page.value.filename + ".adoc[" + page.value.title + "]\n"
+        def adocFolder = getAdocFolderStructure(pages, page.key)
+        def adocFn = page.value.adocFilename ?: page.value.filename
+        menu += "*" * (adocFolder.size() + 1) + " xref:{jbake-root}" + adocFolder.join("/") + '/' + adocFn + ".adoc[" + page.value.title + "]\n"
         def childPageList = pages.findAll { it.value.parentId == page.key }
         if (childPageList.size() > 0) {
             menu += createMenu(pages, page.key)
