@@ -547,18 +547,33 @@ pages.each { pid, info ->
     }
 }
 
-def allUnknownTags = [] as Set
-pages.each { pid, info ->
-    // optionally save the raw Confluence storage-format XHTML for later
-    // inspection / diagnosing of conversion artifacts.
-    if (saveRawXhtml) {
+// --- save raw XHTML + metadata cache to raw/ subdirectory ----
+// XHTML and metadata live under destDir/raw/ using the ORIGINAL folder
+// structure (not the prefix-stripped adocFilename paths). This keeps them
+// stable across stripPagePrefixRegex changes and enables convertOnly mode.
+if (saveRawXhtml) {
+    println "\nsaving raw XHTML + metadata cache..."
+    pages.each { pid, info ->
         def folderStructure = getFolderStructure(pages, pid)
-        File rawDir = folderStructure.size() >= 1
-                ? new File(destDir, folderStructure.join("/"))
-                : destDir
+        File rawDir = new File(destDir, 'raw' + (folderStructure ? '/' + folderStructure.join('/') : ''))
         rawDir.mkdirs()
         new File(rawDir, "${info.filename}.xhtml").write(bodies[pid] ?: '', 'utf-8')
     }
+    // Serialise page tree + attachment metadata so convertOnly mode can
+    // reconstruct the maps without hitting the API.
+    def cache = [
+            pages      : pages,
+            attachments: attachments,
+            space      : space
+    ]
+    new File(new File(destDir, 'raw'), 'metadata.json').write(
+            new groovy.json.JsonBuilder(cache).toPrettyString(), 'utf-8')
+    println "  metadata.json written to ${new File(destDir, 'raw/metadata.json').absolutePath}"
+}
+
+// --- write pages ---
+def allUnknownTags = [] as Set
+pages.each { pid, info ->
     def childIds = childrenByParent[pid.toString()] ?: []
     def uTags = writePage(pid, bodies[pid] ?: '', childIds, pages, attachments, space, users, destDir)
     if (uTags) allUnknownTags.addAll(uTags)
