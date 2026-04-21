@@ -166,6 +166,19 @@ Set to `false` to preserve the original Confluence numbering verbatim.
 | Merges drawio XML + PNG attachment pairs into a single `<base>.drawio.png` with the XML embedded as an iTXt chunk (keyword `mxfile`).
 The merged file is both a regular image and re-openable by diagrams.net.
 Set to `false` to keep the two attachments side by side.
+
+| `confluence.export.api.stripPagePrefixRegex`
+| _(empty)_
+| A Java regex applied to each _sanitized_ page filename (after special chars become underscores).
+Strips the matched prefix from `.adoc` directory / file names to shorten paths.
+Page titles in headings, menu, and xrefs stay unchanged.
+Example: `^PROJ_XXX_YYY_(?:arc42_)?` strips the project prefix and an optional "arc42_" segment.
+
+| `confluence.export.api.convertOnly`
+| `false`
+| When `true`, skips all REST API calls, attachment downloads, and drawio merges.
+Reads page metadata from `raw/metadata.json` and page bodies from `raw/<folder>/<filename>.xhtml` (populated by a prior run with `saveRawXhtml=true`).
+Useful for re-converting with different options without re-fetching.
 |===
 
 `-Pconfluence.export.api.<name>=<value>` overrides each config key on the command line.

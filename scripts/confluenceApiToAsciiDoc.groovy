@@ -74,7 +74,7 @@ boolean downloadAttachments = (apiArgs.downloadAttachments ?: 'true').toString()
 boolean saveRawXhtml         = (apiArgs.saveRawXhtml ?: 'false').toString().toBoolean()
 boolean mergeDrawio          = (apiArgs.mergeDrawio ?: 'true').toString().toBoolean()
 boolean convertOnly          = (apiArgs.convertOnly ?: 'false').toString().toBoolean()
-String stripPagePrefix       = (apiArgs.stripPagePrefix ?: '') as String
+String stripPagePrefixRegex  = (apiArgs.stripPagePrefixRegex ?: '') as String
 // Override the shared converter's default (true). This must be set on the
 // binding (no `def`) so the fixBody closure in confluenceConverter.groovy sees it.
 stripChapterNumbering = (apiArgs.stripChapterNumbering ?: 'true').toString().toBoolean()
@@ -82,7 +82,7 @@ stripChapterNumbering = (apiArgs.stripChapterNumbering ?: 'true').toString().toB
 println "API:                   ${baseUrl}"
 println "destDir:               ${destDir.canonicalPath}"
 println "rootPageId:            ${rootPageId ?: '(resolving from title)'}"
-if (stripPagePrefix) println "stripPagePrefix:       '${stripPagePrefix}'"
+if (stripPagePrefixRegex) println "stripPagePrefixRegex:  '${stripPagePrefixRegex}'"
 println "rootTitle:             ${rootPageTitle ?: '(not set)'}"
 println "spaceKey:              ${spaceKey ?: '(not set)'}"
 println "saveRawXhtml:          ${saveRawXhtml}"
@@ -321,6 +321,11 @@ if (convertOnly) {
         }
         String title = pageData.title
         String filename = sanitizeFilename(title)
+        // adocFilename: the prefix-stripped version used for .adoc paths.
+        // The regex is applied to the SANITIZED filename (not the raw title)
+        // so the user can write patterns against the underscore-normalized
+        // form (e.g. '^PROJ_XXX_YYY_(?:arc42_)?').
+        String adocFn = stripPagePrefixRegex ? filename.replaceFirst(stripPagePrefixRegex, '') : filename
         String body = pageData.body?.storage?.value ?: ''
         def contribNames = []
         def creator = pageData.history?.createdBy?.displayName
@@ -333,7 +338,7 @@ if (convertOnly) {
                 title       : title,
                 parentId    : entry.parentId,
                 filename    : filename,
-                adocFilename: filename,
+                adocFilename: adocFn,
                 position    : entry.position.toString(),
                 status      : 'current',
                 contributors: contribNames

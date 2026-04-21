@@ -302,7 +302,18 @@ confluence.with {
                     // mergeDrawio merges drawio XML + PNG attachment pairs into a single
                     // <base>.drawio.png, with the XML embedded as an iTXt chunk so the
                     // file is both a valid image and re-openable by diagrams.net.
-                    mergeDrawio: true
+                    mergeDrawio: true,
+                    // stripPagePrefixRegex is a Java regex applied to each SANITIZED
+                    // page filename. Use it to strip a common prefix from .adoc
+                    // directory/file names to shorten paths. Page titles in headings,
+                    // menu, and xrefs stay unchanged. The regex is matched against
+                    // the sanitized filename (underscores, no special chars).
+                    // Example: '^PROJ_XXX_YYY_(?:arc42_)?'
+                    // stripPagePrefixRegex: '^PROJ_XXX_YYY_(?:arc42_)?',
+                    // convertOnly skips all REST API calls and reads from a prior
+                    // run's raw/ cache instead. Requires saveRawXhtml=true on the
+                    // initial run.
+                    // convertOnly: false,
             ]
     ]
 }
