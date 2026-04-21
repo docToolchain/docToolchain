@@ -73,6 +73,7 @@ double rateLimitPerSecond = (config.confluence.rateLimit ?: 10) as double
 boolean downloadAttachments = (apiArgs.downloadAttachments ?: 'true').toString().toBoolean()
 boolean saveRawXhtml         = (apiArgs.saveRawXhtml ?: 'false').toString().toBoolean()
 boolean mergeDrawio          = (apiArgs.mergeDrawio ?: 'true').toString().toBoolean()
+boolean convertOnly          = (apiArgs.convertOnly ?: 'false').toString().toBoolean()
 String stripPagePrefix       = (apiArgs.stripPagePrefix ?: '') as String
 // Override the shared converter's default (true). This must be set on the
 // binding (no `def`) so the fixBody closure in confluenceConverter.groovy sees it.
@@ -85,6 +86,7 @@ if (stripPagePrefix) println "stripPagePrefix:       '${stripPagePrefix}'"
 println "rootTitle:             ${rootPageTitle ?: '(not set)'}"
 println "spaceKey:              ${spaceKey ?: '(not set)'}"
 println "saveRawXhtml:          ${saveRawXhtml}"
+println "convertOnly:           ${convertOnly}"
 println "stripChapterNumbering: ${stripChapterNumbering}"
 println "mergeDrawio:           ${mergeDrawio}"
 
@@ -187,172 +189,182 @@ def downloadBinary = { String urlOrPath, File destFile ->
     conn.disconnect()
 }
 
-// --- tree walk ---
-
-// Resolve rootPageTitle -> rootPageId via CQL if needed.
-if (!rootPageId && rootPageTitle) {
-    def cql = "type=page AND title=\"${rootPageTitle.replace('"', '\\"')}\""
-    if (spaceKey) cql += " AND space.key=\"${spaceKey}\""
-    def searchUrl = apiPath("/content/search") + "?cql=${URLEncoder.encode(cql, 'UTF-8')}&limit=2"
-    def searchResult = restGet(searchUrl)
-    def hits = searchResult.results ?: []
-    if (hits.isEmpty()) {
-        throw new IllegalStateException("No page found with title '${rootPageTitle}'${spaceKey ? " in space '${spaceKey}'" : ''}")
-    }
-    if (hits.size() > 1) {
-        throw new IllegalStateException("Multiple pages found with title '${rootPageTitle}' (ids: ${hits.collect { it.id }}); please pass rootPageId instead, or set spaceKey")
-    }
-    rootPageId = hits[0].id as String
-    println "Resolved rootPageTitle '${rootPageTitle}' to rootPageId '${rootPageId}'"
-}
-
-// Fetch a single page (with body.storage, version metadata, space, ancestors,
-// and contributor history so the `contributors` macro can render names).
-def fetchPage = { String id ->
-    def expand = [
-            'body.storage',
-            'version',
-            'space',
-            'ancestors',
-            'history.createdBy',
-            'history.contributors.publishers.users'
-    ].join(',')
-    def url = apiPath("/content/${id}") + "?expand=${expand}"
-    return restGet(url)
-}
-
-// Fetch one "page" of direct children, returning [results, nextStart, hasMore].
-def fetchDirectChildrenOnce = { String parentId, int start ->
-    def url = apiPath("/content/${parentId}/child/page") + "?limit=${pageLimit}&start=${start}"
-    def r = restGet(url)
-    def results = r.results ?: []
-    // v1 REST sometimes exposes next via _links.next, but it's safer to compare sizes
-    return [results, start + results.size(), results.size() >= pageLimit]
-}
-
-def fetchAllDirectChildren = { String parentId ->
-    def all = []
-    int start = 0
-    boolean more = true
-    while (more) {
-        def (chunk, nextStart, hasMore) = fetchDirectChildrenOnce(parentId, start)
-        all.addAll(chunk)
-        start = nextStart
-        more = hasMore
-    }
-    return all
-}
-
-def fetchAttachmentsForPage = { String pageId ->
-    def all = []
-    int start = 0
-    boolean more = true
-    while (more) {
-        def url = apiPath("/content/${pageId}/child/attachment") + "?limit=${pageLimit}&start=${start}&expand=version"
-        def r = restGet(url)
-        def chunk = r.results ?: []
-        all.addAll(chunk)
-        start += chunk.size()
-        more = chunk.size() >= pageLimit
-    }
-    return all
-}
-
-// --- walk the tree breadth-first, collecting pages + attachments ---
-
-println "\nfetching root page ${rootPageId}..."
-def rootPage = fetchPage(rootPageId)
-if (!rootPage) throw new IllegalStateException("Root page ${rootPageId} not found or not readable")
-def spaceInfo = rootPage.space ?: [:]
-
+// --- shared data maps (populated by either API fetch or cache read) ---
 Map pages = [:]
 Map attachments = [:]
-Map users = [:]          // API driver doesn't currently resolve user profiles
-Map space = [
-        name    : spaceInfo.name ?: '',
-        key     : spaceInfo.key ?: '',
-        homePage: rootPageId
-]
-
-// queue entries: [id, parentId-as-String-or-0, position]
-def queue = new LinkedList()
-queue << [id: rootPageId, parentId: 0, position: 0]
+Map users = [:]
+Map space = [:]
 Map<String, String> bodies = [:]
 
-// avoid cycles (shouldn't happen in Confluence but defensive)
-Set<String> visited = [] as Set
-
-while (!queue.isEmpty()) {
-    def entry = queue.poll()
-    String pid = entry.id
-    if (!visited.add(pid)) continue
-
-    def pageData = (pid == rootPageId) ? rootPage : fetchPage(pid)
-    if (!pageData) {
-        println "WARNING: could not fetch page ${pid}, skipping"
-        continue
+if (convertOnly) {
+    // --- convert-only mode: read from raw/ cache instead of hitting the API ---
+    def cacheFile = new File(new File(destDir, 'raw'), 'metadata.json')
+    if (!cacheFile.exists()) {
+        throw new IllegalStateException(
+                "convertOnly mode requires raw/metadata.json — run once without convertOnly first to populate the cache")
     }
-    String title = pageData.title
-    // Strip a common prefix from the filename (directory + .adoc name) to
-    // shorten paths — useful when every page in a Confluence space shares
-    // a project prefix that would otherwise push nested paths past Windows'
-    // 260-char limit. The page TITLE (used in headings, menu, xrefs) stays
-    // unchanged.
-    String filenameBase = stripPagePrefix ? title.replaceFirst(/^\Q${stripPagePrefix}\E/, '') : title
-    String filename = sanitizeFilename(filenameBase)
-    String body = pageData.body?.storage?.value ?: ''
-    // Collect display names for the `contributors` macro. createdBy first,
-    // then any additional publishers (de-duplicated, original order preserved).
-    def contribNames = []
-    def creator = pageData.history?.createdBy?.displayName
-    if (creator) contribNames << creator
-    pageData.history?.contributors?.publishers?.users?.each { user ->
-        def dn = user?.displayName
-        if (dn && !contribNames.contains(dn)) contribNames << dn
+    println "\nconvertOnly mode: reading from cache..."
+    def cache = new groovy.json.JsonSlurper().parseText(cacheFile.getText('utf-8'))
+    pages = cache.pages as Map
+    attachments = cache.attachments as Map
+    space = cache.space as Map
+    // Read bodies from cached XHTML files
+    pages.each { pid, info ->
+        def folderStructure = getFolderStructure(pages, pid)
+        def rawFile = new File(new File(destDir, 'raw' + (folderStructure ? '/' + folderStructure.join('/') : '')),
+                "${info.filename}.xhtml")
+        if (rawFile.exists()) {
+            bodies[pid] = rawFile.getText('utf-8')
+        } else {
+            println "  WARNING: no cached XHTML for page ${pid} (${info.title})"
+            bodies[pid] = ''
+        }
     }
-    pages[pid] = [
-            title       : title,
-            parentId    : entry.parentId,
-            filename    : filename,
-            adocFilename: filename,    // will differ from filename when stripPagePrefixRegex is set
-            position    : entry.position.toString(),
-            status      : 'current',
-            contributors: contribNames
+    println "loaded ${pages.size()} pages, ${attachments.size()} attachments from cache"
+
+} else {
+    // --- full API mode: fetch pages, download attachments, merge drawio ---
+
+    // Resolve rootPageTitle -> rootPageId via CQL if needed.
+    if (!rootPageId && rootPageTitle) {
+        def cql = "type=page AND title=\"${rootPageTitle.replace('"', '\\"')}\""
+        if (spaceKey) cql += " AND space.key=\"${spaceKey}\""
+        def searchUrl = apiPath("/content/search") + "?cql=${URLEncoder.encode(cql, 'UTF-8')}&limit=2"
+        def searchResult = restGet(searchUrl)
+        def hits = searchResult.results ?: []
+        if (hits.isEmpty()) {
+            throw new IllegalStateException("No page found with title '${rootPageTitle}'${spaceKey ? " in space '${spaceKey}'" : ''}")
+        }
+        if (hits.size() > 1) {
+            throw new IllegalStateException("Multiple pages found with title '${rootPageTitle}' (ids: ${hits.collect { it.id }}); please pass rootPageId instead, or set spaceKey")
+        }
+        rootPageId = hits[0].id as String
+        println "Resolved rootPageTitle '${rootPageTitle}' to rootPageId '${rootPageId}'"
+    }
+
+    // Fetch a single page (with body.storage, version metadata, space, ancestors,
+    // and contributor history so the `contributors` macro can render names).
+    def fetchPage = { String id ->
+        def expand = [
+                'body.storage',
+                'version',
+                'space',
+                'ancestors',
+                'history.createdBy',
+                'history.contributors.publishers.users'
+        ].join(',')
+        def url = apiPath("/content/${id}") + "?expand=${expand}"
+        return restGet(url)
+    }
+
+    def fetchDirectChildrenOnce = { String parentId, int start ->
+        def url = apiPath("/content/${parentId}/child/page") + "?limit=${pageLimit}&start=${start}"
+        def r = restGet(url)
+        def results = r.results ?: []
+        return [results, start + results.size(), results.size() >= pageLimit]
+    }
+
+    def fetchAllDirectChildren = { String parentId ->
+        def all = []
+        int start = 0
+        boolean more = true
+        while (more) {
+            def (chunk, nextStart, hasMore) = fetchDirectChildrenOnce(parentId, start)
+            all.addAll(chunk)
+            start = nextStart
+            more = hasMore
+        }
+        return all
+    }
+
+    def fetchAttachmentsForPage = { String pageId ->
+        def all = []
+        int start = 0
+        boolean more = true
+        while (more) {
+            def url = apiPath("/content/${pageId}/child/attachment") + "?limit=${pageLimit}&start=${start}&expand=version"
+            def r = restGet(url)
+            def chunk = r.results ?: []
+            all.addAll(chunk)
+            start += chunk.size()
+            more = chunk.size() >= pageLimit
+        }
+        return all
+    }
+
+    // --- walk the tree breadth-first, collecting pages + attachments ---
+
+    println "\nfetching root page ${rootPageId}..."
+    def rootPage = fetchPage(rootPageId)
+    if (!rootPage) throw new IllegalStateException("Root page ${rootPageId} not found or not readable")
+    def spaceInfo = rootPage.space ?: [:]
+
+    space = [
+            name    : spaceInfo.name ?: '',
+            key     : spaceInfo.key ?: '',
+            homePage: rootPageId
     ]
-    bodies[pid] = body
-    println "page: ${pid} - ${title}"
 
-    // attachments for this page
-    def attList = fetchAttachmentsForPage(pid)
-    attList.each { att ->
-        String aid = att.id as String
-        String aTitle = att.title as String
-        String version = (att.version?.number ?: 1).toString()
-        String downloadLink = att._links?.download ?: ''
-        attachments[aid] = [
-                filename        : aTitle,
-                // originalFilename tracks the name Confluence stored in
-                // <ri:attachment ri:filename=...>. The `filename` field may be
-                // rewritten later (e.g. by the drawio PNG/XML merge step) so
-                // fixBody can still resolve the original <ac:image> reference
-                // via this field.
-                originalFilename: aTitle,
-                id              : aid,
-                version         : version,
-                pageId          : pid,
-                originalId      : '',
-                downloadUrl     : downloadLink
+    def queue = new LinkedList()
+    queue << [id: rootPageId, parentId: 0, position: 0]
+    Set<String> visited = [] as Set
+
+    while (!queue.isEmpty()) {
+        def entry = queue.poll()
+        String pid = entry.id
+        if (!visited.add(pid)) continue
+
+        def pageData = (pid == rootPageId) ? rootPage : fetchPage(pid)
+        if (!pageData) {
+            println "WARNING: could not fetch page ${pid}, skipping"
+            continue
+        }
+        String title = pageData.title
+        String filename = sanitizeFilename(title)
+        String body = pageData.body?.storage?.value ?: ''
+        def contribNames = []
+        def creator = pageData.history?.createdBy?.displayName
+        if (creator) contribNames << creator
+        pageData.history?.contributors?.publishers?.users?.each { user ->
+            def dn = user?.displayName
+            if (dn && !contribNames.contains(dn)) contribNames << dn
+        }
+        pages[pid] = [
+                title       : title,
+                parentId    : entry.parentId,
+                filename    : filename,
+                adocFilename: filename,
+                position    : entry.position.toString(),
+                status      : 'current',
+                contributors: contribNames
         ]
+        bodies[pid] = body
+        println "page: ${pid} - ${title}"
+
+        def attList = fetchAttachmentsForPage(pid)
+        attList.each { att ->
+            String aid = att.id as String
+            String aTitle = att.title as String
+            String version = (att.version?.number ?: 1).toString()
+            String downloadLink = att._links?.download ?: ''
+            attachments[aid] = [
+                    filename        : aTitle,
+                    originalFilename: aTitle,
+                    id              : aid,
+                    version         : version,
+                    pageId          : pid,
+                    originalId      : '',
+                    downloadUrl     : downloadLink
+            ]
+        }
+
+        def children = fetchAllDirectChildren(pid)
+        children.eachWithIndex { child, idx ->
+            queue << [id: child.id as String, parentId: pid, position: idx]
+        }
     }
 
-    // direct children -> enqueue
-    def children = fetchAllDirectChildren(pid)
-    children.eachWithIndex { child, idx ->
-        queue << [id: child.id as String, parentId: pid, position: idx]
-    }
-}
-
-println "\nfetched ${pages.size()} pages and ${attachments.size()} attachments"
+    println "\nfetched ${pages.size()} pages and ${attachments.size()} attachments"
 
 // --- download attachments to images/<folderStructure>/<version>_<filename> ---
 if (downloadAttachments && !attachments.isEmpty()) {
@@ -530,12 +542,13 @@ def mergeDrawioPairs = {
     consumedXmlIds.each { attachments.remove(it) }
 }
 
-if (mergeDrawio && downloadAttachments && !attachments.isEmpty()) {
-    println "\nmerging drawio PNG/XML pairs..."
-    mergeDrawioPairs()
-}
+    if (mergeDrawio && downloadAttachments && !attachments.isEmpty()) {
+        println "\nmerging drawio PNG/XML pairs..."
+        mergeDrawioPairs()
+    }
+} // end of: } else { /* full API mode */ }
 
-// --- write pages ---
+// --- write pages (common path for both API and convertOnly modes) ---
 lucidInfoFile = new File(destDir, "lucidinfos.txt")
 lucidInfoFile.write("", 'utf-8')
 
@@ -551,7 +564,8 @@ pages.each { pid, info ->
 // XHTML and metadata live under destDir/raw/ using the ORIGINAL folder
 // structure (not the prefix-stripped adocFilename paths). This keeps them
 // stable across stripPagePrefixRegex changes and enables convertOnly mode.
-if (saveRawXhtml) {
+// Skip in convertOnly mode — the cache is already there.
+if (saveRawXhtml && !convertOnly) {
     println "\nsaving raw XHTML + metadata cache..."
     pages.each { pid, info ->
         def folderStructure = getFolderStructure(pages, pid)
