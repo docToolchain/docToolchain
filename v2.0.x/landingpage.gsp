@@ -111,6 +111,17 @@
             <div class="col">
                 <div class="card mb-4 shadow-sm">
                     <div class="card-header">
+                        <h4 class="my-0 fw-normal">Bausteinsicht</h4>
+                    </div>
+                    <div class="card-body">
+                        Architecture-as-code: define building blocks in JSONC, sync bidirectionally with draw.io diagrams. Think Structurizr, but simpler.<br /><br />
+                        <a class="btn btn-primary" href="https://doctoolchain.org/Bausteinsicht/" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
                         <h4 class="my-0 fw-normal">diagrams.net IntelliJ Plugin</h4>
                     </div>
                     <div class="card-body">
