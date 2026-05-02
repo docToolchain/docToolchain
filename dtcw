@@ -12,6 +12,11 @@ set -o pipefail
 
 # See https://github.com/docToolchain/docToolchain/releases for available versions.
 # Set DTC_VERSION to "latest" to get the latest, yet unreleased version.
+#
+# Remember whether the version was chosen by the caller: for container
+# environments the version is derived from the image the project pins, and an
+# explicit DTC_VERSION has to keep winning over that.
+DTC_VERSION_EXPLICIT=${DTC_VERSION:+true}
 : "${DTC_VERSION:=4.0.0}"
 
 # if not set, public docker hub is used
@@ -45,6 +50,11 @@ export DTC_PROJECT_BRANCH
 # DTC_HEADLESS is true if no STDIN is open (i.e. we have an non-interactive shell).
 : "${DTC_HEADLESS:=$([ -t 0 ] && echo false || echo true)}"
 export DTC_HEADLESS
+
+# Compose/devcontainer environment variables (all optional)
+: "${DTC_COMPOSE:=}"
+: "${DTC_SERVICE:=}"
+: "${DTC_WORKSPACE:=.}"
 
 # Options passed to docToolchain
 DTC_OPTS="${DTC_OPTS:-} --warning-mode=none --no-daemon -Dfile.encoding=UTF-8 "
@@ -102,10 +112,7 @@ main() {
         install_component_and_exit "${environment}" "java"
     fi
 
-    # No install command, so forward call to docToolchain but first we check if
-    # everything is there.
-
-    # S1: Validate task name format early (applies to all environments incl. Docker)
+    # S1: Validate task name format early (applies to all environments)
     if [[ ! "${1}" =~ ^[a-zA-Z][a-zA-Z0-9_-]*$ ]]; then
         error "Invalid task name: '${1}'. Task names must be alphanumeric (letters, digits, hyphens, underscores)."
         exit ${ERR_ARG}
@@ -115,30 +122,67 @@ main() {
     # discovery, the 'tasks' listing, project-first resolution and unknown-task
     # guidance. The task-name format was validated above; everything else is the
     # launcher's job. It resolves project tasks relative to the project root, so
-    # in docker (project mounted at /project) an absolute DTC_PROJECT_SCRIPTS_DIR
-    # simply won't match a project task and resolution falls back to the
-    # installed one — no special-casing needed in the wrapper.
+    # in a container environment (project mounted at /project) an absolute
+    # DTC_PROJECT_SCRIPTS_DIR simply won't match a project task and resolution
+    # falls back to the installed one — no special-casing needed in the wrapper.
+
+    # Prepare the container command prefix for compose/devcontainer
+    container_cmd_prefix=""
+    case "${environment}" in
+        compose)
+            local compose_path
+            compose_path=$(detect_compose_path) || { error "No compose file found"; exit ${ERR_ARG}; }
+            local service="${DTC_SERVICE:-}"
+            [[ -z "${service}" ]] && service=$(find_dtc_service "${compose_path}")
+            if [[ -z "${service}" ]]; then
+                error "No doctoolchain service in ${compose_path}. Set DTC_SERVICE."
+                exit ${ERR_ARG}
+            fi
+            assert_container_version "$(compose_image_ref "${compose_path}")" "${compose_path}"
+            local compose_cmd
+            compose_cmd=$(find_compose_cmd) || exit 1
+            # Quote the interpolated values: the prefix ends up inside the
+            # command string that main() hands to 'bash -c', so that shell
+            # re-parses it and would word-split a path containing spaces.
+            container_cmd_prefix="${compose_cmd} -f '${compose_path}' exec '${service}'"
+            ;;
+        devcontainer)
+            assert_devcontainer_cli
+            assert_container_version "$(devcontainer_image_ref)" ".devcontainer/devcontainer.json"
+            container_cmd_prefix="devcontainer exec --workspace-folder '${DTC_WORKSPACE}'"
+            ;;
+    esac
 
     docker_image_name=""
     docker_extra_arguments=""
-    if [[ ${environment} != docker ]]; then
-        assert_doctoolchain_installed "${environment}" "${DTC_VERSION}"
-        assert_java_version_supported
-    else
-        docker_image_name="doctoolchain/doctoolchain"
-        if [ "${1}" = "image" ]; then
-            docker_image_name="${2-}"
-            shift 2
-            assert_argument_exists "$@"
-        fi
-        echo "Using docker image: ${docker_image_name}"
-        if [ "${1}" = "extra_arguments" ]; then
-            docker_extra_arguments="${2-}"
-            shift 2
-            assert_argument_exists "$@"
-            echo "Extra arguments passed to 'docker run' ${docker_extra_arguments}"
-        fi
-    fi
+    case "${environment}" in
+        compose|devcontainer)
+            # docToolchain and its Java runtime ship inside the container image,
+            # so there is nothing to assert on the host.
+            ;;
+        docker)
+            # get_available_environments() resolved the runtime in a subshell,
+            # so resolve it again here - build_command() reads it in this shell.
+            detect_container_runner || { error "No container runtime found"; exit ${ERR_DTCW}; }
+            docker_image_name="doctoolchain/doctoolchain"
+            if [ "${1}" = "image" ]; then
+                docker_image_name="${2-}"
+                shift 2
+                assert_argument_exists "$@"
+            fi
+            echo "Using docker image: ${docker_image_name}"
+            if [ "${1}" = "extra_arguments" ]; then
+                docker_extra_arguments="${2-}"
+                shift 2
+                assert_argument_exists "$@"
+                echo "Extra arguments passed to 'docker run' ${docker_extra_arguments}"
+            fi
+            ;;
+        *)
+            assert_doctoolchain_installed "${environment}" "${DTC_VERSION}"
+            assert_java_version_supported
+            ;;
+    esac
 
     command=$(build_command "${environment}" "${DTC_VERSION}" "${docker_image_name}" "${docker_extra_arguments}" "$@")
 
@@ -176,38 +220,35 @@ usage() {
 dtcw - Create awesome documentation the easy way with docToolchain.
 
 Usage: ./dtcw [environment] [option...] [task...]
-       ./dtcw [local] install {doctoolchain | java }
+       ./dtcw [environment] install doctoolchain
 
-Use 'local', 'sdk' or 'docker' as first argument to force the use of a specific
-docToolchain environment:
-    - local: installation in '$HOME/.doctoolchain'
-    - sdk: installation with SDKMAN! (https://sdkman.io/)
-    - docker: use docToolchain container image
+Environments (auto-detected in this order):
+    - compose:      docker-compose.yml with doctoolchain service
+    - devcontainer: .devcontainer with doctoolchain image
+    - local:        installation in '\$HOME/.doctoolchain'
+    - sdk:          installation with SDKMAN! (https://sdkman.io/)
+    - docker:       one-shot container via 'docker run'
 
 Examples:
 
-  Download and install docToolchain in '${DTC_ROOT}':
-    ./dtcw local install doctoolchain
-
-  Download and install project documentation template from https://arc42.org/ :
-    ./dtcw downloadTemplate
-
-  Generate PDF:
-    ./dtcw generatePDF
-
-  Generate HTML:
+  Generate HTML (auto-detects environment):
     ./dtcw generateHTML
 
-  Publish HTML to Confluence:
-    ./dtcw publishToConfluence
+  Force a specific environment:
+    ./dtcw compose generatePDF
+    ./dtcw local generateHTML
+    ./dtcw docker generateSite
 
-  Multiple tasks may be provided at once:
-    ./dtcw generatePDF generateHTML
+  Bootstrap a compose environment:
+    ./dtcw compose install doctoolchain
+
+  Install docToolchain locally:
+    ./dtcw local install doctoolchain
 
   List available tasks:
     ./dtcw tasks
 
-Detailed documentation how to use docToolchain may be found at https://doctoolchain.org/
+Detailed documentation: https://doctoolchain.org/
 EOF
 }
 
@@ -229,15 +270,30 @@ print_version_info() {
 }
 
 get_available_environments() {
-    # The local environment is alway available - even if docToolchain is not installed
-    local envs=" local"
+    # Priority: project-local contexts that bring their own docToolchain
+    # override host installations.  A running compose service or
+    # devcontainer is ready to use immediately, whereas local/sdk may
+    # require installation steps and docker always cold-starts a new
+    # container.
+    local envs=""
 
-    # 'sdk' is provided a bash founction - thus command doesn't work
+    if detect_compose_path >/dev/null 2>&1 && find_compose_cmd >/dev/null 2>&1; then
+        envs+=" compose"
+    fi
+
+    if detect_devcontainer && has devcontainer; then
+        envs+=" devcontainer"
+    fi
+
+    # The local environment is always available - even if docToolchain is not installed
+    envs+=" local"
+
+    # 'sdk' is provided as a bash function - thus 'command' doesn't work
     if [ -n "${SDKMAN_DIR:-}" ] && [ -s "${SDKMAN_DIR}/bin/sdkman-init.sh" ]; then
         envs+=" sdk"
     fi
 
-    if has docker; then
+    if detect_container_runner; then
         envs+=" docker"
     fi
     echo "${envs}"
@@ -247,10 +303,321 @@ has() {
   command -v "$1" 1>/dev/null 2>&1
 }
 
+# --- Container runtime detection ---
+
+# Container runtimes in order of preference: lightweight/daemonless first,
+# docker last. Single source for both the runtime and the compose lookup.
+DTC_CONTAINER_RUNNERS=(container nerdctl finch podman docker)
+
+# Detect a container runtime → DTC_CONTAINER_RUNNER.
+# A pre-set DTC_CONTAINER_RUNNER is authoritative and never second-guessed.
+detect_container_runner() {
+    [[ -n "${DTC_CONTAINER_RUNNER:-}" ]] && return 0
+    local candidate
+    for candidate in "${DTC_CONTAINER_RUNNERS[@]}"; do
+        if DTC_CONTAINER_RUNNER="$(command -v "${candidate}")"; then
+            return 0
+        fi
+    done
+    DTC_CONTAINER_RUNNER=""
+    return 1
+}
+
+# --- Runtime peculiarities ---
+
+# Rootless podman puts the invoking user at container uid 0 and maps every other
+# uid into a subuid range. Together with the '-u $(id -u):$(id -g)' we pass, the
+# project owner then exists nowhere inside the container and the bind-mounted
+# project is read-only in practice -- generateHTML fails on its own output
+# directory. '--userns=keep-id' maps the host user onto itself and restores write
+# access. Rootful podman rejects the flag, so ask for it only when podman really
+# runs rootless; every other runtime needs nothing.
+podman_userns_args() {
+    [[ "$(basename "${DTC_CONTAINER_RUNNER:-}")" == "podman" ]] || return 0
+    local rootless
+    rootless=$("${DTC_CONTAINER_RUNNER}" info --format '{{.Host.Security.Rootless}}' 2>/dev/null) || return 0
+    [[ "${rootless}" == "true" ]] && printf '%s' '--userns=keep-id'
+    return 0
+}
+
+# --- Compose / devcontainer support ---
+
+# Locate a docker-compose file with a doctoolchain service.
+# Checks DTC_COMPOSE, then docker-compose.y{a,}ml in the current directory.
+detect_compose_path() {
+    if [[ -n "${DTC_COMPOSE:-}" ]]; then
+        if [[ -f "${DTC_COMPOSE}" ]]; then
+            echo "${DTC_COMPOSE}"
+            return 0
+        fi
+        return 1
+    fi
+    # Compose-spec names first, legacy 'docker-compose.*' after them. Within
+    # each pair the order matches what 'docker compose' itself picks, so dtcw
+    # never forces a different file via -f than plain compose would have used.
+    for f in compose.{yaml,yml} docker-compose.{yml,yaml}; do
+        if [[ -f "$f" ]] && grep -q 'doctoolchain' "$f" 2>/dev/null; then
+            echo "$f"
+            return 0
+        fi
+    done
+    return 1
+}
+
+# True if .devcontainer/devcontainer.json references a doctoolchain image
+# (directly or via a dockerComposeFile).
+detect_devcontainer() {
+    local json=".devcontainer/devcontainer.json"
+    [[ -f "$json" ]] || return 1
+    if grep -qE '"image"[[:space:]]*:[[:space:]]*"doctoolchain/' "$json"; then
+        return 0
+    fi
+    local compose_ref
+    compose_ref=$(sed -n 's/.*"dockerComposeFile"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "$json" 2>/dev/null || true)
+    if [[ -n "${compose_ref}" ]]; then
+        local resolved
+        resolved="$(dirname "$json")/${compose_ref}"
+        [[ -f "$resolved" ]] && grep -q 'doctoolchain' "$resolved" 2>/dev/null && return 0
+    fi
+    return 1
+}
+
+# Extract the docToolchain version from a container image reference:
+# 'doctoolchain/doctoolchain:v3.5.0' -> '3.5.0'. Fails for a reference without a
+# numeric tag (no tag at all, ':latest', a digest, or a bare registry:port host).
+image_ref_version() {
+    local ref=${1}
+    local tag=${ref##*:}
+    # No colon at all, or the colon belonged to a registry port ('host:443/img')
+    if [[ "${tag}" == "${ref}" ]] || [[ "${tag}" == */* ]]; then
+        return 1
+    fi
+    tag=${tag#v}
+    [[ "${tag}" =~ ^[0-9]+(\.[0-9]+)*$ ]] || return 1
+    printf '%s' "${tag}"
+}
+
+# The image reference of the doctoolchain service in a compose file.
+compose_image_ref() {
+    awk '/image:[[:space:]]*.*doctoolchain/ {
+            sub(/^[[:space:]]*image:[[:space:]]*/, "")
+            gsub(/["'"'"']/, "")
+            sub(/[[:space:]]+$/, "")
+            print
+            exit
+         }' "${1}"
+}
+
+# The image reference a devcontainer.json resolves to - either its own "image"
+# or, when it delegates to compose, the one in that file.
+devcontainer_image_ref() {
+    local json=".devcontainer/devcontainer.json"
+    local ref
+    ref=$(sed -n 's/.*"image"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "${json}" | head -1)
+    if [[ -n "${ref}" ]]; then
+        printf '%s' "${ref}"
+        return 0
+    fi
+    local compose_ref
+    compose_ref=$(sed -n 's/.*"dockerComposeFile"[[:space:]]*:[[:space:]]*"\([^"]*\)".*/\1/p' "${json}" | head -1)
+    if [[ -n "${compose_ref}" ]]; then
+        local resolved
+        resolved="$(dirname "${json}")/${compose_ref}"
+        [[ -f "${resolved}" ]] && compose_image_ref "${resolved}"
+    fi
+}
+
+# Pin DTC_VERSION to what the container actually provides.
+#
+# dtcw dispatches 3.x through Gradle and 4.x through the Groovy launcher, with
+# hard-coded in-container paths for the latter, so guessing is not an option: a
+# v4 dispatch into a 3.x image fails with a missing Launcher.groovy. The host
+# installation says nothing about the container - there may be none at all - so
+# the image tag is the only source of truth. An explicit DTC_VERSION still wins.
+assert_container_version() {
+    local ref=${1}
+    local source=${2}
+
+    if [[ -n "${DTC_VERSION_EXPLICIT}" ]]; then
+        echo "Using docToolchain ${DTC_VERSION} (DTC_VERSION overrides ${source})"
+        return 0
+    fi
+
+    local derived
+    if [[ -z "${ref}" ]] || ! derived=$(image_ref_version "${ref}"); then
+        error "cannot determine the docToolchain version from ${source}"
+        printf '%s\n' \
+            "Image reference: ${ref:-<none found>}" \
+            "" \
+            "dtcw invokes docToolchain 3.x through Gradle and 4.x directly via" \
+            "Groovy, so it has to know the version before it can build a command." \
+            "Pin a versioned tag, e.g." \
+            "" \
+            "    image: doctoolchain/doctoolchain:v${DTC_VERSION}" \
+            "" \
+            "or state the version explicitly:" \
+            "" \
+            "    DTC_VERSION=${DTC_VERSION} ./dtcw <task>" >&2
+        exit ${ERR_ARG}
+    fi
+
+    DTC_VERSION="${derived}"
+    DTC_HOME="${DTC_ROOT}/docToolchain-${DTC_VERSION}"
+    echo "Using docToolchain ${DTC_VERSION} from ${source}"
+}
+
+assert_devcontainer_cli() {
+    if ! has devcontainer; then
+        error "devcontainer CLI not found"
+        echo "Install it via: npm install -g @devcontainers/cli" >&2
+        exit ${ERR_DTCW}
+    fi
+}
+
+# The compose implementation belonging to one runtime, printed as the command to
+# run. Modern runtimes carry compose as a subcommand; the standalone binaries
+# each belong to exactly one runtime and must not be crossed over.
+runner_compose_cmd() {
+    local bin=${1}
+    if "${bin}" compose version >/dev/null 2>&1; then
+        printf '%s compose' "${bin}"
+        return 0
+    fi
+    case "$(basename "${bin}")" in
+        docker) has docker-compose && { printf 'docker-compose'; return 0; } ;;
+        podman) has podman-compose && { printf 'podman-compose'; return 0; } ;;
+    esac
+    return 1
+}
+
+# Find a compose command, paired with the runtime it belongs to.
+#
+# The pairing is the point: picking 'docker compose' while the service was
+# started by podman talks to the wrong engine, and a runtime whose compose lives
+# in a subcommand (nerdctl, finch) was invisible before. An explicitly chosen
+# DTC_CONTAINER_RUNNER is authoritative - we do not silently use another engine.
+find_compose_cmd() {
+    if [[ -n "${DTC_CONTAINER_RUNNER:-}" ]]; then
+        runner_compose_cmd "${DTC_CONTAINER_RUNNER}" && return 0
+        error "'$(basename "${DTC_CONTAINER_RUNNER}")' has no compose support installed"
+        echo "Unset or change DTC_CONTAINER_RUNNER to use a different runtime." >&2
+        return 1
+    fi
+
+    local candidate bin
+    for candidate in "${DTC_CONTAINER_RUNNERS[@]}"; do
+        bin=$(command -v "${candidate}") || continue
+        runner_compose_cmd "${bin}" && return 0
+    done
+
+    error "No compose command found"
+    echo "Tried: ${DTC_CONTAINER_RUNNERS[*]} (as '<runtime> compose')," >&2
+    echo "plus the standalone docker-compose and podman-compose." >&2
+    return 1
+}
+
+# Extract the service name whose image contains "doctoolchain" from a compose file.
+find_dtc_service() {
+    local compose_path="$1"
+    awk '
+        /^[[:space:]]*[a-zA-Z0-9_-]+:[[:space:]]*$/ {
+            current_service = $1
+            gsub(/:$/, "", current_service)
+        }
+        /image:.*doctoolchain/ {
+            print current_service
+            exit
+        }
+    ' "${compose_path}"
+}
+
+# Bootstrap a docker-compose.yml with a doctoolchain service, or
+# pull/build if the file already exists.
+compose_install_doctoolchain() {
+    local compose_path
+    compose_path=$(detect_compose_path 2>/dev/null) || true
+
+    if [[ -z "${compose_path}" ]]; then
+        compose_path="docker-compose.yml"
+        echo "Creating ${compose_path} with doctoolchain service..."
+        cat > "${compose_path}" <<YAML
+services:
+  doctoolchain:
+    image: doctoolchain/doctoolchain:v${DTC_VERSION}
+    platform: linux/amd64
+    volumes:
+      - .:/project
+    entrypoint: ["sleep", "infinity"]
+    environment:
+      DTC_HEADLESS: "true"
+      DTC_OPTS: >-
+        -PmainConfigFile=${DTC_CONFIG_FILE}
+        --warning-mode=none
+        -Dfile.encoding=UTF-8
+YAML
+        echo "Created ${compose_path}."
+        echo
+        echo "Start the service with:"
+        echo "    docker compose up -d"
+        return 0
+    fi
+
+    echo "Compose file exists: ${compose_path}"
+    local compose_cmd
+    compose_cmd=$(find_compose_cmd) || return 1
+    echo "Pulling/building services..."
+    ${compose_cmd} -f "${compose_path}" pull 2>/dev/null \
+        || ${compose_cmd} -f "${compose_path}" build
+}
+
+# Bootstrap a .devcontainer/devcontainer.json with a doctoolchain image,
+# or start the devcontainer if it already exists.
+devcontainer_install_doctoolchain() {
+    local json=".devcontainer/devcontainer.json"
+
+    if [[ ! -f "${json}" ]]; then
+        mkdir -p .devcontainer
+        echo "Creating ${json} with doctoolchain image..."
+        cat > "${json}" <<JSON
+{
+  "name": "docToolchain",
+  "image": "doctoolchain/doctoolchain:v${DTC_VERSION}",
+  "workspaceFolder": "/project",
+  "workspaceMount": "source=\${localWorkspaceFolder},target=/project,type=bind",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "asciidoctor.asciidoctor-vscode"
+      ]
+    }
+  }
+}
+JSON
+        echo "Created ${json}."
+        echo
+        echo "Open in VS Code with:"
+        echo "    code --devcontainer ."
+        return 0
+    fi
+
+    echo "Devcontainer config exists: ${json}"
+    assert_devcontainer_cli
+    echo "Starting devcontainer..."
+    devcontainer up --workspace-folder "${DTC_WORKSPACE}"
+}
+
 get_dtc_installations() {
     local envs=${1}
     local version=${2}
     local installations=""
+
+    # Container environments always carry their own docToolchain
+    if [[ "${envs}" =~ compose ]]; then
+        installations+=" compose"
+    fi
+    if [[ "${envs}" =~ devcontainer ]]; then
+        installations+=" devcontainer"
+    fi
 
     if is_v4_installation "${DTC_HOME}"; then
         # v4: detected by lib/ directory
@@ -294,7 +661,7 @@ sdk_home_doctoolchain() {
 }
 
 is_supported_environment() {
-    local supported_environments=("local" "sdk" "docker")
+    local supported_environments=("compose" "devcontainer" "local" "sdk" "docker")
     [[ "${supported_environments[*]}" =~ ${1} ]]
 }
 
@@ -304,7 +671,19 @@ assert_environment_available() {
     # If environment not available, exit with error
     if ! is_environment_available "${env}" ; then
         error "argument error - environment '${env}' not available"
-        if [[ "${env}" == "sdk" ]]; then
+        if [[ "${env}" == "compose" ]]; then
+            printf "%s\n" \
+                "No docker-compose.yml with a doctoolchain service found," \
+                "or no compose command available (docker compose, podman-compose)." \
+                "" \
+                "Set DTC_COMPOSE to point to your compose file, or install a compose runtime."
+        elif [[ "${env}" == "devcontainer" ]]; then
+            printf "%s\n" \
+                "No .devcontainer/devcontainer.json with a doctoolchain image found," \
+                "or 'devcontainer' CLI not installed." \
+                "" \
+                "Install it via: npm install -g @devcontainers/cli"
+        elif [[ "${env}" == "sdk" ]]; then
             printf "%s\n" \
                 "Install SDKMAN! (https://sdkman.io) with" \
                 "" \
@@ -367,6 +746,30 @@ install_component_and_exit() {
     fi
     exit_code=1
     case ${env} in
+        compose)
+            case ${component} in
+                doctoolchain)
+                    compose_install_doctoolchain
+                    ;;
+                *)
+                    error "argument error - only 'install doctoolchain' is supported for compose"
+                    echo "Java and other components are provided by the container image."
+                    ;;
+            esac
+            exit_code=$?
+            ;;
+        devcontainer)
+            case ${component} in
+                doctoolchain)
+                    devcontainer_install_doctoolchain
+                    ;;
+                *)
+                    error "argument error - only 'install doctoolchain' is supported for devcontainer"
+                    echo "Java and other components are provided by the container image."
+                    ;;
+            esac
+            exit_code=$?
+            ;;
         local)
             case ${component} in
                 doctoolchain)
@@ -400,10 +803,20 @@ install_component_and_exit() {
             exit_code=${ERR_ARG}
             ;;
         docker)
-            error "argument error - '${env} install' not supported."
-            echo "Executing a task in the 'docker' environment will pull the docToolchain container image."
-            echo
-            exit_code=${ERR_ARG}
+            case ${component} in
+                doctoolchain)
+                    detect_container_runner || { error "No container runtime found"; exit ${ERR_DTCW}; }
+                    local image="${DTC_DOCKER_PREFIX}doctoolchain/doctoolchain:v${DTC_VERSION}"
+                    echo "Pulling ${image} via ${DTC_CONTAINER_RUNNER}..."
+                    ${DTC_CONTAINER_RUNNER} pull "${image}"
+                    ;;
+                *)
+                    error "argument error - only 'install doctoolchain' is supported for docker"
+                    echo "Java and other components are provided by the container image."
+                    echo
+                    ;;
+            esac
+            exit_code=$?
             ;;
         *)
             echo "Coding error - not reachable"
@@ -691,7 +1104,31 @@ build_command() {
     local docker_extra_arguments=${4}
     shift 4
     local cmd
-    if [ "${env}" = docker ]; then
+    if [ "${env}" = compose ] || [ "${env}" = devcontainer ]; then
+        # container_cmd_prefix set by main() before calling build_command.
+        # The major comes from the image tag (assert_container_version), never
+        # from a host installation - the host may not have one at all.
+        if [ "$(printf '%s' "${version}" | cut -d'.' -f1)" -ge 4 ]; then
+            local task=${1}
+            shift
+            # Short-lived JVM - see the docker branch below for the rationale.
+            local startup_opts="${DTC_JAVA_STARTUP_OPTS--XX:TieredStopAtLevel=1 -XX:+UseSerialGC}"
+            local java_opts="-Xmx2048m -Dfile.encoding=UTF-8 ${startup_opts}"
+            java_opts="${java_opts} -DdocDir=. -DmainConfigFile=\"${DTC_CONFIG_FILE}\""
+            java_opts="${java_opts} -DDTC_HEADLESS=true -DDTC_PROJECT_BRANCH=\"${DTC_PROJECT_BRANCH}\""
+            # Installed scripts and their lib/ live under /opt/docToolchain; the
+            # launcher resolves project-local tasks relative to /project (ADR-18).
+            java_opts="${java_opts} -Ddtc.scriptsHome=/opt/docToolchain/scripts"
+            # Expansion must happen inside container, not locally
+            # shellcheck disable=SC2016
+            local container_cp='$(for f in /opt/docToolchain/lib/*.jar; do [ -f "$f" ] && printf "%s:" "$f"; done)'
+            # Hand the task to the Groovy launcher; single-quote paths so they
+            # survive word splitting / glob expansion in the container shell.
+            cmd="${container_cmd_prefix} bash -c \"java ${java_opts} -cp ${container_cp} groovy.ui.GroovyMain '/opt/docToolchain/scripts/Launcher.groovy' '${task}' ${*:-}\""
+        else
+            cmd="${container_cmd_prefix} bash -c \"doctoolchain . ${*} \${DTC_OPTS:-}\""
+        fi
+    elif [ "${env}" = docker ]; then
         # TODO: DTC_PROJECT_BRANCH is  not passed into the docker environment
         # See https://github.com/docToolchain/docToolchain/issues/1087
 
@@ -705,14 +1142,17 @@ build_command() {
             env_file_option="--env-file ${docker_env_file}"
         fi
 
-        docker_args="run --rm -i --platform linux/amd64 -u $(id -u):$(id -g) --name ${container_name} \
+        local userns_args
+        userns_args=$(podman_userns_args)
+
+        docker_args="run --rm -i --platform linux/amd64 -u $(id -u):$(id -g) ${userns_args} --name ${container_name} \
             -e DTC_HEADLESS=true -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} \
             -e DTC_PROJECT_SCRIPTS_DIR \
             ${docker_extra_arguments} ${env_file_option} \
             --entrypoint /bin/bash -v '${pwd}:/project' ${DTC_DOCKER_PREFIX}${docker_image}:v${version}"
 
         if is_v4_installation "${DTC_HOME}"; then
-            # v4 Docker: direct Groovy invocation inside container
+            # v4: direct Groovy invocation inside container
             local task=${1}
             shift
             # Short-lived JVM: cap JIT at C1 (skip the C2 compiler, which never
@@ -732,10 +1172,10 @@ build_command() {
             local docker_cp='$(for f in /opt/docToolchain/lib/*.jar; do [ -f "$f" ] && printf "%s:" "$f"; done)'
             # Hand the task to the Groovy launcher; single-quote paths so they
             # survive word splitting / glob expansion in the container shell.
-            cmd="docker ${docker_args} -c \"java ${java_opts} -cp ${docker_cp} groovy.ui.GroovyMain '/opt/docToolchain/scripts/Launcher.groovy' '${task}' ${*:-} && exit\""
+            cmd="${DTC_CONTAINER_RUNNER} ${docker_args} -c \"java ${java_opts} -cp ${docker_cp} groovy.ui.GroovyMain '/opt/docToolchain/scripts/Launcher.groovy' '${task}' ${*:-} && exit\""
         else
-            # v3 Docker: Gradle via doctoolchain
-            cmd="docker ${docker_args} -c \"doctoolchain . ${*} ${DTC_OPTS} && exit\""
+            # v3: Gradle via doctoolchain
+            cmd="${DTC_CONTAINER_RUNNER} ${docker_args} -c \"doctoolchain . ${*} ${DTC_OPTS} && exit\""
         fi
     else
         local dtc_home="${DTC_HOME}"
@@ -818,4 +1258,7 @@ DTC_HOME="${DTC_ROOT}/docToolchain-${DTC_VERSION}"
 # Directory for local Java installation
 DTC_JAVA_HOME="${DTC_ROOT}/jdk"
 
-main "$@"
+# Guard: run main when executed as script, skip when sourced for testing
+if [[ "${BASH_SOURCE[0]}" == "$0" ]]; then
+    main "$@"
+fi

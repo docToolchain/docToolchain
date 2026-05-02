@@ -62,7 +62,16 @@ resources/asciidoctor-reveal.js
 tmp/
 
 # Claude Code
-.claude/
+.claude/*
+# ... except the dtcw skill, which is a maintained project artifact rather than
+# local scratch state. Every path component has to be re-included explicitly:
+# git does not descend into an excluded directory, so a bare
+# '!.claude/skills/dtcw/SKILL.md' after '.claude/' would never match.
+!.claude/skills/
+.claude/skills/*
+!.claude/skills/dtcw/
+.claude/skills/dtcw/*
+!.claude/skills/dtcw/SKILL.md
 
 # PR Analysis Report
 PR-ANALYSIS.md

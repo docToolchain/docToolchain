@@ -1,0 +1,6 @@
+{
+  "name": "docToolchain",
+  "image": "doctoolchain/doctoolchain:v4.0.0",
+  "workspaceFolder": "/project",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/project,type=bind"
+}

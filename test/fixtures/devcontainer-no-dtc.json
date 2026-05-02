@@ -1,0 +1,5 @@
+{
+  "name": "generic",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "workspaceFolder": "/workspace"
+}
