@@ -45,6 +45,12 @@ src/test/docs/excel/
 src/test/docs/structurizr/
 ~$*
 
+# Editor swap/backup files
+.*.sw?
+*~
+*.bak
+*.orig
+
 # MAC DS_Store file
 .DS_Store
 
