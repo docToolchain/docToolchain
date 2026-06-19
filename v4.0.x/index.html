@@ -1,0 +1,603 @@
+<!doctype html>
+<html lang="de">
+<head>
+    
+    <!-- sourceuri: null -->
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <meta content="jbake" name="generator">
+    <meta content="INDEX, FOLLOW" name="ROBOTS">
+
+    <title>docToolchain</title>
+    <meta content="docToolchain" property="og:title">
+    <meta content="build your dev docs the easy way..." property="og:description">
+    <meta content="website" property="og:type">
+    <meta content="docToolchain" property="og:site_name">
+    <meta content="docToolchain" itemprop="name">
+    <meta content="build your dev docs the easy way..." itemprop="description">
+    <meta content="summary" name="twitter:card">
+    <meta content="docToolchain" name="twitter:title">
+    <meta content="build your dev docs the easy way..." name="twitter:description">
+
+    <link as="style"
+        href="css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+        rel="preload">
+    <link href="css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+        integrity=""
+        rel="stylesheet">
+    <link href="css/asciidoctor.css" rel="stylesheet">
+    <link href="css/prettify.css" rel="stylesheet">
+
+    <!-- favicon generated with https://www.favicon-generator.org/ -->
+    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="apple-touch-icon" sizes="57x57" href="apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="favicon-16x16.png">
+    <link rel="manifest" href="manifest.json">
+    <meta name="msapplication-TileColor" content="#ffffff">
+    <meta name="msapplication-TileImage" content="ms-icon-144x144.png">
+    <meta name="theme-color" content="#ffffff">
+
+    <script src="js/jquery-3.5.1.min.js"></script>
+    <style>
+    div.bg-light {
+        background-color: rgba(127, 180, 224, 0.3) !important;
+    }
+
+    /* for blog posts */
+    span.blogtag {
+        border-radius: 10px;
+        background-color: #30638E;
+        color: white;
+        padding: 5px 10px;
+    }
+
+    span.blogblogtag a {
+        color: white;
+        padding: 0
+    }
+
+    span.blogtag span {
+        margin-left: 10px;
+        border-radius: 10px;
+        background-color: white;
+        color: #30638E;
+    }
+
+    div.td-toc {
+        height: calc(100vh - 5rem) !important;
+    }
+
+    div#toctitle {
+        display: none
+    }
+
+    #td-section-nav {
+        max-height: calc(100vh - 4rem);
+        font-size: smaller;
+        line-height: 1.1;
+    }
+
+    .td-page-meta {
+        font-size: smaller;
+        line-height: 1.1;
+    }
+
+    #td-section-nav ul.td-sidebar-nav__section {
+        padding-left: 0;
+    }
+
+    span.navbar-logo {
+        padding-right: 1.5em;
+    }
+
+    .match {
+        font-size: smaller;
+    }
+
+    .admonitionblock td.icon .fa:before {
+        font-size: xxx-large;
+    }
+    </style>
+
+    <style>
+    div.openblock.primary div.content, div.openblock.secondary div.content {
+        border: 1px solid #7a2518;
+        padding: 5px;
+    }
+
+    div.openblock.primary div.content div.content, div.openblock.secondary div.content div.content {
+        border: 0 solid #7a2518;
+        padding: 0;
+    }
+
+    .hidden {
+        display: none;
+    }
+
+    .switch {
+        border-width: 1px 1px 0 1px;
+        border-style: solid;
+        border-color: #7a2518;
+        display: inline-block;
+    }
+
+    .switch--item {
+        padding: 2px 10px;
+        background-color: #ffffff;
+        color: #7a2518;
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .switch--item:not(:first-child) {
+        border-width: 0 0 0 1px;
+        border-style: solid;
+        border-color: #7a2518;
+    }
+
+    .switch--item.selected {
+        background-color: #7a2519;
+        color: #ffffff;
+    }
+    </style>
+
+    <!-- copy-n-paste.js -->
+    <style>
+        div.listingblock {
+            position: relative;
+        }
+        div.listingblock > span.icon {
+            position: absolute;
+            top: 2px;
+            right: 6px;
+            visibility: hidden;
+            z-index: 2;
+            cursor: pointer;
+        }
+        div.listingblock:hover > span.icon {
+            visibility: visible;
+        }
+        div.listingblock div.content pre {
+            margin: 0;
+        }
+    </style>
+    <style>
+        .td-sidebar-nav__section {
+            padding-left: 9px;
+        }
+        details {
+            margin-left: 10px;
+        }
+        summary {
+            cursor: pointer;
+            padding-left: 10px; /* Erhöhter linker Padding für den Pfeil */
+            list-style: none;
+            position: relative; /* Für absolute Positionierung des Pfeils */
+        }
+        summary::before {
+            content: '>';
+            position: absolute;
+            left: 10px; /* Position des Pfeils */
+            top: 50%;
+            transform: translateY(-50%) translateX(-120%);
+            transition: transform 0.3s;
+        }
+        details[open] > summary::before {
+            transform: translateY(-50%) translateX(-120%) rotate(90deg);
+        }
+    </style>
+</head>
+
+<body onload="prettyPrint()" class="td-section">
+<header>
+
+<nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
+    <a class="navbar-brand" href="index.html">
+        <span class="navbar-logo"><img src="images/doctoolchain-logo-blue.png" alt="docToolchain" width="32px" /></span><span
+            class="font-weight-bold">docToolchain</span>
+    </a>
+    <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
+        <ul class="navbar-nav mt-2 mt-lg-0">
+    <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
+
+        </ul>
+    </div>
+    <div class="navbar-nav d-none d-lg-block" >
+    <form id="searchForm" action="https://perplexity.ai" target="perplexity">
+    </div>
+</nav>
+
+</header>
+<div class="container-fluid td-outer">
+    <div class="td-main">
+        <div class="row flex-xl-nowrap">
+    <main class="col-12 col-md-12 col-xl-12 pl-md-12" role="main">
+        <div class="bg-light p-5 rounded jumbotron">
+            <img src="images/doctoolchain-logo-blue.png" alt="docToolchain" style="float: left" />
+            <h1>docToolchain</h1>
+            <p class="lead">
+                Create awesome docs the easy way!
+            </p>
+            <p>docToolchain is a collection of scripts that makes it easy to create and maintain powerful technical documentation. Built on best-of-breed open source technologies, we deliver the best docs toolchain so you don’t have to.
+            </p>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-12 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">docToolchain is fully open source</h4>
+                    </div>
+                    <div class="card-body">
+                        No vendor lock-in. No contracts. One of our core goals with the architecture is to allow you to modify docToolchain to meet your unique needs.
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">jBake works silently under the hood</h4>
+                    </div>
+                    <div class="card-body">
+                        We chose the excellent jBake as our static site generator so you can focus on your docs.
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">We love AsciiDoc</h4>
+                    </div>
+                    <div class="card-body">
+                        No wasting time choosing which Ascii flavour to use.
+                        AsciiDoc has everything you need ready to go.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Multi-repository builds are in Git</h4>
+                    </div>
+                    <div class="card-body">
+                        Since all of your dev environments already contain a Git client, we didn't add another one. Just use Git to create your multi-repository builds.<br /><br />
+                        <a class="btn btn-primary" href="020_tutorial/050_multipleRepositories.html" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Publish direct to Confluence</h4>
+                    </div>
+                    <div class="card-body">
+                        Want to do docs-as-code but your team wants docs in a wiki?
+                        No problem.
+                        docToolchain can publish direct to Confluence!<br /><br />
+                        <a class="btn btn-primary" href="015_tasks/03_task_publishToConfluence.html" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Start your docs-as-code journey today</h4>
+                    </div>
+                    <div class="card-body">
+                        Many organisations and projects have already embraced docToolchain. Will yours be next?<br /><br />
+                        <a class="btn btn-primary" href="025_development/050_who-uses-dtc.html" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-1 mb-3">
+            <div class="col">
+                <h2 class="mt-4">Sub-Projects &amp; Ecosystem</h2>
+                <p>docToolchain is more than a single tool &mdash; it's a growing ecosystem of related projects to support your docs-as-code journey.</p>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">AsciiDoc Linter</h4>
+                    </div>
+                    <div class="card-body">
+                        A linter for AsciiDoc files to help you keep your documentation clean and consistent.<br /><br />
+                        <a class="btn btn-primary" href="https://doctoolchain.org/asciidoc-linter" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">dacli</h4>
+                    </div>
+                    <div class="card-body">
+                        A command-line interface to simplify and streamline your docs-as-code workflow with docToolchain.<br /><br />
+                        <a class="btn btn-primary" href="https://doctoolchain.org/dacli" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Bausteinsicht</h4>
+                    </div>
+                    <div class="card-body">
+                        Architecture-as-code: define building blocks in JSONC, sync bidirectionally with draw.io diagrams. Think Structurizr, but simpler.<br /><br />
+                        <a class="btn btn-primary" href="https://doctoolchain.org/Bausteinsicht/" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">diagrams.net IntelliJ Plugin</h4>
+                    </div>
+                    <div class="card-body">
+                        Edit diagrams.net (draw.io) diagrams directly inside IntelliJ IDEA without leaving your IDE.<br /><br />
+                        <a class="btn btn-primary" href="https://github.com/docToolchain/diagrams.net-intellij-plugin" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">iSAQB Template</h4>
+                    </div>
+                    <div class="card-body">
+                        A ready-to-use documentation template following the iSAQB arc42 software architecture documentation standard.<br /><br />
+                        <a class="btn btn-primary" href="https://github.com/docToolchain/iSAQB-Template" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">CI/CD Demo</h4>
+                    </div>
+                    <div class="card-body">
+                        A demo project showing how to integrate docToolchain into your CI/CD pipeline for automated documentation builds.<br /><br />
+                        <a class="btn btn-primary" href="https://github.com/docToolchain/ci-cd-demo" role="button">learn more</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--div class="row row-cols-1">
+            <div class="col">
+                <div class="card mb-12 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Multiple Output-Formats</h4>
+                    </div>
+                    <div class="card-body">
+                        Different stakeholders have different requirements in regards to the format of your documentation.
+                        Let's create different formats with one source!
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Feature Three</h4>
+                    </div>
+                    <div class="card-body">
+                        Write a teaser for this feature here.
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Feature Three</h4>
+                    </div>
+                    <div class="card-body">
+                        Write a teaser for this feature here.
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Feature Three</h4>
+                    </div>
+                    <div class="card-body">
+                        Write a teaser for this feature here.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="col">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 fw-normal">export your <b>information</b> from where it lives</h4>
+                </div>
+                <div class="card-body">
+                    Write a teaser for this feature here.
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Feature Three</h4>
+                    </div>
+                    <div class="card-body">
+                        Write a teaser for this feature here.
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Multi-Repository-Builds</h4>
+                    </div>
+                    <div class="card-body">
+                        Just kidding.
+                        Since all your dev environments will already contain a git client, we didn't add another one.
+                        Just use Git to create your Multi-Repository-Builds as explained in our tutorial.
+                        
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Landingpage</h4>
+                    </div>
+                    <div class="card-body">
+                        This is the front door of your project.
+                        Use it to tell all visitors what your project is all about and which great features it implements.
+                        To give you more power to do so, we've thrown in the well known twitter bootstrap to get you started.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-12 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Microsites</h4>
+                    </div>
+                    <div class="card-body">
+                        docToolchain now contains jBake as Static Site Generator which lets you create documentation microsites for your projects.
+                        This is such a huge feature that we have to explain it with some sub-features 😀
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Docsy-Theme</h4>
+                    </div>
+                    <div class="card-body">
+                        We've "stolen" the great Docsy-Theme from hugo and made it the default theme for docToolchain.
+                        Enjoy your docs with a nice and clear theme and easily customize it to make it your own!
+                    </div>
+                </div>
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">autobuildSite</h4>
+                    </div>
+                    <div class="card-body">
+                        If you want to, docToolchain automatically re-builds the site locally, whenever the sources change.
+                        Quite convenient.
+                    </div>
+                </div>
+            </div>
+        </div-->
+    </main>
+
+</div>
+
+    </div>
+
+    
+    <!--footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">&copy; 2020 | based on <a href="https://arc42.org">arc42 7.0</a> | mixed with <a href="http://getbootstrap.com/">Bootstrap v5.0.0-beta</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a></span>
+        </div>
+    </footer-->
+
+    <footer class="bg-dark py-5 row d-print-none">
+        <div class="container-fluid mx-sm-5">
+            <div class="row">
+                <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+
+
+                    <ul class="list-inline mb-0">
+                        
+                        <li aria-label="User mailing list" class="list-inline-item mx-2 h3" data-original-title="User mailing list" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="mailto:info@docs-as-co.de" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Twitter" class="list-inline-item mx-2 h3" data-original-title="Twitter" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://twitter.com/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Stack Overflow" class="list-inline-item mx-2 h3" data-original-title="Stack Overflow" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://stackoverflow.com/questions/tagged/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-stack-overflow"></i>
+                            </a>
+                        </li>
+                        
+                    </ul>
+
+
+                </div>
+                <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+
+
+                    <ul class="list-inline mb-0">
+
+                        
+                        <li aria-label="GitHub" class="list-inline-item mx-2 h3" data-original-title="GitHub" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://github.com/doctoolchain/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </li>
+                        
+
+                        
+
+
+                    </ul>
+
+
+                </div>
+                <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+
+                        <small class="text-white">built with <a href="https://doctoolchain.org">docToolchain</a> and <a href="https://jbake.org">jBake</a> <br /> theme: <a href="https://www.docsy.dev/">docsy</a></small>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="js/popper.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+
+
+    <script src="js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
+    <script src="js/blocks.js" ></script>
+    <script src="js/prettify.js"></script>
+    <script src="js/copy-n-paste.js"></script>
+    <script src="js/submenucollapse.js"></script>
+
+
+</body>
+</html>
