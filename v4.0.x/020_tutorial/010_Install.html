@@ -452,7 +452,7 @@ searching issues...
 <li><a href="#_welcome">Welcome!</a>
 <ul class="sectlevel2">
 <li><a href="#_prerequisites">Prerequisites</a></li>
-<li><a href="#_1_get_the_wrapper_scripts">1. Get the Wrapper Scripts</a></li>
+<li><a href="#_1_get_the_wrapper_script">1. Get the Wrapper Script</a></li>
 <li><a href="#_2_install_doctoolchain">2. Install docToolchain</a></li>
 <li><a href="#_3_try_it_out">3. Try It Out</a></li>
 <li><a href="#_problems_solutions">Problems &amp; solutions</a></li>
@@ -517,16 +517,12 @@ If you encounter problems, create a <a href="https://github.com/docToolchain/doc
 </div>
 </div>
 <div class="sect2">
-<h3 id="_1_get_the_wrapper_scripts">1. Get the Wrapper Scripts</h3>
-<div class="openblock primary">
-<div class="title">Linux / macOS / WSL2 (including Windows via WSL2)</div>
-<div class="content">
+<h3 id="_1_get_the_wrapper_script">1. Get the Wrapper Script</h3>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">cd &lt;your project&gt;
-curl -Lo dtcw https://doctoolchain.org/dtcw
 curl -Lo dtcw4 https://doctoolchain.org/dtcw4
-chmod +x dtcw dtcw4</code></pre>
+chmod +x dtcw4</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -536,19 +532,17 @@ chmod +x dtcw dtcw4</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-On Windows, use WSL2. The v4 wrappers (<code>dtcw4</code>, <code>dtcw</code>) are Bash scripts.
+On Windows, use WSL2. <code>dtcw4</code> is a Bash script.
 </td>
 </tr>
 </table>
-</div>
-</div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_2_install_doctoolchain">2. Install docToolchain</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw local install java        # if Java is not installed
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 local install java        # if Java is not installed
 ./dtcw4 local install doctoolchain</code></pre>
 </div>
 </div>
@@ -567,14 +561,14 @@ On Windows, use WSL2. The v4 wrappers (<code>dtcw4</code>, <code>dtcw</code>) ar
 <div class="sect2">
 <h3 id="_problems_solutions">Problems &amp; solutions</h3>
 <div class="sect3">
-<h4 id="_dtcw_doesnt_run"><code>dtcw</code> doesn&#8217;t run</h4>
+<h4 id="_dtcw4_doesnt_run"><code>dtcw4</code> doesn&#8217;t run</h4>
 <div class="paragraph">
 <p>You might get an error like:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code>./dtcw: line 1: syntax error near unexpected token `newline'
-./dtcw: line 1: `&lt;!DOCTYPE html&gt;'</code></pre>
+<pre class="prettyprint highlight"><code>./dtcw4: line 1: syntax error near unexpected token `newline'
+./dtcw4: line 1: `&lt;!DOCTYPE html&gt;'</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -583,7 +577,7 @@ Please redownload the wrapper.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_docker_throws_an_error_with_dtcw">Docker throws an error with <code>dtcw</code></h4>
+<h4 id="_docker_throws_an_error">Docker throws an error</h4>
 <div class="paragraph">
 <p>On Windows you might get:</p>
 </div>

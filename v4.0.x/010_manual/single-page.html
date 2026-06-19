@@ -403,28 +403,27 @@
 <li><a href="#_using_the_dtc_headless_environment_variable">9.3.1. Using the DTC_HEADLESS Environment Variable</a></li>
 </ul>
 </li>
-<li><a href="#_experimental_antora_support">9.4. experimental Antora support</a></li>
-<li><a href="#_further_reading_and_resources">9.5. Further Reading and Resources</a></li>
-<li><a href="#_solutions_to_common_problems">9.6. Solutions to Common Problems</a>
+<li><a href="#_further_reading_and_resources">9.4. Further Reading and Resources</a></li>
+<li><a href="#_solutions_to_common_problems">9.5. Solutions to Common Problems</a>
 <ul class="sectlevel3">
-<li><a href="#_references">9.6.1. References</a></li>
-<li><a href="#_images">9.6.2. Images</a></li>
-<li><a href="#_runtime">9.6.3. Runtime</a></li>
+<li><a href="#_references">9.5.1. References</a></li>
+<li><a href="#_images">9.5.2. Images</a></li>
+<li><a href="#_runtime">9.5.3. Runtime</a></li>
 </ul>
 </li>
-<li><a href="#_useful_resources">9.7. Useful Resources</a>
+<li><a href="#_useful_resources">9.6. Useful Resources</a>
 <ul class="sectlevel3">
-<li><a href="#_underlying_technologies">9.7.1. Underlying Technologies</a></li>
-<li><a href="#_books">9.7.2. Books</a></li>
+<li><a href="#_underlying_technologies">9.6.1. Underlying Technologies</a></li>
+<li><a href="#_books">9.6.2. Books</a></li>
 </ul>
 </li>
-<li><a href="#_configuration_4">9.8. Configuration</a>
+<li><a href="#_configuration_4">9.7. Configuration</a>
 <ul class="sectlevel3">
-<li><a href="#_configuration_file">9.8.1. Configuration File</a></li>
-<li><a href="#_core_settings">9.8.2. Core Settings</a></li>
-<li><a href="#_microsite_settings">9.8.3. Microsite Settings</a></li>
-<li><a href="#_confluence_settings">9.8.4. Confluence Settings</a></li>
-<li><a href="#_dynamic_configuration">9.8.5. Dynamic Configuration</a></li>
+<li><a href="#_configuration_file">9.7.1. Configuration File</a></li>
+<li><a href="#_core_settings">9.7.2. Core Settings</a></li>
+<li><a href="#_microsite_settings">9.7.3. Microsite Settings</a></li>
+<li><a href="#_confluence_settings">9.7.4. Confluence Settings</a></li>
+<li><a href="#_dynamic_configuration">9.7.5. Dynamic Configuration</a></li>
 </ul>
 </li>
 </ul>
@@ -609,7 +608,7 @@
 <p><strong>git</strong> — needed to clone docToolchain during installation</p>
 </li>
 <li>
-<p><strong>Bash</strong> — <code>dtcw4</code> and <code>dtcw</code> are Bash scripts (on Windows, use WSL2)</p>
+<p><strong>Bash</strong> — <code>dtcw4</code> is a Bash script (on Windows, use WSL2)</p>
 </li>
 </ul>
 </div>
@@ -617,19 +616,15 @@
 <div class="sect3">
 <h4 id="_quick_start">1.6.2. Quick Start</h4>
 <div class="sect4">
-<h5 id="_1_get_the_wrapper_scripts">1. Get the Wrapper Scripts</h5>
+<h5 id="_1_get_the_wrapper_script">1. Get the Wrapper Script</h5>
 <div class="paragraph">
-<p>Download <code>dtcw4</code> and <code>dtcw</code> into your project directory:</p>
+<p>Download <code>dtcw4</code> into your project directory:</p>
 </div>
-<div class="openblock primary">
-<div class="title">Linux / macOS / WSL2 (including Windows via WSL2)</div>
-<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">cd &lt;your project&gt;
-curl -Lo dtcw https://doctoolchain.org/dtcw
 curl -Lo dtcw4 https://doctoolchain.org/dtcw4
-chmod +x dtcw dtcw4</code></pre>
+chmod +x dtcw4</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -639,12 +634,10 @@ chmod +x dtcw dtcw4</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-On Windows, use WSL2. The v4 wrappers are Bash scripts.
+On Windows, use WSL2. <code>dtcw4</code> is a Bash script.
 </td>
 </tr>
 </table>
-</div>
-</div>
 </div>
 </div>
 <div class="sect4">
@@ -652,7 +645,7 @@ On Windows, use WSL2. The v4 wrappers are Bash scripts.
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash"># Install Java if needed
-./dtcw local install java
+./dtcw4 local install java
 
 # Install docToolchain v4
 ./dtcw4 local install doctoolchain</code></pre>
@@ -712,19 +705,17 @@ After that, no build tool is involved at runtime.</p>
 <div class="sect3">
 <h4 id="_how_it_works">1.6.3. How It Works</h4>
 <div class="paragraph">
-<p>docToolchain v4 consists of two parts:</p>
+<p>Only <code>dtcw4</code> lives in your project directory. It handles:</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>dtcw4</code></dt>
-<dd>
-<p>The installation wrapper. It clones docToolchain from GitHub and builds the runtime JARs once. After installation, it delegates to <code>dtcw</code>.</p>
-</dd>
-<dt class="hdlist1"><code>dtcw</code></dt>
-<dd>
-<p>The execution wrapper. It detects v4 by the presence of a <code>lib/</code> directory and runs tasks directly via the JVM — no Gradle, no daemon.</p>
-</dd>
-</dl>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Installation</strong>: Clones docToolchain from GitHub and builds the runtime JARs once.</p>
+</li>
+<li>
+<p><strong>Task execution</strong>: Delegates to the installed <code>dtcw</code> in <code>~/.doctoolchain/docToolchain-4.0.0/</code>, which runs tasks directly via the JVM — no Gradle, no daemon.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>Runtime JARs are stored in <code>~/.doctoolchain/docToolchain-4.0.0/lib/</code>.
@@ -738,7 +729,7 @@ Task execution uses direct JVM invocation (~2-3s startup).</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw docker generateHTML</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 docker generateHTML</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -748,14 +739,14 @@ Task execution uses direct JVM invocation (~2-3s startup).</p>
 <h5 id="_custom_docker_image">Custom Docker Image</h5>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw docker image &lt;image_name&gt; generateHTML</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 docker image &lt;image_name&gt; generateHTML</code></pre>
 </div>
 </div>
 </div>
 <div class="sect4">
 <h5 id="_environment_variables_for_docker">Environment Variables for Docker</h5>
 <div class="paragraph">
-<p>Create a file <code>dtcw_docker.env</code> next to <code>dtcw</code>:</p>
+<p>Create a file <code>dtcw_docker.env</code> in your project directory:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -2007,9 +1998,6 @@ If the file doesn&#8217;t exist yet, create an empty one: <code>touch docToolcha
 </tr>
 </table>
 </div>
-<div class="paragraph">
-<p>You can choose to bootstrap your project as an Antora project or as a plain AsciiDoc project. The Antora integration is currently in beta. The Antora integration enables you to register the project seamlessly with an existing Antora playbook.</p>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_headless_mode">9.3. Headless Mode</h3>
@@ -2032,9 +2020,6 @@ If the file doesn&#8217;t exist yet, create an empty one: <code>touch docToolcha
 <li>
 <p>Help variant: <code>plain</code> (without help text)</p>
 </li>
-<li>
-<p>Antora setup: <code>n</code> (no Antora)</p>
-</li>
 </ul>
 </div>
 <div class="listingblock">
@@ -2046,71 +2031,7 @@ If the file doesn&#8217;t exist yet, create an empty one: <code>touch docToolcha
 </div>
 </div>
 <div class="sect2">
-<h3 id="_experimental_antora_support">9.4. experimental Antora support</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>to test the Antora template</p>
-<div class="ulist">
-<ul>
-<li>
-<p>install antora: <a href="https://docs.antora.org/antora/latest/install/install-antora/" class="bare">https://docs.antora.org/antora/latest/install/install-antora/</a></p>
-</li>
-<li>
-<p>download the arc42 template as antora style <code>./dtcw downloadTemplate</code></p>
-</li>
-<li>
-<p>create a <code>playbook.yaml</code> within the root of your project</p>
-</li>
-<li>
-<p>make sure that your project is a valid git repository and contains at least one commit</p>
-</li>
-<li>
-<p>execute <code>antora playbook.yml</code></p>
-</li>
-</ul>
-</div>
-</li>
-</ul>
-</div>
-<div class="listingblock">
-<div class="title">playbook.yml</div>
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="yml">site:
-  title: Antora ARC42 Template
-  start_page: arc42-template::index.adoc
-content:
-  sources:
-  - url: ./
-    start_path: src/docs/arc42
-    branches: [HEAD]
-ui:
-  bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
-    snapshot: true
-asciidoc:
-  attributes:
-    sectanchors: true
-
-output:
-  dir: build/antora</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-To install antora, follow the instructions on <a href="https://docs.antora.org/antora/latest/install-and-run-quickstart/" class="bare">https://docs.antora.org/antora/latest/install-and-run-quickstart/</a>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_further_reading_and_resources">9.5. Further Reading and Resources</h3>
+<h3 id="_further_reading_and_resources">9.4. Further Reading and Resources</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -2125,7 +2046,7 @@ To install antora, follow the instructions on <a href="https://docs.antora.org/a
 <div style="page-break-after: always;"></div>
 </div>
 <div class="sect2">
-<h3 id="_solutions_to_common_problems">9.6. Solutions to Common Problems</h3>
+<h3 id="_solutions_to_common_problems">9.5. Solutions to Common Problems</h3>
 <div class="paragraph">
 <p>Unresolved directive in ../_feedback.adoc - include::/home/runner/work/docToolchain/docToolchain/./build/contributors/010_manual/50_Frequently_asked_Questions.adoc[]</p>
 </div>
@@ -2133,7 +2054,7 @@ To install antora, follow the instructions on <a href="https://docs.antora.org/a
 <p>If you are stuck, also check <a href="https://stackoverflow.com/questions/tagged/doctoolchain">Stack Overflow</a> or raise an issue on <a href="https://github.com/docToolchain/docToolchain/issues">GitHub</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="_references">9.6.1. References</h4>
+<h4 id="_references">9.5.1. References</h4>
 <div class="sect4">
 <h5 id="_q_how_can_i_reference_source_code_from_my_documentation">Q: How can I reference source code from my documentation?</h5>
 <details>
@@ -2162,7 +2083,7 @@ To install antora, follow the instructions on <a href="https://docs.antora.org/a
 </div>
 </div>
 <div class="sect3">
-<h4 id="_images">9.6.2. Images</h4>
+<h4 id="_images">9.5.2. Images</h4>
 <div class="sect4">
 <h5 id="_q_why_are_images_not_shown_in_the_preview_of_my_editor">Q: Why are images not shown in the preview of my editor?</h5>
 <details>
@@ -2223,7 +2144,7 @@ Or re-save the image in any editor.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_runtime">9.6.3. Runtime</h4>
+<h4 id="_runtime">9.5.3. Runtime</h4>
 <div class="sect4">
 <h5 id="_q_i_get_could_not_initialize_class_java_awt_graphicsenvironment_in_wsl">Q: I get <code>Could not initialize class java.awt.GraphicsEnvironment</code> in WSL</h5>
 <details>
@@ -2278,12 +2199,12 @@ Or re-save the image in any editor.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_useful_resources">9.7. Useful Resources</h3>
+<h3 id="_useful_resources">9.6. Useful Resources</h3>
 <div class="paragraph">
 <p>Unresolved directive in ../_feedback.adoc - include::/home/runner/work/docToolchain/docToolchain/./build/contributors/010_manual/60_further_reading.adoc[]</p>
 </div>
 <div class="sect3">
-<h4 id="_underlying_technologies">9.7.1. Underlying Technologies</h4>
+<h4 id="_underlying_technologies">9.6.1. Underlying Technologies</h4>
 <div class="sect4">
 <h5 id="_markup">Markup</h5>
 <details>
@@ -2378,7 +2299,7 @@ Or re-save the image in any editor.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_books">9.7.2. Books</h4>
+<h4 id="_books">9.6.2. Books</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -2414,7 +2335,7 @@ Or re-save the image in any editor.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration_4">9.8. Configuration</h3>
+<h3 id="_configuration_4">9.7. Configuration</h3>
 <div class="paragraph">
 <p>Unresolved directive in ../_feedback.adoc - include::/home/runner/work/docToolchain/docToolchain/./build/contributors/010_manual/30_config.adoc[]</p>
 </div>
@@ -2422,7 +2343,7 @@ Or re-save the image in any editor.</p>
 <p>docToolchain uses a single Groovy configuration file for all settings.</p>
 </div>
 <div class="sect3">
-<h4 id="_configuration_file">9.8.1. Configuration File</h4>
+<h4 id="_configuration_file">9.7.1. Configuration File</h4>
 <div class="paragraph">
 <p>By default, docToolchain looks for <code>docToolchainConfig.groovy</code> in your project root.</p>
 </div>
@@ -2453,7 +2374,7 @@ Run <code>./dtcw4 local downloadTemplate</code> to create a default one, or crea
 </div>
 </div>
 <div class="sect3">
-<h4 id="_core_settings">9.8.2. Core Settings</h4>
+<h4 id="_core_settings">9.7.2. Core Settings</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">outputPath = 'build'
@@ -2488,7 +2409,7 @@ imageDirs = ['images/.']</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_microsite_settings">9.8.3. Microsite Settings</h4>
+<h4 id="_microsite_settings">9.7.3. Microsite Settings</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">microsite.with {
@@ -2515,7 +2436,7 @@ Use <code>'-'</code> to hide a menu entry.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_confluence_settings">9.8.4. Confluence Settings</h4>
+<h4 id="_confluence_settings">9.7.4. Confluence Settings</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">confluence = [
@@ -2533,7 +2454,7 @@ Use <code>'-'</code> to hide a menu entry.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_dynamic_configuration">9.8.5. Dynamic Configuration</h4>
+<h4 id="_dynamic_configuration">9.7.5. Dynamic Configuration</h4>
 <div class="paragraph">
 <p>Since the config file is executable Groovy, you can use dynamic values:</p>
 </div>

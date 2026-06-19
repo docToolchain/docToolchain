@@ -455,7 +455,7 @@ searching issues...
 <p><strong>git</strong> — needed to clone docToolchain during installation</p>
 </li>
 <li>
-<p><strong>Bash</strong> — <code>dtcw4</code> and <code>dtcw</code> are Bash scripts (on Windows, use WSL2)</p>
+<p><strong>Bash</strong> — <code>dtcw4</code> is a Bash script (on Windows, use WSL2)</p>
 </li>
 </ul>
 </div>
@@ -463,19 +463,15 @@ searching issues...
 <div class="sect2">
 <h3 id="_quick_start">Quick Start</h3>
 <div class="sect3">
-<h4 id="_1_get_the_wrapper_scripts">1. Get the Wrapper Scripts</h4>
+<h4 id="_1_get_the_wrapper_script">1. Get the Wrapper Script</h4>
 <div class="paragraph">
-<p>Download <code>dtcw4</code> and <code>dtcw</code> into your project directory:</p>
+<p>Download <code>dtcw4</code> into your project directory:</p>
 </div>
-<div class="openblock primary">
-<div class="title">Linux / macOS / WSL2 (including Windows via WSL2)</div>
-<div class="content">
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">cd &lt;your project&gt;
-curl -Lo dtcw https://doctoolchain.org/dtcw
 curl -Lo dtcw4 https://doctoolchain.org/dtcw4
-chmod +x dtcw dtcw4</code></pre>
+chmod +x dtcw4</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -485,12 +481,10 @@ chmod +x dtcw dtcw4</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-On Windows, use WSL2. The v4 wrappers are Bash scripts.
+On Windows, use WSL2. <code>dtcw4</code> is a Bash script.
 </td>
 </tr>
 </table>
-</div>
-</div>
 </div>
 </div>
 <div class="sect3">
@@ -498,7 +492,7 @@ On Windows, use WSL2. The v4 wrappers are Bash scripts.
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash"># Install Java if needed
-./dtcw local install java
+./dtcw4 local install java
 
 # Install docToolchain v4
 ./dtcw4 local install doctoolchain</code></pre>
@@ -558,19 +552,17 @@ After that, no build tool is involved at runtime.</p>
 <div class="sect2">
 <h3 id="_how_it_works">How It Works</h3>
 <div class="paragraph">
-<p>docToolchain v4 consists of two parts:</p>
+<p>Only <code>dtcw4</code> lives in your project directory. It handles:</p>
 </div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1"><code>dtcw4</code></dt>
-<dd>
-<p>The installation wrapper. It clones docToolchain from GitHub and builds the runtime JARs once. After installation, it delegates to <code>dtcw</code>.</p>
-</dd>
-<dt class="hdlist1"><code>dtcw</code></dt>
-<dd>
-<p>The execution wrapper. It detects v4 by the presence of a <code>lib/</code> directory and runs tasks directly via the JVM — no Gradle, no daemon.</p>
-</dd>
-</dl>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Installation</strong>: Clones docToolchain from GitHub and builds the runtime JARs once.</p>
+</li>
+<li>
+<p><strong>Task execution</strong>: Delegates to the installed <code>dtcw</code> in <code>~/.doctoolchain/docToolchain-4.0.0/</code>, which runs tasks directly via the JVM — no Gradle, no daemon.</p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
 <p>Runtime JARs are stored in <code>~/.doctoolchain/docToolchain-4.0.0/lib/</code>.
@@ -584,7 +576,7 @@ Task execution uses direct JVM invocation (~2-3s startup).</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw docker generateHTML</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 docker generateHTML</code></pre>
 </div>
 </div>
 <div class="paragraph">
@@ -594,14 +586,14 @@ Task execution uses direct JVM invocation (~2-3s startup).</p>
 <h4 id="_custom_docker_image">Custom Docker Image</h4>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw docker image &lt;image_name&gt; generateHTML</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 docker image &lt;image_name&gt; generateHTML</code></pre>
 </div>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_environment_variables_for_docker">Environment Variables for Docker</h4>
 <div class="paragraph">
-<p>Create a file <code>dtcw_docker.env</code> next to <code>dtcw</code>:</p>
+<p>Create a file <code>dtcw_docker.env</code> in your project directory:</p>
 </div>
 <div class="listingblock">
 <div class="content">
