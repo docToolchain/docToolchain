@@ -138,12 +138,32 @@ summary { color:var(--dtc-ink); }
   background:var(--dtc-code-bg); color:var(--dtc-code-ink);
   border:1px solid rgba(16,185,129,.25); border-radius:var(--dtc-radius);
   box-shadow:var(--dtc-shadow); font-family:var(--dtc-mono); font-size:.86em;
+  padding:1.1rem 1.3rem; margin:1.25rem 0; overflow:auto;
 }
-.td-content code, .td-content :not(pre) > code {
+/* the copy-n-paste button overlay sits in the corner — keep clear of it */
+.td-content .listingblock { margin:1.25rem 0; }
+.td-content :not(pre) > code {
   font-family:var(--dtc-mono); background:var(--dtc-bg-soft);
   border:1px solid var(--dtc-border); border-radius:6px; padding:.12em .4em; color:var(--g-700);
 }
 [data-theme="dark"] .td-content :not(pre) > code { color:var(--g-300); }
+
+/* landing-page code lives outside .td-content — give it the same treatment so
+   the Quick-Start block stays readable (esp. on the darkened card in dark mode).
+   :has(.dtc-hero) targets both landings without touching docs pages or layout. */
+.dtc-landing pre, main:has(.dtc-hero) pre {
+  background:var(--dtc-code-bg); color:var(--dtc-code-ink);
+  border:1px solid rgba(16,185,129,.25); border-radius:var(--dtc-radius);
+  box-shadow:var(--dtc-shadow); font-family:var(--dtc-mono); font-size:.86em;
+  padding:1.1rem 1.3rem; overflow:auto;
+}
+.dtc-landing pre code, main:has(.dtc-hero) pre code { background:transparent; border:0; padding:0; color:inherit; }
+.dtc-landing :not(pre) > code, main:has(.dtc-hero) :not(pre) > code {
+  font-family:var(--dtc-mono); background:var(--dtc-bg-soft);
+  border:1px solid var(--dtc-border); border-radius:6px; padding:.12em .4em; color:var(--g-700);
+}
+[data-theme="dark"] .dtc-landing :not(pre) > code,
+[data-theme="dark"] main:has(.dtc-hero) :not(pre) > code { color:var(--g-300); }
 
 /* prettify syntax tokens — recoloured for the dark code surface.
    The stock prettify.css paints tokens in dark colours meant for a light
@@ -211,6 +231,15 @@ summary { color:var(--dtc-ink); }
 .td-content .btn-primary, .td-page-meta .btn-primary,
 [data-theme="dark"] .td-content .btn-primary,
 [data-theme="dark"] .td-page-meta .btn-primary { color:#fff !important; }
+/* darken the brand primary button to emerald-700 so white labels reach AA
+   (white on emerald-600 was 3.77:1; on emerald-700 it is 5.48:1) */
+.btn-primary, .btn-primary:not(:disabled):not(.disabled) {
+  background:#047857 !important; border-color:#047857 !important; color:#fff !important;
+}
+.btn-primary:hover, .btn-primary:focus { background:#065f46 !important; border-color:#065f46 !important; }
+.btn-outline-primary { color:#047857 !important; border-color:#047857 !important; }
+.btn-outline-primary:hover { background:#047857 !important; color:#fff !important; }
+[data-theme="dark"] .btn-outline-primary { color:var(--g-300) !important; border-color:var(--g-500) !important; }
 .td-page-meta a:hover { color:var(--g-600); }
 
 /* ---- footer -------------------------------------------------------- */
@@ -260,7 +289,9 @@ footer.bg-dark a:hover { color:#a7f3d0 !important; }
 .dtc-cta { display:flex; gap:14px; flex-wrap:wrap; }
 .dtc-btn { display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:15px; padding:13px 24px; border-radius:12px; border:1px solid transparent; cursor:pointer; text-decoration:none; transition:transform .15s, box-shadow .2s, border-color .2s; }
 .dtc-btn:hover { transform:translateY(-2px); text-decoration:none; }
-.dtc-btn-primary { background:var(--dtc-grad); color:#fff !important; box-shadow:0 8px 20px -6px rgba(5,150,105,.55); }
+/* darker emerald gradient so white labels meet WCAG AA across the whole button
+   (the lighter --dtc-grad end would drop below 4.5:1 against white) */
+.dtc-btn-primary { background:linear-gradient(135deg,#065f46,#047857); color:#fff !important; box-shadow:0 8px 20px -6px rgba(4,120,87,.55); }
 .dtc-btn-ghost { background:transparent; color:var(--g-800) !important; border-color:var(--g-300); }
 .dtc-btn-ghost:hover { border-color:var(--g-600); }
 [data-theme="dark"] .dtc-btn-ghost { color:var(--g-300) !important; border-color:var(--dtc-border); }
