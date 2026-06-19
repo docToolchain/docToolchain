@@ -11,63 +11,64 @@ body {
 
 /* ── Navbar ────────────────────────────────────────────────────── */
 .td-navbar {
-    background: #1e3a5f;
+    background: #064e3b;
 }
 
 .td-navbar .nav-link:hover,
 .td-navbar .nav-link:focus {
-    background: rgba(255, 255, 255, 0.1);
+    background: rgba(255, 255, 255, 0.12);
     border-radius: 0.25rem;
 }
 
 /* ── Links & primary color ────────────────────────────────────── */
 a {
-    color: #2563eb;
+    color: #059669;
 }
 
 a:hover {
-    color: #1d4ed8;
+    color: #047857;
 }
 
 .btn-primary,
 .btn-primary:active {
-    background-color: #2563eb;
-    border-color: #2563eb;
+    background-color: #059669;
+    border-color: #059669;
 }
 
 .btn-primary:hover,
 .btn-primary:focus {
-    background-color: #1d4ed8;
-    border-color: #1d4ed8;
+    background-color: #047857;
+    border-color: #047857;
 }
 
 .btn-outline-primary {
-    color: #2563eb;
-    border-color: #2563eb;
+    color: #059669;
+    border-color: #059669;
 }
 
 .btn-outline-primary:hover {
-    background-color: #2563eb;
-    border-color: #2563eb;
+    background-color: #059669;
+    border-color: #059669;
+    color: #fff;
 }
 
 /* ── Sidebar active state ─────────────────────────────────────── */
 .td-sidebar-link.active,
 .td-sidebar-link__section.active {
-    color: #2563eb;
+    color: #059669;
     font-weight: 600;
 }
 
 /* ── Footer ───────────────────────────────────────────────────── */
 footer.bg-dark {
-    background: #1e293b !important;
+    background: #1a1a2e !important;
 }
 
 /* ── Landing page hero ────────────────────────────────────────── */
 .bg-light.jumbotron,
 div.bg-light.jumbotron {
-    background: linear-gradient(135deg, #eff6ff 0%, #dbeafe 100%) !important;
-    border: 1px solid #bfdbfe;
+    background: linear-gradient(135deg, #ecfdf5 0%, #d1fae5 100%) !important;
+    border: 1px solid #a7f3d0;
     border-radius: 0.75rem;
 }
 
@@ -87,5 +88,5 @@ div.bg-light.jumbotron {
 
 /* ── Badge (v4 badge on landing page) ─────────────────────────── */
 .badge.bg-primary {
-    background-color: #2563eb !important;
+    background-color: #059669 !important;
 }

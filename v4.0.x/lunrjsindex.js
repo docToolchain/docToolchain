@@ -274,18 +274,18 @@ var documents = [
 
 {
     "id": 34,
-    "uri": "015_tasks/03_task_generateHTML.html",
-    "menu": "tasks",
-    "title": "generateHTML",
-    "text": " Table of Contents generateHTML About This Task Configuration Single-File HTML Text-Based Diagrams Controlling Diagram Size Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } generateHTML About This Task Generates HTML5 from your AsciiDoc sources using AsciidoctorJ. Output is written to build/html5/ . ./dtcw4 local generateHTML Configuration Specify which files to render in your docToolchainConfig.groovy : inputFiles = [ [file: 'manual.adoc', formats: ['html','pdf']], ] Single-File HTML To produce a single self-contained HTML file, set :data-uri: in your AsciiDoc source. Be aware that the file can become very large. Text-Based Diagrams docToolchain includes the asciidoctor-diagram extension for PlantUML, ditaa, and other diagram types. .example diagram [plantuml, \"{plantUMLDir}demoPlantUML\", png] ---- class BlockProcessor class DiagramBlock BlockProcessor &lt;|-- DiagramBlock ---- Note Use {plantUMLDir} in the image name to ensure diagrams work for both HTML and PDF output. Important Use a unique image name for each diagram to avoid overwriting. Controlling Diagram Size Use the width attribute (pixels) or scale attribute (ratio): [plantuml, target=\"{plantUMLDir}myDiagram\", format=png, width=250] [plantuml, target=\"{plantUMLDir}myDiagram\", format=png, scale=0.75] Note If Graphviz is not installed, add !pragma layout smetana as the first line of your PlantUML diagram to use the built-in Java layout engine. Further Reading Single-file HTML PlantUML without Graphviz "
-},
-
-{
-    "id": 35,
     "uri": "015_tasks/03_task_exportExcel.html",
     "menu": "tasks",
     "title": "exportExcel",
     "text": " Table of Contents exportExcel About This Task Including Exported Data Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } exportExcel About This Task Exports Excel spreadsheets ( .xlsx ) to CSV and AsciiDoc tables using Apache POI. Each worksheet is exported as both .csv and .adoc . Formulas are evaluated and exported statically. ./dtcw4 local exportExcel Output is written to src/excel/[filename]/[worksheet].(adoc|csv) . The src folder is used (not build ) to preserve change history in version control. Including Exported Data As AsciiDoc table (preserves alignment, col-span, row-span, colors): include::excel/Sample.xlsx/Numerical.adoc[] As CSV: [options=\"header\",format=\"csv\"] |=== include::excel/Sample.xlsx/Numerical.csv[] |=== Further Reading asciidoctorj-office-extension — an alternative approach "
+},
+
+{
+    "id": 35,
+    "uri": "015_tasks/03_task_generateHTML.html",
+    "menu": "tasks",
+    "title": "generateHTML",
+    "text": " Table of Contents generateHTML About This Task Configuration Single-File HTML Text-Based Diagrams Controlling Diagram Size Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } generateHTML About This Task Generates HTML5 from your AsciiDoc sources using AsciidoctorJ. Output is written to build/html5/ . ./dtcw4 local generateHTML Configuration Specify which files to render in your docToolchainConfig.groovy : inputFiles = [ [file: 'manual.adoc', formats: ['html','pdf']], ] Single-File HTML To produce a single self-contained HTML file, set :data-uri: in your AsciiDoc source. Be aware that the file can become very large. Text-Based Diagrams docToolchain includes the asciidoctor-diagram extension for PlantUML, ditaa, and other diagram types. .example diagram [plantuml, \"{plantUMLDir}demoPlantUML\", png] ---- class BlockProcessor class DiagramBlock BlockProcessor &lt;|-- DiagramBlock ---- Note Use {plantUMLDir} in the image name to ensure diagrams work for both HTML and PDF output. Important Use a unique image name for each diagram to avoid overwriting. Controlling Diagram Size Use the width attribute (pixels) or scale attribute (ratio): [plantuml, target=\"{plantUMLDir}myDiagram\", format=png, width=250] [plantuml, target=\"{plantUMLDir}myDiagram\", format=png, scale=0.75] Note If Graphviz is not installed, add !pragma layout smetana as the first line of your PlantUML diagram to use the built-in Java layout engine. Further Reading Single-file HTML PlantUML without Graphviz "
 },
 
 {
@@ -306,14 +306,6 @@ var documents = [
 
 {
     "id": 38,
-    "uri": "025_development/050_who-uses-dtc.html",
-    "menu": "-",
-    "title": "moved",
-    "text": " document.location.href = '../10_about/10_about-the-project.html'; "
-},
-
-{
-    "id": 39,
     "uri": "025_development/020_run_tests.html",
     "menu": "development",
     "title": "Running Tests",
@@ -321,19 +313,27 @@ var documents = [
 },
 
 {
-    "id": 40,
-    "uri": "025_development/040_debugging.html",
-    "menu": "development",
-    "title": "Debugging",
-    "text": " Table of Contents Debugging Environment Gradle jBake Templates Theming, Menu and Images Script Execution Debugging Debugging Things not working as you expected? Here are some tips that might help you. Environment To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect. Gradle You get more hints about what is going on with Gradle when you add the --info flag to your ./dtcw generateSite command: ./dtcw generateSite --info This outputs all config settings as seen by docToolchain along with many other internal settings. jBake Templates If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println otherwise you won’t see any output. Theming, Menu and Images How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files. Check the build/microsite/tmp folder to see the folder that is fed into jBake. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the build/microsite/output folder to see the generated result. This often helps you find out where an image actually is located. Script Execution Debugging The execution of the ../../../bin/doctoolchain bash script may be traced by setting the environment variable DTC_BASH_OPTS to, e.g., -vx . "
+    "id": 39,
+    "uri": "025_development/050_who-uses-dtc.html",
+    "menu": "-",
+    "title": "moved",
+    "text": " document.location.href = '../10_about/10_about-the-project.html'; "
 },
 
 {
-    "id": 41,
+    "id": 40,
     "uri": "025_development/030_create_new_release.html",
     "menu": "development",
     "title": "Creating a New Release",
     "text": " Table of Contents Creating a New Release Before You Begin GitHub Docker Hub Blog Post docToolchain-Wrapper (dtcw) SDKMAN! Creating a New Release Before You Begin We use semantic versioning and we also keep a changelog . All of this is done on a best-efforts basis. A release consists of five parts, each explained below. GitHub run docker run -it -e BATS_LIB_PATH=/usr/lib/bats -v \"${PWD}/dtcw:/code/dtcw\" -v \"${PWD}/test:/code/test\" maxh/bats:latest test to test dtcw Update the version in gradle.properties . Update the version in dtcw and dtcw.ps1 . dtcw.bat will be generated Update the changelog. Create a section for the version. Copy to the new section all unreleased features which will be in the release. Commit and push the new version. Draft a new release . Copy the contents of the changelog for this version to the description then submit. Set the version as v X.Y.Z. Run ./gradlew createDist to zip the source in build (the distribution file). Add the zipped file and submit the new release. Docker Hub Standard Image Update the GitHub workflows to reflect the new version. run github action to build and deploy the image do the same for the other images Blog Post Create a blog post to announce the new release. The SDKMAN! announcement will reference it. docToolchain-Wrapper (dtcw) Everything went well? Great! Now let’s update the wrapper. Navigate to https://github.com/docToolchain/doctoolchain.github.io/actions/workflows/update-dtcw.yml and trigger the action. SDKMAN! A GitHub action sdkman deploy has been created to deploy to SDKMAN! Set the version to the same as for the other releases, but without the prepended v: X.Y.Z. Use as a download link the link to the docToolchain-dist.zip from the GitHub release. Tip: the link looks like https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip . "
+},
+
+{
+    "id": 41,
+    "uri": "025_development/040_debugging.html",
+    "menu": "development",
+    "title": "Debugging",
+    "text": " Table of Contents Debugging Environment Gradle jBake Templates Theming, Menu and Images Script Execution Debugging Debugging Things not working as you expected? Here are some tips that might help you. Environment To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect. Gradle You get more hints about what is going on with Gradle when you add the --info flag to your ./dtcw generateSite command: ./dtcw generateSite --info This outputs all config settings as seen by docToolchain along with many other internal settings. jBake Templates If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println otherwise you won’t see any output. Theming, Menu and Images How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files. Check the build/microsite/tmp folder to see the folder that is fed into jBake. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the build/microsite/output folder to see the generated result. This often helps you find out where an image actually is located. Script Execution Debugging The execution of the ../../../bin/doctoolchain bash script may be traced by setting the environment variable DTC_BASH_OPTS to, e.g., -vx . "
 },
 
 {
