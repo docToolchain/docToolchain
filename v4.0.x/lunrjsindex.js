@@ -282,18 +282,18 @@ var documents = [
 
 {
     "id": 35,
-    "uri": "015_tasks/03_task_generateHTML.html",
-    "menu": "tasks",
-    "title": "generateHTML",
-    "text": " Table of Contents generateHTML About This Task Configuration Single-File HTML Text-Based Diagrams Controlling Diagram Size Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } generateHTML About This Task Generates HTML5 from your AsciiDoc sources using AsciidoctorJ. Output is written to build/html5/ . ./dtcw4 local generateHTML Configuration Specify which files to render in your docToolchainConfig.groovy : inputFiles = [ [file: 'manual.adoc', formats: ['html','pdf']], ] Single-File HTML To produce a single self-contained HTML file, set :data-uri: in your AsciiDoc source. Be aware that the file can become very large. Text-Based Diagrams docToolchain includes the asciidoctor-diagram extension for PlantUML, ditaa, and other diagram types. .example diagram [plantuml, \"{plantUMLDir}demoPlantUML\", png] ---- class BlockProcessor class DiagramBlock BlockProcessor &lt;|-- DiagramBlock ---- Note Use {plantUMLDir} in the image name to ensure diagrams work for both HTML and PDF output. Important Use a unique image name for each diagram to avoid overwriting. Controlling Diagram Size Use the width attribute (pixels) or scale attribute (ratio): [plantuml, target=\"{plantUMLDir}myDiagram\", format=png, width=250] [plantuml, target=\"{plantUMLDir}myDiagram\", format=png, scale=0.75] Note If Graphviz is not installed, add !pragma layout smetana as the first line of your PlantUML diagram to use the built-in Java layout engine. Further Reading Single-file HTML PlantUML without Graphviz "
-},
-
-{
-    "id": 36,
     "uri": "025_development/010_setup_dev_env.html",
     "menu": "development",
     "title": "Setting Up a Dev Environment",
     "text": " Table of Contents Setting Up a Dev Environment Before You Begin Using the Devcontainer Local Development Setup Running Tests Create or Change a Theme Special Functionality for Themes (Config Fragments) Setting Up a Dev Environment Before You Begin When you install docToolchain, all the code is hidden in ~/.doctoolchain/ . This page explains how to set up a development environment to modify and test docToolchain itself. Using the Devcontainer The easiest way to develop docToolchain is using the multi-repo devcontainer from the workspace root (not this repo): # From the workspace root (parent of docToolchain/) ./start-devcontainer.sh This provides Java 17, Go, Python, and all necessary tools. Local Development Setup Fork https://github.com/docToolchain/docToolchain on GitHub. Clone your fork: git clone --branch main-4.x git@github.com:&lt;your-user&gt;/docToolchain.git cd docToolchain Build the runtime JARs: ./gradlew packageLibs This creates build/lib/*.jar — the v4 runtime classpath. Copy them to lib/ for the wrapper to detect v4: cp -r build/lib lib Run tasks directly: CLASSPATH=$(find lib/ -name '*.jar' | tr '\\n' ':') \\ java -DdocDir=. -DmainConfigFile=Config.groovy \\ groovy.ui.GroovyMain scripts/generateHTML.groovy Running Tests ./gradlew core:test See 020_run_tests.html for details. Create or Change a Theme How to Overwrite a Project Theme When docToolchain builds a static website, it copies themes in this order: Internal theme → build/microsite/tmp/site External theme (if DTC_SITETHEME is set) Project theme from src/site/ To customize, place your modified files in src/site/ in your project. How to Create a Theme from Scratch A theme is the contents of the src/site/ directory. See the jBake documentation for the expected structure. Special Functionality for Themes (Config Fragments) Create a configFragment.groovy in the site folder of your theme to prompt users for config values during theme installation: // the title of the microsite, displayed in the upper-left corner // Example: my new site title = '##site-title##' Values surrounded by ## will prompt the user during installation. "
+},
+
+{
+    "id": 36,
+    "uri": "015_tasks/03_task_generateHTML.html",
+    "menu": "tasks",
+    "title": "generateHTML",
+    "text": " Table of Contents generateHTML About This Task Configuration Single-File HTML Text-Based Diagrams Controlling Diagram Size Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } generateHTML About This Task Generates HTML5 from your AsciiDoc sources using AsciidoctorJ. Output is written to build/html5/ . ./dtcw4 local generateHTML Configuration Specify which files to render in your docToolchainConfig.groovy : inputFiles = [ [file: 'manual.adoc', formats: ['html','pdf']], ] Single-File HTML To produce a single self-contained HTML file, set :data-uri: in your AsciiDoc source. Be aware that the file can become very large. Text-Based Diagrams docToolchain includes the asciidoctor-diagram extension for PlantUML, ditaa, and other diagram types. .example diagram [plantuml, \"{plantUMLDir}demoPlantUML\", png] ---- class BlockProcessor class DiagramBlock BlockProcessor &lt;|-- DiagramBlock ---- Note Use {plantUMLDir} in the image name to ensure diagrams work for both HTML and PDF output. Important Use a unique image name for each diagram to avoid overwriting. Controlling Diagram Size Use the width attribute (pixels) or scale attribute (ratio): [plantuml, target=\"{plantUMLDir}myDiagram\", format=png, width=250] [plantuml, target=\"{plantUMLDir}myDiagram\", format=png, scale=0.75] Note If Graphviz is not installed, add !pragma layout smetana as the first line of your PlantUML diagram to use the built-in Java layout engine. Further Reading Single-file HTML PlantUML without Graphviz "
 },
 
 {
@@ -634,18 +634,18 @@ var documents = [
 
 {
     "id": 79,
-    "uri": "010_manual/040_contributors.html",
-    "menu": "-",
-    "title": "moved",
-    "text": " document.location.href = '../10_about/30_community.html'; "
-},
-
-{
-    "id": 80,
     "uri": "010_manual/60_further_reading.html",
     "menu": "manual",
     "title": "Useful Resources",
     "text": " Table of Contents Useful Resources Underlying Technologies Books Useful Resources Underlying Technologies Markup AsciiDoc Our preferred markup language for technical docs. Asciidoctor User-Manual AsciiDoc Syntax Quick Reference \"Asciidoctor Deep Dive Video\" by Alexander Schwartz Markdown jBake also supports Markdown via flexmark-java . Templates arc42 arc42 — architecture documentation template arc42 Tips &amp; Tricks arc42 FAQ Docs as Code Docs as Code Docs-as-Code Write the Docs: Docs-as-Code Static Site Generator jBake jBake — the static site generator behind generateSite Docsy — our standard theme Bootstrap 5 — CSS framework Books Title Author Language Docs Like Code Anne Gentle English arc42 by Example Gernot Starke, Stefan Zörner, Michael Simons, Ralf D. Müller English Communicating Software Architectures with arc42 Gernot Starke, Peter Hruschka English "
+},
+
+{
+    "id": 80,
+    "uri": "010_manual/040_contributors.html",
+    "menu": "-",
+    "title": "moved",
+    "text": " document.location.href = '../10_about/30_community.html'; "
 },
 
 {
@@ -722,18 +722,18 @@ var documents = [
 
 {
     "id": 90,
-    "uri": "ea/issue1.html",
-    "menu": "ea",
-    "title": "issue1.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 91,
     "uri": "ea/readme.html",
     "menu": "ea",
     "title": "readme.ad",
     "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
+},
+
+{
+    "id": 91,
+    "uri": "ea/issue1.html",
+    "menu": "ea",
+    "title": "issue1.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
 },
 
 {
