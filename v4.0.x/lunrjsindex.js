@@ -242,18 +242,18 @@ var documents = [
 
 {
     "id": 30,
-    "uri": "015_tasks/03_task_downloadTemplate.html",
-    "menu": "tasks",
-    "title": "downloadTemplate",
-    "text": " Table of Contents downloadTemplate About This Task Setup and Configuration Headless Mode Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } downloadTemplate About This Task This task is primarily used to bootstrap a new project. You can choose to download an official template like arc42 or req42 (both available in multiple languages) or you can register and use your own custom template. Setup and Configuration Important downloadTemplate requires an existing docToolchainConfig.groovy in your project root (or the path set via DTC_CONFIG_FILE ). If the file doesn&#8217;t exist yet, create an empty one: touch docToolchainConfig.groovy . Headless Mode For unattended use (e.g., with CI/CD pipelines or LLM agents), the downloadTemplate task supports headless mode where no user input is required. Using the DTC_HEADLESS Environment Variable When DTC_HEADLESS=true is set, the task will use sensible defaults: Template: arc42 Language: EN Help variant: plain (without help text) export DTC_HEADLESS=true ./dtcw4 local downloadTemplate Further Reading and Resources Arc42 Req42 "
-},
-
-{
-    "id": 31,
     "uri": "015_tasks/03_task_exportPPT.html",
     "menu": "tasks",
     "title": "exportPPT",
     "text": " Table of Contents exportPPT About This Task Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } exportPPT About This Task Exports PowerPoint slides ( .pptx ) as PNG images and extracts speaker notes as AsciiDoc. ./dtcw4 local exportPPT In v4, this task uses Apache POI for rendering and works on all platforms (Linux, macOS, Windows). The v3 version was Windows-only (VBScript). Note Only .pptx files are supported. Legacy .ppt format is not supported. The tag {slide} in speaker notes is replaced with the corresponding image reference. Use tagged regions to include specific slides. Further Reading Do More with Slides "
+},
+
+{
+    "id": 31,
+    "uri": "015_tasks/03_task_downloadTemplate.html",
+    "menu": "tasks",
+    "title": "downloadTemplate",
+    "text": " Table of Contents downloadTemplate About This Task Setup and Configuration Headless Mode Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } downloadTemplate About This Task This task is primarily used to bootstrap a new project. You can choose to download an official template like arc42 or req42 (both available in multiple languages) or you can register and use your own custom template. Setup and Configuration Important downloadTemplate requires an existing docToolchainConfig.groovy in your project root (or the path set via DTC_CONFIG_FILE ). If the file doesn&#8217;t exist yet, create an empty one: touch docToolchainConfig.groovy . Headless Mode For unattended use (e.g., with CI/CD pipelines or LLM agents), the downloadTemplate task supports headless mode where no user input is required. Using the DTC_HEADLESS Environment Variable When DTC_HEADLESS=true is set, the task will use sensible defaults: Template: arc42 Language: EN Help variant: plain (without help text) export DTC_HEADLESS=true ./dtcw4 local downloadTemplate Further Reading and Resources Arc42 Req42 "
 },
 
 {
