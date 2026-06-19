@@ -226,6 +226,14 @@ var documents = [
 
 {
     "id": 28,
+    "uri": "015_tasks/03_task_copyThemes.html",
+    "menu": "tasks",
+    "title": "copyThemes",
+    "text": " Table of Contents copyThemes About This Task Usage Where the Theme Is Copied Related Tasks .gravatar img { margin-left: 3px; border-radius: 4px; } copyThemes About This Task copyThemes copies one of docToolchain&#8217;s built-in themes into your project so you can customize it. Two themes are available: jBakeTheme — the microsite (jBake) theme: GSP templates plus CSS/JS assets used by generateSite . pdfTheme — the theme used by generatePDF . Once copied, the theme lives in your project under version control, and your changes survive docToolchain upgrades. Usage The theme to copy is passed as an argument — there is no interactive prompt, so the task works in CI/CD pipelines and with LLM agents. ./dtcw4 local copyThemes jBakeTheme # copy the microsite theme ./dtcw4 local copyThemes pdfTheme # copy the PDF theme Calling the task without a valid argument prints a usage message and exits with a non-zero status. Where the Theme Is Copied Theme Target location jBakeTheme &lt;inputPath&gt;/&lt;microsite.siteFolder&gt; (default ../site , i.e. src/site ) pdfTheme pdfThemeDir from your config (default ./src/docs/pdfTheme ) After copying, the task reminds you to set the matching config property ( microsite.siteFolder or pdfThemeDir ) if it isn&#8217;t set yet, so generateSite / generatePDF pick up your customized theme. Related Tasks generateSite — uses the jBakeTheme generatePDF — uses the pdfTheme "
+},
+
+{
+    "id": 29,
     "uri": "015_tasks/03_task_publishToConfluence.html",
     "menu": "tasks",
     "title": "publishToConfluence",
@@ -233,7 +241,7 @@ var documents = [
 },
 
 {
-    "id": 29,
+    "id": 30,
     "uri": "015_tasks/03_task_generatePDF.html",
     "menu": "tasks",
     "title": "generatePDF",
@@ -241,19 +249,11 @@ var documents = [
 },
 
 {
-    "id": 30,
+    "id": 31,
     "uri": "015_tasks/03_task_downloadTemplate.html",
     "menu": "tasks",
     "title": "downloadTemplate",
     "text": " Table of Contents downloadTemplate About This Task Setup and Configuration Headless Mode Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } downloadTemplate About This Task This task is primarily used to bootstrap a new project. You can choose to download an official template like arc42 or req42 (both available in multiple languages) or you can register and use your own custom template. Setup and Configuration Important downloadTemplate requires an existing docToolchainConfig.groovy in your project root (or the path set via DTC_CONFIG_FILE ). If the file doesn&#8217;t exist yet, create an empty one: touch docToolchainConfig.groovy . Headless Mode For unattended use (e.g., with CI/CD pipelines or LLM agents), the downloadTemplate task supports headless mode where no user input is required. Using the DTC_HEADLESS Environment Variable When DTC_HEADLESS=true is set, the task will use sensible defaults: Template: arc42 Language: EN Help variant: plain (without help text) export DTC_HEADLESS=true ./dtcw4 local downloadTemplate Further Reading and Resources Arc42 Req42 "
-},
-
-{
-    "id": 31,
-    "uri": "015_tasks/03_task_exportPPT.html",
-    "menu": "tasks",
-    "title": "exportPPT",
-    "text": " Table of Contents exportPPT About This Task Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } exportPPT About This Task Exports PowerPoint slides ( .pptx ) as PNG images and extracts speaker notes as AsciiDoc. ./dtcw4 local exportPPT In v4, this task uses Apache POI for rendering and works on all platforms (Linux, macOS, Windows). The v3 version was Windows-only (VBScript). Note Only .pptx files are supported. Legacy .ppt format is not supported. The tag {slide} in speaker notes is replaced with the corresponding image reference. Use tagged regions to include specific slides. Further Reading Do More with Slides "
 },
 
 {
@@ -266,14 +266,22 @@ var documents = [
 
 {
     "id": 33,
-    "uri": "015_tasks/03_tasks.html",
+    "uri": "015_tasks/03_task_exportPPT.html",
     "menu": "tasks",
-    "title": "Tasks",
-    "text": " Table of Contents Tasks Running a Task Listing Available Tasks Task Categories Available Tasks .gravatar img { margin-left: 3px; border-radius: 4px; } Tasks A task is a standalone Groovy script that performs a specific documentation action — generating output, exporting content, or publishing to external systems. In v4, tasks are invoked directly via the JVM — no Gradle, no build tool overhead. Each task is a self-contained .groovy file in the scripts/ directory. Running a Task ./dtcw4 local &lt;taskName&gt; Listing Available Tasks ./dtcw4 tasks Task Categories generateX These tasks render your AsciiDoc sources to a target format (HTML, PDF, microsite). exportX These tasks export content from other formats (Excel, PowerPoint) into AsciiDoc snippets or images that you can include in your documentation. Export results are typically stored under version control because the source tools may not be available on every machine. publishToX These tasks publish your documentation to external systems (currently Confluence). Available Tasks Task Description generateHTML Generate HTML5 from AsciiDoc generatePDF Generate PDF from AsciiDoc generateSite Generate a microsite with navigation, search, and blog downloadTemplate Download arc42 or req42 documentation templates exportExcel Export Excel spreadsheets to AsciiDoc tables and CSV exportPPT Export PowerPoint slides as images with speaker notes publishToConfluence Publish HTML documentation to Confluence "
+    "title": "exportPPT",
+    "text": " Table of Contents exportPPT About This Task Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } exportPPT About This Task Exports PowerPoint slides ( .pptx ) as PNG images and extracts speaker notes as AsciiDoc. ./dtcw4 local exportPPT In v4, this task uses Apache POI for rendering and works on all platforms (Linux, macOS, Windows). The v3 version was Windows-only (VBScript). Note Only .pptx files are supported. Legacy .ppt format is not supported. The tag {slide} in speaker notes is replaced with the corresponding image reference. Use tagged regions to include specific slides. Further Reading Do More with Slides "
 },
 
 {
     "id": 34,
+    "uri": "015_tasks/03_tasks.html",
+    "menu": "tasks",
+    "title": "Tasks",
+    "text": " Table of Contents Tasks Running a Task Listing Available Tasks Task Categories Available Tasks .gravatar img { margin-left: 3px; border-radius: 4px; } Tasks A task is a standalone Groovy script that performs a specific documentation action — generating output, exporting content, or publishing to external systems. In v4, tasks are invoked directly via the JVM — no Gradle, no build tool overhead. Each task is a self-contained .groovy file in the scripts/ directory. Running a Task ./dtcw4 local &lt;taskName&gt; Listing Available Tasks ./dtcw4 tasks Task Categories generateX These tasks render your AsciiDoc sources to a target format (HTML, PDF, microsite). exportX These tasks export content from other formats (Excel, PowerPoint) into AsciiDoc snippets or images that you can include in your documentation. Export results are typically stored under version control because the source tools may not be available on every machine. publishToX These tasks publish your documentation to external systems (currently Confluence). Available Tasks Task Description generateHTML Generate HTML5 from AsciiDoc generatePDF Generate PDF from AsciiDoc generateSite Generate a microsite with navigation, search, and blog downloadTemplate Download arc42 or req42 documentation templates exportExcel Export Excel spreadsheets to AsciiDoc tables and CSV exportPPT Export PowerPoint slides as images with speaker notes publishToConfluence Publish HTML documentation to Confluence copyThemes Copy a built-in theme (jBakeTheme or pdfTheme) into your project for customization "
+},
+
+{
+    "id": 35,
     "uri": "015_tasks/03_task_exportExcel.html",
     "menu": "tasks",
     "title": "exportExcel",
@@ -281,7 +289,7 @@ var documents = [
 },
 
 {
-    "id": 35,
+    "id": 36,
     "uri": "015_tasks/03_task_generateHTML.html",
     "menu": "tasks",
     "title": "generateHTML",
@@ -289,7 +297,7 @@ var documents = [
 },
 
 {
-    "id": 36,
+    "id": 37,
     "uri": "025_development/010_setup_dev_env.html",
     "menu": "development",
     "title": "Setting Up a Dev Environment",
@@ -297,7 +305,7 @@ var documents = [
 },
 
 {
-    "id": 37,
+    "id": 38,
     "uri": "025_development/005_contributing_to_docs.html",
     "menu": "development",
     "title": "Contributing to Docs",
@@ -305,7 +313,7 @@ var documents = [
 },
 
 {
-    "id": 38,
+    "id": 39,
     "uri": "025_development/020_run_tests.html",
     "menu": "development",
     "title": "Running Tests",
@@ -313,7 +321,7 @@ var documents = [
 },
 
 {
-    "id": 39,
+    "id": 40,
     "uri": "025_development/050_who-uses-dtc.html",
     "menu": "-",
     "title": "moved",
@@ -321,19 +329,11 @@ var documents = [
 },
 
 {
-    "id": 40,
+    "id": 41,
     "uri": "025_development/030_create_new_release.html",
     "menu": "development",
     "title": "Creating a New Release",
     "text": " Table of Contents Creating a New Release Before You Begin GitHub Docker Hub Blog Post docToolchain-Wrapper (dtcw) SDKMAN! Creating a New Release Before You Begin We use semantic versioning and we also keep a changelog . All of this is done on a best-efforts basis. A release consists of five parts, each explained below. GitHub run docker run -it -e BATS_LIB_PATH=/usr/lib/bats -v \"${PWD}/dtcw:/code/dtcw\" -v \"${PWD}/test:/code/test\" maxh/bats:latest test to test dtcw Update the version in gradle.properties . Update the version in dtcw and dtcw.ps1 . dtcw.bat will be generated Update the changelog. Create a section for the version. Copy to the new section all unreleased features which will be in the release. Commit and push the new version. Draft a new release . Copy the contents of the changelog for this version to the description then submit. Set the version as v X.Y.Z. Run ./gradlew createDist to zip the source in build (the distribution file). Add the zipped file and submit the new release. Docker Hub Standard Image Update the GitHub workflows to reflect the new version. run github action to build and deploy the image do the same for the other images Blog Post Create a blog post to announce the new release. The SDKMAN! announcement will reference it. docToolchain-Wrapper (dtcw) Everything went well? Great! Now let’s update the wrapper. Navigate to https://github.com/docToolchain/doctoolchain.github.io/actions/workflows/update-dtcw.yml and trigger the action. SDKMAN! A GitHub action sdkman deploy has been created to deploy to SDKMAN! Set the version to the same as for the other releases, but without the prepended v: X.Y.Z. Use as a download link the link to the docToolchain-dist.zip from the GitHub release. Tip: the link looks like https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip . "
-},
-
-{
-    "id": 41,
-    "uri": "10_about/30_community.html",
-    "menu": "about",
-    "title": "Acknowledgements and Contributors",
-    "text": " Table of Contents Acknowledgements and Contributors Why Contributions Matter Get Involved! Our Contributors Acknowledgements and Contributors Why Contributions Matter Without our amazing community of contributors, the docToolchain project wouldn’t exist in its current form. As an open source project, we depend on the skills and expertise of many to deliver a quality outcome. From developers to technical writers, many people have made valuable contributions to the code and the docs. We’re so grateful to them. We are also thankful for those in our community who take the time to give feedback, create issues, answer questions and send pull requests. Get Involved! There are so many technologies that support docToolchain, including AsciiDoc, AsciiDoctor, Gradle and arc42. We need all the help we can get to make improvements and keep our project humming. Simply create an issue and send a pull request. Our Contributors Please get in touch to update your entry or let us know if you have contributed in some way and we will add you to the list. Stefan Bodewig MoePad Niels wschaef Gernot Starke Jan Matèrne Alexander Schwartz Alexander Heusingfeld Dan Allen Stefan Pfeiffer isidorotrevino Jakub Jablonski Frank Pohl Ixchel Ruiz Schalk Cronjé Mario García Joe David M. Carr Fabian Nonnenmacher Christoph Stoettner Roman Funk ghp-dev Christoph Raaflaub Jorge Aguilera Stefan Bohn Jochen Kraushaar Luis Muniz Andreas Offenhaeuser Daniel Bast Sabatmonk Maarten Gribnau Michael Prieß Heiko Stehli Peter Stange Nils Mahlstädt @ hmmh Kevin Werner J. Staub Vladi Bjelakovic Daniel Kessel Björn Seebeck Txemanu Nikolay Orozov Andrea Macaluso Michael Roßner Jan Hendriks Daniel Kocot Alexander Schmitt Jérémie Bresson Jody Winter Aaron Collier Ifeanyi Benedict Iheagwara Jan-Niklas Vierheller Sebastian Schuetze David Schowalter Martin Fischer Stefan Boos Adrian Partl Siva Kalidasan Bjoern Kasteleiner Jan Küfner Gerd Aschemann Andreas Klemp Adi König Bence Hornák ZHENG Bote Miranda Boerlage Guido Sörmann Björn Erlwein Tulio Camminati Joachim Röttinger Pascal Euhus Max Hofer Sandra Parsick Johannes Thorn Stefan Rotman Kevin Latka Michael Roßner Jan Stückrath Timo Abele Patrizio Bonzani Lutz Ashauer Igor Gaiduk Jakob Genßler Torsten Kleiber David Paz "
 },
 
 {
@@ -346,10 +346,10 @@ var documents = [
 
 {
     "id": 43,
-    "uri": "10_about/20_what-is-doctoolchain.html",
+    "uri": "10_about/30_community.html",
     "menu": "about",
-    "title": "What Is docToolchain?",
-    "text": " Table of Contents What Is docToolchain? Introduction Docs as Code arc42 How docToolchain Brings Everything Together What You Get with docToolchain .gravatar img { margin-left: 3px; border-radius: 4px; } What Is docToolchain? Introduction docToolchain is a documentation generation tool that uses the Docs as Code approach as a basis for its architecture, plus some additional automation provided by the arc42 template . Docs as Code ‘Docs as code’ refers to a philosophy that you should write documentation using the same tools as you use to write code. If you need to write technical docs for your software project, why not use the same tools and processes as you use for your source code? There are so many benefits: You don’t have to learn a complicated docs management system. Developers feel more at home in the docs because they look and feel like code. You can manage docs using standard version control like GitHub. arc42 arc42 has been a part of docToolchain since the earliest version. But what is arc42? Dr. Gernot Starke and Peter Hruschka created the arc42 template as a standard for software architecture documentation. They used their experience of software architectures both in the template structure and the explanations that appear in each chapter to guide you when you’re writing your documentation. arc42 is available in well-known formats including MS Word, textile, and Confluence. All of these formats are automatically generated from a single golden master which is formatted in AsciiDoc . How docToolchain Brings Everything Together To follow a docs as code approach, you need a build script that automates steps like exporting diagrams and rendering Markdown (or AsciiDoc in the case of docToolchain) to the target format. Creating this type of build script is not easy (and even harder to maintain). There are also lots of questions to answer: “How do I create .docx?” and “Why doesn’t lib x work with lib y?” docToolchain is the result of one developer’s journey through the docs as code universe. The goal of docToolchain is to automate the creation of technical docs through an easy-to-use build script that only needs to be configured not modified, and that is nurtured and cared for by a diverse open source community . What You Get with docToolchain A Ready-Made Document Management System By using a version control system like Git , you get a perfect document management system for free. Git allows you to version your docs, branch them, and also leaves an audit trail. You can even check who wrote which part of the docs. Isn’t that great? And because your docs are simple plain text, it’s easy to do a diff and see exactly what has changed. Bonus: storing your docs in the same repo as your code means they’re always in sync! Built-In Collaboration and Review As a distributed version control system, Git comes with doc collaboration and review processes built in. People can fork the docs and send pull requests for the changes they make. You review the changes. Done! Most Git frontends like Bitbucket , GitLab and GitHub also allow you to reject pull requests with comments. Image References and Code Snippets Instead of pasting images into a binary document format, docToolchain lets you reference images. This ensures that your imagery is always up-to-date every time you rebuild your documents. You can also reference code snippets directly from your source code. You&#8217;ll save so much time because your docs and code will always be in sync and completely up to date! Compound and Stakeholder-Tailored Docs As if image refs and code snippets weren&#8217;t enough, docToolchain also lets you split docs into several sub-documents plus a master for greater cohesion. And you&#8217;re not restricted to one master. You can create master docs for different stakeholders that only contain the chapters they need. And So Much More&#8230;&#8203; If you can dream it, you can script it! Want to include a list of open issues from Jira? You can! Want to include a changelog from Git? Go for it! Want to use inline text-based diagrams? Knock yourself out! "
+    "title": "Acknowledgements and Contributors",
+    "text": " Table of Contents Acknowledgements and Contributors Why Contributions Matter Get Involved! Our Contributors Acknowledgements and Contributors Why Contributions Matter Without our amazing community of contributors, the docToolchain project wouldn’t exist in its current form. As an open source project, we depend on the skills and expertise of many to deliver a quality outcome. From developers to technical writers, many people have made valuable contributions to the code and the docs. We’re so grateful to them. We are also thankful for those in our community who take the time to give feedback, create issues, answer questions and send pull requests. Get Involved! There are so many technologies that support docToolchain, including AsciiDoc, AsciiDoctor, Gradle and arc42. We need all the help we can get to make improvements and keep our project humming. Simply create an issue and send a pull request. Our Contributors Please get in touch to update your entry or let us know if you have contributed in some way and we will add you to the list. Stefan Bodewig MoePad Niels wschaef Gernot Starke Jan Matèrne Alexander Schwartz Alexander Heusingfeld Dan Allen Stefan Pfeiffer isidorotrevino Jakub Jablonski Frank Pohl Ixchel Ruiz Schalk Cronjé Mario García Joe David M. Carr Fabian Nonnenmacher Christoph Stoettner Roman Funk ghp-dev Christoph Raaflaub Jorge Aguilera Stefan Bohn Jochen Kraushaar Luis Muniz Andreas Offenhaeuser Daniel Bast Sabatmonk Maarten Gribnau Michael Prieß Heiko Stehli Peter Stange Nils Mahlstädt @ hmmh Kevin Werner J. Staub Vladi Bjelakovic Daniel Kessel Björn Seebeck Txemanu Nikolay Orozov Andrea Macaluso Michael Roßner Jan Hendriks Daniel Kocot Alexander Schmitt Jérémie Bresson Jody Winter Aaron Collier Ifeanyi Benedict Iheagwara Jan-Niklas Vierheller Sebastian Schuetze David Schowalter Martin Fischer Stefan Boos Adrian Partl Siva Kalidasan Bjoern Kasteleiner Jan Küfner Gerd Aschemann Andreas Klemp Adi König Bence Hornák ZHENG Bote Miranda Boerlage Guido Sörmann Björn Erlwein Tulio Camminati Joachim Röttinger Pascal Euhus Max Hofer Sandra Parsick Johannes Thorn Stefan Rotman Kevin Latka Michael Roßner Jan Stückrath Timo Abele Patrizio Bonzani Lutz Ashauer Igor Gaiduk Jakob Genßler Torsten Kleiber David Paz "
 },
 
 {
@@ -362,6 +362,14 @@ var documents = [
 
 {
     "id": 45,
+    "uri": "10_about/20_what-is-doctoolchain.html",
+    "menu": "about",
+    "title": "What Is docToolchain?",
+    "text": " Table of Contents What Is docToolchain? Introduction Docs as Code arc42 How docToolchain Brings Everything Together What You Get with docToolchain .gravatar img { margin-left: 3px; border-radius: 4px; } What Is docToolchain? Introduction docToolchain is a documentation generation tool that uses the Docs as Code approach as a basis for its architecture, plus some additional automation provided by the arc42 template . Docs as Code ‘Docs as code’ refers to a philosophy that you should write documentation using the same tools as you use to write code. If you need to write technical docs for your software project, why not use the same tools and processes as you use for your source code? There are so many benefits: You don’t have to learn a complicated docs management system. Developers feel more at home in the docs because they look and feel like code. You can manage docs using standard version control like GitHub. arc42 arc42 has been a part of docToolchain since the earliest version. But what is arc42? Dr. Gernot Starke and Peter Hruschka created the arc42 template as a standard for software architecture documentation. They used their experience of software architectures both in the template structure and the explanations that appear in each chapter to guide you when you’re writing your documentation. arc42 is available in well-known formats including MS Word, textile, and Confluence. All of these formats are automatically generated from a single golden master which is formatted in AsciiDoc . How docToolchain Brings Everything Together To follow a docs as code approach, you need a build script that automates steps like exporting diagrams and rendering Markdown (or AsciiDoc in the case of docToolchain) to the target format. Creating this type of build script is not easy (and even harder to maintain). There are also lots of questions to answer: “How do I create .docx?” and “Why doesn’t lib x work with lib y?” docToolchain is the result of one developer’s journey through the docs as code universe. The goal of docToolchain is to automate the creation of technical docs through an easy-to-use build script that only needs to be configured not modified, and that is nurtured and cared for by a diverse open source community . What You Get with docToolchain A Ready-Made Document Management System By using a version control system like Git , you get a perfect document management system for free. Git allows you to version your docs, branch them, and also leaves an audit trail. You can even check who wrote which part of the docs. Isn’t that great? And because your docs are simple plain text, it’s easy to do a diff and see exactly what has changed. Bonus: storing your docs in the same repo as your code means they’re always in sync! Built-In Collaboration and Review As a distributed version control system, Git comes with doc collaboration and review processes built in. People can fork the docs and send pull requests for the changes they make. You review the changes. Done! Most Git frontends like Bitbucket , GitLab and GitHub also allow you to reject pull requests with comments. Image References and Code Snippets Instead of pasting images into a binary document format, docToolchain lets you reference images. This ensures that your imagery is always up-to-date every time you rebuild your documents. You can also reference code snippets directly from your source code. You&#8217;ll save so much time because your docs and code will always be in sync and completely up to date! Compound and Stakeholder-Tailored Docs As if image refs and code snippets weren&#8217;t enough, docToolchain also lets you split docs into several sub-documents plus a master for greater cohesion. And you&#8217;re not restricted to one master. You can create master docs for different stakeholders that only contain the chapters they need. And So Much More&#8230;&#8203; If you can dream it, you can script it! Want to include a list of open issues from Jira? You can! Want to include a changelog from Git? Go for it! Want to use inline text-based diagrams? Knock yourself out! "
+},
+
+{
+    "id": 46,
     "uri": "arc42/chapters/10_quality_requirements.html",
     "menu": "arc42",
     "title": "Quality Requirements",
@@ -369,7 +377,7 @@ var documents = [
 },
 
 {
-    "id": 46,
+    "id": 47,
     "uri": "arc42/chapters/05_building_block_view.html",
     "menu": "arc42",
     "title": "Building Block View",
@@ -377,7 +385,7 @@ var documents = [
 },
 
 {
-    "id": 47,
+    "id": 48,
     "uri": "arc42/chapters/07_deployment_view.html",
     "menu": "arc42",
     "title": "Deployment View",
@@ -385,7 +393,7 @@ var documents = [
 },
 
 {
-    "id": 48,
+    "id": 49,
     "uri": "arc42/chapters/03_context_and_scope.html",
     "menu": "arc42",
     "title": "Context and Scope",
@@ -393,7 +401,7 @@ var documents = [
 },
 
 {
-    "id": 49,
+    "id": 50,
     "uri": "arc42/chapters/11_technical_risks.html",
     "menu": "arc42",
     "title": "Risks and Technical Debts",
@@ -401,7 +409,7 @@ var documents = [
 },
 
 {
-    "id": 50,
+    "id": 51,
     "uri": "arc42/chapters/12_glossary.html",
     "menu": "arc42",
     "title": "Glossary",
@@ -409,7 +417,7 @@ var documents = [
 },
 
 {
-    "id": 51,
+    "id": 52,
     "uri": "arc42/chapters/01_introduction_and_goals.html",
     "menu": "arc42",
     "title": "Introduction and Goals",
@@ -417,7 +425,7 @@ var documents = [
 },
 
 {
-    "id": 52,
+    "id": 53,
     "uri": "arc42/chapters/06_runtime_view.html",
     "menu": "arc42",
     "title": "Runtime View",
@@ -425,7 +433,7 @@ var documents = [
 },
 
 {
-    "id": 53,
+    "id": 54,
     "uri": "arc42/chapters/08_concepts.html",
     "menu": "arc42",
     "title": "Cross-cutting Concepts",
@@ -433,7 +441,7 @@ var documents = [
 },
 
 {
-    "id": 54,
+    "id": 55,
     "uri": "arc42/chapters/09_architecture_decisions.html",
     "menu": "arc42",
     "title": "Architecture Decisions",
@@ -441,7 +449,7 @@ var documents = [
 },
 
 {
-    "id": 55,
+    "id": 56,
     "uri": "arc42/chapters/04_solution_strategy.html",
     "menu": "arc42",
     "title": "Solution Strategy",
@@ -449,7 +457,7 @@ var documents = [
 },
 
 {
-    "id": 56,
+    "id": 57,
     "uri": "arc42/chapters/02_architecture_constraints.html",
     "menu": "arc42",
     "title": "Architecture Constraints",
@@ -457,7 +465,7 @@ var documents = [
 },
 
 {
-    "id": 57,
+    "id": 58,
     "uri": "arc42/prd.html",
     "menu": "arc42",
     "title": "docToolchain v4 — Product Requirements Document",
@@ -465,7 +473,7 @@ var documents = [
 },
 
 {
-    "id": 58,
+    "id": 59,
     "uri": "arc42/spec/01_use_cases.html",
     "menu": "arc42",
     "title": "docToolchain v4 — Specification",
@@ -473,7 +481,7 @@ var documents = [
 },
 
 {
-    "id": 59,
+    "id": 60,
     "uri": "arc42/arc42.html",
     "menu": "-",
     "title": "docToolchain Architecture Documentation",
@@ -481,7 +489,7 @@ var documents = [
 },
 
 {
-    "id": 60,
+    "id": 61,
     "uri": "050_ADRs/ADR-1-Scripting-Languages.html",
     "menu": "ADRs",
     "title": "ADR-01: Scripting",
@@ -489,7 +497,7 @@ var documents = [
 },
 
 {
-    "id": 61,
+    "id": 62,
     "uri": "050_ADRs/ADR-2-separate-core-logic-from-gradle.html",
     "menu": "ADRs",
     "title": "ADR-02: Separate core logic from Gradle",
@@ -497,7 +505,7 @@ var documents = [
 },
 
 {
-    "id": 62,
+    "id": 63,
     "uri": "020_tutorial/070_publishToConfluence.html",
     "menu": "tutorial",
     "title": "publishToConfluence",
@@ -505,7 +513,7 @@ var documents = [
 },
 
 {
-    "id": 63,
+    "id": 64,
     "uri": "020_tutorial/020_arc42.html",
     "menu": "tutorial",
     "title": "arc42 Template",
@@ -513,7 +521,7 @@ var documents = [
 },
 
 {
-    "id": 64,
+    "id": 65,
     "uri": "020_tutorial/140_Dropdown_Menu.html",
     "menu": "tutorial",
     "title": "How to create a Dropdown Menu",
@@ -521,7 +529,7 @@ var documents = [
 },
 
 {
-    "id": 65,
+    "id": 66,
     "uri": "020_tutorial/050_multipleRepositories.html",
     "menu": "tutorial",
     "title": "Multi-Repo",
@@ -529,7 +537,7 @@ var documents = [
 },
 
 {
-    "id": 66,
+    "id": 67,
     "uri": "020_tutorial/150_multiRepoMicrositeTipsAndTricks.html",
     "menu": "tutorial",
     "title": "Building a microsite from multiple repositories",
@@ -537,7 +545,7 @@ var documents = [
 },
 
 {
-    "id": 67,
+    "id": 68,
     "uri": "020_tutorial/160_EnterpriseTipsAndTricks.html",
     "menu": "tutorial",
     "title": "Enterprise docToolchain",
@@ -545,7 +553,7 @@ var documents = [
 },
 
 {
-    "id": 68,
+    "id": 69,
     "uri": "020_tutorial/990_Tutorial.html",
     "menu": "tutorial",
     "title": "How to create a Tutorial",
@@ -553,7 +561,7 @@ var documents = [
 },
 
 {
-    "id": 69,
+    "id": 70,
     "uri": "020_tutorial/030_generateHTML.html",
     "menu": "tutorial",
     "title": "generateHTML &amp; generatePDF",
@@ -561,7 +569,7 @@ var documents = [
 },
 
 {
-    "id": 70,
+    "id": 71,
     "uri": "020_tutorial/170_kroki-configuration.html",
     "menu": "tutorial",
     "title": "Kroki Configuration Guide",
@@ -569,7 +577,7 @@ var documents = [
 },
 
 {
-    "id": 71,
+    "id": 72,
     "uri": "020_tutorial/010_Install.html",
     "menu": "tutorial",
     "title": "Install docToolchain",
@@ -577,7 +585,7 @@ var documents = [
 },
 
 {
-    "id": 72,
+    "id": 73,
     "uri": "020_tutorial/040_microsite/043_multi-markup.html",
     "menu": "tutorial",
     "title": "generateSite: Multi-Markup",
@@ -585,7 +593,7 @@ var documents = [
 },
 
 {
-    "id": 73,
+    "id": 74,
     "uri": "020_tutorial/040_microsite/040_generateSite.html",
     "menu": "tutorial",
     "title": "generateSite",
@@ -593,7 +601,7 @@ var documents = [
 },
 
 {
-    "id": 74,
+    "id": 75,
     "uri": "020_tutorial/040_microsite/index.html",
     "menu": "tutorial",
     "title": "Microsite",
@@ -601,7 +609,7 @@ var documents = [
 },
 
 {
-    "id": 75,
+    "id": 76,
     "uri": "020_tutorial/040_microsite/130_theming.html",
     "menu": "tutorial",
     "title": "How to change the theme",
@@ -609,7 +617,7 @@ var documents = [
 },
 
 {
-    "id": 76,
+    "id": 77,
     "uri": "020_tutorial/100_diagrams.net.html",
     "menu": "tutorial",
     "title": "Diagrams: Diagrams.net",
@@ -617,7 +625,7 @@ var documents = [
 },
 
 {
-    "id": 77,
+    "id": 78,
     "uri": "010_manual/50_Frequently_asked_Questions.html",
     "menu": "manual",
     "title": "Solutions to Common Problems",
@@ -625,7 +633,7 @@ var documents = [
 },
 
 {
-    "id": 78,
+    "id": 79,
     "uri": "010_manual/40_features.html",
     "menu": "manual",
     "title": "Features",
@@ -633,7 +641,7 @@ var documents = [
 },
 
 {
-    "id": 79,
+    "id": 80,
     "uri": "010_manual/040_contributors.html",
     "menu": "-",
     "title": "moved",
@@ -641,7 +649,7 @@ var documents = [
 },
 
 {
-    "id": 80,
+    "id": 81,
     "uri": "010_manual/60_further_reading.html",
     "menu": "manual",
     "title": "Useful Resources",
@@ -649,7 +657,7 @@ var documents = [
 },
 
 {
-    "id": 81,
+    "id": 82,
     "uri": "010_manual/30_config.html",
     "menu": "manual",
     "title": "Configuration",
@@ -657,7 +665,7 @@ var documents = [
 },
 
 {
-    "id": 82,
+    "id": 83,
     "uri": "010_manual/20_install.html",
     "menu": "manual",
     "title": "Install docToolchain",
@@ -665,7 +673,7 @@ var documents = [
 },
 
 {
-    "id": 83,
+    "id": 84,
     "uri": "010_manual/010_introduction_and_goals.html",
     "menu": "-",
     "title": "moved",
@@ -673,19 +681,11 @@ var documents = [
 },
 
 {
-    "id": 84,
+    "id": 85,
     "uri": "ea/Activity_notes.html",
     "menu": "ea",
     "title": "Activity_notes.ad",
     "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 85,
-    "uri": "ea/Use_Cases_links_issue2.html",
-    "menu": "ea",
-    "title": "Use_Cases_links_issue2.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
 },
 
 {
@@ -698,6 +698,14 @@ var documents = [
 
 {
     "id": 87,
+    "uri": "ea/Use_Cases_links_issue2.html",
+    "menu": "ea",
+    "title": "Use_Cases_links_issue2.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+},
+
+{
+    "id": 88,
     "uri": "ea/UseCases.html",
     "menu": "ea",
     "title": "UseCases.ad",
@@ -705,7 +713,7 @@ var documents = [
 },
 
 {
-    "id": 88,
+    "id": 89,
     "uri": "ea/Use_Cases_links.html",
     "menu": "ea",
     "title": "Use_Cases_links.ad",
@@ -713,7 +721,7 @@ var documents = [
 },
 
 {
-    "id": 89,
+    "id": 90,
     "uri": "ea/Architect_notes.html",
     "menu": "ea",
     "title": "Architect_notes.ad",
@@ -721,7 +729,7 @@ var documents = [
 },
 
 {
-    "id": 90,
+    "id": 91,
     "uri": "ea/issue1.html",
     "menu": "ea",
     "title": "issue1.ad",
@@ -729,7 +737,7 @@ var documents = [
 },
 
 {
-    "id": 91,
+    "id": 92,
     "uri": "ea/readme.html",
     "menu": "ea",
     "title": "readme.ad",
@@ -737,7 +745,7 @@ var documents = [
 },
 
 {
-    "id": 92,
+    "id": 93,
     "uri": "ea/Activity_notes_issue1.html",
     "menu": "ea",
     "title": "Activity_notes_issue1.ad",
@@ -745,7 +753,7 @@ var documents = [
 },
 
 {
-    "id": 93,
+    "id": 94,
     "uri": "ea/Architect_notes_issue2.html",
     "menu": "ea",
     "title": "Architect_notes_issue2.ad",
@@ -753,7 +761,7 @@ var documents = [
 },
 
 {
-    "id": 94,
+    "id": 95,
     "uri": "ea/Use_Cases_notes.html",
     "menu": "ea",
     "title": "Use_Cases_notes.ad",
@@ -761,7 +769,7 @@ var documents = [
 },
 
 {
-    "id": 95,
+    "id": 96,
     "uri": "ea/issue2.html",
     "menu": "ea",
     "title": "issue2.ad",
@@ -769,7 +777,7 @@ var documents = [
 },
 
 {
-    "id": 96,
+    "id": 97,
     "uri": "010_manual/single-page.html",
     "menu": "-",
     "title": "docToolchain Manual",
@@ -777,7 +785,7 @@ var documents = [
 },
 
 {
-    "id": 97,
+    "id": 98,
     "uri": "search.html",
     "menu": "-",
     "title": "search",
@@ -785,7 +793,7 @@ var documents = [
 },
 
 {
-    "id": 98,
+    "id": 99,
     "uri": "lunrjsindex.html",
     "menu": "-",
     "title": "null",

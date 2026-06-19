@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: 015_tasks/03_task_exportExcel.html -->
+    <!-- sourceuri: 015_tasks/03_task_copyThemes.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>exportExcel</title>
+    <title>copyThemes</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -305,7 +305,7 @@
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../015_tasks/03_task_copyThemes.html" title="copyThemes">copyThemes</a>
                                 
                             </li>
@@ -315,7 +315,7 @@
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../015_tasks/03_task_exportExcel.html" title="exportExcel">exportExcel</a>
                                 
                             </li>
@@ -356,11 +356,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_exportExcel.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_copyThemes.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportExcel%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_exportExcel.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27copyThemes%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_copyThemes.adoc%0A%23branch:%20main-4.x" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -368,7 +368,7 @@
         <hr />
 <script>
 const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
-const searchTerm = "015_tasks/03_task_exportExcel.adoc";
+const searchTerm = "015_tasks/03_task_copyThemes.adoc";
 </script>
 
 <script src="../js/issues.js"></script>
@@ -419,11 +419,12 @@ searching issues...
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_exportexcel">exportExcel</a>
+<li><a href="#task_copyThemes">copyThemes</a>
 <ul class="sectlevel2">
 <li><a href="#_about_this_task">About This Task</a></li>
-<li><a href="#_including_exported_data">Including Exported Data</a></li>
-<li><a href="#_further_reading">Further Reading</a></li>
+<li><a href="#_usage">Usage</a></li>
+<li><a href="#_where_the_theme_is_copied">Where the Theme Is Copied</a></li>
+<li><a href="#_related_tasks">Related Tasks</a></li>
 </ul>
 </li>
 </ul>
@@ -463,53 +464,80 @@ searching issues...
 }
 </style>
 <div class="sect1">
-<h2 id="_exportexcel">exportExcel</h2>
+<h2 id="task_copyThemes">copyThemes</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_about_this_task">About This Task</h3>
 <div class="paragraph">
-<p>Exports Excel spreadsheets (<code>.xlsx</code>) to CSV and AsciiDoc tables using Apache POI.
-Each worksheet is exported as both <code>.csv</code> and <code>.adoc</code>.
-Formulas are evaluated and exported statically.</p>
+<p><code>copyThemes</code> copies one of docToolchain&#8217;s built-in themes into your project so you can customize it.
+Two themes are available:</p>
 </div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 local exportExcel</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Output is written to <code>src/excel/[filename]/[worksheet].(adoc|csv)</code>.
-The <code>src</code> folder is used (not <code>build</code>) to preserve change history in version control.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_including_exported_data">Including Exported Data</h3>
-<div class="paragraph">
-<p>As AsciiDoc table (preserves alignment, col-span, row-span, colors):</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>include::excel/Sample.xlsx/Numerical.adoc[]</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>As CSV:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre>[options="header",format="csv"]
-|===
-include::excel/Sample.xlsx/Numerical.csv[]
-|===</pre>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_further_reading">Further Reading</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://github.com/uniqueck/asciidoctorj-office-extension">asciidoctorj-office-extension</a> — an alternative approach</p>
+<p><code>jBakeTheme</code> — the microsite (jBake) theme: GSP templates plus CSS/JS assets used by <code>generateSite</code>.</p>
+</li>
+<li>
+<p><code>pdfTheme</code> — the theme used by <code>generatePDF</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Once copied, the theme lives in your project under version control, and your changes survive docToolchain upgrades.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_usage">Usage</h3>
+<div class="paragraph">
+<p>The theme to copy is passed as an argument — there is no interactive prompt, so the task works in CI/CD pipelines and with LLM agents.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 local copyThemes jBakeTheme   # copy the microsite theme
+./dtcw4 local copyThemes pdfTheme     # copy the PDF theme</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Calling the task without a valid argument prints a usage message and exits with a non-zero status.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_where_the_theme_is_copied">Where the Theme Is Copied</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Theme</th>
+<th class="tableblock halign-left valign-top">Target location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>jBakeTheme</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>&lt;inputPath&gt;/&lt;microsite.siteFolder&gt;</code> (default <code>../site</code>, i.e. <code>src/site</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pdfTheme</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>pdfThemeDir</code> from your config (default <code>./src/docs/pdfTheme</code>)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>After copying, the task reminds you to set the matching config property (<code>microsite.siteFolder</code> or <code>pdfThemeDir</code>) if it isn&#8217;t set yet, so <code>generateSite</code> / <code>generatePDF</code> pick up your customized theme.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_related_tasks">Related Tasks</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="03_task_generateSite.html">generateSite</a> — uses the <code>jBakeTheme</code></p>
+</li>
+<li>
+<p><a href="03_task_generatePDF.html">generatePDF</a> — uses the <code>pdfTheme</code></p>
 </li>
 </ul>
 </div>
@@ -543,11 +571,11 @@ include::excel/Sample.xlsx/Numerical.csv[]
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportExcel%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_exportExcel.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27copyThemes%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_copyThemes.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportExcel%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_exportExcel.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27copyThemes%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_copyThemes.adoc">tell
     us how we can improve</a>.
     </p>
 </div>
