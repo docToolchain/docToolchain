@@ -88,7 +88,7 @@ body::before {
 .dtc-theme-toggle:hover { background:rgba(255,255,255,.2); transform:translateY(-1px); }
 
 /* ---- links --------------------------------------------------------- */
-.td-content a:not(.btn):not(.dtc-btn) { color:var(--g-600); }
+.td-content a:not(.btn):not(.dtc-btn) { color:var(--g-700); } /* g-700 = 5.48:1 on white (AA) */
 [data-theme="dark"] .td-content a:not(.btn):not(.dtc-btn) { color:var(--g-300); }
 
 /* ---- sidebar ------------------------------------------------------- */
@@ -104,7 +104,7 @@ body::before {
 summary { color:var(--dtc-ink); }
 
 /* arc42 chapter numbering */
-.arc42-num { font-family:var(--dtc-mono); font-weight:700; font-size:.78em; color:var(--g-600); margin-right:6px; opacity:.9; letter-spacing:.02em; }
+.arc42-num { font-family:var(--dtc-mono); font-weight:700; font-size:.78em; color:var(--g-700); margin-right:6px; opacity:.9; letter-spacing:.02em; }
 [data-theme="dark"] .arc42-num { color:var(--g-300); }
 
 /* =====================================================================
@@ -145,6 +145,32 @@ summary { color:var(--dtc-ink); }
 }
 [data-theme="dark"] .td-content :not(pre) > code { color:var(--g-300); }
 
+/* prettify syntax tokens — recoloured for the dark code surface.
+   The stock prettify.css paints tokens in dark colours meant for a light
+   background (.str #080, .kwd #008, .com #800 …), which are invisible on the
+   dark code block. Override them with a light palette in BOTH page schemes. */
+.td-content pre .pln { color:var(--dtc-code-ink); }
+.td-content pre .str,
+.td-content pre .atv { color:#9ce6b4; }            /* strings  */
+.td-content pre .kwd,
+.td-content pre .tag { color:#8ab6ff; }            /* keywords */
+.td-content pre .com { color:#7d9b8c; font-style:italic; } /* comments */
+.td-content pre .typ,
+.td-content pre .atn { color:#d6a8ff; }            /* types/attrs */
+.td-content pre .lit { color:#5fd0c0; }            /* literals */
+.td-content pre .pun,
+.td-content pre .opn,
+.td-content pre .clo { color:#c2d4ca; }            /* punctuation */
+.td-content pre .dec,
+.td-content pre .var { color:#f6a06a; }
+.td-content pre .fun { color:#ff8ab6; }
+/* prettify line-number striping (light bars) — neutralise on dark bg */
+.td-content pre li.L0, .td-content pre li.L1, .td-content pre li.L2,
+.td-content pre li.L3, .td-content pre li.L4, .td-content pre li.L5,
+.td-content pre li.L6, .td-content pre li.L7, .td-content pre li.L8,
+.td-content pre li.L9 { background:transparent; color:var(--dtc-code-ink); }
+.td-content pre.prettyprint { border:1px solid rgba(16,185,129,.25); }
+
 /* ---- admonitions --------------------------------------------------- */
 .td-content .admonitionblock > table {
   background:var(--dtc-card); border:1px solid var(--dtc-border);
@@ -161,14 +187,37 @@ summary { color:var(--dtc-ink); }
 .td-content table.tableblock { border:1px solid var(--dtc-border); border-radius:var(--dtc-radius); overflow:hidden; }
 .td-content table.tableblock thead th { background:var(--dtc-bg-soft); color:var(--dtc-ink); }
 .td-content table.tableblock td { color:var(--dtc-muted); }
+/* dark mode: legacy/asciidoctor keep cell backgrounds light → force dark so
+   the light cell text stays readable (env-var table on the install page). */
+[data-theme="dark"] .td-content table,
+[data-theme="dark"] .td-content table.tableblock,
+[data-theme="dark"] .td-content table td,
+[data-theme="dark"] .td-content table th,
+[data-theme="dark"] .td-content table.tableblock td,
+[data-theme="dark"] .td-content table.tableblock th {
+  background:var(--dtc-card) !important;
+  color:var(--dtc-ink) !important;
+  border-color:var(--dtc-border) !important;
+}
+[data-theme="dark"] .td-content table thead th,
+[data-theme="dark"] .td-content table.tableblock thead th { background:var(--dtc-bg-soft) !important; }
+[data-theme="dark"] .td-content table p,
+[data-theme="dark"] .td-content table.tableblock p { color:var(--dtc-ink) !important; }
 
 /* ---- right column / TOC ------------------------------------------- */
 .td-toc { border-left:1px solid var(--dtc-border); }
-.td-page-meta a { color:var(--dtc-muted); }
+.td-page-meta a:not(.btn) { color:var(--dtc-muted); } /* don't override .btn (e.g. promo buttons) */
+/* keep solid (primary/filled) buttons' label white in both schemes */
+.td-content .btn-primary, .td-page-meta .btn-primary,
+[data-theme="dark"] .td-content .btn-primary,
+[data-theme="dark"] .td-page-meta .btn-primary { color:#fff !important; }
 .td-page-meta a:hover { color:var(--g-600); }
 
 /* ---- footer -------------------------------------------------------- */
 footer.bg-dark { background:var(--g-900) !important; border-top:1px solid var(--dtc-border); }
+footer.bg-dark, footer.bg-dark p, footer.bg-dark span { color:#d7f0e4; }
+footer.bg-dark a { color:var(--g-300) !important; }
+footer.bg-dark a:hover { color:#a7f3d0 !important; }
 
 /* =====================================================================
    Landing page — blueprint hero · toolchain pipeline · feature grid
