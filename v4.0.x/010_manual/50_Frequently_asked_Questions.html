@@ -240,10 +240,6 @@
                 <a class="nav-link " href="../arc42/open_questions.html"><span>arc42</span></a>
             </li>
 
-            <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
-            </li>
-
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
@@ -309,17 +305,12 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../010_manual/25_v4_getting_started.html" title="docToolchain v4 — Getting Started">docToolchain v4 — Getting Started</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../010_manual/30_config.html" title="Configuration">Configuration</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../010_manual/40_features.html" title="Using docToolchain to Build Docs">Using docToolchain to Build Docs</a>
+                                   href="../010_manual/40_features.html" title="Features">Features</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -411,8 +402,7 @@ searching issues...
 <ul class="sectlevel2">
 <li><a href="#_references">References</a></li>
 <li><a href="#_images">Images</a></li>
-<li><a href="#_sparx_enterprise_architect">Sparx Enterprise Architect</a></li>
-<li><a href="#_known_error_messages">Known error Messages</a></li>
+<li><a href="#_runtime">Runtime</a></li>
 </ul>
 </li>
 </ul>
@@ -452,33 +442,7 @@ searching issues...
 <p>Unresolved directive in ../_feedback.adoc - include::/home/runner/work/docToolchain/docToolchain/./build/contributors/010_manual/50_Frequently_asked_Questions.adoc[]</p>
 </div>
 <div class="paragraph">
-<p>This section tries to answer the most common and frequently asked questions about how to work with docToolchain.
-It will also contain questions relevant to the tools used to build docToolchain, but the main focus is docToolchain itself.</p>
-</div>
-<div class="paragraph">
-<p>If you are stuck, make sure that you also check other sources like <a href="https://stackoverflow.com/questions/tagged/asciidoctor">Stack Overflow</a>.</p>
-</div>
-<div class="paragraph">
-<p>There is also a great FAQ for all your arc42 questions: <a href="https://faq.arc42.org/home/" class="bare">https://faq.arc42.org/home/</a></p>
-</div>
-<div class="paragraph">
-<p>If you have a question or problem for which you can&#8217;t find a solution, you can</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>for this repo, add your question and create a pull request</p>
-</li>
-<li>
-<p>raise the issue through the <a href="https://github.com/docToolchain/docToolchain/issues">GitHub issue tracker</a></p>
-</li>
-<li>
-<p>ask your question on <a href="https://stackoverflow.com/questions/tagged/doctoolchain?sort=active&amp;pageSize=50">Stack Overflow</a></p>
-</li>
-<li>
-<p>discuss the problem on <a href="https://t.co/lnqrUc1YMM">Slack</a></p>
-</li>
-</ul>
+<p>If you are stuck, also check <a href="https://stackoverflow.com/questions/tagged/doctoolchain">Stack Overflow</a> or raise an issue on <a href="https://github.com/docToolchain/docToolchain/issues">GitHub</a>.</p>
 </div>
 <div class="sect2">
 <h3 id="_references">References</h3>
@@ -488,15 +452,19 @@ It will also contain questions relevant to the tools used to build docToolchain,
 <summary class="title">Answer</summary>
 <div class="content">
 <div class="paragraph">
-<p>As long, as you stay within your documents folder (default <code>src/docs</code>), you can simply reference other files with a relative <code>include::filename.adoc[]</code>-statement.<br>
-If you need to reference files outside of the documents folder, you need to reference them with an absolute path.</p>
+<p>Within your documents folder (default <code>src/docs</code>), use relative includes:</p>
 </div>
 <div class="paragraph">
-<p><code>include::/home/runner/work/docToolchain/docToolchainfilename.adoc[]</code><br></p>
+<p><code>include::filename.adoc[]</code></p>
 </div>
 <div class="paragraph">
-<p>The <code>/home/runner/work/docToolchain/docToolchain</code> will point to the folder where your <code>dtcw</code> file resides.
-In order make this also work in your editor preview, specify a line like the following in your documents:</p>
+<p>For files outside the documents folder, use:</p>
+</div>
+<div class="paragraph">
+<p><code>include::/home/runner/work/docToolchain/docToolchainfilename.adoc[]</code></p>
+</div>
+<div class="paragraph">
+<p>To make this work in editor previews, add:</p>
 </div>
 <div class="paragraph">
 <p><code>ifndef::projectRootDir[:projectRootDir: ../../../]</code></p>
@@ -507,31 +475,14 @@ In order make this also work in your editor preview, specify a line like the fol
 </div>
 <div class="sect2">
 <h3 id="_images">Images</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://asciidoctor.org/docs/user-manual/#images">Asciidoctor User Manual on images</a></p>
-</li>
-<li>
-<p><a href="https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/#images">Asciidoctor Quick Reference on images</a></p>
-</li>
-<li>
-<p><a href="https://asciidoctor.org/docs/asciidoc-writers-guide/#images">AsciiDoctor Writer Guide on images</a></p>
-</li>
-</ul>
-</div>
 <div class="sect3">
 <h4 id="_q_why_are_images_not_shown_in_the_preview_of_my_editor">Q: Why are images not shown in the preview of my editor?</h4>
 <details>
 <summary class="title">Answer</summary>
 <div class="content">
 <div class="paragraph">
-<p>This is most likely because your editor doesn&#8217;t know where they are stored.
-If you follow the default settings, you probably store your images in a subfolder <code>images</code>.
-The build script knows about it, because the attribute <code>imagesdir</code> has been set to <code>./images</code>, but your editor doesn&#8217;t care about the build script - it only checks the currently opened AsciiDoc file.</p>
-</div>
-<div class="paragraph">
-<p>The solution is to add a line to each file which checks if the <code>imagesdir</code> is set and if not, sets it to a valid value:</p>
+<p>Your editor does not know the <code>imagesdir</code> attribute.
+Add this line to each file:</p>
 </div>
 <div class="paragraph">
 <p><code>ifndef::imagesdir[:imagesdir: ../images]</code></p>
@@ -545,31 +496,24 @@ The build script knows about it, because the attribute <code>imagesdir</code> ha
 <summary class="title">Answer</summary>
 <div class="content">
 <div class="paragraph">
-<p>AsciiDoc and AsciiDoctor support several formats like GIF, PNG, JPG and SVG.
-However, if you want to use most features, some formats are better to use than others:</p>
+<p><strong>PNG</strong> is the preferred format — all output formats support it well.</p>
+</div>
+<div class="paragraph">
+<p>Other formats:</p>
 </div>
 <div class="dlist">
 <dl>
-<dt class="hdlist1">GIF</dt>
+<dt class="hdlist1">SVG</dt>
 <dd>
-<p>is not supported by the PDF renderer.
-Use JPG or PNG instead.</p>
+<p>Great for high-resolution diagrams but may not render correctly in DOCX output.</p>
 </dd>
 <dt class="hdlist1">JPG</dt>
 <dd>
-<p>is great for photos but not for diagrams (you might get compression artifacts).
-So, if you want to use photos from your flipcharts - JPG might work for you.</p>
+<p>Good for photos, not for diagrams (compression artifacts).</p>
 </dd>
-<dt class="hdlist1">SVG</dt>
+<dt class="hdlist1">GIF</dt>
 <dd>
-<p>great for high resolution diagrams, but not good supported by DOCX as output format.
-OpenOffice Writer might display the image a bit stretched, MS Word didn&#8217;t display it at all in some experiments.
-PDF output might display a warning that newer SVG versions are not supported (happens especially with diagrams.net images).</p>
-</dd>
-<dt class="hdlist1">PNG</dt>
-<dd>
-<p>this is the preferred format for images used with docToolchain.
-All output formats support it and if diagrams are rendered with a resolution high enough to display all details, it will also be scaled well with all output formats.</p>
+<p>Not supported by the PDF renderer.</p>
 </dd>
 </dl>
 </div>
@@ -582,258 +526,61 @@ All output formats support it and if diagrams are rendered with a resolution hig
 <summary class="title">Answer</summary>
 <div class="content">
 <div class="paragraph">
-<p>This most likely happens when you&#8217;ve taken photos with a mobile device and include them in you docs.
-A mobile device does not rotate the image itself, it only stores the orientation of the device in the metadata of the photo.
-Your operating system will show you the image as expected, but the rendered AsciiDoc will not.
-This can be „fixed“ with Imagemagick, by using <code>convert -auto-orient</code> or <code>mogrify -auto-orient</code> (thanx to <a href="https://twitter.com/RalfDMueller/status/920888868345384960">@rotnroll666</a> for this tip).
-You can also try to just open the image in your favorite editor and re-save it.</p>
-</div>
-<div class="paragraph">
-<p>=== exportVisio</p>
-</div>
-</div>
-</details>
-</div>
-<div class="sect3">
-<h4 id="_q_i_get_an_error_message_saying_that_a_library_is_not_registered_when_i_try_to_run_the_exportvisio_task">Q: I get an error message saying that a library is not registered when I try to run the <code>exportVisio</code>-task.</h4>
-<div class="listingblock">
-<div class="content">
-<pre>Ausnahme beim Festlegen von "Visible": "Das COM-Objekt des Typs "Microsoft.Office.Interop.Visio.ApplicationClass" kann nicht in den Schnittstellentyp
-"Microsoft.Office.Interop.Visio.IVApplication" umgewandelt werden. Dieser Vorgang konnte nicht durchgeführt werden, da der QueryInterface-Aufruf an die
-COM-Komponente für die Schnittstelle mit der IID "{000D0700-0000-0000-C000-000000000046}" aufgrund des folgenden Fehlers nicht durchgeführt werden konnte:
-Bibliothek nicht registriert. (Ausnahme von HRESULT: 0x8002801D (TYPE_E_LIBNOTREGISTERED))."
-In ...\scripts\VisioPageToPngConverter.ps1:48 Zeichen:1
-+ $VisioApp.Visible = $false
-+ ~~~~~~~~~~~~~~~~~~~~~~~~~~
-    + CategoryInfo          : NotSpecified: (:) [], SetValueInvocationException
-    + FullyQualifiedErrorId : ExceptionWhenSetting</pre>
-</div>
-</div>
-<details>
-<summary class="title">Answer</summary>
-<div class="content">
-<div class="paragraph">
-<p>When Visio is installed, it registers itself as a com library.
-It seems that this registration can break.
-You can fix this by visiting the windows system settings &#8594; install or uninstall a program, select <code>visio</code>, select <code>change</code> and then <code>repair</code>.</p>
+<p>Mobile devices store orientation in image metadata rather than rotating the image.
+Fix with ImageMagick: <code>convert -auto-orient photo.jpg photo.jpg</code>
+Or re-save the image in any editor.</p>
 </div>
 </div>
 </details>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_sparx_enterprise_architect">Sparx Enterprise Architect</h3>
+<h3 id="_runtime">Runtime</h3>
 <div class="sect3">
-<h4 id="_q_sparx_enterprise_architect_is_a_windows_tool_isnt_it">Q: Sparx Enterprise Architect is a Windows tool, isn&#8217;t it?</h4>
+<h4 id="_q_i_get_could_not_initialize_class_java_awt_graphicsenvironment_in_wsl">Q: I get <code>Could not initialize class java.awt.GraphicsEnvironment</code> in WSL</h4>
 <details>
 <summary class="title">Answer</summary>
 <div class="content">
 <div class="paragraph">
-<p>Yes, it is, but it is written to support CrossOver in order to run on Linux based systems.
-Wine, the open source branch of CrossOver, seems to work as well.</p>
+<p>This is a known WSL issue related to PlantUML and font rendering.</p>
 </div>
 <div class="paragraph">
-<p>Take a look at this page to see how to install it on a linux based system: <a href="https://www.sparxsystems.com/support/faq/ea_on_linux.html" class="bare">https://www.sparxsystems.com/support/faq/ea_on_linux.html</a></p>
-</div>
-<div class="paragraph">
-<p>I (Ralf) once gave it a try and even managed to get remote control over EA via VBS and COM up and running (which is the pre-requisite for docToolchain).</p>
-</div>
-</div>
-</details>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_known_error_messages">Known error Messages</h3>
-<div class="sect3">
-<h4 id="_q_i_get_the_error_for_generatedeck_saying_no_such_file_or_directory_when_cloning_reveal_js">Q: I get the error for ':generateDeck' saying 'No such file or directory' when cloning reveal.js.</h4>
-<div class="listingblock">
-<div class="content">
-<pre>./dtcw generateDeck
-dtcw - docToolchain wrapper V0.38
-docToolchain Vlatest
-docToolchain as CLI available
-docker available
-home folder exists
-cloning reveal.js
-./dtcw: line 133: cd: $HOME/.doctoolchain/docToolchain-latest/resources: No such file or directory</pre>
-</div>
-</div>
-<details>
-<summary class="title">Answer</summary>
-<div class="content">
-<div class="paragraph">
-<p>You&#8217;re using dtcw v0.38 or an older version. This is because with the release of docToolchain 3.x, the ':generateDeck' tasks no longer rely on helper scripts. To resolve this issue, simply upgrade dtcw to the latest version. The good news is that dtcw is backwards compatible with docToolchain, meaning you can use the latest version of dtcw while still referring to older versions of docToolchain. To switch to other version of docToolchain refer to <a href="https://doctoolchain.org/docToolchain/v2.0.x/010_manual/20_install.html#_let_the_wrapper_use_a_new_doctoolchain_release">the installation docs</a>.</p>
-</div>
-</div>
-</details>
-</div>
-<div class="sect3">
-<h4 id="_q_i_get_the_error_saying_failed_to_create_md5_hash_for_file_content">Q: I get the error saying 'Failed to create MD5 hash for file content'.</h4>
-<div class="listingblock">
-<div class="content">
-<pre>* What went wrong:
-Failed to capture snapshot of input files for task ':generateHTML' property 'sourceDir' during up-to-date check.
-&gt; Failed to create MD5 hash for file content.`</pre>
-</div>
-</div>
-<details>
-<summary class="title">Answer</summary>
-<div class="content">
-<div class="paragraph">
-<p>There are two known reasons for this error.</p>
+<p>Solutions (try in order):</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>One of the .adoc files is opened in an editor, so that windows can&#8217;t get the lock for that file.
-&#8594; Close all .adoc files.</p>
+<p>Shut down WSL: <code>wsl --shutdown</code> from PowerShell, then retry</p>
 </li>
 <li>
-<p>You use the Bash script <code>doctoolchain</code> on a windows system.
-&#8594; Use <code>doctoolchain.bat</code> instead.
-It works even in a Bash Shell.</p>
+<p>Reinstall your Java runtime</p>
+</li>
+<li>
+<p>Use PowerShell instead of WSL</p>
+</li>
+<li>
+<p>Use a <a href="https://kroki.io">Kroki</a> server for diagram rendering instead of PlantUML</p>
 </li>
 </ol>
 </div>
-</div>
-</details>
-</div>
-<div class="sect3">
-<h4 id="_q_i_get_the_error_saying_unsupported_major_minor_version_52_0">Q: I get the error saying 'Unsupported major.minor version 52.0'</h4>
-<details>
-<summary class="title">Answer</summary>
-<div class="content">
 <div class="paragraph">
-<p>This is a sign that you use an outdated version of Java.
-Please upgrade to Java 8 at least and 14 max.
-The docToolchain-wrapper (dtcw) in v2.0 will check the java version for you so that you will not see this error message in the future.</p>
+<p>Make sure WSL is up-to-date: <code>wsl --update</code></p>
 </div>
 </div>
 </details>
 </div>
 <div class="sect3">
-<h4 id="_q_i_get_an_error_message_saying_error_occurred_during_initialization_of_vm">Q: I get an error message saying 'Error occurred during initialization of VM'</h4>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code>Starting a Gradle Daemon, 1 incompatible Daemon could not be reused, use --status for details
-
-FAILURE: Build failed with an exception.
-
-* What went wrong:
-Unable to start the daemon process.
-…
-Error occurred during initialization of VM
-Could not reserve enough space for 2097152KB object heap</code></pre>
-</div>
-</div>
+<h4 id="_q_how_do_i_configure_a_proxy">Q: How do I configure a proxy?</h4>
 <details>
 <summary class="title">Answer</summary>
 <div class="content">
 <div class="paragraph">
-<p>Somehow docToolchain can&#8217;t allocate the memory which is configured out of the box.
-Try to free up some memory or comment out the line <code>org.gradle.jvmargs=-Xmx2048m</code> in <code>gradle.properties</code></p>
-</div>
-</div>
-</details>
-</div>
-<div class="sect3">
-<h4 id="wsl">Q: I get the error saying <code>Could not initialize class java.awt.GraphicsEnvironment$LocaleGE</code></h4>
-<details>
-<summary class="title">Answer</summary>
-<div class="content">
-<div class="paragraph">
-<p>This seems to be a problem with WSL on Windows.
-Some sources mention to run Java in headless mode, but in this case, it doesn&#8217;t solve the problem.
-The root cause seems to be plantUML trying to get some font information.</p>
-</div>
-<div class="paragraph">
-<p>Only real solution seems to be to shutdown WSL from a powershell window with <code>wsl --shutdown</code> and retry.</p>
-</div>
-<div class="admonitionblock warning">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Warning</div>
-</td>
-<td class="content">
-this will kill all your WSL terminals without warning.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Another solution seems to be to install a fresh version of your java runtime (I thought it is immutable, but it really helps).</p>
-</div>
-<div class="paragraph">
-<p>Best Solution is to switch to powershell.</p>
-</div>
-<div class="paragraph">
-<p>Another solution is to avoid PlantUML and generate Diagrams through a <a href="https://kroki.io">kroki.io</a> server.</p>
-</div>
-<div class="paragraph">
-<p>Another variant of this is <code>Can&#8217;t connect to X11 window server using '192.168.189.153:0' as the value of the DISPLAY variable.</code>.
-In this case, it might help to install an X-Server (x410 for example) and configure the <code>DISPLAY</code> variable correctly.
-An easy way to test your configuration is to run <code>xeyes</code> in WSL.</p>
-</div>
-<div class="paragraph">
-<p>Make sure that your WSL is up-to-date by running <code>wsl --update</code>. This is not part of your regular Windows update!</p>
-</div>
-</div>
-</details>
-</div>
-<div class="sect3">
-<h4 id="_q_i_get_a_failed_to_create_parent_directory_project_gradle_error">Q: I get a <code>Failed to create parent directory /project/.gradle</code> error</h4>
-<div class="listingblock">
-<div class="content">
-<pre>&gt; Gradle could not start your build.
-&gt; Could not create service of type CrossBuildFileHashCache using BuildSessionServices.createCrossBuildFileHashCache().
-   &gt; Failed to create parent directory '/project/.gradle' when creating directory '/project/.gradle/6.7.1/fileHashes'</pre>
-</div>
-</div>
-<details>
-<summary class="title">Answer</summary>
-<div class="content">
-<div class="paragraph">
-<p>This issue can occur in CI environments (such as Bamboo) that have restricted permissions in the working folder where files or directories created outside the container might not be accessible inside the container. Before starting the container, give the working directory maximum permissions for allowing access to the user inside the Docker container.</p>
+<p>Pass proxy settings as system properties:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code>chmod -R o+rwx ${bamboo.working.directory}
-./dtcw generateSite</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 local generateSite -Dhttp.proxyHost=proxy.example.com -Dhttp.proxyPort=3128</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Another solution could be that you work on the same project with WSL and Powershell.
-In such an environment, the WSL environment creates temporary files which can not be modified via powershell.</p>
-</div>
-<div class="paragraph">
-<p>In such a case, just delete the <code>.gradle</code> folder.</p>
-</div>
-</div>
-</details>
-</div>
-<div class="sect3">
-<h4 id="_q_i_get_an_error_stating_that_gradle_dependencies_cannot_be_downloaded_because_a_proxy_is_restricting_internet_access">Q: I get an error stating that Gradle dependencies cannot be downloaded because a proxy is restricting internet access</h4>
-<details>
-<summary class="title">Answer</summary>
-<div class="content">
-<div class="paragraph">
-<p>Remember that dtcw is a wrapper around Gradle. So instead of calling this:</p>
-</div>
-<div class="paragraph">
-<p><code>./dtcw generateSite</code></p>
-</div>
-<div class="paragraph">
-<p>You could call this instead (remember to replace the values used in our example):</p>
-</div>
-<div class="paragraph">
-<p><code>./dtcw generateSite -Dhttp.proxyHost=127.0.0.1 -Dhttp.proxyPort=3128 "-http.nonProxyHosts=*.nonproxyrepos.com|localhost"</code></p>
-</div>
-<div class="paragraph">
-<p>(IP, port, etc. just an example)</p>
-</div>
-<div class="paragraph">
-<p>For more information about Gradle proxy configuration, read <a href="https://stackoverflow.com/questions/5991194/gradle-proxy-configuration">this article</a>.</p>
 </div>
 </div>
 </details>

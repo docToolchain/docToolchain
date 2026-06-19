@@ -240,10 +240,6 @@
                 <a class="nav-link " href="../arc42/open_questions.html"><span>arc42</span></a>
             </li>
 
-            <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
-            </li>
-
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
@@ -351,16 +347,6 @@
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../020_tutorial/100_diagrams.net.html" title="Diagrams: Diagrams.net">Diagrams: Diagrams.net</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/110_presentations_with_revealjs.html" title="Presentations with reveal.js">Presentations with reveal.js</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/120_self-contained-dtc.html" title="Self-Contained docToolchain">Self-Contained docToolchain</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -499,28 +485,14 @@ searching issues...
 <div class="sectionbody">
 <div class="paragraph">
 <p>To work with docToolchain, you first need some documents.
-So let&#8217;s fetch the <a href="https://arc42.org">arc42 template</a> for software architecture documentation.</p>
+Let&#8217;s fetch the <a href="https://arc42.org">arc42 template</a> for software architecture documentation.</p>
 </div>
 <div class="paragraph">
-<p>docToolchain comes with a task called <a href="../015_tasks/03_task_downloadTemplate.html"><code>downloadTemplate</code></a>.
-Let&#8217;s invoke it and see what happens.</p>
+<p>docToolchain comes with a task called <a href="../015_tasks/03_task_downloadTemplate.html"><code>downloadTemplate</code></a>.</p>
 </div>
-<div class="openblock primary">
-<div class="title">Linux / WSL2 with bash</div>
-<div class="content">
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw downloadTemplate</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="openblock secondary">
-<div class="title">Windows with Powershell</div>
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="powershell">./dtcw.ps1 downloadTemplate</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 local downloadTemplate</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -530,61 +502,21 @@ Let&#8217;s invoke it and see what happens.</p>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-There is an interesting bug with the german version of the arc42 template in conjunction with running docToolchain in powershell:<br>
-The encoding of the files will be wrong.
-To fix that, just run <code>./dtcw.ps1 fixEncoding</code>.
+On Windows, use WSL2 — <code>dtcw4</code> is a Bash script.
 </td>
 </tr>
 </table>
 </div>
-</div>
-</div>
-<div class="listingblock">
-<div class="title">Result of downloadTemplate-Task</div>
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell">$ ./dtcw downloadTemplate
-dtcw - docToolchain wrapper V0.24
-docToolchain V2.0.0
-
-Bash is running on WSL
-this might cause problems with plantUML
-see https://doctoolchain.github.io/docToolchain/#wsl for more details
-
-Java Version 11
-docker available
-home folder exists
-use local homefolder install /home/rdmueller/.doctoolchain/
-
-&gt; Configure project :
-arc42/arc42.adoc
-
-&gt; Task :downloadTemplate
-Install arc42 documentation template.
-For more information about arc42 see https://arc42.org
-[ant:input] Which language do you want to install? (EN, DE, ES, RU)
-&lt;-------------&gt; 0% EXECUTING [6s]
-[ant:input] Do you want the template with or without help? (withhelp, plain)
-&lt;-----&lt;-------------&gt; 0% EXECUTING [10s]
-Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-DE-withhelp-asciidoc.zip
-arc42 template unpacked into /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42
-added template to docToolchainConfig.groovy
-use 'generateHTML', 'generatePDF' or  'generateSite' to convert the template
-
-BUILD SUCCESSFUL in 15s
-1 actionable task: 1 executed</code></pre>
-</div>
+<div class="paragraph">
+<p>The task asks you interactively which language and variant you want.
+It downloads the template, unpacks it to <code>src/docs/arc42</code>, and adds it to your configuration file.</p>
 </div>
 <div class="paragraph">
-<p>Out of the box, docToolchain only knows the open source arc42 template for software architecture.
-That&#8217;s why it doesn&#8217;t ask which template to install.
-Since the template exists in four different languages and with or without help on how to use it, docToolchain asks you for these two parameters.
-It then downloads the template right from the source, unzips it and reformats it a little bit to fit the needs of docToolchain.
-It also adds the template to your configuration file.</p>
+<p>For CI/CD use, set <code>DTC_HEADLESS=true</code> to use defaults (English, without help).</p>
 </div>
 <div class="paragraph">
-<p>That&#8217;s it.
-You have now docToolchain with the arc42 template installed.
-Let&#8217;s render is as HTML, PDF or Microsite in the next steps.</p>
+<p>That&#8217;s it — you now have docToolchain with the arc42 template installed.
+Let&#8217;s render it as HTML, PDF, or Microsite in the next steps.</p>
 </div>
 </div>
 </div>

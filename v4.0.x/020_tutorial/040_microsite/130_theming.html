@@ -240,10 +240,6 @@
                 <a class="nav-link " href="../../arc42/open_questions.html"><span>arc42</span></a>
             </li>
 
-            <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
-            </li>
-
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
@@ -355,16 +351,6 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/110_presentations_with_revealjs.html" title="Presentations with reveal.js">Presentations with reveal.js</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/120_self-contained-dtc.html" title="Self-Contained docToolchain">Self-Contained docToolchain</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../../020_tutorial/140_Dropdown_Menu.html" title="How to create a Dropdown Menu">How to create a Dropdown Menu</a>
                                 
                             </li>
@@ -463,7 +449,12 @@ searching issues...
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_how_to_change_the_default_theme_for_generatesite">How to change the default theme for <code>generateSite</code></a></li>
+<li><a href="#_how_to_change_the_default_theme_for_generatesite">How to change the default theme for <code>generateSite</code></a>
+<ul class="sectlevel2">
+<li><a href="#_how_theming_works">How theming works</a></li>
+<li><a href="#_customizing_the_theme">Customizing the theme</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -498,48 +489,40 @@ searching issues...
 <h2 id="_how_to_change_the_default_theme_for_generatesite">How to change the default theme for <code>generateSite</code></h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The goal of docToolchain is to provide an environment where you can focus on documentation, and not worry about theming.
-That&#8217;s why both the jBake templates and CSS are hidden.</p>
+<p>The goal of docToolchain is to provide an environment where you can focus on documentation, not worry about theming.
+That&#8217;s why both the jBake templates and CSS are bundled with docToolchain.</p>
 </div>
+<div class="sect2">
+<h3 id="_how_theming_works">How theming works</h3>
 <div class="paragraph">
-<p>Let&#8217;s learn how theming works under the hood.
-docToolchain builds the result theme from three locations:</p>
+<p>docToolchain builds the result theme from three locations (in order of priority):</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>It copies its internal theme into the output path of the site (defaults to <code>build/microsite/temp/src/site</code>).</p>
+<p><strong>Internal theme</strong>: Copied into the build output path (<code>build/microsite/tmp/site</code>).</p>
 </li>
 <li>
-<p>It looks after the system environment variable <code>DTC_SITETHEME</code>. If this variable is set, it takes precedence over the default theme (technically,it is an override at the file level).</p>
+<p><strong>External theme</strong>: If the <code>DTC_SITETHEME</code> environment variable is set, it overrides the default theme at the file level.</p>
 </li>
 <li>
-<p>It looks after the theme in your current repository (defaults to <code>src/site</code>).</p>
+<p><strong>Project theme</strong>: Your local <code>src/site</code> directory — any files here override the defaults.</p>
 </li>
 </ol>
 </div>
+</div>
+<div class="sect2">
+<h3 id="_customizing_the_theme">Customizing the theme</h3>
 <div class="paragraph">
-<p>If you want to create a new theme, call the docToolchain task <code>copyTheme</code>.
-This task copies the theme to the <code>src/site</code> location.
-After that, you can modify it as you like and create a new zip file with the result.</p>
+<p>To customize the theme, create your own files in <code>src/site/</code> in your project.
+The internal theme files are in the docToolchain repository under <code>src/site/</code>.</p>
 </div>
 <div class="paragraph">
-<p>For more information about what the theme structure looks like, head over to the <a href="https://jbake.org/docs/2.6.7/#project_structure">jBake documentation</a>.</p>
+<p>For more information about the theme structure, see the <a href="https://jbake.org/docs/2.6.7/#project_structure">jBake documentation</a>.</p>
 </div>
 <div class="paragraph">
-<p>The basic template uses Twitter Bootstrap 5 as its CSS framework. Use the <code>copyThemes</code> task to copy all hidden jBake resources to your project. You can then remove the resources you don’t need, and change those you want to change.</p>
+<p>The template uses <a href="https://getbootstrap.com/">Bootstrap 5</a> as its CSS framework.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>copyThemes</code> overwrites existing files, but because your code is safely managed using version control, this shouldn’t be a problem.
-</td>
-</tr>
-</table>
 </div>
 </div>
 </div>

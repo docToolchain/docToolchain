@@ -240,10 +240,6 @@
                 <a class="nav-link " href="../arc42/open_questions.html"><span>arc42</span></a>
             </li>
 
-            <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
-            </li>
-
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
@@ -355,16 +351,6 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/110_presentations_with_revealjs.html" title="Presentations with reveal.js">Presentations with reveal.js</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/120_self-contained-dtc.html" title="Self-Contained docToolchain">Self-Contained docToolchain</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../020_tutorial/140_Dropdown_Menu.html" title="How to create a Dropdown Menu">How to create a Dropdown Menu</a>
                                 
                             </li>
@@ -463,15 +449,12 @@ searching issues...
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_welcome">Welcome!</a></li>
-<li><a href="#_install_doctoolchain">Install docToolchain</a>
+<li><a href="#_welcome">Welcome!</a>
 <ul class="sectlevel2">
-<li><a href="#_installation_overview">Installation Overview</a></li>
-<li><a href="#_install_dtcw_in_your_project_directory">Install <code>dtcw</code> in your project directory</a></li>
-<li><a href="#run-dtc-in-container">Run docToolchain in a container</a></li>
-<li><a href="#install-dtc-with-dtcw">Install docToolchain with <code>dtcw</code></a></li>
-<li><a href="#install-dtc-with-sdk">Install docToolchain with SDKMAN!</a></li>
-<li><a href="#first-command">Run your First Command</a></li>
+<li><a href="#_prerequisites">Prerequisites</a></li>
+<li><a href="#_1_get_the_wrapper_scripts">1. Get the Wrapper Scripts</a></li>
+<li><a href="#_2_install_doctoolchain">2. Install docToolchain</a></li>
+<li><a href="#_3_try_it_out">3. Try It Out</a></li>
 <li><a href="#_problems_solutions">Problems &amp; solutions</a></li>
 </ul>
 </li>
@@ -514,117 +497,36 @@ Glad that you want to learn more about using docToolchain.
 Start by installing what you need.</p>
 </div>
 <div class="paragraph">
-<p>The following steps are the same as described in the User Docs.
-Please follow them step by step.
-You are prompted to install everything you need for each step.</p>
-</div>
-<div class="paragraph">
-<p>If you encounter problems, create a GitHub issue and the community will help you.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="_install_doctoolchain">Install docToolchain</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>Unresolved directive in ../_feedback.adoc - include::/home/runner/work/docToolchain/docToolchain/./build/contributors/010_manual/20_install.adoc[]</p>
+<p>The following steps guide you through the installation.
+If you encounter problems, create a <a href="https://github.com/docToolchain/docToolchain/issues">GitHub issue</a> and the community will help you.</p>
 </div>
 <div class="sect2">
-<h3 id="_installation_overview">Installation Overview</h3>
-<div class="paragraph">
-<p>docToolchain is composed of two parts:</p>
-</div>
+<h3 id="_prerequisites">Prerequisites</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><code>doctoolchain</code> which is the toolchain used to create your documentation</p>
+<p><strong>Java 17</strong> (exactly)</p>
 </li>
 <li>
-<p>the docToolchain shell wrapper script installed in your project which calls the toolchain</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The use of this setup has the following advantages:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>It&#8217;s easy to build your documentation within your project folder.</p>
+<p><strong>git</strong></p>
 </li>
 <li>
-<p>Ensures that everyone in the project uses the same docToolchain version.</p>
-</li>
-<li>
-<p>Keeps all docToolchain technology out of your project repository.</p>
-</li>
-<li>
-<p>Facilitates the installation of the docToolchain if not installed.</p>
-</li>
-<li>
-<p>Makes it easier to upgrade to newer versions of docToolchain.</p>
+<p><strong>Bash</strong> — on Windows, use WSL2</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_install_dtcw_in_your_project_directory">Install <code>dtcw</code> in your project directory</h3>
-<div class="paragraph">
-<p>The docToolchain wrapper script <code>dtcw</code>, respective <code>dtcw.ps1</code> or <code>dtcw.bat</code> for MS Windows, is meant to be installed in your project root directory.
-The wrapper script simplifies calls to the docToolchain.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-Even if you are going to use docToolchain in multiple projects, the toolchain will only be installed once on your system.
-</td>
-</tr>
-</table>
-</div>
+<h3 id="_1_get_the_wrapper_scripts">1. Get the Wrapper Scripts</h3>
 <div class="openblock primary">
-<div class="title">Steps for MacOS/Linux/WSL2 with bash</div>
+<div class="title">Linux / macOS / WSL2 (including Windows via WSL2)</div>
 <div class="content">
-<div class="paragraph">
-<p>If you have an Apple Silicon (M1/M2) Mac, make sure that you have docker up and running, rosetta is installed and up-to-date (<code>softwareupdate --install-rosetta</code>) and type the following commands in the Terminal:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">`arch -x86_64 /bin/bash`</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Now, download <code>dtcw</code> into your project directory and make the script executable with the following commands:</p>
-</div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="bash">cd &lt;your project&gt;
 curl -Lo dtcw https://doctoolchain.org/dtcw
-chmod +x dtcw</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>If you don&#8217;t have <code>curl</code> installed, you can also use <code>wget</code>:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">cd &lt;your project&gt;
-wget doctoolchain.org/dtcw
-chmod +x dtcw</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="openblock secondary">
-<div class="title">Windows with Powershell</div>
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="powershell">cd &lt;your project&gt;
-Invoke-WebRequest doctoolchain.org/dtcw.ps1 -Outfile dtcw.ps1</code></pre>
+curl -Lo dtcw4 https://doctoolchain.org/dtcw4
+chmod +x dtcw dtcw4</code></pre>
 </div>
 </div>
 <div class="admonitionblock note">
@@ -634,369 +536,32 @@ Invoke-WebRequest doctoolchain.org/dtcw.ps1 -Outfile dtcw.ps1</code></pre>
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Got an error message that you are not allowed to execute powershell scripts?
-Try to switch to an unrestricted powershell by executing <code>powershell.exe -ExecutionPolicy Unrestricted</code>.
+On Windows, use WSL2. The v4 wrappers (<code>dtcw4</code>, <code>dtcw</code>) are Bash scripts.
 </td>
 </tr>
 </table>
-</div>
-</div>
-</div>
-<div class="openblock secondary">
-<div class="title">Windows with cmd.exe</div>
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="cmd">cd &lt;your project&gt;
-curl -Lo dtcw.bat doctoolchain.org/dtcw.bat</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>dtcw.bat</code> wraps the <code>dtcw.ps1</code> script and executes it in powershell. This might be easier to use if you haven&#8217;t yet configured your powershell as a developer.
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-In case your development team uses different operating systems, put the wrapper scripts for the desired operating systems (<code>dtcw</code>, <code>dtcw.ps1</code>, and <code>dtcw.bat</code>) into your project.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>Once the docToolchain wrapper is installed in your project directory you have to decide how to install the toolchain:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="#run-dtc-in-container">Run docToolchain in a container</a> with the <a href="https://hub.docker.com/r/doctoolchain/doctoolchain">docToolchain container image</a> or <a href="#run-dtc-in-custom-container">Use your custom docker image</a>.</p>
-</li>
-<li>
-<p><a href="#install-dtc-with-dtcw">Install docToolchain with <code>dtcw</code></a> in the users home directory <code>$HOME/.doctoolchain</code></p>
-</li>
-<li>
-<p><a href="#install-dtc-with-sdk">Install docToolchain with SDKMAN!</a> a tool for managing parallel versions of multiple Software Development Kits.</p>
-</li>
-</ul>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="title">docToolchain depends on Java 17</div>
-<div class="paragraph">
-<p>If you don&#8217;t use the docToolchain container image you have to install Java on your system.
-In case you have Java already installed, make sure <code>JAVA_HOME</code> is set.</p>
-</div>
-<div class="paragraph">
-<p>You may use <code>dtcw</code> to install the correct Java version, as shown in the next steps.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-<div class="sect2">
-<h3 id="run-dtc-in-container">Run docToolchain in a container</h3>
-<div class="paragraph">
-<p>The docToolchain project provides a container image of approximately 900 MB from the <a href="https://hub.docker.com/r/doctoolchain/doctoolchain">Docker Hub</a> container registry.
-The Dockerfile from which the image is created may be found at <a href="https://github.com/docToolchain/docker-image" class="bare">https://github.com/docToolchain/docker-image</a>.</p>
-</div>
-<div class="paragraph">
-<p>To run docToolchain in a container you need an installed container engine.
-The best known container engine is <a href="https://docs.docker.com/get-docker/">Docker</a>.</p>
-</div>
-<div class="paragraph">
-<p>If the container engine is installed you can <a href="#first-command">Run your First Command</a>.
-The docToolchain wrapper script in your project directory will detect the
-container engine and pull the docToolchain image on the first invocation.</p>
-</div>
-<div class="sect3">
-<h4 id="run-dtc-in-custom-container">Use your custom docker image</h4>
-<div class="paragraph">
-<p>Some might need to create their own docker image to add additional tooling or configurations, e.g. proxy settings.
-In this case you can pass the image name via parameter <code>image</code> directly after <code>docker</code>:</p>
-</div>
-<hr>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw docker image &lt;image_name&gt; generateHTML</code></pre>
-</div>
-</div>
-<hr>
-<hr>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="powershell">.\dtcw.ps1 docker image &lt;image_name&gt; generateHTML</code></pre>
-</div>
-</div>
-<hr>
-<hr>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="cmd">.\dtcw.bat docker image &lt;image_name&gt; generateHTML</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="add-environment-variables-to-docker">Pass environment variables to docker containers</h4>
-<div class="paragraph">
-<p>To pass any environment variable to the docker container you can make use of an <a href="https://docs.docker.com/engine/reference/commandline/run/#env">environment file</a>.
-The environment file must have the name <code>dtcw_docker.env</code> and must be located in the same folder as <code>dtcw</code>.</p>
-</div>
-<div class="paragraph">
-<p>An example content is e.g.:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="cmd"># set environment variables for docToolchain docker container
-PROJECT=TEST_PROJECT
-TEAM=TEST_TEAM</code></pre>
-</div>
-</div>
-</div>
-<div class="sect3">
-<h4 id="add-additional-parameter-to-docker">Pass additional parameter to docker containers</h4>
-<div class="paragraph">
-<p>To pass additional parameters to the docker container you can make use of the parameter <code>extra_arguments</code> followed by a string with the additional parameters.</p>
-</div>
-<div class="paragraph">
-<p>One usecase is to enable you to set environment variables to dynamic values.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw docker image &lt;image_name&gt; extra_arguments "--env USER=${USERNAME} --env REPO_LOCATION=`git config remote.origin.url`" generateHTML</code></pre>
 </div>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="install-dtc-with-dtcw">Install docToolchain with <code>dtcw</code></h3>
-<div class="openblock primary">
-<div class="title">Steps for MacOS/Linux/WSL2 with bash</div>
-<div class="content">
-<div class="paragraph">
-<p>To install docToolchain in <code>$HOME/.doctoolchain</code> execute the following command.</p>
-</div>
+<h3 id="_2_install_doctoolchain">2. Install docToolchain</h3>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw install doctoolchain</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In case you have no Java installed you may use <code>dtcw</code> to install Java in a subdirectory of <code>$HOME/.doctoolchain</code>.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw install java</code></pre>
-</div>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="title">Unable to locate Java Runtime - check your Bash environment</div>
-<div class="paragraph">
-<p>If <code>dtcw</code> complains about not being able to locate a Java Runtime, make sure Java is found in your Bash shell, the shell used by <code>dtcw</code>.</p>
-</div>
-<div class="paragraph">
-<p>If you use <code>dtcw</code> from another shell like <code>zsh</code>, it may be that your shell finds the supported Java version but your bash setup doesn&#8217;t.
-In that case, please switch to bash and make sure that a supported Java version is found. Afterwards, you can switch back to your shell.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-</div>
-</div>
-<div class="openblock secondary">
-<div class="title">Windows with Powershell</div>
-<div class="content">
-<div class="paragraph">
-<p>To install docToolchain in <code>$HOME/.doctoolchain</code> execute the following command.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw.ps1 install doctoolchain</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In case you have no Java installed you can use <code>dtcw.ps1</code> to install Java:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="powershell">.\dtcw.ps1 install java</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="openblock secondary">
-<div class="title">Windows with cmd.exe</div>
-<div class="content">
-<div class="paragraph">
-<p>To install docToolchain in <code>$HOME/.doctoolchain</code> execute the following command.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw.bat install doctoolchain</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In case you have no Java installed you can use <code>dtcw.ps1</code> to install Java:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="powershell">.\dtcw.bat install java</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="paragraph">
-<p>If the docToolchain installation finished successfully, you are ready to <a href="#first-command">Run your First Command</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="install-dtc-with-sdk">Install docToolchain with SDKMAN!</h3>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">sdk install doctoolchain</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw local install java        # if Java is not installed
+./dtcw4 local install doctoolchain</code></pre>
 </div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="first-command">Run your First Command</h3>
+<h3 id="_3_try_it_out">3. Try It Out</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 tasks</code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p>Call the docToolchain wrapper with <code>tasks --group doctoolchain</code> to show all tasks provided by docToolchain.
-Those tasks may be used when invoking the docToolchain wrapper script.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-The first time docToolchain is called, it downloads all necessary dependencies.
-Therefore, the execution of the command may take some time. Subsequent calls to docToolchain will be faster.
-</td>
-</tr>
-</table>
-</div>
-<hr>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw tasks --group=doctoolchain
-dtcw 0.50 - 8061694f
-docToolchain 2.3.0
-Available docToolchain environments: local <i class="conum" data-value="1"></i><b>(1)</b>
-Environments with docToolchain [2.3.0]: local <i class="conum" data-value="2"></i><b>(2)</b>
-Using environment: local <i class="conum" data-value="3"></i><b>(3)</b>
-Using Java 17.0.6 [/home/john_doe/.doctoolchain/jdk/bin/java] <i class="conum" data-value="4"></i><b>(4)</b>
-Downloading https://services.gradle.org/distributions/gradle-7.5.1-bin.zip <i class="conum" data-value="5"></i><b>(5)</b>
-..........10%..........20%..........30%...........40%..........50%..........60%..........70%...........80%..........90%..........100%
-
-Welcome to Gradle 7.5.1!
-
-Here are the highlights of this release:
- - Support for Java 18
- - Support for building with Groovy 4
- - Much more responsive continuous builds
- - Improved diagnostics for dependency resolution
-
-For more details see https://docs.gradle.org/7.5.1/release-notes.html
-
-To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/7.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon.
-Daemon will be stopped at the end of the build
-
-&gt; Configure project :
-
-Config file '/code/docToolchainConfig.groovy' does not exist' <i class="conum" data-value="6"></i><b>(6)</b>
-[ant:input]
-[ant:input] do you want me to create a default one for you? (y, n)
-y</code></pre>
-</div>
-</div>
-<div class="colist arabic">
-<table>
-<tr>
-<td><i class="conum" data-value="1"></i><b>1</b></td>
-<td>List of available docToolchain environments. The output may vary depending on your system. In our example only the <code>local</code> environment is available since neither <code>sdk</code> nor <code>docker</code> was found.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="2"></i><b>2</b></td>
-<td>Environments in which docToolchain s available. The output may vary depending on how you installed docToolchain. In our example docToolchain was found in the user&#8217;s local environment in <code>$HOME/.doctoolchain</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="3"></i><b>3</b></td>
-<td>Shows the used docToolchain environment. In case docToolchain is installed in more than one environment the wrapper script picks the environment in the following order: <code>local</code>, <code>sdk</code>, and then <code>docker</code>.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="4"></i><b>4</b></td>
-<td>Location of the used Java. In our example Java was installed in the local environment with the docToolchain wrapper script.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="5"></i><b>5</b></td>
-<td>docToolchain was invoked the first time, thus it is downloading its dependencies.</td>
-</tr>
-<tr>
-<td><i class="conum" data-value="6"></i><b>6</b></td>
-<td>The docToolchain configuration file <code>docToolchainConfig.groovy</code> wasn&#8217;t found in the project repository. docToolchain asks if it should create a new one.</td>
-</tr>
-</table>
-</div>
-<hr>
-<hr>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="powershell">.\dtcw.ps1 tasks --group=doctoolchain</code></pre>
-</div>
-</div>
-<hr>
-<hr>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="cmd">dtcw.bat tasks --group=doctoolchain</code></pre>
-</div>
-</div>
-<hr>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If you are behind a corporate proxy, you might need to consider build-script dependencies are fetched from a repository referenced by the property <code>mavenRepository</code>.
-By default, the value <code><a href="https://plugins.gradle.org/m2/" class="bare">https://plugins.gradle.org/m2/</a></code> is used. When a repository requiring credentials is used the properties <code>mavenUsername</code> and <code>mavenPassword</code> can be set as well.
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="title">Example command passing a custom maven repository with credentials from the command line</div>
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="sh">DTC_OPTS="-PmavenRepository=your_maven_repo -PmavenUsername=your_username -PmavenPassword=your_pw" ./dtcw tasks --group=doctoolchain --info</code></pre>
-</div>
+<p>This lists all available tasks.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1004,25 +569,23 @@ By default, the value <code><a href="https://plugins.gradle.org/m2/" class="bare
 <div class="sect3">
 <h4 id="_dtcw_doesnt_run"><code>dtcw</code> doesn&#8217;t run</h4>
 <div class="paragraph">
-<p>You might get an error similar to this one:</p>
+<p>You might get an error like:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code>./dtcw local tasks --group=doctoolchain
-./dtcw: line 1: syntax error near unexpected token `newline'
+<pre class="prettyprint highlight"><code>./dtcw: line 1: syntax error near unexpected token `newline'
 ./dtcw: line 1: `&lt;!DOCTYPE html&gt;'</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>If you see that, it&#8217;s likely that the wrapper didn&#8217;t download correctly.
-You can expect that an HTML page was downloaded instead of the wrapper.
-Please try to redownload the wrapper.</p>
+<p>This means the wrapper didn&#8217;t download correctly (an HTML page was downloaded instead).
+Please redownload the wrapper.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_docker_throws_and_error_with_dtcw">docker throws and error with <code>dtcw</code></h4>
+<h4 id="_docker_throws_an_error_with_dtcw">Docker throws an error with <code>dtcw</code></h4>
 <div class="paragraph">
-<p>On windows you might get the following error</p>
+<p>On Windows you might get:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1030,29 +593,7 @@ Please try to redownload the wrapper.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>This means that docker wanted to share the named folder (possibly the repo) but didn&#8217;t have the rights. This means you have to share the folder yourself on docker.
-Go to docker dashboard &#8594; settings &#8594; Resources &#8594; FileSharing. Add required folder and hit Apply &amp; Restart.</p>
-</div>
-</div>
-<div class="sect3">
-<h4 id="_incompatible_java_version">Incompatible Java version</h4>
-<div class="paragraph">
-<p>You may see that docToolchain starts but crashes with a stacktrace that starts like this:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code>* What went wrong:
-Could not compile settings file '/Users/falk/.doctoolchain/docToolchain-2.0.0/settings.gradle'.
-&gt; startup failed:
-  General error during semantic analysis: Unsupported class file major version 61
-
-  java.lang.IllegalArgumentException: Unsupported class file major version 61</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In this case, you&#8217;ve got an incompatible version of Java.
-<code>dtcw</code> tries to check the Java version up front by running  <code>java --version</code>, but Gradle sometimes picks up a different version.
-If you get a similar error, try reinstalling a compatible Java version.</p>
+<p>Go to Docker Dashboard &#8594; Settings &#8594; Resources &#8594; File Sharing. Add the required folder and hit Apply &amp; Restart.</p>
 </div>
 </div>
 </div>

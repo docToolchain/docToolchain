@@ -240,10 +240,6 @@
                 <a class="nav-link " href="../arc42/open_questions.html"><span>arc42</span></a>
             </li>
 
-            <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
-            </li>
-
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
@@ -351,16 +347,6 @@
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../020_tutorial/100_diagrams.net.html" title="Diagrams: Diagrams.net">Diagrams: Diagrams.net</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/110_presentations_with_revealjs.html" title="Presentations with reveal.js">Presentations with reveal.js</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/120_self-contained-dtc.html" title="Self-Contained docToolchain">Self-Contained docToolchain</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -502,57 +488,28 @@ searching issues...
 <h2 id="_generatehtml_generatepdf">generateHTML &amp; generatePDF</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="../015_tasks/03_task_generateHTML.html"><code>generateHTML</code></a> and <a href="../015_tasks/03_task_generatePDF.html"><code>generatePDF</code></a> are basic tasks which invoke Asciidoctor to generate the output you want.</p>
-</div>
-<div class="openblock primary">
-<div class="title">Linux / WSL2 with bash</div>
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw generateHTML</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="openblock secondary">
-<div class="title">Windows with Powershell</div>
-<div class="content">
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="powershell">./dtcw.ps1 generateHTML</code></pre>
-</div>
-</div>
-</div>
+<p><a href="../015_tasks/03_task_generateHTML.html"><code>generateHTML</code></a> and <a href="../015_tasks/03_task_generatePDF.html"><code>generatePDF</code></a> render your AsciiDoc sources using AsciidoctorJ.</p>
 </div>
 <div class="listingblock">
-<div class="title">output of generateHTML</div>
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="shell session">$ ./dtcw generateHTML
-dtcw - docToolchain wrapper V0.23
-docToolchain V2.0.0
-
-Bash is running on WSL
-this might cause problems with plantUML
-see https://doctoolchain.github.io/docToolchain/#wsl for more details
-
-Java Version 11
-docker available
-home folder exists
-use local homefolder install /home/rdmueller/.doctoolchain/
-Starting a Gradle Daemon, 22 busy Daemons could not be reused, use --status for details
-
-&gt; Configure project :
-arc42/arc42.adoc
-
-&gt; Task :generateHTML
-Converting /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42/arc42.adoc
-
-BUILD SUCCESSFUL in 26s
-1 actionable task: 1 executed</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 local generateHTML
+./dtcw4 local generatePDF</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+On Windows, use WSL2 — <code>dtcw4</code> is a Bash script.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
-<p>The output is written to <code>build/html5/arc42/arc42.html</code> and <code>build/pdf/arc42/Arc42.pdf</code>.</p>
+<p>The output is written to <code>build/html5/</code> and <code>build/pdf/</code>.</p>
 </div>
 <div id="html_out" class="imageblock">
 <div class="content">
@@ -562,8 +519,7 @@ BUILD SUCCESSFUL in 26s
 </div>
 <div class="paragraph">
 <p>As you can see in <a href="#html_out">Figure 1</a>, HTML output is rendered as a single page with a table of contents (TOC) on the left.
-If using the <code>withhelp</code> version, help appears behind question mark icons on the right side of the page.
-When readers hold their mouse over each icon, help appears.</p>
+If using the <code>withhelp</code> version, help appears behind question mark icons on the right side of the page.</p>
 </div>
 <div id="pdf_out" class="imageblock">
 <div class="content">
@@ -572,8 +528,7 @@ When readers hold their mouse over each icon, help appears.</p>
 <div class="title">Figure 2. generated output of generatePDF task</div>
 </div>
 <div class="paragraph">
-<p><a href="#pdf_out">Figure 2</a> shows you the PDF output.
-There is a TOC available on the first pages, and a TOC also appears on the left, helping readers navigate the document.</p>
+<p><a href="#pdf_out">Figure 2</a> shows the PDF output with a TOC on the first pages.</p>
 </div>
 <div class="paragraph">
 <p>Both HTML and PDF outputs can be styled to suit your needs.</p>
@@ -583,55 +538,23 @@ There is a TOC available on the first pages, and a TOC also appears on the left,
 <div class="sect3">
 <h4 id="_files_to_convert">Files to convert</h4>
 <div class="paragraph">
-<p>For both tasks, the most important configuration is <code>inputFiles</code>-list at the start of your <code>docToolchainConfig.groovy</code></p>
+<p>The most important configuration is the <code>inputFiles</code> list in your <code>docToolchainConfig.groovy</code>:</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">inputFiles = [
-        //[file: 'doctoolchain_demo.adoc',       formats: ['html','pdf']],
-        //[file: 'arc42-template.adoc',    formats: ['html','pdf']],
-        /** inputFiles **/
+    [file: 'arc42/arc42.adoc', formats: ['html','pdf']],
 ]</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Normally, Asciidoctor converts all files it can find.
-For documents structured using includes, to create a full document (and avoid each chapter being converted to an individual PDF) you&#8217;ll need a main AsciiDoc file that includes all chapters.</p>
-</div>
-<div class="paragraph">
-<p>The <code>inputFiles</code>-map lists all of the main files as well as a list of formats applicable to each.
-For example, this lets you specify which files should be converted to HTML but not to PDF.
-You will need to configure this list manually.</p>
-</div>
-<div class="paragraph">
-<p>If docToolchain converts an unexpected list of files, this is the first place to look when troubleshooting problems.</p>
+<p>This lets you specify which files should be converted to which formats.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_working_with_the_pdf_style">Working with the PDF style</h4>
 <div class="paragraph">
-<p>First, execute <code>./dtcw copyTheme</code> to copy a simple <code>pdfTheme</code> to your own project.
-Find it in <code>/src/docs/pdfTheme</code>.</p>
-</div>
-<div class="paragraph">
-<p>Currently, docToolchain uses the <a href="https://asciidoctor.org/docs/asciidoctor-pdf/">asciidoctor-pdf</a> library.
-The documentation contains a good <a href="https://github.com/asciidoctor/asciidoctor-pdf/blob/v1.6.0/docs/theming-guide.adoc">theming guide</a>.</p>
-</div>
-<div class="paragraph">
-<p>To activate the new style, you have to tell Asciidoctor where to find it.
-For maximum flexibility, specify the location and other PDF-related attributes in the file that you want to convert.
-The most important ones are:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="asciidoc">:pdf-themessdir: ../pdfTheme
-:pdf-theme: custom
-// only needed when you specify your own fonts
-:pdf-fontsdir: ../pdfTheme/fonts</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>For this tutorial, navigate to <code>src/docs/arc42/arc42.adoc</code> then add the following to the top of the document:</p>
+<p>Copy the example theme from <code>src/docs/pdfTheme/custom-theme.yml</code> to your project, then reference it from your AsciiDoc file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -640,37 +563,13 @@ The most important ones are:</p>
 </div>
 </div>
 <div class="paragraph">
-<p>This will specify that AsciiDoc will find the <code>pdfTheme</code> relative to the document location in <code>../pdfTheme</code> which will result in <code>src/docs/arc42/../pdfTheme</code> which is equal to <code>src/docs/pdfTheme</code>.</p>
-</div>
-<div class="paragraph">
-<p>You can also make use of the attribute <code>{projectRootDir}</code> which will contain the absolute path to your project directory.
-For example <code>:pdf-themessdir: {projectRootDir}/src/docs/pdfTheme</code> will search in <code><strong>/home/myname/projects/demo</strong>/src/docs/pdfTheme</code> for the theme.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-If you want to use the <code>{projectRootDir}</code> in your editor preview, you must define it as a relative path:
-</td>
-</tr>
-</table>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="asciidoc">ifndef:projectRootDir[:projectRootDir: ../../..]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>When added to the top of your <code>arc42.adoc</code> tutorial file, this will set the <code>projectRootDir</code> to the correct folder.</p>
+<p>See the <a href="https://docs.asciidoctor.org/pdf-converter/latest/theme/">AsciidoctorJ PDF theming guide</a> for details.</p>
 </div>
 </div>
 <div class="sect3">
 <h4 id="_working_with_the_html_style">Working with the HTML style</h4>
 <div class="paragraph">
-<p>The easiest way to modify the HTML style is to add a <a href="https://docs.asciidoctor.org/asciidoc/latest/pass/pass-block/">pass-through block</a> with the required CSS styles.</p>
+<p>Add a <a href="https://docs.asciidoctor.org/asciidoc/latest/pass/pass-block/">pass-through block</a> with CSS:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -690,7 +589,7 @@ If you want to use the <code>{projectRootDir}</code> in your editor preview, you
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-For the <code>generate<strong>Site</strong></code> task, there is a different mechanism to change the styles if the generated microsite.
+For the <code>generateSite</code> task, there is a different mechanism to change the microsite styles.
 </td>
 </tr>
 </table>

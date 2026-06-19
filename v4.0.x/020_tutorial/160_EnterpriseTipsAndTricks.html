@@ -240,10 +240,6 @@
                 <a class="nav-link " href="../arc42/open_questions.html"><span>arc42</span></a>
             </li>
 
-            <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
-            </li>
-
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
@@ -355,16 +351,6 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/110_presentations_with_revealjs.html" title="Presentations with reveal.js">Presentations with reveal.js</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/120_self-contained-dtc.html" title="Self-Contained docToolchain">Self-Contained docToolchain</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../020_tutorial/140_Dropdown_Menu.html" title="How to create a Dropdown Menu">How to create a Dropdown Menu</a>
                                 
                             </li>
@@ -467,7 +453,7 @@ searching issues...
 <ul class="sectlevel2">
 <li><a href="#_corporate_identity">Corporate Identity</a></li>
 <li><a href="#_cicd_pipelines">CI/CD Pipelines</a></li>
-<li><a href="#_dependencies">Dependencies</a></li>
+<li><a href="#_docker">Docker</a></li>
 </ul>
 </li>
 </ul>
@@ -505,21 +491,20 @@ searching issues...
 <div class="sectionbody">
 <div class="paragraph">
 <p>Some things are different when you use them at a larger scale.
-That&#8217;s why I would like to share my experience with docToolchain in an Enterprise Environment.</p>
+Here are some tips from experience with docToolchain in enterprise environments.</p>
 </div>
 <div class="sect2">
 <h3 id="_corporate_identity">Corporate Identity</h3>
 <div class="paragraph">
-<p>When you change the design of your microsite, you give your employees the chance to better identify with the documentation.
-The documentation will feel more "official".
-Take a look at <a href="040_microsite/130_theming.html">040_microsite/130_theming.html</a> to see how you change the look and feel.</p>
+<p>Customize the microsite design so your employees can better identify with the documentation.
+Take a look at <a href="040_microsite/130_theming.html">040_microsite/130_theming.html</a> to see how to change the look and feel.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_cicd_pipelines">CI/CD Pipelines</h3>
 <div class="paragraph">
-<p>To automatically build your documentation on change and deploy it to GitHub Pages or GitLab Pages, please take a look at this demo project: <a href="https://github.com/docToolchain/ci-cd-demo">ci-cd-demo</a>.
-It contains a <a href="https://github.com/docToolchain/ci-cd-demo/blob/main/.github/workflows/gh-pages.yml">GitHub workflow</a> and a <a href="https://github.com/docToolchain/ci-cd-demo/blob/main/.gitlab-ci.yml">.gitlab-ci.yml</a> which you can use as a starter for your own setup.</p>
+<p>To automatically build and deploy documentation, see the demo project: <a href="https://github.com/docToolchain/ci-cd-demo">ci-cd-demo</a>.
+It contains a <a href="https://github.com/docToolchain/ci-cd-demo/blob/main/.github/workflows/gh-pages.yml">GitHub workflow</a> and a <a href="https://github.com/docToolchain/ci-cd-demo/blob/main/.gitlab-ci.yml">.gitlab-ci.yml</a> as starters.</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -528,57 +513,26 @@ It contains a <a href="https://github.com/docToolchain/ci-cd-demo/blob/main/.git
 <i class="fa icon-note" title="Note"></i>
 </td>
 <td class="content">
-Both systems, GitHub and GitLab, only provide <em>one</em> static page for each repository.
-So, if you build the docs in a feature branch, the main docs will be updated.
-To avoid this, you should restrict the pipeline to your main or default branch.
-Since all links of the generated docs are relative, you can use the generated artifacts from a PR-Pipeline to get a preview.
+GitHub and GitLab each provide only <em>one</em> static page per repository.
+Restrict the deploy pipeline to your main branch to avoid overwriting production docs from feature branches.
 </td>
 </tr>
 </table>
 </div>
+<div class="paragraph">
+<p>Set <code>DTC_HEADLESS=true</code> in your CI environment to skip interactive prompts.</p>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_dependencies">Dependencies</h3>
+<h3 id="_docker">Docker</h3>
 <div class="paragraph">
-<p>The 2.2.1 docker image of docToolchain should be self-contained.
-Dependency resolution shouldn&#8217;t be a problem with this image.
-You should run your build pipeline directly on this image.
-<code>dtcw</code> will notice it is running within the image and use the dependencies.</p>
-</div>
-<div class="paragraph">
-<p>When you need to use another version or create a local build, it might be that the sources for needed dependencies are unavailable (<a href="https://jfrog.com/blog/jcenter-sunset/" class="bare">https://jfrog.com/blog/jcenter-sunset/</a>).</p>
-</div>
-<div class="paragraph">
-<p>To be prepared for such a case, you can specify your own corporate repository proxies.</p>
-</div>
-<div class="paragraph">
-<p>Create a file <code>init.gradle</code> with content like the following:</p>
+<p>The docToolchain Docker image is self-contained with all dependencies.
+Run your build pipeline directly on this image — <code>dtcw</code> detects it and uses the bundled tools.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="gradle">allprojects {
-    buildscript {
-        repositories {
-            maven { url = "&lt;your maven proxy repository for maven central&gt;" }
-        }
-    }
-    repositories {
-        maven { url = "&lt;your maven proxy repository for gradle plugins&gt;" }
-    }
-}
-println "&gt;&gt;&gt; repository locations initialized via init.gradle"</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw docker generateSite</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>and reference the file when you execute a <code>dtcw</code> command like this:</p>
-</div>
-<div class="literalblock">
-<div class="content">
-<pre>./dtcw -I $(pwd)/init.gradle &lt;task&gt;</pre>
-</div>
-</div>
-<div class="paragraph">
-<p>See <a href="https://docs.gradle.org/current/userguide/init_scripts.html" class="bare">https://docs.gradle.org/current/userguide/init_scripts.html</a> for more details on this approach.</p>
 </div>
 </div>
 </div>

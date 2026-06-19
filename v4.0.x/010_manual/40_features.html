@@ -9,7 +9,7 @@
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>Using docToolchain to Build Docs</title>
+    <title>Features</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -240,10 +240,6 @@
                 <a class="nav-link " href="../arc42/open_questions.html"><span>arc42</span></a>
             </li>
 
-            <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
-            </li>
-
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
@@ -309,17 +305,12 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../010_manual/25_v4_getting_started.html" title="docToolchain v4 — Getting Started">docToolchain v4 — Getting Started</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../010_manual/30_config.html" title="Configuration">Configuration</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../010_manual/40_features.html" title="Using docToolchain to Build Docs">Using docToolchain to Build Docs</a>
+                                   href="../010_manual/40_features.html" title="Features">Features</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -348,7 +339,7 @@
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Using+docToolchain+to+Build+Docs%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/010_manual/40_features.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Features%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/010_manual/40_features.adoc%0A%23branch:%20main-4.x" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         <a href="single-page.html"><i class="fa fa-file fa-fw"></i> View single page</a>
@@ -407,7 +398,18 @@ searching issues...
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_using_doctoolchain_to_build_docs">Using docToolchain to Build Docs</a></li>
+<li><a href="#_features">Features</a>
+<ul class="sectlevel2">
+<li><a href="#_fast_startup">Fast Startup</a></li>
+<li><a href="#_no_ruby_required">No Ruby Required</a></li>
+<li><a href="#_multiple_output_formats">Multiple Output Formats</a></li>
+<li><a href="#_diagram_support">Diagram Support</a></li>
+<li><a href="#_confluence_publishing">Confluence Publishing</a></li>
+<li><a href="#_cross_platform">Cross-Platform</a></li>
+<li><a href="#_template_support">Template Support</a></li>
+<li><a href="#_cicd_ready">CI/CD Ready</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -439,16 +441,68 @@ searching issues...
         <p>
             
 <div class="sect1">
-<h2 id="_using_doctoolchain_to_build_docs">Using docToolchain to Build Docs</h2>
+<h2 id="_features">Features</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Unresolved directive in ../_feedback.adoc - include::/home/runner/work/docToolchain/docToolchain/./build/contributors/010_manual/40_features.adoc[]</p>
 </div>
 <div class="paragraph">
-<p>docToolchain implements many features via scripts, which you call through the command line. These scripts are called <code>tasks</code> in this documentation.</p>
+<p>docToolchain v4 is a docs-as-code tool that generates professional documentation from AsciiDoc sources.</p>
 </div>
+<div class="sect2">
+<h3 id="_fast_startup">Fast Startup</h3>
 <div class="paragraph">
-<p>Learn more about these scripts in the <a href="../015_tasks/03_tasks.html">Tasks</a> menu.</p>
+<p>Tasks run via direct JVM invocation — no Gradle daemon, no build system overhead.
+Typical startup time is 2-3 seconds.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_no_ruby_required">No Ruby Required</h3>
+<div class="paragraph">
+<p>v4 uses AsciidoctorJ (the Java port of AsciiDoctor) exclusively.
+No Ruby gems, no external <code>asciidoctor</code> CLI needed.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_multiple_output_formats">Multiple Output Formats</h3>
+<div class="paragraph">
+<p>Generate HTML, PDF, or a full microsite from the same AsciiDoc sources.
+See the <a href="../015_tasks/03_tasks.html">Tasks</a> section for all available output formats.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_diagram_support">Diagram Support</h3>
+<div class="paragraph">
+<p>Built-in support for text-based diagrams via <a href="https://asciidoctor.org/docs/asciidoctor-diagram/">asciidoctor-diagram</a>:
+PlantUML, ditaa, Mermaid, and more.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_confluence_publishing">Confluence Publishing</h3>
+<div class="paragraph">
+<p>Publish your documentation directly to Confluence, keeping docs-as-code and Confluence in sync.
+Only changed pages are updated — no spam for page watchers.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cross_platform">Cross-Platform</h3>
+<div class="paragraph">
+<p>All tasks work on Linux, macOS, and Windows.
+The <code>exportPPT</code> task uses Apache POI — no Windows-only dependencies.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_template_support">Template Support</h3>
+<div class="paragraph">
+<p>Bootstrap your project with architecture templates like <a href="https://arc42.org">arc42</a> or <a href="https://req42.de">req42</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_cicd_ready">CI/CD Ready</h3>
+<div class="paragraph">
+<p>Set <code>DTC_HEADLESS=true</code> for non-interactive mode.
+Works with GitHub Actions, GitLab CI, Jenkins, and any CI system with Java 17.</p>
+</div>
 </div>
 </div>
 </div>
@@ -479,11 +533,11 @@ searching issues...
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Using+docToolchain+to+Build+Docs%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:010_manual/40_features.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Features%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:010_manual/40_features.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Using+docToolchain+to+Build+Docs%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:010_manual/40_features.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Features%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:010_manual/40_features.adoc">tell
     us how we can improve</a>.
     </p>
 </div>

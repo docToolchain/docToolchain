@@ -240,10 +240,6 @@
                 <a class="nav-link " href="../arc42/open_questions.html"><span>arc42</span></a>
             </li>
 
-            <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
-            </li>
-
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
@@ -309,17 +305,12 @@
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../010_manual/25_v4_getting_started.html" title="docToolchain v4 — Getting Started">docToolchain v4 — Getting Started</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../010_manual/30_config.html" title="Configuration">Configuration</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../010_manual/40_features.html" title="Using docToolchain to Build Docs">Using docToolchain to Build Docs</a>
+                                   href="../010_manual/40_features.html" title="Features">Features</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -409,7 +400,6 @@ searching issues...
 <ul class="sectlevel1">
 <li><a href="#_useful_resources">Useful Resources</a>
 <ul class="sectlevel2">
-<li><a href="#_introduction">Introduction</a></li>
 <li><a href="#_underlying_technologies">Underlying Technologies</a></li>
 <li><a href="#_books">Books</a></li>
 </ul>
@@ -451,23 +441,14 @@ searching issues...
 <p>Unresolved directive in ../_feedback.adoc - include::/home/runner/work/docToolchain/docToolchain/./build/contributors/010_manual/60_further_reading.adoc[]</p>
 </div>
 <div class="sect2">
-<h3 id="_introduction">Introduction</h3>
-<div class="paragraph">
-<p>Everything you need to know about docToolchain, from the underlying technology to useful resources.</p>
-</div>
-</div>
-<div class="sect2">
 <h3 id="_underlying_technologies">Underlying Technologies</h3>
-<div class="paragraph">
-<p>Learn more about the technologies that support docToolchain, as well as some useful resources.</p>
-</div>
 <div class="sect3">
 <h4 id="_markup">Markup</h4>
 <details>
 <summary class="title">AsciiDoc</summary>
 <div class="content">
 <div class="paragraph">
-<p>This is our preferred markup language for technical docs.</p>
+<p>Our preferred markup language for technical docs.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -488,17 +469,7 @@ searching issues...
 <summary class="title">Markdown</summary>
 <div class="content">
 <div class="paragraph">
-<p>Since we use JBake as a static site generator, you can write your docs in Markdown too.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><a href="https://github.com/vsch/flexmark-java">flexmark-java</a> is the Markdown parser and flavor jBake uses.</p>
-</li>
-<li>
-<p><a href="https://github.com/bodiam/markdown-to-asciidoc">markdown-to-asciidoc</a> library can be used if you prefer to use the <a href="../015_tasks/03_task_exportMarkdown.html"><code>exportMarkdown</code></a>-Task.</p>
-</li>
-</ul>
+<p>jBake also supports Markdown via <a href="https://github.com/vsch/flexmark-java">flexmark-java</a>.</p>
 </div>
 </div>
 </details>
@@ -508,13 +479,10 @@ searching issues...
 <details>
 <summary class="title">arc42</summary>
 <div class="content">
-<div class="paragraph">
-<p>The perfect template for your software solution architecture documentation.</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://arc42.org/">arc42</a></p>
+<p><a href="https://arc42.org/">arc42</a> — architecture documentation template</p>
 </li>
 <li>
 <p><a href="https://docs.arc42.org/home/">arc42 Tips &amp; Tricks</a></p>
@@ -532,16 +500,13 @@ searching issues...
 <details>
 <summary class="title">Docs as Code</summary>
 <div class="content">
-<div class="paragraph">
-<p>Treat your docs as if they were code.</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
 <p><a href="https://docs-as-co.de/">Docs-as-Code</a></p>
 </li>
 <li>
-<p><a href="https://www.writethedocs.org/guide/docs-as-code/">write the docs: docs-as-code</a></p>
+<p><a href="https://www.writethedocs.org/guide/docs-as-code/">Write the Docs: Docs-as-Code</a></p>
 </li>
 </ul>
 </div>
@@ -551,18 +516,18 @@ searching issues...
 <div class="sect3">
 <h4 id="_static_site_generator">Static Site Generator</h4>
 <details>
-<summary class="title">Static Site Generator</summary>
+<summary class="title">jBake</summary>
 <div class="content">
 <div class="ulist">
 <ul>
 <li>
-<p>The underlying static site generator for the <a href="../015_tasks/03_task_generateSite.html"><code>generateSite</code></a>-Task is <a href="https://jbake.org">jBake</a></p>
+<p><a href="https://jbake.org">jBake</a> — the static site generator behind <code>generateSite</code></p>
 </li>
 <li>
-<p>Our standard theme is <a href="https://www.docsy.dev/">docsy</a></p>
+<p><a href="https://www.docsy.dev/">Docsy</a> — our standard theme</p>
 </li>
 <li>
-<p>Our CSS framework is <a href="https://getbootstrap.com/docs/4.6/getting-started/introduction/">Twitter Bootstrap</a></p>
+<p><a href="https://getbootstrap.com/">Bootstrap 5</a> — CSS framework</p>
 </li>
 </ul>
 </div>
@@ -572,23 +537,11 @@ searching issues...
 </div>
 <div class="sect2">
 <h3 id="_books">Books</h3>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-These are Amazon affiliate links.
-</td>
-</tr>
-</table>
-</div>
-<table class="tableblock frame-all grid-all" style="width: 80%;">
+<table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 33.3333%;">
-<col style="width: 33.3334%;">
+<col style="width: 50%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
 </colgroup>
 <thead>
 <tr>
@@ -604,36 +557,14 @@ These are Amazon affiliate links.
 <td class="tableblock halign-left valign-top"><p class="tableblock">English</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://amzn.to/2sn0kyx">Modern Technical Writing: An Introduction to Software Documentation</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Andrew Etter</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">English</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://leanpub.com/arc42byexample">arc42 by Example</a></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Gernot Starke, Stefan Zörner, Michael Simons, Ralf D. Müller</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">English</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://leanpub.com/arc42inpractice">Communicating Software Architectures with arc42</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Gernot Starke und Peter Hruschka</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gernot Starke, Peter Hruschka</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">English</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://leanpub.com/visualising-software-architecture">Software Architecture for Developers, Volume 2</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Simon Brown</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">English</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://amzn.to/2smM5Kp">arc42 in Aktion:
-Praktische Tipps zur Architekturdokumentation</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">von Gernot Starke and Peter Hruschka40:00</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">German</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="https://amzn.to/2ru9Yvr">Softwarearchitekturen dokumentieren und kommunizieren:
-Entwürfe, Entscheidungen und Lösungen nachvollziehbar und wirkungsvoll festhalten</a></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">von Stefan Zörner</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">German</p></td>
 </tr>
 </tbody>
 </table>

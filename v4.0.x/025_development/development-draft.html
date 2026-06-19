@@ -240,10 +240,6 @@
                 <a class="nav-link " href="../arc42/open_questions.html"><span>arc42</span></a>
             </li>
 
-            <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
-            </li>
-
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
@@ -406,13 +402,14 @@ searching issues...
 <li><a href="#_setting_up_a_dev_environment">Setting Up a Dev Environment</a>
 <ul class="sectlevel2">
 <li><a href="#_before_you_begin">Before You Begin</a></li>
-<li><a href="#_do_a_local_install_for_docker_and_sdkman">Do a Local Install for Docker and SDKMAN!</a></li>
-<li><a href="#_create_gradle_independent_tasks">Create Gradle-Independent Tasks</a></li>
+<li><a href="#_using_the_devcontainer">Using the Devcontainer</a></li>
+<li><a href="#_local_development_setup">Local Development Setup</a></li>
+<li><a href="#_running_tests">Running Tests</a></li>
 <li><a href="#_create_or_change_a_theme">Create or Change a Theme</a></li>
 <li><a href="#_special_functionality_for_themes_config_fragments">Special Functionality for Themes (Config Fragments)</a></li>
 </ul>
 </li>
-<li><a href="#_running_tests">Running Tests</a>
+<li><a href="#_running_tests_2">Running Tests</a>
 <ul class="sectlevel2">
 <li><a href="#_execute_tests">Execute Tests</a></li>
 <li><a href="#_execute_a_specific_test">Execute a specific test</a></li>
@@ -488,87 +485,118 @@ searching issues...
 <div class="sect2">
 <h3 id="_before_you_begin">Before You Begin</h3>
 <div class="paragraph">
-<p>When you install docToolchain, all the code is hidden. The information on this page explains how to get access to the code, so you can customise the setup in your dev environment.</p>
+<p>When you install docToolchain, all the code is hidden in <code>~/.doctoolchain/</code>.
+This page explains how to set up a development environment to modify and test docToolchain itself.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_do_a_local_install_for_docker_and_sdkman">Do a Local Install for Docker and SDKMAN!</h3>
+<h3 id="_using_the_devcontainer">Using the Devcontainer</h3>
 <div class="paragraph">
-<p>You need a local installation of docToolchain for development. Docker and SDKMAN! are derived from it. Docker simply contains a local install, and SDKMAN! installs docToolchain locally, but the location is controlled by SDKMAN! not docToolchain.</p>
+<p>The easiest way to develop docToolchain is using the multi-repo devcontainer from the workspace root (not this repo):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash"># From the workspace root (parent of docToolchain/)
+./start-devcontainer.sh</code></pre>
+</div>
 </div>
 <div class="paragraph">
-<p>The docToolchain-Wrapper installs docToolchain locally to <code>$HOME/.doctoolchain/docToolchain-$v2.6.7/</code>. All task invocations through the docToolchain-Wrapper <code>dtcw</code> are redirected to <code>$HOME/.doctoolchain/docToolchain-$v2.6.7/bin/doctoolchain</code>. This shell script calls the Gradle-Wrapper for most tasks.</p>
+<p>This provides Java 17, Go, Python, and all necessary tools.</p>
 </div>
-<div class="paragraph">
-<p>What you need to do is:</p>
 </div>
+<div class="sect2">
+<h3 id="_local_development_setup">Local Development Setup</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Create a local install which is connected to your GitHub fork of docToolchain.</p>
+<p>Fork <a href="https://github.com/docToolchain/docToolchain" class="bare">https://github.com/docToolchain/docToolchain</a> on GitHub.</p>
 </li>
 <li>
-<p>Create a folder called <code>$HOME/.doctoolchain/docToolchain-2.0.0-dev/</code>.</p>
+<p>Clone your fork:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">git clone --branch main-4.x git@github.com:&lt;your-user&gt;/docToolchain.git
+cd docToolchain</code></pre>
+</div>
+</div>
 </li>
 <li>
-<p>Check out the ng-branch of your fork to this folder.</p>
+<p>Build the runtime JARs:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./gradlew packageLibs</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This creates <code>build/lib/*.jar</code> — the v4 runtime classpath.
+Copy them to <code>lib/</code> for the wrapper to detect v4:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">cp -r build/lib lib</code></pre>
+</div>
+</div>
 </li>
 <li>
-<p>To use this version in your test project, edit the version at the start of your <code>dtcw</code> script to <code>2.0.0-dev</code>.</p>
+<p>Run tasks directly:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">CLASSPATH=$(find lib/ -name '*.jar' | tr '\n' ':') \
+  java -DdocDir=. -DmainConfigFile=Config.groovy \
+  groovy.ui.GroovyMain scripts/generateHTML.groovy</code></pre>
+</div>
+</div>
 </li>
 </ol>
 </div>
-<div class="paragraph">
-<p>You now have the full repo locally cloned. To save memory, some parts of the repo are zipped. If you have problems, check out the <a href="https://github.com/docToolchain/docToolchain/blob/master/build.gradle#L79">prepareDist-Task</a>.</p>
-</div>
 </div>
 <div class="sect2">
-<h3 id="_create_gradle_independent_tasks">Create Gradle-Independent Tasks</h3>
+<h3 id="_running_tests">Running Tests</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./gradlew core:test</code></pre>
+</div>
+</div>
 <div class="paragraph">
-<p>All tasks currently use Gradle to run. You can bypass Gradle for tasks where it doesn’t add any value (and make docToolchain run faster as a result!). To do this, use the <code>bin/doctoolchain</code> scripts and create a switch.</p>
+<p>See <a href="#">Development</a> for details.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_create_or_change_a_theme">Create or Change a Theme</h3>
-<div class="paragraph">
-<p>It’s not just the docToolchain code that is hidden. The themes for the static site generator jBake are also hidden. Follow these procedures to customise themes.</p>
-</div>
 <div class="sect3">
 <h4 id="_how_to_overwrite_a_project_theme">How to Overwrite a Project Theme</h4>
 <div class="paragraph">
-<p>When docToolchain builds a static website, it first copies an internal theme to a temp folder, then copies an external theme (if defined) over it. Finally, it copies the project theme over the top. This gives you the opportunity to overwrite some parts of the theme on a per-project basis. To do this:</p>
+<p>When docToolchain builds a static website, it copies themes in this order:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Run the <code>copyThemes</code> task to copy the internal and external themes to the <code>microsite.siteFolder</code>.</p>
+<p>Internal theme → <code>build/microsite/tmp/site</code></p>
 </li>
 <li>
-<p>Check the files (take a look at <a href="https://jbake.org/">jbake.org</a> to get a better understanding).</p>
+<p>External theme (if <code>DTC_SITETHEME</code> is set)</p>
 </li>
 <li>
-<p>Modify the relevant files and delete all the other files.</p>
+<p>Project theme from <code>src/site/</code></p>
 </li>
 </ol>
 </div>
+<div class="paragraph">
+<p>To customize, place your modified files in <code>src/site/</code> in your project.</p>
+</div>
 </div>
 <div class="sect3">
-<h4 id="_how_to_modify_an_existing_theme_or_create_a_theme_from_scratch">How to Modify an Existing Theme or Create a Theme from Scratch</h4>
+<h4 id="_how_to_create_a_theme_from_scratch">How to Create a Theme from Scratch</h4>
 <div class="paragraph">
-<p>As we have already mentioned, an external theme is simply a zipped copy of the 'microsite.siteFolder'. All themes are downloaded when referenced from a <code>dtcw</code> configuration, and are stored in <code>$HOME/.doctoolchain/themes/[hash of url]</code>.</p>
-</div>
-<div class="paragraph">
-<p>To modify an existing theme, go to its folder and check out the theme’s project instead of the downloaded copy. This will create a connection back to the GitHub repo so that you can modify the theme directly in <code>$HOME/.doctoolchain/themes/[hash of url]</code>.</p>
-</div>
-<div class="paragraph">
-<p>To create a new theme from scratch, use a simple md5 hash. For example, if you configure your new theme as <code>"myTheme"</code> then <code>"myTheme".md5()</code> will be the hash.</p>
+<p>A theme is the contents of the <code>src/site/</code> directory.
+See the <a href="https://jbake.org/docs/2.6.7/#project_structure">jBake documentation</a> for the expected structure.</p>
 </div>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_special_functionality_for_themes_config_fragments">Special Functionality for Themes (Config Fragments)</h3>
 <div class="paragraph">
-<p>It’s likely that you will need a new config item for your self-generated theme. And you can also prompt users to set a value for this new config item when they install the theme for the first time. To do this, create a file called <code>configFragment.groovy</code> in the <code>site</code> folder of your theme. For example:</p>
+<p>Create a <code>configFragment.groovy</code> in the <code>site</code> folder of your theme to prompt users for config values during theme installation:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -577,29 +605,19 @@ searching issues...
 title = '##site-title##'</code></pre>
 </div>
 </div>
-<div class="ulist">
-<ul>
-<li>
-<p>The first line is the message that will be shown to the user (can be over several lines).</p>
-</li>
-<li>
-<p>The second line (starting with <code>Example</code>:) is the default value for the prompt.</p>
-</li>
-<li>
-<p>The third line is the config item itself. If the value is surrounded by <code>##</code>, the user will be prompted for this value and it will be replaced with the user’s input. Otherwise, the config item will be added without a prompt to the user’s current <code>docToochainConfig.groovy</code>.
+<div class="paragraph">
+<p>Values surrounded by <code>##</code> will prompt the user during installation.
 :jbake-status: published
 :jbake-order: 20
 :jbake-type: page_toc
 :jbake-menu: development
 :jbake-title: Running Tests</p>
-</li>
-</ul>
 </div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="_running_tests">Running Tests</h2>
+<h2 id="_running_tests_2">Running Tests</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Unresolved directive in ../_feedback.adoc - include::/home/runner/work/docToolchain/docToolchain/./build/contributors/025_development/020_run_tests.adoc[]</p>
