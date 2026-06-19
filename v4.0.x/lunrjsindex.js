@@ -242,18 +242,18 @@ var documents = [
 
 {
     "id": 30,
-    "uri": "015_tasks/03_task_exportPPT.html",
-    "menu": "tasks",
-    "title": "exportPPT",
-    "text": " Table of Contents exportPPT About This Task Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } exportPPT About This Task Exports PowerPoint slides ( .pptx ) as PNG images and extracts speaker notes as AsciiDoc. ./dtcw4 local exportPPT In v4, this task uses Apache POI for rendering and works on all platforms (Linux, macOS, Windows). The v3 version was Windows-only (VBScript). Note Only .pptx files are supported. Legacy .ppt format is not supported. The tag {slide} in speaker notes is replaced with the corresponding image reference. Use tagged regions to include specific slides. Further Reading Do More with Slides "
-},
-
-{
-    "id": 31,
     "uri": "015_tasks/03_task_downloadTemplate.html",
     "menu": "tasks",
     "title": "downloadTemplate",
     "text": " Table of Contents downloadTemplate About This Task Setup and Configuration Headless Mode Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } downloadTemplate About This Task This task is primarily used to bootstrap a new project. You can choose to download an official template like arc42 or req42 (both available in multiple languages) or you can register and use your own custom template. Setup and Configuration Important downloadTemplate requires an existing docToolchainConfig.groovy in your project root (or the path set via DTC_CONFIG_FILE ). If the file doesn&#8217;t exist yet, create an empty one: touch docToolchainConfig.groovy . Headless Mode For unattended use (e.g., with CI/CD pipelines or LLM agents), the downloadTemplate task supports headless mode where no user input is required. Using the DTC_HEADLESS Environment Variable When DTC_HEADLESS=true is set, the task will use sensible defaults: Template: arc42 Language: EN Help variant: plain (without help text) export DTC_HEADLESS=true ./dtcw4 local downloadTemplate Further Reading and Resources Arc42 Req42 "
+},
+
+{
+    "id": 31,
+    "uri": "015_tasks/03_task_exportPPT.html",
+    "menu": "tasks",
+    "title": "exportPPT",
+    "text": " Table of Contents exportPPT About This Task Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } exportPPT About This Task Exports PowerPoint slides ( .pptx ) as PNG images and extracts speaker notes as AsciiDoc. ./dtcw4 local exportPPT In v4, this task uses Apache POI for rendering and works on all platforms (Linux, macOS, Windows). The v3 version was Windows-only (VBScript). Note Only .pptx files are supported. Legacy .ppt format is not supported. The tag {slide} in speaker notes is replaced with the corresponding image reference. Use tagged regions to include specific slides. Further Reading Do More with Slides "
 },
 
 {
@@ -282,18 +282,18 @@ var documents = [
 
 {
     "id": 35,
-    "uri": "025_development/010_setup_dev_env.html",
-    "menu": "development",
-    "title": "Setting Up a Dev Environment",
-    "text": " Table of Contents Setting Up a Dev Environment Before You Begin Using the Devcontainer Local Development Setup Running Tests Create or Change a Theme Special Functionality for Themes (Config Fragments) Setting Up a Dev Environment Before You Begin When you install docToolchain, all the code is hidden in ~/.doctoolchain/ . This page explains how to set up a development environment to modify and test docToolchain itself. Using the Devcontainer The easiest way to develop docToolchain is using the multi-repo devcontainer from the workspace root (not this repo): # From the workspace root (parent of docToolchain/) ./start-devcontainer.sh This provides Java 17, Go, Python, and all necessary tools. Local Development Setup Fork https://github.com/docToolchain/docToolchain on GitHub. Clone your fork: git clone --branch main-4.x git@github.com:&lt;your-user&gt;/docToolchain.git cd docToolchain Build the runtime JARs: ./gradlew packageLibs This creates build/lib/*.jar — the v4 runtime classpath. Copy them to lib/ for the wrapper to detect v4: cp -r build/lib lib Run tasks directly: CLASSPATH=$(find lib/ -name '*.jar' | tr '\\n' ':') \\ java -DdocDir=. -DmainConfigFile=Config.groovy \\ groovy.ui.GroovyMain scripts/generateHTML.groovy Running Tests ./gradlew core:test See 020_run_tests.html for details. Create or Change a Theme How to Overwrite a Project Theme When docToolchain builds a static website, it copies themes in this order: Internal theme → build/microsite/tmp/site External theme (if DTC_SITETHEME is set) Project theme from src/site/ To customize, place your modified files in src/site/ in your project. How to Create a Theme from Scratch A theme is the contents of the src/site/ directory. See the jBake documentation for the expected structure. Special Functionality for Themes (Config Fragments) Create a configFragment.groovy in the site folder of your theme to prompt users for config values during theme installation: // the title of the microsite, displayed in the upper-left corner // Example: my new site title = '##site-title##' Values surrounded by ## will prompt the user during installation. "
-},
-
-{
-    "id": 36,
     "uri": "015_tasks/03_task_generateHTML.html",
     "menu": "tasks",
     "title": "generateHTML",
     "text": " Table of Contents generateHTML About This Task Configuration Single-File HTML Text-Based Diagrams Controlling Diagram Size Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } generateHTML About This Task Generates HTML5 from your AsciiDoc sources using AsciidoctorJ. Output is written to build/html5/ . ./dtcw4 local generateHTML Configuration Specify which files to render in your docToolchainConfig.groovy : inputFiles = [ [file: 'manual.adoc', formats: ['html','pdf']], ] Single-File HTML To produce a single self-contained HTML file, set :data-uri: in your AsciiDoc source. Be aware that the file can become very large. Text-Based Diagrams docToolchain includes the asciidoctor-diagram extension for PlantUML, ditaa, and other diagram types. .example diagram [plantuml, \"{plantUMLDir}demoPlantUML\", png] ---- class BlockProcessor class DiagramBlock BlockProcessor &lt;|-- DiagramBlock ---- Note Use {plantUMLDir} in the image name to ensure diagrams work for both HTML and PDF output. Important Use a unique image name for each diagram to avoid overwriting. Controlling Diagram Size Use the width attribute (pixels) or scale attribute (ratio): [plantuml, target=\"{plantUMLDir}myDiagram\", format=png, width=250] [plantuml, target=\"{plantUMLDir}myDiagram\", format=png, scale=0.75] Note If Graphviz is not installed, add !pragma layout smetana as the first line of your PlantUML diagram to use the built-in Java layout engine. Further Reading Single-file HTML PlantUML without Graphviz "
+},
+
+{
+    "id": 36,
+    "uri": "025_development/010_setup_dev_env.html",
+    "menu": "development",
+    "title": "Setting Up a Dev Environment",
+    "text": " Table of Contents Setting Up a Dev Environment Before You Begin Using the Devcontainer Local Development Setup Running Tests Create or Change a Theme Special Functionality for Themes (Config Fragments) Setting Up a Dev Environment Before You Begin When you install docToolchain, all the code is hidden in ~/.doctoolchain/ . This page explains how to set up a development environment to modify and test docToolchain itself. Using the Devcontainer The easiest way to develop docToolchain is using the multi-repo devcontainer from the workspace root (not this repo): # From the workspace root (parent of docToolchain/) ./start-devcontainer.sh This provides Java 17, Go, Python, and all necessary tools. Local Development Setup Fork https://github.com/docToolchain/docToolchain on GitHub. Clone your fork: git clone --branch main-4.x git@github.com:&lt;your-user&gt;/docToolchain.git cd docToolchain Build the runtime JARs: ./gradlew packageLibs This creates build/lib/*.jar — the v4 runtime classpath. Copy them to lib/ for the wrapper to detect v4: cp -r build/lib lib Run tasks directly: CLASSPATH=$(find lib/ -name '*.jar' | tr '\\n' ':') \\ java -DdocDir=. -DmainConfigFile=Config.groovy \\ groovy.ui.GroovyMain scripts/generateHTML.groovy Running Tests ./gradlew core:test See 020_run_tests.html for details. Create or Change a Theme How to Overwrite a Project Theme When docToolchain builds a static website, it copies themes in this order: Internal theme → build/microsite/tmp/site External theme (if DTC_SITETHEME is set) Project theme from src/site/ To customize, place your modified files in src/site/ in your project. How to Create a Theme from Scratch A theme is the contents of the src/site/ directory. See the jBake documentation for the expected structure. Special Functionality for Themes (Config Fragments) Create a configFragment.groovy in the site folder of your theme to prompt users for config values during theme installation: // the title of the microsite, displayed in the upper-left corner // Example: my new site title = '##site-title##' Values surrounded by ## will prompt the user during installation. "
 },
 
 {
@@ -306,6 +306,14 @@ var documents = [
 
 {
     "id": 38,
+    "uri": "025_development/020_run_tests.html",
+    "menu": "development",
+    "title": "Running Tests",
+    "text": " Table of Contents Running Tests Execute Tests Execute a specific test Workaround to Ensure Correct Proxy Settings for Tests Running Tests docToolchain uses Spock as Test-Framework. See http://spockframework.org/ for details. Execute Tests rm -r build &amp;&amp; ./gradlew test --info The rm command ensures that you have a clean test running. This is vital because if artifacts of an older test run still exist, Gradle will skip steps (‘Up-to-date’) and you might get false positives. Execute a specific test rm -r build &amp;&amp; ./gradlew test --info --tests=ExportStructurizrSpec Workaround to Ensure Correct Proxy Settings for Tests The docToolchain setup is based on the Gradle-Test-Kit and makes use of the Spock test execution framework . The Gradle test runner is started in its own test environment and its own JVM instance. As a result, the global proxy settings are ignored. To execute the test with the correct proxy settings, you must use a workaround. Copy the proxy settings from the gradle.properties file located in the user directory to the gradle.properties file located in the docToolchain folder itself. Note: The files downloaded by the Gradle test runner are placed in a different folder than the default Gradle cache. You will find them in the Tmp folder C:\\Users\\YOUR_USER_NAME\\AppData\\Local\\Temp\\.gradle-test-kit-YOUR_USER_NAME\\caches. "
+},
+
+{
+    "id": 39,
     "uri": "025_development/050_who-uses-dtc.html",
     "menu": "-",
     "title": "moved",
@@ -313,19 +321,11 @@ var documents = [
 },
 
 {
-    "id": 39,
+    "id": 40,
     "uri": "025_development/030_create_new_release.html",
     "menu": "development",
     "title": "Creating a New Release",
     "text": " Table of Contents Creating a New Release Before You Begin GitHub Docker Hub Blog Post docToolchain-Wrapper (dtcw) SDKMAN! Creating a New Release Before You Begin We use semantic versioning and we also keep a changelog . All of this is done on a best-efforts basis. A release consists of five parts, each explained below. GitHub run docker run -it -e BATS_LIB_PATH=/usr/lib/bats -v \"${PWD}/dtcw:/code/dtcw\" -v \"${PWD}/test:/code/test\" maxh/bats:latest test to test dtcw Update the version in gradle.properties . Update the version in dtcw and dtcw.ps1 . dtcw.bat will be generated Update the changelog. Create a section for the version. Copy to the new section all unreleased features which will be in the release. Commit and push the new version. Draft a new release . Copy the contents of the changelog for this version to the description then submit. Set the version as v X.Y.Z. Run ./gradlew createDist to zip the source in build (the distribution file). Add the zipped file and submit the new release. Docker Hub Standard Image Update the GitHub workflows to reflect the new version. run github action to build and deploy the image do the same for the other images Blog Post Create a blog post to announce the new release. The SDKMAN! announcement will reference it. docToolchain-Wrapper (dtcw) Everything went well? Great! Now let’s update the wrapper. Navigate to https://github.com/docToolchain/doctoolchain.github.io/actions/workflows/update-dtcw.yml and trigger the action. SDKMAN! A GitHub action sdkman deploy has been created to deploy to SDKMAN! Set the version to the same as for the other releases, but without the prepended v: X.Y.Z. Use as a download link the link to the docToolchain-dist.zip from the GitHub release. Tip: the link looks like https://github.com/docToolchain/docToolchain/releases/download/v1.3.1/docToolchain-dist.zip . "
-},
-
-{
-    "id": 40,
-    "uri": "025_development/020_run_tests.html",
-    "menu": "development",
-    "title": "Running Tests",
-    "text": " Table of Contents Running Tests Execute Tests Execute a specific test Workaround to Ensure Correct Proxy Settings for Tests Running Tests docToolchain uses Spock as Test-Framework. See http://spockframework.org/ for details. Execute Tests rm -r build &amp;&amp; ./gradlew test --info The rm command ensures that you have a clean test running. This is vital because if artifacts of an older test run still exist, Gradle will skip steps (‘Up-to-date’) and you might get false positives. Execute a specific test rm -r build &amp;&amp; ./gradlew test --info --tests=ExportStructurizrSpec Workaround to Ensure Correct Proxy Settings for Tests The docToolchain setup is based on the Gradle-Test-Kit and makes use of the Spock test execution framework . The Gradle test runner is started in its own test environment and its own JVM instance. As a result, the global proxy settings are ignored. To execute the test with the correct proxy settings, you must use a workaround. Copy the proxy settings from the gradle.properties file located in the user directory to the gradle.properties file located in the docToolchain folder itself. Note: The files downloaded by the Gradle test runner are placed in a different folder than the default Gradle cache. You will find them in the Tmp folder C:\\Users\\YOUR_USER_NAME\\AppData\\Local\\Temp\\.gradle-test-kit-YOUR_USER_NAME\\caches. "
 },
 
 {
@@ -346,18 +346,18 @@ var documents = [
 
 {
     "id": 43,
-    "uri": "10_about/20_what-is-doctoolchain.html",
-    "menu": "about",
-    "title": "What Is docToolchain?",
-    "text": " Table of Contents What Is docToolchain? Introduction Docs as Code arc42 How docToolchain Brings Everything Together What You Get with docToolchain .gravatar img { margin-left: 3px; border-radius: 4px; } What Is docToolchain? Introduction docToolchain is a documentation generation tool that uses the Docs as Code approach as a basis for its architecture, plus some additional automation provided by the arc42 template . Docs as Code ‘Docs as code’ refers to a philosophy that you should write documentation using the same tools as you use to write code. If you need to write technical docs for your software project, why not use the same tools and processes as you use for your source code? There are so many benefits: You don’t have to learn a complicated docs management system. Developers feel more at home in the docs because they look and feel like code. You can manage docs using standard version control like GitHub. arc42 arc42 has been a part of docToolchain since the earliest version. But what is arc42? Dr. Gernot Starke and Peter Hruschka created the arc42 template as a standard for software architecture documentation. They used their experience of software architectures both in the template structure and the explanations that appear in each chapter to guide you when you’re writing your documentation. arc42 is available in well-known formats including MS Word, textile, and Confluence. All of these formats are automatically generated from a single golden master which is formatted in AsciiDoc . How docToolchain Brings Everything Together To follow a docs as code approach, you need a build script that automates steps like exporting diagrams and rendering Markdown (or AsciiDoc in the case of docToolchain) to the target format. Creating this type of build script is not easy (and even harder to maintain). There are also lots of questions to answer: “How do I create .docx?” and “Why doesn’t lib x work with lib y?” docToolchain is the result of one developer’s journey through the docs as code universe. The goal of docToolchain is to automate the creation of technical docs through an easy-to-use build script that only needs to be configured not modified, and that is nurtured and cared for by a diverse open source community . What You Get with docToolchain A Ready-Made Document Management System By using a version control system like Git , you get a perfect document management system for free. Git allows you to version your docs, branch them, and also leaves an audit trail. You can even check who wrote which part of the docs. Isn’t that great? And because your docs are simple plain text, it’s easy to do a diff and see exactly what has changed. Bonus: storing your docs in the same repo as your code means they’re always in sync! Built-In Collaboration and Review As a distributed version control system, Git comes with doc collaboration and review processes built in. People can fork the docs and send pull requests for the changes they make. You review the changes. Done! Most Git frontends like Bitbucket , GitLab and GitHub also allow you to reject pull requests with comments. Image References and Code Snippets Instead of pasting images into a binary document format, docToolchain lets you reference images. This ensures that your imagery is always up-to-date every time you rebuild your documents. You can also reference code snippets directly from your source code. You&#8217;ll save so much time because your docs and code will always be in sync and completely up to date! Compound and Stakeholder-Tailored Docs As if image refs and code snippets weren&#8217;t enough, docToolchain also lets you split docs into several sub-documents plus a master for greater cohesion. And you&#8217;re not restricted to one master. You can create master docs for different stakeholders that only contain the chapters they need. And So Much More&#8230;&#8203; If you can dream it, you can script it! Want to include a list of open issues from Jira? You can! Want to include a changelog from Git? Go for it! Want to use inline text-based diagrams? Knock yourself out! "
-},
-
-{
-    "id": 44,
     "uri": "10_about/10_about-the-project.html",
     "menu": "about",
     "title": "About the Project",
     "text": " Table of Contents About the Project History How docToolchain Is Used Organisations Using It Open Source Projects Using It About the Project History docToolchain is an open source project dedicated to automating the creation of technical documentation. Before the project started, the founders had never heard of the term 'docs as code'. All they knew was that they were sick of keeping their architecture diagrams up to date by copying them from a UML tool to a word processor. Being lazy developers, they thought \"There must be a better way to do this!\". So they automated the diagram export, ditched their word processors, and started using a markup renderer. This enabled them to reference the diagrams from within the text and update them before rendering the document. And so, docToolchain was born. How docToolchain Is Used The main focus of docToolchain is technical documentation. It was traditionally used only for internal docs projects that were not visible to the public. From v2.0.0 we included a static site generator which means that open source projects and other organisations with public-facing docs can use it. Organisations Using It docToolchain is currently being used by the following organisations. If you&#8217;re also using it, please let us know! We love watching our user community grow, and your support keeps the project alive to fight the good docs fight! Open Source Projects Using It If your open source project is using docToochain, please let us know by sending a pull request: docToolchain ( source ) Html Sanity Check ( source ) DB Systel Tech Stories "
+},
+
+{
+    "id": 44,
+    "uri": "10_about/20_what-is-doctoolchain.html",
+    "menu": "about",
+    "title": "What Is docToolchain?",
+    "text": " Table of Contents What Is docToolchain? Introduction Docs as Code arc42 How docToolchain Brings Everything Together What You Get with docToolchain .gravatar img { margin-left: 3px; border-radius: 4px; } What Is docToolchain? Introduction docToolchain is a documentation generation tool that uses the Docs as Code approach as a basis for its architecture, plus some additional automation provided by the arc42 template . Docs as Code ‘Docs as code’ refers to a philosophy that you should write documentation using the same tools as you use to write code. If you need to write technical docs for your software project, why not use the same tools and processes as you use for your source code? There are so many benefits: You don’t have to learn a complicated docs management system. Developers feel more at home in the docs because they look and feel like code. You can manage docs using standard version control like GitHub. arc42 arc42 has been a part of docToolchain since the earliest version. But what is arc42? Dr. Gernot Starke and Peter Hruschka created the arc42 template as a standard for software architecture documentation. They used their experience of software architectures both in the template structure and the explanations that appear in each chapter to guide you when you’re writing your documentation. arc42 is available in well-known formats including MS Word, textile, and Confluence. All of these formats are automatically generated from a single golden master which is formatted in AsciiDoc . How docToolchain Brings Everything Together To follow a docs as code approach, you need a build script that automates steps like exporting diagrams and rendering Markdown (or AsciiDoc in the case of docToolchain) to the target format. Creating this type of build script is not easy (and even harder to maintain). There are also lots of questions to answer: “How do I create .docx?” and “Why doesn’t lib x work with lib y?” docToolchain is the result of one developer’s journey through the docs as code universe. The goal of docToolchain is to automate the creation of technical docs through an easy-to-use build script that only needs to be configured not modified, and that is nurtured and cared for by a diverse open source community . What You Get with docToolchain A Ready-Made Document Management System By using a version control system like Git , you get a perfect document management system for free. Git allows you to version your docs, branch them, and also leaves an audit trail. You can even check who wrote which part of the docs. Isn’t that great? And because your docs are simple plain text, it’s easy to do a diff and see exactly what has changed. Bonus: storing your docs in the same repo as your code means they’re always in sync! Built-In Collaboration and Review As a distributed version control system, Git comes with doc collaboration and review processes built in. People can fork the docs and send pull requests for the changes they make. You review the changes. Done! Most Git frontends like Bitbucket , GitLab and GitHub also allow you to reject pull requests with comments. Image References and Code Snippets Instead of pasting images into a binary document format, docToolchain lets you reference images. This ensures that your imagery is always up-to-date every time you rebuild your documents. You can also reference code snippets directly from your source code. You&#8217;ll save so much time because your docs and code will always be in sync and completely up to date! Compound and Stakeholder-Tailored Docs As if image refs and code snippets weren&#8217;t enough, docToolchain also lets you split docs into several sub-documents plus a master for greater cohesion. And you&#8217;re not restricted to one master. You can create master docs for different stakeholders that only contain the chapters they need. And So Much More&#8230;&#8203; If you can dream it, you can script it! Want to include a list of open issues from Jira? You can! Want to include a changelog from Git? Go for it! Want to use inline text-based diagrams? Knock yourself out! "
 },
 
 {
@@ -538,18 +538,18 @@ var documents = [
 
 {
     "id": 67,
-    "uri": "020_tutorial/990_Tutorial.html",
-    "menu": "tutorial",
-    "title": "How to create a Tutorial",
-    "text": " Table of Contents How to create a Tutorial Prepare your Tutorial Preview your work Submit your Pull-Request How to create a Tutorial Since docToolchain is a community project, it also lives from the content created by the community. This little tutorial will explain how you&#8201;&#8212;&#8201;as a member of the community&#8201;&#8212;&#8201;can create your own tutorial. Prerequisites: you know how to use Git ( https://www.gitbook.com/ ), how to fork and create a pull request on github and how to write in AsciiDoc. The docToolchain website is build with docToolchain itself. So, the code of docToolchain and the documentation reside both in the same repository. (The way as it should be with the docs-as-code approach!) Navigate to https://github.com/docToolchain/docToolchain/tree/ng/src/docs/020_tutorial to find the source of the already existing tutorials. As you can see, the files are numbered in steps of 10. The numbers are the order of appearance within the left navigation. They can be overwritten by a :jbake-order: x -statement within the .adoc file. The order is specified in steps of 10 just to be able to insert files in between if necessary. Prepare your Tutorial To create a new Tutorial, fork the project and create a new file in the folder src/docs with an appropriate name and number. Add the following content to your file: :jbake-title: Your Navigation-Entry :source-highlighter: highlightjs :highlightjs-theme: monokai-sublime :imagesdir: images :icons: font == Your Headline The :jbake-title: Your Navigation-Entry tell jBake (the renderer used by docToolchain) the text for the navigation link in left navigation pane. If this is missing, it will use the first Headline in your document. If this is also missing, it will use the filename. You might wonder why you should specify the title if you already have named your tutorial via the first headline. The headline is often quite long and :jbake-title: gives you the opportunity to shorten it for the navigation pane. The include:: -statement mainly sets the location of the imagesdir so that you don&#8217;t have to worry about it. Take a look at the file to see what else it does! Your first headline should always start with == and not = , sind a single = is the document name like a book title. docToolchain expects for the chapters of the documentation headline level == as starting headline. That&#8217;s it. Now you can start to write your tutorial. Preview your work To edit your file, use an editor which gives you a preview of your .adoc file like IntelliJ or VS Code. This already gives you a good preview of the structure and formatting of your document. Want to see how it looks on a web page? There are two ways to render the full page. One create a pull request (PR) and mark it as draft. As soon as the PR is submitted, netlify will start to render a preview. You will see some tasks running on the PR-page and the last one will give you a link to the preview-site. Two you can render the page locally through docToolchain. Execute ./dtcw4 local generateSite locally and you will find the result in build/microsite/output/index.html Submit your Pull-Request As soon as you think your tutorial is ready for production, remove the draft status from your PR and we will start a short review process. As soon as we are through with the review, we will merge the PR and your tutorial will be live. Any questions? Feel free to open a new Discussion ! "
-},
-
-{
-    "id": 68,
     "uri": "020_tutorial/160_EnterpriseTipsAndTricks.html",
     "menu": "tutorial",
     "title": "Enterprise docToolchain",
     "text": " Table of Contents Some Tips on how to use docToolchain in an Enterprise Environment Corporate Identity CI/CD Pipelines Docker Some Tips on how to use docToolchain in an Enterprise Environment Some things are different when you use them at a larger scale. Here are some tips from experience with docToolchain in enterprise environments. Corporate Identity Customize the microsite design so your employees can better identify with the documentation. Take a look at 040_microsite/130_theming.html to see how to change the look and feel. CI/CD Pipelines To automatically build and deploy documentation, see the demo project: ci-cd-demo . It contains a GitHub workflow and a .gitlab-ci.yml as starters. GitHub and GitLab each provide only one static page per repository. Restrict the deploy pipeline to your main branch to avoid overwriting production docs from feature branches. Set DTC_HEADLESS=true in your CI environment to skip interactive prompts. Docker The docToolchain Docker image is self-contained with all dependencies. Run your build pipeline directly on this image — dtcw detects it and uses the bundled tools. ./dtcw docker generateSite "
+},
+
+{
+    "id": 68,
+    "uri": "020_tutorial/990_Tutorial.html",
+    "menu": "tutorial",
+    "title": "How to create a Tutorial",
+    "text": " Table of Contents How to create a Tutorial Prepare your Tutorial Preview your work Submit your Pull-Request How to create a Tutorial Since docToolchain is a community project, it also lives from the content created by the community. This little tutorial will explain how you&#8201;&#8212;&#8201;as a member of the community&#8201;&#8212;&#8201;can create your own tutorial. Prerequisites: you know how to use Git ( https://www.gitbook.com/ ), how to fork and create a pull request on github and how to write in AsciiDoc. The docToolchain website is build with docToolchain itself. So, the code of docToolchain and the documentation reside both in the same repository. (The way as it should be with the docs-as-code approach!) Navigate to https://github.com/docToolchain/docToolchain/tree/ng/src/docs/020_tutorial to find the source of the already existing tutorials. As you can see, the files are numbered in steps of 10. The numbers are the order of appearance within the left navigation. They can be overwritten by a :jbake-order: x -statement within the .adoc file. The order is specified in steps of 10 just to be able to insert files in between if necessary. Prepare your Tutorial To create a new Tutorial, fork the project and create a new file in the folder src/docs with an appropriate name and number. Add the following content to your file: :jbake-title: Your Navigation-Entry :source-highlighter: highlightjs :highlightjs-theme: monokai-sublime :imagesdir: images :icons: font == Your Headline The :jbake-title: Your Navigation-Entry tell jBake (the renderer used by docToolchain) the text for the navigation link in left navigation pane. If this is missing, it will use the first Headline in your document. If this is also missing, it will use the filename. You might wonder why you should specify the title if you already have named your tutorial via the first headline. The headline is often quite long and :jbake-title: gives you the opportunity to shorten it for the navigation pane. The include:: -statement mainly sets the location of the imagesdir so that you don&#8217;t have to worry about it. Take a look at the file to see what else it does! Your first headline should always start with == and not = , sind a single = is the document name like a book title. docToolchain expects for the chapters of the documentation headline level == as starting headline. That&#8217;s it. Now you can start to write your tutorial. Preview your work To edit your file, use an editor which gives you a preview of your .adoc file like IntelliJ or VS Code. This already gives you a good preview of the structure and formatting of your document. Want to see how it looks on a web page? There are two ways to render the full page. One create a pull request (PR) and mark it as draft. As soon as the PR is submitted, netlify will start to render a preview. You will see some tasks running on the PR-page and the last one will give you a link to the preview-site. Two you can render the page locally through docToolchain. Execute ./dtcw4 local generateSite locally and you will find the result in build/microsite/output/index.html Submit your Pull-Request As soon as you think your tutorial is ready for production, remove the draft status from your PR and we will start a short review process. As soon as we are through with the review, we will merge the PR and your tutorial will be live. Any questions? Feel free to open a new Discussion ! "
 },
 
 {
@@ -698,18 +698,18 @@ var documents = [
 
 {
     "id": 87,
-    "uri": "ea/Use_Cases_links.html",
-    "menu": "ea",
-    "title": "Use_Cases_links.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
-},
-
-{
-    "id": 88,
     "uri": "ea/UseCases.html",
     "menu": "ea",
     "title": "UseCases.ad",
     "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
+},
+
+{
+    "id": 88,
+    "uri": "ea/Use_Cases_links.html",
+    "menu": "ea",
+    "title": "Use_Cases_links.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
 },
 
 {
