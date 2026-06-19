@@ -212,10 +212,57 @@
         <ul class="navbar-nav mt-2 mt-lg-0">
     <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../10_about/10_about-the-project.html"><span>About</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../010_manual/20_install.html"><span>User Docs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../015_tasks/03_tasks.html"><span>Tasks</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link active" href="../../020_tutorial/010_Install.html"><span>Tutorial</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../025_development/005_contributing_to_docs.html"><span>For Devs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../030_news/index.html"><span>News</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../arc42/open_questions.html"><span>arc42</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
+            </li>
+
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
     <form id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
     </div>
 </nav>
 
@@ -227,3 +274,475 @@
 				<div class="td-sidebar__inner" id="td-sidebar-menu" >
 					
      <form class="td-sidebar__search d-flex align-items-center d-lg-none"  id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
+
+
+        <nav aria-label="Submenu" class="collapse td-sidebar-nav" id="td-section-nav" >
+
+            <ul class="td-sidebar-nav__section">
+                <li class="td-sidebar-nav__section-title">
+                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">Tutorial</span>
+                </li>
+                <li>
+                  <ul>
+                      <li class="collapse show" id="docs">
+                          
+                        <ul class="td-sidebar-nav__section ul-0">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/010_Install.html" title="Install docToolchain">Install docToolchain</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/020_arc42.html" title="arc42 Template">arc42 Template</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/030_generateHTML.html" title="generateHTML &amp; generatePDF">generateHTML &amp; generatePDF</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/040_microsite/index.html" title="Microsite">Microsite</a>
+                                
+                        <ul class="ul-1">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../../020_tutorial/040_microsite/040_generateSite.html" title="generateSite">generateSite</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/040_microsite/043_multi-markup.html" title="generateSite: Multi-Markup">generateSite: Multi-Markup</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/040_microsite/130_theming.html" title="How to change the theme">How to change the theme</a>
+                                
+                            </li>
+                        </ul></details>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/050_multipleRepositories.html" title="Multi-Repo">Multi-Repo</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/070_publishToConfluence.html" title="publishToConfluence">publishToConfluence</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/100_diagrams.net.html" title="Diagrams: Diagrams.net">Diagrams: Diagrams.net</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/110_presentations_with_revealjs.html" title="Presentations with reveal.js">Presentations with reveal.js</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/120_self-contained-dtc.html" title="Self-Contained docToolchain">Self-Contained docToolchain</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/140_Dropdown_Menu.html" title="How to create a Dropdown Menu">How to create a Dropdown Menu</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/150_multiRepoMicrositeTipsAndTricks.html" title="Building a microsite from multiple repositories">Building a microsite from multiple repositories</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/160_EnterpriseTipsAndTricks.html" title="Enterprise docToolchain">Enterprise docToolchain</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/170_kroki-configuration.html" title="Kroki Configuration Guide">Kroki Configuration Guide</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../020_tutorial/990_Tutorial.html" title="How to create a Tutorial">How to create a Tutorial</a>
+                                
+                            </li>
+                        </ul>
+                      </li>
+                  </ul>
+                <li>
+        </nav>
+
+				</div>
+			</div>
+			<div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+					
+
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/020_tutorial/040_microsite/040_generateSite.adoc"
+           target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
+
+
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27generateSite%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/020_tutorial/040_microsite/040_generateSite.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+                class="fab fa-github fa-fw"></i> Create an issue</a>
+
+        
+        
+        <hr />
+<script>
+const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
+const searchTerm = "020_tutorial/040_microsite/040_generateSite.adoc";
+</script>
+
+<script src="../../js/issues.js"></script>
+
+<style>
+        #issues-container {
+            background-color: white;
+            padding: 0px;
+            margin: 0;
+        }
+        .issue {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .issue:last-child {
+            border-bottom: none;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: -10px;
+        }
+        .issue-content {
+            flex-grow: 1;
+            background-color: rgba(255,255,255,0.6);
+        }
+        .issue-title {
+            font-weight: bold;
+            color: #0366d6;
+        }
+        .issue-date {
+            font-size: 0.9em;
+            color: #586069;
+        }
+
+</style>
+
+<div id="issues-container">
+searching issues...
+</div>
+
+        <hr />
+
+        <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_generatesite">generateSite</a></li>
+</ul>
+</div>
+
+
+<div style="border: 1px solid #8e3063; border-radius: 3px; padding: 5px; margin-top: 10px;">
+    <span style="font-size:x-small; display: block; text-align: right;">Anzeige</span><br />
+    <b>Wissen,<br />direkt von der Quelle!</b><br /><br />
+    Wir bieten ein remote Docs-as-Code Training unter Verwendung von docToolchain an.<br /><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode">Nächster Termin: auf Anfrage</a><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode" class="btn btn-primary" style="">jetzt buchen!</a>
+</div>
+
+
+
+				</div>
+			</div>
+			<main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+				    <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+        <ol class="breadcrumb spb-1">
+            <!--li aria-current="page" class="breadcrumb-item active">
+                <a href="https://example.docsy.dev/docs/">Documentation</a>
+            </li-->
+
+        </ol>
+    </nav>
+
+
+    <div class="td-content">
+        <p>
+            
+<div class="sect1">
+<h2 id="_generatesite">generateSite</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The <a href="../015_tasks/03_task_generateSite.html"><code>generateSite</code></a> task is more advanced.
+In many cases, your goal will not be to create a single HTML document but a whole documentation website.
+This is where <code>generateSite</code> shines.
+It uses a static site generator to turn your document into a nice looking microsite with landing-page, local search and edit links.</p>
+</div>
+<div class="openblock primary">
+<div class="title">Linux / WSL2 with bash</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw generateSite</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock secondary">
+<div class="title">Windows with Powershell</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="powershell">./dtcw.ps1 generateSite</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">output of generateSite</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="shell session">$ ./dtcw docker generateSite
+dtcw - docToolchain wrapper V0.24
+docToolchain V2.0.0
+
+Bash is running on WSL
+this might cause problems with plantUML
+see https://doctoolchain.github.io/docToolchain/#wsl for more details
+
+Java Version 11
+docker available
+home folder exists
+force use of docker
+/usr/bin/docker
+use docker installation
+Starting a Gradle Daemon (subsequent builds will be faster)
+
+&gt; Configure project :
+arc42/arc42.adoc
+
+&gt; Task :generateSite
+created
+/project/build/microsite/tmp
+copy internal theme /home/dtcuser/docToolchain/src/site
+copy project theme /project/src/site
+
+&gt; Task :copyImages
+&gt; Task :bake
+Warning: Nashorn engine is planned to be removed from a future JDK release
+
+BUILD SUCCESSFUL in 1m 15s
+3 actionable tasks: 3 executed</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The output is written to <code>build/microsite/output/index.html</code>.
+You can open this file in your browser and view the results.
+But you will notice that some features which rely on javascript will be broken.
+To avoid this, use the task <a href="../015_tasks/03_task_previewSite.html"><code>previewSite</code></a> to start a little webserver which presents you the site without flaws.</p>
+</div>
+<div id="html_out" class="imageblock">
+<div class="content">
+<img src="images/generateSite.png" alt="generateSite">
+</div>
+<div class="title">Figure 1. generated output of generateSite task</div>
+</div>
+</div>
+</div>
+        </p>
+
+        <style>
+.feedback--answer {
+    display: inline-block;
+}
+
+.feedback--answer-no {
+    margin-left: 1em;
+}
+
+.feedback--response {
+    display: none;
+    margin-top: 1em;
+}
+
+.feedback--response__visible {
+    display: block;
+}
+</style>
+
+<div class="d-print-none">
+    <h2 class="feedback--title">Feedback</h2>
+    <p class="feedback--question">Was this page helpful?</p>
+    <button class="feedback--answer feedback--answer-yes">Yes</button>
+    <button class="feedback--answer feedback--answer-no">No</button>
+    <p class="feedback--response feedback--response-yes">
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27generateSite%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/040_microsite/040_generateSite.adoc">tell us
+    how we can improve</a>.
+    </p>
+    <p class="feedback--response feedback--response-no">
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27generateSite%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/040_microsite/040_generateSite.adoc">tell
+    us how we can improve</a>.
+    </p>
+</div>
+<script>
+    const yesButton = document.querySelector('.feedback--answer-yes');
+    const noButton = document.querySelector('.feedback--answer-no');
+    const yesResponse = document.querySelector('.feedback--response-yes');
+    const noResponse = document.querySelector('.feedback--response-no');
+    const disableButtons = () => {
+        yesButton.disabled = true;
+        noButton.disabled = true;
+    };
+    const sendFeedback = (value) => {
+        if (typeof ga !== 'function') return;
+        const args = {
+            command: 'send',
+            hitType: 'event',
+            category: 'Helpful',
+            action: 'click',
+            label: window.location.pathname,
+            value: value
+        };
+        ga(args.command, args.hitType, args.category, args.action, args.label, args.value);
+    };
+    yesButton.addEventListener('click', () => {
+        yesResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(1);
+    });
+    noButton.addEventListener('click', () => {
+        noResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(0);
+    });
+</script>
+
+
+        <br>
+
+        <!--div class="text-muted mt-5 pt-3 border-top">Last modified July 3, 2019: <a
+                href="https://github.com/google/docsy-example/commit/d6aa89c8b24089d7e6741030864eff209465e896">Added
+            links to user guide repo (d6aa89c)</a>
+        </div-->
+    </div>
+
+
+			</main>
+
+		</div>
+	</div>
+
+
+	
+    <!--footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">&copy; 2020 | based on <a href="https://arc42.org">arc42 7.0</a> | mixed with <a href="http://getbootstrap.com/">Bootstrap v5.0.0-beta</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a></span>
+        </div>
+    </footer-->
+
+    <footer class="bg-dark py-5 row d-print-none">
+        <div class="container-fluid mx-sm-5">
+            <div class="row">
+                <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+
+
+                    <ul class="list-inline mb-0">
+                        
+                        <li aria-label="User mailing list" class="list-inline-item mx-2 h3" data-original-title="User mailing list" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="mailto:info@docs-as-co.de" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Twitter" class="list-inline-item mx-2 h3" data-original-title="Twitter" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://twitter.com/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Stack Overflow" class="list-inline-item mx-2 h3" data-original-title="Stack Overflow" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://stackoverflow.com/questions/tagged/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-stack-overflow"></i>
+                            </a>
+                        </li>
+                        
+                    </ul>
+
+
+                </div>
+                <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+
+
+                    <ul class="list-inline mb-0">
+
+                        
+                        <li aria-label="GitHub" class="list-inline-item mx-2 h3" data-original-title="GitHub" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://github.com/doctoolchain/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </li>
+                        
+
+                        
+
+
+                    </ul>
+
+
+                </div>
+                <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+
+                        <small class="text-white">built with <a href="https://doctoolchain.org">docToolchain</a> and <a href="https://jbake.org">jBake</a> <br /> theme: <a href="https://www.docsy.dev/">docsy</a></small>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+
+
+    <script src="../../js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
+    <script src="../../js/blocks.js" ></script>
+    <script src="../../js/prettify.js"></script>
+    <script src="../../js/copy-n-paste.js"></script>
+    <script src="../../js/submenucollapse.js"></script>
+
+
+</body>
+</html>

@@ -212,10 +212,57 @@
         <ul class="navbar-nav mt-2 mt-lg-0">
     <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../10_about/10_about-the-project.html"><span>About</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../010_manual/20_install.html"><span>User Docs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../015_tasks/03_tasks.html"><span>Tasks</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../020_tutorial/010_Install.html"><span>Tutorial</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../025_development/005_contributing_to_docs.html"><span>For Devs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../030_news/index.html"><span>News</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link active" href="../arc42/open_questions.html"><span>arc42</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
+            </li>
+
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
     <form id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
     </div>
 </nav>
 
@@ -227,3 +274,3311 @@
 				<div class="td-sidebar__inner" id="td-sidebar-menu" >
 					
      <form class="td-sidebar__search d-flex align-items-center d-lg-none"  id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
+
+
+        <nav aria-label="Submenu" class="collapse td-sidebar-nav" id="td-section-nav" >
+
+            <ul class="td-sidebar-nav__section">
+                <li class="td-sidebar-nav__section-title">
+                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">-</span>
+                </li>
+                <li>
+                  <ul>
+                      <li class="collapse show" id="docs">
+                          
+                        <ul class="td-sidebar-nav__section ul-0">
+<details id="d92e87214a12aa80bb184e0d45bb68161"><summary><span class="label">arc42</span></summary>
+                        <ul class="ul-1">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../arc42/arc42.html" title="docToolchain Architecture Documentation">docToolchain Architecture Documentation</a>
+                                
+                            </li>
+                        </ul></details>
+<details id="d3eed20573aa33a24201635cc342ba05c"><summary><span class="label">arc42-v3</span></summary>
+                        <ul class="ul-1">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../arc42-v3/arc42.html" title="docToolchain Architecture Documentation">docToolchain Architecture Documentation</a>
+                                
+                            </li>
+                        </ul></details>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../search.html" title="search">search</a>
+                                
+                            </li>
+<details id="df36521fc8d2ada8e4a5e34b06d8c4ee3"><summary><span class="label">User Docs</span></summary>
+                        <ul class="ul-1">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../010_manual/single-page.html" title="docToolchain Manual">docToolchain Manual</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../010_manual/010_introduction_and_goals.html" title="moved">moved</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../010_manual/040_contributors.html" title="moved">moved</a>
+                                
+                            </li>
+                        </ul></details>
+<details id="d8ec29164bbf4862e8f206cfc347a3ff9"><summary><span class="label">For Devs</span></summary>
+                        <ul class="ul-1">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../025_development/050_who-uses-dtc.html" title="moved">moved</a>
+                                
+                            </li>
+                        </ul></details>
+                        </ul>
+                      </li>
+                  </ul>
+                <li>
+        </nav>
+
+				</div>
+			</div>
+			<div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+					
+
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/arc42.adoc"
+           target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
+
+
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27docToolchain+Architecture+Documentation%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/arc42.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+                class="fab fa-github fa-fw"></i> Create an issue</a>
+
+        
+        
+        <hr />
+<script>
+const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
+const searchTerm = "arc42/arc42.adoc";
+</script>
+
+<script src="../js/issues.js"></script>
+
+<style>
+        #issues-container {
+            background-color: white;
+            padding: 0px;
+            margin: 0;
+        }
+        .issue {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .issue:last-child {
+            border-bottom: none;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: -10px;
+        }
+        .issue-content {
+            flex-grow: 1;
+            background-color: rgba(255,255,255,0.6);
+        }
+        .issue-title {
+            font-weight: bold;
+            color: #0366d6;
+        }
+        .issue-date {
+            font-size: 0.9em;
+            color: #586069;
+        }
+
+</style>
+
+<div id="issues-container">
+searching issues...
+</div>
+
+        <hr />
+
+        <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_doctoolchain_architecture_documentation">docToolchain Architecture Documentation</a></li>
+<li><a href="#section-introduction-and-goals">1. Introduction and Goals</a>
+<ul class="sectlevel2">
+<li><a href="#_requirements_overview">1.1. Requirements Overview</a></li>
+<li><a href="#_quality_goals">1.2. Quality Goals</a></li>
+<li><a href="#_stakeholders">1.3. Stakeholders</a></li>
+</ul>
+</li>
+<li><a href="#section-architecture-constraints">2. Architecture Constraints</a>
+<ul class="sectlevel2">
+<li><a href="#_technical_constraints">2.1. Technical Constraints</a></li>
+<li><a href="#_organizational_constraints">2.2. Organizational Constraints</a></li>
+<li><a href="#_conventions">2.3. Conventions</a></li>
+</ul>
+</li>
+<li><a href="#section-context-and-scope">3. Context and Scope</a>
+<ul class="sectlevel2">
+<li><a href="#_business_context">3.1. Business Context</a></li>
+<li><a href="#_technical_context">3.2. Technical Context</a></li>
+</ul>
+</li>
+<li><a href="#section-solution-strategy">4. Solution Strategy</a>
+<ul class="sectlevel2">
+<li><a href="#_key_technology_decisions">4.1. Key Technology Decisions</a></li>
+</ul>
+</li>
+<li><a href="#section-building-block-view">5. Building Block View</a>
+<ul class="sectlevel2">
+<li><a href="#_level_1_whitebox_overall_system">5.1. Level 1: Whitebox Overall System</a></li>
+<li><a href="#_level_2_whitebox_groovy_scripts">5.2. Level 2: Whitebox Groovy Scripts</a></li>
+<li><a href="#_level_3_whitebox_atlassian_integration">5.3. Level 3: Whitebox Atlassian Integration</a></li>
+</ul>
+</li>
+<li><a href="#section-runtime-view">6. Runtime View</a>
+<ul class="sectlevel2">
+<li><a href="#_scenario_1_generate_html_documentation">6.1. Scenario 1: Generate HTML Documentation</a></li>
+<li><a href="#_scenario_2_publish_to_confluence">6.2. Scenario 2: Publish to Confluence</a></li>
+<li><a href="#_scenario_3_llm_modifies_documentation_via_dacli">6.3. Scenario 3: LLM Modifies Documentation via daCLI</a></li>
+<li><a href="#_scenario_4_generate_microsite">6.4. Scenario 4: Generate Microsite</a></li>
+</ul>
+</li>
+<li><a href="#section-deployment-view">7. Deployment View</a>
+<ul class="sectlevel2">
+<li><a href="#_infrastructure_level_1_execution_environments">7.1. Infrastructure Level 1: Execution Environments</a></li>
+<li><a href="#_infrastructure_level_2_cicd_pipeline">7.2. Infrastructure Level 2: CI/CD Pipeline</a></li>
+</ul>
+</li>
+<li><a href="#section-concepts">8. Cross-cutting Concepts</a>
+<ul class="sectlevel2">
+<li><a href="#_configuration_management">8.1. Configuration Management</a></li>
+<li><a href="#_script_execution_model">8.2. Script Execution Model</a></li>
+<li><a href="#_authentication_and_security">8.3. Authentication and Security</a></li>
+<li><a href="#_headless_ci_mode">8.4. Headless / CI Mode</a></li>
+<li><a href="#_llm_integration_architecture">8.5. LLM Integration Architecture</a></li>
+<li><a href="#_content_transformation_pipeline">8.6. Content Transformation Pipeline</a></li>
+<li><a href="#_custom_site_generator_replacing_jbake">8.7. Custom Site Generator (replacing jBake)</a></li>
+</ul>
+</li>
+<li><a href="#section-design-decisions">9. Architecture Decisions</a>
+<ul class="sectlevel2">
+<li><a href="#_adr_1_use_groovy_as_primary_scripting_language">9.1. ADR-1: Use Groovy as Primary Scripting Language</a></li>
+<li><a href="#_adr_2_separate_core_logic_from_gradle_superseded">9.2. ADR-2: Separate Core Logic from Gradle — SUPERSEDED</a></li>
+<li><a href="#_adr_3_remove_gradle_direct_groovy_script_execution">9.3. ADR-3: Remove Gradle — Direct Groovy Script Execution</a></li>
+<li><a href="#_adr_4_replace_jbake_for_static_site_generation">9.4. ADR-4: Replace jBake for Static Site Generation</a></li>
+<li><a href="#_adr_5_llm_native_architecture">9.5. ADR-5: LLM-Native Architecture</a></li>
+<li><a href="#_adr_6_asciidoctor_as_external_tool_with_versioned_auto_installation">9.6. ADR-6: AsciiDoctor as External Tool with Versioned Auto-Installation</a></li>
+<li><a href="#_adr_7_lib_directory_for_remaining_java_dependencies">9.7. ADR-7: lib/ Directory for Remaining Java Dependencies</a></li>
+<li><a href="#_adr_8_actionable_error_guidance">9.8. ADR-8: Actionable Error Guidance</a></li>
+<li><a href="#_adr_9_server_based_diagram_rendering_via_kroki_compatible_api">9.9. ADR-9: Server-Based Diagram Rendering via Kroki-Compatible API</a></li>
+<li><a href="#_adr_10_risk_based_quality_assurance_vibe_coding_risk_radar">9.10. ADR-10: Risk-Based Quality Assurance (Vibe-Coding Risk Radar)</a></li>
+<li><a href="#_adr_11_tier_2_mitigation_implementation">9.11. ADR-11: Tier 2 Mitigation Implementation</a></li>
+<li><a href="#_adr_tbd_1_confluence_api_version_strategy">9.12. ADR-TBD-1: Confluence API Version Strategy</a></li>
+<li><a href="#_adr_tbd_2_jira_cloud_vs_server_client_architecture">9.13. ADR-TBD-2: Jira Cloud vs. Server Client Architecture</a></li>
+</ul>
+</li>
+<li><a href="#section-quality-scenarios">10. Quality Requirements</a>
+<ul class="sectlevel2">
+<li><a href="#_quality_requirements_overview">10.1. Quality Requirements Overview</a></li>
+<li><a href="#_quality_scenarios">10.2. Quality Scenarios</a></li>
+</ul>
+</li>
+<li><a href="#section-technical-risks">11. Risks and Technical Debts</a>
+<ul class="sectlevel2">
+<li><a href="#_resolved_v3_risks">11.1. Resolved v3 Risks</a></li>
+</ul>
+</li>
+<li><a href="#section-glossary">12. Glossary</a></li>
+</ul>
+</div>
+
+
+<div style="border: 1px solid #8e3063; border-radius: 3px; padding: 5px; margin-top: 10px;">
+    <span style="font-size:x-small; display: block; text-align: right;">Anzeige</span><br />
+    <b>Wissen,<br />direkt von der Quelle!</b><br /><br />
+    Wir bieten ein remote Docs-as-Code Training unter Verwendung von docToolchain an.<br /><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode">Nächster Termin: auf Anfrage</a><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode" class="btn btn-primary" style="">jetzt buchen!</a>
+</div>
+
+
+
+				</div>
+			</div>
+			<main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+				    <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+        <ol class="breadcrumb spb-1">
+            <!--li aria-current="page" class="breadcrumb-item active">
+                <a href="https://example.docsy.dev/docs/">Documentation</a>
+            </li-->
+
+        </ol>
+    </nav>
+
+
+    <div class="td-content">
+        <p>
+            
+<div class="sect1">
+<h2 id="_doctoolchain_architecture_documentation">docToolchain Architecture Documentation</h2>
+<div class="sectionbody">
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-introduction-and-goals">1. Introduction and Goals</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>docToolchain is an open-source implementation of the <em>docs-as-code</em> approach for software architecture documentation.
+It processes AsciiDoc source files and generates documentation in multiple output formats (HTML, PDF, DocBook, Reveal.js slides, microsites).
+Beyond format conversion, docToolchain integrates with external systems&#8201;&#8212;&#8201;Atlassian Confluence and Jira, Enterprise Architect, Structurizr, Excel, PowerPoint, and Visio&#8201;&#8212;&#8201;to import data into documentation or publish documentation to collaboration platforms.</p>
+</div>
+<div class="paragraph">
+<p>v4 represents a fundamental shift: from a Gradle-based build tool to a lightweight, LLM-native docs-as-code platform.
+Gradle is removed entirely (ADR-3), the <code>core/</code> compilation module is dissolved back into scripts, jBake is replaced by a custom Groovy-based site generator (ADR-4), and the strategic focus shifts to LLM integration via MCP, Skills, Prompts, and Semantic Anchors (ADR-5).</p>
+</div>
+<div class="sect2">
+<h3 id="_requirements_overview">1.1. Requirements Overview</h3>
+<div class="paragraph">
+<p>The core functional requirements are:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Document generation</strong>: Convert AsciiDoc sources with embedded PlantUML diagrams to HTML, PDF, DocBook, and Reveal.js slides</p>
+</li>
+<li>
+<p><strong>Microsite generation</strong>: Build complete static documentation websites with a modern UI, using a custom Groovy-based generator (replacing jBake)</p>
+</li>
+<li>
+<p><strong>Confluence publishing</strong>: Publish generated HTML pages to Atlassian Confluence, maintaining page hierarchies, attachments, and labels</p>
+</li>
+<li>
+<p><strong>Jira integration</strong>: Export Jira issues and sprint changelogs to AsciiDoc or Excel format for inclusion in documentation</p>
+</li>
+<li>
+<p><strong>External tool import</strong>: Extract diagrams from Enterprise Architect, Structurizr, Visio, and PowerPoint; import tables from Excel; convert Markdown to AsciiDoc</p>
+</li>
+<li>
+<p><strong>Git metadata extraction</strong>: Generate changelogs and contributor lists from Git history</p>
+</li>
+<li>
+<p><strong>Cross-platform CLI</strong>: Provide a single command-line interface (<code>dtcw</code>) that works on Linux, macOS (including Apple Silicon), and Windows</p>
+</li>
+<li>
+<p><strong>Multiple execution environments</strong>: Support local installation, Docker containers, and SDKMAN-based installation</p>
+</li>
+<li>
+<p><strong>Zero-configuration start</strong>: Enable first-time users to generate documentation with minimal setup</p>
+</li>
+<li>
+<p><strong>LLM-native document access</strong>: Provide structured document navigation and modification via MCP server (daCLI), supporting Skills, Prompts, and Semantic Anchors</p>
+</li>
+<li>
+<p><strong>Fast execution</strong>: Minimal startup overhead — no build framework initialization, no daemon, no dependency resolution at runtime</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_quality_goals">1.2. Quality Goals</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 50.0001%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Priority</th>
+<th class="tableblock halign-left valign-top">Quality Goal</th>
+<th class="tableblock halign-left valign-top">Scenario</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No implicit cloud processing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No data leaves the user&#8217;s machine unless explicitly configured. External services (kroki.io, Confluence, Jira) trigger a warning. Default diagram rendering is local via Docker. (QS-16)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance (Startup + Throughput)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Startup under 3 seconds, 50-page HTML generation under 10 seconds. No Gradle daemon, no dependency resolution overhead. (QS-9)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cross-platform portability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identical output on Linux, macOS (including Apple Silicon), and Windows across local, Docker, and SDKMAN environments. (QS-2, QS-10)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Actionable error guidance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">When something fails, docToolchain tells the user what to do — not what went wrong. Every error message is a concrete action: which file to close, which config to set, which command to run. (QS-17)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ease of adoption</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A developer generates HTML documentation in under 5 minutes using only <code>dtcw</code>, including automatic Java and docToolchain installation. (QS-3, QS-6)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Minimal repository footprint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only <code>dtcw</code> and <code>docToolchainConfig.groovy</code> live in the project repository. Everything else is installed in <code>$HOME/.doctoolchain/</code>. (QS-18)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clean uninstallation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>rm -rf $HOME/.doctoolchain/</code> removes everything. No modified shell profiles, no orphaned PATH entries, no system-level side effects. (QS-19)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM Friendliness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLMs navigate and modify documentation via daCLI MCP server with at most 3 tool calls to locate any section. Token usage under 10% of full-file reading. (QS-12)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM-managed configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The config file contains only deviations from defaults. An LLM can read, explain, and modify <code>docToolchainConfig.groovy</code> correctly. No boilerplate, no commented-out defaults. (QS-15)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Modern documentation UI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generated microsites have a modern, responsive design with dark mode, fast search, and clean navigation. (QS-13)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v3 backward compatibility</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Existing <code>docToolchainConfig.groovy</code> files work without changes. Deprecated features emit warnings but do not fail. (QS-14)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Script-first Maintainability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A new feature is added by creating one Groovy script in <code>scripts/</code>. No compilation, no JAR rebuild. Change-to-test cycle under 5 seconds. (QS-11)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_stakeholders">1.3. Stakeholders</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Role/Name</th>
+<th class="tableblock halign-left valign-top">Contact</th>
+<th class="tableblock halign-left valign-top">Expectations</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Documentation Author</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Technical writers and developers writing docs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Simple CLI to generate and preview documentation. Seamless integration with editors, version control, and LLM assistants.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM Agent</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AI assistants (Claude, ChatGPT, etc.) via daCLI MCP server</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Structured document access, section-level read/write, search, validation. Machine-readable Semantic Anchors for reliable navigation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contributor / Developer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Open-source contributors extending docToolchain</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Script-first architecture — no compilation step, no build system knowledge required. Fast feedback loop. Clear, simple codebase.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">DevOps Engineer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CI/CD pipeline maintainers</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Headless execution mode, Docker support, predictable exit codes. Fast builds without Gradle overhead.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project Maintainer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ralf D. Mueller and core team</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sustainable, lightweight architecture. No dependency on unmaintained upstream projects (Gradle plugins, jBake). Full control over the stack.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">End User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Readers of generated documentation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Modern, accessible UI in HTML and PDF. Responsive microsites with dark mode, search, and clear navigation.</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-architecture-constraints">2. Architecture Constraints</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_technical_constraints">2.1. Technical Constraints</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Constraint</th>
+<th class="tableblock halign-left valign-top">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy (JVM)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primary implementation language (ADR-1). All scripts, the site generator, and integration logic are written in Groovy. This requires a JVM runtime — currently Java 17, but v4 should support Java 21+.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No build framework</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gradle is removed (ADR-3). No build system sits between <code>dtcw</code> and the Groovy scripts. This means dependency management, classpath construction, and task invocation are handled by <code>dtcw</code> and the scripts themselves.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AsciiDoc format</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All documentation sources must be in AsciiDoc. This is a fundamental design decision. Markdown sources can be converted as a preprocessing step.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PlantUML + Graphviz</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Diagram rendering requires PlantUML (via <code>asciidoctor-diagram</code> gem) and optionally Graphviz. Installed alongside AsciiDoctor as external tools (ADR-6).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cross-platform including Apple Silicon</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Must run on Linux, macOS (x86_64 and ARM64/Apple Silicon), and Windows. No native/JNI dependencies that break on ARM64 (this is why jBake/OrientDB is replaced — ADR-4).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Backward-compatible configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>docToolchainConfig.groovy</code> from v3 projects must work in v4 without changes (QS-14). <code>Config.groovy</code> is the template, <code>docToolchainConfig.groovy</code> is the user&#8217;s config — this is not a dual-config problem; it only appears that way because docToolchain is installed as a tool inside its own repo.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_organizational_constraints">2.2. Organizational Constraints</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Constraint</th>
+<th class="tableblock halign-left valign-top">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MIT License</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Open-source license. All dependencies must be compatible. No proprietary libraries in the core distribution.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Community-driven development</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contributions come from volunteers. The architecture must be approachable — script-first, no compilation step, fast feedback loop.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GitHub as development platform</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source code, issues, pull requests, CI/CD, and releases hosted on GitHub. CI/CD uses GitHub Actions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docs-as-code philosophy</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Documentation is treated as source code: version-controlled, peer-reviewed, built automatically.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ecosystem coherence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">docToolchain is part of an ecosystem: daCLI (MCP server), Bausteinsicht (architecture-as-code), LLM-Prompts (interaction patterns). Architectural decisions must consider cross-project impact.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_conventions">2.3. Conventions</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Convention</th>
+<th class="tableblock halign-left valign-top">Explanation</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Architecture Decision Records</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Significant decisions are documented as ADRs with Pugh Matrix evaluation against quality goals.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy as scripting language</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-1. Exception: Visual Basic for Windows COM automation.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Semantic Versioning</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v3 is current production. v4 is the next major version with breaking changes (Gradle removal).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy SimpleTemplate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Template engine for microsite generation (ADR-4). Existing templates from v3 are reused.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Semantic Anchors and Contracts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Anchors are precise reference terms ("arc42", "SOLID", "Docs-as-Code") that activate rich knowledge in LLMs. Contracts (in <code>CLAUDE.md</code>) bundle anchors into reusable working agreements for consistent LLM collaboration.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scripts as primary code artifacts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No compiled modules. Groovy scripts are executed directly. Change-to-test cycle under 5 seconds (QS-11).</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-context-and-scope">3. Context and Scope</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>docToolchain sits between documentation authors (human and AI) and their audiences.
+Authors write AsciiDoc sources in a version-controlled repository; docToolchain processes these sources and delivers the output to readers.
+In v4, LLM agents become first-class users of the system via daCLI&#8217;s MCP server.</p>
+</div>
+<div class="sect2">
+<h3 id="_business_context">3.1. Business Context</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../images/business-context.png" alt="business context" width="1419" height="969">
+</div>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Communication Partner</th>
+<th class="tableblock halign-left valign-top">Input to docToolchain</th>
+<th class="tableblock halign-left valign-top">Output from docToolchain</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Documentation Author</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AsciiDoc source files, configuration (<code>docToolchainConfig.groovy</code>), CLI commands via <code>dtcw</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generated HTML, PDF, DocBook, Reveal.js slides, microsite</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM Agent (via daCLI)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MCP tool calls: <code>get_structure</code>, <code>get_section</code>, <code>search</code>, <code>update_section</code>, <code>insert_content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Structured section content, metadata, validation results</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bausteinsicht</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JSONC architecture models, draw.io diagram exports (PNG, PlantUML)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8201;&#8212;&#8201;(consumed as images/includes in AsciiDoc sources)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM-Prompts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prompt-guided AsciiDoc output (arc42 chapters, ADRs, quality scenarios)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8201;&#8212;&#8201;(consumed as doc sources)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Atlassian Confluence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8201;&#8212;&#8201;</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTML pages with attachments, page hierarchy, labels</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Atlassian Jira</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Issues (via JQL queries), sprint data, custom fields</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8201;&#8212;&#8201;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enterprise Architect</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UML diagrams (via COM automation, Windows only)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8201;&#8212;&#8201;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Git Repository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Commit history, contributor metadata</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8201;&#8212;&#8201;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Structurizr</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Architecture model (DSL files)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8201;&#8212;&#8201;</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_technical_context">3.2. Technical Context</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">External System</th>
+<th class="tableblock halign-left valign-top">Protocol / Interface</th>
+<th class="tableblock halign-left valign-top">Configuration</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">daCLI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MCP protocol via stdio. LLMs call 10 tools for document navigation, search, and modification.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dacli-mcp --docs-root &lt;path&gt;</code> — points to docToolchain&#8217;s <code>src/docs/</code> directory.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Atlassian Confluence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REST API v1 (Server/Data Center) or v2 (Cloud). HTTPS with Basic Auth or Bearer Token.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>confluence.api</code>, <code>confluence.credentials</code>, <code>confluence.spaceKey</code> in config</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Atlassian Jira</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">REST API v3 (Cloud) or v1 (Server). HTTPS with Basic Auth or Bearer Token.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>jira.api</code>, <code>jira.credentials</code>, <code>jira.exports[].jql</code> in config</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enterprise Architect</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">COM automation via VBScript. Reads <code>.eap</code> / <code>.eapx</code> project files.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exportEA.connection</code>, <code>exportEA.packageFilter</code> in config</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Structurizr</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">File-based. Parses Structurizr DSL, renders to PlantUML.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>structurizr.workspace.filename</code> in config</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Git</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local CLI (<code>git log</code>, <code>git shortlog</code>). No network access required.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>changelog.dir</code>, <code>changelog.cmd</code> in config</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AsciiDoctor CLI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">External tool (gem/brew/apt), auto-installed by <code>dtcw</code> in a pinned version (ADR-6). Processes AsciiDoc to HTML5, PDF, DocBook via CLI batch invocation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>inputFiles</code>, <code>inputPath</code>, <code>outputPath</code> in config</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy Site Generator</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Custom Groovy script replacing jBake. Reads AsciiDoc + Groovy SimpleTemplates, generates static HTML microsite.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>microsite.*</code> config section (backward-compatible with v3 jBake metadata headers)</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-solution-strategy">4. Solution Strategy</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The following table maps each quality goal to the architectural approach that achieves it and the supporting architecture decision(s).</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 16.6668%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Quality Goal</th>
+<th class="tableblock halign-left valign-top">Architectural Approach</th>
+<th class="tableblock halign-left valign-top">Rationale</th>
+<th class="tableblock halign-left valign-top">ADR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance (Startup + Throughput)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Remove Gradle entirely.</strong> <code>dtcw</code> invokes Groovy scripts directly via <code>java</code>/<code>groovy</code> runtime. No daemon, no dependency resolution, no build graph computation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gradle adds 10-95 seconds of overhead per invocation. Direct script execution eliminates this completely.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Script-first Maintainability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Scripts as primary code artifacts.</strong> No compiled <code>core/</code> module. Business logic lives in Groovy scripts that run without compilation. The <code>core/</code> Shadow JAR is dissolved.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compilation creates a slow feedback loop. Scripts enable change-to-test in under 5 seconds. Contributors need no build system knowledge.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-3 (supersedes ADR-2)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cross-platform + Apple Silicon</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Replace jBake with custom Groovy SSG.</strong> No OrientDB (JNI issues on ARM64). No unmaintained upstream dependencies. AsciiDoctor as external CLI tool (ADR-6).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jBake&#8217;s OrientDB dependency breaks Apple Silicon. The project is unmaintained. A custom generator eliminates the platform risk.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-4, ADR-6</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM Friendliness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Ecosystem approach.</strong> daCLI provides MCP-based document access. Bausteinsicht provides architecture-as-code with JSONC. LLM-Prompts provide reusable interaction patterns. Semantic Anchors enable machine-readable navigation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLMs need structured access, not raw files. The ecosystem tools each solve one aspect of LLM integration.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ease of adoption</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>dtcw auto-bootstrapping.</strong> <code>dtcw</code> detects missing Java, downloads it, detects missing docToolchain, installs it. Zero prerequisites beyond a shell.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unchanged from v3. The principle is proven and effective.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">&#8201;&#8212;&#8201;</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Modern UI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Custom site generator with modern theme.</strong> Full control over HTML output. Phase 1: clean, responsive design with dark mode and search. Phase 2: LLM-augmented UI (future).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docsy theme is dated. jBake replacement gives full control over output design.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-4</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v3 backward compatibility</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Config file compatibility.</strong> <code>docToolchainConfig.groovy</code> format unchanged. jBake metadata headers (<code>:jbake-title:</code> etc.) supported by the new site generator. <code>dtcw</code> CLI interface stable.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Existing users must upgrade without pain. Config is the contract.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-4 (metadata), ADR-3 (dtcw)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_key_technology_decisions">4.1. Key Technology Decisions</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Technology</th>
+<th class="tableblock halign-left valign-top">Decision Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Groovy (scripting)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JVM language with native Java interop. Scripts run without compilation. Groovy&#8217;s <code>@Grab</code> may handle dependency management (ADR-TBD-6). (ADR-1)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Direct JVM invocation (replacing Gradle)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dtcw</code> constructs the classpath and invokes <code>java -cp &#8230;&#8203; groovy.ui.GroovyMain script.groovy</code>. No build framework overhead. (ADR-3)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>AsciiDoctor CLI (external tool)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AsciiDoc processor installed as standalone tool (gem/brew/apt), auto-installed by <code>dtcw</code> in a pinned version (ADR-6). Supports PDF, HTML5, DocBook. Extensible via <code>asciidoctor-diagram</code> for PlantUML. Eliminates 45 MB of JRuby/asciidoctorj JARs.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Custom Groovy SSG (replacing jBake)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy SimpleTemplate engine. In-memory content model (no database). Reads jBake-compatible metadata headers. Modern HTML output. (ADR-4)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>daCLI (MCP server)</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Python-based MCP server providing 10 tools for structured document access. Separate process, communicates via stdio. Already operational. (ADR-5)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Bausteinsicht</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Go-based architecture-as-code tool. JSONC models with bidirectional draw.io sync. LLMs read/write JSONC natively. (ADR-5)</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-building-block-view">5. Building Block View</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This section decomposes docToolchain v4 into its static building blocks at three levels of detail.
+The key structural change from v3: Gradle Orchestration and the compiled Core Module are removed. The architecture simplifies to two layers plus an ecosystem of companion tools.</p>
+</div>
+<div class="sect2">
+<h3 id="_level_1_whitebox_overall_system">5.1. Level 1: Whitebox Overall System</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../images/level1-container-v4.png" alt="level1 container v4" width="1114" height="1016">
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p>v4 simplifies from four layers (Wrapper &#8594; Gradle &#8594; Script Plugins &#8594; Core Module) to two layers (Wrapper &#8594; Scripts). The Gradle orchestration layer and the compiled Core Module are eliminated. Business logic returns to scripts. Companion tools (daCLI, Bausteinsicht, LLM-Prompts) handle LLM integration as an ecosystem rather than embedding it into docToolchain itself.</p>
+</dd>
+<dt class="hdlist1">Contained Building Blocks</dt>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Building Block</th>
+<th class="tableblock halign-left valign-top">Responsibility</th>
+<th class="tableblock halign-left valign-top">Location</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wrapper Layer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cross-platform CLI entry point. Constructs classpath from <code>lib/</code> directory (or resolves via Grape). Manages Java installation. Invokes Groovy scripts directly — no build framework intermediary. Detects execution environment (local/Docker/SDKMAN).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dtcw</code>, <code>dtcw.ps1</code>, <code>dtcw.bat</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy Scripts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All task logic: document generation (AsciiDoctor invocation), site generation (custom SSG), Confluence publishing, Jira export, changelog extraction, and all other features. Each script is a self-contained unit that runs without compilation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scripts/*.groovy</code></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">daCLI (Ecosystem)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MCP server providing 10 tools for structured document access: navigation, search, section-level read/write, validation. Separate Python process communicating via stdio.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Separate repository (<code>dacli/</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bausteinsicht (Ecosystem)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Architecture-as-code tool. JSONC models with bidirectional draw.io sync. Exports PlantUML/PNG for embedding in AsciiDoc. CLI with <code>--format json</code> for LLM interaction.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Separate repository (<code>Bausteinsicht/</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM-Prompts (Ecosystem)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable prompt collection for arc42 documentation: chapter generation, ADR creation, quality scenarios, risk assessment, stakeholder analysis.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Separate repository (<code>LLM-Prompts/</code>)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_level_2_whitebox_groovy_scripts">5.2. Level 2: Whitebox Groovy Scripts</h3>
+<div class="paragraph">
+<p>The scripts are organized into functional groups. Unlike v3 (where scripts were Gradle task definitions applied via <code>apply from:</code>), v4 scripts are standalone Groovy files invoked directly.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 33.3333%;">
+<col style="width: 50.0001%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Category</th>
+<th class="tableblock halign-left valign-top">Scripts</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document Generation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>generateHTML.groovy</code>, <code>generatePDF.groovy</code>, <code>generateDocbook.groovy</code>, <code>generateDeck.groovy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Core document generation. Calls AsciiDoctor CLI (external tool, ADR-6) for rendering. Replaces the <code>AsciiDocBasics.gradle</code> approach.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Site Generation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>generateSite.groovy</code>, <code>copyThemes.groovy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Custom Groovy-based static site generator replacing jBake (ADR-4). Groovy SimpleTemplate engine, in-memory content model, modern HTML output. Reads jBake-compatible metadata headers.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Atlassian Integration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>publishToConfluence.groovy</code>, <code>exportJiraIssues.groovy</code>, <code>exportJiraSprintChangelog.groovy</code>, <code>exportConfluence.groovy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Confluence publishing (with smart MD5-based update detection) and Jira data export. Contains the Confluence client hierarchy (V1/V2) and Jira client/converter logic formerly in <code>core/</code>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">External Tool Export</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exportEA.groovy</code>, <code>exportPPT.groovy</code>, <code>exportVisio.groovy</code>, <code>exportStructurizr.groovy</code>, <code>exportOpenApi.groovy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extract diagrams and models from external tools. EA/PPT/Visio are Windows-only (VBScript).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Import/Export</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exportExcel.groovy</code>, <code>exportMarkdown.groovy</code>, <code>exportChangelog.groovy</code>, <code>exportContributors.groovy</code>, <code>exportMetrics.groovy</code>, <code>pandoc.groovy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Import data from Excel, convert Markdown, extract Git metadata, run Pandoc conversions.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Utilities</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collectIncludes.groovy</code>, <code>fixEncoding.groovy</code>, <code>htmlSanityCheck.groovy</code>, <code>downloadTemplate.groovy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Supporting tasks: aggregate includes, fix encodings, validate HTML, download templates.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>config.groovy</code> (or loaded inline)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Loads <code>docToolchainConfig.groovy</code> via Groovy <code>ConfigSlurper</code>. Provides config access to all scripts.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_level_3_whitebox_atlassian_integration">5.3. Level 3: Whitebox Atlassian Integration</h3>
+<div class="paragraph">
+<p>The Atlassian integration scripts contain the richest business logic. In v3 this was the compiled <code>core/</code> module; in v4 it returns to script form.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/level3-atlassian-v4.png" alt="level3 atlassian v4" width="979" height="1004">
+</div>
+</div>
+<div class="paragraph">
+<p>The key difference from v3: these classes are <strong>not compiled into a Shadow JAR</strong>. They are Groovy source files loaded at runtime. The script entry point (<code>publishToConfluence.groovy</code>) loads helper classes from a shared <code>lib/</code> directory or via inline <code>GroovyClassLoader</code>.</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-runtime-view">6. Runtime View</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The v4 runtime is significantly simpler than v3: no Gradle daemon, no build graph, no dependency resolution. Tasks are individual script invocations.</p>
+</div>
+<div class="sect2">
+<h3 id="_scenario_1_generate_html_documentation">6.1. Scenario 1: Generate HTML Documentation</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../images/runtime-generatehtml-v4.png" alt="runtime generatehtml v4" width="1016" height="715">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Key differences from v3</strong>: No Gradle overhead. No JRuby initialization (AsciiDoctor runs as external CLI, ADR-6). The Groovy script orchestrates the AsciiDoctor CLI call in batch mode. Startup is JVM cold start (~1-2s) + AsciiDoctor process spawn (~0.1s).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_scenario_2_publish_to_confluence">6.2. Scenario 2: Publish to Confluence</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../images/runtime-confluence-v4.png" alt="runtime confluence v4" width="1288" height="785">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Key difference from v3</strong>: The user runs <code>generateHTML</code> and <code>publishToConfluence</code> as separate, explicit commands. There are no implicit task dependencies — each script is self-contained. This matches real-world usage: users rarely chain tasks automatically.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_scenario_3_llm_modifies_documentation_via_dacli">6.3. Scenario 3: LLM Modifies Documentation via daCLI</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../images/runtime-llm-v4.png" alt="runtime llm v4" width="744" height="749">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>This is a new v4 scenario.</strong> The LLM navigates a 50-page documentation project using ~10k tokens instead of the ~100k tokens needed to read all files. daCLI maintains an in-memory index for O(1) lookups. Optimistic locking (hash comparison) prevents concurrent modification conflicts.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_scenario_4_generate_microsite">6.4. Scenario 4: Generate Microsite</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../images/runtime-site-v4.png" alt="runtime site v4" width="923" height="672">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Key difference from v3</strong>: No jBake library, no OrientDB content database. The site generator is a Groovy script that reads files, builds an in-memory model, applies Groovy SimpleTemplate templates, and writes static HTML. Runs on all platforms including Apple Silicon (QS-10).</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-deployment-view">7. Deployment View</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>docToolchain v4 supports three execution environments (unchanged from v3).
+The key difference: without Gradle, the installation footprint is smaller and startup is faster.</p>
+</div>
+<div class="sect2">
+<h3 id="_infrastructure_level_1_execution_environments">7.1. Infrastructure Level 1: Execution Environments</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../images/deployment-overview-v4.png" alt="deployment overview v4" width="1334" height="536">
+</div>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Motivation</dt>
+<dd>
+<p>Three environments remain equally supported (QS-2). Local is fastest (no container overhead). Docker guarantees reproducibility. SDKMAN integrates with JVM ecosystem tooling. daCLI runs as a separate process alongside any environment.</p>
+</dd>
+</dl>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 28.5714%;">
+<col style="width: 28.5714%;">
+<col style="width: 28.5715%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Environment</th>
+<th class="tableblock halign-left valign-top">v4 changes from v3</th>
+<th class="tableblock halign-left valign-top">Advantages</th>
+<th class="tableblock halign-left valign-top">Typical Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No Gradle wrapper download (saves ~95s first run). No daemon. Smaller installation (no Gradle distribution).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fastest startup (under 3s). Direct filesystem access.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Daily development, documentation preview</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Smaller image (no Gradle). Faster container startup.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consistent environment. No local dependencies beyond Docker.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CI/CD pipelines, team standardization</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SDKMAN</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unchanged.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Familiar JVM tooling. Version switching.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">JVM developers, multi-version testing</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">daCLI (companion)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">New in v4. Not bundled — runs as a separate process.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM document access. Runs alongside any docToolchain environment.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM-assisted documentation workflows</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_infrastructure_level_2_cicd_pipeline">7.2. Infrastructure Level 2: CI/CD Pipeline</h3>
+<div class="paragraph">
+<p>The CI/CD pipeline simplifies with Gradle removed:</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/deployment-cicd-v4.png" alt="deployment cicd v4" width="426" height="900">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Key simplification</strong>: No Gradle cache setup, no <code>./gradlew clean</code>, no dependency resolution step. Each <code>./dtcw</code> command is a direct script invocation with predictable timing.</p>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-concepts">8. Cross-cutting Concepts</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_configuration_management">8.1. Configuration Management</h3>
+<div class="paragraph">
+<p>Unchanged from v3 in principle, simplified in implementation.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Layer</th>
+<th class="tableblock halign-left valign-top">Source</th>
+<th class="tableblock halign-left valign-top">Precedence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project configuration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>docToolchainConfig.groovy</code> — Groovy DSL parsed by <code>ConfigSlurper</code>. Contains all task-specific settings. (<code>Config.groovy</code> is the template, not a separate config file.)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Primary. Project-specific settings.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CLI overrides</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Environment variables (<code>DTC_CONFIG_FILE</code>, <code>DTC_HEADLESS</code>) and script arguments.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Highest. Per-invocation customization.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><code>gradle.properties</code> is removed with Gradle. Build-time settings that were in <code>gradle.properties</code> (e.g., JVM memory, version) move to <code>dtcw</code> defaults or <code>docToolchainConfig.groovy</code>.</p>
+</div>
+<div class="paragraph">
+<p><strong>LLM-first principle (QS-15):</strong> The config file contains <strong>only deviations from defaults</strong>. All defaults are defined in code and documented in a machine-readable reference. This enables LLMs to read a config, understand what the user has customized, and make targeted changes — without hallucinating or duplicating default values. A minimal config for a project that only generates HTML might be just:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">inputFiles = [
+    [file: 'arc42/arc42.adoc', formats: ['html','pdf']],
+]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Everything else (outputPath, inputPath, imageDirs, etc.) comes from sensible defaults in the scripts.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_script_execution_model">8.2. Script Execution Model</h3>
+<div class="paragraph">
+<p>v4 replaces Gradle&#8217;s task model with direct script invocation:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>User runs <code>./dtcw &lt;taskName&gt;</code> (e.g., <code>./dtcw generateHTML</code>)</p>
+</li>
+<li>
+<p><code>dtcw</code> constructs the classpath from the <code>lib/</code> directory (or resolves via Grape)</p>
+</li>
+<li>
+<p><code>dtcw</code> invokes <code>java -cp &lt;classpath&gt; groovy.ui.GroovyMain scripts/&lt;taskName&gt;.groovy</code></p>
+</li>
+<li>
+<p>The script loads configuration, executes its logic, writes output, and exits</p>
+</li>
+<li>
+<p>No daemon persists between invocations</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Tasks are independent. There are no implicit dependencies. Users call them in the order they need: <code>./dtcw generateHTML</code> then <code>./dtcw publishToConfluence</code>. This matches real-world usage patterns.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_authentication_and_security">8.3. Authentication and Security</h3>
+<div class="paragraph">
+<p>Unchanged from v3:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Basic Auth</strong>: Username + API token, encoded as Base64 for <code>Authorization</code> header.</p>
+</li>
+<li>
+<p><strong>Bearer Token</strong>: OAuth or personal access token.</p>
+</li>
+<li>
+<p>Credentials supplied via CLI arguments or environment variables — never stored in config files.</p>
+</li>
+<li>
+<p>Properties containing <code>credential</code>, <code>token</code>, or <code>secret</code> are masked in output.</p>
+</li>
+<li>
+<p>User-Agent header identifies docToolchain version for API calls.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_headless_ci_mode">8.4. Headless / CI Mode</h3>
+<div class="paragraph">
+<p>Unchanged from v3:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>dtcw</code> detects headless mode via <code>DTC_HEADLESS</code> environment variable or absence of TTY.</p>
+</li>
+<li>
+<p>All interactive prompts suppressed; defaults auto-accepted.</p>
+</li>
+<li>
+<p>Critical for GitHub Actions, Jenkins, and other CI/CD platforms.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_llm_integration_architecture">8.5. LLM Integration Architecture</h3>
+<div class="paragraph">
+<p>New in v4. docToolchain supports LLMs through an ecosystem of companion tools:</p>
+</div>
+<div class="paragraph">
+<p><strong>daCLI (MCP Server)</strong> provides 10 tools for structured document access:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>get_structure(max_depth)</code> — Hierarchical table of contents</p>
+</li>
+<li>
+<p><code>get_section(path)</code> — Read section content by path</p>
+</li>
+<li>
+<p><code>search(query)</code> — Full-text search with relevance scoring</p>
+</li>
+<li>
+<p><code>update_section(path, content, expected_hash)</code> — Modify with optimistic locking</p>
+</li>
+<li>
+<p><code>insert_content(path, position, content)</code> — Insert before/after/append</p>
+</li>
+<li>
+<p><code>get_elements(type, section)</code> — Extract code blocks, tables, diagrams</p>
+</li>
+<li>
+<p><code>get_metadata()</code> — Project-wide statistics</p>
+</li>
+<li>
+<p><code>get_dependencies()</code> — Include tree</p>
+</li>
+<li>
+<p><code>get_sections_at_level(level)</code> — Sections by depth</p>
+</li>
+<li>
+<p><code>validate_structure()</code> — Structural integrity checks</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Semantic Anchors</strong> are well-defined terms, methodologies, and frameworks that serve as precise reference points when communicating with LLMs.
+Rather than lengthy instructions, a single anchor like "arc42", "SOLID Principles", or "Socratic Method" activates a rich body of interconnected knowledge in the LLM.
+Quality criteria for anchors: Precise, Rich, Consistent, Attributable. (See <a href="https://llm-coding.github.io/Semantic-Anchors/" class="bare">https://llm-coding.github.io/Semantic-Anchors/</a>)</p>
+</div>
+<div class="paragraph">
+<p><strong>Semantic Contracts</strong> bundle multiple anchors into reusable working agreements, defined in <code>CLAUDE.md</code> files:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>"Specification = Use Cases with Activity Diagrams + Gherkin acceptance criteria"</p>
+</li>
+<li>
+<p>"Architecture Documentation = arc42 + C4 diagrams + ADRs with Pugh Matrix"</p>
+</li>
+<li>
+<p>"Writing Style = Plain English according to Strunk &amp; White"</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>These contracts ensure that LLMs apply consistent conventions across a project without repeating detailed instructions in every prompt.</p>
+</div>
+<div class="paragraph">
+<p><strong>LLM-Prompts</strong> provide reusable interaction patterns:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>arc42 Chapter Generator — step-by-step architecture documentation</p>
+</li>
+<li>
+<p>Architecture Decision Record — structured decisions with Pugh Matrix</p>
+</li>
+<li>
+<p>Quality Scenarios Builder — testable quality requirements</p>
+</li>
+<li>
+<p>Risk Assessment, Stakeholder Analysis, Context Diagram Generator, etc.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Bausteinsicht</strong> provides architecture-as-code:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>JSONC models that LLMs read/write natively</p>
+</li>
+<li>
+<p>Bidirectional draw.io sync — model changes update diagrams and vice versa</p>
+</li>
+<li>
+<p>CLI with <code>--format json</code> for programmatic access</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_content_transformation_pipeline">8.6. Content Transformation Pipeline</h3>
+<div class="paragraph">
+<p>Unchanged from v3 for Confluence publishing:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>AsciiDoctor generates HTML5 from AsciiDoc sources</p>
+</li>
+<li>
+<p>jsoup parses HTML into DOM tree</p>
+</li>
+<li>
+<p>HtmlTransformer rewrites DOM for Confluence compatibility</p>
+</li>
+<li>
+<p>LinkTransformer rewrites cross-references</p>
+</li>
+<li>
+<p>CodeBlockTransformer formats code blocks as Confluence macros</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_custom_site_generator_replacing_jbake">8.7. Custom Site Generator (replacing jBake)</h3>
+<div class="paragraph">
+<p>New in v4. The site generator is a Groovy script implementing:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Content scanning</strong>: Recursively scan <code>src/docs/</code> for <code>.adoc</code> files</p>
+</li>
+<li>
+<p><strong>Metadata extraction</strong>: Parse jBake-compatible headers (<code>:jbake-title:</code>, <code>:jbake-type:</code>, <code>:jbake-menu:</code>, <code>:jbake-order:</code>)</p>
+</li>
+<li>
+<p><strong>In-memory model</strong>: Build content model (pages, menu structure, tags) — no database</p>
+</li>
+<li>
+<p><strong>AsciiDoc rendering</strong>: Call AsciiDoctor CLI (external tool, ADR-6) for each page</p>
+</li>
+<li>
+<p><strong>Template application</strong>: Apply Groovy SimpleTemplate templates (reused from v3&#8217;s <code>src/site/templates/</code>)</p>
+</li>
+<li>
+<p><strong>Static output</strong>: Write HTML + assets to <code>build/microsite/output/</code></p>
+</li>
+<li>
+<p><strong>Modern theme</strong>: Clean, responsive design with dark mode and search (Phase 1)</p>
+</li>
+</ol>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-design-decisions">9. Architecture Decisions</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>All architecture decisions are evaluated against the quality scenarios defined in <a href="#section-quality-scenarios">Quality Requirements</a>.
+docToolchain v4 represents a fundamental shift: from a Gradle-based build tool to an LLM-native docs-as-code platform.
+v3 is the current production version.</p>
+</div>
+<div class="sect2">
+<h3 id="_adr_1_use_groovy_as_primary_scripting_language">9.1. ADR-1: Use Groovy as Primary Scripting Language</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: In effect (carried forward to v4)</p>
+</li>
+<li>
+<p><strong>Context</strong>: docToolchain uses scripts in multiple languages. The team needed a consistent primary language for maintainability.</p>
+</li>
+<li>
+<p><strong>Decision</strong>: Use Groovy for all scripting tasks. Exception: Visual Basic for Windows COM automation (Enterprise Architect, PowerPoint export) where no Java library exists.</p>
+</li>
+<li>
+<p><strong>Quality Tradeoffs</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Supports <strong>QS-1 (Extensibility)</strong>: Contributors need only one language to extend the system.</p>
+</li>
+<li>
+<p>Supports <strong>QS-2 (Portability)</strong>: Groovy runs on the JVM, same bytecode on all platforms.</p>
+</li>
+<li>
+<p>Supports <strong>QS-11 (Script-first)</strong>: Groovy scripts run without compilation.</p>
+</li>
+<li>
+<p>Compromises <strong>QS-2 (Portability)</strong> partially: VBScript exceptions limit some features to Windows.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_2_separate_core_logic_from_gradle_superseded">9.2. ADR-2: Separate Core Logic from Gradle — SUPERSEDED</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Superseded by ADR-3</p>
+</li>
+<li>
+<p><strong>Context</strong>: ADR-2 proposed isolating business logic into a compiled <code>core/</code> submodule (Shadow JAR) to decouple from Gradle.</p>
+</li>
+<li>
+<p><strong>Superseded because</strong>: v4 removes Gradle entirely (ADR-3) and reverts to scripts as the primary code organization. Compiled code requires a build step that slows the edit-run cycle. Scripts are easier to adapt and maintain, especially for community contributors. The problem ADR-2 tried to solve (Gradle coupling) is better addressed by removing Gradle, not by adding a compilation layer.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_3_remove_gradle_direct_groovy_script_execution">9.3. ADR-3: Remove Gradle — Direct Groovy Script Execution</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Decided for v4</p>
+</li>
+<li>
+<p><strong>Context</strong>: Gradle has been the task orchestration framework since docToolchain&#8217;s inception. Over time it has caused significant problems:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Slow startup (~95 seconds first run, 10-15 seconds subsequent runs)</p>
+</li>
+<li>
+<p>Complex configuration hard for contributors to understand</p>
+</li>
+<li>
+<p>Tight coupling between business logic and build system</p>
+</li>
+<li>
+<p>Gradle daemon management issues (zombie processes, port conflicts)</p>
+</li>
+<li>
+<p>Dependency resolution overhead for simple documentation tasks</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Decision</strong>: Remove Gradle entirely. The <code>dtcw</code> wrapper invokes Groovy scripts directly via the <code>java</code>/<code>groovy</code> runtime. AsciiDoctor is an external CLI tool, auto-installed by dtcw (ADR-6). Task orchestration is handled by simple script conventions, not a build framework.</p>
+</li>
+<li>
+<p><strong>Alternatives considered</strong>:</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 20%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Criterion</th>
+<th class="tableblock halign-left valign-top">Keep Gradle</th>
+<th class="tableblock halign-left valign-top">dtcw + Groovy direct</th>
+<th class="tableblock halign-left valign-top">Switch to Maven</th>
+<th class="tableblock halign-left valign-top">Custom task runner</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Startup time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contributor friendliness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ecosystem compatibility</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maintenance burden</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM-friendliness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–3</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+4</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>0</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+1</strong></p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Quality Tradeoffs</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Supports <strong>QS-9 (Fast startup)</strong>: No Gradle wrapper, no daemon, no dependency resolution. Startup under 3 seconds.</p>
+</li>
+<li>
+<p>Supports <strong>QS-11 (Script-first)</strong>: Scripts are the primary code artifacts, no compilation needed.</p>
+</li>
+<li>
+<p>Supports <strong>QS-1 (Extensibility)</strong>: Adding a feature requires no build system knowledge.</p>
+</li>
+<li>
+<p>Supports <strong>QS-3 (Usability)</strong>: Simpler mental model for contributors.</p>
+</li>
+<li>
+<p>Risk on <strong>QS-14 (v3 compatibility)</strong>: v3 projects using <code>./gradlew</code> directly will need to switch to <code>./dtcw</code>. The <code>dtcw</code> interface remains stable.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Consequences</strong>: <code>build.gradle</code>, <code>settings.gradle</code>, <code>gradle.properties</code>, <code>libs.versions.toml</code>, and the <code>gradle/</code> wrapper directory are removed. The <code>core/</code> module is dissolved back into scripts. Dependencies are managed as JARs in a <code>lib/</code> directory or downloaded on demand.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_4_replace_jbake_for_static_site_generation">9.4. ADR-4: Replace jBake for Static Site Generation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Decided for v4</p>
+</li>
+<li>
+<p><strong>Context</strong>: jBake is the current static site generator for docToolchain&#8217;s microsite feature. Critical problems:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Unmaintained</strong>: Governance crisis (Issue #785). PRs not reviewed. v2.7.0 not published to Maven Central.</p>
+</li>
+<li>
+<p><strong>Apple Silicon</strong>: Does not run on modern Macs without workarounds (OrientDB JNI issue #709). Fix exists but is not released.</p>
+</li>
+<li>
+<p><strong>Java 21 incompatible</strong>: Bundled Groovy too old for JDK 21 class files (Issue #797).</p>
+</li>
+<li>
+<p><strong>Heavy</strong>: OrientDB adds 38MB of JARs for a database that could be an in-memory list.</p>
+</li>
+<li>
+<p><strong>Best available fork</strong>: rschwietzke/jbake removes OrientDB + upgrades to Java 21 (PR #800), but is stuck waiting for review.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Decision</strong>: Build a custom Groovy-based static site generator using Groovy SimpleTemplate. The core requirement is: AsciiDoc files + templates &#8594; static HTML site with navigation, search, and theming.</p>
+</li>
+<li>
+<p><strong>Alternatives considered</strong>:</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Criterion</th>
+<th class="tableblock halign-left valign-top">jBake Fork (rschwietzke)</th>
+<th class="tableblock halign-left valign-top">Custom Groovy SSG</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy template reuse</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Stack consistency</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (external Java project)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (own code)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maintenance control</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (dependent on fork maintainer)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (full control)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Apple Silicon</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (fork removes OrientDB)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation effort</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (fork exists, PR #800)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (must be developed)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dependency footprint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (jBake + ~15 JARs)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (no additional JARs)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Future-proofing (Phase 2 LLM UI)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (jBake rendering pipeline limits control)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (full control over HTML output)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gradle independence</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (needs custom runner or jBake Java API)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (pure Groovy script)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>0</strong></p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+With AsciiDoctor externalized (ADR-6), the custom SSG only needs to handle template rendering and content model — AsciiDoc processing is done by the external AsciiDoctor CLI. This reduces the estimated effort to ~300 LOC of new code. Metadata parsing (~50 LOC) and menu builder (167 LOC) are reused from v3&#8217;s <code>generateSite.gradle</code> and <code>menu.groovy</code>.
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Quality Tradeoffs</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Supports <strong>QS-10 (Apple Silicon)</strong>: No OrientDB, no JNI issues.</p>
+</li>
+<li>
+<p>Supports <strong>QS-13 (Modern UI)</strong>: Full control over output HTML enables modern theme.</p>
+</li>
+<li>
+<p>Supports <strong>QS-11 (Script-first)</strong>: Generator is a Groovy script, not a compiled plugin.</p>
+</li>
+<li>
+<p>Risk on <strong>QS-8 (Performance)</strong>: Must match jBake generation speed (~5s for typical sites).</p>
+</li>
+<li>
+<p>Risk on <strong>QS-14 (v3 compatibility)</strong>: Must support jBake metadata headers (<code>:jbake-title:</code>, <code>:jbake-type:</code>) for backward compatibility.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Consequences</strong>: Existing 23 Groovy SimpleTemplate files can be reused with minimal changes. The custom SSG parses AsciiDoc metadata (<code>:jbake-*:</code> attributes) itself — a simple regex pass over file headers (~20 LOC, reused from v3&#8217;s <code>generateSite.gradle</code>). AsciiDoctor CLI handles HTML rendering (ADR-6). No database — in-memory content model. Modern UI theme replaces Docsy (Phase 1: modern look; Phase 2: LLM-augmented UI in future version).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_5_llm_native_architecture">9.5. ADR-5: LLM-Native Architecture</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Decided for v4</p>
+</li>
+<li>
+<p><strong>Context</strong>: The GenAI era changes how documentation is created and consumed. Traditional export scripts (EA, PPT, Visio, Excel) address a workflow where humans manually extract data from tools. LLMs can handle these transformations directly. Meanwhile, LLMs need structured document access (daCLI) and benefit from Skills, Prompts, and Semantic Anchors.</p>
+</li>
+<li>
+<p><strong>Decision</strong>: Shift docToolchain&#8217;s strategic focus toward LLM-native tooling:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>daCLI integration</strong>: MCP server for structured document access (10 tools, already operational)</p>
+</li>
+<li>
+<p><strong>Semantic Anchors and Contracts</strong>: Precise reference terms (anchors like "arc42", "SOLID", "Docs-as-Code") and bundled working agreements (contracts in <code>CLAUDE.md</code>) that enable consistent LLM collaboration without verbose instructions</p>
+</li>
+<li>
+<p><strong>Skills and Prompts</strong>: Reusable LLM interaction patterns for documentation tasks (arc42 generation, ADR creation, quality scenario extraction — see LLM-Prompts repository)</p>
+</li>
+<li>
+<p><strong>Bausteinsicht integration</strong>: Architecture-as-code with JSONC models and bidirectional draw.io sync — LLMs read/write JSONC natively</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Quality Tradeoffs</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Supports <strong>QS-12 (LLM Friendliness)</strong>: Structured document access via MCP. Semantic Anchors and Contracts enable precise, consistent LLM communication.</p>
+</li>
+<li>
+<p>Supports <strong>QS-1 (Extensibility)</strong>: New capabilities can be added as Prompts/Skills without code changes.</p>
+</li>
+<li>
+<p>Supports <strong>QS-3 (Usability)</strong>: LLMs lower the barrier to creating quality architecture documentation.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Consequences</strong>: Existing scripts remain available but strategic investment shifts to MCP tools, Prompts, and Semantic Anchors. The docToolchain ecosystem becomes: docToolchain (generation) + daCLI (LLM access) + Bausteinsicht (architecture diagrams) + LLM-Prompts (interaction patterns). Traditional scripts are maintained but not the primary growth area.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_6_asciidoctor_as_external_tool_with_versioned_auto_installation">9.6. ADR-6: AsciiDoctor as External Tool with Versioned Auto-Installation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Decided for v4</p>
+</li>
+<li>
+<p><strong>Context</strong>: In v3, AsciiDoctor is embedded as <code>asciidoctorj</code> — a Java wrapper that bundles JRuby (~30 MB). Together with transitive dependencies, this adds ~25 JARs and ~45 MB to the classpath. JRuby initialization adds 2-3 seconds to every startup. AsciiDoctor also exists as a standalone CLI tool installable via <code>gem</code>, <code>brew</code>, or <code>apt</code>.</p>
+</li>
+<li>
+<p><strong>Decision</strong>: Use AsciiDoctor as an external tool, auto-installed by <code>dtcw</code> in a pinned version. This follows the same pattern as Java auto-installation. AsciiDoctor CLI supports batch processing (<code>asciidoctor *.adoc</code>), so 50 files are handled in one process invocation.</p>
+</li>
+<li>
+<p><strong>Alternatives considered</strong>:</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Criterion</th>
+<th class="tableblock halign-left valign-top">Library (asciidoctorj)</th>
+<th class="tableblock halign-left valign-top">External Tool</th>
+<th class="tableblock halign-left valign-top">Both (fallback)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Startup overhead (QS-9)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (2-3s JRuby init)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (no JRuby)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Throughput 50 pages (QS-9)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (batch mode)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">First-run experience (QS-3)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (bundled)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (auto-installed by dtcw)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Distribution size (QS-6)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (+45 MB)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (0 MB)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Offline capability (QS-2)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (always available)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (offline after install)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Determinism (QS-4)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (exact JAR version)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (dtcw pins version)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker compatibility (QS-2)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Apple Silicon (QS-10)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Solution complexity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (two code paths)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+2</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+2</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+1</strong></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>At equal score, <strong>QS-9 (Startup + Throughput) is Quality Goal #1</strong> and breaks the tie in favor of the external tool. The –1 for First-Run and Determinism in the raw external-tool score are eliminated by <code>dtcw</code> auto-installing a pinned version.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Quality Tradeoffs</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Supports <strong>QS-9 (Startup + Throughput)</strong>: No JRuby overhead. Batch processing for multiple files.</p>
+</li>
+<li>
+<p>Supports <strong>QS-6 (Installability)</strong>: Distribution 45 MB smaller. AsciiDoctor installed automatically on first use.</p>
+</li>
+<li>
+<p>Neutral on <strong>QS-4 (Determinism)</strong>: <code>dtcw</code> pins the AsciiDoctor version (e.g., <code>gem install asciidoctor:2.0.23</code>).</p>
+</li>
+<li>
+<p>Neutral on <strong>QS-3 (First-Run)</strong>: Auto-installation is transparent — same UX as Java auto-install.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Consequences</strong>: <code>dtcw</code> gains an AsciiDoctor installation step (parallel to existing Java install logic). Scripts call <code>asciidoctor</code> CLI instead of asciidoctorj Java API. The <code>asciidoctorj</code>, <code>asciidoctorj-diagram</code>, <code>asciidoctorj-pdf</code>, and JRuby JARs are removed from the distribution. Remaining Java dependencies (~27 JARs, ~23 MB) are small enough for a simple <code>lib/</code> directory.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_7_lib_directory_for_remaining_java_dependencies">9.7. ADR-7: lib/ Directory for Remaining Java Dependencies</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Decided for v4</p>
+</li>
+<li>
+<p><strong>Context</strong>: With AsciiDoctor externalized (ADR-6), the remaining Java dependencies are:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Groovy runtime (~15 JARs, ~10 MB)</p>
+</li>
+<li>
+<p>jsoup 1.18.1 (1 JAR, 0.5 MB) — HTML parsing for Confluence publishing</p>
+</li>
+<li>
+<p>Apache HttpClient 5.3 (~5 JARs, ~2 MB) — REST API calls to Confluence/Jira</p>
+</li>
+<li>
+<p>Apache POI 5.3.0 (~10 JARs, ~10 MB) — Excel export (only needed for exportExcel)</p>
+</li>
+<li>
+<p>Total: ~30 JARs, ~23 MB</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Decision</strong>: Ship all remaining JARs in a <code>lib/</code> directory. <code>dtcw</code> sets the classpath via <code>java -cp lib/*</code>. No runtime resolution, no Grape, no downloads.</p>
+</li>
+<li>
+<p><strong>Rationale</strong>: 23 MB is small enough to bundle. Zero resolution overhead supports QS-9. Fully offline-capable. Deterministic — every user gets the same JARs. The simplest possible solution.</p>
+</li>
+<li>
+<p><strong>Quality Tradeoffs</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Supports <strong>QS-9 (Startup + Throughput)</strong>: Zero dependency resolution overhead. Classpath construction is one glob: <code>lib/*</code>.</p>
+</li>
+<li>
+<p>Supports <strong>QS-4 (Determinism)</strong>: Exact JARs pinned at release time.</p>
+</li>
+<li>
+<p>Supports <strong>QS-2 (Offline)</strong>: Works without internet after installation.</p>
+</li>
+<li>
+<p>Neutral on <strong>QS-6 (Distribution size)</strong>: 23 MB is acceptable (v3 with Gradle is ~50 MB).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Consequences</strong>: Release process must resolve all transitive dependencies and package them into <code>lib/</code>. A simple shell script or one-time Gradle/Maven call at release time handles this. POI JARs could be made optional in a future optimization (load only when <code>saveExcel=true</code>).</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Affects <strong>QS-2 (Portability)</strong>: All options work cross-platform. Docker image can pre-bundle JARs.</p>
+</li>
+<li>
+<p>Affects <strong>QS-3 (Usability)</strong>: lib/ is simplest to understand. Grape is most Groovy-idiomatic.</p>
+</li>
+<li>
+<p>Affects <strong>QS-6 (Installability)</strong>: Download-on-demand keeps the initial download small.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_8_actionable_error_guidance">9.8. ADR-8: Actionable Error Guidance</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Decided for v4</p>
+</li>
+<li>
+<p><strong>Context</strong>: v3 error handling is inconsistent: <code>RuntimeException</code> in core, <code>GradleException</code> in scripts, <code>println</code> + silent continuation in some scripts. With Gradle removed, <code>GradleException</code> is gone. More importantly, the fundamental problem is not <strong>how</strong> errors are thrown, but <strong>what</strong> the user sees. v3 shows stack traces and technical error messages. Users cannot determine what to do next.</p>
+<div class="paragraph">
+<p>Real example from v3: PDF generation fails with a cryptic <code>IOException: Access denied</code> when the output PDF is still open in Adobe Acrobat. Users who know the tool recognize this — new users are stuck.</p>
+</div>
+</li>
+<li>
+<p><strong>Decision</strong>: Every user-recoverable error must include an <strong>actionable remediation step</strong> — not what went wrong, but what the user should do to fix it. Implemented as a lightweight exception hierarchy with mandatory guidance messages:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">// Shared helper (lib/DtcException.groovy, ~25 LOC)
+class DtcException extends RuntimeException {
+    String guidance  // What the user should do
+    int exitCode
+    DtcException(String guidance, int exitCode = 1, Throwable cause = null) {
+        super(guidance, cause)
+        this.guidance = guidance
+        this.exitCode = exitCode
+    }
+}
+class DtcConfigException extends DtcException {
+    DtcConfigException(String guidance) { super(guidance, 2) }
+}
+class DtcApiException extends DtcException {
+    DtcApiException(String guidance) { super(guidance, 3) }
+}
+
+// Usage in scripts:
+if (!outputFile.canWrite()) {
+    throw new DtcException(
+        "Die Datei ${outputFile.name} ist gesperrt. " +
+        "Bitte schließe sie in deinem PDF-Viewer und führe den Befehl erneut aus."
+    )
+}
+
+if (!configFile.exists()) {
+    throw new DtcConfigException(
+        "Config-Datei '${configFile.name}' nicht gefunden. " +
+        "Erstelle sie mit: ./dtcw downloadTemplate"
+    )
+}
+
+if (response.statusCode == 401) {
+    throw new DtcApiException(
+        "Confluence-Authentifizierung fehlgeschlagen. " +
+        "Prüfe confluence.credentials in docToolchainConfig.groovy oder übergib -Pconfluence.credentials=user:token"
+    )
+}
+
+// Top-level runner (in dtcw wrapper or bootstrap script):
+try { script.run() }
+catch (DtcConfigException e) { System.err.println("⚙ ${e.guidance}"); System.exit(2) }
+catch (DtcApiException e)    { System.err.println("🌐 ${e.guidance}"); System.exit(3) }
+catch (DtcException e)       { System.err.println("→ ${e.guidance}"); System.exit(1) }
+catch (Exception e)          { System.err.println("BUG: ${e.message}"); e.printStackTrace(System.err); System.exit(99) }</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Exit codes: 0 = success, 1 = user-fixable error, 2 = config error, 3 = API/network error, 99 = bug.</p>
+</div>
+<div class="paragraph">
+<p>Stack traces are shown <strong>only</strong> for exit code 99 (bugs). All other errors show only the guidance message.</p>
+</div>
+</li>
+<li>
+<p><strong>Alternatives considered</strong>:</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Criterion</th>
+<th class="tableblock halign-left valign-top">A: Exit + stderr (plain)</th>
+<th class="tableblock halign-left valign-top">B: Exception hierarchy with guidance</th>
+<th class="tableblock halign-left valign-top">C: Return codes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Actionable guidance (QS-15)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (message is free-form, no structure enforces guidance)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (guidance field is mandatory in constructor)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (message is free-form)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No silent failures (QS-4)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (try/catch enforces handling)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (easy to forget check)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Differentiated exit codes (QS-5)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (only 0/1)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (0/1/2/3/99)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compatibility with existing code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (existing exceptions wrapped)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (rewrite needed)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Script-first simplicity (QS-11)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (no imports)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (one import)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (new pattern)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+2</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+4</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–1</strong></p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Quality Tradeoffs</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Supports <strong>QS-17 (Actionable Guidance)</strong>: The <code>guidance</code> field in <code>DtcException</code> enforces that every thrown error contains a user-actionable message. This is not optional — it&#8217;s the constructor parameter.</p>
+</li>
+<li>
+<p>Supports <strong>QS-4 (Reliability)</strong>: No more silent <code>println</code> + continue. Every error is thrown and caught at the top level.</p>
+</li>
+<li>
+<p>Supports <strong>QS-5 (CI/CD)</strong>: Differentiated exit codes (2=config, 3=API, 99=bug) enable targeted CI/CD responses.</p>
+</li>
+<li>
+<p>Neutral on <strong>QS-11 (Script-first)</strong>: One import per script (<code>import DtcException</code>). ~25 LOC in a shared file.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Consequences</strong>: Every script must use <code>DtcException</code> (or subclass) instead of <code>println</code> for errors. Existing <code>RequestFailedException</code> is replaced by <code>DtcApiException</code>. A catalog of common error scenarios with guidance messages should be maintained (see examples in Risks section). The guidance messages should be in English (matching the codebase language), with the tone of a helpful colleague, not a system log.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_9_server_based_diagram_rendering_via_kroki_compatible_api">9.9. ADR-9: Server-Based Diagram Rendering via Kroki-Compatible API</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Decided for v4</p>
+</li>
+<li>
+<p><strong>Context</strong>: With AsciiDoctor externalized (ADR-6), diagram rendering (PlantUML, Mermaid, GraphViz, Ditaa, C4, BPMN) requires either locally installed tools or a diagram server. Local tools mean installing PlantUML (Java), Graphviz (C binary), Mermaid (Node.js) — different package managers per OS, per tool. A diagram server reduces this to one URL.</p>
+<div class="paragraph">
+<p>Kroki provides a unified HTTP API for 20+ diagram formats. Crucially, Kroki is <strong>compatible with GitLab&#8217;s built-in PlantUML server API</strong>. Large enterprises running GitLab already have a PlantUML server — replacing it with Kroki gives them all diagram formats for free. This makes enterprise adoption frictionless.</p>
+</div>
+</li>
+<li>
+<p><strong>Decision</strong>: Use a <strong>Kroki-compatible diagram server</strong> as the default rendering strategy. The user configures one URL — everything else follows. Default is <code><a href="https://kroki.io/" class="bare">https://kroki.io/</a></code> (public). Enterprises point to their own Kroki or GitLab PlantUML server.</p>
+<div class="paragraph">
+<p>Configuration (one line in <code>docToolchainConfig.groovy</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">// Option 1: dtcw starts a local Kroki Docker container automatically
+diagramServer = 'docker'
+
+// Option 2: Public Kroki service
+diagramServer = 'https://kroki.io/'
+
+// Option 3: Enterprise server (GitLab PlantUML / self-hosted Kroki)
+diagramServer = 'https://gitlab.company.com/kroki/'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>When <code>diagramServer = 'docker'</code> (default), dtcw checks if Docker is available, starts <code>yuzutech/kroki</code> as a container on port 8000, and sets the URL to <code><a href="http://localhost:8000/" class="bare">http://localhost:8000/</a></code>. The container persists between runs — dtcw only starts it if not already running.</p>
+</div>
+<div class="paragraph">
+<p><strong>Privacy rule (QS-16):</strong> When <code>diagramServer</code> points to an external URL (anything other than <code>docker</code> or <code>localhost</code>), docToolchain prints a warning on every run:</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>⚠ Diagramm-Quelltexte werden an kroki.io gesendet.
+  Für lokale Verarbeitung setze diagramServer = 'docker' in docToolchainConfig.groovy.</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>No data leaves the machine without the user&#8217;s explicit, informed configuration. The default <code>docker</code> mode processes everything locally.</p>
+</div>
+<div class="paragraph">
+<p><code>asciidoctor-diagram</code> receives the resolved URL via <code>:diagram-server-url:</code> and <code>:diagram-server-type: kroki_io</code> attributes.</p>
+</div>
+</li>
+<li>
+<p><strong>Alternatives considered</strong>:</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Criterion</th>
+<th class="tableblock halign-left valign-top">Local tools (dtcw installs)</th>
+<th class="tableblock halign-left valign-top">Diagram server (Kroki URL)</th>
+<th class="tableblock halign-left valign-top">Kroki bundled in Docker</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability / Zero-config (QS-3)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (multiple tools to install per OS)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (one URL)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (just works)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM-managed config (QS-15)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (LLM must know per-OS install commands)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (one config key: <code>diagramServer</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (no config needed)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enterprise adoption</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (reuse GitLab PlantUML/Kroki server)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (conflicts with enterprise infra)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Format breadth (Mermaid, BPMN, C4&#8230;&#8203;)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (each format = separate install)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 (20 formats via one service)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Portability / Apple Silicon (QS-10)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (Graphviz ARM builds vary)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (server-side, platform-irrelevant)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Offline capability (QS-2)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (local binaries)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (needs network to server)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (embedded)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Distribution size</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (no overhead)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (no overhead)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (+200 MB image)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Actionable guidance (QS-16)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (which tool? which OS? which version?)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 ("Set diagramServer in config")</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–2</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+7</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+4</strong></p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Quality Tradeoffs</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Supports <strong>QS-15 (LLM-managed Config)</strong>: One config key (<code>diagramServer</code>). An LLM understands "set the diagram server URL" — no per-OS tool installation knowledge needed.</p>
+</li>
+<li>
+<p>Supports <strong>QS-3 (Usability)</strong>: One URL instead of installing PlantUML + Graphviz + Mermaid + Node.js.</p>
+</li>
+<li>
+<p>Supports <strong>QS-10 (Apple Silicon)</strong>: Rendering happens server-side — no local native binaries.</p>
+</li>
+<li>
+<p>Supports <strong>QS-17 (Actionable Guidance)</strong>: If diagram rendering fails, the message is: "Setze <code>diagramServer = 'https://kroki.io/'</code> in docToolchainConfig.groovy" — not "install PlantUML from <a href="https://&#8230;&#8203" class="bare">https://&#8230;&#8203</a>; and add it to PATH".</p>
+</li>
+<li>
+<p>Risk on <strong>QS-2 (Offline)</strong>: Requires network access to diagram server. Mitigation: enterprises run Kroki locally. For fully offline scenarios, local PlantUML remains an option via <code>asciidoctor-diagram</code> without server config.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Consequences</strong>: <code>kroki.io</code> is the default diagram server. <code>asciidoctor-diagram</code> configuration attributes are set automatically based on <code>diagramServer</code> config key. Enterprise users point to their GitLab PlantUML server or self-hosted Kroki. The docToolchain Docker image does NOT bundle Kroki — it connects to the configured server. A <code>docker-compose.yml</code> example is provided for users who want to run Kroki locally alongside docToolchain.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_10_risk_based_quality_assurance_vibe_coding_risk_radar">9.10. ADR-10: Risk-Based Quality Assurance (Vibe-Coding Risk Radar)</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Decided</p>
+</li>
+<li>
+<p><strong>Context</strong>: docToolchain v4 uses AI-assisted development (Claude Code). AI-generated code carries risks that depend on code type, language safety, deployment context, data sensitivity, and blast radius. Without a systematic framework, mitigation measures are applied inconsistently — some areas are over-tested while critical gaps remain.</p>
+<div class="paragraph">
+<p>The Vibe-Coding Risk Radar provides a dimension-based risk assessment model that maps code to one of four tiers, each with cumulative mitigation requirements.</p>
+</div>
+</li>
+<li>
+<p><strong>Decision</strong>: Adopt the Vibe-Coding Risk Radar as the quality assurance framework. The risk assessment is documented in <code>CLAUDE.md</code> (machine-readable for AI agents) and reviewed when the codebase changes significantly.</p>
+<div class="paragraph">
+<p><strong>Assessment result (2026-03-30):</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 37.5%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Dimension</th>
+<th class="tableblock halign-left valign-top">Score</th>
+<th class="tableblock halign-left valign-top">Level</th>
+<th class="tableblock halign-left valign-top">Evidence</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Code Type</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Business Logic</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Doku-Generierung + REST-Client für Jira/Confluence (read/publish, kein eigener API-Server)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Language</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dynamically typed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">81 .groovy, 32 .gradle files</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deployment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal tool</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Open-Source CLI, lokal oder in CI/CD, kein Server/Service</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Data Sensitivity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Internal business data</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verarbeitet Dokumentation, Credentials nur durchgereicht</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Blast Radius</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance / DoS</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Kaputte Doku oder fehlerhafte Confluence-Seiten, Quellen in Git</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Tier 2 — Extended Assurance</strong> (determined by Code Type + Language = 2).</p>
+</div>
+<div class="paragraph">
+<p>Required mitigations for Tier 2 (cumulative with Tier 1):</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 40%;">
+<col style="width: 20%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Measure</th>
+<th class="tableblock halign-left valign-top">Status</th>
+<th class="tableblock halign-left valign-top">Details</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Linter &amp; Formatter</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">shellcheck in CI</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type Checking</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">❌</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy is dynamically typed, no static analysis configured</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pre-Commit Hooks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">❌</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not configured</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dependency Check</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">❌</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No audit step in CI</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CI Build &amp; Tests</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GitHub Actions (build, test, shellcheck, BATS)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SAST</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CodeQL</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AI Code Review</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Claude Code reviews on PRs</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Property-Based Tests</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">❌</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Not configured</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SonarQube Quality Gate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">SonarCloud as external PR check</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sampling Review</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">✅</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">PR-based review process</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>5/10 mitigations present. Pending: type checking, pre-commit hooks, dependency audit, property-based tests.</p>
+</div>
+</li>
+<li>
+<p><strong>Alternatives considered</strong>:</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Criterion</th>
+<th class="tableblock halign-left valign-top">No framework</th>
+<th class="tableblock halign-left valign-top">Risk Radar</th>
+<th class="tableblock halign-left valign-top">Full formal review</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consistency of QA measures</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (ad-hoc)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (systematic per dimension)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Overhead</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (none)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (one-time assessment + updates)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (heavy process)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AI-agent awareness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (no machine-readable risk info)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (in CLAUDE.md)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Proportionality to risk</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (same effort for UI and crypto)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (tier-based)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (over-invests on low risk)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Community contributor friendliness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (no barriers)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (clear expectations)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (discouraging)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–1</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+3</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–1</strong></p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Quality Tradeoffs</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Supports <strong>QS-4 (Reliability)</strong>: Systematic mitigation coverage reduces defect risk.</p>
+</li>
+<li>
+<p>Supports <strong>QS-11 (Script-first)</strong>: Tier 2 does not require compilation or formal verification — compatible with script-based development.</p>
+</li>
+<li>
+<p>Supports <strong>QS-12 (LLM Friendliness)</strong>: Risk assessment in CLAUDE.md gives AI agents awareness of which code areas require extra caution.</p>
+</li>
+<li>
+<p>Neutral on <strong>QS-1 (Extensibility)</strong>: Contributors need to add <code>// @task</code> markers and follow conventions, but no additional tooling burden.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Consequences</strong>: The risk assessment in CLAUDE.md must be updated when new modules are added or when the deployment context changes. Pending mitigations (type checking, pre-commit hooks, dependency audit, property-based tests) should be addressed incrementally. The tier may change if docToolchain adds authentication features or processes sensitive data.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_11_tier_2_mitigation_implementation">9.11. ADR-11: Tier 2 Mitigation Implementation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Decided</p>
+</li>
+<li>
+<p><strong>Context</strong>: ADR-10 assessed docToolchain as Tier 2 (Extended Assurance) with only 5 of 10 required mitigations in place. Four gaps needed to be closed: pre-commit hooks, dependency checking, type checking/static analysis, and AI code review. Property-based tests were identified as the tenth measure but deferred.</p>
+</li>
+<li>
+<p><strong>Decision</strong>: Implement the four missing mitigations using free, open-source tools that work independently of Gradle (preparing for the v4 transition per ADR-3).</p>
+<div class="paragraph">
+<p><strong>Implemented measures:</strong></p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 28.5714%;">
+<col style="width: 28.5714%;">
+<col style="width: 42.8572%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Measure</th>
+<th class="tableblock halign-left valign-top">Tool</th>
+<th class="tableblock halign-left valign-top">Rationale</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pre-Commit Hooks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">pre-commit framework with bash-syntax, shellcheck, asciidoc-linter, gitleaks</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Catches issues locally before CI. Gitleaks prevents accidental credential commits. asciidoc-linter ensures documentation quality at the source.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dependency Check</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trivy (aquasecurity/trivy-action)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Scans <code>lib/*.jar</code> for known CVEs. Works without Gradle — scans the filesystem directly. Runs on PRs and weekly (Monday 06:00 UTC). Results uploaded to GitHub Security tab via SARIF.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Type Checking / Static Analysis</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CodeNarc (standalone CLI, no Gradle plugin)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Standard Groovy linter. Checks basic rules, exception handling, unused imports. Runs standalone via downloaded JARs — no Gradle dependency. Matches Groovy 3.0.13 (same version as docToolchain).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AI Code Review</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">GitHub Copilot Code Review</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enabled on the default branch. Automated reviewer on PRs. Complements manual reviews and SonarCloud.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p><strong>Deferred measure:</strong></p>
+</div>
+<div class="paragraph">
+<p>Property-Based Tests — deferred until v4 Groovy scripts are production-ready. The v4 functions currently live in <code>dtcw</code> (shell) where property-based testing is impractical. When Groovy scripts handle business logic, jqwik or Spock data-driven tests will be added.</p>
+</div>
+</li>
+<li>
+<p><strong>Alternatives considered</strong>:</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Criterion</th>
+<th class="tableblock halign-left valign-top">Gradle-integrated tools</th>
+<th class="tableblock halign-left valign-top">Standalone tools</th>
+<th class="tableblock halign-left valign-top">No additional tooling</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gradle independence (ADR-3)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (ties us to Gradle)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (works after Gradle removal)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Setup complexity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (plugins are easy)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (JARs must be downloaded)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CI transparency</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (hidden in Gradle output)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (dedicated workflows, clear logs)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maintenance after v4 migration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (must be rewritten)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (unchanged)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Coverage of mitigation requirements</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (gaps remain)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>0</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+4</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+1</strong></p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Quality Tradeoffs</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Supports <strong>QS-4 (Reliability)</strong>: 9/10 mitigations cover automated gates and extended assurance comprehensively.</p>
+</li>
+<li>
+<p>Supports <strong>QS-9 (Fast startup)</strong>: All tools run standalone — no Gradle overhead in CI for these checks.</p>
+</li>
+<li>
+<p>Supports <strong>QS-11 (Script-first)</strong>: CodeNarc analyzes scripts directly without requiring compilation.</p>
+</li>
+<li>
+<p>Neutral on <strong>QS-14 (v3 compatibility)</strong>: Tools analyze the codebase as-is, no changes to runtime behavior.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Consequences</strong>: All CI workflows are independent of Gradle and will survive the v4 migration unchanged. The <code>pre-commit</code> framework must be installed in the devcontainer (added to <code>post-create.sh</code>). CodeNarc downloads JARs from Maven Central at CI runtime (~12 MB). Trivy scans require <code>./gradlew packageLibs</code> to populate <code>build/lib/</code> — after v4 migration this will be replaced by whatever populates <code>lib/</code>.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_tbd_1_confluence_api_version_strategy">9.12. ADR-TBD-1: Confluence API Version Strategy</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Deferred — decide when Confluence publishing is reworked</p>
+</li>
+<li>
+<p><strong>Context</strong>: Two parallel Confluence client implementations (V1 for Server, V2 for Cloud). Lower priority in the LLM era — documentation increasingly consumed via daCLI/MCP rather than pushed to Confluence.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_tbd_2_jira_cloud_vs_server_client_architecture">9.13. ADR-TBD-2: Jira Cloud vs. Server Client Architecture</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Deferred — decide when Jira integration is reworked</p>
+</li>
+<li>
+<p><strong>Context</strong>: Only <code>JiraServerClient</code> exists. Lower priority — LLMs can query Jira directly via MCP tools, reducing the need for batch export scripts.</p>
+</li>
+</ul>
+</div>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-quality-scenarios">10. Quality Requirements</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>The quality goals from <a href="#section-introduction-and-goals">Introduction and Goals</a> drive every architecture decision in docToolchain v4.
+This section refines those goals into a structured quality tree and concrete, measurable scenarios that serve as acceptance criteria for the architecture.</p>
+</div>
+<div class="paragraph">
+<p>Quality scenarios QS-1 through QS-8 were derived from v3 codebase analysis.
+Quality scenarios QS-9 through QS-14 were derived from the v4 architecture requirements.</p>
+</div>
+<div class="sect2">
+<h3 id="_quality_requirements_overview">10.1. Quality Requirements Overview</h3>
+<div class="paragraph">
+<p>The quality tree organizes requirements by ISO 25010 categories.
+Each leaf maps to one or more quality scenarios below.</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../images/quality-tree.png" alt="quality tree" width="698" height="1203">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_quality_scenarios">10.2. Quality Scenarios</h3>
+<div class="paragraph">
+<p>The following scenarios are the <strong>evaluation framework</strong> for all architecture decisions (Section 09).
+Each ADR must state which quality scenarios it supports or compromises.</p>
+</div>
+<div class="sect3">
+<h4 id="_carried_forward_from_v3">10.2.1. Carried forward from v3</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">ID</th>
+<th class="tableblock halign-left valign-top">Quality Goal</th>
+<th class="tableblock halign-left valign-top">Stimulus</th>
+<th class="tableblock halign-left valign-top">Response</th>
+<th class="tableblock halign-left valign-top">Metric</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Extensibility</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A contributor wants to add a new export feature (e.g., export to Notion).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">They create one Groovy script in <code>scripts/</code> and register it. No build system knowledge required.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No compilation step needed. The new task appears in <code>./dtcw tasks</code> output.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Portability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A user runs <code>./dtcw docker generateHTML</code> on the same project that previously built with <code>./dtcw local generateHTML</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker execution produces the same HTML output as the local execution.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Output files are byte-identical (excluding timestamps in HTML meta tags).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A developer with no prior docToolchain experience clones a project containing <code>dtcw</code> and AsciiDoc sources.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">They run <code>./dtcw local generateHTML</code> and get rendered documentation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time from first command to viewing HTML output is under 5 minutes (including automatic Java and docToolchain installation).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reliability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Confluence publishing is triggered twice for the same documentation without changes.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The second run detects that page content has not changed (via MD5 hash comparison) and skips the update.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No new Confluence page versions are created. Existing attachments and labels are preserved.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-5</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maintainability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A CI/CD pipeline runs <code>./dtcw local generateHTML</code> in a container without a TTY.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>dtcw</code> wrapper detects headless mode (<code>DTC_HEADLESS=true</code>) and suppresses all interactive prompts. The build completes unattended.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exit code 0 on success; non-zero on failure. No hanging processes waiting for user input.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability (Installability)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A user runs <code>./dtcw local generateHTML</code> on a machine without a JDK.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>dtcw</code> wrapper detects the missing JDK, downloads and installs it locally, and proceeds with the build.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No manual Java installation required. The installed JDK is reused for subsequent runs.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-7</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reliability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The test suite is executed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All tests pass. Environment-dependent tests are skipped gracefully.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zero test failures. Test execution completes in under 15 seconds.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-8</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance Efficiency</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A user runs <code>./dtcw local generateHTML</code> on a typical documentation project (~50 AsciiDoc pages with PlantUML diagrams).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTML output is generated.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generation completes in under 20 seconds.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_new_for_v4">10.2.2. New for v4</h4>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 12.5%;">
+<col style="width: 12.5%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">ID</th>
+<th class="tableblock halign-left valign-top">Quality Goal</th>
+<th class="tableblock halign-left valign-top">Stimulus</th>
+<th class="tableblock halign-left valign-top">Response</th>
+<th class="tableblock halign-left valign-top">Metric</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Performance (Startup + Throughput)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A user runs <code>./dtcw local generateHTML</code> for the second time (docToolchain already installed).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The task starts executing immediately without build framework initialization. AsciiDoc processing completes without unnecessary overhead from dependency resolution, daemon negotiation, or build graph computation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Startup (command to first AsciiDoc processing): under 3 seconds. End-to-end time for 50 pages: under 10 seconds. No Gradle daemon, no dependency resolution, no build graph overhead.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-10</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Portability (Apple Silicon)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A user runs <code>./dtcw local generateSite</code> on a Mac with Apple Silicon (M1/M2/M3/M4).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The site generation completes without errors or platform-specific workarounds.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No JNI/native library issues. Same output as on x86_64.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-11</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maintainability (Script-first)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A contributor wants to fix a bug in the Confluence publishing logic.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">They edit a Groovy script directly and re-run. No compilation, no JAR rebuild, no Shadow JAR assembly.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Change-to-test cycle is under 5 seconds. No <code>./gradlew core:jar</code> step required.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-12</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM Friendliness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">An LLM (via daCLI MCP server) needs to read, navigate, and modify docToolchain-generated documentation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">daCLI provides structured access via 10 MCP tools: <code>get_structure</code>, <code>get_section</code>, <code>search</code>, <code>update_section</code>, etc. Documentation follows Semantic Anchor conventions for machine-readable navigation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM can locate and read any section with at most 3 tool calls. Token usage is under 10% of what reading full files would require.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-13</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability (Modern UI)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A reader opens a docToolchain-generated microsite in a browser.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The site has a modern, clean design with responsive layout, dark mode support, fast full-text search, and clear navigation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Visual appearance is comparable to modern documentation sites (Starlight, Nextra, Diataxis). Page load time under 1 second.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Compatibility (v3 config)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A user upgrades from docToolchain v3 to v4 without changing their <code>docToolchainConfig.groovy</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The v4 <code>dtcw</code> reads the existing configuration file and executes all previously configured tasks.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zero config file changes required for basic usage (generateHTML, generatePDF, publishToConfluence). Deprecated features emit warnings but do not fail.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability (LLM-Managed Configuration)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A user asks an LLM to configure Confluence publishing for their project.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The LLM reads the current <code>docToolchainConfig.groovy</code>, understands which values deviate from defaults, and adds only the necessary settings (API URL, space key, credentials reference). The config file stays minimal — no commented-out defaults, no boilerplate.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The config file contains only explicit deviations from defaults. Defaults are defined in code and documented in a machine-readable reference. An LLM can read the config, explain what is configured, and modify it correctly — without hallucinating defaults or duplicating them.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Privacy (No Implicit Cloud Processing)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A user runs <code>./dtcw generateHTML</code> with diagrams in their AsciiDoc sources. The <code>diagramServer</code> is set to <code><a href="https://kroki.io/" class="bare">https://kroki.io/</a></code> (external service).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">docToolchain prints a clear warning: "Diagramm-Quelltexte werden an kroki.io gesendet. Für lokale Verarbeitung setze <code>diagramServer = 'docker'</code>." The user must explicitly acknowledge or configure an external server. No data leaves the machine without the user&#8217;s informed consent.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zero external API calls unless the user has explicitly configured an external <code>diagramServer</code> URL. Default should be <code>docker</code> (local) or no diagrams rendered. External URLs trigger a warning on every run.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability (Actionable Guidance)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A task fails due to a problem the user can fix (locked file, missing config, wrong credentials, unreachable API, missing tool).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Instead of a stack trace or cryptic error message, docToolchain tells the user <strong>what to do next</strong>: which file to close, which config key to set, which command to run. The message is a concrete action, not a diagnosis.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Every error message that a user can resolve contains a remediation step. Example: "Die PDF-Datei build/pdf/manual.pdf ist gesperrt. Bitte schließe sie in deinem PDF-Viewer und führe den Befehl erneut aus." Zero stack traces for user-recoverable errors. Stack traces only for bugs (unexpected exceptions).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability (Minimal Repository Footprint)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A user adds docToolchain to an existing project repository.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only <code>dtcw</code> (wrapper script) and <code>docToolchainConfig.groovy</code> (configuration) are committed to the project repository. All other files — JARs, scripts, templates, Java runtime — are installed externally in <code>$HOME/.doctoolchain/</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exactly 2 files added to the project repo (plus optional <code>dtcw.ps1</code>/<code>dtcw.bat</code> for Windows). The <code>build/</code> output directory is in <code>.gitignore</code>. No Gradle wrapper, no <code>build.gradle</code>, no <code>settings.gradle</code>, no <code>libs/</code> in the project.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-19</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Usability (Clean Uninstallation)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A user decides to remove docToolchain from their system.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deleting <code>$HOME/.doctoolchain/</code> removes the entire installation — binaries, JARs, Java runtime, caches. docToolchain does not modify shell profiles (<code>.bashrc</code>, <code>.zshrc</code>, <code>.profile</code>), does not register system services, and does not write to directories outside <code>$HOME/.doctoolchain/</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zero side effects after <code>rm -rf $HOME/.doctoolchain/</code>. No orphaned entries in PATH, no lingering environment variables, no modified shell config files. The project&#8217;s <code>dtcw</code> and config file remain inert without the installation.</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-technical-risks">11. Risks and Technical Debts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Risks for v4 differ significantly from v3. Some v3 risks are resolved (Gradle coupling, jBake maintenance), while new risks arise from the migration.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 14.2857%;">
+<col style="width: 14.2857%;">
+<col style="width: 42.8571%;">
+<col style="width: 28.5715%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Priority</th>
+<th class="tableblock halign-left valign-top">Risk / Debt</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Affected Quality Scenarios</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LOW</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dependency management at release time</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AsciiDoctor is externalized (ADR-6), remaining ~30 JARs are shipped in <code>lib/</code> (ADR-7). The release process must resolve transitive dependencies and package them. This is a one-time build step, not a runtime concern.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-4 (Determinism)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HIGH</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Custom site generator maturity</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Replacing jBake with a custom Groovy SSG is a significant development effort. Feature parity must cover: content types, metadata, pagination, tags, menu generation, search, theme support. Risk of incomplete implementation or regressions.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-13 (Modern UI), QS-14 (v3 compatibility), QS-8 (Performance)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HIGH</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v3 migration path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users upgrading from v3 to v4 lose Gradle-based workflows. Projects using <code>./gradlew</code> directly, custom Gradle tasks, or Gradle plugins will break. A clear migration guide and deprecation warnings are needed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-14 (v3 compatibility), QS-3 (Usability)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MEDIUM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Script loading and classpath</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Without Gradle&#8217;s dependency resolution, scripts that depend on external libraries (Apache POI for Excel, jsoup for HTML parsing, HttpClient for REST) need a reliable classpath mechanism. Class conflicts between scripts are possible.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-1 (Extensibility), QS-4 (Reliability)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MEDIUM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inconsistent error handling</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Carried forward from v3. With Gradle removed, <code>GradleException</code> is no longer available. A new error handling strategy is needed (ADR-TBD-3). Scripts currently use a mix of exceptions and println.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-4 (Reliability), QS-3 (Usability)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MEDIUM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Confluence API dual client</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Carried forward from v3 (ADR-TBD-1). Two client implementations must be maintained. Atlassian is deprecating v1 for Cloud.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-4 (Reliability), QS-1 (Extensibility)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LOW</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No Jira Cloud client</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Carried forward from v3 (ADR-TBD-2). Only <code>JiraServerClient</code> exists.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-2 (Portability)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LOW</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Windows-only features</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EA, PPT, Visio export remain Windows-only (VBScript). No fallback on other platforms.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">QS-2 (Portability)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="sect2">
+<h3 id="_resolved_v3_risks">11.1. Resolved v3 Risks</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Former Risk</th>
+<th class="tableblock halign-left valign-top">How v4 Resolves It</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Incomplete core module migration</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resolved. The <code>core/</code> module is dissolved back into scripts (ADR-3 supersedes ADR-2). There is no longer a split between compiled core and script plugins.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dual config file confusion</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clarified. <code>Config.groovy</code> is the template. <code>docToolchainConfig.groovy</code> is the config. Not a dual-config problem — only appeared that way because docToolchain is installed in its own repo.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jBake unmaintained / Apple Silicon</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resolved by ADR-4. Custom Groovy SSG replaces jBake. No OrientDB, no JNI issues.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gradle startup overhead</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resolved by ADR-3. No Gradle at all. Startup under 3 seconds.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Heavy dependency footprint (60-80 JARs)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resolved by ADR-6 + ADR-7. AsciiDoctor externalized (–45 MB, –25 JARs). Remaining ~30 JARs (~23 MB) shipped in <code>lib/</code>.</p></td>
+</tr>
+</tbody>
+</table>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="section-glossary">12. Glossary</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Term</th>
+<th class="tableblock halign-left valign-top">Definition</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>dtcw</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>docToolchain wrapper. Cross-platform CLI entry point (Bash, PowerShell, Batch) that abstracts environment detection, Java installation, and Gradle invocation. The primary interface for all docToolchain operations.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Docs-as-code</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Methodology that treats documentation like source code: written in plain text (AsciiDoc), stored in version control, peer-reviewed via pull requests, and built automatically by CI/CD pipelines.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Script Plugin</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A Gradle script file (<code>scripts/*.gradle</code>) that registers one or more Gradle tasks for a specific feature (e.g., <code>exportJiraIssues.gradle</code>). Applied to the build via <code>apply from:</code> in <code>build.gradle</code>.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Core Module</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The <code>core/</code> subproject containing business logic as a standalone Groovy library, independent of the Gradle build system. Packaged as a Shadow JAR.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Shadow JAR</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A fat JAR that bundles all runtime dependencies into a single artifact. The core module is distributed this way so that Script Plugins can use it without managing transitive dependencies.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>ConfigObject</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Groovy&#8217;s native configuration object, produced by parsing <code>docToolchainConfig.groovy</code> via <code>ConfigSlurper</code>. Provides nested map-like access to configuration properties.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>ConfigService</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wrapper class around <code>ConfigObject</code> that provides typed property access via dot-notation paths (e.g., <code>getConfigProperty("confluence.api")</code>) and subtree extraction.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Microsite</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A complete static documentation website generated by jBake from AsciiDoc sources and Groovy Server Page (GSP) templates. Includes navigation, search, theming, and multiple content sections.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>inputFiles</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Configuration array in <code>docToolchainConfig.groovy</code> that specifies which AsciiDoc files to process and in which output formats (e.g., <code>[file: 'arc42/arc42.adoc', formats: ['html','pdf']]</code>).</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>ancestorId</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Confluence page ID used as the parent page when publishing documentation. Determines where in the Confluence page hierarchy new pages are created.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>SDKMAN</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Software Development Kit Manager. A tool for managing parallel versions of multiple SDKs. One of three supported installation methods for docToolchain (<code>sdk install doctoolchain</code>).</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>ADR</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Architecture Decision Record. A lightweight document capturing a significant architecture decision, its context, rationale, and consequences. Follows Nygard&#8217;s format. Stored in <code>src/docs/050_ADRs/</code>.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Confluence Storage Format</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The XHTML-based markup language used by Atlassian Confluence to store page content. Includes Confluence-specific macros (<code>&lt;ac:structured-macro&gt;</code>) and resource identifiers (<code>&lt;ri:attachment&gt;</code>). The <code>HtmlTransformer</code> converts AsciiDoctor HTML5 output into this format.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>HtmlTransformer</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The class responsible for converting AsciiDoctor-generated HTML5 into Confluence Storage Format. Chains through <code>CodeBlockTransformer</code> and <code>LinkTransformer</code> for specialized transformations.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>JQL</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Jira Query Language. A SQL-like query language used to search for Jira issues. Used in <code>docToolchainConfig.groovy</code> to define which issues to export (e.g., <code>project='KEY' AND status='Done'</code>).</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Headless Mode</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Non-interactive execution mode for CI/CD pipelines. Activated via <code>DTC_HEADLESS=true</code> environment variable or absence of a TTY. Suppresses all interactive prompts and auto-accepts defaults.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Quality Scenario</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A concrete, measurable acceptance criterion for an architecture quality goal. Defined in Section 10 and referenced by all ADRs to evaluate architectural tradeoffs.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>streamingExecute</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A Groovy helper method used in scripts to invoke external processes (e.g., VBScript, shell commands) with real-time console output streaming. Manages process lifecycle and output capture.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>MCP (Model Context Protocol)</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A protocol for communication between LLMs and external tools. daCLI implements an MCP server that exposes 10 tools for structured document access via stdio transport. Enables LLMs to navigate, search, and modify documentation.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Semantic Anchors</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Well-defined terms, methodologies, and frameworks that serve as precise reference points when communicating with LLMs. Examples: "SOLID Principles", "arc42", "Socratic Method", "MECE". Each anchor activates a rich, interconnected body of knowledge in the LLM. Quality criteria: Precise, Rich, Consistent, Attributable. See <a href="https://llm-coding.github.io/Semantic-Anchors/" class="bare">https://llm-coding.github.io/Semantic-Anchors/</a></em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Semantic Contracts</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Bundles of Semantic Anchors composed into reusable working agreements. Defined in <code>CLAUDE.md</code> files. Example: "Specification = Use Cases with Activity Diagrams + Gherkin acceptance criteria". Contracts ensure consistent collaboration conventions between humans and LLMs across a project. See <a href="https://llm-coding.github.io/Semantic-Anchors/#/contracts" class="bare">https://llm-coding.github.io/Semantic-Anchors/#/contracts</a></em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>daCLI</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Documentation Access CLI. A Python-based tool providing both a command-line interface and an MCP server for structured document access. Builds an in-memory index from AsciiDoc/Markdown sources for O(1) section lookups. 10 MCP tools for navigation, search, and modification.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Bausteinsicht</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Architecture-as-code tool (Go). Defines architecture in JSONC text files with bidirectional draw.io synchronization. LLMs read/write JSONC natively. Exports PlantUML, Mermaid, PNG for embedding in AsciiDoc.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Groovy SimpleTemplate</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Groovy&#8217;s built-in template engine. Used for microsite HTML generation in v4 (replacing jBake&#8217;s template system). The 23 existing <code>.gsp</code> template files from v3 are compatible.</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Groovy Grape</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Groovy&#8217;s built-in dependency manager. Scripts declare dependencies via <code>@Grab('group:artifact:version')</code>. Automatically downloads JARs from Maven Central and caches them in <code>~/.groovy/grapes/</code>. One of the options for dependency management in v4 (ADR-TBD-6).</em></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Pugh Matrix</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A structured decision-making technique used in ADRs. Criteria are scored on a 3-point scale (–1, 0, +1) for each alternative. The alternative with the highest total score wins.</em></p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+        </p>
+
+        <style>
+.feedback--answer {
+    display: inline-block;
+}
+
+.feedback--answer-no {
+    margin-left: 1em;
+}
+
+.feedback--response {
+    display: none;
+    margin-top: 1em;
+}
+
+.feedback--response__visible {
+    display: block;
+}
+</style>
+
+<div class="d-print-none">
+    <h2 class="feedback--title">Feedback</h2>
+    <p class="feedback--question">Was this page helpful?</p>
+    <button class="feedback--answer feedback--answer-yes">Yes</button>
+    <button class="feedback--answer feedback--answer-no">No</button>
+    <p class="feedback--response feedback--response-yes">
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27docToolchain+Architecture+Documentation%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/arc42.adoc">tell us
+    how we can improve</a>.
+    </p>
+    <p class="feedback--response feedback--response-no">
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27docToolchain+Architecture+Documentation%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/arc42.adoc">tell
+    us how we can improve</a>.
+    </p>
+</div>
+<script>
+    const yesButton = document.querySelector('.feedback--answer-yes');
+    const noButton = document.querySelector('.feedback--answer-no');
+    const yesResponse = document.querySelector('.feedback--response-yes');
+    const noResponse = document.querySelector('.feedback--response-no');
+    const disableButtons = () => {
+        yesButton.disabled = true;
+        noButton.disabled = true;
+    };
+    const sendFeedback = (value) => {
+        if (typeof ga !== 'function') return;
+        const args = {
+            command: 'send',
+            hitType: 'event',
+            category: 'Helpful',
+            action: 'click',
+            label: window.location.pathname,
+            value: value
+        };
+        ga(args.command, args.hitType, args.category, args.action, args.label, args.value);
+    };
+    yesButton.addEventListener('click', () => {
+        yesResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(1);
+    });
+    noButton.addEventListener('click', () => {
+        noResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(0);
+    });
+</script>
+
+
+        <br>
+
+        <!--div class="text-muted mt-5 pt-3 border-top">Last modified July 3, 2019: <a
+                href="https://github.com/google/docsy-example/commit/d6aa89c8b24089d7e6741030864eff209465e896">Added
+            links to user guide repo (d6aa89c)</a>
+        </div-->
+    </div>
+
+
+			</main>
+
+		</div>
+	</div>
+
+
+	
+    <!--footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">&copy; 2020 | based on <a href="https://arc42.org">arc42 7.0</a> | mixed with <a href="http://getbootstrap.com/">Bootstrap v5.0.0-beta</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a></span>
+        </div>
+    </footer-->
+
+    <footer class="bg-dark py-5 row d-print-none">
+        <div class="container-fluid mx-sm-5">
+            <div class="row">
+                <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+
+
+                    <ul class="list-inline mb-0">
+                        
+                        <li aria-label="User mailing list" class="list-inline-item mx-2 h3" data-original-title="User mailing list" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="mailto:info@docs-as-co.de" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Twitter" class="list-inline-item mx-2 h3" data-original-title="Twitter" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://twitter.com/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Stack Overflow" class="list-inline-item mx-2 h3" data-original-title="Stack Overflow" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://stackoverflow.com/questions/tagged/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-stack-overflow"></i>
+                            </a>
+                        </li>
+                        
+                    </ul>
+
+
+                </div>
+                <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+
+
+                    <ul class="list-inline mb-0">
+
+                        
+                        <li aria-label="GitHub" class="list-inline-item mx-2 h3" data-original-title="GitHub" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://github.com/doctoolchain/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </li>
+                        
+
+                        
+
+
+                    </ul>
+
+
+                </div>
+                <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+
+                        <small class="text-white">built with <a href="https://doctoolchain.org">docToolchain</a> and <a href="https://jbake.org">jBake</a> <br /> theme: <a href="https://www.docsy.dev/">docsy</a></small>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+
+    <script src="../js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
+    <script src="../js/blocks.js" ></script>
+    <script src="../js/prettify.js"></script>
+    <script src="../js/copy-n-paste.js"></script>
+    <script src="../js/submenucollapse.js"></script>
+
+
+</body>
+</html>

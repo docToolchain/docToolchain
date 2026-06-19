@@ -212,10 +212,57 @@
         <ul class="navbar-nav mt-2 mt-lg-0">
     <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../10_about/10_about-the-project.html"><span>About</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../010_manual/20_install.html"><span>User Docs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link active" href="../015_tasks/03_tasks.html"><span>Tasks</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../020_tutorial/010_Install.html"><span>Tutorial</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../025_development/005_contributing_to_docs.html"><span>For Devs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../030_news/index.html"><span>News</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../arc42/open_questions.html"><span>arc42</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
+            </li>
+
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
     <form id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
     </div>
 </nav>
 
@@ -227,3 +274,814 @@
 				<div class="td-sidebar__inner" id="td-sidebar-menu" >
 					
      <form class="td-sidebar__search d-flex align-items-center d-lg-none"  id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
+
+
+        <nav aria-label="Submenu" class="collapse td-sidebar-nav" id="td-section-nav" >
+
+            <ul class="td-sidebar-nav__section">
+                <li class="td-sidebar-nav__section-title">
+                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">Tasks</span>
+                </li>
+                <li>
+                  <ul>
+                      <li class="collapse show" id="docs">
+                          
+                        <ul class="td-sidebar-nav__section ul-0">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_tasks.html" title="What Is a Task?">What Is a Task?</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_autobuildSite.html" title="autobuildSite">autobuildSite</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_collectIncludes.html" title="collectIncludes">collectIncludes</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_convertToDocx.html" title="convertToDocx">convertToDocx</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_convertToEpub.html" title="convertToEpub">convertToEpub</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_copy_themes.html" title="copyThemes">copyThemes</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_createReferenceDoc.html" title="createReferenceDoc">createReferenceDoc</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_dependencyUpdates.html" title="dependencyUpdates">dependencyUpdates</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_downloadTemplate.html" title="downloadTemplate">downloadTemplate</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportChangeLog.html" title="exportChangeLog">exportChangeLog</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportConfluence.html" title="exportConfluence">exportConfluence</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportContributors.html" title="exportContributors">exportContributors</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportDrawIo.html" title="exportDrawIo">exportDrawIo</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportEA.html" title="exportEA">exportEA</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../015_tasks/03_task_exportExcel.html" title="exportExcel">exportExcel</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportJiraIssues.html" title="exportJiraIssues">exportJiraIssues</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportJiraSprintChangelog.html" title="exportJiraSprintChangelogIssues">exportJiraSprintChangelogIssues</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportMarkdown.html" title="exportMarkdown">exportMarkdown</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportMetrics.html" title="exportMetrics">exportMetrics</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportOpenApi.html" title="exportOpenAPI">exportOpenAPI</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportPPT.html" title="exportPPT">exportPPT</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportStructurizr.html" title="exportStructurizr">exportStructurizr</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportVisio.html" title="exportVisio">exportVisio</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_fixencoding.html" title="fixEncoding">fixEncoding</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateContent.html" title="generateContent">generateContent</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateDeck.html" title="generateDeck">generateDeck</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateDocBook.html" title="generateDocbook">generateDocbook</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateHTML.html" title="generateHTML">generateHTML</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generatePDF.html" title="generatePDF">generatePDF</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateSite.html" title="generateSite">generateSite</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_htmlSanityCheck.html" title="htmlSanityCheck">htmlSanityCheck</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_prependFilename.html" title="prependFilename">prependFilename</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_previewSite.html" title="previewSite">previewSite</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_publishToConfluence.html" title="publishToConfluence">publishToConfluence</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_wipeConfluenceSpace.html" title="wipeConfluenceSpace">wipeConfluenceSpace</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/150_task_createTask.html" title="createTask">createTask</a>
+                                
+                            </li>
+                        </ul>
+                      </li>
+                  </ul>
+                <li>
+        </nav>
+
+				</div>
+			</div>
+			<div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+					
+
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_exportExcel.adoc"
+           target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
+
+
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportExcel%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_exportExcel.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+                class="fab fa-github fa-fw"></i> Create an issue</a>
+
+        
+        
+        <hr />
+<script>
+const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
+const searchTerm = "015_tasks/03_task_exportExcel.adoc";
+</script>
+
+<script src="../js/issues.js"></script>
+
+<style>
+        #issues-container {
+            background-color: white;
+            padding: 0px;
+            margin: 0;
+        }
+        .issue {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .issue:last-child {
+            border-bottom: none;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: -10px;
+        }
+        .issue-content {
+            flex-grow: 1;
+            background-color: rgba(255,255,255,0.6);
+        }
+        .issue-title {
+            font-weight: bold;
+            color: #0366d6;
+        }
+        .issue-date {
+            font-size: 0.9em;
+            color: #586069;
+        }
+
+</style>
+
+<div id="issues-container">
+searching issues...
+</div>
+
+        <hr />
+
+        <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_exportexcel">exportExcel</a>
+<ul class="sectlevel2">
+<li><a href="#_about_this_task">About This Task</a></li>
+<li><a href="#_further_reading_and_resources">Further Reading and Resources</a></li>
+<li><a href="#_source">Source</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+<div style="border: 1px solid #8e3063; border-radius: 3px; padding: 5px; margin-top: 10px;">
+    <span style="font-size:x-small; display: block; text-align: right;">Anzeige</span><br />
+    <b>Wissen,<br />direkt von der Quelle!</b><br /><br />
+    Wir bieten ein remote Docs-as-Code Training unter Verwendung von docToolchain an.<br /><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode">Nächster Termin: auf Anfrage</a><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode" class="btn btn-primary" style="">jetzt buchen!</a>
+</div>
+
+
+
+				</div>
+			</div>
+			<main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+				    <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+        <ol class="breadcrumb spb-1">
+            <!--li aria-current="page" class="breadcrumb-item active">
+                <a href="https://example.docsy.dev/docs/">Documentation</a>
+            </li-->
+
+        </ol>
+    </nav>
+
+
+    <div class="td-content">
+        <p>
+            
+<style>
+.gravatar img {
+    margin-left: 3px;
+    border-radius: 4px;
+}
+</style>
+<div class="sect1">
+<h2 id="_exportexcel">exportExcel</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved directive in ../_feedback.adoc - include::/home/runner/work/docToolchain/docToolchain/./build/contributors/015_tasks/03_task_exportExcel.adoc[]</p>
+</div>
+<div class="sect2">
+<h3 id="_about_this_task">About This Task</h3>
+<div class="paragraph">
+<p>Sometimes you need to include tabular data in your documentation.
+Most likely, this data will be stored as a MS Excel spreadsheet, or you may like to use Excel to create and edit it.
+Either way, this task lets you export an Excel spreadsheet and include it directly in your docs.
+It searches for <code>.xlsx</code> files and exports each contained worksheet as <code>.csv</code> and as <code>.adoc</code>.
+Note that formulas contained in your spreadsheet are evaluated and exported statically.</p>
+</div>
+<div class="paragraph">
+<p>The generated files are written to <code>src/excel/[filename]/[worksheet].(adoc|csv)</code>.
+The <code>src</code> folder is used instead of the <code>build</code> folder because a better history of worksheet changes is captured.</p>
+</div>
+<div class="paragraph">
+<p>The files can be included either as AsciiDoc:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>include::excel/Sample.xlsx/Numerical.adoc[]</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>&#8230;&#8203;or as a CSV file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>[options="header",format="csv"]
+|===
+include::excel/Sample.xlsx/Numerical.csv[]
+|===</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The AsciiDoc version gives you a bit more control because the following are preserved:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Horizontal and vertical alignment.</p>
+</li>
+<li>
+<p>col-span and row-span.</p>
+</li>
+<li>
+<p>Line breaks.</p>
+</li>
+<li>
+<p>Column width relative to other columns.</p>
+</li>
+<li>
+<p>Background colors.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_further_reading_and_resources">Further Reading and Resources</h3>
+<div class="paragraph">
+<p>See <a href="https://github.com/uniqueck/asciidoctorj-office-extension">asciidoctorj-office-extension</a> to learn another way to use Excel spreadsheets in your docs.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_source">Source</h3>
+<details>
+<summary class="title">Show source code of <code>scripts/exportExcel.gradle</code> or go directly to <a href="https://github.com/docToolchain/docToolchain/blob/ng/scripts/exportExcel.gradle" target="_blank" rel="noopener">GitHub · docToolchain/scripts/exportExcel.gradle</a>.</summary>
+<div class="content">
+<div class="listingblock">
+<div class="title">scripts/exportExcel.gradle</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">task exportExcel(
+        description: 'exports all excelsheets to csv and AsciiDoc',
+        group: 'docToolchain'
+) {
+    doFirst {
+        File sourceDir = file(srcDir)
+
+        def tree = fileTree(srcDir).include('**/*.xlsx').exclude('**/~*')
+
+        def exportFileDir = new File(sourceDir, 'excel')
+
+        //make sure path for notes exists
+        exportFileDir.deleteDir()
+        //create a readme to clarify things
+        def readme = """This folder contains exported workbooks from Excel.
+
+Please note that these are generated files but reside in the `src`-folder in order to be versioned.
+
+This is to make sure that they can be used from environments other than windows.
+
+# Warning!
+
+**The contents of this folder will be overwritten with each re-export!**
+
+use `gradle exportExcel` to re-export files
+"""
+        exportFileDir.mkdirs()
+        new File(exportFileDir, '/readme.ad').write(readme)
+    }
+    doLast {
+        File sourceDir = file(srcDir)
+        def exportFileDir = new File(sourceDir, 'excel')
+        def tree = fileTree(srcDir).include('**/*.xlsx').exclude('**/~*')
+
+        def nl = System.getProperty("line.separator")
+
+        def export = { sheet, evaluator, targetFileName -&gt;
+            def targetFileCSV = new File(targetFileName + '.csv')
+            def targetFileAD = new File(targetFileName + '.adoc')
+            def df = new org.apache.poi.ss.usermodel.DataFormatter();
+            def regions = []
+            sheet.numMergedRegions.times {
+                regions &lt;&lt; sheet.getMergedRegion(it)
+            }
+            logger.debug "sheet contains ${regions.size()} regions"
+            def color = ''
+            def resetColor = false
+            def numCols = 0
+            def headerCreated = false
+            def emptyRows = 0
+            for (int rowNum=0; rowNum&lt;=sheet.lastRowNum; rowNum++) {
+                def row = sheet.getRow(rowNum)
+                if (row &amp;&amp; !headerCreated) {
+                    headerCreated = true
+                    // create AsciiDoc table header
+                    def width = []
+                    numCols = row.lastCellNum
+                    numCols.times { columnIndex -&gt;
+                        width &lt;&lt; sheet.getColumnWidth((int) columnIndex)
+                    }
+                    //lets make those numbers nicer:
+                    width = width.collect { Math.round(100 * it / width.sum()) }
+                    targetFileAD.append('[options="header",cols="' + width.join(',') + '"]' + nl)
+                    targetFileAD.append('|===' + nl)
+                }
+                def data = []
+                def style = []
+                def colors = []
+                // For each row, iterate through each columns
+                if (row &amp;&amp; (row?.lastCellNum!=-1)) {
+                    numCols.times { columnIndex -&gt;
+                        def cell = row.getCell(columnIndex)
+                        if (cell) {
+                            def cellValue = df.formatCellValue(cell, evaluator)
+                            if (cellValue.startsWith('*') &amp;&amp; cellValue.endsWith('\u20AC')) {
+                                // Remove special characters at currency
+                                cellValue = cellValue.substring(1).trim();
+                            }
+                            def cellStyle = ''
+                            def region = regions.find { it.isInRange(cell.rowIndex, cell.columnIndex) }
+                            def skipCell = false
+                            if (region) {
+                                //check if we are in the upper left corner of the region
+                                if (region.firstRow == cell.rowIndex &amp;&amp; region.firstColumn == cell.columnIndex) {
+                                    def colspan = 1 + region.lastRow - region.firstRow
+                                    def rowspan = 1 + region.lastColumn - region.firstColumn
+                                    if (rowspan &gt; 1) {
+                                        cellStyle += "${rowspan}"
+                                    }
+                                    if (colspan &gt; 1) {
+                                        cellStyle += ".${colspan}"
+                                    }
+                                    cellStyle += "+"
+                                } else {
+                                    skipCell = true
+                                }
+                            }
+                            if (!skipCell) {
+                                switch (cell.cellStyle.getCellAlignment().getHorizontal().toString()) {
+                                    case 'RIGHT':
+                                        cellStyle += '&gt;'
+                                        break
+                                    case 'CENTER':
+                                        cellStyle += '^'
+                                        break
+                                }
+                                switch (cell.cellStyle.getCellAlignment().getVertical().toString()) {
+                                    case 'BOTTOM':
+                                        cellStyle += '.&gt;'
+                                        break
+                                    case 'CENTER':
+                                        cellStyle += '.^'
+                                        break
+                                }
+                                color = cell.cellStyle.fillForegroundXSSFColor?.RGB?.encodeHex()
+                                color = color != null ? nl + "{set:cellbgcolor:#${color}}" : ''
+                                data &lt;&lt; cellValue
+                                if (color == '' &amp;&amp; resetColor) {
+                                    colors &lt;&lt; nl + "{set:cellbgcolor!}"
+                                    resetColor = false
+                                } else {
+                                    colors &lt;&lt; color
+                                }
+                                if (color != '') {
+                                    resetColor = true
+                                }
+                                style &lt;&lt; cellStyle
+                            } else {
+                                data &lt;&lt; ""
+                                colors &lt;&lt; ""
+                                style &lt;&lt; "skip"
+                            }
+                        } else {
+                            data &lt;&lt; ""
+                            colors &lt;&lt; ""
+                            style &lt;&lt; ""
+                        }
+
+                    }
+                    emptyRows = 0
+                } else {
+                    if (emptyRows&lt;3) {
+                        //insert empty row
+                        numCols.times {
+                            data &lt;&lt; ""
+                            colors &lt;&lt; ""
+                            style &lt;&lt; ""
+                        }
+                        emptyRows++
+                    } else {
+                        break
+                    }
+                }
+
+                targetFileCSV.append(data
+                        .collect {
+                    "\"${it.replaceAll('"', '""')}\""
+                }
+                .join(',') + nl, 'UTF-8')
+
+                // fix #1192 https://github.com/docToolchain/docToolchain/issues/1192
+                // remove unnecessary spans which break Asciidoctor rendering
+                def prev = ''
+                def removed = []
+                def useRemoved = true
+                style.eachWithIndex { s, i -&gt;
+                    if (s!="skip") {
+                        if (s.contains('+')) {
+                            def span = s.split('[+]')[0].split('[.]')
+                            def current = ""
+                            if (span.size()&gt;1) {
+                                current = span[1]
+                            }
+                            if (span[0] != '') {
+                                removed &lt;&lt; span[0] + '+' + s.split('[+]')[1]
+                            } else {
+                                removed &lt;&lt; s.split('[+]')[1]
+                            }
+                            if (i &gt; 0) {
+                                if (current != prev) {
+                                    useRemoved = false
+                                }
+                            }
+                            prev = current
+                        } else {
+                            removed &lt;&lt; s
+                            useRemoved = false
+                        }
+                    } else {
+                        removed &lt;&lt; "skip"
+                    }
+                }
+                if (useRemoved) { style = removed }
+                // fix #1192 https://github.com/docToolchain/docToolchain/issues/1192
+
+                targetFileAD.append(data
+                        .withIndex()
+                        .collect { value, index -&gt;
+                    if (style[index] == "skip") {
+                        ""
+                    } else {
+                        style[index] + "| ${value.replaceAll('[|]', '{vbar}').replaceAll("\n", ' +$0') + colors[index]}"
+                    }
+                }
+                .join(nl) + nl * 2, 'UTF-8')
+            }
+            targetFileAD.append('|===' + nl)
+            // rewrite file to remove consecutive nl
+            targetFileAD.write(targetFileAD.text.replaceAll("(?m)(\\r?\\n){2,}", nl+nl))
+        }
+
+
+        tree.each { File excel -&gt;
+            println "file: " + excel
+            def excelDir = new File(exportFileDir, excel.getName())
+            excelDir.mkdirs()
+            InputStream inp
+            inp = new FileInputStream(excel)
+            def wb = org.apache.poi.ss.usermodel.WorkbookFactory.create(inp);
+            def evaluator = wb.getCreationHelper().createFormulaEvaluator();
+            for (int wbi = 0; wbi &lt; wb.getNumberOfSheets(); wbi++) {
+                def sheetName = wb.getSheetAt(wbi).getSheetName()
+                println " -- sheet: " + sheetName
+                def targetFile = new File(excelDir, sheetName)
+                export(wb.getSheetAt(wbi), evaluator, targetFile.getAbsolutePath())
+            }
+            inp.close();
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</details>
+</div>
+</div>
+</div>
+        </p>
+
+        <style>
+.feedback--answer {
+    display: inline-block;
+}
+
+.feedback--answer-no {
+    margin-left: 1em;
+}
+
+.feedback--response {
+    display: none;
+    margin-top: 1em;
+}
+
+.feedback--response__visible {
+    display: block;
+}
+</style>
+
+<div class="d-print-none">
+    <h2 class="feedback--title">Feedback</h2>
+    <p class="feedback--question">Was this page helpful?</p>
+    <button class="feedback--answer feedback--answer-yes">Yes</button>
+    <button class="feedback--answer feedback--answer-no">No</button>
+    <p class="feedback--response feedback--response-yes">
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportExcel%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_exportExcel.adoc">tell us
+    how we can improve</a>.
+    </p>
+    <p class="feedback--response feedback--response-no">
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportExcel%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_exportExcel.adoc">tell
+    us how we can improve</a>.
+    </p>
+</div>
+<script>
+    const yesButton = document.querySelector('.feedback--answer-yes');
+    const noButton = document.querySelector('.feedback--answer-no');
+    const yesResponse = document.querySelector('.feedback--response-yes');
+    const noResponse = document.querySelector('.feedback--response-no');
+    const disableButtons = () => {
+        yesButton.disabled = true;
+        noButton.disabled = true;
+    };
+    const sendFeedback = (value) => {
+        if (typeof ga !== 'function') return;
+        const args = {
+            command: 'send',
+            hitType: 'event',
+            category: 'Helpful',
+            action: 'click',
+            label: window.location.pathname,
+            value: value
+        };
+        ga(args.command, args.hitType, args.category, args.action, args.label, args.value);
+    };
+    yesButton.addEventListener('click', () => {
+        yesResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(1);
+    });
+    noButton.addEventListener('click', () => {
+        noResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(0);
+    });
+</script>
+
+
+        <br>
+
+        <!--div class="text-muted mt-5 pt-3 border-top">Last modified July 3, 2019: <a
+                href="https://github.com/google/docsy-example/commit/d6aa89c8b24089d7e6741030864eff209465e896">Added
+            links to user guide repo (d6aa89c)</a>
+        </div-->
+    </div>
+
+
+			</main>
+
+		</div>
+	</div>
+
+
+	
+    <!--footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">&copy; 2020 | based on <a href="https://arc42.org">arc42 7.0</a> | mixed with <a href="http://getbootstrap.com/">Bootstrap v5.0.0-beta</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a></span>
+        </div>
+    </footer-->
+
+    <footer class="bg-dark py-5 row d-print-none">
+        <div class="container-fluid mx-sm-5">
+            <div class="row">
+                <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+
+
+                    <ul class="list-inline mb-0">
+                        
+                        <li aria-label="User mailing list" class="list-inline-item mx-2 h3" data-original-title="User mailing list" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="mailto:info@docs-as-co.de" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Twitter" class="list-inline-item mx-2 h3" data-original-title="Twitter" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://twitter.com/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Stack Overflow" class="list-inline-item mx-2 h3" data-original-title="Stack Overflow" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://stackoverflow.com/questions/tagged/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-stack-overflow"></i>
+                            </a>
+                        </li>
+                        
+                    </ul>
+
+
+                </div>
+                <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+
+
+                    <ul class="list-inline mb-0">
+
+                        
+                        <li aria-label="GitHub" class="list-inline-item mx-2 h3" data-original-title="GitHub" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://github.com/doctoolchain/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </li>
+                        
+
+                        
+
+
+                    </ul>
+
+
+                </div>
+                <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+
+                        <small class="text-white">built with <a href="https://doctoolchain.org">docToolchain</a> and <a href="https://jbake.org">jBake</a> <br /> theme: <a href="https://www.docsy.dev/">docsy</a></small>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+
+    <script src="../js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
+    <script src="../js/blocks.js" ></script>
+    <script src="../js/prettify.js"></script>
+    <script src="../js/copy-n-paste.js"></script>
+    <script src="../js/submenucollapse.js"></script>
+
+
+</body>
+</html>

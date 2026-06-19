@@ -212,10 +212,57 @@
         <ul class="navbar-nav mt-2 mt-lg-0">
     <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../10_about/10_about-the-project.html"><span>About</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../010_manual/20_install.html"><span>User Docs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link active" href="../015_tasks/03_tasks.html"><span>Tasks</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../020_tutorial/010_Install.html"><span>Tutorial</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../025_development/005_contributing_to_docs.html"><span>For Devs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../030_news/index.html"><span>News</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../arc42/open_questions.html"><span>arc42</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
+            </li>
+
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
     <form id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
     </div>
 </nav>
 
@@ -227,3 +274,1413 @@
 				<div class="td-sidebar__inner" id="td-sidebar-menu" >
 					
      <form class="td-sidebar__search d-flex align-items-center d-lg-none"  id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
+
+
+        <nav aria-label="Submenu" class="collapse td-sidebar-nav" id="td-section-nav" >
+
+            <ul class="td-sidebar-nav__section">
+                <li class="td-sidebar-nav__section-title">
+                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">Tasks</span>
+                </li>
+                <li>
+                  <ul>
+                      <li class="collapse show" id="docs">
+                          
+                        <ul class="td-sidebar-nav__section ul-0">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_tasks.html" title="What Is a Task?">What Is a Task?</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_autobuildSite.html" title="autobuildSite">autobuildSite</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_collectIncludes.html" title="collectIncludes">collectIncludes</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_convertToDocx.html" title="convertToDocx">convertToDocx</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_convertToEpub.html" title="convertToEpub">convertToEpub</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_copy_themes.html" title="copyThemes">copyThemes</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_createReferenceDoc.html" title="createReferenceDoc">createReferenceDoc</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_dependencyUpdates.html" title="dependencyUpdates">dependencyUpdates</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_downloadTemplate.html" title="downloadTemplate">downloadTemplate</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportChangeLog.html" title="exportChangeLog">exportChangeLog</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportConfluence.html" title="exportConfluence">exportConfluence</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportContributors.html" title="exportContributors">exportContributors</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportDrawIo.html" title="exportDrawIo">exportDrawIo</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../015_tasks/03_task_exportEA.html" title="exportEA">exportEA</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportExcel.html" title="exportExcel">exportExcel</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportJiraIssues.html" title="exportJiraIssues">exportJiraIssues</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportJiraSprintChangelog.html" title="exportJiraSprintChangelogIssues">exportJiraSprintChangelogIssues</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportMarkdown.html" title="exportMarkdown">exportMarkdown</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportMetrics.html" title="exportMetrics">exportMetrics</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportOpenApi.html" title="exportOpenAPI">exportOpenAPI</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportPPT.html" title="exportPPT">exportPPT</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportStructurizr.html" title="exportStructurizr">exportStructurizr</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_exportVisio.html" title="exportVisio">exportVisio</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_fixencoding.html" title="fixEncoding">fixEncoding</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateContent.html" title="generateContent">generateContent</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateDeck.html" title="generateDeck">generateDeck</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateDocBook.html" title="generateDocbook">generateDocbook</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateHTML.html" title="generateHTML">generateHTML</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generatePDF.html" title="generatePDF">generatePDF</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_generateSite.html" title="generateSite">generateSite</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_htmlSanityCheck.html" title="htmlSanityCheck">htmlSanityCheck</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_prependFilename.html" title="prependFilename">prependFilename</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_previewSite.html" title="previewSite">previewSite</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_publishToConfluence.html" title="publishToConfluence">publishToConfluence</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/03_task_wipeConfluenceSpace.html" title="wipeConfluenceSpace">wipeConfluenceSpace</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../015_tasks/150_task_createTask.html" title="createTask">createTask</a>
+                                
+                            </li>
+                        </ul>
+                      </li>
+                  </ul>
+                <li>
+        </nav>
+
+				</div>
+			</div>
+			<div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+					
+
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_exportEA.adoc"
+           target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
+
+
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportEA%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_exportEA.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+                class="fab fa-github fa-fw"></i> Create an issue</a>
+
+        
+        
+        <hr />
+<script>
+const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
+const searchTerm = "015_tasks/03_task_exportEA.adoc";
+</script>
+
+<script src="../js/issues.js"></script>
+
+<style>
+        #issues-container {
+            background-color: white;
+            padding: 0px;
+            margin: 0;
+        }
+        .issue {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .issue:last-child {
+            border-bottom: none;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: -10px;
+        }
+        .issue-content {
+            flex-grow: 1;
+            background-color: rgba(255,255,255,0.6);
+        }
+        .issue-title {
+            font-weight: bold;
+            color: #0366d6;
+        }
+        .issue-date {
+            font-size: 0.9em;
+            color: #586069;
+        }
+
+</style>
+
+<div id="issues-container">
+searching issues...
+</div>
+
+        <hr />
+
+        <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_exportea">exportEA</a>
+<ul class="sectlevel2">
+<li><a href="#_about_this_task">About This Task</a></li>
+<li><a href="#_important">Important</a></li>
+<li><a href="#_the_optional_parameter_configurations">The Optional Parameter Configurations</a></li>
+<li><a href="#_glossary_export">Glossary export</a></li>
+<li><a href="#_further_reading_and_resources">Further Reading and Resources</a></li>
+<li><a href="#_source">Source</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+<div style="border: 1px solid #8e3063; border-radius: 3px; padding: 5px; margin-top: 10px;">
+    <span style="font-size:x-small; display: block; text-align: right;">Anzeige</span><br />
+    <b>Wissen,<br />direkt von der Quelle!</b><br /><br />
+    Wir bieten ein remote Docs-as-Code Training unter Verwendung von docToolchain an.<br /><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode">Nächster Termin: auf Anfrage</a><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode" class="btn btn-primary" style="">jetzt buchen!</a>
+</div>
+
+
+
+				</div>
+			</div>
+			<main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+				    <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+        <ol class="breadcrumb spb-1">
+            <!--li aria-current="page" class="breadcrumb-item active">
+                <a href="https://example.docsy.dev/docs/">Documentation</a>
+            </li-->
+
+        </ol>
+    </nav>
+
+
+    <div class="td-content">
+        <p>
+            
+<style>
+.gravatar img {
+    margin-left: 3px;
+    border-radius: 4px;
+}
+</style>
+<div class="sect1">
+<h2 id="_exportea">exportEA</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved directive in ../_feedback.adoc - include::/home/runner/work/docToolchain/docToolchain/./build/contributors/015_tasks/03_task_exportEA.adoc[]</p>
+</div>
+<div class="sect2">
+<h3 id="_about_this_task">About This Task</h3>
+<div class="paragraph">
+<p>By default, no special configuration is necessary.
+However, several optional parameter configurations are available to support a project and packages to be used for export.
+These parameters can be used independently from one another.
+A sample of how to edit your projects' Config.groovy is provided in the 'Config.groovy' of the docToolchain project itself.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_important">Important</h3>
+<div class="paragraph">
+<p>Currently this feature is WINDOWS-only. See <a href="https://github.com/docToolchain/docToolchain/issues/231">this related issue</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_optional_parameter_configurations">The Optional Parameter Configurations</h3>
+<div class="sect3">
+<h4 id="_connection">connection</h4>
+<div class="paragraph">
+<p>Either set the connection to a certain project, or comment it out to use all project files inside the src folder or its child folder.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_packagefilter">packageFilter</h4>
+<div class="paragraph">
+<p>Add one or multiple packageGUIDs to be used for export. All packages are analysed, if no packageFilter is set.</p>
+</div>
+<div class="sect4">
+<h5 id="_diagramfilter">diagramFilter</h5>
+<div class="paragraph">
+<p>On top of filtering via packages you have the chance to filter for certain diagrams inside the packages defined via <a href="#_packagefilter">packageFilter</a>.</p>
+</div>
+<div class="paragraph">
+<p>You can define the tag that is used to filter the diagrams. Only diagrams with this tag in the are exported.</p>
+</div>
+<div class="paragraph">
+<p>To set the tags you can use the diagram properties in Enterprise Architect.
+The tags are stored in the <a href="https://sparxsystems.com/enterprise_architect_user_guide/17.0/add-ins___scripting/diagram2.html">'Stereotype'</a> field of the diagram properties.</p>
+</div>
+<div class="paragraph">
+<p>Default: None<br>
+Example: diagramFilter = "myProject1, myProject2"</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Using the <code>diagram.Stereotype</code> field is a workaround to filter for diagrams.
+The field is not intended to be used for filtering purposes.
+But due to limitations of what is made available via the API, this is the only way to filter for diagrams.</p>
+</div>
+<div class="paragraph">
+<p>If in the future the API provides a way to filter for diagrams, this workaround will be removed.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_exportpath">exportPath</h4>
+<div class="paragraph">
+<p>Relative path to base 'docDir' to which the diagrams and notes are to be exported.</p>
+</div>
+<div class="paragraph">
+<p>Default: "src/docs".<br>
+Example: docDir = 'D:\work\mydoc\' ; exportPath = 'src/pdocs' ;</p>
+</div>
+<div class="paragraph">
+<p>Images will be exported to 'D:\work\mydoc\src\pdocs\images\ea',
+Notes will be exported to 'D:\work\mydoc\src\pdocs\ea',</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_searchpath">searchPath</h4>
+<div class="paragraph">
+<p>Relative path to base 'docDir', in which Enterprise Architect project files are searched.</p>
+</div>
+<div class="paragraph">
+<p>Default: "src/docs".<br>
+Example: docDir = 'D:\work\mydoc\' ; exportPath = 'src/projects' ;</p>
+</div>
+<div class="paragraph">
+<p>Lookup for eap and eapx files starts in 'D:\work\mydoc\src\projects' and goes down the folder structure.
+<strong>Note</strong>: In case parameter 'connection' is already defined, the searchPath value is also used.
+exportEA starts opening the database parameter 'connection' first then looks for
+further project files either in the searchPath (if set) or in the docDir folder of the project.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_glossaryasciidocformat">glossaryAsciiDocFormat</h4>
+<div class="paragraph">
+<p>Whether the EA project glossary is exported depends on this parameter.
+If not set or an empty string, no glossary is exported.
+The glossaryAsciiDocFormat string is used to format each glossary entry in a
+certain AsciiDoc format.</p>
+</div>
+<div class="paragraph">
+<p>The following placeholders are defined for the format string: ID, TERM, MEANING, TYPE.
+One or more can be used by the output format. For example:</p>
+</div>
+<div class="paragraph">
+<p>A valid output format is to include the glossary as a flat list.
+The file can be included where needed in the documentation.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>glossaryAsciiDocFormat = "TERM:: MEANING"</pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Other format strings can be used to include it as a table row.
+The glossary terms are sorted in alphabetical order.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_glossarytypes">glossaryTypes</h4>
+<div class="paragraph">
+<p>This parameter is used in case a glossaryAsciiDocFormat is defined, otherwise it
+is not evaluated. It&#8217;s used to filter for certain types.
+If the glossaryTypes list is empty, all entries will be used.
+For example:</p>
+</div>
+<div class="paragraph">
+<p>glossaryTypes = ["Business", "Technical"]</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_diagramattributes">diagramAttributes</h4>
+<div class="paragraph">
+<p>If set, the string is used to create and store diagram attributes to be included in the document alongside a diagram.
+These placeholders are defined and populated with the diagram attributes, if used in the
+diagramAttributes string:</p>
+</div>
+<div class="paragraph">
+<p><code>%DIAGRAM_AUTHOR%</code>,<br>
+<code>%DIAGRAM_CREATED%</code>,<br>
+<code>%DIAGRAM_GUID%</code>,<br>
+<code>%DIAGRAM_MODIFIED%</code>,<br>
+<code>%DIAGRAM_NAME%</code>,<br>
+<code>%DIAGRAM_NOTES%</code>,<br>
+<code>%DIAGRAM_DIAGRAM_TYPE%</code>,<br>
+<code>%DIAGRAM_VERSION%</code>,<br>
+<code>%NEWLINE%</code><br></p>
+</div>
+<div class="paragraph">
+<p>Example: diagramAttributes = "Last modification: %DIAGRAM_MODIFIED%%NEWLINE%Version: %DIAGRAM_VERSION%"</p>
+</div>
+<div class="paragraph">
+<p>You can add the string %NEWLINE% where a line break will be added.
+The resulting text is stored next to the diagram image using the same path and file name, but a different file extension (.ad). This can be included in the document if required.
+If diagramAttributes is not set or an empty string, no file is written.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_imageformat">imageFormat</h4>
+<div class="paragraph">
+<p>If set, the set image format is used to export the diagrams.
+Default is set to ".png".</p>
+</div>
+<div class="paragraph">
+<p>Please check your Enterprise Architect version which formats are supported.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_additionaloptions">additionalOptions</h4>
+<div class="paragraph">
+<p>This parameter is used to define the specific behavior of the export. Currently, these mutually exclusive options are supported:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>KeepFirstDiagram</code><br>
+If diagrams are not uniquely named, the last diagram will be saved. If you want to prevent diagrams from being overwritten, add this parameter to additionalOptions.</p>
+</li>
+<li>
+<p><code>append_GUID</code><br>
+Append the diagram GUID to the diagram name to guarantee a unique name.</p>
+</li>
+<li>
+<p><code>prepend_GUID</code><br>
+Prepend the diagram GUID before the diagram name guarantee a unique name.</p>
+</li>
+<li>
+<p><code>use_GUID</code><br>
+Ignore the diagram name and only use the GUID as diagram name.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_verbose_output">verbose output</h4>
+<div class="paragraph">
+<p>If set to bigger than 0, the exportEA task will output additional information about the export process.</p>
+</div>
+<div class="paragraph">
+<p>For example:</p>
+</div>
+<div class="paragraph">
+<p>verboseLevel = 1</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_glossary_export">Glossary export</h3>
+<div class="paragraph">
+<p>By setting the glossaryAsciiDocFormat, the glossary terms stored in the EA project
+will be exported into a folder named 'glossary' below the configured exportPath.
+In case multiple EA projects are found for export, one glossary per project is
+exported - each named using the project&#8217;s GUID plus extension '.ad'.</p>
+</div>
+<div class="paragraph">
+<p>Each individual file will be filtered (see glossaryTypes) and sorted in alphabetical order.
+In addition, a global glossary is created by using all single glossary files.
+This global file is named 'glossary.ad' and is also placed in the glossary folder.
+The global glossary is also filtered and sorted.
+If there is only one EA project, only the global glossary is written.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_further_reading_and_resources">Further Reading and Resources</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="https://rdmueller.github.io/jria2eac/">JIRA to Sparx EA</a> blog post.</p>
+</li>
+<li>
+<p><a href="https://rdmueller.github.io/sparx-ea/">Did you Ever Wish you Had Better Diagrams?</a> blog post.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_source">Source</h3>
+<details>
+<summary class="title">Show source code of <code>scripts/exportEA.gradle</code> or go directly to <a href="https://github.com/docToolchain/docToolchain/blob/ng/scripts/exportEA.gradle" target="_blank" rel="noopener">GitHub · docToolchain/scripts/exportEA.gradle</a>.</summary>
+<div class="content">
+<div class="listingblock">
+<div class="title">scripts/exportEA.gradle</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">task exportEA(
+        dependsOn: [streamingExecute],
+        description: 'exports all diagrams and some texts from EA files',
+        group: 'docToolchain'
+) {
+    doFirst {
+    }
+    doLast {
+        logger.info("docToolchain &gt; exportEA: " + docDir)
+        logger.info("docToolchain &gt; exportEA: " + mainConfigFile)
+        def configFile = new File(docDir, mainConfigFile)
+        def config = new ConfigSlurper().parse(configFile.text)
+        def scriptParameterString = ""
+        def exportPath = ""
+        def searchPath = ""
+        def glossaryPath = ""
+        def imageFormat = ""
+        def diagramFilter = ""
+        def readme = """This folder contains exported diagrams or notes from Enterprise Architect.
+
+Please note that these are generated files but reside in the `src`-folder in order to be versioned.
+
+This is to make sure that they can be used from environments other than windows.
+
+# Warning!
+
+**The contents of this folder	will be overwritten with each re-export!**
+
+use `gradle exportEA` to re-export files
+"""
+
+        if (!config.exportEA.connection.isEmpty()) {
+            logger.info("docToolchain &gt; exportEA: found " + config.exportEA.connection)
+            scriptParameterString = scriptParameterString + "-c \"${config.exportEA.connection}\""
+        }
+        if (!config.exportEA.packageFilter.isEmpty()) {
+            def packageFilterToCreate = config.exportEA.packageFilter as List
+            logger.info("docToolchain &gt; exportEA: package filter list size: " + packageFilterToCreate.size())
+            packageFilterToCreate.each { packageFilter -&gt;
+                scriptParameterString = scriptParameterString + " -p \"${packageFilter}\""
+            }
+        }
+        if (!config.exportEA.diagramFilter.isEmpty()) {
+            logger.info("docToolchain &gt; exportEA: diagram filter: " + config.exportEA.diagramFilter)
+            scriptParameterString = scriptParameterString + "-df \"${config.exportEA.diagramFilter}\""
+        }
+        if (!config.exportEA.exportPath.isEmpty()) {
+            exportPath = new File(docDir, config.exportEA.exportPath).getAbsolutePath()
+        } else {
+            exportPath = new File(docDir, 'src/docs').getAbsolutePath()
+        }
+        if (!config.exportEA.searchPath.isEmpty()) {
+            searchPath = new File(docDir, config.exportEA.searchPath).getAbsolutePath()
+        }
+        else if (!config.exportEA.absoluteSearchPath.isEmpty()) {
+            searchPath = new File(config.exportEA.absoluteSearchPath).getAbsolutePath()
+        }
+        else {
+            searchPath = new File(docDir, 'src').getAbsolutePath()
+        }
+        if (config.exportEA.imageFormat.isEmpty()) {
+            imageFormat = ".png"
+        } else if(!config.exportEA.imageFormat.startsWith(".")) {
+            imageFormat = "." + config.exportEA.imageFormat
+        } else {
+            imageFormat = config.exportEA.imageFormat
+        }
+        if (!config.exportEA.verboseLevel.isEmpty()) {
+            logger.info("docToolchain &gt; exportEA: verboseLevel: " + config.exportEA.verboseLevel)
+            scriptParameterString = scriptParameterString + "-v ${config.exportEA.verboseLevel}"
+        }
+        scriptParameterString = scriptParameterString + " -d \"$exportPath\""
+        scriptParameterString = scriptParameterString + " -s \"$searchPath\""
+        scriptParameterString = scriptParameterString + " -f \"$imageFormat\""
+        logger.info("docToolchain &gt; exportEA: exportPath: " + exportPath)
+
+        //remove old glossary files/folder if exist
+        new File(exportPath, 'glossary').deleteDir()
+        //set the glossary file path in case an output format is configured, other no glossary is written
+        if (!config.exportEA.glossaryAsciiDocFormat.isEmpty()) {
+            //create folder to store glossaries
+            new File(exportPath, 'glossary/.').mkdirs()
+            glossaryPath = new File(exportPath, 'glossary').getAbsolutePath()
+            scriptParameterString = scriptParameterString + " -g \"$glossaryPath\""
+        }
+        //configure additional diagram attributes to be exported
+        if (!config.exportEA.diagramAttributes.isEmpty()) {
+            scriptParameterString = scriptParameterString + " -da \"$config.exportEA.diagramAttributes\""
+        }
+        //configure additional diagram attributes to be exported
+        if (!config.exportEA.additionalOptions.isEmpty()) {
+            scriptParameterString = scriptParameterString + " -ao \"$config.exportEA.additionalOptions\""
+        }
+        //make sure path for notes exists
+        //and remove old notes
+        new File(exportPath, 'ea').deleteDir()
+        //also remove old diagrams
+        new File(exportPath, 'images/ea').deleteDir()
+
+        //create a readme to clarify things
+        new File(exportPath, 'images/ea/.').mkdirs()
+        new File(exportPath, 'images/ea/readme.ad').write(readme)
+        new File(exportPath, 'ea/.').mkdirs()
+        new File(exportPath, 'ea/readme.ad').write(readme)
+
+        //execute through cscript in order to make sure that we get WScript.echo right
+        logger.info("docToolchain &gt; exportEA: parameters: " + scriptParameterString)
+        "%SystemRoot%\\System32\\cscript.exe //nologo ${projectDir}/scripts/exportEAP.vbs ${scriptParameterString}".executeCmd()
+        //the VB Script is only capable of writing iso-8859-1-Files.
+        //we now have to convert them to UTF-8
+        new File(exportPath, 'ea/.').eachFileRecurse { file -&gt;
+            if (file.isFile()) {
+                println "exported notes " + file.canonicalPath
+                file.write(file.getText('iso-8859-1'), 'utf-8')
+            }
+        }
+
+        //sort, filter and reformat a glossary if an output format is configured
+        if (!config.exportEA.glossaryAsciiDocFormat.isEmpty()) {
+            def glossaryTypes
+
+            if (!config.exportEA.glossaryTypes.isEmpty()) {
+                glossaryTypes = config.exportEA.glossaryTypes as List
+            }
+            new GlossaryHandler().execute(glossaryPath, config.exportEA.glossaryAsciiDocFormat, glossaryTypes);
+        }
+    }
+}</code></pre>
+</div>
+</div>
+</div>
+</details>
+<details>
+<summary class="title">Show source code of <code>scripts/exportEAP.vbs</code> or go directly to <a href="https://github.com/docToolchain/docToolchain/blob/ng/scripts/exportEAP.vbs" target="_blank" rel="noopener">GitHub · docToolchain/scripts/exportEAP.vbs</a>.</summary>
+<div class="content">
+<div class="listingblock">
+<div class="title">scripts/exportEAP.vbs</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="vbscript">    ' based on the "Project Interface Example" which comes with EA
+    ' http://stackoverflow.com/questions/1441479/automated-method-to-export-enterprise-architect-diagrams
+
+
+
+    Dim EAapp 'As EA.App
+    Dim Repository 'As EA.Repository
+    Dim FS 'As Scripting.FileSystemObject
+
+    Dim projectInterface 'As EA.Project
+
+    Const   ForAppending = 8
+    Const   ForWriting = 2
+
+    ' Helper
+    ' http://windowsitpro.com/windows/jsi-tip-10441-how-can-vbscript-create-multiple-folders-path-mkdir-command
+    Function MakeDir (strPath)
+      Dim strParentPath, objFSO
+      Set objFSO = CreateObject("Scripting.FileSystemObject")
+      On Error Resume Next
+      strParentPath = objFSO.GetParentFolderName(strPath)
+
+      If Not objFSO.FolderExists(strParentPath) Then MakeDir strParentPath
+      If Not objFSO.FolderExists(strPath) Then objFSO.CreateFolder strPath
+      On Error Goto 0
+      MakeDir = objFSO.FolderExists(strPath)
+    End Function
+
+    ' Replaces certain characters with '_' to avoid unwanted file or folder names causing errors or structure failures.
+    ' Regular expression can easily be extended with further characters to be replaced.
+    Function NormalizeName(theName)
+       dim re : Set re = new regexp
+       re.Pattern = "[\\/\[\]\s:]"
+       re.Global = True
+       NormalizeName = re.Replace(theName, "_")
+    End Function
+
+    Function isSelectedViaDiagramFilter(diagram, diagramFilter)
+        isSelectedViaDiagramFilter = False
+        If Len(diagramFilter) &gt; 0 Then
+            If InStr(1, diagram.Stereotype, diagramFilter, vbTextCompare) = 0 Then
+                WScript.Echo " --- Skipping diagram '" &amp; diagram.Name &amp; "' because of filter. Required values are: " &amp; diagramFilter &amp; " -- found: " &amp; diagram.Stereotype
+            Else
+                isSelectedViaDiagramFilter = True
+            End If
+        End If
+    End Function
+
+    Sub WriteNote(currentModel, currentElement, notes, prefix)
+        If (Left(notes, 6) = "{adoc:") Then
+            strFileName = Trim(Mid(notes,7,InStr(notes,"}")-7))
+            strNotes = Right(notes,Len(notes)-InStr(notes,"}"))
+            set objFSO = CreateObject("Scripting.FileSystemObject")
+            If (currentModel.Name="Model") Then
+              ' When we work with the default model, we don't need a sub directory
+              path = objFSO.BuildPath(exportDestination,"ea/")
+            Else
+              path = objFSO.BuildPath(exportDestination,"ea/"&amp;NormalizeName(currentModel.Name)&amp;"/")
+            End If
+            MakeDir(path)
+
+            post = ""
+            If (prefix&lt;&gt;"") Then
+                post = "_"
+            End If
+            MakeDir(path&amp;prefix&amp;post)
+
+            set objFile = objFSO.OpenTextFile(path&amp;prefix&amp;post&amp;"/"&amp;strFileName&amp;".ad",ForAppending, True)
+            name = currentElement.Name
+            name = Replace(name,vbCr,"")
+            name = Replace(name,vbLf,"")
+
+            strCombinedNotes = "_all_notes.ad"
+            set objCombinedNotesFile = objFSO.OpenTextFile(path&amp;prefix&amp;post&amp;"/"&amp;strCombinedNotes,ForAppending, True)
+
+            if (Left(strNotes, 3) = vbCRLF&amp;"|") Then
+                ' content should be rendered as table - so don't interfere with it
+                objFile.WriteLine(vbCRLF)
+                objCombinedNotesFile.WriteLine(vbCRLF)
+            else
+                'let's add the name of the object
+                objFile.WriteLine(vbCRLF&amp;vbCRLF&amp;"."&amp;name)
+                objCombinedNotesFile.WriteLine(vbCRLF&amp;vbCRLF&amp;"."&amp;name)
+            End If
+            objFile.WriteLine(vbCRLF&amp;strNotes)
+            objFile.Close
+            objCombinedNotesFile.WriteLine(vbCRLF&amp;strNotes)
+            objCombinedNotesFile.Close
+            if (prefix&lt;&gt;"") Then
+                ' write the same to a second file
+                set objFile = objFSO.OpenTextFile(path&amp;prefix&amp;".ad",ForAppending, True)
+                objFile.WriteLine(vbCRLF&amp;vbCRLF&amp;"."&amp;name&amp;vbCRLF&amp;strNotes)
+                objFile.Close
+            End If
+        End If
+    End Sub
+
+    Sub SyncJira(currentModel, currentDiagram)
+        notes = currentDiagram.notes
+        set currentPackage = Repository.GetPackageByID(currentDiagram.PackageID)
+        updated = 0
+        created = 0
+        If (Left(notes, 6) = "{jira:") Then
+            WScript.echo " &gt;&gt;&gt;&gt; Diagram jira tag found"
+            strSearch = Mid(notes,7,InStr(notes,"}")-7)
+            Set objShell = CreateObject("WScript.Shell")
+            'objShell.CurrentDirectory = fso.GetFolder("./scripts")
+            Set objExecObject = objShell.Exec ("cmd /K  groovy ./scripts/exportEAPJiraPrintHelper.groovy """ &amp; strSearch &amp;""" &amp; exit")
+            strReturn = ""
+            x = 0
+            y = 0
+            Do While Not objExecObject.StdOut.AtEndOfStream
+                output = objExecObject.StdOut.ReadLine()
+                ' WScript.echo output
+                jiraElement = Split(output,"|")
+                name = jiraElement(0)&amp;":"&amp;vbCR&amp;vbLF&amp;jiraElement(4)
+                On Error Resume Next
+                Set requirement = currentPackage.Elements.GetByName(name)
+                On Error Goto 0
+                if (IsObject(requirement)) then
+                    ' element already exists
+                    requirement.notes = ""
+                    requirement.notes = requirement.notes&amp;"&lt;a href='"&amp;jiraElement(5)&amp;"'&gt;"&amp;jiraElement(0)&amp;"&lt;/a&gt;"&amp;vbCR&amp;vbLF
+                    requirement.notes = requirement.notes&amp;"Priority: "&amp;jiraElement(1)&amp;vbCR&amp;vbLF
+                    requirement.notes = requirement.notes&amp;"Created: "&amp;jiraElement(2)&amp;vbCR&amp;vbLF
+                    requirement.notes = requirement.notes&amp;"Assignee: "&amp;jiraElement(3)&amp;vbCR&amp;vbLF
+                    requirement.Update()
+                    updated = updated + 1
+                else
+                    Set requirement = currentPackage.Elements.AddNew(name,"Requirement")
+                    requirement.notes = ""
+                    requirement.notes = requirement.notes&amp;"&lt;a href='"&amp;jiraElement(5)&amp;"'&gt;"&amp;jiraElement(0)&amp;"&lt;/a&gt;"&amp;vbCR&amp;vbLF
+                    requirement.notes = requirement.notes&amp;"Priority: "&amp;jiraElement(1)&amp;vbCR&amp;vbLF
+                    requirement.notes = requirement.notes&amp;"Created: "&amp;jiraElement(2)&amp;vbCR&amp;vbLF
+                    requirement.notes = requirement.notes&amp;"Assignee: "&amp;jiraElement(3)&amp;vbCR&amp;vbLF
+                    requirement.Update()
+                    currentPackage.Elements.Refresh()
+                    Set dia_obj = currentDiagram.DiagramObjects.AddNew("l="&amp;(10+x*200)&amp;";t="&amp;(10+y*50)&amp;";b="&amp;(10+y*50+44)&amp;";r="&amp;(10+x*200+180),"")
+                    x = x + 1
+                    if (x&gt;3) then
+                      x = 0
+                      y = y + 1
+                    end if
+                    dia_obj.ElementID = requirement.ElementID
+                    dia_obj.Update()
+                    created = created + 1
+                end if
+            Loop
+            Set objShell = Nothing
+            WScript.echo "created "&amp;created&amp;" requirements"
+            WScript.echo "updated "&amp;updated&amp;" requirements"
+        End If
+    End Sub
+
+    ' This sub routine checks if the format string defined in diagramAttributes
+    ' does contain any characters. It replaces the known placeholders:
+    ' %DIAGRAM_AUTHOR%, %DIAGRAM_CREATED%, %DIAGRAM_GUID%, %DIAGRAM_MODIFIED%,
+    ' %DIAGRAM_NAME%, %DIAGRAM_NOTES%, %DIAGRAM_DIAGRAM_TYPE%, %DIAGRAM_VERSION%
+    ' with the attribute values read from the EA diagram object.
+    ' None, one or multiple number of placeholders can be used to create a diagram attribute
+    ' to be added to the document. The attribute string is stored as a file with the same
+    ' path and name as the diagram image, but with suffix .ad. So, it can
+    ' easily be included in an asciidoc file.
+    Sub SaveDiagramAttribute(currentDiagram, path, diagramName)
+        If Len(diagramAttributes) &gt; 0 Then
+            filledDiagAttr = diagramAttributes
+            set objFSO = CreateObject("Scripting.FileSystemObject")
+            filename = objFSO.BuildPath(path, diagramName &amp; ".ad")
+            set objFile = objFSO.OpenTextFile(filename, ForWriting, True)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_AUTHOR%",       currentDiagram.Author)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_CREATED%",      currentDiagram.CreatedDate)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_GUID%",         currentDiagram.DiagramGUID)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_MODIFIED%",     currentDiagram.ModifiedDate)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NAME%",         currentDiagram.Name)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_NOTES%",        currentDiagram.Notes)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_DIAGRAM_TYPE%", currentDiagram.Type)
+            filledDiagAttr = Replace(filledDiagAttr, "%DIAGRAM_VERSION%",      currentDiagram.Version)
+            filledDiagAttr = Replace(filledDiagAttr, "%NEWLINE%",              vbCrLf)
+            objFile.WriteLine(filledDiagAttr)
+            objFile.Close
+        End If
+    End Sub
+
+    Sub SaveDiagram(currentModel, currentDiagram)
+        Dim exportDiagram ' As Boolean
+
+        ' Open the diagram
+        Repository.OpenDiagram(currentDiagram.DiagramID)
+
+        ' Save and close the diagram
+        set objFSO = CreateObject("Scripting.FileSystemObject")
+        If (currentModel.Name="Model") Then
+            ' When we work with the default model, we don't need a sub directory
+            path = objFSO.BuildPath(exportDestination,"/images/ea/")
+        Else
+            path = objFSO.BuildPath(exportDestination,"/images/ea/" &amp; NormalizeName(currentModel.Name) &amp; "/")
+        End If
+        path = objFSO.GetAbsolutePathName(path)
+        MakeDir(path)
+
+        diagramName = currentDiagram.Name
+        diagramName = Replace(diagramName,vbCr,"")
+        diagramName = Replace(diagramName,vbLf,"")
+        diagramName = NormalizeName(diagramName)
+        diagramGUID = currentDiagram.DiagramGUID
+        diagramGUID = Replace(diagramGUID,"{","")
+        diagramGUID = Replace(diagramGUID,"}","")
+        If InStr(additionalOptions, "append_GUID") &gt; 0 Then
+            diagramName = diagramName +  "_" + diagramGUID
+            filename = objFSO.BuildPath(path, diagramName &amp; imageFormat)
+        ElseIf InStr(additionalOptions, "prepend_GUID") &gt; 0 Then
+            diagramName = diagramGUID + "_" + diagramName
+            filename = objFSO.BuildPath(path, diagramName &amp; imageFormat)
+        ElseIf InStr(additionalOptions, "use_GUID") &gt; 0 Then
+            diagramName = diagramGUID
+            filename = objFSO.BuildPath(path, diagramName &amp; imageFormat)
+        Else
+            filename = objFSO.BuildPath(path, diagramName &amp; imageFormat)
+        End If
+
+        If isSelectedViaDiagramFilter(currentDiagram, diagramFilter) = False Then
+            Repository.CloseDiagram(currentDiagram.DiagramID)
+            Exit Sub
+        End If
+
+        exportDiagram = True
+        If objFSO.FileExists(filename) Then
+            WScript.echo " --- " &amp; filename &amp; " already exists."
+            If InStr(additionalOptions, "KeepFirstDiagram") &gt; 0 Then
+                WScript.echo " --- Skipping export -- parameter 'KeepFirstDiagram' set."
+            Else
+                WScript.echo " --- Overwriting -- parameter 'KeepFirstDiagram' not set."
+                exportDiagram = False
+            End If
+        End If
+        If exportDiagram Then
+          projectInterface.SaveDiagramImageToFile(filename)
+          WScript.echo " extracted image to " &amp; filename
+          If Not IsEmpty(diagramAttributes) Then
+              SaveDiagramAttribute currentDiagram, path, diagramName
+          End If
+        End If
+        Repository.CloseDiagram(currentDiagram.DiagramID)
+
+        ' Write the note of the diagram
+        WriteNote currentModel, currentDiagram, currentDiagram.Notes, diagramName&amp;"_notes"
+
+        For Each diagramElement In currentDiagram.DiagramObjects
+            Set currentElement = Repository.GetElementByID(diagramElement.ElementID)
+            WriteNote currentModel, currentElement, currentElement.Notes, diagramName&amp;"_notes"
+        Next
+        For Each diagramLink In currentDiagram.DiagramLinks
+            set currentConnector = Repository.GetConnectorByID(diagramLink.ConnectorID)
+            WriteNote currentModel, currentConnector, currentConnector.Notes, diagramName&amp;"_links"
+        Next
+    End Sub
+    '
+    ' Recursively saves all diagrams under the provided package and its children
+    '
+    Sub DumpDiagrams(thePackage,currentModel)
+        Set currentPackage = thePackage
+
+        ' export element notes
+        For Each currentElement In currentPackage.Elements
+          WriteNote currentModel, currentElement, currentElement.Notes, ""
+          ' export connector notes
+          For Each currentConnector In currentElement.Connectors
+              ' WScript.echo currentConnector.ConnectorGUID
+              if (currentConnector.ClientID=currentElement.ElementID) Then
+                  WriteNote currentModel, currentConnector, currentConnector.Notes, ""
+              End If
+          Next
+          if (Not currentElement.CompositeDiagram Is Nothing) Then
+              If isSelectedViaDiagramFilter(currentElement.CompositeDiagram, diagramFilter) Then
+                SyncJira currentModel, currentElement.CompositeDiagram
+                SaveDiagram currentModel, currentElement.CompositeDiagram
+              End If
+          End If
+          if (Not currentElement.Elements Is Nothing) Then
+              DumpDiagrams currentElement,currentModel
+          End If
+        Next
+
+
+        ' Iterate through all diagrams in the current package
+        For Each currentDiagram In currentPackage.Diagrams
+
+            If isSelectedViaDiagramFilter(currentDiagram, diagramFilter) Then
+              SyncJira currentModel, currentDiagram
+              SaveDiagram currentModel, currentDiagram
+            End If
+        Next
+
+        ' Process child packages
+        Dim childPackage 'as EA.Package
+        ' otPackage = 5
+        if (currentPackage.ObjectType = 5) Then
+            For Each childPackage In currentPackage.Packages
+                call DumpDiagrams(childPackage, currentModel)
+            Next
+        End If
+    End Sub
+
+    Function SearchEAProjects(path)
+      For Each folder In path.SubFolders
+        SearchEAProjects folder
+      Next
+
+      For Each file In path.Files
+            If fso.GetExtensionName (file.Path) = "eap" OR fso.GetExtensionName (file.Path) = "eapx" OR fso.GetExtensionName (file.Path) = "qea" OR fso.GetExtensionName (file.Path) = "qeax" Then
+                WScript.echo "found "&amp;file.path
+                If (Left(file.name, 1) = "_") Then
+                    WScript.echo "skipping, because it start with `_` (replication)"
+                Else
+                    OpenProject(file.Path)
+                End If
+            End If
+      Next
+    End Function
+
+    'Gets the package object as referenced by its GUID from the Enterprise Architect project.
+    'Looks for the model node, the package is a child of as it is required for the diagram export.
+    'Calls the Sub routine DumpDiagrams for the model and package found.
+    'An error is printed to console only if the packageGUID is not found in the project.
+    Function DumpPackageDiagrams(EAapp, packageGUID)
+        WScript.echo "DumpPackageDiagrams"
+        WScript.echo packageGUID
+        Dim package
+        Set package = EAapp.Repository.GetPackageByGuid(packageGUID)
+        If (package Is Nothing) Then
+          WScript.echo "invalid package - as package is not part of the project"
+        Else
+          Dim currentModel
+          Set currentModel = package
+          while currentModel.IsModel = false
+            Set currentModel = EAapp.Repository.GetPackageByID(currentModel.parentID)
+          wend
+          ' Iterate through all child packages and save out their diagrams
+          ' save all diagrams of package itself
+          call DumpDiagrams(package, currentModel)
+        End If
+    End Function
+
+    Function FormatStringToJSONString(inputString)
+        outputString = Replace(inputString, "\", "\\")
+        outputString = Replace(outputString, """", "\""")
+        outputString = Replace(outputString, vbCrLf, "\n")
+        outputString = Replace(outputString, vbLf, "\n")
+        outputString = Replace(outputString, vbCr, "\n")
+        FormatStringToJSONString = outputString
+    End Function
+
+    'If a valid file path is set, the glossary terms are read from EA repository,
+    'formatted in a JSON compatible format and written into file.
+    'The file is read and reformatted by the exportEA gradle task afterwards.
+    Function ExportGlossaryTermsAsJSONFile(EArepo)
+        If (Len(glossaryFilePath) &gt; 0) Then
+            set objFSO = CreateObject("Scripting.FileSystemObject")
+            GUID = Replace(EArepo.ProjectGUID,"{","")
+            GUID = Replace(GUID,"}","")
+            currentGlossaryFile = objFSO.BuildPath(glossaryFilePath,"/"&amp;GUID&amp;".ad")
+            set objFile = objFSO.OpenTextFile(currentGlossaryFile,ForAppending, True)
+
+            Set glossary = EArepo.Terms()
+            objFile.WriteLine("[")
+            dim counter
+            counter = 0
+            For Each term In glossary
+                if (counter &gt; 0) Then
+                    objFile.Write(",")
+                end if
+                objFile.Write("{ ""term"" : """&amp;FormatStringToJSONString(term.term)&amp;""", ""meaning"" : """&amp;FormatStringToJSONString(term.Meaning)&amp;""",")
+                objFile.WriteLine(" ""termID"" : """&amp;FormatStringToJSONString(term.termID)&amp;""", ""type"" : """&amp;FormatStringToJSONString(term.type)&amp;""" }")
+                counter = counter + 1
+            Next
+            objFile.WriteLine("]")
+
+            objFile.Close
+        End If
+    End Function
+
+    Sub OpenProject(file)
+      ' open Enterprise Architect
+      Set EAapp = CreateObject("EA.App")
+      WScript.echo "opening Enterprise Architect. This might take a moment..."
+      ' load project
+      EAapp.Repository.OpenFile(file)
+      ' make Enterprise Architect to not appear on screen
+      EAapp.Visible = False
+
+      ' get repository object
+      Set Repository = EAapp.Repository
+      ' Show the script output window
+      ' Repository.EnsureOutputVisible("Script")
+      call ExportGlossaryTermsAsJSONFile(Repository)
+
+      Set projectInterface = Repository.GetProjectInterface()
+
+      Dim childPackage 'As EA.Package
+      ' Iterate through all model nodes
+      Dim currentModel 'As EA.Package
+      If (InStrRev(file,"{") &gt; 0) Then
+        ' the filename references a GUID
+        ' like {04C44F80-8DA1-4a6f-ECB8-982349872349}
+        WScript.echo file
+        GUID = Mid(file, InStrRev(file,"{")+0,38)
+        WScript.echo GUID
+        ' Iterate through all child packages and save out their diagrams
+        call DumpPackageDiagrams(EAapp, GUID)
+      Else
+        If packageFilter.Count = 0 Then
+          WScript.echo "done"
+        ' Iterate through all model nodes
+        For Each currentModel In Repository.Models
+            ' Iterate through all child packages and save out their diagrams
+            For Each childPackage In currentModel.Packages
+                call DumpDiagrams(childPackage,currentModel)
+            Next
+        Next
+        Else
+          ' Iterate through all packages found in the package filter given by script parameter.
+          For Each packageGUID In packageFilter
+            call DumpPackageDiagrams(EAapp, packageGUID)
+          Next
+        End If
+      End If
+      EAapp.Repository.CloseFile()
+      EAapp.Repository.ShutdownEA(0)
+      EAapp.Repository = Nothing
+      ' Since EA 15.2 the Enterprise Architect background process hangs without calling Exit explicitly
+      On Error Resume Next
+        EAapp.Repository.CloseFile()
+        EAapp.Repository.ShutdownEA(0)
+        EAapp.Repository = Nothing
+      ' end fix EA
+    End Sub
+
+  Private connectionString
+  Private packageFilter
+  Private exportDestination
+  Private searchPath
+  Private glossaryFilePath
+  Private imageFormat
+  Private diagramAttributes
+  Private diagramFilter
+  Private additionalOptions
+  Private verboseMode
+
+  exportDestination = "./src/docs"
+  searchPath = "./src"
+  Set packageFilter = CreateObject("System.Collections.ArrayList")
+  Set objArguments = WScript.Arguments
+  diagramFilter = ""
+  verboseMode = 0
+
+  Dim argCount
+  argCount = 0
+  While objArguments.Count &gt; argCount+1
+    Select Case objArguments(argCount)
+      Case "-c"
+        connectionString = objArguments(argCount+1)
+      Case "-p"
+        packageFilter.Add objArguments(argCount+1)
+      Case "-d"
+        exportDestination = objArguments(argCount+1)
+      Case "-s"
+        searchPath = objArguments(argCount+1)
+      Case "-g"
+        glossaryFilePath = objArguments(argCount+1)
+      Case "-f"
+        imageFormat = objArguments(argCount+1)
+      Case "-da"
+        diagramAttributes = objArguments(argCount+1)
+      Case "-df"
+        diagramFilter = objArguments(argCount + 1)
+      Case "-ao"
+        additionalOptions = objArguments(argCount+1)
+      Case "-v"
+        verboseMode = objArguments(argCount+1)
+      Case Else
+        WScript.echo "unknown argument: " &amp; objArguments(argCount)
+    End Select
+    argCount = argCount + 2
+  WEnd
+  If verboseMode &gt; 0 Then
+      WScript.Echo "Options passed to script"
+      WScript.Echo "* connectionString     : " &amp; connectionString
+      For Each packageGUID In packageFilter
+          WScript.Echo "* packageFilter element: " &amp; packageGUID
+      Next
+      WScript.Echo "* exportDestination    : " &amp; exportDestination
+      WScript.Echo "* searchPath           : " &amp; searchPath
+      WScript.Echo "* glossaryFilePath     : " &amp; glossaryFilePath
+      WScript.Echo "* imageFormat          : " &amp; imageFormat
+      WScript.Echo "* diagramAttributes    : " &amp; diagramAttributes
+      WScript.Echo "* diagramFilter        : " &amp; diagramFilter
+      WScript.Echo "* additionalOptions    : " &amp; additionalOptions
+  End If
+  set fso = CreateObject("Scripting.fileSystemObject")
+  WScript.echo "Image extractor"
+
+  ' Check both types in parallel - 1st check Enterprise Architect database connection, 2nd look for local project files
+  If Not IsEmpty(connectionString) Then
+     WScript.echo "opening database connection now"
+     OpenProject(connectionString)
+  End If
+  WScript.echo "looking for .eap(x) and .qea(x) files in " &amp; fso.GetAbsolutePathName(searchPath)
+  ' Dim f As Scripting.Files
+  SearchEAProjects fso.GetFolder(searchPath)
+
+  WScript.echo "finished exporting images"</code></pre>
+</div>
+</div>
+</div>
+</details>
+</div>
+</div>
+</div>
+        </p>
+
+        <style>
+.feedback--answer {
+    display: inline-block;
+}
+
+.feedback--answer-no {
+    margin-left: 1em;
+}
+
+.feedback--response {
+    display: none;
+    margin-top: 1em;
+}
+
+.feedback--response__visible {
+    display: block;
+}
+</style>
+
+<div class="d-print-none">
+    <h2 class="feedback--title">Feedback</h2>
+    <p class="feedback--question">Was this page helpful?</p>
+    <button class="feedback--answer feedback--answer-yes">Yes</button>
+    <button class="feedback--answer feedback--answer-no">No</button>
+    <p class="feedback--response feedback--response-yes">
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportEA%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_exportEA.adoc">tell us
+    how we can improve</a>.
+    </p>
+    <p class="feedback--response feedback--response-no">
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportEA%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_exportEA.adoc">tell
+    us how we can improve</a>.
+    </p>
+</div>
+<script>
+    const yesButton = document.querySelector('.feedback--answer-yes');
+    const noButton = document.querySelector('.feedback--answer-no');
+    const yesResponse = document.querySelector('.feedback--response-yes');
+    const noResponse = document.querySelector('.feedback--response-no');
+    const disableButtons = () => {
+        yesButton.disabled = true;
+        noButton.disabled = true;
+    };
+    const sendFeedback = (value) => {
+        if (typeof ga !== 'function') return;
+        const args = {
+            command: 'send',
+            hitType: 'event',
+            category: 'Helpful',
+            action: 'click',
+            label: window.location.pathname,
+            value: value
+        };
+        ga(args.command, args.hitType, args.category, args.action, args.label, args.value);
+    };
+    yesButton.addEventListener('click', () => {
+        yesResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(1);
+    });
+    noButton.addEventListener('click', () => {
+        noResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(0);
+    });
+</script>
+
+
+        <br>
+
+        <!--div class="text-muted mt-5 pt-3 border-top">Last modified July 3, 2019: <a
+                href="https://github.com/google/docsy-example/commit/d6aa89c8b24089d7e6741030864eff209465e896">Added
+            links to user guide repo (d6aa89c)</a>
+        </div-->
+    </div>
+
+
+			</main>
+
+		</div>
+	</div>
+
+
+	
+    <!--footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">&copy; 2020 | based on <a href="https://arc42.org">arc42 7.0</a> | mixed with <a href="http://getbootstrap.com/">Bootstrap v5.0.0-beta</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a></span>
+        </div>
+    </footer-->
+
+    <footer class="bg-dark py-5 row d-print-none">
+        <div class="container-fluid mx-sm-5">
+            <div class="row">
+                <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+
+
+                    <ul class="list-inline mb-0">
+                        
+                        <li aria-label="User mailing list" class="list-inline-item mx-2 h3" data-original-title="User mailing list" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="mailto:info@docs-as-co.de" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Twitter" class="list-inline-item mx-2 h3" data-original-title="Twitter" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://twitter.com/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Stack Overflow" class="list-inline-item mx-2 h3" data-original-title="Stack Overflow" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://stackoverflow.com/questions/tagged/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-stack-overflow"></i>
+                            </a>
+                        </li>
+                        
+                    </ul>
+
+
+                </div>
+                <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+
+
+                    <ul class="list-inline mb-0">
+
+                        
+                        <li aria-label="GitHub" class="list-inline-item mx-2 h3" data-original-title="GitHub" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://github.com/doctoolchain/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </li>
+                        
+
+                        
+
+
+                    </ul>
+
+
+                </div>
+                <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+
+                        <small class="text-white">built with <a href="https://doctoolchain.org">docToolchain</a> and <a href="https://jbake.org">jBake</a> <br /> theme: <a href="https://www.docsy.dev/">docsy</a></small>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+
+    <script src="../js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
+    <script src="../js/blocks.js" ></script>
+    <script src="../js/prettify.js"></script>
+    <script src="../js/copy-n-paste.js"></script>
+    <script src="../js/submenucollapse.js"></script>
+
+
+</body>
+</html>

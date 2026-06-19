@@ -212,10 +212,57 @@
         <ul class="navbar-nav mt-2 mt-lg-0">
     <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../10_about/10_about-the-project.html"><span>About</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../010_manual/20_install.html"><span>User Docs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../015_tasks/03_tasks.html"><span>Tasks</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link active" href="../020_tutorial/010_Install.html"><span>Tutorial</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../025_development/005_contributing_to_docs.html"><span>For Devs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../030_news/index.html"><span>News</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../arc42/open_questions.html"><span>arc42</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
+            </li>
+
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
     <form id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
     </div>
 </nav>
 
@@ -227,3 +274,1079 @@
 				<div class="td-sidebar__inner" id="td-sidebar-menu" >
 					
      <form class="td-sidebar__search d-flex align-items-center d-lg-none"  id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
+
+
+        <nav aria-label="Submenu" class="collapse td-sidebar-nav" id="td-section-nav" >
+
+            <ul class="td-sidebar-nav__section">
+                <li class="td-sidebar-nav__section-title">
+                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">Tutorial</span>
+                </li>
+                <li>
+                  <ul>
+                      <li class="collapse show" id="docs">
+                          
+                        <ul class="td-sidebar-nav__section ul-0">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/010_Install.html" title="Install docToolchain">Install docToolchain</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/020_arc42.html" title="arc42 Template">arc42 Template</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/030_generateHTML.html" title="generateHTML &amp; generatePDF">generateHTML &amp; generatePDF</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/040_microsite/index.html" title="Microsite">Microsite</a>
+                                
+                        <ul class="ul-1">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/040_microsite/040_generateSite.html" title="generateSite">generateSite</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/040_microsite/043_multi-markup.html" title="generateSite: Multi-Markup">generateSite: Multi-Markup</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/040_microsite/130_theming.html" title="How to change the theme">How to change the theme</a>
+                                
+                            </li>
+                        </ul></details>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/050_multipleRepositories.html" title="Multi-Repo">Multi-Repo</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../020_tutorial/070_publishToConfluence.html" title="publishToConfluence">publishToConfluence</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/100_diagrams.net.html" title="Diagrams: Diagrams.net">Diagrams: Diagrams.net</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/110_presentations_with_revealjs.html" title="Presentations with reveal.js">Presentations with reveal.js</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/120_self-contained-dtc.html" title="Self-Contained docToolchain">Self-Contained docToolchain</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/140_Dropdown_Menu.html" title="How to create a Dropdown Menu">How to create a Dropdown Menu</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/150_multiRepoMicrositeTipsAndTricks.html" title="Building a microsite from multiple repositories">Building a microsite from multiple repositories</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/160_EnterpriseTipsAndTricks.html" title="Enterprise docToolchain">Enterprise docToolchain</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/170_kroki-configuration.html" title="Kroki Configuration Guide">Kroki Configuration Guide</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../020_tutorial/990_Tutorial.html" title="How to create a Tutorial">How to create a Tutorial</a>
+                                
+                            </li>
+                        </ul>
+                      </li>
+                  </ul>
+                <li>
+        </nav>
+
+				</div>
+			</div>
+			<div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+					
+
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/020_tutorial/070_publishToConfluence.adoc"
+           target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
+
+
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27publishToConfluence%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/020_tutorial/070_publishToConfluence.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+                class="fab fa-github fa-fw"></i> Create an issue</a>
+
+        
+        
+        <hr />
+<script>
+const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
+const searchTerm = "020_tutorial/070_publishToConfluence.adoc";
+</script>
+
+<script src="../js/issues.js"></script>
+
+<style>
+        #issues-container {
+            background-color: white;
+            padding: 0px;
+            margin: 0;
+        }
+        .issue {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .issue:last-child {
+            border-bottom: none;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: -10px;
+        }
+        .issue-content {
+            flex-grow: 1;
+            background-color: rgba(255,255,255,0.6);
+        }
+        .issue-title {
+            font-weight: bold;
+            color: #0366d6;
+        }
+        .issue-date {
+            font-size: 0.9em;
+            color: #586069;
+        }
+
+</style>
+
+<div id="issues-container">
+searching issues...
+</div>
+
+        <hr />
+
+        <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_publish_your_docs_to_confluence">Publish Your Docs to Confluence</a>
+<ul class="sectlevel2">
+<li><a href="#_step_1_set_up_doctoolchain">Step 1. Set Up docToolchain</a></li>
+<li><a href="#_step_2_configure_publication_to_confluence">Step 2. Configure Publication to Confluence</a></li>
+<li><a href="#_step_3_verify_your_configuration">Step 3: Verify Your Configuration</a></li>
+<li><a href="#_step_4_publish_your_pages">Step 4: Publish Your Pages</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+<div style="border: 1px solid #8e3063; border-radius: 3px; padding: 5px; margin-top: 10px;">
+    <span style="font-size:x-small; display: block; text-align: right;">Anzeige</span><br />
+    <b>Wissen,<br />direkt von der Quelle!</b><br /><br />
+    Wir bieten ein remote Docs-as-Code Training unter Verwendung von docToolchain an.<br /><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode">Nächster Termin: auf Anfrage</a><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode" class="btn btn-primary" style="">jetzt buchen!</a>
+</div>
+
+
+
+				</div>
+			</div>
+			<main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+				    <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+        <ol class="breadcrumb spb-1">
+            <!--li aria-current="page" class="breadcrumb-item active">
+                <a href="https://example.docsy.dev/docs/">Documentation</a>
+            </li-->
+
+        </ol>
+    </nav>
+
+
+    <div class="td-content">
+        <p>
+            
+<style>
+div.center { text-align: center;}
+img { box-shadow: 5px 5px 5px grey;}
+</style>
+<div class="sect1">
+<h2 id="_publish_your_docs_to_confluence">Publish Your Docs to Confluence</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>There are times when you&#8217;ll want to publish your docs to Confluence, such as when you work in a team where not everyone wants to work with Git.
+docToolchain lets you publish your Git-based docs to Confluence alongside manually edited Confluence pages.</p>
+</div>
+<div class="paragraph">
+<p>Another situation is when you want to work with the arc42 template in Confluence.
+There are several ways to import the template, but most of them require admin access.
+To get around this, you can set up a fresh copy of the arc42 template in docToolchain and publish it to your Confluence instance.</p>
+</div>
+<div class="paragraph">
+<p>In this tutorial, you&#8217;ll learn how to publish the arc42 template to a Confluence cloud instance.</p>
+</div>
+<div class="sect2">
+<h3 id="_step_1_set_up_doctoolchain">Step 1. Set Up docToolchain</h3>
+<div class="paragraph">
+<p>If you  have completed instructions <a href="http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/010_Install.html">install docToolchain</a> and <a href="http://doctoolchain.org/docToolchain/v2.0.x/020_tutorial/020_arc42.html">get the arc42 template</a> you can skip this part.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+For this tutorial, we assume that you work with a macOS/Linux-based system.
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the Terminal, type the following:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="console">$ mkdir publishToConfluenceDemo
+$ cd publishToConfluenceDemo
+$ curl -Lo dtcw doctoolchain.org/dtcw</code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Show output</summary>
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>gitpod /workspace/publishToConfluenceDemo (main) $ curl -Lo dtcw doctoolchain.org/dtcw
+% Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+Dload  Upload   Total   Spent    Left  Speed
+100   162  100   162    0     0   1306      0 --:--:-- --:--:-- --:--:--  1317
+100 10724  100 10724    0     0  25903      0 --:--:-- --:--:-- --:--:-- 25903</pre>
+</div>
+</div>
+</div>
+</details>
+</li>
+<li>
+<p>Next, make the file <code>dtcw</code> executable.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="console">$ chmod +x dtcw</code></pre>
+</div>
+</div>
+</li>
+<li>
+<p>If you do not have docToolchain as a Docker image, type</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="console">$ ./dtcw getJava</code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Show output</summary>
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>./dtcw: line 28: !false: command not found
+dtcw - docToolchain wrapper V0.31
+docToolchain V2.0.5
+docker available
+this script assumes that you have linux as operating system (x64 / linux)
+it now tries to install Java for you
+downloading JDK Temurin 11 from adoptiom to /home/gitpod/.doctoolchain/jdk.tar.gz
+WARNING: combining -O with -r or -p will mean that all downloaded content
+will be placed in the single file you specified.
+
+--2022-08-25 20:07:11--  https://api.adoptium.net/v3/binary/latest/11/ga/linux/x64/jdk/hotspot/normal/eclipse?project=jdk
+Resolving api.adoptium.net (api.adoptium.net)... 20.62.244.126
+Connecting to api.adoptium.net (api.adoptium.net)|20.62.244.126|:443... connected.
+HTTP request sent, awaiting response... 307 Temporary Redirect
+Location: https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1%2B1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz [following]
+--2022-08-25 20:07:12--  https://github.com/adoptium/temurin11-binaries/releases/download/jdk-11.0.16.1%2B1/OpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz
+Resolving github.com (github.com)... 140.82.121.3
+Connecting to github.com (github.com)|140.82.121.3|:443... connected.
+HTTP request sent, awaiting response... 302 Found
+Location: https://objects.githubusercontent.com/github-production-release-asset-2e65be/372924883/70b80b22-3dc5-4824-bb2d-d0158a3b9b57?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220825%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20220825T200712Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=887a715fcbd2e2d6bf24496f57b168ba2204f0f81794a66615ab53a7b153ed37&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;key_id=0&amp;repo_id=372924883&amp;response-content-disposition=attachment%3B%20filename%3DOpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz&amp;response-content-type=application%2Foctet-stream [following]
+--2022-08-25 20:07:12--  https://objects.githubusercontent.com/github-production-release-asset-2e65be/372924883/70b80b22-3dc5-4824-bb2d-d0158a3b9b57?X-Amz-Algorithm=AWS4-HMAC-SHA256&amp;X-Amz-Credential=AKIAIWNJYAX4CSVEH53A%2F20220825%2Fus-east-1%2Fs3%2Faws4_request&amp;X-Amz-Date=20220825T200712Z&amp;X-Amz-Expires=300&amp;X-Amz-Signature=887a715fcbd2e2d6bf24496f57b168ba2204f0f81794a66615ab53a7b153ed37&amp;X-Amz-SignedHeaders=host&amp;actor_id=0&amp;key_id=0&amp;repo_id=372924883&amp;response-content-disposition=attachment%3B%20filename%3DOpenJDK11U-jdk_x64_linux_hotspot_11.0.16.1_1.tar.gz&amp;response-content-type=application%2Foctet-stream
+Resolving objects.githubusercontent.com (objects.githubusercontent.com)... 185.199.109.133, 185.199.111.133, 185.199.108.133, ...
+Connecting to objects.githubusercontent.com (objects.githubusercontent.com)|185.199.109.133|:443... connected.
+HTTP request sent, awaiting response... 200 OK
+Length: 193754645 (185M) [application/octet-stream]
+Saving to: ‘/home/gitpod/.doctoolchain/jdk/jdk.tar.gz’
+
+/home/gitpod/.doctoolchain/jdk 100%[====================================================&gt;] 184.78M   310MB/s    in 0.6s
+
+2022-08-25 20:07:13 (310 MB/s) - ‘/home/gitpod/.doctoolchain/jdk/jdk.tar.gz’ saved [193754645/193754645]
+
+FINISHED --2022-08-25 20:07:13--
+Total wall clock time: 1.7s
+Downloaded: 1 files, 185M in 0.6s (310 MB/s)
+expanding JDK</pre>
+</div>
+</div>
+</div>
+</details>
+</li>
+<li>
+<p>Answer the questions that appear during installation.</p>
+<div class="paragraph">
+<p>You will see lots of <code>.jar</code> files getting downloaded.</p>
+</div>
+</li>
+<li>
+<p>Initialise docToolchain by running your first task.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="console">$ ./dtcw tasks</code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Show output</summary>
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>dtcw - docToolchain wrapper V0.31
+docToolchain V2.0.5
+local java JDK found
+use /home/gitpod/.doctoolchain/jdk as JDK
+
+docker available
+force use of local install
+docToolchain not installed.
+sdkman not found
+Do you wish to install doctoolchain to /home/gitpod/.doctoolchain?
+1) Yes
+2) No
+#? 1
+installing doctoolchain
+mkdir: cannot create directory ‘/home/gitpod/.doctoolchain’: File exists
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+  0     0    0     0    0     0      0      0 --:--:-- --:--:-- --:--:--     0
+100 1783k  100 1783k    0     0  2857k      0 --:--:-- --:--:-- --:--:-- 2857k
+Archive:  /home/gitpod/.doctoolchain/source.zip
+   creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/
+   creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/bin/
+  inflating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/bin/autobuildSite.bash
+  inflating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/bin/doctoolchain
+
+[152 lines omitted]
+
+  inflating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/template_config/pdfTheme/custom-theme.yml
+   creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/resources/
+   creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/resources/asciidoctor-reveal.js/
+   creating: /home/gitpod/.doctoolchain/./docToolchain-2.0.5/resources/reveal.js/
+Picked up JAVA_TOOL_OPTIONS:  -Xmx3489m
+Downloading https://services.gradle.org/distributions/gradle-6.9.2-bin.zip
+..........10%..........20%..........30%...........40%..........50%..........60%..........70%...........80%..........90%..........100%
+
+Welcome to Gradle 6.9.2!
+
+Here are the highlights of this release:
+ - This is a small backport release.
+ - Java 16 can be used to compile when used with Java toolchains
+ - Dynamic versions can be used within plugin declarations
+ - Native support for Apple Silicon processors
+
+For more details see https://docs.gradle.org/6.9.2/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/6.9.2/userguide/gradle_daemon.html#sec:disabling_the_daemon.
+Daemon will be stopped at the end of the build
+
+&gt; Configure project :
+
+Config file '/workspace/publishToConfluenceDemo/docToolchainConfig.groovy' does not exist'
+[ant:input]
+[ant:input] do you want me to create a default one for you? (y, n)
+&lt;&lt;-------------&gt; 0% CONFIGURING [2m 55s]
+
+&gt; Task :help
+
+Welcome to Gradle 6.9.2.
+
+To run a build, run gradlew &lt;task&gt; ...
+
+To see a list of available tasks, run gradlew tasks
+
+To see a list of command-line options, run gradlew --help
+
+To see more detail about a task, run gradlew help --task &lt;task&gt;
+
+For troubleshooting, visit https://help.gradle.org
+
+BUILD SUCCESSFUL in 3m 29s
+1 actionable task: 1 executed</pre>
+</div>
+</div>
+</div>
+</details>
+</li>
+<li>
+<p>Next download the arc42 template</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="console">$ ./dtcw downloadTemplate</code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Show output</summary>
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>dtcw - docToolchain wrapper V0.31
+docToolchain V2.0.5
+local java JDK found
+use /home/gitpod/.doctoolchain/jdk as JDK
+
+docker available
+home folder exists
+use local homefolder install /home/gitpod/.doctoolchain/
+Picked up JAVA_TOOL_OPTIONS:  -Xmx3489m
+To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/6.9.2/userguide/gradle_daemon.html#sec:disabling_the_daemon.
+Daemon will be stopped at the end of the build
+
+&gt; Task :downloadTemplate
+Install arc42 documentation template.
+For more information about arc42 see https://arc42.org
+[ant:input] Which language do you want to install? (EN, DE, ES, RU)
+&lt;-&lt;-------------&gt; 0% EXECUTING [11s]
+[ant:input] Do you want the template with or without help? (withhelp, plain)
+&lt;-&lt;&lt;-&lt;--&lt;-------------&gt; 0% EXECUTING [17s]
+Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-EN-withhelp-asciidoc.zip
+arc42 template unpacked into /workspace/publishToConfluenceDemo/src/docs/arc42
+added template to docToolchainConfig.groovy
+use 'generateHTML', 'generatePDF' or  'generateSite' to convert the template
+
+BUILD SUCCESSFUL in 22s
+1 actionable task: 1 executed</pre>
+</div>
+</div>
+</div>
+</details>
+<div class="paragraph">
+<p>You should now have the following folder structure in your project:</p>
+</div>
+<div class="literalblock">
+<div class="title">Project Folder Structure</div>
+<div class="content">
+<pre>.
+├── docToolchainConfig.groovy
+├── dtcw
+└── src
+└── docs
+├── arc42
+│   ├── arc42.adoc
+│   └── chapters
+│       ├── 01_introduction_and_goals.adoc
+│       ├── 02_architecture_constraints.adoc
+│       ├── 03_system_scope_and_context.adoc
+│       ├── 04_solution_strategy.adoc
+│       ├── 05_building_block_view.adoc
+│       ├── 06_runtime_view.adoc
+│       ├── 07_deployment_view.adoc
+│       ├── 08_concepts.adoc
+│       ├── 09_architecture_decisions.adoc
+│       ├── 10_quality_requirements.adoc
+│       ├── 11_technical_risks.adoc
+│       ├── 12_glossary.adoc
+│       ├── about-arc42.adoc
+│       └── config.adoc
+└── images
+├── 01_2_iso-25010-topics-EN.png
+├── 05_building_blocks-EN.png
+├── 08-Crosscutting-Concepts-Structure-EN.png
+└── arc42-logo.png
+
+5 directories, 21 files</pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_2_configure_publication_to_confluence">Step 2. Configure Publication to Confluence</h3>
+<div class="paragraph">
+<p>To configure authentication through the Confluence API, do the following.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>In the root of your project foler, open the file <code>docToolchainConfig.groovy</code>.</p>
+</li>
+<li>
+<p>Find the text <code>confluence.with</code>.</p>
+<div class="paragraph">
+<p>This is the start of the section where you configure publication to Confluence.
+As you can see, docToolchain is preconfigured to publish sample input (the arc42 template) to Confluence.
+The input for the publishToConfluence task is the output of the <code>generateHTML</code> task. You should see this:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">input = [
+    [ file: "build/html5/arc42/arc42.html" ],
+]</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>This corresponds to the following snippet from the start of the file</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">inputFiles = [
+        //[file: 'doctoolchain_demo.adoc',       formats: ['html','pdf']],
+        [file: 'arc42-template.adoc',    formats: ['html','pdf']],
+        /** inputFiles **/
+]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>the <code>inputFiles</code> section tells the <code>generateHTML</code> command to render the file as HTML, the <code>confluence.input</code> section tells the <code>publishToConfluence</code> command which file to publish.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Set up the API endpoint.
+Get your Atlassian Confluence URL, such as <a href="https://arc42-template.atlassian.net" class="bare">https://arc42-template.atlassian.net</a>.</p>
+<div class="listingblock">
+<div class="title">Endpoint Syntax</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">api = 'https://[yourServer]/[context]'</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In this case, the correct endpoint is <code><a href="https://arc42-template.atlassian.net/wiki" class="bare">https://arc42-template.atlassian.net/wiki</a></code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The context is optional, unless it is something other that "wiki". If you would like to enforce a URL that has no context (only valid if you specified <code>useV1Api = true</code>) for Confluence Server you should specify the full API URL, like <code><a href="https://confluence.example.com/rest/api" class="bare">https://confluence.example.com/rest/api</a></code>.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>In <code>docToolchainConfig.groovy</code>, add the space-key, such as <code>8FE</code>.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">spaceKey = '8FE'</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect3">
+<h4 id="_step_2_1_configure_confluence_authentication">Step 2.1. Configure Confluence Authentication</h4>
+<div class="sect4">
+<h5 id="_step_2_1a_cli_authentication_with_username_and_password_insecure">Step 2.1a. CLI Authentication with username and password (insecure)</h5>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+This method is not recommended.
+Instead of passing your password,
+you can use a Personal Access Token,
+which can easily be revoked on the event of a compromise.
+See <a href="#personal-access-token">Authentication with Personal Access Token</a>.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>In the Terminal, type the following:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="console">$ ./dtcw publishToConfluence -PconfluenceUser=&lt;your username&gt; -PconfluencePass=&lt;your password&gt;</code></pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_step_2_1b_cli_authentication_with_username_and_api_token">Step 2.1b: CLI Authentication with username and API token</h5>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This method only works for Confluence Cloud.
+I can use an API token.
+The key has to be generated from the central Atlassian account.
+</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Atlassian is deprecating unscoped (classic) API tokens.
+When creating a new API token, you must select specific scopes.
+If you receive a <code>403 - Forbidden</code> error, you likely need to create a new scoped API token.
+See the required scopes below.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to your central Atlassian profile.</p>
+<div class="imageblock center">
+<div class="content">
+<img src="images/070-first.png" alt="070 first" width="30%">
+</div>
+</div>
+</li>
+<li>
+<p>Go to <strong>Manage your Account</strong>.</p>
+<div class="imageblock center">
+<div class="content">
+<img src="images/070-second.png" alt="070 second" width="30%">
+</div>
+</div>
+</li>
+<li>
+<p>Click <strong>Security</strong> &gt; <strong>API token</strong> &gt; <strong>Create and manage API tokens</strong>.</p>
+<div class="imageblock center">
+<div class="content">
+<img src="images/070-third.png" alt="070 third" width="80%">
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Here is the <a href="https://id.atlassian.com/manage-profile/security/api-tokens">shortcut</a> to this page.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Now, click <strong>Create API token</strong>.</p>
+</li>
+<li>
+<p>When prompted to select scopes, choose the following scopes required by docToolchain:</p>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Scope</th>
+<th class="tableblock halign-left valign-top">Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>read:me</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Verify API credentials (read current user info)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>read:confluence-content.all</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read pages, attachments, and labels</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>write:confluence-content</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Create, update, and delete pages, attachments, and labels</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>read:confluence-space.summary</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Read space information (required when using API V2)</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you also use the <code>wipeConfluenceSpace</code> task, <code>write:confluence-content</code> already covers page deletion for API V1. For API V2, <code>delete:page:confluence</code> may also be needed.
+</td>
+</tr>
+</table>
+</div>
+</li>
+<li>
+<p>Store your API token in a safe location.</p>
+</li>
+<li>
+<p>Add your API token e-mail address as username and password to the <code>./dtcw</code> command.</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="console">$ ./dtcw publishToConfluence -PconfluenceUser=&lt;your email&gt; -PconfluencePass=&lt;your api-token&gt;</code></pre>
+</div>
+</div>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect4">
+<h5 id="personal-access-token">Step 2.1c: CLI Authentication with Personal Access Token</h5>
+<div class="paragraph">
+<p>If you do not want to pass your password and you are not an admin of your Confluence instance, you can use a Personal Access Token (PAT). Follow the
+<a href="https://confluence.atlassian.com/enterprise/using-personal-access-tokens-1026032365.html#UsingPersonalAccessTokens-CreatingPATsintheapplication">Confluence
+documentation</a> to generate one.</p>
+</div>
+<div class="paragraph">
+<p>In the Terminal, type the following to publish to Confluence with your PAT:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="console">$ ./dtcw publishToConfluence -PconfluenceBearerToken=&lt;your personal access token&gt;</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_3_verify_your_configuration">Step 3: Verify Your Configuration</h3>
+<div class="paragraph">
+<p>To verify your configuration execute <code>./dtcw verifyConfluenceApiAccess</code> and pass the credentials to the task, depending on the setup you chose in the steps before.
+An example would be</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="console">$ ./dtcw verifyConfluenceApiAccess -PconfluenceUser=&lt;your email&gt; -PconfluencePass=&lt;your api-token&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If the API is accessible, the task will succeed and print the API version that is used. Otherwise, an error will be printed.</p>
+</div>
+<div class="literalblock">
+<div class="content">
+<pre>...
+Daemon will be stopped at the end of the build
+
+&gt; Task :verifyConfluenceApiAccess
+Using Confluence API V1
+
+BUILD SUCCESSFUL in 15s
+3 actionable tasks: 3 executed</pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_step_4_publish_your_pages">Step 4: Publish Your Pages</h3>
+<div class="paragraph">
+<p>To publish your pages to Confluence, type:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="console">$ ./dtcw publishToConfluence &lt;extra arguments&gt;</code></pre>
+</div>
+</div>
+<details>
+<summary class="title">Show output</summary>
+<div class="content">
+<div class="literalblock">
+<div class="content">
+<pre>dtcw - docToolchain wrapper V0.31
+docToolchain V2.0.5
+local java JDK found
+use /home/gitpod/.doctoolchain/jdk as JDK
+
+docker available
+home folder exists
+use local homefolder install /home/gitpod/.doctoolchain/
+Picked up JAVA_TOOL_OPTIONS:  -Xmx3489m
+To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/6.9.2/userguide/gradle_daemon.html#sec:disabling_the_daemon.
+Daemon will be stopped at the end of the build
+
+&gt; Task :publishToConfluence
+publish /workspace/publishToConfluenceDemo/build/html5/arc42/arc42.html
+arc42
+Start getting headers
+&gt; created page 2033844225
+1. Introduction and Goals
+Start getting headers
+    image: ../images/01_2_iso-25010-topics-EN.png
+allPages already retrieved
+&gt; created page 2033909761
+Start getting headers
+2. Architecture Constraints
+Start getting headers
+allPages already retrieved
+&gt; created page 2033975297
+3. System Scope and Context
+Start getting headers
+allPages already retrieved
+&gt; created page 2034008065
+4. Solution Strategy
+Start getting headers
+allPages already retrieved
+&gt; created page 2034040833
+5. Building Block View
+Start getting headers
+    image: ../images/05_building_blocks-EN.png
+allPages already retrieved
+&gt; created page 2034073601
+Start getting headers
+6. Runtime View
+Start getting headers
+allPages already retrieved
+&gt; created page 2034139137
+7. Deployment View
+Start getting headers
+allPages already retrieved
+&gt; created page 2034106374
+8. Cross-cutting Concepts
+Start getting headers
+    image: ../images/08-Crosscutting-Concepts-Structure-EN.png
+allPages already retrieved
+&gt; created page 2034139152
+Start getting headers
+9. Architecture Decisions
+Start getting headers
+allPages already retrieved
+&gt; created page 2034040848
+10. Quality Requirements
+Start getting headers</pre>
+</div>
+</div>
+</div>
+</details>
+<div class="paragraph">
+<p>This command will first run the task <code>generateHTML</code> and then create one Confluence page for each arc42-chapter.</p>
+</div>
+<div class="imageblock center">
+<div class="content">
+<img src="images/070-fourth.png" alt="070 fourth" width="80%">
+</div>
+</div>
+</div>
+</div>
+</div>
+        </p>
+
+        <style>
+.feedback--answer {
+    display: inline-block;
+}
+
+.feedback--answer-no {
+    margin-left: 1em;
+}
+
+.feedback--response {
+    display: none;
+    margin-top: 1em;
+}
+
+.feedback--response__visible {
+    display: block;
+}
+</style>
+
+<div class="d-print-none">
+    <h2 class="feedback--title">Feedback</h2>
+    <p class="feedback--question">Was this page helpful?</p>
+    <button class="feedback--answer feedback--answer-yes">Yes</button>
+    <button class="feedback--answer feedback--answer-no">No</button>
+    <p class="feedback--response feedback--response-yes">
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27publishToConfluence%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/070_publishToConfluence.adoc">tell us
+    how we can improve</a>.
+    </p>
+    <p class="feedback--response feedback--response-no">
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27publishToConfluence%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/070_publishToConfluence.adoc">tell
+    us how we can improve</a>.
+    </p>
+</div>
+<script>
+    const yesButton = document.querySelector('.feedback--answer-yes');
+    const noButton = document.querySelector('.feedback--answer-no');
+    const yesResponse = document.querySelector('.feedback--response-yes');
+    const noResponse = document.querySelector('.feedback--response-no');
+    const disableButtons = () => {
+        yesButton.disabled = true;
+        noButton.disabled = true;
+    };
+    const sendFeedback = (value) => {
+        if (typeof ga !== 'function') return;
+        const args = {
+            command: 'send',
+            hitType: 'event',
+            category: 'Helpful',
+            action: 'click',
+            label: window.location.pathname,
+            value: value
+        };
+        ga(args.command, args.hitType, args.category, args.action, args.label, args.value);
+    };
+    yesButton.addEventListener('click', () => {
+        yesResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(1);
+    });
+    noButton.addEventListener('click', () => {
+        noResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(0);
+    });
+</script>
+
+
+        <br>
+
+        <!--div class="text-muted mt-5 pt-3 border-top">Last modified July 3, 2019: <a
+                href="https://github.com/google/docsy-example/commit/d6aa89c8b24089d7e6741030864eff209465e896">Added
+            links to user guide repo (d6aa89c)</a>
+        </div-->
+    </div>
+
+
+			</main>
+
+		</div>
+	</div>
+
+
+	
+    <!--footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">&copy; 2020 | based on <a href="https://arc42.org">arc42 7.0</a> | mixed with <a href="http://getbootstrap.com/">Bootstrap v5.0.0-beta</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a></span>
+        </div>
+    </footer-->
+
+    <footer class="bg-dark py-5 row d-print-none">
+        <div class="container-fluid mx-sm-5">
+            <div class="row">
+                <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+
+
+                    <ul class="list-inline mb-0">
+                        
+                        <li aria-label="User mailing list" class="list-inline-item mx-2 h3" data-original-title="User mailing list" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="mailto:info@docs-as-co.de" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Twitter" class="list-inline-item mx-2 h3" data-original-title="Twitter" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://twitter.com/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Stack Overflow" class="list-inline-item mx-2 h3" data-original-title="Stack Overflow" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://stackoverflow.com/questions/tagged/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-stack-overflow"></i>
+                            </a>
+                        </li>
+                        
+                    </ul>
+
+
+                </div>
+                <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+
+
+                    <ul class="list-inline mb-0">
+
+                        
+                        <li aria-label="GitHub" class="list-inline-item mx-2 h3" data-original-title="GitHub" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://github.com/doctoolchain/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </li>
+                        
+
+                        
+
+
+                    </ul>
+
+
+                </div>
+                <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+
+                        <small class="text-white">built with <a href="https://doctoolchain.org">docToolchain</a> and <a href="https://jbake.org">jBake</a> <br /> theme: <a href="https://www.docsy.dev/">docsy</a></small>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+
+    <script src="../js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
+    <script src="../js/blocks.js" ></script>
+    <script src="../js/prettify.js"></script>
+    <script src="../js/copy-n-paste.js"></script>
+    <script src="../js/submenucollapse.js"></script>
+
+
+</body>
+</html>

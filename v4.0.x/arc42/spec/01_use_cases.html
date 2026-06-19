@@ -212,10 +212,57 @@
         <ul class="navbar-nav mt-2 mt-lg-0">
     <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../10_about/10_about-the-project.html"><span>About</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../010_manual/20_install.html"><span>User Docs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../015_tasks/03_tasks.html"><span>Tasks</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../020_tutorial/010_Install.html"><span>Tutorial</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../025_development/005_contributing_to_docs.html"><span>For Devs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../030_news/index.html"><span>News</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link active" href="../../arc42/open_questions.html"><span>arc42</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
+            </li>
+
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
     <form id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
     </div>
 </nav>
 
@@ -227,3 +274,1099 @@
 				<div class="td-sidebar__inner" id="td-sidebar-menu" >
 					
      <form class="td-sidebar__search d-flex align-items-center d-lg-none"  id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
+
+
+        <nav aria-label="Submenu" class="collapse td-sidebar-nav" id="td-section-nav" >
+
+            <ul class="td-sidebar-nav__section">
+                <li class="td-sidebar-nav__section-title">
+                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">arc42</span>
+                </li>
+                <li>
+                  <ul>
+                      <li class="collapse show" id="docs">
+                          
+                        <ul class="td-sidebar-nav__section ul-0">
+<details id="d92e87214a12aa80bb184e0d45bb68161"><summary><span class="label">arc42</span></summary>
+                        <ul class="ul-1">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/open_questions.html" title="Open Questions and Assumptions — docToolchain v4">Open Questions and Assumptions — docToolchain v4</a>
+                                
+                            </li>
+<details id="d378c2e65b576318b7f785b537c424464"><summary><span class="label">chapters</span></summary>
+                        <ul class="ul-2">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/01_introduction_and_goals.html" title="Introduction and Goals">Introduction and Goals</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/02_architecture_constraints.html" title="Architecture Constraints">Architecture Constraints</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/03_context_and_scope.html" title="Context and Scope">Context and Scope</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/04_solution_strategy.html" title="Solution Strategy">Solution Strategy</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/05_building_block_view.html" title="Building Block View">Building Block View</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/06_runtime_view.html" title="Runtime View">Runtime View</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/07_deployment_view.html" title="Deployment View">Deployment View</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/08_concepts.html" title="Cross-cutting Concepts">Cross-cutting Concepts</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/09_architecture_decisions.html" title="Architecture Decisions">Architecture Decisions</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/10_quality_requirements.html" title="Quality Requirements">Quality Requirements</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/11_technical_risks.html" title="Risks and Technical Debts">Risks and Technical Debts</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/12_glossary.html" title="Glossary">Glossary</a>
+                                
+                            </li>
+                        </ul></details>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/prd.html" title="docToolchain v4 — Product Requirements Document">docToolchain v4 — Product Requirements Document</a>
+                                
+                            </li>
+<details id="db979c2934ac0b4ba3f08dabfdd1b2299"><summary><span class="label">spec</span></summary>
+                        <ul class="ul-2">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../../arc42/spec/01_use_cases.html" title="docToolchain v4 — Specification">docToolchain v4 — Specification</a>
+                                
+                            </li>
+                        </ul></details>
+                        </ul></details>
+<details id="d3eed20573aa33a24201635cc342ba05c"><summary><span class="label">arc42-v3</span></summary>
+                        <ul class="ul-1">
+<details id="d378c2e65b576318b7f785b537c424464"><summary><span class="label">chapters</span></summary>
+                        <ul class="ul-2">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42-v3/chapters/01_introduction_and_goals.html" title="Introduction and Goals">Introduction and Goals</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42-v3/chapters/02_architecture_constraints.html" title="Architecture Constraints">Architecture Constraints</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42-v3/chapters/03_context_and_scope.html" title="Context and Scope">Context and Scope</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42-v3/chapters/04_solution_strategy.html" title="Solution Strategy">Solution Strategy</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42-v3/chapters/05_building_block_view.html" title="Building Block View">Building Block View</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42-v3/chapters/06_runtime_view.html" title="Runtime View">Runtime View</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42-v3/chapters/07_deployment_view.html" title="Deployment View">Deployment View</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42-v3/chapters/08_concepts.html" title="Cross-cutting Concepts">Cross-cutting Concepts</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42-v3/chapters/09_architecture_decisions.html" title="Architecture Decisions">Architecture Decisions</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42-v3/chapters/10_quality_requirements.html" title="Quality Requirements">Quality Requirements</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42-v3/chapters/11_technical_risks.html" title="Risks and Technical Debts">Risks and Technical Debts</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42-v3/chapters/12_glossary.html" title="Glossary">Glossary</a>
+                                
+                            </li>
+                        </ul></details>
+                        </ul></details>
+                        </ul>
+                      </li>
+                  </ul>
+                <li>
+        </nav>
+
+				</div>
+			</div>
+			<div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+					
+
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/spec/01_use_cases.adoc"
+           target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
+
+
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27docToolchain+v4+%E2%80%94+Specification%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/spec/01_use_cases.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+                class="fab fa-github fa-fw"></i> Create an issue</a>
+
+        
+        
+        <hr />
+<script>
+const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
+const searchTerm = "arc42/spec/01_use_cases.adoc";
+</script>
+
+<script src="../../js/issues.js"></script>
+
+<style>
+        #issues-container {
+            background-color: white;
+            padding: 0px;
+            margin: 0;
+        }
+        .issue {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .issue:last-child {
+            border-bottom: none;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: -10px;
+        }
+        .issue-content {
+            flex-grow: 1;
+            background-color: rgba(255,255,255,0.6);
+        }
+        .issue-title {
+            font-weight: bold;
+            color: #0366d6;
+        }
+        .issue-date {
+            font-size: 0.9em;
+            color: #586069;
+        }
+
+</style>
+
+<div id="issues-container">
+searching issues...
+</div>
+
+        <hr />
+
+        <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_doctoolchain_v4_specification">docToolchain v4 — Specification</a>
+<ul class="sectlevel2">
+<li><a href="#_use_cases">.1. Use Cases</a>
+<ul class="sectlevel3">
+<li><a href="#_uc_1_generate_html_documentation">.1.1. UC-1: Generate HTML Documentation</a></li>
+<li><a href="#_uc_2_generate_microsite">.1.2. UC-2: Generate Microsite</a></li>
+<li><a href="#_uc_3_publish_to_confluence">.1.3. UC-3: Publish to Confluence</a></li>
+<li><a href="#_uc_4_export_jira_issues">.1.4. UC-4: Export Jira Issues</a></li>
+<li><a href="#_uc_5_llm_navigates_documentation_via_dacli">.1.5. UC-5: LLM Navigates Documentation via daCLI</a></li>
+<li><a href="#_uc_6_add_new_feature_contributor_workflow">.1.6. UC-6: Add New Feature (Contributor Workflow)</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+<div style="border: 1px solid #8e3063; border-radius: 3px; padding: 5px; margin-top: 10px;">
+    <span style="font-size:x-small; display: block; text-align: right;">Anzeige</span><br />
+    <b>Wissen,<br />direkt von der Quelle!</b><br /><br />
+    Wir bieten ein remote Docs-as-Code Training unter Verwendung von docToolchain an.<br /><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode">Nächster Termin: auf Anfrage</a><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode" class="btn btn-primary" style="">jetzt buchen!</a>
+</div>
+
+
+
+				</div>
+			</div>
+			<main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+				    <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+        <ol class="breadcrumb spb-1">
+            <!--li aria-current="page" class="breadcrumb-item active">
+                <a href="https://example.docsy.dev/docs/">Documentation</a>
+            </li-->
+
+        </ol>
+    </nav>
+
+
+    <div class="td-content">
+        <p>
+            
+<div class="sect1">
+<h2 id="_doctoolchain_v4_specification">docToolchain v4 — Specification</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_use_cases">.1. Use Cases</h3>
+<div class="sect3">
+<h4 id="_uc_1_generate_html_documentation">.1.1. UC-1: Generate HTML Documentation</h4>
+<div class="sect4">
+<h5 id="_description">Description</h5>
+<div class="paragraph">
+<p>A documentation author converts AsciiDoc source files to HTML output using the docToolchain CLI.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_actors">Actors</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Documentation Author (primary)</p>
+</li>
+<li>
+<p>DevOps Engineer (CI/CD context)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_preconditions">Preconditions</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>AsciiDoc source files exist in the configured <code>inputPath</code></p>
+</li>
+<li>
+<p><code>docToolchainConfig.groovy</code> lists at least one input file with <code>html</code> format</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_activity_diagram">Activity Diagram</h5>
+<div class="listingblock">
+<div class="content">
+<pre>Failed to generate image: PlantUML preprocessing failed: [From &lt;input&gt; (line 30) ]
+
+@startuml
+start
+:Author runs **./dtcw generateHTML**;
+
+:dtcw detects execution environment
+(local / docker / sdk);
+
+if (Java installed?) then (yes)
+else (no)
+  if (Headless mode?) then (yes)
+    :Print error: "Java not found.\nRun: ./dtcw local install java";
+    stop
+  else (no)
+    :Prompt user to install Java;
+    if (User accepts?) then (yes)
+      :Download and install JDK;
+    else (no)
+      stop
+    endif
+  endif
+endif
+
+if (docToolchain installed?) then (yes)
+else (no)
+  :Download and install docToolchain;
+endif
+
+:Construct classpath from lib/ directory;
+:Invoke: java -cp &lt;classpath&gt;
+groovy.ui.GroovyMain
+^^^^^
+ Syntax Error? (Assumed diagram type: activity)
+
+@startuml
+start
+:Author runs **./dtcw generateHTML**;
+
+:dtcw detects execution environment
+(local / docker / sdk);
+
+if (Java installed?) then (yes)
+else (no)
+  if (Headless mode?) then (yes)
+    :Print error: "Java not found.\nRun: ./dtcw local install java";
+    stop
+  else (no)
+    :Prompt user to install Java;
+    if (User accepts?) then (yes)
+      :Download and install JDK;
+    else (no)
+      stop
+    endif
+  endif
+endif
+
+if (docToolchain installed?) then (yes)
+else (no)
+  :Download and install docToolchain;
+endif
+
+:Construct classpath from lib/ directory;
+:Invoke: java -cp &lt;classpath&gt;
+groovy.ui.GroovyMain
+scripts/generateHTML.groovy;
+
+:Script loads docToolchainConfig.groovy
+via ConfigSlurper;
+
+if (Config file exists?) then (yes)
+else (no)
+  :Print error:
+  "docToolchainConfig.groovy not found";
+  stop
+endif
+
+if (inputFiles configured?) then (yes)
+else (no)
+  :Print warning:
+  "No inputFiles configured";
+  stop
+endif
+
+:Create output directory (build/html5/);
+
+while (More inputFiles?) is (yes)
+  :Read AsciiDoc source file;
+  if (File exists?) then (yes)
+    :Invoke AsciiDoctor JVM
+    with imageDirs, attributes;
+    if (AsciiDoc processing succeeds?) then (yes)
+      :Write HTML to build/html5/;
+    else (no)
+      :Print error with file name
+      and line number;
+      :Continue with next file;
+    endif
+  else (no)
+    :Print warning:
+    "File not found: &lt;path&gt;";
+    :Continue with next file;
+  endif
+endwhile (no)
+
+:Print summary:
+"Generated N files in build/html5/";
+:Exit code 0;
+stop
+@enduml</pre>
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_acceptance_criteria">Acceptance Criteria</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="gherkin">Feature: Generate HTML Documentation
+
+  Scenario: Successful HTML generation
+    Given a project with docToolchainConfig.groovy
+    And inputFiles contains [file: 'manual.adoc', formats: ['html']]
+    And the file src/docs/manual.adoc exists
+    When I run ./dtcw generateHTML
+    Then the exit code is 0
+    And the file build/html5/manual.html exists
+    And the HTML contains the rendered content of manual.adoc
+
+  Scenario: Fast execution without Gradle overhead
+    Given docToolchain is already installed locally
+    And Java is available
+    When I run ./dtcw generateHTML on a 50-page project
+    Then the first AsciiDoc processing starts within 3 seconds
+    And the total execution completes within 10 seconds
+
+  Scenario: Missing input file
+    Given inputFiles contains [file: 'missing.adoc', formats: ['html']]
+    And the file src/docs/missing.adoc does not exist
+    When I run ./dtcw generateHTML
+    Then a warning "File not found: missing.adoc" is printed
+    And the exit code is 0
+    And other configured files are still processed
+
+  Scenario: Invalid AsciiDoc syntax
+    Given inputFiles contains a file with invalid AsciiDoc syntax
+    When I run ./dtcw generateHTML
+    Then an error message with file name and line number is printed
+    And the exit code is 0
+    And other configured files are still processed
+
+  Scenario: No Java installed, headless mode
+    Given Java is not installed
+    And DTC_HEADLESS is set to true
+    When I run ./dtcw generateHTML
+    Then the exit code is non-zero
+    And the message contains "Java not found"
+
+  Scenario: Auto-install Java
+    Given Java is not installed
+    And the terminal is interactive
+    When I run ./dtcw generateHTML
+    And I accept the Java installation prompt
+    Then JDK is downloaded and installed to $HOME/.doctoolchain/jdk/
+    And generateHTML proceeds normally after installation
+
+  Scenario: v3 config backward compatibility
+    Given a docToolchainConfig.groovy from a v3 project
+    When I run ./dtcw generateHTML
+    Then the output is identical to v3's output
+    And no errors or warnings about deprecated config format are shown</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uc_2_generate_microsite">.1.2. UC-2: Generate Microsite</h4>
+<div class="sect4">
+<h5 id="_description_2">Description</h5>
+<div class="paragraph">
+<p>A documentation author generates a complete static documentation website from AsciiDoc sources using the custom Groovy-based site generator (replacing jBake).</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_actors_2">Actors</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Documentation Author (primary)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_preconditions_2">Preconditions</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>AsciiDoc source files with jBake-compatible metadata headers exist</p>
+</li>
+<li>
+<p><code>microsite</code> section is configured in <code>docToolchainConfig.groovy</code></p>
+</li>
+<li>
+<p>Groovy SimpleTemplate files exist in <code>src/site/templates/</code></p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_activity_diagram_2">Activity Diagram</h5>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/uc2-generate-site.png" alt="uc2 generate site" width="471" height="1726">
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_acceptance_criteria_2">Acceptance Criteria</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="gherkin">Feature: Generate Microsite
+
+  Scenario: Successful site generation
+    Given a project with AsciiDoc files containing jBake metadata headers
+    And microsite is configured in docToolchainConfig.groovy
+    And Groovy SimpleTemplate files exist in src/site/templates/
+    When I run ./dtcw generateSite
+    Then the exit code is 0
+    And build/microsite/output/ contains HTML files for each page
+    And each HTML file has navigation, header, and footer from templates
+    And static assets (CSS, JS) are copied to the output directory
+
+  Scenario: Apple Silicon compatibility
+    Given I am running on macOS with Apple Silicon (ARM64)
+    When I run ./dtcw generateSite
+    Then the site is generated without errors
+    And no JNI or native library errors occur
+
+  Scenario: Modern responsive UI
+    Given the site is generated with the default theme
+    When I open a page in a desktop browser
+    Then the layout is responsive
+    And a dark mode toggle is available
+    And full-text search is functional
+
+  Scenario: jBake metadata backward compatibility
+    Given AsciiDoc files use v3 jBake metadata headers
+    And headers include :jbake-title:, :jbake-type:, :jbake-status:, :jbake-menu:, :jbake-order:
+    When I run ./dtcw generateSite
+    Then all files are processed correctly
+    And menu order matches :jbake-order: values
+    And page titles match :jbake-title: values
+
+  Scenario: v3 Groovy SimpleTemplate compatibility
+    Given Groovy SimpleTemplate files from a v3 project
+    When I run ./dtcw generateSite
+    Then the templates render without errors
+    And template variables (content, config, published_date, etc.) are populated
+
+  Scenario: Missing template directory
+    Given src/site/templates/ does not exist
+    When I run ./dtcw generateSite
+    Then the exit code is non-zero
+    And the error message says "Theme not found"
+
+  Scenario: File without jBake metadata
+    Given an AsciiDoc file without :jbake-title: header
+    When I run ./dtcw generateSite
+    Then the file is skipped with a warning
+    And other files are processed normally</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uc_3_publish_to_confluence">.1.3. UC-3: Publish to Confluence</h4>
+<div class="sect4">
+<h5 id="_description_3">Description</h5>
+<div class="paragraph">
+<p>A documentation author publishes generated HTML pages to Atlassian Confluence with smart change detection.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_actors_3">Actors</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Documentation Author (primary)</p>
+</li>
+<li>
+<p>DevOps Engineer (CI/CD context)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_preconditions_3">Preconditions</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>HTML files exist in <code>build/html5/</code> (user must run <code>generateHTML</code> first)</p>
+</li>
+<li>
+<p>Confluence API endpoint and credentials are configured</p>
+</li>
+<li>
+<p>Target Confluence space exists</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_activity_diagram_3">Activity Diagram</h5>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/uc3-publish-confluence.png" alt="uc3 publish confluence" width="709" height="1809">
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_acceptance_criteria_3">Acceptance Criteria</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="gherkin">Feature: Publish to Confluence
+
+  Scenario: Successful publish with changes
+    Given generateHTML has been run
+    And Confluence credentials are configured
+    And the target space exists
+    When I run ./dtcw publishToConfluence
+    Then changed pages are created or updated in Confluence
+    And unchanged pages are skipped
+    And the summary shows counts for created, updated, and skipped pages
+
+  Scenario: Idempotent publish (no changes)
+    Given the same documentation was published previously without changes
+    When I run ./dtcw publishToConfluence
+    Then no Confluence page versions are created
+    And the summary shows all pages as "skipped (unchanged)"
+
+  Scenario: Missing HTML input
+    Given build/html5/ does not exist or is empty
+    When I run ./dtcw publishToConfluence
+    Then the exit code is non-zero
+    And the error says "No HTML files found. Run generateHTML first."
+
+  Scenario: Invalid credentials
+    Given Confluence credentials are incorrect
+    When I run ./dtcw publishToConfluence
+    Then the exit code is non-zero
+    And the error indicates authentication failure
+
+  Scenario: Confluence API unreachable
+    Given the configured Confluence API URL is unreachable
+    When I run ./dtcw publishToConfluence
+    Then the exit code is non-zero
+    And the error includes the API URL</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uc_4_export_jira_issues">.1.4. UC-4: Export Jira Issues</h4>
+<div class="sect4">
+<h5 id="_description_4">Description</h5>
+<div class="paragraph">
+<p>A documentation author exports Jira issues to AsciiDoc or Excel format for inclusion in documentation.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_actors_4">Actors</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Documentation Author (primary)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_preconditions_4">Preconditions</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Jira API endpoint and credentials are configured</p>
+</li>
+<li>
+<p>At least one export entry with JQL query is defined</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_activity_diagram_4">Activity Diagram</h5>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/uc4-export-jira.png" alt="uc4 export jira" width="529" height="1647">
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_acceptance_criteria_4">Acceptance Criteria</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="gherkin">Feature: Export Jira Issues
+
+  Scenario: Successful export to AsciiDoc
+    Given Jira API credentials are valid
+    And exports contains a JQL query that returns results
+    And saveAsciidoc is true
+    When I run ./dtcw exportJiraIssues
+    Then build/jira/&lt;filename&gt;.adoc contains an AsciiDoc table with issues
+
+  Scenario: Successful export to Excel
+    Given Jira API credentials are valid
+    And exports contains a JQL query that returns results
+    And saveExcel is true
+    When I run ./dtcw exportJiraIssues
+    Then build/jira/&lt;filename&gt;.xlsx contains a workbook with issues
+
+  Scenario: JQL query returns no results
+    Given a JQL query that matches no issues
+    When I run ./dtcw exportJiraIssues
+    Then the output file is created with headers but no rows
+    And the exit code is 0
+
+  Scenario: Jira API unreachable
+    Given the configured Jira API URL is unreachable
+    When I run ./dtcw exportJiraIssues
+    Then the exit code is non-zero
+    And the error includes the API URL</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uc_5_llm_navigates_documentation_via_dacli">.1.5. UC-5: LLM Navigates Documentation via daCLI</h4>
+<div class="sect4">
+<h5 id="_description_5">Description</h5>
+<div class="paragraph">
+<p>An LLM agent accesses docToolchain-managed documentation through daCLI&#8217;s MCP server to read, search, and modify content.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_actors_5">Actors</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>LLM Agent (primary, via MCP client)</p>
+</li>
+<li>
+<p>Documentation Author (starts daCLI)</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_preconditions_5">Preconditions</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>daCLI is installed and running: <code>dacli-mcp --docs-root src/docs/</code></p>
+</li>
+<li>
+<p>AsciiDoc source files exist in the docs root</p>
+</li>
+<li>
+<p>LLM client supports MCP protocol</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_activity_diagram_5">Activity Diagram</h5>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/uc5-llm-dacli.png" alt="uc5 llm dacli" width="522" height="1637">
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_acceptance_criteria_5">Acceptance Criteria</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="gherkin">Feature: LLM Navigates Documentation via daCLI
+
+  Scenario: Efficient navigation
+    Given daCLI is running with docs-root pointing to a 50-page project
+    When an LLM calls get_structure, then search, then get_section
+    Then the LLM locates the target section in at most 3 tool calls
+    And total token usage is under 10k (vs. 100k for reading all files)
+
+  Scenario: Section modification with optimistic locking
+    Given an LLM has read a section and received its hash
+    When the LLM calls update_section with the correct expected_hash
+    Then the section is updated atomically
+    And a new hash is returned
+    And the source file on disk reflects the change
+
+  Scenario: Concurrent modification conflict
+    Given an LLM has read a section and received hash "abc123"
+    And another process has modified the same section
+    When the LLM calls update_section with expected_hash "abc123"
+    Then the update is rejected with a conflict error
+    And the original content is preserved
+
+  Scenario: Structure validation
+    Given a documentation project with a circular include
+    When an LLM calls validate_structure
+    Then the result contains a warning about the circular include
+    And the warning identifies the files involved</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uc_6_add_new_feature_contributor_workflow">.1.6. UC-6: Add New Feature (Contributor Workflow)</h4>
+<div class="sect4">
+<h5 id="_description_6">Description</h5>
+<div class="paragraph">
+<p>A contributor adds a new export feature to docToolchain by creating a single Groovy script.</p>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_actors_6">Actors</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>Contributor / Developer</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_preconditions_6">Preconditions</h5>
+<div class="ulist">
+<ul>
+<li>
+<p>docToolchain v4 source code is checked out</p>
+</li>
+<li>
+<p>Java is installed</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_activity_diagram_6">Activity Diagram</h5>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/uc6-add-feature.png" alt="uc6 add feature" width="578" height="601">
+</div>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_acceptance_criteria_6">Acceptance Criteria</h5>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="gherkin">Feature: Add New Feature as Contributor
+
+  Scenario: Script-first development
+    Given a contributor creates scripts/exportNotion.groovy
+    When the contributor runs ./dtcw exportNotion
+    Then the script executes without any compilation step
+    And no files other than the script need to be modified
+
+  Scenario: Fast feedback loop
+    Given a contributor modifies scripts/exportNotion.groovy
+    When the contributor re-runs ./dtcw exportNotion
+    Then the modified script executes within 5 seconds of invocation
+    And the changes are reflected immediately
+
+  Scenario: Script discovery
+    Given scripts/exportNotion.groovy exists
+    When a user runs ./dtcw tasks
+    Then exportNotion appears in the task list</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+</div>
+        </p>
+
+        <style>
+.feedback--answer {
+    display: inline-block;
+}
+
+.feedback--answer-no {
+    margin-left: 1em;
+}
+
+.feedback--response {
+    display: none;
+    margin-top: 1em;
+}
+
+.feedback--response__visible {
+    display: block;
+}
+</style>
+
+<div class="d-print-none">
+    <h2 class="feedback--title">Feedback</h2>
+    <p class="feedback--question">Was this page helpful?</p>
+    <button class="feedback--answer feedback--answer-yes">Yes</button>
+    <button class="feedback--answer feedback--answer-no">No</button>
+    <p class="feedback--response feedback--response-yes">
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27docToolchain+v4+%E2%80%94+Specification%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/spec/01_use_cases.adoc">tell us
+    how we can improve</a>.
+    </p>
+    <p class="feedback--response feedback--response-no">
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27docToolchain+v4+%E2%80%94+Specification%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/spec/01_use_cases.adoc">tell
+    us how we can improve</a>.
+    </p>
+</div>
+<script>
+    const yesButton = document.querySelector('.feedback--answer-yes');
+    const noButton = document.querySelector('.feedback--answer-no');
+    const yesResponse = document.querySelector('.feedback--response-yes');
+    const noResponse = document.querySelector('.feedback--response-no');
+    const disableButtons = () => {
+        yesButton.disabled = true;
+        noButton.disabled = true;
+    };
+    const sendFeedback = (value) => {
+        if (typeof ga !== 'function') return;
+        const args = {
+            command: 'send',
+            hitType: 'event',
+            category: 'Helpful',
+            action: 'click',
+            label: window.location.pathname,
+            value: value
+        };
+        ga(args.command, args.hitType, args.category, args.action, args.label, args.value);
+    };
+    yesButton.addEventListener('click', () => {
+        yesResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(1);
+    });
+    noButton.addEventListener('click', () => {
+        noResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(0);
+    });
+</script>
+
+
+        <br>
+
+        <!--div class="text-muted mt-5 pt-3 border-top">Last modified July 3, 2019: <a
+                href="https://github.com/google/docsy-example/commit/d6aa89c8b24089d7e6741030864eff209465e896">Added
+            links to user guide repo (d6aa89c)</a>
+        </div-->
+    </div>
+
+
+			</main>
+
+		</div>
+	</div>
+
+
+	
+    <!--footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">&copy; 2020 | based on <a href="https://arc42.org">arc42 7.0</a> | mixed with <a href="http://getbootstrap.com/">Bootstrap v5.0.0-beta</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a></span>
+        </div>
+    </footer-->
+
+    <footer class="bg-dark py-5 row d-print-none">
+        <div class="container-fluid mx-sm-5">
+            <div class="row">
+                <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+
+
+                    <ul class="list-inline mb-0">
+                        
+                        <li aria-label="User mailing list" class="list-inline-item mx-2 h3" data-original-title="User mailing list" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="mailto:info@docs-as-co.de" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Twitter" class="list-inline-item mx-2 h3" data-original-title="Twitter" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://twitter.com/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Stack Overflow" class="list-inline-item mx-2 h3" data-original-title="Stack Overflow" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://stackoverflow.com/questions/tagged/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-stack-overflow"></i>
+                            </a>
+                        </li>
+                        
+                    </ul>
+
+
+                </div>
+                <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+
+
+                    <ul class="list-inline mb-0">
+
+                        
+                        <li aria-label="GitHub" class="list-inline-item mx-2 h3" data-original-title="GitHub" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://github.com/doctoolchain/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </li>
+                        
+
+                        
+
+
+                    </ul>
+
+
+                </div>
+                <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+
+                        <small class="text-white">built with <a href="https://doctoolchain.org">docToolchain</a> and <a href="https://jbake.org">jBake</a> <br /> theme: <a href="https://www.docsy.dev/">docsy</a></small>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+
+
+    <script src="../../js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
+    <script src="../../js/blocks.js" ></script>
+    <script src="../../js/prettify.js"></script>
+    <script src="../../js/copy-n-paste.js"></script>
+    <script src="../../js/submenucollapse.js"></script>
+
+
+</body>
+</html>

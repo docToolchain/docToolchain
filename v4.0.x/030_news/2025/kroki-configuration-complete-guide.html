@@ -212,10 +212,57 @@
         <ul class="navbar-nav mt-2 mt-lg-0">
     <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../10_about/10_about-the-project.html"><span>About</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../010_manual/20_install.html"><span>User Docs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../015_tasks/03_tasks.html"><span>Tasks</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../020_tutorial/010_Install.html"><span>Tutorial</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../025_development/005_contributing_to_docs.html"><span>For Devs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link active" href="../../030_news/index.html"><span>News</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../arc42/open_questions.html"><span>arc42</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
+            </li>
+
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
     <form id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
     </div>
 </nav>
 
@@ -227,3 +274,478 @@
 				<div class="td-sidebar__inner" id="td-sidebar-menu">
 					
      <form class="td-sidebar__search d-flex align-items-center d-lg-none"  id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
+
+
+        <nav aria-label="Submenu" class="collapse td-sidebar-nav" id="td-section-nav" >
+
+            <ul class="td-sidebar-nav__section">
+                <li class="td-sidebar-nav__section-title">
+                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">News</span>
+                </li>
+                <li>
+                  <ul>
+                      <li class="collapse show" id="docs">
+                          
+                        <ul class="td-sidebar-nav__section ul-0">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/index.html" title="Overview">Overview</a>
+                                
+                            </li>
+<details id="d05a5cf06982ba7892ed2a6d38fe832d6"><summary><span class="label">2021</span></summary>
+                        <ul class="ul-1">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2021/2021-11-23-Open-Source-Camp.html" title="Open Source Camp">Open Source Camp</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2021/last-release-candidate.html" title="Last Release Candidate">Last Release Candidate</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2021/2.0.0-release.html" title="Release v2.0.0">Release v2.0.0</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2021/2.0.1-release.html" title="Release v2.0.1">Release v2.0.1</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2021/2.0.2-release.html" title="Release v2.0.2">Release v2.0.2</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2021/2.0.3-release.html" title="Release v2.0.3">Release v2.0.3</a>
+                                
+                            </li>
+                        </ul></details>
+<details id="d3a824154b16ed7dab899bf000b80eeee"><summary><span class="label">2022</span></summary>
+                        <ul class="ul-1">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2022/2.0.4-release.html" title="(Release v2.0.4)">(Release v2.0.4)</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2022/2.0.5-release.html" title="Release v2.0.5">Release v2.0.5</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2022/2.1.0-release.html" title="Release v2.1.0">Release v2.1.0</a>
+                                
+                            </li>
+                        </ul></details>
+<details id="d5531a5834816222280f20d1ef9e95f69"><summary><span class="label">2023</span></summary>
+                        <ul class="ul-1">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/2.2.0-release.html" title="Release v2.2.0">Release v2.2.0</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/2.2.1-release.html" title="Release v2.2.1">Release v2.2.1</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/3.0.0-rc1.html" title="Release Candidate v3.0.0">Release Candidate v3.0.0</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/Babylon.html" title="Multilingual Documentation">Multilingual Documentation</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/3.0.1-release.html" title="Release v3.0.1">Release v3.0.1</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/3.0.2-release.html" title="Release v3.0.2">Release v3.0.2</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/3.1.0-release.html" title="Release v3.1.0">Release v3.1.0</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/3.1.1-release.html" title="Release v3.1.1">Release v3.1.1</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/3.1.2-release.html" title="Release v3.1.2">Release v3.1.2</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2023/3.2.0-release.html" title="Release v3.2.0">Release v3.2.0</a>
+                                
+                            </li>
+                        </ul></details>
+<details id="d07811dc6c422334ce36a09ff5cd6fe71"><summary><span class="label">2024</span></summary>
+                        <ul class="ul-1">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2024/3.2.1-release.html" title="Release v3.2.1">Release v3.2.1</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2024/3.2.2-release.html" title="Release v3.2.2">Release v3.2.2</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2024/3.3-release.html" title="Release v3.3">Release v3.3</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2024/3.4.0-release.html" title="Release v3.4">Release v3.4</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2024/3.4.1-release.html" title="Release v3.4.1">Release v3.4.1</a>
+                                
+                            </li>
+                        </ul></details>
+<details id="d312351bff07989769097660a56395065"><summary><span class="label">2025</span></summary>
+                        <ul class="ul-1">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../030_news/2025/3.4.2-release.html" title="Release v3.4.2">Release v3.4.2</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../../030_news/2025/kroki-configuration-complete-guide.html" title="Kroki Configuration Mystery Solved: Two Extensions, One Solution">Kroki Configuration Mystery Solved: Two Extensions, One Solution</a>
+                                
+                            </li>
+                        </ul></details>
+                        </ul>
+                      </li>
+                  </ul>
+                <li>
+        </nav>
+
+				</div>
+			</div>
+			<div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+					
+
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/030_news/2025/kroki-configuration-complete-guide.adoc"
+           target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
+
+
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Kroki+Configuration+Mystery+Solved%3A+Two+Extensions%2C+One+Solution%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/030_news/2025/kroki-configuration-complete-guide.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+                class="fab fa-github fa-fw"></i> Create an issue</a>
+
+        
+        
+        <hr />
+<script>
+const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
+const searchTerm = "030_news/2025/kroki-configuration-complete-guide.adoc";
+</script>
+
+<script src="../../js/issues.js"></script>
+
+<style>
+        #issues-container {
+            background-color: white;
+            padding: 0px;
+            margin: 0;
+        }
+        .issue {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .issue:last-child {
+            border-bottom: none;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: -10px;
+        }
+        .issue-content {
+            flex-grow: 1;
+            background-color: rgba(255,255,255,0.6);
+        }
+        .issue-title {
+            font-weight: bold;
+            color: #0366d6;
+        }
+        .issue-date {
+            font-size: 0.9em;
+            color: #586069;
+        }
+
+</style>
+
+<div id="issues-container">
+searching issues...
+</div>
+
+        <hr />
+
+        <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_kroki_configuration_mystery_solved_two_extensions_one_solution">Kroki Configuration Mystery Solved: Two Extensions, One Solution</a>
+<ul class="sectlevel2">
+<li><a href="#_the_problem">The Problem</a></li>
+<li><a href="#_the_discovery">The Discovery</a></li>
+<li><a href="#_the_solution_defensive_configuration">The Solution: Defensive Configuration</a></li>
+<li><a href="#_why_this_matters">Why This Matters</a></li>
+<li><a href="#_learn_more">Learn More</a></li>
+<li><a href="#_community_impact">Community Impact</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+<div style="border: 1px solid #8e3063; border-radius: 3px; padding: 5px; margin-top: 10px;">
+    <span style="font-size:x-small; display: block; text-align: right;">Anzeige</span><br />
+    <b>Wissen,<br />direkt von der Quelle!</b><br /><br />
+    Wir bieten ein remote Docs-as-Code Training unter Verwendung von docToolchain an.<br /><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode">Nächster Termin: auf Anfrage</a><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode" class="btn btn-primary" style="">jetzt buchen!</a>
+</div>
+
+
+
+				</div>
+			</div>
+			<main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+				<p><em>22 May 2025, RaifDMueller with Claude Sonnet 4</em></p>
+				<p>
+                    
+<div class="sect1">
+<h2 id="_kroki_configuration_mystery_solved_two_extensions_one_solution">Kroki Configuration Mystery Solved: Two Extensions, One Solution</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p><em>Clearing up the confusion around <code>:diagram-server-url:</code> vs <code>:kroki-server-url:</code> once and for all</em></p>
+</div>
+<div class="sect2">
+<h3 id="_the_problem">The Problem</h3>
+<div class="paragraph">
+<p>If you&#8217;ve ever tried to configure Kroki in docToolchain and wondered why some tutorials show <code>:diagram-server-url:</code> while others use <code>:kroki-server-url:</code>, you&#8217;ve stumbled upon one of the most common configuration mysteries in the AsciiDoc ecosystem.</p>
+</div>
+<div class="paragraph">
+<p>The confusion is real, and it has a fascinating backstory.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_discovery">The Discovery</h3>
+<div class="paragraph">
+<p>It turns out there are <strong>two completely different AsciiDoc extensions</strong> for diagrams:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>asciidoctor-diagram</strong>: The original extension that added Kroki support in v2.1.0 using <code>:diagram-server-url:</code> and <code>:diagram-server-type:</code></p>
+</li>
+<li>
+<p><strong>asciidoctor-kroki</strong>: A specialized extension built exclusively for Kroki using <code>:kroki-server-url:</code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Both are legitimate, both are current, and both solve the same problem in different ways.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_the_solution_defensive_configuration">The Solution: Defensive Configuration</h3>
+<div class="paragraph">
+<p>Instead of guessing which extension your setup uses, we recommend the <strong>defensive approach</strong>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="asciidoc">// Works with both extensions - future-proof configuration
+:diagram-server-url: https://kroki.io/
+:diagram-server-type: kroki_io
+:kroki-server-url: https://kroki.io/</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This ensures your diagrams work regardless of which extension docToolchain uses internally, and you&#8217;re protected against future changes.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_why_this_matters">Why This Matters</h3>
+<div class="paragraph">
+<p>This isn&#8217;t just about avoiding configuration headaches. It&#8217;s about:</p>
+</div>
+<div class="paragraph">
+<p>✅ <strong>Future-proofing</strong> your documentation setup<br>
+✅ <strong>Team productivity</strong> - no more debugging diagram rendering issues<br>
+✅ <strong>Flexibility</strong> for different deployment scenarios<br>
+✅ <strong>Enterprise readiness</strong> with local server options</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_learn_more">Learn More</h3>
+<div class="paragraph">
+<p>Want the complete technical breakdown, step-by-step configuration, and enterprise setup instructions?</p>
+</div>
+<div class="paragraph">
+<p>👉 <strong>Check out our comprehensive tutorial</strong>: <a href="../../020_tutorial/170_kroki-configuration.html">Kroki Configuration Guide</a></p>
+</div>
+<div class="paragraph">
+<p>The tutorial includes:
+- Detailed configuration examples
+- Local Kroki server setup for enterprises
+- Troubleshooting common issues
+- Real diagram examples (PlantUML, Mermaid, GraphViz)</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_community_impact">Community Impact</h3>
+<div class="paragraph">
+<p>This discovery came from community collaboration in <a href="https://github.com/docToolchain/docToolchain/issues/1500">Issue #1500</a>, where users shared their configuration challenges. It&#8217;s a perfect example of how community-driven problem-solving makes docToolchain better for everyone.</p>
+</div>
+<div class="paragraph">
+<p>Have your own configuration mysteries? Share them in our <a href="https://github.com/docToolchain/docToolchain/issues">GitHub Issues</a> - you might help solve the next puzzle! 🧩</p>
+</div>
+<hr>
+<div class="paragraph">
+<p><em>Happy diagramming!</em> 📊</p>
+</div>
+</div>
+</div>
+</div>
+
+                </p>
+			</main>
+
+		</div>
+	</div>
+
+
+	
+    <!--footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">&copy; 2020 | based on <a href="https://arc42.org">arc42 7.0</a> | mixed with <a href="http://getbootstrap.com/">Bootstrap v5.0.0-beta</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a></span>
+        </div>
+    </footer-->
+
+    <footer class="bg-dark py-5 row d-print-none">
+        <div class="container-fluid mx-sm-5">
+            <div class="row">
+                <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+
+
+                    <ul class="list-inline mb-0">
+                        
+                        <li aria-label="User mailing list" class="list-inline-item mx-2 h3" data-original-title="User mailing list" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="mailto:info@docs-as-co.de" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Twitter" class="list-inline-item mx-2 h3" data-original-title="Twitter" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://twitter.com/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Stack Overflow" class="list-inline-item mx-2 h3" data-original-title="Stack Overflow" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://stackoverflow.com/questions/tagged/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-stack-overflow"></i>
+                            </a>
+                        </li>
+                        
+                    </ul>
+
+
+                </div>
+                <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+
+
+                    <ul class="list-inline mb-0">
+
+                        
+                        <li aria-label="GitHub" class="list-inline-item mx-2 h3" data-original-title="GitHub" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://github.com/doctoolchain/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </li>
+                        
+
+                        
+
+
+                    </ul>
+
+
+                </div>
+                <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+
+                        <small class="text-white">built with <a href="https://doctoolchain.org">docToolchain</a> and <a href="https://jbake.org">jBake</a> <br /> theme: <a href="https://www.docsy.dev/">docsy</a></small>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../../js/popper.min.js"></script>
+    <script src="../../js/bootstrap.min.js"></script>
+
+
+    <script src="../../js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
+    <script src="../../js/blocks.js" ></script>
+    <script src="../../js/prettify.js"></script>
+    <script src="../../js/copy-n-paste.js"></script>
+    <script src="../../js/submenucollapse.js"></script>
+
+
+</body>
+</html>
+

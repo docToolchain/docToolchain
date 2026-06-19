@@ -212,10 +212,57 @@
         <ul class="navbar-nav mt-2 mt-lg-0">
     <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../10_about/10_about-the-project.html"><span>About</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link active" href="../010_manual/20_install.html"><span>User Docs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../015_tasks/03_tasks.html"><span>Tasks</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../020_tutorial/010_Install.html"><span>Tutorial</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../025_development/005_contributing_to_docs.html"><span>For Devs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../030_news/index.html"><span>News</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../arc42/open_questions.html"><span>arc42</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
+            </li>
+
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
     <form id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
     </div>
 </nav>
 
@@ -227,3 +274,1007 @@
 				<div class="td-sidebar__inner" id="td-sidebar-menu" >
 					
      <form class="td-sidebar__search d-flex align-items-center d-lg-none"  id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
+
+
+        <nav aria-label="Submenu" class="collapse td-sidebar-nav" id="td-section-nav" >
+
+            <ul class="td-sidebar-nav__section">
+                <li class="td-sidebar-nav__section-title">
+                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">User Docs</span>
+                </li>
+                <li>
+                  <ul>
+                      <li class="collapse show" id="docs">
+                          
+                        <ul class="td-sidebar-nav__section ul-0">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../010_manual/20_install.html" title="Install docToolchain">Install docToolchain</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../010_manual/25_v4_getting_started.html" title="docToolchain v4 — Getting Started">docToolchain v4 — Getting Started</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../010_manual/30_config.html" title="Configuration">Configuration</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../010_manual/40_features.html" title="Using docToolchain to Build Docs">Using docToolchain to Build Docs</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../010_manual/50_Frequently_asked_Questions.html" title="Solutions to Common Problems">Solutions to Common Problems</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../010_manual/60_further_reading.html" title="Useful Resources">Useful Resources</a>
+                                
+                            </li>
+                        </ul>
+                      </li>
+                  </ul>
+                <li>
+        </nav>
+
+				</div>
+			</div>
+			<div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+					
+
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/010_manual/20_install.adoc"
+           target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
+
+
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Install+docToolchain%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/010_manual/20_install.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+                class="fab fa-github fa-fw"></i> Create an issue</a>
+
+        <a href="single-page.html"><i class="fa fa-file fa-fw"></i> View single page</a>
+        
+        <hr />
+<script>
+const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
+const searchTerm = "010_manual/20_install.adoc";
+</script>
+
+<script src="../js/issues.js"></script>
+
+<style>
+        #issues-container {
+            background-color: white;
+            padding: 0px;
+            margin: 0;
+        }
+        .issue {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .issue:last-child {
+            border-bottom: none;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: -10px;
+        }
+        .issue-content {
+            flex-grow: 1;
+            background-color: rgba(255,255,255,0.6);
+        }
+        .issue-title {
+            font-weight: bold;
+            color: #0366d6;
+        }
+        .issue-date {
+            font-size: 0.9em;
+            color: #586069;
+        }
+
+</style>
+
+<div id="issues-container">
+searching issues...
+</div>
+
+        <hr />
+
+        <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_install_doctoolchain">Install docToolchain</a>
+<ul class="sectlevel2">
+<li><a href="#_installation_overview">Installation Overview</a></li>
+<li><a href="#_install_dtcw_in_your_project_directory">Install <code>dtcw</code> in your project directory</a></li>
+<li><a href="#run-dtc-in-container">Run docToolchain in a container</a></li>
+<li><a href="#install-dtc-with-dtcw">Install docToolchain with <code>dtcw</code></a></li>
+<li><a href="#install-dtc-with-sdk">Install docToolchain with SDKMAN!</a></li>
+<li><a href="#first-command">Run your First Command</a></li>
+<li><a href="#_configure_doctoolchain_to_use_existing_documents">Configure docToolchain to Use Existing Documents</a></li>
+<li><a href="#_create_a_new_documentation_project_from_scratch_with_arc42">Create a New Documentation Project from Scratch with Arc42</a></li>
+<li><a href="#_generate_html_and_pdf">Generate HTML and PDF</a></li>
+<li><a href="#_upgrading_to_a_new_doctoolchain_release">Upgrading to a New docToolchain Release</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+<div style="border: 1px solid #8e3063; border-radius: 3px; padding: 5px; margin-top: 10px;">
+    <span style="font-size:x-small; display: block; text-align: right;">Anzeige</span><br />
+    <b>Wissen,<br />direkt von der Quelle!</b><br /><br />
+    Wir bieten ein remote Docs-as-Code Training unter Verwendung von docToolchain an.<br /><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode">Nächster Termin: auf Anfrage</a><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode" class="btn btn-primary" style="">jetzt buchen!</a>
+</div>
+
+
+
+				</div>
+			</div>
+			<main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+				    <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+        <ol class="breadcrumb spb-1">
+            <!--li aria-current="page" class="breadcrumb-item active">
+                <a href="https://example.docsy.dev/docs/">Documentation</a>
+            </li-->
+
+        </ol>
+    </nav>
+
+
+    <div class="td-content">
+        <p>
+            
+<div class="sect1">
+<h2 id="_install_doctoolchain">Install docToolchain</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved directive in ../_feedback.adoc - include::/home/runner/work/docToolchain/docToolchain/./build/contributors/010_manual/20_install.adoc[]</p>
+</div>
+<div class="sect2">
+<h3 id="_installation_overview">Installation Overview</h3>
+<div class="paragraph">
+<p>docToolchain is composed of two parts:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>doctoolchain</code> which is the toolchain used to create your documentation</p>
+</li>
+<li>
+<p>the docToolchain shell wrapper script installed in your project which calls the toolchain</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The use of this setup has the following advantages:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>It&#8217;s easy to build your documentation within your project folder.</p>
+</li>
+<li>
+<p>Ensures that everyone in the project uses the same docToolchain version.</p>
+</li>
+<li>
+<p>Keeps all docToolchain technology out of your project repository.</p>
+</li>
+<li>
+<p>Facilitates the installation of the docToolchain if not installed.</p>
+</li>
+<li>
+<p>Makes it easier to upgrade to newer versions of docToolchain.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_install_dtcw_in_your_project_directory">Install <code>dtcw</code> in your project directory</h3>
+<div class="paragraph">
+<p>The docToolchain wrapper script <code>dtcw</code>, respective <code>dtcw.ps1</code> or <code>dtcw.bat</code> for MS Windows, is meant to be installed in your project root directory.
+The wrapper script simplifies calls to the docToolchain.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Even if you are going to use docToolchain in multiple projects, the toolchain will only be installed once on your system.
+</td>
+</tr>
+</table>
+</div>
+<div class="openblock primary">
+<div class="title">Steps for MacOS/Linux/WSL2 with bash</div>
+<div class="content">
+<div class="paragraph">
+<p>If you have an Apple Silicon (M1/M2) Mac, make sure that you have docker up and running, rosetta is installed and up-to-date (<code>softwareupdate --install-rosetta</code>) and type the following commands in the Terminal:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">`arch -x86_64 /bin/bash`</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Now, download <code>dtcw</code> into your project directory and make the script executable with the following commands:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">cd &lt;your project&gt;
+curl -Lo dtcw https://doctoolchain.org/dtcw
+chmod +x dtcw</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t have <code>curl</code> installed, you can also use <code>wget</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">cd &lt;your project&gt;
+wget doctoolchain.org/dtcw
+chmod +x dtcw</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock secondary">
+<div class="title">Windows with Powershell</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="powershell">cd &lt;your project&gt;
+Invoke-WebRequest doctoolchain.org/dtcw.ps1 -Outfile dtcw.ps1</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+Got an error message that you are not allowed to execute powershell scripts?
+Try to switch to an unrestricted powershell by executing <code>powershell.exe -ExecutionPolicy Unrestricted</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="openblock secondary">
+<div class="title">Windows with cmd.exe</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cmd">cd &lt;your project&gt;
+curl -Lo dtcw.bat doctoolchain.org/dtcw.bat</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>dtcw.bat</code> wraps the <code>dtcw.ps1</code> script and executes it in powershell. This might be easier to use if you haven&#8217;t yet configured your powershell as a developer.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+In case your development team uses different operating systems, put the wrapper scripts for the desired operating systems (<code>dtcw</code>, <code>dtcw.ps1</code>, and <code>dtcw.bat</code>) into your project.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Once the docToolchain wrapper is installed in your project directory you have to decide how to install the toolchain:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="#run-dtc-in-container">Run docToolchain in a container</a> with the <a href="https://hub.docker.com/r/doctoolchain/doctoolchain">docToolchain container image</a> or <a href="#run-dtc-in-custom-container">Use your custom docker image</a>.</p>
+</li>
+<li>
+<p><a href="#install-dtc-with-dtcw">Install docToolchain with <code>dtcw</code></a> in the users home directory <code>$HOME/.doctoolchain</code></p>
+</li>
+<li>
+<p><a href="#install-dtc-with-sdk">Install docToolchain with SDKMAN!</a> a tool for managing parallel versions of multiple Software Development Kits.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">docToolchain depends on Java 17</div>
+<div class="paragraph">
+<p>If you don&#8217;t use the docToolchain container image you have to install Java on your system.
+In case you have Java already installed, make sure <code>JAVA_HOME</code> is set.</p>
+</div>
+<div class="paragraph">
+<p>You may use <code>dtcw</code> to install the correct Java version, as shown in the next steps.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="run-dtc-in-container">Run docToolchain in a container</h3>
+<div class="paragraph">
+<p>The docToolchain project provides a container image of approximately 900 MB from the <a href="https://hub.docker.com/r/doctoolchain/doctoolchain">Docker Hub</a> container registry.
+The Dockerfile from which the image is created may be found at <a href="https://github.com/docToolchain/docker-image" class="bare">https://github.com/docToolchain/docker-image</a>.</p>
+</div>
+<div class="paragraph">
+<p>To run docToolchain in a container you need an installed container engine.
+The best known container engine is <a href="https://docs.docker.com/get-docker/">Docker</a>.</p>
+</div>
+<div class="paragraph">
+<p>If the container engine is installed you can <a href="#first-command">Run your First Command</a>.
+The docToolchain wrapper script in your project directory will detect the
+container engine and pull the docToolchain image on the first invocation.</p>
+</div>
+<div class="sect3">
+<h4 id="run-dtc-in-custom-container">Use your custom docker image</h4>
+<div class="paragraph">
+<p>Some might need to create their own docker image to add additional tooling or configurations, e.g. proxy settings.
+In this case you can pass the image name via parameter <code>image</code> directly after <code>docker</code>:</p>
+</div>
+<hr>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw docker image &lt;image_name&gt; generateHTML</code></pre>
+</div>
+</div>
+<hr>
+<hr>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="powershell">.\dtcw.ps1 docker image &lt;image_name&gt; generateHTML</code></pre>
+</div>
+</div>
+<hr>
+<hr>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cmd">.\dtcw.bat docker image &lt;image_name&gt; generateHTML</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-environment-variables-to-docker">Pass environment variables to docker containers</h4>
+<div class="paragraph">
+<p>To pass any environment variable to the docker container you can make use of an <a href="https://docs.docker.com/engine/reference/commandline/run/#env">environment file</a>.
+The environment file must have the name <code>dtcw_docker.env</code> and must be located in the same folder as <code>dtcw</code>.</p>
+</div>
+<div class="paragraph">
+<p>An example content is e.g.:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cmd"># set environment variables for docToolchain docker container
+PROJECT=TEST_PROJECT
+TEAM=TEST_TEAM</code></pre>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="add-additional-parameter-to-docker">Pass additional parameter to docker containers</h4>
+<div class="paragraph">
+<p>To pass additional parameters to the docker container you can make use of the parameter <code>extra_arguments</code> followed by a string with the additional parameters.</p>
+</div>
+<div class="paragraph">
+<p>One usecase is to enable you to set environment variables to dynamic values.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw docker image &lt;image_name&gt; extra_arguments "--env USER=${USERNAME} --env REPO_LOCATION=`git config remote.origin.url`" generateHTML</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="install-dtc-with-dtcw">Install docToolchain with <code>dtcw</code></h3>
+<div class="openblock primary">
+<div class="title">Steps for MacOS/Linux/WSL2 with bash</div>
+<div class="content">
+<div class="paragraph">
+<p>To install docToolchain in <code>$HOME/.doctoolchain</code> execute the following command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw install doctoolchain</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In case you have no Java installed you may use <code>dtcw</code> to install Java in a subdirectory of <code>$HOME/.doctoolchain</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw install java</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Unable to locate Java Runtime - check your Bash environment</div>
+<div class="paragraph">
+<p>If <code>dtcw</code> complains about not being able to locate a Java Runtime, make sure Java is found in your Bash shell, the shell used by <code>dtcw</code>.</p>
+</div>
+<div class="paragraph">
+<p>If you use <code>dtcw</code> from another shell like <code>zsh</code>, it may be that your shell finds the supported Java version but your bash setup doesn&#8217;t.
+In that case, please switch to bash and make sure that a supported Java version is found. Afterwards, you can switch back to your shell.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="openblock secondary">
+<div class="title">Windows with Powershell</div>
+<div class="content">
+<div class="paragraph">
+<p>To install docToolchain in <code>$HOME/.doctoolchain</code> execute the following command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw.ps1 install doctoolchain</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In case you have no Java installed you can use <code>dtcw.ps1</code> to install Java:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="powershell">.\dtcw.ps1 install java</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock secondary">
+<div class="title">Windows with cmd.exe</div>
+<div class="content">
+<div class="paragraph">
+<p>To install docToolchain in <code>$HOME/.doctoolchain</code> execute the following command.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw.bat install doctoolchain</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>In case you have no Java installed you can use <code>dtcw.ps1</code> to install Java:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="powershell">.\dtcw.bat install java</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>If the docToolchain installation finished successfully, you are ready to <a href="#first-command">Run your First Command</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="install-dtc-with-sdk">Install docToolchain with SDKMAN!</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">sdk install doctoolchain</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="first-command">Run your First Command</h3>
+<div class="paragraph">
+<p>Call the docToolchain wrapper with <code>tasks --group doctoolchain</code> to show all tasks provided by docToolchain.
+Those tasks may be used when invoking the docToolchain wrapper script.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The first time docToolchain is called, it downloads all necessary dependencies.
+Therefore, the execution of the command may take some time. Subsequent calls to docToolchain will be faster.
+</td>
+</tr>
+</table>
+</div>
+<hr>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw tasks --group=doctoolchain
+dtcw 0.50 - 8061694f
+docToolchain 2.3.0
+Available docToolchain environments: local <i class="conum" data-value="1"></i><b>(1)</b>
+Environments with docToolchain [2.3.0]: local <i class="conum" data-value="2"></i><b>(2)</b>
+Using environment: local <i class="conum" data-value="3"></i><b>(3)</b>
+Using Java 17.0.6 [/home/john_doe/.doctoolchain/jdk/bin/java] <i class="conum" data-value="4"></i><b>(4)</b>
+Downloading https://services.gradle.org/distributions/gradle-7.5.1-bin.zip <i class="conum" data-value="5"></i><b>(5)</b>
+..........10%..........20%..........30%...........40%..........50%..........60%..........70%...........80%..........90%..........100%
+
+Welcome to Gradle 7.5.1!
+
+Here are the highlights of this release:
+ - Support for Java 18
+ - Support for building with Groovy 4
+ - Much more responsive continuous builds
+ - Improved diagnostics for dependency resolution
+
+For more details see https://docs.gradle.org/7.5.1/release-notes.html
+
+To honour the JVM settings for this build a single-use Daemon process will be forked. See https://docs.gradle.org/7.5.1/userguide/gradle_daemon.html#sec:disabling_the_daemon.
+Daemon will be stopped at the end of the build
+
+&gt; Configure project :
+
+Config file '/code/docToolchainConfig.groovy' does not exist' <i class="conum" data-value="6"></i><b>(6)</b>
+[ant:input]
+[ant:input] do you want me to create a default one for you? (y, n)
+y</code></pre>
+</div>
+</div>
+<div class="colist arabic">
+<table>
+<tr>
+<td><i class="conum" data-value="1"></i><b>1</b></td>
+<td>List of available docToolchain environments. The output may vary depending on your system. In our example only the <code>local</code> environment is available since neither <code>sdk</code> nor <code>docker</code> was found.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="2"></i><b>2</b></td>
+<td>Environments in which docToolchain s available. The output may vary depending on how you installed docToolchain. In our example docToolchain was found in the user&#8217;s local environment in <code>$HOME/.doctoolchain</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="3"></i><b>3</b></td>
+<td>Shows the used docToolchain environment. In case docToolchain is installed in more than one environment the wrapper script picks the environment in the following order: <code>local</code>, <code>sdk</code>, and then <code>docker</code>.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="4"></i><b>4</b></td>
+<td>Location of the used Java. In our example Java was installed in the local environment with the docToolchain wrapper script.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="5"></i><b>5</b></td>
+<td>docToolchain was invoked the first time, thus it is downloading its dependencies.</td>
+</tr>
+<tr>
+<td><i class="conum" data-value="6"></i><b>6</b></td>
+<td>The docToolchain configuration file <code>docToolchainConfig.groovy</code> wasn&#8217;t found in the project repository. docToolchain asks if it should create a new one.</td>
+</tr>
+</table>
+</div>
+<hr>
+<hr>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="powershell">.\dtcw.ps1 tasks --group=doctoolchain</code></pre>
+</div>
+</div>
+<hr>
+<hr>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cmd">dtcw.bat tasks --group=doctoolchain</code></pre>
+</div>
+</div>
+<hr>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+If you are behind a corporate proxy, you might need to consider build-script dependencies are fetched from a repository referenced by the property <code>mavenRepository</code>.
+By default, the value <code><a href="https://plugins.gradle.org/m2/" class="bare">https://plugins.gradle.org/m2/</a></code> is used. When a repository requiring credentials is used the properties <code>mavenUsername</code> and <code>mavenPassword</code> can be set as well.
+</td>
+</tr>
+</table>
+</div>
+<div class="listingblock">
+<div class="title">Example command passing a custom maven repository with credentials from the command line</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="sh">DTC_OPTS="-PmavenRepository=your_maven_repo -PmavenUsername=your_username -PmavenPassword=your_pw" ./dtcw tasks --group=doctoolchain --info</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_configure_doctoolchain_to_use_existing_documents">Configure docToolchain to Use Existing Documents</h3>
+<div class="paragraph">
+<p>If your project already has documents in AsciiDoc format, you&#8217;ll need to tell docToolchain where to find them.</p>
+</div>
+<div class="paragraph">
+<p>To do so, take a look at the created <code>docToolchainConfig.groovy</code> and update it.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_create_a_new_documentation_project_from_scratch_with_arc42">Create a New Documentation Project from Scratch with Arc42</h3>
+<div class="paragraph">
+<p>If you want to use the <a href="https://arc42.org">arc42</a> template in your project, you can get it in AsciiDoc format by using the following commands.</p>
+</div>
+<div class="openblock primary">
+<div class="title">Linux / WSL2 with bash</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw downloadTemplate</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock secondary">
+<div class="title">Windows with Powershell</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="powershell">.\dtcw.ps1 downloadTemplate</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock secondary">
+<div class="title">Windows with cmd.exe</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="cmd">dtcw.bat downloadTemplate</code></pre>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_generate_html_and_pdf">Generate HTML and PDF</h3>
+<div class="paragraph">
+<p>By now, the docToolchain wrapper <code>dtcw</code> should be in your project folder along with the arc42 template.</p>
+</div>
+<div class="paragraph">
+<p>Now Let&#8217;s render arc42 to HTML and PDF. To do so, run the commands below:</p>
+</div>
+<div class="openblock primary">
+<div class="title">Linux / WSL2 with bash</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw generateHTML
+./dtcw generatePDF</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="openblock secondary">
+<div class="title">Windows</div>
+<div class="content">
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="powershell">.\dtcw.ps1 generateHTML
+.\dtcw.ps1 generatePDF</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>As a result, you will see the progress of your build together with some warnings which you can just ignore for the moment.</p>
+</div>
+<div class="paragraph">
+<p>The first build generated some files within the <code>build</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code>build
+|-- html5
+|   |-- arc42
+|   |   `-- arc42.html
+|   `-- images
+|       |-- 05_building_blocks-EN.png
+|       |-- 08-Crosscutting-Concepts-Structure-EN.png
+|       `-- arc42-logo.png
+`-- pdf
+    |-- arc42
+    |   `-- arc42.pdf
+    `-- images
+        |-- 05_building_blocks-EN.png
+        |-- 08-Crosscutting-Concepts-Structure-EN.png
+        `-- arc42-logo.png</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Congratulations!</strong> If you see the same folder structure, you&#8217;ve just rendered the standard arc42 template as HTML and PDF!</p>
+</div>
+<div class="paragraph">
+<p>Please raise an issue on <a href="https://github.com/docToolchain/docToolchain/issues">github</a> if you didn&#8217;t get the right output.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+Blog-Posts: <a href="https://rdmueller.github.io/enterprise-edition/">Behind the great Firewall</a>, <a href="https://rdmueller.github.io/enterprise-edition2/">Enterprise AsciiDoctor</a>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_upgrading_to_a_new_doctoolchain_release">Upgrading to a New docToolchain Release</h3>
+<div class="paragraph">
+<p>If there is a new <a href="https://github.com/docToolchain/docToolchain/releases">docToolchain release</a> you wish to use, do the following:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the docToolchain wrapper script (<code>dtcw</code>, respective <code>dtcw.ps1</code> and <code>dtcw.bat</code>) in your favorite text editor and look for the line with <code>DTC_VERSION</code> which should be located near the start of the file:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre># See https://github.com/docToolchain/docToolchain/releases for available versions.
+# Set DTC_VERSION to "latest" to get the latest, yet unreleased docToolchain version.
+VERSION=2.1.0</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Change it to match the desired release.</p>
+</li>
+<li>
+<p>In case you want to install docToolchain in local user environment install the new docToolchain release with the following command:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre>./dtcw install doctoolchain</pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>If you want to test a not-yet-released feature, you can set the <code>DTC_VERSION</code> to <code>latest</code> and <code>dtcw</code> will <code>clone</code> or <code>pull</code> the current default branch of the project. Please note this only works with a local copy, not with a Docker install.</p>
+</li>
+<li>
+<p>If you want to develop new features for docToolchain, you can also use <code>latestdev</code> as version. In this case, <code>dtcw</code> will try to clone the docToolchain repository with the ssh-git protocol to a fork in <code>$HOME/.doctoolchain/docToolchain-latest</code>.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<code>latest</code> and <code>latestdev</code> currently only work with the bash version of the wrapper.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+        </p>
+
+        <style>
+.feedback--answer {
+    display: inline-block;
+}
+
+.feedback--answer-no {
+    margin-left: 1em;
+}
+
+.feedback--response {
+    display: none;
+    margin-top: 1em;
+}
+
+.feedback--response__visible {
+    display: block;
+}
+</style>
+
+<div class="d-print-none">
+    <h2 class="feedback--title">Feedback</h2>
+    <p class="feedback--question">Was this page helpful?</p>
+    <button class="feedback--answer feedback--answer-yes">Yes</button>
+    <button class="feedback--answer feedback--answer-no">No</button>
+    <p class="feedback--response feedback--response-yes">
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Install+docToolchain%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:010_manual/20_install.adoc">tell us
+    how we can improve</a>.
+    </p>
+    <p class="feedback--response feedback--response-no">
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Install+docToolchain%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:010_manual/20_install.adoc">tell
+    us how we can improve</a>.
+    </p>
+</div>
+<script>
+    const yesButton = document.querySelector('.feedback--answer-yes');
+    const noButton = document.querySelector('.feedback--answer-no');
+    const yesResponse = document.querySelector('.feedback--response-yes');
+    const noResponse = document.querySelector('.feedback--response-no');
+    const disableButtons = () => {
+        yesButton.disabled = true;
+        noButton.disabled = true;
+    };
+    const sendFeedback = (value) => {
+        if (typeof ga !== 'function') return;
+        const args = {
+            command: 'send',
+            hitType: 'event',
+            category: 'Helpful',
+            action: 'click',
+            label: window.location.pathname,
+            value: value
+        };
+        ga(args.command, args.hitType, args.category, args.action, args.label, args.value);
+    };
+    yesButton.addEventListener('click', () => {
+        yesResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(1);
+    });
+    noButton.addEventListener('click', () => {
+        noResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(0);
+    });
+</script>
+
+
+        <br>
+
+        <!--div class="text-muted mt-5 pt-3 border-top">Last modified July 3, 2019: <a
+                href="https://github.com/google/docsy-example/commit/d6aa89c8b24089d7e6741030864eff209465e896">Added
+            links to user guide repo (d6aa89c)</a>
+        </div-->
+    </div>
+
+
+			</main>
+
+		</div>
+	</div>
+
+
+	
+    <!--footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">&copy; 2020 | based on <a href="https://arc42.org">arc42 7.0</a> | mixed with <a href="http://getbootstrap.com/">Bootstrap v5.0.0-beta</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a></span>
+        </div>
+    </footer-->
+
+    <footer class="bg-dark py-5 row d-print-none">
+        <div class="container-fluid mx-sm-5">
+            <div class="row">
+                <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+
+
+                    <ul class="list-inline mb-0">
+                        
+                        <li aria-label="User mailing list" class="list-inline-item mx-2 h3" data-original-title="User mailing list" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="mailto:info@docs-as-co.de" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Twitter" class="list-inline-item mx-2 h3" data-original-title="Twitter" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://twitter.com/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Stack Overflow" class="list-inline-item mx-2 h3" data-original-title="Stack Overflow" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://stackoverflow.com/questions/tagged/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-stack-overflow"></i>
+                            </a>
+                        </li>
+                        
+                    </ul>
+
+
+                </div>
+                <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+
+
+                    <ul class="list-inline mb-0">
+
+                        
+                        <li aria-label="GitHub" class="list-inline-item mx-2 h3" data-original-title="GitHub" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://github.com/doctoolchain/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </li>
+                        
+
+                        
+
+
+                    </ul>
+
+
+                </div>
+                <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+
+                        <small class="text-white">built with <a href="https://doctoolchain.org">docToolchain</a> and <a href="https://jbake.org">jBake</a> <br /> theme: <a href="https://www.docsy.dev/">docsy</a></small>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+
+    <script src="../js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
+    <script src="../js/blocks.js" ></script>
+    <script src="../js/prettify.js"></script>
+    <script src="../js/copy-n-paste.js"></script>
+    <script src="../js/submenucollapse.js"></script>
+
+
+</body>
+</html>

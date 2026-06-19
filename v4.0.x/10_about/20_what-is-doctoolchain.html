@@ -212,10 +212,57 @@
         <ul class="navbar-nav mt-2 mt-lg-0">
     <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link active" href="../10_about/10_about-the-project.html"><span>About</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../010_manual/20_install.html"><span>User Docs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../015_tasks/03_tasks.html"><span>Tasks</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../020_tutorial/010_Install.html"><span>Tutorial</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../025_development/005_contributing_to_docs.html"><span>For Devs</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../030_news/index.html"><span>News</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../arc42/open_questions.html"><span>arc42</span></a>
+            </li>
+
+            <li class="nav-item mr-4 mb-2 mb-lg-0">
+                <a class="nav-link " href="../arc42-v3/open_questions.html"><span>arc42-v3</span></a>
+            </li>
+
         </ul>
     </div>
     <div class="navbar-nav d-none d-lg-block" >
     <form id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
     </div>
 </nav>
 
@@ -227,3 +274,438 @@
 				<div class="td-sidebar__inner" id="td-sidebar-menu" >
 					
      <form class="td-sidebar__search d-flex align-items-center d-lg-none"  id="searchForm" action="https://perplexity.ai" target="perplexity">
+        <input id="searchInput" aria-label="Search this site…" autocomplete="off" class="form-control td-search-input"
+               placeholder=" Search with perplexity" type="search" name="q">
+        </form>
+        <script>
+        document.getElementById('searchForm').addEventListener('submit',function(e) {
+            e.preventDefault();
+            var input = document.getElementById('searchInput');
+            var searchTerm = input.value.trim();
+            if (searchTerm !== '') {
+                input.value = searchTerm + ' site:doctoolchain.org ';
+            }
+            this.submit();
+            input.value="";
+        });
+    </script>
+
+
+        <nav aria-label="Submenu" class="collapse td-sidebar-nav" id="td-section-nav" >
+
+            <ul class="td-sidebar-nav__section">
+                <li class="td-sidebar-nav__section-title">
+                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">About</span>
+                </li>
+                <li>
+                  <ul>
+                      <li class="collapse show" id="docs">
+                          
+                        <ul class="td-sidebar-nav__section ul-0">
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../10_about/10_about-the-project.html" title="About the Project">About the Project</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../10_about/20_what-is-doctoolchain.html" title="What Is docToolchain?">What Is docToolchain?</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../10_about/30_community.html" title="Acknowledgements and Contributors">Acknowledgements and Contributors</a>
+                                
+                            </li>
+                        </ul>
+                      </li>
+                  </ul>
+                <li>
+        </nav>
+
+				</div>
+			</div>
+			<div class="d-none d-xl-block col-xl-2 td-toc d-print-none">
+				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
+					
+
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/10_about/20_what-is-doctoolchain.adoc"
+           target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
+
+
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27What+Is+docToolchain%3F%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/10_about/20_what-is-doctoolchain.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+                class="fab fa-github fa-fw"></i> Create an issue</a>
+
+        <a href="single-page.html"><i class="fa fa-file fa-fw"></i> View single page</a>
+        
+        <hr />
+<script>
+const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
+const searchTerm = "10_about/20_what-is-doctoolchain.adoc";
+</script>
+
+<script src="../js/issues.js"></script>
+
+<style>
+        #issues-container {
+            background-color: white;
+            padding: 0px;
+            margin: 0;
+        }
+        .issue {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 5px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+        .issue:last-child {
+            border-bottom: none;
+        }
+        .user-avatar {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-right: -10px;
+        }
+        .issue-content {
+            flex-grow: 1;
+            background-color: rgba(255,255,255,0.6);
+        }
+        .issue-title {
+            font-weight: bold;
+            color: #0366d6;
+        }
+        .issue-date {
+            font-size: 0.9em;
+            color: #586069;
+        }
+
+</style>
+
+<div id="issues-container">
+searching issues...
+</div>
+
+        <hr />
+
+        <div id="toc" class="toc">
+<div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_what_is_doctoolchain">What Is docToolchain?</a>
+<ul class="sectlevel2">
+<li><a href="#_introduction">Introduction</a></li>
+<li><a href="#_docs_as_code">Docs as Code</a></li>
+<li><a href="#_arc42">arc42</a></li>
+<li><a href="#_how_doctoolchain_brings_everything_together">How docToolchain Brings Everything Together</a></li>
+<li><a href="#_what_you_get_with_doctoolchain">What You Get with docToolchain</a></li>
+</ul>
+</li>
+</ul>
+</div>
+
+
+<div style="border: 1px solid #8e3063; border-radius: 3px; padding: 5px; margin-top: 10px;">
+    <span style="font-size:x-small; display: block; text-align: right;">Anzeige</span><br />
+    <b>Wissen,<br />direkt von der Quelle!</b><br /><br />
+    Wir bieten ein remote Docs-as-Code Training unter Verwendung von docToolchain an.<br /><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode">Nächster Termin: auf Anfrage</a><br />
+    <a href="https://www.socreatory.com/de/trainings/docascode" class="btn btn-primary" style="">jetzt buchen!</a>
+</div>
+
+
+
+				</div>
+			</div>
+			<main class="col-12 col-md-9 col-xl-8 pl-md-5" role="main">
+				    <nav aria-label="breadcrumb" class="d-none d-md-block d-print-none">
+        <ol class="breadcrumb spb-1">
+            <!--li aria-current="page" class="breadcrumb-item active">
+                <a href="https://example.docsy.dev/docs/">Documentation</a>
+            </li-->
+
+        </ol>
+    </nav>
+
+
+    <div class="td-content">
+        <p>
+            
+<style>
+.gravatar img {
+    margin-left: 3px;
+    border-radius: 4px;
+}
+</style>
+<div class="sect1">
+<h2 id="_what_is_doctoolchain">What Is docToolchain?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Unresolved directive in ../_feedback.adoc - include::/home/runner/work/docToolchain/docToolchain/./build/contributors/10_about/20_what-is-doctoolchain.adoc[]</p>
+</div>
+<div class="sect2">
+<h3 id="_introduction">Introduction</h3>
+<div class="paragraph">
+<p><a href="https://github.com/docToolchain/docToolchain">docToolchain</a> is a documentation generation tool that uses the <a href="https://www.writethedocs.org/guide/docs-as-code/">Docs as Code</a> approach as a basis for its architecture, plus some additional automation provided by the <a href="https://arc42.org">arc42 template</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_docs_as_code">Docs as Code</h3>
+<div class="paragraph">
+<p>‘Docs as code’ refers to a philosophy that you should write documentation using the same tools as you use to write code. If you need to write technical docs for your software project, why not use the same tools and processes as you use for your source code? There are so many benefits:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You don’t have to learn a complicated docs management system.</p>
+</li>
+<li>
+<p>Developers feel more at home in the docs because they look and feel like code.</p>
+</li>
+<li>
+<p>You can manage docs using standard version control like GitHub.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_arc42">arc42</h3>
+<div class="paragraph">
+<p>arc42 has been a part of docToolchain since the earliest version. But what is arc42?</p>
+</div>
+<div class="paragraph">
+<p>Dr. Gernot Starke and Peter Hruschka created the arc42 template as a standard for software architecture documentation. They used their experience of software architectures both in the template structure and the explanations that appear in each chapter to guide you when you’re writing your documentation.</p>
+</div>
+<div class="paragraph">
+<p>arc42 is available in well-known formats including MS Word, textile, and Confluence. All of these formats are automatically generated from a single golden master which is formatted in <a href="https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/">AsciiDoc</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_doctoolchain_brings_everything_together">How docToolchain Brings Everything Together</h3>
+<div class="paragraph">
+<p>To follow a docs as code approach, you need a build script that automates steps like exporting diagrams and rendering Markdown (or AsciiDoc in the case of docToolchain) to the target format.</p>
+</div>
+<div class="paragraph">
+<p>Creating this type of build script is not easy (and even harder to maintain). There are also lots of questions to answer: “How do I create .docx?” and “Why doesn’t lib x work with lib y?”</p>
+</div>
+<div class="paragraph">
+<p>docToolchain is the result of <a href="https://rdmueller.github.io">one developer’s journey</a> through the docs as code universe. The goal of docToolchain is to automate the creation of technical docs through an easy-to-use build script that only needs to be configured not modified, and that is nurtured and cared for by a <a href="https://doctoolchain.org/docToolchain/v2.0.x/10_about/30_community.html">diverse open source community</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_what_you_get_with_doctoolchain">What You Get with docToolchain</h3>
+<div class="sect3">
+<h4 id="_a_ready_made_document_management_system">A Ready-Made Document Management System</h4>
+<div class="paragraph">
+<p>By using a version control system like <a href="https://git-scm.com/">Git</a>, you get a perfect document management system for free. Git allows you to version your docs, branch them, and also leaves an audit trail. You can even check who wrote which part of the docs. Isn’t that great?</p>
+</div>
+<div class="paragraph">
+<p>And because your docs are simple plain text, it’s easy to do a diff and see exactly what has changed. Bonus: storing your docs in the same repo as your code means they’re always in sync!</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_built_in_collaboration_and_review">Built-In Collaboration and Review</h4>
+<div class="paragraph">
+<p>As a distributed version control system, Git comes with doc collaboration and review processes built in. People can fork the docs and send pull requests for the changes they make. You review the changes. Done!</p>
+</div>
+<div class="paragraph">
+<p>Most Git frontends like <a href="https://www.bitbucket.org">Bitbucket</a>, <a href="https://gitlab.com">GitLab</a> and <a href="https://github.com">GitHub</a> also allow you to reject pull requests with comments.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_image_references_and_code_snippets">Image References and Code Snippets</h4>
+<div class="paragraph">
+<p>Instead of pasting images into a binary document format, docToolchain lets you reference images. This ensures that your imagery is always up-to-date every time you rebuild your documents.</p>
+</div>
+<div class="paragraph">
+<p>You can also reference code snippets directly from your source code. You&#8217;ll save so much time because your docs and code will always be in sync and completely up to date!</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_compound_and_stakeholder_tailored_docs">Compound and Stakeholder-Tailored Docs</h4>
+<div class="paragraph">
+<p>As if image refs and code snippets weren&#8217;t enough, docToolchain also lets you split docs into several sub-documents plus a master for greater cohesion. And you&#8217;re not restricted to one master. You can create master docs for different stakeholders that only contain the chapters they need.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_and_so_much_more">And So Much More&#8230;&#8203;</h4>
+<div class="paragraph">
+<p>If you can dream it, you can script it! Want to include a list of open issues from Jira? You can! Want to include a changelog from Git? Go for it! Want to use inline text-based diagrams? Knock yourself out!</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+        </p>
+
+        <style>
+.feedback--answer {
+    display: inline-block;
+}
+
+.feedback--answer-no {
+    margin-left: 1em;
+}
+
+.feedback--response {
+    display: none;
+    margin-top: 1em;
+}
+
+.feedback--response__visible {
+    display: block;
+}
+</style>
+
+<div class="d-print-none">
+    <h2 class="feedback--title">Feedback</h2>
+    <p class="feedback--question">Was this page helpful?</p>
+    <button class="feedback--answer feedback--answer-yes">Yes</button>
+    <button class="feedback--answer feedback--answer-no">No</button>
+    <p class="feedback--response feedback--response-yes">
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27What+Is+docToolchain%3F%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:10_about/20_what-is-doctoolchain.adoc">tell us
+    how we can improve</a>.
+    </p>
+    <p class="feedback--response feedback--response-no">
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27What+Is+docToolchain%3F%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:10_about/20_what-is-doctoolchain.adoc">tell
+    us how we can improve</a>.
+    </p>
+</div>
+<script>
+    const yesButton = document.querySelector('.feedback--answer-yes');
+    const noButton = document.querySelector('.feedback--answer-no');
+    const yesResponse = document.querySelector('.feedback--response-yes');
+    const noResponse = document.querySelector('.feedback--response-no');
+    const disableButtons = () => {
+        yesButton.disabled = true;
+        noButton.disabled = true;
+    };
+    const sendFeedback = (value) => {
+        if (typeof ga !== 'function') return;
+        const args = {
+            command: 'send',
+            hitType: 'event',
+            category: 'Helpful',
+            action: 'click',
+            label: window.location.pathname,
+            value: value
+        };
+        ga(args.command, args.hitType, args.category, args.action, args.label, args.value);
+    };
+    yesButton.addEventListener('click', () => {
+        yesResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(1);
+    });
+    noButton.addEventListener('click', () => {
+        noResponse.classList.add('feedback--response__visible');
+        disableButtons();
+        sendFeedback(0);
+    });
+</script>
+
+
+        <br>
+
+        <!--div class="text-muted mt-5 pt-3 border-top">Last modified July 3, 2019: <a
+                href="https://github.com/google/docsy-example/commit/d6aa89c8b24089d7e6741030864eff209465e896">Added
+            links to user guide repo (d6aa89c)</a>
+        </div-->
+    </div>
+
+
+			</main>
+
+		</div>
+	</div>
+
+
+	
+    <!--footer class="footer mt-auto py-3 bg-light">
+        <div class="container">
+            <span class="text-muted">&copy; 2020 | based on <a href="https://arc42.org">arc42 7.0</a> | mixed with <a href="http://getbootstrap.com/">Bootstrap v5.0.0-beta</a> | Baked with <a href="http://jbake.org">JBake v2.6.7</a></span>
+        </div>
+    </footer-->
+
+    <footer class="bg-dark py-5 row d-print-none">
+        <div class="container-fluid mx-sm-5">
+            <div class="row">
+                <div class="col-6 col-sm-4 text-xs-center order-sm-2">
+
+
+                    <ul class="list-inline mb-0">
+                        
+                        <li aria-label="User mailing list" class="list-inline-item mx-2 h3" data-original-title="User mailing list" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="mailto:info@docs-as-co.de" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fa fa-envelope"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Twitter" class="list-inline-item mx-2 h3" data-original-title="Twitter" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://twitter.com/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                        </li>
+                        
+                        
+                        <li aria-label="Stack Overflow" class="list-inline-item mx-2 h3" data-original-title="Stack Overflow" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://stackoverflow.com/questions/tagged/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-stack-overflow"></i>
+                            </a>
+                        </li>
+                        
+                    </ul>
+
+
+                </div>
+                <div class="col-6 col-sm-4 text-right text-xs-center order-sm-3">
+
+
+                    <ul class="list-inline mb-0">
+
+                        
+                        <li aria-label="GitHub" class="list-inline-item mx-2 h3" data-original-title="GitHub" data-placement="top"
+                            data-toggle="tooltip" title="">
+                            <a class="text-white" href="https://github.com/doctoolchain/doctoolchain" rel="noopener noreferrer"
+                               target="_blank">
+                                <i class="fab fa-github"></i>
+                            </a>
+                        </li>
+                        
+
+                        
+
+
+                    </ul>
+
+
+                </div>
+                <div class="col-12 col-sm-4 text-center py-2 order-sm-2">
+
+                        <small class="text-white">built with <a href="https://doctoolchain.org">docToolchain</a> and <a href="https://jbake.org">jBake</a> <br /> theme: <a href="https://www.docsy.dev/">docsy</a></small>
+
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
+
+
+    <script src="../js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
+    <script src="../js/blocks.js" ></script>
+    <script src="../js/prettify.js"></script>
+    <script src="../js/copy-n-paste.js"></script>
+    <script src="../js/submenucollapse.js"></script>
+
+
+</body>
+</html>
