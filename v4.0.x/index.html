@@ -287,17 +287,33 @@
     <div class="td-main">
         <div class="row flex-xl-nowrap">
     <main class="col-12 col-md-12 col-xl-12 pl-md-12" role="main">
-        <div class="bg-light p-5 rounded jumbotron">
-            <img src="images/doctoolchain-logo-blue.png" alt="docToolchain" style="float: left" />
-            <h1>docToolchain <span class="badge bg-primary">v4</span></h1>
-            <p class="lead">
-                Docs-as-code. Fast. No build tool at runtime.
-            </p>
-            <p>docToolchain v4 runs directly on the JVM &mdash; no Gradle, no daemon, startup in 2&ndash;3 seconds.
-                One wrapper script, one config file, powerful output.
-            </p>
-            <a class="btn btn-primary btn-lg" href="010_manual/20_install.html" role="button">Get Started</a>
+        <section class="dtc-hero">
+            <span class="dtc-bp-corner tl"></span><span class="dtc-bp-corner tr"></span>
+            <span class="dtc-bp-corner bl"></span><span class="dtc-bp-corner br"></span>
+            <span class="dtc-bp-dim">— docs-as-code —</span>
+            <img src="images/doctoolchain-logo-blue.png" alt="docToolchain" class="dtc-hero-logo" />
+            <span class="dtc-tag">§ DOCTOOLCHAIN v4</span>
+            <h1>docToolchain <span class="grad">v4</span></h1>
+            <p class="lead">Docs-as-code. Fast. No build tool at runtime.</p>
+            <p class="dtc-hero-intro">docToolchain v4 runs directly on the JVM &mdash; no Gradle, no daemon, startup in 2&ndash;3 seconds. One wrapper script, one config file, powerful output.</p>
+            <div class="dtc-cta">
+                <a class="dtc-btn dtc-btn-primary" href="010_manual/20_install.html">🚀 Get Started</a>
+                <a class="dtc-btn dtc-btn-ghost" href="https://github.com/docToolchain/docToolchain" target="_blank" rel="noopener">★ GitHub</a>
+            </div>
+        </section>
+
+        <div class="dtc-divider"><span class="seg"></span><span class="lk">⛓</span><span class="lk">⛓</span><span class="lk">⛓</span><span class="seg"></span></div>
+
+        <div class="dtc-sec-head">
+            <h2>One toolchain, from keystroke to publish</h2>
+            <p>docToolchain wires the best open-source tools into a single, reproducible flow.</p>
         </div>
+        <section class="dtc-pipeline">
+            <div class="dtc-link"><div class="node on">📝</div><b>Write</b><span>asciidoc</span></div>
+            <div class="dtc-link"><div class="node">🎨</div><b>Render</b><span>asciidoctor</span></div>
+            <div class="dtc-link"><div class="node">📐</div><b>Diagram</b><span>plantuml</span></div>
+            <div class="dtc-link"><div class="node">🚀</div><b>Publish</b><span>confluence</span></div>
+        </section>
 
         <div class="row row-cols-1 row-cols-md-3 mb-3 text-center mt-4">
             <div class="col">
