@@ -30,26 +30,33 @@ a:hover {
 }
 
 .btn-primary,
-.btn-primary:active {
-    background-color: #059669;
-    border-color: #059669;
+.btn-primary:active,
+.btn-primary:not(:disabled):not(.disabled):active,
+.btn-primary.active:not(:disabled):not(.disabled) {
+    background: #059669 !important;
+    border-color: #059669 !important;
 }
 
 .btn-primary:hover,
 .btn-primary:focus {
-    background-color: #047857;
-    border-color: #047857;
+    background: #047857 !important;
+    border-color: #047857 !important;
+}
+
+.btn-primary:focus,
+.btn-primary.focus {
+    box-shadow: 0 0 0 .2rem rgba(5, 150, 105, .4) !important;
 }
 
 .btn-outline-primary {
-    color: #059669;
-    border-color: #059669;
+    color: #059669 !important;
+    border-color: #059669 !important;
 }
 
 .btn-outline-primary:hover {
-    background-color: #059669;
-    border-color: #059669;
-    color: #fff;
+    background: #059669 !important;
+    border-color: #059669 !important;
+    color: #fff !important;
 }
 
 /* ── Sidebar active state ─────────────────────────────────────── */
