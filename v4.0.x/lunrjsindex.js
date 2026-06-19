@@ -258,18 +258,18 @@ var documents = [
 
 {
     "id": 32,
-    "uri": "015_tasks/03_task_generateSite.html",
-    "menu": "tasks",
-    "title": "generateSite",
-    "text": " Table of Contents generateSite About This Task Pages Configuration Templates and Style Landing Page Blog Search CI/CD .gravatar img { margin-left: 3px; border-radius: 4px; } generateSite About This Task When your documentation grows beyond a single document, a microsite bundles everything into a navigable website with landing page, blog, and search. The generateSite task uses jBake to create a static site from your AsciiDoc sources. ./dtcw4 local generateSite Output is written to build/microsite/output/ . Pages The microsite is page-oriented: each AsciiDoc file becomes a page. Add jBake metadata to include a page in the site: page metadata :jbake-menu: arc42 :jbake-title: Solution Strategy :jbake-order: 4 :jbake-type: page_toc :jbake-status: published :toc: == Solution Strategy jbake-menu The top-level menu code. Defaults to the top-level folder name (without order prefix). jbake-title Title shown in the navigation. Defaults to the first headline. jbake-order Sort order in the sidebar. Defaults to the numeric prefix of the filename or folder. jbake-type Controls the template. Use page_toc for a page with sidebar table of contents, or page for full-width. jbake-status Either draft or published . Files prefixed with _ default to draft . Note Start pages with a == level headline. Configuration Configuration follows a convention-over-configuration approach. Defaults work out of the box — configure only what you want to change. Menu Navigation Structure A top-level menu with entries across the top of the page. A section sidebar for each top-level menu entry. The structure is derived from your folder layout: src/docs/ ├── 10_foo │ ├── 10_first.adoc │ └── 20_second.adoc └── 20_bar ├── 10_lorem.adoc └── 20_ipsum ├── 10_topic-A.adoc └── 20_topic-B.adoc Top-level folders determine menu codes ( foo , bar ). Sub-folders create navigation tree nodes. Numeric prefixes control sort order. Configuring the Top-Level Menu Map menu codes to display titles in your docToolchainConfig.groovy : menu = [code1: 'Some Title 1', code2: 'Other Title 2', code3: '-'] Use '-' to hide a menu entry. When no mapping is defined, the code itself is used as the title. The order in the map determines the display order. Links In the right column, links are controlled by values in docToolchainConfig.groovy : \"Improve this doc\": shown when gitRepoUrl is set. \"Create an issue\": shown when issueUrl is set. Templates and Style The jBake templates use Bootstrap 5 as their CSS framework. Templates and styles are bundled with docToolchain. Landing Page Place an index.gsp in src/site/templates as your landing page. It is plain HTML5 styled with Bootstrap — the header and footer are added automatically. Blog The microsite includes a blog. Create posts in src/docs/blog/&lt;year&gt;/&lt;post-name&gt;.adoc : blog post template :jbake-title: My Post Title :jbake-date: 2025-01-15 :jbake-type: post :jbake-tags: blog, asciidoc :jbake-status: published = {jbake-title} {jbake-date} Your content here. Search The microsite includes a search input field that can be linked to an external search engine. CI/CD Set DTC_HEADLESS=true in automated builds to skip interactive prompts (e.g., theme installation). "
-},
-
-{
-    "id": 33,
     "uri": "015_tasks/03_task_exportPPT.html",
     "menu": "tasks",
     "title": "exportPPT",
     "text": " Table of Contents exportPPT About This Task Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } exportPPT About This Task Exports PowerPoint slides ( .pptx ) as PNG images and extracts speaker notes as AsciiDoc. ./dtcw4 local exportPPT In v4, this task uses Apache POI for rendering and works on all platforms (Linux, macOS, Windows). The v3 version was Windows-only (VBScript). Note Only .pptx files are supported. Legacy .ppt format is not supported. The tag {slide} in speaker notes is replaced with the corresponding image reference. Use tagged regions to include specific slides. Further Reading Do More with Slides "
+},
+
+{
+    "id": 33,
+    "uri": "015_tasks/03_task_generateSite.html",
+    "menu": "tasks",
+    "title": "generateSite",
+    "text": " Table of Contents generateSite About This Task Pages Configuration Templates and Style Landing Page Blog Search CI/CD .gravatar img { margin-left: 3px; border-radius: 4px; } generateSite About This Task When your documentation grows beyond a single document, a microsite bundles everything into a navigable website with landing page, blog, and search. The generateSite task uses jBake to create a static site from your AsciiDoc sources. ./dtcw4 local generateSite Output is written to build/microsite/output/ . Pages The microsite is page-oriented: each AsciiDoc file becomes a page. Add jBake metadata to include a page in the site: page metadata :jbake-menu: arc42 :jbake-title: Solution Strategy :jbake-order: 4 :jbake-type: page_toc :jbake-status: published :toc: == Solution Strategy jbake-menu The top-level menu code. Defaults to the top-level folder name (without order prefix). jbake-title Title shown in the navigation. Defaults to the first headline. jbake-order Sort order in the sidebar. Defaults to the numeric prefix of the filename or folder. jbake-type Controls the template. Use page_toc for a page with sidebar table of contents, or page for full-width. jbake-status Either draft or published . Files prefixed with _ default to draft . Note Start pages with a == level headline. Configuration Configuration follows a convention-over-configuration approach. Defaults work out of the box — configure only what you want to change. Menu Navigation Structure A top-level menu with entries across the top of the page. A section sidebar for each top-level menu entry. The structure is derived from your folder layout: src/docs/ ├── 10_foo │ ├── 10_first.adoc │ └── 20_second.adoc └── 20_bar ├── 10_lorem.adoc └── 20_ipsum ├── 10_topic-A.adoc └── 20_topic-B.adoc Top-level folders determine menu codes ( foo , bar ). Sub-folders create navigation tree nodes. Numeric prefixes control sort order. Configuring the Top-Level Menu Map menu codes to display titles in your docToolchainConfig.groovy : menu = [code1: 'Some Title 1', code2: 'Other Title 2', code3: '-'] Use '-' to hide a menu entry. When no mapping is defined, the code itself is used as the title. The order in the map determines the display order. Links In the right column, links are controlled by values in docToolchainConfig.groovy : \"Improve this doc\": shown when gitRepoUrl is set. \"Create an issue\": shown when issueUrl is set. Templates and Style The jBake templates use Bootstrap 5 as their CSS framework. Templates and styles are bundled with docToolchain. Landing Page Place an index.gsp in src/site/templates as your landing page. It is plain HTML5 styled with Bootstrap — the header and footer are added automatically. Blog The microsite includes a blog. Create posts in src/docs/blog/&lt;year&gt;/&lt;post-name&gt;.adoc : blog post template :jbake-title: My Post Title :jbake-date: 2025-01-15 :jbake-type: post :jbake-tags: blog, asciidoc :jbake-status: published = {jbake-title} {jbake-date} Your content here. Search The microsite includes a search input field that can be linked to an external search engine. CI/CD Set DTC_HEADLESS=true in automated builds to skip interactive prompts (e.g., theme installation). "
 },
 
 {
@@ -282,18 +282,18 @@ var documents = [
 
 {
     "id": 35,
-    "uri": "015_tasks/03_task_exportExcel.html",
-    "menu": "tasks",
-    "title": "exportExcel",
-    "text": " Table of Contents exportExcel About This Task Including Exported Data Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } exportExcel About This Task Exports Excel spreadsheets ( .xlsx ) to CSV and AsciiDoc tables using Apache POI. Each worksheet is exported as both .csv and .adoc . Formulas are evaluated and exported statically. ./dtcw4 local exportExcel Output is written to src/excel/[filename]/[worksheet].(adoc|csv) . The src folder is used (not build ) to preserve change history in version control. Including Exported Data As AsciiDoc table (preserves alignment, col-span, row-span, colors): include::excel/Sample.xlsx/Numerical.adoc[] As CSV: [options=\"header\",format=\"csv\"] |=== include::excel/Sample.xlsx/Numerical.csv[] |=== Further Reading asciidoctorj-office-extension — an alternative approach "
-},
-
-{
-    "id": 36,
     "uri": "015_tasks/03_task_generateHTML.html",
     "menu": "tasks",
     "title": "generateHTML",
     "text": " Table of Contents generateHTML About This Task Configuration Single-File HTML Text-Based Diagrams Controlling Diagram Size Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } generateHTML About This Task Generates HTML5 from your AsciiDoc sources using AsciidoctorJ. Output is written to build/html5/ . ./dtcw4 local generateHTML Configuration Specify which files to render in your docToolchainConfig.groovy : inputFiles = [ [file: 'manual.adoc', formats: ['html','pdf']], ] Single-File HTML To produce a single self-contained HTML file, set :data-uri: in your AsciiDoc source. Be aware that the file can become very large. Text-Based Diagrams docToolchain includes the asciidoctor-diagram extension for PlantUML, ditaa, and other diagram types. .example diagram [plantuml, \"{plantUMLDir}demoPlantUML\", png] ---- class BlockProcessor class DiagramBlock BlockProcessor &lt;|-- DiagramBlock ---- Note Use {plantUMLDir} in the image name to ensure diagrams work for both HTML and PDF output. Important Use a unique image name for each diagram to avoid overwriting. Controlling Diagram Size Use the width attribute (pixels) or scale attribute (ratio): [plantuml, target=\"{plantUMLDir}myDiagram\", format=png, width=250] [plantuml, target=\"{plantUMLDir}myDiagram\", format=png, scale=0.75] Note If Graphviz is not installed, add !pragma layout smetana as the first line of your PlantUML diagram to use the built-in Java layout engine. Further Reading Single-file HTML PlantUML without Graphviz "
+},
+
+{
+    "id": 36,
+    "uri": "015_tasks/03_task_exportExcel.html",
+    "menu": "tasks",
+    "title": "exportExcel",
+    "text": " Table of Contents exportExcel About This Task Including Exported Data Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } exportExcel About This Task Exports Excel spreadsheets ( .xlsx ) to CSV and AsciiDoc tables using Apache POI. Each worksheet is exported as both .csv and .adoc . Formulas are evaluated and exported statically. ./dtcw4 local exportExcel Output is written to src/excel/[filename]/[worksheet].(adoc|csv) . The src folder is used (not build ) to preserve change history in version control. Including Exported Data As AsciiDoc table (preserves alignment, col-span, row-span, colors): include::excel/Sample.xlsx/Numerical.adoc[] As CSV: [options=\"header\",format=\"csv\"] |=== include::excel/Sample.xlsx/Numerical.csv[] |=== Further Reading asciidoctorj-office-extension — an alternative approach "
 },
 
 {
@@ -730,18 +730,18 @@ var documents = [
 
 {
     "id": 91,
-    "uri": "ea/issue1.html",
-    "menu": "ea",
-    "title": "issue1.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 92,
     "uri": "ea/readme.html",
     "menu": "ea",
     "title": "readme.ad",
     "text": " Table of Contents Warning! This folder contains exported diagrams or notes from Enterprise Architect. Please note that these are generated files but reside in the src -folder in order to be versioned. This is to make sure that they can be used from environments other than windows. Warning! The contents of this folder will be overwritten with each re-export! use gradle exportEA to re-export files "
+},
+
+{
+    "id": 92,
+    "uri": "ea/issue1.html",
+    "menu": "ea",
+    "title": "issue1.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
 },
 
 {

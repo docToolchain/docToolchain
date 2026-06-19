@@ -199,6 +199,24 @@
             transform: translateY(-50%) translateX(-120%) rotate(90deg);
         }
     </style>
+
+    <!-- docToolchain v4 theme overlay -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="../css/doctoolchain-v4.css" rel="stylesheet">
+    <script>
+        // apply persisted colour scheme before first paint (no flash)
+        (function () {
+            try {
+                var t = localStorage.getItem('dtc-theme');
+                if (!t) {
+                    t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                document.documentElement.setAttribute('data-theme', t);
+            } catch (e) {}
+        })();
+    </script>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -261,6 +279,7 @@
         });
     </script>
     </div>
+    <button type="button" class="dtc-theme-toggle" aria-label="Toggle colour scheme" onclick="dtcToggleTheme()">🌙</button>
 </nav>
 
 </header>
@@ -301,27 +320,27 @@
                         <ul class="td-sidebar-nav__section ul-0">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../025_development/005_contributing_to_docs.html" title="Contributing to Docs">Contributing to Docs</a>
+                                   href="../025_development/005_contributing_to_docs.html" title="Contributing to Docs"><span class="arc42-num">01</span> Contributing to Docs</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../025_development/010_setup_dev_env.html" title="Setting Up a Dev Environment">Setting Up a Dev Environment</a>
+                                   href="../025_development/010_setup_dev_env.html" title="Setting Up a Dev Environment"><span class="arc42-num">02</span> Setting Up a Dev Environment</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../025_development/020_run_tests.html" title="Running Tests">Running Tests</a>
+                                   href="../025_development/020_run_tests.html" title="Running Tests"><span class="arc42-num">03</span> Running Tests</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../025_development/030_create_new_release.html" title="Creating a New Release">Creating a New Release</a>
+                                   href="../025_development/030_create_new_release.html" title="Creating a New Release"><span class="arc42-num">04</span> Creating a New Release</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../025_development/040_debugging.html" title="Debugging">Debugging</a>
+                                   href="../025_development/040_debugging.html" title="Debugging"><span class="arc42-num">05</span> Debugging</a>
                                 
                             </li>
                         </ul>
@@ -655,6 +674,26 @@ This way you get to see the inner workings and you also get to add extra debug o
     <script src="../js/prettify.js"></script>
     <script src="../js/copy-n-paste.js"></script>
     <script src="../js/submenucollapse.js"></script>
+
+    <!-- docToolchain v4 — colour-scheme toggle -->
+    <script>
+        function dtcToggleTheme() {
+            var root = document.documentElement;
+            var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            try { localStorage.setItem('dtc-theme', next); } catch (e) {}
+            document.querySelectorAll('.dtc-theme-toggle').forEach(function (b) {
+                b.textContent = next === 'dark' ? '☀️' : '🌙';
+            });
+        }
+        // sync icon with the theme applied in <head>
+        document.addEventListener('DOMContentLoaded', function () {
+            var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.querySelectorAll('.dtc-theme-toggle').forEach(function (b) {
+                b.textContent = dark ? '☀️' : '🌙';
+            });
+        });
+    </script>
 
 
 </body>

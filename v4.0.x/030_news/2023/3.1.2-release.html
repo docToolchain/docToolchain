@@ -199,6 +199,24 @@
             transform: translateY(-50%) translateX(-120%) rotate(90deg);
         }
     </style>
+
+    <!-- docToolchain v4 theme overlay -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="../../css/doctoolchain-v4.css" rel="stylesheet">
+    <script>
+        // apply persisted colour scheme before first paint (no flash)
+        (function () {
+            try {
+                var t = localStorage.getItem('dtc-theme');
+                if (!t) {
+                    t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                document.documentElement.setAttribute('data-theme', t);
+            } catch (e) {}
+        })();
+    </script>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -261,6 +279,7 @@
         });
     </script>
     </div>
+    <button type="button" class="dtc-theme-toggle" aria-label="Toggle colour scheme" onclick="dtcToggleTheme()">🌙</button>
 </nav>
 
 </header>
@@ -301,10 +320,10 @@
                         <ul class="td-sidebar-nav__section ul-0">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../030_news/index.html" title="Overview">Overview</a>
+                                   href="../../030_news/index.html" title="Overview"><span class="arc42-num">01</span> Overview</a>
                                 
                             </li>
-<details id="d05a5cf06982ba7892ed2a6d38fe832d6"><summary><span class="label">2021</span></summary>
+<details id="d05a5cf06982ba7892ed2a6d38fe832d6"><summary><span class="label"><span class="arc42-num">02</span> 2021</span></summary>
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
@@ -337,7 +356,7 @@
                                 
                             </li>
                         </ul></details>
-<details id="d3a824154b16ed7dab899bf000b80eeee"><summary><span class="label">2022</span></summary>
+<details id="d3a824154b16ed7dab899bf000b80eeee"><summary><span class="label"><span class="arc42-num">03</span> 2022</span></summary>
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
@@ -355,7 +374,7 @@
                                 
                             </li>
                         </ul></details>
-<details id="d5531a5834816222280f20d1ef9e95f69"><summary><span class="label">2023</span></summary>
+<details id="d5531a5834816222280f20d1ef9e95f69"><summary><span class="label"><span class="arc42-num">04</span> 2023</span></summary>
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
@@ -408,7 +427,7 @@
                                 
                             </li>
                         </ul></details>
-<details id="d07811dc6c422334ce36a09ff5cd6fe71"><summary><span class="label">2024</span></summary>
+<details id="d07811dc6c422334ce36a09ff5cd6fe71"><summary><span class="label"><span class="arc42-num">05</span> 2024</span></summary>
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
@@ -436,7 +455,7 @@
                                 
                             </li>
                         </ul></details>
-<details id="d312351bff07989769097660a56395065"><summary><span class="label">2025</span></summary>
+<details id="d312351bff07989769097660a56395065"><summary><span class="label"><span class="arc42-num">06</span> 2025</span></summary>
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
@@ -745,6 +764,26 @@ It would even help to brush up the docs, write tutorials or groom the backlog<br
     <script src="../../js/prettify.js"></script>
     <script src="../../js/copy-n-paste.js"></script>
     <script src="../../js/submenucollapse.js"></script>
+
+    <!-- docToolchain v4 — colour-scheme toggle -->
+    <script>
+        function dtcToggleTheme() {
+            var root = document.documentElement;
+            var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            try { localStorage.setItem('dtc-theme', next); } catch (e) {}
+            document.querySelectorAll('.dtc-theme-toggle').forEach(function (b) {
+                b.textContent = next === 'dark' ? '☀️' : '🌙';
+            });
+        }
+        // sync icon with the theme applied in <head>
+        document.addEventListener('DOMContentLoaded', function () {
+            var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.querySelectorAll('.dtc-theme-toggle').forEach(function (b) {
+                b.textContent = dark ? '☀️' : '🌙';
+            });
+        });
+    </script>
 
 
 </body>

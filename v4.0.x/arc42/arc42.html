@@ -199,6 +199,24 @@
             transform: translateY(-50%) translateX(-120%) rotate(90deg);
         }
     </style>
+
+    <!-- docToolchain v4 theme overlay -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="../css/doctoolchain-v4.css" rel="stylesheet">
+    <script>
+        // apply persisted colour scheme before first paint (no flash)
+        (function () {
+            try {
+                var t = localStorage.getItem('dtc-theme');
+                if (!t) {
+                    t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                document.documentElement.setAttribute('data-theme', t);
+            } catch (e) {}
+        })();
+    </script>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -261,6 +279,7 @@
         });
     </script>
     </div>
+    <button type="button" class="dtc-theme-toggle" aria-label="Toggle colour scheme" onclick="dtcToggleTheme()">🌙</button>
 </nav>
 
 </header>
@@ -299,7 +318,7 @@
                       <li class="collapse show" id="docs">
                           
                         <ul class="td-sidebar-nav__section ul-0">
-<details id="d92e87214a12aa80bb184e0d45bb68161"><summary><span class="label">arc42</span></summary>
+<details id="d92e87214a12aa80bb184e0d45bb68161"><summary><span class="label"><span class="arc42-num">01</span> arc42</span></summary>
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
@@ -309,10 +328,10 @@
                         </ul></details>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../search.html" title="search">search</a>
+                                   href="../search.html" title="search"><span class="arc42-num">02</span> search</a>
                                 
                             </li>
-<details id="df36521fc8d2ada8e4a5e34b06d8c4ee3"><summary><span class="label">User Docs</span></summary>
+<details id="df36521fc8d2ada8e4a5e34b06d8c4ee3"><summary><span class="label"><span class="arc42-num">03</span> User Docs</span></summary>
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
@@ -330,7 +349,7 @@
                                 
                             </li>
                         </ul></details>
-<details id="d8ec29164bbf4862e8f206cfc347a3ff9"><summary><span class="label">For Devs</span></summary>
+<details id="d8ec29164bbf4862e8f206cfc347a3ff9"><summary><span class="label"><span class="arc42-num">04</span> For Devs</span></summary>
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
@@ -3567,6 +3586,26 @@ Each ADR must state which quality scenarios it supports or compromises.</p>
     <script src="../js/prettify.js"></script>
     <script src="../js/copy-n-paste.js"></script>
     <script src="../js/submenucollapse.js"></script>
+
+    <!-- docToolchain v4 — colour-scheme toggle -->
+    <script>
+        function dtcToggleTheme() {
+            var root = document.documentElement;
+            var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            try { localStorage.setItem('dtc-theme', next); } catch (e) {}
+            document.querySelectorAll('.dtc-theme-toggle').forEach(function (b) {
+                b.textContent = next === 'dark' ? '☀️' : '🌙';
+            });
+        }
+        // sync icon with the theme applied in <head>
+        document.addEventListener('DOMContentLoaded', function () {
+            var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.querySelectorAll('.dtc-theme-toggle').forEach(function (b) {
+                b.textContent = dark ? '☀️' : '🌙';
+            });
+        });
+    </script>
 
 
 </body>

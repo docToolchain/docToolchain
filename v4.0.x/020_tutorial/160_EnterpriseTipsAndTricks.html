@@ -199,6 +199,24 @@
             transform: translateY(-50%) translateX(-120%) rotate(90deg);
         }
     </style>
+
+    <!-- docToolchain v4 theme overlay -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="../css/doctoolchain-v4.css" rel="stylesheet">
+    <script>
+        // apply persisted colour scheme before first paint (no flash)
+        (function () {
+            try {
+                var t = localStorage.getItem('dtc-theme');
+                if (!t) {
+                    t = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+                }
+                document.documentElement.setAttribute('data-theme', t);
+            } catch (e) {}
+        })();
+    </script>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -261,6 +279,7 @@
         });
     </script>
     </div>
+    <button type="button" class="dtc-theme-toggle" aria-label="Toggle colour scheme" onclick="dtcToggleTheme()">🌙</button>
 </nav>
 
 </header>
@@ -301,22 +320,22 @@
                         <ul class="td-sidebar-nav__section ul-0">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/010_Install.html" title="Install docToolchain">Install docToolchain</a>
+                                   href="../020_tutorial/010_Install.html" title="Install docToolchain"><span class="arc42-num">01</span> Install docToolchain</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/020_arc42.html" title="arc42 Template">arc42 Template</a>
+                                   href="../020_tutorial/020_arc42.html" title="arc42 Template"><span class="arc42-num">02</span> arc42 Template</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/030_generateHTML.html" title="generateHTML &amp; generatePDF">generateHTML &amp; generatePDF</a>
+                                   href="../020_tutorial/030_generateHTML.html" title="generateHTML &amp; generatePDF"><span class="arc42-num">03</span> generateHTML &amp; generatePDF</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/040_microsite/index.html" title="Microsite">Microsite</a>
+                                   href="../020_tutorial/040_microsite/index.html" title="Microsite"><span class="arc42-num">04</span> Microsite</a>
                                 
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
@@ -337,42 +356,42 @@
                         </ul></details>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/050_multipleRepositories.html" title="Multi-Repo">Multi-Repo</a>
+                                   href="../020_tutorial/050_multipleRepositories.html" title="Multi-Repo"><span class="arc42-num">05</span> Multi-Repo</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/070_publishToConfluence.html" title="publishToConfluence">publishToConfluence</a>
+                                   href="../020_tutorial/070_publishToConfluence.html" title="publishToConfluence"><span class="arc42-num">06</span> publishToConfluence</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/100_diagrams.net.html" title="Diagrams: Diagrams.net">Diagrams: Diagrams.net</a>
+                                   href="../020_tutorial/100_diagrams.net.html" title="Diagrams: Diagrams.net"><span class="arc42-num">07</span> Diagrams: Diagrams.net</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/140_Dropdown_Menu.html" title="How to create a Dropdown Menu">How to create a Dropdown Menu</a>
+                                   href="../020_tutorial/140_Dropdown_Menu.html" title="How to create a Dropdown Menu"><span class="arc42-num">08</span> How to create a Dropdown Menu</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/150_multiRepoMicrositeTipsAndTricks.html" title="Building a microsite from multiple repositories">Building a microsite from multiple repositories</a>
+                                   href="../020_tutorial/150_multiRepoMicrositeTipsAndTricks.html" title="Building a microsite from multiple repositories"><span class="arc42-num">09</span> Building a microsite from multiple repositories</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
-                                   href="../020_tutorial/160_EnterpriseTipsAndTricks.html" title="Enterprise docToolchain">Enterprise docToolchain</a>
+                                   href="../020_tutorial/160_EnterpriseTipsAndTricks.html" title="Enterprise docToolchain"><span class="arc42-num">10</span> Enterprise docToolchain</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/170_kroki-configuration.html" title="Kroki Configuration Guide">Kroki Configuration Guide</a>
+                                   href="../020_tutorial/170_kroki-configuration.html" title="Kroki Configuration Guide"><span class="arc42-num">11</span> Kroki Configuration Guide</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../020_tutorial/990_Tutorial.html" title="How to create a Tutorial">How to create a Tutorial</a>
+                                   href="../020_tutorial/990_Tutorial.html" title="How to create a Tutorial"><span class="arc42-num">12</span> How to create a Tutorial</a>
                                 
                             </li>
                         </ul>
@@ -707,6 +726,26 @@ Run your build pipeline directly on this image — <code>dtcw</code> detects it 
     <script src="../js/prettify.js"></script>
     <script src="../js/copy-n-paste.js"></script>
     <script src="../js/submenucollapse.js"></script>
+
+    <!-- docToolchain v4 — colour-scheme toggle -->
+    <script>
+        function dtcToggleTheme() {
+            var root = document.documentElement;
+            var next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+            root.setAttribute('data-theme', next);
+            try { localStorage.setItem('dtc-theme', next); } catch (e) {}
+            document.querySelectorAll('.dtc-theme-toggle').forEach(function (b) {
+                b.textContent = next === 'dark' ? '☀️' : '🌙';
+            });
+        }
+        // sync icon with the theme applied in <head>
+        document.addEventListener('DOMContentLoaded', function () {
+            var dark = document.documentElement.getAttribute('data-theme') === 'dark';
+            document.querySelectorAll('.dtc-theme-toggle').forEach(function (b) {
+                b.textContent = dark ? '☀️' : '🌙';
+            });
+        });
+    </script>
 
 
 </body>
