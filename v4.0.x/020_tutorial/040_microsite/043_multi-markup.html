@@ -517,22 +517,22 @@ searching issues...
 AsciiDoc is the default (and preferred) markup language for documentation written in docToolchain.</p>
 </div>
 <div class="paragraph">
-<p>But because docToolchain is designed to be used by larger teams and organisations, it also leverages jBake, which is capable of rendering AsciiDoc, Markdown, and plain HTML.</p>
+<p>But because docToolchain is designed to be used by larger teams and organisations, its built-in site generator can render AsciiDoc, Markdown, and plain HTML.</p>
 </div>
 <div class="sect2">
 <h3 id="_meta_data_header">Meta-Data Header</h3>
 <div class="paragraph">
 <p>In AsciiDoc, metadata is defined as attributes beginning with <code>jbake-</code>, such as <code>:jbake-header:</code>.
 For other markup languages, the metadata is defined in a block at the beginning of the document, delimited by <code><sub>~</sub><sub>~</sub></code> [footnote: this can be configured in the <code>jbake.properties</code> file of the theme, and will be available in <code>docToolchainConfig.groovy</code> in the next version].
-Refer to the <a href="https://jbake.org/docs/2.6.7/#metadata_header">Metadata Header</a> section in the jBake documentation for more information.</p>
+This <code>jbake-</code>-prefixed metadata format is kept for backwards compatibility — docToolchain&#8217;s built-in generator reads the same headers.</p>
 </div>
 </div>
 <div class="sect2">
 <h3 id="_markdown">Markdown</h3>
 <div class="sect3">
-<h4 id="_jbake">jBake</h4>
+<h4 id="_out_of_the_box">Out of the Box</h4>
 <div class="paragraph">
-<p>Since jBake directly supports Markdown, you can use it without any additional configuration.
+<p>docToolchain renders Markdown out of the box, so you can use it without any additional configuration.
 As illustrated by this <a href="https://github.com/docToolchain/multi-markup-demo/blob/main/src/docs/demo/markdown.md">sample repository</a>, docToolchain utilises the convention-over-configuration principle to determine the menu (<code>jbake-menu</code>), the location within the menu (<code>jbake-order</code>), and the title entry of the menu (<code>jbake-title</code>) from the folder structure and the document&#8217;s first headline.</p>
 </div>
 <div class="paragraph">
@@ -544,12 +544,12 @@ As illustrated by this <a href="https://github.com/docToolchain/multi-markup-dem
 <div class="paragraph">
 <p>Here, the Markdown standard is relatively limited.
 For extended features, you&#8217;ll need to specify the flavour you want to use.
-jBake employs flexmark to render Markdown, and flexmark supports various flavours.
+docToolchain employs <a href="https://github.com/vsch/flexmark-java">flexmark</a> to render Markdown, and flexmark supports various flavours.
 These can be configured within the <code>jbake.properties</code> file within the theme.
-The default is <code>markdown.extensions=GITHUB,EXTRA,TABLES,TOC,FENCED_CODE_BLOCKS</code>.</p>
+The default is <code>markdown.extensions=GITHUB,EXTRA,TABLES,TOC,FENCED_CODE_BLOCKS</code> (the names follow flexmark&#8217;s pegdown profile).</p>
 </div>
 <div class="paragraph">
-<p>See also <a href="https://jbake.org/docs/2.6.7/#markdown_extensions" class="bare">https://jbake.org/docs/2.6.7/#markdown_extensions</a> for more details.</p>
+<p>See the <a href="https://github.com/vsch/flexmark-java/wiki/Pegdown-Migration">flexmark pegdown profile</a> for the available extensions.</p>
 </div>
 </div>
 </div>
@@ -564,7 +564,7 @@ Refer to <a href="https://github.com/docToolchain/multi-markup-demo/blob/main/sr
 <div class="sect2">
 <h3 id="_restructuredtext_rst">restructuredText (.rst)</h3>
 <div class="paragraph">
-<p>Since jBake doesn&#8217;t support restructuredText, docToolchain uses a different mechanism:</p>
+<p>Since the built-in generator doesn&#8217;t render reStructuredText directly, docToolchain uses a different mechanism:</p>
 </div>
 <div class="listingblock">
 <div class="title">docToolchainConfig.groovy</div>
@@ -595,8 +595,8 @@ Needs `python3` and `docutils` installed.
 <p>Once an additional converter is configured, docToolchain will traverse all doc-files, check the extension, and invoke the configured script if the extension matches.</p>
 </div>
 <div class="paragraph">
-<p>The script&#8217;s task is to convert the file to a markup format recognised by jBake (AsciiDoc, Markdown, or HTML).
-Afterwards, jBake will process everything as usual.</p>
+<p>The script&#8217;s task is to convert the file to a markup format the site generator recognises (AsciiDoc, Markdown, or HTML).
+Afterwards, the built-in generator processes everything as usual.</p>
 </div>
 <div class="paragraph">
 <p>In this case, the Python docutils will convert restructuredText to HTML.</p>

@@ -616,7 +616,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Java 17</strong> (exactly) — check with <code>java -version</code></p>
+<p><strong>Java 17, 21 or 25</strong> — check with <code>java -version</code> (<code>./dtcw4 local install java</code> installs Java 17 for you)</p>
 </li>
 <li>
 <p><strong>git</strong> — needed to clone docToolchain during installation</p>
@@ -885,7 +885,7 @@ The <code>exportPPT</code> task uses Apache POI — no Windows-only dependencies
 <h4 id="_cicd_ready">1.7.8. CI/CD Ready</h4>
 <div class="paragraph">
 <p>Set <code>DTC_HEADLESS=true</code> for non-interactive mode.
-Works with GitHub Actions, GitLab CI, Jenkins, and any CI system with Java 17.</p>
+Works with GitHub Actions, GitLab CI, Jenkins, and any CI system with Java 17, 21 or 25.</p>
 </div>
 <hr>
 </div>
@@ -1112,7 +1112,8 @@ The result looks like a typeset book, not a print-to-PDF web page.</p>
 <h3 id="_about_this_task_3">5.1. About This Task</h3>
 <div class="paragraph">
 <p>When your documentation grows beyond a single document, a microsite bundles everything into a navigable website with landing page, blog, and search.
-The <code>generateSite</code> task uses <a href="https://jbake.org">jBake</a> to create a static site from your AsciiDoc sources.</p>
+The <code>generateSite</code> task renders a static site from your AsciiDoc sources using docToolchain&#8217;s built-in site generator.
+(Up to v3 this was <a href="https://jbake.org">jBake</a>; v4 replaced it with a self-contained generator while keeping the same <code>jbake-</code>-prefixed page metadata.)</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -1127,7 +1128,7 @@ The <code>generateSite</code> task uses <a href="https://jbake.org">jBake</a> to
 <h3 id="_pages">5.2. Pages</h3>
 <div class="paragraph">
 <p>The microsite is page-oriented: each AsciiDoc file becomes a page.
-Add jBake metadata to include a page in the site:</p>
+Add page metadata to include a page in the site (the <code>jbake-</code> prefix is kept for backwards compatibility):</p>
 </div>
 <div class="listingblock">
 <div class="title">page metadata</div>
@@ -1259,7 +1260,7 @@ The order in the map determines the display order.</p>
 <div class="sect2">
 <h3 id="_templates_and_style">5.4. Templates and Style</h3>
 <div class="paragraph">
-<p>The jBake templates use <a href="https://getbootstrap.com/">Bootstrap 5</a> as their CSS framework.
+<p>The bundled templates use <a href="https://getbootstrap.com/">Bootstrap 5</a> as their CSS framework.
 Templates and styles are bundled with docToolchain.</p>
 </div>
 </div>

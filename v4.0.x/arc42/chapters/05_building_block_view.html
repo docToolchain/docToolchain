@@ -602,8 +602,8 @@ The key structural change from v3: Gradle Orchestration and the compiled Core Mo
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Site Generation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>generateSite.groovy</code>, <code>copyThemes.groovy</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Custom Groovy-based static site generator replacing jBake (ADR-4). Groovy SimpleTemplate engine, in-memory content model, modern HTML output. Reads jBake-compatible metadata headers.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>generateSite.groovy</code>, <code>lib/MicrositeBaker.groovy</code>, <code>copyThemes.groovy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Custom Groovy-based static site generator (<code>MicrositeBaker</code>, <code>scripts/lib/MicrositeBaker.groovy</code>) replacing jBake (ADR-4). Groovy SimpleTemplate engine, in-memory content model, modern HTML output. Reads jBake-compatible metadata headers.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Atlassian Integration</p></td>

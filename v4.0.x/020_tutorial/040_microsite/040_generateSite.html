@@ -505,7 +505,7 @@ searching issues...
 <div class="sectionbody">
 <div class="paragraph">
 <p>The <a href="../../015_tasks/03_task_generateSite.html"><code>generateSite</code></a> task creates a full documentation website.
-It uses <a href="https://jbake.org">jBake</a> as a static site generator to produce a microsite with a landing page, navigation, local search, and edit links.</p>
+It uses docToolchain&#8217;s built-in site generator to produce a microsite with a landing page, navigation, local search, and edit links.</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -523,6 +523,16 @@ On Windows, use WSL2 — <code>dtcw4</code> is a Bash script.
 </td>
 </tr>
 </table>
+</div>
+<div class="paragraph">
+<p><code>generateSite</code> expects a landing page. Configure it in <code>docToolchainConfig.groovy</code> and provide the matching file (the project template already ships both):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">microsite.with {
+    landingPage = 'landingpage.gsp'   // file in src/site/doc/
+}</code></pre>
+</div>
 </div>
 <div class="paragraph">
 <p>The output is written to <code>build/microsite/output/</code>.

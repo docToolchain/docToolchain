@@ -450,7 +450,7 @@ searching issues...
 <ul class="sectlevel2">
 <li><a href="#_environment">Environment</a></li>
 <li><a href="#_gradle">Gradle</a></li>
-<li><a href="#_jbake_templates">jBake Templates</a></li>
+<li><a href="#_site_templates_gsp">Site Templates (GSP)</a></li>
 <li><a href="#_theming_menu_and_images">Theming, Menu and Images</a></li>
 <li><a href="#_script_execution_debugging">Script Execution Debugging</a></li>
 </ul>
@@ -822,7 +822,7 @@ This way you get to see the inner workings and you also get to add extra debug o
 </div>
 </div>
 <div class="sect2">
-<h3 id="_jbake_templates">jBake Templates</h3>
+<h3 id="_site_templates_gsp">Site Templates (GSP)</h3>
 <div class="paragraph">
 <p>If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at <code>menu.gsp</code> to see how you can use <code>try/catch</code> blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some <code>System.out.println</code> statements. Make sure that you use the full <code>System.out.println</code> statement and not only <code>println</code> otherwise you won’t see any output.</p>
 </div>
@@ -833,7 +833,7 @@ This way you get to see the inner workings and you also get to add extra debug o
 <p>How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files.</p>
 </div>
 <div class="paragraph">
-<p>Check the <code>build/microsite/tmp</code> folder to see the folder that is fed into jBake. In this folder, all files will have additional <code>jbake</code> attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the <code>build/microsite/output</code> folder to see the generated result. This often helps you find out where an image actually is located.</p>
+<p>Check the <code>build/microsite/tmp</code> folder to see the folder that is fed into the site generator. In this folder, all files will have additional <code>jbake</code> attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the <code>build/microsite/output</code> folder to see the generated result. This often helps you find out where an image actually is located.</p>
 </div>
 </div>
 <div class="sect2">

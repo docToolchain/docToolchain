@@ -487,7 +487,7 @@ searching issues...
 <li><a href="#_headless_ci_mode">8.4. Headless / CI Mode</a></li>
 <li><a href="#_llm_integration_architecture">8.5. LLM Integration Architecture</a></li>
 <li><a href="#_content_transformation_pipeline">8.6. Content Transformation Pipeline</a></li>
-<li><a href="#_custom_site_generator_replacing_jbake">8.7. Custom Site Generator (replacing jBake)</a></li>
+<li><a href="#_custom_site_generator_micrositebaker_replacing_jbake">8.7. Custom Site Generator: MicrositeBaker (replacing jBake)</a></li>
 </ul>
 </li>
 <li><a href="#section-design-decisions">9. Architecture Decisions</a>
@@ -1206,8 +1206,8 @@ The key structural change from v3: Gradle Orchestration and the compiled Core Mo
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Site Generation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>generateSite.groovy</code>, <code>copyThemes.groovy</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Custom Groovy-based static site generator replacing jBake (ADR-4). Groovy SimpleTemplate engine, in-memory content model, modern HTML output. Reads jBake-compatible metadata headers.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>generateSite.groovy</code>, <code>lib/MicrositeBaker.groovy</code>, <code>copyThemes.groovy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Custom Groovy-based static site generator (<code>MicrositeBaker</code>, <code>scripts/lib/MicrositeBaker.groovy</code>) replacing jBake (ADR-4). Groovy SimpleTemplate engine, in-memory content model, modern HTML output. Reads jBake-compatible metadata headers.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Atlassian Integration</p></td>
@@ -1640,9 +1640,9 @@ Quality criteria for anchors: Precise, Rich, Consistent, Attributable. (See <a h
 </div>
 </div>
 <div class="sect2">
-<h3 id="_custom_site_generator_replacing_jbake">8.7. Custom Site Generator (replacing jBake)</h3>
+<h3 id="_custom_site_generator_micrositebaker_replacing_jbake">8.7. Custom Site Generator: MicrositeBaker (replacing jBake)</h3>
 <div class="paragraph">
-<p>New in v4. The site generator is a Groovy script implementing:</p>
+<p>New in v4. The site generator (<code>MicrositeBaker</code>, <code>scripts/lib/MicrositeBaker.groovy</code>, driven by <code>generateSite.groovy</code>) is a Groovy class implementing:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -1866,7 +1866,7 @@ v3 is the current production version.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Status</strong>: Decided for v4</p>
+<p><strong>Status</strong>: Decided for v4 — implemented in v4.0 as <code>MicrositeBaker</code> (<code>scripts/lib/MicrositeBaker.groovy</code>, see Chapter 8)</p>
 </li>
 <li>
 <p><strong>Context</strong>: jBake is the current static site generator for docToolchain&#8217;s microsite feature. Critical problems:</p>
