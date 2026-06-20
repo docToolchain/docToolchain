@@ -250,18 +250,18 @@ var documents = [
 
 {
     "id": 31,
-    "uri": "015_tasks/03_task_exportPPT.html",
-    "menu": "tasks",
-    "title": "exportPPT",
-    "text": " Table of Contents exportPPT About This Task Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } exportPPT About This Task Exports PowerPoint slides ( .pptx ) as PNG images and extracts speaker notes as AsciiDoc. ./dtcw4 local exportPPT In v4, this task uses Apache POI for rendering and works on all platforms (Linux, macOS, Windows). The v3 version was Windows-only (VBScript). Note Only .pptx files are supported. Legacy .ppt format is not supported. The tag {slide} in speaker notes is replaced with the corresponding image reference. Use tagged regions to include specific slides. Further Reading Do More with Slides "
-},
-
-{
-    "id": 32,
     "uri": "015_tasks/03_task_downloadTemplate.html",
     "menu": "tasks",
     "title": "downloadTemplate",
     "text": " Table of Contents downloadTemplate About This Task Setup and Configuration Headless Mode Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } downloadTemplate About This Task This task is primarily used to bootstrap a new project. You can choose to download an official template like arc42 or req42 (both available in multiple languages) or you can register and use your own custom template. Setup and Configuration Important downloadTemplate requires an existing docToolchainConfig.groovy in your project root (or the path set via DTC_CONFIG_FILE ). If the file doesn&#8217;t exist yet, create an empty one: touch docToolchainConfig.groovy . Headless Mode For unattended use (e.g., with CI/CD pipelines or LLM agents), the downloadTemplate task supports headless mode where no user input is required. Using the DTC_HEADLESS Environment Variable When DTC_HEADLESS=true is set, the task will use sensible defaults: Template: arc42 Language: EN Help variant: plain (without help text) export DTC_HEADLESS=true ./dtcw4 local downloadTemplate Further Reading and Resources Arc42 Req42 "
+},
+
+{
+    "id": 32,
+    "uri": "015_tasks/03_task_exportPPT.html",
+    "menu": "tasks",
+    "title": "exportPPT",
+    "text": " Table of Contents exportPPT About This Task Further Reading .gravatar img { margin-left: 3px; border-radius: 4px; } exportPPT About This Task Exports PowerPoint slides ( .pptx ) as PNG images and extracts speaker notes as AsciiDoc. ./dtcw4 local exportPPT In v4, this task uses Apache POI for rendering and works on all platforms (Linux, macOS, Windows). The v3 version was Windows-only (VBScript). Note Only .pptx files are supported. Legacy .ppt format is not supported. The tag {slide} in speaker notes is replaced with the corresponding image reference. Use tagged regions to include specific slides. Further Reading Do More with Slides "
 },
 
 {
@@ -338,18 +338,18 @@ var documents = [
 
 {
     "id": 42,
-    "uri": "10_about/30_community.html",
-    "menu": "about",
-    "title": "Acknowledgements and Contributors",
-    "text": " Table of Contents Acknowledgements and Contributors Why Contributions Matter Get Involved! Our Contributors Acknowledgements and Contributors Why Contributions Matter Without our amazing community of contributors, the docToolchain project wouldn’t exist in its current form. As an open source project, we depend on the skills and expertise of many to deliver a quality outcome. From developers to technical writers, many people have made valuable contributions to the code and the docs. We’re so grateful to them. We are also thankful for those in our community who take the time to give feedback, create issues, answer questions and send pull requests. Get Involved! There are so many technologies that support docToolchain, including AsciiDoc, AsciiDoctor, Gradle and arc42. We need all the help we can get to make improvements and keep our project humming. Simply create an issue and send a pull request. Our Contributors Please get in touch to update your entry or let us know if you have contributed in some way and we will add you to the list. Stefan Bodewig MoePad Niels wschaef Gernot Starke Jan Matèrne Alexander Schwartz Alexander Heusingfeld Dan Allen Stefan Pfeiffer isidorotrevino Jakub Jablonski Frank Pohl Ixchel Ruiz Schalk Cronjé Mario García Joe David M. Carr Fabian Nonnenmacher Christoph Stoettner Roman Funk ghp-dev Christoph Raaflaub Jorge Aguilera Stefan Bohn Jochen Kraushaar Luis Muniz Andreas Offenhaeuser Daniel Bast Sabatmonk Maarten Gribnau Michael Prieß Heiko Stehli Peter Stange Nils Mahlstädt @ hmmh Kevin Werner J. Staub Vladi Bjelakovic Daniel Kessel Björn Seebeck Txemanu Nikolay Orozov Andrea Macaluso Michael Roßner Jan Hendriks Daniel Kocot Alexander Schmitt Jérémie Bresson Jody Winter Aaron Collier Ifeanyi Benedict Iheagwara Jan-Niklas Vierheller Sebastian Schuetze David Schowalter Martin Fischer Stefan Boos Adrian Partl Siva Kalidasan Bjoern Kasteleiner Jan Küfner Gerd Aschemann Andreas Klemp Adi König Bence Hornák ZHENG Bote Miranda Boerlage Guido Sörmann Björn Erlwein Tulio Camminati Joachim Röttinger Pascal Euhus Max Hofer Sandra Parsick Johannes Thorn Stefan Rotman Kevin Latka Michael Roßner Jan Stückrath Timo Abele Patrizio Bonzani Lutz Ashauer Igor Gaiduk Jakob Genßler Torsten Kleiber David Paz "
-},
-
-{
-    "id": 43,
     "uri": "025_development/040_debugging.html",
     "menu": "development",
     "title": "Debugging",
     "text": " Table of Contents Debugging Environment Gradle jBake Templates Theming, Menu and Images Script Execution Debugging Debugging Things not working as you expected? Here are some tips that might help you. Environment To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect. Gradle You get more hints about what is going on with Gradle when you add the --info flag to your ./dtcw generateSite command: ./dtcw generateSite --info This outputs all config settings as seen by docToolchain along with many other internal settings. jBake Templates If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println otherwise you won’t see any output. Theming, Menu and Images How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files. Check the build/microsite/tmp folder to see the folder that is fed into jBake. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the build/microsite/output folder to see the generated result. This often helps you find out where an image actually is located. Script Execution Debugging The execution of the ../../../bin/doctoolchain bash script may be traced by setting the environment variable DTC_BASH_OPTS to, e.g., -vx . "
+},
+
+{
+    "id": 43,
+    "uri": "10_about/30_community.html",
+    "menu": "about",
+    "title": "Acknowledgements and Contributors",
+    "text": " Table of Contents Acknowledgements and Contributors Why Contributions Matter Get Involved! Our Contributors Acknowledgements and Contributors Why Contributions Matter Without our amazing community of contributors, the docToolchain project wouldn’t exist in its current form. As an open source project, we depend on the skills and expertise of many to deliver a quality outcome. From developers to technical writers, many people have made valuable contributions to the code and the docs. We’re so grateful to them. We are also thankful for those in our community who take the time to give feedback, create issues, answer questions and send pull requests. Get Involved! There are so many technologies that support docToolchain, including AsciiDoc, AsciiDoctor, Gradle and arc42. We need all the help we can get to make improvements and keep our project humming. Simply create an issue and send a pull request. Our Contributors Please get in touch to update your entry or let us know if you have contributed in some way and we will add you to the list. Stefan Bodewig MoePad Niels wschaef Gernot Starke Jan Matèrne Alexander Schwartz Alexander Heusingfeld Dan Allen Stefan Pfeiffer isidorotrevino Jakub Jablonski Frank Pohl Ixchel Ruiz Schalk Cronjé Mario García Joe David M. Carr Fabian Nonnenmacher Christoph Stoettner Roman Funk ghp-dev Christoph Raaflaub Jorge Aguilera Stefan Bohn Jochen Kraushaar Luis Muniz Andreas Offenhaeuser Daniel Bast Sabatmonk Maarten Gribnau Michael Prieß Heiko Stehli Peter Stange Nils Mahlstädt @ hmmh Kevin Werner J. Staub Vladi Bjelakovic Daniel Kessel Björn Seebeck Txemanu Nikolay Orozov Andrea Macaluso Michael Roßner Jan Hendriks Daniel Kocot Alexander Schmitt Jérémie Bresson Jody Winter Aaron Collier Ifeanyi Benedict Iheagwara Jan-Niklas Vierheller Sebastian Schuetze David Schowalter Martin Fischer Stefan Boos Adrian Partl Siva Kalidasan Bjoern Kasteleiner Jan Küfner Gerd Aschemann Andreas Klemp Adi König Bence Hornák ZHENG Bote Miranda Boerlage Guido Sörmann Björn Erlwein Tulio Camminati Joachim Röttinger Pascal Euhus Max Hofer Sandra Parsick Johannes Thorn Stefan Rotman Kevin Latka Michael Roßner Jan Stückrath Timo Abele Patrizio Bonzani Lutz Ashauer Igor Gaiduk Jakob Genßler Torsten Kleiber David Paz "
 },
 
 {
@@ -797,7 +797,7 @@ var documents = [
     "uri": "lunrjsindex.html",
     "menu": "-",
     "title": "null",
-    "text": " will be replaced by the index "
+    "text": "will be replaced by the index "
 },
 
 ];
