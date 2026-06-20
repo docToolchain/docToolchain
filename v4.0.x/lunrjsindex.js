@@ -242,6 +242,14 @@ var documents = [
 
 {
     "id": 30,
+    "uri": "015_tasks/03_task_installDacli.html",
+    "menu": "tasks",
+    "title": "installDacli",
+    "text": " Table of Contents installDacli About This Task Setup and Configuration Running the MCP Server Agent Hint Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } installDacli About This Task daCLI (\"docs-as-code CLI\") gives LLM agents structured access to your AsciiDoc and Markdown documentation — they can read the document structure, fetch a section, search, and edit content instead of grepping files by hand. It works in two modes: a CLI ( dacli ) for agents with shell access, and an MCP server ( dacli-mcp ) for MCP-capable clients (Claude Code, IDEs, …). This task installs daCLI and, if the project has an AGENTS.md or CLAUDE.md , adds a short conditional hint so agents know to use it (see Agent Hint ). Setup and Configuration daCLI is a Python tool installed with uv . If uv is not on your PATH , the task prints how to install it and stops — it does not fail with a stack trace. ./dtcw4 local installDacli Note daCLI is installed straight from its Git repository ( uv tool install git+https://github.com/docToolchain/dacli ). This is intentional — the PyPI package named dacli is an unrelated project. To pin a specific ref (tag, branch or commit), set DTC_DACLI_VERSION : DTC_DACLI_VERSION=v1.0.0 ./dtcw4 local installDacli Running the MCP Server After installation you can start the MCP server scoped to this project&#8217;s documentation (the task prints the exact command, using your configured inputPath ): dacli-mcp --docs-root src/docs Register that command with your MCP client to let it navigate and edit the docs. Agent Hint When an AGENTS.md or CLAUDE.md exists, the task upserts a short, heading-anchored section into it (idempotent on re-run). The hint is conditional : it points the agent at daCLI only when reading or editing the documentation , references your inputPath , and tells it to run dacli --help first. If neither file exists, the hint is skipped and no agent file is created. Further Reading and Resources daCLI documentation daCLI on GitHub uv — the Python tool installer "
+},
+
+{
+    "id": 31,
     "uri": "015_tasks/03_task_generatePDF.html",
     "menu": "tasks",
     "title": "generatePDF",
@@ -249,7 +257,7 @@ var documents = [
 },
 
 {
-    "id": 31,
+    "id": 32,
     "uri": "015_tasks/03_task_downloadTemplate.html",
     "menu": "tasks",
     "title": "downloadTemplate",
@@ -257,7 +265,7 @@ var documents = [
 },
 
 {
-    "id": 32,
+    "id": 33,
     "uri": "015_tasks/03_task_exportPPT.html",
     "menu": "tasks",
     "title": "exportPPT",
@@ -265,7 +273,7 @@ var documents = [
 },
 
 {
-    "id": 33,
+    "id": 34,
     "uri": "015_tasks/03_task_generateSite.html",
     "menu": "tasks",
     "title": "generateSite",
@@ -273,15 +281,23 @@ var documents = [
 },
 
 {
-    "id": 34,
-    "uri": "015_tasks/03_tasks.html",
+    "id": 35,
+    "uri": "015_tasks/03_task_generateCICD.html",
     "menu": "tasks",
-    "title": "Tasks",
-    "text": " Table of Contents Tasks Running a Task Listing Available Tasks Task Categories Available Tasks .gravatar img { margin-left: 3px; border-radius: 4px; } Tasks A task is a standalone Groovy script that performs a specific documentation action — generating output, exporting content, or publishing to external systems. In v4, tasks are invoked directly via the JVM — no Gradle, no build tool overhead. Each task is a self-contained .groovy file in the scripts/ directory. Running a Task ./dtcw4 local &lt;taskName&gt; Listing Available Tasks ./dtcw4 tasks Task Categories generateX These tasks render your AsciiDoc sources to a target format (HTML, PDF, microsite). exportX These tasks export content from other formats (Excel, PowerPoint) into AsciiDoc snippets or images that you can include in your documentation. Export results are typically stored under version control because the source tools may not be available on every machine. publishToX These tasks publish your documentation to external systems (currently Confluence). Available Tasks Task Description generateHTML Generate HTML5 from AsciiDoc generatePDF Generate PDF from AsciiDoc generateSite Generate a microsite with navigation, search, and blog downloadTemplate Download arc42 or req42 documentation templates exportExcel Export Excel spreadsheets to AsciiDoc tables and CSV exportPPT Export PowerPoint slides as images with speaker notes publishToConfluence Publish HTML documentation to Confluence copyThemes Copy a built-in theme (jBakeTheme or pdfTheme) into your project for customization "
+    "title": "generateCICD",
+    "text": " Table of Contents generateCICD About This Task Setup and Configuration After Generating Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } generateCICD About This Task This task scaffolds a ready-to-use CI/CD pipeline that builds your documentation with dtcw4 and publishes it. The generated pipeline reflects the v4 architecture — it bootstraps docToolchain with the dtcw4 wrapper, with no Gradle and no legacy Docker image. Two providers are supported: Provider File written Publishes to github (default) .github/workflows/docs.yml GitHub Pages gitlab .gitlab-ci.yml GitLab Pages Setup and Configuration # GitHub Actions (default) ./dtcw4 local generateCICD # or explicitly choose a provider ./dtcw4 local generateCICD --provider gitlab The task refuses to overwrite an existing pipeline file. Pass --force to replace it: ./dtcw4 local generateCICD --provider github --force The generated pipeline: installs Temurin Java 25, caches ~/.doctoolchain between runs, downloads dtcw4 , installs docToolchain, and runs generateSite , uploads the microsite from build/microsite/output to Pages. After Generating Commit the generated file. GitHub: enable Pages under Settings &gt; Pages &gt; Source: GitHub Actions . GitLab: the pages job publishes automatically on the default branch. Further Reading and Resources generateSite — the task the pipeline runs GitHub Pages GitLab Pages "
 },
 
 {
-    "id": 35,
+    "id": 36,
+    "uri": "015_tasks/03_tasks.html",
+    "menu": "tasks",
+    "title": "Tasks",
+    "text": " Table of Contents Tasks Running a Task Listing Available Tasks Task Categories Available Tasks .gravatar img { margin-left: 3px; border-radius: 4px; } Tasks A task is a standalone Groovy script that performs a specific documentation action — generating output, exporting content, or publishing to external systems. In v4, tasks are invoked directly via the JVM — no Gradle, no build tool overhead. Each task is a self-contained .groovy file in the scripts/ directory. Running a Task ./dtcw4 local &lt;taskName&gt; Listing Available Tasks ./dtcw4 tasks Task Categories generateX These tasks render your AsciiDoc sources to a target format (HTML, PDF, microsite). exportX These tasks export content from other formats (Excel, PowerPoint) into AsciiDoc snippets or images that you can include in your documentation. Export results are typically stored under version control because the source tools may not be available on every machine. publishToX These tasks publish your documentation to external systems (currently Confluence). installX These tasks install a companion tool from the docToolchain ecosystem and — when the project has an AGENTS.md or CLAUDE.md — add a short, conditional hint so LLM agents know when to reach for it. Available Tasks Task Description generateHTML Generate HTML5 from AsciiDoc generatePDF Generate PDF from AsciiDoc generateSite Generate a microsite with navigation, search, and blog downloadTemplate Download arc42 or req42 documentation templates exportExcel Export Excel spreadsheets to AsciiDoc tables and CSV exportPPT Export PowerPoint slides as images with speaker notes publishToConfluence Publish HTML documentation to Confluence copyThemes Copy a built-in theme (jBakeTheme or pdfTheme) into your project for customization lintAsciiDoc Lint your AsciiDoc sources with the docToolchain AsciiDoc Linter generateCICD Scaffold a dtcw4-based CI/CD pipeline (GitHub Actions or GitLab CI) installBausteinsicht Install the Bausteinsicht architecture-as-code tool and hint agents to use it installDacli Install the daCLI docs-as-code CLI / MCP server and hint agents to use it "
+},
+
+{
+    "id": 37,
     "uri": "015_tasks/03_task_exportExcel.html",
     "menu": "tasks",
     "title": "exportExcel",
@@ -289,7 +305,23 @@ var documents = [
 },
 
 {
-    "id": 36,
+    "id": 38,
+    "uri": "015_tasks/03_task_installBausteinsicht.html",
+    "menu": "tasks",
+    "title": "installBausteinsicht",
+    "text": " Table of Contents installBausteinsicht About This Task Setup and Configuration Agent Hint Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } installBausteinsicht About This Task Bausteinsicht is an architecture-as-code tool from the docToolchain ecosystem. You describe your building blocks in a JSON model and Bausteinsicht keeps diagrams in sync — with bidirectional draw.io editing — and exports them as C4-PlantUML, Mermaid, DOT, D2, Structurizr DSL, AsciiDoc/Markdown tables and PNG/SVG for embedding in your documentation. Every command supports --format json , so LLM agents can read and write the model too. This task does two things: It downloads the matching Bausteinsicht release binary into $HOME/.doctoolchain/bin . If the project has an AGENTS.md or CLAUDE.md , it adds a short, conditional hint so LLM agents know to use Bausteinsicht when they work on diagrams (see Agent Hint ). Setup and Configuration The task needs internet access to download the release from GitHub. ./dtcw4 local installBausteinsicht By default the latest release is installed. To pin a specific version, set DTC_BAUSTEINSICHT_VERSION : DTC_BAUSTEINSICHT_VERSION=1.1.0 ./dtcw4 local installBausteinsicht The binary is installed to $HOME/.doctoolchain/bin . If that directory is not on your PATH , the task prints the exact command to add it so you can call bausteinsicht directly. Agent Hint When an AGENTS.md or CLAUDE.md exists in the project root, the task upserts a short Markdown section into it (anchored on its heading, so re-running replaces it in place rather than duplicating it). The hint is deliberately conditional — it tells the agent to reach for Bausteinsicht only when creating or changing architecture diagrams , and to run bausteinsicht --help first so the guidance never goes stale. If neither file exists, the task installs the tool and skips the hint (it never creates an agent file you did not ask for). Further Reading and Resources Bausteinsicht documentation Bausteinsicht on GitHub "
+},
+
+{
+    "id": 39,
+    "uri": "015_tasks/03_task_lintAsciiDoc.html",
+    "menu": "tasks",
+    "title": "lintAsciiDoc",
+    "text": " Table of Contents lintAsciiDoc About This Task Setup and Configuration Exit Behaviour Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } lintAsciiDoc About This Task This task runs the docToolchain AsciiDoc Linter over your AsciiDoc sources to keep them clean and consistent. It checks rules for heading structure, formatting, whitespace and image usage, and reports any problems it finds. Setup and Configuration The linter is a Python tool. If the asciidoc-linter command is not on your PATH , the task prints how to install it (with uv or pip ) and stops — no stack trace: uv tool install git+https://github.com/docToolchain/asciidoc-linter Then run the task: ./dtcw4 local lintAsciiDoc By default the task lints the AsciiDoc entries from your inputFiles . You can configure it in docToolchainConfig.groovy : lintAsciiDoc = [ // Fail the build when the linter reports problems (default: false — warn only) failOnError : false, // Output format: 'console' (default, human-readable) or 'json' format : 'console', // Optional: explicit files/paths to lint (relative to inputPath). // When set, these replace the inputFiles selection. files : ['arc42/arc42.adoc'], ] Exit Behaviour Situation Result No problems found Task succeeds (exit 0) Problems found, failOnError is false (default) Problems are printed, task still succeeds — safe to add to an existing pipeline first Problems found, failOnError is true Task fails (non-zero exit) so CI blocks the change Linter not installed Actionable install hint, task exits non-zero Further Reading and Resources AsciiDoc Linter documentation AsciiDoc Linter on GitHub "
+},
+
+{
+    "id": 40,
     "uri": "015_tasks/03_task_generateHTML.html",
     "menu": "tasks",
     "title": "generateHTML",
@@ -297,7 +329,7 @@ var documents = [
 },
 
 {
-    "id": 37,
+    "id": 41,
     "uri": "025_development/010_setup_dev_env.html",
     "menu": "development",
     "title": "Setting Up a Dev Environment",
@@ -305,7 +337,7 @@ var documents = [
 },
 
 {
-    "id": 38,
+    "id": 42,
     "uri": "025_development/005_contributing_to_docs.html",
     "menu": "development",
     "title": "Contributing to Docs",
@@ -313,7 +345,7 @@ var documents = [
 },
 
 {
-    "id": 39,
+    "id": 43,
     "uri": "025_development/020_run_tests.html",
     "menu": "development",
     "title": "Running Tests",
@@ -321,7 +353,7 @@ var documents = [
 },
 
 {
-    "id": 40,
+    "id": 44,
     "uri": "025_development/050_who-uses-dtc.html",
     "menu": "-",
     "title": "moved",
@@ -329,7 +361,7 @@ var documents = [
 },
 
 {
-    "id": 41,
+    "id": 45,
     "uri": "025_development/030_create_new_release.html",
     "menu": "development",
     "title": "Creating a New Release",
@@ -337,7 +369,7 @@ var documents = [
 },
 
 {
-    "id": 42,
+    "id": 46,
     "uri": "025_development/040_debugging.html",
     "menu": "development",
     "title": "Debugging",
@@ -345,7 +377,7 @@ var documents = [
 },
 
 {
-    "id": 43,
+    "id": 47,
     "uri": "10_about/30_community.html",
     "menu": "about",
     "title": "Acknowledgements and Contributors",
@@ -353,7 +385,7 @@ var documents = [
 },
 
 {
-    "id": 44,
+    "id": 48,
     "uri": "10_about/10_about-the-project.html",
     "menu": "about",
     "title": "About the Project",
@@ -361,7 +393,7 @@ var documents = [
 },
 
 {
-    "id": 45,
+    "id": 49,
     "uri": "10_about/20_what-is-doctoolchain.html",
     "menu": "about",
     "title": "What Is docToolchain?",
@@ -369,7 +401,7 @@ var documents = [
 },
 
 {
-    "id": 46,
+    "id": 50,
     "uri": "arc42/chapters/10_quality_requirements.html",
     "menu": "arc42",
     "title": "Quality Requirements",
@@ -377,7 +409,7 @@ var documents = [
 },
 
 {
-    "id": 47,
+    "id": 51,
     "uri": "arc42/chapters/05_building_block_view.html",
     "menu": "arc42",
     "title": "Building Block View",
@@ -385,7 +417,7 @@ var documents = [
 },
 
 {
-    "id": 48,
+    "id": 52,
     "uri": "arc42/chapters/07_deployment_view.html",
     "menu": "arc42",
     "title": "Deployment View",
@@ -393,7 +425,7 @@ var documents = [
 },
 
 {
-    "id": 49,
+    "id": 53,
     "uri": "arc42/chapters/03_context_and_scope.html",
     "menu": "arc42",
     "title": "Context and Scope",
@@ -401,7 +433,7 @@ var documents = [
 },
 
 {
-    "id": 50,
+    "id": 54,
     "uri": "arc42/chapters/11_technical_risks.html",
     "menu": "arc42",
     "title": "Risks and Technical Debts",
@@ -409,7 +441,7 @@ var documents = [
 },
 
 {
-    "id": 51,
+    "id": 55,
     "uri": "arc42/chapters/12_glossary.html",
     "menu": "arc42",
     "title": "Glossary",
@@ -417,7 +449,7 @@ var documents = [
 },
 
 {
-    "id": 52,
+    "id": 56,
     "uri": "arc42/chapters/01_introduction_and_goals.html",
     "menu": "arc42",
     "title": "Introduction and Goals",
@@ -425,7 +457,7 @@ var documents = [
 },
 
 {
-    "id": 53,
+    "id": 57,
     "uri": "arc42/chapters/06_runtime_view.html",
     "menu": "arc42",
     "title": "Runtime View",
@@ -433,7 +465,7 @@ var documents = [
 },
 
 {
-    "id": 54,
+    "id": 58,
     "uri": "arc42/chapters/08_concepts.html",
     "menu": "arc42",
     "title": "Cross-cutting Concepts",
@@ -441,7 +473,7 @@ var documents = [
 },
 
 {
-    "id": 55,
+    "id": 59,
     "uri": "arc42/chapters/09_architecture_decisions.html",
     "menu": "arc42",
     "title": "Architecture Decisions",
@@ -449,7 +481,7 @@ var documents = [
 },
 
 {
-    "id": 56,
+    "id": 60,
     "uri": "arc42/chapters/04_solution_strategy.html",
     "menu": "arc42",
     "title": "Solution Strategy",
@@ -457,7 +489,7 @@ var documents = [
 },
 
 {
-    "id": 57,
+    "id": 61,
     "uri": "arc42/chapters/02_architecture_constraints.html",
     "menu": "arc42",
     "title": "Architecture Constraints",
@@ -465,7 +497,7 @@ var documents = [
 },
 
 {
-    "id": 58,
+    "id": 62,
     "uri": "arc42/prd.html",
     "menu": "arc42",
     "title": "docToolchain v4 — Product Requirements Document",
@@ -473,7 +505,7 @@ var documents = [
 },
 
 {
-    "id": 59,
+    "id": 63,
     "uri": "arc42/spec/01_use_cases.html",
     "menu": "arc42",
     "title": "docToolchain v4 — Specification",
@@ -481,7 +513,7 @@ var documents = [
 },
 
 {
-    "id": 60,
+    "id": 64,
     "uri": "arc42/arc42.html",
     "menu": "-",
     "title": "docToolchain Architecture Documentation",
@@ -489,7 +521,7 @@ var documents = [
 },
 
 {
-    "id": 61,
+    "id": 65,
     "uri": "050_ADRs/ADR-1-Scripting-Languages.html",
     "menu": "ADRs",
     "title": "ADR-01: Scripting",
@@ -497,7 +529,7 @@ var documents = [
 },
 
 {
-    "id": 62,
+    "id": 66,
     "uri": "050_ADRs/ADR-2-separate-core-logic-from-gradle.html",
     "menu": "ADRs",
     "title": "ADR-02: Separate core logic from Gradle",
@@ -505,7 +537,7 @@ var documents = [
 },
 
 {
-    "id": 63,
+    "id": 67,
     "uri": "020_tutorial/070_publishToConfluence.html",
     "menu": "tutorial",
     "title": "publishToConfluence",
@@ -513,7 +545,7 @@ var documents = [
 },
 
 {
-    "id": 64,
+    "id": 68,
     "uri": "020_tutorial/020_arc42.html",
     "menu": "tutorial",
     "title": "arc42 Template",
@@ -521,7 +553,7 @@ var documents = [
 },
 
 {
-    "id": 65,
+    "id": 69,
     "uri": "020_tutorial/140_Dropdown_Menu.html",
     "menu": "tutorial",
     "title": "How to create a Dropdown Menu",
@@ -529,7 +561,7 @@ var documents = [
 },
 
 {
-    "id": 66,
+    "id": 70,
     "uri": "020_tutorial/050_multipleRepositories.html",
     "menu": "tutorial",
     "title": "Multi-Repo",
@@ -537,7 +569,7 @@ var documents = [
 },
 
 {
-    "id": 67,
+    "id": 71,
     "uri": "020_tutorial/150_multiRepoMicrositeTipsAndTricks.html",
     "menu": "tutorial",
     "title": "Building a microsite from multiple repositories",
@@ -545,7 +577,7 @@ var documents = [
 },
 
 {
-    "id": 68,
+    "id": 72,
     "uri": "020_tutorial/160_EnterpriseTipsAndTricks.html",
     "menu": "tutorial",
     "title": "Enterprise docToolchain",
@@ -553,7 +585,7 @@ var documents = [
 },
 
 {
-    "id": 69,
+    "id": 73,
     "uri": "020_tutorial/990_Tutorial.html",
     "menu": "tutorial",
     "title": "How to create a Tutorial",
@@ -561,7 +593,7 @@ var documents = [
 },
 
 {
-    "id": 70,
+    "id": 74,
     "uri": "020_tutorial/030_generateHTML.html",
     "menu": "tutorial",
     "title": "generateHTML &amp; generatePDF",
@@ -569,7 +601,7 @@ var documents = [
 },
 
 {
-    "id": 71,
+    "id": 75,
     "uri": "020_tutorial/170_kroki-configuration.html",
     "menu": "tutorial",
     "title": "Kroki Configuration Guide",
@@ -577,7 +609,7 @@ var documents = [
 },
 
 {
-    "id": 72,
+    "id": 76,
     "uri": "020_tutorial/010_Install.html",
     "menu": "tutorial",
     "title": "Install docToolchain",
@@ -585,7 +617,7 @@ var documents = [
 },
 
 {
-    "id": 73,
+    "id": 77,
     "uri": "020_tutorial/040_microsite/043_multi-markup.html",
     "menu": "tutorial",
     "title": "generateSite: Multi-Markup",
@@ -593,7 +625,7 @@ var documents = [
 },
 
 {
-    "id": 74,
+    "id": 78,
     "uri": "020_tutorial/040_microsite/040_generateSite.html",
     "menu": "tutorial",
     "title": "generateSite",
@@ -601,7 +633,7 @@ var documents = [
 },
 
 {
-    "id": 75,
+    "id": 79,
     "uri": "020_tutorial/040_microsite/index.html",
     "menu": "tutorial",
     "title": "Microsite",
@@ -609,7 +641,7 @@ var documents = [
 },
 
 {
-    "id": 76,
+    "id": 80,
     "uri": "020_tutorial/040_microsite/130_theming.html",
     "menu": "tutorial",
     "title": "How to change the theme",
@@ -617,7 +649,7 @@ var documents = [
 },
 
 {
-    "id": 77,
+    "id": 81,
     "uri": "020_tutorial/100_diagrams.net.html",
     "menu": "tutorial",
     "title": "Diagrams: Diagrams.net",
@@ -625,7 +657,7 @@ var documents = [
 },
 
 {
-    "id": 78,
+    "id": 82,
     "uri": "010_manual/50_Frequently_asked_Questions.html",
     "menu": "manual",
     "title": "Solutions to Common Problems",
@@ -633,7 +665,7 @@ var documents = [
 },
 
 {
-    "id": 79,
+    "id": 83,
     "uri": "010_manual/40_features.html",
     "menu": "manual",
     "title": "Features",
@@ -641,7 +673,7 @@ var documents = [
 },
 
 {
-    "id": 80,
+    "id": 84,
     "uri": "010_manual/040_contributors.html",
     "menu": "-",
     "title": "moved",
@@ -649,7 +681,7 @@ var documents = [
 },
 
 {
-    "id": 81,
+    "id": 85,
     "uri": "010_manual/60_further_reading.html",
     "menu": "manual",
     "title": "Useful Resources",
@@ -657,7 +689,7 @@ var documents = [
 },
 
 {
-    "id": 82,
+    "id": 86,
     "uri": "010_manual/30_config.html",
     "menu": "manual",
     "title": "Configuration",
@@ -665,7 +697,7 @@ var documents = [
 },
 
 {
-    "id": 83,
+    "id": 87,
     "uri": "010_manual/20_install.html",
     "menu": "manual",
     "title": "Install docToolchain",
@@ -673,7 +705,7 @@ var documents = [
 },
 
 {
-    "id": 84,
+    "id": 88,
     "uri": "010_manual/010_introduction_and_goals.html",
     "menu": "-",
     "title": "moved",
@@ -681,7 +713,7 @@ var documents = [
 },
 
 {
-    "id": 85,
+    "id": 89,
     "uri": "ea/Activity_notes.html",
     "menu": "ea",
     "title": "Activity_notes.ad",
@@ -689,7 +721,7 @@ var documents = [
 },
 
 {
-    "id": 86,
+    "id": 90,
     "uri": "ea/Use_Cases_notes_UseCases.html",
     "menu": "ea",
     "title": "Use_Cases_notes_UseCases.ad",
@@ -697,7 +729,7 @@ var documents = [
 },
 
 {
-    "id": 87,
+    "id": 91,
     "uri": "ea/Use_Cases_links_issue2.html",
     "menu": "ea",
     "title": "Use_Cases_links_issue2.ad",
@@ -705,7 +737,7 @@ var documents = [
 },
 
 {
-    "id": 88,
+    "id": 92,
     "uri": "ea/UseCases.html",
     "menu": "ea",
     "title": "UseCases.ad",
@@ -713,7 +745,7 @@ var documents = [
 },
 
 {
-    "id": 89,
+    "id": 93,
     "uri": "ea/Use_Cases_links.html",
     "menu": "ea",
     "title": "Use_Cases_links.ad",
@@ -721,7 +753,7 @@ var documents = [
 },
 
 {
-    "id": 90,
+    "id": 94,
     "uri": "ea/Architect_notes.html",
     "menu": "ea",
     "title": "Architect_notes.ad",
@@ -729,7 +761,7 @@ var documents = [
 },
 
 {
-    "id": 91,
+    "id": 95,
     "uri": "ea/issue1.html",
     "menu": "ea",
     "title": "issue1.ad",
@@ -737,7 +769,7 @@ var documents = [
 },
 
 {
-    "id": 92,
+    "id": 96,
     "uri": "ea/readme.html",
     "menu": "ea",
     "title": "readme.ad",
@@ -745,7 +777,7 @@ var documents = [
 },
 
 {
-    "id": 93,
+    "id": 97,
     "uri": "ea/Activity_notes_issue1.html",
     "menu": "ea",
     "title": "Activity_notes_issue1.ad",
@@ -753,7 +785,7 @@ var documents = [
 },
 
 {
-    "id": 94,
+    "id": 98,
     "uri": "ea/Architect_notes_issue2.html",
     "menu": "ea",
     "title": "Architect_notes_issue2.ad",
@@ -761,7 +793,7 @@ var documents = [
 },
 
 {
-    "id": 95,
+    "id": 99,
     "uri": "ea/Use_Cases_notes.html",
     "menu": "ea",
     "title": "Use_Cases_notes.ad",
@@ -769,7 +801,7 @@ var documents = [
 },
 
 {
-    "id": 96,
+    "id": 100,
     "uri": "ea/issue2.html",
     "menu": "ea",
     "title": "issue2.ad",
@@ -777,7 +809,7 @@ var documents = [
 },
 
 {
-    "id": 97,
+    "id": 101,
     "uri": "010_manual/single-page.html",
     "menu": "-",
     "title": "docToolchain Manual",
@@ -785,7 +817,7 @@ var documents = [
 },
 
 {
-    "id": 98,
+    "id": 102,
     "uri": "search.html",
     "menu": "-",
     "title": "search",
@@ -793,7 +825,7 @@ var documents = [
 },
 
 {
-    "id": 99,
+    "id": 103,
     "uri": "lunrjsindex.html",
     "menu": "-",
     "title": "null",

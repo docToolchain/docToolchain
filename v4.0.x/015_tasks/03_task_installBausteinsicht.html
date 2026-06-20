@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: 015_tasks/03_task_exportPPT.html -->
+    <!-- sourceuri: 015_tasks/03_task_installBausteinsicht.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>exportPPT</title>
+    <title>installBausteinsicht</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -339,7 +339,7 @@
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../015_tasks/03_task_exportPPT.html" title="exportPPT"><span class="arc42-num">05</span> exportPPT</a>
                                 
                             </li>
@@ -364,7 +364,7 @@
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../015_tasks/03_task_installBausteinsicht.html" title="installBausteinsicht"><span class="arc42-num">10</span> installBausteinsicht</a>
                                 
                             </li>
@@ -395,11 +395,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_exportPPT.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_installBausteinsicht.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportPPT%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_exportPPT.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27installBausteinsicht%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_installBausteinsicht.adoc%0A%23branch:%20main-4.x" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -407,7 +407,7 @@
         <hr />
 <script>
 const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
-const searchTerm = "015_tasks/03_task_exportPPT.adoc";
+const searchTerm = "015_tasks/03_task_installBausteinsicht.adoc";
 </script>
 
 <script src="../js/issues.js"></script>
@@ -458,10 +458,12 @@ searching issues...
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_exportppt">exportPPT</a>
+<li><a href="#task_installBausteinsicht">installBausteinsicht</a>
 <ul class="sectlevel2">
 <li><a href="#_about_this_task">About This Task</a></li>
-<li><a href="#_further_reading">Further Reading</a></li>
+<li><a href="#_setup_and_configuration">Setup and Configuration</a></li>
+<li><a href="#_agent_hint">Agent Hint</a></li>
+<li><a href="#_further_reading_and_resources">Further Reading and Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -501,45 +503,71 @@ searching issues...
 }
 </style>
 <div class="sect1">
-<h2 id="_exportppt">exportPPT</h2>
+<h2 id="task_installBausteinsicht">installBausteinsicht</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_about_this_task">About This Task</h3>
 <div class="paragraph">
-<p>Exports PowerPoint slides (<code>.pptx</code>) as PNG images and extracts speaker notes as AsciiDoc.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 local exportPPT</code></pre>
-</div>
+<p><a href="https://doctoolchain.org/Bausteinsicht/">Bausteinsicht</a> is an <em>architecture-as-code</em> tool from the docToolchain ecosystem.
+You describe your building blocks in a JSON model and Bausteinsicht keeps diagrams in sync — with bidirectional <a href="https://www.drawio.com/">draw.io</a> editing — and exports them as C4-PlantUML, Mermaid, DOT, D2, Structurizr DSL, AsciiDoc/Markdown tables and PNG/SVG for embedding in your documentation.
+Every command supports <code>--format json</code>, so LLM agents can read and write the model too.</p>
 </div>
 <div class="paragraph">
-<p>In v4, this task uses Apache POI for rendering and works on <strong>all platforms</strong> (Linux, macOS, Windows).
-The v3 version was Windows-only (VBScript).</p>
+<p>This task does two things:</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-Only <code>.pptx</code> files are supported. Legacy <code>.ppt</code> format is not supported.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The tag <code>{slide}</code> in speaker notes is replaced with the corresponding image reference.
-Use <a href="https://docs.asciidoctor.org/asciidoc/latest/directives/include-tagged-regions/">tagged regions</a> to include specific slides.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>It downloads the matching Bausteinsicht release binary into <code>$HOME/.doctoolchain/bin</code>.</p>
+</li>
+<li>
+<p>If the project has an <code>AGENTS.md</code> or <code>CLAUDE.md</code>, it adds a short, conditional hint so LLM agents know to use Bausteinsicht when they work on diagrams (see <a href="#_agent_hint">Agent Hint</a>).</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_further_reading">Further Reading</h3>
+<h3 id="_setup_and_configuration">Setup and Configuration</h3>
+<div class="paragraph">
+<p>The task needs internet access to download the release from GitHub.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 local installBausteinsicht</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default the latest release is installed. To pin a specific version, set <code>DTC_BAUSTEINSICHT_VERSION</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">DTC_BAUSTEINSICHT_VERSION=1.1.0 ./dtcw4 local installBausteinsicht</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The binary is installed to <code>$HOME/.doctoolchain/bin</code>.
+If that directory is not on your <code>PATH</code>, the task prints the exact command to add it so you can call <code>bausteinsicht</code> directly.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_agent_hint">Agent Hint</h3>
+<div class="paragraph">
+<p>When an <code>AGENTS.md</code> or <code>CLAUDE.md</code> exists in the project root, the task upserts a short Markdown section into it (anchored on its heading, so re-running replaces it in place rather than duplicating it).
+The hint is deliberately <em>conditional</em> — it tells the agent to reach for Bausteinsicht <strong>only when creating or changing architecture diagrams</strong>, and to run <code>bausteinsicht --help</code> first so the guidance never goes stale.</p>
+</div>
+<div class="paragraph">
+<p>If neither file exists, the task installs the tool and skips the hint (it never creates an agent file you did not ask for).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_further_reading_and_resources">Further Reading and Resources</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://rdmueller.github.io/PPT-as-asciidoc-editor/">Do More with Slides</a></p>
+<p><a href="https://doctoolchain.org/Bausteinsicht/">Bausteinsicht documentation</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/Bausteinsicht">Bausteinsicht on GitHub</a></p>
 </li>
 </ul>
 </div>
@@ -573,11 +601,11 @@ Use <a href="https://docs.asciidoctor.org/asciidoc/latest/directives/include-tag
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportPPT%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_exportPPT.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27installBausteinsicht%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_installBausteinsicht.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportPPT%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_exportPPT.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27installBausteinsicht%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_installBausteinsicht.adoc">tell
     us how we can improve</a>.
     </p>
 </div>

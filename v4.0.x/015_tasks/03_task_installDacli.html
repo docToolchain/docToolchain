@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: 015_tasks/03_task_exportPPT.html -->
+    <!-- sourceuri: 015_tasks/03_task_installDacli.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>exportPPT</title>
+    <title>installDacli</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -339,7 +339,7 @@
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../015_tasks/03_task_exportPPT.html" title="exportPPT"><span class="arc42-num">05</span> exportPPT</a>
                                 
                             </li>
@@ -369,7 +369,7 @@
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../015_tasks/03_task_installDacli.html" title="installDacli"><span class="arc42-num">11</span> installDacli</a>
                                 
                             </li>
@@ -395,11 +395,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_exportPPT.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_installDacli.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportPPT%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_exportPPT.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27installDacli%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_installDacli.adoc%0A%23branch:%20main-4.x" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -407,7 +407,7 @@
         <hr />
 <script>
 const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
-const searchTerm = "015_tasks/03_task_exportPPT.adoc";
+const searchTerm = "015_tasks/03_task_installDacli.adoc";
 </script>
 
 <script src="../js/issues.js"></script>
@@ -458,10 +458,13 @@ searching issues...
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_exportppt">exportPPT</a>
+<li><a href="#task_installDacli">installDacli</a>
 <ul class="sectlevel2">
 <li><a href="#_about_this_task">About This Task</a></li>
-<li><a href="#_further_reading">Further Reading</a></li>
+<li><a href="#_setup_and_configuration">Setup and Configuration</a></li>
+<li><a href="#_running_the_mcp_server">Running the MCP Server</a></li>
+<li><a href="#_agent_hint_dacli">Agent Hint</a></li>
+<li><a href="#_further_reading_and_resources">Further Reading and Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -501,21 +504,38 @@ searching issues...
 }
 </style>
 <div class="sect1">
-<h2 id="_exportppt">exportPPT</h2>
+<h2 id="task_installDacli">installDacli</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_about_this_task">About This Task</h3>
 <div class="paragraph">
-<p>Exports PowerPoint slides (<code>.pptx</code>) as PNG images and extracts speaker notes as AsciiDoc.</p>
+<p><a href="https://doctoolchain.org/dacli">daCLI</a> ("docs-as-code CLI") gives LLM agents structured access to your AsciiDoc and Markdown documentation — they can read the document structure, fetch a section, search, and edit content instead of grepping files by hand.
+It works in two modes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>a <strong>CLI</strong> (<code>dacli</code>) for agents with shell access, and</p>
+</li>
+<li>
+<p>an <strong>MCP server</strong> (<code>dacli-mcp</code>) for MCP-capable clients (Claude Code, IDEs, …).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This task installs daCLI and, if the project has an <code>AGENTS.md</code> or <code>CLAUDE.md</code>, adds a short conditional hint so agents know to use it (see <a href="#_agent_hint_dacli">Agent Hint</a>).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setup_and_configuration">Setup and Configuration</h3>
+<div class="paragraph">
+<p>daCLI is a Python tool installed with <a href="https://docs.astral.sh/uv/">uv</a>.
+If <code>uv</code> is not on your <code>PATH</code>, the task prints how to install it and stops — it does not fail with a stack trace.</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 local exportPPT</code></pre>
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 local installDacli</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>In v4, this task uses Apache POI for rendering and works on <strong>all platforms</strong> (Linux, macOS, Windows).
-The v3 version was Windows-only (VBScript).</p>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -524,22 +544,55 @@ The v3 version was Windows-only (VBScript).</p>
 <div class="title">Note</div>
 </td>
 <td class="content">
-Only <code>.pptx</code> files are supported. Legacy <code>.ppt</code> format is not supported.
+daCLI is installed straight from its Git repository (<code>uv tool install git+https://github.com/docToolchain/dacli</code>).
+This is intentional — the PyPI package named <code>dacli</code> is an unrelated project.
 </td>
 </tr>
 </table>
 </div>
 <div class="paragraph">
-<p>The tag <code>{slide}</code> in speaker notes is replaced with the corresponding image reference.
-Use <a href="https://docs.asciidoctor.org/asciidoc/latest/directives/include-tagged-regions/">tagged regions</a> to include specific slides.</p>
+<p>To pin a specific ref (tag, branch or commit), set <code>DTC_DACLI_VERSION</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">DTC_DACLI_VERSION=v1.0.0 ./dtcw4 local installDacli</code></pre>
+</div>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_further_reading">Further Reading</h3>
+<h3 id="_running_the_mcp_server">Running the MCP Server</h3>
+<div class="paragraph">
+<p>After installation you can start the MCP server scoped to this project&#8217;s documentation (the task prints the exact command, using your configured <code>inputPath</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">dacli-mcp --docs-root src/docs</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Register that command with your MCP client to let it navigate and edit the docs.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_agent_hint_dacli">Agent Hint</h3>
+<div class="paragraph">
+<p>When an <code>AGENTS.md</code> or <code>CLAUDE.md</code> exists, the task upserts a short, heading-anchored section into it (idempotent on re-run).
+The hint is <em>conditional</em>: it points the agent at daCLI <strong>only when reading or editing the documentation</strong>, references your <code>inputPath</code>, and tells it to run <code>dacli --help</code> first.
+If neither file exists, the hint is skipped and no agent file is created.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_further_reading_and_resources">Further Reading and Resources</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://rdmueller.github.io/PPT-as-asciidoc-editor/">Do More with Slides</a></p>
+<p><a href="https://doctoolchain.org/dacli">daCLI documentation</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/dacli">daCLI on GitHub</a></p>
+</li>
+<li>
+<p><a href="https://docs.astral.sh/uv/">uv — the Python tool installer</a></p>
 </li>
 </ul>
 </div>
@@ -573,11 +626,11 @@ Use <a href="https://docs.asciidoctor.org/asciidoc/latest/directives/include-tag
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportPPT%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_exportPPT.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27installDacli%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_installDacli.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportPPT%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_exportPPT.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27installDacli%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_installDacli.adoc">tell
     us how we can improve</a>.
     </p>
 </div>

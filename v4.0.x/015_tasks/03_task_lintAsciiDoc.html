@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: 015_tasks/03_task_exportPPT.html -->
+    <!-- sourceuri: 015_tasks/03_task_lintAsciiDoc.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>exportPPT</title>
+    <title>lintAsciiDoc</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -339,7 +339,7 @@
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../015_tasks/03_task_exportPPT.html" title="exportPPT"><span class="arc42-num">05</span> exportPPT</a>
                                 
                             </li>
@@ -374,7 +374,7 @@
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../015_tasks/03_task_lintAsciiDoc.html" title="lintAsciiDoc"><span class="arc42-num">12</span> lintAsciiDoc</a>
                                 
                             </li>
@@ -395,11 +395,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_exportPPT.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_lintAsciiDoc.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportPPT%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_exportPPT.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27lintAsciiDoc%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/015_tasks/03_task_lintAsciiDoc.adoc%0A%23branch:%20main-4.x" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -407,7 +407,7 @@
         <hr />
 <script>
 const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
-const searchTerm = "015_tasks/03_task_exportPPT.adoc";
+const searchTerm = "015_tasks/03_task_lintAsciiDoc.adoc";
 </script>
 
 <script src="../js/issues.js"></script>
@@ -458,10 +458,12 @@ searching issues...
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel1">
-<li><a href="#_exportppt">exportPPT</a>
+<li><a href="#task_lintAsciiDoc">lintAsciiDoc</a>
 <ul class="sectlevel2">
 <li><a href="#_about_this_task">About This Task</a></li>
-<li><a href="#_further_reading">Further Reading</a></li>
+<li><a href="#_setup_and_configuration">Setup and Configuration</a></li>
+<li><a href="#_exit_behaviour">Exit Behaviour</a></li>
+<li><a href="#_further_reading_and_resources">Further Reading and Resources</a></li>
 </ul>
 </li>
 </ul>
@@ -501,45 +503,93 @@ searching issues...
 }
 </style>
 <div class="sect1">
-<h2 id="_exportppt">exportPPT</h2>
+<h2 id="task_lintAsciiDoc">lintAsciiDoc</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="_about_this_task">About This Task</h3>
 <div class="paragraph">
-<p>Exports PowerPoint slides (<code>.pptx</code>) as PNG images and extracts speaker notes as AsciiDoc.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 local exportPPT</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>In v4, this task uses Apache POI for rendering and works on <strong>all platforms</strong> (Linux, macOS, Windows).
-The v3 version was Windows-only (VBScript).</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-Only <code>.pptx</code> files are supported. Legacy <code>.ppt</code> format is not supported.
-</td>
-</tr>
-</table>
-</div>
-<div class="paragraph">
-<p>The tag <code>{slide}</code> in speaker notes is replaced with the corresponding image reference.
-Use <a href="https://docs.asciidoctor.org/asciidoc/latest/directives/include-tagged-regions/">tagged regions</a> to include specific slides.</p>
+<p>This task runs the <a href="https://github.com/docToolchain/asciidoc-linter">docToolchain AsciiDoc Linter</a> over your AsciiDoc sources to keep them clean and consistent.
+It checks rules for heading structure, formatting, whitespace and image usage, and reports any problems it finds.</p>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_further_reading">Further Reading</h3>
+<h3 id="_setup_and_configuration">Setup and Configuration</h3>
+<div class="paragraph">
+<p>The linter is a Python tool. If the <code>asciidoc-linter</code> command is not on your <code>PATH</code>, the task prints how to install it (with <code>uv</code> or <code>pip</code>) and stops — no stack trace:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">uv tool install git+https://github.com/docToolchain/asciidoc-linter</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Then run the task:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw4 local lintAsciiDoc</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>By default the task lints the AsciiDoc entries from your <code>inputFiles</code>.
+You can configure it in <code>docToolchainConfig.groovy</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">lintAsciiDoc = [
+    // Fail the build when the linter reports problems (default: false — warn only)
+    failOnError : false,
+    // Output format: 'console' (default, human-readable) or 'json'
+    format      : 'console',
+    // Optional: explicit files/paths to lint (relative to inputPath).
+    // When set, these replace the inputFiles selection.
+    files       : ['arc42/arc42.adoc'],
+]</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_exit_behaviour">Exit Behaviour</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Situation</th>
+<th class="tableblock halign-left valign-top">Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No problems found</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Task succeeds (exit 0)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Problems found, <code>failOnError</code> is <code>false</code> (default)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Problems are printed, task still succeeds — safe to add to an existing pipeline first</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Problems found, <code>failOnError</code> is <code>true</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Task fails (non-zero exit) so CI blocks the change</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Linter not installed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Actionable install hint, task exits non-zero</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_further_reading_and_resources">Further Reading and Resources</h3>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://rdmueller.github.io/PPT-as-asciidoc-editor/">Do More with Slides</a></p>
+<p><a href="https://doctoolchain.org/asciidoc-linter">AsciiDoc Linter documentation</a></p>
+</li>
+<li>
+<p><a href="https://github.com/docToolchain/asciidoc-linter">AsciiDoc Linter on GitHub</a></p>
 </li>
 </ul>
 </div>
@@ -573,11 +623,11 @@ Use <a href="https://docs.asciidoctor.org/asciidoc/latest/directives/include-tag
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportPPT%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_exportPPT.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27lintAsciiDoc%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_lintAsciiDoc.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27exportPPT%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_exportPPT.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27lintAsciiDoc%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:015_tasks/03_task_lintAsciiDoc.adoc">tell
     us how we can improve</a>.
     </p>
 </div>

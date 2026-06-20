@@ -152,6 +152,11 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_installDacli.html</loc>
+    	<lastmod>2026-06-20</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_task_generatePDF.html</loc>
     	<lastmod>2026-06-20</lastmod>
     </url>
@@ -172,12 +177,27 @@
     </url>
 
     <url>
+    	<loc>https://localhost/015_tasks/03_task_generateCICD.html</loc>
+    	<lastmod>2026-06-20</lastmod>
+    </url>
+
+    <url>
     	<loc>https://localhost/015_tasks/03_tasks.html</loc>
     	<lastmod>2026-06-20</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
+    	<lastmod>2026-06-20</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_installBausteinsicht.html</loc>
+    	<lastmod>2026-06-20</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_lintAsciiDoc.html</loc>
     	<lastmod>2026-06-20</lastmod>
     </url>
 
