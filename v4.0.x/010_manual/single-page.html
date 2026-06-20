@@ -1068,7 +1068,7 @@ The result looks like a typeset book, not a print-to-PDF web page.</p>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Copy the example theme from <code>src/docs/pdfTheme/custom-theme.yml</code> to your project.</p>
+<p>Run <code>./dtcw4 local copyThemes pdfTheme</code> to copy the bundled <code>pdfTheme</code> (including the example <code>template_config/pdfTheme/custom-theme.yml</code>) into your project.</p>
 </li>
 <li>
 <p>Reference it from your AsciiDoc file:</p>
@@ -1332,7 +1332,7 @@ This lets you use the <a href="https://www.writethedocs.org/guide/docs-as-code/"
 </td>
 <td class="content">
 <div class="paragraph">
-<p>From the 01.01.2024 on, Atlassian turns off API V1 for Confluence Cloud, if there is a V2 equivalent. docToolchain versions from 3.1 on support API V2. If you are using an older version of docToolchain, you&#8217;ll need to upgrade to a newer version.
+<p>Since 01.01.2024, Atlassian has been turning off API V1 for Confluence Cloud wherever a V2 equivalent exists. docToolchain versions from 3.1 on support API V2. If you are using an older version of docToolchain, you&#8217;ll need to upgrade to a newer version.
 To <strong>enable API V2</strong>, set <code>useV1Api</code> to <code>false</code> in the Confluence section of the docToolchain configuration file.</p>
 </div>
 </td>
@@ -1552,7 +1552,7 @@ If you set this to <code>false</code>, ensure the <code>api</code> config is set
 </table>
 </div>
 <div class="paragraph">
-<p>If you are using Confluence Cloud, you can set this to <code>false</code> to use the new API V2. If you are using Confluence Server, you can set this to <code>true</code> to use the old API V1. If you are using Confluence Cloud and set this to <code>false</code>, you will get an error message, once Atlassian turns off API V1 (starting 01.01.2024).</p>
+<p>If you are using Confluence Cloud, you can set this to <code>false</code> to use the new API V2. If you are using Confluence Server, you can set this to <code>true</code> to use the old API V1. If you are using Confluence Cloud and set this to <code>true</code>, you will get an error message, as Atlassian has been turning off API V1 since 01.01.2024.</p>
 </div>
 <div class="paragraph">
 <p><strong>enforceNewEditor</strong></p>
@@ -1645,7 +1645,7 @@ If you receive a <code>403 - Forbidden</code> error with an existing token, crea
 <div class="paragraph">
 <p>You can also set your username, password of apitoken as an environment variable. You then do the following:
 1. Open the file that contains the environment variables:
-    a. On a Mac, go to your Home folder and open the file .zpfrofile.
+    a. On a Mac, go to your Home folder and open the file .zprofile.
 2. &#8230;&#8203;.</p>
 </div>
 <div class="paragraph">
@@ -1919,7 +1919,7 @@ Formulas are evaluated and exported statically.</p>
 </div>
 </div>
 <div class="paragraph">
-<p>Output is written to <code>src/excel/[filename]/[worksheet].(adoc|csv)</code>.
+<p>Output is written to <code>&lt;inputPath&gt;/excel/[filename]/[worksheet].(adoc|csv)</code> (by default <code>src/docs/excel/&#8230;&#8203;</code>).
 The <code>src</code> folder is used (not <code>build</code>) to preserve change history in version control.</p>
 </div>
 </div>

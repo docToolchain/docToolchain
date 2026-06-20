@@ -421,7 +421,7 @@ searching issues...
 <li><a href="#_debugging">Debugging</a>
 <ul class="sectlevel2">
 <li><a href="#_environment">Environment</a></li>
-<li><a href="#_gradle">Gradle</a></li>
+<li><a href="#_task_output_and_config">Task Output and Config</a></li>
 <li><a href="#_site_templates_gsp">Site Templates (GSP)</a></li>
 <li><a href="#_theming_menu_and_images">Theming, Menu and Images</a></li>
 <li><a href="#_script_execution_debugging">Script Execution Debugging</a></li>
@@ -471,15 +471,13 @@ This way you get to see the inner workings and you also get to add extra debug o
 </div>
 </div>
 <div class="sect2">
-<h3 id="_gradle">Gradle</h3>
+<h3 id="_task_output_and_config">Task Output and Config</h3>
 <div class="paragraph">
-<p>You get more hints about what is going on with Gradle when you add the <code>--info</code> flag to your <code>./dtcw generateSite</code> command:</p>
+<p>docToolchain v4 runs on the JVM and no longer uses Gradle, so there is no <code>--info</code> flag.
+To find out what is going on, run the task with <code>./dtcw4 generateSite</code> and inspect the task output it prints to the console, together with your <code>docToolchainConfig.groovy</code> settings.</p>
 </div>
 <div class="paragraph">
-<p><code>./dtcw generateSite --info</code></p>
-</div>
-<div class="paragraph">
-<p>This outputs all config settings as seen by docToolchain along with many other internal settings.</p>
+<p>This shows the config settings as seen by docToolchain along with many other internal details.</p>
 </div>
 </div>
 <div class="sect2">
@@ -500,7 +498,8 @@ This way you get to see the inner workings and you also get to add extra debug o
 <div class="sect2">
 <h3 id="_script_execution_debugging">Script Execution Debugging</h3>
 <div class="paragraph">
-<p>The execution of the <a href="../../../bin/doctoolchain" class="bare">../../../bin/doctoolchain</a> bash script may be traced by setting the environment variable <code>DTC_BASH_OPTS</code> to, e.g., <code>-vx</code>.</p>
+<p>In docToolchain v4 the entry point is the <code>dtcw4</code> wrapper (the v3 launcher was <code>bin/doctoolchain</code>).
+The execution of the <a href="../../../bin/doctoolchain" class="bare">../../../bin/doctoolchain</a> bash script may be traced by setting the environment variable <code>DTC_BASH_OPTS</code> to, e.g., <code>-vx</code>.</p>
 </div>
 </div>
 </div>
