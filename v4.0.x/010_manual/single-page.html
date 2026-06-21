@@ -2295,6 +2295,52 @@ Or re-save the image in any editor.</p>
 </div>
 </div>
 </details>
+</div>
+<div class="sect4">
+<h5 id="_q_can_i_tune_the_jvm_startup_for_faster_v4_builds">Q: Can I tune the JVM startup for faster v4 builds?</h5>
+<details>
+<summary class="title">Answer</summary>
+<div class="content">
+<div class="paragraph">
+<p>docToolchain v4 runs every task in a fresh, short-lived JVM (no Gradle daemon).
+To make that startup cheap, the <code>dtcw</code> wrapper launches the v4 JVM with these
+flags by default: <code>-XX:TieredStopAtLevel=1 -XX:+UseSerialGC</code>.</p>
+</div>
+<div class="paragraph">
+<p>A run that lasts only seconds never recoups the cost of the C2 JIT compiler
+optimising hot methods it abandons moments later. Capping the JIT at level 1
+(C1) removes that wasted compilation, and <code>SerialGC</code> skips parallel-GC thread
+setup. On a typical site this roughly halves the wall-clock time.</p>
+</div>
+<div class="paragraph">
+<p>The flags are a default, not a hard-coded value. Override them with the
+<code>DTC_JAVA_STARTUP_OPTS</code> environment variable:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash"># Disable the defaults entirely:
+DTC_JAVA_STARTUP_OPTS= ./dtcw4 local generateSite
+
+# Replace them with your own choice:
+DTC_JAVA_STARTUP_OPTS="-XX:+UseParallelGC" ./dtcw4 local generateSite</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+For a <strong>very</strong> large documentation set whose render runs for minutes, the C2
+JIT does eventually pay off. There, disabling the defaults
+(<code>DTC_JAVA_STARTUP_OPTS=</code>) can be faster — measure both and keep the winner.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</details>
 <hr>
 <div style="page-break-after: always;"></div>
 </div>
