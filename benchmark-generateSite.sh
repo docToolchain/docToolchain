@@ -89,30 +89,81 @@ run_tool() {
 phase_report() {
   local log="$1"
   [[ -f "$log" ]] || { echo "  (no log: $log)"; return; }
-  local t_script t_render t_jruby t_rendered t_end
+  local t_script t_render t_ready t_rendered t_end t_load
   t_script="$(ts_of 'docToolchain v4' "$log")"
   t_render="$(ts_of 'Rendering microsite' "$log")"
-  t_jruby="$(ts_of 'WARNING' "$log")"
+  t_ready="$(ts_of 'BENCH-MARKER: engine ready' "$log")"
   t_rendered="$(ts_of 'MicrositeBaker: rendered' "$log")"
   t_end="$(ts_of 'Microsite generated' "$log")"
+  # Prefer the injected marker (precise); fall back to the JRuby WARNING line.
+  t_load="$t_ready"
+  [[ -z "$t_load" ]] && t_load="$(ts_of 'WARNING' "$log")"
   echo "  $(basename "$log"):"
   printf '    %-38s %ss\n' 'dtcw + JVM + classpath/config boot' "$(delta 0 "$t_script")"
   printf '    %-38s %ss\n' 'copy theme/docs + fix headers'      "$(delta "$t_script" "$t_render")"
   # The AsciidoctorJ bake (lib load + page render) is the big block. Split it
-  # into JRuby-load vs render only if the JRuby WARNING marker is present;
-  # otherwise show the bake as one number so the time is never lost.
-  if [[ -n "$t_jruby" ]]; then
-    printf '    %-38s %ss  <- LIBS\n' 'AsciidoctorJ/JRuby native load' "$(delta "$t_render" "$t_jruby")"
-    printf '    %-38s %ss\n'          'render pages'                    "$(delta "$t_jruby" "$t_rendered")"
+  # into load vs render when a marker is available; otherwise show the bake as
+  # one number so the time is never lost.
+  if [[ -n "$t_load" ]]; then
+    printf '    %-38s %ss  <- LIBS\n' 'AsciidoctorJ/JRuby load'  "$(delta "$t_render" "$t_load")"
+    printf '    %-38s %ss\n'          'render pages + diagrams'  "$(delta "$t_load" "$t_rendered")"
   else
-    printf '    %-38s %ss  <- LIBS+RENDER (no JRuby marker)\n' \
+    printf '    %-38s %ss  <- LIBS+RENDER (no marker)\n' \
            'AsciidoctorJ bake (load + render)' "$(delta "$t_render" "$t_rendered")"
   fi
   printf '    %-38s %ss\n' 'copy images + finish'              "$(delta "$t_rendered" "$t_end")"
 }
 
+# --- Temporary monkey-patch -------------------------------------------------
+# Inject a phase marker into the *installed* v4 MicrositeBaker so we can split
+# "library load" from "render" without changing the product. A println right
+# before crawl() marks the moment AsciidoctorJ + asciidoctor-diagram are fully
+# loaded. The patch is reverted on exit and on interrupt (trap), and self-heals
+# if a previous run was killed mid-patch.
+MB_PATCHED=""
+
+find_mb() {
+  if [[ -n "${MB_FILE:-}" ]]; then printf '%s\n' "$MB_FILE"; return; fi
+  ls -1 "$HOME"/.doctoolchain/docToolchain-*/scripts/lib/MicrositeBaker.groovy 2>/dev/null \
+    | sort | tail -1
+}
+
+patch_v4() {
+  local f; f="$(find_mb)"
+  if [[ -z "$f" || ! -f "$f" ]]; then
+    echo "NOTE: MicrositeBaker.groovy not found — phase split falls back to the" >&2
+    echo "      JRuby WARNING marker. Set MB_FILE=/path/to/MicrositeBaker.groovy." >&2
+    return
+  fi
+  # Recover a clean base if a prior run left the file patched.
+  if grep -q 'BENCH-MARKER: engine ready' "$f" && [[ -f "$f.bench-bak" ]]; then
+    mv -f "$f.bench-bak" "$f"
+  fi
+  if ! grep -qE '^[[:space:]]*crawl\(\)[[:space:]]*$' "$f"; then
+    echo "NOTE: crawl() anchor not found in $f — skipping marker patch." >&2
+    return
+  fi
+  cp "$f" "$f.bench-bak"
+  sed -i '/^[[:space:]]*crawl()[[:space:]]*$/i\println "BENCH-MARKER: engine ready"' "$f"
+  MB_PATCHED="$f"
+  echo "Patched (temporary): $f"
+}
+
+unpatch_v4() {
+  if [[ -n "$MB_PATCHED" && -f "$MB_PATCHED.bench-bak" ]]; then
+    mv -f "$MB_PATCHED.bench-bak" "$MB_PATCHED"
+    echo "Reverted patch:      $MB_PATCHED"
+    MB_PATCHED=""
+  fi
+}
+trap unpatch_v4 EXIT INT TERM
+# ---------------------------------------------------------------------------
+
 run_tool v3 "${V3_CMD[@]}"
+
+patch_v4
 run_tool v4 "${V4_CMD[@]}"
+unpatch_v4
 
 echo "=== v4 phase breakdown ==="
 echo "(run 1 is cold; compare it against the warm runs to isolate gem-unpack)"
