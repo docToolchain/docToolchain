@@ -96,11 +96,19 @@ phase_report() {
   t_rendered="$(ts_of 'MicrositeBaker: rendered' "$log")"
   t_end="$(ts_of 'Microsite generated' "$log")"
   echo "  $(basename "$log"):"
-  printf '    %-36s %ss\n'        'dtcw + JVM + classpath/config boot' "$(delta 0 "$t_script")"
-  printf '    %-36s %ss\n'        'copy theme/docs + fix headers'      "$(delta "$t_script" "$t_render")"
-  printf '    %-36s %ss  <- LIBS\n' 'AsciidoctorJ / JRuby load'        "$(delta "$t_render" "$t_jruby")"
-  printf '    %-36s %ss\n'        'render pages'                       "$(delta "$t_jruby" "$t_rendered")"
-  printf '    %-36s %ss\n'        'copy images + finish'               "$(delta "$t_rendered" "$t_end")"
+  printf '    %-38s %ss\n' 'dtcw + JVM + classpath/config boot' "$(delta 0 "$t_script")"
+  printf '    %-38s %ss\n' 'copy theme/docs + fix headers'      "$(delta "$t_script" "$t_render")"
+  # The AsciidoctorJ bake (lib load + page render) is the big block. Split it
+  # into JRuby-load vs render only if the JRuby WARNING marker is present;
+  # otherwise show the bake as one number so the time is never lost.
+  if [[ -n "$t_jruby" ]]; then
+    printf '    %-38s %ss  <- LIBS\n' 'AsciidoctorJ/JRuby native load' "$(delta "$t_render" "$t_jruby")"
+    printf '    %-38s %ss\n'          'render pages'                    "$(delta "$t_jruby" "$t_rendered")"
+  else
+    printf '    %-38s %ss  <- LIBS+RENDER (no JRuby marker)\n' \
+           'AsciidoctorJ bake (load + render)' "$(delta "$t_render" "$t_rendered")"
+  fi
+  printf '    %-38s %ss\n' 'copy images + finish'              "$(delta "$t_rendered" "$t_end")"
 }
 
 run_tool v3 "${V3_CMD[@]}"
