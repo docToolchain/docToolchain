@@ -124,8 +124,13 @@ MB_PATCHED=""
 
 find_mb() {
   if [[ -n "${MB_FILE:-}" ]]; then printf '%s\n' "$MB_FILE"; return; fi
-  ls -1 "$HOME"/.doctoolchain/docToolchain-*/scripts/lib/MicrositeBaker.groovy 2>/dev/null \
-    | sort | tail -1
+  # Bash expands the glob in sorted order, so the last existing match is the
+  # highest version. (find/ls avoided to keep shellcheck SC2012 happy.)
+  local f latest=""
+  for f in "$HOME"/.doctoolchain/docToolchain-*/scripts/lib/MicrositeBaker.groovy; do
+    [[ -e "$f" ]] && latest="$f"
+  done
+  [[ -n "$latest" ]] && printf '%s\n' "$latest"
 }
 
 patch_v4() {
