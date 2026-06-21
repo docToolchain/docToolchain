@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: arc42/chapters/08_concepts.html -->
+    <!-- sourceuri: arc42/adrs/adr-14-task-discovery.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>Cross-cutting Concepts</title>
+    <title>ADR-14: Task Discovery via `// @task` Marker</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -370,7 +370,7 @@
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../../arc42/chapters/08_concepts.html" title="Cross-cutting Concepts">Cross-cutting Concepts</a>
                                 
                             </li>
@@ -420,11 +420,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/chapters/08_concepts.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-14-task-discovery.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Cross-cutting+Concepts%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/chapters/08_concepts.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-14%3A+Task+Discovery+via+%60%2F%2F+%40task%60+Marker%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-14-task-discovery.adoc%0A%23branch:%20main-4.x" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -432,7 +432,7 @@
         <hr />
 <script>
 const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
-const searchTerm = "arc42/chapters/08_concepts.adoc";
+const searchTerm = "arc42/adrs/adr-14-task-discovery.adoc";
 </script>
 
 <script src="../../js/issues.js"></script>
@@ -482,23 +482,8 @@ searching issues...
 
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#section-concepts">Cross-cutting Concepts</a>
 <ul class="sectlevel2">
-<li><a href="#_threat_model_stride">Threat Model (STRIDE)</a></li>
-<li><a href="#_security">Security</a></li>
-<li><a href="#_test">Test</a></li>
-<li><a href="#_observability">Observability</a></li>
-<li><a href="#_error_handling">Error Handling</a></li>
-<li><a href="#_configuration_management">Configuration Management</a></li>
-<li><a href="#_script_execution_model">Script Execution Model</a></li>
-<li><a href="#_authentication_mechanisms">Authentication Mechanisms</a></li>
-<li><a href="#_headless_ci_mode">Headless / CI Mode</a></li>
-<li><a href="#_llm_integration_architecture">LLM Integration Architecture</a></li>
-<li><a href="#_content_transformation_pipeline">Content Transformation Pipeline</a></li>
-<li><a href="#_custom_site_generator_micrositebaker_replacing_jbake">Custom Site Generator: MicrositeBaker (replacing jBake)</a></li>
-</ul>
-</li>
+<li><a href="#_adr_14_task_discovery_via_task_marker">ADR-14: Task Discovery via <code>// @task</code> Marker</a></li>
 </ul>
 </div>
 
@@ -529,465 +514,78 @@ searching issues...
     <div class="td-content">
         <p>
             
-<div class="sect1">
-<h2 id="section-concepts">Cross-cutting Concepts</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This chapter leads with the five mandated baseline crosscutting concepts (Threat Model, Security, Test, Observability, Error Handling), then documents the docToolchain-specific concepts (Configuration Management, Script Execution Model, LLM Integration, Content Transformation Pipeline, Custom Site Generator).</p>
-</div>
 <div class="sect2">
-<h3 id="_threat_model_stride">Threat Model (STRIDE)</h3>
-<div class="paragraph">
-<p>docToolchain is a local CLI document generator. It reads local files, runs Groovy scripts and Groovy config, calls external REST APIs (Confluence, Jira), optionally calls LLM providers (via the daCLI ecosystem), optionally renders diagrams through a Kroki-compatible server (local Docker by default, ADR-9), and downloads Java, AsciiDoctor, templates, and themes over the network on first use.
-The following STRIDE analysis enumerates the concrete threats this attack surface creates. Each threat carries a stable ID (<code>T-NNN</code>) referenced by the mitigations in the Security concept below and by the risks in <a href="#section-technical-risks">[section-technical-risks]</a>.</p>
+<h3 id="_adr_14_task_discovery_via_task_marker">ADR-14: Task Discovery via <code>// @task</code> Marker</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Accepted (inferred) — reconstructed from <code>dtcw</code>; no prior written decision.</p>
+</li>
+<li>
+<p><strong>Context</strong>: v4 tasks are plain Groovy files in <code>scripts/</code>. That same directory also holds <strong>non-task</strong> code: <code>scripts/lib/</code> helpers (<code>DtcConfig.groovy</code>, <code>MicrositeBaker.groovy</code>, <code>DtcRestClient.groovy</code>, …) that are loaded by tasks but must never be invoked as tasks themselves. The wrapper needs a reliable way to answer two questions — "which scripts may a user run?" (for <code>dtcw tasks</code>) and "is this name a real task?" (for <code>dtcw &lt;name&gt;</code>) — without a central registry that every new task has to be added to.</p>
+</li>
+<li>
+<p><strong>Decision</strong>: A script is a runnable task <strong>iff</strong> it carries the line marker <code>// @task</code> within its first 5 lines. <code>dtcw</code> discovers tasks by scanning <code>scripts/*.groovy</code> and grepping the file head for that marker (<code>dtcw</code> lines 685 and 702); listing and validation use the same check. Adding a task is therefore a one-file operation: drop a <code>scripts/&lt;name&gt;.groovy</code> with <code>// @task</code> near the top — no edit to any registry, build file, or the wrapper.</p>
+</li>
+<li>
+<p><strong>Alternatives considered</strong>:</p>
+</li>
+</ul>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 16.6666%;">
-<col style="width: 16.6666%;">
-<col style="width: 50%;">
-<col style="width: 16.6668%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">T-ID</th>
-<th class="tableblock halign-left valign-top">STRIDE Category</th>
-<th class="tableblock halign-left valign-top">Threat</th>
-<th class="tableblock halign-left valign-top">Affected Building Block (Ch5)</th>
+<th class="tableblock halign-left valign-top">Criterion</th>
+<th class="tableblock halign-left valign-top">A: Central task registry/list</th>
+<th class="tableblock halign-left valign-top">B: <code>// @task</code> marker (chosen)</th>
+<th class="tableblock halign-left valign-top">C: Every <code>scripts/*.groovy</code> is a task</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">T-001</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tampering / Spoofing</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A man-in-the-middle or spoofed mirror serves a tampered AsciiDoctor install, template, theme, or JDK during <code>dtcw</code> auto-bootstrapping. The user runs attacker-controlled code without noticing.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Wrapper Layer (<code>dtcw</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adding a task (no central edit)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (must edit a registry too)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (drop one marked file)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (drop one file)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">T-002</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information Disclosure</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">API tokens and credentials leak into console output, build logs, or generated CI snippets — for example a stack trace that echoes <code>confluence.credentials</code>, or a token printed by a verbose script.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy Scripts (<code>publishToConfluence.groovy</code>, <code>exportJiraIssues.groovy</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Excludes <code>lib/</code> helpers from being run</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (only listed names run)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (helpers lack the marker / live in <code>lib/</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (helpers would be runnable, dangerous)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">T-003</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tampering / Elevation of Privilege</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A malicious <code>include::</code> directive or crafted file path performs path traversal on export, writing outside the intended <code>outputPath</code> (zip-slip / <code>../</code> escape) or reading files outside the project.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy Scripts (<code>generateSite.groovy</code>, <code>collectIncludes.groovy</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Self-documenting / greppable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (registry is separate from code)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (marker sits in the script it describes)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">T-004</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Information Disclosure / Tampering (SSRF)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A configured <code>diagramServer</code>, <code>confluence.api</code>, or <code>jira.api</code> URL points at an internal address. docToolchain is coerced into requesting internal-only endpoints (SSRF), or diagram source text is exfiltrated to a third-party Kroki host.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy Scripts + Wrapper (diagram rendering, REST clients)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation simplicity (wrapper)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (parse a registry)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (one <code>grep</code> over the file head)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">T-005</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Elevation of Privilege</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Untrusted <code>docToolchainConfig.groovy</code> or a downloaded Groovy script executes arbitrary code. Groovy config is executable code, not data — opening a hostile project and running <code>dtcw</code> runs whatever the config author wrote.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Wrapper Layer + Groovy Scripts (<code>ConfigSlurper</code> evaluation)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">T-006</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Tampering / Elevation of Privilege</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A tampered or vulnerable dependency JAR in <code>lib/</code> (ADR-7) executes with full user privileges. A poisoned transitive dependency resolved at release time ships to every user.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy Scripts (<code>lib/*.jar</code> classpath)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–1</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+4</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+1</strong></p></td>
 </tr>
 </tbody>
 </table>
-</div>
-<div class="sect2">
-<h3 id="_security">Security</h3>
-<div class="paragraph">
-<p>Each mitigation below references the <code>T-IDs</code> it closes. Mitigations marked "already in code" exist today; the rest are decided concepts to be enforced as the v4 scripts mature.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 50%;">
-<col style="width: 16.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Mitigation</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Closes</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">HTTPS for all downloads and APIs</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dtcw</code> and the REST clients use HTTPS for JDK/AsciiDoctor/template/theme downloads and for Confluence/Jira calls. Pinned versions (ADR-6) reduce the window for a swapped artifact.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">T-001, T-004</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Secrets via environment, never config</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Partly planned — not yet enforced in code.</strong> Credentials should be supplied through environment variables or external config rather than committed into <code>docToolchainConfig.groovy</code>. The intended controls — masking properties whose names contain <code>credential</code>, <code>token</code>, or <code>secret</code> in all output, and suppressing stack traces for user-recoverable errors (ADR-8) — are <strong>not implemented yet</strong>: no redaction code exists, and <code>DtcRestClient</code> currently rethrows raw exceptions that can carry a token-bearing URL or header. Tracked as <strong>R-008</strong> (and gated on the ADR-8 <code>DtcException</code> carrier, R-004). This matters mainly for the CI / public-build context below, not for the local-trust default.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">T-002</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Zip-slip / path-traversal guard</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>In code.</strong> <code>downloadTemplate</code> and the custom site generator guard against zip-slip when unpacking archives (canonical-path containment check), and export paths are resolved against and constrained to <code>outputPath</code>. <strong>Caveat:</strong> <code>include::</code> resolution is <strong>not</strong> confined to the project tree — AsciiDoctor runs under <code>SafeMode.UNSAFE</code> with <code>allow-uri-read</code> (<code>generateHTML.groovy</code>), by design, so a document can include files outside the tree or over HTTP. That is consistent with the local-trust model (the project&#8217;s own <code>docToolchainConfig.groovy</code> already executes arbitrary Groovy, T-005) and is an <strong>accepted risk</strong> for local rendering — see the trust-model note below.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">T-003</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Local-default diagram rendering</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Planned — not yet in code.</strong> The intended control (default <code>diagramServer = 'docker'</code> keeping diagram source on the machine, plus a per-run warning whenever an external URL is configured — ADR-9, QS-16) does <strong>not exist yet</strong> (R-007). Today diagrams render via the embedded <code>asciidoctor-diagram</code>, and <code>DiagramToolHints.groovy</code> actively points users at the public <code>kroki.io</code> <strong>without</strong> a warning. Goal #1 (no implicit cloud processing) holds today only because the default path is local — not because the control is enforced.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">T-004</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Treat config and scripts as trusted code</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Documentation states plainly that <code>docToolchainConfig.groovy</code> and project scripts are executed, not parsed — users must trust a project before running <code>dtcw</code> in it, exactly as with any build tool. CodeNarc static analysis (ADR-11) and gitleaks pre-commit hooks reduce the chance of introducing unsafe patterns.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">T-005</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dependency CVE scanning</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Trivy scans <code>lib/*.jar</code> for known CVEs on every PR and weekly (ADR-11), with results in the GitHub Security tab. Release-time dependency resolution is reproducible and pinned (ADR-7).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">T-006</p></td>
-</tr>
-</tbody>
-</table>
-<div class="sect3">
-<h4 id="_trust_model_and_accepted_risks">Trust model and accepted risks</h4>
-<div class="paragraph">
-<p>docToolchain&#8217;s primary use case is <strong>a developer rendering their own trusted documentation locally</strong>. In that model the user already runs their own code: <code>docToolchainConfig.groovy</code> is Groovy that executes (T-005), so <code>SafeMode.UNSAFE</code>, <code>allow-uri-read</code>, arbitrary <code>include::</code>, and config-supplied URLs grant an attacker nothing beyond what running one&#8217;s own project already grants. These are therefore <strong>accepted risks by design</strong>, not defects: download checksum/signature pinning, SSRF via config URLs, <code>SafeMode.UNSAFE</code> as the default, and code execution via config/scripts. They are recorded here for honesty; no mitigation is planned for the local case.</p>
-</div>
-<div class="paragraph">
-<p>The one context where this model breaks is <strong>CI / public-PR builds</strong>: build logs can be public, and a pull request can introduce a malicious <code>include::https://…[]</code> or a credential-shaped value. There the gaps above become real-ish. The honest posture is <strong>CI hardening, not "the tool is insecure"</strong>: redact secret-shaped config keys before any <code>println config</code> / error output (R-008), and consider a non-<code>UNSAFE</code> safe mode for rendering untrusted PRs. The mitigations marked <strong>planned</strong> in the table above (T-002, T-004) are the ones that close this CI gap.</p>
-</div>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_test">Test</h3>
-<div class="paragraph">
-<p>Testing follows a pyramid, broad at the base:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Unit (Spock)</strong> — the largest layer. Spock specifications in <code>core/</code> cover the Atlassian client/converter logic, configuration handling, and HTML transformation. These trace to the business rules they enforce (e.g. idempotent Confluence publishing — QS-4 — is unit-tested via MD5 hash comparison).</p>
-</li>
-<li>
-<p><strong>Wrapper (BATS)</strong> — <code>test/*.bats</code> exercise <code>dtcw</code> across local/Docker/SDKMAN environments (QS-2, QS-6). They trace to the cross-platform and installability use cases.</p>
-</li>
-<li>
-<p><strong>Integration</strong> — end-to-end <code>./dtcw local generateHTML</code> / <code>generatePDF</code> / <code>generateSite</code> runs verify the full pipeline against real AsciiDoctor (QS-8). Environment-dependent tests skip gracefully (QS-7).</p>
+<p><strong>Consequences</strong>: The marker is the single source of truth for "is this a task", so the task list never drifts from the files on disk. Helper code stays safe simply by living in <code>scripts/lib/</code> and omitting the marker. The cost is a convention contributors must know: a new task silently fails to appear if the <code>// @task</code> line is missing or pushed past the first 5 lines — a documentation/onboarding concern rather than a runtime risk. The marker is intentionally a comment, so it costs nothing at execution time and survives any Groovy tooling that ignores comments.</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>CodeNarc static analysis (ADR-11) sits alongside the pyramid as a non-execution gate. Property-based tests are deferred until the v4 Groovy scripts carry business logic (ADR-11).</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_observability">Observability</h3>
-<div class="paragraph">
-<p>docToolchain is a short-lived CLI process, so observability is console- and artifact-based rather than service telemetry:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Console output</strong> — progress and warnings stream to stdout/stderr. The privacy warning (QS-16) and actionable error guidance (ADR-8) are the primary user-facing signals.</p>
-</li>
-<li>
-<p><strong>Build artifacts</strong> — generated HTML/PDF/microsite under <code>build/</code>, plus the HTML sanity-check report, are the durable evidence of a run.</p>
-</li>
-<li>
-<p><strong>Exit codes</strong> — differentiated exit codes (0 success, 1 user-fixable, 2 config, 3 API/network, 99 bug) make runs observable to CI/CD without log scraping (ADR-8, QS-5).</p>
-</li>
-<li>
-<p><strong>LLM trace / cost (planned)</strong> — for LLM-assisted workflows via the ecosystem, an optional <code>llm-trace</code> and per-run token/cost summary are envisioned so LLM interactions are auditable. Not yet implemented.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_error_handling">Error Handling</h3>
-<div class="paragraph">
-<p>Error handling is governed by ADR-8 (Actionable Error Guidance). Every user-recoverable error is thrown as a <code>DtcException</code> (or <code>DtcConfigException</code> / <code>DtcApiException</code>) carrying a mandatory <code>guidance</code> field — what the user should <strong>do</strong>, not what went wrong. A top-level handler maps each exception type to a differentiated exit code and prints only the guidance message; stack traces appear only for genuine bugs (exit code 99).</p>
-</div>
-<div class="paragraph">
-<p>This is a recovery-first, fail-fast strategy: there is no silent <code>println</code>-and-continue. Network and API failures surface as <code>DtcApiException</code> with a remediation step (e.g. "check `confluence.credentials`"). See ADR-8 for the exception hierarchy, exit-code table, and the runtime error scenario in <a href="#section-runtime-view">[section-runtime-view]</a>.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_configuration_management">Configuration Management</h3>
-<div class="paragraph">
-<p>Unchanged from v3 in principle, simplified in implementation.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 40%;">
-<col style="width: 40%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Layer</th>
-<th class="tableblock halign-left valign-top">Source</th>
-<th class="tableblock halign-left valign-top">Precedence</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Project configuration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>docToolchainConfig.groovy</code> — Groovy DSL parsed by <code>ConfigSlurper</code>. Contains all task-specific settings. (<code>Config.groovy</code> is the template, not a separate config file.)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Primary. Project-specific settings.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CLI overrides</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Environment variables (<code>DTC_CONFIG_FILE</code>, <code>DTC_HEADLESS</code>) and script arguments.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Highest. Per-invocation customization.</p></td>
-</tr>
-</tbody>
-</table>
-<div class="paragraph">
-<p><code>gradle.properties</code> is removed with Gradle. Build-time settings that were in <code>gradle.properties</code> (e.g., JVM memory, version) move to <code>dtcw</code> defaults or <code>docToolchainConfig.groovy</code>.</p>
-</div>
-<div class="paragraph">
-<p><strong>LLM-first principle (QS-15):</strong> The config file contains <strong>only deviations from defaults</strong>. All defaults are defined in code and documented in a machine-readable reference. This enables LLMs to read a config, understand what the user has customized, and make targeted changes — without hallucinating or duplicating default values. A minimal config for a project that only generates HTML might be just:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">inputFiles = [
-    [file: 'arc42/arc42.adoc', formats: ['html','pdf']],
-]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Everything else (outputPath, inputPath, imageDirs, etc.) comes from sensible defaults in the scripts.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_script_execution_model">Script Execution Model</h3>
-<div class="paragraph">
-<p>v4 replaces Gradle&#8217;s task model with direct script invocation:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>User runs <code>./dtcw &lt;taskName&gt;</code> (e.g., <code>./dtcw generateHTML</code>)</p>
-</li>
-<li>
-<p><code>dtcw</code> constructs the classpath from the <code>lib/</code> directory (or resolves via Grape)</p>
-</li>
-<li>
-<p><code>dtcw</code> invokes <code>java -cp &lt;classpath&gt; groovy.ui.GroovyMain scripts/&lt;taskName&gt;.groovy</code></p>
-</li>
-<li>
-<p>The script loads configuration, executes its logic, writes output, and exits</p>
-</li>
-<li>
-<p>No daemon persists between invocations</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Tasks are independent. There are no implicit dependencies. Users call them in the order they need: <code>./dtcw generateHTML</code> then <code>./dtcw publishToConfluence</code>. This matches real-world usage patterns.</p>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_authentication_mechanisms">Authentication Mechanisms</h3>
-<div class="paragraph">
-<p>The concrete authentication details behind the Security concept above (mitigation for T-002). Unchanged from v3:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Basic Auth</strong>: Username + API token, encoded as Base64 for <code>Authorization</code> header.</p>
-</li>
-<li>
-<p><strong>Bearer Token</strong>: OAuth or personal access token.</p>
-</li>
-<li>
-<p>Credentials should be supplied via environment variables or external config rather than committed into config files.</p>
-</li>
-<li>
-<p><em>Planned (R-008):</em> properties containing <code>credential</code>, <code>token</code>, or <code>secret</code> are to be masked in output. <strong>No redaction is implemented yet</strong> — do not rely on masking today, especially in CI logs.</p>
-</li>
-<li>
-<p>User-Agent header identifies docToolchain version for API calls.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_headless_ci_mode">Headless / CI Mode</h3>
-<div class="paragraph">
-<p>Unchanged from v3:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>dtcw</code> detects headless mode via <code>DTC_HEADLESS</code> environment variable or absence of TTY.</p>
-</li>
-<li>
-<p>All interactive prompts suppressed; defaults auto-accepted.</p>
-</li>
-<li>
-<p>Critical for GitHub Actions, Jenkins, and other CI/CD platforms.</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_llm_integration_architecture">LLM Integration Architecture</h3>
-<div class="paragraph">
-<p>New in v4. docToolchain supports LLMs through an ecosystem of companion tools:</p>
-</div>
-<div class="paragraph">
-<p><strong>daCLI (MCP Server)</strong> provides 10 tools for structured document access:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><code>get_structure(max_depth)</code> — Hierarchical table of contents</p>
-</li>
-<li>
-<p><code>get_section(path)</code> — Read section content by path</p>
-</li>
-<li>
-<p><code>search(query)</code> — Full-text search with relevance scoring</p>
-</li>
-<li>
-<p><code>update_section(path, content, expected_hash)</code> — Modify with optimistic locking</p>
-</li>
-<li>
-<p><code>insert_content(path, position, content)</code> — Insert before/after/append</p>
-</li>
-<li>
-<p><code>get_elements(type, section)</code> — Extract code blocks, tables, diagrams</p>
-</li>
-<li>
-<p><code>get_metadata()</code> — Project-wide statistics</p>
-</li>
-<li>
-<p><code>get_dependencies()</code> — Include tree</p>
-</li>
-<li>
-<p><code>get_sections_at_level(level)</code> — Sections by depth</p>
-</li>
-<li>
-<p><code>validate_structure()</code> — Structural integrity checks</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Semantic Anchors</strong> are well-defined terms, methodologies, and frameworks that serve as precise reference points when communicating with LLMs.
-Rather than lengthy instructions, a single anchor like "arc42", "SOLID Principles", or "Socratic Method" activates a rich body of interconnected knowledge in the LLM.
-Quality criteria for anchors: Precise, Rich, Consistent, Attributable. (See <a href="https://llm-coding.github.io/Semantic-Anchors/" class="bare">https://llm-coding.github.io/Semantic-Anchors/</a>)</p>
-</div>
-<div class="paragraph">
-<p><strong>Semantic Contracts</strong> bundle multiple anchors into reusable working agreements, defined in <code>CLAUDE.md</code> files:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>"Specification = Use Cases with Activity Diagrams + Gherkin acceptance criteria"</p>
-</li>
-<li>
-<p>"Architecture Documentation = arc42 + C4 diagrams + ADRs with Pugh Matrix"</p>
-</li>
-<li>
-<p>"Writing Style = Plain English according to Strunk &amp; White"</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>These contracts ensure that LLMs apply consistent conventions across a project without repeating detailed instructions in every prompt.</p>
-</div>
-<div class="paragraph">
-<p><strong>LLM-Prompts</strong> provide reusable interaction patterns:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>arc42 Chapter Generator — step-by-step architecture documentation</p>
-</li>
-<li>
-<p>Architecture Decision Record — structured decisions with Pugh Matrix</p>
-</li>
-<li>
-<p>Quality Scenarios Builder — testable quality requirements</p>
-</li>
-<li>
-<p>Risk Assessment, Stakeholder Analysis, Context Diagram Generator, etc.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p><strong>Bausteinsicht</strong> provides architecture-as-code:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>JSONC models that LLMs read/write natively</p>
-</li>
-<li>
-<p>Bidirectional draw.io sync — model changes update diagrams and vice versa</p>
-</li>
-<li>
-<p>CLI with <code>--format json</code> for programmatic access</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_content_transformation_pipeline">Content Transformation Pipeline</h3>
-<div class="paragraph">
-<p>Unchanged from v3 for Confluence publishing:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>AsciiDoctor generates HTML5 from AsciiDoc sources</p>
-</li>
-<li>
-<p>jsoup parses HTML into DOM tree</p>
-</li>
-<li>
-<p>HtmlTransformer rewrites DOM for Confluence compatibility</p>
-</li>
-<li>
-<p>LinkTransformer rewrites cross-references</p>
-</li>
-<li>
-<p>CodeBlockTransformer formats code blocks as Confluence macros</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
-<h3 id="_custom_site_generator_micrositebaker_replacing_jbake">Custom Site Generator: MicrositeBaker (replacing jBake)</h3>
-<div class="paragraph">
-<p>New in v4. The site generator (<code>MicrositeBaker</code>, <code>scripts/lib/MicrositeBaker.groovy</code>, driven by <code>generateSite.groovy</code>) is a Groovy class implementing:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><strong>Content scanning</strong>: Recursively scan <code>src/docs/</code> for <code>.adoc</code> files</p>
-</li>
-<li>
-<p><strong>Metadata extraction</strong>: Parse jBake-compatible headers (<code>:jbake-title:</code>, <code>:jbake-type:</code>, <code>:jbake-menu:</code>, <code>:jbake-order:</code>)</p>
-</li>
-<li>
-<p><strong>In-memory model</strong>: Build content model (pages, menu structure, tags) — no database</p>
-</li>
-<li>
-<p><strong>AsciiDoc rendering</strong>: Call AsciiDoctor CLI (external tool, ADR-6) for each page</p>
-</li>
-<li>
-<p><strong>Template application</strong>: Apply Groovy SimpleTemplate templates (reused from v3&#8217;s <code>src/site/templates/</code>)</p>
-</li>
-<li>
-<p><strong>Static output</strong>: Write HTML + assets to <code>build/microsite/output/</code></p>
-</li>
-<li>
-<p><strong>Modern theme</strong>: Clean, responsive design with dark mode and search (Phase 1)</p>
-</li>
-</ol>
-</div>
-</div>
 </div>
 </div>
         </p>
@@ -1017,11 +615,11 @@ Quality criteria for anchors: Precise, Rich, Consistent, Attributable. (See <a h
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Cross-cutting+Concepts%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/chapters/08_concepts.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-14%3A+Task+Discovery+via+%60%2F%2F+%40task%60+Marker%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-14-task-discovery.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Cross-cutting+Concepts%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/chapters/08_concepts.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-14%3A+Task+Discovery+via+%60%2F%2F+%40task%60+Marker%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-14-task-discovery.adoc">tell
     us how we can improve</a>.
     </p>
 </div>

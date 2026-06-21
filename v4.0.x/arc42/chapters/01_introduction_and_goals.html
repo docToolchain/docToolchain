@@ -558,7 +558,7 @@ Gradle is removed entirely (ADR-3), the <code>core/</code> compilation module is
 <p><strong>Git metadata extraction</strong>: Generate changelogs and contributor lists from Git history</p>
 </li>
 <li>
-<p><strong>Cross-platform CLI</strong>: Provide a single command-line interface (<code>dtcw</code>) that works on Linux, macOS (including Apple Silicon), and Windows</p>
+<p><strong>Cross-platform CLI</strong>: Provide a single command-line interface (<code>dtcw</code>) that works on Linux, macOS (including Apple Silicon), and Windows. <em>v4 scope:</em> Linux and macOS run natively; <strong>Windows is supported via WSL2</strong> in v4 — the native <code>dtcw.ps1</code>/<code>dtcw.bat</code> v4 execution path is not yet implemented (Chapter 11 debt).</p>
 </li>
 <li>
 <p><strong>Multiple execution environments</strong>: Support local installation, Docker containers, and SDKMAN-based installation</p>
@@ -607,7 +607,7 @@ Gradle is removed entirely (ADR-3), the <code>core/</code> compilation module is
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cross-platform portability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Identical output on Linux, macOS (including Apple Silicon), and Windows across local, Docker, and SDKMAN environments. (QS-2, QS-10)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identical output on Linux, macOS (including Apple Silicon), and Windows across local, Docker, and SDKMAN environments. In v4, Windows is covered via WSL2; a native Windows wrapper path is planned (Chapter 11 debt). (QS-2, QS-10)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>

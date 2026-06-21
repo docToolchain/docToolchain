@@ -519,10 +519,10 @@ searching issues...
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Status</strong>: Accepted (for v4)</p>
+<p><strong>Status</strong>: Accepted (for v4) — <strong>decided; not yet implemented</strong>. The <code>diagramServer</code> config key, the auto-started local Kroki container, and the QS-16 external-URL warning described below do <strong>not</strong> exist in code yet (risk <strong>R-007</strong>). Today diagrams render through the embedded <code>asciidoctor-diagram</code> (AsciidoctorJ, ADR-6 revised), and <code>DiagramToolHints.groovy</code> points users at the public <code>kroki.io</code> <strong>with no warning</strong> — which is exactly the privacy gap this ADR closes. Goal&nbsp;#1 (no implicit cloud processing) is therefore met today only because the default render path happens to be local, not because the documented control is enforced.</p>
 </li>
 <li>
-<p><strong>Context</strong>: With AsciiDoctor externalized (ADR-6), diagram rendering (PlantUML, Mermaid, GraphViz, Ditaa, C4, BPMN) requires either locally installed tools or a diagram server. Local tools mean installing PlantUML (Java), Graphviz (C binary), Mermaid (Node.js) — different package managers per OS, per tool. A diagram server reduces this to one URL.</p>
+<p><strong>Context</strong>: With AsciiDoctor embedded (ADR-6, revised), diagram rendering (PlantUML, Mermaid, GraphViz, Ditaa, C4, BPMN) requires either locally installed tools or a diagram server. Local tools mean installing PlantUML (Java), Graphviz (C binary), Mermaid (Node.js) — different package managers per OS, per tool. A diagram server reduces this to one URL.</p>
 <div class="paragraph">
 <p>Kroki provides a unified HTTP API for 20+ diagram formats. Crucially, Kroki is <strong>compatible with GitLab&#8217;s built-in PlantUML server API</strong>. Large enterprises running GitLab already have a PlantUML server — replacing it with Kroki gives them all diagram formats for free. This makes enterprise adoption frictionless.</p>
 </div>

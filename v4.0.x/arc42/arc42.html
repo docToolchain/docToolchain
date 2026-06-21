@@ -519,8 +519,10 @@ searching issues...
 <li><a href="#_adr_10_risk_based_quality_assurance_vibe_coding_risk_radar">9.10. ADR-10: Risk-Based Quality Assurance (Vibe-Coding Risk Radar)</a></li>
 <li><a href="#_adr_11_tier_2_mitigation_implementation">9.11. ADR-11: Tier 2 Mitigation Implementation</a></li>
 <li><a href="#_adr_12_tasks_are_self_contained_groovy_scripts_no_compiled_core_module_at_runtime">9.12. ADR-12: Tasks Are Self-Contained Groovy Scripts — No Compiled Core Module at Runtime</a></li>
-<li><a href="#_adr_tbd_1_confluence_api_version_strategy">9.13. ADR-TBD-1: Confluence API Version Strategy</a></li>
-<li><a href="#_adr_tbd_2_jira_cloud_vs_server_client_architecture">9.14. ADR-TBD-2: Jira Cloud vs. Server Client Architecture</a></li>
+<li><a href="#_adr_13_dtcw4_dtcw_wrapper_delegation">9.13. ADR-13: <code>dtcw4</code> → <code>dtcw</code> Wrapper Delegation</a></li>
+<li><a href="#_adr_14_task_discovery_via_task_marker">9.14. ADR-14: Task Discovery via <code>// @task</code> Marker</a></li>
+<li><a href="#_adr_tbd_1_confluence_api_version_strategy">9.15. ADR-TBD-1: Confluence API Version Strategy</a></li>
+<li><a href="#_adr_tbd_2_jira_cloud_vs_server_client_architecture">9.16. ADR-TBD-2: Jira Cloud vs. Server Client Architecture</a></li>
 </ul>
 </li>
 <li><a href="#section-quality-scenarios">10. Quality Requirements</a>
@@ -611,7 +613,7 @@ Gradle is removed entirely (ADR-3), the <code>core/</code> compilation module is
 <p><strong>Git metadata extraction</strong>: Generate changelogs and contributor lists from Git history</p>
 </li>
 <li>
-<p><strong>Cross-platform CLI</strong>: Provide a single command-line interface (<code>dtcw</code>) that works on Linux, macOS (including Apple Silicon), and Windows</p>
+<p><strong>Cross-platform CLI</strong>: Provide a single command-line interface (<code>dtcw</code>) that works on Linux, macOS (including Apple Silicon), and Windows. <em>v4 scope:</em> Linux and macOS run natively; <strong>Windows is supported via WSL2</strong> in v4 — the native <code>dtcw.ps1</code>/<code>dtcw.bat</code> v4 execution path is not yet implemented (Chapter 11 debt).</p>
 </li>
 <li>
 <p><strong>Multiple execution environments</strong>: Support local installation, Docker containers, and SDKMAN-based installation</p>
@@ -660,7 +662,7 @@ Gradle is removed entirely (ADR-3), the <code>core/</code> compilation module is
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cross-platform portability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Identical output on Linux, macOS (including Apple Silicon), and Windows across local, Docker, and SDKMAN environments. (QS-2, QS-10)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Identical output on Linux, macOS (including Apple Silicon), and Windows across local, Docker, and SDKMAN environments. In v4, Windows is covered via WSL2; a native Windows wrapper path is planned (Chapter 11 debt). (QS-2, QS-10)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
@@ -1301,7 +1303,7 @@ The key structural change from v3: Gradle Orchestration and the compiled Core Mo
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Key differences from v3</strong>: No Gradle overhead. No JRuby initialization (AsciiDoctor runs as external CLI, ADR-6). The Groovy script orchestrates the AsciiDoctor CLI call in batch mode. Startup is JVM cold start (~1-2s) + AsciiDoctor process spawn (~0.1s).</p>
+<p><strong>Key differences from v3</strong>: No Gradle overhead and no Gradle daemon. AsciiDoctor runs <strong>embedded</strong> as AsciidoctorJ in the same JVM (ADR-6, revised — the external-CLI option was evaluated but not adopted), so JRuby still initialises in-process on the first render. The Groovy script invokes AsciidoctorJ directly for all <code>inputFiles</code>. Startup is JVM cold start plus JRuby/AsciidoctorJ initialisation (~1-2s combined).</p>
 </div>
 </div>
 <div class="sect2">
@@ -1529,17 +1531,17 @@ The following STRIDE analysis enumerates the concrete threats this attack surfac
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Secrets via environment, never config</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Credentials are supplied through CLI arguments or environment variables, never stored in <code>docToolchainConfig.groovy</code>. Properties whose names contain <code>credential</code>, <code>token</code>, or <code>secret</code> are masked in all output (see the Configuration Management concept below). Stack traces are suppressed for user-recoverable errors (ADR-8), so tokens are not echoed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Partly planned — not yet enforced in code.</strong> Credentials should be supplied through environment variables or external config rather than committed into <code>docToolchainConfig.groovy</code>. The intended controls — masking properties whose names contain <code>credential</code>, <code>token</code>, or <code>secret</code> in all output, and suppressing stack traces for user-recoverable errors (ADR-8) — are <strong>not implemented yet</strong>: no redaction code exists, and <code>DtcRestClient</code> currently rethrows raw exceptions that can carry a token-bearing URL or header. Tracked as <strong>R-008</strong> (and gated on the ADR-8 <code>DtcException</code> carrier, R-004). This matters mainly for the CI / public-build context below, not for the local-trust default.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">T-002</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Zip-slip / path-traversal guard</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The custom site generator already guards against zip-slip when unpacking templates (carried into <code>generateSite</code>). Export paths are resolved against and constrained to <code>outputPath</code>; <code>include::</code> resolution is confined to the project tree.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>In code.</strong> <code>downloadTemplate</code> and the custom site generator guard against zip-slip when unpacking archives (canonical-path containment check), and export paths are resolved against and constrained to <code>outputPath</code>. <strong>Caveat:</strong> <code>include::</code> resolution is <strong>not</strong> confined to the project tree — AsciiDoctor runs under <code>SafeMode.UNSAFE</code> with <code>allow-uri-read</code> (<code>generateHTML.groovy</code>), by design, so a document can include files outside the tree or over HTTP. That is consistent with the local-trust model (the project&#8217;s own <code>docToolchainConfig.groovy</code> already executes arbitrary Groovy, T-005) and is an <strong>accepted risk</strong> for local rendering — see the trust-model note below.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">T-003</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Local-default diagram rendering</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The default <code>diagramServer = 'docker'</code> (ADR-9) keeps diagram source text on the machine. Any external URL triggers a per-run warning (QS-16) so SSRF/exfiltration via a third-party host is an explicit, informed choice, not a silent default.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Planned — not yet in code.</strong> The intended control (default <code>diagramServer = 'docker'</code> keeping diagram source on the machine, plus a per-run warning whenever an external URL is configured — ADR-9, QS-16) does <strong>not exist yet</strong> (R-007). Today diagrams render via the embedded <code>asciidoctor-diagram</code>, and <code>DiagramToolHints.groovy</code> actively points users at the public <code>kroki.io</code> <strong>without</strong> a warning. Goal #1 (no implicit cloud processing) holds today only because the default path is local — not because the control is enforced.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">T-004</p></td>
 </tr>
 <tr>
@@ -1554,6 +1556,15 @@ The following STRIDE analysis enumerates the concrete threats this attack surfac
 </tr>
 </tbody>
 </table>
+<div class="sect3">
+<h4 id="_trust_model_and_accepted_risks">8.2.1. Trust model and accepted risks</h4>
+<div class="paragraph">
+<p>docToolchain&#8217;s primary use case is <strong>a developer rendering their own trusted documentation locally</strong>. In that model the user already runs their own code: <code>docToolchainConfig.groovy</code> is Groovy that executes (T-005), so <code>SafeMode.UNSAFE</code>, <code>allow-uri-read</code>, arbitrary <code>include::</code>, and config-supplied URLs grant an attacker nothing beyond what running one&#8217;s own project already grants. These are therefore <strong>accepted risks by design</strong>, not defects: download checksum/signature pinning, SSRF via config URLs, <code>SafeMode.UNSAFE</code> as the default, and code execution via config/scripts. They are recorded here for honesty; no mitigation is planned for the local case.</p>
+</div>
+<div class="paragraph">
+<p>The one context where this model breaks is <strong>CI / public-PR builds</strong>: build logs can be public, and a pull request can introduce a malicious <code>include::https://…[]</code> or a credential-shaped value. There the gaps above become real-ish. The honest posture is <strong>CI hardening, not "the tool is insecure"</strong>: redact secret-shaped config keys before any <code>println config</code> / error output (R-008), and consider a non-<code>UNSAFE</code> safe mode for rendering untrusted PRs. The mitigations marked <strong>planned</strong> in the table above (T-002, T-004) are the ones that close this CI gap.</p>
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_test">8.3. Test</h3>
@@ -1698,10 +1709,10 @@ The following STRIDE analysis enumerates the concrete threats this attack surfac
 <p><strong>Bearer Token</strong>: OAuth or personal access token.</p>
 </li>
 <li>
-<p>Credentials supplied via CLI arguments or environment variables — never stored in config files.</p>
+<p>Credentials should be supplied via environment variables or external config rather than committed into config files.</p>
 </li>
 <li>
-<p>Properties containing <code>credential</code>, <code>token</code>, or <code>secret</code> are masked in output.</p>
+<p><em>Planned (R-008):</em> properties containing <code>credential</code>, <code>token</code>, or <code>secret</code> are to be masked in output. <strong>No redaction is implemented yet</strong> — do not rely on masking today, especially in CI logs.</p>
 </li>
 <li>
 <p>User-Agent header identifies docToolchain version for API calls.</p>
@@ -1928,37 +1939,37 @@ Statuses follow Nygard values (Proposed / Accepted / Superseded / Deprecated). <
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-3</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Remove Gradle — Direct Groovy Script Execution</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted (for v4)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-4</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Replace jBake for Static Site Generation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted (for v4)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-5</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LLM-Native Architecture</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted (for v4)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-6</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">AsciiDoctor as External Tool with Versioned Auto-Installation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted (for v4) — revised (AsciidoctorJ embedded)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-7</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>lib/</code> Directory for Remaining Java Dependencies</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted (for v4)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-8</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Actionable Error Guidance</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted (for v4) — carrier pending (R-004)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-9</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Server-Based Diagram Rendering via Kroki-Compatible API</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted (for v4) — not yet implemented (R-007)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-10</p></td>
@@ -1974,6 +1985,16 @@ Statuses follow Nygard values (Proposed / Accepted / Superseded / Deprecated). <
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-12</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Tasks Are Self-Contained Groovy Scripts — No Compiled Core Module at Runtime</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Accepted (port pending)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-13</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dtcw4</code> → <code>dtcw</code> Wrapper Delegation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted (inferred)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-14</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Task Discovery via <code>// @task</code> Marker</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted (inferred)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-TBD-1</p></td>
@@ -2424,7 +2445,7 @@ With AsciiDoctor externalized (ADR-6), the custom SSG only needs to handle templ
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Status</strong>: Accepted (for v4)</p>
+<p><strong>Status</strong>: Accepted (for v4) — <strong>revised</strong>: the analysis below favoured the external CLI, but v4 as built <strong>embeds AsciidoctorJ in-process</strong> (the external-CLI option was <strong>not</strong> adopted). See the <strong>Revision</strong> note after the matrix; the footprint consequences are reflected in ADR-7 and Chapter 11.</p>
 </li>
 <li>
 <p><strong>Context</strong>: In v3, AsciiDoctor is embedded as <code>asciidoctorj</code> — a Java wrapper that bundles JRuby (~30 MB). Together with transitive dependencies, this adds ~25 JARs and ~45 MB to the classpath. JRuby initialization adds 2-3 seconds to every startup. AsciiDoctor also exists as a standalone CLI tool installable via <code>gem</code>, <code>brew</code>, or <code>apt</code>.</p>
@@ -2518,6 +2539,37 @@ With AsciiDoctor externalized (ADR-6), the custom SSG only needs to handle templ
 <div class="paragraph">
 <p>At equal score, <strong>QS-9 (Startup + Throughput) is Quality Goal #1</strong> and breaks the tie in favor of the external tool. The –1 for First-Run and Determinism in the raw external-tool score are eliminated by <code>dtcw</code> auto-installing a pinned version.</p>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="title">Revision — embedded AsciidoctorJ was chosen, not the external CLI</div>
+<div class="paragraph">
+<p>v4 as built <strong>embeds AsciidoctorJ in-process</strong> (<code>generateHTML.groovy</code> imports <code>org.asciidoctor.Asciidoctor</code> and calls <code>Asciidoctor.Factory.create()</code>; <code>lib/</code> ships <code>asciidoctorj-<strong>.jar</code> and <code>jruby-</strong>.jar</code>). The external-CLI decision above was reversed during implementation because the <strong>Library</strong> column wins on the criteria that turned out to matter most in practice:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>First-run / determinism (QS-3/QS-4):</strong> no <code>gem</code>/Ruby toolchain to install or pin per machine — the exact renderer ships in <code>lib/</code>.</p>
+</li>
+<li>
+<p><strong>Apple Silicon / portability (QS-10):</strong> a single bundled JVM artifact, no native gem builds.</p>
+</li>
+<li>
+<p><strong>Bundled diagram support:</strong> AsciidoctorJ carries <code>asciidoctor-diagram</code>, so diagrams render without a separate tool (see ADR-9).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The cost is the footprint and startup the matrix scored against the Library: JRuby adds ~1-2s to first render, and the <code>asciidoctorj</code>/<code>jruby</code> JARs stay in <code>lib/</code> (~49 MB). That cost is recorded honestly in <strong>ADR-7</strong> (real footprint: 177 JARs / ~126 MB) and as technical debt in <strong>Chapter 11</strong>. Re-externalising AsciiDoctor to reclaim the footprint remains an option for a future version.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="ulist">
 <ul>
 <li>
@@ -2540,7 +2592,7 @@ With AsciiDoctor externalized (ADR-6), the custom SSG only needs to handle templ
 </div>
 </li>
 <li>
-<p><strong>Consequences</strong>: <code>dtcw</code> gains an AsciiDoctor installation step (parallel to existing Java install logic). Scripts call <code>asciidoctor</code> CLI instead of asciidoctorj Java API. The <code>asciidoctorj</code>, <code>asciidoctorj-diagram</code>, <code>asciidoctorj-pdf</code>, and JRuby JARs are removed from the distribution. Remaining Java dependencies (~27 JARs, ~23 MB) are small enough for a simple <code>lib/</code> directory.</p>
+<p><strong>Consequences</strong> (as built, per the <strong>Revision</strong> above): scripts call the <strong>AsciidoctorJ Java API</strong> in-process — there is no external <code>asciidoctor</code> CLI step in <code>dtcw</code>. The <code>asciidoctorj</code>, <code>asciidoctorj-diagram</code>, <code>asciidoctorj-pdf</code>, and JRuby JARs are <strong>retained</strong> in <code>lib/</code> (the original plan to remove them was not carried out). This keeps v4 self-contained at the cost of footprint and JRuby startup — the real <code>lib/</code> footprint is <strong>177 JARs / ~126 MB</strong> (ADR-7), tracked as technical debt in <a href="#section-technical-risks">Risks and Technical Debts</a>.</p>
 </li>
 </ul>
 </div>
@@ -2553,9 +2605,12 @@ With AsciiDoctor externalized (ADR-6), the custom SSG only needs to handle templ
 <p><strong>Status</strong>: Accepted (for v4)</p>
 </li>
 <li>
-<p><strong>Context</strong>: With AsciiDoctor externalized (ADR-6), the remaining Java dependencies are:</p>
+<p><strong>Context</strong>: AsciiDoctor is embedded as AsciidoctorJ (ADR-6, revised), so the Java dependencies that ship in <code>lib/</code> are:</p>
 <div class="ulist">
 <ul>
+<li>
+<p>AsciidoctorJ + <code>asciidoctor-diagram</code> + JRuby (~49 MB) — in-process rendering</p>
+</li>
 <li>
 <p>Groovy runtime (~15 JARs, ~10 MB)</p>
 </li>
@@ -2569,16 +2624,19 @@ With AsciiDoctor externalized (ADR-6), the custom SSG only needs to handle templ
 <p>Apache POI 5.3.0 (~10 JARs, ~10 MB) — Excel export (only needed for exportExcel)</p>
 </li>
 <li>
-<p>Total: ~30 JARs, ~23 MB</p>
+<p>plus transitive dependencies of all of the above</p>
+</li>
+<li>
+<p><strong>Actual total: 177 JARs, ~126 MB</strong> (<code>ls lib/*.jar | wc -l</code> = 177; <code>du -sh lib/</code> = 126M). The early estimate of ~30 JARs / 23 MB assumed AsciiDoctor would be externalized; embedding it (ADR-6, revised) is the dominant contributor.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Decision</strong>: Ship all remaining JARs in a <code>lib/</code> directory. <code>dtcw</code> sets the classpath via <code>java -cp lib/*</code>. No runtime resolution, no Grape, no downloads.</p>
+<p><strong>Decision</strong>: Ship all JARs in a <code>lib/</code> directory. <code>dtcw</code> sets the classpath via <code>java -cp lib/*</code>. No runtime resolution, no Grape, no downloads.</p>
 </li>
 <li>
-<p><strong>Rationale</strong>: 23 MB is small enough to bundle. Zero resolution overhead supports QS-9. Fully offline-capable. Deterministic — every user gets the same JARs. The simplest possible solution.</p>
+<p><strong>Rationale</strong>: A bundled <code>lib/</code> gives zero resolution overhead (supports QS-9), full offline capability, and determinism — every user gets the exact same JARs. The simplest possible solution. The trade-off is size: the real footprint is ~126 MB (not the 23 MB first estimated), driven by embedding AsciidoctorJ/JRuby (ADR-6, revised) — recorded as technical debt in Chapter 11.</p>
 </li>
 <li>
 <p><strong>Alternatives considered</strong>:</p>
@@ -2655,13 +2713,13 @@ With AsciiDoctor externalized (ADR-6), the custom SSG only needs to handle templ
 <p>Supports <strong>QS-2 (Offline)</strong>: Works without internet after installation.</p>
 </li>
 <li>
-<p>Neutral on <strong>QS-6 (Distribution size)</strong>: 23 MB is acceptable (v3 with Gradle is ~50 MB).</p>
+<p>Risk on <strong>QS-6 (Distribution size)</strong>: the real footprint is ~126 MB — <strong>larger</strong> than v3&#8217;s Gradle distribution (~50 MB), because AsciidoctorJ/JRuby are embedded rather than externalized. Making the POI and AsciidoctorJ JARs optional/lazy is a tracked future optimization (Chapter 11 debt).</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Consequences</strong>: Release process must resolve all transitive dependencies and package them into <code>lib/</code>. A simple shell script or one-time Gradle/Maven call at release time handles this. POI JARs could be made optional in a future optimization (load only when <code>saveExcel=true</code>). This decision creates risk <strong>R-005 (release-time dependency resolution)</strong> — a tampered or vulnerable JAR (threat T-006) would reach every user — and contributes to <strong>R-003 (script loading and classpath conflicts)</strong>; both are tracked in <a href="#section-technical-risks">Risks and Technical Debts</a>.</p>
+<p><strong>Consequences</strong>: Release process must resolve all transitive dependencies and package them into <code>lib/</code> (177 JARs today). A simple shell script or one-time Gradle/Maven call at release time handles this. The ~126 MB footprint is the main downside; POI and AsciidoctorJ/JRuby JARs could be made optional/lazy in a future optimization (load only when the task needs them) — tracked as technical debt in <a href="#section-technical-risks">Risks and Technical Debts</a>. This decision creates risk <strong>R-005 (release-time dependency resolution)</strong> — a tampered or vulnerable JAR (threat T-006) would reach every user — and contributes to <strong>R-003 (script loading and classpath conflicts)</strong>; both are tracked in <a href="#section-technical-risks">Risks and Technical Debts</a>.</p>
 <div class="ulist">
 <ul>
 <li>
@@ -2684,7 +2742,7 @@ With AsciiDoctor externalized (ADR-6), the custom SSG only needs to handle templ
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Status</strong>: Accepted (for v4)</p>
+<p><strong>Status</strong>: Accepted (for v4) — <strong>decided; carrier not yet implemented</strong>. No <code>DtcException</code> class exists in the codebase today; v4 scripts still use <code>System.exit</code> + <code>println</code> (including the library <code>DtcConfig.load()</code>). The hierarchy and top-level handler below are the committed design, pending implementation (risk <strong>R-004</strong>). This same carrier is the missing piece for the T-002 secret-redaction mitigation (Chapter 8) and the systemic <code>System.exit</code> finding (#1627).</p>
 </li>
 <li>
 <p><strong>Context</strong>: v3 error handling is inconsistent: <code>RuntimeException</code> in core, <code>GradleException</code> in scripts, <code>println</code> + silent continuation in some scripts. With Gradle removed, <code>GradleException</code> is gone. More importantly, the fundamental problem is not <strong>how</strong> errors are thrown, but <strong>what</strong> the user sees. v3 shows stack traces and technical error messages. Users cannot determine what to do next.</p>
@@ -2693,7 +2751,7 @@ With AsciiDoctor externalized (ADR-6), the custom SSG only needs to handle templ
 </div>
 </li>
 <li>
-<p><strong>Decision</strong>: Every user-recoverable error must include an <strong>actionable remediation step</strong> — not what went wrong, but what the user should do to fix it. Implemented as a lightweight exception hierarchy with mandatory guidance messages:</p>
+<p><strong>Decision</strong>: Every user-recoverable error must include an <strong>actionable remediation step</strong> — not what went wrong, but what the user should do to fix it. To be implemented as a lightweight exception hierarchy with mandatory guidance messages:</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">// Shared helper (lib/DtcException.groovy, ~25 LOC)
@@ -2724,14 +2782,14 @@ if (!outputFile.canWrite()) {
 if (!configFile.exists()) {
     throw new DtcConfigException(
         "Config-Datei '${configFile.name}' nicht gefunden. " +
-        "Erstelle sie mit: ./dtcw downloadTemplate"
+        "Erstelle sie mit: ./dtcw4 downloadTemplate"
     )
 }
 
 if (response.statusCode == 401) {
     throw new DtcApiException(
         "Confluence-Authentifizierung fehlgeschlagen. " +
-        "Prüfe confluence.credentials in docToolchainConfig.groovy oder übergib -Pconfluence.credentials=user:token"
+        "Prüfe confluence.api/credentials in docToolchainConfig.groovy bzw. die passenden Umgebungsvariablen."
     )
 }
 
@@ -2841,10 +2899,10 @@ catch (Exception e)          { System.err.println("BUG: ${e.message}"); e.printS
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Status</strong>: Accepted (for v4)</p>
+<p><strong>Status</strong>: Accepted (for v4) — <strong>decided; not yet implemented</strong>. The <code>diagramServer</code> config key, the auto-started local Kroki container, and the QS-16 external-URL warning described below do <strong>not</strong> exist in code yet (risk <strong>R-007</strong>). Today diagrams render through the embedded <code>asciidoctor-diagram</code> (AsciidoctorJ, ADR-6 revised), and <code>DiagramToolHints.groovy</code> points users at the public <code>kroki.io</code> <strong>with no warning</strong> — which is exactly the privacy gap this ADR closes. Goal&nbsp;#1 (no implicit cloud processing) is therefore met today only because the default render path happens to be local, not because the documented control is enforced.</p>
 </li>
 <li>
-<p><strong>Context</strong>: With AsciiDoctor externalized (ADR-6), diagram rendering (PlantUML, Mermaid, GraphViz, Ditaa, C4, BPMN) requires either locally installed tools or a diagram server. Local tools mean installing PlantUML (Java), Graphviz (C binary), Mermaid (Node.js) — different package managers per OS, per tool. A diagram server reduces this to one URL.</p>
+<p><strong>Context</strong>: With AsciiDoctor embedded (ADR-6, revised), diagram rendering (PlantUML, Mermaid, GraphViz, Ditaa, C4, BPMN) requires either locally installed tools or a diagram server. Local tools mean installing PlantUML (Java), Graphviz (C binary), Mermaid (Node.js) — different package managers per OS, per tool. A diagram server reduces this to one URL.</p>
 <div class="paragraph">
 <p>Kroki provides a unified HTTP API for 20+ diagram formats. Crucially, Kroki is <strong>compatible with GitLab&#8217;s built-in PlantUML server API</strong>. Large enterprises running GitLab already have a PlantUML server — replacing it with Kroki gives them all diagram formats for free. This makes enterprise adoption frictionless.</p>
 </div>
@@ -3464,7 +3522,155 @@ diagramServer = 'https://gitlab.company.com/kroki/'</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_adr_tbd_1_confluence_api_version_strategy">9.13. ADR-TBD-1: Confluence API Version Strategy</h3>
+<h3 id="_adr_13_dtcw4_dtcw_wrapper_delegation">9.13. ADR-13: <code>dtcw4</code> → <code>dtcw</code> Wrapper Delegation</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Accepted (inferred) — reconstructed from <code>dtcw4</code> and <code>dtcw</code>; no prior written decision.</p>
+</li>
+<li>
+<p><strong>Context</strong>: v4 is distributed as a git checkout that must be built (<code>packageLibs</code>) before use, and it coexists on developer machines with v3. A project needs <strong>some</strong> entry point checked into its repository, but that entry point should not pin a project to one machine&#8217;s installation, nor require every project to carry the full wrapper logic. Two concerns pull apart: the <strong>per-project bootstrap</strong> (what lives in the repo) and the <strong>installed runtime</strong> (what actually runs tasks).</p>
+</li>
+<li>
+<p><strong>Decision</strong>: Ship only a thin <code>dtcw4</code> bootstrap in the project directory. It performs v4-specific installation — clone <code>main-4.x</code>, run <code>packageLibs</code> — into <code>~/.doctoolchain/docToolchain-&lt;version&gt;/</code>, then <strong>delegates all task execution</strong> to the installed <code>dtcw</code> there (<code>dtcw4</code> lines 5-9). The installed <code>dtcw</code> owns environment detection, classpath construction from <code>lib/</code>, and task dispatch. Only <code>dtcw4</code> needs to live in a project; upgrading the runtime does not touch the project.</p>
+</li>
+<li>
+<p><strong>Alternatives considered</strong>:</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Criterion</th>
+<th class="tableblock halign-left valign-top">A: One fat wrapper in project</th>
+<th class="tableblock halign-left valign-top">B: Thin <code>dtcw4</code> + delegate (chosen)</th>
+<th class="tableblock halign-left valign-top">C: Global install only, no project wrapper</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Per-project footprint</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (full wrapper copied into every repo)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (one small bootstrap file)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (nothing in repo)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Version isolation (v3/v4 coexist)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (project pins its copy)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (runtime installed per version under <code>~/.doctoolchain</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (one global version wins)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">First-run install UX</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (wrapper must still install)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (bootstrap installs then delegates)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (user must pre-install manually)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Maintenance (one place to fix wrapper logic)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (logic duplicated across projects)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (logic lives in the installed <code>dtcw</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–2</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+4</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+1</strong></p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Consequences</strong>: A project commits one small <code>dtcw4</code> file. The heavy wrapper logic lives once in the installed <code>dtcw</code>, so fixes ship with a runtime upgrade rather than requiring every project to re-copy a wrapper. The delegation seam means task-execution behaviour is identical whether invoked via <code>dtcw4</code> or the installed <code>dtcw</code> directly. The bootstrap depends on <code>git</code> and network access on first install; this is the same install-time dependency already accepted for Java/AsciiDoctor provisioning and is not separately risk-tracked.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_14_task_discovery_via_task_marker">9.14. ADR-14: Task Discovery via <code>// @task</code> Marker</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Accepted (inferred) — reconstructed from <code>dtcw</code>; no prior written decision.</p>
+</li>
+<li>
+<p><strong>Context</strong>: v4 tasks are plain Groovy files in <code>scripts/</code>. That same directory also holds <strong>non-task</strong> code: <code>scripts/lib/</code> helpers (<code>DtcConfig.groovy</code>, <code>MicrositeBaker.groovy</code>, <code>DtcRestClient.groovy</code>, …) that are loaded by tasks but must never be invoked as tasks themselves. The wrapper needs a reliable way to answer two questions — "which scripts may a user run?" (for <code>dtcw tasks</code>) and "is this name a real task?" (for <code>dtcw &lt;name&gt;</code>) — without a central registry that every new task has to be added to.</p>
+</li>
+<li>
+<p><strong>Decision</strong>: A script is a runnable task <strong>iff</strong> it carries the line marker <code>// @task</code> within its first 5 lines. <code>dtcw</code> discovers tasks by scanning <code>scripts/*.groovy</code> and grepping the file head for that marker (<code>dtcw</code> lines 685 and 702); listing and validation use the same check. Adding a task is therefore a one-file operation: drop a <code>scripts/&lt;name&gt;.groovy</code> with <code>// @task</code> near the top — no edit to any registry, build file, or the wrapper.</p>
+</li>
+<li>
+<p><strong>Alternatives considered</strong>:</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Criterion</th>
+<th class="tableblock halign-left valign-top">A: Central task registry/list</th>
+<th class="tableblock halign-left valign-top">B: <code>// @task</code> marker (chosen)</th>
+<th class="tableblock halign-left valign-top">C: Every <code>scripts/*.groovy</code> is a task</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adding a task (no central edit)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (must edit a registry too)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (drop one marked file)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (drop one file)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Excludes <code>lib/</code> helpers from being run</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (only listed names run)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (helpers lack the marker / live in <code>lib/</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (helpers would be runnable, dangerous)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Self-documenting / greppable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (registry is separate from code)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (marker sits in the script it describes)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation simplicity (wrapper)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (parse a registry)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (one <code>grep</code> over the file head)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–1</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+4</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+1</strong></p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Consequences</strong>: The marker is the single source of truth for "is this a task", so the task list never drifts from the files on disk. Helper code stays safe simply by living in <code>scripts/lib/</code> and omitting the marker. The cost is a convention contributors must know: a new task silently fails to appear if the <code>// @task</code> line is missing or pushed past the first 5 lines — a documentation/onboarding concern rather than a runtime risk. The marker is intentionally a comment, so it costs nothing at execution time and survives any Groovy tooling that ignores comments.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_tbd_1_confluence_api_version_strategy">9.15. ADR-TBD-1: Confluence API Version Strategy</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -3477,7 +3683,7 @@ diagramServer = 'https://gitlab.company.com/kroki/'</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_adr_tbd_2_jira_cloud_vs_server_client_architecture">9.14. ADR-TBD-2: Jira Cloud vs. Server Client Architecture</h3>
+<h3 id="_adr_tbd_2_jira_cloud_vs_server_client_architecture">9.16. ADR-TBD-2: Jira Cloud vs. Server Client Architecture</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -3501,7 +3707,7 @@ This section refines those goals into a structured quality tree and concrete, me
 </div>
 <div class="paragraph">
 <p>Quality scenarios QS-1 through QS-8 were derived from v3 codebase analysis.
-Quality scenarios QS-9 through QS-14 were derived from the v4 architecture requirements.</p>
+Quality scenarios QS-9 through QS-19 were derived from the v4 architecture requirements.</p>
 </div>
 <div class="sect2">
 <h3 id="_quality_requirements_overview">10.1. Quality Requirements Overview</h3>
@@ -3848,12 +4054,28 @@ This chapter separates <strong>Risks</strong> (uncertain future events) from <st
 <td class="tableblock halign-left valign-top"><p class="tableblock">Service-level tests around the new script before the core module is dropped (ADR-12).</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R-007</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Diagram-privacy control not implemented.</strong> ADR-9&#8217;s <code>diagramServer</code> key, local-Kroki default, and per-run external-URL warning (QS-16) do not exist in code; <code>DiagramToolHints</code> points users at public <code>kroki.io</code> without a warning. Quality Goal #1 (no implicit cloud processing) is met today only because the default render path happens to be local.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MEDIUM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implement ADR-9 (<code>diagramServer</code> switch + QS-16 warning); until then, document the local-default behaviour. Closes T-004.</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R-005</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Release-time dependency resolution.</strong> AsciiDoctor is externalized (ADR-6); ~30 JARs ship in <code>lib/</code> (ADR-7). The release process must resolve transitive dependencies and a tampered/vulnerable JAR (T-006) would reach every user (QS-4).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Release-time dependency resolution.</strong> AsciiDoctor is embedded (ADR-6, revised); <strong>177 JARs (~126 MB)</strong> ship in <code>lib/</code> (ADR-7). The release process must resolve transitive dependencies and a tampered/vulnerable JAR (T-006) would reach every user (QS-4).</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Low</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LOW</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ch8 <strong>Security</strong> concept — Trivy CVE scan of <code>lib/*.jar</code> (ADR-11); pinned, reproducible resolution (ADR-7).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R-008</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>No secret redaction in output.</strong> No code masks <code>credential</code>/<code>token</code>/<code>secret</code>-shaped values, and <code>DtcRestClient</code> rethrows raw exceptions. Harmless under the local-trust model, but a credential can leak into a public CI / PR build log.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LOW</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ch8 <strong>Security</strong> concept — redact secret-shaped keys before any <code>println config</code> / error output; gated on the ADR-8 <code>DtcException</code> carrier (R-004). Closes T-002.</p></td>
 </tr>
 </tbody>
 </table>
@@ -3892,6 +4114,16 @@ This chapter separates <strong>Risks</strong> (uncertain future events) from <st
 <td class="tableblock halign-left valign-top"><p class="tableblock">External Tool Export scripts (<code>exportEA.groovy</code>, <code>exportPPT.groovy</code>, <code>exportVisio.groovy</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EA, PowerPoint, and Visio export remain Windows-only (VBScript COM automation). No fallback on Linux/macOS, burdening cross-platform portability (QS-2).</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lib/</code> footprint (~126 MB)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wrapper Layer / <code>lib/</code> (ADR-7)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Embedding AsciidoctorJ + JRuby (ADR-6, revised) makes <code>lib/</code> 177 JARs / ~126 MB — larger than v3&#8217;s ~50 MB. Making POI and AsciidoctorJ/JRuby optional or lazily loaded would cut typical-run footprint substantially (QS-6).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No v4 Windows wrapper path</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wrapper Layer (<code>dtcw.ps1</code>, <code>dtcw.bat</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The v4 <code>GroovyMain</code> execution path exists only in the Bash <code>dtcw</code>; <code>dtcw.ps1</code>/<code>dtcw.bat</code> carry no v4 path. Windows v4 works only via WSL2 today (see Chapter 1 goal scope). Burdens cross-platform portability (QS-2, Goal #3).</p></td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -3927,7 +4159,7 @@ This chapter separates <strong>Risks</strong> (uncertain future events) from <st
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Heavy dependency footprint (60-80 JARs)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Resolved by ADR-6 + ADR-7. AsciiDoctor externalized (–45 MB, –25 JARs). Remaining ~30 JARs (~23 MB) shipped in <code>lib/</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Not resolved — reversed.</strong> The plan to externalize AsciiDoctor (ADR-6) was dropped; v4 embeds AsciidoctorJ + JRuby, so <code>lib/</code> is 177 JARs / ~126 MB — larger than v3. Reclassified as technical debt above, not a resolved risk.</p></td>
 </tr>
 </tbody>
 </table>
@@ -3952,7 +4184,7 @@ This chapter separates <strong>Risks</strong> (uncertain future events) from <st
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>dtcw</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>docToolchain wrapper. Cross-platform CLI entry point (Bash, PowerShell, Batch) that abstracts environment detection, Java installation, and Gradle invocation. The primary interface for all docToolchain operations.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>docToolchain wrapper. Cross-platform CLI entry point (Bash, PowerShell, Batch) that abstracts environment detection and Java installation. In v4 it builds the classpath from the <code>lib/</code> directory and invokes the Groovy task scripts directly — there is no Gradle (ADR-3). The primary interface for all docToolchain operations; the v4 wrapper is <code>dtcw4</code>.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Docs-as-code</em></p></td>
@@ -3960,15 +4192,15 @@ This chapter separates <strong>Risks</strong> (uncertain future events) from <st
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Script Plugin</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A Gradle script file (<code>scripts/*.gradle</code>) that registers one or more Gradle tasks for a specific feature (e.g., <code>exportJiraIssues.gradle</code>). Applied to the build via <code>apply from:</code> in <code>build.gradle</code>.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>(v3 — removed in v4, ADR-3.)</strong> A Gradle script file (<code>scripts/<strong>.gradle</code>) that registered one or more Gradle tasks for a specific feature (e.g., <code>exportJiraIssues.gradle</code>), applied via <code>apply from:</code> in <code>build.gradle</code>. In v4 each task is a self-contained Groovy script (<code>scripts/</strong>.groovy</code>) run directly, with no Gradle.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Core Module</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>The <code>core/</code> subproject containing business logic as a standalone Groovy library, independent of the Gradle build system. Packaged as a Shadow JAR.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>(v3 — being retired in v4, ADR-12.)</strong> The <code>core/</code> subproject containing business logic as a standalone Groovy library. In v4 task logic moves back into <code>scripts/lib/</code> Groovy sources loaded at runtime; the compiled module is no longer on the runtime classpath.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Shadow JAR</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A fat JAR that bundles all runtime dependencies into a single artifact. The core module is distributed this way so that Script Plugins can use it without managing transitive dependencies.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em><strong>(v3 — removed in v4, ADR-7.)</strong> A fat JAR that bundled all runtime dependencies into a single artifact for the Core Module. v4 ships its dependencies as individual JARs in the <code>lib/</code> directory instead.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>ConfigObject</em></p></td>
@@ -3976,11 +4208,11 @@ This chapter separates <strong>Risks</strong> (uncertain future events) from <st
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>ConfigService</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wrapper class around <code>ConfigObject</code> that provides typed property access via dot-notation paths (e.g., <code>getConfigProperty("confluence.api")</code>) and subtree extraction.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>Wrapper around <code>ConfigObject</code> providing property access via dot-notation paths (e.g., <code>get("confluence.api")</code>) and subtree extraction. In v4 this is the script-loaded <code>DtcConfig</code> helper (<code>scripts/lib/DtcConfig.groovy</code>), which replaces the v3 compiled <code>ConfigService</code>.</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>Microsite</em></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A complete static documentation website generated by jBake from AsciiDoc sources and Groovy Server Page (GSP) templates. Includes navigation, search, theming, and multiple content sections.</em></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>A complete static documentation website generated by docToolchain&#8217;s built-in static site generator (<code>MicrositeBaker</code>, ADR-4) from AsciiDoc sources and Groovy Server Page (GSP) templates. Includes navigation, search, theming, and multiple content sections. (v3 used jBake.)</em></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><em>inputFiles</em></p></td>
