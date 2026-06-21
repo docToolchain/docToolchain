@@ -282,18 +282,18 @@ var documents = [
 
 {
     "id": 35,
-    "uri": "015_tasks/03_task_generateCICD.html",
-    "menu": "tasks",
-    "title": "generateCICD",
-    "text": " Table of Contents generateCICD About This Task Setup and Configuration After Generating Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } generateCICD About This Task This task scaffolds a ready-to-use CI/CD pipeline that builds your documentation with dtcw4 and publishes it. The generated pipeline reflects the v4 architecture — it bootstraps docToolchain with the dtcw4 wrapper, with no Gradle and no legacy Docker image. Two providers are supported: Provider File written Publishes to github (default) .github/workflows/docs.yml GitHub Pages gitlab .gitlab-ci.yml GitLab Pages Setup and Configuration # GitHub Actions (default) ./dtcw4 local generateCICD # or explicitly choose a provider ./dtcw4 local generateCICD --provider gitlab The task refuses to overwrite an existing pipeline file. Pass --force to replace it: ./dtcw4 local generateCICD --provider github --force The generated pipeline: installs Temurin Java 25, caches ~/.doctoolchain between runs, downloads dtcw4 , installs docToolchain, and runs generateSite , uploads the microsite from build/microsite/output to Pages. After Generating Commit the generated file. GitHub: enable Pages under Settings &gt; Pages &gt; Source: GitHub Actions . GitLab: the pages job publishes automatically on the default branch. Further Reading and Resources generateSite — the task the pipeline runs GitHub Pages GitLab Pages "
-},
-
-{
-    "id": 36,
     "uri": "015_tasks/03_tasks.html",
     "menu": "tasks",
     "title": "Tasks",
     "text": " Table of Contents Tasks Running a Task Listing Available Tasks Task Categories Available Tasks .gravatar img { margin-left: 3px; border-radius: 4px; } Tasks A task is a standalone Groovy script that performs a specific documentation action — generating output, exporting content, or publishing to external systems. In v4, tasks are invoked directly via the JVM — no Gradle, no build tool overhead. Each task is a self-contained .groovy file in the scripts/ directory. Running a Task ./dtcw4 local &lt;taskName&gt; Listing Available Tasks ./dtcw4 tasks Task Categories generateX These tasks render your AsciiDoc sources to a target format (HTML, PDF, microsite). exportX These tasks export content from other formats (Excel, PowerPoint) into AsciiDoc snippets or images that you can include in your documentation. Export results are typically stored under version control because the source tools may not be available on every machine. publishToX These tasks publish your documentation to external systems (currently Confluence). installX These tasks install a companion tool from the docToolchain ecosystem and — when the project has an AGENTS.md or CLAUDE.md — add a short, conditional hint so LLM agents know when to reach for it. Available Tasks Task Description generateHTML Generate HTML5 from AsciiDoc generatePDF Generate PDF from AsciiDoc generateSite Generate a microsite with navigation, search, and blog downloadTemplate Download arc42 or req42 documentation templates exportExcel Export Excel spreadsheets to AsciiDoc tables and CSV exportPPT Export PowerPoint slides as images with speaker notes publishToConfluence Publish HTML documentation to Confluence copyThemes Copy a built-in theme (jBakeTheme or pdfTheme) into your project for customization lintAsciiDoc Lint your AsciiDoc sources with the docToolchain AsciiDoc Linter generateCICD Scaffold a dtcw4-based CI/CD pipeline (GitHub Actions or GitLab CI) installBausteinsicht Install the Bausteinsicht architecture-as-code tool and hint agents to use it installDacli Install the daCLI docs-as-code CLI / MCP server and hint agents to use it "
+},
+
+{
+    "id": 36,
+    "uri": "015_tasks/03_task_generateCICD.html",
+    "menu": "tasks",
+    "title": "generateCICD",
+    "text": " Table of Contents generateCICD About This Task Setup and Configuration After Generating Further Reading and Resources .gravatar img { margin-left: 3px; border-radius: 4px; } generateCICD About This Task This task scaffolds a ready-to-use CI/CD pipeline that builds your documentation with dtcw4 and publishes it. The generated pipeline reflects the v4 architecture — it bootstraps docToolchain with the dtcw4 wrapper, with no Gradle and no legacy Docker image. Two providers are supported: Provider File written Publishes to github (default) .github/workflows/docs.yml GitHub Pages gitlab .gitlab-ci.yml GitLab Pages Setup and Configuration # GitHub Actions (default) ./dtcw4 local generateCICD # or explicitly choose a provider ./dtcw4 local generateCICD --provider gitlab The task refuses to overwrite an existing pipeline file. Pass --force to replace it: ./dtcw4 local generateCICD --provider github --force The generated pipeline: installs Temurin Java 25, caches ~/.doctoolchain between runs, downloads dtcw4 , installs docToolchain, and runs generateSite , uploads the microsite from build/microsite/output to Pages. After Generating Commit the generated file. GitHub: enable Pages under Settings &gt; Pages &gt; Source: GitHub Actions . GitLab: the pages job publishes automatically on the default branch. Further Reading and Resources generateSite — the task the pipeline runs GitHub Pages GitLab Pages "
 },
 
 {
