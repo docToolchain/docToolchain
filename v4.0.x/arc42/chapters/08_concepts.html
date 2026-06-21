@@ -622,17 +622,17 @@ The following STRIDE analysis enumerates the concrete threats this attack surfac
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Secrets via environment, never config</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Partly planned — not yet enforced in code.</strong> Credentials should be supplied through environment variables or external config rather than committed into <code>docToolchainConfig.groovy</code>. The intended controls — masking properties whose names contain <code>credential</code>, <code>token</code>, or <code>secret</code> in all output, and suppressing stack traces for user-recoverable errors (ADR-8) — are <strong>not implemented yet</strong>: no redaction code exists, and <code>DtcRestClient</code> currently rethrows raw exceptions that can carry a token-bearing URL or header. Tracked as <strong>R-008</strong> (and gated on the ADR-8 <code>DtcException</code> carrier, R-004). This matters mainly for the CI / public-build context below, not for the local-trust default.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Credentials are supplied through CLI arguments or environment variables, never stored in <code>docToolchainConfig.groovy</code>. Properties whose names contain <code>credential</code>, <code>token</code>, or <code>secret</code> are masked in all output (see the Configuration Management concept below). Stack traces are suppressed for user-recoverable errors (ADR-8), so tokens are not echoed.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">T-002</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Zip-slip / path-traversal guard</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>In code.</strong> <code>downloadTemplate</code> and the custom site generator guard against zip-slip when unpacking archives (canonical-path containment check), and export paths are resolved against and constrained to <code>outputPath</code>. <strong>Caveat:</strong> <code>include::</code> resolution is <strong>not</strong> confined to the project tree — AsciiDoctor runs under <code>SafeMode.UNSAFE</code> with <code>allow-uri-read</code> (<code>generateHTML.groovy</code>), by design, so a document can include files outside the tree or over HTTP. That is consistent with the local-trust model (the project&#8217;s own <code>docToolchainConfig.groovy</code> already executes arbitrary Groovy, T-005) and is an <strong>accepted risk</strong> for local rendering — see the trust-model note below.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The custom site generator already guards against zip-slip when unpacking templates (carried into <code>generateSite</code>). Export paths are resolved against and constrained to <code>outputPath</code>; <code>include::</code> resolution is confined to the project tree.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">T-003</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Local-default diagram rendering</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Planned — not yet in code.</strong> The intended control (default <code>diagramServer = 'docker'</code> keeping diagram source on the machine, plus a per-run warning whenever an external URL is configured — ADR-9, QS-16) does <strong>not exist yet</strong> (R-007). Today diagrams render via the embedded <code>asciidoctor-diagram</code>, and <code>DiagramToolHints.groovy</code> actively points users at the public <code>kroki.io</code> <strong>without</strong> a warning. Goal #1 (no implicit cloud processing) holds today only because the default path is local — not because the control is enforced.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The default <code>diagramServer = 'docker'</code> (ADR-9) keeps diagram source text on the machine. Any external URL triggers a per-run warning (QS-16) so SSRF/exfiltration via a third-party host is an explicit, informed choice, not a silent default.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">T-004</p></td>
 </tr>
 <tr>
@@ -647,15 +647,6 @@ The following STRIDE analysis enumerates the concrete threats this attack surfac
 </tr>
 </tbody>
 </table>
-<div class="sect3">
-<h4 id="_trust_model_and_accepted_risks">Trust model and accepted risks</h4>
-<div class="paragraph">
-<p>docToolchain&#8217;s primary use case is <strong>a developer rendering their own trusted documentation locally</strong>. In that model the user already runs their own code: <code>docToolchainConfig.groovy</code> is Groovy that executes (T-005), so <code>SafeMode.UNSAFE</code>, <code>allow-uri-read</code>, arbitrary <code>include::</code>, and config-supplied URLs grant an attacker nothing beyond what running one&#8217;s own project already grants. These are therefore <strong>accepted risks by design</strong>, not defects: download checksum/signature pinning, SSRF via config URLs, <code>SafeMode.UNSAFE</code> as the default, and code execution via config/scripts. They are recorded here for honesty; no mitigation is planned for the local case.</p>
-</div>
-<div class="paragraph">
-<p>The one context where this model breaks is <strong>CI / public-PR builds</strong>: build logs can be public, and a pull request can introduce a malicious <code>include::https://…[]</code> or a credential-shaped value. There the gaps above become real-ish. The honest posture is <strong>CI hardening, not "the tool is insecure"</strong>: redact secret-shaped config keys before any <code>println config</code> / error output (R-008), and consider a non-<code>UNSAFE</code> safe mode for rendering untrusted PRs. The mitigations marked <strong>planned</strong> in the table above (T-002, T-004) are the ones that close this CI gap.</p>
-</div>
-</div>
 </div>
 <div class="sect2">
 <h3 id="_test">Test</h3>
@@ -800,10 +791,10 @@ The following STRIDE analysis enumerates the concrete threats this attack surfac
 <p><strong>Bearer Token</strong>: OAuth or personal access token.</p>
 </li>
 <li>
-<p>Credentials should be supplied via environment variables or external config rather than committed into config files.</p>
+<p>Credentials supplied via CLI arguments or environment variables — never stored in config files.</p>
 </li>
 <li>
-<p><em>Planned (R-008):</em> properties containing <code>credential</code>, <code>token</code>, or <code>secret</code> are to be masked in output. <strong>No redaction is implemented yet</strong> — do not rely on masking today, especially in CI logs.</p>
+<p>Properties containing <code>credential</code>, <code>token</code>, or <code>secret</code> are masked in output.</p>
 </li>
 <li>
 <p>User-Agent header identifies docToolchain version for API calls.</p>

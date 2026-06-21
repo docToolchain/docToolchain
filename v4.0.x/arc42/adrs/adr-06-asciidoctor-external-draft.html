@@ -519,7 +519,7 @@ searching issues...
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Status</strong>: Accepted (for v4) — <strong>revised</strong>: the analysis below favoured the external CLI, but v4 as built <strong>embeds AsciidoctorJ in-process</strong> (the external-CLI option was <strong>not</strong> adopted). See the <strong>Revision</strong> note after the matrix; the footprint consequences are reflected in ADR-7 and Chapter 11.</p>
+<p><strong>Status</strong>: Accepted (for v4)</p>
 </li>
 <li>
 <p><strong>Context</strong>: In v3, AsciiDoctor is embedded as <code>asciidoctorj</code> — a Java wrapper that bundles JRuby (~30 MB). Together with transitive dependencies, this adds ~25 JARs and ~45 MB to the classpath. JRuby initialization adds 2-3 seconds to every startup. AsciiDoctor also exists as a standalone CLI tool installable via <code>gem</code>, <code>brew</code>, or <code>apt</code>.</p>
@@ -613,37 +613,6 @@ searching issues...
 <div class="paragraph">
 <p>At equal score, <strong>QS-9 (Startup + Throughput) is Quality Goal #1</strong> and breaks the tie in favor of the external tool. The –1 for First-Run and Determinism in the raw external-tool score are eliminated by <code>dtcw</code> auto-installing a pinned version.</p>
 </div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="title">Revision — embedded AsciidoctorJ was chosen, not the external CLI</div>
-<div class="paragraph">
-<p>v4 as built <strong>embeds AsciidoctorJ in-process</strong> (<code>generateHTML.groovy</code> imports <code>org.asciidoctor.Asciidoctor</code> and calls <code>Asciidoctor.Factory.create()</code>; <code>lib/</code> ships <code>asciidoctorj-<strong>.jar</code> and <code>jruby-</strong>.jar</code>). The external-CLI decision above was reversed during implementation because the <strong>Library</strong> column wins on the criteria that turned out to matter most in practice:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>First-run / determinism (QS-3/QS-4):</strong> no <code>gem</code>/Ruby toolchain to install or pin per machine — the exact renderer ships in <code>lib/</code>.</p>
-</li>
-<li>
-<p><strong>Apple Silicon / portability (QS-10):</strong> a single bundled JVM artifact, no native gem builds.</p>
-</li>
-<li>
-<p><strong>Bundled diagram support:</strong> AsciidoctorJ carries <code>asciidoctor-diagram</code>, so diagrams render without a separate tool (see ADR-9).</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The cost is the footprint and startup the matrix scored against the Library: JRuby adds ~1-2s to first render, and the <code>asciidoctorj</code>/<code>jruby</code> JARs stay in <code>lib/</code> (~49 MB). That cost is recorded honestly in <strong>ADR-7</strong> (real footprint: 177 JARs / ~126 MB) and as technical debt in <strong>Chapter 11</strong>. Re-externalising AsciiDoctor to reclaim the footprint remains an option for a future version.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
 <div class="ulist">
 <ul>
 <li>
@@ -666,7 +635,7 @@ searching issues...
 </div>
 </li>
 <li>
-<p><strong>Consequences</strong> (as built, per the <strong>Revision</strong> above): scripts call the <strong>AsciidoctorJ Java API</strong> in-process — there is no external <code>asciidoctor</code> CLI step in <code>dtcw</code>. The <code>asciidoctorj</code>, <code>asciidoctorj-diagram</code>, <code>asciidoctorj-pdf</code>, and JRuby JARs are <strong>retained</strong> in <code>lib/</code> (the original plan to remove them was not carried out). This keeps v4 self-contained at the cost of footprint and JRuby startup — the real <code>lib/</code> footprint is <strong>177 JARs / ~126 MB</strong> (ADR-7), tracked as technical debt in <a href="#section-technical-risks">[section-technical-risks]</a>.</p>
+<p><strong>Consequences</strong>: <code>dtcw</code> gains an AsciiDoctor installation step (parallel to existing Java install logic). Scripts call <code>asciidoctor</code> CLI instead of asciidoctorj Java API. The <code>asciidoctorj</code>, <code>asciidoctorj-diagram</code>, <code>asciidoctorj-pdf</code>, and JRuby JARs are removed from the distribution. Remaining Java dependencies (~27 JARs, ~23 MB) are small enough for a simple <code>lib/</code> directory.</p>
 </li>
 </ul>
 </div>

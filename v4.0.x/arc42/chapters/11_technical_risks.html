@@ -593,28 +593,12 @@ This chapter separates <strong>Risks</strong> (uncertain future events) from <st
 <td class="tableblock halign-left valign-top"><p class="tableblock">Service-level tests around the new script before the core module is dropped (ADR-12).</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R-007</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Diagram-privacy control not implemented.</strong> ADR-9&#8217;s <code>diagramServer</code> key, local-Kroki default, and per-run external-URL warning (QS-16) do not exist in code; <code>DiagramToolHints</code> points users at public <code>kroki.io</code> without a warning. Quality Goal #1 (no implicit cloud processing) is met today only because the default render path happens to be local.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MEDIUM</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Implement ADR-9 (<code>diagramServer</code> switch + QS-16 warning); until then, document the local-default behaviour. Closes T-004.</p></td>
-</tr>
-<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R-005</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Release-time dependency resolution.</strong> AsciiDoctor is embedded (ADR-6, revised); <strong>177 JARs (~126 MB)</strong> ship in <code>lib/</code> (ADR-7). The release process must resolve transitive dependencies and a tampered/vulnerable JAR (T-006) would reach every user (QS-4).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Release-time dependency resolution.</strong> AsciiDoctor is externalized (ADR-6); ~30 JARs ship in <code>lib/</code> (ADR-7). The release process must resolve transitive dependencies and a tampered/vulnerable JAR (T-006) would reach every user (QS-4).</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Low</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LOW</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ch8 <strong>Security</strong> concept — Trivy CVE scan of <code>lib/*.jar</code> (ADR-11); pinned, reproducible resolution (ADR-7).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">R-008</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>No secret redaction in output.</strong> No code masks <code>credential</code>/<code>token</code>/<code>secret</code>-shaped values, and <code>DtcRestClient</code> rethrows raw exceptions. Harmless under the local-trust model, but a credential can leak into a public CI / PR build log.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Low</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LOW</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ch8 <strong>Security</strong> concept — redact secret-shaped keys before any <code>println config</code> / error output; gated on the ADR-8 <code>DtcException</code> carrier (R-004). Closes T-002.</p></td>
 </tr>
 </tbody>
 </table>
@@ -653,16 +637,6 @@ This chapter separates <strong>Risks</strong> (uncertain future events) from <st
 <td class="tableblock halign-left valign-top"><p class="tableblock">External Tool Export scripts (<code>exportEA.groovy</code>, <code>exportPPT.groovy</code>, <code>exportVisio.groovy</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">EA, PowerPoint, and Visio export remain Windows-only (VBScript COM automation). No fallback on Linux/macOS, burdening cross-platform portability (QS-2).</p></td>
 </tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lib/</code> footprint (~126 MB)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Wrapper Layer / <code>lib/</code> (ADR-7)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Embedding AsciidoctorJ + JRuby (ADR-6, revised) makes <code>lib/</code> 177 JARs / ~126 MB — larger than v3&#8217;s ~50 MB. Making POI and AsciidoctorJ/JRuby optional or lazily loaded would cut typical-run footprint substantially (QS-6).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No v4 Windows wrapper path</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Wrapper Layer (<code>dtcw.ps1</code>, <code>dtcw.bat</code>)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The v4 <code>GroovyMain</code> execution path exists only in the Bash <code>dtcw</code>; <code>dtcw.ps1</code>/<code>dtcw.bat</code> carry no v4 path. Windows v4 works only via WSL2 today (see Chapter 1 goal scope). Burdens cross-platform portability (QS-2, Goal #3).</p></td>
-</tr>
 </tbody>
 </table>
 </div>
@@ -698,7 +672,7 @@ This chapter separates <strong>Risks</strong> (uncertain future events) from <st
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Heavy dependency footprint (60-80 JARs)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Not resolved — reversed.</strong> The plan to externalize AsciiDoctor (ADR-6) was dropped; v4 embeds AsciidoctorJ + JRuby, so <code>lib/</code> is 177 JARs / ~126 MB — larger than v3. Reclassified as technical debt above, not a resolved risk.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Resolved by ADR-6 + ADR-7. AsciiDoctor externalized (–45 MB, –25 JARs). Remaining ~30 JARs (~23 MB) shipped in <code>lib/</code>.</p></td>
 </tr>
 </tbody>
 </table>

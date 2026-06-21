@@ -416,11 +416,7 @@
 </li>
 <li><a href="#_exportppt">7. exportPPT</a>
 <ul class="sectlevel2">
-<li><a href="#_about_this_task_5">7.1. About This Task</a>
-<ul class="sectlevel3">
-<li><a href="#_generated_output">7.1.1. Generated Output</a></li>
-</ul>
-</li>
+<li><a href="#_about_this_task_5">7.1. About This Task</a></li>
 <li><a href="#_further_reading_3">7.2. Further Reading</a></li>
 <li><a href="#_source_5">7.3. Source</a></li>
 </ul>
@@ -1299,30 +1295,8 @@ Templates and styles are bundled with docToolchain.</p>
 <div class="sect2">
 <h3 id="_landing_page">5.5. Landing Page</h3>
 <div class="paragraph">
-<p>Configure the landing page in <code>docToolchainConfig.groovy</code> and ship the matching <code>.gsp</code> file in your theme&#8217;s <code>doc/</code> folder:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="groovy">microsite.with {
-    landingPage = 'landingpage.gsp'   // file in src/site/doc/
-}</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The landing page is plain HTML5 styled with Bootstrap — the header and footer are added automatically.
-If <code>microsite.landingPage</code> is not set, the site is generated without an <code>index.html</code> landing page.</p>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<code>index.gsp</code> in <code>src/site/templates</code> is the internal master template, not your landing page. Put your landing-page content in <code>src/site/doc/&lt;landingPage&gt;</code> instead.
-</td>
-</tr>
-</table>
+<p>Place an <code>index.gsp</code> in <code>src/site/templates</code> as your landing page.
+It is plain HTML5 styled with Bootstrap — the header and footer are added automatically.</p>
 </div>
 </div>
 <div class="sect2">
@@ -1944,39 +1918,9 @@ Only <code>.pptx</code> files are supported. Legacy <code>.ppt</code> format is 
 </tr>
 </table>
 </div>
-<div class="sect3">
-<h4 id="_generated_output">7.1.1. Generated Output</h4>
 <div class="paragraph">
-<p>For each <code>&lt;name&gt;.pptx</code> found under your input path, the task writes:</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>slide images to <code>src/docs/images/ppt/&lt;name&gt;/slide_NNN.png</code> (one PNG per slide),</p>
-</li>
-<li>
-<p>speaker notes to <code>src/docs/ppt/&lt;name&gt;/slide_NNN_notes.adoc</code> (only for slides that have notes),</p>
-</li>
-<li>
-<p>a ready-to-include AsciiDoc file at <code>src/docs/ppt/&lt;name&gt;/&lt;name&gt;.adoc</code>.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The generated <code>&lt;name&gt;.adoc</code> contains one section per slide, each with the slide title as a <code>===</code> heading, the slide image, and an include of the slide&#8217;s notes:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="prettyprint highlight"><code data-lang="asciidoc">=== &lt;slide title&gt;
-
-image::ppt/&lt;name&gt;/slide_001.png[&lt;slide title&gt;]
-
-include::slide_001_notes.adoc[]</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>Include the generated <code>&lt;name&gt;.adoc</code> from your own document to embed the slides and notes.</p>
-</div>
+<p>The tag <code>{slide}</code> in speaker notes is replaced with the corresponding image reference.
+Use <a href="https://docs.asciidoctor.org/asciidoc/latest/directives/include-tagged-regions/">tagged regions</a> to include specific slides.</p>
 </div>
 </div>
 <div class="sect2">
@@ -2383,10 +2327,10 @@ Or re-save the image in any editor.</p>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://jbake.org">jBake</a> — drove <code>generateSite</code> in v3; v4 uses a built-in generator (<code>MicrositeBaker</code>)</p>
+<p><a href="https://jbake.org">jBake</a> — the static site generator behind <code>generateSite</code></p>
 </li>
 <li>
-<p><a href="https://www.docsy.dev/">Docsy</a> — the standard theme in v3; v4 ships Bootstrap 5 GSP templates</p>
+<p><a href="https://www.docsy.dev/">Docsy</a> — our standard theme</p>
 </li>
 <li>
 <p><a href="https://getbootstrap.com/">Bootstrap 5</a> — CSS framework</p>
