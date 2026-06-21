@@ -282,18 +282,18 @@ var documents = [
 
 {
     "id": 35,
-    "uri": "015_tasks/03_tasks.html",
-    "menu": "tasks",
-    "title": "Tasks",
-    "text": " Table of Contents Tasks Running a Task Listing Available Tasks Task Categories Available Tasks .gravatar img { margin-left: 3px; border-radius: 4px; } Tasks A task is a standalone Groovy script that performs a specific documentation action — generating output, exporting content, or publishing to external systems. In v4, tasks are invoked directly via the JVM — no Gradle, no build tool overhead. Each task is a self-contained .groovy file in the scripts/ directory. Running a Task ./dtcw4 local &lt;taskName&gt; Listing Available Tasks ./dtcw4 tasks Task Categories generateX These tasks render your AsciiDoc sources to a target format (HTML, PDF, microsite). exportX These tasks export content from other formats (Excel, PowerPoint) into AsciiDoc snippets or images that you can include in your documentation. Export results are typically stored under version control because the source tools may not be available on every machine. publishToX These tasks publish your documentation to external systems (currently Confluence). installX These tasks install a companion tool from the docToolchain ecosystem and — when the project has an AGENTS.md or CLAUDE.md — add a short, conditional hint so LLM agents know when to reach for it. Available Tasks Task Description generateHTML Generate HTML5 from AsciiDoc generatePDF Generate PDF from AsciiDoc generateSite Generate a microsite with navigation, search, and blog downloadTemplate Download arc42 or req42 documentation templates exportExcel Export Excel spreadsheets to AsciiDoc tables and CSV exportPPT Export PowerPoint slides as images with speaker notes publishToConfluence Publish HTML documentation to Confluence copyThemes Copy a built-in theme (jBakeTheme or pdfTheme) into your project for customization lintAsciiDoc Lint your AsciiDoc sources with the docToolchain AsciiDoc Linter generateCICD Scaffold a dtcw4-based CI/CD pipeline (GitHub Actions or GitLab CI) installBausteinsicht Install the Bausteinsicht architecture-as-code tool and hint agents to use it installDacli Install the daCLI docs-as-code CLI / MCP server and hint agents to use it "
-},
-
-{
-    "id": 36,
     "uri": "015_tasks/03_task_generateCICD.html",
     "menu": "tasks",
     "title": "generateCICD",
     "text": " Table of Contents generateCICD About This Task Setup and Configuration After Generating Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } generateCICD About This Task This task scaffolds a ready-to-use CI/CD pipeline that builds your documentation with dtcw4 and publishes it. The generated pipeline reflects the v4 architecture — it bootstraps docToolchain with the dtcw4 wrapper, with no Gradle and no legacy Docker image. Two providers are supported: Provider File written Publishes to github (default) .github/workflows/docs.yml GitHub Pages gitlab .gitlab-ci.yml GitLab Pages Setup and Configuration # GitHub Actions (default) ./dtcw4 local generateCICD # or explicitly choose a provider ./dtcw4 local generateCICD --provider gitlab The task refuses to overwrite an existing pipeline file. Pass --force to replace it: ./dtcw4 local generateCICD --provider github --force The generated pipeline: installs Temurin Java 25, caches ~/.doctoolchain between runs, downloads dtcw4 , installs docToolchain, and runs generateSite , uploads the microsite from build/microsite/output to Pages. After Generating Commit the generated file. GitHub: enable Pages under Settings &gt; Pages &gt; Source: GitHub Actions . GitLab: the pages job publishes automatically on the default branch. Further Reading and Resources generateSite — the task the pipeline runs GitHub Pages GitLab Pages Source View the source of this task: scripts/generateCICD.groovy on GitHub "
+},
+
+{
+    "id": 36,
+    "uri": "015_tasks/03_tasks.html",
+    "menu": "tasks",
+    "title": "Tasks",
+    "text": " Table of Contents Tasks Running a Task Listing Available Tasks Task Categories Available Tasks .gravatar img { margin-left: 3px; border-radius: 4px; } Tasks A task is a standalone Groovy script that performs a specific documentation action — generating output, exporting content, or publishing to external systems. In v4, tasks are invoked directly via the JVM — no Gradle, no build tool overhead. Each task is a self-contained .groovy file in the scripts/ directory. Running a Task ./dtcw4 local &lt;taskName&gt; Listing Available Tasks ./dtcw4 tasks Task Categories generateX These tasks render your AsciiDoc sources to a target format (HTML, PDF, microsite). exportX These tasks export content from other formats (Excel, PowerPoint) into AsciiDoc snippets or images that you can include in your documentation. Export results are typically stored under version control because the source tools may not be available on every machine. publishToX These tasks publish your documentation to external systems (currently Confluence). installX These tasks install a companion tool from the docToolchain ecosystem and — when the project has an AGENTS.md or CLAUDE.md — add a short, conditional hint so LLM agents know when to reach for it. Available Tasks Task Description generateHTML Generate HTML5 from AsciiDoc generatePDF Generate PDF from AsciiDoc generateSite Generate a microsite with navigation, search, and blog downloadTemplate Download arc42 or req42 documentation templates exportExcel Export Excel spreadsheets to AsciiDoc tables and CSV exportPPT Export PowerPoint slides as images with speaker notes publishToConfluence Publish HTML documentation to Confluence copyThemes Copy a built-in theme (jBakeTheme or pdfTheme) into your project for customization lintAsciiDoc Lint your AsciiDoc sources with the docToolchain AsciiDoc Linter generateCICD Scaffold a dtcw4-based CI/CD pipeline (GitHub Actions or GitLab CI) installBausteinsicht Install the Bausteinsicht architecture-as-code tool and hint agents to use it installDacli Install the daCLI docs-as-code CLI / MCP server and hint agents to use it "
 },
 
 {
@@ -306,18 +306,18 @@ var documents = [
 
 {
     "id": 38,
-    "uri": "015_tasks/03_task_installBausteinsicht.html",
-    "menu": "tasks",
-    "title": "installBausteinsicht",
-    "text": " Table of Contents installBausteinsicht About This Task Setup and Configuration Agent Hint Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } installBausteinsicht About This Task Bausteinsicht is an architecture-as-code tool from the docToolchain ecosystem. You describe your building blocks in a JSON model and Bausteinsicht keeps diagrams in sync — with bidirectional draw.io editing — and exports them as C4-PlantUML, Mermaid, DOT, D2, Structurizr DSL, AsciiDoc/Markdown tables and PNG/SVG for embedding in your documentation. Every command supports --format json , so LLM agents can read and write the model too. This task does two things: It downloads the matching Bausteinsicht release binary into $HOME/.doctoolchain/bin . If the project has an AGENTS.md or CLAUDE.md , it adds a short, conditional hint so LLM agents know to use Bausteinsicht when they work on diagrams (see Agent Hint ). Setup and Configuration The task needs internet access to download the release from GitHub. ./dtcw4 local installBausteinsicht By default the latest release is installed. To pin a specific version, set DTC_BAUSTEINSICHT_VERSION : DTC_BAUSTEINSICHT_VERSION=1.1.0 ./dtcw4 local installBausteinsicht The binary is installed to $HOME/.doctoolchain/bin . If that directory is not on your PATH , the task prints the exact command to add it so you can call bausteinsicht directly. Agent Hint When an AGENTS.md or CLAUDE.md exists in the project root, the task upserts a short Markdown section into it (anchored on its heading, so re-running replaces it in place rather than duplicating it). The hint is deliberately conditional — it tells the agent to reach for Bausteinsicht only when creating or changing architecture diagrams , and to run bausteinsicht --help first so the guidance never goes stale. If neither file exists, the task installs the tool and skips the hint (it never creates an agent file you did not ask for). Further Reading and Resources Bausteinsicht documentation Bausteinsicht on GitHub Source View the source of this task: scripts/installBausteinsicht.groovy on GitHub "
-},
-
-{
-    "id": 39,
     "uri": "015_tasks/03_task_lintAsciiDoc.html",
     "menu": "tasks",
     "title": "lintAsciiDoc",
     "text": " Table of Contents lintAsciiDoc About This Task Setup and Configuration Exit Behaviour Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } lintAsciiDoc About This Task This task runs the docToolchain AsciiDoc Linter over your AsciiDoc sources to keep them clean and consistent. It checks rules for heading structure, formatting, whitespace and image usage, and reports any problems it finds. Setup and Configuration The linter is a Python tool. If the asciidoc-linter command is not on your PATH , the task prints how to install it (with uv or pip ) and stops — no stack trace: uv tool install git+https://github.com/docToolchain/asciidoc-linter Then run the task: ./dtcw4 local lintAsciiDoc By default the task lints the AsciiDoc entries from your inputFiles . You can configure it in docToolchainConfig.groovy : lintAsciiDoc = [ // Fail the build when the linter reports problems (default: false — warn only) failOnError : false, // Output format: 'console' (default, human-readable) or 'json' format : 'console', // Optional: explicit files/paths to lint (relative to inputPath). // When set, these replace the inputFiles selection. files : ['arc42/arc42.adoc'], ] Exit Behaviour Situation Result No problems found Task succeeds (exit 0) Problems found, failOnError is false (default) Problems are printed, task still succeeds — safe to add to an existing pipeline first Problems found, failOnError is true Task fails (non-zero exit) so CI blocks the change Linter not installed Actionable install hint, task exits non-zero Further Reading and Resources AsciiDoc Linter documentation AsciiDoc Linter on GitHub Source View the source of this task: scripts/lintAsciiDoc.groovy on GitHub "
+},
+
+{
+    "id": 39,
+    "uri": "015_tasks/03_task_installBausteinsicht.html",
+    "menu": "tasks",
+    "title": "installBausteinsicht",
+    "text": " Table of Contents installBausteinsicht About This Task Setup and Configuration Agent Hint Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } installBausteinsicht About This Task Bausteinsicht is an architecture-as-code tool from the docToolchain ecosystem. You describe your building blocks in a JSON model and Bausteinsicht keeps diagrams in sync — with bidirectional draw.io editing — and exports them as C4-PlantUML, Mermaid, DOT, D2, Structurizr DSL, AsciiDoc/Markdown tables and PNG/SVG for embedding in your documentation. Every command supports --format json , so LLM agents can read and write the model too. This task does two things: It downloads the matching Bausteinsicht release binary into $HOME/.doctoolchain/bin . If the project has an AGENTS.md or CLAUDE.md , it adds a short, conditional hint so LLM agents know to use Bausteinsicht when they work on diagrams (see Agent Hint ). Setup and Configuration The task needs internet access to download the release from GitHub. ./dtcw4 local installBausteinsicht By default the latest release is installed. To pin a specific version, set DTC_BAUSTEINSICHT_VERSION : DTC_BAUSTEINSICHT_VERSION=1.1.0 ./dtcw4 local installBausteinsicht The binary is installed to $HOME/.doctoolchain/bin . If that directory is not on your PATH , the task prints the exact command to add it so you can call bausteinsicht directly. Agent Hint When an AGENTS.md or CLAUDE.md exists in the project root, the task upserts a short Markdown section into it (anchored on its heading, so re-running replaces it in place rather than duplicating it). The hint is deliberately conditional — it tells the agent to reach for Bausteinsicht only when creating or changing architecture diagrams , and to run bausteinsicht --help first so the guidance never goes stale. If neither file exists, the task installs the tool and skips the hint (it never creates an agent file you did not ask for). Further Reading and Resources Bausteinsicht documentation Bausteinsicht on GitHub Source View the source of this task: scripts/installBausteinsicht.groovy on GitHub "
 },
 
 {
@@ -346,14 +346,6 @@ var documents = [
 
 {
     "id": 43,
-    "uri": "025_development/020_run_tests.html",
-    "menu": "development",
-    "title": "Running Tests",
-    "text": " Table of Contents Running Tests Execute Tests Execute a specific test Workaround to Ensure Correct Proxy Settings for Tests Running Tests docToolchain uses Spock as Test-Framework. See http://spockframework.org/ for details. Execute Tests The core test suite must always pass: ./gradlew core:test To run the full suite, use: rm -r build &amp;&amp; ./gradlew test --info Note that the full ./gradlew test run has known, expected failures (typically caused by missing external tools), so use ./gradlew core:test as the must-pass suite. The rm command ensures that you have a clean test running. This is vital because if artifacts of an older test run still exist, Gradle will skip steps (‘Up-to-date’) and you might get false positives. Execute a specific test rm -r build &amp;&amp; ./gradlew test --info --tests=ExportStructurizrSpec Workaround to Ensure Correct Proxy Settings for Tests The docToolchain setup is based on the Gradle-Test-Kit and makes use of the Spock test execution framework . The Gradle test runner is started in its own test environment and its own JVM instance. As a result, the global proxy settings are ignored. To execute the test with the correct proxy settings, you must use a workaround. Copy the proxy settings from the gradle.properties file located in the user directory to the gradle.properties file located in the docToolchain folder itself. Note: The files downloaded by the Gradle test runner are placed in a different folder than the default Gradle cache. You will find them in the Tmp folder C:\\Users\\YOUR_USER_NAME\\AppData\\Local\\Temp\\.gradle-test-kit-YOUR_USER_NAME\\caches. "
-},
-
-{
-    "id": 44,
     "uri": "025_development/050_who-uses-dtc.html",
     "menu": "-",
     "title": "moved",
@@ -361,15 +353,15 @@ var documents = [
 },
 
 {
-    "id": 45,
-    "uri": "025_development/040_debugging.html",
+    "id": 44,
+    "uri": "025_development/020_run_tests.html",
     "menu": "development",
-    "title": "Debugging",
-    "text": " Table of Contents Debugging Environment Task Output and Config Site Templates (GSP) Theming, Menu and Images Script Execution Debugging Debugging Things not working as you expected? Here are some tips that might help you. Environment To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect. Task Output and Config docToolchain v4 runs on the JVM and no longer uses Gradle, so there is no --info flag. To find out what is going on, run the task with ./dtcw4 generateSite and inspect the task output it prints to the console, together with your docToolchainConfig.groovy settings. This shows the config settings as seen by docToolchain along with many other internal details. Site Templates (GSP) If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println otherwise you won’t see any output. Theming, Menu and Images How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files. Check the build/microsite/tmp folder to see the folder that is fed into the site generator. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the build/microsite/output folder to see the generated result. This often helps you find out where an image actually is located. Script Execution Debugging In docToolchain v4 the entry point is the dtcw4 wrapper (the v3 launcher was bin/doctoolchain ). The execution of the ../../../bin/doctoolchain bash script may be traced by setting the environment variable DTC_BASH_OPTS to, e.g., -vx . "
+    "title": "Running Tests",
+    "text": " Table of Contents Running Tests Execute Tests Execute a specific test Workaround to Ensure Correct Proxy Settings for Tests Running Tests docToolchain uses Spock as Test-Framework. See http://spockframework.org/ for details. Execute Tests The core test suite must always pass: ./gradlew core:test To run the full suite, use: rm -r build &amp;&amp; ./gradlew test --info Note that the full ./gradlew test run has known, expected failures (typically caused by missing external tools), so use ./gradlew core:test as the must-pass suite. The rm command ensures that you have a clean test running. This is vital because if artifacts of an older test run still exist, Gradle will skip steps (‘Up-to-date’) and you might get false positives. Execute a specific test rm -r build &amp;&amp; ./gradlew test --info --tests=ExportStructurizrSpec Workaround to Ensure Correct Proxy Settings for Tests The docToolchain setup is based on the Gradle-Test-Kit and makes use of the Spock test execution framework . The Gradle test runner is started in its own test environment and its own JVM instance. As a result, the global proxy settings are ignored. To execute the test with the correct proxy settings, you must use a workaround. Copy the proxy settings from the gradle.properties file located in the user directory to the gradle.properties file located in the docToolchain folder itself. Note: The files downloaded by the Gradle test runner are placed in a different folder than the default Gradle cache. You will find them in the Tmp folder C:\\Users\\YOUR_USER_NAME\\AppData\\Local\\Temp\\.gradle-test-kit-YOUR_USER_NAME\\caches. "
 },
 
 {
-    "id": 46,
+    "id": 45,
     "uri": "025_development/030_create_new_release.html",
     "menu": "development",
     "title": "Creating a New Release",
@@ -377,11 +369,19 @@ var documents = [
 },
 
 {
-    "id": 47,
+    "id": 46,
     "uri": "10_about/30_community.html",
     "menu": "about",
     "title": "Acknowledgements and Contributors",
     "text": " Table of Contents Acknowledgements and Contributors Why Contributions Matter Get Involved! Our Contributors Acknowledgements and Contributors Why Contributions Matter Without our amazing community of contributors, the docToolchain project wouldn’t exist in its current form. As an open source project, we depend on the skills and expertise of many to deliver a quality outcome. From developers to technical writers, many people have made valuable contributions to the code and the docs. We’re so grateful to them. We are also thankful for those in our community who take the time to give feedback, create issues, answer questions and send pull requests. Get Involved! There are so many technologies that support docToolchain, including AsciiDoc, AsciiDoctor, Gradle and arc42. We need all the help we can get to make improvements and keep our project humming. Simply create an issue and send a pull request. Our Contributors Please get in touch to update your entry or let us know if you have contributed in some way and we will add you to the list. Stefan Bodewig MoePad Niels wschaef Gernot Starke Jan Matèrne Alexander Schwartz Alexander Heusingfeld Dan Allen Stefan Pfeiffer isidorotrevino Jakub Jablonski Frank Pohl Ixchel Ruiz Schalk Cronjé Mario García Joe David M. Carr Fabian Nonnenmacher Christoph Stoettner Roman Funk ghp-dev Christoph Raaflaub Jorge Aguilera Stefan Bohn Jochen Kraushaar Luis Muniz Andreas Offenhaeuser Daniel Bast Sabatmonk Maarten Gribnau Michael Prieß Heiko Stehli Peter Stange Nils Mahlstädt @ hmmh Kevin Werner J. Staub Vladi Bjelakovic Daniel Kessel Björn Seebeck Txemanu Nikolay Orozov Andrea Macaluso Michael Roßner Jan Hendriks Daniel Kocot Alexander Schmitt Jérémie Bresson Jody Winter Aaron Collier Ifeanyi Benedict Iheagwara Jan-Niklas Vierheller Sebastian Schuetze David Schowalter Martin Fischer Stefan Boos Adrian Partl Siva Kalidasan Bjoern Kasteleiner Jan Küfner Gerd Aschemann Andreas Klemp Adi König Bence Hornák ZHENG Bote Miranda Boerlage Guido Sörmann Björn Erlwein Tulio Camminati Joachim Röttinger Pascal Euhus Max Hofer Sandra Parsick Johannes Thorn Stefan Rotman Kevin Latka Michael Roßner Jan Stückrath Timo Abele Patrizio Bonzani Lutz Ashauer Igor Gaiduk Jakob Genßler Torsten Kleiber David Paz "
+},
+
+{
+    "id": 47,
+    "uri": "025_development/040_debugging.html",
+    "menu": "development",
+    "title": "Debugging",
+    "text": " Table of Contents Debugging Environment Task Output and Config Site Templates (GSP) Theming, Menu and Images Script Execution Debugging Debugging Things not working as you expected? Here are some tips that might help you. Environment To get the best out of docToolchain, we recommend that you set up a development environment. This way you get to see the inner workings and you also get to add extra debug output to the tasks that you want to inspect. Task Output and Config docToolchain v4 runs on the JVM and no longer uses Gradle, so there is no --info flag. To find out what is going on, run the task with ./dtcw4 generateSite and inspect the task output it prints to the console, together with your docToolchainConfig.groovy settings. This shows the config settings as seen by docToolchain along with many other internal details. Site Templates (GSP) If something goes wrong with a template, you typically don’t receive much information about the problem. Take a look at menu.gsp to see how you can use try/catch blocks to get an error message. But to find out where the problem is occurring, you’ll need to use the poor man’s debugger and add some System.out.println statements. Make sure that you use the full System.out.println statement and not only println otherwise you won’t see any output. Theming, Menu and Images How the system creates the menu entries might seem like magic, but sometimes you cannot work out why an image is not shown. Remember, there is a way that you can check the generated files. Check the build/microsite/tmp folder to see the folder that is fed into the site generator. In this folder, all files will have additional jbake attributes which are used to build the menu. They are generated from the original attributes of the file and folder/filename information. Now check the build/microsite/output folder to see the generated result. This often helps you find out where an image actually is located. Script Execution Debugging In docToolchain v4 the entry point is the dtcw4 wrapper (the v3 launcher was bin/doctoolchain ). The execution of the ../../../bin/doctoolchain bash script may be traced by setting the environment variable DTC_BASH_OPTS to, e.g., -vx . "
 },
 
 {
@@ -714,18 +714,18 @@ var documents = [
 
 {
     "id": 89,
-    "uri": "ea/Use_Cases_notes_UseCases.html",
-    "menu": "ea",
-    "title": "Use_Cases_notes_UseCases.ad",
-    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
-},
-
-{
-    "id": 90,
     "uri": "ea/Activity_notes.html",
     "menu": "ea",
     "title": "Activity_notes.ad",
     "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
+},
+
+{
+    "id": 90,
+    "uri": "ea/Use_Cases_notes_UseCases.html",
+    "menu": "ea",
+    "title": "Use_Cases_notes_UseCases.ad",
+    "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
 },
 
 {

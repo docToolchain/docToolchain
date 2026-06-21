@@ -177,12 +177,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_tasks.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_generateCICD.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_generateCICD.html</loc>
+    	<loc>https://localhost/015_tasks/03_tasks.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
@@ -192,12 +192,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_installBausteinsicht.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_lintAsciiDoc.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_lintAsciiDoc.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_installBausteinsicht.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
@@ -217,17 +217,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/020_run_tests.html</loc>
-    	<lastmod>2026-06-21</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/025_development/050_who-uses-dtc.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/025_development/040_debugging.html</loc>
+    	<loc>https://localhost/025_development/020_run_tests.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
@@ -238,6 +233,11 @@
 
     <url>
     	<loc>https://localhost/10_about/30_community.html</loc>
+    	<lastmod>2026-06-21</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/025_development/040_debugging.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
@@ -447,12 +447,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
+    	<loc>https://localhost/ea/Activity_notes.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Activity_notes.html</loc>
+    	<loc>https://localhost/ea/Use_Cases_notes_UseCases.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
