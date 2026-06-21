@@ -1,5 +1,17 @@
 <div class="row flex-xl-nowrap">
     <main class="col-12 col-md-12 col-xl-12 pl-md-12" role="main">
+
+        <!-- v4 preview notice — see docToolchain/docToolchain#1599 -->
+        <div class="alert alert-info d-flex flex-wrap align-items-center justify-content-between" role="alert" style="gap:.75rem;">
+            <span>
+                <strong>docToolchain v4 is in the works</strong> &mdash; a ground-up, LLM-native rewrite
+                for the GenAI age. Still in development &mdash; <strong>v3 (this site) remains the stable release</strong>.
+            </span>
+            <a class="btn btn-sm btn-outline-primary text-nowrap" href="https://github.com/docToolchain/docToolchain/discussions/1599" target="_blank" rel="noopener">
+                See the v4 vision &amp; give feedback &rarr;
+            </a>
+        </div>
+
         <div class="bg-light p-5 rounded jumbotron">
             <img src="images/doctoolchain-logo-blue.png" alt="docToolchain" style="float: left" />
             <h1>docToolchain</h1>
