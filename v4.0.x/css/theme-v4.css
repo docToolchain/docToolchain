@@ -14,6 +14,18 @@ body {
     background: #064e3b;
 }
 
+/* The logo is a light document with a black chain — both vanish on the dark
+   navbar. Sit it on a light rounded "chip" so it keeps its colours and
+   contrasts well against the dark green background. */
+.td-navbar .navbar-logo {
+    background: #ffffff;
+    border-radius: 6px;
+    padding: 3px 5px;
+    display: inline-flex;
+    align-items: center;
+    margin-right: 0.5rem;
+}
+
 .td-navbar .nav-link:hover,
 .td-navbar .nav-link:focus {
     background: rgba(255, 255, 255, 0.12);
