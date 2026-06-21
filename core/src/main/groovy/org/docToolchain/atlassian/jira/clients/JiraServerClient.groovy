@@ -82,7 +82,6 @@ class JiraServerClient extends JiraClient {
 
     @Override
     def getIssuesByJql(String jql, String selectedFields) {
-        println("getIssuesByJql: " + apiAbs("/api/2/search"))
         URI uri = new URIBuilder(apiAbs("/api/2/search"))
             .addParameter("jql", jql)
             .addParameter("maxResults", "1000")
