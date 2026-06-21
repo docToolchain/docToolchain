@@ -536,7 +536,7 @@ searching issues...
 </div>
 </div>
 <div class="paragraph">
-<p><strong>Key differences from v3</strong>: No Gradle overhead. No JRuby initialization (AsciiDoctor runs as external CLI, ADR-6). The Groovy script orchestrates the AsciiDoctor CLI call in batch mode. Startup is JVM cold start (~1-2s) + AsciiDoctor process spawn (~0.1s).</p>
+<p><strong>Key differences from v3</strong>: No Gradle overhead and no Gradle daemon. AsciiDoctor runs <strong>embedded</strong> as AsciidoctorJ in the same JVM (ADR-6, revised — the external-CLI option was evaluated but not adopted), so JRuby still initialises in-process on the first render. The Groovy script invokes AsciidoctorJ directly for all <code>inputFiles</code>. Startup is JVM cold start plus JRuby/AsciidoctorJ initialisation (~1-2s combined).</p>
 </div>
 </div>
 <div class="sect2">

@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: 020_tutorial/040_microsite/060_CI-CD-Deployment.html -->
+    <!-- sourceuri: arc42/adrs/adr-14-task-discovery.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>CI/CD-Build</title>
+    <title>ADR-14: Task Discovery via `// @task` Marker</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -253,7 +253,7 @@
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link active" href="../../020_tutorial/010_Install.html"><span>Tutorial</span></a>
+                <a class="nav-link " href="../../020_tutorial/010_Install.html"><span>Tutorial</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
@@ -265,7 +265,7 @@
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../../arc42/open_questions.html"><span>arc42</span></a>
+                <a class="nav-link active" href="../../arc42/open_questions.html"><span>arc42</span></a>
             </li>
 
         </ul>
@@ -320,7 +320,7 @@
 
             <ul class="td-sidebar-nav__section">
                 <li class="td-sidebar-nav__section-title">
-                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">Tutorial</span>
+                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">arc42</span>
                 </li>
                 <li>
                   <ul>
@@ -329,80 +329,85 @@
                         <ul class="td-sidebar-nav__section ul-0">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/010_Install.html" title="Install docToolchain"><span class="arc42-num">01</span> Install docToolchain</a>
+                                   href="../../arc42/open_questions.html" title="Open Questions and Assumptions — docToolchain v4"><span class="arc42-num">01</span> Open Questions and Assumptions — docToolchain v4</a>
                                 
                             </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/020_arc42.html" title="arc42 Template"><span class="arc42-num">02</span> arc42 Template</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/030_generateHTML.html" title="generateHTML &amp; generatePDF"><span class="arc42-num">03</span> generateHTML &amp; generatePDF</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section with-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/040_microsite/index.html" title="Microsite"><span class="arc42-num">04</span> Microsite</a>
-                                
+<details id="d378c2e65b576318b7f785b537c424464"><summary><span class="label"><span class="arc42-num">02</span> chapters</span></summary>
                         <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/040_microsite/040_generateSite.html" title="generateSite">generateSite</a>
+                                   href="../../arc42/chapters/01_introduction_and_goals.html" title="Introduction and Goals">Introduction and Goals</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/040_microsite/043_multi-markup.html" title="generateSite: Multi-Markup">generateSite: Multi-Markup</a>
+                                   href="../../arc42/chapters/02_architecture_constraints.html" title="Architecture Constraints">Architecture Constraints</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/040_microsite/130_theming.html" title="How to change the theme">How to change the theme</a>
+                                   href="../../arc42/chapters/03_context_and_scope.html" title="Context and Scope">Context and Scope</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/04_solution_strategy.html" title="Solution Strategy">Solution Strategy</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/05_building_block_view.html" title="Building Block View">Building Block View</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/06_runtime_view.html" title="Runtime View">Runtime View</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/07_deployment_view.html" title="Deployment View">Deployment View</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/08_concepts.html" title="Cross-cutting Concepts">Cross-cutting Concepts</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/09_architecture_decisions.html" title="Architecture Decisions">Architecture Decisions</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/10_quality_requirements.html" title="Quality Requirements">Quality Requirements</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/11_technical_risks.html" title="Risks and Technical Debts">Risks and Technical Debts</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/chapters/12_glossary.html" title="Glossary">Glossary</a>
                                 
                             </li>
                         </ul></details>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/050_multipleRepositories.html" title="Multi-Repo"><span class="arc42-num">05</span> Multi-Repo</a>
+                                   href="../../arc42/prd.html" title="docToolchain v4 — Product Requirements Document"><span class="arc42-num">03</span> docToolchain v4 — Product Requirements Document</a>
                                 
                             </li>
+<details id="db979c2934ac0b4ba3f08dabfdd1b2299"><summary><span class="label"><span class="arc42-num">04</span> spec</span></summary>
+                        <ul class="ul-1">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/070_publishToConfluence.html" title="publishToConfluence"><span class="arc42-num">06</span> publishToConfluence</a>
+                                   href="../../arc42/spec/01_use_cases.html" title="docToolchain v4 — Specification">docToolchain v4 — Specification</a>
                                 
                             </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/100_diagrams.net.html" title="Diagrams: Diagrams.net"><span class="arc42-num">07</span> Diagrams: Diagrams.net</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/140_Dropdown_Menu.html" title="How to create a Dropdown Menu"><span class="arc42-num">08</span> How to create a Dropdown Menu</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/150_multiRepoMicrositeTipsAndTricks.html" title="Building a microsite from multiple repositories"><span class="arc42-num">09</span> Building a microsite from multiple repositories</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/160_EnterpriseTipsAndTricks.html" title="Enterprise docToolchain"><span class="arc42-num">10</span> Enterprise docToolchain</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/170_kroki-configuration.html" title="Kroki Configuration Guide"><span class="arc42-num">11</span> Kroki Configuration Guide</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../020_tutorial/990_Tutorial.html" title="How to create a Tutorial"><span class="arc42-num">12</span> How to create a Tutorial</a>
-                                
-                            </li>
+                        </ul></details>
                         </ul>
                       </li>
                   </ul>
@@ -415,11 +420,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/020_tutorial/040_microsite/060_CI-CD-Deployment.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-14-task-discovery.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27CI%2FCD-Build%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/020_tutorial/040_microsite/060_CI-CD-Deployment.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-14%3A+Task+Discovery+via+%60%2F%2F+%40task%60+Marker%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-14-task-discovery.adoc%0A%23branch:%20main-4.x" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -427,7 +432,7 @@
         <hr />
 <script>
 const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
-const searchTerm = "020_tutorial/040_microsite/060_CI-CD-Deployment.adoc";
+const searchTerm = "arc42/adrs/adr-14-task-discovery.adoc";
 </script>
 
 <script src="../../js/issues.js"></script>
@@ -477,8 +482,8 @@ searching issues...
 
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#_how_to_automatically_build_your_microsite_with_various_cicd_systems">How to automatically build your Microsite with various CI/CD Systems</a></li>
+<ul class="sectlevel2">
+<li><a href="#_adr_14_task_discovery_via_task_marker">ADR-14: Task Discovery via <code>// @task</code> Marker</a></li>
 </ul>
 </div>
 
@@ -509,28 +514,78 @@ searching issues...
     <div class="td-content">
         <p>
             
-<div class="sect1">
-<h2 id="_how_to_automatically_build_your_microsite_with_various_cicd_systems">How to automatically build your Microsite with various CI/CD Systems</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>You probably don&#8217;t want to keep your docs secret.
-So you need a way to publish your static site.</p>
+<div class="sect2">
+<h3 id="_adr_14_task_discovery_via_task_marker">ADR-14: Task Discovery via <code>// @task</code> Marker</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Accepted (inferred) — reconstructed from <code>dtcw</code>; no prior written decision.</p>
+</li>
+<li>
+<p><strong>Context</strong>: v4 tasks are plain Groovy files in <code>scripts/</code>. That same directory also holds <strong>non-task</strong> code: <code>scripts/lib/</code> helpers (<code>DtcConfig.groovy</code>, <code>MicrositeBaker.groovy</code>, <code>DtcRestClient.groovy</code>, …) that are loaded by tasks but must never be invoked as tasks themselves. The wrapper needs a reliable way to answer two questions — "which scripts may a user run?" (for <code>dtcw tasks</code>) and "is this name a real task?" (for <code>dtcw &lt;name&gt;</code>) — without a central registry that every new task has to be added to.</p>
+</li>
+<li>
+<p><strong>Decision</strong>: A script is a runnable task <strong>iff</strong> it carries the line marker <code>// @task</code> within its first 5 lines. <code>dtcw</code> discovers tasks by scanning <code>scripts/*.groovy</code> and grepping the file head for that marker (<code>dtcw</code> lines 685 and 702); listing and validation use the same check. Adding a task is therefore a one-file operation: drop a <code>scripts/&lt;name&gt;.groovy</code> with <code>// @task</code> near the top — no edit to any registry, build file, or the wrapper.</p>
+</li>
+<li>
+<p><strong>Alternatives considered</strong>:</p>
+</li>
+</ul>
 </div>
-<div class="paragraph">
-<p>In this tutorial, I will show you three ways how to do it with the three main systems: GitLab, GitHub and Netlify</p>
-</div>
-<div class="admonitionblock tip">
-<table>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+<col style="width: 25%;">
+</colgroup>
+<thead>
 <tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-docToolchain can scaffold a ready-to-use pipeline for you. See the <a href="../../015_tasks/03_task_generateCICD.html"><code>generateCICD</code></a> task, which generates a GitHub Actions or GitLab CI configuration that builds and publishes your microsite.
-</td>
+<th class="tableblock halign-left valign-top">Criterion</th>
+<th class="tableblock halign-left valign-top">A: Central task registry/list</th>
+<th class="tableblock halign-left valign-top">B: <code>// @task</code> marker (chosen)</th>
+<th class="tableblock halign-left valign-top">C: Every <code>scripts/*.groovy</code> is a task</th>
 </tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adding a task (no central edit)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (must edit a registry too)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (drop one marked file)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (drop one file)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Excludes <code>lib/</code> helpers from being run</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (only listed names run)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (helpers lack the marker / live in <code>lib/</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (helpers would be runnable, dangerous)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Self-documenting / greppable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (registry is separate from code)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (marker sits in the script it describes)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Implementation simplicity (wrapper)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (parse a registry)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (one <code>grep</code> over the file head)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–1</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+4</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+1</strong></p></td>
+</tr>
+</tbody>
 </table>
-</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Consequences</strong>: The marker is the single source of truth for "is this a task", so the task list never drifts from the files on disk. Helper code stays safe simply by living in <code>scripts/lib/</code> and omitting the marker. The cost is a convention contributors must know: a new task silently fails to appear if the <code>// @task</code> line is missing or pushed past the first 5 lines — a documentation/onboarding concern rather than a runtime risk. The marker is intentionally a comment, so it costs nothing at execution time and survives any Groovy tooling that ignores comments.</p>
+</li>
+</ul>
 </div>
 </div>
         </p>
@@ -560,11 +615,11 @@ docToolchain can scaffold a ready-to-use pipeline for you. See the <a href="../.
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27CI%2FCD-Build%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/040_microsite/060_CI-CD-Deployment.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-14%3A+Task+Discovery+via+%60%2F%2F+%40task%60+Marker%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-14-task-discovery.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27CI%2FCD-Build%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:020_tutorial/040_microsite/060_CI-CD-Deployment.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-14%3A+Task+Discovery+via+%60%2F%2F+%40task%60+Marker%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-14-task-discovery.adoc">tell
     us how we can improve</a>.
     </p>
 </div>

@@ -522,9 +522,12 @@ searching issues...
 <p><strong>Status</strong>: Accepted (for v4)</p>
 </li>
 <li>
-<p><strong>Context</strong>: With AsciiDoctor externalized (ADR-6), the remaining Java dependencies are:</p>
+<p><strong>Context</strong>: AsciiDoctor is embedded as AsciidoctorJ (ADR-6, revised), so the Java dependencies that ship in <code>lib/</code> are:</p>
 <div class="ulist">
 <ul>
+<li>
+<p>AsciidoctorJ + <code>asciidoctor-diagram</code> + JRuby (~49 MB) — in-process rendering</p>
+</li>
 <li>
 <p>Groovy runtime (~15 JARs, ~10 MB)</p>
 </li>
@@ -538,16 +541,19 @@ searching issues...
 <p>Apache POI 5.3.0 (~10 JARs, ~10 MB) — Excel export (only needed for exportExcel)</p>
 </li>
 <li>
-<p>Total: ~30 JARs, ~23 MB</p>
+<p>plus transitive dependencies of all of the above</p>
+</li>
+<li>
+<p><strong>Actual total: 177 JARs, ~126 MB</strong> (<code>ls lib/*.jar | wc -l</code> = 177; <code>du -sh lib/</code> = 126M). The early estimate of ~30 JARs / 23 MB assumed AsciiDoctor would be externalized; embedding it (ADR-6, revised) is the dominant contributor.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Decision</strong>: Ship all remaining JARs in a <code>lib/</code> directory. <code>dtcw</code> sets the classpath via <code>java -cp lib/*</code>. No runtime resolution, no Grape, no downloads.</p>
+<p><strong>Decision</strong>: Ship all JARs in a <code>lib/</code> directory. <code>dtcw</code> sets the classpath via <code>java -cp lib/*</code>. No runtime resolution, no Grape, no downloads.</p>
 </li>
 <li>
-<p><strong>Rationale</strong>: 23 MB is small enough to bundle. Zero resolution overhead supports QS-9. Fully offline-capable. Deterministic — every user gets the same JARs. The simplest possible solution.</p>
+<p><strong>Rationale</strong>: A bundled <code>lib/</code> gives zero resolution overhead (supports QS-9), full offline capability, and determinism — every user gets the exact same JARs. The simplest possible solution. The trade-off is size: the real footprint is ~126 MB (not the 23 MB first estimated), driven by embedding AsciidoctorJ/JRuby (ADR-6, revised) — recorded as technical debt in Chapter 11.</p>
 </li>
 <li>
 <p><strong>Alternatives considered</strong>:</p>
@@ -624,13 +630,13 @@ searching issues...
 <p>Supports <strong>QS-2 (Offline)</strong>: Works without internet after installation.</p>
 </li>
 <li>
-<p>Neutral on <strong>QS-6 (Distribution size)</strong>: 23 MB is acceptable (v3 with Gradle is ~50 MB).</p>
+<p>Risk on <strong>QS-6 (Distribution size)</strong>: the real footprint is ~126 MB — <strong>larger</strong> than v3&#8217;s Gradle distribution (~50 MB), because AsciidoctorJ/JRuby are embedded rather than externalized. Making the POI and AsciidoctorJ JARs optional/lazy is a tracked future optimization (Chapter 11 debt).</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Consequences</strong>: Release process must resolve all transitive dependencies and package them into <code>lib/</code>. A simple shell script or one-time Gradle/Maven call at release time handles this. POI JARs could be made optional in a future optimization (load only when <code>saveExcel=true</code>). This decision creates risk <strong>R-005 (release-time dependency resolution)</strong> — a tampered or vulnerable JAR (threat T-006) would reach every user — and contributes to <strong>R-003 (script loading and classpath conflicts)</strong>; both are tracked in <a href="#section-technical-risks">[section-technical-risks]</a>.</p>
+<p><strong>Consequences</strong>: Release process must resolve all transitive dependencies and package them into <code>lib/</code> (177 JARs today). A simple shell script or one-time Gradle/Maven call at release time handles this. The ~126 MB footprint is the main downside; POI and AsciidoctorJ/JRuby JARs could be made optional/lazy in a future optimization (load only when the task needs them) — tracked as technical debt in <a href="#section-technical-risks">[section-technical-risks]</a>. This decision creates risk <strong>R-005 (release-time dependency resolution)</strong> — a tampered or vulnerable JAR (threat T-006) would reach every user — and contributes to <strong>R-003 (script loading and classpath conflicts)</strong>; both are tracked in <a href="#section-technical-risks">[section-technical-risks]</a>.</p>
 <div class="ulist">
 <ul>
 <li>
