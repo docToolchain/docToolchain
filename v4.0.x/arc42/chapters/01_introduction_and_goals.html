@@ -217,6 +217,15 @@
             } catch (e) {}
         })();
     </script>
+<!-- GoatCounter analytics — injected at deploy time only, never part of the templates.
+     Pinned to count.v5.js with Subresource Integrity (sha384) so a CDN compromise of
+     gc.zgo.at cannot inject altered code. When bumping the version, update both the
+     src URL and the integrity hash from https://www.goatcounter.com/help/countjs-versions
+     and re-verify with: openssl dgst -sha384 -binary count.vN.js | openssl base64 -A -->
+<script data-goatcounter="https://doctoolchain.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.v5.js"
+        crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -568,6 +577,9 @@ Gradle is removed entirely (ADR-3), the <code>core/</code> compilation module is
 </div>
 <div class="sect2">
 <h3 id="_quality_goals">Quality Goals</h3>
+<div class="paragraph">
+<p>These are the top five quality goals that <strong>drive</strong> the architecture decisions in this document. Further quality characteristics (LLM friendliness, LLM-managed configuration, modern UI, v3 backward compatibility, script-first maintainability, minimal repository footprint, clean uninstallation) are elaborated as derived requirements in the Chapter 10 quality tree, each cross-linked to its quality scenario.</p>
+</div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 16.6666%;">
@@ -606,41 +618,6 @@ Gradle is removed entirely (ADR-3), the <code>core/</code> compilation module is
 <td class="tableblock halign-left valign-top"><p class="tableblock">5</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Ease of adoption</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">A developer generates HTML documentation in under 5 minutes using only <code>dtcw</code>, including automatic Java and docToolchain installation. (QS-3, QS-6)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Minimal repository footprint</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Only <code>dtcw</code> and <code>docToolchainConfig.groovy</code> live in the project repository. Everything else is installed in <code>$HOME/.doctoolchain/</code>. (QS-18)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">7</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Clean uninstallation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>rm -rf $HOME/.doctoolchain/</code> removes everything. No modified shell profiles, no orphaned PATH entries, no system-level side effects. (QS-19)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">8</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LLM Friendliness</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LLMs navigate and modify documentation via daCLI MCP server with at most 3 tool calls to locate any section. Token usage under 10% of full-file reading. (QS-12)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">9</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LLM-managed configuration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The config file contains only deviations from defaults. An LLM can read, explain, and modify <code>docToolchainConfig.groovy</code> correctly. No boilerplate, no commented-out defaults. (QS-15)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">10</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Modern documentation UI</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Generated microsites have a modern, responsive design with dark mode, fast search, and clean navigation. (QS-13)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">11</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">v3 backward compatibility</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Existing <code>docToolchainConfig.groovy</code> files work without changes. Deprecated features emit warnings but do not fail. (QS-14)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">12</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Script-first Maintainability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A new feature is added by creating one Groovy script in <code>scripts/</code>. No compilation, no JAR rebuild. Change-to-test cycle under 5 seconds. (QS-11)</p></td>
 </tr>
 </tbody>
 </table>

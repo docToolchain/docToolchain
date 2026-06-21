@@ -217,6 +217,15 @@
             } catch (e) {}
         })();
     </script>
+<!-- GoatCounter analytics — injected at deploy time only, never part of the templates.
+     Pinned to count.v5.js with Subresource Integrity (sha384) so a CDN compromise of
+     gc.zgo.at cannot inject altered code. When bumping the version, update both the
+     src URL and the integrity hash from https://www.goatcounter.com/help/countjs-versions
+     and re-verify with: openssl dgst -sha384 -binary count.vN.js | openssl base64 -A -->
+<script data-goatcounter="https://doctoolchain.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.v5.js"
+        crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -525,11 +534,12 @@ Quality scenarios QS-9 through QS-14 were derived from the v4 architecture requi
 <h3 id="_quality_requirements_overview">Quality Requirements Overview</h3>
 <div class="paragraph">
 <p>The quality tree organizes requirements by ISO 25010 categories.
-Each leaf maps to one or more quality scenarios below.</p>
+Each leaf maps to one or more quality scenarios below.
+Each leaf is annotated as either concretising one of the five Chapter 1.2 top quality goals (<code>[goal N]</code>) or as a <code>[derived]</code> quality requirement that elaborates beyond the top goals — this is correct arc42, not a defect.</p>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../../images/quality-tree.png" alt="quality tree" width="698" height="1203">
+<img src="../../images/quality-tree.png" alt="quality tree" width="757" height="1203">
 </div>
 </div>
 </div>
@@ -537,81 +547,112 @@ Each leaf maps to one or more quality scenarios below.</p>
 <h3 id="_quality_scenarios">Quality Scenarios</h3>
 <div class="paragraph">
 <p>The following scenarios are the <strong>evaluation framework</strong> for all architecture decisions (Section 09).
-Each ADR must state which quality scenarios it supports or compromises.</p>
+Each ADR must state which quality scenarios it supports or compromises.
+Each scenario is written in the six-part quality-attribute-scenario form (Source, Stimulus, Artifact, Environment, Response, Response Measure) and annotated with the Chapter 1.2 top goal it concretises, or marked <code>derived</code>.</p>
 </div>
 <div class="sect3">
 <h4 id="_carried_forward_from_v3">Carried forward from v3</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 12.5%;">
-<col style="width: 12.5%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
+<col style="width: 9.0909%;">
+<col style="width: 9.0909%;">
+<col style="width: 9.0909%;">
+<col style="width: 18.1818%;">
+<col style="width: 9.0909%;">
+<col style="width: 9.0909%;">
+<col style="width: 18.1818%;">
+<col style="width: 18.1819%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">ID</th>
-<th class="tableblock halign-left valign-top">Quality Goal</th>
+<th class="tableblock halign-left valign-top">Goal</th>
+<th class="tableblock halign-left valign-top">Source</th>
 <th class="tableblock halign-left valign-top">Stimulus</th>
+<th class="tableblock halign-left valign-top">Artifact</th>
+<th class="tableblock halign-left valign-top">Environment</th>
 <th class="tableblock halign-left valign-top">Response</th>
-<th class="tableblock halign-left valign-top">Metric</th>
+<th class="tableblock halign-left valign-top">Response Measure</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Extensibility</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A contributor wants to add a new export feature (e.g., export to Notion).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">They create one Groovy script in <code>scripts/</code> and register it. No build system knowledge required.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No compilation step needed. The new task appears in <code>./dtcw tasks</code> output.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">derived (extensibility)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contributor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wants to add a new export feature (e.g., export to Notion).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scripts/</code> directory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Development</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">They create one Groovy script and register it; no build-system knowledge required.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No compilation step needed; the new task appears in <code>./dtcw tasks</code> output.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Portability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A user runs <code>./dtcw docker generateHTML</code> on the same project that previously built with <code>./dtcw local generateHTML</code>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Docker execution produces the same HTML output as the local execution.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Output files are byte-identical (excluding timestamps in HTML meta tags).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">goal 3 (cross-platform)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runs <code>./dtcw docker generateHTML</code> on a project previously built with <code>./dtcw local generateHTML</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generated HTML</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker vs. local</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Docker execution produces the same HTML output as local execution.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Output files byte-identical (excluding timestamps in HTML meta tags).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-3</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Usability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A developer with no prior docToolchain experience clones a project containing <code>dtcw</code> and AsciiDoc sources.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">They run <code>./dtcw local generateHTML</code> and get rendered documentation.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Time from first command to viewing HTML output is under 5 minutes (including automatic Java and docToolchain installation).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">goal 5 (ease of adoption)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">New developer</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Clones a project containing <code>dtcw</code> and AsciiDoc sources and runs <code>./dtcw local generateHTML</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dtcw</code> + AsciiDoc sources</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Fresh workstation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">They get rendered documentation, including automatic Java and docToolchain installation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Time from first command to viewing HTML under 5 minutes.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-4</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reliability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Confluence publishing is triggered twice for the same documentation without changes.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The second run detects that page content has not changed (via MD5 hash comparison) and skips the update.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No new Confluence page versions are created. Existing attachments and labels are preserved.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">derived (reliability)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Author / CI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Triggers Confluence publishing twice for unchanged documentation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Confluence pages</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Network, Confluence reachable</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The second run detects unchanged content (MD5 hash) and skips the update.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No new page versions created; attachments and labels preserved.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-5</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maintainability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A CI/CD pipeline runs <code>./dtcw local generateHTML</code> in a container without a TTY.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>dtcw</code> wrapper detects headless mode (<code>DTC_HEADLESS=true</code>) and suppresses all interactive prompts. The build completes unattended.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exit code 0 on success; non-zero on failure. No hanging processes waiting for user input.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">derived (headless CI)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CI/CD pipeline</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runs <code>./dtcw local generateHTML</code> in a container without a TTY.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dtcw</code> wrapper</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Headless CI (no TTY)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dtcw</code> detects headless mode (<code>DTC_HEADLESS=true</code>) and suppresses prompts; build completes unattended.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exit code 0 on success, non-zero on failure; no process hangs awaiting input.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-6</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Usability (Installability)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A user runs <code>./dtcw local generateHTML</code> on a machine without a JDK.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The <code>dtcw</code> wrapper detects the missing JDK, downloads and installs it locally, and proceeds with the build.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No manual Java installation required. The installed JDK is reused for subsequent runs.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">goal 5 (ease of adoption)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runs <code>./dtcw local generateHTML</code> on a machine without a JDK.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dtcw</code> wrapper</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Workstation without JDK</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dtcw</code> detects the missing JDK, downloads and installs it locally, then proceeds.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No manual Java install; installed JDK reused on later runs.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-7</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reliability</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The test suite is executed.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">All tests pass. Environment-dependent tests are skipped gracefully.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Zero test failures. Test execution completes in under 15 seconds.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">derived (stable test suite)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Developer / CI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Executes the test suite.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Spock / BATS test suites</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local or CI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">All tests pass; environment-dependent tests skip gracefully.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zero test failures; execution under 15 seconds.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-8</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Performance Efficiency</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A user runs <code>./dtcw local generateHTML</code> on a typical documentation project (~50 AsciiDoc pages with PlantUML diagrams).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">goal 2 (performance)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runs <code>./dtcw local generateHTML</code> on ~50 AsciiDoc pages with PlantUML diagrams.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Document generation pipeline</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local, docToolchain installed</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">HTML output is generated.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Generation completes in under 20 seconds.</p></td>
 </tr>
@@ -622,98 +663,137 @@ Each ADR must state which quality scenarios it supports or compromises.</p>
 <h4 id="_new_for_v4">New for v4</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 12.5%;">
-<col style="width: 12.5%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
-<col style="width: 25%;">
+<col style="width: 9.0909%;">
+<col style="width: 9.0909%;">
+<col style="width: 9.0909%;">
+<col style="width: 18.1818%;">
+<col style="width: 9.0909%;">
+<col style="width: 9.0909%;">
+<col style="width: 18.1818%;">
+<col style="width: 18.1819%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">ID</th>
-<th class="tableblock halign-left valign-top">Quality Goal</th>
+<th class="tableblock halign-left valign-top">Goal</th>
+<th class="tableblock halign-left valign-top">Source</th>
 <th class="tableblock halign-left valign-top">Stimulus</th>
+<th class="tableblock halign-left valign-top">Artifact</th>
+<th class="tableblock halign-left valign-top">Environment</th>
 <th class="tableblock halign-left valign-top">Response</th>
-<th class="tableblock halign-left valign-top">Metric</th>
+<th class="tableblock halign-left valign-top">Response Measure</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-9</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Performance (Startup + Throughput)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A user runs <code>./dtcw local generateHTML</code> for the second time (docToolchain already installed).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The task starts executing immediately without build framework initialization. AsciiDoc processing completes without unnecessary overhead from dependency resolution, daemon negotiation, or build graph computation.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Startup (command to first AsciiDoc processing): under 3 seconds. End-to-end time for 50 pages: under 10 seconds. No Gradle daemon, no dependency resolution, no build graph overhead.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">goal 2 (performance)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runs <code>./dtcw local generateHTML</code> a second time (docToolchain already installed).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dtcw</code> + Groovy scripts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local, warm install</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Task starts immediately, with no build-framework init, dependency resolution, daemon negotiation, or build-graph computation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Startup under 3 seconds; end-to-end for 50 pages under 10 seconds.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-10</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Portability (Apple Silicon)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A user runs <code>./dtcw local generateSite</code> on a Mac with Apple Silicon (M1/M2/M3/M4).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The site generation completes without errors or platform-specific workarounds.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No JNI/native library issues. Same output as on x86_64.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">goal 3 (cross-platform)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runs <code>./dtcw local generateSite</code> on Apple Silicon (M1/M2/M3/M4).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Custom site generator (<code>MicrositeBaker</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">macOS ARM64</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Site generation completes without errors or platform-specific workarounds.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No JNI/native-library issues; same output as on x86_64.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-11</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maintainability (Script-first)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A contributor wants to fix a bug in the Confluence publishing logic.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">They edit a Groovy script directly and re-run. No compilation, no JAR rebuild, no Shadow JAR assembly.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Change-to-test cycle is under 5 seconds. No <code>./gradlew core:jar</code> step required.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">derived (script-first)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Contributor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wants to fix a bug in the Confluence publishing logic.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy scripts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Development</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">They edit a Groovy script directly and re-run; no compilation, no JAR rebuild.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Change-to-test cycle under 5 seconds; no <code>./gradlew core:jar</code> step.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-12</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LLM Friendliness</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">An LLM (via daCLI MCP server) needs to read, navigate, and modify docToolchain-generated documentation.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">daCLI provides structured access via 10 MCP tools: <code>get_structure</code>, <code>get_section</code>, <code>search</code>, <code>update_section</code>, etc. Documentation follows Semantic Anchor conventions for machine-readable navigation.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LLM can locate and read any section with at most 3 tool calls. Token usage is under 10% of what reading full files would require.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">derived (LLM friendliness)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM agent (via daCLI)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Needs to read, navigate, and modify generated documentation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">daCLI MCP server (10 tools)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MCP over stdio</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">daCLI provides structured access; docs follow Semantic Anchor conventions.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any section located with at most 3 tool calls; token usage under 10% of full-file reading.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-13</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Usability (Modern UI)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A reader opens a docToolchain-generated microsite in a browser.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The site has a modern, clean design with responsive layout, dark mode support, fast full-text search, and clear navigation.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Visual appearance is comparable to modern documentation sites (Starlight, Nextra, Diataxis). Page load time under 1 second.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">derived (modern UI)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reader</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Opens a docToolchain-generated microsite in a browser.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Generated microsite</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Modern browser</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The site shows responsive layout, dark mode, fast full-text search, and clear navigation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Visual quality comparable to Starlight/Nextra/Diataxis; page load under 1 second.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-14</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Compatibility (v3 config)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A user upgrades from docToolchain v3 to v4 without changing their <code>docToolchainConfig.groovy</code>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The v4 <code>dtcw</code> reads the existing configuration file and executes all previously configured tasks.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Zero config file changes required for basic usage (generateHTML, generatePDF, publishToConfluence). Deprecated features emit warnings but do not fail.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">derived (v3 compatibility)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Upgrading user</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Moves from v3 to v4 without changing <code>docToolchainConfig.groovy</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>docToolchainConfig.groovy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Existing v3 project</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v4 <code>dtcw</code> reads the existing config and runs all previously configured tasks.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zero config changes for basic usage; deprecated features warn but do not fail.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-15</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Usability (LLM-Managed Configuration)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A user asks an LLM to configure Confluence publishing for their project.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The LLM reads the current <code>docToolchainConfig.groovy</code>, understands which values deviate from defaults, and adds only the necessary settings (API URL, space key, credentials reference). The config file stays minimal — no commented-out defaults, no boilerplate.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The config file contains only explicit deviations from defaults. Defaults are defined in code and documented in a machine-readable reference. An LLM can read the config, explain what is configured, and modify it correctly — without hallucinating defaults or duplicating them.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">derived (LLM-managed config)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User via LLM</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Asks an LLM to configure Confluence publishing.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>docToolchainConfig.groovy</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM editing session</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The LLM adds only the necessary deviating settings; the config stays minimal.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Config contains only explicit deviations from defaults; LLM reads, explains, and edits it correctly without hallucinating defaults.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-16</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Privacy (No Implicit Cloud Processing)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A user runs <code>./dtcw generateHTML</code> with diagrams in their AsciiDoc sources. The <code>diagramServer</code> is set to <code><a href="https://kroki.io/" class="bare">https://kroki.io/</a></code> (external service).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">docToolchain prints a clear warning: "Diagramm-Quelltexte werden an kroki.io gesendet. Für lokale Verarbeitung setze <code>diagramServer = 'docker'</code>." The user must explicitly acknowledge or configure an external server. No data leaves the machine without the user&#8217;s informed consent.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Zero external API calls unless the user has explicitly configured an external <code>diagramServer</code> URL. Default should be <code>docker</code> (local) or no diagrams rendered. External URLs trigger a warning on every run.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">goal 1 (no implicit cloud processing)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Runs <code>./dtcw generateHTML</code> with diagrams while <code>diagramServer</code> is set to <code><a href="https://kroki.io/" class="bare">https://kroki.io/</a></code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Diagram rendering (asciidoctor-diagram)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">External service configured</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">docToolchain prints a clear warning ("Diagramm-Quelltexte werden an kroki.io gesendet. Für lokale Verarbeitung setze <code>diagramServer = 'docker'</code>.") requiring informed consent.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zero external API calls unless an external <code>diagramServer</code> URL is explicitly set; default is <code>docker</code> (local); external URLs warn on every run.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-17</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Usability (Actionable Guidance)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A task fails due to a problem the user can fix (locked file, missing config, wrong credentials, unreachable API, missing tool).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Instead of a stack trace or cryptic error message, docToolchain tells the user <strong>what to do next</strong>: which file to close, which config key to set, which command to run. The message is a concrete action, not a diagnosis.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Every error message that a user can resolve contains a remediation step. Example: "Die PDF-Datei build/pdf/manual.pdf ist gesperrt. Bitte schließe sie in deinem PDF-Viewer und führe den Befehl erneut aus." Zero stack traces for user-recoverable errors. Stack traces only for bugs (unexpected exceptions).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">goal 4 (actionable error guidance)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hits a fixable failure (locked file, missing config, wrong credentials, unreachable API, missing tool).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>DtcException</code> + top-level handler</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any environment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">docToolchain prints what to do next — which file to close, which config to set, which command to run — not a diagnosis.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Every user-recoverable error carries a remediation step; zero stack traces except for bugs (exit code 99).</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-18</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Usability (Minimal Repository Footprint)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A user adds docToolchain to an existing project repository.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Only <code>dtcw</code> (wrapper script) and <code>docToolchainConfig.groovy</code> (configuration) are committed to the project repository. All other files — JARs, scripts, templates, Java runtime — are installed externally in <code>$HOME/.doctoolchain/</code>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Exactly 2 files added to the project repo (plus optional <code>dtcw.ps1</code>/<code>dtcw.bat</code> for Windows). The <code>build/</code> output directory is in <code>.gitignore</code>. No Gradle wrapper, no <code>build.gradle</code>, no <code>settings.gradle</code>, no <code>libs/</code> in the project.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">derived (minimal repo footprint)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adds docToolchain to an existing project repository.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project repository</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only <code>dtcw</code> and <code>docToolchainConfig.groovy</code> are committed; JARs, scripts, templates, and the Java runtime install under <code>$HOME/.doctoolchain/</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Exactly 2 files added (plus optional <code>dtcw.ps1</code>/<code>dtcw.bat</code>); <code>build/</code> git-ignored; no Gradle wrapper, no <code>build.gradle</code>.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">QS-19</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Usability (Clean Uninstallation)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">A user decides to remove docToolchain from their system.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Deleting <code>$HOME/.doctoolchain/</code> removes the entire installation — binaries, JARs, Java runtime, caches. docToolchain does not modify shell profiles (<code>.bashrc</code>, <code>.zshrc</code>, <code>.profile</code>), does not register system services, and does not write to directories outside <code>$HOME/.doctoolchain/</code>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Zero side effects after <code>rm -rf $HOME/.doctoolchain/</code>. No orphaned entries in PATH, no lingering environment variables, no modified shell config files. The project&#8217;s <code>dtcw</code> and config file remain inert without the installation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">derived (clean uninstallation)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">User</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Decides to remove docToolchain from their system.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>$HOME/.doctoolchain/</code> installation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Any</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Deleting <code>$HOME/.doctoolchain/</code> removes binaries, JARs, Java runtime, and caches; no shell profiles or services were touched.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zero side effects after <code>rm -rf $HOME/.doctoolchain/</code>; no orphaned PATH entries, env vars, or modified shell configs.</p></td>
 </tr>
 </tbody>
 </table>

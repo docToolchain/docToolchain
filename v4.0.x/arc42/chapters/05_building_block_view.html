@@ -217,6 +217,15 @@
             } catch (e) {}
         })();
     </script>
+<!-- GoatCounter analytics — injected at deploy time only, never part of the templates.
+     Pinned to count.v5.js with Subresource Integrity (sha384) so a CDN compromise of
+     gc.zgo.at cannot inject altered code. When bumping the version, update both the
+     src URL and the integrity hash from https://www.goatcounter.com/help/countjs-versions
+     and re-verify with: openssl dgst -sha384 -binary count.vN.js | openssl base64 -A -->
+<script data-goatcounter="https://doctoolchain.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.v5.js"
+        crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -522,7 +531,7 @@ The key structural change from v3: Gradle Orchestration and the compiled Core Mo
 <h3 id="_level_1_whitebox_overall_system">Level 1: Whitebox Overall System</h3>
 <div class="imageblock">
 <div class="content">
-<img src="../../images/level1-container-v4.png" alt="level1 container v4" width="1114" height="1016">
+<img src="../../images/level1-container-v4.png" alt="level1 container v4" width="1551" height="1016">
 </div>
 </div>
 <div class="dlist">
@@ -531,19 +540,42 @@ The key structural change from v3: Gradle Orchestration and the compiled Core Mo
 <dd>
 <p>v4 simplifies from four layers (Wrapper &#8594; Gradle &#8594; Script Plugins &#8594; Core Module) to two layers (Wrapper &#8594; Scripts). The Gradle orchestration layer and the compiled Core Module are eliminated. Business logic returns to scripts. Companion tools (daCLI, Bausteinsicht, LLM-Prompts) handle LLM integration as an ecosystem rather than embedding it into docToolchain itself.</p>
 </dd>
+</dl>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This Level-1 view is a <strong>container zoom</strong>: it shows the two internal building blocks (Wrapper, Groovy Scripts) and the external systems they call <strong>at runtime</strong> — AsciiDoctor, Confluence, Jira, and the diagram rendering backend (Kroki, ADR-9). The remaining Chapter 3 context actors (Enterprise Architect, Git, Structurizr) are reached through the same <code>Groovy Scripts</code> building block (the <code>export*</code> scripts) and are elided here only to keep the container diagram readable; they are not a different system boundary.</p>
+</div>
+<div class="paragraph">
+<p>The ecosystem tools differ in lifecycle: <strong>daCLI is exercised at runtime</strong> (the LLM-edit scenario S3 in Chapter 6 calls it). <strong>Bausteinsicht and LLM-Prompts are design-time companion tools</strong> — they are used by authors/LLMs while <strong>writing</strong> documentation; docToolchain core never invokes them at runtime. They are shown for ecosystem context only.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="dlist">
+<dl>
 <dt class="hdlist1">Contained Building Blocks</dt>
 </dl>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 40%;">
-<col style="width: 40%;">
+<col style="width: 14.2857%;">
+<col style="width: 28.5714%;">
+<col style="width: 28.5714%;">
+<col style="width: 28.5715%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Building Block</th>
 <th class="tableblock halign-left valign-top">Responsibility</th>
+<th class="tableblock halign-left valign-top">Interface</th>
 <th class="tableblock halign-left valign-top">Location</th>
 </tr>
 </thead>
@@ -551,26 +583,31 @@ The key structural change from v3: Gradle Orchestration and the compiled Core Mo
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Wrapper Layer</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Cross-platform CLI entry point. Constructs classpath from <code>lib/</code> directory (or resolves via Grape). Manages Java installation. Invokes Groovy scripts directly — no build framework intermediary. Detects execution environment (local/Docker/SDKMAN).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CLI: <code>./dtcw [env] &lt;task&gt; [args]</code>; differentiated exit codes (0/1/2/3/99, ADR-8).</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>dtcw</code>, <code>dtcw.ps1</code>, <code>dtcw.bat</code></p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Groovy Scripts</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">All task logic: document generation (AsciiDoctor invocation), site generation (custom SSG), Confluence publishing, Jira export, changelog extraction, and all other features. Each script is a self-contained unit that runs without compilation.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Task entry points: one <code>&lt;taskName&gt;.groovy</code> per task, invoked as <code>groovy.ui.GroovyMain scripts/&lt;taskName&gt;.groovy</code>; config via <code>ConfigSlurper</code>.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>scripts/*.groovy</code></p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">daCLI (Ecosystem)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">daCLI (Ecosystem, runtime)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MCP server providing 10 tools for structured document access: navigation, search, section-level read/write, validation. Separate Python process communicating via stdio.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MCP over stdio (<code>get_structure</code>, <code>get_section</code>, <code>search</code>, <code>update_section</code>, …) and a CLI.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Separate repository (<code>dacli/</code>)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bausteinsicht (Ecosystem)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Architecture-as-code tool. JSONC models with bidirectional draw.io sync. Exports PlantUML/PNG for embedding in AsciiDoc. CLI with <code>--format json</code> for LLM interaction.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bausteinsicht (Ecosystem, design-time only)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Architecture-as-code tool. JSONC models with bidirectional draw.io sync. Exports PlantUML/PNG for embedding in AsciiDoc. <strong>Used by authors/LLMs at design time; not invoked by docToolchain core at runtime.</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">CLI with <code>--format json</code>; produces PlantUML/PNG artifacts consumed as AsciiDoc includes.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Separate repository (<code>Bausteinsicht/</code>)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LLM-Prompts (Ecosystem)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable prompt collection for arc42 documentation: chapter generation, ADR creation, quality scenarios, risk assessment, stakeholder analysis.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LLM-Prompts (Ecosystem, design-time only)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable prompt collection for arc42 documentation: chapter generation, ADR creation, quality scenarios, risk assessment, stakeholder analysis. <strong>Used by authors/LLMs at design time; not invoked by docToolchain core at runtime.</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prompt text (AsciiDoc) consumed by an LLM; no runtime API.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Separate repository (<code>LLM-Prompts/</code>)</p></td>
 </tr>
 </tbody>

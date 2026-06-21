@@ -217,6 +217,15 @@
             } catch (e) {}
         })();
     </script>
+<!-- GoatCounter analytics — injected at deploy time only, never part of the templates.
+     Pinned to count.v5.js with Subresource Integrity (sha384) so a CDN compromise of
+     gc.zgo.at cannot inject altered code. When bumping the version, update both the
+     src URL and the integrity hash from https://www.goatcounter.com/help/countjs-versions
+     and re-verify with: openssl dgst -sha384 -binary count.vN.js | openssl base64 -A -->
+<script data-goatcounter="https://doctoolchain.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.v5.js"
+        crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -480,6 +489,7 @@ searching issues...
 <li><a href="#_scenario_2_publish_to_confluence">Scenario 2: Publish to Confluence</a></li>
 <li><a href="#_scenario_3_llm_modifies_documentation_via_dacli">Scenario 3: LLM Modifies Documentation via daCLI</a></li>
 <li><a href="#_scenario_4_generate_microsite">Scenario 4: Generate Microsite</a></li>
+<li><a href="#_scenario_5_error_and_recovery_publish_fails_with_http_401_locked_file">Scenario 5: Error and Recovery — Publish Fails with HTTP 401 / Locked File</a></li>
 </ul>
 </li>
 </ul>
@@ -560,6 +570,20 @@ searching issues...
 </div>
 <div class="paragraph">
 <p><strong>Key difference from v3</strong>: No jBake library, no OrientDB content database. The site generator is a Groovy script that reads files, builds an in-memory model, applies Groovy SimpleTemplate templates, and writes static HTML. Runs on all platforms including Apple Silicon (QS-10).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_scenario_5_error_and_recovery_publish_fails_with_http_401_locked_file">Scenario 5: Error and Recovery — Publish Fails with HTTP 401 / Locked File</h3>
+<div class="paragraph">
+<p>This scenario exercises the error-handling path, not the happy path. It shows how the <code>DtcException</code> hierarchy (ADR-8, Chapter 8.5 Error Handling) turns a failure into an actionable message and a differentiated exit code (QS-17).</p>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/runtime-error-recovery-v4.png" alt="runtime error recovery v4" width="1032" height="734">
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Recovery behaviour</strong>: A locked output file raises a <code>DtcException</code> (exit code 1); an HTTP 401 raises a <code>DtcApiException</code> (exit code 3). In both cases the top-level handler prints only the guidance message — what the user must do (close the file, fix the credentials) — and suppresses the stack trace. CI/CD distinguishes a config/credential problem (exit 3) from a user-fixable local issue (exit 1) without parsing logs. This realises quality goal #4 (Actionable error guidance, QS-17) and the Chapter 8.5 Error Handling concept; the exception hierarchy and exit-code table are defined in ADR-8.</p>
 </div>
 </div>
 </div>

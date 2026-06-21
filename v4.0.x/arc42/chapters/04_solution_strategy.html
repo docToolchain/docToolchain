@@ -217,6 +217,15 @@
             } catch (e) {}
         })();
     </script>
+<!-- GoatCounter analytics — injected at deploy time only, never part of the templates.
+     Pinned to count.v5.js with Subresource Integrity (sha384) so a CDN compromise of
+     gc.zgo.at cannot inject altered code. When bumping the version, update both the
+     src URL and the integrity hash from https://www.goatcounter.com/help/countjs-versions
+     and re-verify with: openssl dgst -sha384 -binary count.vN.js | openssl base64 -A -->
+<script data-goatcounter="https://doctoolchain.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.v5.js"
+        crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -513,7 +522,8 @@ searching issues...
 <h2 id="section-solution-strategy">Solution Strategy</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The following table maps each quality goal to the architectural approach that achieves it and the supporting architecture decision(s).</p>
+<p>The following table maps each quality goal to the architectural approach that achieves it and the supporting architecture decision(s).
+The first five rows are the top quality goals from <a href="#section-introduction-and-goals">[section-introduction-and-goals]</a> (in priority order); the remaining rows cover the derived quality requirements elaborated in <a href="#section-quality-scenarios">[section-quality-scenarios]</a>.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
@@ -532,46 +542,64 @@ searching issues...
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Performance (Startup + Throughput)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Remove Gradle entirely.</strong> <code>dtcw</code> invokes Groovy scripts directly via <code>java</code>/<code>groovy</code> runtime. No daemon, no dependency resolution, no build graph computation.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Gradle adds 10-95 seconds of overhead per invocation. Direct script execution eliminates this completely.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-3</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1. No implicit cloud processing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Local-default diagram rendering.</strong> <code>diagramServer = 'docker'</code> runs a local Kroki container; any external URL triggers a per-run privacy warning. No data leaves the machine unless explicitly configured.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Privacy is the #1 goal. Defaulting to local processing means the safe path is the default path.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-9</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Script-first Maintainability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2. Performance (Startup + Throughput)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Remove Gradle entirely.</strong> <code>dtcw</code> invokes Groovy scripts directly via <code>java</code>/<code>groovy</code> runtime. No daemon, no dependency resolution, no build graph computation. AsciiDoctor as external CLI removes JRuby init.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Gradle adds 10-95 seconds of overhead per invocation. Direct script execution eliminates this completely.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-3, ADR-6, ADR-7</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3. Cross-platform portability</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Replace jBake with custom Groovy SSG; render diagrams server-side.</strong> No OrientDB (JNI issues on ARM64). No unmaintained upstream dependencies. AsciiDoctor as external CLI tool (ADR-6).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">jBake&#8217;s OrientDB dependency breaks Apple Silicon. The project is unmaintained. A custom generator plus server-side rendering eliminates the platform risk.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-4, ADR-6, ADR-9</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4. Actionable error guidance</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong><code>DtcException</code> hierarchy with mandatory guidance.</strong> Every user-recoverable error carries a remediation step and a differentiated exit code; stack traces only for bugs.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Users need to know what to do next, not read a stack trace. Guidance is a mandatory constructor field, so it cannot be skipped.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-8</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">5. Ease of adoption</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>dtcw auto-bootstrapping.</strong> <code>dtcw</code> detects missing Java, downloads it, detects missing docToolchain, installs it. Zero prerequisites beyond a shell.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Unchanged from v3. The principle is proven and effective.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-6 (AsciiDoctor auto-install)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>derived:</em> Script-first Maintainability</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Scripts as primary code artifacts.</strong> No compiled <code>core/</code> module. Business logic lives in Groovy scripts that run without compilation. The <code>core/</code> Shadow JAR is dissolved.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Compilation creates a slow feedback loop. Scripts enable change-to-test in under 5 seconds. Contributors need no build system knowledge.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-3 (supersedes ADR-2)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cross-platform + Apple Silicon</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Replace jBake with custom Groovy SSG.</strong> No OrientDB (JNI issues on ARM64). No unmaintained upstream dependencies. AsciiDoctor as external CLI tool (ADR-6).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">jBake&#8217;s OrientDB dependency breaks Apple Silicon. The project is unmaintained. A custom generator eliminates the platform risk.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-4, ADR-6</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LLM Friendliness</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>derived:</em> LLM Friendliness</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Ecosystem approach.</strong> daCLI provides MCP-based document access. Bausteinsicht provides architecture-as-code with JSONC. LLM-Prompts provide reusable interaction patterns. Semantic Anchors enable machine-readable navigation.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LLMs need structured access, not raw files. The ecosystem tools each solve one aspect of LLM integration.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-5</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ease of adoption</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>dtcw auto-bootstrapping.</strong> <code>dtcw</code> detects missing Java, downloads it, detects missing docToolchain, installs it. Zero prerequisites beyond a shell.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Unchanged from v3. The principle is proven and effective.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">&#8201;&#8212;&#8201;</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Modern UI</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>derived:</em> Modern UI</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Custom site generator with modern theme.</strong> Full control over HTML output. Phase 1: clean, responsive design with dark mode and search. Phase 2: LLM-augmented UI (future).</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Docsy theme is dated. jBake replacement gives full control over output design.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-4</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">v3 backward compatibility</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>derived:</em> v3 backward compatibility</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Config file compatibility.</strong> <code>docToolchainConfig.groovy</code> format unchanged. jBake metadata headers (<code>:jbake-title:</code> etc.) supported by the new site generator. <code>dtcw</code> CLI interface stable.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Existing users must upgrade without pain. Config is the contract.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-4 (metadata), ADR-3 (dtcw)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><em>derived:</em> Minimal repository footprint + clean uninstallation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Everything installs under <code>$HOME/.doctoolchain/</code>.</strong> Only <code>dtcw</code> and <code>docToolchainConfig.groovy</code> live in the project repo; no shell-profile edits, so <code>rm -rf $HOME/.doctoolchain/</code> removes everything.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A documentation tool must not pollute the project repo or the user&#8217;s system. Removability builds trust.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-3, ADR-7</p></td>
 </tr>
 </tbody>
 </table>

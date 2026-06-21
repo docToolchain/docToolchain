@@ -217,6 +217,15 @@
             } catch (e) {}
         })();
     </script>
+<!-- GoatCounter analytics — injected at deploy time only, never part of the templates.
+     Pinned to count.v5.js with Subresource Integrity (sha384) so a CDN compromise of
+     gc.zgo.at cannot inject altered code. When bumping the version, update both the
+     src URL and the integrity hash from https://www.goatcounter.com/help/countjs-versions
+     and re-verify with: openssl dgst -sha384 -binary count.vN.js | openssl base64 -A -->
+<script data-goatcounter="https://doctoolchain.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.v5.js"
+        crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -476,9 +485,14 @@ searching issues...
 <ul class="sectlevel1">
 <li><a href="#section-concepts">Cross-cutting Concepts</a>
 <ul class="sectlevel2">
+<li><a href="#_threat_model_stride">Threat Model (STRIDE)</a></li>
+<li><a href="#_security">Security</a></li>
+<li><a href="#_test">Test</a></li>
+<li><a href="#_observability">Observability</a></li>
+<li><a href="#_error_handling">Error Handling</a></li>
 <li><a href="#_configuration_management">Configuration Management</a></li>
 <li><a href="#_script_execution_model">Script Execution Model</a></li>
-<li><a href="#_authentication_and_security">Authentication and Security</a></li>
+<li><a href="#_authentication_mechanisms">Authentication Mechanisms</a></li>
 <li><a href="#_headless_ci_mode">Headless / CI Mode</a></li>
 <li><a href="#_llm_integration_architecture">LLM Integration Architecture</a></li>
 <li><a href="#_content_transformation_pipeline">Content Transformation Pipeline</a></li>
@@ -518,6 +532,175 @@ searching issues...
 <div class="sect1">
 <h2 id="section-concepts">Cross-cutting Concepts</h2>
 <div class="sectionbody">
+<div class="paragraph">
+<p>This chapter leads with the five mandated baseline crosscutting concepts (Threat Model, Security, Test, Observability, Error Handling), then documents the docToolchain-specific concepts (Configuration Management, Script Execution Model, LLM Integration, Content Transformation Pipeline, Custom Site Generator).</p>
+</div>
+<div class="sect2">
+<h3 id="_threat_model_stride">Threat Model (STRIDE)</h3>
+<div class="paragraph">
+<p>docToolchain is a local CLI document generator. It reads local files, runs Groovy scripts and Groovy config, calls external REST APIs (Confluence, Jira), optionally calls LLM providers (via the daCLI ecosystem), optionally renders diagrams through a Kroki-compatible server (local Docker by default, ADR-9), and downloads Java, AsciiDoctor, templates, and themes over the network on first use.
+The following STRIDE analysis enumerates the concrete threats this attack surface creates. Each threat carries a stable ID (<code>T-NNN</code>) referenced by the mitigations in the Security concept below and by the risks in <a href="#section-technical-risks">[section-technical-risks]</a>.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 50%;">
+<col style="width: 16.6668%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">T-ID</th>
+<th class="tableblock halign-left valign-top">STRIDE Category</th>
+<th class="tableblock halign-left valign-top">Threat</th>
+<th class="tableblock halign-left valign-top">Affected Building Block (Ch5)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">T-001</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tampering / Spoofing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A man-in-the-middle or spoofed mirror serves a tampered AsciiDoctor install, template, theme, or JDK during <code>dtcw</code> auto-bootstrapping. The user runs attacker-controlled code without noticing.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wrapper Layer (<code>dtcw</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">T-002</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Information Disclosure</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">API tokens and credentials leak into console output, build logs, or generated CI snippets — for example a stack trace that echoes <code>confluence.credentials</code>, or a token printed by a verbose script.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy Scripts (<code>publishToConfluence.groovy</code>, <code>exportJiraIssues.groovy</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">T-003</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tampering / Elevation of Privilege</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A malicious <code>include::</code> directive or crafted file path performs path traversal on export, writing outside the intended <code>outputPath</code> (zip-slip / <code>../</code> escape) or reading files outside the project.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy Scripts (<code>generateSite.groovy</code>, <code>collectIncludes.groovy</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">T-004</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Information Disclosure / Tampering (SSRF)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A configured <code>diagramServer</code>, <code>confluence.api</code>, or <code>jira.api</code> URL points at an internal address. docToolchain is coerced into requesting internal-only endpoints (SSRF), or diagram source text is exfiltrated to a third-party Kroki host.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy Scripts + Wrapper (diagram rendering, REST clients)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">T-005</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Elevation of Privilege</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Untrusted <code>docToolchainConfig.groovy</code> or a downloaded Groovy script executes arbitrary code. Groovy config is executable code, not data — opening a hostile project and running <code>dtcw</code> runs whatever the config author wrote.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Wrapper Layer + Groovy Scripts (<code>ConfigSlurper</code> evaluation)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">T-006</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Tampering / Elevation of Privilege</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A tampered or vulnerable dependency JAR in <code>lib/</code> (ADR-7) executes with full user privileges. A poisoned transitive dependency resolved at release time ships to every user.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy Scripts (<code>lib/*.jar</code> classpath)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_security">Security</h3>
+<div class="paragraph">
+<p>Each mitigation below references the <code>T-IDs</code> it closes. Mitigations marked "already in code" exist today; the rest are decided concepts to be enforced as the v4 scripts mature.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 50%;">
+<col style="width: 16.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Mitigation</th>
+<th class="tableblock halign-left valign-top">Description</th>
+<th class="tableblock halign-left valign-top">Closes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTTPS for all downloads and APIs</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dtcw</code> and the REST clients use HTTPS for JDK/AsciiDoctor/template/theme downloads and for Confluence/Jira calls. Pinned versions (ADR-6) reduce the window for a swapped artifact.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">T-001, T-004</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Secrets via environment, never config</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Credentials are supplied through CLI arguments or environment variables, never stored in <code>docToolchainConfig.groovy</code>. Properties whose names contain <code>credential</code>, <code>token</code>, or <code>secret</code> are masked in all output (see the Configuration Management concept below). Stack traces are suppressed for user-recoverable errors (ADR-8), so tokens are not echoed.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">T-002</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Zip-slip / path-traversal guard</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The custom site generator already guards against zip-slip when unpacking templates (carried into <code>generateSite</code>). Export paths are resolved against and constrained to <code>outputPath</code>; <code>include::</code> resolution is confined to the project tree.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">T-003</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Local-default diagram rendering</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The default <code>diagramServer = 'docker'</code> (ADR-9) keeps diagram source text on the machine. Any external URL triggers a per-run warning (QS-16) so SSRF/exfiltration via a third-party host is an explicit, informed choice, not a silent default.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">T-004</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Treat config and scripts as trusted code</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Documentation states plainly that <code>docToolchainConfig.groovy</code> and project scripts are executed, not parsed — users must trust a project before running <code>dtcw</code> in it, exactly as with any build tool. CodeNarc static analysis (ADR-11) and gitleaks pre-commit hooks reduce the chance of introducing unsafe patterns.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">T-005</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Dependency CVE scanning</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Trivy scans <code>lib/*.jar</code> for known CVEs on every PR and weekly (ADR-11), with results in the GitHub Security tab. Release-time dependency resolution is reproducible and pinned (ADR-7).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">T-006</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="sect2">
+<h3 id="_test">Test</h3>
+<div class="paragraph">
+<p>Testing follows a pyramid, broad at the base:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Unit (Spock)</strong> — the largest layer. Spock specifications in <code>core/</code> cover the Atlassian client/converter logic, configuration handling, and HTML transformation. These trace to the business rules they enforce (e.g. idempotent Confluence publishing — QS-4 — is unit-tested via MD5 hash comparison).</p>
+</li>
+<li>
+<p><strong>Wrapper (BATS)</strong> — <code>test/*.bats</code> exercise <code>dtcw</code> across local/Docker/SDKMAN environments (QS-2, QS-6). They trace to the cross-platform and installability use cases.</p>
+</li>
+<li>
+<p><strong>Integration</strong> — end-to-end <code>./dtcw local generateHTML</code> / <code>generatePDF</code> / <code>generateSite</code> runs verify the full pipeline against real AsciiDoctor (QS-8). Environment-dependent tests skip gracefully (QS-7).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>CodeNarc static analysis (ADR-11) sits alongside the pyramid as a non-execution gate. Property-based tests are deferred until the v4 Groovy scripts carry business logic (ADR-11).</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_observability">Observability</h3>
+<div class="paragraph">
+<p>docToolchain is a short-lived CLI process, so observability is console- and artifact-based rather than service telemetry:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Console output</strong> — progress and warnings stream to stdout/stderr. The privacy warning (QS-16) and actionable error guidance (ADR-8) are the primary user-facing signals.</p>
+</li>
+<li>
+<p><strong>Build artifacts</strong> — generated HTML/PDF/microsite under <code>build/</code>, plus the HTML sanity-check report, are the durable evidence of a run.</p>
+</li>
+<li>
+<p><strong>Exit codes</strong> — differentiated exit codes (0 success, 1 user-fixable, 2 config, 3 API/network, 99 bug) make runs observable to CI/CD without log scraping (ADR-8, QS-5).</p>
+</li>
+<li>
+<p><strong>LLM trace / cost (planned)</strong> — for LLM-assisted workflows via the ecosystem, an optional <code>llm-trace</code> and per-run token/cost summary are envisioned so LLM interactions are auditable. Not yet implemented.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_error_handling">Error Handling</h3>
+<div class="paragraph">
+<p>Error handling is governed by ADR-8 (Actionable Error Guidance). Every user-recoverable error is thrown as a <code>DtcException</code> (or <code>DtcConfigException</code> / <code>DtcApiException</code>) carrying a mandatory <code>guidance</code> field — what the user should <strong>do</strong>, not what went wrong. A top-level handler maps each exception type to a differentiated exit code and prints only the guidance message; stack traces appear only for genuine bugs (exit code 99).</p>
+</div>
+<div class="paragraph">
+<p>This is a recovery-first, fail-fast strategy: there is no silent <code>println</code>-and-continue. Network and API failures surface as <code>DtcApiException</code> with a remediation step (e.g. "check `confluence.credentials`"). See ADR-8 for the exception hierarchy, exit-code table, and the runtime error scenario in <a href="#section-runtime-view">[section-runtime-view]</a>.</p>
+</div>
+</div>
 <div class="sect2">
 <h3 id="_configuration_management">Configuration Management</h3>
 <div class="paragraph">
@@ -595,9 +778,9 @@ searching issues...
 </div>
 </div>
 <div class="sect2">
-<h3 id="_authentication_and_security">Authentication and Security</h3>
+<h3 id="_authentication_mechanisms">Authentication Mechanisms</h3>
 <div class="paragraph">
-<p>Unchanged from v3:</p>
+<p>The concrete authentication details behind the Security concept above (mitigation for T-002). Unchanged from v3:</p>
 </div>
 <div class="ulist">
 <ul>

@@ -217,6 +217,15 @@
             } catch (e) {}
         })();
     </script>
+<!-- GoatCounter analytics — injected at deploy time only, never part of the templates.
+     Pinned to count.v5.js with Subresource Integrity (sha384) so a CDN compromise of
+     gc.zgo.at cannot inject altered code. When bumping the version, update both the
+     src URL and the integrity hash from https://www.goatcounter.com/help/countjs-versions
+     and re-verify with: openssl dgst -sha384 -binary count.vN.js | openssl base64 -A -->
+<script data-goatcounter="https://doctoolchain.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.v5.js"
+        crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -476,6 +485,8 @@ searching issues...
 <ul class="sectlevel1">
 <li><a href="#section-technical-risks">Risks and Technical Debts</a>
 <ul class="sectlevel2">
+<li><a href="#_11_1_risks">11.1 Risks</a></li>
+<li><a href="#_11_2_technical_debt">11.2 Technical Debt</a></li>
 <li><a href="#_resolved_v3_risks">Resolved v3 Risks</a></li>
 </ul>
 </li>
@@ -513,74 +524,122 @@ searching issues...
 <h2 id="section-technical-risks">Risks and Technical Debts</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Risks for v4 differ significantly from v3. Some v3 risks are resolved (Gradle coupling, jBake maintenance), while new risks arise from the migration.</p>
+<p>Risks for v4 differ significantly from v3. Some v3 risks are resolved (Gradle coupling, jBake maintenance), while new risks arise from the migration.
+This chapter separates <strong>Risks</strong> (uncertain future events) from <strong>Technical Debt</strong> (known compromises already in the code). Risks carry stable IDs (<code>R-NNN</code>) referenced from the ADR Consequences in <a href="#section-design-decisions">[section-design-decisions]</a>.</p>
+</div>
+<div class="sect2">
+<h3 id="_11_1_risks">11.1 Risks</h3>
+<div class="paragraph">
+<p>Probability and Impact are rated Low / Medium / High. Priority is derived from the two (High×High ⇒ HIGH, etc.) and matches the original assessment. Rows are ordered by Priority, highest first. Each Mitigation references a Chapter 8 concept or a quality scenario.</p>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 14.2857%;">
-<col style="width: 42.8571%;">
-<col style="width: 28.5715%;">
+<col style="width: 11.1111%;">
+<col style="width: 22.2222%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 11.1111%;">
+<col style="width: 33.3334%;">
 </colgroup>
 <thead>
 <tr>
+<th class="tableblock halign-left valign-top">R-ID</th>
+<th class="tableblock halign-left valign-top">Risk</th>
+<th class="tableblock halign-left valign-top">Probability</th>
+<th class="tableblock halign-left valign-top">Impact</th>
 <th class="tableblock halign-left valign-top">Priority</th>
-<th class="tableblock halign-left valign-top">Risk / Debt</th>
-<th class="tableblock halign-left valign-top">Description</th>
-<th class="tableblock halign-left valign-top">Affected Quality Scenarios</th>
+<th class="tableblock halign-left valign-top">Mitigation</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LOW</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Dependency management at release time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AsciiDoctor is externalized (ADR-6), remaining ~30 JARs are shipped in <code>lib/</code> (ADR-7). The release process must resolve transitive dependencies and package them. This is a one-time build step, not a runtime concern.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QS-4 (Determinism)</p></td>
-</tr>
-<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R-001</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Custom site generator maturity.</strong> Replacing jBake with the custom Groovy SSG (<code>MicrositeBaker</code>) is a significant effort. Feature parity must cover content types, metadata, pagination, tags, menu generation, search, and theming. Risk of incomplete implementation or regressions (QS-13, QS-14, QS-8).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">HIGH</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Custom site generator maturity</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Replacing jBake with a custom Groovy SSG is a significant development effort. Feature parity must cover: content types, metadata, pagination, tags, menu generation, search, theme support. Risk of incomplete implementation or regressions.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QS-13 (Modern UI), QS-14 (v3 compatibility), QS-8 (Performance)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ch8 <strong>Test</strong> concept — integration tests for <code>generateSite</code>; QS-8/QS-13 acceptance scenarios gate releases (ADR-4).</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R-002</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>v3 migration path.</strong> Users upgrading from v3 lose Gradle-based workflows. Projects using <code>./gradlew</code> directly, custom Gradle tasks, or Gradle plugins will break (QS-14, QS-3).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">HIGH</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">v3 migration path</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Users upgrading from v3 to v4 lose Gradle-based workflows. Projects using <code>./gradlew</code> directly, custom Gradle tasks, or Gradle plugins will break. A clear migration guide and deprecation warnings are needed.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QS-14 (v3 compatibility), QS-3 (Usability)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ch8 <strong>Error Handling</strong> concept — deprecation warnings via <code>DtcException</code> guidance; migration guide (ADR-3).</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R-003</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Script loading and classpath conflicts.</strong> Without Gradle&#8217;s dependency resolution, scripts depending on external libraries (POI, jsoup, HttpClient) need a reliable classpath; class conflicts between scripts are possible (QS-1, QS-4).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">High</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MEDIUM</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Script loading and classpath</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Without Gradle&#8217;s dependency resolution, scripts that depend on external libraries (Apache POI for Excel, jsoup for HTML parsing, HttpClient for REST) need a reliable classpath mechanism. Class conflicts between scripts are possible.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QS-1 (Extensibility), QS-4 (Reliability)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>lib/</code> directory with pinned JARs (ADR-7); Ch8 <strong>Test</strong> concept verifies script loading.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R-004</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Residual inconsistent error handling.</strong> Carried forward from v3. Until every script adopts <code>DtcException</code>, a mix of exceptions and <code>println</code> remains, weakening actionable guidance (QS-4, QS-3, QS-17).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MEDIUM</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Inconsistent error handling</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Carried forward from v3. With Gradle removed, <code>GradleException</code> is no longer available. A new error handling strategy is needed (ADR-TBD-3). Scripts currently use a mix of exceptions and println.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QS-4 (Reliability), QS-3 (Usability)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ch8 <strong>Error Handling</strong> concept (ADR-8) — <code>DtcException</code> hierarchy; tracked rollout across scripts. QS-17.</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R-006</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>publishToConfluence port regression.</strong> Porting the 823-LOC <code>Asciidoc2ConfluenceTask</code> to a standalone script (ADR-12) re-implements the most complex task (page tree, attachments, new-editor handling, rate limiting) and risks behavioural regressions in Confluence publishing.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">MEDIUM</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Confluence API dual client</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Carried forward from v3 (ADR-TBD-1). Two client implementations must be maintained. Atlassian is deprecating v1 for Cloud.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QS-4 (Reliability), QS-1 (Extensibility)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Service-level tests around the new script before the core module is dropped (ADR-12).</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">R-005</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Release-time dependency resolution.</strong> AsciiDoctor is externalized (ADR-6); ~30 JARs ship in <code>lib/</code> (ADR-7). The release process must resolve transitive dependencies and a tampered/vulnerable JAR (T-006) would reach every user (QS-4).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LOW</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">No Jira Cloud client</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Carried forward from v3 (ADR-TBD-2). Only <code>JiraServerClient</code> exists.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QS-2 (Portability)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LOW</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Windows-only features</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">EA, PPT, Visio export remain Windows-only (VBScript). No fallback on other platforms.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">QS-2 (Portability)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ch8 <strong>Security</strong> concept — Trivy CVE scan of <code>lib/*.jar</code> (ADR-11); pinned, reproducible resolution (ADR-7).</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="_11_2_technical_debt">11.2 Technical Debt</h3>
+<div class="paragraph">
+<p>Each item names the specific Chapter 5 building block it burdens.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 16.6666%;">
+<col style="width: 50.0001%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Technical Debt</th>
+<th class="tableblock halign-left valign-top">Affected Building Block (Ch5)</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Confluence API dual client</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Atlassian Integration scripts (<code>publishToConfluence.groovy</code>, <code>ConfluenceClientV1</code>/<code>ConfluenceClientV2</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Two parallel client implementations (V1 Server, V2 Cloud) must be maintained. Atlassian is deprecating v1 for Cloud. Decision deferred to ADR-TBD-1.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No Jira Cloud client</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Atlassian Integration scripts (<code>exportJiraIssues.groovy</code>, <code>JiraServerClient</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Only <code>JiraServerClient</code> exists; Jira Cloud is not natively supported. Burdens QS-2. Decision deferred to ADR-TBD-2.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Windows-only export features</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">External Tool Export scripts (<code>exportEA.groovy</code>, <code>exportPPT.groovy</code>, <code>exportVisio.groovy</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">EA, PowerPoint, and Visio export remain Windows-only (VBScript COM automation). No fallback on Linux/macOS, burdening cross-platform portability (QS-2).</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 <div class="sect2">
 <h3 id="_resolved_v3_risks">Resolved v3 Risks</h3>
 <table class="tableblock frame-all grid-all stretch">

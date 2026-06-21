@@ -217,6 +217,15 @@
             } catch (e) {}
         })();
     </script>
+<!-- GoatCounter analytics — injected at deploy time only, never part of the templates.
+     Pinned to count.v5.js with Subresource Integrity (sha384) so a CDN compromise of
+     gc.zgo.at cannot inject altered code. When bumping the version, update both the
+     src URL and the integrity hash from https://www.goatcounter.com/help/countjs-versions
+     and re-verify with: openssl dgst -sha384 -binary count.vN.js | openssl base64 -A -->
+<script data-goatcounter="https://doctoolchain.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.v5.js"
+        crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -510,7 +519,7 @@ searching issues...
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Status</strong>: Decided for v4</p>
+<p><strong>Status</strong>: Accepted (for v4)</p>
 </li>
 <li>
 <p><strong>Context</strong>: The GenAI era changes how documentation is created and consumed. Traditional export scripts (EA, PPT, Visio, Excel) address a workflow where humans manually extract data from tools. LLMs can handle these transformations directly. Meanwhile, LLMs need structured document access (daCLI) and benefit from Skills, Prompts, and Semantic Anchors.</p>

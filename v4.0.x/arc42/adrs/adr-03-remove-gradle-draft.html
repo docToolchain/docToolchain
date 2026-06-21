@@ -217,6 +217,15 @@
             } catch (e) {}
         })();
     </script>
+<!-- GoatCounter analytics — injected at deploy time only, never part of the templates.
+     Pinned to count.v5.js with Subresource Integrity (sha384) so a CDN compromise of
+     gc.zgo.at cannot inject altered code. When bumping the version, update both the
+     src URL and the integrity hash from https://www.goatcounter.com/help/countjs-versions
+     and re-verify with: openssl dgst -sha384 -binary count.vN.js | openssl base64 -A -->
+<script data-goatcounter="https://doctoolchain.goatcounter.com/count"
+        async src="https://gc.zgo.at/count.v5.js"
+        crossorigin="anonymous"
+        integrity="sha384-atnOLvQb9t+jTSipvd75X2yginT4PjVbqDdlJAmxMm+wYElFmeR6EmLP5bYeoRVQ"></script>
 </head>
 
 <body onload="prettyPrint()" class="td-section">
@@ -510,7 +519,7 @@ searching issues...
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Status</strong>: Decided for v4</p>
+<p><strong>Status</strong>: Accepted (for v4)</p>
 </li>
 <li>
 <p><strong>Context</strong>: Gradle has been the task orchestration framework since docToolchain&#8217;s inception. Over time it has caused significant problems:</p>
@@ -629,7 +638,7 @@ searching issues...
 </div>
 </li>
 <li>
-<p><strong>Consequences</strong>: <code>build.gradle</code>, <code>settings.gradle</code>, <code>gradle.properties</code>, <code>libs.versions.toml</code>, and the <code>gradle/</code> wrapper directory are removed. The <code>core/</code> module is dissolved back into scripts. Dependencies are managed as JARs in a <code>lib/</code> directory or downloaded on demand.</p>
+<p><strong>Consequences</strong>: <code>build.gradle</code>, <code>settings.gradle</code>, <code>gradle.properties</code>, <code>libs.versions.toml</code>, and the <code>gradle/</code> wrapper directory are removed. The <code>core/</code> module is dissolved back into scripts. Dependencies are managed as JARs in a <code>lib/</code> directory or downloaded on demand. This decision creates risk <strong>R-002 (v3 migration path)</strong> — Gradle-based workflows break — and <strong>R-003 (script loading and classpath conflicts)</strong> now that Gradle no longer resolves dependencies; both are tracked in <a href="#section-technical-risks">[section-technical-risks]</a>.</p>
 </li>
 </ul>
 </div>
