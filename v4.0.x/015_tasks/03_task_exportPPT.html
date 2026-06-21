@@ -539,9 +539,39 @@ Only <code>.pptx</code> files are supported. Legacy <code>.ppt</code> format is 
 </tr>
 </table>
 </div>
+<div class="sect3">
+<h4 id="_generated_output">Generated Output</h4>
 <div class="paragraph">
-<p>The tag <code>{slide}</code> in speaker notes is replaced with the corresponding image reference.
-Use <a href="https://docs.asciidoctor.org/asciidoc/latest/directives/include-tagged-regions/">tagged regions</a> to include specific slides.</p>
+<p>For each <code>&lt;name&gt;.pptx</code> found under your input path, the task writes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>slide images to <code>src/docs/images/ppt/&lt;name&gt;/slide_NNN.png</code> (one PNG per slide),</p>
+</li>
+<li>
+<p>speaker notes to <code>src/docs/ppt/&lt;name&gt;/slide_NNN_notes.adoc</code> (only for slides that have notes),</p>
+</li>
+<li>
+<p>a ready-to-include AsciiDoc file at <code>src/docs/ppt/&lt;name&gt;/&lt;name&gt;.adoc</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The generated <code>&lt;name&gt;.adoc</code> contains one section per slide, each with the slide title as a <code>===</code> heading, the slide image, and an include of the slide&#8217;s notes:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="asciidoc">=== &lt;slide title&gt;
+
+image::ppt/&lt;name&gt;/slide_001.png[&lt;slide title&gt;]
+
+include::slide_001_notes.adoc[]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Include the generated <code>&lt;name&gt;.adoc</code> from your own document to embed the slides and notes.</p>
+</div>
 </div>
 </div>
 <div class="sect2">
