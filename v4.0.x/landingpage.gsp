@@ -28,6 +28,43 @@
             <div class="dtc-link"><div class="node">🚀</div><b>Publish</b><span>confluence</span></div>
         </section>
 
+        <div class="dtc-sec-head mt-4">
+            <h2>Rebuilt for the GenAI age</h2>
+            <p>Every task was reviewed for v4 &mdash; legacy tasks retired, modern ones added; even PowerPoint export now runs on Linux and macOS, not just Windows.</p>
+        </div>
+        <div class="row row-cols-1 row-cols-md-3 mb-3 text-center">
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Native Apple Silicon</h4>
+                    </div>
+                    <div class="card-body">
+                        Runs natively on ARM64 Macs &mdash; no Rosetta, no OrientDB/JNI workarounds. Just the JVM and AsciidoctorJ.
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">Modern, Secure Dependencies</h4>
+                    </div>
+                    <div class="card-body">
+                        Every dependency upgraded to current versions &mdash; fewer known CVEs, continuously scanned with Trivy.
+                    </div>
+                </div>
+            </div>
+            <div class="col">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-header">
+                        <h4 class="my-0 fw-normal">LLM-native</h4>
+                    </div>
+                    <div class="card-body">
+                        Built for AI assistants: structured, section-level document access over MCP (via <code>dacli</code>), so an LLM can read and edit your docs precisely.
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row row-cols-1 row-cols-md-3 mb-3 text-center mt-4">
             <div class="col">
                 <div class="card mb-4 shadow-sm">
@@ -87,7 +124,7 @@
             <div class="col">
                 <div class="card mb-4 shadow-sm">
                     <div class="card-header">
-                        <h4 class="my-0 fw-normal">Microsites with jBake</h4>
+                        <h4 class="my-0 fw-normal">Modern Microsites</h4>
                     </div>
                     <div class="card-body">
                         Generate full documentation websites with landing page, navigation, search, and edit links.<br /><br />
