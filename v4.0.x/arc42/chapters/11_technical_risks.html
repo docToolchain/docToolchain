@@ -578,11 +578,11 @@ This chapter separates <strong>Risks</strong> (uncertain future events) from <st
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R-004</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Residual inconsistent error handling.</strong> Carried forward from v3. Until every script adopts <code>DtcException</code>, a mix of exceptions and <code>println</code> remains, weakening actionable guidance (QS-4, QS-3, QS-17).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Residual inconsistent error handling.</strong> The <code>DtcException</code> carrier now exists (<code>scripts/lib/DtcException.groovy</code>, ADR-8) and five tasks are migrated (<code>generateHTML</code>, <code>generatePDF</code>, <code>publishToConfluence</code>, <code>copyThemes</code>, <code>lintAsciiDoc</code>), but the remaining task scripts still mix thrown exceptions and <code>System.exit</code>/<code>println</code> until the rollout completes (QS-4, QS-3, QS-17).</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MEDIUM</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ch8 <strong>Error Handling</strong> concept (ADR-8) — <code>DtcException</code> hierarchy; tracked rollout across scripts. QS-17.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Low</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">LOW</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ch8 <strong>Error Handling</strong> concept (ADR-8) — <code>DtcException</code> hierarchy implemented + unit-tested; incremental rollout across the remaining scripts. QS-17.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R-006</p></td>
@@ -610,11 +610,11 @@ This chapter separates <strong>Risks</strong> (uncertain future events) from <st
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">R-008</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>No secret redaction in output.</strong> No code masks <code>credential</code>/<code>token</code>/<code>secret</code>-shaped values, and <code>DtcRestClient</code> rethrows raw exceptions. Harmless under the local-trust model, but a credential can leak into a public CI / PR build log.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Incomplete secret redaction in output.</strong> <code>DtcError.redact()</code> now masks secret-shaped values at script-level error output (ADR-8), but the compiled <code>DtcRestClient</code> still rethrows raw exceptions, and <code>redact()</code> is not yet wired into every <code>println</code>/error path. A credential can still leak into a public CI / PR build log via those paths.</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Low</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Medium</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">LOW</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ch8 <strong>Security</strong> concept — redact secret-shaped keys before any <code>println config</code> / error output; gated on the ADR-8 <code>DtcException</code> carrier (R-004). Closes T-002.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ch8 <strong>Security</strong> concept — <code>DtcError.redact()</code> implemented + unit-tested; remaining work is wiring it into <code>DtcRestClient</code> and the other <code>println</code> paths. Advances T-002.</p></td>
 </tr>
 </tbody>
 </table>

@@ -1375,7 +1375,7 @@ With AsciiDoctor externalized (ADR-6), the custom SSG only needs to handle templ
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Status</strong>: Accepted (for v4) — <strong>decided; carrier not yet implemented</strong>. No <code>DtcException</code> class exists in the codebase today; v4 scripts still use <code>System.exit</code> + <code>println</code> (including the library <code>DtcConfig.load()</code>). The hierarchy and top-level handler below are the committed design, pending implementation (risk <strong>R-004</strong>). This same carrier is the missing piece for the T-002 secret-redaction mitigation (Chapter 8) and the systemic <code>System.exit</code> finding (#1627).</p>
+<p><strong>Status</strong>: Accepted (for v4) — <strong>carrier implemented; rollout in progress</strong>. The hierarchy and top-level handler below exist in <code>scripts/lib/DtcException.groovy</code> (<code>DtcError.report()</code> maps each type to a differentiated exit code; <code>DtcError.redact()</code> masks secret-shaped values), unit-tested in <code>DtcExceptionSpec</code>. <code>generateHTML</code>, <code>generatePDF</code>, <code>publishToConfluence</code>, <code>copyThemes</code>, and <code>lintAsciiDoc</code> are migrated: they throw <code>DtcConfigException</code>/<code>DtcApiException</code>/<code>DtcException</code> with guidance and route everything through a single top-level handler (differentiated exit codes 0/1/2/3). The remaining task scripts still use <code>System.exit</code> + <code>println</code> and are migrated incrementally (risk <strong>R-004</strong>). <code>redact()</code> also delivers the T-002 secret-redaction mitigation for script-level error output (Chapter 8).</p>
 </li>
 <li>
 <p><strong>Context</strong>: v3 error handling is inconsistent: <code>RuntimeException</code> in core, <code>GradleException</code> in scripts, <code>println</code> + silent continuation in some scripts. With Gradle removed, <code>GradleException</code> is gone. More importantly, the fundamental problem is not <strong>how</strong> errors are thrown, but <strong>what</strong> the user sees. v3 shows stack traces and technical error messages. Users cannot determine what to do next.</p>
@@ -1384,7 +1384,7 @@ With AsciiDoctor externalized (ADR-6), the custom SSG only needs to handle templ
 </div>
 </li>
 <li>
-<p><strong>Decision</strong>: Every user-recoverable error must include an <strong>actionable remediation step</strong> — not what went wrong, but what the user should do to fix it. To be implemented as a lightweight exception hierarchy with mandatory guidance messages:</p>
+<p><strong>Decision</strong>: Every user-recoverable error must include an <strong>actionable remediation step</strong> — not what went wrong, but what the user should do to fix it. Implemented as a lightweight exception hierarchy with mandatory guidance messages (<code>scripts/lib/DtcException.groovy</code>):</p>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">// Shared helper (lib/DtcException.groovy, ~25 LOC)
