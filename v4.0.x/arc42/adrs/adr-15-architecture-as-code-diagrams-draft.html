@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: arc42/chapters/05_building_block_view.html -->
+    <!-- sourceuri: arc42/adrs/adr-15-architecture-as-code-diagrams.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>Building Block View</title>
+    <title>ADR-15: Structural Diagrams as Architecture-as-Code (Bausteinsicht model, PlantUML render)</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -355,7 +355,7 @@
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
                                    href="../../arc42/chapters/05_building_block_view.html" title="Building Block View">Building Block View</a>
                                 
                             </li>
@@ -420,11 +420,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/chapters/05_building_block_view.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-15-architecture-as-code-diagrams.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Building+Block+View%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/chapters/05_building_block_view.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-15%3A+Structural+Diagrams+as+Architecture-as-Code+%28Bausteinsicht+model%2C+PlantUML+render%29%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-15-architecture-as-code-diagrams.adoc%0A%23branch:%20main-4.x" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -432,7 +432,7 @@
         <hr />
 <script>
 const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
-const searchTerm = "arc42/chapters/05_building_block_view.adoc";
+const searchTerm = "arc42/adrs/adr-15-architecture-as-code-diagrams.adoc";
 </script>
 
 <script src="../../js/issues.js"></script>
@@ -482,14 +482,8 @@ searching issues...
 
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
-<ul class="sectlevel1">
-<li><a href="#section-building-block-view">Building Block View</a>
 <ul class="sectlevel2">
-<li><a href="#_level_1_whitebox_overall_system">Level 1: Whitebox Overall System</a></li>
-<li><a href="#_level_2_whitebox_groovy_scripts">Level 2: Whitebox Groovy Scripts</a></li>
-<li><a href="#_level_3_whitebox_atlassian_integration">Level 3: Whitebox Atlassian Integration</a></li>
-</ul>
-</li>
+<li><a href="#_adr_15_structural_diagrams_as_architecture_as_code_bausteinsicht_model_plantuml_render">ADR-15: Structural Diagrams as Architecture-as-Code (Bausteinsicht model, PlantUML render)</a></li>
 </ul>
 </div>
 
@@ -520,184 +514,112 @@ searching issues...
     <div class="td-content">
         <p>
             
-<div class="sect1">
-<h2 id="section-building-block-view">Building Block View</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>This section decomposes docToolchain v4 into its static building blocks at three levels of detail.
-The key structural change from v3: Gradle Orchestration and the compiled Core Module are removed. The architecture simplifies to two layers plus an ecosystem of companion tools.</p>
-</div>
 <div class="sect2">
-<h3 id="_level_1_whitebox_overall_system">Level 1: Whitebox Overall System</h3>
-<div class="imageblock">
-<div class="content">
-<img src="../../images/level1-container-v4.png" alt="level1 container v4" width="1551" height="1016">
-</div>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Tip</div>
-</td>
-<td class="content">
+<h3 id="_adr_15_structural_diagrams_as_architecture_as_code_bausteinsicht_model_plantuml_render">ADR-15: Structural Diagrams as Architecture-as-Code (Bausteinsicht model, PlantUML render)</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Accepted (for v4) — <strong>model authored; inline C4-PlantUML kept as the rendered artifact; export wiring deferred</strong>. The spike (#1641) confirmed that Bausteinsicht has <strong>no PlantUML exporter</strong>, so the hoped-for <code>model → PlantUML → microsite</code> round-trip does not exist yet. The Level-1 model lives at <code>src/docs/arc42/models/level1-container.jsonc</code>; it is authored against the published Bausteinsicht JSON schema and the <code>online-shop</code> reference example and parses as JSONC, but has not yet been validated by the Bausteinsicht binary (not available in the docs build environment) — a <code>bausteinsicht sync</code> validation pass is the open follow-up.</p>
+</li>
+<li>
+<p><strong>Context</strong>: The arc42 Chapter 5 building-block views are hand-written C4-PlantUML embedded directly in <code>05_building_block_view.adoc</code> (<code>level1-container-v4</code>, <code>level3-atlassian-v4</code>). They satisfy the Semantic Contract (PlantUML + C4-PlantUML stdlib <code>!include &lt;C4/&#8230;&#8203;&gt;</code>), but every structural change means editing PlantUML by hand and there is no single, tool-readable source of truth. <code>Bausteinsicht</code> — our own Go architecture-as-code tool (JSONC model, bidirectional draw.io sync) — exists precisely for this, and the cross-repo relationship states <strong>"Bausteinsicht generates architecture diagrams consumable by docToolchain."</strong> We do not currently eat our own dog food for docToolchain&#8217;s own architecture docs.</p>
 <div class="paragraph">
-<p><strong>Source of truth (architecture-as-code).</strong> This Level-1 view is also modelled as a versioned Bausteinsicht JSONC model at <code>models/level1-container.jsonc</code>. That model is the machine-readable source of truth; the C4-PlantUML above mirrors it and remains the <strong>rendered</strong> artifact (Bausteinsicht has no PlantUML exporter yet — see ADR-15). When you change the structure, edit <strong>both</strong> until an export path is wired (tracked as technical debt in <a href="#section-technical-risks">[section-technical-risks]</a>).</p>
+<p>The spike evaluated consuming a Bausteinsicht export as an AsciiDoc include. Finding: Bausteinsicht&#8217;s structural exports are <strong>draw.io (native)</strong>, <strong>PNG/SVG via the draw.io CLI</strong>, and <strong>Mermaid C4</strong> — there is <strong>no PlantUML output</strong>. Mermaid is explicitly forbidden by the Semantic Contract ("Diagrams are PlantUML, not Mermaid"). PNG/SVG requires the draw.io CLI (a headless Electron binary; cf. Bausteinsicht issue #385) and replaces a text-rendered diagram with a committed binary, breaking the docs-as-code "diagram is reviewable text" property and the existing Kroki/<code>asciidoctor-diagram</code> render path (ADR-9, ADR-6 revised).</p>
 </div>
-</td>
-</tr>
-</table>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Motivation</dt>
-<dd>
-<p>v4 simplifies from four layers (Wrapper &#8594; Gradle &#8594; Script Plugins &#8594; Core Module) to two layers (Wrapper &#8594; Scripts). The Gradle orchestration layer and the compiled Core Module are eliminated. Business logic returns to scripts. Companion tools (daCLI, Bausteinsicht, LLM-Prompts) handle LLM integration as an ecosystem rather than embedding it into docToolchain itself.</p>
-</dd>
-</dl>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<div class="title">Note</div>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>This Level-1 view is a <strong>container zoom</strong>: it shows the two internal building blocks (Wrapper, Groovy Scripts) and the external systems they call <strong>at runtime</strong> — AsciiDoctor, Confluence, Jira, and the diagram rendering backend (Kroki, ADR-9). The remaining Chapter 3 context actors (Enterprise Architect, Git, Structurizr) are reached through the same <code>Groovy Scripts</code> building block (the <code>export*</code> scripts) and are elided here only to keep the container diagram readable; they are not a different system boundary.</p>
-</div>
-<div class="paragraph">
-<p>The ecosystem tools differ in lifecycle: <strong>daCLI is exercised at runtime</strong> (the LLM-edit scenario S3 in Chapter 6 calls it). <strong>Bausteinsicht and LLM-Prompts are design-time companion tools</strong> — they are used by authors/LLMs while <strong>writing</strong> documentation; docToolchain core never invokes them at runtime. They are shown for ecosystem context only.</p>
-</div>
-</td>
-</tr>
-</table>
-</div>
-<div class="dlist">
-<dl>
-<dt class="hdlist1">Contained Building Blocks</dt>
-</dl>
+</li>
+<li>
+<p><strong>Decision</strong>: Maintain the <strong>structural (C4 building-block) views as a versioned Bausteinsicht JSONC model</strong> — the single, machine-readable, LLM-editable source of truth — <strong>but keep the inline C4-PlantUML block as the rendered artifact</strong> in the microsite for now. Start with the Level-1 container view; keep Level-3 (<code>level3-atlassian-v4</code>) inline-only until the model proves itself. Wire an automatic render path only once a clean text-based export exists (a Bausteinsicht PlantUML exporter — to be requested upstream — or an accepted draw.io-CLI image step). Until then, the model and the inline PlantUML are kept in sync by hand (tracked as technical debt in <a href="#section-technical-risks">[section-technical-risks]</a>).</p>
+</li>
+<li>
+<p><strong>Alternatives considered</strong>:</p>
+</li>
+</ul>
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 14.2857%;">
-<col style="width: 28.5714%;">
-<col style="width: 28.5714%;">
-<col style="width: 28.5715%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Building Block</th>
-<th class="tableblock halign-left valign-top">Responsibility</th>
-<th class="tableblock halign-left valign-top">Interface</th>
-<th class="tableblock halign-left valign-top">Location</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Wrapper Layer</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Cross-platform CLI entry point. Constructs classpath from <code>lib/</code> directory (or resolves via Grape). Manages Java installation. Invokes Groovy scripts directly — no build framework intermediary. Detects execution environment (local/Docker/SDKMAN).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CLI: <code>./dtcw [env] &lt;task&gt; [args]</code>; differentiated exit codes (0/1/2/3/99, ADR-8).</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dtcw</code>, <code>dtcw.ps1</code>, <code>dtcw.bat</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Groovy Scripts</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">All task logic: document generation (AsciiDoctor invocation), site generation (custom SSG), Confluence publishing, Jira export, changelog extraction, and all other features. Each script is a self-contained unit that runs without compilation.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Task entry points: one <code>&lt;taskName&gt;.groovy</code> per task, invoked as <code>groovy.ui.GroovyMain scripts/&lt;taskName&gt;.groovy</code>; config via <code>ConfigSlurper</code>.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>scripts/*.groovy</code></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">daCLI (Ecosystem, runtime)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MCP server providing 10 tools for structured document access: navigation, search, section-level read/write, validation. Separate Python process communicating via stdio.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MCP over stdio (<code>get_structure</code>, <code>get_section</code>, <code>search</code>, <code>update_section</code>, …) and a CLI.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Separate repository (<code>dacli/</code>)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Bausteinsicht (Ecosystem, design-time only)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Architecture-as-code tool. JSONC models with bidirectional draw.io sync. Exports PlantUML/PNG for embedding in AsciiDoc. <strong>Used by authors/LLMs at design time; not invoked by docToolchain core at runtime.</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">CLI with <code>--format json</code>; produces PlantUML/PNG artifacts consumed as AsciiDoc includes.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Separate repository (<code>Bausteinsicht/</code>)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LLM-Prompts (Ecosystem, design-time only)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Reusable prompt collection for arc42 documentation: chapter generation, ADR creation, quality scenarios, risk assessment, stakeholder analysis. <strong>Used by authors/LLMs at design time; not invoked by docToolchain core at runtime.</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Prompt text (AsciiDoc) consumed by an LLM; no runtime API.</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Separate repository (<code>LLM-Prompts/</code>)</p></td>
-</tr>
-</tbody>
-</table>
-</div>
-<div class="sect2">
-<h3 id="_level_2_whitebox_groovy_scripts">Level 2: Whitebox Groovy Scripts</h3>
-<div class="paragraph">
-<p>The scripts are organized into functional groups. Unlike v3 (where scripts were Gradle task definitions applied via <code>apply from:</code>), v4 scripts are standalone Groovy files invoked directly.</p>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
+<col style="width: 50%;">
 <col style="width: 16.6666%;">
-<col style="width: 33.3333%;">
-<col style="width: 50.0001%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6668%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Category</th>
-<th class="tableblock halign-left valign-top">Scripts</th>
-<th class="tableblock halign-left valign-top">Purpose</th>
+<th class="tableblock halign-left valign-top">Criterion</th>
+<th class="tableblock halign-left valign-top">A: Hand-written PlantUML only (status quo)</th>
+<th class="tableblock halign-left valign-top">B: Model + PNG via draw.io CLI</th>
+<th class="tableblock halign-left valign-top">C: Model as SoT + PlantUML render (chosen)</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Document Generation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>generateHTML.groovy</code>, <code>generatePDF.groovy</code>, <code>generateDocbook.groovy</code>, <code>generateDeck.groovy</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Core document generation. Calls AsciiDoctor CLI (external tool, ADR-6) for rendering. Replaces the <code>AsciiDocBasics.gradle</code> approach.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Machine-readable single source of truth for structure (QS-12)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Site Generation</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>generateSite.groovy</code>, <code>lib/MicrositeBaker.groovy</code>, <code>copyThemes.groovy</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Custom Groovy-based static site generator (<code>MicrositeBaker</code>, <code>scripts/lib/MicrositeBaker.groovy</code>) replacing jBake (ADR-4). Groovy SimpleTemplate engine, in-memory content model, modern HTML output. Reads jBake-compatible metadata headers.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Author can edit diagrams via draw.io (no PlantUML skill needed)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Atlassian Integration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>publishToConfluence.groovy</code>, <code>exportJiraIssues.groovy</code>, <code>exportJiraSprintChangelog.groovy</code>, <code>exportConfluence.groovy</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Confluence publishing (with smart MD5-based update detection) and Jira data export. Contains the Confluence client hierarchy (V1/V2) and Jira client/converter logic formerly in <code>core/</code>.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Renders as reviewable text, no binary artifact in git (docs-as-code)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">External Tool Export</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exportEA.groovy</code>, <code>exportPPT.groovy</code>, <code>exportVisio.groovy</code>, <code>exportStructurizr.groovy</code>, <code>exportOpenApi.groovy</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Extract diagrams and models from external tools. EA/PPT/Visio are Windows-only (VBScript).</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Semantic-Contract render output (PlantUML + C4, not Mermaid/binary) (QS-13)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Data Import/Export</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>exportExcel.groovy</code>, <code>exportMarkdown.groovy</code>, <code>exportChangelog.groovy</code>, <code>exportContributors.groovy</code>, <code>exportMetrics.groovy</code>, <code>pandoc.groovy</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Import data from Excel, convert Markdown, extract Git metadata, run Pandoc conversions.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Build simplicity — no draw.io CLI / Electron dependency</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Utilities</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>collectIncludes.groovy</code>, <code>fixEncoding.groovy</code>, <code>htmlSanityCheck.groovy</code>, <code>downloadTemplate.groovy</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Supporting tasks: aggregate includes, fix encodings, validate HTML, download templates.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No manual model↔render synchronisation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Configuration</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>config.groovy</code> (or loaded inline)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Loads <code>docToolchainConfig.groovy</code> via Groovy <code>ConfigSlurper</code>. Provides config access to all scripts.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+2</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+1</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+4</strong></p></td>
 </tr>
 </tbody>
 </table>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Quality Tradeoffs</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Supports <strong>QS-12 (LLM friendliness)</strong>: the architecture is now a machine-readable JSONC model an LLM or tool can read, diff, and edit — not prose embedded in PlantUML.</p>
+</li>
+<li>
+<p>Supports <strong>QS-13 (modern UI / rendered output)</strong>: the microsite keeps rendering hand-tuned C4-PlantUML through the existing pipeline, so diagram quality and layout are unchanged (no auto-layout regression, no binary image).</p>
+</li>
+<li>
+<p>Preserves the docs-as-code property: the rendered diagram stays reviewable text in git; no Electron/draw.io-CLI dependency enters the build.</p>
+</li>
+<li>
+<p>Cost — <strong>manual synchronisation</strong>: until an export path is wired, the JSONC model and the inline PlantUML must be edited together, and they can drift. This is the one criterion option C loses on and is recorded as technical debt (below).</p>
+</li>
+</ul>
 </div>
-<div class="sect2">
-<h3 id="_level_3_whitebox_atlassian_integration">Level 3: Whitebox Atlassian Integration</h3>
-<div class="paragraph">
-<p>The Atlassian integration scripts contain the richest business logic. In v3 this was the compiled <code>core/</code> module; in v4 it returns to script form.</p>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../../images/level3-atlassian-v4.png" alt="level3 atlassian v4" width="979" height="1004">
-</div>
-</div>
-<div class="paragraph">
-<p>The key difference from v3: these classes are <strong>not compiled into a Shadow JAR</strong>. They are Groovy source files loaded at runtime. The script entry point (<code>publishToConfluence.groovy</code>) loads helper classes from a shared <code>lib/</code> directory or via inline <code>GroovyClassLoader</code>.</p>
-</div>
-</div>
+</li>
+<li>
+<p><strong>Consequences</strong>: <code>src/docs/arc42/models/level1-container.jsonc</code> becomes the source of truth for the Level-1 container view; <code>05_building_block_view.adoc</code> carries a NOTE linking the inline <code>level1-container-v4</code> block to that model and to this ADR. The decision creates a <strong>technical-debt</strong> item — <strong>"Hand-synchronised Bausteinsicht model and inline PlantUML"</strong> — recorded in <a href="#section-technical-risks">[section-technical-risks]</a> (11.2) against the Chapter 5 building-block view documentation; it is <strong>explicitly accepted as low-cost</strong> (one Level-1 view, changed rarely) rather than tracked as an <code>R-NNN</code> risk. The debt retires when either (a) Bausteinsicht ships a PlantUML/C4-PlantUML exporter — to be requested upstream — and <code>generateSite</code> consumes it as a generated include kept inside the rendered doc tree (a file-outside-tree include is fatal), or (b) the team accepts a draw.io-CLI PNG/SVG step in the build. Level-3 stays inline-only; rolling the model out to Level-3 is a follow-up gated on the same export path. Open follow-up: validate the model with <code>bausteinsicht sync</code> once the binary is available in the build environment, and add the <code>bausteinsicht</code> ecosystem tool note in Chapter 5 (already present).</p>
+</li>
+</ul>
 </div>
 </div>
         </p>
@@ -727,11 +649,11 @@ The key structural change from v3: Gradle Orchestration and the compiled Core Mo
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Building+Block+View%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/chapters/05_building_block_view.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-15%3A+Structural+Diagrams+as+Architecture-as-Code+%28Bausteinsicht+model%2C+PlantUML+render%29%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-15-architecture-as-code-diagrams.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Building+Block+View%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/chapters/05_building_block_view.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-15%3A+Structural+Diagrams+as+Architecture-as-Code+%28Bausteinsicht+model%2C+PlantUML+render%29%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-15-architecture-as-code-diagrams.adoc">tell
     us how we can improve</a>.
     </p>
 </div>

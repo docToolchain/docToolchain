@@ -663,6 +663,11 @@ This chapter separates <strong>Risks</strong> (uncertain future events) from <st
 <td class="tableblock halign-left valign-top"><p class="tableblock">Wrapper Layer (<code>dtcw.ps1</code>, <code>dtcw.bat</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The v4 <code>GroovyMain</code> execution path exists only in the Bash <code>dtcw</code>; <code>dtcw.ps1</code>/<code>dtcw.bat</code> carry no v4 path. Windows v4 works only via WSL2 today (see Chapter 1 goal scope). Burdens cross-platform portability (QS-2, Goal #3).</p></td>
 </tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hand-synchronised Bausteinsicht model and inline PlantUML</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Building Block View (Ch5) — Level-1 container view (<code>05_building_block_view.adoc</code>, <code>models/level1-container.jsonc</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Level-1 view exists twice: as a Bausteinsicht JSONC model (source of truth) and as inline C4-PlantUML (rendered artifact). Because Bausteinsicht has no PlantUML exporter (ADR-15), the two are kept in sync by hand and can drift. Explicitly accepted as low-cost (one view, changed rarely); retires when a text-based export path is wired (ADR-15).</p></td>
+</tr>
 </tbody>
 </table>
 </div>

@@ -521,8 +521,9 @@ searching issues...
 <li><a href="#_adr_12_tasks_are_self_contained_groovy_scripts_no_compiled_core_module_at_runtime">9.12. ADR-12: Tasks Are Self-Contained Groovy Scripts — No Compiled Core Module at Runtime</a></li>
 <li><a href="#_adr_13_dtcw4_dtcw_wrapper_delegation">9.13. ADR-13: <code>dtcw4</code> → <code>dtcw</code> Wrapper Delegation</a></li>
 <li><a href="#_adr_14_task_discovery_via_task_marker">9.14. ADR-14: Task Discovery via <code>// @task</code> Marker</a></li>
-<li><a href="#_adr_tbd_1_confluence_api_version_strategy">9.15. ADR-TBD-1: Confluence API Version Strategy</a></li>
-<li><a href="#_adr_tbd_2_jira_cloud_vs_server_client_architecture">9.16. ADR-TBD-2: Jira Cloud vs. Server Client Architecture</a></li>
+<li><a href="#_adr_15_structural_diagrams_as_architecture_as_code_bausteinsicht_model_plantuml_render">9.15. ADR-15: Structural Diagrams as Architecture-as-Code (Bausteinsicht model, PlantUML render)</a></li>
+<li><a href="#_adr_tbd_1_confluence_api_version_strategy">9.16. ADR-TBD-1: Confluence API Version Strategy</a></li>
+<li><a href="#_adr_tbd_2_jira_cloud_vs_server_client_architecture">9.17. ADR-TBD-2: Jira Cloud vs. Server Client Architecture</a></li>
 </ul>
 </li>
 <li><a href="#section-quality-scenarios">10. Quality Requirements</a>
@@ -1135,6 +1136,20 @@ The key structural change from v3: Gradle Orchestration and the compiled Core Mo
 <div class="content">
 <img src="../images/level1-container-v4.png" alt="level1 container v4" width="1551" height="1016">
 </div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Tip</div>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><strong>Source of truth (architecture-as-code).</strong> This Level-1 view is also modelled as a versioned Bausteinsicht JSONC model at <code>models/level1-container.jsonc</code>. That model is the machine-readable source of truth; the C4-PlantUML above mirrors it and remains the <strong>rendered</strong> artifact (Bausteinsicht has no PlantUML exporter yet — see ADR-15). When you change the structure, edit <strong>both</strong> until an export path is wired (tracked as technical debt in <a href="#section-technical-risks">Risks and Technical Debts</a>).</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="dlist">
 <dl>
@@ -1995,6 +2010,11 @@ Statuses follow Nygard values (Proposed / Accepted / Superseded / Deprecated). <
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-14</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Task Discovery via <code>// @task</code> Marker</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Accepted (inferred)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-15</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Structural Diagrams as Architecture-as-Code (Bausteinsicht model, PlantUML render)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted (for v4) — export wiring deferred</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-TBD-1</p></td>
@@ -3670,7 +3690,115 @@ diagramServer = 'https://gitlab.company.com/kroki/'</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_adr_tbd_1_confluence_api_version_strategy">9.15. ADR-TBD-1: Confluence API Version Strategy</h3>
+<h3 id="_adr_15_structural_diagrams_as_architecture_as_code_bausteinsicht_model_plantuml_render">9.15. ADR-15: Structural Diagrams as Architecture-as-Code (Bausteinsicht model, PlantUML render)</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Accepted (for v4) — <strong>model authored; inline C4-PlantUML kept as the rendered artifact; export wiring deferred</strong>. The spike (#1641) confirmed that Bausteinsicht has <strong>no PlantUML exporter</strong>, so the hoped-for <code>model → PlantUML → microsite</code> round-trip does not exist yet. The Level-1 model lives at <code>src/docs/arc42/models/level1-container.jsonc</code>; it is authored against the published Bausteinsicht JSON schema and the <code>online-shop</code> reference example and parses as JSONC, but has not yet been validated by the Bausteinsicht binary (not available in the docs build environment) — a <code>bausteinsicht sync</code> validation pass is the open follow-up.</p>
+</li>
+<li>
+<p><strong>Context</strong>: The arc42 Chapter 5 building-block views are hand-written C4-PlantUML embedded directly in <code>05_building_block_view.adoc</code> (<code>level1-container-v4</code>, <code>level3-atlassian-v4</code>). They satisfy the Semantic Contract (PlantUML + C4-PlantUML stdlib <code>!include &lt;C4/&#8230;&#8203;&gt;</code>), but every structural change means editing PlantUML by hand and there is no single, tool-readable source of truth. <code>Bausteinsicht</code> — our own Go architecture-as-code tool (JSONC model, bidirectional draw.io sync) — exists precisely for this, and the cross-repo relationship states <strong>"Bausteinsicht generates architecture diagrams consumable by docToolchain."</strong> We do not currently eat our own dog food for docToolchain&#8217;s own architecture docs.</p>
+<div class="paragraph">
+<p>The spike evaluated consuming a Bausteinsicht export as an AsciiDoc include. Finding: Bausteinsicht&#8217;s structural exports are <strong>draw.io (native)</strong>, <strong>PNG/SVG via the draw.io CLI</strong>, and <strong>Mermaid C4</strong> — there is <strong>no PlantUML output</strong>. Mermaid is explicitly forbidden by the Semantic Contract ("Diagrams are PlantUML, not Mermaid"). PNG/SVG requires the draw.io CLI (a headless Electron binary; cf. Bausteinsicht issue #385) and replaces a text-rendered diagram with a committed binary, breaking the docs-as-code "diagram is reviewable text" property and the existing Kroki/<code>asciidoctor-diagram</code> render path (ADR-9, ADR-6 revised).</p>
+</div>
+</li>
+<li>
+<p><strong>Decision</strong>: Maintain the <strong>structural (C4 building-block) views as a versioned Bausteinsicht JSONC model</strong> — the single, machine-readable, LLM-editable source of truth — <strong>but keep the inline C4-PlantUML block as the rendered artifact</strong> in the microsite for now. Start with the Level-1 container view; keep Level-3 (<code>level3-atlassian-v4</code>) inline-only until the model proves itself. Wire an automatic render path only once a clean text-based export exists (a Bausteinsicht PlantUML exporter — to be requested upstream — or an accepted draw.io-CLI image step). Until then, the model and the inline PlantUML are kept in sync by hand (tracked as technical debt in <a href="#section-technical-risks">Risks and Technical Debts</a>).</p>
+</li>
+<li>
+<p><strong>Alternatives considered</strong>:</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6668%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Criterion</th>
+<th class="tableblock halign-left valign-top">A: Hand-written PlantUML only (status quo)</th>
+<th class="tableblock halign-left valign-top">B: Model + PNG via draw.io CLI</th>
+<th class="tableblock halign-left valign-top">C: Model as SoT + PlantUML render (chosen)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Machine-readable single source of truth for structure (QS-12)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Author can edit diagrams via draw.io (no PlantUML skill needed)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Renders as reviewable text, no binary artifact in git (docs-as-code)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Semantic-Contract render output (PlantUML + C4, not Mermaid/binary) (QS-13)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Build simplicity — no draw.io CLI / Electron dependency</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">No manual model↔render synchronisation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+2</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+1</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+4</strong></p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Quality Tradeoffs</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Supports <strong>QS-12 (LLM friendliness)</strong>: the architecture is now a machine-readable JSONC model an LLM or tool can read, diff, and edit — not prose embedded in PlantUML.</p>
+</li>
+<li>
+<p>Supports <strong>QS-13 (modern UI / rendered output)</strong>: the microsite keeps rendering hand-tuned C4-PlantUML through the existing pipeline, so diagram quality and layout are unchanged (no auto-layout regression, no binary image).</p>
+</li>
+<li>
+<p>Preserves the docs-as-code property: the rendered diagram stays reviewable text in git; no Electron/draw.io-CLI dependency enters the build.</p>
+</li>
+<li>
+<p>Cost — <strong>manual synchronisation</strong>: until an export path is wired, the JSONC model and the inline PlantUML must be edited together, and they can drift. This is the one criterion option C loses on and is recorded as technical debt (below).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Consequences</strong>: <code>src/docs/arc42/models/level1-container.jsonc</code> becomes the source of truth for the Level-1 container view; <code>05_building_block_view.adoc</code> carries a NOTE linking the inline <code>level1-container-v4</code> block to that model and to this ADR. The decision creates a <strong>technical-debt</strong> item — <strong>"Hand-synchronised Bausteinsicht model and inline PlantUML"</strong> — recorded in <a href="#section-technical-risks">Risks and Technical Debts</a> (11.2) against the Chapter 5 building-block view documentation; it is <strong>explicitly accepted as low-cost</strong> (one Level-1 view, changed rarely) rather than tracked as an <code>R-NNN</code> risk. The debt retires when either (a) Bausteinsicht ships a PlantUML/C4-PlantUML exporter — to be requested upstream — and <code>generateSite</code> consumes it as a generated include kept inside the rendered doc tree (a file-outside-tree include is fatal), or (b) the team accepts a draw.io-CLI PNG/SVG step in the build. Level-3 stays inline-only; rolling the model out to Level-3 is a follow-up gated on the same export path. Open follow-up: validate the model with <code>bausteinsicht sync</code> once the binary is available in the build environment, and add the <code>bausteinsicht</code> ecosystem tool note in Chapter 5 (already present).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_tbd_1_confluence_api_version_strategy">9.16. ADR-TBD-1: Confluence API Version Strategy</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -3683,7 +3811,7 @@ diagramServer = 'https://gitlab.company.com/kroki/'</code></pre>
 </div>
 </div>
 <div class="sect2">
-<h3 id="_adr_tbd_2_jira_cloud_vs_server_client_architecture">9.16. ADR-TBD-2: Jira Cloud vs. Server Client Architecture</h3>
+<h3 id="_adr_tbd_2_jira_cloud_vs_server_client_architecture">9.17. ADR-TBD-2: Jira Cloud vs. Server Client Architecture</h3>
 <div class="ulist">
 <ul>
 <li>
@@ -4123,6 +4251,11 @@ This chapter separates <strong>Risks</strong> (uncertain future events) from <st
 <td class="tableblock halign-left valign-top"><p class="tableblock">No v4 Windows wrapper path</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Wrapper Layer (<code>dtcw.ps1</code>, <code>dtcw.bat</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">The v4 <code>GroovyMain</code> execution path exists only in the Bash <code>dtcw</code>; <code>dtcw.ps1</code>/<code>dtcw.bat</code> carry no v4 path. Windows v4 works only via WSL2 today (see Chapter 1 goal scope). Burdens cross-platform portability (QS-2, Goal #3).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Hand-synchronised Bausteinsicht model and inline PlantUML</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Building Block View (Ch5) — Level-1 container view (<code>05_building_block_view.adoc</code>, <code>models/level1-container.jsonc</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The Level-1 view exists twice: as a Bausteinsicht JSONC model (source of truth) and as inline C4-PlantUML (rendered artifact). Because Bausteinsicht has no PlantUML exporter (ADR-15), the two are kept in sync by hand and can drift. Explicitly accepted as low-cost (one view, changed rarely); retires when a text-based export path is wired (ADR-15).</p></td>
 </tr>
 </tbody>
 </table>

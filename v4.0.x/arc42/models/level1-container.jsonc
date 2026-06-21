@@ -1,0 +1,198 @@
+{
+  "$schema": "https://raw.githubusercontent.com/docToolchain/Bausteinsicht/main/schema/bausteinsicht.schema.json",
+
+  // Bausteinsicht architecture-as-code model for docToolchain's own arc42
+  // Chapter 5 "Level 1: Whitebox Overall System" view (dogfooding, issue #1641).
+  //
+  // SOURCE OF TRUTH: this file is the single, tool-readable source for the
+  // Level-1 container view. The C4-PlantUML block `level1-container-v4` in
+  // ../chapters/05_building_block_view.adoc mirrors this model and is, for now,
+  // still the *rendered* artifact in the microsite — Bausteinsicht has no
+  // PlantUML exporter (its structural exports are draw.io / PNG-SVG via the
+  // draw.io CLI / Mermaid C4), so the model→PlantUML→microsite round-trip the
+  // spike hoped for does not yet exist. See ADR-15. Until an export path is
+  // wired, keep this model and the inline PlantUML in sync by hand (Ch11 debt).
+
+  // Specification: element kinds and relationship types. The order of element
+  // kinds drives the layered auto-layout (first kind = top row, last = bottom).
+  // Order chosen to read top-to-bottom: actors → docToolchain → ecosystem →
+  // external systems.
+  "specification": {
+    "elements": {
+      "actor": {
+        "notation": "Actor",
+        "description": "A person or role that interacts with docToolchain"
+      },
+      "system": {
+        "notation": "Software System",
+        "description": "A top-level software system",
+        "container": true
+      },
+      "container": {
+        "notation": "Container",
+        "description": "A deployable / runnable unit inside a system",
+        "container": true
+      },
+      "external_system": {
+        "notation": "External System",
+        "description": "A third-party system or tool outside docToolchain's control"
+      }
+    },
+    "relationships": {
+      "uses": {
+        "notation": "uses"
+      }
+    }
+  },
+
+  // Architecture model: elements and their hierarchy.
+  "model": {
+    // Actors
+    "author": {
+      "kind": "actor",
+      "title": "Documentation Author",
+      "description": "Writes AsciiDoc and runs dtcw commands"
+    },
+    "llm": {
+      "kind": "actor",
+      "title": "LLM Agent",
+      "description": "Navigates and modifies docs via MCP"
+    },
+
+    // The system under description
+    "doctoolchain": {
+      "kind": "system",
+      "title": "docToolchain v4",
+      "description": "Docs-as-code toolchain: direct Groovy execution, no Gradle at runtime",
+      "children": {
+        "wrapper": {
+          "kind": "container",
+          "title": "Wrapper Layer",
+          "technology": "Bash / PowerShell / Batch",
+          "description": "dtcw, dtcw.ps1, dtcw.bat — CLI entry point, classpath construction, Java/tool installation"
+        },
+        "scripts": {
+          "kind": "container",
+          "title": "Groovy Scripts",
+          "technology": "Groovy",
+          "description": "scripts/*.groovy — all task logic: generation, publishing, export, site building"
+        }
+      }
+    },
+
+    // Companion-tool ecosystem (separate repos). daCLI is exercised at runtime;
+    // Bausteinsicht and LLM-Prompts are design-time only — shown for context.
+    "ecosystem": {
+      "kind": "system",
+      "title": "Ecosystem",
+      "description": "Companion tools that handle LLM integration outside docToolchain core",
+      "children": {
+        "dacli": {
+          "kind": "container",
+          "title": "daCLI",
+          "technology": "Python / FastMCP",
+          "description": "MCP server for structured document access (10 tools). Runtime."
+        },
+        "bausteinsicht": {
+          "kind": "container",
+          "title": "Bausteinsicht",
+          "technology": "Go / Cobra",
+          "description": "Architecture-as-code: JSONC model + draw.io sync. Design-time only."
+        },
+        "prompts": {
+          "kind": "container",
+          "title": "LLM-Prompts",
+          "technology": "AsciiDoc",
+          "description": "Reusable prompts for arc42 documentation. Design-time only."
+        }
+      }
+    },
+
+    // External systems reached at runtime by the Groovy Scripts.
+    "asciidoctor": {
+      "kind": "external_system",
+      "title": "AsciiDoctor",
+      "technology": "AsciidoctorJ (embedded)",
+      "description": "Document processor; renders AsciiDoc (ADR-6 revised)"
+    },
+    "kroki": {
+      "kind": "external_system",
+      "title": "Diagram Backend",
+      "technology": "Kroki-compatible server",
+      "description": "Renders diagrams; local Docker by default (ADR-9)"
+    },
+    "confluence": {
+      "kind": "external_system",
+      "title": "Atlassian Confluence",
+      "technology": "REST API v1/v2",
+      "description": "Target for published pages"
+    },
+    "jira": {
+      "kind": "external_system",
+      "title": "Atlassian Jira",
+      "technology": "REST API v3",
+      "description": "Source of exported issues"
+    },
+    "ea": {
+      "kind": "external_system",
+      "title": "Enterprise Architect",
+      "technology": "COM (Windows)",
+      "description": "Source of extracted diagrams"
+    },
+    "git": {
+      "kind": "external_system",
+      "title": "Git Repository",
+      "technology": "Local CLI",
+      "description": "Source of changelog / contributor metadata"
+    },
+    "structurizr": {
+      "kind": "external_system",
+      "title": "Structurizr",
+      "technology": "DSL files",
+      "description": "Source of rendered architecture models"
+    }
+  },
+
+  // Relationships (dot notation for nested elements). Mirrors the Rel() lines
+  // of the level1-container-v4 C4-PlantUML block.
+  "relationships": [
+    { "from": "author", "to": "doctoolchain.wrapper", "label": "Invokes tasks via CLI", "kind": "uses" },
+    { "from": "doctoolchain.wrapper", "to": "doctoolchain.scripts", "label": "Invokes Groovy scripts via java/groovy runtime", "kind": "uses" },
+
+    { "from": "doctoolchain.scripts", "to": "asciidoctor", "label": "Renders AsciiDoc", "kind": "uses" },
+    { "from": "doctoolchain.scripts", "to": "kroki", "label": "Renders diagrams", "kind": "uses" },
+    { "from": "doctoolchain.scripts", "to": "confluence", "label": "Publishes pages", "kind": "uses" },
+    { "from": "doctoolchain.scripts", "to": "jira", "label": "Exports issues", "kind": "uses" },
+    { "from": "doctoolchain.scripts", "to": "ea", "label": "Extracts diagrams", "kind": "uses" },
+    { "from": "doctoolchain.scripts", "to": "git", "label": "Reads changelog", "kind": "uses" },
+    { "from": "doctoolchain.scripts", "to": "structurizr", "label": "Renders models", "kind": "uses" },
+
+    { "from": "llm", "to": "ecosystem.dacli", "label": "MCP tool calls", "kind": "uses" },
+    { "from": "ecosystem.dacli", "to": "doctoolchain.scripts", "label": "Reads/writes doc sources", "kind": "uses" },
+    { "from": "llm", "to": "ecosystem.bausteinsicht", "label": "Reads/writes JSONC models", "kind": "uses" },
+    { "from": "llm", "to": "ecosystem.prompts", "label": "Uses prompts", "kind": "uses" }
+  ],
+
+  // Views: each view becomes a page in the draw.io diagram / a C4 export.
+  "views": {
+    "level1-container": {
+      "title": "Level 1: Whitebox Overall System",
+      "scope": "doctoolchain",
+      "include": [
+        "author",
+        "llm",
+        "doctoolchain.*",
+        "ecosystem.*",
+        "asciidoctor",
+        "kroki",
+        "confluence",
+        "jira",
+        "ea",
+        "git",
+        "structurizr"
+      ],
+      "layout": "layered",
+      "description": "The two internal building blocks (Wrapper, Groovy Scripts), the companion-tool ecosystem, and the external systems they call at runtime"
+    }
+  }
+}
