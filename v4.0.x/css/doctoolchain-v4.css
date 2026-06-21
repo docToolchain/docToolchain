@@ -116,7 +116,6 @@ summary { color:var(--dtc-ink); }
 }
 .td-content h1 { color:var(--g-900) !important; font-weight:900; border-bottom:0; }
 .td-content h2 { color:var(--g-600) !important; font-weight:800; padding-top:.3em; border-top:0; }
-.td-content h2::before { content:"§ "; font-family:var(--dtc-mono); color:var(--g-500); font-weight:700; font-size:.7em; vertical-align:.15em; }
 .td-content .sect1 + .sect1 { border-top:1px dashed var(--dtc-border); }
 .td-content h3 { color:var(--teal) !important; font-weight:700; }
 .td-content h4 { color:var(--cyan) !important; font-weight:700; }
