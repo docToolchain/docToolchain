@@ -142,12 +142,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportMarkdown.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_wipeConfluenceSpace.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_wipeConfluenceSpace.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportMarkdown.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
@@ -172,12 +172,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_previewSite.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportPPT.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
@@ -192,12 +192,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_tasks.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportJiraSprintChangelog.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportJiraSprintChangelog.html</loc>
+    	<loc>https://localhost/015_tasks/03_tasks.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
@@ -217,12 +217,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_dependencyUpdates.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportExcel.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
@@ -242,17 +242,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
-    	<lastmod>2026-06-21</lastmod>
-    </url>
-
-    <url>
     	<loc>https://localhost/015_tasks/03_task_htmlSanityCheck.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_copy_themes.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_exportChangeLog.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
@@ -262,12 +257,17 @@
     </url>
 
     <url>
-    	<loc>https://localhost/015_tasks/03_task_exportConfluence.html</loc>
+    	<loc>https://localhost/015_tasks/03_task_copy_themes.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
     <url>
     	<loc>https://localhost/015_tasks/03_task_exportOpenApi.html</loc>
+    	<lastmod>2026-06-21</lastmod>
+    </url>
+
+    <url>
+    	<loc>https://localhost/015_tasks/03_task_exportConfluence.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
@@ -467,12 +467,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/040_contributors.html</loc>
+    	<loc>https://localhost/010_manual/60_further_reading.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/010_manual/60_further_reading.html</loc>
+    	<loc>https://localhost/010_manual/040_contributors.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
@@ -502,12 +502,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
+    	<loc>https://localhost/ea/UseCases.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/ea/UseCases.html</loc>
+    	<loc>https://localhost/ea/Use_Cases_links_issue2.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
@@ -522,12 +522,12 @@
     </url>
 
     <url>
-    	<loc>https://localhost/ea/issue1.html</loc>
+    	<loc>https://localhost/ea/readme.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
     <url>
-    	<loc>https://localhost/ea/readme.html</loc>
+    	<loc>https://localhost/ea/issue1.html</loc>
     	<lastmod>2026-06-21</lastmod>
     </url>
 
