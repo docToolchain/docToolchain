@@ -215,6 +215,7 @@
     <link href="${content.rootpath}css/doctoolchain-v4.css" rel="stylesheet">
 
     <!-- brand customization from docToolchainConfig.groovy (microsite.color* / microsite.font*) -->
+    <!-- dtc:theme-config:start -->
     <% if (config.site_fontCssUrl) { %>
     <link href="${config.site_fontCssUrl}" rel="stylesheet">
     <% } %>
@@ -240,6 +241,7 @@
 <% } %>    }
     </style>
     <% } %>
+    <!-- dtc:theme-config:end -->
     <script>
         // apply persisted colour scheme before first paint (no flash)
         (function () {
