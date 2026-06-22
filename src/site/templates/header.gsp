@@ -213,6 +213,35 @@
     <!-- docToolchain v4 theme overlay — self-hosted fonts (no Google CDN) -->
     <link href="${content.rootpath}css/fonts.css" rel="stylesheet">
     <link href="${content.rootpath}css/doctoolchain-v4.css" rel="stylesheet">
+
+    <!-- brand customization from docToolchainConfig.groovy (microsite.color* / microsite.font*) -->
+    <!-- dtc:theme-config:start -->
+    <% if (config.site_fontCssUrl) { %>
+    <link href="${config.site_fontCssUrl}" rel="stylesheet">
+    <% } %>
+    <%
+        def themeOverrides = [
+            '--g-600'   : config.site_colorPrimary,
+            '--teal'    : config.site_colorPrimary,
+            '--g-800'   : config.site_colorPrimaryDark,
+            '--g-700'   : config.site_colorLink,
+            '--cyan'    : config.site_colorLink,
+            '--dtc-ink' : config.site_colorInk,
+            '--dtc-bg'  : config.site_colorBackground,
+            '--dtc-card': config.site_colorCard,
+            '--dtc-head': config.site_fontHeading,
+            '--dtc-font': config.site_fontBody,
+            '--dtc-mono': config.site_fontMono,
+        ].findAll { k, v -> v }
+        if (themeOverrides) {
+    %>
+    <style id="dtc-theme-config">
+    :root {
+<% themeOverrides.each { name, value -> %>        ${name}: ${value};
+<% } %>    }
+    </style>
+    <% } %>
+    <!-- dtc:theme-config:end -->
     <script>
         // apply persisted colour scheme before first paint (no flash)
         (function () {
