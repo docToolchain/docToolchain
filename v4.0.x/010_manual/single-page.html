@@ -203,6 +203,12 @@
     <!-- docToolchain v4 theme overlay — self-hosted fonts (no Google CDN) -->
     <link href="../css/fonts.css" rel="stylesheet">
     <link href="../css/doctoolchain-v4.css" rel="stylesheet">
+
+    <!-- brand customization from docToolchainConfig.groovy (microsite.color* / microsite.font*) -->
+    <!-- dtc:theme-config:start -->
+    
+    
+    <!-- dtc:theme-config:end -->
     <script>
         // apply persisted colour scheme before first paint (no flash)
         (function () {
@@ -388,7 +394,11 @@
 <li><a href="#_links">5.3.2. Links</a></li>
 </ul>
 </li>
-<li><a href="#_templates_and_style">5.4. Templates and Style</a></li>
+<li><a href="#_templates_and_style">5.4. Templates and Style</a>
+<ul class="sectlevel3">
+<li><a href="#branding">5.4.1. Branding (Fonts, Colors, Logo)</a></li>
+</ul>
+</li>
 <li><a href="#_landing_page">5.5. Landing Page</a></li>
 <li><a href="#_blog">5.6. Blog</a></li>
 <li><a href="#_search">5.7. Search</a></li>
@@ -1293,16 +1303,52 @@ The order in the map determines the display order.</p>
 <p>The bundled templates use <a href="https://getbootstrap.com/">Bootstrap 5</a> as their CSS framework.
 Templates and styles are bundled with docToolchain.</p>
 </div>
-</div>
-<div class="sect2">
-<h3 id="_landing_page">5.5. Landing Page</h3>
+<div class="sect3">
+<h4 id="branding">5.4.1. Branding (Fonts, Colors, Logo)</h4>
 <div class="paragraph">
-<p>Configure the landing page in <code>docToolchainConfig.groovy</code> and ship the matching <code>.gsp</code> file in your theme&#8217;s <code>doc/</code> folder:</p>
+<p>You can re-brand the microsite without copying the whole theme.
+Set any of these keys in the <code>microsite</code> block of <code>docToolchainConfig.groovy</code>.
+Every value is optional — leave it empty to keep the theme default.</p>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">microsite.with {
-    landingPage = 'landingpage.gsp'   // file in src/site/doc/
+    // your logo, relative to the site's asset root (assets/images)
+    logo = 'images/my-logo.png'
+
+    // colors — any CSS color value
+    colorPrimary     = '#1f8a5b'   // accent / brand color
+    colorPrimaryDark = '#155138'   // darker shade used in gradients
+    colorLink        = '#176c49'   // body link color
+    colorInk         = '#17181c'   // main text color
+    colorBackground  = '#f4f3ee'   // page background
+    colorCard        = '#fbfaf6'   // card / panel background
+
+    // fonts — a CSS font-family value
+    fontHeading = "'Roboto', sans-serif"
+    fontBody    = "'Open Sans', sans-serif"
+    fontMono    = "'JetBrains Mono', monospace"
+    // optional: load custom web fonts (e.g. a Google Fonts stylesheet)
+    fontCssUrl  = 'https://fonts.googleapis.com/css2?family=Roboto&amp;family=Open+Sans&amp;display=swap'
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The colors override the theme&#8217;s CSS custom properties and apply to both the pages and the landing page.
+For deeper changes, copy the full theme with <code>copyThemes jBakeTheme</code> and edit the CSS directly.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_landing_page">5.5. Landing Page</h3>
+<div class="paragraph">
+<p>The microsite needs a landing page as its start page.
+Run <a href="03_task_copyLandingPage.html">copyLandingPage</a> to scaffold an editable copy into your project, then configure it in <code>docToolchainConfig.groovy</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">microsite.with {
+    landingPage = 'landingpage.gsp'   // file in your theme's doc/ folder
 }</code></pre>
 </div>
 </div>
