@@ -1,0 +1,56 @@
+:filename: 015_tasks/03_task_copyLandingPage.adoc
+include::_config.adoc[]
+
+[[task_copyLandingPage]]
+== copyLandingPage
+
+include::../_feedback.adoc[]
+
+=== About This Task
+
+A microsite needs a landing page as its start page.
+`copyLandingPage` scaffolds an editable copy of docToolchain's default landing page into your project, so you have a start page to build on without copying the whole theme.
+
+Once copied, the landing page lives in your project under version control, and your changes survive docToolchain upgrades.
+
+=== Usage
+
+[source,bash]
+----
+./dtcw4 local copyLandingPage           # copy the landing page (won't overwrite)
+./dtcw4 local copyLandingPage --force   # overwrite an existing landing page
+----
+
+To avoid losing your edits, the task refuses to overwrite an existing landing page unless you pass `--force`.
+
+=== Where the Landing Page Is Copied
+
+The file is copied into your site theme's `doc/` folder so it overlays the built-in theme during `generateSite`:
+
+[cols="1,2"]
+|===
+| Source | Target
+
+| `src/site/doc/landingpage.gsp` (built-in)
+| `<inputPath>/<microsite.siteFolder>/doc/<microsite.landingPage>`
+|===
+
+Defaults: `microsite.siteFolder` is `../site` and `microsite.landingPage` is `landingpage.gsp`.
+After copying, the task reminds you to set these config properties if they are not set yet, so `generateSite` picks up your landing page.
+
+=== Customizing
+
+The landing page is plain HTML5 styled with Bootstrap.
+Edit it freely — the header, navigation and footer are added automatically by `generateSite`.
+
+To re-brand fonts, colors and the logo across the whole site, see the xref:03_task_generateSite.adoc#branding[Branding] section of `generateSite` — no theme copy required.
+
+=== Related Tasks
+
+* xref:03_task_generateSite.adoc[generateSite] — renders the microsite and its landing page
+* xref:03_task_copyThemes.adoc[copyThemes] — copy the full microsite or PDF theme for deeper changes
+
+=== Source
+
+:param_source_file: scripts/copyLandingPage.groovy
+include::_viewTaskSource.adoc[]

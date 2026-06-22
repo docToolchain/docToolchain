@@ -73,6 +73,9 @@ These tasks install a companion tool from the docToolchain ecosystem and — whe
 | xref:03_task_copyThemes.adoc[copyThemes]
 | Copy a built-in theme (jBakeTheme or pdfTheme) into your project for customization
 
+| xref:03_task_copyLandingPage.adoc[copyLandingPage]
+| Copy an editable landing page into your project as a start page for the microsite
+
 | xref:03_task_lintAsciiDoc.adoc[lintAsciiDoc]
 | Lint your AsciiDoc sources with the docToolchain AsciiDoc Linter
 

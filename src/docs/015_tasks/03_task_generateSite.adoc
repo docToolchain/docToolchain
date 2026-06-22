@@ -109,14 +109,48 @@ In the right column, links are controlled by values in `docToolchainConfig.groov
 The bundled templates use https://getbootstrap.com/[Bootstrap 5] as their CSS framework.
 Templates and styles are bundled with docToolchain.
 
-=== Landing Page
+[[branding]]
+==== Branding (Fonts, Colors, Logo)
 
-Configure the landing page in `docToolchainConfig.groovy` and ship the matching `.gsp` file in your theme's `doc/` folder:
+You can re-brand the microsite without copying the whole theme.
+Set any of these keys in the `microsite` block of `docToolchainConfig.groovy`.
+Every value is optional — leave it empty to keep the theme default.
 
 [source, groovy]
 ----
 microsite.with {
-    landingPage = 'landingpage.gsp'   // file in src/site/doc/
+    // your logo, relative to the site's asset root (assets/images)
+    logo = 'images/my-logo.png'
+
+    // colors — any CSS color value
+    colorPrimary     = '#1f8a5b'   // accent / brand color
+    colorPrimaryDark = '#155138'   // darker shade used in gradients
+    colorLink        = '#176c49'   // body link color
+    colorInk         = '#17181c'   // main text color
+    colorBackground  = '#f4f3ee'   // page background
+    colorCard        = '#fbfaf6'   // card / panel background
+
+    // fonts — a CSS font-family value
+    fontHeading = "'Roboto', sans-serif"
+    fontBody    = "'Open Sans', sans-serif"
+    fontMono    = "'JetBrains Mono', monospace"
+    // optional: load custom web fonts (e.g. a Google Fonts stylesheet)
+    fontCssUrl  = 'https://fonts.googleapis.com/css2?family=Roboto&family=Open+Sans&display=swap'
+}
+----
+
+The colors override the theme's CSS custom properties and apply to both the pages and the landing page.
+For deeper changes, copy the full theme with `copyThemes jBakeTheme` and edit the CSS directly.
+
+=== Landing Page
+
+The microsite needs a landing page as its start page.
+Run xref:03_task_copyLandingPage.adoc[copyLandingPage] to scaffold an editable copy into your project, then configure it in `docToolchainConfig.groovy`:
+
+[source, groovy]
+----
+microsite.with {
+    landingPage = 'landingpage.gsp'   // file in your theme's doc/ folder
 }
 ----
 
