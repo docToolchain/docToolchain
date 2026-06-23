@@ -843,7 +843,7 @@ build_command() {
             # Expansion must happen inside container, not locally
             # shellcheck disable=SC2016
             local docker_cp='$(for f in /opt/docToolchain/lib/*.jar; do [ -f "$f" ] && printf "%s:" "$f"; done)'
-            cmd="docker ${docker_args} -c \"java ${java_opts} -cp ${docker_cp} groovy.ui.GroovyMain ${container_script} ${*} && exit\""
+            cmd="docker ${docker_args} -c \"java ${java_opts} -cp ${docker_cp} groovy.ui.GroovyMain ${container_script} ${*:-} && exit\""
         else
             # v3 Docker: Gradle via doctoolchain
             cmd="docker ${docker_args} -c \"doctoolchain . ${*} ${DTC_OPTS} && exit\""
@@ -896,7 +896,7 @@ build_command() {
             # installation rather than next to themselves (ADR-17).
             java_opts="${java_opts} -Ddtc.scriptsHome=\"${dtc_home}/scripts\""
             # Pass remaining arguments as system properties or script args
-            cmd="${JAVA_CMD:-java} ${java_opts} -cp \"${classpath}\" groovy.ui.GroovyMain \"${script_path}\" ${*}"
+            cmd="${JAVA_CMD:-java} ${java_opts} -cp \"${classpath}\" groovy.ui.GroovyMain \"${script_path}\" ${*:-}"
         else
             # v3: Gradle-based execution
             if [[ "${DTC_HEADLESS}" = false ]]; then
