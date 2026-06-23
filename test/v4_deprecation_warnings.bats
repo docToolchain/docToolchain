@@ -16,7 +16,7 @@ setup() {
     echo '// @task' > "${DTC_HOME}/scripts/generateHTML.groovy"
 
     # Installed local java
-    _mock=$(mock_create_java "${DTC_ROOT}/jdk/bin/java" "17.0.14")
+    java_mock=$(mock_create_java "${DTC_ROOT}/jdk/bin/java" "17.0.14")
 }
 
 teardown() {
@@ -24,19 +24,24 @@ teardown() {
     rm -rf "${DTC_ROOT}"
 }
 
+# Since ADR-18 the `tasks` listing and the `--group` deprecation note are emitted
+# by the Groovy launcher, not the wrapper. With java mocked we therefore assert
+# that the wrapper *delegates* `tasks` (the note/listing itself is verified by
+# scripts/lib/TaskLauncherTest.groovy and the launcher).
+
 # Scenario: User runs dtcw tasks --group doctoolchain
-@test "v4: tasks with --group shows warning that --group is ignored" {
+@test "v4: tasks --group is delegated to the Groovy launcher" {
     run ./dtcw tasks --group doctoolchain
     assert_success
-    assert_output --partial "Available tasks:"
-    assert_output --partial "generateHTML"
-    assert_output --partial "--group"
-    assert_output --partial "ignored"
+    run mock_get_call_args "${java_mock}"
+    assert_output --partial "Launcher.groovy"
+    assert_output --partial "tasks"
 }
 
 # Scenario: User runs dtcw tasks --group (without value)
-@test "v4: tasks with --group but no value still lists tasks" {
+@test "v4: tasks --group without value is still delegated" {
     run ./dtcw tasks --group
     assert_success
-    assert_output --partial "Available tasks:"
+    run mock_get_call_args "${java_mock}"
+    assert_output --partial "Launcher.groovy"
 }
