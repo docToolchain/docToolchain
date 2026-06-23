@@ -6,8 +6,8 @@ def docDir = System.getProperty('docDir', '.')
 def configFile = System.getProperty('mainConfigFile', 'docToolchainConfig.groovy')
 def isHeadless = System.getProperty('DTC_HEADLESS', System.getenv('DTC_HEADLESS') ?: 'false') == 'true'
 
-def dtcHome = new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile.parentFile
-def scriptDir = new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile
+def dtcHome = System.getProperty('dtc.scriptsHome') ? new File(System.getProperty('dtc.scriptsHome')).parentFile : new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile.parentFile
+def scriptDir = System.getProperty('dtc.scriptsHome') ? new File(System.getProperty('dtc.scriptsHome')) : new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile
 def gcl = new GroovyClassLoader(this.class.classLoader)
 def DtcConfig = gcl.parseClass(new File(scriptDir, 'lib/DtcConfig.groovy'))
 gcl.parseClass(new File(scriptDir, 'lib/DtcException.groovy'))

@@ -84,6 +84,14 @@ Statuses follow Nygard values (Proposed / Accepted / Superseded / Deprecated). `
 |Structural Diagrams as Architecture-as-Code (Bausteinsicht model, PlantUML render)
 |Accepted (for v4) — export wiring deferred
 
+|ADR-16
+|Project-Local Tasks — Custom Tasks and Monkey-Patching
+|Accepted (for v4)
+
+|ADR-17
+|`dtc.scriptsHome` — Resolve `lib/` Helpers from the Installation
+|Accepted (for v4)
+
 |ADR-TBD-1
 |Confluence API Version Strategy
 |Proposed
@@ -122,6 +130,10 @@ include::../adrs/adr-13-dtcw-delegation.adoc[]
 include::../adrs/adr-14-task-discovery.adoc[]
 
 include::../adrs/adr-15-architecture-as-code-diagrams.adoc[]
+
+include::../adrs/adr-16-project-local-tasks.adoc[]
+
+include::../adrs/adr-17-script-home-lib-resolution.adoc[]
 
 include::../adrs/adr-tbd-1-confluence-api.adoc[]
 

@@ -1,0 +1,57 @@
+=== ADR-17: `dtc.scriptsHome` — Resolve `lib/` Helpers and Resources from the Installation, Not the Script Location
+
+* **Status**: Accepted (for v4)
+* **Context**: Every v4 task script loads its shared helpers relative to *its own* file location: `def scriptDir = new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile` and then `new File(scriptDir, 'lib/DtcConfig.groovy')`. Three scripts likewise derive `dtcHome = scriptDir.parentFile` to find bundled resources (themes, landing page). This works only because installed scripts sit next to `lib/`. ADR-16 lets a script run from the *project* `scripts/` directory, where there is no `lib/` and no bundled resources — so a copied (monkey-patched) or custom script would fail to load `DtcConfig`/`DtcException` and break at startup. The helpers and resources it needs live in the installation, not the project.
+* **Decision**: `dtcw` passes the installed scripts directory to every run as a system property: `-Ddtc.scriptsHome="${dtc_home}/scripts"` (and `/opt/docToolchain/scripts` inside the Docker image). Scripts resolve their helper/resource base from that property, falling back to the on-disk script location when it is absent:
++
+[source,groovy]
+----
+def scriptDir = System.getProperty('dtc.scriptsHome')
+    ? new File(System.getProperty('dtc.scriptsHome'))
+    : new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile
+----
++
+For an installed script `dtc.scriptsHome` equals its own directory, so behaviour is unchanged; for a project script it points back at the installation, so `lib/` and bundled resources resolve correctly regardless of where the script file lives.
+
+* **Alternatives considered**:
+
+[cols="3,1,1,1", options="header"]
+|===
+|Criterion |A: Copy `lib/` into the project too |B: `dtc.scriptsHome` system property (chosen) |C: Put `lib/` on the classpath and load helpers by class name
+
+|Project-script startup works (ADR-16) — QS-1
+|+1 (lib present locally)
+|+1 (resolves from install)
+|+1
+
+|Footprint / no duplication (QS-6)
+|–1 (copies ~MBs of helpers per project)
+|+1 (single installed copy)
+|+1
+
+|Determinism — copy can't drift from the runtime (QS-4)
+|–1 (project lib goes stale on upgrade)
+|+1 (always the installed helpers)
+|+1
+
+|Change size / risk across existing scripts
+|+1 (no script change)
+|0 (one mechanical line per script)
+|–1 (rework every helper-loading site + packaging)
+
+|Backward compatibility (installed scripts unchanged)
+|+1
+|+1 (property defaults to own dir)
+|0
+
+|**Total**
+|**+1**
+|**+4**
+|**+2**
+|===
+
+* **Quality Tradeoffs**:
+** Supports **QS-1 (Extensibility)**: custom and copied scripts load the same bundled helpers as installed tasks — the project extension point is fully functional, not a stub.
+** Supports **QS-4 (Determinism)** and **QS-6 (Footprint)**: helpers exist once, in the installation; a project copy can never drift from the runtime and adds no per-project megabytes.
+** Cost: a one-line convention every helper-loading script must follow; a script that hard-codes `scriptDir` from its own location instead of honouring `dtc.scriptsHome` silently breaks when run as a project override. Documented as the canonical idiom and demonstrated by the `createTask` skeleton.
+* **Consequences**: The `scriptDir`/`dtcHome` definition is updated to the property-first form across the v4 scripts that load `lib/` or bundled resources, and `dtcw` exports `dtc.scriptsHome` on every v4 invocation (local and Docker). This unblocks ADR-16: monkey-patched and custom scripts run against the installed helpers. It also contributes to **R-003 (script loading / classpath)** — helper resolution now hinges on a correctly-set property — mitigated by the safe fallback to the script's own directory when the property is unset (e.g. direct `groovy` invocation outside `dtcw`).

@@ -1,0 +1,55 @@
+=== ADR-16: Project-Local Tasks — Custom Tasks and Monkey-Patching via a Project `scripts/` Directory
+
+* **Status**: Accepted (for v4)
+* **Context**: v4 tasks are self-contained Groovy scripts (ADR-12) discovered by the `// @task` marker (ADR-14), but `dtcw` only ever resolves them from the *installed* runtime (`~/.doctoolchain/docToolchain-<version>/scripts/`). A project therefore could not (a) add its **own** task without forking docToolchain, nor (b) **modify** a shipped task short of editing the shared installation — which every other project on the machine then inherits. The v3 mechanism for this (`scripts/customTasks.gradle`, the `customTasks = [...]` config list, and a Gradle `createTask`) is Gradle-bound and dead under the Gradle-free v4 runtime (ADR-3). Quality goal QS-1 ("a contributor adds a task as one script, no build-system knowledge") is only half met: it holds for docToolchain's own repo, not for a *consuming* project. Two distinct user needs share one root cause — `dtcw` does not look in the project:
++
+. **Custom tasks** — a user drops a new task into their project and runs it.
+. **Monkey-patching** — a user copies an installed task into their project, edits it, and has their version run instead of the shipped one.
+
+* **Decision**: `dtcw` resolves a task from a **project-local scripts directory first, then the installation**. The directory defaults to `scripts/` under the project root and is overridable via `DTC_PROJECT_SCRIPTS_DIR`. The same ADR-14 rule applies: a file is a task **iff** it is a `*.groovy` with `// @task` in its first 5 lines — so discovery is uniform across installed and project tasks, with no registry and no config edit (extending QS-1 to consuming projects).
+** A project task whose name does **not** match an installed task is a **custom task** (need 1).
+** A project task whose name **matches** an installed task **overrides** it — monkey-patching (need 2). `dtcw` prints a `Note:` to stderr on every override run, so a shadowed task is never silent (transparency; relevant to T-005).
+** Two helper tasks make the workflow one command: `createTask <name>` scaffolds a marked skeleton in the project, and `copyTask <name>` copies an installed script into the project for editing.
+
+* **Alternatives considered**:
+
+[cols="3,1,1,1", options="header"]
+|===
+|Criterion |A: Config list (`customTasks=[…]`, v3-style) |B: Project `scripts/` + `// @task` auto-discovery (chosen) |C: Edit the shared installation directly
+
+|Adding a task (no central edit) — QS-1
+|–1 (must list every file in config)
+|+1 (drop one marked file, like installed tasks)
+|0 (no project file, but edits global state)
+
+|Consistency with ADR-14 (one discovery rule)
+|–1 (second, different mechanism)
+|+1 (same `// @task` rule everywhere)
+|+1 (it *is* the installation)
+
+|Override isolation (per project, not global)
+|0 (no override story)
+|+1 (override lives in the project repo)
+|–1 (every project on the box inherits the edit)
+
+|Transparency of an override (no silent shadowing) — T-005
+|0
+|+1 (`Note:` printed on each override run)
+|–1 (invisible global change)
+
+|Reproducibility (override travels with the repo)
+|0
+|+1 (committed alongside the docs)
+|–1 (lives outside version control)
+
+|**Total**
+|**–2**
+|**+5**
+|**–2**
+|===
+
+* **Quality Tradeoffs**:
+** Supports **QS-1 (Extensibility)**: a consuming project adds a task exactly the way docToolchain's own repo does — one marked script, no build-system knowledge, appears in `./dtcw tasks`.
+** Supports **QS-11 (Script-first)** and **QS-3 (Usability)**: one uniform task model; `createTask`/`copyTask` keep the first step to a single command.
+** Cost on **predictability**: a project file can now silently change what `generateHTML` does. Mitigated by the mandatory override `Note:` and by the override being flagged in `./dtcw tasks`.
+* **Consequences**: `dtcw` gains a project-first resolution step in `assert_v4_task_exists`, `list_v4_tasks`, and `build_command`; the listing flags overrides and groups custom tasks. Project tasks are executable Groovy authored by the project — the **same local-trust assumption already accepted for `docToolchainConfig.groovy`** (threat **T-005**, <<section-concepts>>): opening and running `dtcw` in a project already runs that project's Groovy, so project tasks add no new trust class, only more surface within it. The override `Note:` keeps shadowing visible. This decision depends on ADR-17 so that a copied or custom script can still load the bundled `lib/` helpers from the installation. No new Chapter 11 risk is created; the consequence is recorded as accepted under the existing T-005 local-trust model. The Windows wrappers (`dtcw.ps1`/`dtcw.bat`) do not yet carry the v4 path at all (Chapter 11 technical debt), so project-task resolution lands in the Bash `dtcw` first; Windows parity rides on the existing "no v4 Windows wrapper path" debt item.

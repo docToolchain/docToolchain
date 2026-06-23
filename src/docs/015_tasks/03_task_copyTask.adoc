@@ -1,0 +1,51 @@
+:filename: 015_tasks/03_task_copyTask.adoc
+include::_config.adoc[]
+
+[[task_copyTask]]
+== copyTask
+
+include::../_feedback.adoc[]
+
+=== About This Task
+
+`copyTask` copies an installed task script into your project so you can modify it
+— *monkey-patching*. The project copy has the same name as the installed task and
+therefore overrides it: `dtcw` runs your copy instead of the shipped one.
+
+[source,bash]
+----
+./dtcw copyTask generateHTML
+----
+
+This copies the installed `generateHTML.groovy` to `scripts/generateHTML.groovy`
+in your project. Edit it, then run `./dtcw generateHTML` as usual.
+
+=== Setup and Configuration
+
+* Pass the name of an existing installed task. Run `./dtcw tasks` to see the
+  available names.
+* The copy is placed in `scripts/` by default; override with
+  `DTC_PROJECT_SCRIPTS_DIR`.
+* `copyTask` refuses to overwrite an existing project copy.
+
+=== How the Override Behaves
+
+* `./dtcw generateHTML` prints a note to stderr that the installed task is being
+  overridden by your project file.
+* `./dtcw tasks` flags the task as `overridden by scripts/generateHTML.groovy`.
+* The copy still loads its bundled helpers and resources from the installation
+  via `dtc.scriptsHome`, so it keeps working unchanged.
+* Delete the copy to fall back to the shipped task.
+
+WARNING: A copied task is pinned to the version you copied. After upgrading
+docToolchain, re-copy it if you want upstream changes.
+
+=== Further Reading and Resources
+
+* xref:../010_manual/45_custom_tasks.adoc[Extending docToolchain: Custom Tasks and Monkey-Patching]
+* <<task_createTask,createTask>> — scaffold a brand-new custom task
+
+=== Source
+
+:param_source_file: scripts/copyTask.groovy
+include::_viewTaskSource.adoc[]

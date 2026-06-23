@@ -7,9 +7,9 @@ import groovy.io.FileType
 
 def docDir = System.getProperty('docDir', '.')
 def configFile = System.getProperty('mainConfigFile', 'docToolchainConfig.groovy')
-def dtcHome = new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile.parentFile
+def dtcHome = System.getProperty('dtc.scriptsHome') ? new File(System.getProperty('dtc.scriptsHome')).parentFile : new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile.parentFile
 
-def scriptDir = new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile
+def scriptDir = System.getProperty('dtc.scriptsHome') ? new File(System.getProperty('dtc.scriptsHome')) : new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile
 def DtcConfig = new GroovyClassLoader(this.class.classLoader).parseClass(new File(scriptDir, 'lib/DtcConfig.groovy'))
 def dtcConfig = DtcConfig.load(docDir, configFile)
 def config = dtcConfig.getRaw()

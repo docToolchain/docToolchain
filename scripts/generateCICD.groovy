@@ -3,7 +3,7 @@
 // v4: Scaffold a docToolchain CI/CD pipeline (dtcw4-based) for GitHub or GitLab
 
 def docDir = System.getProperty('docDir', '.')
-def scriptDir = new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile
+def scriptDir = System.getProperty('dtc.scriptsHome') ? new File(System.getProperty('dtc.scriptsHome')) : new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile
 def gcl = new GroovyClassLoader(this.class.classLoader)
 gcl.parseClass(new File(scriptDir, 'lib/DtcException.groovy'))
 def DtcError = gcl.loadClass('DtcError')
