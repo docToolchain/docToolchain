@@ -660,7 +660,7 @@ Statuses follow Nygard values (Proposed / Accepted / Superseded / Deprecated). <
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-18</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">v4 Task Dispatch Moves into a Groovy Launcher</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Proposed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted (for v4)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-TBD-1</p></td>
@@ -2673,7 +2673,7 @@ diagramServer = 'https://gitlab.company.com/kroki/'</code></pre>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Status</strong>: Proposed (target of the v4 quality rewrite; not yet implemented)</p>
+<p><strong>Status</strong>: Accepted (for v4)</p>
 </li>
 <li>
 <p><strong>Context</strong>: v4 task <strong>dispatch</strong> logic currently lives in the Bash wrapper <code>dtcw</code>: task discovery (<code>list_v4_tasks</code>), validation (<code>assert_v4_task_exists</code>), and selection/invocation (the v4 branch of <code>build_command</code>), including the project-first resolution and override notes added for ADR-16. <code>dtcw4</code> only bootstraps and <code>exec`s the installed `dtcw</code> (ADR-13). Two forces make Bash the wrong long-term home for this logic:</p>
@@ -2772,7 +2772,7 @@ diagramServer = 'https://gitlab.company.com/kroki/'</code></pre>
 </div>
 </li>
 <li>
-<p><strong>Consequences</strong>: The ~50 lines of v4 dispatch in <code>dtcw</code> (the ADR-16 resolution, listing, and notes) move into the launcher; the wrappers shrink to bootstrap + delegate. ADR-16&#8217;s behaviour and bats acceptance tests are preserved, with Spock unit tests added around the launcher. This decision <strong>does not change</strong> ADR-13 (thin <code>dtcw4</code> → installed wrapper) or ADR-17 (<code>dtc.scriptsHome</code>), which already live in Groovy and are unaffected. Until this lands, the project-task logic from ADR-16 remains in the Bash <code>dtcw</code> as a deliberate tracer-bullet — correct and tested, but pending extraction. Tracked as an EPIC referencing the <strong>"No v4 Windows wrapper path"</strong> debt in <a href="#section-technical-risks">[section-technical-risks]</a>.</p>
+<p><strong>Consequences</strong>: The v4 dispatch in <code>dtcw</code> (the ADR-16 resolution, listing, and notes) has moved into <code>scripts/Launcher.groovy</code>, with the pure logic in <code>scripts/lib/TaskLauncher.groovy</code> (IOSP: Operation vs Integration) and unit tests in <code>scripts/lib/TaskLauncherTest.groovy</code>. The Bash wrapper now only validates the task-name format, enforces the docker relative-path constraint, and invokes <code>groovy.ui.GroovyMain &#8230;&#8203;/Launcher.groovy &lt;task&gt; &lt;args&gt;</code>. The launcher runs the resolved task script in the same JVM via <code>GroovyShell</code>; <code>dtc.scriptsHome</code> (ADR-17) lets that script load its <code>lib/</code> helpers regardless of where it lives. ADR-16&#8217;s user-visible behaviour is preserved; the bats suite now asserts the wrapper <strong>delegates</strong> (java is mocked there), while discovery/resolution/listing are covered by <code>TaskLauncherTest</code>. This decision <strong>does not change</strong> ADR-13 (thin <code>dtcw4</code> → installed wrapper) or ADR-17 (<code>dtc.scriptsHome</code>), which already live in Groovy. A consequence is that <code>dtcw tasks</code> and unknown-task errors now start the JVM (no separate process — the launcher runs in the JVM started for the task); acceptable since QS-9 targets task runs, not listing. Wiring <code>dtcw.ps1</code>/<code>dtcw.bat</code> to the same launcher — closing the <strong>"No v4 Windows wrapper path"</strong> debt in <a href="#section-technical-risks">[section-technical-risks]</a> — is the remaining follow-up.</p>
 </li>
 </ul>
 </div>

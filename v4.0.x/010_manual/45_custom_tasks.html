@@ -531,8 +531,9 @@ Override it with the environment variable <code>DTC_PROJECT_SCRIPTS_DIR</code>.<
 <td class="content">
 In the <code>docker</code> environment the project is mounted at a fixed location
 inside the container, so <code>DTC_PROJECT_SCRIPTS_DIR</code> must be a path <strong>relative</strong> to
-the project root. <code>dtcw</code> rejects an absolute value with an actionable error when
-running a project-local task in Docker.
+the project root. An absolute value cannot be reached inside the container, so
+project tasks would not be found there (resolution falls back to the installed
+task).
 </td>
 </tr>
 </table>
