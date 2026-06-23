@@ -411,6 +411,11 @@
                                    href="../../arc42/spec/01_use_cases.html" title="docToolchain v4 — Specification">docToolchain v4 — Specification</a>
                                 
                             </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                   href="../../arc42/spec/02_project_local_tasks.html" title="docToolchain v4 — Specification: Project-Local Tasks">docToolchain v4 — Specification: Project-Local Tasks</a>
+                                
+                            </li>
                         </ul></details>
                         </ul>
                       </li>
@@ -504,6 +509,9 @@ searching issues...
 <li><a href="#_adr_13_dtcw4_dtcw_wrapper_delegation">ADR-13: <code>dtcw4</code> → <code>dtcw</code> Wrapper Delegation</a></li>
 <li><a href="#_adr_14_task_discovery_via_task_marker">ADR-14: Task Discovery via <code>// @task</code> Marker</a></li>
 <li><a href="#_adr_15_structural_diagrams_as_architecture_as_code_bausteinsicht_model_plantuml_render">ADR-15: Structural Diagrams as Architecture-as-Code (Bausteinsicht model, PlantUML render)</a></li>
+<li><a href="#_adr_16_project_local_tasks_custom_tasks_and_monkey_patching_via_a_project_scripts_directory">ADR-16: Project-Local Tasks — Custom Tasks and Monkey-Patching via a Project <code>scripts/</code> Directory</a></li>
+<li><a href="#_adr_17_dtc_scriptshome_resolve_lib_helpers_and_resources_from_the_installation_not_the_script_location">ADR-17: <code>dtc.scriptsHome</code> — Resolve <code>lib/</code> Helpers and Resources from the Installation, Not the Script Location</a></li>
+<li><a href="#_adr_18_v4_task_dispatch_moves_into_a_groovy_launcher_bash_wrapper_reduced_to_jvm_bootstrap">ADR-18: v4 Task Dispatch Moves into a Groovy Launcher — Bash Wrapper Reduced to JVM Bootstrap</a></li>
 <li><a href="#_adr_tbd_1_confluence_api_version_strategy">ADR-TBD-1: Confluence API Version Strategy</a></li>
 <li><a href="#_adr_tbd_2_jira_cloud_vs_server_client_architecture">ADR-TBD-2: Jira Cloud vs. Server Client Architecture</a></li>
 </ul>
@@ -638,6 +646,21 @@ Statuses follow Nygard values (Proposed / Accepted / Superseded / Deprecated). <
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-15</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Structural Diagrams as Architecture-as-Code (Bausteinsicht model, PlantUML render)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">Accepted (for v4) — export wiring deferred</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-16</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project-Local Tasks — Custom Tasks and Monkey-Patching</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted (for v4)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dtc.scriptsHome</code> — Resolve <code>lib/</code> Helpers from the Installation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Accepted (for v4)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-18</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">v4 Task Dispatch Moves into a Groovy Launcher</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Proposed</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">ADR-TBD-1</p></td>
@@ -2416,6 +2439,340 @@ diagramServer = 'https://gitlab.company.com/kroki/'</code></pre>
 </li>
 <li>
 <p><strong>Consequences</strong>: <code>src/docs/arc42/models/level1-container.jsonc</code> becomes the source of truth for the Level-1 container view; <code>05_building_block_view.adoc</code> carries a NOTE linking the inline <code>level1-container-v4</code> block to that model and to this ADR. The decision creates a <strong>technical-debt</strong> item — <strong>"Hand-synchronised Bausteinsicht model and inline PlantUML"</strong> — recorded in <a href="#section-technical-risks">[section-technical-risks]</a> (11.2) against the Chapter 5 building-block view documentation; it is <strong>explicitly accepted as low-cost</strong> (one Level-1 view, changed rarely) rather than tracked as an <code>R-NNN</code> risk. The debt retires when either (a) Bausteinsicht ships a PlantUML/C4-PlantUML exporter — to be requested upstream — and <code>generateSite</code> consumes it as a generated include kept inside the rendered doc tree (a file-outside-tree include is fatal), or (b) the team accepts a draw.io-CLI PNG/SVG step in the build. Level-3 stays inline-only; rolling the model out to Level-3 is a follow-up gated on the same export path. Open follow-up: validate the model with <code>bausteinsicht sync</code> once the binary is available in the build environment, and add the <code>bausteinsicht</code> ecosystem tool note in Chapter 5 (already present).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_16_project_local_tasks_custom_tasks_and_monkey_patching_via_a_project_scripts_directory">ADR-16: Project-Local Tasks — Custom Tasks and Monkey-Patching via a Project <code>scripts/</code> Directory</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Accepted (for v4)</p>
+</li>
+<li>
+<p><strong>Context</strong>: v4 tasks are self-contained Groovy scripts (ADR-12) discovered by the <code>// @task</code> marker (ADR-14), but <code>dtcw</code> only ever resolves them from the <strong>installed</strong> runtime (<code>~/.doctoolchain/docToolchain-&lt;version&gt;/scripts/</code>). A project therefore could not (a) add its <strong>own</strong> task without forking docToolchain, nor (b) <strong>modify</strong> a shipped task short of editing the shared installation — which every other project on the machine then inherits. The v3 mechanism for this (<code>scripts/customTasks.gradle</code>, the <code>customTasks = [&#8230;&#8203;]</code> config list, and a Gradle <code>createTask</code>) is Gradle-bound and dead under the Gradle-free v4 runtime (ADR-3). Quality goal QS-1 ("a contributor adds a task as one script, no build-system knowledge") is only half met: it holds for docToolchain&#8217;s own repo, not for a <strong>consuming</strong> project. Two distinct user needs share one root cause — <code>dtcw</code> does not look in the project:</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Custom tasks</strong> — a user drops a new task into their project and runs it.</p>
+</li>
+<li>
+<p><strong>Monkey-patching</strong> — a user copies an installed task into their project, edits it, and has their version run instead of the shipped one.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Decision</strong>: <code>dtcw</code> resolves a task from a <strong>project-local scripts directory first, then the installation</strong>. The directory defaults to <code>scripts/</code> under the project root and is overridable via <code>DTC_PROJECT_SCRIPTS_DIR</code>. The same ADR-14 rule applies: a file is a task <strong>iff</strong> it is a <code>*.groovy</code> with <code>// @task</code> in its first 5 lines — so discovery is uniform across installed and project tasks, with no registry and no config edit (extending QS-1 to consuming projects).</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A project task whose name does <strong>not</strong> match an installed task is a <strong>custom task</strong> (need 1).</p>
+</li>
+<li>
+<p>A project task whose name <strong>matches</strong> an installed task <strong>overrides</strong> it — monkey-patching (need 2). <code>dtcw</code> prints a <code>Note:</code> to stderr on every override run, so a shadowed task is never silent (transparency; relevant to T-005).</p>
+</li>
+<li>
+<p>Two helper tasks make the workflow one command: <code>createTask &lt;name&gt;</code> scaffolds a marked skeleton in the project, and <code>copyTask &lt;name&gt;</code> copies an installed script into the project for editing.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Alternatives considered</strong>:</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6668%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Criterion</th>
+<th class="tableblock halign-left valign-top">A: Config list (<code>customTasks=[…]</code>, v3-style)</th>
+<th class="tableblock halign-left valign-top">B: Project <code>scripts/</code> + <code>// @task</code> auto-discovery (chosen)</th>
+<th class="tableblock halign-left valign-top">C: Edit the shared installation directly</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adding a task (no central edit) — QS-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (must list every file in config)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (drop one marked file, like installed tasks)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (no project file, but edits global state)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consistency with ADR-14 (one discovery rule)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (second, different mechanism)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (same <code>// @task</code> rule everywhere)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (it <strong>is</strong> the installation)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Override isolation (per project, not global)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (no override story)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (override lives in the project repo)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (every project on the box inherits the edit)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transparency of an override (no silent shadowing) — T-005</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (<code>Note:</code> printed on each override run)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (invisible global change)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reproducibility (override travels with the repo)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (committed alongside the docs)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (lives outside version control)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–2</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+5</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–2</strong></p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Quality Tradeoffs</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Supports <strong>QS-1 (Extensibility)</strong>: a consuming project adds a task exactly the way docToolchain&#8217;s own repo does — one marked script, no build-system knowledge, appears in <code>./dtcw tasks</code>.</p>
+</li>
+<li>
+<p>Supports <strong>QS-11 (Script-first)</strong> and <strong>QS-3 (Usability)</strong>: one uniform task model; <code>createTask</code>/<code>copyTask</code> keep the first step to a single command.</p>
+</li>
+<li>
+<p>Cost on <strong>predictability</strong>: a project file can now silently change what <code>generateHTML</code> does. Mitigated by the mandatory override <code>Note:</code> and by the override being flagged in <code>./dtcw tasks</code>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Consequences</strong>: <code>dtcw</code> gains a project-first resolution step in <code>assert_v4_task_exists</code>, <code>list_v4_tasks</code>, and <code>build_command</code>; the listing flags overrides and groups custom tasks. Project tasks are executable Groovy authored by the project — the <strong>same local-trust assumption already accepted for <code>docToolchainConfig.groovy</code></strong> (threat <strong>T-005</strong>, <a href="#section-concepts">[section-concepts]</a>): opening and running <code>dtcw</code> in a project already runs that project&#8217;s Groovy, so project tasks add no new trust class, only more surface within it. The override <code>Note:</code> keeps shadowing visible. This decision depends on ADR-17 so that a copied or custom script can still load the bundled <code>lib/</code> helpers from the installation. No new Chapter 11 risk is created; the consequence is recorded as accepted under the existing T-005 local-trust model. The Windows wrappers (<code>dtcw.ps1</code>/<code>dtcw.bat</code>) do not yet carry the v4 path at all (Chapter 11 technical debt), so project-task resolution lands in the Bash <code>dtcw</code> first; Windows parity rides on the existing "no v4 Windows wrapper path" debt item.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_17_dtc_scriptshome_resolve_lib_helpers_and_resources_from_the_installation_not_the_script_location">ADR-17: <code>dtc.scriptsHome</code> — Resolve <code>lib/</code> Helpers and Resources from the Installation, Not the Script Location</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Accepted (for v4)</p>
+</li>
+<li>
+<p><strong>Context</strong>: Every v4 task script loads its shared helpers relative to <strong>its own</strong> file location: <code>def scriptDir = new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile</code> and then <code>new File(scriptDir, 'lib/DtcConfig.groovy')</code>. Three scripts likewise derive <code>dtcHome = scriptDir.parentFile</code> to find bundled resources (themes, landing page). This works only because installed scripts sit next to <code>lib/</code>. ADR-16 lets a script run from the <strong>project</strong> <code>scripts/</code> directory, where there is no <code>lib/</code> and no bundled resources — so a copied (monkey-patched) or custom script would fail to load <code>DtcConfig</code>/<code>DtcException</code> and break at startup. The helpers and resources it needs live in the installation, not the project.</p>
+</li>
+<li>
+<p><strong>Decision</strong>: <code>dtcw</code> passes the installed scripts directory to every run as a system property: <code>-Ddtc.scriptsHome="${dtc_home}/scripts"</code> (and <code>/opt/docToolchain/scripts</code> inside the Docker image). Scripts resolve their helper/resource base from that property, falling back to the on-disk script location when it is absent:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">def scriptDir = System.getProperty('dtc.scriptsHome')
+    ? new File(System.getProperty('dtc.scriptsHome'))
+    : new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>For an installed script <code>dtc.scriptsHome</code> equals its own directory, so behaviour is unchanged; for a project script it points back at the installation, so <code>lib/</code> and bundled resources resolve correctly regardless of where the script file lives.</p>
+</div>
+</li>
+<li>
+<p><strong>Alternatives considered</strong>:</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6668%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Criterion</th>
+<th class="tableblock halign-left valign-top">A: Copy <code>lib/</code> into the project too</th>
+<th class="tableblock halign-left valign-top">B: <code>dtc.scriptsHome</code> system property (chosen)</th>
+<th class="tableblock halign-left valign-top">C: Put <code>lib/</code> on the classpath and load helpers by class name</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project-script startup works (ADR-16) — QS-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (lib present locally)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (resolves from install)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Footprint / no duplication (QS-6)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (copies ~MBs of helpers per project)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (single installed copy)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Determinism — copy can&#8217;t drift from the runtime (QS-4)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (project lib goes stale on upgrade)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (always the installed helpers)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Change size / risk across existing scripts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (no script change)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (one mechanical line per script)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (rework every helper-loading site + packaging)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Backward compatibility (installed scripts unchanged)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (property defaults to own dir)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+1</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+4</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+2</strong></p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Quality Tradeoffs</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Supports <strong>QS-1 (Extensibility)</strong>: custom and copied scripts load the same bundled helpers as installed tasks — the project extension point is fully functional, not a stub.</p>
+</li>
+<li>
+<p>Supports <strong>QS-4 (Determinism)</strong> and <strong>QS-6 (Footprint)</strong>: helpers exist once, in the installation; a project copy can never drift from the runtime and adds no per-project megabytes.</p>
+</li>
+<li>
+<p>Cost: a one-line convention every helper-loading script must follow; a script that hard-codes <code>scriptDir</code> from its own location instead of honouring <code>dtc.scriptsHome</code> silently breaks when run as a project override. Documented as the canonical idiom and demonstrated by the <code>createTask</code> skeleton.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Consequences</strong>: The <code>scriptDir</code>/<code>dtcHome</code> definition is updated to the property-first form across the v4 scripts that load <code>lib/</code> or bundled resources, and <code>dtcw</code> exports <code>dtc.scriptsHome</code> on every v4 invocation (local and Docker). This unblocks ADR-16: monkey-patched and custom scripts run against the installed helpers. It also contributes to <strong>R-003 (script loading / classpath)</strong> — helper resolution now hinges on a correctly-set property — mitigated by the safe fallback to the script&#8217;s own directory when the property is unset (e.g. direct <code>groovy</code> invocation outside <code>dtcw</code>).</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adr_18_v4_task_dispatch_moves_into_a_groovy_launcher_bash_wrapper_reduced_to_jvm_bootstrap">ADR-18: v4 Task Dispatch Moves into a Groovy Launcher — Bash Wrapper Reduced to JVM Bootstrap</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Status</strong>: Proposed (target of the v4 quality rewrite; not yet implemented)</p>
+</li>
+<li>
+<p><strong>Context</strong>: v4 task <strong>dispatch</strong> logic currently lives in the Bash wrapper <code>dtcw</code>: task discovery (<code>list_v4_tasks</code>), validation (<code>assert_v4_task_exists</code>), and selection/invocation (the v4 branch of <code>build_command</code>), including the project-first resolution and override notes added for ADR-16. <code>dtcw4</code> only bootstraps and <code>exec`s the installed `dtcw</code> (ADR-13). Two forces make Bash the wrong long-term home for this logic:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>No cross-platform single source.</strong> The v4 <code>GroovyMain</code> path exists only in the Bash <code>dtcw</code>; <code>dtcw.ps1</code>/<code>dtcw.bat</code> carry no v4 path at all (tracked as technical debt in <a href="#section-technical-risks">[section-technical-risks]</a>). Every piece of dispatch logic added in Bash must eventually be re-implemented twice more, in two more untyped shell dialects — exactly the drift the <code>// @task</code> marker (ADR-14) was meant to avoid for the task list.</p>
+</li>
+<li>
+<p><strong>Untestable, against the v4 grain.</strong> Dispatch logic in Bash is exercised only by bats integration tests; it cannot be unit-tested. v4&#8217;s direction is script-first Groovy with logic out of the wrapper/build layer (ADR-3, ADR-5, ADR-12). Discovery, project-vs-install resolution, and override signalling are business logic, not JVM bootstrapping.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Decision</strong>: Extract v4 task discovery, resolution, and invocation into a single <strong>Groovy launcher</strong> (e.g. <code>scripts/Launcher.groovy</code>) executed inside the JVM the wrapper already starts. The platform wrappers (<code>dtcw</code>, <code>dtcw.ps1</code>, <code>dtcw.bat</code>) are reduced to what only they can do — detect the environment, locate Java, build the <code>lib/*</code> classpath, and hand <strong>all</strong> arguments to the launcher with the existing system properties (<code>docDir</code>, <code>dtc.scriptsHome</code>, <code>DTC_PROJECT_SCRIPTS_DIR</code>, …). The launcher owns: scanning the project and installed scripts directories, the <code>// @task</code> marker check, project-first selection with override/custom notes (ADR-16), unknown-task guidance, and dispatch to the chosen task script. This is the structural move; behaviour is preserved (the bats acceptance tests from ADR-16 stay green and are joined by Spock unit tests around the launcher).</p>
+</li>
+<li>
+<p><strong>Alternatives considered</strong>:</p>
+</li>
+</ul>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 50%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6668%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Criterion</th>
+<th class="tableblock halign-left valign-top">A: Keep dispatch in each wrapper (Bash + PS + BAT)</th>
+<th class="tableblock halign-left valign-top">B: Groovy launcher, wrappers bootstrap only (chosen)</th>
+<th class="tableblock halign-left valign-top">C: Compiled Java launcher in <code>lib/</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Single source across platforms (kills the Windows-parity debt) — QS-2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (logic hand-ported into three shells)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (one launcher for all wrappers)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Testability (Spock unit tests vs bats/manual)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Script-first, no compile step (ADR-3/ADR-12)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (reintroduces a build artifact)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Startup overhead (QS-9)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (no extra step)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (runs in the JVM already started for the task)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Change size / risk</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (build + packaging return)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–1</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+3</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+1</strong></p></td>
+</tr>
+</tbody>
+</table>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Quality Tradeoffs</strong>:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Supports <strong>QS-2 (Portability)</strong> and retires the <strong>"No v4 Windows wrapper path"</strong> technical debt: one launcher gives <code>dtcw.ps1</code>/<code>dtcw.bat</code> the v4 path for free.</p>
+</li>
+<li>
+<p>Supports <strong>QS-1 (Extensibility)</strong>, <strong>QS-11 (Script-first)</strong>, <strong>QS-5 (Testability/maintainability)</strong>: dispatch becomes Groovy, unit-tested, and consistent with how tasks themselves are written.</p>
+</li>
+<li>
+<p>Neutral on <strong>QS-9 (Fast startup)</strong>: discovery moves into the JVM that is started for the task anyway — no second process.</p>
+</li>
+<li>
+<p>Cost: a one-time refactor and the discipline of keeping the wrappers thin. Bash keeps only environment/JVM bootstrapping.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Consequences</strong>: The ~50 lines of v4 dispatch in <code>dtcw</code> (the ADR-16 resolution, listing, and notes) move into the launcher; the wrappers shrink to bootstrap + delegate. ADR-16&#8217;s behaviour and bats acceptance tests are preserved, with Spock unit tests added around the launcher. This decision <strong>does not change</strong> ADR-13 (thin <code>dtcw4</code> → installed wrapper) or ADR-17 (<code>dtc.scriptsHome</code>), which already live in Groovy and are unaffected. Until this lands, the project-task logic from ADR-16 remains in the Bash <code>dtcw</code> as a deliberate tracer-bullet — correct and tested, but pending extraction. Tracked as an EPIC referencing the <strong>"No v4 Windows wrapper path"</strong> debt in <a href="#section-technical-risks">[section-technical-risks]</a>.</p>
 </li>
 </ul>
 </div>

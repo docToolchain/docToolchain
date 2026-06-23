@@ -361,6 +361,14 @@
 <li><a href="#_cicd_ready">1.7.8. CI/CD Ready</a></li>
 </ul>
 </li>
+<li><a href="#custom-tasks">1.8. Extending docToolchain: Custom Tasks and Monkey-Patching</a>
+<ul class="sectlevel3">
+<li><a href="#_how_task_resolution_works">1.8.1. How task resolution works</a></li>
+<li><a href="#_adding_a_custom_task">1.8.2. Adding a custom task</a></li>
+<li><a href="#_monkey_patching_an_installed_task">1.8.3. Monkey-patching an installed task</a></li>
+<li><a href="#_security_note">1.8.4. Security note</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li><a href="#_doctoolchain_tasks">2. docToolchain Tasks</a></li>
@@ -452,26 +460,43 @@
 </li>
 <li><a href="#_further_reading_and_resources">9.4. Further Reading and Resources</a></li>
 <li><a href="#_source_7">9.5. Source</a></li>
-<li><a href="#_solutions_to_common_problems">9.6. Solutions to Common Problems</a>
-<ul class="sectlevel3">
-<li><a href="#_references">9.6.1. References</a></li>
-<li><a href="#_images">9.6.2. Images</a></li>
-<li><a href="#_runtime">9.6.3. Runtime</a></li>
 </ul>
 </li>
-<li><a href="#_useful_resources">9.7. Useful Resources</a>
-<ul class="sectlevel3">
-<li><a href="#_underlying_technologies">9.7.1. Underlying Technologies</a></li>
-<li><a href="#_books">9.7.2. Books</a></li>
+<li><a href="#task_createTask">10. createTask</a>
+<ul class="sectlevel2">
+<li><a href="#_about_this_task_8">10.1. About This Task</a></li>
+<li><a href="#_setup_and_configuration_2">10.2. Setup and Configuration</a></li>
+<li><a href="#_further_reading_and_resources_2">10.3. Further Reading and Resources</a></li>
+<li><a href="#_source_8">10.4. Source</a></li>
 </ul>
 </li>
-<li><a href="#_configuration_4">9.8. Configuration</a>
+<li><a href="#task_copyTask">11. copyTask</a>
+<ul class="sectlevel2">
+<li><a href="#_about_this_task_9">11.1. About This Task</a></li>
+<li><a href="#_setup_and_configuration_3">11.2. Setup and Configuration</a></li>
+<li><a href="#_how_the_override_behaves">11.3. How the Override Behaves</a></li>
+<li><a href="#_further_reading_and_resources_3">11.4. Further Reading and Resources</a></li>
+<li><a href="#_source_9">11.5. Source</a></li>
+<li><a href="#_solutions_to_common_problems">11.6. Solutions to Common Problems</a>
 <ul class="sectlevel3">
-<li><a href="#_configuration_file">9.8.1. Configuration File</a></li>
-<li><a href="#_core_settings">9.8.2. Core Settings</a></li>
-<li><a href="#_microsite_settings">9.8.3. Microsite Settings</a></li>
-<li><a href="#_confluence_settings">9.8.4. Confluence Settings</a></li>
-<li><a href="#_dynamic_configuration">9.8.5. Dynamic Configuration</a></li>
+<li><a href="#_references">11.6.1. References</a></li>
+<li><a href="#_images">11.6.2. Images</a></li>
+<li><a href="#_runtime">11.6.3. Runtime</a></li>
+</ul>
+</li>
+<li><a href="#_useful_resources">11.7. Useful Resources</a>
+<ul class="sectlevel3">
+<li><a href="#_underlying_technologies">11.7.1. Underlying Technologies</a></li>
+<li><a href="#_books">11.7.2. Books</a></li>
+</ul>
+</li>
+<li><a href="#_configuration_4">11.8. Configuration</a>
+<ul class="sectlevel3">
+<li><a href="#_configuration_file">11.8.1. Configuration File</a></li>
+<li><a href="#_core_settings">11.8.2. Core Settings</a></li>
+<li><a href="#_microsite_settings">11.8.3. Microsite Settings</a></li>
+<li><a href="#_confluence_settings">11.8.4. Confluence Settings</a></li>
+<li><a href="#_dynamic_configuration">11.8.5. Dynamic Configuration</a></li>
 </ul>
 </li>
 </ul>
@@ -914,6 +939,187 @@ The <code>exportPPT</code> task uses Apache POI — no Windows-only dependencies
 <div class="paragraph">
 <p>Set <code>DTC_HEADLESS=true</code> for non-interactive mode.
 Works with GitHub Actions, GitLab CI, Jenkins, and any CI system with Java 17, 21 or 25.</p>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="custom-tasks">1.8. Extending docToolchain: Custom Tasks and Monkey-Patching</h3>
+<div class="paragraph">
+<p>docToolchain ships every task as a self-contained Groovy script. You can use the
+same mechanism in your own project — to <strong>add</strong> a task or to <strong>change</strong> one that
+docToolchain already provides. Neither needs a fork, a build step, or an edit to
+a registry.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This is a v4 feature (the Gradle-free runtime driven by <code>dtcw</code>/<code>dtcw4</code>).
+The older v3 <code>customTasks</code> config entry belongs to the Gradle build and does not
+apply here.
+</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="_how_task_resolution_works">1.8.1. How task resolution works</h4>
+<div class="paragraph">
+<p>When you run <code>./dtcw &lt;task&gt;</code>, the wrapper looks for the task script in two
+places, <strong>the project first, the installation second</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>scripts/&lt;task&gt;.groovy</code> in your project (the <strong>project scripts directory</strong>)</p>
+</li>
+<li>
+<p><code>&lt;task&gt;.groovy</code> in the installed docToolchain (<code>~/.doctoolchain/docToolchain-&lt;version&gt;/scripts/</code>)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A file counts as a task only if it carries the marker <code>// @task</code> within its
+first five lines — exactly the rule used by the built-in tasks. This is how a
+project script can be discovered without you registering it anywhere.</p>
+</div>
+<div class="paragraph">
+<p>The project scripts directory defaults to <code>scripts/</code> under your project root.
+Override it with the environment variable <code>DTC_PROJECT_SCRIPTS_DIR</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+In the <code>docker</code> environment the project is mounted at a fixed location
+inside the container, so <code>DTC_PROJECT_SCRIPTS_DIR</code> must be a path <strong>relative</strong> to
+the project root. <code>dtcw</code> rejects an absolute value with an actionable error when
+running a project-local task in Docker.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_adding_a_custom_task">1.8.2. Adding a custom task</h4>
+<div class="paragraph">
+<p>Create a skeleton with <code>createTask</code> and edit it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw createTask exportNotion</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This writes <code>scripts/exportNotion.groovy</code> with the <code>// @task</code> marker already in
+place. Add your logic, then run it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw exportNotion</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It also shows up in the task list, under its own heading:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw tasks</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can of course create the file by hand instead — the only requirement is the
+<code>// @task</code> marker near the top.</p>
+</div>
+<div class="sect4">
+<h5 id="_reusing_doctoolchains_helpers">Reusing docToolchain&#8217;s helpers</h5>
+<div class="paragraph">
+<p>A custom task can reuse the bundled helpers (for example <code>DtcConfig</code> to read
+<code>docToolchainConfig.groovy</code>). They live in the installation, not your project,
+and <code>dtcw</code> tells your script where via the <code>dtc.scriptsHome</code> system property:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">def docDir = System.getProperty('docDir', '.')
+def configFile = System.getProperty('mainConfigFile', 'docToolchainConfig.groovy')
+
+def scriptsHome = System.getProperty('dtc.scriptsHome')
+def gcl = new GroovyClassLoader(this.class.classLoader)
+def DtcConfig = gcl.parseClass(new File(scriptsHome, 'lib/DtcConfig.groovy'))
+def config = DtcConfig.load(docDir, configFile).getRaw()
+
+println "inputPath is ${config.inputPath}"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The skeleton created by <code>createTask</code> already contains this pattern.</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_monkey_patching_an_installed_task">1.8.3. Monkey-patching an installed task</h4>
+<div class="paragraph">
+<p>To change what a shipped task does, copy it into your project and edit the copy:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw copyTask generateHTML</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This copies the installed <code>generateHTML.groovy</code> to <code>scripts/generateHTML.groovy</code>
+in your project. Because the project copy has the same name as an installed
+task, it <strong>overrides</strong> it: from now on <code>./dtcw generateHTML</code> runs <strong>your</strong> copy.</p>
+</div>
+<div class="paragraph">
+<p>docToolchain makes the override visible so you never patch by accident:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>./dtcw generateHTML</code> prints a note to stderr that the installed task is being
+overridden by your project file.</p>
+</li>
+<li>
+<p><code>./dtcw tasks</code> lists <code>generateHTML</code> as <code>overridden by scripts/generateHTML.groovy</code>.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The copy keeps working even though it now lives in your project: its bundled
+helpers and resources still resolve from the installation via <code>dtc.scriptsHome</code>.</p>
+</div>
+<div class="paragraph">
+<p>To return to the shipped behaviour, simply delete your copy.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+A monkey-patched task is pinned to the version you copied. After
+upgrading docToolchain, re-copy the task if you want to pick up upstream changes.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_security_note">1.8.4. Security note</h4>
+<div class="paragraph">
+<p>Project tasks are Groovy code that runs with your privileges — the same trust
+level that <code>docToolchainConfig.groovy</code> already has, since it too is executable
+Groovy. Opening someone else&#8217;s project and running <code>dtcw</code> runs their scripts.
+Treat a project&#8217;s <code>scripts/</code> directory with the same care as its config.</p>
 </div>
 <hr>
 </div>
@@ -2193,14 +2399,187 @@ If the file doesn&#8217;t exist yet, create an empty one: <code>touch docToolcha
 </div>
 <hr>
 <div style="page-break-after: always;"></div>
+<style>
+.gravatar img {
+    margin-left: 3px;
+    border-radius: 4px;
+}
+</style>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="task_createTask">10. createTask</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_about_this_task_8">10.1. About This Task</h3>
+<div class="paragraph">
+<p><code>createTask</code> scaffolds a new <strong>project-local custom task</strong>. It writes a ready-to-edit
+Groovy script — with the <code>// @task</code> marker already in place — into your project&#8217;s
+scripts directory, so <code>dtcw</code> discovers and runs it without any further wiring.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw createTask exportNotion</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This creates <code>scripts/exportNotion.groovy</code>. Run it with <code>./dtcw exportNotion</code> and
+see it listed via <code>./dtcw tasks</code>.</p>
+</div>
 </div>
 <div class="sect2">
-<h3 id="_solutions_to_common_problems">9.6. Solutions to Common Problems</h3>
+<h3 id="_setup_and_configuration_2">10.2. Setup and Configuration</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>The task name must start with a letter and contain only letters, digits,
+hyphens or underscores. If omitted, the name defaults to <code>customTask</code>.</p>
+</li>
+<li>
+<p>The target directory defaults to <code>scripts/</code>; override it with the
+<code>DTC_PROJECT_SCRIPTS_DIR</code> environment variable.</p>
+</li>
+<li>
+<p><code>createTask</code> never overwrites an existing file — pick a new name or edit the
+existing script directly.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The generated skeleton shows how to read <code>docToolchainConfig.groovy</code> and reuse
+docToolchain&#8217;s bundled helpers via the <code>dtc.scriptsHome</code> system property.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_further_reading_and_resources_2">10.3. Further Reading and Resources</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../010_manual/45_custom_tasks.html">Extending docToolchain: Custom Tasks and Monkey-Patching</a></p>
+</li>
+<li>
+<p><a href="#task_copyTask">copyTask</a> — copy an installed task to modify it</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_source_8">10.4. Source</h3>
+<div class="paragraph">
+<p>View the source of this task: <a href="https://github.com/docToolchain/docToolchain/blob/main-4.x/scripts/createTask.groovy" target="_blank" rel="noopener"><code>scripts/createTask.groovy</code> on GitHub</a></p>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+<style>
+.gravatar img {
+    margin-left: 3px;
+    border-radius: 4px;
+}
+</style>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="task_copyTask">11. copyTask</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="_about_this_task_9">11.1. About This Task</h3>
+<div class="paragraph">
+<p><code>copyTask</code> copies an installed task script into your project so you can modify it
+— <strong>monkey-patching</strong>. The project copy has the same name as the installed task and
+therefore overrides it: <code>dtcw</code> runs your copy instead of the shipped one.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw copyTask generateHTML</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This copies the installed <code>generateHTML.groovy</code> to <code>scripts/generateHTML.groovy</code>
+in your project. Edit it, then run <code>./dtcw generateHTML</code> as usual.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_setup_and_configuration_3">11.2. Setup and Configuration</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Pass the name of an existing installed task. Run <code>./dtcw tasks</code> to see the
+available names.</p>
+</li>
+<li>
+<p>The copy is placed in <code>scripts/</code> by default; override with
+<code>DTC_PROJECT_SCRIPTS_DIR</code>.</p>
+</li>
+<li>
+<p><code>copyTask</code> refuses to overwrite an existing project copy.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_how_the_override_behaves">11.3. How the Override Behaves</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><code>./dtcw generateHTML</code> prints a note to stderr that the installed task is being
+overridden by your project file.</p>
+</li>
+<li>
+<p><code>./dtcw tasks</code> flags the task as <code>overridden by scripts/generateHTML.groovy</code>.</p>
+</li>
+<li>
+<p>The copy still loads its bundled helpers and resources from the installation
+via <code>dtc.scriptsHome</code>, so it keeps working unchanged.</p>
+</li>
+<li>
+<p>Delete the copy to fall back to the shipped task.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-warning" title="Warning"></i>
+</td>
+<td class="content">
+A copied task is pinned to the version you copied. After upgrading
+docToolchain, re-copy it if you want upstream changes.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_further_reading_and_resources_3">11.4. Further Reading and Resources</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><a href="../010_manual/45_custom_tasks.html">Extending docToolchain: Custom Tasks and Monkey-Patching</a></p>
+</li>
+<li>
+<p><a href="#task_createTask">createTask</a> — scaffold a brand-new custom task</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_source_9">11.5. Source</h3>
+<div class="paragraph">
+<p>View the source of this task: <a href="https://github.com/docToolchain/docToolchain/blob/main-4.x/scripts/copyTask.groovy" target="_blank" rel="noopener"><code>scripts/copyTask.groovy</code> on GitHub</a></p>
+</div>
+<hr>
+<div style="page-break-after: always;"></div>
+</div>
+<div class="sect2">
+<h3 id="_solutions_to_common_problems">11.6. Solutions to Common Problems</h3>
 <div class="paragraph">
 <p>If you are stuck, also check <a href="https://stackoverflow.com/questions/tagged/doctoolchain">Stack Overflow</a> or raise an issue on <a href="https://github.com/docToolchain/docToolchain/issues">GitHub</a>.</p>
 </div>
 <div class="sect3">
-<h4 id="_references">9.6.1. References</h4>
+<h4 id="_references">11.6.1. References</h4>
 <div class="sect4">
 <h5 id="_q_how_can_i_reference_source_code_from_my_documentation">Q: How can I reference source code from my documentation?</h5>
 <details>
@@ -2229,7 +2608,7 @@ If the file doesn&#8217;t exist yet, create an empty one: <code>touch docToolcha
 </div>
 </div>
 <div class="sect3">
-<h4 id="_images">9.6.2. Images</h4>
+<h4 id="_images">11.6.2. Images</h4>
 <div class="sect4">
 <h5 id="_q_why_are_images_not_shown_in_the_preview_of_my_editor">Q: Why are images not shown in the preview of my editor?</h5>
 <details>
@@ -2290,7 +2669,7 @@ Or re-save the image in any editor.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_runtime">9.6.3. Runtime</h4>
+<h4 id="_runtime">11.6.3. Runtime</h4>
 <div class="sect4">
 <h5 id="_q_i_get_could_not_initialize_class_java_awt_graphicsenvironment_in_wsl">Q: I get <code>Could not initialize class java.awt.GraphicsEnvironment</code> in WSL</h5>
 <details>
@@ -2391,9 +2770,9 @@ JIT does eventually pay off. There, disabling the defaults
 </div>
 </div>
 <div class="sect2">
-<h3 id="_useful_resources">9.7. Useful Resources</h3>
+<h3 id="_useful_resources">11.7. Useful Resources</h3>
 <div class="sect3">
-<h4 id="_underlying_technologies">9.7.1. Underlying Technologies</h4>
+<h4 id="_underlying_technologies">11.7.1. Underlying Technologies</h4>
 <div class="sect4">
 <h5 id="_markup">Markup</h5>
 <details>
@@ -2488,7 +2867,7 @@ JIT does eventually pay off. There, disabling the defaults
 </div>
 </div>
 <div class="sect3">
-<h4 id="_books">9.7.2. Books</h4>
+<h4 id="_books">11.7.2. Books</h4>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
 <col style="width: 50%;">
@@ -2524,12 +2903,12 @@ JIT does eventually pay off. There, disabling the defaults
 </div>
 </div>
 <div class="sect2">
-<h3 id="_configuration_4">9.8. Configuration</h3>
+<h3 id="_configuration_4">11.8. Configuration</h3>
 <div class="paragraph">
 <p>docToolchain uses a single Groovy configuration file for all settings.</p>
 </div>
 <div class="sect3">
-<h4 id="_configuration_file">9.8.1. Configuration File</h4>
+<h4 id="_configuration_file">11.8.1. Configuration File</h4>
 <div class="paragraph">
 <p>By default, docToolchain looks for <code>docToolchainConfig.groovy</code> in your project root.</p>
 </div>
@@ -2560,7 +2939,7 @@ Run <code>./dtcw4 local downloadTemplate</code> to create a default one, or crea
 </div>
 </div>
 <div class="sect3">
-<h4 id="_core_settings">9.8.2. Core Settings</h4>
+<h4 id="_core_settings">11.8.2. Core Settings</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">outputPath = 'build'
@@ -2595,7 +2974,7 @@ imageDirs = ['images/.']</code></pre>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_microsite_settings">9.8.3. Microsite Settings</h4>
+<h4 id="_microsite_settings">11.8.3. Microsite Settings</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">microsite.with {
@@ -2622,7 +3001,7 @@ Use <code>'-'</code> to hide a menu entry.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_confluence_settings">9.8.4. Confluence Settings</h4>
+<h4 id="_confluence_settings">11.8.4. Confluence Settings</h4>
 <div class="listingblock">
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">confluence = [
@@ -2640,7 +3019,7 @@ Use <code>'-'</code> to hide a menu entry.</p>
 </div>
 </div>
 <div class="sect3">
-<h4 id="_dynamic_configuration">9.8.5. Dynamic Configuration</h4>
+<h4 id="_dynamic_configuration">11.8.5. Dynamic Configuration</h4>
 <div class="paragraph">
 <p>Since the config file is executable Groovy, you can use dynamic values:</p>
 </div>

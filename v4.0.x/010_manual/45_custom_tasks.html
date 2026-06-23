@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: arc42/adrs/adr-03-remove-gradle.html -->
+    <!-- sourceuri: 010_manual/45_custom_tasks.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>ADR-3: Remove Gradle — Direct Groovy Script Execution</title>
+    <title>Extending docToolchain: Custom Tasks and Monkey-Patching</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -21,36 +21,36 @@
     <meta content="build your dev docs the easy way..." name="twitter:description">
 
     <link as="style"
-        href="../../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+        href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
         rel="preload">
-    <link href="../../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
+    <link href="../css/main.min.881fe5f7b53609f55ebfb496c7097c3b30b2e8ceb20a54bc6a48350ded67224f.css"
         integrity=""
         rel="stylesheet">
-    <link href="../../css/asciidoctor.css" rel="stylesheet">
-    <link href="../../css/prettify.css" rel="stylesheet">
-    <link href="../../css/theme-v4.css" rel="stylesheet">
+    <link href="../css/asciidoctor.css" rel="stylesheet">
+    <link href="../css/prettify.css" rel="stylesheet">
+    <link href="../css/theme-v4.css" rel="stylesheet">
 
     <!-- favicon generated with https://www.favicon-generator.org/ -->
-    <link rel="shortcut icon" href="../../favicon.ico">
-    <link rel="apple-touch-icon" sizes="57x57" href="../../apple-icon-57x57.png">
-    <link rel="apple-touch-icon" sizes="60x60" href="../../apple-icon-60x60.png">
-    <link rel="apple-touch-icon" sizes="72x72" href="../../apple-icon-72x72.png">
-    <link rel="apple-touch-icon" sizes="76x76" href="../../apple-icon-76x76.png">
-    <link rel="apple-touch-icon" sizes="114x114" href="../../apple-icon-114x114.png">
-    <link rel="apple-touch-icon" sizes="120x120" href="../../apple-icon-120x120.png">
-    <link rel="apple-touch-icon" sizes="144x144" href="../../apple-icon-144x144.png">
-    <link rel="apple-touch-icon" sizes="152x152" href="../../apple-icon-152x152.png">
-    <link rel="apple-touch-icon" sizes="180x180" href="../../apple-icon-180x180.png">
-    <link rel="icon" type="image/png" sizes="192x192" href="../../android-icon-192x192.png">
-    <link rel="icon" type="image/png" sizes="32x32" href="../../favicon-32x32.png">
-    <link rel="icon" type="image/png" sizes="96x96" href="../../favicon-96x96.png">
-    <link rel="icon" type="image/png" sizes="16x16" href="../../favicon-16x16.png">
-    <link rel="manifest" href="../../manifest.json">
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="apple-touch-icon" sizes="57x57" href="../apple-icon-57x57.png">
+    <link rel="apple-touch-icon" sizes="60x60" href="../apple-icon-60x60.png">
+    <link rel="apple-touch-icon" sizes="72x72" href="../apple-icon-72x72.png">
+    <link rel="apple-touch-icon" sizes="76x76" href="../apple-icon-76x76.png">
+    <link rel="apple-touch-icon" sizes="114x114" href="../apple-icon-114x114.png">
+    <link rel="apple-touch-icon" sizes="120x120" href="../apple-icon-120x120.png">
+    <link rel="apple-touch-icon" sizes="144x144" href="../apple-icon-144x144.png">
+    <link rel="apple-touch-icon" sizes="152x152" href="../apple-icon-152x152.png">
+    <link rel="apple-touch-icon" sizes="180x180" href="../apple-icon-180x180.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="../android-icon-192x192.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="../favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="../favicon-96x96.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="../favicon-16x16.png">
+    <link rel="manifest" href="../manifest.json">
     <meta name="msapplication-TileColor" content="#ffffff">
-    <meta name="msapplication-TileImage" content="../../ms-icon-144x144.png">
+    <meta name="msapplication-TileImage" content="../ms-icon-144x144.png">
     <meta name="theme-color" content="#ffffff">
 
-    <script src="../../js/jquery-3.5.1.min.js"></script>
+    <script src="../js/jquery-3.5.1.min.js"></script>
     <style>
     div.bg-light {
         background-color: rgba(127, 180, 224, 0.3) !important;
@@ -201,8 +201,8 @@
     </style>
 
     <!-- docToolchain v4 theme overlay — self-hosted fonts (no Google CDN) -->
-    <link href="../../css/fonts.css" rel="stylesheet">
-    <link href="../../css/doctoolchain-v4.css" rel="stylesheet">
+    <link href="../css/fonts.css" rel="stylesheet">
+    <link href="../css/doctoolchain-v4.css" rel="stylesheet">
 
     <!-- brand customization from docToolchainConfig.groovy (microsite.color* / microsite.font*) -->
     <!-- dtc:theme-config:start -->
@@ -236,40 +236,40 @@
 <header>
 	
 <nav class="js-navbar-scroll navbar navbar-expand navbar-dark flex-column flex-md-row td-navbar">
-    <a class="navbar-brand" href="../../index.html">
-        <span class="navbar-logo"><img src="../../images/doctoolchain-logo-blue.png" alt="docToolchain" width="32px" /></span><span
+    <a class="navbar-brand" href="../index.html">
+        <span class="navbar-logo"><img src="../images/doctoolchain-logo-blue.png" alt="docToolchain" width="32px" /></span><span
             class="font-weight-bold">docToolchain</span>
     </a>
     <div class="td-navbar-nav-scroll ml-md-auto" id="main_navbar">
         <ul class="navbar-nav mt-2 mt-lg-0">
-    <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
+    <li class="nav-item mr-4 mb-2 mb-lg-0"><!--img src="../images/status.png" alt="status" width="16" height="16" onerror="this.style.display='none'"--></li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../../10_about/10_about-the-project.html"><span>About</span></a>
+                <a class="nav-link " href="../10_about/10_about-the-project.html"><span>About</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../../010_manual/20_install.html"><span>User Docs</span></a>
+                <a class="nav-link active" href="../010_manual/20_install.html"><span>User Docs</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../../015_tasks/03_tasks.html"><span>Tasks</span></a>
+                <a class="nav-link " href="../015_tasks/03_tasks.html"><span>Tasks</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../../020_tutorial/010_Install.html"><span>Tutorial</span></a>
+                <a class="nav-link " href="../020_tutorial/010_Install.html"><span>Tutorial</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../../025_development/005_contributing_to_docs.html"><span>For Devs</span></a>
+                <a class="nav-link " href="../025_development/005_contributing_to_docs.html"><span>For Devs</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link " href="../../030_news/index.html"><span>News</span></a>
+                <a class="nav-link " href="../030_news/index.html"><span>News</span></a>
             </li>
 
             <li class="nav-item mr-4 mb-2 mb-lg-0">
-                <a class="nav-link active" href="../../arc42/open_questions.html"><span>arc42</span></a>
+                <a class="nav-link " href="../arc42/open_questions.html"><span>arc42</span></a>
             </li>
 
         </ul>
@@ -324,7 +324,7 @@
 
             <ul class="td-sidebar-nav__section">
                 <li class="td-sidebar-nav__section-title">
-                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">arc42</span>
+                    <span class="align-left pl-0 pr-2 pt-2 active td-sidebar-link td-sidebar-link__section">User Docs</span>
                 </li>
                 <li>
                   <ul>
@@ -333,90 +333,34 @@
                         <ul class="td-sidebar-nav__section ul-0">
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../arc42/open_questions.html" title="Open Questions and Assumptions — docToolchain v4"><span class="arc42-num">01</span> Open Questions and Assumptions — docToolchain v4</a>
-                                
-                            </li>
-<details id="d378c2e65b576318b7f785b537c424464"><summary><span class="label"><span class="arc42-num">02</span> chapters</span></summary>
-                        <ul class="ul-1">
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../arc42/chapters/01_introduction_and_goals.html" title="Introduction and Goals">Introduction and Goals</a>
+                                   href="../010_manual/20_install.html" title="Install docToolchain"><span class="arc42-num">01</span> Install docToolchain</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../arc42/chapters/02_architecture_constraints.html" title="Architecture Constraints">Architecture Constraints</a>
+                                   href="../010_manual/30_config.html" title="Configuration"><span class="arc42-num">02</span> Configuration</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../arc42/chapters/03_context_and_scope.html" title="Context and Scope">Context and Scope</a>
+                                   href="../010_manual/40_features.html" title="Features"><span class="arc42-num">03</span> Features</a>
+                                
+                            </li>
+                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
+                                   href="../010_manual/45_custom_tasks.html" title="Extending docToolchain: Custom Tasks and Monkey-Patching"><span class="arc42-num">04</span> Extending docToolchain: Custom Tasks and Monkey-Patching</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../arc42/chapters/04_solution_strategy.html" title="Solution Strategy">Solution Strategy</a>
+                                   href="../010_manual/50_Frequently_asked_Questions.html" title="Solutions to Common Problems"><span class="arc42-num">05</span> Solutions to Common Problems</a>
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
                                 <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../arc42/chapters/05_building_block_view.html" title="Building Block View">Building Block View</a>
+                                   href="../010_manual/60_further_reading.html" title="Useful Resources"><span class="arc42-num">06</span> Useful Resources</a>
                                 
                             </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../arc42/chapters/06_runtime_view.html" title="Runtime View">Runtime View</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../arc42/chapters/07_deployment_view.html" title="Deployment View">Deployment View</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../arc42/chapters/08_concepts.html" title="Cross-cutting Concepts">Cross-cutting Concepts</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../arc42/chapters/09_architecture_decisions.html" title="Architecture Decisions">Architecture Decisions</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../arc42/chapters/10_quality_requirements.html" title="Quality Requirements">Quality Requirements</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../arc42/chapters/11_technical_risks.html" title="Risks and Technical Debts">Risks and Technical Debts</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../arc42/chapters/12_glossary.html" title="Glossary">Glossary</a>
-                                
-                            </li>
-                        </ul></details>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../arc42/prd.html" title="docToolchain v4 — Product Requirements Document"><span class="arc42-num">03</span> docToolchain v4 — Product Requirements Document</a>
-                                
-                            </li>
-<details id="db979c2934ac0b4ba3f08dabfdd1b2299"><summary><span class="label"><span class="arc42-num">04</span> spec</span></summary>
-                        <ul class="ul-1">
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../arc42/spec/01_use_cases.html" title="docToolchain v4 — Specification">docToolchain v4 — Specification</a>
-                                
-                            </li>
-                            <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
-                                   href="../../arc42/spec/02_project_local_tasks.html" title="docToolchain v4 — Specification: Project-Local Tasks">docToolchain v4 — Specification: Project-Local Tasks</a>
-                                
-                            </li>
-                        </ul></details>
                         </ul>
                       </li>
                   </ul>
@@ -429,11 +373,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-03-remove-gradle.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/010_manual/45_custom_tasks.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-3%3A+Remove+Gradle+%E2%80%94+Direct+Groovy+Script+Execution%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-03-remove-gradle.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Extending+docToolchain%3A+Custom+Tasks+and+Monkey-Patching%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/010_manual/45_custom_tasks.adoc%0A%23branch:%20main-4.x" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -441,10 +385,10 @@
         <hr />
 <script>
 const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
-const searchTerm = "arc42/adrs/adr-03-remove-gradle.adoc";
+const searchTerm = "010_manual/45_custom_tasks.adoc";
 </script>
 
-<script src="../../js/issues.js"></script>
+<script src="../js/issues.js"></script>
 
 <style>
         #issues-container {
@@ -491,8 +435,15 @@ searching issues...
 
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#custom-tasks">Extending docToolchain: Custom Tasks and Monkey-Patching</a>
 <ul class="sectlevel2">
-<li><a href="#_adr_3_remove_gradle_direct_groovy_script_execution">ADR-3: Remove Gradle — Direct Groovy Script Execution</a></li>
+<li><a href="#_how_task_resolution_works">How task resolution works</a></li>
+<li><a href="#_adding_a_custom_task">Adding a custom task</a></li>
+<li><a href="#_monkey_patching_an_installed_task">Monkey-patching an installed task</a></li>
+<li><a href="#_security_note">Security note</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -523,133 +474,185 @@ searching issues...
     <div class="td-content">
         <p>
             
-<div class="sect2">
-<h3 id="_adr_3_remove_gradle_direct_groovy_script_execution">ADR-3: Remove Gradle — Direct Groovy Script Execution</h3>
-<div class="ulist">
-<ul>
-<li>
-<p><strong>Status</strong>: Accepted (for v4)</p>
-</li>
-<li>
-<p><strong>Context</strong>: Gradle has been the task orchestration framework since docToolchain&#8217;s inception. Over time it has caused significant problems:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Slow startup (~95 seconds first run, 10-15 seconds subsequent runs)</p>
-</li>
-<li>
-<p>Complex configuration hard for contributors to understand</p>
-</li>
-<li>
-<p>Tight coupling between business logic and build system</p>
-</li>
-<li>
-<p>Gradle daemon management issues (zombie processes, port conflicts)</p>
-</li>
-<li>
-<p>Dependency resolution overhead for simple documentation tasks</p>
-</li>
-</ul>
+<div class="sect1">
+<h2 id="custom-tasks">Extending docToolchain: Custom Tasks and Monkey-Patching</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>docToolchain ships every task as a self-contained Groovy script. You can use the
+same mechanism in your own project — to <strong>add</strong> a task or to <strong>change</strong> one that
+docToolchain already provides. Neither needs a fork, a build step, or an edit to
+a registry.</p>
 </div>
-</li>
-<li>
-<p><strong>Decision</strong>: Remove Gradle entirely. The <code>dtcw</code> wrapper invokes Groovy scripts directly via the <code>java</code>/<code>groovy</code> runtime. AsciiDoctor is an external CLI tool, auto-installed by dtcw (ADR-6). Task orchestration is handled by simple script conventions, not a build framework.</p>
-</li>
-<li>
-<p><strong>Alternatives considered</strong>:</p>
-</li>
-</ul>
-</div>
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-</colgroup>
-<thead>
+<div class="admonitionblock note">
+<table>
 <tr>
-<th class="tableblock halign-left valign-top">Criterion</th>
-<th class="tableblock halign-left valign-top">Keep Gradle</th>
-<th class="tableblock halign-left valign-top">dtcw + Groovy direct</th>
-<th class="tableblock halign-left valign-top">Switch to Maven</th>
-<th class="tableblock halign-left valign-top">Custom task runner</th>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+This is a v4 feature (the Gradle-free runtime driven by <code>dtcw</code>/<code>dtcw4</code>).
+The older v3 <code>customTasks</code> config entry belongs to the Gradle build and does not
+apply here.
+</td>
 </tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Startup time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Contributor friendliness</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ecosystem compatibility</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maintenance burden</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LLM-friendliness</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–3</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+4</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>0</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+1</strong></p></td>
-</tr>
-</tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="_how_task_resolution_works">How task resolution works</h3>
+<div class="paragraph">
+<p>When you run <code>./dtcw &lt;task&gt;</code>, the wrapper looks for the task script in two
+places, <strong>the project first, the installation second</strong>:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><code>scripts/&lt;task&gt;.groovy</code> in your project (the <strong>project scripts directory</strong>)</p>
+</li>
+<li>
+<p><code>&lt;task&gt;.groovy</code> in the installed docToolchain (<code>~/.doctoolchain/docToolchain-&lt;version&gt;/scripts/</code>)</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>A file counts as a task only if it carries the marker <code>// @task</code> within its
+first five lines — exactly the rule used by the built-in tasks. This is how a
+project script can be discovered without you registering it anywhere.</p>
+</div>
+<div class="paragraph">
+<p>The project scripts directory defaults to <code>scripts/</code> under your project root.
+Override it with the environment variable <code>DTC_PROJECT_SCRIPTS_DIR</code>.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+In the <code>docker</code> environment the project is mounted at a fixed location
+inside the container, so <code>DTC_PROJECT_SCRIPTS_DIR</code> must be a path <strong>relative</strong> to
+the project root. <code>dtcw</code> rejects an absolute value with an actionable error when
+running a project-local task in Docker.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_adding_a_custom_task">Adding a custom task</h3>
+<div class="paragraph">
+<p>Create a skeleton with <code>createTask</code> and edit it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw createTask exportNotion</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This writes <code>scripts/exportNotion.groovy</code> with the <code>// @task</code> marker already in
+place. Add your logic, then run it:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw exportNotion</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>It also shows up in the task list, under its own heading:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw tasks</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You can of course create the file by hand instead — the only requirement is the
+<code>// @task</code> marker near the top.</p>
+</div>
+<div class="sect3">
+<h4 id="_reusing_doctoolchains_helpers">Reusing docToolchain&#8217;s helpers</h4>
+<div class="paragraph">
+<p>A custom task can reuse the bundled helpers (for example <code>DtcConfig</code> to read
+<code>docToolchainConfig.groovy</code>). They live in the installation, not your project,
+and <code>dtcw</code> tells your script where via the <code>dtc.scriptsHome</code> system property:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">def docDir = System.getProperty('docDir', '.')
+def configFile = System.getProperty('mainConfigFile', 'docToolchainConfig.groovy')
+
+def scriptsHome = System.getProperty('dtc.scriptsHome')
+def gcl = new GroovyClassLoader(this.class.classLoader)
+def DtcConfig = gcl.parseClass(new File(scriptsHome, 'lib/DtcConfig.groovy'))
+def config = DtcConfig.load(docDir, configFile).getRaw()
+
+println "inputPath is ${config.inputPath}"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The skeleton created by <code>createTask</code> already contains this pattern.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_monkey_patching_an_installed_task">Monkey-patching an installed task</h3>
+<div class="paragraph">
+<p>To change what a shipped task does, copy it into your project and edit the copy:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="bash">./dtcw copyTask generateHTML</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>This copies the installed <code>generateHTML.groovy</code> to <code>scripts/generateHTML.groovy</code>
+in your project. Because the project copy has the same name as an installed
+task, it <strong>overrides</strong> it: from now on <code>./dtcw generateHTML</code> runs <strong>your</strong> copy.</p>
+</div>
+<div class="paragraph">
+<p>docToolchain makes the override visible so you never patch by accident:</p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Quality Tradeoffs</strong>:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Supports <strong>QS-9 (Fast startup)</strong>: No Gradle wrapper, no daemon, no dependency resolution. Startup under 3 seconds.</p>
+<p><code>./dtcw generateHTML</code> prints a note to stderr that the installed task is being
+overridden by your project file.</p>
 </li>
 <li>
-<p>Supports <strong>QS-11 (Script-first)</strong>: Scripts are the primary code artifacts, no compilation needed.</p>
-</li>
-<li>
-<p>Supports <strong>QS-1 (Extensibility)</strong>: Adding a feature requires no build system knowledge.</p>
-</li>
-<li>
-<p>Supports <strong>QS-3 (Usability)</strong>: Simpler mental model for contributors.</p>
-</li>
-<li>
-<p>Risk on <strong>QS-14 (v3 compatibility)</strong>: v3 projects using <code>./gradlew</code> directly will need to switch to <code>./dtcw</code>. The <code>dtcw</code> interface remains stable.</p>
+<p><code>./dtcw tasks</code> lists <code>generateHTML</code> as <code>overridden by scripts/generateHTML.groovy</code>.</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p><strong>Consequences</strong>: <code>build.gradle</code>, <code>settings.gradle</code>, <code>gradle.properties</code>, <code>libs.versions.toml</code>, and the <code>gradle/</code> wrapper directory are removed. The <code>core/</code> module is dissolved back into scripts. Dependencies are managed as JARs in a <code>lib/</code> directory or downloaded on demand. This decision creates risk <strong>R-002 (v3 migration path)</strong> — Gradle-based workflows break — and <strong>R-003 (script loading and classpath conflicts)</strong> now that Gradle no longer resolves dependencies; both are tracked in <a href="#section-technical-risks">[section-technical-risks]</a>.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>The copy keeps working even though it now lives in your project: its bundled
+helpers and resources still resolve from the installation via <code>dtc.scriptsHome</code>.</p>
+</div>
+<div class="paragraph">
+<p>To return to the shipped behaviour, simply delete your copy.</p>
+</div>
+<div class="admonitionblock warning">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Warning</div>
+</td>
+<td class="content">
+A monkey-patched task is pinned to the version you copied. After
+upgrading docToolchain, re-copy the task if you want to pick up upstream changes.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_security_note">Security note</h3>
+<div class="paragraph">
+<p>Project tasks are Groovy code that runs with your privileges — the same trust
+level that <code>docToolchainConfig.groovy</code> already has, since it too is executable
+Groovy. Opening someone else&#8217;s project and running <code>dtcw</code> runs their scripts.
+Treat a project&#8217;s <code>scripts/</code> directory with the same care as its config.</p>
+</div>
+</div>
 </div>
 </div>
         </p>
@@ -679,11 +682,11 @@ searching issues...
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-3%3A+Remove+Gradle+%E2%80%94+Direct+Groovy+Script+Execution%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-03-remove-gradle.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Extending+docToolchain%3A+Custom+Tasks+and+Monkey-Patching%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:010_manual/45_custom_tasks.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-3%3A+Remove+Gradle+%E2%80%94+Direct+Groovy+Script+Execution%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-03-remove-gradle.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27Extending+docToolchain%3A+Custom+Tasks+and+Monkey-Patching%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:010_manual/45_custom_tasks.adoc">tell
     us how we can improve</a>.
     </p>
 </div>
@@ -806,15 +809,15 @@ searching issues...
         </div>
     </footer>
 
-    <script src="../../js/popper.min.js"></script>
-    <script src="../../js/bootstrap.min.js"></script>
+    <script src="../js/popper.min.js"></script>
+    <script src="../js/bootstrap.min.js"></script>
 
 
-    <script src="../../js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
-    <script src="../../js/blocks.js" ></script>
-    <script src="../../js/prettify.js"></script>
-    <script src="../../js/copy-n-paste.js"></script>
-    <script src="../../js/submenucollapse.js"></script>
+    <script src="../js/main.min.b5fc1b29d2465835844254bd4d804738eaf24c0cec53009b4c6899989be55a47.js"></script>
+    <script src="../js/blocks.js" ></script>
+    <script src="../js/prettify.js"></script>
+    <script src="../js/copy-n-paste.js"></script>
+    <script src="../js/submenucollapse.js"></script>
 
     <!-- docToolchain v4 — colour-scheme toggle -->
     <script>

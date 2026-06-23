@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: arc42/adrs/adr-03-remove-gradle.html -->
+    <!-- sourceuri: arc42/adrs/adr-16-project-local-tasks.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>ADR-3: Remove Gradle — Direct Groovy Script Execution</title>
+    <title>ADR-16: Project-Local Tasks — Custom Tasks and Monkey-Patching via a Project `scripts/` Directory</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -429,11 +429,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-03-remove-gradle.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-16-project-local-tasks.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-3%3A+Remove+Gradle+%E2%80%94+Direct+Groovy+Script+Execution%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-03-remove-gradle.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-16%3A+Project-Local+Tasks+%E2%80%94+Custom+Tasks+and+Monkey-Patching+via+a+Project+%60scripts%2F%60+Directory%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-16-project-local-tasks.adoc%0A%23branch:%20main-4.x" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -441,7 +441,7 @@
         <hr />
 <script>
 const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
-const searchTerm = "arc42/adrs/adr-03-remove-gradle.adoc";
+const searchTerm = "arc42/adrs/adr-16-project-local-tasks.adoc";
 </script>
 
 <script src="../../js/issues.js"></script>
@@ -492,7 +492,7 @@ searching issues...
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel2">
-<li><a href="#_adr_3_remove_gradle_direct_groovy_script_execution">ADR-3: Remove Gradle — Direct Groovy Script Execution</a></li>
+<li><a href="#_adr_16_project_local_tasks_custom_tasks_and_monkey_patching_via_a_project_scripts_directory">ADR-16: Project-Local Tasks — Custom Tasks and Monkey-Patching via a Project <code>scripts/</code> Directory</a></li>
 </ul>
 </div>
 
@@ -524,36 +524,40 @@ searching issues...
         <p>
             
 <div class="sect2">
-<h3 id="_adr_3_remove_gradle_direct_groovy_script_execution">ADR-3: Remove Gradle — Direct Groovy Script Execution</h3>
+<h3 id="_adr_16_project_local_tasks_custom_tasks_and_monkey_patching_via_a_project_scripts_directory">ADR-16: Project-Local Tasks — Custom Tasks and Monkey-Patching via a Project <code>scripts/</code> Directory</h3>
 <div class="ulist">
 <ul>
 <li>
 <p><strong>Status</strong>: Accepted (for v4)</p>
 </li>
 <li>
-<p><strong>Context</strong>: Gradle has been the task orchestration framework since docToolchain&#8217;s inception. Over time it has caused significant problems:</p>
-<div class="ulist">
-<ul>
+<p><strong>Context</strong>: v4 tasks are self-contained Groovy scripts (ADR-12) discovered by the <code>// @task</code> marker (ADR-14), but <code>dtcw</code> only ever resolves them from the <strong>installed</strong> runtime (<code>~/.doctoolchain/docToolchain-&lt;version&gt;/scripts/</code>). A project therefore could not (a) add its <strong>own</strong> task without forking docToolchain, nor (b) <strong>modify</strong> a shipped task short of editing the shared installation — which every other project on the machine then inherits. The v3 mechanism for this (<code>scripts/customTasks.gradle</code>, the <code>customTasks = [&#8230;&#8203;]</code> config list, and a Gradle <code>createTask</code>) is Gradle-bound and dead under the Gradle-free v4 runtime (ADR-3). Quality goal QS-1 ("a contributor adds a task as one script, no build-system knowledge") is only half met: it holds for docToolchain&#8217;s own repo, not for a <strong>consuming</strong> project. Two distinct user needs share one root cause — <code>dtcw</code> does not look in the project:</p>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
-<p>Slow startup (~95 seconds first run, 10-15 seconds subsequent runs)</p>
+<p><strong>Custom tasks</strong> — a user drops a new task into their project and runs it.</p>
 </li>
 <li>
-<p>Complex configuration hard for contributors to understand</p>
+<p><strong>Monkey-patching</strong> — a user copies an installed task into their project, edits it, and has their version run instead of the shipped one.</p>
 </li>
-<li>
-<p>Tight coupling between business logic and build system</p>
-</li>
-<li>
-<p>Gradle daemon management issues (zombie processes, port conflicts)</p>
-</li>
-<li>
-<p>Dependency resolution overhead for simple documentation tasks</p>
-</li>
-</ul>
+</ol>
 </div>
 </li>
 <li>
-<p><strong>Decision</strong>: Remove Gradle entirely. The <code>dtcw</code> wrapper invokes Groovy scripts directly via the <code>java</code>/<code>groovy</code> runtime. AsciiDoctor is an external CLI tool, auto-installed by dtcw (ADR-6). Task orchestration is handled by simple script conventions, not a build framework.</p>
+<p><strong>Decision</strong>: <code>dtcw</code> resolves a task from a <strong>project-local scripts directory first, then the installation</strong>. The directory defaults to <code>scripts/</code> under the project root and is overridable via <code>DTC_PROJECT_SCRIPTS_DIR</code>. The same ADR-14 rule applies: a file is a task <strong>iff</strong> it is a <code>*.groovy</code> with <code>// @task</code> in its first 5 lines — so discovery is uniform across installed and project tasks, with no registry and no config edit (extending QS-1 to consuming projects).</p>
+<div class="ulist">
+<ul>
+<li>
+<p>A project task whose name does <strong>not</strong> match an installed task is a <strong>custom task</strong> (need 1).</p>
+</li>
+<li>
+<p>A project task whose name <strong>matches</strong> an installed task <strong>overrides</strong> it — monkey-patching (need 2). <code>dtcw</code> prints a <code>Note:</code> to stderr on every override run, so a shadowed task is never silent (transparency; relevant to T-005).</p>
+</li>
+<li>
+<p>Two helper tasks make the workflow one command: <code>createTask &lt;name&gt;</code> scaffolds a marked skeleton in the project, and <code>copyTask &lt;name&gt;</code> copies an installed script into the project for editing.</p>
+</li>
+</ul>
+</div>
 </li>
 <li>
 <p><strong>Alternatives considered</strong>:</p>
@@ -562,63 +566,55 @@ searching issues...
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
+<col style="width: 50%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6668%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Criterion</th>
-<th class="tableblock halign-left valign-top">Keep Gradle</th>
-<th class="tableblock halign-left valign-top">dtcw + Groovy direct</th>
-<th class="tableblock halign-left valign-top">Switch to Maven</th>
-<th class="tableblock halign-left valign-top">Custom task runner</th>
+<th class="tableblock halign-left valign-top">A: Config list (<code>customTasks=[…]</code>, v3-style)</th>
+<th class="tableblock halign-left valign-top">B: Project <code>scripts/</code> + <code>// @task</code> auto-discovery (chosen)</th>
+<th class="tableblock halign-left valign-top">C: Edit the shared installation directly</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Startup time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Adding a task (no central edit) — QS-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (must list every file in config)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (drop one marked file, like installed tasks)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (no project file, but edits global state)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Contributor friendliness</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Consistency with ADR-14 (one discovery rule)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (second, different mechanism)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (same <code>// @task</code> rule everywhere)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (it <strong>is</strong> the installation)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ecosystem compatibility</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Override isolation (per project, not global)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (no override story)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (override lives in the project repo)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (every project on the box inherits the edit)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maintenance burden</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Transparency of an override (no silent shadowing) — T-005</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (<code>Note:</code> printed on each override run)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (invisible global change)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LLM-friendliness</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Reproducibility (override travels with the repo)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (committed alongside the docs)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (lives outside version control)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–3</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+4</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>0</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+1</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–2</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+5</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–2</strong></p></td>
 </tr>
 </tbody>
 </table>
@@ -629,25 +625,19 @@ searching issues...
 <div class="ulist">
 <ul>
 <li>
-<p>Supports <strong>QS-9 (Fast startup)</strong>: No Gradle wrapper, no daemon, no dependency resolution. Startup under 3 seconds.</p>
+<p>Supports <strong>QS-1 (Extensibility)</strong>: a consuming project adds a task exactly the way docToolchain&#8217;s own repo does — one marked script, no build-system knowledge, appears in <code>./dtcw tasks</code>.</p>
 </li>
 <li>
-<p>Supports <strong>QS-11 (Script-first)</strong>: Scripts are the primary code artifacts, no compilation needed.</p>
+<p>Supports <strong>QS-11 (Script-first)</strong> and <strong>QS-3 (Usability)</strong>: one uniform task model; <code>createTask</code>/<code>copyTask</code> keep the first step to a single command.</p>
 </li>
 <li>
-<p>Supports <strong>QS-1 (Extensibility)</strong>: Adding a feature requires no build system knowledge.</p>
-</li>
-<li>
-<p>Supports <strong>QS-3 (Usability)</strong>: Simpler mental model for contributors.</p>
-</li>
-<li>
-<p>Risk on <strong>QS-14 (v3 compatibility)</strong>: v3 projects using <code>./gradlew</code> directly will need to switch to <code>./dtcw</code>. The <code>dtcw</code> interface remains stable.</p>
+<p>Cost on <strong>predictability</strong>: a project file can now silently change what <code>generateHTML</code> does. Mitigated by the mandatory override <code>Note:</code> and by the override being flagged in <code>./dtcw tasks</code>.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Consequences</strong>: <code>build.gradle</code>, <code>settings.gradle</code>, <code>gradle.properties</code>, <code>libs.versions.toml</code>, and the <code>gradle/</code> wrapper directory are removed. The <code>core/</code> module is dissolved back into scripts. Dependencies are managed as JARs in a <code>lib/</code> directory or downloaded on demand. This decision creates risk <strong>R-002 (v3 migration path)</strong> — Gradle-based workflows break — and <strong>R-003 (script loading and classpath conflicts)</strong> now that Gradle no longer resolves dependencies; both are tracked in <a href="#section-technical-risks">[section-technical-risks]</a>.</p>
+<p><strong>Consequences</strong>: <code>dtcw</code> gains a project-first resolution step in <code>assert_v4_task_exists</code>, <code>list_v4_tasks</code>, and <code>build_command</code>; the listing flags overrides and groups custom tasks. Project tasks are executable Groovy authored by the project — the <strong>same local-trust assumption already accepted for <code>docToolchainConfig.groovy</code></strong> (threat <strong>T-005</strong>, <a href="#section-concepts">[section-concepts]</a>): opening and running <code>dtcw</code> in a project already runs that project&#8217;s Groovy, so project tasks add no new trust class, only more surface within it. The override <code>Note:</code> keeps shadowing visible. This decision depends on ADR-17 so that a copied or custom script can still load the bundled <code>lib/</code> helpers from the installation. No new Chapter 11 risk is created; the consequence is recorded as accepted under the existing T-005 local-trust model. The Windows wrappers (<code>dtcw.ps1</code>/<code>dtcw.bat</code>) do not yet carry the v4 path at all (Chapter 11 technical debt), so project-task resolution lands in the Bash <code>dtcw</code> first; Windows parity rides on the existing "no v4 Windows wrapper path" debt item.</p>
 </li>
 </ul>
 </div>
@@ -679,11 +669,11 @@ searching issues...
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-3%3A+Remove+Gradle+%E2%80%94+Direct+Groovy+Script+Execution%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-03-remove-gradle.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-16%3A+Project-Local+Tasks+%E2%80%94+Custom+Tasks+and+Monkey-Patching+via+a+Project+%60scripts%2F%60+Directory%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-16-project-local-tasks.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-3%3A+Remove+Gradle+%E2%80%94+Direct+Groovy+Script+Execution%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-03-remove-gradle.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-16%3A+Project-Local+Tasks+%E2%80%94+Custom+Tasks+and+Monkey-Patching+via+a+Project+%60scripts%2F%60+Directory%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-16-project-local-tasks.adoc">tell
     us how we can improve</a>.
     </p>
 </div>

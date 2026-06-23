@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: arc42/adrs/adr-03-remove-gradle.html -->
+    <!-- sourceuri: arc42/spec/02_project_local_tasks.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>ADR-3: Remove Gradle — Direct Groovy Script Execution</title>
+    <title>docToolchain v4 — Specification: Project-Local Tasks</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -412,7 +412,7 @@
                                 
                             </li>
                             <li class="td-sidebar-nav__section-title td-sidebar-nav__section without-child">
-                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section "
+                                <a class="align-left pl-0 pr-2 pt-2 td-sidebar-link td-sidebar-link__section active"
                                    href="../../arc42/spec/02_project_local_tasks.html" title="docToolchain v4 — Specification: Project-Local Tasks">docToolchain v4 — Specification: Project-Local Tasks</a>
                                 
                             </li>
@@ -429,11 +429,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-03-remove-gradle.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/spec/02_project_local_tasks.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-3%3A+Remove+Gradle+%E2%80%94+Direct+Groovy+Script+Execution%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-03-remove-gradle.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27docToolchain+v4+%E2%80%94+Specification%3A+Project-Local+Tasks%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/spec/02_project_local_tasks.adoc%0A%23branch:%20main-4.x" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -441,7 +441,7 @@
         <hr />
 <script>
 const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
-const searchTerm = "arc42/adrs/adr-03-remove-gradle.adoc";
+const searchTerm = "arc42/spec/02_project_local_tasks.adoc";
 </script>
 
 <script src="../../js/issues.js"></script>
@@ -491,8 +491,32 @@ searching issues...
 
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
+<ul class="sectlevel1">
+<li><a href="#_doctoolchain_v4_specification_project_local_tasks">docToolchain v4 — Specification: Project-Local Tasks</a>
 <ul class="sectlevel2">
-<li><a href="#_adr_3_remove_gradle_direct_groovy_script_execution">ADR-3: Remove Gradle — Direct Groovy Script Execution</a></li>
+<li><a href="#_problem_and_goals_prd_digest">.1. Problem and Goals (PRD digest)</a></li>
+<li><a href="#_domain_terms_ubiquitous_language">.2. Domain Terms (Ubiquitous Language)</a></li>
+<li><a href="#_use_cases_cockburn_fully_dressed">.3. Use Cases (Cockburn, fully dressed)</a>
+<ul class="sectlevel3">
+<li><a href="#_uc_ct_1_add_a_custom_task">.3.1. UC-CT-1: Add a Custom Task</a></li>
+<li><a href="#_uc_ct_2_monkey_patch_an_installed_task">.3.2. UC-CT-2: Monkey-Patch an Installed Task</a></li>
+</ul>
+</li>
+<li><a href="#_system_use_cases_per_cli_interface">.4. System Use Cases (per CLI interface)</a>
+<ul class="sectlevel3">
+<li><a href="#_suc_1_dtcw_task_resolution">.4.1. SUC-1: <code>./dtcw &lt;task&gt;</code> resolution</a></li>
+<li><a href="#_suc_2_dtcw_tasks_listing">.4.2. SUC-2: <code>./dtcw tasks</code> listing</a></li>
+<li><a href="#_suc_3_dtcw_createtask_name">.4.3. SUC-3: <code>./dtcw createTask [name]</code></a></li>
+<li><a href="#_suc_4_dtcw_copytask_name">.4.4. SUC-4: <code>./dtcw copyTask &lt;name&gt;</code></a></li>
+</ul>
+</li>
+<li><a href="#_activity_diagram_task_resolution_suc_1">.5. Activity Diagram — Task Resolution (SUC-1)</a></li>
+<li><a href="#_requirements_ears">.6. Requirements (EARS)</a></li>
+<li><a href="#_business_rules">.7. Business Rules</a></li>
+<li><a href="#_acceptance_criteria_gherkin">.8. Acceptance Criteria (Gherkin)</a></li>
+<li><a href="#_traceability">.9. Traceability</a></li>
+</ul>
+</li>
 </ul>
 </div>
 
@@ -523,133 +547,441 @@ searching issues...
     <div class="td-content">
         <p>
             
+<div class="sect1">
+<h2 id="_doctoolchain_v4_specification_project_local_tasks">docToolchain v4 — Specification: Project-Local Tasks</h2>
+<div class="sectionbody">
 <div class="sect2">
-<h3 id="_adr_3_remove_gradle_direct_groovy_script_execution">ADR-3: Remove Gradle — Direct Groovy Script Execution</h3>
+<h3 id="_problem_and_goals_prd_digest">.1. Problem and Goals (PRD digest)</h3>
+<div class="paragraph">
+<p><strong>Problem.</strong> A docToolchain v4 user can neither add their own task nor change a
+shipped task without forking docToolchain or editing the shared installation
+that every project on the machine inherits. The v3 mechanism
+(<code>customTasks.gradle</code>) is Gradle-bound and dead under the Gradle-free v4 runtime.</p>
+</div>
+<div class="paragraph">
+<p><strong>Goals.</strong></p>
+</div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Status</strong>: Accepted (for v4)</p>
+<p><strong>G-1 Custom tasks</strong> — a user adds a project-specific task and runs it via <code>dtcw</code>,
+with no fork and no edit to a registry or config (concretises quality goal QS-1).</p>
 </li>
 <li>
-<p><strong>Context</strong>: Gradle has been the task orchestration framework since docToolchain&#8217;s inception. Over time it has caused significant problems:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Slow startup (~95 seconds first run, 10-15 seconds subsequent runs)</p>
+<p><strong>G-2 Monkey-patching</strong> — a user copies an installed task into their project,
+edits it, and <code>dtcw</code> runs the project copy instead of the shipped one,
+isolated to that project and committed alongside the docs.</p>
 </li>
 <li>
-<p>Complex configuration hard for contributors to understand</p>
-</li>
-<li>
-<p>Tight coupling between business logic and build system</p>
-</li>
-<li>
-<p>Gradle daemon management issues (zombie processes, port conflicts)</p>
-</li>
-<li>
-<p>Dependency resolution overhead for simple documentation tasks</p>
+<p><strong>G-3 Transparency</strong> — an override is never silent; the user always sees that a
+patched task is running.</p>
 </li>
 </ul>
 </div>
-</li>
-<li>
-<p><strong>Decision</strong>: Remove Gradle entirely. The <code>dtcw</code> wrapper invokes Groovy scripts directly via the <code>java</code>/<code>groovy</code> runtime. AsciiDoctor is an external CLI tool, auto-installed by dtcw (ADR-6). Task orchestration is handled by simple script conventions, not a build framework.</p>
-</li>
-<li>
-<p><strong>Alternatives considered</strong>:</p>
-</li>
-</ul>
+<div class="paragraph">
+<p><strong>Personas.</strong> Documentation Author (runs tasks), Build/Tooling Maintainer
+(authors custom tasks and patches), CI pipeline (non-interactive runner).</p>
 </div>
+<div class="paragraph">
+<p><strong>Success criteria.</strong> A new marked script in the project appears in <code>./dtcw tasks</code>
+and runs; a same-named project script overrides the installed one and prints a
+note; both load the bundled <code>lib/</code> helpers without copying them into the project.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_domain_terms_ubiquitous_language">.2. Domain Terms (Ubiquitous Language)</h3>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
+<col style="width: 25%;">
+<col style="width: 75%;">
 </colgroup>
 <thead>
 <tr>
-<th class="tableblock halign-left valign-top">Criterion</th>
-<th class="tableblock halign-left valign-top">Keep Gradle</th>
-<th class="tableblock halign-left valign-top">dtcw + Groovy direct</th>
-<th class="tableblock halign-left valign-top">Switch to Maven</th>
-<th class="tableblock halign-left valign-top">Custom task runner</th>
+<th class="tableblock halign-left valign-top">Term</th>
+<th class="tableblock halign-left valign-top">Meaning</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Startup time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Installed task</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A <code>*.groovy</code> with <code>// @task</code> (first 5 lines, ADR-14) under the installation <code>scripts/</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Contributor friendliness</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project scripts directory</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Directory under the project root scanned for project tasks. Default <code>scripts/</code>, overridable via <code>DTC_PROJECT_SCRIPTS_DIR</code>.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ecosystem compatibility</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Custom task</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A project task whose name matches no installed task — it <strong>adds</strong> a task.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maintenance burden</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Override (monkey-patch)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A project task whose name matches an installed task — it <strong>replaces</strong> it for this project.</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LLM-friendliness</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–3</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+4</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>0</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+1</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dtc.scriptsHome</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">System property set by <code>dtcw</code> to the installed <code>scripts/</code> directory, so any script resolves <code>lib/</code> and bundled resources from the installation (ADR-17).</p></td>
 </tr>
 </tbody>
 </table>
+</div>
+<div class="sect2">
+<h3 id="_use_cases_cockburn_fully_dressed">.3. Use Cases (Cockburn, fully dressed)</h3>
+<div class="sect3">
+<h4 id="_uc_ct_1_add_a_custom_task">.3.1. UC-CT-1: Add a Custom Task</h4>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Quality Tradeoffs</strong>:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Supports <strong>QS-9 (Fast startup)</strong>: No Gradle wrapper, no daemon, no dependency resolution. Startup under 3 seconds.</p>
+<p><strong>Primary Actor</strong>: Build/Tooling Maintainer</p>
 </li>
 <li>
-<p>Supports <strong>QS-11 (Script-first)</strong>: Scripts are the primary code artifacts, no compilation needed.</p>
+<p><strong>Level</strong>: User goal</p>
 </li>
 <li>
-<p>Supports <strong>QS-1 (Extensibility)</strong>: Adding a feature requires no build system knowledge.</p>
+<p><strong>Trigger</strong>: The maintainer needs a project-specific automation step (e.g. <code>exportNotion</code>).</p>
 </li>
 <li>
-<p>Supports <strong>QS-3 (Usability)</strong>: Simpler mental model for contributors.</p>
+<p><strong>Preconditions</strong>: docToolchain v4 is installed; the project has a <code>docToolchainConfig.groovy</code>.</p>
 </li>
 <li>
-<p>Risk on <strong>QS-14 (v3 compatibility)</strong>: v3 projects using <code>./gradlew</code> directly will need to switch to <code>./dtcw</code>. The <code>dtcw</code> interface remains stable.</p>
+<p><strong>Postconditions (success)</strong>: A <code>*.groovy</code> task exists in the project scripts directory and runs via <code>./dtcw &lt;name&gt;</code>; it appears in <code>./dtcw tasks</code>.</p>
 </li>
 </ul>
 </div>
+<div class="paragraph">
+<p><strong>Main Success Scenario</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Maintainer runs <code>./dtcw createTask exportNotion</code> (or hand-creates the file).</p>
 </li>
 <li>
-<p><strong>Consequences</strong>: <code>build.gradle</code>, <code>settings.gradle</code>, <code>gradle.properties</code>, <code>libs.versions.toml</code>, and the <code>gradle/</code> wrapper directory are removed. The <code>core/</code> module is dissolved back into scripts. Dependencies are managed as JARs in a <code>lib/</code> directory or downloaded on demand. This decision creates risk <strong>R-002 (v3 migration path)</strong> — Gradle-based workflows break — and <strong>R-003 (script loading and classpath conflicts)</strong> now that Gradle no longer resolves dependencies; both are tracked in <a href="#section-technical-risks">[section-technical-risks]</a>.</p>
+<p><code>dtcw</code> writes <code>scripts/exportNotion.groovy</code> with a <code>// @task</code> skeleton.</p>
+</li>
+<li>
+<p>Maintainer edits the script&#8217;s logic.</p>
+</li>
+<li>
+<p>Maintainer runs <code>./dtcw exportNotion</code>.</p>
+</li>
+<li>
+<p><code>dtcw</code> discovers the project task, runs it, and prints a note that a project-local custom task is running.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a. Name invalid (BR-2): <code>createTask</code> aborts with an actionable message; no file written.</p>
+</li>
+<li>
+<p>1b. File already exists: <code>createTask</code> aborts and refuses to overwrite.</p>
+</li>
+<li>
+<p>4a. Marker missing or past line 5 (BR-1): the task is not discovered; <code>./dtcw tasks</code> does not list it and <code>./dtcw exportNotion</code> reports "Unknown task".</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p><strong>Business Rules</strong>: BR-1, BR-2, BR-5.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_uc_ct_2_monkey_patch_an_installed_task">.3.2. UC-CT-2: Monkey-Patch an Installed Task</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Primary Actor</strong>: Build/Tooling Maintainer</p>
+</li>
+<li>
+<p><strong>Level</strong>: User goal</p>
+</li>
+<li>
+<p><strong>Trigger</strong>: A shipped task needs a project-specific change (e.g. tweak <code>generateHTML</code> attributes).</p>
+</li>
+<li>
+<p><strong>Preconditions</strong>: The task to patch exists in the installation.</p>
+</li>
+<li>
+<p><strong>Postconditions (success)</strong>: A project copy of the task runs instead of the installed one, for this project only; the installation is untouched.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Main Success Scenario</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Maintainer runs <code>./dtcw copyTask generateHTML</code>.</p>
+</li>
+<li>
+<p><code>dtcw</code> copies the installed <code>generateHTML.groovy</code> into the project scripts directory.</p>
+</li>
+<li>
+<p>Maintainer edits the project copy.</p>
+</li>
+<li>
+<p>Maintainer runs <code>./dtcw generateHTML</code>.</p>
+</li>
+<li>
+<p><code>dtcw</code> resolves the project copy first (BR-3), prints an override note to stderr (BR-4), and runs it; the copy loads <code>lib/</code> helpers from the installation (BR-6).</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p><strong>Extensions</strong></p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>1a. Installed task not found: <code>copyTask</code> aborts with the list of available tasks.</p>
+</li>
+<li>
+<p>2a. Project copy already exists: <code>copyTask</code> aborts and refuses to overwrite.</p>
+</li>
+<li>
+<p>4a. Maintainer deletes the project copy: <code>dtcw</code> falls back to the installed task, no note printed.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p><strong>Business Rules</strong>: BR-3, BR-4, BR-6.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_system_use_cases_per_cli_interface">.4. System Use Cases (per CLI interface)</h3>
+<div class="sect3">
+<h4 id="_suc_1_dtcw_task_resolution">.4.1. SUC-1: <code>./dtcw &lt;task&gt;</code> resolution</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Input</strong>: a task name matching <code>^[a-zA-Z][a-zA-Z0-9_-]*$</code>.</p>
+</li>
+<li>
+<p><strong>Processing</strong>:</p>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>If <code>&lt;projectScriptsDir&gt;/&lt;task&gt;.groovy</code> exists and is marked, select it; else if the installed script exists and is marked, select that; else fail.</p>
+</li>
+<li>
+<p>If a project script was selected and an installed script of the same name exists, emit an override note to stderr; if no installed counterpart exists, emit a custom-task note.</p>
+</li>
+<li>
+<p>Invoke <code>java … groovy.ui.GroovyMain &lt;selected script&gt;</code> with <code>-DdocDir=.</code> and <code>-Ddtc.scriptsHome=&lt;install&gt;/scripts</code>.</p>
+</li>
+</ol>
+</div>
+</li>
+<li>
+<p><strong>Output / status</strong>: exit 0 on success; exit <code>ERR_ARG</code> for an invalid or unknown task name; the selected script&#8217;s exit code otherwise.</p>
+</li>
+<li>
+<p><strong>Error responses</strong>: invalid name → "Invalid task name"; unknown task → "Unknown task '&lt;task&gt;'" plus near-name suggestions and "Run './dtcw tasks'".</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_suc_2_dtcw_tasks_listing">.4.2. SUC-2: <code>./dtcw tasks</code> listing</h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Input</strong>: none (a trailing <code>--group …</code> is accepted and ignored with a note).</p>
+</li>
+<li>
+<p><strong>Processing</strong>: list installed tasks; annotate any that a project script overrides as <code>(overridden by …)</code>; then list project-only custom tasks under a separate heading.</p>
+</li>
+<li>
+<p><strong>Output</strong>: the task list; exit 0.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_suc_3_dtcw_createtask_name">.4.3. SUC-3: <code>./dtcw createTask [name]</code></h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Input</strong>: optional task name (default <code>customTask</code>), validated by BR-2.</p>
+</li>
+<li>
+<p><strong>Processing</strong>: create <code>&lt;projectScriptsDir&gt;/&lt;name&gt;.groovy</code> from a marked skeleton.</p>
+</li>
+<li>
+<p><strong>Output / status</strong>: path of the created file, exit 0; exit 2 on invalid name; exit 1 if the file exists.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_suc_4_dtcw_copytask_name">.4.4. SUC-4: <code>./dtcw copyTask &lt;name&gt;</code></h4>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Input</strong>: required name of an installed task.</p>
+</li>
+<li>
+<p><strong>Processing</strong>: copy <code>&lt;install&gt;/scripts/&lt;name&gt;.groovy</code> to <code>&lt;projectScriptsDir&gt;/&lt;name&gt;.groovy</code>.</p>
+</li>
+<li>
+<p><strong>Output / status</strong>: path of the copy plus an override hint, exit 0; exit 2 if no name; exit 1 if the installed task is missing or the copy already exists.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_activity_diagram_task_resolution_suc_1">.5. Activity Diagram — Task Resolution (SUC-1)</h3>
+<div class="imageblock">
+<div class="content">
+<img src="../../images/suc1-task-resolution.svg" alt="suc1 task resolution" width="981" height="630">
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_requirements_ears">.6. Requirements (EARS)</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>EARS-1 (ubiquitous)</strong>: The dtcw wrapper shall treat a <code>*.groovy</code> file as a task only if it carries <code>// @task</code> within its first five lines.</p>
+</li>
+<li>
+<p><strong>EARS-2 (event)</strong>: When a task name is requested, dtcw shall resolve a project-local script in preference to an installed script of the same name.</p>
+</li>
+<li>
+<p><strong>EARS-3 (event)</strong>: When dtcw runs a project-local script that shadows an installed task, dtcw shall emit a note to stderr identifying the overriding file.</p>
+</li>
+<li>
+<p><strong>EARS-4 (state)</strong>: While running any v4 task, dtcw shall pass <code>-Ddtc.scriptsHome</code> set to the installed scripts directory.</p>
+</li>
+<li>
+<p><strong>EARS-5 (event)</strong>: When a requested task name matches neither a project nor an installed marked script, dtcw shall exit non-zero with an "Unknown task" message.</p>
+</li>
+<li>
+<p><strong>EARS-6 (unwanted)</strong>: If <code>createTask</code>/<code>copyTask</code> would overwrite an existing project file, then dtcw shall abort without modifying it.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_business_rules">.7. Business Rules</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>BR-1</strong>: A task is discoverable iff it is a <code>*.groovy</code> with <code>// @task</code> in its first five lines (consistent with ADR-14).</p>
+</li>
+<li>
+<p><strong>BR-2</strong>: A task name must match <code>^[a-zA-Z][a-zA-Z0-9_-]*$</code>.</p>
+</li>
+<li>
+<p><strong>BR-3</strong>: Project scripts take precedence over installed scripts of the same name.</p>
+</li>
+<li>
+<p><strong>BR-4</strong>: Every override run prints a visible note; overrides are flagged in <code>./dtcw tasks</code>.</p>
+</li>
+<li>
+<p><strong>BR-5</strong>: Adding a custom task requires no edit to any config file or registry.</p>
+</li>
+<li>
+<p><strong>BR-6</strong>: A project script loads bundled <code>lib/</code> helpers and resources from the installation via <code>dtc.scriptsHome</code>, never from the project.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_acceptance_criteria_gherkin">.8. Acceptance Criteria (Gherkin)</h3>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="gherkin">Feature: Project-local custom tasks and monkey-patching
+
+  Scenario: Custom task is discovered (UC-CT-1, BR-1, BR-5)
+    Given a project scripts directory contains myCustomTask.groovy with a // @task marker
+    When the user runs ./dtcw tasks
+    Then "myCustomTask" appears under the project-local custom tasks heading
+
+  Scenario: Unmarked file is not a task (BR-1)
+    Given a project scripts directory contains justAHelper.groovy without a // @task marker
+    When the user runs ./dtcw tasks
+    Then "justAHelper" does not appear in the task list
+
+  Scenario: Custom task runs with the installation helpers (UC-CT-1, BR-6)
+    Given a project scripts directory contains myCustomTask.groovy with a // @task marker
+    When the user runs ./dtcw myCustomTask
+    Then dtcw runs the project script
+    And it passes -Ddtc.scriptsHome pointing at the installed scripts directory
+
+  Scenario: Override shadows the installed task and is announced (UC-CT-2, BR-3, BR-4)
+    Given an installed task generateHTML exists
+    And the project scripts directory contains generateHTML.groovy with a // @task marker
+    When the user runs ./dtcw generateHTML
+    Then dtcw runs the project copy, not the installed script
+    And dtcw prints a note that the installed task is being overridden
+
+  Scenario: Override is flagged in the task list (BR-4)
+    Given an installed task generateHTML exists
+    And the project scripts directory contains generateHTML.groovy with a // @task marker
+    When the user runs ./dtcw tasks
+    Then "generateHTML" is shown as overridden by the project script
+
+  Scenario: Unknown task is rejected (EARS-5)
+    Given no script named thisTaskDoesNotExist exists in the project or the installation
+    When the user runs ./dtcw thisTaskDoesNotExist
+    Then dtcw exits non-zero
+    And dtcw prints "Unknown task"
+
+  Scenario: copyTask refuses to overwrite (EARS-6, BR-3)
+    Given the project scripts directory already contains generateHTML.groovy
+    When the user runs ./dtcw copyTask generateHTML
+    Then dtcw aborts without modifying the existing file</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_traceability">.9. Traceability</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Item</th>
+<th class="tableblock halign-left valign-top">Realised by</th>
+<th class="tableblock halign-left valign-top">Verified by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UC-CT-1 / G-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-16, <code>createTask.groovy</code>, dtcw resolution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>test/custom_tasks.bats</code> (discovery, custom run)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">UC-CT-2 / G-2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">ADR-16, <code>copyTask.groovy</code>, dtcw override resolution</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>test/custom_tasks.bats</code> (override run, listing)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">G-3 / BR-4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">dtcw override <code>Note:</code> + listing annotation</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>test/custom_tasks.bats</code> (override note)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">BR-6 / ADR-17</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>dtc.scriptsHome</code> + script <code>scriptDir</code> idiom</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>test/custom_tasks.bats</code> (scriptsHome passed)</p></td>
+</tr>
+</tbody>
+</table>
+</div>
 </div>
 </div>
         </p>
@@ -679,11 +1011,11 @@ searching issues...
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-3%3A+Remove+Gradle+%E2%80%94+Direct+Groovy+Script+Execution%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-03-remove-gradle.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27docToolchain+v4+%E2%80%94+Specification%3A+Project-Local+Tasks%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/spec/02_project_local_tasks.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-3%3A+Remove+Gradle+%E2%80%94+Direct+Groovy+Script+Execution%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-03-remove-gradle.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27docToolchain+v4+%E2%80%94+Specification%3A+Project-Local+Tasks%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/spec/02_project_local_tasks.adoc">tell
     us how we can improve</a>.
     </p>
 </div>

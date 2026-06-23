@@ -2,14 +2,14 @@
 <html lang="de">
 <head>
     
-    <!-- sourceuri: arc42/adrs/adr-03-remove-gradle.html -->
+    <!-- sourceuri: arc42/adrs/adr-17-script-home-lib-resolution.html -->
     <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
     <meta content="jbake" name="generator">
     <meta content="INDEX, FOLLOW" name="ROBOTS">
 
-    <title>ADR-3: Remove Gradle — Direct Groovy Script Execution</title>
+    <title>ADR-17: `dtc.scriptsHome` — Resolve `lib/` Helpers and Resources from the Installation, Not the Script Location</title>
     <meta content="docToolchain" property="og:title">
     <meta content="build your dev docs the easy way..." property="og:description">
     <meta content="website" property="og:type">
@@ -429,11 +429,11 @@
 				<div class="td-page-meta ml-2 pb-1 pt-2 mb-0">
 					
 
-        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-03-remove-gradle.adoc"
+        <a href="https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-17-script-home-lib-resolution.adoc"
            target="_blank"><i class="fa fa-edit fa-fw"></i> Improve this doc</a>
 
 
-        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-3%3A+Remove+Gradle+%E2%80%94+Direct+Groovy+Script+Execution%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-03-remove-gradle.adoc%0A%23branch:%20main-4.x" target="_blank"><i
+        <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-17%3A+%60dtc.scriptsHome%60+%E2%80%94+Resolve+%60lib%2F%60+Helpers+and+Resources+from+the+Installation%2C+Not+the+Script+Location%27&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:%20https://github.com/doctoolchain/doctoolchain/edit/main-4.x/src/docs/arc42/adrs/adr-17-script-home-lib-resolution.adoc%0A%23branch:%20main-4.x" target="_blank"><i
                 class="fab fa-github fa-fw"></i> Create an issue</a>
 
         
@@ -441,7 +441,7 @@
         <hr />
 <script>
 const issuesBaseUrl = "https://api.github.com/repos/doctoolchain/doctoolchain/issues";
-const searchTerm = "arc42/adrs/adr-03-remove-gradle.adoc";
+const searchTerm = "arc42/adrs/adr-17-script-home-lib-resolution.adoc";
 </script>
 
 <script src="../../js/issues.js"></script>
@@ -492,7 +492,7 @@ searching issues...
         <div id="toc" class="toc">
 <div id="toctitle">Table of Contents</div>
 <ul class="sectlevel2">
-<li><a href="#_adr_3_remove_gradle_direct_groovy_script_execution">ADR-3: Remove Gradle — Direct Groovy Script Execution</a></li>
+<li><a href="#_adr_17_dtc_scriptshome_resolve_lib_helpers_and_resources_from_the_installation_not_the_script_location">ADR-17: <code>dtc.scriptsHome</code> — Resolve <code>lib/</code> Helpers and Resources from the Installation, Not the Script Location</a></li>
 </ul>
 </div>
 
@@ -524,36 +524,27 @@ searching issues...
         <p>
             
 <div class="sect2">
-<h3 id="_adr_3_remove_gradle_direct_groovy_script_execution">ADR-3: Remove Gradle — Direct Groovy Script Execution</h3>
+<h3 id="_adr_17_dtc_scriptshome_resolve_lib_helpers_and_resources_from_the_installation_not_the_script_location">ADR-17: <code>dtc.scriptsHome</code> — Resolve <code>lib/</code> Helpers and Resources from the Installation, Not the Script Location</h3>
 <div class="ulist">
 <ul>
 <li>
 <p><strong>Status</strong>: Accepted (for v4)</p>
 </li>
 <li>
-<p><strong>Context</strong>: Gradle has been the task orchestration framework since docToolchain&#8217;s inception. Over time it has caused significant problems:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>Slow startup (~95 seconds first run, 10-15 seconds subsequent runs)</p>
+<p><strong>Context</strong>: Every v4 task script loads its shared helpers relative to <strong>its own</strong> file location: <code>def scriptDir = new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile</code> and then <code>new File(scriptDir, 'lib/DtcConfig.groovy')</code>. Three scripts likewise derive <code>dtcHome = scriptDir.parentFile</code> to find bundled resources (themes, landing page). This works only because installed scripts sit next to <code>lib/</code>. ADR-16 lets a script run from the <strong>project</strong> <code>scripts/</code> directory, where there is no <code>lib/</code> and no bundled resources — so a copied (monkey-patched) or custom script would fail to load <code>DtcConfig</code>/<code>DtcException</code> and break at startup. The helpers and resources it needs live in the installation, not the project.</p>
 </li>
 <li>
-<p>Complex configuration hard for contributors to understand</p>
-</li>
-<li>
-<p>Tight coupling between business logic and build system</p>
-</li>
-<li>
-<p>Gradle daemon management issues (zombie processes, port conflicts)</p>
-</li>
-<li>
-<p>Dependency resolution overhead for simple documentation tasks</p>
-</li>
-</ul>
+<p><strong>Decision</strong>: <code>dtcw</code> passes the installed scripts directory to every run as a system property: <code>-Ddtc.scriptsHome="${dtc_home}/scripts"</code> (and <code>/opt/docToolchain/scripts</code> inside the Docker image). Scripts resolve their helper/resource base from that property, falling back to the on-disk script location when it is absent:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">def scriptDir = System.getProperty('dtc.scriptsHome')
+    ? new File(System.getProperty('dtc.scriptsHome'))
+    : new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile</code></pre>
 </div>
-</li>
-<li>
-<p><strong>Decision</strong>: Remove Gradle entirely. The <code>dtcw</code> wrapper invokes Groovy scripts directly via the <code>java</code>/<code>groovy</code> runtime. AsciiDoctor is an external CLI tool, auto-installed by dtcw (ADR-6). Task orchestration is handled by simple script conventions, not a build framework.</p>
+</div>
+<div class="paragraph">
+<p>For an installed script <code>dtc.scriptsHome</code> equals its own directory, so behaviour is unchanged; for a project script it points back at the installation, so <code>lib/</code> and bundled resources resolve correctly regardless of where the script file lives.</p>
+</div>
 </li>
 <li>
 <p><strong>Alternatives considered</strong>:</p>
@@ -562,63 +553,55 @@ searching issues...
 </div>
 <table class="tableblock frame-all grid-all stretch">
 <colgroup>
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
-<col style="width: 20%;">
+<col style="width: 50%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6666%;">
+<col style="width: 16.6668%;">
 </colgroup>
 <thead>
 <tr>
 <th class="tableblock halign-left valign-top">Criterion</th>
-<th class="tableblock halign-left valign-top">Keep Gradle</th>
-<th class="tableblock halign-left valign-top">dtcw + Groovy direct</th>
-<th class="tableblock halign-left valign-top">Switch to Maven</th>
-<th class="tableblock halign-left valign-top">Custom task runner</th>
+<th class="tableblock halign-left valign-top">A: Copy <code>lib/</code> into the project too</th>
+<th class="tableblock halign-left valign-top">B: <code>dtc.scriptsHome</code> system property (chosen)</th>
+<th class="tableblock halign-left valign-top">C: Put <code>lib/</code> on the classpath and load helpers by class name</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Startup time</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Project-script startup works (ADR-16) — QS-1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (lib present locally)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (resolves from install)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Contributor friendliness</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Footprint / no duplication (QS-6)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (copies ~MBs of helpers per project)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (single installed copy)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Ecosystem compatibility</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Determinism — copy can&#8217;t drift from the runtime (QS-4)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (project lib goes stale on upgrade)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (always the installed helpers)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Maintenance burden</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Change size / risk across existing scripts</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (no script change)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0 (one mechanical line per script)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">–1 (rework every helper-loading site + packaging)</p></td>
 </tr>
 <tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">LLM-friendliness</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Backward compatibility (installed scripts unchanged)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">–1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">+1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">+1 (property defaults to own dir)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>Total</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>–3</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+4</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>0</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+1</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+4</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><strong>+2</strong></p></td>
 </tr>
 </tbody>
 </table>
@@ -629,25 +612,19 @@ searching issues...
 <div class="ulist">
 <ul>
 <li>
-<p>Supports <strong>QS-9 (Fast startup)</strong>: No Gradle wrapper, no daemon, no dependency resolution. Startup under 3 seconds.</p>
+<p>Supports <strong>QS-1 (Extensibility)</strong>: custom and copied scripts load the same bundled helpers as installed tasks — the project extension point is fully functional, not a stub.</p>
 </li>
 <li>
-<p>Supports <strong>QS-11 (Script-first)</strong>: Scripts are the primary code artifacts, no compilation needed.</p>
+<p>Supports <strong>QS-4 (Determinism)</strong> and <strong>QS-6 (Footprint)</strong>: helpers exist once, in the installation; a project copy can never drift from the runtime and adds no per-project megabytes.</p>
 </li>
 <li>
-<p>Supports <strong>QS-1 (Extensibility)</strong>: Adding a feature requires no build system knowledge.</p>
-</li>
-<li>
-<p>Supports <strong>QS-3 (Usability)</strong>: Simpler mental model for contributors.</p>
-</li>
-<li>
-<p>Risk on <strong>QS-14 (v3 compatibility)</strong>: v3 projects using <code>./gradlew</code> directly will need to switch to <code>./dtcw</code>. The <code>dtcw</code> interface remains stable.</p>
+<p>Cost: a one-line convention every helper-loading script must follow; a script that hard-codes <code>scriptDir</code> from its own location instead of honouring <code>dtc.scriptsHome</code> silently breaks when run as a project override. Documented as the canonical idiom and demonstrated by the <code>createTask</code> skeleton.</p>
 </li>
 </ul>
 </div>
 </li>
 <li>
-<p><strong>Consequences</strong>: <code>build.gradle</code>, <code>settings.gradle</code>, <code>gradle.properties</code>, <code>libs.versions.toml</code>, and the <code>gradle/</code> wrapper directory are removed. The <code>core/</code> module is dissolved back into scripts. Dependencies are managed as JARs in a <code>lib/</code> directory or downloaded on demand. This decision creates risk <strong>R-002 (v3 migration path)</strong> — Gradle-based workflows break — and <strong>R-003 (script loading and classpath conflicts)</strong> now that Gradle no longer resolves dependencies; both are tracked in <a href="#section-technical-risks">[section-technical-risks]</a>.</p>
+<p><strong>Consequences</strong>: The <code>scriptDir</code>/<code>dtcHome</code> definition is updated to the property-first form across the v4 scripts that load <code>lib/</code> or bundled resources, and <code>dtcw</code> exports <code>dtc.scriptsHome</code> on every v4 invocation (local and Docker). This unblocks ADR-16: monkey-patched and custom scripts run against the installed helpers. It also contributes to <strong>R-003 (script loading / classpath)</strong> — helper resolution now hinges on a correctly-set property — mitigated by the safe fallback to the script&#8217;s own directory when the property is unset (e.g. direct <code>groovy</code> invocation outside <code>dtcw</code>).</p>
 </li>
 </ul>
 </div>
@@ -679,11 +656,11 @@ searching issues...
     <button class="feedback--answer feedback--answer-yes">Yes</button>
     <button class="feedback--answer feedback--answer-no">No</button>
     <p class="feedback--response feedback--response-yes">
-        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-3%3A+Remove+Gradle+%E2%80%94+Direct+Groovy+Script+Execution%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-03-remove-gradle.adoc">tell us
+        Glad to hear it! Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-17%3A+%60dtc.scriptsHome%60+%E2%80%94+Resolve+%60lib%2F%60+Helpers+and+Resources+from+the+Installation%2C+Not+the+Script+Location%27%20%F0%9F%91%8D&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-17-script-home-lib-resolution.adoc">tell us
     how we can improve</a>.
     </p>
     <p class="feedback--response feedback--response-no">
-        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-3%3A+Remove+Gradle+%E2%80%94+Direct+Groovy+Script+Execution%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-03-remove-gradle.adoc">tell
+        Sorry to hear that. Please <a href="https://github.com/docToolchain/docToolchain/issues/new?title=Docs%3A+Feedback+for+%27ADR-17%3A+%60dtc.scriptsHome%60+%E2%80%94+Resolve+%60lib%2F%60+Helpers+and+Resources+from+the+Installation%2C+Not+the+Script+Location%27%20%F0%9F%91%8E&body=%0A%0A%5BEnter%20feedback%20here%5D%0A%0A%0A---%0A%23page:arc42/adrs/adr-17-script-home-lib-resolution.adoc">tell
     us how we can improve</a>.
     </p>
 </div>
