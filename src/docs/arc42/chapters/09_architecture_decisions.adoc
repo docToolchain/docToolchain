@@ -92,6 +92,10 @@ Statuses follow Nygard values (Proposed / Accepted / Superseded / Deprecated). `
 |`dtc.scriptsHome` — Resolve `lib/` Helpers from the Installation
 |Accepted (for v4)
 
+|ADR-18
+|v4 Task Dispatch Moves into a Groovy Launcher
+|Proposed
+
 |ADR-TBD-1
 |Confluence API Version Strategy
 |Proposed
@@ -134,6 +138,8 @@ include::../adrs/adr-15-architecture-as-code-diagrams.adoc[]
 include::../adrs/adr-16-project-local-tasks.adoc[]
 
 include::../adrs/adr-17-script-home-lib-resolution.adoc[]
+
+include::../adrs/adr-18-groovy-task-launcher.adoc[]
 
 include::../adrs/adr-tbd-1-confluence-api.adoc[]
 
