@@ -1,11 +1,13 @@
 # SPDX-License-Identifier: MIT
 # Copyright 2026, the docToolchain contributors
 
-# Tests for project-local custom tasks and monkey-patching (ADR-16, ADR-17).
+# Wrapper-level tests for v4 task dispatch (ADR-16 + ADR-18).
 #
-# A *.groovy file with the '// @task' marker in a project-local scripts
-# directory is discovered by dtcw. It either adds a new task (custom task) or,
-# when it shares a name with an installed task, overrides it (monkey-patching).
+# Since ADR-18, task discovery, the `tasks` listing, project-first resolution and
+# unknown-task guidance live in the Groovy launcher (scripts/Launcher.groovy),
+# unit-tested by scripts/lib/TaskLauncherTest.groovy. These bats tests verify
+# only the wrapper's remaining job: validate the task-name format and hand the
+# task off to the launcher with the right JVM options.
 
 setup() {
     load 'test_helper.bash'
@@ -14,19 +16,10 @@ setup() {
     export DTC_PROJECT_BRANCH=test
 
     # Create a v4 installation (lib/ directory present)
-    mkdir -p "${DTC_HOME}/lib"
-    mkdir -p "${DTC_HOME}/scripts"
+    mkdir -p "${DTC_HOME}/lib" "${DTC_HOME}/scripts"
     touch "${DTC_HOME}/lib/dummy.jar"
-
-    # An installed task
-    printf '// @task\n' > "${DTC_HOME}/scripts/generateHTML.groovy"
-
-    # Installed local java (so the v4 java invocation is captured, not real)
+    # Mocked java captures the invocation instead of really running the launcher
     java_mock=$(mock_create_java "${DTC_ROOT}/jdk/bin/java" "17.0.14")
-
-    # Isolate the project scripts directory from the repository's own scripts/
-    export DTC_PROJECT_SCRIPTS_DIR="${BATS_TEST_TMPDIR}/project-scripts"
-    mkdir -p "${DTC_PROJECT_SCRIPTS_DIR}"
 }
 
 teardown() {
@@ -34,73 +27,36 @@ teardown() {
     rm -rf "${DTC_ROOT}"
 }
 
-# --- Discovery / listing -----------------------------------------------------
-
-@test "custom: a project-local task with @task marker is listed" {
-    printf '// @task\n' > "${DTC_PROJECT_SCRIPTS_DIR}/myCustomTask.groovy"
-    run ./dtcw tasks
-    assert_success
-    assert_output --partial "Project-local custom tasks"
-    assert_output --partial "myCustomTask"
-}
-
-@test "custom: a project-local *.groovy without the marker is NOT a task" {
-    printf '// not a task\n' > "${DTC_PROJECT_SCRIPTS_DIR}/justAHelper.groovy"
-    run ./dtcw tasks
-    assert_success
-    refute_output --partial "justAHelper"
-}
-
-@test "override: a project task shadowing an installed one is flagged in the listing" {
-    printf '// @task\n' > "${DTC_PROJECT_SCRIPTS_DIR}/generateHTML.groovy"
-    run ./dtcw tasks
-    assert_success
-    assert_output --partial "generateHTML (overridden by"
-}
-
-@test "custom: a project task matching a non-task installed helper is custom, not an override" {
-    # The installation also holds non-task *.groovy helpers (no // @task marker).
-    # A project task sharing such a name must be a custom task, never an override.
-    printf '// a helper, not a task\nclass Foo {}\n' > "${DTC_HOME}/scripts/asciidoctorExtensions.groovy"
-    printf '// @task\n' > "${DTC_PROJECT_SCRIPTS_DIR}/asciidoctorExtensions.groovy"
-    run ./dtcw tasks
-    assert_success
-    assert_output --partial "Project-local custom tasks"
-    assert_output --partial "asciidoctorExtensions"
-    refute_output --partial "asciidoctorExtensions (overridden"
-}
-
-# --- Validation --------------------------------------------------------------
-
-@test "custom: an unknown task name is still rejected" {
-    run ./dtcw thisTaskDoesNotExist
-    assert_failure
-    assert_output --partial "Unknown task"
-}
-
-# --- Execution / resolution --------------------------------------------------
-
-@test "custom: running a project-local task invokes its script with dtc.scriptsHome" {
-    printf '// @task\n' > "${DTC_PROJECT_SCRIPTS_DIR}/myCustomTask.groovy"
-    run ./dtcw myCustomTask
-    assert_success
-    # Informational note that a project-local custom task is being run
-    assert_output --partial "project-local custom task 'myCustomTask'"
-    # The most recent java call runs GroovyMain on the project script and passes
-    # the installed scripts directory so lib/ resolves from the installation.
-    # (java is also called once for the -version check, hence no call-count assert.)
-    run mock_get_call_args "${java_mock}"
-    assert_output --partial "-Ddtc.scriptsHome=${DTC_HOME}/scripts"
-    assert_output --partial "${DTC_PROJECT_SCRIPTS_DIR}/myCustomTask.groovy"
-}
-
-@test "override: running an overridden task uses the project copy and warns" {
-    printf '// @task\n' > "${DTC_PROJECT_SCRIPTS_DIR}/generateHTML.groovy"
+@test "v4: a task is handed to the Groovy launcher with dtc.scriptsHome" {
     run ./dtcw generateHTML
     assert_success
-    assert_output --partial "override of task 'generateHTML'"
     run mock_get_call_args "${java_mock}"
-    # The project copy is executed, not the installed one
-    assert_output --partial "${DTC_PROJECT_SCRIPTS_DIR}/generateHTML.groovy"
-    refute_output --partial "${DTC_HOME}/scripts/generateHTML.groovy"
+    assert_output --partial "groovy.ui.GroovyMain"
+    assert_output --partial "${DTC_HOME}/scripts/Launcher.groovy"
+    assert_output --partial "generateHTML"
+    assert_output --partial "-Ddtc.scriptsHome=${DTC_HOME}/scripts"
+}
+
+@test "v4: an arbitrary task name is delegated (resolution is the launcher's job)" {
+    # The wrapper no longer decides whether a task exists — it forwards the name
+    # and the launcher resolves project-local vs installed (or rejects it).
+    run ./dtcw someProjectTask
+    assert_success
+    run mock_get_call_args "${java_mock}"
+    assert_output --partial "Launcher.groovy"
+    assert_output --partial "someProjectTask"
+}
+
+@test "v4: the tasks command is delegated to the launcher" {
+    run ./dtcw tasks
+    assert_success
+    run mock_get_call_args "${java_mock}"
+    assert_output --partial "Launcher.groovy"
+    assert_output --partial "tasks"
+}
+
+@test "v4: an invalid task name is rejected by the wrapper" {
+    run ./dtcw "bad name"
+    assert_failure
+    assert_output --partial "Invalid task name"
 }

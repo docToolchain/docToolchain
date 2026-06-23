@@ -111,28 +111,17 @@ main() {
         exit ${ERR_ARG}
     fi
 
-    # v4: handle 'tasks' command and validate task name (before environment split)
-    if is_v4_installation "${DTC_HOME}"; then
-        if [ "${1}" = "tasks" ]; then
-            # v4-S29: Warn about deprecated Gradle-style --group flag
-            if [[ "${2:-}" == "--group" ]]; then
-                echo "Note: v4 uses direct script invocation. --group is ignored." >&2
-            fi
-            list_v4_tasks "${DTC_HOME}"
-            exit 0
-        fi
-        assert_v4_task_exists "${1}" "${DTC_HOME}"
-
+    # v4 (ADR-18): the Groovy launcher owns task discovery, the 'tasks' listing,
+    # project-first resolution and unknown-task guidance. The task name format was
+    # validated above; here the wrapper only enforces the docker path constraint
+    # before handing the task off to the launcher in build_command.
+    if is_v4_installation "${DTC_HOME}" && [ "${environment}" = docker ] \
+            && [[ "${DTC_PROJECT_SCRIPTS_DIR}" = /* ]]; then
         # Docker mounts the project at /project, so a project-local task can only
-        # be reached via a path *relative* to the project root. An absolute
-        # DTC_PROJECT_SCRIPTS_DIR would yield an invalid in-container path
-        # (e.g. /project//abs/path); fail fast with guidance instead.
-        if [ "${environment}" = docker ] && [ -n "$(project_task_script "${1}")" ] \
-                && [[ "${DTC_PROJECT_SCRIPTS_DIR}" = /* ]]; then
-            error "DTC_PROJECT_SCRIPTS_DIR must be a relative path in docker mode (got '${DTC_PROJECT_SCRIPTS_DIR}')."
-            echo "The project is mounted at /project inside the container; set a path relative to the project root." >&2
-            exit ${ERR_ARG}
-        fi
+        # be reached via a path relative to the project root.
+        error "DTC_PROJECT_SCRIPTS_DIR must be a relative path in docker mode (got '${DTC_PROJECT_SCRIPTS_DIR}')."
+        echo "The project is mounted at /project inside the container; set a path relative to the project root." >&2
+        exit ${ERR_ARG}
     fi
 
     docker_image_name=""
@@ -693,110 +682,10 @@ build_classpath() {
     echo "$cp"
 }
 
-# Is the given file a runnable v4 task? (carries '// @task' in its first 5 lines)
-is_v4_task_script() {
-    local script=${1}
-    [ -f "$script" ] && head -5 "$script" | grep -q '// @task'
-}
-
-# Echo the path to a project-local task script for <task> if one exists and is
-# marked as a task, otherwise echo nothing. The project scripts directory is
-# resolved relative to the current working directory (the project root).
-project_task_script() {
-    local task=${1}
-    local script="${DTC_PROJECT_SCRIPTS_DIR}/${task}.groovy"
-    if is_v4_task_script "$script"; then
-        echo "$script"
-    fi
-}
-
-# List available v4 tasks (only scripts with '// @task' marker in first 5 lines)
-list_v4_tasks() {
-    local home=${1:-${DTC_HOME}}
-    local scripts_dir="${home}/scripts"
-    echo ""
-    echo "Available tasks:"
-    echo ""
-    for script in "${scripts_dir}/"*.groovy; do
-        [ -f "$script" ] || continue
-        # Only list scripts explicitly marked as tasks
-        if head -5 "$script" | grep -q '// @task'; then
-            local name
-            name=$(basename "$script" .groovy)
-            # Flag tasks that a project-local script overrides (monkey-patching)
-            if is_v4_task_script "${DTC_PROJECT_SCRIPTS_DIR}/${name}.groovy"; then
-                echo "  ${name} (overridden by ${DTC_PROJECT_SCRIPTS_DIR}/${name}.groovy)"
-            else
-                echo "  ${name}"
-            fi
-        fi
-    done
-    # Append project-local custom tasks that do not shadow an installed task
-    local printed_header=false
-    for script in "${DTC_PROJECT_SCRIPTS_DIR}/"*.groovy; do
-        [ -f "$script" ] || continue
-        is_v4_task_script "$script" || continue
-        local name
-        name=$(basename "$script" .groovy)
-        # Skip overrides — they were already listed next to the installed task.
-        # Use the marker check so a project task is still listed when the
-        # installation only has a non-task helper of the same name.
-        is_v4_task_script "${scripts_dir}/${name}.groovy" && continue
-        if [ "$printed_header" = false ]; then
-            echo ""
-            echo "Project-local custom tasks (${DTC_PROJECT_SCRIPTS_DIR}/):"
-            echo ""
-            printed_header=true
-        fi
-        echo "  ${name}"
-    done
-    echo ""
-    echo "Usage: ./dtcw [environment] <task>"
-    echo ""
-}
-
-# Check if a v4 task exists, suggest alternatives if not
-assert_v4_task_exists() {
-    local task=${1}
-    local home=${2:-${DTC_HOME}}
-    local script="${home}/scripts/${task}.groovy"
-
-    # A project-local task (custom or override) is always accepted
-    if [ -n "$(project_task_script "${task}")" ]; then
-        return 0
-    fi
-
-    if [ -f "$script" ] && head -5 "$script" | grep -q '// @task'; then
-        return 0
-    fi
-
-    # Task not found or not marked as task — provide actionable guidance (QS-17)
-    echo "" >&2
-    echo "Error: Unknown task '${task}'" >&2
-    echo "" >&2
-
-    # Suggest similar task names
-    local suggestions=""
-    for script in "${home}/scripts/"*.groovy; do
-        [ -f "$script" ] || continue
-        local name
-        name=$(basename "$script" .groovy)
-        # Simple substring match
-        if [[ "${name,,}" == *"${task,,}"* ]] || [[ "${task,,}" == *"${name,,}"* ]]; then
-            suggestions="${suggestions}  ${name}\n"
-        fi
-    done
-
-    if [ -n "$suggestions" ]; then
-        echo "Did you mean:" >&2
-        printf "%b" "$suggestions" >&2
-        echo "" >&2
-    fi
-
-    echo "Run './dtcw tasks' to see all available tasks." >&2
-    echo "" >&2
-    exit ${ERR_ARG}
-}
+# v4 task discovery, the `tasks` listing, project-first resolution (ADR-16) and
+# unknown-task guidance now live in the Groovy launcher (scripts/Launcher.groovy,
+# ADR-18) so the logic is unit-testable and shared across all platform wrappers.
+# The wrapper only validates the task-name format and builds the JVM invocation.
 
 # --- End v4 functions ---
 
@@ -840,26 +729,15 @@ build_command() {
             local java_opts="-Xmx2048m -Dfile.encoding=UTF-8 ${startup_opts}"
             java_opts="${java_opts} -DdocDir=. -DmainConfigFile=\"${DTC_CONFIG_FILE}\""
             java_opts="${java_opts} -DDTC_HEADLESS=true -DDTC_PROJECT_BRANCH=\"${DTC_PROJECT_BRANCH}\""
-            # Project-local scripts (custom or override) live under the mounted
-            # /project; installed scripts and their lib/ live under /opt/docToolchain.
+            # Installed scripts and their lib/ live under /opt/docToolchain; the
+            # launcher resolves project-local tasks relative to /project (ADR-18).
             java_opts="${java_opts} -Ddtc.scriptsHome=/opt/docToolchain/scripts"
-            local container_script="/opt/docToolchain/scripts/${task}.groovy"
-            local project_script
-            project_script=$(project_task_script "${task}")
-            if [ -n "$project_script" ]; then
-                container_script="/project/${DTC_PROJECT_SCRIPTS_DIR}/${task}.groovy"
-                if is_v4_task_script "${DTC_HOME}/scripts/${task}.groovy"; then
-                    echo "Note: running project-local override of task '${task}' from '${project_script}' (shadows the installed task)." >&2
-                else
-                    echo "Note: running project-local custom task '${task}' from '${project_script}'." >&2
-                fi
-            fi
             # Expansion must happen inside container, not locally
             # shellcheck disable=SC2016
             local docker_cp='$(for f in /opt/docToolchain/lib/*.jar; do [ -f "$f" ] && printf "%s:" "$f"; done)'
-            # Single-quote the script path so it survives word splitting / glob
-            # expansion in the container shell even if it contains spaces.
-            cmd="docker ${docker_args} -c \"java ${java_opts} -cp ${docker_cp} groovy.ui.GroovyMain '${container_script}' ${*:-} && exit\""
+            # Hand the task to the Groovy launcher; single-quote paths so they
+            # survive word splitting / glob expansion in the container shell.
+            cmd="docker ${docker_args} -c \"java ${java_opts} -cp ${docker_cp} groovy.ui.GroovyMain '/opt/docToolchain/scripts/Launcher.groovy' '${task}' ${*:-} && exit\""
         else
             # v3 Docker: Gradle via doctoolchain
             cmd="docker ${docker_args} -c \"doctoolchain . ${*} ${DTC_OPTS} && exit\""
@@ -882,21 +760,6 @@ build_command() {
                 exit ${ERR_DTCW}
             fi
 
-            # Resolve the script to run: a project-local task (custom or override)
-            # takes precedence over the installed one (ADR-16). Warnings go to
-            # stderr so they do not pollute the captured command on stdout.
-            local script_path="${dtc_home}/scripts/${task}.groovy"
-            local project_script
-            project_script=$(project_task_script "${task}")
-            if [ -n "$project_script" ]; then
-                script_path="$project_script"
-                if is_v4_task_script "${dtc_home}/scripts/${task}.groovy"; then
-                    echo "Note: running project-local override of task '${task}' from '${project_script}' (shadows the installed task)." >&2
-                else
-                    echo "Note: running project-local custom task '${task}' from '${project_script}'." >&2
-                fi
-            fi
-
             # Short-lived JVM: cap JIT at C1 (skip the C2 compiler, which never
             # pays off in a seconds-long run) and use SerialGC. Roughly halves
             # startup + render for typical docs. Override or disable via
@@ -911,8 +774,9 @@ build_command() {
             # resources) live, so project-local scripts resolve them from the
             # installation rather than next to themselves (ADR-17).
             java_opts="${java_opts} -Ddtc.scriptsHome=\"${dtc_home}/scripts\""
-            # Pass remaining arguments as system properties or script args
-            cmd="${JAVA_CMD:-java} ${java_opts} -cp \"${classpath}\" groovy.ui.GroovyMain \"${script_path}\" ${*:-}"
+            # Hand the task to the Groovy launcher (ADR-18); it resolves
+            # project-local vs installed tasks, prints notes, and dispatches.
+            cmd="${JAVA_CMD:-java} ${java_opts} -cp \"${classpath}\" groovy.ui.GroovyMain \"${dtc_home}/scripts/Launcher.groovy\" \"${task}\" ${*:-}"
         else
             # v3: Gradle-based execution
             if [[ "${DTC_HEADLESS}" = false ]]; then
