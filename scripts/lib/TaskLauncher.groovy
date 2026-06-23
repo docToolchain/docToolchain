@@ -41,6 +41,16 @@ class TaskLauncher {
         isTask(f) ? f : null
     }
 
+    // Display helpers: build shown paths via File so separators are normalized
+    // across platforms (relevant once the Windows wrappers use this launcher) and
+    // absolute / trailing-separator values render sanely.
+    private String taskDisplayPath(String name) {
+        new File(projectScriptsDirName ?: 'scripts', "${name}.groovy").path
+    }
+    private String dirDisplay() {
+        new File(projectScriptsDirName ?: 'scripts').path + File.separator
+    }
+
     private List<String> markedTaskNames(File dir) {
         def files = dir?.isDirectory() ? dir.listFiles({ d, n -> n.endsWith('.groovy') } as FilenameFilter) : null
         ((files ?: []) as List).findAll { isTask(it) }.collect { it.name - '.groovy' }.sort()
@@ -56,14 +66,14 @@ class TaskLauncher {
     Map resolve(String task) {
         def proj = projectTaskScript(task)
         if (proj) {
+            def shown = taskDisplayPath(task)
             if (installedTaskScript(task)) {
                 return [script: proj, kind: 'override',
                         note: "Note: running project-local override of task '${task}' from " +
-                              "'${projectScriptsDirName}/${task}.groovy' (shadows the installed task)."]
+                              "'${shown}' (shadows the installed task)."]
             }
             return [script: proj, kind: 'custom',
-                    note: "Note: running project-local custom task '${task}' from " +
-                          "'${projectScriptsDirName}/${task}.groovy'."]
+                    note: "Note: running project-local custom task '${task}' from '${shown}'."]
         }
         def inst = installedTaskScript(task)
         if (inst) return [script: inst, kind: 'installed', note: null]
@@ -78,14 +88,14 @@ class TaskLauncher {
         sb << '\n' << 'Available tasks:\n' << '\n'
         installed.each { name ->
             if (project.contains(name)) {
-                sb << "  ${name} (overridden by ${projectScriptsDirName}/${name}.groovy)\n"
+                sb << "  ${name} (overridden by ${taskDisplayPath(name)})\n"
             } else {
                 sb << "  ${name}\n"
             }
         }
         def customOnly = project.findAll { !installed.contains(it) }
         if (customOnly) {
-            sb << '\n' << "Project-local custom tasks (${projectScriptsDirName}/):\n" << '\n'
+            sb << '\n' << "Project-local custom tasks (${dirDisplay()}):\n" << '\n'
             customOnly.each { sb << "  ${it}\n" }
         }
         sb << '\n' << 'Usage: ./dtcw [environment] <task>\n' << '\n'

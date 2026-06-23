@@ -30,8 +30,9 @@ Override it with the environment variable `DTC_PROJECT_SCRIPTS_DIR`.
 
 NOTE: In the `docker` environment the project is mounted at a fixed location
 inside the container, so `DTC_PROJECT_SCRIPTS_DIR` must be a path *relative* to
-the project root. `dtcw` rejects an absolute value with an actionable error when
-running a project-local task in Docker.
+the project root. An absolute value cannot be reached inside the container, so
+project tasks would not be found there (resolution falls back to the installed
+task).
 
 == Adding a custom task
 

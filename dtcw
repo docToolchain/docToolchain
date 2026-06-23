@@ -111,18 +111,13 @@ main() {
         exit ${ERR_ARG}
     fi
 
-    # v4 (ADR-18): the Groovy launcher owns task discovery, the 'tasks' listing,
-    # project-first resolution and unknown-task guidance. The task name format was
-    # validated above; here the wrapper only enforces the docker path constraint
-    # before handing the task off to the launcher in build_command.
-    if is_v4_installation "${DTC_HOME}" && [ "${environment}" = docker ] \
-            && [[ "${DTC_PROJECT_SCRIPTS_DIR}" = /* ]]; then
-        # Docker mounts the project at /project, so a project-local task can only
-        # be reached via a path relative to the project root.
-        error "DTC_PROJECT_SCRIPTS_DIR must be a relative path in docker mode (got '${DTC_PROJECT_SCRIPTS_DIR}')."
-        echo "The project is mounted at /project inside the container; set a path relative to the project root." >&2
-        exit ${ERR_ARG}
-    fi
+    # v4 (ADR-18): the Groovy launcher (scripts/Launcher.groovy) owns task
+    # discovery, the 'tasks' listing, project-first resolution and unknown-task
+    # guidance. The task-name format was validated above; everything else is the
+    # launcher's job. It resolves project tasks relative to the project root, so
+    # in docker (project mounted at /project) an absolute DTC_PROJECT_SCRIPTS_DIR
+    # simply won't match a project task and resolution falls back to the
+    # installed one — no special-casing needed in the wrapper.
 
     docker_image_name=""
     docker_extra_arguments=""
