@@ -45,6 +45,12 @@ include::40_features.adoc[leveloffset=+1]
 
 '''
 
+<<<
+
+include::45_custom_tasks.adoc[leveloffset=+1]
+
+'''
+
 = docToolchain Tasks
 
 :leveloffset: +0
@@ -88,6 +94,18 @@ include::../015_tasks/03_task_exportExcel.adoc[]
 <<<
 
 include::../015_tasks/03_task_downloadTemplate.adoc[]
+
+'''
+
+<<<
+
+include::../015_tasks/03_task_createTask.adoc[]
+
+'''
+
+<<<
+
+include::../015_tasks/03_task_copyTask.adoc[]
 
 '''
 

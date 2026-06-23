@@ -13,7 +13,7 @@ import javax.imageio.ImageIO
 def docDir = System.getProperty('docDir', '.')
 def configFile = System.getProperty('mainConfigFile', 'docToolchainConfig.groovy')
 
-def scriptDir = new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile
+def scriptDir = System.getProperty('dtc.scriptsHome') ? new File(System.getProperty('dtc.scriptsHome')) : new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile
 def DtcConfig = new GroovyClassLoader(this.class.classLoader).parseClass(new File(scriptDir, 'lib/DtcConfig.groovy'))
 def dtcConfig = DtcConfig.load(docDir, configFile)
 def config = dtcConfig.getRaw()

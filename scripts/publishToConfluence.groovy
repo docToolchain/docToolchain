@@ -15,9 +15,11 @@
 def docDir = System.getProperty('docDir', '.')
 def configFile = System.getProperty('mainConfigFile', 'docToolchainConfig.groovy')
 
-// scriptDir = the directory this script lives in (…/scripts). For a script run
-// via groovy.ui.GroovyMain the codeSource location is the script file itself.
-def scriptDir = new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile
+// scriptDir = the installed scripts/ directory that holds lib/ (ADR-17). dtcw
+// passes it via -Ddtc.scriptsHome so a project-local copy of this script still
+// finds the bundled helpers; the fallback (codeSource location, i.e. the script
+// file itself) applies when run directly via groovy.ui.GroovyMain without dtcw.
+def scriptDir = System.getProperty('dtc.scriptsHome') ? new File(System.getProperty('dtc.scriptsHome')) : new File(getClass().protectionDomain.codeSource.location.toURI()).parentFile
 
 def libGcl = new GroovyClassLoader(this.class.classLoader)
 def DtcConfig = libGcl.parseClass(new File(scriptDir, 'lib/DtcConfig.groovy'))

@@ -1,0 +1,116 @@
+:filename: 010_manual/45_custom_tasks.adoc
+ifndef::imagesdir[:imagesdir: images]
+
+[[custom-tasks]]
+= Extending docToolchain: Custom Tasks and Monkey-Patching
+
+docToolchain ships every task as a self-contained Groovy script. You can use the
+same mechanism in your own project — to *add* a task or to *change* one that
+docToolchain already provides. Neither needs a fork, a build step, or an edit to
+a registry.
+
+NOTE: This is a v4 feature (the Gradle-free runtime driven by `dtcw`/`dtcw4`).
+The older v3 `customTasks` config entry belongs to the Gradle build and does not
+apply here.
+
+== How task resolution works
+
+When you run `./dtcw <task>`, the wrapper looks for the task script in two
+places, **the project first, the installation second**:
+
+. `scripts/<task>.groovy` in your project (the *project scripts directory*)
+. `<task>.groovy` in the installed docToolchain (`~/.doctoolchain/docToolchain-<version>/scripts/`)
+
+A file counts as a task only if it carries the marker `// @task` within its
+first five lines — exactly the rule used by the built-in tasks. This is how a
+project script can be discovered without you registering it anywhere.
+
+The project scripts directory defaults to `scripts/` under your project root.
+Override it with the environment variable `DTC_PROJECT_SCRIPTS_DIR`.
+
+NOTE: In the `docker` environment the project is mounted at a fixed location
+inside the container, so `DTC_PROJECT_SCRIPTS_DIR` must be a path *relative* to
+the project root. `dtcw` rejects an absolute value with an actionable error when
+running a project-local task in Docker.
+
+== Adding a custom task
+
+Create a skeleton with `createTask` and edit it:
+
+[source,bash]
+----
+./dtcw createTask exportNotion
+----
+
+This writes `scripts/exportNotion.groovy` with the `// @task` marker already in
+place. Add your logic, then run it:
+
+[source,bash]
+----
+./dtcw exportNotion
+----
+
+It also shows up in the task list, under its own heading:
+
+[source,bash]
+----
+./dtcw tasks
+----
+
+You can of course create the file by hand instead — the only requirement is the
+`// @task` marker near the top.
+
+=== Reusing docToolchain's helpers
+
+A custom task can reuse the bundled helpers (for example `DtcConfig` to read
+`docToolchainConfig.groovy`). They live in the installation, not your project,
+and `dtcw` tells your script where via the `dtc.scriptsHome` system property:
+
+[source,groovy]
+----
+def docDir = System.getProperty('docDir', '.')
+def configFile = System.getProperty('mainConfigFile', 'docToolchainConfig.groovy')
+
+def scriptsHome = System.getProperty('dtc.scriptsHome')
+def gcl = new GroovyClassLoader(this.class.classLoader)
+def DtcConfig = gcl.parseClass(new File(scriptsHome, 'lib/DtcConfig.groovy'))
+def config = DtcConfig.load(docDir, configFile).getRaw()
+
+println "inputPath is ${config.inputPath}"
+----
+
+The skeleton created by `createTask` already contains this pattern.
+
+== Monkey-patching an installed task
+
+To change what a shipped task does, copy it into your project and edit the copy:
+
+[source,bash]
+----
+./dtcw copyTask generateHTML
+----
+
+This copies the installed `generateHTML.groovy` to `scripts/generateHTML.groovy`
+in your project. Because the project copy has the same name as an installed
+task, it *overrides* it: from now on `./dtcw generateHTML` runs **your** copy.
+
+docToolchain makes the override visible so you never patch by accident:
+
+* `./dtcw generateHTML` prints a note to stderr that the installed task is being
+  overridden by your project file.
+* `./dtcw tasks` lists `generateHTML` as `overridden by scripts/generateHTML.groovy`.
+
+The copy keeps working even though it now lives in your project: its bundled
+helpers and resources still resolve from the installation via `dtc.scriptsHome`.
+
+To return to the shipped behaviour, simply delete your copy.
+
+WARNING: A monkey-patched task is pinned to the version you copied. After
+upgrading docToolchain, re-copy the task if you want to pick up upstream changes.
+
+== Security note
+
+Project tasks are Groovy code that runs with your privileges — the same trust
+level that `docToolchainConfig.groovy` already has, since it too is executable
+Groovy. Opening someone else's project and running `dtcw` runs their scripts.
+Treat a project's `scripts/` directory with the same care as its config.

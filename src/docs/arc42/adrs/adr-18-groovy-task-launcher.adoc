@@ -1,0 +1,50 @@
+=== ADR-18: v4 Task Dispatch Moves into a Groovy Launcher — Bash Wrapper Reduced to JVM Bootstrap
+
+* **Status**: Proposed (target of the v4 quality rewrite; not yet implemented)
+* **Context**: v4 task *dispatch* logic currently lives in the Bash wrapper `dtcw`: task discovery (`list_v4_tasks`), validation (`assert_v4_task_exists`), and selection/invocation (the v4 branch of `build_command`), including the project-first resolution and override notes added for ADR-16. `dtcw4` only bootstraps and `exec`s the installed `dtcw` (ADR-13). Two forces make Bash the wrong long-term home for this logic:
+** **No cross-platform single source.** The v4 `GroovyMain` path exists only in the Bash `dtcw`; `dtcw.ps1`/`dtcw.bat` carry no v4 path at all (tracked as technical debt in <<section-technical-risks>>). Every piece of dispatch logic added in Bash must eventually be re-implemented twice more, in two more untyped shell dialects — exactly the drift the `// @task` marker (ADR-14) was meant to avoid for the task list.
+** **Untestable, against the v4 grain.** Dispatch logic in Bash is exercised only by bats integration tests; it cannot be unit-tested. v4's direction is script-first Groovy with logic out of the wrapper/build layer (ADR-3, ADR-5, ADR-12). Discovery, project-vs-install resolution, and override signalling are business logic, not JVM bootstrapping.
+* **Decision**: Extract v4 task discovery, resolution, and invocation into a single **Groovy launcher** (e.g. `scripts/Launcher.groovy`) executed inside the JVM the wrapper already starts. The platform wrappers (`dtcw`, `dtcw.ps1`, `dtcw.bat`) are reduced to what only they can do — detect the environment, locate Java, build the `lib/*` classpath, and hand **all** arguments to the launcher with the existing system properties (`docDir`, `dtc.scriptsHome`, `DTC_PROJECT_SCRIPTS_DIR`, …). The launcher owns: scanning the project and installed scripts directories, the `// @task` marker check, project-first selection with override/custom notes (ADR-16), unknown-task guidance, and dispatch to the chosen task script. This is the structural move; behaviour is preserved (the bats acceptance tests from ADR-16 stay green and are joined by Spock unit tests around the launcher).
+* **Alternatives considered**:
+
+[cols="3,1,1,1", options="header"]
+|===
+|Criterion |A: Keep dispatch in each wrapper (Bash + PS + BAT) |B: Groovy launcher, wrappers bootstrap only (chosen) |C: Compiled Java launcher in `lib/`
+
+|Single source across platforms (kills the Windows-parity debt) — QS-2
+|–1 (logic hand-ported into three shells)
+|+1 (one launcher for all wrappers)
+|+1
+
+|Testability (Spock unit tests vs bats/manual)
+|–1
+|+1
+|+1
+
+|Script-first, no compile step (ADR-3/ADR-12)
+|0
+|+1
+|–1 (reintroduces a build artifact)
+
+|Startup overhead (QS-9)
+|+1 (no extra step)
+|0 (runs in the JVM already started for the task)
+|+1
+
+|Change size / risk
+|0
+|0
+|–1 (build + packaging return)
+
+|**Total**
+|**–1**
+|**+3**
+|**+1**
+|===
+
+* **Quality Tradeoffs**:
+** Supports **QS-2 (Portability)** and retires the *"No v4 Windows wrapper path"* technical debt: one launcher gives `dtcw.ps1`/`dtcw.bat` the v4 path for free.
+** Supports **QS-1 (Extensibility)**, **QS-11 (Script-first)**, **QS-5 (Testability/maintainability)**: dispatch becomes Groovy, unit-tested, and consistent with how tasks themselves are written.
+** Neutral on **QS-9 (Fast startup)**: discovery moves into the JVM that is started for the task anyway — no second process.
+** Cost: a one-time refactor and the discipline of keeping the wrappers thin. Bash keeps only environment/JVM bootstrapping.
+* **Consequences**: The ~50 lines of v4 dispatch in `dtcw` (the ADR-16 resolution, listing, and notes) move into the launcher; the wrappers shrink to bootstrap + delegate. ADR-16's behaviour and bats acceptance tests are preserved, with Spock unit tests added around the launcher. This decision **does not change** ADR-13 (thin `dtcw4` → installed wrapper) or ADR-17 (`dtc.scriptsHome`), which already live in Groovy and are unaffected. Until this lands, the project-task logic from ADR-16 remains in the Bash `dtcw` as a deliberate tracer-bullet — correct and tested, but pending extraction. Tracked as an EPIC referencing the *"No v4 Windows wrapper path"* debt in <<section-technical-risks>>.

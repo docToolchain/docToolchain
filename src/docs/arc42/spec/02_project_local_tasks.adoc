@@ -1,0 +1,256 @@
+= docToolchain v4 — Specification: Project-Local Tasks
+:toc:
+:toclevels: 3
+:sectnums:
+
+// This specification covers two related features: project-local *custom tasks*
+// and *monkey-patching* of installed tasks. Both rest on the same mechanism —
+// dtcw resolving tasks from the project before the installation (ADR-16) and
+// scripts loading their helpers from the installation (ADR-17).
+
+== Problem and Goals (PRD digest)
+
+*Problem.* A docToolchain v4 user can neither add their own task nor change a
+shipped task without forking docToolchain or editing the shared installation
+that every project on the machine inherits. The v3 mechanism
+(`customTasks.gradle`) is Gradle-bound and dead under the Gradle-free v4 runtime.
+
+*Goals.*
+
+* *G-1 Custom tasks* — a user adds a project-specific task and runs it via `dtcw`,
+  with no fork and no edit to a registry or config (concretises quality goal QS-1).
+* *G-2 Monkey-patching* — a user copies an installed task into their project,
+  edits it, and `dtcw` runs the project copy instead of the shipped one,
+  isolated to that project and committed alongside the docs.
+* *G-3 Transparency* — an override is never silent; the user always sees that a
+  patched task is running.
+
+*Personas.* Documentation Author (runs tasks), Build/Tooling Maintainer
+(authors custom tasks and patches), CI pipeline (non-interactive runner).
+
+*Success criteria.* A new marked script in the project appears in `./dtcw tasks`
+and runs; a same-named project script overrides the installed one and prints a
+note; both load the bundled `lib/` helpers without copying them into the project.
+
+== Domain Terms (Ubiquitous Language)
+
+[cols="1,3", options="header"]
+|===
+|Term |Meaning
+
+|Installed task
+|A `*.groovy` with `// @task` (first 5 lines, ADR-14) under the installation `scripts/`.
+
+|Project scripts directory
+|Directory under the project root scanned for project tasks. Default `scripts/`, overridable via `DTC_PROJECT_SCRIPTS_DIR`.
+
+|Custom task
+|A project task whose name matches no installed task — it *adds* a task.
+
+|Override (monkey-patch)
+|A project task whose name matches an installed task — it *replaces* it for this project.
+
+|`dtc.scriptsHome`
+|System property set by `dtcw` to the installed `scripts/` directory, so any script resolves `lib/` and bundled resources from the installation (ADR-17).
+|===
+
+== Use Cases (Cockburn, fully dressed)
+
+=== UC-CT-1: Add a Custom Task
+
+* *Primary Actor*: Build/Tooling Maintainer
+* *Level*: User goal
+* *Trigger*: The maintainer needs a project-specific automation step (e.g. `exportNotion`).
+* *Preconditions*: docToolchain v4 is installed; the project has a `docToolchainConfig.groovy`.
+* *Postconditions (success)*: A `*.groovy` task exists in the project scripts directory and runs via `./dtcw <name>`; it appears in `./dtcw tasks`.
+
+*Main Success Scenario*
+
+. Maintainer runs `./dtcw createTask exportNotion` (or hand-creates the file).
+. `dtcw` writes `scripts/exportNotion.groovy` with a `// @task` skeleton.
+. Maintainer edits the script's logic.
+. Maintainer runs `./dtcw exportNotion`.
+. `dtcw` discovers the project task, runs it, and prints a note that a project-local custom task is running.
+
+*Extensions*
+
+* 1a. Name invalid (BR-2): `createTask` aborts with an actionable message; no file written.
+* 1b. File already exists: `createTask` aborts and refuses to overwrite.
+* 4a. Marker missing or past line 5 (BR-1): the task is not discovered; `./dtcw tasks` does not list it and `./dtcw exportNotion` reports "Unknown task".
+
+*Business Rules*: BR-1, BR-2, BR-5.
+
+=== UC-CT-2: Monkey-Patch an Installed Task
+
+* *Primary Actor*: Build/Tooling Maintainer
+* *Level*: User goal
+* *Trigger*: A shipped task needs a project-specific change (e.g. tweak `generateHTML` attributes).
+* *Preconditions*: The task to patch exists in the installation.
+* *Postconditions (success)*: A project copy of the task runs instead of the installed one, for this project only; the installation is untouched.
+
+*Main Success Scenario*
+
+. Maintainer runs `./dtcw copyTask generateHTML`.
+. `dtcw` copies the installed `generateHTML.groovy` into the project scripts directory.
+. Maintainer edits the project copy.
+. Maintainer runs `./dtcw generateHTML`.
+. `dtcw` resolves the project copy first (BR-3), prints an override note to stderr (BR-4), and runs it; the copy loads `lib/` helpers from the installation (BR-6).
+
+*Extensions*
+
+* 1a. Installed task not found: `copyTask` aborts with the list of available tasks.
+* 2a. Project copy already exists: `copyTask` aborts and refuses to overwrite.
+* 4a. Maintainer deletes the project copy: `dtcw` falls back to the installed task, no note printed.
+
+*Business Rules*: BR-3, BR-4, BR-6.
+
+== System Use Cases (per CLI interface)
+
+=== SUC-1: `./dtcw <task>` resolution
+
+* *Input*: a task name matching `^[a-zA-Z][a-zA-Z0-9_-]*$`.
+* *Processing*:
+.. If `<projectScriptsDir>/<task>.groovy` exists and is marked, select it; else if the installed script exists and is marked, select that; else fail.
+.. If a project script was selected and an installed script of the same name exists, emit an override note to stderr; if no installed counterpart exists, emit a custom-task note.
+.. Invoke `java … groovy.ui.GroovyMain <selected script>` with `-DdocDir=.` and `-Ddtc.scriptsHome=<install>/scripts`.
+* *Output / status*: exit 0 on success; exit `ERR_ARG` for an invalid or unknown task name; the selected script's exit code otherwise.
+* *Error responses*: invalid name → "Invalid task name"; unknown task → "Unknown task '<task>'" plus near-name suggestions and "Run './dtcw tasks'".
+
+=== SUC-2: `./dtcw tasks` listing
+
+* *Input*: none (a trailing `--group …` is accepted and ignored with a note).
+* *Processing*: list installed tasks; annotate any that a project script overrides as `(overridden by …)`; then list project-only custom tasks under a separate heading.
+* *Output*: the task list; exit 0.
+
+=== SUC-3: `./dtcw createTask [name]`
+
+* *Input*: optional task name (default `customTask`), validated by BR-2.
+* *Processing*: create `<projectScriptsDir>/<name>.groovy` from a marked skeleton.
+* *Output / status*: path of the created file, exit 0; exit 2 on invalid name; exit 1 if the file exists.
+
+=== SUC-4: `./dtcw copyTask <name>`
+
+* *Input*: required name of an installed task.
+* *Processing*: copy `<install>/scripts/<name>.groovy` to `<projectScriptsDir>/<name>.groovy`.
+* *Output / status*: path of the copy plus an override hint, exit 0; exit 2 if no name; exit 1 if the installed task is missing or the copy already exists.
+
+== Activity Diagram — Task Resolution (SUC-1)
+
+[plantuml,suc1-task-resolution,svg]
+----
+@startuml
+start
+:user runs ./dtcw <task>;
+if (task name well-formed?) then (no)
+  :print "Invalid task name";
+  stop
+else (yes)
+endif
+if (project scripts dir has <task>.groovy with // @task ?) then (yes)
+  if (installed <task>.groovy exists ?) then (yes)
+    :print override Note to stderr (BR-4);
+  else (no)
+    :print custom-task Note to stderr;
+  endif
+  :select project script;
+else (no)
+  if (installed <task>.groovy with // @task ?) then (yes)
+    :select installed script;
+  else (no)
+    :print "Unknown task" + suggestions;
+    stop
+  endif
+endif
+:invoke GroovyMain with
+-DdocDir=. and -Ddtc.scriptsHome=<install>/scripts;
+stop
+@enduml
+----
+
+== Requirements (EARS)
+
+* *EARS-1 (ubiquitous)*: The dtcw wrapper shall treat a `*.groovy` file as a task only if it carries `// @task` within its first five lines.
+* *EARS-2 (event)*: When a task name is requested, dtcw shall resolve a project-local script in preference to an installed script of the same name.
+* *EARS-3 (event)*: When dtcw runs a project-local script that shadows an installed task, dtcw shall emit a note to stderr identifying the overriding file.
+* *EARS-4 (state)*: While running any v4 task, dtcw shall pass `-Ddtc.scriptsHome` set to the installed scripts directory.
+* *EARS-5 (event)*: When a requested task name matches neither a project nor an installed marked script, dtcw shall exit non-zero with an "Unknown task" message.
+* *EARS-6 (unwanted)*: If `createTask`/`copyTask` would overwrite an existing project file, then dtcw shall abort without modifying it.
+
+== Business Rules
+
+* *BR-1*: A task is discoverable iff it is a `*.groovy` with `// @task` in its first five lines (consistent with ADR-14).
+* *BR-2*: A task name must match `^[a-zA-Z][a-zA-Z0-9_-]*$`.
+* *BR-3*: Project scripts take precedence over installed scripts of the same name.
+* *BR-4*: Every override run prints a visible note; overrides are flagged in `./dtcw tasks`.
+* *BR-5*: Adding a custom task requires no edit to any config file or registry.
+* *BR-6*: A project script loads bundled `lib/` helpers and resources from the installation via `dtc.scriptsHome`, never from the project.
+
+== Acceptance Criteria (Gherkin)
+
+[source,gherkin]
+----
+Feature: Project-local custom tasks and monkey-patching
+
+  Scenario: Custom task is discovered (UC-CT-1, BR-1, BR-5)
+    Given a project scripts directory contains myCustomTask.groovy with a // @task marker
+    When the user runs ./dtcw tasks
+    Then "myCustomTask" appears under the project-local custom tasks heading
+
+  Scenario: Unmarked file is not a task (BR-1)
+    Given a project scripts directory contains justAHelper.groovy without a // @task marker
+    When the user runs ./dtcw tasks
+    Then "justAHelper" does not appear in the task list
+
+  Scenario: Custom task runs with the installation helpers (UC-CT-1, BR-6)
+    Given a project scripts directory contains myCustomTask.groovy with a // @task marker
+    When the user runs ./dtcw myCustomTask
+    Then dtcw runs the project script
+    And it passes -Ddtc.scriptsHome pointing at the installed scripts directory
+
+  Scenario: Override shadows the installed task and is announced (UC-CT-2, BR-3, BR-4)
+    Given an installed task generateHTML exists
+    And the project scripts directory contains generateHTML.groovy with a // @task marker
+    When the user runs ./dtcw generateHTML
+    Then dtcw runs the project copy, not the installed script
+    And dtcw prints a note that the installed task is being overridden
+
+  Scenario: Override is flagged in the task list (BR-4)
+    Given an installed task generateHTML exists
+    And the project scripts directory contains generateHTML.groovy with a // @task marker
+    When the user runs ./dtcw tasks
+    Then "generateHTML" is shown as overridden by the project script
+
+  Scenario: Unknown task is rejected (EARS-5)
+    Given no script named thisTaskDoesNotExist exists in the project or the installation
+    When the user runs ./dtcw thisTaskDoesNotExist
+    Then dtcw exits non-zero
+    And dtcw prints "Unknown task"
+
+  Scenario: copyTask refuses to overwrite (EARS-6, BR-3)
+    Given the project scripts directory already contains generateHTML.groovy
+    When the user runs ./dtcw copyTask generateHTML
+    Then dtcw aborts without modifying the existing file
+----
+
+== Traceability
+
+[cols="1,2,2", options="header"]
+|===
+|Item |Realised by |Verified by
+
+|UC-CT-1 / G-1
+|ADR-16, `createTask.groovy`, dtcw resolution
+|`test/custom_tasks.bats` (discovery, custom run)
+
+|UC-CT-2 / G-2
+|ADR-16, `copyTask.groovy`, dtcw override resolution
+|`test/custom_tasks.bats` (override run, listing)
+
+|G-3 / BR-4
+|dtcw override `Note:` + listing annotation
+|`test/custom_tasks.bats` (override note)
+
+|BR-6 / ADR-17
+|`dtc.scriptsHome` + script `scriptDir` idiom
+|`test/custom_tasks.bats` (scriptsHome passed)
+|===

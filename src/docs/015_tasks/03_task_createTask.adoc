@@ -1,0 +1,43 @@
+:filename: 015_tasks/03_task_createTask.adoc
+include::_config.adoc[]
+
+[[task_createTask]]
+== createTask
+
+include::../_feedback.adoc[]
+
+=== About This Task
+
+`createTask` scaffolds a new *project-local custom task*. It writes a ready-to-edit
+Groovy script — with the `// @task` marker already in place — into your project's
+scripts directory, so `dtcw` discovers and runs it without any further wiring.
+
+[source,bash]
+----
+./dtcw createTask exportNotion
+----
+
+This creates `scripts/exportNotion.groovy`. Run it with `./dtcw exportNotion` and
+see it listed via `./dtcw tasks`.
+
+=== Setup and Configuration
+
+* The task name must start with a letter and contain only letters, digits,
+  hyphens or underscores. If omitted, the name defaults to `customTask`.
+* The target directory defaults to `scripts/`; override it with the
+  `DTC_PROJECT_SCRIPTS_DIR` environment variable.
+* `createTask` never overwrites an existing file — pick a new name or edit the
+  existing script directly.
+
+The generated skeleton shows how to read `docToolchainConfig.groovy` and reuse
+docToolchain's bundled helpers via the `dtc.scriptsHome` system property.
+
+=== Further Reading and Resources
+
+* xref:../010_manual/45_custom_tasks.adoc[Extending docToolchain: Custom Tasks and Monkey-Patching]
+* <<task_copyTask,copyTask>> — copy an installed task to modify it
+
+=== Source
+
+:param_source_file: scripts/createTask.groovy
+include::_viewTaskSource.adoc[]
