@@ -28,6 +28,11 @@ project script can be discovered without you registering it anywhere.
 The project scripts directory defaults to `scripts/` under your project root.
 Override it with the environment variable `DTC_PROJECT_SCRIPTS_DIR`.
 
+NOTE: In the `docker` environment the project is mounted at a fixed location
+inside the container, so `DTC_PROJECT_SCRIPTS_DIR` must be a path *relative* to
+the project root. `dtcw` rejects an absolute value with an actionable error when
+running a project-local task in Docker.
+
 == Adding a custom task
 
 Create a skeleton with `createTask` and edit it:

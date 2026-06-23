@@ -823,6 +823,7 @@ build_command() {
 
         docker_args="run --rm -i --platform linux/amd64 -u $(id -u):$(id -g) --name ${container_name} \
             -e DTC_HEADLESS=true -e DTC_SITETHEME -e DTC_PROJECT_BRANCH=${DTC_PROJECT_BRANCH} \
+            -e DTC_PROJECT_SCRIPTS_DIR \
             ${docker_extra_arguments} ${env_file_option} \
             --entrypoint /bin/bash -v '${pwd}:/project' ${DTC_DOCKER_PREFIX}${docker_image}:v${version}"
 
@@ -856,7 +857,9 @@ build_command() {
             # Expansion must happen inside container, not locally
             # shellcheck disable=SC2016
             local docker_cp='$(for f in /opt/docToolchain/lib/*.jar; do [ -f "$f" ] && printf "%s:" "$f"; done)'
-            cmd="docker ${docker_args} -c \"java ${java_opts} -cp ${docker_cp} groovy.ui.GroovyMain ${container_script} ${*:-} && exit\""
+            # Single-quote the script path so it survives word splitting / glob
+            # expansion in the container shell even if it contains spaces.
+            cmd="docker ${docker_args} -c \"java ${java_opts} -cp ${docker_cp} groovy.ui.GroovyMain '${container_script}' ${*:-} && exit\""
         else
             # v3 Docker: Gradle via doctoolchain
             cmd="docker ${docker_args} -c \"doctoolchain . ${*} ${DTC_OPTS} && exit\""
