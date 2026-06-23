@@ -88,6 +88,13 @@ teardown() {
     # Test setup
     _mock=$(mock_create docker)
 
+    # v4 (ADR-18): `tasks` runs the Groovy launcher, which needs the lib/
+    # classpath. A complete v4 install ships JARs in lib/; provide one so this is
+    # a complete install rather than a broken one (which would, correctly, error
+    # with "Installation may be incomplete").
+    mkdir -p "${DTC_HOME}/lib"
+    touch "${DTC_HOME}/lib/dummy.jar"
+
     # The installation of docker should not have any effect
     PATH="${minimal_system}" run -0 ./dtcw tasks --group doctoolchain
 
