@@ -122,6 +122,17 @@ main() {
             exit 0
         fi
         assert_v4_task_exists "${1}" "${DTC_HOME}"
+
+        # Docker mounts the project at /project, so a project-local task can only
+        # be reached via a path *relative* to the project root. An absolute
+        # DTC_PROJECT_SCRIPTS_DIR would yield an invalid in-container path
+        # (e.g. /project//abs/path); fail fast with guidance instead.
+        if [ "${environment}" = docker ] && [ -n "$(project_task_script "${1}")" ] \
+                && [[ "${DTC_PROJECT_SCRIPTS_DIR}" = /* ]]; then
+            error "DTC_PROJECT_SCRIPTS_DIR must be a relative path in docker mode (got '${DTC_PROJECT_SCRIPTS_DIR}')."
+            echo "The project is mounted at /project inside the container; set a path relative to the project root." >&2
+            exit ${ERR_ARG}
+        fi
     fi
 
     docker_image_name=""
@@ -727,8 +738,10 @@ list_v4_tasks() {
         is_v4_task_script "$script" || continue
         local name
         name=$(basename "$script" .groovy)
-        # Skip overrides — they were already listed next to the installed task
-        [ -f "${scripts_dir}/${name}.groovy" ] && continue
+        # Skip overrides — they were already listed next to the installed task.
+        # Use the marker check so a project task is still listed when the
+        # installation only has a non-task helper of the same name.
+        is_v4_task_script "${scripts_dir}/${name}.groovy" && continue
         if [ "$printed_header" = false ]; then
             echo ""
             echo "Project-local custom tasks (${DTC_PROJECT_SCRIPTS_DIR}/):"
@@ -834,7 +847,7 @@ build_command() {
             project_script=$(project_task_script "${task}")
             if [ -n "$project_script" ]; then
                 container_script="/project/${DTC_PROJECT_SCRIPTS_DIR}/${task}.groovy"
-                if [ -f "${DTC_HOME}/scripts/${task}.groovy" ]; then
+                if is_v4_task_script "${DTC_HOME}/scripts/${task}.groovy"; then
                     echo "Note: running project-local override of task '${task}' from '${project_script}' (shadows the installed task)." >&2
                 else
                     echo "Note: running project-local custom task '${task}' from '${project_script}'." >&2
@@ -874,7 +887,7 @@ build_command() {
             project_script=$(project_task_script "${task}")
             if [ -n "$project_script" ]; then
                 script_path="$project_script"
-                if [ -f "${dtc_home}/scripts/${task}.groovy" ]; then
+                if is_v4_task_script "${dtc_home}/scripts/${task}.groovy"; then
                     echo "Note: running project-local override of task '${task}' from '${project_script}' (shadows the installed task)." >&2
                 else
                     echo "Note: running project-local custom task '${task}' from '${project_script}'." >&2

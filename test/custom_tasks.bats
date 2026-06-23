@@ -58,6 +58,18 @@ teardown() {
     assert_output --partial "generateHTML (overridden by"
 }
 
+@test "custom: a project task matching a non-task installed helper is custom, not an override" {
+    # The installation also holds non-task *.groovy helpers (no // @task marker).
+    # A project task sharing such a name must be a custom task, never an override.
+    printf '// a helper, not a task\nclass Foo {}\n' > "${DTC_HOME}/scripts/asciidoctorExtensions.groovy"
+    printf '// @task\n' > "${DTC_PROJECT_SCRIPTS_DIR}/asciidoctorExtensions.groovy"
+    run ./dtcw tasks
+    assert_success
+    assert_output --partial "Project-local custom tasks"
+    assert_output --partial "asciidoctorExtensions"
+    refute_output --partial "asciidoctorExtensions (overridden"
+}
+
 # --- Validation --------------------------------------------------------------
 
 @test "custom: an unknown task name is still rejected" {

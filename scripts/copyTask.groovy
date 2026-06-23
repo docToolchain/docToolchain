@@ -19,6 +19,18 @@ Run './dtcw tasks' to see which tasks you can copy.
 }
 def taskName = args[0]
 
+// Validate the name before using it to build a path. This is both a usability
+// check and a path-traversal guard: without it, '../foo' could copy files from
+// outside the installed scripts directory.
+if (!(taskName ==~ /^[a-zA-Z][a-zA-Z0-9_-]*$/)) {
+    System.err.println """
+Error: invalid task name '${taskName}'.
+Task names must start with a letter and contain only letters, digits,
+hyphens or underscores. Run './dtcw tasks' to see the available tasks.
+"""
+    System.exit 2
+}
+
 if (!scriptsHome) {
     System.err.println """
 Error: cannot locate the docToolchain installation (dtc.scriptsHome is unset).
@@ -33,6 +45,20 @@ if (!source.exists()) {
 Error: installed task '${taskName}' not found at:
   ${source.path}
 Run './dtcw tasks' to see the available tasks.
+"""
+    System.exit 1
+}
+
+// Only runnable tasks (carrying the '// @task' marker in the first 5 lines,
+// see ADR-14) may be copied — not the non-task Groovy helpers that also live in
+// the installed scripts/ directory.
+def isTask = source.withReader { r ->
+    (1..5).any { (r.readLine() ?: '').contains('// @task') }
+}
+if (!isTask) {
+    System.err.println """
+Error: '${taskName}' is not a runnable task (no '// @task' marker), so it cannot
+be copied and overridden. Run './dtcw tasks' to see the available tasks.
 """
     System.exit 1
 }
