@@ -100,6 +100,8 @@ try {
             .attribute('toclevels', (config.toclevels ?: 3) as String)
             .attribute('icons', config.icons ?: 'font')
             .attribute('doctype', 'book')
+            // STEM (math): render stem:[…]/[latexmath]/[asciimath] via MathJax.
+            .attribute('stem', (config.stem ?: 'latexmath') as String)
             .build()
 
         def safeMode = SafeMode.valueOf((config.safeMode ?: 'UNSAFE').toUpperCase())
