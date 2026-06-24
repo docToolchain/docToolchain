@@ -441,7 +441,9 @@ searching issues...
 <li><a href="#_fast_startup">Fast Startup</a></li>
 <li><a href="#_no_ruby_required">No Ruby Required</a></li>
 <li><a href="#_multiple_output_formats">Multiple Output Formats</a></li>
+<li><a href="#_multiple_markup_formats">Multiple Markup Formats</a></li>
 <li><a href="#_diagram_support">Diagram Support</a></li>
+<li><a href="#_math_formulas_stem">Math &amp; Formulas (STEM)</a></li>
 <li><a href="#_confluence_publishing">Confluence Publishing</a></li>
 <li><a href="#_cross_platform">Cross-Platform</a></li>
 <li><a href="#_template_support">Template Support</a></li>
@@ -506,10 +508,78 @@ See the <a href="../015_tasks/03_tasks.html">Tasks</a> section for all available
 </div>
 </div>
 <div class="sect2">
+<h3 id="_multiple_markup_formats">Multiple Markup Formats</h3>
+<div class="paragraph">
+<p>The microsite renders more than AsciiDoc: Markdown and plain HTML work out of the
+box, and reStructuredText (<code>.rst</code>) is supported via a one-line converter entry.
+See <a href="../020_tutorial/040_microsite/043_multi-markup.html">Multi-Markup</a> for the
+full list and how to enable <code>.rst</code>.</p>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_diagram_support">Diagram Support</h3>
 <div class="paragraph">
 <p>Built-in support for text-based diagrams via <a href="https://asciidoctor.org/docs/asciidoctor-diagram/">asciidoctor-diagram</a>:
 PlantUML, ditaa, Mermaid, and more.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_math_formulas_stem">Math &amp; Formulas (STEM)</h3>
+<div class="paragraph">
+<p>docToolchain renders mathematical and scientific formulas (AsciiDoc
+<a href="https://docs.asciidoctor.org/asciidoc/latest/stem/">STEM</a> content).
+STEM is enabled out of the box — no configuration needed.</p>
+</div>
+<div class="paragraph">
+<p>Use it inline or as a block, in either the <code>latexmath</code> or the <code>asciimath</code> notation:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="asciidoc">A square root inline: stem:[sqrt(4) = 2].
+
+[latexmath]
+++++
+\sum_{i=1}^{n} i = \frac{n(n+1)}{2}
+++++
+
+[asciimath]
+++++
+sum_(i=1)^n i = (n(n+1))/2
+++++</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The default notation for an unqualified <code>\$…\$</code> / <code>[stem]</code> is <code>latexmath</code>.
+Override it per document with <code>:stem: asciimath</code>, or pin a single expression with
+the explicit <code>[asciimath]</code> / <code>[latexmath]</code> block forms shown above.</p>
+</div>
+<div class="paragraph">
+<p>Formulas render in all main output formats:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>HTML</strong> — rendered in the browser via MathJax.</p>
+</li>
+<li>
+<p><strong>PDF</strong> — rendered natively by asciidoctor-pdf.</p>
+</li>
+</ul>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<div class="title">Note</div>
+</td>
+<td class="content">
+In the microsite, MathJax is loaded the same way as in standalone HTML.
+For fully offline / self-contained sites you can bundle MathJax locally instead
+of loading it from a CDN — see the
+<a href="https://github.com/docToolchain/docToolchain/issues/1675">tracking issue</a>.
+</td>
+</tr>
+</table>
 </div>
 </div>
 <div class="sect2">

@@ -484,6 +484,7 @@ searching issues...
 <ul class="sectlevel1">
 <li><a href="#_how_to_work_with_different_markup_styles">How to Work with Different Markup Styles</a>
 <ul class="sectlevel2">
+<li><a href="#_supported_markup_formats">Supported Markup Formats</a></li>
 <li><a href="#_meta_data_header">Meta-Data Header</a></li>
 <li><a href="#_markdown">Markdown</a></li>
 <li><a href="#_html">HTML</a></li>
@@ -533,6 +534,62 @@ AsciiDoc is the default (and preferred) markup language for documentation writte
 <p>But because docToolchain is designed to be used by larger teams and organisations, its built-in site generator can render AsciiDoc, Markdown, and plain HTML.</p>
 </div>
 <div class="sect2">
+<h3 id="_supported_markup_formats">Supported Markup Formats</h3>
+<div class="paragraph">
+<p>The microsite (<code>generateSite</code>) accepts these input formats:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Format</th>
+<th class="tableblock halign-left valign-top">Status</th>
+<th class="tableblock halign-left valign-top">Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AsciiDoc (<code>.adoc</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Built-in (default)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The preferred markup for docToolchain.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Markdown (<code>.md</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Built-in</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Rendered out of the box via flexmark; flavour configurable.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">HTML (<code>.html</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Built-in</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The body is shown in the content area.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">reStructuredText (<code>.rst</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Supported, opt-in</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Enabled with one <code>additionalConverters</code> entry (see below). Requires Python + docutils on the build host.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+These formats are supported by the <strong>microsite</strong> pipeline (<code>generateSite</code>) only.
+The standalone <code>generateHTML</code> / <code>generatePDF</code> tasks process AsciiDoc.
+reStructuredText in particular is <strong>not</strong> available in <code>generateHTML</code> / <code>generatePDF</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
 <h3 id="_meta_data_header">Meta-Data Header</h3>
 <div class="paragraph">
 <p>In AsciiDoc, metadata is defined as attributes beginning with <code>jbake-</code>, such as <code>:jbake-header:</code>.
@@ -577,10 +634,81 @@ Refer to <a href="https://github.com/docToolchain/multi-markup-demo/blob/main/sr
 <div class="sect2">
 <h3 id="_restructuredtext_rst">restructuredText (.rst)</h3>
 <div class="paragraph">
-<p>Since the built-in generator doesn&#8217;t render reStructuredText directly, docToolchain uses a different mechanism:</p>
+<p>reStructuredText is <strong>already supported</strong> — you just have to switch it on.
+Since the built-in generator doesn&#8217;t render <code>.rst</code> directly, docToolchain ships a
+converter (<code>scripts/rstToHtml.py</code>) and runs it through the <code>additionalConverters</code>
+mechanism.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Prerequisite</div>
+<div class="paragraph">
+<p>The converter is a <a href="https://docutils.sourceforge.io/">docutils</a> script, so the build host needs:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>python3</code></p>
+</li>
+<li>
+<p>the <code>docutils</code> package (<code>pip install docutils</code>)</p>
+</li>
+</ul>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>Enable <code>.rst</code> by adding this one entry to the <code>microsite</code> section of your
+<code>docToolchainConfig.groovy</code> (copy-paste ready):</p>
 </div>
 <div class="listingblock">
 <div class="title">docToolchainConfig.groovy</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="groovy">additionalConverters = [
+    '.rst': [command: 'dtcw:rstToHtml.py', type: 'bash'],
+]</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><code>dtcw:rstToHtml.py</code> is the internal converter shipped with docToolchain; the
+<code>dtcw:</code> prefix tells docToolchain to resolve it from its own <code>scripts/</code> folder.</p>
+</div>
+<div class="paragraph">
+<p>Once an additional converter is configured, docToolchain will traverse all doc-files, check the extension, and invoke the configured script if the extension matches.</p>
+</div>
+<div class="paragraph">
+<p>The script&#8217;s task is to convert the file to a markup format the site generator recognises (AsciiDoc, Markdown, or HTML).
+Afterwards, the built-in generator processes everything as usual.
+In this case, the Python docutils convert reStructuredText to HTML.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>This applies to the microsite (<code>generateSite</code>) only — <code>.rst</code> is not processed by
+the standalone <code>generateHTML</code> / <code>generatePDF</code> tasks.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p>For reference, the full <code>additionalConverters</code> configuration block (with all
+supported converter types) looks like this:</p>
+</div>
+<div class="listingblock">
+<div class="title">template_config/Config.groovy</div>
 <div class="content">
 <pre class="prettyprint highlight"><code data-lang="groovy">/**
 
@@ -603,16 +731,6 @@ Needs `python3` and `docutils` installed.
         //'.rst': [command: 'dtcw:rstToHtml.py', type: 'bash'],
     ]</code></pre>
 </div>
-</div>
-<div class="paragraph">
-<p>Once an additional converter is configured, docToolchain will traverse all doc-files, check the extension, and invoke the configured script if the extension matches.</p>
-</div>
-<div class="paragraph">
-<p>The script&#8217;s task is to convert the file to a markup format the site generator recognises (AsciiDoc, Markdown, or HTML).
-Afterwards, the built-in generator processes everything as usual.</p>
-</div>
-<div class="paragraph">
-<p>In this case, the Python docutils will convert restructuredText to HTML.</p>
 </div>
 </div>
 <div class="sect2">
