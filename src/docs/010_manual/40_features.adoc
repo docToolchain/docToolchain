@@ -23,10 +23,54 @@ No Ruby gems, no external `asciidoctor` CLI needed.
 Generate HTML, PDF, or a full microsite from the same AsciiDoc sources.
 See the xref:../015_tasks/03_tasks.adoc[Tasks] section for all available output formats.
 
+=== Multiple Markup Formats
+
+The microsite renders more than AsciiDoc: Markdown and plain HTML work out of the
+box, and reStructuredText (`.rst`) is supported via a one-line converter entry.
+See xref:../020_tutorial/040_microsite/043_multi-markup.adoc[Multi-Markup] for the
+full list and how to enable `.rst`.
+
 === Diagram Support
 
 Built-in support for text-based diagrams via https://asciidoctor.org/docs/asciidoctor-diagram/[asciidoctor-diagram]:
 PlantUML, ditaa, Mermaid, and more.
+
+=== Math & Formulas (STEM)
+
+docToolchain renders mathematical and scientific formulas (AsciiDoc
+https://docs.asciidoctor.org/asciidoc/latest/stem/[STEM] content).
+STEM is enabled out of the box — no configuration needed.
+
+Use it inline or as a block, in either the `latexmath` or the `asciimath` notation:
+
+[source,asciidoc]
+----
+A square root inline: stem:[sqrt(4) = 2].
+
+[latexmath]
+++++
+\sum_{i=1}^{n} i = \frac{n(n+1)}{2}
+++++
+
+[asciimath]
+++++
+sum_(i=1)^n i = (n(n+1))/2
+++++
+----
+
+The default notation for an unqualified `stem:[…]` / `[stem]` is `latexmath`.
+Override it per document with `:stem: asciimath`, or pin a single expression with
+the explicit `[asciimath]` / `[latexmath]` block forms shown above.
+
+Formulas render in all main output formats:
+
+* **HTML** — rendered in the browser via MathJax.
+* **PDF** — rendered natively by asciidoctor-pdf.
+
+NOTE: In the microsite, MathJax is loaded the same way as in standalone HTML.
+For fully offline / self-contained sites you can bundle MathJax locally instead
+of loading it from a CDN — see the
+https://github.com/docToolchain/docToolchain/issues/1675[tracking issue].
 
 === Confluence Publishing
 

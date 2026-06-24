@@ -176,6 +176,11 @@ asciidoctorj {
         'imagesdir': 'images@',
         'toc': 'left@',
         'icons': 'font@',
+        // Enable STEM (math) so stem:[…], [stem]/[asciimath]/[latexmath] render:
+        // MathJax in HTML, native rendering in asciidoctor-pdf. latexmath is the
+        // default notation for unqualified stem; asciimath still works explicitly.
+        // Soft-set (@) so a document can override the default notation.
+        'stem': 'latexmath@',
         'javaVersion'         : "$javaVersion",
         'currentDate'         : "$currentDate",
         'allow-uri-read'      : 'true@',
