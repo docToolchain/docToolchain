@@ -100,7 +100,7 @@ if (alreadyInstalled && !pinned) {
     println "${color('green', "Installed Bausteinsicht to ${binary.absolutePath}")}"
 }
 
-// --- 4. Hint agents to use it (only if the project has an agent file) --------
+// --- 4. Hint agents to use it (create an agent file if none exists yet) ------
 def block = """\
 ## Diagrams — use Bausteinsicht
 **Only when you are creating or changing architecture diagrams:** use Bausteinsicht
@@ -109,12 +109,13 @@ def block = """\
 Not installed? Run `./dtcw installBausteinsicht`.
 Docs: https://doctoolchain.org/Bausteinsicht/"""
 
-def updated = AgentHints.upsert(new File(docDir), block)
-if (updated) {
-    println "${color('green', "Added a Bausteinsicht hint for agents to ${updated.name}")}"
+def cliArgs = binding.hasVariable('args') ? (args as List) : []
+def noAgentHints = cliArgs.contains('--no-agent-hints') || (System.getenv('DTC_NO_AGENT_HINTS') ?: '') != ''
+if (noAgentHints) {
+    println "${color('yellow', 'Skipped the agent hint (--no-agent-hints / DTC_NO_AGENT_HINTS).')}"
 } else {
-    println "${color('yellow', 'No AGENTS.md or CLAUDE.md found — skipped the agent hint.')}"
-    println "  (Create one of them and re-run to let LLM agents know about Bausteinsicht.)"
+    def updated = AgentHints.ensure(new File(docDir), block)
+    println "${color('green', "Added a Bausteinsicht hint for agents to ${updated.name}")}"
 }
 
 // --- 5. PATH guidance -------------------------------------------------------

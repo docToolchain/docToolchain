@@ -58,7 +58,7 @@ if (proc.exitValue() != 0) {
 }
 println "${color('green', 'daCLI installed (dacli, dacli-mcp).')}"
 
-// --- 3. Hint agents to use it (only if the project has an agent file) --------
+// --- 3. Hint agents to use it (create an agent file if none exists yet) ------
 def block = """\
 ## Working with these docs — use daCLI
 **Only when you are reading or editing this project's documentation:** use daCLI for
@@ -67,12 +67,13 @@ Run `dacli --help` first to discover the current commands.
 Not installed? Run `./dtcw installDacli`.
 Docs: https://doctoolchain.org/dacli"""
 
-def updated = AgentHints.upsert(new File(docDir), block)
-if (updated) {
-    println "${color('green', "Added a daCLI hint for agents to ${updated.name}")}"
+def cliArgs = binding.hasVariable('args') ? (args as List) : []
+def noAgentHints = cliArgs.contains('--no-agent-hints') || (System.getenv('DTC_NO_AGENT_HINTS') ?: '') != ''
+if (noAgentHints) {
+    println "${color('yellow', 'Skipped the agent hint (--no-agent-hints / DTC_NO_AGENT_HINTS).')}"
 } else {
-    println "${color('yellow', 'No AGENTS.md or CLAUDE.md found — skipped the agent hint.')}"
-    println "  (Create one of them and re-run to let LLM agents know about daCLI.)"
+    def updated = AgentHints.ensure(new File(docDir), block)
+    println "${color('green', "Added a daCLI hint for agents to ${updated.name}")}"
 }
 
 println ""

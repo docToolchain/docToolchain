@@ -8,6 +8,35 @@ AsciiDoc is the default (and preferred) markup language for documentation writte
 
 But because docToolchain is designed to be used by larger teams and organisations, its built-in site generator can render AsciiDoc, Markdown, and plain HTML.
 
+=== Supported Markup Formats
+
+The microsite (`generateSite`) accepts these input formats:
+
+[cols="1,1,3", options="header"]
+|===
+| Format | Status | Notes
+
+| AsciiDoc (`.adoc`)
+| Built-in (default)
+| The preferred markup for docToolchain.
+
+| Markdown (`.md`)
+| Built-in
+| Rendered out of the box via flexmark; flavour configurable.
+
+| HTML (`.html`)
+| Built-in
+| The body is shown in the content area.
+
+| reStructuredText (`.rst`)
+| Supported, opt-in
+| Enabled with one `additionalConverters` entry (see below). Requires Python + docutils on the build host.
+|===
+
+IMPORTANT: These formats are supported by the *microsite* pipeline (`generateSite`) only.
+The standalone `generateHTML` / `generatePDF` tasks process AsciiDoc.
+reStructuredText in particular is *not* available in `generateHTML` / `generatePDF`.
+
 === Meta-Data Header
 
 In AsciiDoc, metadata is defined as attributes beginning with `jbake-`, such as `:jbake-header:`.
@@ -41,23 +70,56 @@ Refer to https://github.com/docToolchain/multi-markup-demo/blob/main/src/docs/de
 
 === restructuredText (.rst)
 
-Since the built-in generator doesn't render reStructuredText directly, docToolchain uses a different mechanism:
+reStructuredText is *already supported* — you just have to switch it on.
+Since the built-in generator doesn't render `.rst` directly, docToolchain ships a
+converter (`scripts/rstToHtml.py`) and runs it through the `additionalConverters`
+mechanism.
 
-ifndef::projectRootDir[:projectRootDir: ../../..]
+.Prerequisite
+[NOTE]
+====
+The converter is a https://docutils.sourceforge.io/[docutils] script, so the build host needs:
+
+* `python3`
+* the `docutils` package (`pip install docutils`)
+====
+
+Enable `.rst` by adding this one entry to the `microsite` section of your
+`docToolchainConfig.groovy` (copy-paste ready):
 
 .docToolchainConfig.groovy
 [source, groovy]
 ----
-include::{projectRootDir}/template_config/Config.groovy[tags=additionalConverters]
+additionalConverters = [
+    '.rst': [command: 'dtcw:rstToHtml.py', type: 'bash'],
+]
 ----
+
+`dtcw:rstToHtml.py` is the internal converter shipped with docToolchain; the
+`dtcw:` prefix tells docToolchain to resolve it from its own `scripts/` folder.
 
 Once an additional converter is configured, docToolchain will traverse all doc-files, check the extension, and invoke the configured script if the extension matches.
 
-
 The script's task is to convert the file to a markup format the site generator recognises (AsciiDoc, Markdown, or HTML).
 Afterwards, the built-in generator processes everything as usual.
+In this case, the Python docutils convert reStructuredText to HTML.
 
-In this case, the Python docutils will convert restructuredText to HTML.
+[NOTE]
+====
+This applies to the microsite (`generateSite`) only — `.rst` is not processed by
+the standalone `generateHTML` / `generatePDF` tasks.
+====
+
+For reference, the full `additionalConverters` configuration block (with all
+supported converter types) looks like this:
+
+ifndef::projectRootDir[:projectRootDir: ../../..]
+
+.template_config/Config.groovy
+[source, groovy]
+----
+include::{projectRootDir}/template_config/Config.groovy[tags=additionalConverters]
+----
 
 === Additional Markup Languages
 
