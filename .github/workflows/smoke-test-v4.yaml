@@ -60,8 +60,10 @@ jobs:
           java -cp "lib/*" -DdocDir="$PWD/.smoke" groovy.ui.GroovyMain scripts/generateHTML.groovy
           test -s .smoke/build/html5/smoke.html
           # STEM (#1675): the stem attribute must turn math into MathJax delimiters
-          grep -q '\\(' .smoke/build/html5/smoke.html
-          grep -q '\\[' .smoke/build/html5/smoke.html
+          # (AsciiDoctor emits inline \( … \) and block \[ … \]). Fixed-string
+          # match so the backslash/bracket are not treated as a regex.
+          grep -qF '\(' .smoke/build/html5/smoke.html
+          grep -qF '\[' .smoke/build/html5/smoke.html
 
       - name: generateSite smoke (this repo's docs)
         # Renders the full microsite from the PR's docs through the microsite
