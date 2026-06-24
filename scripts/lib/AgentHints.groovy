@@ -13,18 +13,38 @@
 
 class AgentHints {
 
-    // Targeted in this order; the first that exists is updated. Neither is
-    // created if absent — we never add an agent file a project didn't ask for.
+    // Targeted in this order; the first that exists is updated.
     static final List<String> AGENT_FILES = ['AGENTS.md', 'CLAUDE.md']
+
+    // When no agent file exists yet, ensure() seeds this vendor-neutral one.
+    static final String DEFAULT_AGENT_FILE = 'AGENTS.md'
 
     /**
      * Upsert {@code block} into the project's agent file under {@code docDir}.
+     * Does not create a file: returns {@code null} when none exists, leaving the
+     * decision to bootstrap one to the caller (see {@link #ensure}).
      * @return the file written, or {@code null} if no agent file exists.
      */
     static File upsert(File docDir, String block) {
         def target = AGENT_FILES.collect { new File(docDir, it) }.find { it.exists() }
         if (!target) return null
         target.setText(merge(target.getText('UTF-8'), block), 'UTF-8')
+        return target
+    }
+
+    /**
+     * Like {@link #upsert}, but bootstraps a fresh {@value #DEFAULT_AGENT_FILE}
+     * seeded with {@code block} when the project has neither agent file yet.
+     * An existing file is updated in place, idempotently. So after install the
+     * project always carries the contract, whether or not it had an agent file.
+     * @return the file written (never {@code null}).
+     */
+    static File ensure(File docDir, String block) {
+        def target = AGENT_FILES.collect { new File(docDir, it) }.find { it.exists() }
+        boolean created = target == null
+        if (created) target = new File(docDir, DEFAULT_AGENT_FILE)
+        def existing = target.exists() ? target.getText('UTF-8') : ''
+        target.setText(merge(existing, block), 'UTF-8')
         return target
     }
 
