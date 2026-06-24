@@ -56,9 +56,12 @@ jobs:
           inputFiles = [[file: 'smoke.adoc', formats: ['html']]]
           imageDirs  = []
           EOF
-          printf '= Smoke Test\n\nHello *world*.\n\n== Section\n\nSome text.\n' > .smoke/src/docs/smoke.adoc
+          printf '= Smoke Test\n\nHello *world*.\n\n== Section\n\nSome text.\n\n== Math\n\nInline stem:[sqrt(4) = 2].\n\n[latexmath]\n++++\n\\sqrt{4} = 2\n++++\n' > .smoke/src/docs/smoke.adoc
           java -cp "lib/*" -DdocDir="$PWD/.smoke" groovy.ui.GroovyMain scripts/generateHTML.groovy
           test -s .smoke/build/html5/smoke.html
+          # STEM (#1675): the stem attribute must turn math into MathJax delimiters
+          grep -q '\\(' .smoke/build/html5/smoke.html
+          grep -q '\\[' .smoke/build/html5/smoke.html
 
       - name: generateSite smoke (this repo's docs)
         # Renders the full microsite from the PR's docs through the microsite
@@ -69,3 +72,6 @@ jobs:
           set -euo pipefail
           java -cp "lib/*" -DdocDir="$PWD" groovy.ui.GroovyMain scripts/generateSite.groovy
           test -s build/microsite/output/index.html
+          # STEM (#1675): the bundled, local MathJax must ship with the microsite
+          # (SVG output, no CDN) so generated sites render math offline.
+          test -s build/microsite/output/js/mathjax/tex-mml-svg.js
