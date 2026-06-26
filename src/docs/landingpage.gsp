@@ -214,7 +214,7 @@
       <a class="ecocard" href="https://github.com/docToolchain/iSAQB-Template" style="display:block;background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:26px 24px 22px;transition:transform .15s ease,border-color .15s ease">
         <div class="mono" style="font-size:11.5px;letter-spacing:.04em;color:var(--accent);margin-bottom:14px">template</div>
         <h3 class="sg" style="font-weight:600;font-size:19px;letter-spacing:-0.01em;margin:0 0 9px;color:var(--ink)">iSAQB Template</h3>
-        <p style="font-size:13.5px;line-height:1.55;color:var(--muted);margin:0 0 18px">A ready-to-use template following the iSAQB arc42 architecture documentation standard.</p>
+        <p style="font-size:13.5px;line-height:1.55;color:var(--muted);margin:0 0 18px">A ready-to-use template for writing your CPSA Advanced Level certification thesis, with a custom PDF theme for the required layout.</p>
         <span class="mono" style="font-size:12.5px;color:var(--ink)">learn more &rarr;</span>
       </a>
       <a class="ecocard" href="https://github.com/docToolchain/ci-cd-demo" style="display:block;background:var(--surface);border:1px solid var(--line);border-radius:11px;padding:26px 24px 22px;transition:transform .15s ease,border-color .15s ease">
@@ -224,6 +224,7 @@
         <span class="mono" style="font-size:12.5px;color:var(--ink)">learn more &rarr;</span>
       </a>
     </div>
+    <p style="font-size:11.5px;line-height:1.6;color:var(--muted);margin:28px 0 0;opacity:.8">iSAQB&reg; and CPSA&reg; are registered trademarks of the International Software Architecture Qualification Board e.&thinsp;V. This template is a community project and is neither provided nor endorsed by the iSAQB.</p>
   </section>
 
 </div>
