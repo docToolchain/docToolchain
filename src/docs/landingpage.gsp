@@ -224,6 +224,7 @@
         <span class="mono" style="font-size:12.5px;color:var(--ink)">learn more &rarr;</span>
       </a>
     </div>
+    <p style="font-size:11.5px;line-height:1.6;color:var(--muted);margin:28px 0 0;opacity:.8">iSAQB&reg; and CPSA&reg; are registered trademarks of the International Software Architecture Qualification Board e.&thinsp;V. This template is a community project and is neither provided nor endorsed by the iSAQB.</p>
   </section>
 
 </div>
