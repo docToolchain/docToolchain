@@ -1,12 +1,22 @@
 buildscript {
     repositories {
-        mavenCentral()
         maven {
-            credentials {
-                username mavenUsername
-                password mavenPassword
+            url depsMavenRepository
+            if (depsMavenUsername || depsMavenPassword) {
+                credentials {
+                    username depsMavenUsername
+                    password depsMavenPassword
+                }
             }
+        }
+        maven {
             url mavenRepository
+            if (mavenUsername || mavenPassword) {
+                credentials {
+                    username mavenUsername
+                    password mavenPassword
+                }
+            }
         }
     }
     dependencies {
