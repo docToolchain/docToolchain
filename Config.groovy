@@ -190,9 +190,11 @@ confluence.with {
 //    Not set or empty list will cause no filtered glossary.
 // -  diagramAttributes: if set, the diagram attributes are exported and formatted as specified
 // -  imageFormat: if set, the image format is used for the export of diagrams. Default is '.png'.
+// IMPORTANT: Database connections via 'connection' parameter are NOT SUPPORTED. Use file-based EA projects instead.
 
 exportEA.with {
-// OPTIONAL: Set the connection to a certain project or comment it out to use all project files inside the src folder or its child folder.
+// IMPORTANT: Database connection strings are NOT SUPPORTED. Use file-based EA projects (.eap, .eapx, .qea, .qeax) instead.
+// Leave this commented out and place your EA project files in the searchPath directory.
 // connection = "DBType=1;Connect=Provider=SQLOLEDB.1;Integrated Security=SSPI;Persist Security Info=False;Initial Catalog=[THE_DB_NAME_OF_THE_PROJECT];Data Source=[server_hosting_database.com];LazyLoad=1;"
 // OPTIONAL: Add one or multiple packageGUIDs to be used for export. All packages are analysed, if no packageFilter is set.
 // packageFilter = [
@@ -204,7 +206,7 @@ exportEA.with {
 // diagramFilter = "myProject"
 // OPTIONAL: export diagrams, notes, etc. below folder src/docs
 // exportPath = "src/docs/"
-// OPTIONAL: EA project files are expected to be located in folder src/projects
+// OPTIONAL: EA project files (.eap, .eapx, .qea, .qeax) are expected to be located in folder src/projects
 // searchPath = "src/projects/"
 // OPTIONAL: terms will be exported as asciidoc 'Description, single-line'
 // glossaryAsciiDocFormat = "TERM:: MEANING"
