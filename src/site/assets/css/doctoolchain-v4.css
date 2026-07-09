@@ -128,6 +128,23 @@ body::before {
 [data-theme="dark"] .td-sidebar-link__section.active { color:var(--g-300) !important; }
 summary { color:var(--dtc-ink); }
 
+/* ---- mobile: keep the sub-navigation reachable --------------------- */
+/* This microsite's navbar never collapses to a hamburger, and Docsy marks the
+   section nav as a Bootstrap `collapse` (display:none) until the md breakpoint
+   with no toggle of its own — so below 768px the sub-navigation was hidden and
+   unreachable. Reveal it inline above the page content; it stays collapsible
+   per section via the <details> elements. Pure CSS, no JavaScript. */
+@media (max-width: 767.98px) {
+  #td-section-nav.td-sidebar-nav,
+  nav.td-sidebar-nav.collapse,
+  .td-sidebar-nav.collapse { display:block !important; }
+  .td-sidebar {
+    border-right:0; border-bottom:1px solid var(--dtc-border);
+    padding:.5rem 0 .75rem; margin-bottom:1rem;
+  }
+  .td-sidebar__inner { position:static; height:auto; }
+}
+
 /* arc42 chapter numbering — mono, accent */
 .arc42-num { font-family:var(--dtc-mono); font-weight:600; font-size:.78em; color:var(--g-600); margin-right:6px; opacity:.95; letter-spacing:.02em; }
 [data-theme="dark"] .arc42-num { color:var(--g-300); }
