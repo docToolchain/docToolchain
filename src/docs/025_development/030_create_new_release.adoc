@@ -6,9 +6,51 @@ include::../_feedback.adoc[]
 === Before You Begin
 
 - We use https://semver.org/[semantic versioning] and we also keep a https://keepachangelog.com/[changelog]. All of this is done on a best-efforts basis.
-- A release consists of five parts, each explained below.
+- A release consists of five parts. The automated workflow handles all of them except the blog post.
 
-=== GitHub
+=== Automated Release (Recommended)
+
+The https://github.com/docToolchain/docToolchain/actions/workflows/release.yml[release.yml] workflow automates the entire release pipeline with a single manual trigger.
+
+==== How to Use
+
+1. Navigate to https://github.com/docToolchain/docToolchain/actions/workflows/release.yml[Actions > Release docToolchain].
+2. Click **Run workflow**.
+3. Enter the version number (e.g. `3.5.0`) — without the `v` prefix.
+4. Click **Run workflow** to start.
+
+==== What It Does
+
+The workflow runs these steps in sequence:
+
+1. **Test Gate** — runs BATS tests, core tests, and PowerShell wrapper tests. The release is aborted if any test fails.
+2. **Version Bump & Release** — updates version in `gradle.properties`, `dtcw`, and `dtcw.ps1`, updates the changelog, commits, tags, builds the distribution ZIP, and creates a GitHub Release.
+3. **Docker Builds** — triggers all four Docker image builds in the `docker-image` repository via `repository_dispatch`.
+4. **SDKMAN! Deploy** — publishes the new version to SDKMAN!, sets it as default, and sends the announcement.
+5. **dtcw Update** — triggers the wrapper update workflow on `doctoolchain.github.io`.
+6. **Blog Template** — generates an AsciiDoc blog post template and uploads it as a workflow artifact.
+
+==== After the Workflow Completes
+
+* Download the blog post template from the workflow artifacts.
+* Edit the template with release highlights and publish it as a blog post.
+
+==== Prerequisites
+
+The following secrets must be configured in the docToolchain repository:
+
+* `CROSS_REPO_PAT` — GitHub PAT with `repo` scope, for triggering workflows in `docker-image` and `doctoolchain.github.io`.
+* `CONSUMER_KEY` and `CONSUMER_TOKEN` — SDKMAN! vendor API credentials.
+
+==== Re-running a Failed Release
+
+The workflow is idempotent. If it fails after tagging, re-running it will skip the version bump and commit steps and proceed with building and publishing.
+
+=== Manual Release (Fallback)
+
+If the automated workflow is unavailable, follow the manual steps below.
+
+==== GitHub
 
 * run +
 `docker run -it -e BATS_LIB_PATH=/usr/lib/bats -v "${PWD}/dtcw:/code/dtcw"  -v "${PWD}/test:/code/test" maxh/bats:latest test` +
@@ -25,27 +67,22 @@ to test dtcw
 * Run `./gradlew createDist` to zip the source in build (the distribution file).
 * Add the zipped file and submit the new release.
 
-=== Docker Hub
-
-==== Standard Image
+==== Docker Hub
 
 * Update the https://github.com/docToolchain/docker-image/tree/ng-beta/.github/workflows[GitHub workflows] to reflect the new version.
 * run https://github.com/docToolchain/docker-image/actions/workflows/standard-build.yml[github action] to build and deploy the image
 
 do the same for the other images
 
-=== Blog Post
+==== Blog Post
 
 Create a blog post to announce the new release. The SDKMAN! announcement will reference it.
 
-=== docToolchain-Wrapper (dtcw)
-
-Everything went well? Great! Now let’s update the wrapper.
+==== docToolchain-Wrapper (dtcw)
 
 Navigate to https://github.com/docToolchain/doctoolchain.github.io/actions/workflows/update-dtcw.yml and trigger the action.
 
-
-=== SDKMAN!
+==== SDKMAN!
 
 A GitHub action https://github.com/docToolchain/docToolchain/actions?query=workflow%3A%22sdkman+deploy%22[sdkman deploy] has been created to deploy to SDKMAN!
 
