@@ -9,6 +9,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+* https://github.com/docToolchain/docToolchain/issues/1687[publishToConfluence: HTTP 500 uploading images to Confluence Cloud]
+
 === added
 
 === changed

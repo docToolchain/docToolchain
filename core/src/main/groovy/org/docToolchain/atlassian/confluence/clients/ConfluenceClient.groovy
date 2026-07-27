@@ -2,7 +2,7 @@ package org.docToolchain.atlassian.confluence.clients
 
 import org.apache.hc.client5.http.classic.methods.HttpPost
 import org.apache.hc.client5.http.entity.mime.HttpMultipartMode
-import org.apache.hc.client5.http.entity.mime.InputStreamBody
+import org.apache.hc.client5.http.entity.mime.ByteArrayBody
 import org.apache.hc.client5.http.entity.mime.MultipartEntityBuilder
 import org.apache.hc.client5.http.entity.mime.StringBody
 import org.apache.hc.core5.http.ClassicHttpRequest
@@ -79,7 +79,7 @@ abstract class ConfluenceClient {
         HttpPost post = new HttpPost(uri)
         HttpEntity entity = MultipartEntityBuilder.create()
             .setMode(HttpMultipartMode.EXTENDED)
-            .addPart("file", new InputStreamBody(inputStream, fileName))
+            .addPart("file", new ByteArrayBody(inputStream.bytes, fileName))
             .addPart("comment", new StringBody(note + "\r\n#" + localHash + "#", ContentType.TEXT_PLAIN))
             .build()
         post.setEntity(entity)
