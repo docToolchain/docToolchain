@@ -1,0 +1,170 @@
+= Structurizr CLI Integration Test
+:doctype: article
+:icons: font
+:allow-uri-read:
+:data-uri:
+
+This document demonstrates the enhanced Structurizr CLI integration for docToolchain.
+
+== Prerequisites
+
+Before using Structurizr diagrams, ensure:
+
+1. **Structurizr CLI is installed** and accessible
+2. **Environment variable** `DIAGRAMS_STRUCTURIZRCLI_HOME` is set
+3. **Enhanced diagram support** is enabled in your docToolchain configuration
+
+== Testing the Integration
+
+=== Simple System Context Diagram
+
+[structurizr,format=svg,target=simple-system-context]
+----
+workspace {
+    model {
+        user = person "User" "A user of the system"
+        system = softwareSystem "Banking System" "Allows users to view information about their bank accounts and to make payments."
+        
+        user -> system "Uses"
+    }
+    
+    views {
+        systemContext system "SystemContext" {
+            include *
+            autoLayout lr
+            description "The system context diagram for the Internet Banking System."
+        }
+    }
+}
+----
+
+=== Container Diagram Example
+
+[structurizr,format=svg,target=container-diagram]
+----
+workspace {
+    model {
+        user = person "Personal Banking Customer" "A customer of the bank, with personal bank accounts."
+        
+        group "Internet Banking System" {
+            webApp = softwareSystem "Web Application" "Delivers the static content and the Internet banking single page application." "Web Browser"
+            singlePageApp = softwareSystem "Single-Page Application" "Provides all of the Internet banking functionality to customers via their web browser." "JavaScript and Angular"
+            mobileApp = softwareSystem "Mobile App" "Provides a limited subset of the Internet banking functionality to customers via their mobile device." "Xamarin"
+            database = softwareSystem "Database" "Stores user registration information, hashed authentication credentials, access logs, etc." "Relational Database Schema"
+            apiApplication = softwareSystem "API Application" "Provides Internet banking functionality via a JSON/HTTPS API." "Java and Spring MVC"
+        }
+        
+        emailSystem = softwareSystem "E-mail System" "The internal Microsoft Exchange e-mail system." "External"
+        mainframe = softwareSystem "Mainframe Banking System" "Stores all of the core banking information about customers, accounts, transactions, etc." "External"
+        
+        # relationships between people and software systems
+        user -> webApp "Visits bigbank.com/ib using" "HTTPS"
+        user -> singlePageApp "Views account balances, and makes payments using"
+        user -> mobileApp "Views account balances, and makes payments using"
+        webApp -> singlePageApp "Delivers to the customer's web browser"
+        
+        # relationships to/from containers
+        singlePageApp -> apiApplication "Makes API calls to" "JSON/HTTPS"
+        mobileApp -> apiApplication "Makes API calls to" "JSON/HTTPS"
+        apiApplication -> database "Reads from and writes to" "JDBC"
+        apiApplication -> mainframe "Makes API calls to" "XML/HTTPS"
+        apiApplication -> emailSystem "Sends e-mail using" "SMTP"
+        
+        # relationships to/from external systems
+        emailSystem -> user "Sends e-mails to"
+    }
+    
+    views {
+        container apiApplication "Containers" {
+            include *
+            autoLayout tb
+            description "The container diagram for the Internet Banking System API Application."
+        }
+    }
+}
+----
+
+== Troubleshooting
+
+If diagrams don't render correctly, try these debugging steps:
+
+=== 1. Check Environment Setup
+
+Run the environment check:
+
+[source,bash]
+----
+./dtcw checkDiagramEnvironment
+----
+
+=== 2. Enable Debug Logging
+
+Generate documentation with verbose diagram logging:
+
+[source,bash]
+----
+./dtcw generateHTML -Ddiagram.debug=true
+----
+
+=== 3. Verify Structurizr CLI Installation
+
+Check that Structurizr CLI is properly installed:
+
+[source,bash]
+----
+# Check environment variable
+echo $DIAGRAMS_STRUCTURIZRCLI_HOME
+
+# List CLI directory contents
+ls -la $DIAGRAMS_STRUCTURIZRCLI_HOME
+
+# Test CLI execution (if wrapper script exists)
+java -jar $DIAGRAMS_STRUCTURIZRCLI_HOME/structurizr-cli-*.jar --version
+----
+
+=== 4. Clean Diagram Cache
+
+If diagrams seem cached incorrectly:
+
+[source,bash]
+----
+./dtcw cleanDiagramCache
+./dtcw generateHTML
+----
+
+== Expected Behavior
+
+When the integration works correctly:
+
+1. **Environment Check**: `./dtcw checkDiagramEnvironment` shows Structurizr CLI as accessible
+2. **Diagram Generation**: Structurizr blocks render as SVG images (not embedded workspace text)
+3. **Debug Output**: With `-Ddiagram.debug=true`, you see environment variable propagation messages
+4. **Cache Usage**: Subsequent runs are faster due to diagram caching
+
+== Docker Usage
+
+If using the enhanced Docker image:
+
+[source,bash]
+----
+# Build enhanced image with Structurizr CLI
+docker build -t my-doctoolchain-structurizr .
+
+# Run with enhanced support
+./dtcw docker image=my-doctoolchain-structurizr generateHTML
+
+# Verify environment in container
+docker run --rm my-doctoolchain-structurizr env | grep DIAGRAMS
+----
+
+== Integration Status
+
+Current configuration status:
+
+- Structurizr CLI Path: `{structurizr-cli-path}`
+- Diagram Cache Dir: `{diagram-cachedir}`
+- Allow URI Read: `{allow-uri-read}`
+- Working Directory: `{diagram-workdir}`
+
+If you see this text and the diagrams above render correctly as visual diagrams (not text), 
+the Structurizr CLI integration is working properly.
