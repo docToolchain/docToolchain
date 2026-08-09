@@ -62,7 +62,7 @@ export DTC_HEADLESS
 # Options passed to docToolchain
 DTC_OPTS="${DTC_OPTS:-} --warning-mode=${DTC_WARN_MODE} --no-daemon -Dfile.encoding=UTF-8 "
 if [ -n "${DTC_CONFIG_FILE}" ]; then
-    DTC_OPTS="${DTC_OPTS} -PmainConfigFile=${DTC_CONFIG_FILE}"
+    DTC_OPTS="${DTC_OPTS} '-PmainConfigFile=${DTC_CONFIG_FILE}'"
 fi
 
 # Here you find the project
@@ -1228,7 +1228,7 @@ build_command() {
             fi
             if [ "${env}" = local ]; then
                 if [ -x "${dtc_home}/bin/doctoolchain" ]; then
-                    cmd="${dtc_home}/bin/doctoolchain"
+                    cmd="'${dtc_home}/bin/doctoolchain'"
                 elif command -v doctoolchain >/dev/null 2>&1; then
                     cmd="doctoolchain"
                 else
@@ -1237,7 +1237,7 @@ build_command() {
                 fi
                 cmd="${cmd} . ${*} ${DTC_OPTS}"
             else
-                cmd="${dtc_home}/bin/doctoolchain . ${*} ${DTC_OPTS}"
+                cmd="'${dtc_home}/bin/doctoolchain' . ${*} ${DTC_OPTS}"
             fi
         fi
     fi

@@ -131,6 +131,29 @@ last_argv() {
     assert_output --partial "[exec][docs-builder]"
 }
 
+@test "compose: a compose path containing spaces stays one argument" {
+    # main() builds a command string that is re-parsed by 'bash -c', so an
+    # unquoted interpolation would word-split the path here.
+    compose_fixture "my compose.yml"
+    mock_with_argv_log docker >/dev/null
+
+    DTC_COMPOSE="my compose.yml" PATH="${minimal_system}" run -0 "${DTCW}" generateHTML
+
+    run last_argv
+    assert_output --partial "[-f][my compose.yml][exec]"
+}
+
+@test "devcontainer: a workspace path containing spaces stays one argument" {
+    devcontainer_fixture
+    mkdir -p "my workspace"
+    mock_with_argv_log devcontainer >/dev/null
+
+    DTC_WORKSPACE="my workspace" PATH="${minimal_system}" run -0 "${DTCW}" generateHTML
+
+    run last_argv
+    assert_output --partial "[--workspace-folder][my workspace]"
+}
+
 # --- version derived from the image, not from the host ---
 
 @test "compose: a 3.x image is dispatched through Gradle, not the v4 launcher" {
