@@ -218,6 +218,29 @@ JSON
     refute_output --partial "Launcher.groovy"
 }
 
+@test "compose: the pseudo-TTY is disabled when headless" {
+    # 'docker compose exec' allocates a TTY by default and aborts with
+    # "the input device is not a TTY" when stdin is not a terminal.
+    compose_fixture docker-compose.yml
+    mock_with_argv_log docker >/dev/null
+
+    DTC_HEADLESS=true PATH="${minimal_system}" run -0 "${DTCW}" generateHTML
+
+    run last_argv
+    assert_output --partial "[exec][-T][doctoolchain]"
+}
+
+@test "compose: an interactive run keeps the TTY" {
+    compose_fixture docker-compose.yml
+    mock_with_argv_log docker >/dev/null
+
+    DTC_HEADLESS=false PATH="${minimal_system}" run -0 "${DTCW}" generateHTML
+
+    run last_argv
+    assert_output --partial "[exec][doctoolchain]"
+    refute_output --partial "[-T]"
+}
+
 # --- devcontainer ---
 
 @test "devcontainer: a task is dispatched via 'devcontainer exec'" {

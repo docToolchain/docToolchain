@@ -144,10 +144,16 @@ main() {
             assert_container_version "$(compose_image_ref "${compose_path}")" "${compose_path}"
             local compose_cmd
             compose_cmd=$(find_compose_cmd) || exit 1
+            # 'docker compose exec' allocates a pseudo-TTY by default, which
+            # aborts with "the input device is not a TTY" whenever stdin is not
+            # a terminal (CI, pipes, cron). Reuse the DTC_HEADLESS signal the
+            # wrapper already derives from '[ -t 0 ]' and disable it there.
+            local compose_tty=""
+            [[ "${DTC_HEADLESS}" = true ]] && compose_tty=" -T"
             # Quote the interpolated values: the prefix ends up inside the
             # command string that main() hands to 'bash -c', so that shell
             # re-parses it and would word-split a path containing spaces.
-            container_cmd_prefix="${compose_cmd} -f '${compose_path}' exec '${service}'"
+            container_cmd_prefix="${compose_cmd} -f '${compose_path}' exec${compose_tty} '${service}'"
             ;;
         devcontainer)
             assert_devcontainer_cli
