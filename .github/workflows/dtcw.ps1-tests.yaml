@@ -5,7 +5,7 @@ on:
     branches-ignore:
       - gh-pages
   pull_request:
-    branches: [ ng ]
+    branches: [ main-4.x, ng ]
     paths:
       - 'dtcw.ps1'
       - 'src/test/groovy/docToolchain/DtcwOnPowershellSpec.groovy'
