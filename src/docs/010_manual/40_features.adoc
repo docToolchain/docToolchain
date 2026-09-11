@@ -64,13 +64,15 @@ the explicit `[asciimath]` / `[latexmath]` block forms shown above.
 
 Formulas render in all main output formats:
 
-* **HTML** — rendered in the browser via MathJax.
-* **PDF** — rendered natively by asciidoctor-pdf.
+* **Microsite** (`generateSite`) — rendered by **MathJax bundled locally** in the
+  theme (SVG output). The generated site is fully self-contained and renders math
+  **offline, with no CDN call**. MathJax is loaded only on pages that contain math.
+* **HTML** (`generateHTML`) — rendered in the browser via MathJax.
+* **PDF** (`generatePDF`) — rendered natively by asciidoctor-pdf.
 
-NOTE: In the microsite, MathJax is loaded the same way as in standalone HTML.
-For fully offline / self-contained sites you can bundle MathJax locally instead
-of loading it from a CDN — see the
-https://github.com/docToolchain/docToolchain/issues/1675[tracking issue].
+NOTE: Standalone `generateHTML` uses AsciiDoctor's built-in MathJax (loaded from a
+CDN). For a self-contained, offline result, generate the microsite, which bundles
+MathJax with the site.
 
 === Confluence Publishing
 
