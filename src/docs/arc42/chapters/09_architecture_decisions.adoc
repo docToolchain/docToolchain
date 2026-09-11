@@ -8,8 +8,6 @@ ifndef::imagesdir[:imagesdir: ../../images]
 
 :toc:
 
-
-
 [[section-design-decisions]]
 == Architecture Decisions
 
@@ -96,6 +94,10 @@ Statuses follow Nygard values (Proposed / Accepted / Superseded / Deprecated). `
 |v4 Task Dispatch Moves into a Groovy Launcher
 |Accepted (for v4)
 
+|ADR-19
+|Compose and Devcontainer as Native `dtcw` Environments
+|Accepted (for v4)
+
 |ADR-TBD-1
 |Confluence API Version Strategy
 |Proposed
@@ -140,6 +142,8 @@ include::../adrs/adr-16-project-local-tasks.adoc[]
 include::../adrs/adr-17-script-home-lib-resolution.adoc[]
 
 include::../adrs/adr-18-groovy-task-launcher.adoc[]
+
+include::../adrs/adr-19-shell-function-wrapper.adoc[]
 
 include::../adrs/adr-tbd-1-confluence-api.adoc[]
 

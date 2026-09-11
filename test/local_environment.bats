@@ -54,6 +54,43 @@ teardown() {
 
 }
 
+@test "local v3: an install path with spaces stays one argument" {
+    # dtcw derives DTC_ROOT from HOME at runtime, so a spaced HOME gives a
+    # spaced install path. build_command() returns a string that main() hands to
+    # 'bash -c', so an unquoted ${dtc_home} would word-split here and the v3
+    # environment would die with "<prefix>: No such file or directory" -- which
+    # is what happens on Windows/cygwin under "C:\Users\First Last".
+    #
+    # A plain stub instead of mock_create(): the argv has to be recorded with its
+    # word boundaries intact, and mock_get_call_args() flattens "$@" via echo.
+    #
+    # DTC_VERSION has to name a 3.x release: is_v4_installation() falls back to
+    # the version major when no lib/ directory is present, so a v3 tree under the
+    # default 4.0.0 would still be dispatched through the v4 launcher.
+    local v3_version=3.5.0
+    local spaced_home="${BATS_TEST_TMPDIR}/home with space"
+    local dtc_home="${spaced_home}/.doctoolchain/docToolchain-${v3_version}"
+    local argv_log="${BATS_TEST_TMPDIR}/argv.log"
+
+    # v3 installation: bin/doctoolchain present, no lib/ directory
+    mkdir -p "${dtc_home}/bin"
+    cat > "${dtc_home}/bin/doctoolchain" <<STUB
+#!/usr/bin/env bash
+printf '[%s]' "\$@" >> '${argv_log}'
+STUB
+    chmod +x "${dtc_home}/bin/doctoolchain"
+    _mock_java=$(mock_create_java "${spaced_home}/.doctoolchain/jdk/bin/java" "17.0.14")
+
+    HOME="${spaced_home}" DTC_VERSION="${v3_version}" DTC_CONFIG_FILE="my config.groovy" \
+        PATH="${minimal_system}" run -0 ./dtcw generateHTML
+
+    run cat "${argv_log}"
+    # The stub was reached at all -> the spaced install path survived
+    assert_output --partial "[.][generateHTML]"
+    # ... and the spaced config file arrived as a single argument
+    assert_output --partial "[-PmainConfigFile=my config.groovy]"
+}
+
 @test "using sdk with local environment fails" {
     # Execute
     PATH="${minimal_system}" run -2 ./dtcw sdk tasks --group doctoolchain

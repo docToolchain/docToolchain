@@ -1,0 +1,73 @@
+#compdef dtcw
+# Zsh completion for dtcw
+# Add lib/completions to fpath and run: autoload -Uz _dtcw
+
+local -a commands
+commands=(
+    # Generate
+    'generateHTML:Generate HTML documentation'
+    'generatePDF:Generate PDF documentation'
+    'generateSite:Generate microsite (jBake)'
+    'generateDeck:Generate reveal.js slide deck'
+    'generateDocBook:Generate DocBook XML'
+    'generateContent:Generate content from templates'
+    # Export — external tools
+    'exportChangeLog:Export git changelog'
+    'exportConfluence:Export Confluence pages to AsciiDoc'
+    'exportContributors:Export git contributors'
+    'exportDrawIo:Export draw.io diagrams'
+    'exportEA:Export from Enterprise Architect'
+    'exportExcel:Export Excel tables to AsciiDoc'
+    'exportJiraIssues:Export Jira issues to AsciiDoc'
+    'exportJiraSprintChangelog:Export Jira sprint changelog'
+    'exportMarkdown:Export Markdown to AsciiDoc'
+    'exportMetrics:Export code metrics'
+    'exportOpenApi:Export OpenAPI specification'
+    'exportPPT:Export PowerPoint slides as images'
+    'exportStructurizr:Export Structurizr architecture diagrams'
+    'exportVisio:Export Visio diagrams'
+    # Publish
+    'publishToConfluence:Publish documentation to Confluence'
+    'wipeConfluenceSpace:Remove all pages from Confluence space'
+    # Utilities
+    'collectIncludes:Collect all includes into a single list'
+    'convertToDocx:Convert to DOCX via Pandoc'
+    'convertToEpub:Convert to EPUB'
+    'copyThemes:Copy site themes'
+    'createReferenceDoc:Create reference document'
+    'downloadTemplate:Download arc42/req42 template'
+    'fixEncoding:Fix file encoding issues'
+    'htmlSanityCheck:Check HTML for broken links'
+    'prependFilename:Prepend filename to document'
+    'previewSite:Preview microsite locally'
+    # Meta
+    'tasks:List all available tasks'
+    'install:Install docToolchain or Java'
+    'shell:Interactive container shell'
+    '--version:Show version info'
+    'help:Show help message'
+)
+
+local -a install_components
+install_components=(
+    'doctoolchain:Install docToolchain locally'
+    'java:Install Java 17 locally'
+)
+
+_arguments -C \
+    '-f[Use specific docker-compose.yml]:compose file:_files -g "*.y(a|)ml"' \
+    '1:command:->command' \
+    '*::args:->args'
+
+case "$state" in
+    command)
+        _describe -t commands 'dtcw task' commands
+        ;;
+    args)
+        case "${words[1]}" in
+            install)
+                _describe -t install_components 'component' install_components
+                ;;
+        esac
+        ;;
+esac

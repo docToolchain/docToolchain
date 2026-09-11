@@ -1,0 +1,206 @@
+=== ADR-19: Compose and Devcontainer as Native `dtcw` Environments
+
+==== Status
+
+Accepted (for v4).
+
+==== Problem and Context
+
+docToolchain is used in multiple execution contexts beyond the project-local
+`./dtcw` script:
+
+* **Docker Compose**: Projects run docToolchain as a persistent Compose service.
+  Users invoke tasks via
+  `docker compose exec doctoolchain bash -c 'doctoolchain /project generatePDF $DTC_OPTS'` --
+  a command nobody wants to type repeatedly.
+* **Devcontainer**: VS Code / devcontainer CLI setups where doctoolchain runs in
+  a sidecar container referenced from `devcontainer.json`.
+
+An earlier approach (shell function in `lib/dtcw-function.bash`) solved this by
+adding a sourceable function with multi-mode dispatch.  The same pattern was
+explored in tpo42-asciidoc-container, where ADR-007 concluded that separating
+context detection from the main script creates unnecessary indirection: the script
+ends up as a passthrough to the function, and users must source files in their
+shell profile.
+
+==== Decision
+
+Integrate compose and devcontainer as first-class environments in `dtcw` itself,
+alongside the existing `local`, `sdk`, and `docker` environments.
+
+===== Environment priority
+
+`get_available_environments()` detects environments in this order:
+
+[cols="1,2,3"]
+|===
+| Priority | Environment | Detection
+
+| 1
+| `compose`
+| A compose file with a service whose image matches `doctoolchain/` +
+  (via `DTC_COMPOSE`, or auto-detected as `compose.yaml`, `compose.yml`,
+  `docker-compose.yml`, `docker-compose.yaml`) AND a working compose command
+
+| 2
+| `devcontainer`
+| `.devcontainer/devcontainer.json` with doctoolchain image +
+  AND `devcontainer` CLI available
+
+| 3
+| `local`
+| Always available (installation may be missing)
+
+| 4
+| `sdk`
+| SDKMAN! present
+
+| 5
+| `docker`
+| Container runtime available
+|===
+
+Project-local contexts that carry their own docToolchain (compose, devcontainer)
+take priority over host installations.  A running container is ready immediately;
+local/sdk may require installation, and docker always cold-starts a new container.
+
+The user can always force a specific environment: `./dtcw local generateHTML`.
+
+===== Container dispatch
+
+Compose and devcontainer reuse the wrapper's single dispatch path rather than
+branching out of it.  `main()` resolves a `container_cmd_prefix` for these two
+environments, then skips the host-side assertions (`assert_doctoolchain_installed`,
+`assert_java_version_supported`) that only apply to `local`/`sdk` -- docToolchain
+and its Java runtime ship inside the image.  `build_command()` prepends the prefix,
+and the `exec` at the end of `main()` is shared with every environment:
+
+[source,bash]
+----
+# compose
+container_cmd_prefix="${compose_cmd} -f ${compose_path} exec ${service}"
+
+# devcontainer
+container_cmd_prefix="devcontainer exec --workspace-folder ${DTC_WORKSPACE}"
+----
+
+This follows the `cmd_prefix` pattern from tpo42-asciidoc-container (ADR-007).
+
+Inside the container the command depends on the installed major version: v3 calls
+`doctoolchain . <task> $DTC_OPTS`, while v4 invokes the Groovy launcher
+(`Launcher.groovy`, ADR-18) with `dtc.scriptsHome` pointing at
+`/opt/docToolchain/scripts` (ADR-17).  Task discovery, the `tasks` listing and
+unknown-task guidance are therefore delegated to the container, not answered on
+the host -- the host has no view of what the image provides.
+
+===== Version comes from the image, not from the host
+
+The two dispatch forms are not interchangeable, and the v4 form hard-codes
+in-container paths, so a v4 command sent into a 3.x image fails on a missing
+`Launcher.groovy`.  The wrapper therefore must know the major version *before*
+it can build a command -- and for a container environment the host cannot answer
+that question: there may be no host installation at all, and `DTC_VERSION`
+defaults to the wrapper's own release rather than to whatever the project pinned.
+
+The image reference is the single source of truth, and the project already states
+it (`image: doctoolchain/doctoolchain:v3.5.0` in the compose file, `"image"` in
+`devcontainer.json`, or the compose file a `dockerComposeFile` points at).  The
+wrapper reads the tag and pins `DTC_VERSION` to it.  An explicitly set
+`DTC_VERSION` still wins, so a mislabelled image stays usable.
+
+A reference without a numeric version -- no tag, `:latest`, a digest -- is a hard
+error rather than an assumption: guessing picks the wrong dispatch half the time,
+and the resulting failure surfaces deep inside the container where it is
+expensive to diagnose.  The error names the reference it found and both remedies
+(pin a versioned tag, or state `DTC_VERSION`).
+
+===== Install bootstrapping
+
+`./dtcw compose install doctoolchain` generates a `docker-compose.yml` with a
+doctoolchain service if none exists.  Similarly, `./dtcw devcontainer install
+doctoolchain` generates a `.devcontainer/devcontainer.json`.  If the config
+already exists, the command pulls/builds (compose) or starts (devcontainer)
+instead.
+
+===== Container runtime detection
+
+`detect_container_runner()` resolves `DTC_CONTAINER_RUNNER` from the first
+available of `container`, `nerdctl`, `finch`, `podman`, `docker`, preferring
+lightweight/daemonless runtimes.  A pre-set `DTC_CONTAINER_RUNNER` is
+authoritative.  Because `get_available_environments()` runs in a command
+substitution, the detection is repeated in `main()` for the `docker` environment
+so the value is present in the shell that builds the command.
+
+*Compose follows the runtime.*  The compose command is not looked up
+independently: `nerdctl` and `finch` implement compose as a subcommand, `podman`
+wraps an external provider, and the standalone `docker-compose` /
+`podman-compose` binaries each belong to exactly one runtime.  Choosing
+`docker compose` while podman runs the service would address the wrong engine, so
+`find_compose_cmd()` walks the same preference list and, per candidate, takes
+`<runtime> compose` or that runtime's own standalone binary.  When
+`DTC_CONTAINER_RUNNER` is set explicitly and has no compose support, the wrapper
+fails and says so rather than quietly using another engine.
+
+*Rootless podman needs `--userns=keep-id`.*  Rootless podman places the invoking
+user at container uid 0 and maps every other uid into a subuid range.  Combined
+with the `-u $(id -u):$(id -g)` the wrapper passes, the project owner then exists
+nowhere inside the container and the bind-mounted project is read-only in
+practice -- a render task fails on its own output directory.  Rootful podman
+rejects the flag, so it is added only when `podman info` reports
+`Host.Security.Rootless` as `true`.
+
+===== Testability
+
+A `BASH_SOURCE` guard at the bottom of `dtcw` allows sourcing the script
+for unit-testing internal functions without triggering `main()`.
+
+===== Completions
+
+Completion files remain separate in `lib/completions/` per shell convention
+(bash and zsh).  They work identically whether `dtcw` is invoked as `./dtcw`
+or as a command in `PATH`.
+
+==== Environment variables
+
+[cols="1,3"]
+|===
+| `DTC_COMPOSE` | Path to the compose file (alternative to auto-detect).
+| `DTC_SERVICE` | Service name in compose file (auto-detected from image).
+| `DTC_WORKSPACE` | Workspace folder for devcontainer (default: `.`).
+| `DTC_CONTAINER_RUNNER` | Container runtime to use, as a path or a name on `PATH`. Overrides detection and also selects which compose implementation is eligible.
+| `DTC_VERSION` | Overrides the docToolchain version otherwise read from the container image tag.
+|===
+
+==== Consequences
+
+===== Positive
+
+* Single `./dtcw generateHTML` works across all execution contexts
+* No shell profile sourcing needed -- `dtcw` is a regular script
+* Container dispatch reuses the existing `build_command()`/`exec` path, so there
+  is no second invocation route to keep in sync
+* Compose auto-detection makes the validate-first workflow ergonomic:
+  `./dtcw generatePDF` just works when a compose service is running
+* Install bootstrapping lowers the barrier for new setups
+* Pattern consistency with tpo42-asciidoc-container (ADR-007)
+* Works with 3.x and 4.x images from the same wrapper: the major version is read
+  off the pinned image tag, so a project keeps using `./dtcw <task>` regardless
+  of which docToolchain generation its container carries
+
+===== Negative
+
+* Compose auto-detection relies on `doctoolchain` appearing in the image name;
+  custom image names require `DTC_SERVICE` override
+* Auto-detection may surprise users who have a compose file but expect local
+  execution -- they can force with `./dtcw local <task>`
+* The host cannot validate a task name against the container's installed tasks,
+  so an unknown task surfaces as an error from inside the container
+* An image pinned only as `:latest` (or with no tag) has to be rejected -- the
+  wrapper cannot derive a dispatch form from it, and the project must either pin
+  a version or set `DTC_VERSION`
+
+==== Supersedes
+
+Replaces the earlier shell function approach (`lib/dtcw-function.bash`).
+The learning from tpo42-asciidoc-container (ADR-005 -> ADR-006 -> ADR-007)
+showed that the function/script split adds complexity without benefit.
