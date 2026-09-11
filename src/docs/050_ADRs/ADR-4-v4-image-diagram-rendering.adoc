@@ -1,0 +1,85 @@
+:filename: 050_ADRs/ADR-4-v4-image-diagram-rendering.adoc
+:icons: font
+:jbake-menu: ADRs
+:jbake-order: 4
+:jbake-status: published
+:jbake-title: ADR-04: Diagram rendering in the docToolchain v4 image
+
+:issue-1643: https://github.com/docToolchain/docToolchain/issues/1643
+:kroki: https://kroki.io
+
+== ADR-04: Diagram rendering in the docToolchain v4 image
+
+=== Status
+
+*Proposed.* Depends on ADR-03. Cells marked `?` need team judgement.
+
+=== Problem and Context
+
+The image is also used in CI/CD pipelines, where diagrams must render reliably and ideally
+without external network access.
+
+The current state in the v3 images:
+
+* *PlantUML* is available as a Java library through `asciidoctorj-diagram` (2.3.2 in
+  `libs.versions.toml`); no separate binary is needed.
+* *Graphviz* is installed as a binary via `apk add graphviz`; it is required both by PlantUML for
+  some diagram types and by `structurizr-graphviz`.
+* *Structurizr* support is present as libraries (`structurizr-dsl`, `-export`, `-graphviz`,
+  `-d2`). The `structurizr-d2` exporter additionally needs the external *D2* binary, which is
+  *not* in the image today.
+* {kroki}[*Kroki*] is supported only as a *remote* rendering path (asciidoctor-diagram
+  `:diagram-server-url:` / asciidoctor-kroki). docToolchain does not bundle a Kroki server.
+
+For v4 we must decide which of these the image guarantees out of the box.
+
+=== Decision Drivers
+
+* Offline / air-gapped capability (no call to a third-party server).
+* CI determinism and reproducibility.
+* Diagram-format coverage (PlantUML, Graphviz, Structurizr incl. D2, others).
+* Image size and the cost of an external service dependency.
+
+=== Considered Options
+
+* *Option A (datum):* Keep today's set -- PlantUML (lib) + Graphviz (binary), no D2, no Kroki.
+* *Option B:* Option A plus the *D2 binary* so `structurizr-d2` works out of the box.
+* *Option C:* Rely on a *remote Kroki* server (`kroki.io` or a self-hosted URL); document the
+  configuration, ship less locally.
+* *Option D:* Provide a *local Kroki* server alongside the image (separate image /
+  docker-compose example) for offline rendering of many formats.
+
+=== Pugh Matrix
+
+[cols="3,^1,^1,^1,^1",options="header"]
+|===
+| Criterion (datum: Option A) | A | B | C | D
+
+| Offline / air-gapped capability | 0 |  0 | -1 |  0
+| CI determinism                  | 0 |  0 | -1 | +1
+| Diagram-format coverage         | 0 | +1 | +1 | +1
+| No external network dependency  | 0 |  0 | -1 | +1
+| Image size                      | 0 | -1 |  0 | -1
+| Operational/maintenance effort  | 0 |  0 | -1 | -1
+
+| *Sum*                           | *0* | *0* | *?* | *?*
+|===
+
+=== Decision
+
+*Proposed:* keep local rendering as the default and *add the D2 binary* (Option B) so the
+Structurizr/C4 building-block path -- the arc42 "Bausteinsicht" -- works without extra setup.
+
+Kroki should be *documented and configurable* (Option C as an opt-in), not the default, because a
+mandatory remote call breaks air-gapped CI. Whether to additionally publish a *local Kroki*
+compose example (Option D) is left open (`?`).
+
+=== Consequences
+
+* The v4 Dockerfile keeps `graphviz` and adds the `d2` binary; the smoke test must cover a
+  PlantUML, a Graphviz and a Structurizr-D2 diagram.
+* Adding D2 increases image size -- *risk R-411* (arc42 ch.11): keep it in the default image only
+  if the size cost is acceptable, otherwise move to a variant (see ADR-05).
+* Documenting Kroki as opt-in creates a *supply-chain/availability* dependency when users enable
+  it -- *risk R-412*: recommend a self-hosted Kroki URL for sensitive environments.
+* Confirms that PlantUML + Graphviz remain first-class in v4 (answers a recurring user question).
