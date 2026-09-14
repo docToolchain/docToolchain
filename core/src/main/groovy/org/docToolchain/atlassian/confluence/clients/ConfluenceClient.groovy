@@ -59,6 +59,10 @@ abstract class ConfluenceClient {
             // context has been set
             return pathParts[0]
         }
+        // Atlassian Cloud API gateway context
+        if(apiPath.startsWith("ex/confluence/")){
+            return apiPath
+        }
         // assume that context has been omitted intentionally https://docs.atlassian.com/ConfluenceServer/rest/8.6.1/
         return ""
     }
