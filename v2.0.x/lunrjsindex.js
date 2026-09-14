@@ -314,18 +314,18 @@ var documents = [
 
 {
     "id": 39,
-    "uri": "020_tutorial/110_presentations_with_revealjs.html",
-    "menu": "tutorial",
-    "title": "Presentations with reveal.js",
-    "text": " Table of Contents Presentations with reveal.js Precondition Create the Slide Deck Repository Create a minimal AsciiDoctor Reveal.js Presentation References Presentations with reveal.js reveal.js is an open source HTML presentation framework. It&#8217;s a tool that enables anyone with a web browser to create fully-featured and beautiful presentations for free. Instead of creating your reveal.js presentations in HTML markup (or markdown) you may prefer to use AsciiDoc instead. docToolchain uses Asciidoctor reveal.js to transform your AsciiDoc document into an HTML5 presentation designed to be executed by the reveal.js presentation framework. This tutorial shows how easy it is to create a reveal.js slide deck with docToolchain . It was written for a Bash environment (Linux or macOS). The adoption to MS Powershell should be trivial. Precondition To follow the tutorial you either need to have docToolchain installed locally or a running docker environment. In the later case the first call to docToolchain will pull the container image which may take some time. Create the Slide Deck Repository Create a project directory $ mkdir my-presentation $ cd my-presentation Download the docToolchain wrapper and set the executable permissions $ curl -sLo dtcw doctoolchain.github.io/dtc $ chmod +x dtcw Initialize the git repository with the minimal files $ git init # Ignore generated files in your git repository $ echo \".gradle\" &gt; .gitignore $ echo \"build\" &gt;&gt; .gitignore $ git add .gitignore $ git commit -m \"Initial commit for my reveal.js slide deck\" Create a minimal AsciiDoctor Reveal.js Presentation Create a presentation.adoc file with an image $ mkdir -p src/images $ cat &lt;&lt; EOF &gt;&gt; src/presentation.adoc = Title Slide == Slide 1 * This is the first slide == Slide 2 * This is the second slide == Slide with Image * The Debian Logo image::debian.svg[] EOF $ curl -Lo src/images/debian-logo.svg https://www.debian.org/logos/openlogo.svg Create the docToolchain configuration file docToolchainConfig.groovy $ cat &lt;&lt; EOF &gt;&gt; docToolchainConfig.groovy // Path where docToolchain creates its artifacts. outputPath = 'build' // Path where the docToolchain will search for the input files. inputPath = 'src'; // Define which formats should be processed. inputFiles = [ [file: 'presentation.adoc', formats: ['revealjs']], ] EOF As an alternative we could create the configuration by invoking ./dtcw tasks . If docToolchain doesn&#8217;t find a configuration file it will ask to create a new one. The generated configuration file contains the configuration for all tasks provided by docToolchain , which may be overwhelming. Generate the slide deck $ ./dtcw generateDeck Find your slide deck at build/decks/presentation.html and open it in your browser. Add the newly created files to you git project $ git add docToolchainConfig.groovy src $ git commit -m \"Add my first reveal.js slide deck\" Congratulations on creating your first reveal.js slide deck. References docToolchain Asciidoctor reveal.js AsciiDoc reveal.js "
-},
-
-{
-    "id": 40,
     "uri": "020_tutorial/020_arc42.html",
     "menu": "tutorial",
     "title": "arc42 Template",
     "text": " Table of Contents Get the arc42 Template Get the arc42 Template To work with docToolchain, you first need some documents. So let&#8217;s fetch the arc42 template for software architecture documentation. docToolchain comes with a task called downloadTemplate . Let&#8217;s invoke it and see what happens. Linux / WSL2 with bash ./dtcw downloadTemplate Windows with Powershell ./dtcw.ps1 downloadTemplate There is an interesting bug with the german version of the arc42 template in conjunction with running docToolchain in powershell: The encoding of the files will be wrong. To fix that, just run ./dtcw.ps1 fixEncoding . Result of downloadTemplate-Task $ ./dtcw downloadTemplate dtcw - docToolchain wrapper V0.24 docToolchain V2.0.0 Bash is running on WSL this might cause problems with plantUML see https://doctoolchain.github.io/docToolchain/#wsl for more details Java Version 11 docker available home folder exists use local homefolder install /home/rdmueller/.doctoolchain/ &gt; Configure project : arc42/arc42.adoc &gt; Task :downloadTemplate Install arc42 documentation template. For more information about arc42 see https://arc42.org [ant:input] Which language do you want to install? (EN, DE, ES, RU) &lt;-------------&gt; 0% EXECUTING [6s] [ant:input] Do you want the template with or without help? (withhelp, plain) &lt;-----&lt;-------------&gt; 0% EXECUTING [10s] Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-DE-withhelp-asciidoc.zip arc42 template unpacked into /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42 added template to docToolchainConfig.groovy use 'generateHTML', 'generatePDF' or 'generateSite' to convert the template BUILD SUCCESSFUL in 15s 1 actionable task: 1 executed Out of the box, docToolchain only knows the open source arc42 template for software architecture. That&#8217;s why it doesn&#8217;t ask which template to install. Since the template exists in four different languages and with or without help on how to use it, docToolchain asks you for these two parameters. It then downloads the template right from the source, unzips it and reformats it a little bit to fit the needs of docToolchain. It also adds the template to your configuration file. That&#8217;s it. You have now docToolchain with the arc42 template installed. Let&#8217;s render is as HTML, PDF or Microsite in the next steps. "
+},
+
+{
+    "id": 40,
+    "uri": "020_tutorial/110_presentations_with_revealjs.html",
+    "menu": "tutorial",
+    "title": "Presentations with reveal.js",
+    "text": " Table of Contents Presentations with reveal.js Precondition Create the Slide Deck Repository Create a minimal AsciiDoctor Reveal.js Presentation References Presentations with reveal.js reveal.js is an open source HTML presentation framework. It&#8217;s a tool that enables anyone with a web browser to create fully-featured and beautiful presentations for free. Instead of creating your reveal.js presentations in HTML markup (or markdown) you may prefer to use AsciiDoc instead. docToolchain uses Asciidoctor reveal.js to transform your AsciiDoc document into an HTML5 presentation designed to be executed by the reveal.js presentation framework. This tutorial shows how easy it is to create a reveal.js slide deck with docToolchain . It was written for a Bash environment (Linux or macOS). The adoption to MS Powershell should be trivial. Precondition To follow the tutorial you either need to have docToolchain installed locally or a running docker environment. In the later case the first call to docToolchain will pull the container image which may take some time. Create the Slide Deck Repository Create a project directory $ mkdir my-presentation $ cd my-presentation Download the docToolchain wrapper and set the executable permissions $ curl -sLo dtcw doctoolchain.github.io/dtc $ chmod +x dtcw Initialize the git repository with the minimal files $ git init # Ignore generated files in your git repository $ echo \".gradle\" &gt; .gitignore $ echo \"build\" &gt;&gt; .gitignore $ git add .gitignore $ git commit -m \"Initial commit for my reveal.js slide deck\" Create a minimal AsciiDoctor Reveal.js Presentation Create a presentation.adoc file with an image $ mkdir -p src/images $ cat &lt;&lt; EOF &gt;&gt; src/presentation.adoc = Title Slide == Slide 1 * This is the first slide == Slide 2 * This is the second slide == Slide with Image * The Debian Logo image::debian.svg[] EOF $ curl -Lo src/images/debian-logo.svg https://www.debian.org/logos/openlogo.svg Create the docToolchain configuration file docToolchainConfig.groovy $ cat &lt;&lt; EOF &gt;&gt; docToolchainConfig.groovy // Path where docToolchain creates its artifacts. outputPath = 'build' // Path where the docToolchain will search for the input files. inputPath = 'src'; // Define which formats should be processed. inputFiles = [ [file: 'presentation.adoc', formats: ['revealjs']], ] EOF As an alternative we could create the configuration by invoking ./dtcw tasks . If docToolchain doesn&#8217;t find a configuration file it will ask to create a new one. The generated configuration file contains the configuration for all tasks provided by docToolchain , which may be overwhelming. Generate the slide deck $ ./dtcw generateDeck Find your slide deck at build/decks/presentation.html and open it in your browser. Add the newly created files to you git project $ git add docToolchainConfig.groovy src $ git commit -m \"Add my first reveal.js slide deck\" Congratulations on creating your first reveal.js slide deck. References docToolchain Asciidoctor reveal.js AsciiDoc reveal.js "
 },
 
 {
@@ -482,18 +482,18 @@ var documents = [
 
 {
     "id": 60,
-    "uri": "015_tasks/03_task_exportPPT.html",
-    "menu": "tasks",
-    "title": "exportPPT",
-    "text": " Table of Contents exportPPT About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportPPT 1 minute to read About This Task This task lets you export a series of PowerPoint slides to be used within your AsciiDoc documentation. It is currently a Windows-only task. It exports the slides as .jpg files and the speaker notes as one .adoc file. The tag {slide} within the speaker notes will be replaced with the corresponding image reference. This will help you to get a stable result, even when you insert or delete slides. Use the tagged regions ( //tag::[ ) feature of asciidoctor] to include only certain slides or parts of your speaker notes. Further Reading and Resources Read the Do More with Slides blog post. Find more information about the Windows-only aspect of this task in this issue . Check out asciidoctorj-office-extension for another way to use PPT slides in your docs. Source Show source code of scripts/exportPPT.gradle or go directly to GitHub · docToolchain/scripts/exportPPT.gradle . scripts/exportPPT.gradle task exportPPT( dependsOn: [streamingExecute], description: 'exports all slides and some texts from PPT files', group: 'docToolchain' ) { doLast { File sourceDir = file(srcDir) logger.info(\"sourceDir: ${sourceDir}\") //make sure path for notes exists //and remove old notes new File(sourceDir, 'ppt').deleteDir() //also remove old diagrams new File(sourceDir, 'images/ppt').deleteDir() //create a readme to clarify things def readme = \"\"\"This folder contains exported slides or notes from .ppt presentations. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportPPT` to re-export files \"\"\" new File(sourceDir, 'images/ppt/.').mkdirs() new File(sourceDir, 'images/ppt/readme.ad').write(readme) new File(sourceDir, 'ppt/.').mkdirs() new File(sourceDir, 'ppt/readme.ad').write(readme) def searchPath = new File(sourceDir, 'ppt') //execute through cscript in order to make sure that we get WScript.echo right \"%SystemRoot%\\\\System32\\\\cscript.exe //nologo ${projectDir}/scripts/exportPPT.vbs -s ${sourceDir.absolutePath}\".executeCmd() } } Show source code of scripts/exportPPT.vbs or go directly to GitHub · docToolchain/scripts/exportPPT.vbs . scripts/exportPPT.vbs Const ForAppending = 8 Const ppPlaceholderBody = 2 ' Helper ' http://windowsitpro.com/windows/jsi-tip-10441-how-can-vbscript-create-multiple-folders-path-mkdir-command Function MakeDir (strPath) Dim strParentPath, objFSO Set objFSO = CreateObject(\"Scripting.FileSystemObject\") On Error Resume Next strParentPath = objFSO.GetParentFolderName(strPath) If Not objFSO.FolderExists(strParentPath) Then MakeDir strParentPath If Not objFSO.FolderExists(strPath) Then objFSO.CreateFolder strPath On Error Goto 0 MakeDir = objFSO.FolderExists(strPath) End Function Function SearchPresentations(path) For Each folder In path.SubFolders SearchPresentations folder Next For Each file In path.Files If (Left(fso.GetExtensionName (file.Path), 3) = \"ppt\") OR (Left(fso.GetExtensionName (file.Path), 3) = \"pps\") Then WScript.echo \"found \"&amp;file.path ExportSlides(file.Path) End If Next End Function Sub ExportSlides(sFile) Set objRegEx = CreateObject(\"VBScript.RegExp\") objRegEx.Global = True objRegEx.IgnoreCase = True objRegEx.MultiLine = True ' \".\" doesn't work for multiline in vbs, \"[\\s,\\S]\" does... objRegEx.Pattern = \"[\\s,\\S]*{adoc}\" ' http://www.pptfaq.com/FAQ00481_Export_the_notes_text_of_a_presentation.htm strFileName = fso.GetFIle(sFile).Name Err.Clear Set oPPT = CreateObject(\"PowerPoint.Application\") Set oPres = oPPT.Presentations.Open(sFile, True, False, False) ' Read Only, No Title, No Window On Error resume next Set oSlides = oPres.Slides WScript.echo \"number slides: \"&amp;oSlides.Count strNotesText = \"\" strImagePath = \"/images/ppt/\" &amp; strFileName &amp; \"/\" MakeDir(searchPath &amp; strImagePath) strNotesPath = \"/ppt/\" MakeDir(searchPath &amp; strNotesPath) For Each oSl In oSlides strSlideName = oSl.Name 'WScript.echo fso.GetAbsolutePathName(searchPath) &amp; strImagePath &amp; strSlideName &amp; \".jpg\" oSl.Export fso.GetAbsolutePathName(searchPath) &amp; strImagePath &amp; strSlideName &amp; \".jpg\", \".jpg\" For Each oSh In oSl.NotesPage.Shapes If oSh.PlaceholderFormat.Type = ppPlaceholderBody Then If oSh.HasTextFrame Then If oSh.TextFrame.HasText Then strCurrentNotes = oSh.TextFrame.TextRange.Text strCurrentNotes = Replace(strCurrentNotes,vbVerticalTab, vbCrLf) strCurrentNotes = Replace(strCurrentNotes,\"{slide}\",\"image::ppt/\"&amp;strFileName&amp;\"/\"&amp;strSlideName&amp;\".jpg[]\") ' remove speaker notes before marker \"{adoc}\" strCurrentNotes = objRegEx.Replace(strCurrentNotes,\"\") strNotesText = strNotesText &amp; vbCrLf &amp; strCurrentNotes &amp; vbCrLf &amp; vbCrLf End If End If End If Next Next ' WScript.echo fso.GetAbsolutePathName(\".\") &amp; strNotesPath&amp;\"\"&amp;strFileName&amp;\".ad\" ' http://stackoverflow.com/questions/2524703/save-text-file-utf-8-encoded-with-vba Set fsT = CreateObject(\"ADODB.Stream\") fsT.Type = 2 'Specify stream type - we want To save text/string data. fsT.Charset = \"utf-8\" 'Specify charset For the source text data. fsT.Open 'Open the stream And write binary data To the object fsT.WriteText \"ifndef::imagesdir[:imagesdir: ../../images]\"&amp;vbCrLf&amp;CStr(strNotesText) fsT.SaveToFile fso.GetAbsolutePathName(searchPath) &amp; strNotesPath&amp;\"\"&amp;strFileName&amp;\".ad\", 2 'Save binary data To disk oPres.Close() oPPT.Quit() If Err.Number &lt;&gt; 0 Then WScript.Echo \"Error: \" &amp; Err.Number WScript.Echo \"Error (Hex): \" &amp; Hex(Err.Number) WScript.Echo \"Source: \" &amp; Err.Source WScript.Echo \"Description: \" &amp; Err.Description Err.Clear ' Clear the Error End If End Sub set fso = CreateObject(\"Scripting.fileSystemObject\") WScript.echo \"Slide extractor\" Set objArguments = WScript.Arguments Dim argCount argCount = 0 While objArguments.Count &gt; argCount+1 Select Case objArguments(argCount) Case \"-s\" searchPath = objArguments(argCount+1) End Select argCount = argCount + 2 WEnd WScript.echo \"looking for .ppt files in \" &amp; fso.GetAbsolutePathName(searchPath) SearchPresentations fso.GetFolder(searchPath) WScript.echo \"finished exporting slides\" "
-},
-
-{
-    "id": 61,
     "uri": "015_tasks/03_task_autobuildSite.html",
     "menu": "tasks",
     "title": "autobuildSite",
     "text": " Table of Contents autobuildSite About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } autobuildSite 1 minute to read About This Task This script starts an endless loop which checks for changes to your docs source then re-runs the generateSite -task whenever it detects changes. The output will be logged to build/generateSite.log . Source Show source code of bin/autobuildSite.bash or go directly to GitHub · docToolchain/bin/autobuildSite.bash . bin/autobuildSite.bash #!/bin/bash DIR_TO_WATCH='src/' #COMMAND='rm -r build || true &amp;&amp; mkdir -p build/microsite/output/images/ &amp;&amp; ./dtcw generateSite 2&gt;&amp;1 | tee build/generateSite.log' COMMAND='mkdir -p build/microsite/output/images/ &amp;&amp; ./dtcw generateSite 2&gt;&amp;1 | tee build/generateSite.log' #execute first time cp src/docs/images/ready.png build/microsite/output/images/status.png #eval $COMMAND #wait for changes and execute while true ; do watch --no-title --chgexit \"ls -lR ${DIR_TO_WATCH} | sha1sum\" cp src/docs/images/building.png build/microsite/output/images/status.png eval \"$COMMAND\" cp src/docs/images/ready.png build/microsite/output/images/status.png sleep 6 done "
+},
+
+{
+    "id": 61,
+    "uri": "015_tasks/03_task_exportPPT.html",
+    "menu": "tasks",
+    "title": "exportPPT",
+    "text": " Table of Contents exportPPT About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } exportPPT 1 minute to read About This Task This task lets you export a series of PowerPoint slides to be used within your AsciiDoc documentation. It is currently a Windows-only task. It exports the slides as .jpg files and the speaker notes as one .adoc file. The tag {slide} within the speaker notes will be replaced with the corresponding image reference. This will help you to get a stable result, even when you insert or delete slides. Use the tagged regions ( //tag::[ ) feature of asciidoctor] to include only certain slides or parts of your speaker notes. Further Reading and Resources Read the Do More with Slides blog post. Find more information about the Windows-only aspect of this task in this issue . Check out asciidoctorj-office-extension for another way to use PPT slides in your docs. Source Show source code of scripts/exportPPT.gradle or go directly to GitHub · docToolchain/scripts/exportPPT.gradle . scripts/exportPPT.gradle task exportPPT( dependsOn: [streamingExecute], description: 'exports all slides and some texts from PPT files', group: 'docToolchain' ) { doLast { File sourceDir = file(srcDir) logger.info(\"sourceDir: ${sourceDir}\") //make sure path for notes exists //and remove old notes new File(sourceDir, 'ppt').deleteDir() //also remove old diagrams new File(sourceDir, 'images/ppt').deleteDir() //create a readme to clarify things def readme = \"\"\"This folder contains exported slides or notes from .ppt presentations. Please note that these are generated files but reside in the `src`-folder in order to be versioned. This is to make sure that they can be used from environments other than windows. # Warning! **The contents of this folder will be overwritten with each re-export!** use `gradle exportPPT` to re-export files \"\"\" new File(sourceDir, 'images/ppt/.').mkdirs() new File(sourceDir, 'images/ppt/readme.ad').write(readme) new File(sourceDir, 'ppt/.').mkdirs() new File(sourceDir, 'ppt/readme.ad').write(readme) def searchPath = new File(sourceDir, 'ppt') //execute through cscript in order to make sure that we get WScript.echo right \"%SystemRoot%\\\\System32\\\\cscript.exe //nologo ${projectDir}/scripts/exportPPT.vbs -s ${sourceDir.absolutePath}\".executeCmd() } } Show source code of scripts/exportPPT.vbs or go directly to GitHub · docToolchain/scripts/exportPPT.vbs . scripts/exportPPT.vbs Const ForAppending = 8 Const ppPlaceholderBody = 2 ' Helper ' http://windowsitpro.com/windows/jsi-tip-10441-how-can-vbscript-create-multiple-folders-path-mkdir-command Function MakeDir (strPath) Dim strParentPath, objFSO Set objFSO = CreateObject(\"Scripting.FileSystemObject\") On Error Resume Next strParentPath = objFSO.GetParentFolderName(strPath) If Not objFSO.FolderExists(strParentPath) Then MakeDir strParentPath If Not objFSO.FolderExists(strPath) Then objFSO.CreateFolder strPath On Error Goto 0 MakeDir = objFSO.FolderExists(strPath) End Function Function SearchPresentations(path) For Each folder In path.SubFolders SearchPresentations folder Next For Each file In path.Files If (Left(fso.GetExtensionName (file.Path), 3) = \"ppt\") OR (Left(fso.GetExtensionName (file.Path), 3) = \"pps\") Then WScript.echo \"found \"&amp;file.path ExportSlides(file.Path) End If Next End Function Sub ExportSlides(sFile) Set objRegEx = CreateObject(\"VBScript.RegExp\") objRegEx.Global = True objRegEx.IgnoreCase = True objRegEx.MultiLine = True ' \".\" doesn't work for multiline in vbs, \"[\\s,\\S]\" does... objRegEx.Pattern = \"[\\s,\\S]*{adoc}\" ' http://www.pptfaq.com/FAQ00481_Export_the_notes_text_of_a_presentation.htm strFileName = fso.GetFIle(sFile).Name Err.Clear Set oPPT = CreateObject(\"PowerPoint.Application\") Set oPres = oPPT.Presentations.Open(sFile, True, False, False) ' Read Only, No Title, No Window On Error resume next Set oSlides = oPres.Slides WScript.echo \"number slides: \"&amp;oSlides.Count strNotesText = \"\" strImagePath = \"/images/ppt/\" &amp; strFileName &amp; \"/\" MakeDir(searchPath &amp; strImagePath) strNotesPath = \"/ppt/\" MakeDir(searchPath &amp; strNotesPath) For Each oSl In oSlides strSlideName = oSl.Name 'WScript.echo fso.GetAbsolutePathName(searchPath) &amp; strImagePath &amp; strSlideName &amp; \".jpg\" oSl.Export fso.GetAbsolutePathName(searchPath) &amp; strImagePath &amp; strSlideName &amp; \".jpg\", \".jpg\" For Each oSh In oSl.NotesPage.Shapes If oSh.PlaceholderFormat.Type = ppPlaceholderBody Then If oSh.HasTextFrame Then If oSh.TextFrame.HasText Then strCurrentNotes = oSh.TextFrame.TextRange.Text strCurrentNotes = Replace(strCurrentNotes,vbVerticalTab, vbCrLf) strCurrentNotes = Replace(strCurrentNotes,\"{slide}\",\"image::ppt/\"&amp;strFileName&amp;\"/\"&amp;strSlideName&amp;\".jpg[]\") ' remove speaker notes before marker \"{adoc}\" strCurrentNotes = objRegEx.Replace(strCurrentNotes,\"\") strNotesText = strNotesText &amp; vbCrLf &amp; strCurrentNotes &amp; vbCrLf &amp; vbCrLf End If End If End If Next Next ' WScript.echo fso.GetAbsolutePathName(\".\") &amp; strNotesPath&amp;\"\"&amp;strFileName&amp;\".ad\" ' http://stackoverflow.com/questions/2524703/save-text-file-utf-8-encoded-with-vba Set fsT = CreateObject(\"ADODB.Stream\") fsT.Type = 2 'Specify stream type - we want To save text/string data. fsT.Charset = \"utf-8\" 'Specify charset For the source text data. fsT.Open 'Open the stream And write binary data To the object fsT.WriteText \"ifndef::imagesdir[:imagesdir: ../../images]\"&amp;vbCrLf&amp;CStr(strNotesText) fsT.SaveToFile fso.GetAbsolutePathName(searchPath) &amp; strNotesPath&amp;\"\"&amp;strFileName&amp;\".ad\", 2 'Save binary data To disk oPres.Close() oPPT.Quit() If Err.Number &lt;&gt; 0 Then WScript.Echo \"Error: \" &amp; Err.Number WScript.Echo \"Error (Hex): \" &amp; Hex(Err.Number) WScript.Echo \"Source: \" &amp; Err.Source WScript.Echo \"Description: \" &amp; Err.Description Err.Clear ' Clear the Error End If End Sub set fso = CreateObject(\"Scripting.fileSystemObject\") WScript.echo \"Slide extractor\" Set objArguments = WScript.Arguments Dim argCount argCount = 0 While objArguments.Count &gt; argCount+1 Select Case objArguments(argCount) Case \"-s\" searchPath = objArguments(argCount+1) End Select argCount = argCount + 2 WEnd WScript.echo \"looking for .ppt files in \" &amp; fso.GetAbsolutePathName(searchPath) SearchPresentations fso.GetFolder(searchPath) WScript.echo \"finished exporting slides\" "
 },
 
 {
@@ -618,18 +618,18 @@ var documents = [
 
 {
     "id": 77,
-    "uri": "015_tasks/03_task_convertToEpub.html",
-    "menu": "tasks",
-    "title": "convertToEpub",
-    "text": " Table of Contents convertToEpub Dependency About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToEpub 1 minute to read Dependency generateDocBook About This Task This task uses pandoc to convert the DocBook output from AsciiDoctor to ePub. This publishes the output as an eBook which can be read using any eBook reader. The resulting file can be found in build/docs/epub . Further Reading and Resources Turn your Document into an Audio-Book blog post. Source Show source code of scripts/pandoc.gradle or go directly to GitHub · docToolchain/scripts/pandoc.gradle . scripts/pandoc.gradle task convertToEpub ( group: 'docToolchain', description: 'converts file to .epub via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `epub` in config.groovy is converted to docbook and then to epub. def sourceFilesEpub = sourceFiles.findAll { 'epub' in it.formats } def explicitSourceFilesCount = sourceFilesEpub.size() if(explicitSourceFilesCount==0){ sourceFilesEpub = sourceFiles.findAll { 'docbook' in it.formats } } sourceFilesEpub.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.epub') new File(\"$targetDir/epub/$targetFile\") .getParentFile() .getAbsoluteFile().mkdirs() workingDir \"$targetDir/docbook\" executable = \"pandoc\" args = ['-r','docbook', '-t','epub', '-o',\"../epub/$targetFile\", sourceFile] } doFirst { if(sourceFilesEpub.size()==0){ throw new Exception (\"\"\" &gt;&gt; No source files defined for type 'epub'. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy \"\"\") } if(explicitSourceFilesCount==0) { logger.warn('WARNING: No source files defined for type \"epub\". Converting with best effort') } } } "
-},
-
-{
-    "id": 78,
     "uri": "015_tasks/03_task_fixencoding.html",
     "menu": "tasks",
     "title": "fixEncoding",
     "text": " Table of Contents fixEncoding About This Task Source .gravatar img { margin-left: 3px; border-radius: 4px; } fixEncoding 1 minute to read About This Task Whenever Asciidoctor has to process a file that is not UTF-8 encoded, Ruby tries to read it, then throws an error similar to this one: asciidoctor: FAILED: /home/demo/test.adoc: Failed to load AsciiDoc document - invalid byte sequence in UTF-8 Unfortunately, finding the incorrectly encoded file is difficult if a lot of includes:: are used, and Asciidoctor will only show the name of the main document. This is not Asciidoctor&#8217;s fault. The fault lies with the Ruby interpreter that sits underneath. The fixEncoding task crawls through all *.ad and *.adoc files and checks their encoding. If it comes across a file which is not UTF-8 encoded, it will rewrite it with the UTF-8 encoding. Source Show source code of scripts/fixEncoding.gradle or go directly to GitHub · docToolchain/scripts/fixEncoding.gradle . scripts/fixEncoding.gradle import groovy.util.* import static groovy.io.FileType.* task fixEncoding( description: 'finds and converts non UTF-8 adoc files to UTF-8', group: 'docToolchain helper', ) { doLast { File sourceFolder = new File(\"${docDir}/${inputPath}\") println(\"sourceFolder: \" + sourceFolder.canonicalPath) sourceFolder.traverse(type: FILES) { file -&gt; if (file.name ==~ '^.*(ad|adoc|asciidoc)$') { CharsetToolkit toolkit = new CharsetToolkit(file); // guess the encoding def guessedCharset = toolkit.getCharset().toString().toUpperCase(); if (guessedCharset!='UTF-8') { def text = file.text file.write(text, \"utf-8\") println(\" converted ${file.name} from '${guessedCharset}' to 'UFT-8'\") } } } } } "
+},
+
+{
+    "id": 78,
+    "uri": "015_tasks/03_task_convertToEpub.html",
+    "menu": "tasks",
+    "title": "convertToEpub",
+    "text": " Table of Contents convertToEpub Dependency About This Task Further Reading and Resources Source .gravatar img { margin-left: 3px; border-radius: 4px; } convertToEpub 1 minute to read Dependency generateDocBook About This Task This task uses pandoc to convert the DocBook output from AsciiDoctor to ePub. This publishes the output as an eBook which can be read using any eBook reader. The resulting file can be found in build/docs/epub . Further Reading and Resources Turn your Document into an Audio-Book blog post. Source Show source code of scripts/pandoc.gradle or go directly to GitHub · docToolchain/scripts/pandoc.gradle . scripts/pandoc.gradle task convertToEpub ( group: 'docToolchain', description: 'converts file to .epub via pandoc. Needs pandoc installed.', type: Exec ) { // All files with option `epub` in config.groovy is converted to docbook and then to epub. def sourceFilesEpub = sourceFiles.findAll { 'epub' in it.formats } def explicitSourceFilesCount = sourceFilesEpub.size() if(explicitSourceFilesCount==0){ sourceFilesEpub = sourceFiles.findAll { 'docbook' in it.formats } } sourceFilesEpub.each { def sourceFile = it.file.replace('.adoc', '.xml') def targetFile = sourceFile.replace('.xml', '.epub') new File(\"$targetDir/epub/$targetFile\") .getParentFile() .getAbsoluteFile().mkdirs() workingDir \"$targetDir/docbook\" executable = \"pandoc\" args = ['-r','docbook', '-t','epub', '-o',\"../epub/$targetFile\", sourceFile] } doFirst { if(sourceFilesEpub.size()==0){ throw new Exception (\"\"\" &gt;&gt; No source files defined for type 'epub'. &gt;&gt; Please specify at least one inputFile in your docToolchainConfig.groovy \"\"\") } if(explicitSourceFilesCount==0) { logger.warn('WARNING: No source files defined for type \"epub\". Converting with best effort') } } } "
 },
 
 {
@@ -738,14 +738,6 @@ var documents = [
 
 {
     "id": 92,
-    "uri": "ea/Activity_notes.html",
-    "menu": "ea",
-    "title": "Activity_notes.ad",
-    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
-},
-
-{
-    "id": 93,
     "uri": "ea/readme.html",
     "menu": "ea",
     "title": "readme.ad",
@@ -753,15 +745,15 @@ var documents = [
 },
 
 {
-    "id": 94,
-    "uri": "ea/Use_Cases_links_issue2.html",
+    "id": 93,
+    "uri": "ea/Activity_notes.html",
     "menu": "ea",
-    "title": "Use_Cases_links_issue2.ad",
-    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
+    "title": "Activity_notes.ad",
+    "text": " Activity1 Just a test for issue #1 https://github.com/rdmueller/docToolchain/issues/1 "
 },
 
 {
-    "id": 95,
+    "id": 94,
     "uri": "ea/Activity_notes_issue1.html",
     "menu": "ea",
     "title": "Activity_notes_issue1.ad",
@@ -769,7 +761,7 @@ var documents = [
 },
 
 {
-    "id": 96,
+    "id": 95,
     "uri": "ea/Architect_notes.html",
     "menu": "ea",
     "title": "Architect_notes.ad",
@@ -777,19 +769,27 @@ var documents = [
 },
 
 {
-    "id": 97,
-    "uri": "ea/Use_Cases_links.html",
+    "id": 96,
+    "uri": "ea/Use_Cases_links_issue2.html",
     "menu": "ea",
-    "title": "Use_Cases_links.ad",
+    "title": "Use_Cases_links_issue2.ad",
     "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
 },
 
 {
-    "id": 98,
+    "id": 97,
     "uri": "ea/Use_Cases_notes.html",
     "menu": "ea",
     "title": "Use_Cases_notes.ad",
     "text": " docToolchain is a gradle/maven build which turns asciidoc documentation into HTML5 rendered files. create stunning docs invoked by gradle or maven command "
+},
+
+{
+    "id": 98,
+    "uri": "ea/Use_Cases_links.html",
+    "menu": "ea",
+    "title": "Use_Cases_links.ad",
+    "text": " . and this is just a test for issue #2 https://github.com/rdmueller/docToolchain/issues/2 "
 },
 
 {
