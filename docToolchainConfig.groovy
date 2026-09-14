@@ -68,8 +68,10 @@ microsite.with {
     // used as title in the template
     title='Microsite'
     // The address this site is published under. It is what the sitemap tells
-    // crawlers, so a placeholder here means a sitemap full of dead addresses.
-    host='https://doctoolchain.org/docToolchain/v4.0.x'
+    // crawlers, so a wrong value here means a sitemap full of dead addresses.
+    // This branch publishes to v2.0.x — see the BRANCH check in .ci.sh — and
+    // that is also where doctoolchain.org redirects readers.
+    host='https://doctoolchain.org/docToolchain/v2.0.x'
 
     //project theme
     //site folder relative to the docs folder

@@ -76,6 +76,8 @@ test {
         'src/site/configFragment.groovy',
         'src/site/groovy/menu.groovy',
         'scripts/generateSite.gradle',
+        'docToolchainConfig.groovy',
+        '.ci.sh',
     ).withPropertyName('siteSourcesUnderTest').withPathSensitivity(PathSensitivity.RELATIVE)
 }
 
