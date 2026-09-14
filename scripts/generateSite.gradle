@@ -142,7 +142,7 @@ ${color 'green', 'for you?'}\n""",
                             if (line.trim()) {
                                 if (line.startsWith("//")) {
                                     conf += "    " + line + "\n"
-                                    def tmp = line[2..-1].trim()
+                                    def tmp = line.substring(2).trim()
                                     comment += color('green', tmp) + "\n"
                                     if (tmp.toLowerCase().startsWith("example")) {
                                         example = tmp.replaceAll("[^ ]* ", "")

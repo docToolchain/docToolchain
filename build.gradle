@@ -66,6 +66,17 @@ dependencies {
 }
 test {
     useJUnitPlatform()
+
+    // Some specs read site templates and build scripts as their subject rather than
+    // classes on the test classpath. Gradle cannot see that on its own, so without
+    // these the task stays up-to-date after such a file changes — and reports green
+    // on a run that never happened.
+    inputs.files(
+        'src/site/templates/sitemap.gsp',
+        'src/site/configFragment.groovy',
+        'src/site/groovy/menu.groovy',
+        'scripts/generateSite.gradle',
+    ).withPropertyName('siteSourcesUnderTest').withPathSensitivity(PathSensitivity.RELATIVE)
 }
 
 if (project.name!=rootProject.name) {

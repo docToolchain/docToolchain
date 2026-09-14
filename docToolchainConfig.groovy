@@ -67,8 +67,9 @@ microsite.with {
     contextPath = ''
     // used as title in the template
     title='Microsite'
-    // used in the template for absolute uris
-    host='https://localhost'
+    // The address this site is published under. It is what the sitemap tells
+    // crawlers, so a placeholder here means a sitemap full of dead addresses.
+    host='https://doctoolchain.org/docToolchain/v4.0.x'
 
     //project theme
     //site folder relative to the docs folder

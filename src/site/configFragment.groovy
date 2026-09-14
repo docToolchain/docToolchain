@@ -1,11 +1,17 @@
 branch = System.getenv("DTC_PROJECT_BRANCH")
+//
+// the address this site is published under, without a trailing slash.
+// It is what the sitemap tells crawlers, so a placeholder here means a
+// sitemap full of addresses that lead nowhere.
+// example: https://doctoolchain.org/Bausteinsicht
+host = '##site-host##'
 // the title of the microsite, displayed in the upper left corner
 title = '##site-title##'
 // the next items configure some links in the footer
 //
 // contact eMail
 // example: mailto:bert@example.com
-footerMail = '##footer-email'
+footerMail = '##footer-email##'
 //
 // twitter account url
 footerTwitter = '##twitter-url##'
