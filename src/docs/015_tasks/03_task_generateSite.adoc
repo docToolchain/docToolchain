@@ -95,6 +95,25 @@ The configuration follows the __convention-over-configuration__ approach.
 If you follow the conventions, you don't have to configure anything.
 But if you want to, you can override the convention behaviour with a configuration.
 
+==== Site address
+
+One setting has no sensible convention: the address your site is published under.
+No build can guess it, so `generateSite` asks for it the first time a theme is used
+in a project and stores the answer as `microsite.host`.
+
+[source,groovy]
+----
+microsite.with {
+    // without a trailing slash
+    host = 'https://doctoolchain.org/Bausteinsicht'
+}
+----
+
+The sitemap is built from it. A sitemap tells crawlers which addresses exist, so a
+placeholder here would publish a promise the site cannot keep. When `host` is still
+unset, `generateSite` writes an empty sitemap and warns, rather than a full one that
+leads nowhere.
+
 ==== Menu
 
 ===== Navigation elements

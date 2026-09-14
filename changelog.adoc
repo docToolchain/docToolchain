@@ -9,6 +9,8 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 
 === fixed
 
+* generateSite: sitemaps no longer point at `localhost` or `jbake.org`. The setup now asks for `microsite.host`, the interview no longer dies on a `//` comment line, and pages rendered to another extension (the lunr.js search index) are left out instead of listed as a 404.
+
 === added
 
 === changed
