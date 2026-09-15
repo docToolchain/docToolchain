@@ -428,7 +428,7 @@ function assert_java_version_supported() {
     $JAVA_CMD = $null
 
     if ( Test-Path "$DTC_JAVA_HOME") {
-        Write-Host "Check Java from $javaHome"
+        Write-Host "Check Java from $DTC_JAVA_HOME"
         # Get the list of directories that start with 'jdk-'
         $javaDirs = Get-ChildItem -Path $DTC_JAVA_HOME -Directory | Where-Object { $_.Name -like "jdk-*" }
         # Select the first directory from the list
@@ -455,18 +455,35 @@ function assert_java_version_supported() {
         java_help_and_die
     }
 
-    # We got a Java version
-    $javaversion = ($JAVA_CMD | Select-Object -ExpandProperty Version).Major
+    # We got a Java command, now get its version by calling java -version
+    try {
+        $javaVersionOutput = & $JAVA_CMD.Source -version 2>&1
+        $javaVersionLine = $javaVersionOutput | Where-Object { $_ -match 'version' } | Select-Object -First 1
+        if ($javaVersionLine -match '"([^"]+)"') {
+            $javaversion = $matches[1]
+            # Extract major version (handle both 1.8.x and 17.x formats)
+            if ($javaversion -match '^1\.') {
+                $majorVersion = ($javaversion -split '\.')[1]
+            } else {
+                $majorVersion = ($javaversion -split '\.')[0]
+            }
+        } else {
+            throw "Could not parse Java version from output: $javaVersionLine"
+        }
+    } catch {
+        Write-Warning "Failed to get Java version: $_"
+        java_help_and_die
+    }
 
-    Write-Output "Java Version $javaversion"
+    Write-Output "Java Version $majorVersion (full: $javaversion)"
 
-    if ([int]$javaversion -ne 17 ) {
+    if ([int]$majorVersion -ne 17 ) {
         Write-Warning @"
-unsupported Java version ${javaversion} [$JAVA_CMD]
+unsupported Java version ${majorVersion} [$($JAVA_CMD.Source)]
 "@
         java_help_and_die
     }
-    Write-Output "Using Java ${javaversion} [${JAVA_CMD}]"
+    Write-Output "Using Java ${javaversion} [$($JAVA_CMD.Source)]"
     return
 }
 
