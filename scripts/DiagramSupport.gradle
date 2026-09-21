@@ -1,0 +1,302 @@
+/*
+ * Enhanced Diagram Support for docToolchain
+ * 
+ * This script enhances AsciidoctorJ configuration to properly support
+ * external diagram CLI tools like Structurizr CLI through asciidoctor-diagram.
+ * 
+ * Addresses GitHub Issue #1480: AsciiDoc Diagrams can't leverage Structurizr CLI
+ * 
+ * Key features:
+ * - Environment variable propagation to AsciidoctorJ subprocess
+ * - Enhanced debugging capabilities
+ * - Proper configuration for external CLI tools
+ * - Support for diagram caching and verbose logging
+ */
+
+// Apply enhanced configuration to all AsciidoctorJ tasks
+tasks.withType(AbstractAsciidoctorTask) { docTask ->
+    
+    // Enhanced fork options for external tool support
+    forkOptions {
+        // Ensure JVM can access required modules for modern Java versions
+        jvmArgs(
+            "--add-opens", "java.base/sun.nio.ch=ALL-UNNAMED",
+            "--add-opens", "java.base/java.io=ALL-UNNAMED",
+            "--add-opens", "java.base/java.lang=ALL-UNNAMED",
+            "--add-opens", "java.base/java.util=ALL-UNNAMED"
+        )
+        
+        // Propagate critical environment variables for diagram tools
+        def diagramEnvVars = [
+            'DIAGRAMS_STRUCTURIZRCLI_HOME',
+            'PLANTUML_JAR',
+            'GRAPHVIZ_DOT',
+            'PATH',
+            'JAVA_HOME'
+        ]
+        
+        diagramEnvVars.each { envVar ->
+            def value = System.getenv(envVar)
+            if (value) {
+                environment envVar, value
+                if (project.hasProperty('diagram.debug') || 
+                    System.getProperty('diagram.debug') == 'true') {
+                    println "docToolchain> Propagating ${envVar}=${value}"
+                }
+            }
+        }
+        
+        // Set system properties for diagram tools
+        systemProperties += [
+            'DIAGRAMS_STRUCTURIZRCLI_HOME': System.getenv('DIAGRAMS_STRUCTURIZRCLI_HOME') ?: '',
+            'java.awt.headless': 'true',  // Ensure headless mode
+            'file.encoding': 'UTF-8'      // Ensure proper encoding
+        ]
+        
+        // Increase memory for complex diagram processing
+        if (!jvmArgs.any { it.startsWith('-Xmx') }) {
+            jvmArgs '-Xmx1024m'
+        }
+    }
+    
+    // Enhanced AsciidoctorJ configuration for diagrams
+    asciidoctorj {
+        // Ensure diagram extension is loaded
+        requires 'asciidoctor-diagram'
+        
+        // Configure diagram-specific attributes
+        def diagramAttributes = [:]
+        
+        // Basic diagram settings
+        diagramAttributes['allow-uri-read'] = 'true'
+        diagramAttributes['data-uri'] = ''
+        
+        // Set diagram cache directory
+        def cacheDir = "${project.buildDir}/diagrams-cache"
+        diagramAttributes['diagram-cachedir'] = cacheDir
+        
+        // Tool-specific paths from environment
+        if (System.getenv('DIAGRAMS_STRUCTURIZRCLI_HOME')) {
+            diagramAttributes['structurizr-cli-path'] = System.getenv('DIAGRAMS_STRUCTURIZRCLI_HOME')
+        }
+        
+        if (System.getenv('PLANTUML_JAR')) {
+            diagramAttributes['plantuml-jar-path'] = System.getenv('PLANTUML_JAR')
+        }
+        
+        if (System.getenv('GRAPHVIZ_DOT')) {
+            diagramAttributes['graphviz-dot-path'] = System.getenv('GRAPHVIZ_DOT')
+        }
+        
+        // Debugging and logging
+        if (project.hasProperty('diagram.debug') || 
+            System.getProperty('diagram.debug') == 'true') {
+            diagramAttributes['diagram-trace'] = 'true'
+            diagramAttributes['diagram-verbose'] = 'true'
+        }
+        
+        // Disable remote diagram servers to force local execution
+        diagramAttributes['diagram-server-url'] = ''
+        
+        // Apply all diagram attributes
+        attributes(diagramAttributes)
+    }
+    
+    // Custom preprocessor to ensure diagram tools are properly configured
+    extensions {
+        preprocessor {
+            process { document, reader ->
+                // Set diagram tool paths as document attributes for runtime access
+                if (System.getenv('DIAGRAMS_STRUCTURIZRCLI_HOME')) {
+                    document.setAttribute('structurizr-cli-path', System.getenv('DIAGRAMS_STRUCTURIZRCLI_HOME'))
+                    if (project.hasProperty('diagram.debug') || 
+                        System.getProperty('diagram.debug') == 'true') {
+                        println "docToolchain> Document attribute set: structurizr-cli-path=${System.getenv('DIAGRAMS_STRUCTURIZRCLI_HOME')}"
+                    }
+                }
+                
+                // Set working directory for diagram generation
+                document.setAttribute('diagram-workdir', project.projectDir.absolutePath)
+                
+                // Ensure cache directory is available as attribute
+                document.setAttribute('diagram-cachedir', "${project.buildDir}/diagrams-cache")
+                
+                return reader
+            }
+        }
+    }
+    
+    // Pre-task setup for diagram generation
+    doFirst {
+        // Create diagram cache directory
+        def diagramCacheDir = new File("${project.buildDir}/diagrams-cache")
+        if (!diagramCacheDir.exists()) {
+            diagramCacheDir.mkdirs()
+            println "docToolchain> Created diagram cache directory: ${diagramCacheDir.absolutePath}"
+        }
+        
+        // Debug output for troubleshooting (only if debug enabled)
+        if (project.hasProperty('diagram.debug') || 
+            System.getProperty('diagram.debug') == 'true') {
+            println "\n=== docToolchain Diagram Environment Debug ==="
+            println "Working directory: ${project.projectDir.absolutePath}"
+            println "Build directory: ${project.buildDir.absolutePath}"
+            println "Cache directory: ${diagramCacheDir.absolutePath}"
+            
+            // Check environment variables
+            ['DIAGRAMS_STRUCTURIZRCLI_HOME', 'PLANTUML_JAR', 'GRAPHVIZ_DOT', 'PATH'].each { envVar ->
+                def value = System.getenv(envVar)
+                println "${envVar}: ${value ?: 'not set'}"
+            }
+            
+            // Check Structurizr CLI accessibility
+            def structurizrHome = System.getenv('DIAGRAMS_STRUCTURIZRCLI_HOME')
+            if (structurizrHome) {
+                def structurizrDir = new File(structurizrHome)
+                println "Structurizr directory exists: ${structurizrDir.exists()}"
+                if (structurizrDir.exists()) {
+                    def cliJars = structurizrDir.listFiles()?.findAll { 
+                        it.name.contains('structurizr') && it.name.endsWith('.jar') 
+                    }
+                    println "Structurizr CLI JARs found: ${cliJars*.name}"
+                }
+            }
+            println "===============================================\n"
+        }
+    }
+}
+
+// Debug task for diagram environment troubleshooting
+task checkDiagramEnvironment {
+    description = "Check environment setup for diagram generation tools"
+    group = "documentation"
+    
+    doLast {
+        println "\n=== Diagram Environment Check ==="
+        
+        // System information
+        println "Java version: ${System.getProperty('java.version')}"
+        println "Operating system: ${System.getProperty('os.name')} ${System.getProperty('os.version')}"
+        println "Working directory: ${project.projectDir.absolutePath}"
+        println "Build directory: ${project.buildDir.absolutePath}"
+        
+        // Check if running in Docker
+        def dockerEnv = new File('/.dockerenv').exists()
+        println "Running in Docker: ${dockerEnv}"
+        
+        // Environment variables check
+        println "\n--- Environment Variables ---"
+        def diagramEnvVars = [
+            'DIAGRAMS_STRUCTURIZRCLI_HOME',
+            'PLANTUML_JAR', 
+            'GRAPHVIZ_DOT',
+            'PATH',
+            'JAVA_HOME'
+        ]
+        
+        diagramEnvVars.each { envVar ->
+            def value = System.getenv(envVar)
+            println "${envVar}: ${value ?: 'not set'}"
+        }
+        
+        // Tool accessibility check
+        println "\n--- Tool Accessibility ---"
+        
+        // Check Structurizr CLI
+        def structurizrHome = System.getenv('DIAGRAMS_STRUCTURIZRCLI_HOME')
+        if (structurizrHome) {
+            def structurizrDir = new File(structurizrHome)
+            println "Structurizr CLI directory (${structurizrHome}):"
+            println "  - Directory exists: ${structurizrDir.exists()}"
+            
+            if (structurizrDir.exists()) {
+                def files = structurizrDir.listFiles()
+                if (files) {
+                    println "  - Contents:"
+                    files.each { file ->
+                        println "    ${file.name} (${file.isDirectory() ? 'DIR' : 'FILE, ' + file.length() + ' bytes'})"
+                    }
+                    
+                    def cliJars = files.findAll { 
+                        it.name.contains('structurizr') && it.name.endsWith('.jar') 
+                    }
+                    if (cliJars) {
+                        println "  - CLI JARs found: ${cliJars*.name}"
+                    } else {
+                        println "  - WARNING: No Structurizr CLI JAR files found!"
+                    }
+                } else {
+                    println "  - Directory is empty or not readable"
+                }
+            }
+        } else {
+            println "Structurizr CLI: not configured (DIAGRAMS_STRUCTURIZRCLI_HOME not set)"
+        }
+        
+        // Check PlantUML
+        def plantumlJar = System.getenv('PLANTUML_JAR')
+        if (plantumlJar) {
+            def plantumlFile = new File(plantumlJar)
+            println "PlantUML JAR (${plantumlJar}): ${plantumlFile.exists() ? 'exists' : 'not found'}"
+        } else {
+            println "PlantUML: using default (PLANTUML_JAR not set)"
+        }
+        
+        // Check Graphviz
+        def graphvizDot = System.getenv('GRAPHVIZ_DOT')
+        if (graphvizDot) {
+            def dotFile = new File(graphvizDot)
+            println "Graphviz DOT (${graphvizDot}): ${dotFile.exists() ? 'exists' : 'not found'}"
+        } else {
+            println "Graphviz: using PATH lookup (GRAPHVIZ_DOT not set)"
+        }
+        
+        // Check AsciidoctorJ version
+        println "\n--- AsciidoctorJ Information ---"
+        try {
+            def asciidoctorVersion = org.asciidoctor.Asciidoctor.Factory.create().getInfo().getVersion()
+            println "AsciidoctorJ version: ${asciidoctorVersion}"
+        } catch (Exception e) {
+            println "Could not determine AsciidoctorJ version: ${e.message}"
+        }
+        
+        // Recommendations
+        println "\n--- Recommendations ---"
+        if (!System.getenv('DIAGRAMS_STRUCTURIZRCLI_HOME')) {
+            println "• Set DIAGRAMS_STRUCTURIZRCLI_HOME to enable Structurizr CLI integration"
+        }
+        
+        println "• Use './dtcw generateHTML -Ddiagram.debug=true' for verbose diagram logging"
+        println "• Check the diagram cache directory: ${project.buildDir.absolutePath}/diagrams-cache"
+        
+        println "\n=== End Environment Check ===\n"
+    }
+}
+
+// Task to clean diagram cache
+task cleanDiagramCache {
+    description = "Clean the diagram cache directory"
+    group = "documentation"
+    
+    doLast {
+        def cacheDir = new File("${project.buildDir}/diagrams-cache")
+        if (cacheDir.exists()) {
+            def deleted = cacheDir.deleteDir()
+            println "Diagram cache ${deleted ? 'successfully' : 'failed to be'} cleaned: ${cacheDir.absolutePath}"
+        } else {
+            println "Diagram cache directory does not exist: ${cacheDir.absolutePath}"
+        }
+    }
+}
+
+// Make generateHTML depend on the diagram environment setup
+// (This ensures our enhancements are applied)
+afterEvaluate {
+    tasks.findByName('generateHTML')?.dependsOn('checkDiagramEnvironment')
+    tasks.findByName('generatePDF')?.dependsOn('checkDiagramEnvironment')
+}
+
+println "docToolchain> Enhanced diagram support loaded (DiagramSupport.gradle)"
+if (System.getenv('DIAGRAMS_STRUCTURIZRCLI_HOME')) {
+    println "docToolchain> Structurizr CLI integration enabled: ${System.getenv('DIAGRAMS_STRUCTURIZRCLI_HOME')}"
+}

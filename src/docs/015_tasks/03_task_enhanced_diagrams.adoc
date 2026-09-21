@@ -1,0 +1,209 @@
+= Enhanced Diagram Support for docToolchain
+
+== Overview
+
+docToolchain now provides enhanced support for external diagram CLI tools through asciidoctor-diagram, specifically addressing integration issues with tools like Structurizr CLI.
+
+== Key Improvements
+
+=== Environment Variable Propagation
+
+External diagram tools like Structurizr CLI require specific environment variables to be accessible in the AsciidoctorJ subprocess. The enhanced diagram support ensures these variables are properly propagated:
+
+- `DIAGRAMS_STRUCTURIZRCLI_HOME` - Path to Structurizr CLI installation
+- `PLANTUML_JAR` - Path to PlantUML JAR file  
+- `GRAPHVIZ_DOT` - Path to Graphviz DOT executable
+- `PATH` and `JAVA_HOME` - System paths
+
+=== Enhanced Debugging
+
+New debugging capabilities help troubleshoot diagram generation issues:
+
+- Environment variable checking
+- Tool accessibility verification
+- Verbose logging options
+- Cache management
+
+=== Memory and Performance Optimizations
+
+- Increased default memory allocation for complex diagrams
+- Diagram caching for improved performance
+- Headless mode enforcement for server environments
+
+== Setup Instructions
+
+=== 1. Include Enhanced Diagram Support
+
+Add the enhanced diagram support to your docToolchain project by including the `DiagramSupport.gradle` script in your build configuration.
+
+=== 2. Configure Environment Variables
+
+For Structurizr CLI support, set the environment variable:
+
+[source,bash]
+----
+export DIAGRAMS_STRUCTURIZRCLI_HOME=/path/to/structurizr-cli
+----
+
+=== 3. Docker Configuration
+
+When using Docker, ensure environment variables are properly configured:
+
+[source,dockerfile]
+----
+# Example Dockerfile enhancement
+ENV DIAGRAMS_STRUCTURIZRCLI_HOME=/opt/structurizr-cli
+ENV PATH="$PATH:/opt/structurizr-cli"
+----
+
+== Available Tasks
+
+=== checkDiagramEnvironment
+
+Comprehensive environment check for diagram tools:
+
+[source,bash]
+----
+./dtcw checkDiagramEnvironment
+----
+
+This task verifies:
+- Environment variable configuration
+- Tool accessibility
+- Directory structure
+- AsciidoctorJ version information
+
+=== cleanDiagramCache
+
+Clean the diagram cache directory:
+
+[source,bash]
+----
+./dtcw cleanDiagramCache
+----
+
+=== Enhanced Generation with Debug
+
+Generate documentation with verbose diagram logging:
+
+[source,bash]
+----
+./dtcw generateHTML -Ddiagram.debug=true
+----
+
+== Supported Diagram Tools
+
+=== Structurizr CLI
+
+Renders software architecture diagrams from DSL:
+
+[source,asciidoc]
+----
+[structurizr,format=svg]
+----
+workspace {
+    model {
+        user = person "User"
+        system = softwareSystem "System"
+        user -> system "Uses"
+    }
+    views {
+        systemContext system {
+            include *
+            autoLayout lr
+        }
+    }
+}
+----
+----
+
+=== PlantUML
+
+Traditional UML and other diagrams:
+
+[source,asciidoc]
+----
+[plantuml,format=svg]
+----
+@startuml
+User -> System : uses
+@enduml
+----
+----
+
+=== Graphviz
+
+Graph and network diagrams:
+
+[source,asciidoc]
+----
+[graphviz,format=svg]
+----
+digraph G {
+    User -> System [label="uses"];
+}
+----
+----
+
+== Troubleshooting
+
+=== Common Issues
+
+1. **Environment variables not propagated**
+   - Solution: Ensure variables are set before running docToolchain
+   - Verify with: `./dtcw checkDiagramEnvironment`
+
+2. **Diagram tools not found**
+   - Solution: Check tool installation and PATH configuration
+   - Use absolute paths in environment variables
+
+3. **Cache issues**
+   - Solution: Clean cache with `./dtcw cleanDiagramCache`
+
+4. **Memory issues with complex diagrams**
+   - Solution: Increase JVM memory with `-Xmx` option
+
+=== Debug Output Example
+
+When running with `-Ddiagram.debug=true`, expect output like:
+
+----
+docToolchain> Propagating DIAGRAMS_STRUCTURIZRCLI_HOME=/opt/structurizr-cli
+docToolchain> Document attribute set: structurizr-cli-path=/opt/structurizr-cli
+docToolchain> Created diagram cache directory: /project/build/diagrams-cache
+----
+
+== Integration with CI/CD
+
+The enhanced diagram support works seamlessly in CI/CD environments:
+
+[source,yaml]
+----
+# GitHub Actions example
+- name: Setup Structurizr CLI
+  run: |
+    wget -O structurizr-cli.zip https://github.com/structurizr/cli/releases/latest/download/structurizr-cli.zip
+    unzip structurizr-cli.zip -d /opt/structurizr-cli
+    echo "DIAGRAMS_STRUCTURIZRCLI_HOME=/opt/structurizr-cli" >> $GITHUB_ENV
+
+- name: Generate Documentation
+  run: ./dtcw generateHTML
+----
+
+== Related Issues
+
+This enhancement addresses:
+- GitHub Issue #1480: AsciiDoc Diagrams can't leverage Structurizr CLI
+- Environment variable propagation in AsciidoctorJ subprocess
+- External CLI tool integration improvements
+
+== Migration Guide
+
+=== From Previous Versions
+
+If you were using workarounds for diagram tool integration:
+
+1. Remove custom AsciidoctorJ configuration hacks
+2. Include the new `DiagramSupport.gradle` script
+3. Set appropriate environment variables
+4. Test with `./dtcw checkDiagramEnvironment`
