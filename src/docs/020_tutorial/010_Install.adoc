@@ -5,7 +5,38 @@ include::_config.adoc[]
 
 Nice to meet you.
 Glad that you want to learn more about using docToolchain.
-Start by installing what you need.
+
+== What is docToolchain?
+
+docToolchain is a documentation generation tool that implements the https://www.writethedocs.org/guide/docs-as-code/[Docs as Code] approach.
+It allows you to write your technical documentation in plain text format (AsciiDoc) alongside your source code, and then generate various output formats like HTML, PDF, or even publish directly to platforms like Confluence.
+
+*Key benefits:*
+
+* Write documentation in plain text using the same version control as your code
+* Generate multiple output formats from a single source
+* Keep documentation synchronized with your codebase
+* Automate documentation tasks like diagram generation and issue tracking integration
+
+If you want to learn more about docToolchain's features and philosophy, check out link:../10_about/20_what-is-doctoolchain.html[What is docToolchain?]
+
+== Before You Begin
+
+Before installing docToolchain, you should have:
+
+* *A project* where you want to create or manage documentation (this can be a software project or any other project that needs documentation)
+* *Basic command line knowledge* - You'll be running commands in a terminal or command prompt
+* *One of the following:*
+** https://docs.docker.com/get-docker/[Docker] installed (recommended for easiest setup) - OR -
+** Willingness to let docToolchain install Java 17 for you - OR -
+** Java 17 already installed on your system
+
+*Optional but helpful:*
+
+* Familiarity with https://asciidoctor.org/docs/asciidoc-syntax-quick-reference/[AsciiDoc syntax] (you can learn as you go)
+* A text editor or IDE (VS Code, IntelliJ IDEA, or any text editor will work)
+
+== Installation Steps
 
 The following steps are the same as described in the User Docs.
 Please follow them step by step.
@@ -14,6 +45,25 @@ You are prompted to install everything you need for each step.
 If you encounter problems, create a GitHub issue and the community will help you.
 
 include::../010_manual/20_install.adoc[tags=install]
+
+== What's Next?
+
+Congratulations! You've successfully installed docToolchain. Here's what you can do next:
+
+*If you're starting a new documentation project:*
+
+* Continue with the next tutorial section to learn how to work with the arc42 template (an architectural documentation standard)
+* Or explore link:030_generateHTML.html[generating HTML documentation] to see how to create output from your docs
+
+*If you have existing AsciiDoc documentation:*
+
+* Configure docToolchain to use your existing documents by editing the `docToolchainConfig.groovy` file that was created
+* Check out the link:../010_manual/30_config.html[Configuration Guide] for details
+
+*Learn more:*
+
+* Browse the link:../015_tasks/[Available Tasks] to see what docToolchain can do (export diagrams, publish to Confluence, generate PDFs, and more)
+* Join the https://github.com/docToolchain/docToolchain/discussions[Community Discussions] to ask questions and share experiences
 
 === Problems & solutions
 
