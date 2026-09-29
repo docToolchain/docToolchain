@@ -1,0 +1,273 @@
+name: Release docToolchain
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Release version (e.g. 3.5.0) — without v prefix'
+        required: true
+        type: string
+
+env:
+  VERSION: ${{ github.event.inputs.version }}
+
+jobs:
+  # ─── Job 1: Run all tests as release gate ───
+  test-gate:
+    name: Test Gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install system packages
+        run: sudo apt-get install -y graphviz shellcheck pandoc
+
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: true
+          fetch-depth: 0
+
+      - name: Install PowerShell
+        run: |
+          sudo apt-get install -y wget apt-transport-https software-properties-common
+          wget -q "https://packages.microsoft.com/config/ubuntu/$(lsb_release -rs)/packages-microsoft-prod.deb"
+          sudo dpkg -i packages-microsoft-prod.deb
+          rm packages-microsoft-prod.deb
+          sudo apt-get update
+          sudo apt-get install -y powershell
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: adopt
+          java-version: 17
+          cache: 'gradle'
+
+      - name: Run BATS tests (dtcw)
+        run: test/bats/bin/bats --filter-tags \!e2e test
+
+      - name: Run core tests
+        run: ./gradlew core:test --info
+
+      - name: Run PowerShell wrapper tests
+        run: ./gradlew test --tests=DtcwOnPowershellSpec --info
+
+  # ─── Job 2: Bump version, tag, build, create GitHub Release ───
+  bump-version-and-release:
+    name: Bump Version & Create Release
+    needs: test-gate
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+          token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Validate version format
+        run: |
+          if ! echo "$VERSION" | grep -qE '^[0-9]+\.[0-9]+\.[0-9]+(-[a-zA-Z0-9.]+)?$'; then
+            echo "::error::Invalid version format: '$VERSION'. Expected semver like 3.5.0 or 4.0.0-rc1"
+            exit 1
+          fi
+
+      - name: Check if tag already exists
+        id: check_tag
+        run: |
+          if git rev-parse "v$VERSION" >/dev/null 2>&1; then
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+            echo "::warning::Tag v$VERSION already exists — skipping version bump and commit"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Bump version in gradle.properties
+        if: steps.check_tag.outputs.exists == 'false'
+        run: sed -i "s/^dtc_version=.*/dtc_version=$VERSION/" gradle.properties
+
+      - name: Bump version in dtcw
+        if: steps.check_tag.outputs.exists == 'false'
+        run: sed -i 's/: "${DTC_VERSION:=.*}"/: "${DTC_VERSION:='"$VERSION"'}"/' dtcw
+
+      - name: Bump version in dtcw.ps1
+        if: steps.check_tag.outputs.exists == 'false'
+        run: sed -i 's/\$DTC_VERSION = ".*"/\$DTC_VERSION = "'"$VERSION"'"/' dtcw.ps1
+
+      - name: Update changelog
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          DATE=$(date +%Y-%m-%d)
+          sed -i "s/^== Unreleased$/== Unreleased\n\n== ${VERSION} - ${DATE}/" changelog.adoc
+
+      - name: Commit and tag
+        if: steps.check_tag.outputs.exists == 'false'
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add gradle.properties dtcw dtcw.ps1 changelog.adoc
+          git commit -m "Release v${VERSION}"
+          git tag "v${VERSION}"
+          git push
+          git push origin "v${VERSION}"
+
+      - name: Set up JDK 17
+        uses: actions/setup-java@v4
+        with:
+          distribution: adopt
+          java-version: 17
+          cache: 'gradle'
+
+      - name: Build distribution ZIP
+        run: ./gradlew createDist
+
+      - name: Extract release notes from changelog
+        run: |
+          awk '/^== '"$VERSION"' /{found=1; next} found && /^== /{exit} found{print}' changelog.adoc > release_notes.md
+          echo "" >> release_notes.md
+          echo "---" >> release_notes.md
+          echo "**Full Changelog**: https://github.com/docToolchain/docToolchain/blob/ng/changelog.adoc" >> release_notes.md
+
+      - name: Create GitHub Release
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "v${VERSION}" \
+            --title "v${VERSION}" \
+            --notes-file release_notes.md \
+            "build/docToolchain-${VERSION}.zip#docToolchain-dist.zip"
+
+  # ─── Job 3: Trigger Docker image builds ───
+  trigger-docker:
+    name: Trigger Docker Builds
+    needs: bump-version-and-release
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        event_type:
+          - standard-build
+          - standard-with-pandoc-build
+          - azure-build
+          - jenkins-ssh-agent-build
+    steps:
+      - name: Dispatch ${{ matrix.event_type }}
+        run: |
+          curl -X POST \
+            -H "Accept: application/vnd.github.v3+json" \
+            -H "Authorization: token ${{ secrets.CROSS_REPO_PAT }}" \
+            https://api.github.com/repos/docToolchain/docker-image/dispatches \
+            -d '{"event_type":"${{ matrix.event_type }}","client_payload":{"version":"v${{ env.VERSION }}"}}'
+
+  # ─── Job 4: Deploy to SDKMAN! ───
+  trigger-sdkman:
+    name: Deploy to SDKMAN!
+    needs: bump-version-and-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Publish release
+        env:
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_TOKEN: ${{ secrets.CONSUMER_TOKEN }}
+        run: |
+          curl -X POST \
+            -H "Consumer-Key: $CONSUMER_KEY" \
+            -H "Consumer-Token: $CONSUMER_TOKEN" \
+            -H "Content-Type: application/json" \
+            -H "Accept: application/json" \
+            -d '{"candidate": "doctoolchain", "version": "'"$VERSION"'", "url": "https://github.com/docToolchain/docToolchain/releases/download/v'"$VERSION"'/docToolchain-dist.zip"}' \
+            https://vendors.sdkman.io/release
+
+      - name: Set as default version
+        env:
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_TOKEN: ${{ secrets.CONSUMER_TOKEN }}
+        run: |
+          curl -X PUT \
+            -H "Consumer-Key: $CONSUMER_KEY" \
+            -H "Consumer-Token: $CONSUMER_TOKEN" \
+            -H "Content-Type: application/json" \
+            -H "Accept: application/json" \
+            -d '{"candidate": "doctoolchain", "version": "'"$VERSION"'"}' \
+            https://vendors.sdkman.io/default
+
+      - name: Announce release
+        env:
+          CONSUMER_KEY: ${{ secrets.CONSUMER_KEY }}
+          CONSUMER_TOKEN: ${{ secrets.CONSUMER_TOKEN }}
+        run: |
+          YEAR=$(date +%Y)
+          curl -X POST \
+            -H "Consumer-Key: $CONSUMER_KEY" \
+            -H "Consumer-Token: $CONSUMER_TOKEN" \
+            -H "Content-Type: application/json" \
+            -H "Accept: application/json" \
+            -d '{"candidate": "doctoolchain", "version": "'"$VERSION"'", "url": "https://doctoolchain.github.io/docToolchain/v2.0.x/030_news/'"$YEAR"'/'"$VERSION"'-release.html"}' \
+            https://vendors.sdkman.io/announce/struct
+
+  # ─── Job 5: Trigger dtcw wrapper update ───
+  trigger-dtcw-update:
+    name: Trigger dtcw Update
+    needs: bump-version-and-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Trigger update-dtcw workflow
+        env:
+          GH_TOKEN: ${{ secrets.CROSS_REPO_PAT }}
+        run: |
+          gh workflow run update-dtcw.yml --repo docToolchain/doctoolchain.github.io
+
+  # ─── Job 6: Generate blog post template ───
+  generate-blog-template:
+    name: Generate Blog Post Template
+    needs: bump-version-and-release
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate blog post template
+        run: |
+          YEAR=$(date +%Y)
+          DATE=$(date +%Y-%m-%d)
+
+          # Extract release notes from changelog
+          NOTES=$(awk '/^== '"$VERSION"' /{found=1; next} found && /^== /{exit} found{print}' changelog.adoc)
+
+          cat > "${VERSION}-release.adoc" << EOF
+          = docToolchain ${VERSION} Released
+          :jbake-date: ${DATE}
+          :jbake-author: docToolchain Team
+          :jbake-type: post
+          :jbake-tags: release
+          :jbake-status: published
+
+          docToolchain ${VERSION} has been released.
+
+          == Highlights
+
+          // TODO: Add release highlights here
+
+          == Changelog
+
+          ${NOTES}
+
+          == Installation
+
+          Update via SDKMAN:
+
+          [source,bash]
+          ----
+          sdk install doctoolchain ${VERSION}
+          ----
+
+          Or update your dtcw wrapper and run:
+
+          [source,bash]
+          ----
+          ./dtcw local install doctoolchain
+          ----
+          EOF
+
+      - name: Upload blog post template
+        uses: actions/upload-artifact@v4
+        with:
+          name: blog-post-template
+          path: "${{ env.VERSION }}-release.adoc"
