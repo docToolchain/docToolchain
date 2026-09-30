@@ -15,11 +15,11 @@ task downloadTemplate(
         }
         def lang, help, antora
         def templates = [
-            arc42:"https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-${->lang}-${->help}-asciidoc.zip",
+            arc42:"https://github.com/arc42/arc42-template/releases/latest/download/arc42-template-${->lang}-${->help}-asciidoc.zip",
             req42:"https://github.com/Hruschka/req42-framework/raw/main/dist/req42-framework-${->lang}-${->help}-asciidoc.zip"
         ]
         def languages = [
-                arc42: ['CZ', 'DE', 'EN', 'ES', 'FR', 'IT', 'NL', 'UA'],
+                arc42: ['CZ', 'DE', 'EN', 'ES', 'FR', 'HU', 'IT', 'NL', 'PT', 'RU', 'UKR', 'ZH', 'ZH-TW'],
                 req42:['EN', 'DE']
         ]
         for (int i=1; i<20; i++) {

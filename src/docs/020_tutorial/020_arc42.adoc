@@ -60,7 +60,7 @@ For more information about arc42 see https://arc42.org
 <-------------> 0% EXECUTING [6s]
 [ant:input] Do you want the template with or without help? (withhelp, plain)
 <-----<-------------> 0% EXECUTING [10s]
-Download https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-DE-withhelp-asciidoc.zip
+Download https://github.com/arc42/arc42-template/releases/latest/download/arc42-template-DE-withhelp-asciidoc.zip
 arc42 template unpacked into /c/Users/ralfd/projects/dtc-tests/wsl/src/docs/arc42
 added template to docToolchainConfig.groovy
 use 'generateHTML', 'generatePDF' or  'generateSite' to convert the template
