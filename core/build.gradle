@@ -5,15 +5,27 @@ plugins {
 
 apply plugin:'groovy'
 
-repositories {
-    mavenCentral()
-}
-
 // Workaround to keep project.version in sync with gradle.properties but the modules isolated as hell
 def props = new Properties()
 file("../gradle.properties").withInputStream { props.load(it) }
 def dtc_version = props.getProperty('dtc_version')
 // end of workaround
+
+def deps_maven_repository = findProperty('depsMavenRepository') ?: props.getProperty('depsMavenRepository', 'https://repo.maven.apache.org/maven2/')
+def deps_maven_username = findProperty('depsMavenUsername') ?: props.getProperty('depsMavenUsername', '')
+def deps_maven_password = findProperty('depsMavenPassword') ?: props.getProperty('depsMavenPassword', '')
+
+repositories {
+    maven {
+        url deps_maven_repository
+        if (deps_maven_username || deps_maven_password) {
+            credentials {
+                username deps_maven_username
+                password deps_maven_password
+            }
+        }
+    }
+}
 
 jar {
     manifest {
