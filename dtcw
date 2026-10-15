@@ -146,17 +146,10 @@ main() {
 
     show_os_related_info
 
-    emu=""
-    if needs_x86_emulation; then
-      echo "Apple silicon detected, using x86_64 mode and os native bash"
-      emu="/usr/bin/arch -x86_64"
-      bash="/bin/bash"
-    fi
-
     # echo "Command to invoke: ${command}"
     # shellcheck disable=SC2086
     # as we hope to know what we are doing here ;-)
-    exec ${emu} ${bash} ${DTC_SHELL_DEBUG:-} -c "${command}"
+    exec ${bash} ${DTC_SHELL_DEBUG:-} -c "${command}"
 }
 
 assert_argument_exists() {
@@ -572,10 +565,6 @@ how_to_install_sdkman() {
 }
 
 local_install_java() {
-    local x86_java=false
-    if needs_x86_emulation; then
-        x86_java=true
-    fi
     version=25
     implementation=hotspot
     heapsize=normal
@@ -593,12 +582,7 @@ local_install_java() {
     fi
     case "${os}" in
         Linux) os=linux ;;
-        Darwin) os=mac
-            # docToolchain 3.x runs in x86_64 mode on Apple silicon (jBake),
-            # so it needs an Intel JDK. v4 runs natively.
-            if [ "${x86_java}" = true ]; then
-                arch=x64
-            fi ;;
+        Darwin) os=mac ;;
         Cygwin) os=linux ;;
     esac
     mkdir -p "${DTC_JAVA_HOME}"
@@ -667,13 +651,6 @@ is_v4_installation() {
     local major
     major=$(echo "${DTC_VERSION}" | cut -d'.' -f1)
     [[ "${major}" =~ ^[0-9]+$ ]] && [ "${major}" -ge 4 ]
-}
-
-# docToolchain 3.x uses jBake, which does not run natively on Apple silicon,
-# so dtcw runs it in x86_64 mode with an Intel JDK. v4 replaced jBake (ADR-4)
-# and runs natively.
-needs_x86_emulation() {
-    [ "${os}" = "Darwin" ] && [ "${arch}" = "arm64" ] && ! is_v4_installation
 }
 
 # Build Java classpath from all JARs in lib/
