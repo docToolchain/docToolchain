@@ -11,7 +11,7 @@ class LinkTransformer {
         if(jiraRestApiUrl) {
             URL url = new URL(jiraRestApiUrl)
             String portPart = url.port == -1 || url.port == url.defaultPort ? "" : ":${url.port}"
-            jiraBaseUrl = "${url.protocol}://${url.host}${portPart}"
+            jiraBaseUrl = "${url.protocol}://${url.host}${portPart}${url.path}"
         } else {
             println(">>> WARN: No Jira API URL found in config, the Jira extension may not work as expected.")
         }
