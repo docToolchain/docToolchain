@@ -22,7 +22,5 @@ workspace {
             include *
             autolayout lr
         }
-
-        theme default
     }
 }
