@@ -100,7 +100,7 @@ body::before {
   background:var(--dtc-card); border:1px solid var(--dtc-border);
   border-radius:8px; color:var(--dtc-ink); font-family:var(--dtc-mono); font-size:12.5px;
 }
-.td-search-input::placeholder { color:var(--dtc-muted); }
+.td-search-input::placeholder { color:var(--dtc-ink); }
 
 /* colour-scheme toggle button (menu.gsp) — light navbar variant */
 .dtc-theme-toggle {
