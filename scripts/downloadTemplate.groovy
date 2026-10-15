@@ -33,10 +33,10 @@ println "docToolchain v4 — downloadTemplate"
 def lang = 'EN'
 def help = 'plain'
 def templates = [
-    arc42: { -> "https://github.com/arc42/arc42-template/raw/master/dist/arc42-template-${lang}-${help}-asciidoc.zip" },
+    arc42: { -> "https://github.com/arc42/arc42-template/releases/latest/download/arc42-template-${lang}-${help}-asciidoc.zip" },
     req42: { -> "https://github.com/Hruschka/req42-framework/raw/main/dist/req42-framework-${lang}-${help}-asciidoc.zip" },
 ]
-def languages = [arc42: ['CZ', 'DE', 'EN', 'ES', 'FR', 'IT', 'NL', 'UA'], req42: ['EN', 'DE']]
+def languages = [arc42: ['CZ', 'DE', 'EN', 'ES', 'FR', 'HU', 'IT', 'NL', 'PT', 'RU', 'TR', 'UKR', 'ZH', 'ZH-TW'], req42: ['EN', 'DE']]
 
 // Add custom templates from environment
 for (int i = 1; i < 20; i++) {
@@ -90,6 +90,10 @@ if (template in ['arc42', 'req42']) {
         print "${color('green', "Language [${languages[template].join(',')}] (default: EN): ")}"
         def input = reader instanceof Console ? reader.readLine() : reader.readLine()
         lang = input?.trim()?.toUpperCase() ?: 'EN'
+    }
+    // arc42 renamed the Ukrainian template from UA to UKR
+    if (template == 'arc42' && lang == 'UA') {
+        lang = 'UKR'
     }
 
     if (helpArg) {
