@@ -19,7 +19,7 @@ task downloadTemplate(
             req42:"https://github.com/Hruschka/req42-framework/raw/main/dist/req42-framework-${->lang}-${->help}-asciidoc.zip"
         ]
         def languages = [
-                arc42: ['CZ', 'DE', 'EN', 'ES', 'FR', 'HU', 'IT', 'NL', 'PT', 'RU', 'UKR', 'ZH', 'ZH-TW'],
+                arc42: ['CZ', 'DE', 'EN', 'ES', 'FR', 'HU', 'IT', 'NL', 'PT', 'RU', 'TR', 'UKR', 'ZH', 'ZH-TW'],
                 req42:['EN', 'DE']
         ]
         for (int i=1; i<20; i++) {
@@ -60,6 +60,10 @@ task downloadTemplate(
             // Handle language selection
             if (project.hasProperty('dtcLang')) {
                 lang = project.dtcLang
+                // arc42 renamed the Ukrainian template from UA to UKR
+                if (template == 'arc42' && lang == 'UA') {
+                    lang = 'UKR'
+                }
                 println "${color 'green', "Using language from property: ${lang}"}"
             } else if (isHeadless) {
                 lang = 'EN'
