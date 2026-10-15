@@ -111,10 +111,14 @@ case "${1:-}" in
             exit 0
         fi
         if [ "${2:-}" = "install" ] && [ "${3:-}" = "java" ]; then
-            if [ ! -f "${DTC_HOME}/dtcw" ]; then
-                echo "Downloading dtcw to install Java..."
+            # Before 'install doctoolchain' there is no v4 clone yet. Fetch the
+            # v4 dtcw, not the v3 one from doctoolchain.org/dtcw: v3 installs an
+            # Intel JDK on Apple silicon (#1707). Also replace an older v3 copy.
+            if [ ! -d "${DTC_HOME}/.git" ] && [ ! -d "${DTC_HOME}/lib" ]; then
+                echo "Downloading dtcw (branch: ${DTC_V4_BRANCH}) to install Java..."
                 mkdir -p "${DTC_HOME}"
-                curl -sLo "${DTC_HOME}/dtcw" https://doctoolchain.org/dtcw
+                curl -fsSLo "${DTC_HOME}/dtcw" \
+                    "https://raw.githubusercontent.com/docToolchain/docToolchain/${DTC_V4_BRANCH}/dtcw"
                 chmod +x "${DTC_HOME}/dtcw"
             fi
         fi
