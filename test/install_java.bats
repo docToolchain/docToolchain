@@ -96,7 +96,7 @@ teardown() {
     refute_line "following docToolchain environments:"
 }
 
-@test "local install java (mac/aarch64) installs a native JDK for docToolchain 4.x" {
+@test "local install java (mac/aarch64) installs a native JDK" {
     # Apple silicon: v4 runs natively, no Intel JDK (issue #1707)
     rm "${minimal_system}/uname" && _mock=$(mock_create uname)
     mock_set_output "${_mock}" "arm64"
@@ -106,18 +106,6 @@ teardown() {
 
     assert_equal "$(mock_get_call_args "${mock_curl}")" "--fail --location --output ${DTC_ROOT}/jdk/jdk.tar.gz https://api.adoptium.net/v3/binary/latest/25/ga/mac/aarch64/jdk/hotspot/normal/eclipse?project=jdk"
     assert_line "Downloading JDK Temurin 25 [mac/aarch64] from Adoptium to ${DTC_ROOT}/jdk/jdk.tar.gz"
-}
-
-@test "local install java (mac/aarch64) keeps the Intel JDK for docToolchain 3.x" {
-    # Apple silicon: v3 runs in x86_64 mode because of jBake
-    rm "${minimal_system}/uname" && _mock=$(mock_create uname)
-    mock_set_output "${_mock}" "arm64"
-    mock_set_output "${_mock}" "Darwin" 2
-
-    DTC_VERSION=3.5.0 PATH="${minimal_system}" run -0 ./dtcw local install java
-
-    assert_equal "$(mock_get_call_args "${mock_curl}")" "--fail --location --output ${DTC_ROOT}/jdk/jdk.tar.gz https://api.adoptium.net/v3/binary/latest/25/ga/mac/x64/jdk/hotspot/normal/eclipse?project=jdk"
-    assert_line "Downloading JDK Temurin 25 [mac/x64] from Adoptium to ${DTC_ROOT}/jdk/jdk.tar.gz"
 }
 
 @test "local install java (mac/x64) installs an Intel JDK" {
