@@ -8,6 +8,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 == Unreleased
 
 === fixed
+* https://github.com/docToolchain/docToolchain/issues/1707[dtcw4: `local install java` uses the v4 dtcw instead of the v3 one from doctoolchain.org, so Apple silicon gets an arm64 JDK.]
 * https://github.com/docToolchain/docToolchain/issues/1707[dtcw: docToolchain 4.x runs natively on Apple silicon. The x86_64 emulation is gone from the v4 dtcw, and `local install java` installs an arm64 JDK.]
 * https://github.com/docToolchain/docToolchain/issues/1712[downloadTemplate: arc42 templates are downloaded from the GitHub Releases of arc42-template, since its `dist/` folder was removed. The language list now matches the release (Ukrainian is `UKR`, `UA` still works).]
 * https://github.com/docToolchain/docToolchain/issues/1526[dtcw.ps1: fix setting mainConfigFile via CLI argument]
