@@ -1,0 +1,9 @@
+services:
+  adoc:
+    image: ghcr.io/tpo42/adoc:latest
+    volumes:
+      - .:/workspace
+  docs-builder:
+    image: doctoolchain/doctoolchain:v4.0.0
+    volumes:
+      - .:/project

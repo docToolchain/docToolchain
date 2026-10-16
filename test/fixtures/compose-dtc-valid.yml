@@ -1,0 +1,7 @@
+services:
+  doctoolchain:
+    image: doctoolchain/doctoolchain:v4.0.0
+    platform: linux/amd64
+    volumes:
+      - .:/project
+    entrypoint: ["sleep", "infinity"]
