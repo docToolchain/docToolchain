@@ -22,9 +22,6 @@ inputFiles = [
 //folders in which asciidoc will find images.
 //these will be copied as resources to ./images
 imageDirs = [
-    'images/.',
-    '020_tutorial/images/.',
-    '020_tutorial/040_microsite/images/.'
     /** imageDirs **/
 ]
 
