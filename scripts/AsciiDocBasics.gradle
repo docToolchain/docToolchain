@@ -155,6 +155,9 @@ config.flatten().each {key, value ->
 def tasksToExecute = project.gradle.startParameter.taskNames
 if (tasksToExecute.contains('asciidoctorGemsPrepare') ||
     tasksToExecute.contains('generateDeck') ||
+    tasksToExecute.contains('generateHTML') ||
+    tasksToExecute.contains('generatePDF') ||
+    tasksToExecute.contains('asciidoctor') ||
     // TODO this could help to allow ruby gems from remote, but it is not working yet
     config.rubyExtensions && config.rubyExtensions.any { !it.endsWith('.rb')}
 ) {
@@ -162,6 +165,11 @@ if (tasksToExecute.contains('asciidoctorGemsPrepare') ||
         ruby {
             gems()
         }
+    }
+    
+    // Add dependencies for Ruby gems
+    dependencies {
+        asciidoctorGems 'rubygems:asciidoctor-kroki:0.9.1'
     }
 }
 
@@ -183,9 +191,12 @@ asciidoctorj {
     version = '2.5.13'
     modules {
         diagram.use()
-        diagram.version '2.3.1'
+        diagram.version '3.0.1'
     }
     fatalWarnings ~/image to embed not found or not readable/
+
+    // Add asciidoctor-kroki extension manually
+    // Note: The gem is downloaded by asciidoctorGemsPrepare task
 
     attributes  (
         //           'pdf-stylesdir': "${pdfThemeDir}@",
@@ -201,7 +212,11 @@ asciidoctorj {
         'sectanchors'         : 'true@',
         'targetDir'           : targetDir,
         'docDir'              : docDir,
-        'projectRootDir'      : "${new File(docDir).canonicalPath}@"
+        'projectRootDir'      : "${new File(docDir).canonicalPath}@",
+        // Kroki configuration for diagram support including Excalidraw
+        'kroki-server-url'    : 'https://kroki.io@',
+        'diagram-server-url'  : 'https://kroki.io@',
+        'diagram-server-type' : 'kroki_io@'
     )
 
     def failOnMissingImages = (findProperty("failOnMissingImages")?:config.failOnMissingImages)?:false
@@ -263,6 +278,8 @@ asciidoctorj {
 // this is needed for PDF generation with plantUML
 tasks.withType(AbstractAsciidoctorTask) { docTask ->
 
+    dependsOn asciidoctorGemsPrepare
+    
     baseDirFollowsSourceFile()
 
     config.taskInputsDirs.each {
@@ -303,11 +320,23 @@ tasks.withType(AbstractAsciidoctorTask) { docTask ->
             }
         }
     }
+    
+    // Add asciidoctor-kroki extension by absolute path
+    def krokiGemPath = "${project.buildDir}/.asciidoctorGems/gems/asciidoctor-kroki-0.9.1/lib"
+    asciidoctorj.requires += ["${krokiGemPath}/asciidoctor-kroki.rb"]
+    
+    // Add the gem lib directory to Ruby load path
+    asciidoctorj.rubyExtensionRegistry {
+        // This ensures the gem's lib directory is in the load path
+        it.loadPaths.add(krokiGemPath)
+    }
     // fix for #1150
     // see also https://github.com/asciidoctor/asciidoctor-gradle-plugin/issues/597
     executionMode = JAVA_EXEC
     forkOptions {
         jvmArgs("--add-opens","java.base/sun.nio.ch=ALL-UNNAMED","--add-opens","java.base/java.io=ALL-UNNAMED")
+        // Set GEM_PATH for asciidoctor-kroki gem
+        environment "GEM_PATH", "${project.buildDir}/.asciidoctorGems"
     }
 }
 //end::AsciidoctorTask[]
@@ -317,6 +346,7 @@ task generateHTML (
         type: AsciidoctorTask,
         group: 'docToolchain',
         description: 'use html5 as asciidoc backend') {
+        dependsOn asciidoctorGemsPrepare
         attributes (
             'plantUMLDir'         : file("${docDir}/${config.outputPath}/html5").toURI().relativize(new File("${docDir}/${config.outputPath}/html5/plantUML/").toURI()).getPath(),
         )
@@ -376,6 +406,7 @@ task generatePDF (
         group: 'docToolchain',
         description: 'use pdf as asciidoc backend') {
 
+    dependsOn asciidoctorGemsPrepare
     attributes (
         'plantUMLDir'         : file("${docDir}/${config.outputPath}/pdf/images/plantUML/").path,
     )
