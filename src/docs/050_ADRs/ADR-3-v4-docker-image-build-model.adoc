@@ -1,0 +1,87 @@
+:filename: 050_ADRs/ADR-3-v4-docker-image-build-model.adoc
+:icons: font
+:jbake-menu: ADRs
+:jbake-order: 3
+:jbake-status: published
+:jbake-title: ADR-03: Docker image build model for docToolchain v4
+
+:issue-1643: https://github.com/docToolchain/docToolchain/issues/1643
+:docker-image-repo: https://github.com/docToolchain/docker-image
+
+== ADR-03: Docker image build model for docToolchain v4
+
+=== Status
+
+*Proposed.*
+
+This ADR opens the discussion for the v4 Docker image (see {issue-1643}[issue #1643]).
+Cells marked `?` in the Pugh matrix need team judgement before this moves to _Accepted_.
+
+=== Problem and Context
+
+The docToolchain v3 images in {docker-image-repo}[docToolchain/docker-image] are built by
+downloading the release ZIP and running `./gradlew downloadDependencies` at build time.
+At runtime, every task still goes through Gradle.
+
+docToolchain v4 changes this fundamentally.
+The `dtcw4` wrapper (repository root) installs v4 by cloning the `main-4.x` branch, running the
+Gradle task `packageLibs` *once*, and then executing all tasks *directly on the JVM without
+Gradle*.
+There is also no v4 release ZIP yet -- the latest published release is v3.5.0.
+
+The existing Dockerfiles therefore do not produce a working v4 image, and the build model has to
+be reconsidered. This decision is a prerequisite for ADR-04, ADR-05 and ADR-06.
+
+=== Decision Drivers
+
+* Alignment with the v4 runtime model (`packageLibs` + direct JVM execution).
+* Final image size and runtime startup time.
+* Build reproducibility (no v4 release artifact exists yet).
+* Maintenance effort and overlap with the v3 image definitions.
+
+=== Considered Options
+
+* *Option A (datum):* Keep the v3 approach -- download a release ZIP and run
+  `./gradlew downloadDependencies`. Requires a v4 release artifact and keeps Gradle at runtime.
+* *Option B:* Single-stage build -- `git clone --branch main-4.x` + `./gradlew packageLibs`, copy
+  the built JARs into `lib/`, mirror what `dtcw4` does. Gradle present only at build time.
+* *Option C:* Multi-stage build -- a builder stage clones and runs `packageLibs`, the final stage
+  contains only the packaged `lib/` JARs plus a JRE and the runtime tooling.
+
+=== Pugh Matrix
+
+Scores are relative to the datum (Option A), on a 3-point scale (`+1` better, `0` equal,
+`-1` worse).
+
+[cols="3,^1,^1,^1",options="header"]
+|===
+| Criterion (datum: Option A) | A | B | C
+
+| Alignment with v4 runtime (dtcw4) | 0 | +1 | +1
+| Final image size              | 0 |  0 | +1
+| Runtime startup time          | 0 | +1 | +1
+| Build reproducibility w/o release ZIP | 0 | +1 | +1
+| Build time / complexity       | 0 |  0 | -1
+| Maintenance effort            | 0 |  0 | ?
+
+| *Sum*                         | *0* | *+3* | *?*
+|===
+
+=== Decision
+
+*Proposed:* build the v4 image from source with `git clone` + `packageLibs`, mirroring `dtcw4`,
+and prefer a *multi-stage build* (Option C) so the final image ships only the runtime libraries
+and a JRE instead of a full JDK plus Gradle caches.
+
+The choice between Option B and Option C, and the pinning strategy (build from the `main-4.x`
+branch HEAD vs. a tagged v4 pre-release once it exists) are left open (`?`) for the team.
+
+=== Consequences
+
+* The Dockerfiles in `docToolchain/docker-image` must be rewritten for v4; they cannot be reused
+  as-is. The `DTC_VERSION` build-arg semantics change from "release tag" to "git ref".
+* Building from a moving branch makes images non-reproducible until a v4 tag exists
+  -- *risk R-401* (to be added to arc42 chapter 11): pin to a commit/tag once available.
+* A JRE-only final image may miss tools that some tasks shell out to (Graphviz, Ruby/pygments)
+  -- handled in ADR-04; *risk R-402*: verify the runtime tool set during the smoke test.
+* This ADR concretises the direction of ADR-02 (decoupling the core logic from Gradle).

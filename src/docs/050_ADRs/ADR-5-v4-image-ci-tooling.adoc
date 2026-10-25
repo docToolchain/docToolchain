@@ -1,0 +1,78 @@
+:filename: 050_ADRs/ADR-5-v4-image-ci-tooling.adoc
+:icons: font
+:jbake-menu: ADRs
+:jbake-order: 5
+:jbake-status: published
+:jbake-title: ADR-05: Docs-as-code CI tooling in the v4 image
+
+:issue-1643: https://github.com/docToolchain/docToolchain/issues/1643
+:asciidoc-linter: https://github.com/docToolchain/asciidoc-linter
+:dacli: https://github.com/docToolchain/dacli
+
+== ADR-05: Docs-as-code CI tooling in the v4 image
+
+=== Status
+
+*Proposed.* Depends on ADR-03. Cells marked `?` need team judgement.
+
+=== Problem and Context
+
+The image is used in CI/CD pipelines, so it is tempting to ship the surrounding docs-as-code
+tooling in the same image instead of installing it in every pipeline:
+
+* {asciidoc-linter}[*asciidoc-linter*] -- a Python tool, already wired into
+  `.pre-commit-config.yaml` via `asciidoc-linter@git+https://github.com/docToolchain/asciidoc-linter`.
+  `python3` is already present in the base image.
+* {dacli}[*dacli*] -- a Python 3.12+ CLI (managed with `uv`) to navigate and query large
+  documentation projects (AsciiDoc + Markdown), part of the docToolchain ecosystem.
+
+Both pull in a Python toolchain (`dacli` specifically needs Python 3.12+ and `uv`), which adds
+weight and a second runtime to an otherwise JVM-centric image.
+
+=== Decision Drivers
+
+* CI convenience -- one image instead of per-pipeline installs.
+* Image size and the cost of carrying a second (Python/uv) runtime.
+* Separation of concerns -- a lean default image vs. a batteries-included CI image.
+* Coupling the release cadence of the image to that of `asciidoc-linter` / `dacli`.
+
+=== Considered Options
+
+* *Option A (datum):* Ship neither tool; pipelines install them on demand.
+* *Option B:* Add *asciidoc-linter* only (lightweight, `pip`/pre-commit, Python already present).
+* *Option C:* Add *both* asciidoc-linter and dacli to the default image (adds Python 3.12 + `uv`).
+* *Option D:* Keep the default image lean and publish a dedicated *`-ci` image variant* that adds
+  asciidoc-linter and dacli on top of the base.
+
+=== Pugh Matrix
+
+[cols="3,^1,^1,^1,^1",options="header"]
+|===
+| Criterion (datum: Option A) | A | B | C | D
+
+| CI convenience (no per-pipeline installs) | 0 | +1 | +1 | +1
+| Lean default image / size      | 0 |  0 | -1 |  0
+| Avoids a second (Python) runtime | 0 | 0 | -1 |  0
+| Separation of concerns         | 0 |  0 | -1 | +1
+| Release-coupling / maintenance | 0 | -1 | -1 | ?
+
+| *Sum*                          | *0* | *+1* | *-3* | *?*
+|===
+
+=== Decision
+
+*Proposed:* do *not* bloat the default image. Add `asciidoc-linter` where it is cheap, and offer
+the heavier combination (asciidoc-linter + dacli) through a dedicated *`-ci` image variant*
+(Option D) so users who want a one-stop CI image get it, while the base image stays lean.
+
+Whether dacli belongs in the same `-ci` variant or its own image (it has its own `uv`-based
+release cycle) is left open (`?`).
+
+=== Consequences
+
+* A new `-ci` image variant has to be defined and built in `docToolchain/docker-image` (see
+  ADR-06 for how it is tagged).
+* Bundling Python tools couples image releases to upstream tool releases -- *risk R-421*
+  (arc42 ch.11): pin tool versions and rebuild on upstream releases.
+* Adding `uv` + Python 3.12 to an Alpine/Temurin base may need extra packages -- *risk R-422*:
+  validate the build on the chosen base image.
