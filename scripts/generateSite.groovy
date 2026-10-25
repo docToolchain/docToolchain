@@ -333,6 +333,11 @@ def asciidoctorAttrs = [
     "targetDir=${targetDir}",
     "docDir=${docDir}",
     "projectRootDir=${new File(docDir).canonicalPath}@",
+    // Enable STEM (math) so stem:[…]/[latexmath]/[asciimath] are emitted as
+    // MathJax delimiters; MathJax itself is bundled locally in the theme footer
+    // (SVG output, no CDN). latexmath is the default notation; soft-set (@) so a
+    // document can override it.
+    'stem=latexmath@',
 ]*.toString()
 if (config.jbake?.asciidoctorAttributes) {
     asciidoctorAttrs.addAll(config.jbake.asciidoctorAttributes*.toString())

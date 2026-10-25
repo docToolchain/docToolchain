@@ -110,6 +110,8 @@ try {
             .sourceHighlighter((config.sourceHighlighter ?: 'rouge') as String)
             .attribute('icons', (config.icons ?: 'font') as String)
             .attribute('doctype', 'book')
+            // STEM (math): asciidoctor-pdf renders stem content natively.
+            .attribute('stem', (config.stem ?: 'latexmath') as String)
 
         if (pdfTheme) attrsBuilder.attribute('pdf-theme', pdfTheme as String)
         if (pdfThemeDir) attrsBuilder.attribute('pdf-themesdir', pdfThemeDir as String)
