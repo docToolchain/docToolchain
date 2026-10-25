@@ -16,10 +16,45 @@ A sample of how to edit your projects' Config.groovy is provided in the 'Config.
 
 Currently this feature is WINDOWS-only. See https://github.com/docToolchain/docToolchain/issues/231[this related issue].
 
+[IMPORTANT]
+====
+*Database Connection Limitation*
+
+The `connection` parameter for database connections (e.g., `DBType=1;Connect=Provider=...`) is currently **not fully supported** in the VBScript implementation. 
+
+The VBScript uses the `Repository.OpenFile()` method which is designed for file paths (`.eap`, `.eapx`, `.qea`, `.qeax` files), not database connection strings. Using a connection string will result in a COM error.
+
+*Workaround:* Use file-based Enterprise Architect project files (`.eap`, `.eapx`, `.qea`, or `.qeax`) instead of database connections. Place these files in your project's `searchPath` directory, and the exportEA task will automatically find and process them.
+====
+
 === The Optional Parameter Configurations
 
 ==== connection
-Either set the connection to a certain project, or comment it out to use all project files inside the src folder or its child folder.
+Sets the connection to a specific Enterprise Architect project file or database.
+
+[WARNING]
+====
+*Important:* Database connection strings (using `DBType=1;Connect=Provider=...` format) are currently **not supported** due to VBScript API limitations.
+
+**Recommended approach:** Use file-based EA project files instead.
+====
+
+*Usage:*
+
+* **File-based (Recommended):** Comment out the `connection` parameter to use all project files found in the `searchPath` directory
+* **Database connection:** Currently not supported - will cause errors like `0x80131700`
+
+*Example (file-based approach):*
+[source,groovy]
+----
+exportEA.with {
+    // Leave connection commented out to search for .eap/.eapx files
+    // connection = ""  // <- Keep this commented out
+    searchPath = "src/docs/"  // Directory to search for EA project files
+    exportPath = "src/docs/images/ea/"
+    packageFilter = ["{YOUR-PACKAGE-GUID}"]
+}
+----
 
 ==== packageFilter
 Add one or multiple packageGUIDs to be used for export. All packages are analysed, if no packageFilter is set.
@@ -146,6 +181,74 @@ In addition, a global glossary is created by using all single glossary files.
 This global file is named 'glossary.ad' and is also placed in the glossary folder.
 The global glossary is also filtered and sorted.
 If there is only one EA project, only the global glossary is written.
+
+=== Troubleshooting
+
+==== Error: `exportEAP.vbs(...) (null): 0x80131700`
+
+*Symptoms:*
+
+* Task `:exportEA FAILED`
+* Error message: `Script 'C:\...\scripts\exportEA.gradle' line: 132`
+* VBScript error: `exportEAP.vbs(M15, 3) (null): 0x80131700`
+
+*Cause:*
+
+This error occurs when attempting to use a database connection string in the `connection` parameter. The VBScript implementation uses `Repository.OpenFile()` which only supports file paths, not database connection strings.
+
+*Solution:*
+
+1. **Remove or comment out the `connection` parameter:**
++
+[source,groovy]
+----
+exportEA.with {
+    // connection = "DBType=1;Connect=Provider=..."  // <- Comment this out
+    searchPath = "src/docs/"
+    exportPath = "src/docs/images/ea/"
+}
+----
+
+2. **Place your EA project files in the searchPath:**
++
+Copy your `.eap`, `.eapx`, `.qea`, or `.qeax` files to the directory specified in `searchPath` (default: `src/docs/`)
+
+3. **Run the task again:**
++
+[source,bash]
+----
+./dtcw local exportEA
+----
+
+==== Error: No EA project files found
+
+*Symptoms:*
+
+* Task completes but no diagrams are exported
+* Message: "looking for .eap(x) and .qea(x) files in ..."
+
+*Solution:*
+
+1. Verify that your EA project files (`.eap`, `.eapx`, `.qea`, or `.qeax`) are in the `searchPath` directory
+2. Check that file names don't start with underscore `_` (these are skipped as replication files)
+3. Ensure the `searchPath` is configured correctly in your config file
+
+==== Error: Enterprise Architect is not installed
+
+*Symptoms:*
+
+* Error: "Cannot create object 'EA.App'"
+
+*Solution:*
+
+Enterprise Architect must be installed on the Windows machine where you're running the exportEA task. This task uses EA's COM automation interface which requires a local installation.
+
+==== General Tips
+
+* *Use verbose output:* Set `verboseLevel = 1` to see detailed processing information
+* *Check file permissions:* Ensure the export directories have write permissions
+* *Verify EA version:* Some features may require specific EA versions
+* *Use file-based projects:* For best compatibility, always use `.eap` or `.eapx` files instead of database connections
 
 === Further Reading and Resources
 * https://rdmueller.github.io/jria2eac/[JIRA to Sparx EA] blog post.
