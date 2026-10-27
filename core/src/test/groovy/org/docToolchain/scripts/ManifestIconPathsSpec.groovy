@@ -50,7 +50,9 @@ class ManifestIconPathsSpec extends Specification {
         iconSrcs.every { src ->
             // Absolute paths (leading '/') resolve against the domain root and
             // therefore escape any sub path: never acceptable.
-            if (src.startsWith('/')) return false
+            if (src.startsWith('/')) {
+                return false
+            }
             URI rootResolved = rootManifestUrl.resolve(src)
             URI subResolved = subManifestUrl.resolve(src)
             Path rootResolvedPath = Paths.get(rootResolved.path).normalize()
@@ -72,7 +74,9 @@ class ManifestIconPathsSpec extends Specification {
             String relativePath = new URI(src).path ?: ''
             // Reject any traversal segment, even if a file with the same final
             // name happens to exist inside assets/.
-            if (relativePath.split('/').any { it == '..' }) return false
+            if (relativePath.split('/').any { it == '..' }) {
+                return false
+            }
             Path resolved = assetsBase.resolve(relativePath).normalize()
             resolved.startsWith(assetsBase) && resolved.toFile().exists()
         }
