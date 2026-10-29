@@ -21,6 +21,9 @@ class MicrositePageTypeHookSpec extends Specification {
 
     static final String START = '<!-- dtc:site-extra:start -->'
     static final String END = '<!-- dtc:site-extra:end -->'
+    static final List<String> PAGE_TEMPLATES = [
+            'archive.gsp', 'index.gsp', 'news.gsp', 'page.gsp', 'page_custom_menu.gsp',
+            'page_toc.gsp', 'page_tocl.gsp', 'post.gsp', 'search.gsp', 'tags.gsp']
 
     @Shared String headerText
     @Shared String siteExtraSnippet
@@ -42,10 +45,9 @@ class MicrositePageTypeHookSpec extends Specification {
         assert start >= 0 && end > start: 'site-extra markers missing in header.gsp'
         siteExtraSnippet = headerText.substring(start + START.length(), end)
 
-        pageTemplates = header.parentFile.listFiles()
-                .findAll { it.name.endsWith('.gsp') && it.text.contains('<html') }
-                .sort { it.name }
-        assert pageTemplates: 'no page templates with an <html> element found'
+        // every template MicrositeBaker renders as an HTML page
+        pageTemplates = PAGE_TEMPLATES.collect { new File(header.parentFile, it) }
+        pageTemplates.each { assert it.exists(): "missing template ${it.name}" }
     }
 
     private String render(String template, Map binding) {
@@ -56,6 +58,7 @@ class MicrositePageTypeHookSpec extends Specification {
         expect:
             pageTemplates.each { File template ->
                 def htmlLine = template.readLines().find { it.contains('<html') }
+                assert htmlLine != null: "${template.name} has no <html> element"
                 def html = render(htmlLine, [content: [type: 'masterindex']])
                 assert html.contains('data-dtc-type="masterindex"'): "${template.name}: ${htmlLine}"
             }

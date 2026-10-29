@@ -1,3 +1,5 @@
+<!doctype html>
+<html lang="de" data-dtc-type="${content.type}">
 <%include 'header.gsp'%>
 
 	<%include 'menu.gsp'%>
@@ -26,3 +28,5 @@
 	</ul>
 	
 <%include "footer.gsp"%>
+
+</html>
