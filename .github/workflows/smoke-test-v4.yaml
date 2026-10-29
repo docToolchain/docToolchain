@@ -69,3 +69,37 @@ jobs:
           set -euo pipefail
           java -cp "lib/*" -DdocDir="$PWD" groovy.ui.GroovyMain scripts/generateSite.groovy
           test -s build/microsite/output/index.html
+
+      - name: generateSite smoke (page-type styling hook)
+        # Every page carries data-dtc-type on <html>; css/site-extra.css is
+        # linked only when the theme ships assets/css/site-extra.css.
+        run: |
+          set -euo pipefail
+          mkdir -p .smoke-site/src/docs/guide
+          cat > .smoke-site/docToolchainConfig.groovy <<'EOF'
+          outputPath = 'build'
+          inputPath  = 'src/docs'
+          inputFiles = []
+          imageDirs  = []
+          microsite  = [contextPath: '/', siteFolder: '../site', landingPage: 'landingpage.gsp',
+                        title: 'Smoke', footerText: '', issueUrl: '', gitRepoUrl: '', branch: '-']
+          EOF
+          printf '= Guide\n:jbake-type: page_toc\n:jbake-status: published\n\nHello.\n' \
+            > .smoke-site/src/docs/guide/index.adoc
+          site() { (cd .smoke-site && rm -rf build && java -cp "$OLDPWD/lib/*" -DdocDir=. -DDTC_HEADLESS=true \
+                     groovy.ui.GroovyMain "$OLDPWD/scripts/generateSite.groovy" >/dev/null); }
+          out=.smoke-site/build/microsite/output
+
+          site
+          grep -q 'data-dtc-type="masterindex"' $out/index.html
+          grep -q 'data-dtc-type="page_toc"' $out/guide/index.html
+          grep -q 'data-dtc-type="archive"' $out/archive.html
+          ! grep -q 'site-extra.css' $out/index.html $out/guide/index.html
+
+          mkdir -p .smoke-site/src/site/assets/css
+          echo '[data-dtc-type=masterindex] body { background: #ffe94d; }' \
+            > .smoke-site/src/site/assets/css/site-extra.css
+          site
+          grep -q '<link href="css/site-extra.css" rel="stylesheet">' $out/index.html
+          grep -q '<link href="../css/site-extra.css" rel="stylesheet">' $out/guide/index.html
+          test -s $out/css/site-extra.css
