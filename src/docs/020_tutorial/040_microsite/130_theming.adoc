@@ -28,12 +28,13 @@ The template uses https://getbootstrap.com/[Bootstrap 5] as its CSS framework.
 A theme can give the landing page a different look from the content pages without overriding any template.
 Two hooks make this possible:
 
-* Every page carries its type on the root element, for example `<html data-dtc-type="masterindex">` for the landing page and `data-dtc-type="page_toc"` for a regular content page.
+* Every page carries its type on the root element, for example `<html data-dtc-type="masterindex">` for the landing page and `data-dtc-type="page_toc"` for a content page without its own `:jbake-type:`.
   The type is the `:jbake-type:` of the page, or the type docToolchain assigns to generated pages.
 * If the theme contains `assets/css/site-extra.css`, every page links it as the last stylesheet, after the default theme CSS and the `microsite.color*`/`microsite.font*` overrides.
   Without that file, no extra link is written.
 
-Scope your rules with the type attribute, and the shared menu, footer and search keep working on every page:
+Scope your rules with the type attribute.
+You don't override any template, so the shared menu, footer and search keep working on every page:
 
 .assets/css/site-extra.css
 [source,css]
@@ -54,5 +55,5 @@ Scope your rules with the type attribute, and the shared menu, footer and search
 }
 ----
 
-Ship the file in an external theme (a ZIP with `site/assets/css/site-extra.css`, set via `DTC_SITETHEME`) or in your project theme (`src/site/assets/css/site-extra.css`).
+Ship the file in an external theme (a ZIP with `site/assets/css/site-extra.css`, set via `DTC_SITETHEME`) or in your project theme (`<microsite.siteFolder>/assets/css/site-extra.css`, by default `src/site/assets/css/site-extra.css`).
 If you override a page template, keep the `data-dtc-type="${content.type}"` attribute on its `<html>` element.
