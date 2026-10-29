@@ -17,6 +17,7 @@ and this project tries to adhere to https://semver.org/spec/v2.0.0.html[Semantic
 * https://github.com/docToolchain/docToolchain/issues/1488[doctoolchain version 3.4.2 breaks code blocks in publishToConfluence task]
 
 === added
+* https://github.com/docToolchain/docToolchain/pull/1722[generateSite (v4): themes can style page types differently. Every page carries `data-dtc-type` on `<html>`, and an optional `css/site-extra.css` loads last.]
 * https://github.com/docToolchain/docToolchain/pull/1530[Add instruction for installing docToolchain using SDKMAN]
 
 === changed
