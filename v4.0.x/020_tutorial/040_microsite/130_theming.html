@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" data-dtc-type="page_toc">
 <head>
     
     <!-- sourceuri: 020_tutorial/040_microsite/130_theming.html -->
@@ -209,6 +209,10 @@
     
     
     <!-- dtc:theme-config:end -->
+    <!-- optional theme stylesheet, loaded last; scope rules per page type with [data-dtc-type=...] -->
+    <!-- dtc:site-extra:start -->
+    
+    <!-- dtc:site-extra:end -->
     <script>
         // apply persisted colour scheme before first paint (no flash)
         (function () {
@@ -486,6 +490,7 @@ searching issues...
 <ul class="sectlevel2">
 <li><a href="#_how_theming_works">How theming works</a></li>
 <li><a href="#_customizing_the_theme">Customizing the theme</a></li>
+<li><a href="#_styling_page_types_differently">Styling page types differently</a></li>
 </ul>
 </li>
 </ul>
@@ -555,6 +560,52 @@ The internal theme files are in the docToolchain repository under <code>src/site
 </div>
 <div class="paragraph">
 <p>The template uses <a href="https://getbootstrap.com/">Bootstrap 5</a> as its CSS framework.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_styling_page_types_differently">Styling page types differently</h3>
+<div class="paragraph">
+<p>A theme can give the landing page a different look from the content pages without overriding any template.
+Two hooks make this possible:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Every page carries its type on the root element, for example <code>&lt;html data-dtc-type="masterindex"&gt;</code> for the landing page and <code>data-dtc-type="page_toc"</code> for a content page without its own <code>:jbake-type:</code>.
+The type is the <code>:jbake-type:</code> of the page, or the type docToolchain assigns to generated pages.</p>
+</li>
+<li>
+<p>If the theme contains <code>assets/css/site-extra.css</code>, every page links it as the last stylesheet, after the default theme CSS and the <code>microsite.color*</code>/<code>microsite.font*</code> overrides.
+Without that file, no extra link is written.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Scope your rules with the type attribute.
+You don&#8217;t override any template, so the shared menu, footer and search keep working on every page:</p>
+</div>
+<div class="listingblock">
+<div class="title">assets/css/site-extra.css</div>
+<div class="content">
+<pre class="prettyprint highlight"><code data-lang="css">/* landing page only */
+[data-dtc-type=masterindex] body {
+    background: #ffe94d;
+}
+[data-dtc-type=masterindex] .td-main {
+    border: 4px solid #000;
+    box-shadow: 10px 10px 0 #000;
+}
+
+/* every other page */
+[data-dtc-type]:not([data-dtc-type=masterindex]) .td-content {
+    max-width: 38em;
+    font-family: Palatino, Georgia, serif;
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Ship the file in an external theme (a ZIP with <code>site/assets/css/site-extra.css</code>, set via <code>DTC_SITETHEME</code>) or in your project theme (<code>&lt;microsite.siteFolder&gt;/assets/css/site-extra.css</code>, by default <code>src/site/assets/css/site-extra.css</code>).
+If you override a page template, keep the <code>data-dtc-type="${content.type}"</code> attribute on its <code>&lt;html&gt;</code> element.</p>
 </div>
 </div>
 </div>
