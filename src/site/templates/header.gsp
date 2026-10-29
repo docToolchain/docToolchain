@@ -242,6 +242,12 @@
     </style>
     <% } %>
     <!-- dtc:theme-config:end -->
+    <!-- optional theme stylesheet, loaded last; scope rules per page type with [data-dtc-type=...] -->
+    <!-- dtc:site-extra:start -->
+    <% if (config.sourceFolder && new File(config.sourceFolder, 'assets/css/site-extra.css').exists()) { %>
+    <link href="${content.rootpath}css/site-extra.css" rel="stylesheet">
+    <% } %>
+    <!-- dtc:site-extra:end -->
     <script>
         // apply persisted colour scheme before first paint (no flash)
         (function () {

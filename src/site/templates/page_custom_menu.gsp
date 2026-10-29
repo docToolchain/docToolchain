@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="de">
+<html lang="de" data-dtc-type="${content.type}">
 <%
 if (content.body.contains("<!-- endtoc -->")) {
 

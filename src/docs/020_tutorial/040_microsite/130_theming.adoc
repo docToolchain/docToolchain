@@ -22,3 +22,38 @@ The internal theme files are in the docToolchain repository under `src/site/`.
 A theme follows this structure: `templates/` (the GSP templates), `doc/` (the landing page and any static content), and `assets/` (CSS, JS, images copied verbatim into the site). The `~~~~~~`-delimited `jbake.properties` in the theme root configures template-to-type mappings and Markdown extensions.
 
 The template uses https://getbootstrap.com/[Bootstrap 5] as its CSS framework.
+
+=== Styling page types differently
+
+A theme can give the landing page a different look from the content pages without overriding any template.
+Two hooks make this possible:
+
+* Every page carries its type on the root element, for example `<html data-dtc-type="masterindex">` for the landing page and `data-dtc-type="page_toc"` for a content page without its own `:jbake-type:`.
+  The type is the `:jbake-type:` of the page, or the type docToolchain assigns to generated pages.
+* If the theme contains `assets/css/site-extra.css`, every page links it as the last stylesheet, after the default theme CSS and the `microsite.color*`/`microsite.font*` overrides.
+  Without that file, no extra link is written.
+
+Scope your rules with the type attribute.
+You don't override any template, so the shared menu, footer and search keep working on every page:
+
+.assets/css/site-extra.css
+[source,css]
+----
+/* landing page only */
+[data-dtc-type=masterindex] body {
+    background: #ffe94d;
+}
+[data-dtc-type=masterindex] .td-main {
+    border: 4px solid #000;
+    box-shadow: 10px 10px 0 #000;
+}
+
+/* every other page */
+[data-dtc-type]:not([data-dtc-type=masterindex]) .td-content {
+    max-width: 38em;
+    font-family: Palatino, Georgia, serif;
+}
+----
+
+Ship the file in an external theme (a ZIP with `site/assets/css/site-extra.css`, set via `DTC_SITETHEME`) or in your project theme (`<microsite.siteFolder>/assets/css/site-extra.css`, by default `src/site/assets/css/site-extra.css`).
+If you override a page template, keep the `data-dtc-type="${content.type}"` attribute on its `<html>` element.
